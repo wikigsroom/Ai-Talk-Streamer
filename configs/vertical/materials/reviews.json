@@ -1,0 +1,376 @@
+{
+  "m01_welcome_right_wave": {
+    "accepted": true,
+    "review": "已检查 0–7.83 秒的 8 幅全画幅抽帧；可见掌部手指数量、手腕连接、手臂路径和回到静息姿态均无明显异常；保持人物、服装、宿舍和固定机位。",
+    "evidence": "outputs/vertical/materials/review/m01_welcome_right_wave.jpg",
+    "review_scope": "抽帧视觉检查，结合后续实时动作播放验证；不声称每一帧都通过手指检测。"
+  },
+  "m02_welcome_left_wave": {
+    "accepted": true,
+    "review": "已检查 0–7.83 秒的 8 幅全画幅抽帧；可见掌部手指数量、手腕连接、手臂路径和回到静息姿态均无明显异常；保持人物、服装、宿舍和固定机位。",
+    "evidence": "outputs/vertical/materials/review/m02_welcome_left_wave.jpg",
+    "review_scope": "抽帧视觉检查，结合后续实时动作播放验证；不声称每一帧都通过手指检测。"
+  },
+  "m03_welcome_right_two_waves": {
+    "accepted": true,
+    "review": "逐段检查 8 幅全画幅抽帧。招手动作有抬手、挥手与收回过程，手掌手指和腕臂衔接无明显异常；人物与宿舍持续稳定。",
+    "evidence": "outputs/vertical/materials/review/m03_welcome_right_two_waves.jpg",
+    "review_scope": "抽帧视觉检查，实际连贯性继续由实时样片验证。"
+  },
+  "m04_welcome_left_two_waves": {
+    "accepted": true,
+    "review": "逐段检查 8 幅全画幅抽帧。招手动作有抬手、挥手与收回过程，手掌手指和腕臂衔接无明显异常；人物与宿舍持续稳定。",
+    "evidence": "outputs/vertical/materials/review/m04_welcome_left_two_waves.jpg",
+    "review_scope": "抽帧视觉检查，实际连贯性继续由实时样片验证。"
+  },
+  "m05_welcome_right_palm_nod": {
+    "accepted": true,
+    "review": "检查 8 幅全画幅抽帧：抬掌招呼与收手完整，头肩有轻微协调变化，手腕与掌指未见明显结构异常，人物、衣服和房间保持一致。",
+    "evidence": "outputs/vertical/materials/review/m05_welcome_right_palm_nod.jpg",
+    "review_scope": "抽帧视觉检查；不作为语义动作对齐或逐帧手部识别的证明。"
+  },
+  "m06_welcome_left_palm_nod": {
+    "accepted": false,
+    "review": "未执行要求的左手抬掌动作；片中宿舍暖色与衣服蓝色明显漂移，作为手部动作素材不合格，须重生成。",
+    "evidence": "outputs/vertical/materials/review/m06_welcome_left_palm_nod.jpg",
+    "replacement": "m06_welcome_left_palm_nod_take2"
+  },
+  "m07_welcome_hands_welcome": {
+    "accepted": false,
+    "review": "双掌展开幅度过大，3 秒附近双手部分越过画面边缘，未满足完整手部构图要求，重生成更紧凑的手势。",
+    "evidence": "outputs/vertical/materials/review/m07_welcome_hands_welcome.jpg",
+    "replacement": "m07_welcome_hands_welcome_take2"
+  },
+  "m08_welcome_thanks_bow": {
+    "accepted": true,
+    "review": "8 幅抽帧显示自然眨眼、轻微上身欠身和回位，头发与肩部随动作变化，人物与白天场景稳定，双手自然静放。",
+    "evidence": "outputs/vertical/materials/review/m08_welcome_thanks_bow.jpg",
+    "review_scope": "抽帧视觉复核。"
+  },
+  "m06_welcome_left_palm_nod_take2": {
+    "accepted": true,
+    "review": "8 步重生成版本已检查 8 幅抽帧：明确的左手抬掌、挥动和收回，五指、手腕、手臂连接自然；可见眨眼；未再出现原版本明显的色温漂移。",
+    "evidence": "outputs/vertical/materials/review/m06_welcome_left_palm_nod_take2.jpg",
+    "review_scope": "抽帧视觉检查；最终实际口型与动作联动另行验证。"
+  },
+  "m07_welcome_hands_welcome_take2": {
+    "accepted": true,
+    "review": "8 步重生成版本的 8 幅全画幅抽帧可见双手从膝上抬起、掌心向上迎接、收回；双手和手指保持在画内，未见原版本出框问题，人物、白天场景和色温稳定。",
+    "evidence": "outputs/vertical/materials/review/m07_welcome_hands_welcome_take2.jpg",
+    "review_scope": "人工抽帧视觉检查；最终实时口型与动作联动另行验证。"
+  },
+  "m09_explain_right_palm_up": {
+    "accepted": true,
+    "review": "8 幅全画幅抽帧可见右前臂抬起、掌心向上讲解并收回；掌指、手腕与手臂连接无明显异常，姿态回位完整，人物与场景保持稳定。",
+    "evidence": "outputs/vertical/materials/review/m09_explain_right_palm_up.jpg",
+    "review_scope": "人工抽帧视觉检查；最终实时口型与动作联动另行验证。"
+  },
+  "m10_explain_left_palm_up": {
+    "accepted": true,
+    "review": "检查 8 幅全画幅抽帧：左手抬起、掌心向上示意并收回，配合自然眨眼，手掌及手臂未见明显结构异常，人物服装与白天宿舍稳定。",
+    "evidence": "outputs/vertical/materials/review/m10_explain_left_palm_up.jpg",
+    "review_scope": "人工抽帧视觉复核。"
+  },
+  "m11_explain_two_palms_up": {
+    "accepted": true,
+    "review": "8 幅全画幅抽帧可见双掌从膝前抬起摊开、短暂停留并完整收回；掌指保持画内，腕臂连接无明显异常，人物、服装和白天宿舍稳定。",
+    "evidence": "outputs/vertical/materials/review/m11_explain_two_palms_up.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指检测。"
+  },
+  "m12_explain_right_small_arc": {
+    "accepted": false,
+    "review": "加密到每秒 4 帧检查手部过程，实际变成掌朝镜头的反复招手，未执行要求的单次慢速摊掌弧线示意。保留旧素材，另用更明确的提示词和 8 步工作流重做。",
+    "evidence": "outputs/vertical/materials/review/m12-hand-sequence.jpg",
+    "replacement": "m12_explain_right_small_arc_take2"
+  },
+  "m13_explain_left_small_arc": {
+    "accepted": false,
+    "review": "8 幅全画幅抽帧均没有明确左手抬起或弧线示意，未达到所需动作，另行重生成。",
+    "evidence": "outputs/vertical/materials/review/m13_explain_left_small_arc.jpg",
+    "replacement": "m13_explain_left_small_arc_take2"
+  },
+  "m14_explain_right_then_left": {
+    "accepted": false,
+    "review": "已执行先右后左摊掌，但 3 秒附近右掌有明显半透明残影，手部消失的过程不自然，不纳入最终可用素材；改用 8 步重生成，要求两只手清晰地先后完成动作。",
+    "evidence": "outputs/vertical/materials/review/m14_explain_right_then_left.jpg",
+    "replacement": "m14_explain_right_then_left_take2"
+  },
+  "m12_explain_right_small_arc_take2": {
+    "accepted": true,
+    "at": "2026-10-22T03:08:34.993295+08:00",
+    "review": "复核 8 幅全画幅抽帧，右手明确掌心向上，完成一次缓慢的弧线展示后收回，未再变成反复朝镜头招手；掌指与手臂连接自然，回位完整，原人物与日光宿舍稳定。",
+    "evidence": "outputs/vertical/materials/review/m12_explain_right_small_arc_take2.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m13_explain_left_small_arc_take2": {
+    "accepted": true,
+    "at": "2026-10-22T03:16:01.598588+08:00",
+    "review": "复核 8 幅全画幅抽帧，可见左手掌心向上抬起并缓慢侧向示意后收回，手部结构清楚，配合自然眨眼，原人物、衣服和白天背景稳定。",
+    "evidence": "outputs/vertical/materials/review/m13_explain_left_small_arc_take2.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m15_explain_open_hand_side": {
+    "accepted": true,
+    "at": "2026-10-22T03:25:40.124600+08:00",
+    "review": "已检查全画幅 8 幅抽帧，并加密为每秒 4 帧检查手部：右手在身体一侧抬起开掌，掌心朝向镜头，短暂停留后收回，没有反复摆腕；手掌、手腕、手臂连接完整，人物与日光背景稳定。",
+    "evidence": "outputs/vertical/materials/review/m15_explain_open_hand_side.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m14_explain_right_then_left_take2": {
+    "accepted": true,
+    "at": "2026-10-22T03:30:21.531864+08:00",
+    "review": "已复核 8 幅全画幅抽帧：右手摊掌并收回后，左手再摊掌并收回，两段动作分开；未再出现原版本明显的半透明手掌残影，掌指与手臂连续，最后回到静息姿态，人物场景和色温稳定。",
+    "evidence": "outputs/vertical/materials/review/m14_explain_right_then_left_take2.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m16_explain_open_hand_other_side": {
+    "accepted": false,
+    "review": "8 幅全画幅抽帧中未出现明确左手抬起或展示动作，不能作为所需左手手势素材，安排带明确动作参考的重生成。",
+    "evidence": "outputs/vertical/materials/review/m16_explain_open_hand_other_side.jpg"
+  },
+  "m17_emphasis_right_beat": {
+    "accepted": false,
+    "at": "2026-10-22T03:53:35.273353+08:00",
+    "review": "完整8帧时序检查：人物与房间稳定，但双手几乎始终静放于腿部，未完成要求的抬手强调动作；不计入有效手部动作素材。",
+    "evidence": "outputs/vertical/materials/review/m17_emphasis_right_beat.jpg",
+    "replacement": "m17_emphasis_right_beat_take2"
+  },
+  "m18_emphasis_left_beat": {
+    "accepted": false,
+    "at": "2026-10-22T03:53:35.273403+08:00",
+    "review": "完整8帧时序检查：人物与房间稳定，但双手几乎始终静放于腿部，未完成要求的抬手强调动作；不计入有效手部动作素材。",
+    "evidence": "outputs/vertical/materials/review/m18_emphasis_left_beat.jpg",
+    "replacement": "m18_emphasis_left_beat_take2"
+  },
+  "m19_emphasis_calm_both_palms": {
+    "accepted": true,
+    "at": "2026-10-22T03:59:52.496512+08:00",
+    "review": "已检查8帧完整画幅和每秒4帧手部时序：双前臂抬起、双掌朝下作一次小幅安抚动作并放回，双手与衣袖衔接连续，人物与白天宿舍稳定。手部细节受生成模型限制，未发现明显多肢或透明残影。",
+    "evidence": "outputs/vertical/materials/review/m19_emphasis_calm_both_palms.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m16_explain_open_hand_other_side_take2": {
+    "accepted": true,
+    "at": "2026-10-22T04:03:08.381460+08:00",
+    "review": "已检查8帧全画幅和每秒4帧手部时序：左前臂抬起后掌心向上作侧边展示，停留后自然放回，手腕与袖口连接连续，手完整位于画内；人物、白天宿舍及回位稳定。",
+    "evidence": "outputs/vertical/materials/review/m16_explain_open_hand_other_side_take2.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m17_emphasis_right_beat_take2": {
+    "accepted": true,
+    "at": "2026-10-22T04:10:53.076786+08:00",
+    "review": "已检查8帧全画幅及左右手各每秒4帧时序：右手先摊掌，回程中左掌短暂加入，随后两手自然放回。实际是先右后双掌的强调动作，因此按实际表现重命名；无明显透明残影，手臂与衣袖连接连续，人物与背景稳定。",
+    "evidence": "outputs/vertical/materials/review/m17_emphasis_right_beat_take2.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m18_emphasis_left_beat_take2": {
+    "accepted": true,
+    "at": "2026-10-22T04:17:09.498580+08:00",
+    "review": "已检查8帧全画幅及每秒4帧双手时序：仅左前臂抬起并轻托摊掌，停留后自然放回；另一手保持静放，人物、袖口及宿舍背景稳定，无明显多手或透明残影。",
+    "evidence": "outputs/vertical/materials/review/m18_emphasis_left_beat_take2.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m20_emphasis_right_heart": {
+    "accepted": true,
+    "at": "2026-10-22T04:21:05.927371+08:00",
+    "review": "已检查8帧全画幅和每秒4帧双手时序：右手由腿部抬起轻贴胸口，短暂停留后自然放回，左手保持静放；手、手腕及袖口连续，人物、机位与白天宿舍稳定。",
+    "evidence": "outputs/vertical/materials/review/m20_emphasis_right_heart.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m21_emphasis_left_heart": {
+    "accepted": true,
+    "at": "2026-10-22T04:27:01.819994+08:00",
+    "review": "已检查8帧完整画幅与每秒4帧双手时序：左手自然抬起轻贴胸口，短暂保持后放回，右手静放；手指、手腕、袖口连接连续，面部与宿舍保持稳定。",
+    "evidence": "outputs/vertical/materials/review/m21_emphasis_left_heart.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m22_emphasis_nod_right_palm": {
+    "accepted": true,
+    "at": "2026-10-22T04:32:53.167391+08:00",
+    "review": "已检查8帧全画幅与每秒4帧双手时序：右掌先展开，回程中左掌自然加入一次补充说明，然后两手放回；点头不明显，因此按实际动作重命名。双腕袖口连续，未见明显多手或透明残影，人物与房间稳定。",
+    "evidence": "outputs/vertical/materials/review/m22_emphasis_nod_right_palm.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m23_emphasis_nod_left_palm": {
+    "accepted": true,
+    "at": "2026-10-22T04:36:58.457885+08:00",
+    "review": "已检查8帧全画幅与每秒4帧双手时序：左掌先展开，回程中右掌自然加入，然后两手放回；点头不明显，按实际动作重命名。双手、袖口和躯干连接连续，人物与宿舍稳定。",
+    "evidence": "outputs/vertical/materials/review/m23_emphasis_nod_left_palm.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m24_emphasis_brief_two_hands": {
+    "accepted": true,
+    "at": "2026-10-22T04:43:05.890329+08:00",
+    "review": "已检查8帧全画幅及每秒4帧双手时序：双前臂协调抬起，双掌在膝前完整展开、保持后自然收回；十指、双腕和袖口衔接合理，无明显透明残影，人物与白天宿舍稳定。",
+    "evidence": "outputs/vertical/materials/review/m24_emphasis_brief_two_hands.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m25_listen_tilt_right": {
+    "accepted": true,
+    "at": "2026-10-22T04:47:49.384672+08:00",
+    "review": "已检查8帧全画幅和每秒4帧头肩时序：头部向自身右侧缓慢侧倾、停留后平顺回正，伴随自然眨眼；双手静放，人物、发丝和背景保持连续。",
+    "evidence": "outputs/vertical/materials/review/m25_listen_tilt_right.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m26_listen_tilt_left": {
+    "accepted": true,
+    "at": "2026-10-22T04:53:15.922851+08:00",
+    "review": "已检查8帧全画幅与每秒4帧头肩时序：头部向自身左侧、画面右侧窗边平顺侧倾并回正，与上一侧倾听区分明确；眨眼自然、双手静放，人物、衣物和宿舍稳定。",
+    "evidence": "outputs/vertical/materials/review/m26_listen_tilt_left.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m27_listen_slow_nod": {
+    "accepted": true,
+    "at": "2026-10-22T05:01:02.118413+08:00",
+    "review": "已检查全画幅8帧和每秒4帧头肩时序：保持安静聆听，伴随轻微颔首、眨眼和呼吸，头肩缓慢回到中性姿态；未见明显肢体变形或背景漂移。实际点头幅度较小，名称按可见表现调整。",
+    "evidence": "outputs/vertical/materials/review/m27_listen_slow_nod.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m28_listen_double_nod": {
+    "accepted": true,
+    "at": "2026-10-22T05:01:02.286059+08:00",
+    "review": "已检查全画幅8帧和每秒4帧头肩时序：先轻抬下巴与视线，再缓慢回正，眨眼自然，衣物及宿舍稳定；未观察到清楚的两次点头，已改为符合实际动作的抬眼轻应名称。",
+    "evidence": "outputs/vertical/materials/review/m28_listen_double_nod.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m29_listen_hands_fold_right": {
+    "accepted": true,
+    "at": "2026-10-22T05:08:58.675185+08:00",
+    "review": "已检查全画幅和每秒4帧膝前手部时序：双手从自然静放缓慢移到膝前，右手完整搭在左手上，停留后分开回位；交叠过程无明显多手、透明残影或袖口断裂，人物与背景连续。",
+    "evidence": "outputs/vertical/materials/review/m29_listen_hands_fold_right.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m30_listen_hands_fold_left": {
+    "accepted": true,
+    "at": "2026-10-22T05:11:37.319176+08:00",
+    "review": "已检查全画幅8帧和每秒4帧膝前细节：左手从画面右侧移动并搭在右手上，与上一段搭放顺序相反，停留后自然收回；双腕、手指和袖口过渡清楚，无明显残影，人物及宿舍稳定。",
+    "evidence": "outputs/vertical/materials/review/m30_listen_hands_fold_left.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m31_listen_lean_listen": {
+    "accepted": true,
+    "at": "2026-10-22T05:18:07.265880+08:00",
+    "review": "已检查全画幅8帧及每秒4帧头肩时序：上半身带头肩缓慢向前靠近，停留后平顺坐回，双手保持自然静放；面部、长发、衣领和宿舍背景连续，无明显透明叠影或异常缩放。",
+    "evidence": "outputs/vertical/materials/review/m31_listen_lean_listen.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m32_listen_thoughtful_return": {
+    "accepted": true,
+    "at": "2026-10-22T05:24:04.066166+08:00",
+    "review": "已检查全画幅8帧和每秒4帧头肩时序：人物缓慢轻抬下巴，眨眼后以浅笑回到正视镜头的姿态，双手静放，发丝及宿舍稳定；实际视线偏转较小，已按可见表现改为轻抬头后微笑回应。",
+    "evidence": "outputs/vertical/materials/review/m32_listen_thoughtful_return.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m33_posture_settle_shoulders": {
+    "accepted": true,
+    "at": "2026-10-22T05:32:01.168434+08:00",
+    "review": "已检查全画幅、每秒4帧头肩和膝前手部时序：双肩随呼吸缓慢放松，双掌从膝间移到大腿上再收回，手指、双腕和衣袖连续，未见明显残影或背景漂移。",
+    "evidence": "outputs/vertical/materials/review/m33_posture_settle_shoulders.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m34_posture_adjust_cuff_left": {
+    "accepted": true,
+    "at": "2026-10-22T05:35:52.468729+08:00",
+    "review": "已检查全画幅8帧和每秒4帧手部时序：右手轻捏左袖口向上整理，左前臂短暂露出后松手回位，手指与布料接触合理，双腕和衣袖连续；人物、发丝及白天宿舍稳定。",
+    "evidence": "outputs/vertical/materials/review/m34_posture_adjust_cuff_left.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m35_posture_adjust_cuff_right": {
+    "accepted": true,
+    "at": "2026-10-22T05:40:01.585799+08:00",
+    "review": "已检查全画幅8帧和每秒4帧膝前手部时序：左手轻捏并整理右袖口，放松后双手回到膝前，与左袖口版本方向相反；手指、手腕、袖筒过渡合理，无明显透明残影，人物及背景稳定。",
+    "evidence": "outputs/vertical/materials/review/m35_posture_adjust_cuff_right.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m36_posture_seated_shift_left": {
+    "accepted": true,
+    "at": "2026-10-22T05:49:09.338378+08:00",
+    "review": "已检查全画幅8帧和每秒4帧头肩时序：骨盆与上半身向自身左侧、画面右侧平顺轻移，保持后回到中央；双手静放、发丝随身体移动，人物和宿舍结构连续，无明显残影。",
+    "evidence": "outputs/vertical/materials/review/m36_posture_seated_shift_left.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m37_posture_seated_shift_right": {
+    "accepted": true,
+    "at": "2026-10-22T05:50:17.691217+08:00",
+    "review": "已检查全画幅8帧和每秒4帧头肩时序：身体向自身右侧、画面左侧轻移，停留后平顺回到中央，与前一段左移方向明确相反；头肩、长发和双手协调，未见明显变形或背景漂移。",
+    "evidence": "outputs/vertical/materials/review/m37_posture_seated_shift_right.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m38_posture_sit_taller": {
+    "accepted": true,
+    "at": "2026-10-22T05:55:38.672042+08:00",
+    "review": "已检查全画幅8帧和每秒4帧头肩时序：脊背与肩部小幅坐直，头部随躯干自然升高，停留后缓慢放松回原坐姿；双手静放，衣领、发丝及宿舍结构连续，无明显抖动或残影。",
+    "evidence": "outputs/vertical/materials/review/m38_posture_sit_taller.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m39_posture_forearms_relax": {
+    "accepted": true,
+    "at": "2026-10-22T06:02:00.469303+08:00",
+    "review": "已检查全画幅8帧与每秒4帧手部时序：双前臂协调抬起，手掌向下在身前平展，短暂停留后双手一同回到膝前；双手完整在画面内，手指、双腕及衣袖连续，未见明显透明残影或背景漂移。",
+    "evidence": "outputs/vertical/materials/review/m39_posture_forearms_relax.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m40_posture_hands_recenter": {
+    "accepted": true,
+    "at": "2026-10-22T06:08:25.743957+08:00",
+    "review": "检查全画幅8帧与膝前4fps连续抽帧，双手从膝前抬起右手叠放左手，停留后自然下放回初始位置；手臂与手掌完整入镜，未见明显多手、手掌穿插或背景漂移。",
+    "evidence": "outputs/vertical/materials/review/m40_posture_hands_recenter.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m41_closing_right_goodbye": {
+    "accepted": true,
+    "at": "2026-10-22T06:11:37.194789+08:00",
+    "review": "检查全画幅与右手4fps连续抽帧：右手抬到肩侧、掌心朝前轻微摆腕后停留，再完整放回膝前；五指轮廓清楚，手掌始终在画内，人物和白天宿舍保持稳定。",
+    "evidence": "outputs/vertical/materials/review/m41_closing_right_goodbye.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m42_closing_left_goodbye": {
+    "accepted": true,
+    "at": "2026-10-22T06:17:22.659895+08:00",
+    "review": "检查全幅及双手4fps抽帧：左手先抬起掌心朝前，4.5秒后右手也抬起加入告别，随后双手一起放回；手掌轮廓和手臂运动连贯、完整入镜。根据实际动作将标题改为左手起势双手告别，不标为全程单手。",
+    "evidence": "outputs/vertical/materials/review/m42_closing_left_goodbye.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m43_closing_small_shrug": {
+    "accepted": true,
+    "at": "2026-10-22T06:24:07.149480+08:00",
+    "review": "检查全画幅及膝前4fps连续抽帧，双手由膝前翻掌向上，低位摊开停留后收回；双手五指轮廓可辨，肩臂动作幅度小且连贯，未见明显穿插和越界，标题采用轻摊手释然。",
+    "evidence": "outputs/vertical/materials/review/m43_closing_small_shrug.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m44_closing_small_bow": {
+    "accepted": true,
+    "at": "2026-10-22T06:27:43.211566+08:00",
+    "review": "检查全幅、头肩及膝前4fps抽帧，双手在膝前并放，上身先轻坐直再小幅前倾致意并回正；手掌与衣袖完整，脸部和宿舍背景稳定。实际为小幅致意，未将其描述为明显鞠躬。",
+    "evidence": "outputs/vertical/materials/review/m44_closing_small_bow.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m45_closing_right_lower_wave": {
+    "accepted": true,
+    "at": "2026-10-22T06:33:27.289565+08:00",
+    "review": "检查全幅及膝前至上身4fps抽帧，右手抬至较低的胸腹侧位置，掌心朝前轻摆后完整放回；起落自然、手掌完整且五指可辨，未见第三只手或明显背景变化。实际手位高于腰侧，标题改为右手低位轻挥。",
+    "evidence": "outputs/vertical/materials/review/m45_closing_right_lower_wave.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m46_closing_left_lower_wave": {
+    "accepted": true,
+    "at": "2026-10-22T06:38:53.581818+08:00",
+    "review": "检查全画幅与4fps上身及膝前抽帧，左手由膝前抬起至较低胸腹侧，掌心朝前小幅摆动停留后放下；手掌与五指清楚，左右手没有交叉穿插，完整回到初始坐姿。标题统一为左手低位轻挥。",
+    "evidence": "outputs/vertical/materials/review/m46_closing_left_lower_wave.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m47_closing_palms_then_bow": {
+    "accepted": true,
+    "at": "2026-10-22T06:44:34.854358+08:00",
+    "review": "检查全幅、头肩与膝前4fps抽帧，双掌翻转向上后保持，再收回膝前；手掌结构与动作衔接正常，脸部与背景一致。头部变化很小，未见明确鞠躬，标题据实改为双掌摊开后收回。",
+    "evidence": "outputs/vertical/materials/review/m47_closing_palms_then_bow.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  },
+  "m48_closing_breath_reset": {
+    "accepted": true,
+    "at": "2026-10-22T06:50:45.348743+08:00",
+    "review": "检查全幅、头肩与膝前4fps抽帧，人物轻放松肩背，双手分开放膝上后回到初始位置；眨眼和上身呼吸变化自然，头部回正，未见明显结构异常、背景漂移或突兀姿态。",
+    "evidence": "outputs/vertical/materials/review/m48_closing_breath_reset.jpg",
+    "review_scope": "人工抽帧视觉检查；不等于逐帧手指识别，实时口型联动另行验证。"
+  }
+}

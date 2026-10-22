@@ -1,0 +1,357 @@
+{
+  "avatar_id": "student_dorm_motion_bank_v3",
+  "fps": 25,
+  "frames": 10000,
+  "clips": [
+    {
+      "id": "idle_a",
+      "title": "自然呼吸与眨眼",
+      "category": "idle",
+      "start_frame": 0,
+      "frames": 200
+    },
+    {
+      "id": "idle_b",
+      "title": "轻点头与倾听",
+      "category": "idle",
+      "start_frame": 200,
+      "frames": 200
+    },
+    {
+      "id": "m01_welcome_right_wave",
+      "title": "右手轻招手",
+      "category": "welcome",
+      "start_frame": 400,
+      "frames": 200
+    },
+    {
+      "id": "m02_welcome_left_wave",
+      "title": "左手轻招手",
+      "category": "welcome",
+      "start_frame": 600,
+      "frames": 200
+    },
+    {
+      "id": "m03_welcome_right_two_waves",
+      "title": "右手两次小招手",
+      "category": "welcome",
+      "start_frame": 800,
+      "frames": 200
+    },
+    {
+      "id": "m04_welcome_left_two_waves",
+      "title": "左手两次小招手",
+      "category": "welcome",
+      "start_frame": 1000,
+      "frames": 200
+    },
+    {
+      "id": "m05_welcome_right_palm_nod",
+      "title": "右掌招呼并点头",
+      "category": "welcome",
+      "start_frame": 1200,
+      "frames": 200
+    },
+    {
+      "id": "m06_welcome_left_palm_nod_take2",
+      "title": "左掌招呼并点头",
+      "category": "welcome",
+      "start_frame": 1400,
+      "frames": 200
+    },
+    {
+      "id": "m07_welcome_hands_welcome_take2",
+      "title": "双手轻迎接",
+      "category": "welcome",
+      "start_frame": 1600,
+      "frames": 200
+    },
+    {
+      "id": "m08_welcome_thanks_bow",
+      "title": "轻欠身致意",
+      "category": "welcome",
+      "start_frame": 1800,
+      "frames": 200
+    },
+    {
+      "id": "m09_explain_right_palm_up",
+      "title": "右手摊掌讲解",
+      "category": "explain",
+      "start_frame": 2000,
+      "frames": 200
+    },
+    {
+      "id": "m10_explain_left_palm_up",
+      "title": "左手摊掌讲解",
+      "category": "explain",
+      "start_frame": 2200,
+      "frames": 200
+    },
+    {
+      "id": "m11_explain_two_palms_up",
+      "title": "双掌展开讲解",
+      "category": "explain",
+      "start_frame": 2400,
+      "frames": 200
+    },
+    {
+      "id": "m12_explain_right_small_arc_take2",
+      "title": "右手小弧线示意",
+      "category": "explain",
+      "start_frame": 2600,
+      "frames": 200
+    },
+    {
+      "id": "m13_explain_left_small_arc_take2",
+      "title": "左手小弧线示意",
+      "category": "explain",
+      "start_frame": 2800,
+      "frames": 200
+    },
+    {
+      "id": "m14_explain_right_then_left_take2",
+      "title": "先右后左摊掌",
+      "category": "explain",
+      "start_frame": 3000,
+      "frames": 200
+    },
+    {
+      "id": "m15_explain_open_hand_side",
+      "title": "右掌向侧边展示",
+      "category": "explain",
+      "start_frame": 3200,
+      "frames": 200
+    },
+    {
+      "id": "m16_explain_open_hand_other_side_take2",
+      "title": "左掌向侧边展示",
+      "category": "explain",
+      "start_frame": 3400,
+      "frames": 200
+    },
+    {
+      "id": "m17_emphasis_right_beat_take2",
+      "title": "右手起势双掌强调",
+      "category": "emphasis",
+      "start_frame": 3600,
+      "frames": 200
+    },
+    {
+      "id": "m18_emphasis_left_beat_take2",
+      "title": "左手轻托强调",
+      "category": "emphasis",
+      "start_frame": 3800,
+      "frames": 200
+    },
+    {
+      "id": "m19_emphasis_calm_both_palms",
+      "title": "双掌轻压安抚",
+      "category": "emphasis",
+      "start_frame": 4000,
+      "frames": 200
+    },
+    {
+      "id": "m20_emphasis_right_heart",
+      "title": "右手轻贴胸口",
+      "category": "emphasis",
+      "start_frame": 4200,
+      "frames": 200
+    },
+    {
+      "id": "m21_emphasis_left_heart",
+      "title": "左手轻贴胸口",
+      "category": "emphasis",
+      "start_frame": 4400,
+      "frames": 200
+    },
+    {
+      "id": "m22_emphasis_nod_right_palm",
+      "title": "摊掌说明后双手补充",
+      "category": "emphasis",
+      "start_frame": 4600,
+      "frames": 200
+    },
+    {
+      "id": "m23_emphasis_nod_left_palm",
+      "title": "左掌起势后双手回应",
+      "category": "emphasis",
+      "start_frame": 4800,
+      "frames": 200
+    },
+    {
+      "id": "m24_emphasis_brief_two_hands",
+      "title": "双手短暂展开",
+      "category": "emphasis",
+      "start_frame": 5000,
+      "frames": 200
+    },
+    {
+      "id": "m25_listen_tilt_right",
+      "title": "向右微倾听",
+      "category": "listen",
+      "start_frame": 5200,
+      "frames": 200
+    },
+    {
+      "id": "m26_listen_tilt_left",
+      "title": "向左微倾听",
+      "category": "listen",
+      "start_frame": 5400,
+      "frames": 200
+    },
+    {
+      "id": "m27_listen_slow_nod",
+      "title": "安静聆听与轻微颔首",
+      "category": "listen",
+      "start_frame": 5600,
+      "frames": 200
+    },
+    {
+      "id": "m28_listen_double_nod",
+      "title": "抬眼轻应后回正",
+      "category": "listen",
+      "start_frame": 5800,
+      "frames": 200
+    },
+    {
+      "id": "m29_listen_hands_fold_right",
+      "title": "双手重新自然搭放",
+      "category": "listen",
+      "start_frame": 6000,
+      "frames": 200
+    },
+    {
+      "id": "m30_listen_hands_fold_left",
+      "title": "交换双手搭放顺序",
+      "category": "listen",
+      "start_frame": 6200,
+      "frames": 200
+    },
+    {
+      "id": "m31_listen_lean_listen",
+      "title": "微前倾倾听",
+      "category": "listen",
+      "start_frame": 6400,
+      "frames": 200
+    },
+    {
+      "id": "m32_listen_thoughtful_return",
+      "title": "轻抬头后微笑回应",
+      "category": "listen",
+      "start_frame": 6600,
+      "frames": 200
+    },
+    {
+      "id": "m33_posture_settle_shoulders",
+      "title": "双肩自然放松",
+      "category": "posture",
+      "start_frame": 6800,
+      "frames": 200
+    },
+    {
+      "id": "m34_posture_adjust_cuff_left",
+      "title": "轻整左袖口",
+      "category": "posture",
+      "start_frame": 7000,
+      "frames": 200
+    },
+    {
+      "id": "m35_posture_adjust_cuff_right",
+      "title": "轻整右袖口",
+      "category": "posture",
+      "start_frame": 7200,
+      "frames": 200
+    },
+    {
+      "id": "m36_posture_seated_shift_left",
+      "title": "向左轻调坐姿",
+      "category": "posture",
+      "start_frame": 7400,
+      "frames": 200
+    },
+    {
+      "id": "m37_posture_seated_shift_right",
+      "title": "向右轻调坐姿",
+      "category": "posture",
+      "start_frame": 7600,
+      "frames": 200
+    },
+    {
+      "id": "m38_posture_sit_taller",
+      "title": "轻坐直再放松",
+      "category": "posture",
+      "start_frame": 7800,
+      "frames": 200
+    },
+    {
+      "id": "m39_posture_forearms_relax",
+      "title": "双前臂自然舒展",
+      "category": "posture",
+      "start_frame": 8000,
+      "frames": 200
+    },
+    {
+      "id": "m40_posture_hands_recenter",
+      "title": "双手重新放回膝前",
+      "category": "posture",
+      "start_frame": 8200,
+      "frames": 200
+    },
+    {
+      "id": "m41_closing_right_goodbye",
+      "title": "右手轻挥告别",
+      "category": "closing",
+      "start_frame": 8400,
+      "frames": 200
+    },
+    {
+      "id": "m42_closing_left_goodbye",
+      "title": "左手起势双手告别",
+      "category": "closing",
+      "start_frame": 8600,
+      "frames": 200
+    },
+    {
+      "id": "m43_closing_small_shrug",
+      "title": "轻摊手释然",
+      "category": "closing",
+      "start_frame": 8800,
+      "frames": 200
+    },
+    {
+      "id": "m44_closing_small_bow",
+      "title": "双手静放轻致谢",
+      "category": "closing",
+      "start_frame": 9000,
+      "frames": 200
+    },
+    {
+      "id": "m45_closing_right_lower_wave",
+      "title": "右手低位轻挥",
+      "category": "closing",
+      "start_frame": 9200,
+      "frames": 200
+    },
+    {
+      "id": "m46_closing_left_lower_wave",
+      "title": "左手低位轻挥",
+      "category": "closing",
+      "start_frame": 9400,
+      "frames": 200
+    },
+    {
+      "id": "m47_closing_palms_then_bow",
+      "title": "双掌摊开后收回",
+      "category": "closing",
+      "start_frame": 9600,
+      "frames": 200
+    },
+    {
+      "id": "m48_closing_breath_reset",
+      "title": "呼吸放松回待机",
+      "category": "closing",
+      "start_frame": 9800,
+      "frames": 200
+    }
+  ]
+}

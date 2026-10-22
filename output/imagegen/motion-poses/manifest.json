@@ -1,0 +1,645 @@
+{
+  "generator": "sub2-image-gen",
+  "model": "gpt-image-2.5",
+  "quality": "high",
+  "reference_images": [
+    "assets/vertical/student-dorm-720x1280.png",
+    "output/imagegen/student-dorm.png"
+  ],
+  "purpose": "additional standalone pose references; not counted as new video clips",
+  "items": {
+    "p01_right_wave": {
+      "id": "p01_right_wave",
+      "title": "右手招呼",
+      "category": "welcome",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p01_right_wave.png",
+      "prompt": "output/imagegen/motion-poses/p01_right_wave.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p01_right_wave.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "c28207ea727d24d30d51a0940455b47028fd4422f425ff8d9f060c39fc3801f4",
+      "bytes": 2283564
+    },
+    "p02_left_wave": {
+      "id": "p02_left_wave",
+      "title": "左手招呼",
+      "category": "welcome",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p02_left_wave.png",
+      "prompt": "output/imagegen/motion-poses/p02_left_wave.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p02_left_wave.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "45f929fc0487f999c2612a8f8c109af2c77da747e758547cf97521319069e2c3",
+      "bytes": 2269895
+    },
+    "p03_compact_welcome": {
+      "id": "p03_compact_welcome",
+      "title": "双掌迎接",
+      "category": "welcome",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p03_compact_welcome.png",
+      "prompt": "output/imagegen/motion-poses/p03_compact_welcome.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p03_compact_welcome.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "5cb7e81129a41ab6c66ea982ddccf0b6afea939a61b005535082eb645f6fba0d",
+      "bytes": 2255049
+    },
+    "p04_polite_greeting": {
+      "id": "p04_polite_greeting",
+      "title": "欠身致意",
+      "category": "welcome",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p04_polite_greeting.png",
+      "prompt": "output/imagegen/motion-poses/p04_polite_greeting.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p04_polite_greeting.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "050cbe88da20fa96d79c4c0fb4f2d258425bb11b2f392ee41f1f11ded2f8eced",
+      "bytes": 2253244
+    },
+    "p05_right_palm_up": {
+      "id": "p05_right_palm_up",
+      "title": "右手摊掌",
+      "category": "explain",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p05_right_palm_up.png",
+      "prompt": "output/imagegen/motion-poses/p05_right_palm_up.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p05_right_palm_up.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "74231cf70ddcc82a73c94fb93392a01c8047d05d157ca6baee79b728862442fb",
+      "bytes": 2269362
+    },
+    "p06_left_palm_up": {
+      "id": "p06_left_palm_up",
+      "title": "左手摊掌",
+      "category": "explain",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p06_left_palm_up.png",
+      "prompt": "output/imagegen/motion-poses/p06_left_palm_up.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p06_left_palm_up.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "0921560e77be2ea03efb5f7d38169c50aa7ea8d929ccdcf9d8e27b29c65f8c3f",
+      "bytes": 2276726
+    },
+    "p07_right_present": {
+      "id": "p07_right_present",
+      "title": "右侧展示",
+      "category": "explain",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p07_right_present.png",
+      "prompt": "output/imagegen/motion-poses/p07_right_present.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p07_right_present.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "c0c5f1da498dcf5cd25eee7afe834f9d247e0a3a89dac0cdbd06a8ae67eb302a",
+      "bytes": 2296511
+    },
+    "p08_left_present": {
+      "id": "p08_left_present",
+      "title": "左侧展示",
+      "category": "explain",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p08_left_present.png",
+      "prompt": "output/imagegen/motion-poses/p08_left_present.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p08_left_present.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "67cb7ae4545858a0d67e3004395e861f4c40ce7181a07c4405cce24e34bd3b69",
+      "bytes": 2267862
+    },
+    "p09_right_thanks": {
+      "id": "p09_right_thanks",
+      "title": "右手贴胸致谢",
+      "category": "emphasis",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p09_right_thanks.png",
+      "prompt": "output/imagegen/motion-poses/p09_right_thanks.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p09_right_thanks.png",
+      "native_size": [
+        940,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "15807c295c25cfea90bacaed43d9dfcf004005dde2a90e7799a39fd0d806da7f",
+      "bytes": 2282148
+    },
+    "p10_left_thanks": {
+      "id": "p10_left_thanks",
+      "title": "左手贴胸致谢",
+      "category": "emphasis",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p10_left_thanks.png",
+      "prompt": "output/imagegen/motion-poses/p10_left_thanks.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p10_left_thanks.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "e38bc1df987998bff8e705d011abe2d9c701ae20caa8e600fab426210178b6c9",
+      "bytes": 2249158
+    },
+    "p11_both_calm": {
+      "id": "p11_both_calm",
+      "title": "双掌轻压安抚",
+      "category": "emphasis",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p11_both_calm.png",
+      "prompt": "output/imagegen/motion-poses/p11_both_calm.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p11_both_calm.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "ad46d40256848c5fb6e0227f18781a75ce0cb6b6b0a384043c2f482970d35fb8",
+      "bytes": 2261260
+    },
+    "p12_right_agree": {
+      "id": "p12_right_agree",
+      "title": "右手轻赞",
+      "category": "emphasis",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p12_right_agree.png",
+      "prompt": "output/imagegen/motion-poses/p12_right_agree.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p12_right_agree.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "f3035c44fc8a1a1a8ea3432fc56f190d1efc28cc1bb32618a87730eb2a11967a",
+      "bytes": 2281589
+    },
+    "p13_listen_right": {
+      "id": "p13_listen_right",
+      "title": "向右微倾听",
+      "category": "listen",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p13_listen_right.png",
+      "prompt": "output/imagegen/motion-poses/p13_listen_right.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p13_listen_right.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "d21710b7296291be368cdcf7a7dc271e44e6a0fa97b8255be1c7cb3fc50da14a",
+      "bytes": 2325905
+    },
+    "p14_listen_left": {
+      "id": "p14_listen_left",
+      "title": "向左微倾听",
+      "category": "listen",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p14_listen_left.png",
+      "prompt": "output/imagegen/motion-poses/p14_listen_left.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p14_listen_left.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "acfee05be85d7a495db58c7494641475bbf020ad65e8459d571914b40bec2b4d",
+      "bytes": 2294000
+    },
+    "p15_listen_forward": {
+      "id": "p15_listen_forward",
+      "title": "微前倾倾听",
+      "category": "listen",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p15_listen_forward.png",
+      "prompt": "output/imagegen/motion-poses/p15_listen_forward.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p15_listen_forward.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "f46204fcc3453dcd8e41877f83b57c89950f1b819bda109c547a5948b88ebc5a",
+      "bytes": 2331865
+    },
+    "p16_thoughtful": {
+      "id": "p16_thoughtful",
+      "title": "短暂思考",
+      "category": "listen",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p16_thoughtful.png",
+      "prompt": "output/imagegen/motion-poses/p16_thoughtful.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p16_thoughtful.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "e26991b5c0a9003ab2a145458e5b8dd064d0b3077397de0fc167dce6c239578f",
+      "bytes": 2318044
+    },
+    "p17_left_cuff": {
+      "id": "p17_left_cuff",
+      "title": "轻整左袖口",
+      "category": "posture",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p17_left_cuff.png",
+      "prompt": "output/imagegen/motion-poses/p17_left_cuff.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p17_left_cuff.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "26ced8e04f97eb89389970c24176025e2da409cd18e83041e358547741440dc3",
+      "bytes": 2279422
+    },
+    "p18_right_cuff": {
+      "id": "p18_right_cuff",
+      "title": "轻整右袖口",
+      "category": "posture",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p18_right_cuff.png",
+      "prompt": "output/imagegen/motion-poses/p18_right_cuff.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p18_right_cuff.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "d26c301868edd465b23ef47d821cea3d10e5f5ec70d2152241f0344f2fbe8832",
+      "bytes": 2289176
+    },
+    "p19_sit_taller": {
+      "id": "p19_sit_taller",
+      "title": "舒展坐姿",
+      "category": "posture",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p19_sit_taller.png",
+      "prompt": "output/imagegen/motion-poses/p19_sit_taller.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p19_sit_taller.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "b032c480a2c3a311f83decc261d86e922a8f0d18a3f6758c2727ca1adf87247d",
+      "bytes": 2259041
+    },
+    "p20_hands_recenter": {
+      "id": "p20_hands_recenter",
+      "title": "双手自然搭放",
+      "category": "posture",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p20_hands_recenter.png",
+      "prompt": "output/imagegen/motion-poses/p20_hands_recenter.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p20_hands_recenter.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "946dc66fe817303db8d30ab5b21934cf96e13f645c9fb04ab527ac66368ec1e5",
+      "bytes": 2263182
+    },
+    "p21_right_low_goodbye": {
+      "id": "p21_right_low_goodbye",
+      "title": "右侧低位告别",
+      "category": "closing",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p21_right_low_goodbye.png",
+      "prompt": "output/imagegen/motion-poses/p21_right_low_goodbye.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p21_right_low_goodbye.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "3de0393c5e218ea302bccd16902f27422c007312bf854d1731f1631fda3d5447",
+      "bytes": 2254796
+    },
+    "p22_left_low_goodbye": {
+      "id": "p22_left_low_goodbye",
+      "title": "左侧低位告别",
+      "category": "closing",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p22_left_low_goodbye.png",
+      "prompt": "output/imagegen/motion-poses/p22_left_low_goodbye.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p22_left_low_goodbye.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "40838dc264a82f72af7ee6614987f8eb2ab7028bf02cac4de707e6b47a53657c",
+      "bytes": 2276140
+    },
+    "p23_gentle_shrug": {
+      "id": "p23_gentle_shrug",
+      "title": "轻摊手释然",
+      "category": "closing",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p23_gentle_shrug.png",
+      "prompt": "output/imagegen/motion-poses/p23_gentle_shrug.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p23_gentle_shrug.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "9748577c9fbb33b1e3d61c051b0f66ffcbca190538562b47e4e45ec53ce24d80",
+      "bytes": 2285253
+    },
+    "p24_closing_thanks": {
+      "id": "p24_closing_thanks",
+      "title": "轻点头致谢",
+      "category": "closing",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p24_closing_thanks.png",
+      "prompt": "output/imagegen/motion-poses/p24_closing_thanks.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p24_closing_thanks.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "b443d51873b4acc0d4c7991192e836d02213e9289e3ff02376c7776aca896055",
+      "bytes": 2268520
+    },
+    "p07_right_present_take2": {
+      "id": "p07_right_present_take2",
+      "title": "右侧展示",
+      "category": "explain",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p07_right_present_take2.png",
+      "prompt": "output/imagegen/motion-poses/p07_right_present_take2.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p07_right_present_take2.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "284cd7020fc1c8c5bffd81e4e55cd7737c1c8f4f52d0e5f55b2d11ed673f546e",
+      "bytes": 2316003,
+      "replaces": "p07_right_present"
+    },
+    "p08_left_present_take2": {
+      "id": "p08_left_present_take2",
+      "title": "左侧展示",
+      "category": "explain",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p08_left_present_take2.png",
+      "prompt": "output/imagegen/motion-poses/p08_left_present_take2.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p08_left_present_take2.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "3fa8216646a5c149f605023aa0b8a674d3663e16e15faf174741d1b058183d62",
+      "bytes": 2269991,
+      "replaces": "p08_left_present"
+    },
+    "p14_listen_left_take2": {
+      "id": "p14_listen_left_take2",
+      "title": "向左微倾听",
+      "category": "listen",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p14_listen_left_take2.png",
+      "prompt": "output/imagegen/motion-poses/p14_listen_left_take2.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p14_listen_left_take2.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "01cbbc33d024290b910780338e7ca1f1cd19972e94ed7bbd5a8e983c83d8bade",
+      "bytes": 2282450,
+      "replaces": "p14_listen_left"
+    },
+    "p23_gentle_shrug_take2": {
+      "id": "p23_gentle_shrug_take2",
+      "title": "轻摊手释然",
+      "category": "closing",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p23_gentle_shrug_take2.png",
+      "prompt": "output/imagegen/motion-poses/p23_gentle_shrug_take2.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p23_gentle_shrug_take2.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "3605eb1db35e0540a7052c5d5e0eef6c7b786e96d7e88b6ec6bf17dc3431a3f4",
+      "bytes": 2265017,
+      "replaces": "p23_gentle_shrug"
+    },
+    "p25_hands_reverse": {
+      "id": "p25_hands_reverse",
+      "title": "交换双手搭放",
+      "category": "listen",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p25_hands_reverse.png",
+      "prompt": "output/imagegen/motion-poses/p25_hands_reverse.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p25_hands_reverse.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "0869db86e8ca4774ef573253045b992fa16988cef611a9b04162926cbfe19720",
+      "bytes": 2281430
+    },
+    "p26_shoulders_relax": {
+      "id": "p26_shoulders_relax",
+      "title": "双肩轻松下沉",
+      "category": "posture",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p26_shoulders_relax.png",
+      "prompt": "output/imagegen/motion-poses/p26_shoulders_relax.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p26_shoulders_relax.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "69413e30d89e861ec9c830cea49937fed0c92235c4ce2486920eff5f4a5f04c8",
+      "bytes": 2251801
+    },
+    "p27_seated_shift_left": {
+      "id": "p27_seated_shift_left",
+      "title": "向左轻调坐姿",
+      "category": "posture",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p27_seated_shift_left.png",
+      "prompt": "output/imagegen/motion-poses/p27_seated_shift_left.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p27_seated_shift_left.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "022e5631666f269e3195eb52f978d44135b0288cb2bfbc8a3f439eb3b00003be",
+      "bytes": 2265263
+    },
+    "p28_seated_shift_right": {
+      "id": "p28_seated_shift_right",
+      "title": "向右轻调坐姿",
+      "category": "posture",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p28_seated_shift_right.png",
+      "prompt": "output/imagegen/motion-poses/p28_seated_shift_right.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p28_seated_shift_right.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "a522974e8cf1a181ac8e1c7ced660805b5184d4336db1c7f1b10c45a79cae00f",
+      "bytes": 2265779
+    },
+    "p25_hands_reverse_take2": {
+      "id": "p25_hands_reverse_take2",
+      "title": "交换双手搭放",
+      "category": "listen",
+      "status": "generated_awaiting_review",
+      "native": "output/imagegen/motion-poses/p25_hands_reverse_take2.png",
+      "prompt": "output/imagegen/motion-poses/p25_hands_reverse_take2.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p25_hands_reverse_take2.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "f51d5ad73993aaa44744c4d3cc0777f888fee82369b93651013ebd87732f8681",
+      "bytes": 2238269,
+      "replaces": "p25_hands_reverse"
+    }
+  },
+  "updated_at": "2026-10-22T04:25:41.412346+08:00"
+}

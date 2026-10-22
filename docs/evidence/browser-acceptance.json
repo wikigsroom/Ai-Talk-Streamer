@@ -1,0 +1,138 @@
+{
+  "ok": true,
+  "at": "2026-10-21T23:06:54.672Z",
+  "checks": [
+    {
+      "name": "portrait_page",
+      "ok": true,
+      "title": "映现场 · 竖屏数字人演播台"
+    },
+    {
+      "name": "live_portrait_stream",
+      "ok": true,
+      "connect_ms": 10144,
+      "stats": {
+        "frames": 226,
+        "fps": 25.321516625587304,
+        "width": 720,
+        "height": 1280,
+        "audio_samples": 144640,
+        "audio_energy": 0,
+        "connected": true
+      }
+    },
+    {
+      "name": "portrait_layout",
+      "ok": true,
+      "screen": {
+        "x": 120.75,
+        "y": 290.921875,
+        "width": 390,
+        "height": 693.328125
+      }
+    },
+    {
+      "name": "expanded_motion_library",
+      "ok": true,
+      "count": 48,
+      "seconds": 384
+    },
+    {
+      "name": "real_speech_started",
+      "ok": true,
+      "first_speech_ms": 5281
+    },
+    {
+      "name": "manual_hand_motion",
+      "ok": true,
+      "id": "m01_welcome_right_wave"
+    },
+    {
+      "name": "speech_audio_video",
+      "ok": true,
+      "stats": {
+        "frames": 626,
+        "fps": 24.726009088503638,
+        "width": 720,
+        "height": 1280,
+        "audio_samples": 400640,
+        "audio_energy": 0.03419862660754003,
+        "connected": true
+      }
+    },
+    {
+      "name": "portrait_recording_download",
+      "ok": true,
+      "bytes": 5350207
+    },
+    {
+      "name": "shared_obs_portrait",
+      "ok": true,
+      "viewers": 3,
+      "avatar_id": "student_dorm_motion_bank_v3"
+    },
+    {
+      "name": "interrupt",
+      "ok": true,
+      "settled_ms": 72
+    },
+    {
+      "name": "mobile_portrait",
+      "ok": true,
+      "overflow": false,
+      "videoWidth": 720,
+      "videoHeight": 1280
+    },
+    {
+      "name": "subscription_cleanup",
+      "ok": true
+    },
+    {
+      "name": "reconnect",
+      "ok": true,
+      "stats": {
+        "frames": 41,
+        "fps": 24.956326428680082,
+        "width": 720,
+        "height": 1280,
+        "audio_samples": 26240,
+        "audio_energy": 0,
+        "connected": true
+      }
+    },
+    {
+      "name": "portrait_motion_gallery",
+      "ok": true,
+      "width": 720,
+      "height": 1280,
+      "visible_clips": 8
+    },
+    {
+      "name": "material_package_download",
+      "ok": true,
+      "bytes": 387915393
+    },
+    {
+      "name": "independent_pose_gallery",
+      "ok": true,
+      "count": 28,
+      "width": 720,
+      "height": 1280
+    },
+    {
+      "name": "delivered_portrait_video_playback",
+      "ok": true,
+      "width": 720,
+      "height": 1280,
+      "duration": 54.8,
+      "currentTime": 3.007476,
+      "error": null
+    }
+  ],
+  "recheck": {
+    "at": "2026-10-21T23:15:58.423Z",
+    "reason": "OBS MKV-to-MP4 export repaired; all other checks had already passed"
+  },
+  "evidence_scope": "curated reference-deployment observation; private paths and channel settings excluded",
+  "source_record_sha256": "01807a38daa7163802b21767ce01320e47986a99e8bfe06e0e925e8c6a61e3ea"
+}

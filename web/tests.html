@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>五种直播情境 · 映现场</title>
+<link rel="stylesheet" href="/studio.css">
+<style>
+body{background:#f3f5f9;color:#172b49}.tests-wrap{max-width:1140px;margin:auto;padding:36px 24px 70px}.tests-top{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px}.tests-top h1{font-size:clamp(27px,4vw,40px);margin:6px 0 12px;letter-spacing:-.04em}.tests-top p{color:#61718a;line-height:1.7;max-width:650px;margin:0}.tests-top a,.test-links a{color:#365de0;text-decoration:none}.test-layout{display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:30px;align-items:start}.test-player{width:100%;aspect-ratio:9/16;background:#13233b;border-radius:16px;display:block}.test-card{display:grid;grid-template-columns:64px 1fr;gap:16px;align-items:center;width:100%;text-align:left;background:white;border:1px solid #dbe1eb;padding:16px;border-radius:12px;margin-bottom:12px;cursor:pointer;color:inherit;font:inherit}.test-card[aria-pressed=true]{border-color:#365de0;box-shadow:0 0 0 2px #365de01a}.test-card img{width:64px;height:104px;object-fit:cover;border-radius:6px}.test-card strong{display:block;font-size:17px;margin-bottom:8px}.test-card span{display:block;color:#61718a;font-size:13px;line-height:1.6}.test-card small{display:block;color:#365de0;margin-top:9px}.test-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px}.test-caption{color:#61718a;font-size:13px;line-height:1.7;margin:15px 0 0}#testStatus{color:#61718a;margin-bottom:22px}@media(max-width:650px){.tests-wrap{padding:24px 16px 50px}.tests-top{display:block}.tests-top>a{display:inline-block;margin-top:18px}.test-layout{grid-template-columns:1fr;gap:22px}.test-player{max-height:75vh;width:auto;max-width:100%;margin:auto}.test-card{padding:12px}}
+</style></head>
+<body>
+<header class="masthead"><a class="brand" href="/"><span class="brand-mark">映</span><span>映现场<small>LOCAL AVATAR STUDIO</small></span></a><a href="/">打开演播台 →</a></header>
+<main class="tests-wrap">
+<div class="tests-top"><div><p class="eyebrow">LIVE SESSION RECORDINGS</p><h1>五种情境，同一场日光。</h1><p>开场、讲解、聆听、打断与告别。以下为竖屏数字人的实际语音、口型和动作录制，保留你选定的白天宿舍。</p></div><a href="/tests/download" id="allTests" hidden>下载全部测试视频 ↓</a></div>
+<p id="testStatus" role="status">正在读取测试视频…</p>
+<div class="test-layout"><div><video id="testPlayer" class="test-player" controls playsinline preload="metadata" aria-label="直播情境测试视频"></video><p id="testCaption" class="test-caption"></p><div class="test-links"><a id="testDownload" hidden>下载当前视频 ↓</a><a href="/materials">查看动作素材</a><a href="/poses">查看动作参考照</a></div></div><div id="testList" aria-label="测试视频列表"></div></div>
+</main>
+<script>
+(async()=>{const status=document.getElementById('testStatus'),player=document.getElementById('testPlayer'),list=document.getElementById('testList');
+try{const response=await fetch('/api/studio/tests');if(!response.ok)throw Error('读取失败');const data=await response.json();if(!data.ok||data.items.length!==5){status.textContent='测试录制尚未齐备，请稍后再查看。';return}status.textContent='5 段已验证 · 720 × 1280 · 25 FPS';document.getElementById('allTests').hidden=false;
+function select(item,button){player.pause();player.src=item.url;player.poster=item.poster_url;player.load();document.getElementById('testCaption').textContent=item.description;const download=document.getElementById('testDownload');download.href=item.url+'?download=1';download.hidden=false;for(const card of list.children)card.setAttribute('aria-pressed',String(card===button));}
+data.items.forEach((item,index)=>{const button=document.createElement('button');button.className='test-card';button.type='button';button.dataset.id=item.id;button.setAttribute('aria-pressed','false');const image=document.createElement('img');image.src=item.poster_url;image.alt='';image.loading='lazy';const copy=document.createElement('div'),title=document.createElement('strong'),description=document.createElement('span'),meta=document.createElement('small');title.textContent=String(index+1).padStart(2,'0')+' · '+item.title;description.textContent=item.description;meta.textContent=item.seconds.toFixed(1)+' 秒 · 已完成实测';copy.append(title,description,meta);button.append(image,copy);button.addEventListener('click',()=>select(item,button));list.append(button);if(index===0)select(item,button)});
+}catch(error){status.textContent='暂时无法读取视频，请刷新重试。'}})();
+</script></body></html>

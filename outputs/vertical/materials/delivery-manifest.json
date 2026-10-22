@@ -1,0 +1,443 @@
+{
+  "clips": 48,
+  "seconds": 384,
+  "reference_baseline_clips": 2,
+  "reference_baseline_seconds": 16,
+  "new_material_multiplier": 24.0,
+  "independent_pose_images": 28,
+  "pose_manifest": "output/imagegen/motion-poses/delivery.json",
+  "items": [
+    {
+      "id": "m01_welcome_right_wave",
+      "title": "右手轻招手",
+      "category": "欢迎互动",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m01_welcome_right_wave.mp4",
+      "sha256": "67b91e7bb2aa69c52b0c04697fb84f2dcfc25fea7e903d134dfe5d04b60ac415",
+      "bytes": 3812544
+    },
+    {
+      "id": "m02_welcome_left_wave",
+      "title": "左手轻招手",
+      "category": "欢迎互动",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m02_welcome_left_wave.mp4",
+      "sha256": "c37d69b20e1c0af5059e3adb387d0fbedd28ea0da98894265753230bcfd80892",
+      "bytes": 3786859
+    },
+    {
+      "id": "m03_welcome_right_two_waves",
+      "title": "右手两次小招手",
+      "category": "欢迎互动",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m03_welcome_right_two_waves.mp4",
+      "sha256": "965b94895203585c8b3fbd08e8306f557c9f30729c292ef5ece4a4fc14a9c011",
+      "bytes": 3885848
+    },
+    {
+      "id": "m04_welcome_left_two_waves",
+      "title": "左手两次小招手",
+      "category": "欢迎互动",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m04_welcome_left_two_waves.mp4",
+      "sha256": "86dcc961a4d9aa324a52dd3f1a7c93e3f3ccc633acc861e3673e65db856a430f",
+      "bytes": 3939576
+    },
+    {
+      "id": "m05_welcome_right_palm_nod",
+      "title": "右掌招呼并点头",
+      "category": "欢迎互动",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m05_welcome_right_palm_nod.mp4",
+      "sha256": "419e2703df6f64afa3ee43ecea3e67a91d61c496d826ebd07d67b3ac9dbb0154",
+      "bytes": 3708051
+    },
+    {
+      "id": "m06_welcome_left_palm_nod_take2",
+      "title": "左掌招呼并点头",
+      "category": "欢迎互动",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m06_welcome_left_palm_nod_take2.mp4",
+      "sha256": "615f1cc22ef258eddcc0db9f6030836d3fc624bd26ebc075d47bbeebf822a424",
+      "bytes": 3449402
+    },
+    {
+      "id": "m07_welcome_hands_welcome_take2",
+      "title": "双手轻迎接",
+      "category": "欢迎互动",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m07_welcome_hands_welcome_take2.mp4",
+      "sha256": "4a3209113a625fae2cc6ad9b0b31b6a226ba1c90193bb450164a8c761063ce7c",
+      "bytes": 3480427
+    },
+    {
+      "id": "m08_welcome_thanks_bow",
+      "title": "轻欠身致意",
+      "category": "欢迎互动",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m08_welcome_thanks_bow.mp4",
+      "sha256": "d369c8318488b55919a2c5c466b82207fee384a0c56d8df9f318d6e3917697fe",
+      "bytes": 3524088
+    },
+    {
+      "id": "m09_explain_right_palm_up",
+      "title": "右手摊掌讲解",
+      "category": "摊手讲解",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m09_explain_right_palm_up.mp4",
+      "sha256": "9a661c9ce8959e02bd4876466c6bb6f44dabb2dfa78dc49413e5e0479ade466f",
+      "bytes": 3329895
+    },
+    {
+      "id": "m10_explain_left_palm_up",
+      "title": "左手摊掌讲解",
+      "category": "摊手讲解",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m10_explain_left_palm_up.mp4",
+      "sha256": "0fb6be70c40c86bcd1c15df20ca48bfd207a5cd899a9a97783f77dee1c46ab45",
+      "bytes": 3191066
+    },
+    {
+      "id": "m11_explain_two_palms_up",
+      "title": "双掌展开讲解",
+      "category": "摊手讲解",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m11_explain_two_palms_up.mp4",
+      "sha256": "9a6a4eed96937c69f4b80afa3a7bb220591cb168dbd8fbe7abdb0add5ee78339",
+      "bytes": 3548952
+    },
+    {
+      "id": "m12_explain_right_small_arc_take2",
+      "title": "右手小弧线示意",
+      "category": "摊手讲解",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m12_explain_right_small_arc_take2.mp4",
+      "sha256": "9fa2457578cb83f3855519141a51770d3a5af8f3287fd6887853a23570d158e3",
+      "bytes": 3381791
+    },
+    {
+      "id": "m13_explain_left_small_arc_take2",
+      "title": "左手小弧线示意",
+      "category": "摊手讲解",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m13_explain_left_small_arc_take2.mp4",
+      "sha256": "6edda392e9f7c4ef1c87acf9b1074fe4fb1eda6e905032cc50369e15e086efe1",
+      "bytes": 3352635
+    },
+    {
+      "id": "m14_explain_right_then_left_take2",
+      "title": "先右后左摊掌",
+      "category": "摊手讲解",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m14_explain_right_then_left_take2.mp4",
+      "sha256": "426a208292f175edbd90c9e2f90b417a2b1e4945ffd437ac46634c05b02c7ebf",
+      "bytes": 3607457
+    },
+    {
+      "id": "m15_explain_open_hand_side",
+      "title": "右掌向侧边展示",
+      "category": "摊手讲解",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m15_explain_open_hand_side.mp4",
+      "sha256": "da2c84e0b347a0f14327183584cc4b2b038dbeb83149e4a2ec724bd1ed6e4779",
+      "bytes": 3311699
+    },
+    {
+      "id": "m16_explain_open_hand_other_side_take2",
+      "title": "左掌向侧边展示",
+      "category": "摊手讲解",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m16_explain_open_hand_other_side_take2.mp4",
+      "sha256": "7c03f5c3e076ed1240daabcd0a1603cba469546d09abf3355ff8f81bed0f7102",
+      "bytes": 3411229
+    },
+    {
+      "id": "m17_emphasis_right_beat_take2",
+      "title": "右手起势双掌强调",
+      "category": "强调认可",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m17_emphasis_right_beat_take2.mp4",
+      "sha256": "66fb3546ddd15c0f1258cd27c23fefe37072c649e45eadc0591b43058575e0d3",
+      "bytes": 3603883
+    },
+    {
+      "id": "m18_emphasis_left_beat_take2",
+      "title": "左手轻托强调",
+      "category": "强调认可",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m18_emphasis_left_beat_take2.mp4",
+      "sha256": "3b6bd65e65313830f6cec75b3ae645a57a61e8d54192d1ff62c98f3f2f9bc66e",
+      "bytes": 3561321
+    },
+    {
+      "id": "m19_emphasis_calm_both_palms",
+      "title": "双掌轻压安抚",
+      "category": "强调认可",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m19_emphasis_calm_both_palms.mp4",
+      "sha256": "7f2d831169a52c2cc7a691a80cdf97b901f0e9d9bcbb4485d82a85ecc5248336",
+      "bytes": 4084815
+    },
+    {
+      "id": "m20_emphasis_right_heart",
+      "title": "右手轻贴胸口",
+      "category": "强调认可",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m20_emphasis_right_heart.mp4",
+      "sha256": "0066e7f897fe84be24f138a73042c7e2ff9287df4f4f775824d1214989e363e6",
+      "bytes": 3421630
+    },
+    {
+      "id": "m21_emphasis_left_heart",
+      "title": "左手轻贴胸口",
+      "category": "强调认可",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m21_emphasis_left_heart.mp4",
+      "sha256": "144988d09a687bd5ba95c420220f9a8e299b9a0fdbbb703d4f0669e6c20b47f0",
+      "bytes": 3539427
+    },
+    {
+      "id": "m22_emphasis_nod_right_palm",
+      "title": "摊掌说明后双手补充",
+      "category": "强调认可",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m22_emphasis_nod_right_palm.mp4",
+      "sha256": "31f4df48220f77818793d32bda46c11ee642f0f942b17ddb7ba5397ffa45f290",
+      "bytes": 3726208
+    },
+    {
+      "id": "m23_emphasis_nod_left_palm",
+      "title": "左掌起势后双手回应",
+      "category": "强调认可",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m23_emphasis_nod_left_palm.mp4",
+      "sha256": "6189ac5786643cd71b34034bdb7b86f510d3b0fb278aa6534d4e69bcb509a24a",
+      "bytes": 3765757
+    },
+    {
+      "id": "m24_emphasis_brief_two_hands",
+      "title": "双手短暂展开",
+      "category": "强调认可",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m24_emphasis_brief_two_hands.mp4",
+      "sha256": "f7267011b7c2af2bf75987988d88d7b5b7130f36ae2cb82d22bc4a3d0ff0e355",
+      "bytes": 3616344
+    },
+    {
+      "id": "m25_listen_tilt_right",
+      "title": "向右微倾听",
+      "category": "思考倾听",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m25_listen_tilt_right.mp4",
+      "sha256": "8c58c9173d51d26c0da4d3aa7af4cb1873fbef6002fdab7a5c4c342d97b4c7c7",
+      "bytes": 3513508
+    },
+    {
+      "id": "m26_listen_tilt_left",
+      "title": "向左微倾听",
+      "category": "思考倾听",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m26_listen_tilt_left.mp4",
+      "sha256": "2be2e1496d94ce13c62870324c9b53e1dd56fd2233df8be7cd9515f1ddc69fc2",
+      "bytes": 3505936
+    },
+    {
+      "id": "m27_listen_slow_nod",
+      "title": "安静聆听与轻微颔首",
+      "category": "思考倾听",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m27_listen_slow_nod.mp4",
+      "sha256": "f992c24dde31892e77993278f7bde1e48ed29a50581ea7c7707f6697318e6998",
+      "bytes": 3597030
+    },
+    {
+      "id": "m28_listen_double_nod",
+      "title": "抬眼轻应后回正",
+      "category": "思考倾听",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m28_listen_double_nod.mp4",
+      "sha256": "0d631b45e9b350a9c6cb43d4b7af680b31451f7aa2e45670f355a31e7239410e",
+      "bytes": 3920088
+    },
+    {
+      "id": "m29_listen_hands_fold_right",
+      "title": "双手重新自然搭放",
+      "category": "思考倾听",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m29_listen_hands_fold_right.mp4",
+      "sha256": "fefe75256eec7bf3d62818d65d00a076ec02a719d5c611aa7dae63c791c45bd1",
+      "bytes": 4236414
+    },
+    {
+      "id": "m30_listen_hands_fold_left",
+      "title": "交换双手搭放顺序",
+      "category": "思考倾听",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m30_listen_hands_fold_left.mp4",
+      "sha256": "9fc9c9dba0669d06751f4183eede8f3af735fe88bf3c012996b94b54df52e9ed",
+      "bytes": 4511148
+    },
+    {
+      "id": "m31_listen_lean_listen",
+      "title": "微前倾倾听",
+      "category": "思考倾听",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m31_listen_lean_listen.mp4",
+      "sha256": "5b549c5853e9af7df34d7e1cf927414fd28d56fac1eb3b1b4d0dffade4772998",
+      "bytes": 3904206
+    },
+    {
+      "id": "m32_listen_thoughtful_return",
+      "title": "轻抬头后微笑回应",
+      "category": "思考倾听",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m32_listen_thoughtful_return.mp4",
+      "sha256": "bb38d7ee19ac66045fad730f900273cb4fd592ab0c762d921d617e98eff4c113",
+      "bytes": 3261040
+    },
+    {
+      "id": "m33_posture_settle_shoulders",
+      "title": "双肩自然放松",
+      "category": "坐姿与肢体",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m33_posture_settle_shoulders.mp4",
+      "sha256": "0acaa04413da055c7b73ae878254b8ac939b50b5040c26c938502f593c433fee",
+      "bytes": 3634221
+    },
+    {
+      "id": "m34_posture_adjust_cuff_left",
+      "title": "轻整左袖口",
+      "category": "坐姿与肢体",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m34_posture_adjust_cuff_left.mp4",
+      "sha256": "ebb0544f19792dccde878ecb7e52490439e4fb6788e830cec468830bd192caca",
+      "bytes": 3643086
+    },
+    {
+      "id": "m35_posture_adjust_cuff_right",
+      "title": "轻整右袖口",
+      "category": "坐姿与肢体",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m35_posture_adjust_cuff_right.mp4",
+      "sha256": "e3a4642e445c0a8ec3a56e531321c3574e751f528573e52c2a18e4735b1263d8",
+      "bytes": 4007846
+    },
+    {
+      "id": "m36_posture_seated_shift_left",
+      "title": "向左轻调坐姿",
+      "category": "坐姿与肢体",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m36_posture_seated_shift_left.mp4",
+      "sha256": "2ede4a77577f3940828ed376ae64125de71cb403ef21a1e7d1f1ac3a5026d603",
+      "bytes": 3794607
+    },
+    {
+      "id": "m37_posture_seated_shift_right",
+      "title": "向右轻调坐姿",
+      "category": "坐姿与肢体",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m37_posture_seated_shift_right.mp4",
+      "sha256": "9027d5866b39c82dcdb3063f2e001baa0cfd647b671be8eed8b73bc069013de3",
+      "bytes": 3625957
+    },
+    {
+      "id": "m38_posture_sit_taller",
+      "title": "轻坐直再放松",
+      "category": "坐姿与肢体",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m38_posture_sit_taller.mp4",
+      "sha256": "d83549c835b55a68081efb5b1d01237bc47b3f9b3ddf287725ea33f34940a4fa",
+      "bytes": 3692685
+    },
+    {
+      "id": "m39_posture_forearms_relax",
+      "title": "双前臂自然舒展",
+      "category": "坐姿与肢体",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m39_posture_forearms_relax.mp4",
+      "sha256": "75748a06b5ad3694ce041025222aefffe2db00477fb64a920f8c61844cd4ccf2",
+      "bytes": 3503569
+    },
+    {
+      "id": "m40_posture_hands_recenter",
+      "title": "双手重新放回膝前",
+      "category": "坐姿与肢体",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m40_posture_hands_recenter.mp4",
+      "sha256": "d31cf1621bad49550d9f0343c8af1c3d4077bef8ef3f5c0322c2ca851a44ef50",
+      "bytes": 3615264
+    },
+    {
+      "id": "m41_closing_right_goodbye",
+      "title": "右手轻挥告别",
+      "category": "转场收尾",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m41_closing_right_goodbye.mp4",
+      "sha256": "7f9bcf12214d036619bdedb6b7fda3a3a6c513383e47919401525039783a1239",
+      "bytes": 3798516
+    },
+    {
+      "id": "m42_closing_left_goodbye",
+      "title": "左手起势双手告别",
+      "category": "转场收尾",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m42_closing_left_goodbye.mp4",
+      "sha256": "49dc1843dbad752c655a103429e0536f88acb4505e220ee59195f55c55c9e2e6",
+      "bytes": 4048761
+    },
+    {
+      "id": "m43_closing_small_shrug",
+      "title": "轻摊手释然",
+      "category": "转场收尾",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m43_closing_small_shrug.mp4",
+      "sha256": "3d2a56b7fb1a20493f1675fbad997332dfbfdd8d14b6dbcb4a56744cae1818e3",
+      "bytes": 3677728
+    },
+    {
+      "id": "m44_closing_small_bow",
+      "title": "双手静放轻致谢",
+      "category": "转场收尾",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m44_closing_small_bow.mp4",
+      "sha256": "28de7f15c52e3e6652b49af9ce4f1c50aef4a74fcac2c71465ed6c67ca7e64bc",
+      "bytes": 4041246
+    },
+    {
+      "id": "m45_closing_right_lower_wave",
+      "title": "右手低位轻挥",
+      "category": "转场收尾",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m45_closing_right_lower_wave.mp4",
+      "sha256": "c00e529fee2c085f5dbbc12847108f6a783cc17b1f0a4e8d9b6c25196541eaac",
+      "bytes": 3488604
+    },
+    {
+      "id": "m46_closing_left_lower_wave",
+      "title": "左手低位轻挥",
+      "category": "转场收尾",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m46_closing_left_lower_wave.mp4",
+      "sha256": "60bb47b65bf464d6429f61d883722624270cf14cc20facfea1eb91dd7c33430d",
+      "bytes": 3482215
+    },
+    {
+      "id": "m47_closing_palms_then_bow",
+      "title": "双掌摊开后收回",
+      "category": "转场收尾",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m47_closing_palms_then_bow.mp4",
+      "sha256": "406fecd7879b4fae9ee67ba44feb3e109b7e00774e9f3dd32f96cfa8ffde7cfb",
+      "bytes": 3712764
+    },
+    {
+      "id": "m48_closing_breath_reset",
+      "title": "呼吸放松回待机",
+      "category": "转场收尾",
+      "seconds": 8,
+      "video": "outputs/vertical/materials/m48_closing_breath_reset.mp4",
+      "sha256": "b3bec5fb0085518ded42609fe7505f9a0744fa34f32c5133ef93940ec783c9b7",
+      "bytes": 3730108
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "ai-talk-streamer-docs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Capture real studio documentation and verify the source distribution",
+  "scripts": {
+    "capture": "node devtools/capture-studio.cjs",
+    "verify": "python -X utf8 devtools/verify-repository.py"
+  },
+  "devDependencies": {"playwright-core": "1.59.1"}
+}

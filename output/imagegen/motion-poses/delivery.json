@@ -1,0 +1,606 @@
+{
+  "ok": true,
+  "count": 28,
+  "model": "gpt-image-2.5",
+  "quality": "high",
+  "reference_images": [
+    "assets/vertical/student-dorm-720x1280.png",
+    "output/imagegen/student-dorm.png"
+  ],
+  "purpose": "Independent image edits; separate from the 48 generated motion clips and extracted video keyframes",
+  "items": [
+    {
+      "id": "p01_right_wave",
+      "title": "右手招呼",
+      "category": "welcome",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p01_right_wave.png",
+      "prompt": "output/imagegen/motion-poses/p01_right_wave.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p01_right_wave.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "c28207ea727d24d30d51a0940455b47028fd4422f425ff8d9f060c39fc3801f4",
+      "bytes": 2283564,
+      "delivery_sha256": "7232e7257dade42dc3cb8b20a218411f615b6097a1b3e086950781279e6731c1",
+      "review": "已检查整张动作参考图。人物、浅蓝卫衣与白天宿舍一致；举起的手完整在画内，掌指、手腕与手臂衔接合理。作为独立动作照交付，构图与运行底片略有差异，不直接替换已经预处理的直播视频帧。"
+    },
+    {
+      "id": "p02_left_wave",
+      "title": "左手招呼",
+      "category": "welcome",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p02_left_wave.png",
+      "prompt": "output/imagegen/motion-poses/p02_left_wave.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p02_left_wave.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "45f929fc0487f999c2612a8f8c109af2c77da747e758547cf97521319069e2c3",
+      "bytes": 2269895,
+      "delivery_sha256": "bdecc84a84cd0978f6eb110dff1d068ed7762f224adf353fc3315ddb25fc4d69",
+      "review": "已检查整张动作参考图。人物、浅蓝卫衣与白天宿舍一致；举起的手完整在画内，掌指、手腕与手臂衔接合理。作为独立动作照交付，构图与运行底片略有差异，不直接替换已经预处理的直播视频帧。"
+    },
+    {
+      "id": "p03_compact_welcome",
+      "title": "双掌迎接",
+      "category": "welcome",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p03_compact_welcome.png",
+      "prompt": "output/imagegen/motion-poses/p03_compact_welcome.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p03_compact_welcome.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "5cb7e81129a41ab6c66ea982ddccf0b6afea939a61b005535082eb645f6fba0d",
+      "bytes": 2255049,
+      "delivery_sha256": "ee45cb98f7ad0a8a0d8f81a34755d8bbe13b8a1ff3fc237220d6dc9680d522a7",
+      "review": "已检查整张动作参考图。人物、浅蓝卫衣与白天宿舍一致；举起的手完整在画内，掌指、手腕与手臂衔接合理。作为独立动作照交付，构图与运行底片略有差异，不直接替换已经预处理的直播视频帧。"
+    },
+    {
+      "id": "p04_polite_greeting",
+      "title": "欠身致意",
+      "category": "welcome",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p04_polite_greeting.png",
+      "prompt": "output/imagegen/motion-poses/p04_polite_greeting.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p04_polite_greeting.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "050cbe88da20fa96d79c4c0fb4f2d258425bb11b2f392ee41f1f11ded2f8eced",
+      "bytes": 2253244,
+      "delivery_sha256": "6bde08db5d7ed81d7c2b219450048e0a0af2900cb1bafbfc62e082668f159d1f",
+      "review": "已检查完整动作图：人物、衣服和白天宿舍保持一致，所需手臂/身体姿态明确，可见掌指与腕臂连接合理，无明显多肢或畸形。作为独立动作参考图交付。"
+    },
+    {
+      "id": "p05_right_palm_up",
+      "title": "右手摊掌",
+      "category": "explain",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p05_right_palm_up.png",
+      "prompt": "output/imagegen/motion-poses/p05_right_palm_up.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p05_right_palm_up.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "74231cf70ddcc82a73c94fb93392a01c8047d05d157ca6baee79b728862442fb",
+      "bytes": 2269362,
+      "delivery_sha256": "12e11c42c01710adc83118465da107e0e7f7a9220d7ec28864ea590b85cfe1fa",
+      "review": "已检查完整动作图：人物、衣服和白天宿舍保持一致，所需手臂/身体姿态明确，可见掌指与腕臂连接合理，无明显多肢或畸形。作为独立动作参考图交付。"
+    },
+    {
+      "id": "p06_left_palm_up",
+      "title": "左手摊掌",
+      "category": "explain",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p06_left_palm_up.png",
+      "prompt": "output/imagegen/motion-poses/p06_left_palm_up.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p06_left_palm_up.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "0921560e77be2ea03efb5f7d38169c50aa7ea8d929ccdcf9d8e27b29c65f8c3f",
+      "bytes": 2276726,
+      "delivery_sha256": "c3d438e3f100a8b09628ee6dafeae26357f59dee253ece92febf65ac454a1340",
+      "review": "已检查完整动作图：人物、衣服和白天宿舍保持一致，所需手臂/身体姿态明确，可见掌指与腕臂连接合理，无明显多肢或畸形。作为独立动作参考图交付。"
+    },
+    {
+      "id": "p07_right_present_take2",
+      "title": "右侧展示",
+      "category": "explain",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p07_right_present_take2.png",
+      "prompt": "output/imagegen/motion-poses/p07_right_present_take2.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p07_right_present_take2.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "284cd7020fc1c8c5bffd81e4e55cd7737c1c8f4f52d0e5f55b2d11ed673f546e",
+      "bytes": 2316003,
+      "replaces": "p07_right_present",
+      "delivery_sha256": "018e05649784bae8cc533c9f06a38c0ad784ee3fcf665dcd1e7918e1963d221a",
+      "review": "重新编辑后右掌完整位于画面内侧，掌指、手腕和袖口连接自然；人物、衣服和白天宿舍保持一致。作为紧凑右手展示动作参考图交付。"
+    },
+    {
+      "id": "p08_left_present_take2",
+      "title": "左侧展示",
+      "category": "explain",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p08_left_present_take2.png",
+      "prompt": "output/imagegen/motion-poses/p08_left_present_take2.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p08_left_present_take2.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "3fa8216646a5c149f605023aa0b8a674d3663e16e15faf174741d1b058183d62",
+      "bytes": 2269991,
+      "replaces": "p08_left_present",
+      "delivery_sha256": "e6d2b7c0ad317f40f6627a2396538feb0281480249e87b2057ab4765c9aba9e3",
+      "review": "重新编辑后左掌完整位于画面内侧，掌指、手腕和袖口连接自然；人物、衣服和白天宿舍保持一致。作为紧凑左手展示动作参考图交付。"
+    },
+    {
+      "id": "p09_right_thanks",
+      "title": "右手贴胸致谢",
+      "category": "emphasis",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p09_right_thanks.png",
+      "prompt": "output/imagegen/motion-poses/p09_right_thanks.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p09_right_thanks.png",
+      "native_size": [
+        940,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "15807c295c25cfea90bacaed43d9dfcf004005dde2a90e7799a39fd0d806da7f",
+      "bytes": 2282148,
+      "delivery_sha256": "a6a69ae6c29957771c2d6f0a385cd3f936269f44ade6630c1aac571aa3b25849",
+      "review": "已检查完整动作图：人物、衣服和白天宿舍保持一致，所需手臂/身体姿态明确，可见掌指与腕臂连接合理，无明显多肢或畸形。作为独立动作参考图交付。"
+    },
+    {
+      "id": "p10_left_thanks",
+      "title": "左手贴胸致谢",
+      "category": "emphasis",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p10_left_thanks.png",
+      "prompt": "output/imagegen/motion-poses/p10_left_thanks.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p10_left_thanks.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "e38bc1df987998bff8e705d011abe2d9c701ae20caa8e600fab426210178b6c9",
+      "bytes": 2249158,
+      "delivery_sha256": "d00016663c68c4ee4fd8dba500b2d41d13f276d4f92a0f07c095cf3a3ac01bca",
+      "review": "已检查完整动作图：人物、衣服和白天宿舍保持一致，所需手臂/身体姿态明确，可见掌指与腕臂连接合理，无明显多肢或畸形。作为独立动作参考图交付。"
+    },
+    {
+      "id": "p11_both_calm",
+      "title": "双掌轻压安抚",
+      "category": "emphasis",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p11_both_calm.png",
+      "prompt": "output/imagegen/motion-poses/p11_both_calm.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p11_both_calm.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "ad46d40256848c5fb6e0227f18781a75ce0cb6b6b0a384043c2f482970d35fb8",
+      "bytes": 2261260,
+      "delivery_sha256": "67d317721534692f0ec3a528848b0444d81eaf748d3fb76007cf53fc63f1c311",
+      "review": "已检查完整动作图：人物、衣服和白天宿舍保持一致，所需手臂/身体姿态明确，可见掌指与腕臂连接合理，无明显多肢或畸形。作为独立动作参考图交付。"
+    },
+    {
+      "id": "p12_right_agree",
+      "title": "右手轻赞",
+      "category": "emphasis",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p12_right_agree.png",
+      "prompt": "output/imagegen/motion-poses/p12_right_agree.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p12_right_agree.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "f3035c44fc8a1a1a8ea3432fc56f190d1efc28cc1bb32618a87730eb2a11967a",
+      "bytes": 2281589,
+      "delivery_sha256": "eece2554c0eb733e3465d4bc8af8827e76729b7b8114cf1cffdd829757fcadc8",
+      "review": "整图检查：右手自然握指并竖拇指，手掌与手腕连接合理；人物、服装与白天宿舍稳定，作为独立动作参考图交付。"
+    },
+    {
+      "id": "p13_listen_right",
+      "title": "向右微倾听",
+      "category": "listen",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p13_listen_right.png",
+      "prompt": "output/imagegen/motion-poses/p13_listen_right.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p13_listen_right.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "d21710b7296291be368cdcf7a7dc271e44e6a0fa97b8255be1c7cb3fc50da14a",
+      "bytes": 2325905,
+      "delivery_sha256": "f3c623e2478a0f36382f0ad227b79dc3c44651737ad4babda2921f54ca011ad4",
+      "review": "完整图检查通过，存在明确轻倾头/前倾姿态，人物、衣服、白天宿舍与手部静息结构稳定。"
+    },
+    {
+      "id": "p14_listen_left_take2",
+      "title": "向左微倾听",
+      "category": "listen",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p14_listen_left_take2.png",
+      "prompt": "output/imagegen/motion-poses/p14_listen_left_take2.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p14_listen_left_take2.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "01cbbc33d024290b910780338e7ca1f1cd19972e94ed7bbd5a8e983c83d8bade",
+      "bytes": 2282450,
+      "replaces": "p14_listen_left",
+      "delivery_sha256": "11ce7d736b18aa073448c698d78b2703c8d414cd5e5a162cd34a11c94c8851f6",
+      "review": "重新编辑后头顶向画面右侧窗边倾斜，与另一侧倾听姿势方向相反；人物与原房间未镜像，姿态自然。"
+    },
+    {
+      "id": "p15_listen_forward",
+      "title": "微前倾倾听",
+      "category": "listen",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p15_listen_forward.png",
+      "prompt": "output/imagegen/motion-poses/p15_listen_forward.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p15_listen_forward.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "f46204fcc3453dcd8e41877f83b57c89950f1b819bda109c547a5948b88ebc5a",
+      "bytes": 2331865,
+      "delivery_sha256": "af767ed4de222237a64ff47a7fbeef02b70cf4bb23a4adb278b6f3f5a905bc47",
+      "review": "完整图检查通过，存在明确轻倾头/前倾姿态，人物、衣服、白天宿舍与手部静息结构稳定。"
+    },
+    {
+      "id": "p16_thoughtful",
+      "title": "短暂思考",
+      "category": "listen",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p16_thoughtful.png",
+      "prompt": "output/imagegen/motion-poses/p16_thoughtful.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p16_thoughtful.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "e26991b5c0a9003ab2a145458e5b8dd064d0b3077397de0fc167dce6c239578f",
+      "bytes": 2318044,
+      "delivery_sha256": "8287cad7fc57045267e22bc5b0adc312f8bc2867d52fa707d2e0658dea2c1245",
+      "review": "目光轻抬、双手放松于腿部，人物和服装、白天宿舍一致，无额外肢体；适合作为思考倾听参考图。"
+    },
+    {
+      "id": "p17_left_cuff",
+      "title": "轻整左袖口",
+      "category": "posture",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p17_left_cuff.png",
+      "prompt": "output/imagegen/motion-poses/p17_left_cuff.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p17_left_cuff.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "26ced8e04f97eb89389970c24176025e2da409cd18e83041e358547741440dc3",
+      "bytes": 2279422,
+      "delivery_sha256": "cbb042a29e67fea0a03d816bc69d6c47211bab1da5074d1d0fd5bed390e3411b",
+      "review": "右手轻捏左袖口，左右手和衣袖位置合理，人物与宿舍保持一致，可用于整理左袖口参考。"
+    },
+    {
+      "id": "p18_right_cuff",
+      "title": "轻整右袖口",
+      "category": "posture",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p18_right_cuff.png",
+      "prompt": "output/imagegen/motion-poses/p18_right_cuff.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p18_right_cuff.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "d26c301868edd465b23ef47d821cea3d10e5f5ec70d2152241f0344f2fbe8832",
+      "bytes": 2289176,
+      "delivery_sha256": "5078dccde8d47c3cf25f33221ffcd49d78d421a59bb2c11b75a68aa4ffdc768d",
+      "review": "左手轻捏右袖口，与另一侧整理袖口姿势不同，手腕、手指和衣物衔接自然。"
+    },
+    {
+      "id": "p19_sit_taller",
+      "title": "舒展坐姿",
+      "category": "posture",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p19_sit_taller.png",
+      "prompt": "output/imagegen/motion-poses/p19_sit_taller.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p19_sit_taller.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "b032c480a2c3a311f83decc261d86e922a8f0d18a3f6758c2727ca1adf87247d",
+      "bytes": 2259041,
+      "delivery_sha256": "cc9dfaa3d4817c56f354c078f8bd995e238d38564172b4dc51bc211713da1e8b",
+      "review": "坐姿略挺直，双手放松，面部、头发、衣着和宿舍保持一致，可用于轻微坐姿变化参考。"
+    },
+    {
+      "id": "p20_hands_recenter",
+      "title": "双手自然搭放",
+      "category": "posture",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p20_hands_recenter.png",
+      "prompt": "output/imagegen/motion-poses/p20_hands_recenter.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p20_hands_recenter.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "946dc66fe817303db8d30ab5b21934cf96e13f645c9fb04ab527ac66368ec1e5",
+      "bytes": 2263182,
+      "delivery_sha256": "8623884fb1913c7e93efed3f708cfda0527cd47e15bcb3d7b92b85199c5b86fd",
+      "review": "两手在腿部中央放松叠置，手指与手腕衔接自然；人物、服装和白天房间保持一致。"
+    },
+    {
+      "id": "p21_right_low_goodbye",
+      "title": "右侧低位告别",
+      "category": "closing",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p21_right_low_goodbye.png",
+      "prompt": "output/imagegen/motion-poses/p21_right_low_goodbye.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p21_right_low_goodbye.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "3de0393c5e218ea302bccd16902f27422c007312bf854d1731f1631fda3d5447",
+      "bytes": 2254796,
+      "delivery_sha256": "24262819d61ef749386b8a7d1f0b429bd8e5784054366e74ca526d0c8e3b1469",
+      "review": "右手低位掌心朝镜头，五指、手腕和手臂连接合理，完整在画面内；人物和白天宿舍一致。"
+    },
+    {
+      "id": "p22_left_low_goodbye",
+      "title": "左侧低位告别",
+      "category": "closing",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p22_left_low_goodbye.png",
+      "prompt": "output/imagegen/motion-poses/p22_left_low_goodbye.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p22_left_low_goodbye.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "40838dc264a82f72af7ee6614987f8eb2ab7028bf02cac4de707e6b47a53657c",
+      "bytes": 2276140,
+      "delivery_sha256": "7fdcee1f0abe5b343a2d79f4a1fdf48f670593cca79bff7b209c3a86b38bf988",
+      "review": "左手低位掌心朝镜头，五指、手腕和手臂连接合理，完整在画面内；与右手参考姿势区分明确。"
+    },
+    {
+      "id": "p23_gentle_shrug_take2",
+      "title": "轻摊手释然",
+      "category": "closing",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p23_gentle_shrug_take2.png",
+      "prompt": "output/imagegen/motion-poses/p23_gentle_shrug_take2.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p23_gentle_shrug_take2.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "3605eb1db35e0540a7052c5d5e0eef6c7b786e96d7e88b6ec6bf17dc3431a3f4",
+      "bytes": 2265017,
+      "replaces": "p23_gentle_shrug",
+      "delivery_sha256": "443540ce710e815301471730849f77d24259855ec84e8b17da99829d45392de7",
+      "review": "重新编辑后双掌完整位于中央身体范围内，十指与双腕衔接合理；微耸肩、白天宿舍与人物身份稳定。"
+    },
+    {
+      "id": "p24_closing_thanks",
+      "title": "轻点头致谢",
+      "category": "closing",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p24_closing_thanks.png",
+      "prompt": "output/imagegen/motion-poses/p24_closing_thanks.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p24_closing_thanks.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "b443d51873b4acc0d4c7991192e836d02213e9289e3ff02376c7776aca896055",
+      "bytes": 2268520,
+      "delivery_sha256": "34482291d3c059ad086759555d309ed14ce640bc4b4e52c0ca9ff0660f53f511",
+      "review": "双手在腿部自然搭放、下巴略低，保持相同人物和白天宿舍，适合作为温和收尾参考。"
+    },
+    {
+      "id": "p25_hands_reverse_take2",
+      "title": "交换双手搭放",
+      "category": "listen",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p25_hands_reverse_take2.png",
+      "prompt": "output/imagegen/motion-poses/p25_hands_reverse_take2.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p25_hands_reverse_take2.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "f51d5ad73993aaa44744c4d3cc0777f888fee82369b93651013ebd87732f8681",
+      "bytes": 2238269,
+      "replaces": "p25_hands_reverse",
+      "delivery_sha256": "da3602ed803aa080f5082f91c20dc10bfb33d6412f734248bba7ecea55dee3ac",
+      "review": "已检查整图：由画面右侧袖口伸出的左手搭在右手上方，与原搭手图顺序相反，双腕与手指结构合理，人物、衣服和白天宿舍保持一致。"
+    },
+    {
+      "id": "p26_shoulders_relax",
+      "title": "双肩轻松下沉",
+      "category": "posture",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p26_shoulders_relax.png",
+      "prompt": "output/imagegen/motion-poses/p26_shoulders_relax.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p26_shoulders_relax.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "69413e30d89e861ec9c830cea49937fed0c92235c4ce2486920eff5f4a5f04c8",
+      "bytes": 2251801,
+      "delivery_sha256": "0087688cf1b0d0ece9e51a76190c1acf98f4fa14d8fdc0d7a05f234810d250d1",
+      "review": "已检查整图：双肩与前臂放松，双手置于各自腿部，手指和袖口连接自然，人物与原白天宿舍保持一致。"
+    },
+    {
+      "id": "p27_seated_shift_left",
+      "title": "向左轻调坐姿",
+      "category": "posture",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p27_seated_shift_left.png",
+      "prompt": "output/imagegen/motion-poses/p27_seated_shift_left.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p27_seated_shift_left.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "022e5631666f269e3195eb52f978d44135b0288cb2bfbc8a3f439eb3b00003be",
+      "bytes": 2265263,
+      "delivery_sha256": "f1069df9c87f46f088a0ba5745bdfee467f1c82474e15885fcdbac8a9735a64a",
+      "review": "已检查整图：上身向人物自身左侧、画面右侧窗边略移，头部基本正直，机位与房间保持固定，身体结构与搭手自然。"
+    },
+    {
+      "id": "p28_seated_shift_right",
+      "title": "向右轻调坐姿",
+      "category": "posture",
+      "status": "reviewed_accepted",
+      "native": "output/imagegen/motion-poses/p28_seated_shift_right.png",
+      "prompt": "output/imagegen/motion-poses/p28_seated_shift_right.prompt.txt",
+      "delivery": "assets/vertical/pose-references/p28_seated_shift_right.png",
+      "native_size": [
+        941,
+        1672
+      ],
+      "delivery_size": [
+        720,
+        1280
+      ],
+      "sha256": "a522974e8cf1a181ac8e1c7ced660805b5184d4336db1c7f1b10c45a79cae00f",
+      "bytes": 2265779,
+      "delivery_sha256": "828c07fafee626e1f6243c65cf11dbd03c7b8ec1bfc8aebaeb42e01108e5c232",
+      "review": "已检查整图：上身向人物自身右侧、画面左侧书桌略移，与另一侧重心姿势区分明确，人物、服装与背景稳定。"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "samples": 1958,
+  "maximum_sampled_gpu_used_mib": 44955,
+  "maximum_sampled_ram_used_gib": 58.841,
+  "interval_seconds": 10,
+  "last": {
+    "at": "2026-10-22T07:47:37.401011+08:00",
+    "gpu_used_mib": 12574,
+    "gpu_total_mib": 49140,
+    "gpu_utilization_percent": 2,
+    "ram_used_gib": 15.871,
+    "ram_total_gib": 63.9
+  },
+  "evidence_scope": "curated reference-deployment observation; private paths and channel settings excluded",
+  "source_record_sha256": "612c9b24a04c840daf287b3be2379dec5c740c444fdd2e5ab2607363b0f23969"
+}

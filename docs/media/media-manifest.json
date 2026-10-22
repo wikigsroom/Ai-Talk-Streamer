@@ -1,0 +1,255 @@
+{
+  "source": "real OBS scenarios and real browser screen recording",
+  "items": [
+    {
+      "file": "docs/media/s01_welcome.mp4",
+      "source_name": "s01_welcome.mp4",
+      "source_sha256": "8ecd20d5852378db730226dbdc5eb5ba5f566113fc2de6c2bd3cd29840d234ee",
+      "description": "Full actual OBS scenario; resized to 432x768 for repository playback, original 720x1280",
+      "bytes": 760285,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 432,
+            "height": 768
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio"
+          }
+        ],
+        "format": {
+          "duration": "25.440000"
+        }
+      },
+      "sha256": "d8285d49d9bd42ab1c8008a9b1f7d3537496aeb30e6a02b84cddf9d65068a5ec"
+    },
+    {
+      "file": "docs/media/s02_explain.mp4",
+      "source_name": "s02_explain.mp4",
+      "source_sha256": "cf9f19292eb396f4aaede50e8e0cd33a6ddcf3fe008260f5f46319f109fe5f04",
+      "description": "Full actual OBS scenario; resized to 432x768 for repository playback, original 720x1280",
+      "bytes": 1334763,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 432,
+            "height": 768
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio"
+          }
+        ],
+        "format": {
+          "duration": "48.680000"
+        }
+      },
+      "sha256": "7305f2f4434a90252751253ea87a8dd1bc52724d578553202d8a541713542358"
+    },
+    {
+      "file": "docs/media/s03_listen_reply.mp4",
+      "source_name": "s03_listen_reply.mp4",
+      "source_sha256": "5303d67e22c4db5e58bad52b9fbb712e7797419172300681292376966563d449",
+      "description": "Full actual OBS scenario; resized to 432x768 for repository playback, original 720x1280",
+      "bytes": 874240,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 432,
+            "height": 768
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio"
+          }
+        ],
+        "format": {
+          "duration": "36.440000"
+        }
+      },
+      "sha256": "060e77ea901cdb31b379152d3c7d22121fcc79dfa9af5f7ae837af8989f35534"
+    },
+    {
+      "file": "docs/media/s04_interrupt_resume.mp4",
+      "source_name": "s04_interrupt_resume.mp4",
+      "source_sha256": "fa9dfdb9dc086ba79466afd8017e02f7b731cbe1d5858e54254fbc85a0805270",
+      "description": "Full actual OBS scenario; resized to 432x768 for repository playback, original 720x1280",
+      "bytes": 1257222,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 432,
+            "height": 768
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio"
+          }
+        ],
+        "format": {
+          "duration": "46.400000"
+        }
+      },
+      "sha256": "edacc72d29965bf82e43e88c46c681b07e12b2565be1b821dd84cd15e89c6647"
+    },
+    {
+      "file": "docs/media/s05_closing.mp4",
+      "source_name": "s05_closing.mp4",
+      "source_sha256": "78f9e5fd3a4eeac20b7c24dfcf51fe1e8a110fea2f23a4dc8a3d5256b5461fae",
+      "description": "Full actual OBS scenario; resized to 432x768 for repository playback, original 720x1280",
+      "bytes": 1770380,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 432,
+            "height": 768
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio"
+          }
+        ],
+        "format": {
+          "duration": "60.280000"
+        }
+      },
+      "sha256": "a194b24184ca3da766463839e8fc34e2cc8e9046fa90d8274589efd1bcb49cfc"
+    },
+    {
+      "file": "docs/media/browser-interaction.mp4",
+      "source_name": "page@598f8404bf662f98773106f631d131aa.webm",
+      "source_sha256": "9c2f502f9e70d4005b39117acbaf601313cec260851d07a0e32fac1320eee331",
+      "description": "Actual browser screen capture: submit echo text, wait for local speech, select and display a wave. Screen capture has no audio track; OBS scenario clips retain audio.",
+      "bytes": 1033022,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1280,
+            "height": 934
+          }
+        ],
+        "format": {
+          "duration": "17.300000"
+        }
+      },
+      "sha256": "581d47f52fca601772a97418d555ad1d662579fdfe08feda4c65a540adc4f685"
+    },
+    {
+      "file": "docs/media/welcome.gif",
+      "source_name": "s01_welcome.mp4",
+      "source_sha256": "d8285d49d9bd42ab1c8008a9b1f7d3537496aeb30e6a02b84cddf9d65068a5ec",
+      "description": "Silent GIF excerpt at original playback speed; not a benchmark",
+      "bytes": 1828099,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "gif",
+            "codec_type": "video",
+            "width": 270,
+            "height": 480
+          }
+        ],
+        "format": {
+          "duration": "7.000000"
+        }
+      },
+      "sha256": "881bbc1fbcd59de05b4ce5e8a63212a431cb983d5a2af1716915ec197d5969e6"
+    },
+    {
+      "file": "docs/media/explanation.gif",
+      "source_name": "s02_explain.mp4",
+      "source_sha256": "7305f2f4434a90252751253ea87a8dd1bc52724d578553202d8a541713542358",
+      "description": "Silent GIF excerpt at original playback speed; not a benchmark",
+      "bytes": 1753738,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "gif",
+            "codec_type": "video",
+            "width": 270,
+            "height": 480
+          }
+        ],
+        "format": {
+          "duration": "7.000000"
+        }
+      },
+      "sha256": "80b0ab24595436de2ee2080b799706d3686a4375e019dd43a066424a7df8ddbf"
+    },
+    {
+      "file": "docs/media/interrupt-resume.gif",
+      "source_name": "s04_interrupt_resume.mp4",
+      "source_sha256": "edacc72d29965bf82e43e88c46c681b07e12b2565be1b821dd84cd15e89c6647",
+      "description": "Silent GIF excerpt at original playback speed; not a benchmark",
+      "bytes": 2996666,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "gif",
+            "codec_type": "video",
+            "width": 216,
+            "height": 384
+          }
+        ],
+        "format": {
+          "duration": "20.010000"
+        }
+      },
+      "sha256": "4af60eccef0ffaf32df5d4f04010213782d14e4ef1b0fc67f37f681fce0c6b1e"
+    },
+    {
+      "file": "docs/media/browser-response.gif",
+      "source_name": "page@598f8404bf662f98773106f631d131aa.webm",
+      "source_sha256": "9c2f502f9e70d4005b39117acbaf601313cec260851d07a0e32fac1320eee331",
+      "description": "Silent GIF excerpt at original playback speed; not a benchmark",
+      "bytes": 2837514,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "gif",
+            "codec_type": "video",
+            "width": 864,
+            "height": 630
+          }
+        ],
+        "format": {
+          "duration": "7.010000"
+        }
+      },
+      "sha256": "c9990a1598ce5b72c98c0d1b67840cc3a64d8895e9a4d0a138898214f896eac8"
+    }
+  ]
+}

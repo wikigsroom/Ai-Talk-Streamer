@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "captured_at": "2026-10-22T08:05:28.043Z",
+  "source": "actual running studio, without mocked responses",
+  "screenshots": [
+    "studio-desktop.png",
+    "studio-speaking.png",
+    "studio-mobile.png",
+    "motion-library.png",
+    "pose-library.png",
+    "scenario-tests.png"
+  ],
+  "screencast_demo_start_seconds": 3.75,
+  "screencast_gesture_seconds": 15.357,
+  "live_metrics": {
+    "frames": 358,
+    "fps": 23.33488899262269,
+    "width": 720,
+    "height": 1280,
+    "audio_samples": 229120,
+    "audio_energy": 0.01613959771755617,
+    "connected": true
+  },
+  "screencast_demo_end_seconds": 21.041,
+  "raw_screencast": "docs/media/raw/page@598f8404bf662f98773106f631d131aa.webm"
+}

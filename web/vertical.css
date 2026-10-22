@@ -1,0 +1,20 @@
+/* Keep the complete portrait visible at a useful size beside its controls. */
+main{max-width:1260px;padding-top:30px}
+.page-intro{margin-bottom:24px}
+.studio-grid{grid-template-columns:minmax(280px,390px) minmax(340px,1fr);gap:34px;justify-content:center}
+.screen{aspect-ratio:9/16}
+.monitor-bar{padding:0 14px}
+.monitor-bar b{margin-left:7px}
+.monitor-caption{display:none}
+.script-panel{position:sticky;top:22px}
+.take-tools{gap:12px;flex-wrap:wrap;padding:18px 0}
+.take-tools>div{min-width:135px}
+.take-tools .subtle-link{flex-basis:100%;text-align:right}
+.demo-tag{max-width:calc(100% - 48px);bottom:14px;font-size:10px}
+.activity-log{max-height:160px}
+.screen-overlay p{max-width:90%;text-align:center}
+.settings-grid{grid-template-columns:1fr 1fr}
+@media(max-width:1080px){.studio-grid{grid-template-columns:minmax(265px,350px) minmax(300px,1fr);gap:22px}.monitor-bar{padding:0 11px;letter-spacing:1px}}
+@media(max-width:780px){main{padding-top:22px;max-width:580px}.studio-grid{grid-template-columns:minmax(0,1fr);gap:16px}.monitor-column{min-width:0}.monitor{max-width:390px;margin:auto}.script-panel{position:static}.settings-grid{grid-template-columns:1fr}.page-intro .subtitle{max-width:300px}.take-tools{max-width:390px;margin:auto}.activity-panel{max-width:390px;margin:auto}.monitor-caption{display:block;font-size:9px}.take-tools .subtle-link{flex-basis:auto;text-align:left}}
+
+.motion-panel{margin-top:22px;padding-top:18px;border-top:1px solid #dae2ee}.motion-panel h3{margin:0;font-size:14px}.motion-panel .subtle-link{font-size:12px}.motion-modes{display:flex;gap:18px;margin:12px 0}.motion-modes .selected{color:#3157db;font-weight:700}.motion-picker{display:flex;gap:10px}.motion-picker select{min-width:0;flex:1;border:1px solid #ccd7e7;background:#fff;border-radius:7px;padding:10px;color:#2b4260}.motion-picker .button{padding:10px 16px;white-space:nowrap}

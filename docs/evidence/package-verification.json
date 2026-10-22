@@ -1,0 +1,33 @@
+{
+  "ok": true,
+  "packages": {
+    "material": {
+      "ok": true,
+      "at": "2026-10-22T07:13:19.832028+08:00",
+      "bytes": 387915393,
+      "archive_sha256": "8834dc617edf732abe8779f0c20113d6b0141e661a53a11c980718c32e965b5d",
+      "entries": 484,
+      "video_clips": 48,
+      "video_seconds": 384,
+      "independent_pose_images": 28,
+      "crc_verified": true,
+      "all_media_checksums_match": true
+    },
+    "scenario": {
+      "ok": true,
+      "at": "2026-10-22T07:39:23.649515+08:00",
+      "archive_bytes": 95154460,
+      "archive_sha256": "b2619ca58cbd99aaa626bc9c1e9d5d8210e61d071272dfee11c215901202a09d",
+      "crc_verified": true,
+      "count": 5,
+      "seconds": 217.24,
+      "all_video_hashes_verified": true,
+      "all_video_formats_verified": true
+    }
+  },
+  "evidence_scope": "curated reference-deployment observation; private paths and channel settings excluded",
+  "source_record_sha256": {
+    "material": "eb362f705078864fb39941567e6d23923959a013bbf9d1edb8e4a2bd39ee9108",
+    "scenario": "34cd2871108b675898c46e9e73bd15f706eec05b4c9c6607468a61a794d08fbf"
+  }
+}

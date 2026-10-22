@@ -1,0 +1,15 @@
+{
+  "avatar_id": "student_dorm_vertical_v2",
+  "source_video": "assets/vertical/idle-loop-720x1280.mp4",
+  "width": 720,
+  "height": 1280,
+  "fps": 25,
+  "frames": 400,
+  "bbox_shift": 4,
+  "mask_mode": "compact",
+  "bbox_smoothing_frames": 5,
+  "selection_evidence": "outputs/vertical/review/face-comparison.jpg",
+  "selection_reason": "同一音频对比 -4、0、+4 三种裁切和 jaw、compact 两种融合后，选择 +4 / compact，收敛张嘴幅度并保留更多原始脸颊纹理。口唇细节仍受 MuseTalk 256px 生成区域限制，须继续检查实时成片。",
+  "motion": "本地 H3 生成的两段 8 秒自然待机素材；LiveTalking 镜像循环素材，实时生成口型。",
+  "identity": "虚构的 22 岁中国女大学生，同一人物、浅蓝色卫衣、白天宿舍。"
+}

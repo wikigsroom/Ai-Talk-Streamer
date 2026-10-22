@@ -1,0 +1,173 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "type": "minimax",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+    }
+  },
+  "5": {
+    "class_type": "MiniMaxH3TurboLoRA",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "lora_name": "minimax_h3_fl2v_turbo_4step_v1.2_768p_comfyui_bf16.safetensors",
+      "strength": 1.0,
+      "low_vram": false
+    }
+  },
+  "6": {
+    "class_type": "MiniMaxH3SigmaShift",
+    "inputs": {
+      "model": [
+        "5",
+        0
+      ],
+      "shift_video": 12.0,
+      "shift_audio": 3.0
+    }
+  },
+  "7": {
+    "class_type": "MiniMaxH3ImageToVideo",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "prompt": "How the reference pictures align with the target video — Picture 1 (from Shot 1) aligns with the 0.00-second mark of the target video; Picture 2 (from Shot 1) aligns with the 8.00-second mark of the target video.\n\nintegrated_multimodal_description: [Shot 1] A single photorealistic live-action vertical medium portrait, with the same fictional 22-year-old adult Chinese university student from Picture 1 seated in the same daylight dormitory. Preserve her exact face and body proportions, long dark hair, light blue sweatshirt, white collar and the whole room. The loft bed, books, green plants, lamp and blue-curtained daylight window stay perfectly stationary. Fixed eye-level camera, fixed lens and framing, constant soft daylight and stable exposure. Her lips stay gently closed, with no speech, singing or visible teeth. Her gaze stays comfortably near the lens. Natural brief blinks and breathing accompany one coordinated, understated movement. Hands have normal human anatomy, exactly five natural fingers each, realistic wrists, soft separated fingers and slow continuous paths; avoid rigid finger spreading. Both hands and all gestures remain fully within the frame and below her face; her mouth and cheeks are never occluded. Her elbows stay comfortably bent close to her ribs. During every gesture the hands remain inside the central space between her shoulders, never spreading toward the picture edges; use compact movements above her lap. The neutral daylight white balance and the original sweatshirt color remain constant throughout. The first second is a calm neutral rest with hands on her lap. Between 1 and 6 seconds: She gently raises both forearms with open palms angled upward just above her waist, holds the balanced explanatory pose briefly, and returns both hands to her lap. Between 6 and 8 seconds she smoothly returns to the same centered head, shoulders, relaxed expression and hand positions established by Picture 2. The movement fully settles without a snap. Hair and fabric respond only to the actual body motion. No large lean, standing, camera motion, scene change, cut, zoom, text, props or extra person. No abrupt motion or exaggerated acting. Preserve sharp facial detail and consistent skin texture throughout.\n\noverall_soundscape: Quiet indoor room ambience and gentle clothing rustle only. No voice, dialogue or singing.\n\nnon_diegetic_music: N/A",
+      "width": 736,
+      "height": 1312,
+      "length": 192,
+      "first_frame": [
+        "20",
+        0
+      ],
+      "last_frame": [
+        "20",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "conditioning": [
+        "7",
+        0
+      ]
+    }
+  },
+  "9": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 202610221011
+    }
+  },
+  "10": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "11": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "scheduler": "simple",
+      "steps": 4,
+      "denoise": 1.0
+    }
+  },
+  "12": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "9",
+        0
+      ],
+      "guider": [
+        "8",
+        0
+      ],
+      "sampler": [
+        "10",
+        0
+      ],
+      "sigmas": [
+        "11",
+        0
+      ],
+      "latent_image": [
+        "7",
+        1
+      ]
+    }
+  },
+  "13": {
+    "class_type": "LTXVSeparateAVLatent",
+    "inputs": {
+      "av_latent": [
+        "12",
+        0
+      ]
+    }
+  },
+  "14": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "13",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "17": {
+    "class_type": "JWSaveImageSequence",
+    "inputs": {
+      "images": [
+        "14",
+        0
+      ],
+      "path_pattern": "${PROJECT_ROOT}/outputs/vertical/materials/m11_explain_two_palms_up_frames/frame{:06d}.png",
+      "start_index": 0,
+      "overwrite": "false"
+    }
+  },
+  "20": {
+    "class_type": "JWImageLoadRGB",
+    "inputs": {
+      "path": "${PROJECT_ROOT}\\assets\\vertical\\student-dorm-720x1280.png"
+    }
+  }
+}

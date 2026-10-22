@@ -1,0 +1,34 @@
+name: Repository verification
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Source, documentation and reviewed asset verification
+        run: python -X utf8 devtools/verify-repository.py
+      - name: Motion scheduling behavior
+        run: python -m unittest discover -s tests -v
+      - name: JavaScript syntax
+        shell: pwsh
+        run: |
+          Get-ChildItem web,integration,devtools -Recurse -File -Include *.js,*.cjs | ForEach-Object {
+            node --check $_.FullName
+            if($LASTEXITCODE -ne 0){throw "JavaScript syntax failed: $($_.Name)"}
+          }
+      - name: PowerShell syntax
+        shell: pwsh
+        run: |
+          Get-ChildItem -File -Filter *.ps1 | ForEach-Object {
+            $AvatarParseErrors=$null
+            $null=[System.Management.Automation.Language.Parser]::ParseFile($_.FullName,[ref]$null,[ref]$AvatarParseErrors)
+            if($AvatarParseErrors.Count){throw "PowerShell syntax failed: $($_.Name)"}
+          }
