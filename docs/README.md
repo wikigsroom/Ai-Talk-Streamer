@@ -8,7 +8,7 @@ This is the documentation for the delivered **daylight dorm / portrait / local-m
 
 | Document / 文档 | Read it for / 内容 |
 | --- | --- |
-| [Voices / 女A音色](VOICES.md) | Ten real voice options, SoulX/MOSS/FireRed comparisons, audio editing and generation / 十款音色、三个模型对比、修改音频与重新生成 |
+| [Voices / 女A音色](VOICES.md) | Ten MOSS voices and ten matched SoulX voices, plus FireRed 01 / MOSS 十款与 SoulX 十款同号对照、FireRed 01、修改与重新生成 |
 | [RTX 3080 / 3080 部署](RTX3080.md) | Actual 10 GB tests, original batch-8 configuration, screenshots and explicit fallback order / 10 GB 实测、原始 batch 8、截图与降级顺序 |
 | [Playback / 播放连续性](PLAYBACK.md) | Presented-frame measurements, audio integrity and backpressure correction / 实际呈现帧率、音频完整性与队列修正 |
 | [Deployment / 部署](DEPLOYMENT.md) | Native Windows prerequisites, installation stages, preparation, restart and recovery / 原生安装、素材预处理、启动与恢复 |

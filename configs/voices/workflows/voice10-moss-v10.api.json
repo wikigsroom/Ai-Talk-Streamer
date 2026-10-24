@@ -1,0 +1,45 @@
+{
+  "1": {
+    "class_type": "LoadAudio",
+    "inputs": {
+      "audio": "female-a-voice-selection-20261025/v10.wav"
+    }
+  },
+  "2": {
+    "class_type": "PodcastTrioNative",
+    "inputs": {
+      "model": "MOSS-TTSD-v1.0",
+      "dialogue_text": "[S1] 你好，我是林知夏。欢迎来到直播间，今天过得怎么样？别着急，我们慢慢聊。",
+      "seed": 20261026,
+      "temperature": 1.1,
+      "top_p": 0.9,
+      "top_k": 50,
+      "repetition_penalty": 1.1,
+      "max_new_tokens": 800,
+      "S1_audio": [
+        "1",
+        0
+      ],
+      "S1_text": "連入睡的表情都是笑著的。資料分析專題講座。沒有表演的尾牙。"
+    }
+  },
+  "9": {
+    "class_type": "PreviewAny",
+    "inputs": {
+      "source": [
+        "2",
+        1
+      ]
+    }
+  },
+  "8": {
+    "class_type": "SaveAudio",
+    "inputs": {
+      "audio": [
+        "2",
+        0
+      ],
+      "filename_prefix": "female-a-voice-selection-20261025/voice10-MOSS-v10"
+    }
+  }
+}

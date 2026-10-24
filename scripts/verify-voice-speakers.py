@@ -14,6 +14,7 @@ ROOT=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--model',type=Path,required=True,help='Existing SoulX campplus.onnx checkpoint; no downloads')
 parser.add_argument('--output',type=Path,default=ROOT/'docs/evidence/voice-speakers.json')
+parser.add_argument('--engine',choices=['SoulX','MOSS'],default='SoulX')
 args=parser.parse_args()
 torch.set_num_threads(2)
 options=ort.SessionOptions();options.intra_op_num_threads=2;options.inter_op_num_threads=1
@@ -32,7 +33,8 @@ def embedding(path):
 
 
 catalog=json.loads((ROOT/'configs/voices/female-a-v1.json').read_text(encoding='utf-8'))
-voices=catalog['voices'];ids=[item['voice_id'] for item in voices]
+voices=[item for item in catalog['voices'] if item['engine']==args.engine];ids=[item['voice_id'] for item in voices]
+if len(voices)!=10 or len(set(ids))!=10:raise RuntimeError('Expected ten distinct references for '+args.engine)
 reference=np.array([embedding(ROOT/item['reference']) for item in voices])
 generated=np.array([embedding(ROOT/item['repository_audio']) for item in voices])
 scores=generated@reference.T
@@ -42,7 +44,7 @@ for index,item in enumerate(voices):
     nearest=int(np.argmax(scores[index]))
     items.append({'id':item['voice_id'],'audio_sha256':item['sha256'],'nearest_reference':ids[nearest],
                   'matches_registered_reference':nearest==index,'reference_cosines':{identity:round(float(value),5) for identity,value in zip(ids,scores[index])}})
-report={'model':'SoulX campplus.onnx','provider':'CPUExecutionProvider','checked_at':datetime.datetime.now().astimezone().isoformat(),
+report={'model':'SoulX campplus.onnx','engine':args.engine,'provider':'CPUExecutionProvider','checked_at':datetime.datetime.now().astimezone().isoformat(),
         'reference_count':10,'generated_count':10,'matched_reference_count':sum(item['matches_registered_reference'] for item in items),
         'items':items,'generated_pairwise_cosines':{'voice_ids':ids,'values':[[round(float(value),5) for value in row] for row in pairwise]},
         'caveat':'Embedding similarity is an approximate comparison, not identity probability, proof of age, naturalness, MOS, or human listening.'}

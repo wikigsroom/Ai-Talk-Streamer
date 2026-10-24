@@ -1,77 +1,146 @@
 {
   "ok": true,
+  "revision": "female-a-voices-v2",
   "source": "deployed studio page",
   "checks": {
-    "ten_voices_three_models": true,
-    "ten_independent_references": true,
-    "all_twelve_real_audio_files_decode_and_play": true,
-    "single_shared_player_and_pause": true,
-    "shortlist_survives_reload": true,
-    "export_retains_reference_transcript_workflow_and_hash": true,
-    "rate_pitch_preservation_volume_and_seeking": true,
+    "default_shows_ten_moss_voices": true,
+    "all_twenty_one_real_files_decode_and_play": true,
+    "ten_moss_and_ten_soulx_tabs": true,
+    "single_player_preserves_model_name": true,
+    "same_reference_cross_model_button": true,
+    "cross_model_shortlist_survives_reload": true,
+    "export_distinguishes_same_voice_with_two_models": true,
+    "comparison_dropdown_has_matching_actual_models": true,
+    "rate_volume_seek_preserve_pitch": true,
     "desktop_no_horizontal_overflow": true,
     "mobile_no_horizontal_overflow": true,
-    "reset_and_disabled_empty_export": true,
+    "reset_clears_both_models": true,
     "no_page_script_errors": true
   },
   "audio": [
     {
+      "id": "benchmark-moss-v01",
+      "engine": "MOSS",
+      "seconds": 8.08,
+      "played": true
+    },
+    {
+      "id": "voice02-moss-v02",
+      "engine": "MOSS",
+      "seconds": 7.760042,
+      "played": true
+    },
+    {
+      "id": "voice03-moss-v03",
+      "engine": "MOSS",
+      "seconds": 8.4,
+      "played": true
+    },
+    {
+      "id": "voice04-moss-v04",
+      "engine": "MOSS",
+      "seconds": 6.88,
+      "played": true
+    },
+    {
+      "id": "voice05-moss-v05",
+      "engine": "MOSS",
+      "seconds": 8.48,
+      "played": true
+    },
+    {
+      "id": "voice06-moss-v06",
+      "engine": "MOSS",
+      "seconds": 7.76,
+      "played": true
+    },
+    {
+      "id": "voice07-moss-v07",
+      "engine": "MOSS",
+      "seconds": 7.52,
+      "played": true
+    },
+    {
+      "id": "voice08-moss-v08",
+      "engine": "MOSS",
+      "seconds": 8.72,
+      "played": true
+    },
+    {
+      "id": "voice09-moss-v09",
+      "engine": "MOSS",
+      "seconds": 7.28,
+      "played": true
+    },
+    {
+      "id": "voice10-moss-v10",
+      "engine": "MOSS",
+      "seconds": 7.92,
+      "played": true
+    },
+    {
       "id": "benchmark-soulx-v01",
+      "engine": "SoulX",
       "seconds": 7.6,
       "played": true
     },
     {
       "id": "voice02-soulx-v02",
+      "engine": "SoulX",
       "seconds": 7.68,
       "played": true
     },
     {
       "id": "voice03-soulx-v03",
+      "engine": "SoulX",
       "seconds": 7.76,
       "played": true
     },
     {
       "id": "voice04-soulx-v04",
+      "engine": "SoulX",
       "seconds": 7.28,
       "played": true
     },
     {
       "id": "voice05-soulx-v05",
+      "engine": "SoulX",
       "seconds": 7.2,
       "played": true
     },
     {
       "id": "voice06-soulx-v06",
+      "engine": "SoulX",
       "seconds": 7.48,
       "played": true
     },
     {
       "id": "voice07-soulx-v07",
+      "engine": "SoulX",
       "seconds": 8.56,
       "played": true
     },
     {
       "id": "voice08-soulx-v08",
+      "engine": "SoulX",
       "seconds": 7.28,
       "played": true
     },
     {
       "id": "voice09-soulx-v09",
+      "engine": "SoulX",
       "seconds": 5.68,
       "played": true
     },
     {
       "id": "voice10-soulx-v10",
+      "engine": "SoulX",
       "seconds": 8.48,
       "played": true
     },
     {
-      "id": "benchmark-moss-v01",
-      "seconds": 8.08,
-      "played": true
-    },
-    {
       "id": "benchmark-firered-v01",
+      "engine": "FireRed",
       "seconds": 5.28,
       "played": true
     }
@@ -81,5 +150,5 @@
     "docs/media/voice-selection-mobile.png"
   ],
   "browser_closed": true,
-  "captured_at": "2026-10-24T17:01:55.543Z"
+  "captured_at": "2026-10-24T17:46:27.793Z"
 }
