@@ -10,7 +10,7 @@ A tested **RTX 3080 10 GB / 64 GB RAM** version retains the original batch-8 FP1
 
 ![Actual studio while speaking](docs/media/studio-speaking.png)
 
-Five additional adult-host concepts, all in enclosed rooms at night, are available in [nighttime character selection](docs/CHARACTER_SELECTION.md), with an overview, original images, prompts and an offline comparison page.
+Five additional adult-host concepts, all in enclosed rooms at night, are available in [nighttime character selection](docs/CHARACTER_CAMERA_V3.md). V3 recomposes 01–03 as a phone-chat close-up, frontal desk stream and **Clove (暮蝶) cosplay** presentation, with original images, visual reference notes, prompts and an offline comparison page.
 
 ## See the result
 

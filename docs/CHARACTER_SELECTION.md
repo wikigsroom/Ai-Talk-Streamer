@@ -1,4 +1,8 @@
-# 夜间人物与场景选型 / Nighttime character selection
+# V2 夜间人物与场景选型 / V2 nighttime character selection
+
+这是 V2 历史方案。当前机位修订与暮蝶 Cos 方案见 [V3 直播机位选型](CHARACTER_CAMERA_V3.md)。现有 `/selection.html` 已使用 V3；下述原图与 V2 包保留用于比较。
+
+This page records the historical V2 concepts. See [V3 camera selection](CHARACTER_CAMERA_V3.md) for current framing and Clove cosplay. The shared selection page now shows V3; the V2 image files and bundle remain available.
 
 本轮使用 **sub2-image-gen / gpt-image-2.5 / high** 实际生成五位不同的虚构成年女性角色，统一满足：**夜晚、封闭室内、人工照明、窗外不可见、竖屏构图**。
 
@@ -27,7 +31,7 @@ The archive is generated at `outputs/character-selection/night-character-selecti
 复建展示与归档 / Rebuild the presentation and archive:
 
 ```powershell
-python -X utf8 -B devtools/build-character-selection.py
+python -X utf8 -B devtools/build-character-selection.py --revision v2
 ```
 
 This command packages the existing reviewed model outputs; it does not call an image generator or run GPU inference. It uses Pillow and the installed Microsoft YaHei font on Windows for the comparison sheet. Static checks and visual review cover this concept delivery; they do not demonstrate live speaking quality for the new candidates.

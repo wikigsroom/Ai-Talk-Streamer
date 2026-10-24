@@ -1,0 +1,53 @@
+{
+  "revision": "night-camera-angles-v3",
+  "checked_at": "2026-10-24",
+  "method": "Web search plus native isolated Chromium page captures; human visual inspection of publicly visible replay-page frames and a platform-hosted livestream screenshot. All research pages and browser processes were closed afterward.",
+  "scope_limit": "A small qualitative visual reference sample, not a survey of platform prevalence. Replay-page stills and indexed screenshots were checked; uninterrupted playback or live room viewing is not claimed. Angles, distances and focal lengths in the prompts are project design targets, not measured camera calibration.",
+  "sources": [
+    {
+      "id": "bilibili-desk",
+      "platform": "bilibili",
+      "url": "https://www.bilibili.com/video/BV1AQ4y197JR/",
+      "title": "（栗宝的声音）2021年6月2日真栗直播翻唱",
+      "inspection": "Native browser replay-page player still was visually inspected. The singing host is framed from the front with shoulders, chair and a side boom microphone; the surrounding recording contains chat and other participants.",
+      "applied_to": ["c02-student"],
+      "adaptation": "Use the practical monitor-side camera relationship for a front-facing student desk stream. Expand the lower framing to include both hands and the notebook; leave the mouth unobstructed. Do not copy the real host's face or branded overlays."
+    },
+    {
+      "id": "bilibili-front",
+      "platform": "bilibili",
+      "url": "https://www.bilibili.com/video/BV1Pb4y1D7Co/",
+      "title": "【咬人猫直播】跳变速舞蹈？！🌟小鱼干完美的你画我猜？录屏回播20210403",
+      "inspection": "Native browser replay-page player still was visually inspected. It shows a frontal seated human presenter, upper-body framing, an enclosed physical set and an offset microphone.",
+      "applied_to": ["c02-student", "c03-coser"],
+      "adaptation": "Keep a direct-to-viewer fixed camera and recognizable physical room. For the requested Clove costume, widen this frontal presentation concept to a standing mid-thigh frame so the jacket, belt and hands remain visible. The wider standing composition is a project adaptation, not a claim that the reference still is standing."
+    },
+    {
+      "id": "douyin-chat",
+      "platform": "douyin",
+      "url": "https://m.douyin.com/shipin/7616936639201331238",
+      "title": "温柔甜芯是谁 — public indexed livestream screenshot showing 盈公主",
+      "inspection": "The platform's indexed image on douyinpic.com was rendered in an isolated native browser and visually inspected. The vertical livestream screenshot shows a close, face-dominant, direct-to-viewer conversational composition with chest/shoulders and UI overlays.",
+      "access_limit": "The Douyin live home and regular video pages did not fully render during this check. Only the publicly indexed platform-hosted screenshot supports the visual observation; real-time playback is not claimed.",
+      "applied_to": ["c01-natural"],
+      "adaptation": "A compact frontal phone-chat close view with a mild downward camera angle; preserve the fictional bare-faced actor rather than the reference host's identity or makeup. Omit all platform UI from the generated clean feed."
+    },
+    {
+      "id": "clove-official",
+      "platform": "Riot Games / VALORANT",
+      "url": "https://playvalorant.com/en-us/agents/clove/",
+      "design_article": "https://playvalorant.com/en-us/news/game-updates/clove-death-is-only-the-beginning/",
+      "title": "Clove / Clove: Death Is Only The Beginning",
+      "inspection": "Official Riot character spotlight and design/article artwork were downloaded as local costume-reference inputs and visually inspected. Only the Clove images were passed to generation, not unrelated agents shown in article navigation.",
+      "applied_to": ["c03-coser"],
+      "adaptation": "Keep the fictional adult Chinese performer's facial identity and render Clove's short blue-violet/pink hair, outlined silver clips, pink hoodie jacket, white sleeves, zigzag choker, black straps, lime heart patch and purple utility trousers as physical cosplay. No animated face, battlefield or weapon. Official source artwork is not redistributed in the casting package."
+    }
+  ],
+  "decisions": [
+    {"id": "c01-natural", "camera": "Frontal phone-chat close-up, mild high angle", "purpose": "Intimate everyday conversation and a large readable face", "coverage": "Head to upper abdomen; forearms may enter the bottom edge"},
+    {"id": "c02-student", "camera": "Front-facing monitor-mounted desk medium close-up", "purpose": "Study companionship and chat with room for small hand gestures", "coverage": "Head to waist, both hands and tabletop"},
+    {"id": "c03-coser", "camera": "Front-facing wider cosplay presentation", "purpose": "Show Clove's recognizable costume while retaining a readable face", "coverage": "Head to mid-thigh, both complete hands"}
+  ],
+  "unchanged_candidates": ["c04-glamour", "c05-podcast"],
+  "requirements": ["all candidates are fictional adults", "nighttime", "enclosed indoor rooms", "opaque fully closed curtains or solid acoustic walls", "artificial indoor lighting", "9:16 delivery", "no production live-role switch"]
+}

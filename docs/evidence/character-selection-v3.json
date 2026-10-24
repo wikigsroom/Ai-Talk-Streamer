@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "source": "Actual V3 self-contained selection page; no mocked images or responses",
+  "screenshots": [
+    "docs/media/character-selection-v3-desktop.png",
+    "docs/media/character-selection-v3-mobile.png"
+  ],
+  "checks": {
+    "five_embedded_portraits_720x1280": true,
+    "clove_named_in_third_card": true,
+    "desktop_no_horizontal_overflow": true,
+    "shortlist_persists_on_reload": true,
+    "lightbox_opens_and_closes": true,
+    "export_preserves_revision_camera_and_character": true,
+    "reset_clears_selection": true,
+    "mobile_no_horizontal_overflow": true,
+    "no_page_script_errors": true
+  },
+  "browser_closed": true,
+  "captured_at": "2026-10-24T15:41:05.578Z"
+}

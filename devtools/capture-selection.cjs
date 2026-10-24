@@ -1,0 +1,53 @@
+// Capture and exercise the real static page without starting GPU workloads.
+const fs=require('fs'),path=require('path'),assert=require('assert');
+const {pathToFileURL}=require('url');
+const {chromium}=require('playwright-core');
+const root=path.resolve(__dirname,'..');
+const out=path.join(root,'docs/media'),evidence=path.join(root,'docs/evidence');
+const temporary=path.join(root,'cache/selection-capture');
+for(const folder of [out,evidence,temporary])fs.mkdirSync(folder,{recursive:true});
+const report={ok:false,source:'Actual V3 self-contained selection page; no mocked images or responses',screenshots:[],checks:{}};
+let browser;
+(async()=>{try{
+ browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,env:{...process.env,TEMP:temporary,TMP:temporary}});
+ const context=await browser.newContext({viewport:{width:1840,height:1600},acceptDownloads:true});
+ const page=await context.newPage();
+ const pageErrors=[];page.on('pageerror',error=>pageErrors.push(error.message));
+ const target=process.env.AVATAR_BASE_URL?process.env.AVATAR_BASE_URL.replace(/\/$/,'')+'/selection.html?v=3':pathToFileURL(path.join(root,'web/selection.html')).href;
+ await page.goto(target,{waitUntil:'load',timeout:30000});
+ await page.waitForFunction(()=>Array.from(document.querySelectorAll('.card img')).every(img=>img.complete&&img.naturalWidth===720&&img.naturalHeight===1280));
+ assert.equal(await page.locator('.card').count(),5);
+ assert((await page.locator('#c03-coser').innerText()).includes('暮蝶'));
+ assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+ report.checks.five_embedded_portraits_720x1280=true;
+ report.checks.clove_named_in_third_card=true;
+ report.checks.desktop_no_horizontal_overflow=true;
+ await page.locator('#reset').click();
+ await page.screenshot({path:path.join(out,'character-selection-v3-desktop.png'),fullPage:true});report.screenshots.push('docs/media/character-selection-v3-desktop.png');
+ await page.locator('[data-pick="c01-natural"]').click();
+ await page.locator('[data-pick="c03-coser"]').click();
+ assert.equal(await page.locator('.card.selected').count(),2);
+ await page.reload();
+ assert.equal(await page.locator('.card.selected').count(),2);report.checks.shortlist_persists_on_reload=true;
+ await page.locator('[data-open="c03-coser"]').click();
+ assert.equal(await page.locator('#lightbox').evaluate(dialog=>dialog.open),true);
+ assert((await page.locator('#largeCaption').innerText()).includes('暮蝶'));
+ await page.locator('#closeDialog').click();report.checks.lightbox_opens_and_closes=true;
+ const pending=page.waitForEvent('download');await page.locator('#export').click();const download=await pending;
+ const exportFile=path.join(temporary,'shortlist.json');await download.saveAs(exportFile);
+ const data=JSON.parse(fs.readFileSync(exportFile,'utf8'));
+ assert.deepEqual(data.selected.map(item=>item.number),['01','03']);
+ assert(data.selected.every(item=>item.revision==='night-camera-angles-v3'&&item.viewpoint));
+ assert(data.selected[1].cosplay_character.includes('Clove'));report.checks.export_preserves_revision_camera_and_character=true;
+ await page.locator('#reset').click();assert.equal(await page.locator('.card.selected').count(),0);report.checks.reset_clears_selection=true;
+ await page.setViewportSize({width:390,height:844});
+ await page.evaluate(()=>scrollTo(0,0));
+ assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);report.checks.mobile_no_horizontal_overflow=true;
+ await page.screenshot({path:path.join(out,'character-selection-v3-mobile.png'),fullPage:false});report.screenshots.push('docs/media/character-selection-v3-mobile.png');
+ assert.deepEqual(pageErrors,[]);report.checks.no_page_script_errors=true;
+ report.ok=true;
+}catch(error){report.error=error.message;process.exitCode=1;}
+finally{
+ if(browser)await browser.close();report.browser_closed=true;report.captured_at=new Date().toISOString();
+ fs.writeFileSync(path.join(evidence,'character-selection-v3.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));
+}})();
