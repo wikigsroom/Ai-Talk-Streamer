@@ -8,6 +8,11 @@ This is the documentation for the delivered **daylight dorm / portrait / local-m
 
 | Document / 文档 | Read it for / 内容 |
 | --- | --- |
+| [DSH + Humanity / 人格与持续记忆](DSH_HUMANITY.md) | Normative lifecycle, receipts, isolation, consolidation and recovery; implementation/acceptance status is separate / 状态、播放确认、隔离、压缩合并及恢复；实际状态见实施记录 |
+| [DSH implementation / 实施记录](dsh-humanity/IMPLEMENTATION.md) | Code map, channel inheritance, verified scope and outstanding gates / 代码、继承网页渠道、证据边界及剩余验收 |
+| [DSH runbook / 操作手册](dsh-humanity/RUNBOOK.md) | Native installation, broadcast timeline, schedules, corrections, deletion and restore / 原生安装、下播时间线、周期任务、更正、删除与恢复 |
+| [DSH acceptance / 验收记录](dsh-humanity/ACCEPTANCE.md) | A01–A40 evidence and remaining gates; S1–S5 require the real channel / 逐项证据及剩余门槛 |
+| [DSH media / 实机页面与录像](dsh-humanity/MEDIA.md) | Actual studio, memory UI, Echo recording and GIF; no cloud LLM in this capture / 真实页面、原文播报与来源记录 |
 | [MOSS 04 live / MOSS 04 实时播报](MOSS_LIVE.md) | Selected voice, actual local adapter, cancellation, warm-up and measured waiting time / 当前音色、本地适配器、打断、预热和等待实测 |
 | [Voices / 女A音色](VOICES.md) | Ten MOSS voices and ten matched SoulX voices, plus FireRed 01 / MOSS 十款与 SoulX 十款同号对照、FireRed 01、修改与重新生成 |
 | [RTX 3080 / 3080 部署](RTX3080.md) | Actual 10 GB tests, original batch-8 configuration, screenshots and explicit fallback order / 10 GB 实测、原始 batch 8、截图与降级顺序 |

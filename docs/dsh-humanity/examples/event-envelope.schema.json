@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Stored Stream Bridge Event Envelope v1",
+  "description": "Proposed project contract, not an upstream DSH event format. Event-specific payload validation is also mandatory.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "event_id", "event_seq", "event_type", "occurred_at", "received_at", "character_id", "room_id", "broadcast_id", "request_id", "utterance_id", "runtime_epoch", "generation", "source_revision", "actor", "payload", "payload_sha256"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "event_id": {"type": "string", "minLength": 1, "maxLength": 96},
+    "event_seq": {"type": "integer", "minimum": 1},
+    "event_type": {"type": "string", "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$"},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "received_at": {"type": "string", "format": "date-time"},
+    "character_id": {"type": "string", "minLength": 1, "maxLength": 96},
+    "room_id": {"type": "string", "minLength": 1, "maxLength": 96},
+    "broadcast_id": {"type": ["string", "null"], "minLength": 1, "maxLength": 96},
+    "request_id": {"type": ["string", "null"], "minLength": 1, "maxLength": 96},
+    "utterance_id": {"type": ["string", "null"], "minLength": 1, "maxLength": 96},
+    "runtime_epoch": {"type": "integer", "minimum": 0},
+    "generation": {"type": ["integer", "null"], "minimum": 0},
+    "source_revision": {"type": "integer", "minimum": 1},
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": {"enum": ["viewer", "operator", "model", "media", "playback", "scheduler", "system"]},
+        "id": {"type": "string", "minLength": 1, "maxLength": 160}
+      }
+    },
+    "payload": {"type": "object"},
+    "payload_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

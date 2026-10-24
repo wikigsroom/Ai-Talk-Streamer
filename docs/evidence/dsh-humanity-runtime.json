@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-24T23:40:42.259398+00:00",
+  "overall_acceptance": "incomplete",
+  "scope": "Native module tests, actual DSH/Humanity with a controlled HTTP model, and real local-media Echo tests; user cloud channel has not passed",
+  "module_tests": {
+    "node_passed": 33,
+    "python_viewer_buffer_passed": 3,
+    "native_aiohttp_cors_routes_passed": true,
+    "native_route_count": 15,
+    "legacy_speech_bypass_blocked": true,
+    "migration_newline_compatibility_passed": true
+  },
+  "host_probe": {
+    "kind": "real_dsh_humanity_with_controlled_http_model",
+    "passed": true,
+    "cloud_channel_exercised": false,
+    "negative_source": "official_minimal_preset",
+    "context_data_verified": true,
+    "persona_inflight_snapshot": true,
+    "projection_crud": true,
+    "restart_publication": true,
+    "request_count": 7
+  },
+  "synthetic_memory_load": {
+    "schema_version": 1,
+    "kind": "synthetic_partition_retrieval",
+    "records_per_partition": 5000,
+    "partitions": 2,
+    "samples": 20,
+    "p50_ms": 25.766200000000026,
+    "p95_ms": 32.6182000000008,
+    "target_p95_ms": 150,
+    "target_met": true,
+    "rss_bytes": 179224576,
+    "database_bytes": 13545472,
+    "wal_bytes": 13760832,
+    "claims_long_duration_stability": false
+  },
+  "cloud_channel": {
+    "model": "gpt-6-luna",
+    "protocol": "responses",
+    "source": "studio_channel_env",
+    "compatibility_passed": false,
+    "reason": "HTTP response timeout; no credential or endpoint exported",
+    "last_connectivity_observation": "Bounded unauthenticated model-list request still timed out; no channel substitution"
+  },
+  "live_scenarios": {
+    "S1": "pending_real_channel",
+    "S2": "pending_real_channel",
+    "S3": "pending_real_channel",
+    "S4": "pending_real_channel",
+    "S5": "pending_real_channel"
+  },
+  "code_sha256": {
+    "backend/dsh-bridge/auth.mjs": "e063e7f5128ad76c90e1251980c64f80be06eafcfabc2e62e3486b2c25471658",
+    "backend/dsh-bridge/channel.mjs": "b6b4437dc772dbb163f2e0e95364fdbc2032c904f8e185e6c634c6142bcb3baa",
+    "backend/dsh-bridge/host.mjs": "95125209a4d3df37343ff66d443fe8b9c7f2648429e3d1cad515554589967118",
+    "backend/dsh-bridge/humanity-port.mjs": "09843503605e51cebac3952175176c64f3da84d465d83f5204f1299a91ca70f6",
+    "backend/dsh-bridge/package-lock.json": "2f31c18f71deba93153e6e602ece1652589b1f77df25416ee246b067d20c5a94",
+    "backend/dsh-bridge/package.json": "dd1aad8ccf604d32c276a95ee00e2be01a953dea82f21c88f8601232a53b8076",
+    "backend/dsh-bridge/persona.mjs": "adeef02c55da9b710f5916de90aa8698349238a734b8cc06abfa29dd47037457",
+    "backend/dsh-bridge/policy.mjs": "d3b80997331f64772df7c0d99135ada720f98401a861b1293898fdb83cf98a23",
+    "backend/dsh-bridge/server.mjs": "b3bb6b1553b8987eed78515de5ee88028aeade8fc8d66c519381facaca236504",
+    "backend/dsh-bridge/state.mjs": "0f19736fbf2da97d605ab98bfe898eef13d2a2c4d56c71962b404ca9a67b52fe",
+    "backend/memory/administration.mjs": "fe01b61ff6ed3210f0f16d2507489cc4065af163afcaf62a6b1bf27d24af3652",
+    "backend/memory/migrations/001-init.sql": "05200dedb805035a3a3a41533f7890981d1c977272e02fcb177bd3b406e1f267",
+    "backend/memory/migrations/002-runtime.sql": "e0779fea6be494893d6443ab6dac4f57fe4c3b8c6275daffbf04a5d522f65913",
+    "backend/memory/restore.mjs": "54633cbfcc503582b7c5c2c522f6b086e0549b30499d8b5a174f739ed1d2409c",
+    "backend/memory/scheduler.mjs": "165cf7c504d440e58a7e69224a13ee9194398a47ff8c55fa64cdd568f0aea738",
+    "backend/memory/service.mjs": "9090672628e663e9676ce0bfcd556598bced9d4a4a1c4f12108558671c76916c",
+    "backend/memory/store.mjs": "f7b688318f607b69da166e7264b85bc0a52e08594cf24cf80551fbb0a762a17a",
+    "deployment/activate_studio.py": "23cf480e002f715ff8e0f134641a8289e0ea3fa8264544b918152522e9f365c5",
+    "deployment/deploy_dsh.py": "43416934f7ca368f58014d9aa8ff3b049b0d4752cfcd353d38648bec4f4d7ee6",
+    "deployment/install_dsh.ps1": "0de32c62968f0666c0e9aa68060766fdb55fdcdaf672861f4bffb7db420f80f5",
+    "deployment/patch_humanity.py": "abb8e43b57acde1eb4bfa06d8c75201495c4872059dc3e9aa52428eb9dac8949",
+    "deployment/restart_avatar_for_dsh.py": "974efc993e16e39e722d0582cc3fc269f57b0f7a36f3136eab4eb72627afc06c",
+    "integration/dsh_bridge.py": "03540f64bb934b98cfe8f90b5b9cf46eb933f95396e6330de9e73e18887fd2e6",
+    "integration/local_broadcast.py": "5656763baac1449f027be38cb5b89d6fab1fd5ae0a7e471a9359802c97d5ee11",
+    "integration/moss_tts.py": "dba5cb09065910279fedad6e2ea4866cf7b514218748637c5bf27deb79648c72",
+    "integration/obs.html": "682a36adc61a3622cc3d0446c6e688de2519d2526fb3bab8285157c4eaefa9f9",
+    "integration/studio_routes.py": "88b6b005c8ad890e4a665ce520a6b6687492895ca60727a6e48c996adffb5aed",
+    "integration/viewer_buffer.py": "b0abb874a1d38869accb88e10e012cc06f971bd07c38f5f875d421bf43a9c6a2",
+    "scripts/dsh_control.py": "f3f17cbdb2a82adf1d60c8606affb6b146dd21960980770b13cc4e8945a19569",
+    "scripts/gpu_worker.py": "ec64e02cdbc99bcea8178a47cd83eb18c988aa0d92de97248375ccb65f705f22",
+    "tests/dsh-auth.test.mjs": "3ec52fa546dd0a366e2473c2322516c3b6bf1c65f3234693a122c15297c3cc24",
+    "tests/dsh-authority-smoke.cjs": "607b7e456885481faf6cb2a91989309e48e19eb986c932d8a741423a5bfe460d",
+    "tests/dsh-host-probe.mjs": "4c771655ab44a52def455917970983164c49c88039df8a698832eba2a3a014fc",
+    "tests/dsh-maintenance.test.mjs": "5fb160eee64f0df1c3e679349c009a2ca77ccc09f98fd0a3dcb46cf1237f34eb",
+    "tests/dsh-media-smoke.cjs": "86ce848dc39285918c718df761e99d8b11c52115a50be61bb6c93770320bc7fc",
+    "tests/dsh-memory-load.mjs": "0bcba8be1eacf86d2492795ba8360ea6bbdc0fd0f5e4212d3e4dcdbc20d721a2",
+    "tests/dsh-playback.test.mjs": "0ce3b6f4daa33ddc02302d8c5977fe20dc6b709744c16e37b4bc9f7a1e474439",
+    "tests/dsh-state.test.mjs": "a6f1fa6e8014c2b0e90c058b5019f20cbaabb723b5af2a043935a0f6a2b836ba",
+    "tests/dsh_routes_probe.py": "eed29da9c6b9685e29aa37158bda164d9b876d133d0364759c0c2531f34383a6",
+    "tests/fixtures/dsh-crash-worker.mjs": "ac0a5200179e4b391f885621a53d5d973a77ff9ab906efa96fbc37816b58de5a",
+    "tests/test_dsh_viewer_buffer.py": "9c1a4c067b4f5353e1a263a55479a1a479399f8f3ce2665df83c1ea662c03248",
+    "web/browser-id.js": "59238fedc35b3caf1884d43d86f1a40ffa259908a262ef7b1cfe66bee2744705",
+    "web/dsh-playback.js": "9d427ddc9e1f0a63e9d6a99aed89d27eecbf5890f29af58a26fb234fb1fbc2af",
+    "web/dsh-studio.css": "23a775cae675103834d736927ae1872f7e7e96a21070b4ca2ff68d129f813d74",
+    "web/dsh-studio.js": "7cba186a796292d2ec58d48bacf6d181ee464ad26ee0b173139e7686217188a8",
+    "web/local-stream.js": "e82cbfa5848b58274531cf6ee9b991a3e48e088b5785fae3578f3f4119d2cd9e",
+    "web/memory.css": "2d4afa3ece7c78b6f82713c58347a89ed819d38eebb7e7e3de5eed6aa8d67b3a",
+    "web/memory.html": "0dfe463bc92bb5a759f2a37b9e9dc51cc42601cfc7e6e54954e87ed964321df6",
+    "web/memory.js": "3a09c4b8d92637b91dc3de098308ffb4728c007b6509ca531237e1906be8a98d",
+    "web/studio.html": "eb70ddc6dade3ccd6e6aeb2adb49dc3c12a858bc6ec1aee489f905888590fcee",
+    "web/studio.js": "21e8015b1b33bc1a40fbb21546ea7610189967759140b60f972567313f3da176"
+  },
+  "real_media_echo": {
+    "schema_version": 1,
+    "passed": true,
+    "kind": "real_media_echo_smoke",
+    "cloud_llm_exercised": false,
+    "requests": [
+      {
+        "request_id": "req-1ef994bc-a197-40ed-a2b2-3489e04e5ce5",
+        "status": "COMPLETED"
+      },
+      {
+        "request_id": "req-81788d1e-bfb7-456c-8af6-a85062e3843a",
+        "status": "COMPLETED"
+      }
+    ],
+    "metrics": {
+      "frames": 858,
+      "received_frames": 907,
+      "presented_frames": 858,
+      "fps": 25.379015561362692,
+      "fps_source": "video_presentation",
+      "width": 720,
+      "height": 1280,
+      "audio_samples": 580480,
+      "audio_energy": 0.040734068775200305,
+      "audio_underruns": 0,
+      "target_audio_buffer_ms": 2400,
+      "audio_buffer_ms": 2001.1791383213265,
+      "missing_packets": 0,
+      "server_skipped_video_frames": 0,
+      "skipped_video_frames": 0,
+      "decode_errors": 0,
+      "max_arrival_gap_ms": 162,
+      "connected": true
+    },
+    "audio_gap_max_ms": 0,
+    "audio_resets": 0,
+    "browser_errors": []
+  },
+  "real_authority_handover": {
+    "schema_version": 1,
+    "checked_at": "2026-10-24T23:35:00.331Z",
+    "passed": true,
+    "kind": "real_two_chrome_players_with_obs_source_page",
+    "cloud_llm_exercised": false,
+    "obs_application_exercised": false,
+    "preview_cannot_claim": true,
+    "obs_chat_forbidden": true,
+    "old_authority_revoked": true,
+    "partial_played_samples": 19372,
+    "requests": [
+      {
+        "request_id": "req-d0481729-45ec-4302-8306-b45b835d357e",
+        "status": "INTERRUPTED"
+      },
+      {
+        "request_id": "req-ae651407-bce0-4aa9-8cce-6f33d8503b56",
+        "status": "COMPLETED"
+      }
+    ],
+    "browser_errors": []
+  },
+  "media_run_health_sample": {
+    "checked_at": "2026-10-24T23:35:52.742724+00:00",
+    "broadcast_state": "OFFAIR",
+    "health": {
+      "state_store_ready": true,
+      "dsh_ready": true,
+      "persona_injection_ready": false,
+      "memory_ready": true,
+      "projection_synced": true,
+      "tts_ready": true,
+      "avatar_ready": true,
+      "rss_bytes": 65990656,
+      "node": "v24.22.1",
+      "versions": {
+        "dsh": "0.2.0-rc.2",
+        "humanity": "0.1.17",
+        "connector": "stream-humanity-v1"
+      }
+    }
+  },
+  "final_local_health": {
+    "checked_at": "2026-10-24T23:40:42.442486+00:00",
+    "broadcast_state": "OFFAIR",
+    "health": {
+      "state_store_ready": true,
+      "dsh_ready": true,
+      "persona_injection_ready": false,
+      "memory_ready": true,
+      "projection_synced": true,
+      "tts_ready": true,
+      "avatar_ready": true,
+      "rss_bytes": 85647360,
+      "node": "v24.22.1",
+      "versions": {
+        "dsh": "0.2.0-rc.2",
+        "humanity": "0.1.17",
+        "connector": "stream-humanity-v1"
+      }
+    }
+  },
+  "test_cleanup_and_route_guard": {
+    "own_test_chrome_processes_remaining": [],
+    "production_legacy_routes": {
+      "human": {
+        "status": 409,
+        "error": "DSH_LEGACY_ROUTE_DISABLED"
+      },
+      "humanaudio": {
+        "status": 409,
+        "error": "DSH_LEGACY_ROUTE_DISABLED"
+      },
+      "set_audiotype": {
+        "status": 409,
+        "error": "DSH_LEGACY_ROUTE_DISABLED"
+      },
+      "interrupt_talk": {
+        "status": 409,
+        "error": "DSH_LEGACY_ROUTE_DISABLED"
+      },
+      "record": {
+        "status": 409,
+        "error": "DSH_LEGACY_ROUTE_DISABLED"
+      }
+    }
+  },
+  "gpu_sample": {
+    "used_mib": 9382,
+    "total_mib": 10240,
+    "utilization_percent": 0,
+    "kind": "short_offair_resident_models_sample"
+  },
+  "code_hash_format": "SHA-256 of UTF-8 text normalized to LF; source publication, not raw deployment-file bytes",
+  "raw_result_sha256": {
+    "unit-tests.tap": "e1257d1a6437208345ecbacb8a5860afb7ffc71e857e64a3da64f9a2c04ba9d6",
+    "python-tests.txt": "4e03226ee98dfad44ced05a97822fbbd1615322eb05412ad94733253648a2088",
+    "host-probe.json": "594a8f9980dd1d0d70a3f90455b5b42ef72c5c9675f663245d834e06cf511248",
+    "memory-load.json": "df93659f7eebfabd0ab571b9c608a71fb9faa75e4c26a887c3c24869dae476da",
+    "accepted/media-smoke.json": "d6dfd3ed988d7b20a0c2b5f6c2c6138b05df047064a150e2a8a808de1ad1bf70",
+    "accepted/authority-smoke.json": "5e0c5f95015bbd39355a28b4a3d32612ab105a680f933e01a09aaadde6703a11"
+  }
+}

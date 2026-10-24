@@ -1,0 +1,96 @@
+{
+  "checked_at": "2026-10-24T23:43:04.902519+00:00",
+  "scope": "Current normative documents, embedded/standalone JSON and SQLite example initialization only; runtime evidence is separate",
+  "result": "passed",
+  "document_count": 9,
+  "example_count": 5,
+  "sqlite_version": "3.45.3",
+  "sqlite_tables": 21,
+  "embedded_json_count": 5,
+  "normative_constraints": 16,
+  "acceptance_definitions": 40,
+  "real_channel_scenario_definitions": 5,
+  "runtime_tests_executed_by_this_validator": false,
+  "checks": [
+    "nine documents and five standalone examples",
+    "balanced fences: DSH_HUMANITY.md",
+    "balanced fences: ACCEPTANCE.md",
+    "balanced fences: CONTRACTS.md",
+    "balanced fences: IMPLEMENTATION.md",
+    "balanced fences: LIVE_STATE.md",
+    "balanced fences: MEDIA.md",
+    "balanced fences: MEMORY_PIPELINE.md",
+    "balanced fences: OPERATIONS_TESTING.md",
+    "balanced fences: RUNBOOK.md",
+    "embedded JSON examples parse",
+    "all standalone JSON artifacts parse",
+    "model timeout remains below the maintenance lease",
+    "quiet window and schedule timezone",
+    "daily and weekly schedule defaults",
+    "sixteen normative constraints",
+    "forty acceptance definitions",
+    "five real-channel scenario definitions",
+    "SQLite base schema initializes with twenty-one application tables",
+    "base schema foreign keys",
+    "base schema integrity"
+  ],
+  "artifact_hash_format": "SHA-256 of UTF-8 text normalized to LF",
+  "artifacts": [
+    {
+      "path": "docs/DSH_HUMANITY.md",
+      "sha256": "59e3f30ccd5feb0e812801f5c92c9a9a4f86ef18c5d5f087c2258d166ade43d1"
+    },
+    {
+      "path": "docs/dsh-humanity/ACCEPTANCE.md",
+      "sha256": "54c7006af47fe893fb212833b229edd12ca90bd112bb8121593196bc8430fe29"
+    },
+    {
+      "path": "docs/dsh-humanity/CONTRACTS.md",
+      "sha256": "9428ea2e9f382c11a0f641cb811f26204a4d6ff69bc6bf48799995801fa9329d"
+    },
+    {
+      "path": "docs/dsh-humanity/IMPLEMENTATION.md",
+      "sha256": "f9fe65f1f1db5241130d3badc82b1892431e7ca169db64cd2b77a14776a8f6c9"
+    },
+    {
+      "path": "docs/dsh-humanity/LIVE_STATE.md",
+      "sha256": "3107c591aa65d74ac1de6f8c72a1f6e8092ff8380d04413c7bf0e5c65d2e9e92"
+    },
+    {
+      "path": "docs/dsh-humanity/MEDIA.md",
+      "sha256": "91b27bbba9d77607a36b5b0fc0c6334156c854a403830d7954802b7ae11f5625"
+    },
+    {
+      "path": "docs/dsh-humanity/MEMORY_PIPELINE.md",
+      "sha256": "77452089d6ef5d33e29e4fd635bd483694bf20bdaece75a574e8719a04afce20"
+    },
+    {
+      "path": "docs/dsh-humanity/OPERATIONS_TESTING.md",
+      "sha256": "e0ca61b6160072d4254b52d4e8e88cfa0cc5b68e71e67b1e2987267f73b743d7"
+    },
+    {
+      "path": "docs/dsh-humanity/RUNBOOK.md",
+      "sha256": "bf1dabfa7d8886e4dc20a58572f384bdb89146413d96ce20ef6bac93b9506c12"
+    },
+    {
+      "path": "docs/dsh-humanity/examples/bridge-policy.example.json",
+      "sha256": "a74c1cc4647bfe0f9e498b96d0add2669100062414b33477f1715f21536c063b"
+    },
+    {
+      "path": "docs/dsh-humanity/examples/compatibility-snapshot.json",
+      "sha256": "d37f34d85aaa3baca32038a06dabca5785e17fad34473007cf7f4c292428542f"
+    },
+    {
+      "path": "docs/dsh-humanity/examples/event-envelope.schema.json",
+      "sha256": "27f731bad255da1b420cbef1541d5e2f34a6216cb65d28b905188861561d20c7"
+    },
+    {
+      "path": "docs/dsh-humanity/examples/humanity-config.example.json",
+      "sha256": "39877a34c4c9e1654c358142b5ce106672d2c05f5c53d8353d553d3963bbbb89"
+    },
+    {
+      "path": "docs/dsh-humanity/examples/state-schema.sql",
+      "sha256": "05200dedb805035a3a3a41533f7890981d1c977272e02fcb177bd3b406e1f267"
+    }
+  ]
+}

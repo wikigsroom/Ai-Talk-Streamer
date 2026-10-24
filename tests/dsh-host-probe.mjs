@@ -1,0 +1,66 @@
+import { createServer } from 'node:http';
+import { DshHost } from '../backend/dsh-bridge/host.mjs';
+import { initialPersona } from '../backend/dsh-bridge/persona.mjs';
+import { loadPolicy } from '../backend/dsh-bridge/policy.mjs';
+import { canonical } from '../backend/dsh-bridge/channel.mjs';
+import assert from 'node:assert/strict';
+import { resolve } from 'node:path';
+import { mkdirSync, writeFileSync } from 'node:fs';
+const root = resolve(process.argv[2]), runtime = resolve(process.argv[3]);
+const policy = structuredClone(loadPolicy(root));
+policy.deployment.dsh_home_relative_path = 'state/dsh-host-test-' + Date.now();
+const requests = [], probes = [];
+let toolCalls = 0;
+let holdRequest;
+const server = createServer(async (req, res) => {
+  const chunks = []; for await (const chunk of req) chunks.push(chunk);
+  const body = JSON.parse(Buffer.concat(chunks)); requests.push(body);
+  if(holdRequest){const pending=holdRequest;holdRequest=null;pending.started();await pending.wait;}
+  const first = !body.messages.some(m => m.role === 'tool'),maintenance=body.tools?.some(t=>t.function.name==='stream_maintenance_result');
+  const name=maintenance?'stream_maintenance_result':'stream_memory_recall';
+  const delta = first ? { role: 'assistant', tool_calls: [{ index: 0, id: 'call_mem_1', type: 'function', function: { name, arguments: '{"data":"{}"}' } }] } : { role: 'assistant', content: '我是林知夏，很高兴和你聊天。' };
+  res.writeHead(200, { 'Content-Type': 'text/event-stream' });
+  for (const data of [{ choices: [{ index: 0, delta, finish_reason: null }] }, { choices: [{ index: 0, delta: {}, finish_reason: first ? 'tool_calls' : 'stop' }], usage: { prompt_tokens: 120, completion_tokens: 12, total_tokens: 132 } }]) res.write('data: ' + JSON.stringify({ id: 'chatcmpl-test', object: 'chat.completion.chunk', created: 1, model: 'probe', ...data }) + '\n\n');
+  res.end('data: [DONE]\n\n');
+});
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+let host;
+try {
+  host = await new DshHost(root, runtime, policy).start();
+  const persona = initialPersona(root);
+  await host.publishCharacter(persona.document, persona.version);
+  const snapshot = { revision: 'test', model: 'probe', protocol: 'chat_completions', baseUrl: 'http://127.0.0.1:' + server.address().port + '/v1', systemPrompt: '', getApiKey: () => 'test-key' };
+  let announce,release;const started=new Promise(resolve=>announce=resolve),wait=new Promise(resolve=>release=resolve);holdRequest={started:announce,wait};
+  const inFlight = host.generate({ sessionId: 'probe-' + Date.now(), snapshot, input: '你是谁？请先查询记忆。',context:canonical({test_context:'source-context-sentinel',confirmed_memory:{public:[],viewer:[]}}),
+    tools: async () => { toolCalls++; return { facts: [] }; }, onProbe: probe => probes.push(probe) });
+  await started;
+  const nextPersona=structuredClone(persona.document);nextPersona.mutableLayer.sections[0].items.push('新一版人格快照哨兵。');
+  await host.publishCharacter(nextPersona,'test-persona-v2');release();const result=await inFlight;
+  assert.ok(requests.slice(0,2).every(row=>!JSON.stringify(row).includes('新一版人格快照哨兵')));
+  assert.equal(toolCalls, 1); assert.equal(result.text, '我是林知夏，很高兴和你聊天。');
+  assert.ok(probes.every(p => p.has_persona)); assert.equal(host.active.size, 0);
+  assert.deepEqual(probes[0].tools.sort(), ['stream_memory_propose', 'stream_memory_recall']);
+  assert.equal(host.port.probe().injection_enabled, false);
+  assert.ok(JSON.stringify(requests[0]).includes('source-context-sentinel'));
+  await host.generate({sessionId:'new-persona-'+Date.now(),snapshot,input:'next persona',tools:async()=>({})});
+  assert.ok(JSON.stringify(requests[2]).includes('新一版人格快照哨兵'));
+  const negative=[];
+  await host.generate({sessionId:'negative-'+Date.now(),snapshot,input:'negative',negativeMinimal:true,tools:async()=>({}),onProbe:p=>negative.push(p)});
+  assert.ok(negative.every(p=>!p.has_persona));
+  let maintenanceResults=0;
+  await host.generate({sessionId:'maintenance-'+Date.now(),snapshot,input:'maintenance',maintenance:true,tools:async()=>{maintenanceResults++;return {received:true};}});
+  assert.equal(maintenanceResults,1);
+  const projection={operation_id:'probe-memory-1',memory_id:'public-probe',memory_revision:1,action:'UPSERT',character_id:'female-a',room_id:'room-main',visibility:'public',subject_key:'public',content:'测试公共约定一',source_event_id:'probe',tags:[]};
+  const first=await host.port.applyPublicProjection(projection);await host.port.applyPublicProjection(projection);
+  const second=await host.port.applyPublicProjection({...projection,operation_id:'probe-memory-2',memory_revision:2,content:'测试公共约定二'});
+  assert.notEqual(first.dedupe_key,second.dedupe_key);assert.equal(host.port.inspectProjection('public-probe').entry.content,'测试公共约定二');
+  await host.port.applyPublicProjection({...projection,operation_id:'probe-memory-3',memory_revision:3,action:'REMOVE'});
+  assert.equal(host.port.inspectProjection('public-probe').entry,null);
+  await host.close();host=await new DshHost(root,runtime,policy).start();
+  await host.publishCharacter(JSON.parse(canonical(nextPersona)),'test-persona-v2');
+  assert.equal(host.port.readPersona().publication.persona_version,'test-persona-v2');
+  const out = { passed: true,kind:'real_dsh_humanity_with_controlled_http_model',cloud_channel_exercised:false,result,probes,negative_control:negative,negative_source:'official_minimal_preset',context_data_verified:true,persona_inflight_snapshot:true,maintenance_tool_results:maintenanceResults,projection_crud:true,restart_publication:true,request_count: requests.length, connector: host.port.probe() };
+  const evidence = resolve(root, 'outputs/dsh-humanity'); mkdirSync(evidence, { recursive: true });
+  writeFileSync(resolve(evidence, 'host-probe.json'), JSON.stringify(out, null, 2));
+  console.log(JSON.stringify(out));
+} finally { await host?.close(); await new Promise(resolve => server.close(resolve)); }

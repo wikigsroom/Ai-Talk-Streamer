@@ -8,6 +8,8 @@ The included character is **女A / Lin Zhixia (林知夏)**, a **fictional 22-ye
 
 The original **RTX 3080 10 GB / 64 GB RAM** GPT-SoVITS version retains batch-8 FP16 models, the full motion bank and 720×1280 output. The selected MOSS version uses batch 4 after batch-8 playback failed validation. Browser playback counts presented frames and preserves queued audio when a viewer falls behind. See the [3080 measurements](docs/RTX3080.md), [playback correction](docs/PLAYBACK.md) and [MOSS validation](docs/MOSS_LIVE.md).
 
+**DSH + Humanity backend:** a native implementation now adds a versioned personality, isolated viewer memory, a broadcast/playback ledger, and persistent post-broadcast, daily and weekly maintenance. It inherits the studio's saved API/model configuration. See the [full specification](docs/DSH_HUMANITY.md), [native runbook](docs/dsh-humanity/RUNBOOK.md), [current acceptance](docs/dsh-humanity/ACCEPTANCE.md), and [actual pages, recording and GIF](docs/dsh-humanity/MEDIA.md). Local Echo completion/cancellation/recovery and a controlled DSH/Humanity host probe have passed; the latest user-channel check timed out, so real AI dialogue and the five new memory scenarios remain unaccepted.
+
 ![Actual studio while speaking](docs/media/studio-speaking.png)
 
 **Female-A voice casting:** [ten MOSS voices, ten matching SoulX voices and a FireRed reference comparison](docs/VOICES.md), synthesized on the RTX 3080. Open `/voices.html?v=2` for real audio playback, model switching, shortlisting and downloads. The page defaults to MOSS; it does not automatically change the live TTS engine.
@@ -39,6 +41,7 @@ GitHub may offer a download instead of inline playback for repository MP4 links.
 | Part | Implementation | Execution |
 | --- | --- | --- |
 | Conversation and reasoning | Your OpenAI-compatible channel, Chat Completions or Responses | Optional cloud LLM |
+| Personality, viewer memory and maintenance | Pinned DSH + Humanity, SQLite/WAL, source validation and persistent jobs | Native Node / local storage; configured cloud LLM for dialogue and extraction |
 | Script-to-speech | MOSS 04: NF4 / BF16 model, FP32 CPU codec; GPT-SoVITS v2 remains the base installation option | Local GPU / CPU |
 | Speech features | Whisper tiny features inside MuseTalk; not audience transcription | Local GPU |
 | Lip generation and blending | MuseTalk 1.5, VAE, tracked face crop and compact mouth mask | Local GPU / CPU |
@@ -109,10 +112,12 @@ Source commits are pinned in [sources.lock.json](configs/sources.lock.json); [mo
 ## Use the studio
 
 1. Click **连接预览与声音** to connect picture and audio. The interface currently uses Chinese labels.
-2. Select **原文播报**, enter a short Chinese script and click **发送播报**. A useful starting length is 20–100 Chinese characters.
-3. Click **停止说话** to interrupt. Sending a new message also invalidates the previous speech generation.
+2. With DSH enabled, log in as operator at `/memory`, then choose Echo and click **网页测试开播**, or use **OBS 开播** with the local OBS source. AI startup additionally requires the real-channel compatibility probe. Follow the [DSH runbook](docs/dsh-humanity/RUNBOOK.md) for this separate backend installation.
+3. Select **原文播报**, enter a short Chinese script and click **发送播报**. A useful starting length is 20–100 Chinese characters. Click **停止说话** to interrupt. DSH queues ordinary new messages; the original backend instead preempts earlier speech.
 4. Select a gesture and click **播放一次**, or use **自动编排** / **安静倾听**. A manual request waits for the current clip to finish, normally up to its remaining eight seconds plus output buffering. The most recent pending manual request wins.
 5. Click **录制并下载**, then end recording to download a WebM containing the browser's video and audio.
+
+In DSH mode, use **下播** after the session. The backend waits for the current utterance to drain, seals the evidence watermark, waits two minutes, then consolidates eligible memory while off air. It retains checkpoints when the channel is unavailable or a new broadcast begins. Daily maintenance is at 03:30 and weekly maintenance is Monday at 04:10, Asia/Taipei; the [memory pipeline](docs/dsh-humanity/MEMORY_PIPELINE.md) defines source rules, merging, budgets, deletion and recovery.
 
 For AI conversation, open **渠道设置** and enter your base URL, API key, **actual provider model ID**, and protocol. Save, switch to **AI 回复**, and send a question. Do not assume a display name such as “GPT 6 Luna” is an API model ID. `configs/channel.env.example` documents the environment variables; the real `configs/channel.env` stays untracked. A blank API-key field preserves the previously saved key.
 
@@ -144,6 +149,7 @@ The face is photorealistic, but lips and teeth can be softer than the source ima
 | Read next | Purpose |
 | --- | --- |
 | [Documentation index](docs/README.md) | English / Chinese reading paths |
+| [DSH + Humanity](docs/DSH_HUMANITY.md) | Personality, live lifecycle, persistent memory and scheduled consolidation; see the implementation record for verified scope and remaining gates |
 | [MOSS 04 live voice](docs/MOSS_LIVE.md) | Selected voice, persistent inference, activation, interruption and actual validation |
 | [RTX 3080](docs/RTX3080.md) | Verified 10 GB configuration, measurements and fallback order |
 | [Deployment](docs/DEPLOYMENT.md) | Setup stages, recovery and native dependencies |

@@ -2,6 +2,8 @@
 
 [Index / 导航](README.md) · [Usage / 使用](USAGE.md)
 
+The [DSH + Humanity plan](DSH_HUMANITY.md) specifies the persistent conversation backend; its native implementation, tested scope and outstanding gates are tracked in [IMPLEMENTATION](dsh-humanity/IMPLEMENTATION.md). The media architecture below remains the baseline. / [人格与记忆规范](DSH_HUMANITY.md) 的原生实现、证据和剩余门槛见实施记录；下文保留媒体基线说明。
+
 ## Preparation and live inference / 准备与实时推理
 
 The background and body are part of one photographed-looking video plate. This avoids a separate background replacement or 3D skeleton during streaming. The final face movement is generated from current speech, while the body follows one of the reviewed clips. The character is fictional and adult; the accepted scene is the original daylight dorm.

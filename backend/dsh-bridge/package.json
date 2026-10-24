@@ -1,0 +1,13 @@
+{
+  "name": "ai-talk-streamer-dsh-runtime",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "24.22.1"
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh": "0.2.0-rc.2",
+    "deepseek-harness-humanity": "0.1.17"
+  }
+}

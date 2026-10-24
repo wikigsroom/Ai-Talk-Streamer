@@ -1,0 +1,47 @@
+{
+  "enabled": true,
+  "independentJudgment": true,
+  "modules": {
+    "persona": {
+      "enabled": true,
+      "historyRetentionDays": 30
+    },
+    "memory": {
+      "mode": "balanced",
+      "advanced": {
+        "customized": true,
+        "longTerm": true,
+        "work": false,
+        "session": false,
+        "maxInject": 3,
+        "decay": false,
+        "decayUnusedDays": 90,
+        "vector": false
+      }
+    },
+    "evolution": {
+      "enabled": false,
+      "schedule": {
+        "mode": "idle",
+        "idleMinutes": 30,
+        "timeOfDay": "03:00",
+        "weekday": 1,
+        "monthDay": 1,
+        "timezone": "Asia/Taipei"
+      },
+      "scan": {
+        "includeSubSessions": false
+      },
+      "budget": {
+        "maxSessionsPerRun": 5,
+        "maxEventsPerSession": 200,
+        "maxInputBytesPerCall": 32768,
+        "maxOutputTokensPerCall": 4000,
+        "dailyCallCap": 20
+      }
+    },
+    "dream": {
+      "enabled": false
+    }
+  }
+}

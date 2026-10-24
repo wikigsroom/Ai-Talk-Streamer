@@ -8,6 +8,8 @@
 
 已增加 **RTX 3080 10 GB／64 GB 内存**实测版本。原 GPT-SoVITS 版本保留 batch 8；当前 MOSS 版本在 batch 8 播放验收失败后改用 batch 4，沿用 FP16 人物模型、完整动作库和 720×1280 输出。网页统计视频实际呈现的帧率，慢连接积压时保留排队的音频。参见 [3080 实测](docs/RTX3080.md)、[播放修正](docs/PLAYBACK.md) 和 [MOSS 验收](docs/MOSS_LIVE.md)。
 
+**新增 DSH + Humanity 后端：** 已原生实现人格版本、观众记忆隔离、直播与播放账本，以及下播后、每日、每周的持久整理任务，默认继承网页保存的 API／模型配置。详见[完整方案](docs/DSH_HUMANITY.md)、[原生操作手册](docs/dsh-humanity/RUNBOOK.md)、[逐项验收](docs/dsh-humanity/ACCEPTANCE.md)和[实机页面、录像与 GIF](docs/dsh-humanity/MEDIA.md)。本地 Echo 完整／取消／恢复及受控 DSH/Humanity 宿主测试已通过；最近用户渠道检查超时，真实 AI 对话和五段新增记忆场景尚未通过验收。
+
 ![实际说话中的演播台](docs/media/studio-speaking.png)
 
 **女A音色选型：** [MOSS 10 款、SoulX 10 款同号对比与 FireRed 01 对照](docs/VOICES.md)，由 3080 实际生成。运行中演播台的 `/voices.html?v=2` 默认展示 MOSS，可切换模型、保存候选及下载；页面选型不会自动修改直播引擎。
@@ -39,6 +41,7 @@ GitHub 对仓库 MP4 链接可能提供下载而非内嵌播放器，README 中�
 | 环节 | 实现 | 运行位置 |
 | --- | --- | --- |
 | 逻辑、推理、文字对话 | 用户指定的 OpenAI 兼容渠道，支持 Chat Completions / Responses | 可选云端 LLM |
+| 人格、观众记忆与周期整理 | 固定 DSH + Humanity、SQLite/WAL、来源校验与持久作业 | 原生 Node／本地存储；对话与抽取使用已配置云端 LLM |
 | 中文语音合成 | MOSS 04：NF4 / BF16 模型、FP32 CPU codec；基础安装仍可使用 GPT-SoVITS v2 | 本地 GPU / CPU |
 | 音频特征 | MuseTalk 使用 Whisper tiny 提取特征，不是观众语音识别 | 本地 GPU |
 | 实时口型与融合 | MuseTalk 1.5、VAE、人脸跟踪与嘴部紧凑遮罩 | 本地 GPU / CPU |
@@ -109,10 +112,12 @@ RTX 3080 安装时增加 `-HardwareProfile rtx3080-original`，随后使用 `.\S
 ## 网页使用顺序
 
 1. 点击 **连接预览与声音**，允许页面建立音视频流。
-2. 选 **原文播报**，输入 20–100 字作为初次测试，点击 **发送播报**。
-3. 点击 **停止说话**可打断；发送新内容也会使前一轮语音失效。
+2. 启用 DSH 时，先在 `/memory` 登录管理员，再选原文播报并点 **网页测试开播**；使用本机 OBS 源时点 **OBS 开播**。AI 开播还需通过真实渠道兼容探针。该新增后端的单独安装步骤见 [DSH 操作手册](docs/dsh-humanity/RUNBOOK.md)。
+3. 选 **原文播报**，输入 20–100 字作为初次测试，点击 **发送播报**。点 **停止说话**可打断。DSH 普通新输入按顺序排队；原版后端则会抢占上一轮。
 4. 选择动作并点 **播放一次**，或使用 **自动编排／安静倾听**。手动动作会等当前片段完成，通常等待不超过剩余八秒加画面缓冲；连续选择时保留最新待播请求。
 5. 点击 **录制并下载**，结束后保存带声音的 WebM。
+
+DSH 模式结束时点 **下播**：当前句排空后固定证据水位，静默两分钟，再于下播状态整理合格记忆。渠道不可用或重新开播时保留游标，等待恢复。每日 03:30、周一 04:10（Asia/Taipei）执行相应维护；来源规则、压缩、合并、预算、删除及恢复见[记忆流水线](docs/dsh-humanity/MEMORY_PIPELINE.md)。
 
 使用云端文字模型时，展开 **渠道设置**，填写接口地址、API Key、渠道的**实际模型 ID**及协议，保存后切换 **AI 回复**。例如“GPT 6 Luna”只是显示名称时，不能据此猜测 model ID。变量模板见 `configs/channel.env.example`，真实 `configs/channel.env` 被 Git 忽略；保存时密钥留空会保留原值。
 
@@ -144,6 +149,7 @@ RTX 3080 安装时增加 `-HardwareProfile rtx3080-original`，随后使用 `.\S
 | 文档 | 说明 |
 | --- | --- |
 | [文档索引](docs/README.md) | 中英阅读路线 |
+| [DSH + Humanity 构建方案](docs/DSH_HUMANITY.md) | 人格、直播状态、播放确认、持续记忆、下播压缩合并；实施记录区分已验证与剩余门槛 |
 | [MOSS 04 实时播报](docs/MOSS_LIVE.md) | 当前音色、常驻推理、接入、打断与实测 |
 | [RTX 3080](docs/RTX3080.md) | 10 GB 显卡实测、优化、迁移和降级顺序 |
 | [部署](docs/DEPLOYMENT.md) | 原生环境、安装步骤、断点恢复 |

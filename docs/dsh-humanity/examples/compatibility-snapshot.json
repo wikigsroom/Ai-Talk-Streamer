@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-25T04:03:51.6149978+08:00",
+  "scope": "Registry metadata, published archive integrity and source review only",
+  "runtime_validation": "not_run",
+  "project_baseline_commit": "739075bd504dca5ffb76c71aa4a2f998d047bf8b",
+  "dsh": {
+    "latest_at_check": "0.2.1-rc.2",
+    "next_at_check": "0.2.1-rc.3",
+    "candidate": "0.2.0-rc.2",
+    "candidate_published": "2026-09-29T09:56:27.792Z",
+    "candidate_registry_presence_verified": true
+  },
+  "humanity": {
+    "base_version": "0.1.17",
+    "node_requirement": ">=22",
+    "six_dsh_peer_range": "^0.1.5-rc.2 || ^0.2.0-rc.2",
+    "published": "2026-10-11T14:53:31.223Z",
+    "archive_integrity_verified": true,
+    "archive_sha256": "2dd68dc844f14dbd148eeb2c6a31ac662d49cd1703d51344fa7acdf1f6a30f2e",
+    "archive_integrity": "sha512-GMBt+xBdsAZaCyBoVLrNbEyVM/mHPTfFQtkVp8GNvPfphwSEb9mCK9yiFeRkrimUp3+Dzp4I5yE+b1imBvbP9w=="
+  },
+  "conclusion": {
+    "latest_combination_within_declared_peer_range": false,
+    "candidate_combination_runtime_proven": false,
+    "project_humanity_connector_patch_still_required": true,
+    "production_dependency_lock_still_required": true
+  },
+  "primary_sources": [
+    "https://registry.npmjs.org/@deepseek-ai%2Fdsh",
+    "https://registry.npmjs.org/deepseek-harness-humanity",
+    "https://github.com/Thr33H/Deepseek-Harness-Humanity/blob/main/package.json",
+    "https://github.com/Thr33H/Deepseek-Harness-Humanity/blob/main/docs/ARCHITECTURE.md"
+  ]
+}

@@ -43,7 +43,7 @@ def main():
     raw = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z'], cwd=ROOT)
     files = sorted({local(p) for p in raw.decode('utf-8').split('\0') if p})
     check(bool(files), 'No repository files found')
-    text_types = {'.py', '.js', '.cjs', '.html', '.css', '.json', '.md', '.txt', '.csv', '.yaml', '.yml', '.ps1', '.cmd', '.example'}
+    text_types = {'.py', '.js', '.cjs', '.mjs', '.sql', '.html', '.css', '.json', '.md', '.txt', '.csv', '.yaml', '.yml', '.ps1', '.cmd', '.example'}
     private = re.compile(r'192\.168\.\d+\.\d+|[A-Za-z]:[\\/]+Users[\\/]+(?:carzy|wuxie)\b|\.codex[\\/]', re.I)
     tokens = re.compile(r'\b(?:sk-[A-Za-z0-9_-]{24,}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,})\b')
     forbidden_roots = {'.setup', 'src', 'runtime', 'tools', 'cache', 'logs', 'downloads', 'models', 'node_modules', '.publish'}
@@ -200,6 +200,23 @@ def main():
         if path.suffix in {'.mp4', '.gif'}:
             check(item['source_sha256'] == scenarios3080['items'][0]['sha256'], 'RTX 3080 preview source checksum')
     counts['rtx3080_scenarios'] = len(scenarios3080['items'])
+
+    dsh_media = load('docs/media/dsh-media-manifest.json')
+    check(dsh_media['kind'] == 'real_media_echo_smoke' and dsh_media['cloud_llm_exercised'] is False,
+          'DSH documentation media must identify the actual Echo scope')
+    for item in dsh_media['items']:
+        path = local(item['file'])
+        check(path.is_file() and path.stat().st_size == item['bytes'] and sha256(path) == item['sha256'],
+              'DSH media checksum: ' + item['file'])
+    counts['dsh_documentation_media'] = len(dsh_media['items'])
+    dsh_docs = load('docs/evidence/dsh-humanity-doc-validation.json')
+    for item in dsh_docs['artifacts']:
+        digest = hashlib.sha256(local(item['path']).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
+        check(digest == item['sha256'], 'DSH documented source changed after validation: ' + item['path'])
+    dsh_runtime = load('docs/evidence/dsh-humanity-runtime.json')
+    for name, expected in dsh_runtime['code_sha256'].items():
+        digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
+        check(digest == expected, 'DSH runtime evidence source changed: ' + name)
 
     if args.media:
         probe = shutil.which('ffprobe')

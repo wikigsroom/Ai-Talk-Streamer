@@ -13,27 +13,44 @@ class ViewerBuffer:
         self.ready = asyncio.Event()
         self.skipped_images = 0
 
-    def put(self, packet):
+    @staticmethod
+    def _packet(item):
+        return item[1] if isinstance(item, tuple) else None if isinstance(item, dict) else item
+
+    def put(self, packet, control=None):
         if len(self.packets) >= self.max_packets:
             return False
         if self.images >= self.max_images:
             for index, pending in enumerate(self.packets):
-                sequence, length, rate = struct.unpack_from('<III', pending)
+                value = self._packet(pending)
+                if value is None:
+                    continue
+                sequence, length, rate = struct.unpack_from('<III', value)
                 if length:
                     # Length zero denotes audio-only; sequence and PCM stay intact.
-                    self.packets[index] = struct.pack('<III', sequence, 0, rate) + pending[12 + length:]
+                    audio_only = struct.pack('<III', sequence, 0, rate) + value[12 + length:]
+                    self.packets[index] = (pending[0], audio_only) if isinstance(pending, tuple) else audio_only
                     self.images -= 1
                     self.skipped_images += 1
                     break
-        self.packets.append(packet)
+        self.packets.append((control, packet) if control is not None else packet)
         self.images += bool(struct.unpack_from('<I', packet, 4)[0])
         self.ready.set()
         return True
+
+    def clear(self, control=None):
+        self.packets.clear()
+        self.images = 0
+        if control is not None:
+            self.packets.append(control)
+        self.ready.set()
 
     async def get(self):
         while not self.packets:
             self.ready.clear()
             await self.ready.wait()
         packet = self.packets.popleft()
-        self.images -= bool(struct.unpack_from('<I', packet, 4)[0])
+        value = self._packet(packet)
+        if value is not None:
+            self.images -= bool(struct.unpack_from('<I', value, 4)[0])
         return packet

@@ -66,6 +66,8 @@ async def character_archive(request):
 
 async def channel(request):
     if request.method=='GET':return response(channel_info())
+    from server.dsh_bridge import enabled,require_operator
+    if enabled():await require_operator(request)
     same_origin(request);data=await request.json()
     base=str(data.get('base_url','')).strip();model=str(data.get('model','')).strip();protocol=data.get('protocol','chat_completions')
     if base and urlsplit(base).scheme not in ('http','https'):return response({'error':'渠道地址需要以 http:// 或 https:// 开头。'},400)
@@ -79,6 +81,8 @@ async def channel(request):
     return response({'ok':True,'channel':channel_info()})
 
 async def speak(request):
+    from server.dsh_bridge import enabled,proxy
+    if enabled():return await proxy(request,'/api/dsh/requests')
     same_origin(request);data=await request.json();text=str(data.get('text','')).strip();mode=data.get('mode','echo')
     if not text or len(text)>1500:return response({'error':'请输入 1–1500 字的播报内容。'},400)
     if mode not in ('echo','chat'):return response({'error':'请选择原文播报或 AI 回复。'},400)
@@ -94,6 +98,8 @@ async def speak(request):
     return response({'ok':True,'sessionid':'studio','request_id':info['request_id']})
 
 async def interrupt(request):
+    from server.dsh_bridge import enabled,proxy
+    if enabled():return await proxy(request,'/api/dsh/cancel')
     same_origin(request);avatar=session_manager.get_session('studio')
     if avatar:
         avatar._studio_generation=getattr(avatar,'_studio_generation',0)+1
@@ -210,6 +216,8 @@ async def studio_sse(request):
     return output
 
 def setup_studio(app):
+    from server.dsh_bridge import configure
+    configure(app)
     from server.pose_gallery import configure_pose_gallery
     configure_pose_gallery(app,ROOT)
     from server.scenario_gallery import configure_scenario_gallery

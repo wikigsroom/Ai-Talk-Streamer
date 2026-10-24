@@ -70,6 +70,17 @@ try:
         try:
             operation=request['operation']
             if operation=='features':value=renderer.audio_processor.audio2feat(request['wave'])[:128]
+            elif operation=='prepare_speech':
+                # MOSS has finished and returned transient KV blocks. Allocate
+                # the real renderer workspace before any voiced PCM is queued;
+                # WDDM can stall the first allocation after the MOSS load peak.
+                prior=getattr(renderer,'_studio_frame_indices',None)
+                try:
+                    renderer._studio_frame_indices=None
+                    renderer.inference_batch(0,[np.zeros((50,384),np.float16) for _ in range(renderer.batch_size)])
+                    torch.cuda.synchronize()
+                    value={'prepared':True}
+                finally:renderer._studio_frame_indices=prior
             elif operation=='render':
                 renderer._studio_frame_indices=request.get('indices')
                 value=renderer.inference_batch(request['index'],request['features'])
