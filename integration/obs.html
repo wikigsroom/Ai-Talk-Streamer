@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>数字人直播画面</title>
 <style>html,body{margin:0;width:100%;height:100%;background:#101217;overflow:hidden}video{width:100%;height:100%;object-fit:contain}#notice{position:absolute;inset:0;display:grid;place-items:center;color:#ddd;font:24px sans-serif}#notice[hidden]{display:none}</style>
-<video id="video" autoplay playsinline></video><div id="notice">正在连接本地数字人…</div><script src="/local-stream.js?v=vertical-1"></script>
+<video id="video" autoplay playsinline></video><div id="notice">正在连接本地数字人…</div><script src="/local-stream.js?v=continuous-3"></script>
 <script>
 let current,stopped=false,timer;const video=document.querySelector('video'),notice=document.querySelector('#notice'),context=new AudioContext();
 async function connect(){
@@ -8,7 +8,7 @@ async function connect(){
  try{
   await context.resume();
   current=new LocalAvatarStream(context,()=>{if(!stopped){notice.hidden=false;notice.textContent='连接已断开，正在重连…';clearTimeout(timer);timer=setTimeout(connect,5000)}});window.avatarTransport=current;
-  video.srcObject=await current.connect();await video.play();notice.hidden=true;window.avatarSession='studio';
+  video.srcObject=await current.connect();current.attachVideo(video);await video.play();notice.hidden=true;window.avatarSession='studio';
  }catch(error){current?.close();notice.hidden=false;notice.textContent='本地服务尚未就绪，正在重连…';clearTimeout(timer);if(!stopped)timer=setTimeout(connect,5000)}
 }
 addEventListener('beforeunload',()=>{stopped=true;clearTimeout(timer);current?.close();context.close()});connect();

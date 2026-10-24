@@ -66,9 +66,13 @@ Each new speech request or interrupt advances a generation number. Streaming LLM
 
 ## Transport and memory / 传输与内存
 
-Each binary WebSocket packet begins with three little-endian uint32 values: sequence number, JPEG byte count and sample rate (16,000). The JPEG is followed by mono signed 16-bit PCM, normally 640 samples / 40 ms per picture. The sender targets 25 FPS and maintains small per-viewer queues; slow viewers lose older pending packets. The browser decodes to a 720×1280 canvas and schedules matching PCM with Web Audio, starting about 120 ms ahead. MediaRecorder captures that canvas plus audio as WebM. The current portrait path does not use the upstream WebRTC offer route.
+Each binary WebSocket packet begins with three little-endian uint32 values: sequence number, JPEG byte count and sample rate (16,000). The JPEG is followed by mono signed 16-bit PCM, normally 640 samples / 40 ms. The sender targets 25 FPS. Each viewer retains at most three queued JPEGs; earlier entries become **audio-only packets with JPEG length zero**, preserving their sequence and all PCM. A queue exceeding 125 packets closes that viewing connection rather than silently discarding audio.
 
-音画 WebSocket 包包含 12 字节小端头：序号、JPEG 长度、采样率，后接 JPEG 与单声道 PCM16。每帧通常配 40ms 音频。浏览器以音频时钟显示对应画面，并能录制 WebM。当前竖屏输出使用 JPEG/PCM，不走上游 WebRTC offer 链路。
+The browser schedules PCM before decoding pictures, starting about 2.4 seconds ahead to cover measured long-speech stalls. Compressed pictures wait until about 120 ms before playout, then a bounded decoder prepares them. It displays pictures against the audio clock and explicitly requests one canvas capture per draw. The FPS indicator uses `requestVideoFrameCallback` when supported; canvas draws and packet arrivals are separate counters. MediaRecorder captures the resulting stream as WebM. Both sender and browser must be updated together. The current portrait path does not use the upstream WebRTC offer route. See [playback measurements and latency tradeoffs](PLAYBACK.md).
+
+音画包包含 12 字节小端头：序号、JPEG 长度、采样率，后接 JPEG 与单声道 PCM16，每包通常为 40ms 音频。每个观看连接最多保留三张排队图片；更早的图片改成 JPEG 长度为零的纯音频包，完整保留序号和 PCM。超过 125 包积压时断开该观看连接，不通过丢音频追赶直播。
+
+浏览器先排声音，初始预缓冲约 2.4 秒以覆盖实测的长播报抖动；图片以压缩形式等待至临近播放约 120ms 再交给有界解码器。按音频时钟显示图片，每次绘制显式捕获一帧，支持时以视频实际呈现计算 FPS。接收包数、绘制数与呈现数分别记录。发送端与网页须同步更新，旧网页需刷新。当前竖屏输出使用 JPEG/PCM，不走上游 WebRTC offer 链路。
 
 Latents remain on CPU until the selected batch is needed. Full frames and masks each use a 48-entry LRU store instead of decoding all 10,000 images eagerly. Native hard links reduce the assembly's extra disk duplication. These changes reduce memory pressure; they do not make the optional H3 generation workload inexpensive. Releasing generation models before live inference materially changes the observed VRAM footprint.
 

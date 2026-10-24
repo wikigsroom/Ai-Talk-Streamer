@@ -3,6 +3,7 @@ import asyncio,queue,struct,threading,time
 import cv2,numpy as np
 from aiohttp import web
 from utils.logger import logger
+from server.viewer_buffer import ViewerBuffer
 
 class LocalBroadcast:
     def __init__(self,avatar):
@@ -20,26 +21,31 @@ class LocalBroadcast:
             self.queue.put((self.pending,np.concatenate(self.audio),self.events));self.pending=None
     def get_buffer_size(self):return self.queue.qsize()
     async def pump(self):
-        loop=asyncio.get_running_loop();due=loop.time()
+        # Python 3.10's Windows event-loop clock can have coarse ticks. Keep the
+        # media deadline on the high-resolution clock used by our arrival probes.
+        due=time.perf_counter()
         while not self.quit.is_set():
             try:item=await asyncio.to_thread(self.queue.get,True,1)
-            except queue.Empty:due=loop.time();continue
+            except queue.Empty:due=time.perf_counter();continue
             frame,audio,events=item
             success,encoded=await asyncio.to_thread(cv2.imencode,'.jpg',frame,[cv2.IMWRITE_JPEG_QUALITY,86])
             if not success:continue
             jpeg=encoded.tobytes();packet=struct.pack('<III',self.sequence,len(jpeg),16000)+jpeg+audio.tobytes()
             self.sequence+=1;self.frames+=1
-            for viewer in list(self.viewers.values()):
-                if viewer.full():viewer.get_nowait()
-                viewer.put_nowait(packet)
+            for ws,viewer in list(self.viewers.items()):
+                if not viewer.put(packet):
+                    # A connection behind by five seconds must reconnect; never cut
+                    # words out of queued PCM merely to keep its pictures current.
+                    self.viewers.pop(ws,None)
+                    asyncio.create_task(ws.close(code=1013,message=b'Viewing connection too slow; reconnect'))
             for event in events:self.avatar.notify(event)
             due+=.04
-            if due<loop.time()-.2:due=loop.time()
-            await asyncio.sleep(max(.001,due-loop.time()))
+            if due<time.perf_counter()-.2:due=time.perf_counter()
+            await asyncio.sleep(max(.001,due-time.perf_counter()))
     async def handle(self,request):
         # JPEG is already compressed; per-message deflate wastes CPU for every viewer.
         ws=web.WebSocketResponse(heartbeat=20,max_msg_size=1024,compress=False);await ws.prepare(request)
-        packets=asyncio.Queue(maxsize=3);self.viewers[ws]=packets
+        packets=ViewerBuffer();self.viewers[ws]=packets
         async def sender():
             while not ws.closed:
                 packet=await packets.get();await asyncio.wait_for(ws.send_bytes(packet),5)

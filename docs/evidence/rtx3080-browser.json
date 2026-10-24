@@ -303,5 +303,6 @@
       "generation": 2,
       "received_ms": 1792842952613
     }
-  ]
+  ],
+  "_measurement_note": "Historical browser FPS counted canvas draws, not final video presentation. See playback-continuity.json and docs/PLAYBACK.md for the later correction and latency tradeoff."
 }

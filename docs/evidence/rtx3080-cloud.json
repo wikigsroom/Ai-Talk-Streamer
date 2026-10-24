@@ -82,5 +82,6 @@
     "seconds": 8,
     "frames": 200,
     "fps": 25
-  }
+  },
+  "_measurement_note": "Historical browser FPS counted canvas draws, not final video presentation. See playback-continuity.json and docs/PLAYBACK.md for the later correction and latency tradeoff."
 }

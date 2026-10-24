@@ -6,7 +6,7 @@ A native Windows studio for a photorealistic **9:16 talking avatar**. Type a scr
 
 The included character is a **fictional 22-year-old Chinese university student in a daylight dormitory**. The reference deployment uses an **RTX 4090 with 48 GB VRAM and 64 GB system RAM**.
 
-A tested **RTX 3080 10 GB / 64 GB RAM** version now retains the original batch-8 FP16 models, full motion bank and 720×1280 output, measuring **24.79 FPS during actual speech**. See the [3080 deployment, screenshots and measurements](docs/RTX3080.md).
+A tested **RTX 3080 10 GB / 64 GB RAM** version retains the original batch-8 FP16 models, full motion bank and 720×1280 output. Browser playback now counts presented frames and preserves queued audio when a viewer falls behind. See the [3080 deployment and measurements](docs/RTX3080.md) and [playback diagnosis and correction](docs/PLAYBACK.md).
 
 ![Actual studio while speaking](docs/media/studio-speaking.png)
 
