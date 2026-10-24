@@ -5,7 +5,7 @@ ROOT=Path(__file__).resolve().parents[1]
 catalog=json.loads((ROOT/'configs/vertical/materials/catalog.json').read_text(encoding='utf-8'))
 reviews=json.loads((ROOT/'configs/vertical/materials/reviews.json').read_text(encoding='utf-8'))
 if len(catalog['items'])<48 or any(not reviews.get(i['id'],{}).get('accepted') for i in catalog['items']):raise RuntimeError('Unreviewed clips cannot enter the delivery package')
-files=['assets/vertical/student-dorm-720x1280.png','output/imagegen/student-dorm.png','output/imagegen/student-dorm-vertical-reference.png','configs/vertical/materials/catalog.json','configs/vertical/materials/reviews.json','configs/vertical/materials/motion-index.json','README.md','README.zh-CN.md','docs/USAGE.md','docs/MATERIALS.md']
+files=['configs/characters/female-a.json','docs/CHARACTERS.md','assets/vertical/student-dorm-720x1280.png','output/imagegen/student-dorm.png','output/imagegen/student-dorm-vertical-reference.png','configs/vertical/materials/catalog.json','configs/vertical/materials/reviews.json','configs/vertical/materials/motion-index.json','README.md','README.zh-CN.md','docs/USAGE.md','docs/MATERIALS.md']
 poses=json.loads((ROOT/'output/imagegen/motion-poses/delivery.json').read_text(encoding='utf-8'))
 if not poses.get('ok') or poses['count']<24:raise RuntimeError('Reviewed independent pose photographs are missing')
 files.extend(['output/imagegen/motion-poses/manifest.json','output/imagegen/motion-poses/reviews.json','output/imagegen/motion-poses/delivery.json'])
@@ -28,7 +28,7 @@ for review in reviews.values():
     evidence=review.get('evidence','')
     if evidence and not review.get('accepted') and (ROOT/evidence).is_file():files.append(evidence)
 files=list(dict.fromkeys(files))
-path=ROOT/'outputs/vertical/materials/delivery-manifest.json';path.write_text(json.dumps({'clips':len(manifest),'seconds':sum(m['seconds'] for m in manifest),'reference_baseline_clips':2,'reference_baseline_seconds':16,'new_material_multiplier':len(manifest)/2,'independent_pose_images':poses['count'],'pose_manifest':'output/imagegen/motion-poses/delivery.json','items':manifest},ensure_ascii=False,indent=2),encoding='utf-8')
+path=ROOT/'outputs/vertical/materials/delivery-manifest.json';path.write_text(json.dumps({'character_id':'female-a','archive_label':'女A','character_name':'林知夏','scene_id':'female-a-daylight-dorm','clips':len(manifest),'seconds':sum(m['seconds'] for m in manifest),'reference_baseline_clips':2,'reference_baseline_seconds':16,'new_material_multiplier':len(manifest)/2,'independent_pose_images':poses['count'],'pose_manifest':'output/imagegen/motion-poses/delivery.json','items':manifest},ensure_ascii=False,indent=2),encoding='utf-8')
 files.append(path.relative_to(ROOT).as_posix())
 archive=ROOT/'outputs/vertical/portrait-motion-materials.zip'
 with zipfile.ZipFile(archive,'w',allowZip64=True) as bundle:

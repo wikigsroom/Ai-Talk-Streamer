@@ -16,7 +16,7 @@ let context,page,video,recordingStarted;
  await page.locator('#connectBtn').click();
  await page.waitForFunction(()=>window.studio?.connected&&window.studio.transport.metrics().frames>60,null,{timeout:180000});
  await page.screenshot({path:path.join(out,'studio-desktop.png'),fullPage:true});result.screenshots.push('studio-desktop.png');
- await page.locator('#scriptText').fill('你好，欢迎来到直播间，我是小晴。今天想聊聊校园生活，还是分享最近读到的一本书？你可以在网页写下问题，我会在这里回应你。我们也可以先从一个简单的招呼开始，轻轻挥挥手，让第一次见面变得自然一点。');
+ await page.locator('#scriptText').fill('你好，欢迎来到直播间，我是林知夏。今天想聊聊校园生活，还是分享最近读到的一本书？你可以在网页写下问题，我会在这里回应你。我们也可以先从一个简单的招呼开始，轻轻挥挥手，让第一次见面变得自然一点。');
  result.screencast_demo_start_seconds=(Date.now()-recordingStarted)/1000;
  await page.locator('#speakBtn').click();
  await page.waitForFunction(()=>document.getElementById('activityLog').textContent.includes('开始播报：'),null,{timeout:90000});

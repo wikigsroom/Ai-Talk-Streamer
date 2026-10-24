@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "character_id": "female-a",
+  "archive_label": "女A",
+  "name": "林知夏",
+  "scene_name": "知夏的日光宿舍",
+  "version": "v1",
+  "archive": "outputs/archives/female-a-lin-zhixia-v1.zip",
+  "bytes": 421387404,
+  "sha256": "62b78cd7c94802fec6ec3d2f92b9acae8b05717f7d8f3769614ea76cb0a9f070",
+  "source_files": 656,
+  "zip_entries": 659,
+  "download_url": "/character/archive.zip",
+  "counts": {
+    "selected_motion_clips": 48,
+    "selected_motion_seconds": 384,
+    "baseline_clips": 2,
+    "baseline_seconds": 16,
+    "live_bank_clips": 50,
+    "live_bank_frames": 10000,
+    "independent_pose_images": 28,
+    "resized_pose_images": 28,
+    "posters": 48,
+    "keyframes": 48,
+    "historical_scenario_recordings": 5,
+    "rejected_motion_review_records": 8
+  }
+}

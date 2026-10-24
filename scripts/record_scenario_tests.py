@@ -151,7 +151,7 @@ async def main():
                         start = time.monotonic()
                         await asyncio.sleep(1)
                         if sid == 's01_welcome':
-                            await phase('m01_welcome_right_wave', '你好，欢迎来我的宿舍坐坐，我是小晴。今天的阳光刚刚好，先和你打个招呼。你可以在网页里写下想说的话，也可以选一个动作，让我陪你聊一会儿。')
+                            await phase('m01_welcome_right_wave', '你好，欢迎来我的宿舍坐坐，我是林知夏。今天的阳光刚刚好，先和你打个招呼。你可以在网页里写下想说的话，也可以选一个动作，让我陪你聊一会儿。')
                         elif sid == 's02_explain':
                             await phase('m09_explain_right_palm_up', '如果今天的学习任务有点多，可以先把它们写下来，再分成几个小步骤。不必一开始就做得很完美，先完成最容易开始的那一步，会轻松很多。')
                             await phase('m17_emphasis_right_beat_take2', '还有一个小建议：每做完一段，就给自己几分钟休息。喝一点水，看看窗外，再回来继续。进度慢一点也没关系，能持续下去，就是很好的节奏。', 'second')

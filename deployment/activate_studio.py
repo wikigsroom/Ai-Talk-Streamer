@@ -36,7 +36,7 @@ def main():
     if '_studio_silent_feature' not in text:
         text=text.replace('        input_feature = self.feature_extractor(', '        if not np.any(wav_data):\n            if not hasattr(self, "_studio_silent_feature"):\n                self._studio_silent_feature = np.zeros((1500, 5, 384), dtype=np.float16)\n            return self._studio_silent_feature\n        input_feature = self.feature_extractor(')
     update(target,text)
-    for name in ['studio_rtc.py','studio_routes.py','isolated_inference.py','local_broadcast.py','viewer_buffer.py','frame_store.py','motion_control.py','pose_gallery.py','scenario_gallery.py','fast_blending.py']:update(LIVE/'server'/name,(ROOT/'integration'/name).read_text(encoding='utf-8'))
+    for name in ['studio_rtc.py','studio_routes.py','character_identity.py','isolated_inference.py','local_broadcast.py','viewer_buffer.py','frame_store.py','motion_control.py','pose_gallery.py','scenario_gallery.py','fast_blending.py']:update(LIVE/'server'/name,(ROOT/'integration'/name).read_text(encoding='utf-8'))
     for source in (ROOT/'web').glob('*'):
         if source.is_file():update(LIVE/'web'/source.name,source.read_text(encoding='utf-8'))
     update(LIVE/'web/obs.html',(ROOT/'integration/obs.html').read_text(encoding='utf-8'))

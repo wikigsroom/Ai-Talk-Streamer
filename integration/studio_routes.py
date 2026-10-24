@@ -4,6 +4,7 @@ import asyncio,datetime,json,os,re,socket,subprocess,time
 from urllib.parse import urlsplit
 from aiohttp import web,ClientSession,ClientTimeout
 from server.session_manager import session_manager
+from server.character_identity import character_identity
 
 ROOT=Path(__file__).resolve().parents[3]
 STARTED=time.time()
@@ -37,7 +38,23 @@ async def status(request):
         async with ClientSession(timeout=ClientTimeout(total=2),trust_env=False) as client:
             async with client.get('http://127.0.0.1:9880/openapi.json') as res:tts=res.status==200
     except Exception:pass
-    return response({'ready':tts,'tts_ready':tts,'avatar_ready':True,'speaking':bool(avatar and avatar.is_speaking()),'sessionid':'studio' if avatar else None,'viewers':len(manager.broadcast.viewers) if manager.broadcast else 0,'event_subscribers':len(avatar.msgqueues) if avatar else 0,'gpu':gpu,'channel':channel_info(),'uptime_seconds':round(time.time()-STARTED),'profile':'GPT-SoVITS v2','avatar':'日光宿舍 · 写实大学女生','avatar_id':request.app['opt'].avatar_id,'local_media':True,'transport':'local_websocket_jpeg_pcm'})
+    identity=character_identity()
+    return response({'ready':tts,'tts_ready':tts,'avatar_ready':True,'speaking':bool(avatar and avatar.is_speaking()),'sessionid':'studio' if avatar else None,'viewers':len(manager.broadcast.viewers) if manager.broadcast else 0,'event_subscribers':len(avatar.msgqueues) if avatar else 0,'gpu':gpu,'channel':channel_info(),'uptime_seconds':round(time.time()-STARTED),'profile':'GPT-SoVITS v2','avatar':' · '.join((identity['archive_label'],identity['name'],identity['scene']['name'])),'character':identity,'avatar_id':request.app['opt'].avatar_id,'local_media':True,'transport':'local_websocket_jpeg_pcm'})
+
+async def character_record(request):
+    identity=character_identity()
+    path=ROOT/identity['archive']['registry']
+    archive=json.loads(path.read_text(encoding='utf-8')) if path.is_file() else None
+    return response({'character':identity,'archive':archive,'download_ready':(ROOT/identity['archive']['zip']).is_file()})
+
+async def character_page(request):return web.FileResponse(ROOT/'web/character.html')
+
+async def character_reference(request):return web.FileResponse(ROOT/character_identity()['appearance_reference'])
+
+async def character_archive(request):
+    path=ROOT/character_identity()['archive']['zip']
+    if not path.is_file():raise web.HTTPNotFound()
+    return web.FileResponse(path,headers={'Content-Disposition':'attachment; filename="female-a-lin-zhixia-v1.zip"'})
 
 async def channel(request):
     if request.method=='GET':return response(channel_info())
@@ -194,6 +211,10 @@ def setup_studio(app):
     native_routes.sse_handler=studio_sse
     app.router.add_get('/api/studio/stream',local_stream)
     app.router.add_get('/api/studio/status',status)
+    app.router.add_get('/api/studio/character',character_record)
+    app.router.add_get('/character',character_page)
+    app.router.add_get('/character/reference.png',character_reference)
+    app.router.add_get('/character/archive.zip',character_archive)
     app.router.add_get('/api/studio/channel',channel);app.router.add_post('/api/studio/channel',channel)
     app.router.add_post('/api/studio/speak',speak);app.router.add_post('/api/studio/interrupt',interrupt)
     app.router.add_get('/api/studio/poster',poster)

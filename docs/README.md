@@ -14,6 +14,7 @@ This is the documentation for the delivered **daylight dorm / portrait / local-m
 | [Usage / 使用](USAGE.md) | Browser controls, channel settings, gestures, recording, OBS and HTTP calls / 网页交互、渠道、动作、录制及接口 |
 | [Architecture / 架构](ARCHITECTURE.md) | Media preparation, speech, GPU isolation, frame alignment, transport and cancellation / 准备与实时链路、对齐及打断逻辑 |
 | [Configuration / 配置](CONFIGURATION.md) | Model versions, ports, environment variables, local files and exposure boundaries / 版本、端口、配置文件和运行边界 |
+| [Character / 女A 角色档案](CHARACTERS.md) | 林知夏、日光宿舍、分类素材归档与校验 / Identity, paired scene and verified archive |
 | [Materials / 素材](MATERIALS.md) | Asset counts, directory map, hashes, review and optional local regeneration / 素材清单、审核、校验与可选再生成 |
 | [Testing / 验证](TESTING.md) | Five real scenarios, measured behavior, acceptance evidence and repeatable checks / 五段实录、实测结果和复验命令 |
 | [Gallery / 展示](GALLERY.md) | Six screenshots, four GIFs, six MP4s and their provenance / 页面截图、GIF、录像及来源 |

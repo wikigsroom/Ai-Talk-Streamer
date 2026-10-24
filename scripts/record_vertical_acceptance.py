@@ -83,7 +83,7 @@ async def main():
                         started_recording = False
                         raise RuntimeError('OBS did not enter recording state; inspect its own windows and logs')
                     await asyncio.sleep(3)
-                    text = '你好，我是小晴，欢迎来到我的直播间。今天的阳光很好，先和你打个招呼。你可以在网页里写下一句话，让我读给你听，也可以选择不同的动作，试试招手、摊手讲解，或者安静倾听。如果接入你的对话模型，我们还可以聊聊学习、生活，以及今天遇到的新发现。很高兴在这里见到你。'
+                    text = '你好，我是林知夏，欢迎来到我的直播间。今天的阳光很好，先和你打个招呼。你可以在网页里写下一句话，让我读给你听，也可以选择不同的动作，试试招手、摊手讲解，或者安静倾听。如果接入你的对话模型，我们还可以聊聊学习、生活，以及今天遇到的新发现。很高兴在这里见到你。'
                     sent = time.monotonic()
                     async with client.post('http://127.0.0.1:8010/api/studio/speak', json={'text': text, 'mode': 'echo', 'interrupt': True}) as response:
                         response.raise_for_status()

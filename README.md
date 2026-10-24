@@ -4,7 +4,7 @@
 
 A native Windows studio for a photorealistic **9:16 talking avatar**. Type a script, or ask your own cloud LLM a question; the workstation synthesizes the voice, generates the lip motion, plays coordinated body footage, and delivers the same avatar to your browser and OBS.
 
-The included character is a **fictional 22-year-old Chinese university student in a daylight dormitory**. The reference deployment uses an **RTX 4090 with 48 GB VRAM and 64 GB system RAM**.
+The included character is **女A / Lin Zhixia (林知夏)**, a **fictional 22-year-old Chinese university student** in **Zhixia's Daylight Dorm**. [Character identity and categorized archive](docs/CHARACTERS.md) include a verified inventory and rebuildable bundle. The reference deployment uses an **RTX 4090 with 48 GB VRAM and 64 GB system RAM**.
 
 A tested **RTX 3080 10 GB / 64 GB RAM** version retains the original batch-8 FP16 models, full motion bank and 720×1280 output. Browser playback now counts presented frames and preserves queued audio when a viewer falls behind. See the [3080 deployment and measurements](docs/RTX3080.md) and [playback diagnosis and correction](docs/PLAYBACK.md).
 

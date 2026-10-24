@@ -4,6 +4,7 @@ import json
 import re
 import time
 from utils.logger import logger
+from server.character_identity import conversation_prompt
 
 def llm_response(message, avatar_session, datainfo=None):
     from openai import OpenAI
@@ -19,7 +20,7 @@ def llm_response(message, avatar_session, datainfo=None):
         logger.error('Unsupported AVATAR_LLM_PROTOCOL: %s',protocol)
         return
     client = OpenAI(base_url=base,api_key=key,timeout=60,max_retries=1)
-    messages = [{'role':'system','content':os.getenv('AVATAR_SYSTEM_PROMPT','你是一位直播助手，请用简短自然的中文口语回复。')},
+    messages = [{'role':'system','content':conversation_prompt(os.getenv('AVATAR_SYSTEM_PROMPT','你是一位直播助手，请用简短自然的中文口语回复。'))},
                 {'role':'user','content':message}]
     started = time.perf_counter()
     pending = ''

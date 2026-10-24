@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "captured_at": "2026-10-24T14:14:02.643Z",
+  "source": "actual running workstation; no mocked responses",
+  "checks": [
+    "studio title, identity labels and default speech use 林知夏",
+    "original prepared avatar ID and ready media service preserved",
+    "paired scene and complete archive inventory exposed",
+    "portrait keeps its 9:16 proportions",
+    "archive download returns an actual ZIP with HTTP range support",
+    "390-pixel mobile page has no horizontal overflow"
+  ],
+  "screenshots": [
+    "female-a-studio.png",
+    "female-a-archive.png",
+    "female-a-mobile.png"
+  ],
+  "character_id": "female-a",
+  "archive_source_files_at_capture": 648
+}

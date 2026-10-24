@@ -1,5 +1,9 @@
 # Materials and regeneration / 素材与重建
 
+当前角色与场景归档为 **女A · 林知夏 / 知夏的日光宿舍**。分类归档、CSV 清单和下载方式见[角色档案](CHARACTERS.md)。
+
+The paired character and scene use registry **female-a**. See the [character archive](CHARACTERS.md) for identity, categories, hashes and the downloadable snapshot.
+
 [Index / 导航](README.md) · [Architecture / 架构](ARCHITECTURE.md)
 
 ## Included inventory / 已包含素材
