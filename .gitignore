@@ -43,3 +43,10 @@ __pycache__/
 
 # Generated categorized character snapshots and archive bundles
 /outputs/archives/
+
+# Superseded casting drafts and private generation logs
+/output/imagegen/character-selection-20261024/
+/output/imagegen/character-selection-night-20261024/*.generation.log
+/output/imagegen/character-selection-night-20261024/*.record.json
+/output/imagegen/character-selection-night-20261024/generation-manifest.json
+/output/imagegen/character-selection-night-20261024/*.attempt*

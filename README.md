@@ -10,6 +10,8 @@ A tested **RTX 3080 10 GB / 64 GB RAM** version retains the original batch-8 FP1
 
 ![Actual studio while speaking](docs/media/studio-speaking.png)
 
+Five additional adult-host concepts, all in enclosed rooms at night, are available in [nighttime character selection](docs/CHARACTER_SELECTION.md), with an overview, original images, prompts and an offline comparison page.
+
 ## See the result
 
 These are captures of the working installation, not UI mockups. GIFs are silent excerpts at the original playback speed; the MP4 scenario recordings contain locally synthesized speech.
