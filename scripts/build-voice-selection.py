@@ -66,8 +66,10 @@ def main():
     benchmarks=[item for item in items if item['voice_id']=='v01']
     note='样片共 21 段：MOSS 10 款、SoulX 10 款，01 号另有 FireRed 对照。同号使用相同参考音频与逐字稿；选角名称固定，模型输出听感可能不同。基频为自动估算，不能代替听感判断。'
     catalog={'schema_version':2,'revision':'female-a-voices-v2','default_engine':'MOSS','engine_counts':{'MOSS':10,'SoulX':10,'FireRed':1},'character':'female-a','character_name':'林知夏','text':TEXT,'voices':voices,'benchmarks':benchmarks,'benchmark_note':note,
-             'live_integration':'Audition and export only. The running avatar retains GPT-SoVITS until a voice is chosen and its adapter is implemented/tested.',
+             'live_integration':'Audition and export do not change the running avatar. See docs/MOSS_LIVE.md for explicit native adapter activation and validation.',
              'quality_scope':'Full decoding, duration preservation, clipping/loudness and offline CPU Whisper transcription; no human MOS or blind listening score.'}
+    active=ROOT/'configs/voices/active.json'
+    if active.is_file():catalog['selected_live_voice']=read(active)
     write(ROOT/'configs/voices/female-a-v1.json',catalog)
     write(ROOT/'docs/evidence/voice-audio-quality.json',{'ok':True,'count':len(items),'voices':10,'distinct_reference_speakers':10,'checks':[{'id':item['id'],'audio_checks':item['audio_checks'],'asr':item['asr']} for item in items],
           'scope':catalog['quality_scope']})
@@ -97,7 +99,7 @@ def main():
     for folder in ('web/voice-audio/female-a-v1','outputs/voices/female-a-v1','assets/voices/female-a-v1','configs/voices'):
         paths+=sorted(path for path in (ROOT/folder).rglob('*') if path.is_file())
     paths+=[ROOT/'scripts/voice_audio.py',ROOT/'scripts/build-voice-selection.py',ROOT/'scripts/render-voice-selection.py',ROOT/'scripts/verify-voice-speakers.py',ROOT/'docs/evidence/voice-audio-quality.json',ROOT/'LICENSE',ROOT/'THIRD_PARTY_NOTICES.md']
-    for name in ('docs/VOICES.md','docs/VOICE_COMPARISON.md','docs/media/voice-selection-desktop.png','docs/media/voice-selection-mobile.png','docs/evidence/voice-selection-browser.json','docs/evidence/voice-selection-browser-offline.json','docs/evidence/voice-speakers.json','docs/evidence/voice-speakers-moss.json'):
+    for name in ('docs/VOICES.md','docs/MOSS_LIVE.md','docs/VOICE_COMPARISON.md','docs/media/voice-selection-desktop.png','docs/media/voice-selection-mobile.png','docs/evidence/voice-selection-browser.json','docs/evidence/voice-selection-browser-offline.json','docs/evidence/voice-speakers.json','docs/evidence/voice-speakers-moss.json'):
         if (ROOT/name).is_file():paths.append(ROOT/name)
     with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=6) as bundle:
         for path in sorted(set(paths)):bundle.write(path,path.relative_to(ROOT).as_posix())
@@ -120,6 +122,9 @@ def main():
              'moss_archive':moss_archive.relative_to(ROOT).as_posix(),'moss_archive_bytes':moss_archive.stat().st_size,'moss_archive_sha256':digest(moss_archive),
              'page':'web/voices.html','page_sha256':digest(page),'studio_sha256':digest(ROOT/'web/studio.html'),
              'static_files':{path.relative_to(ROOT/'web').as_posix():digest(path) for path in paths if path.is_relative_to(ROOT/'web')}}
+    if catalog.get('selected_live_voice',{}).get('playback_acceptance')=='accepted':
+        release['live_media']={name:{'sha256':digest(ROOT/'docs/media'/name),'bytes':(ROOT/'docs/media'/name).stat().st_size}
+                               for name in ('moss-04-live-demo.mp4','moss-04-response.gif') if (ROOT/'docs/media'/name).is_file()}
     write(ROOT/'outputs/voices/release.json',release)
     print(json.dumps({'ok':True,'voices':10,'generated_clips':len(items),'archive_bytes':release['archive_bytes'],'max_asr_cer':max(item['asr']['normalized_character_error_rate'] for item in items),
           'voices_by_id':[{'number':item['number'],'label':item['label'],'f0':item['median_f0_hz_approx']} for item in voices]},ensure_ascii=False))

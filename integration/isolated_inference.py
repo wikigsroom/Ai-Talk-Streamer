@@ -13,7 +13,7 @@ class GPUClient:
         stdout=(ROOT/'logs/gpu-worker.stdout.log').open('a',encoding='utf-8');stderr=(ROOT/'logs/gpu-worker.stderr.log').open('a',encoding='utf-8')
         self.process=subprocess.Popen([str(ROOT/'runtime/livetalking/Scripts/python.exe'),'-X','utf8','-B',str(ROOT/'scripts/gpu_worker.py')],cwd=ROOT/'src/LiveTalking',env=env,stdin=subprocess.DEVNULL,stdout=stdout,stderr=stderr,close_fds=True,creationflags=subprocess.DETACHED_PROCESS|subprocess.CREATE_NEW_PROCESS_GROUP)
         state=ROOT/'.setup/gpu-worker.json'
-        for attempt in range(600):
+        for attempt in range(900):
             if self.process.poll() is not None:raise RuntimeError('GPU worker exited; inspect logs/gpu-worker.stderr.log')
             try:
                 info=json.loads(state.read_text(encoding='utf-8'))
@@ -21,7 +21,7 @@ class GPUClient:
                     self.connection=Client(info['pipe'],family='AF_PIPE',authkey=bytes.fromhex(self.token));break
             except (OSError,ValueError):pass
             time.sleep(.2)
-        else:self.process.terminate();raise RuntimeError('GPU worker did not become ready within 120 seconds')
+        else:self.process.terminate();raise RuntimeError('GPU worker did not become ready within 180 seconds')
         atexit.register(self.close)
     def call(self,operation,**kwargs):
         with self.lock:

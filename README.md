@@ -6,11 +6,15 @@ A native Windows studio for a photorealistic **9:16 talking avatar**. Type a scr
 
 The included character is **女A / Lin Zhixia (林知夏)**, a **fictional 22-year-old Chinese university student** in **Zhixia's Daylight Dorm**. [Character identity and categorized archive](docs/CHARACTERS.md) include a verified inventory and rebuildable bundle. The reference deployment uses an **RTX 4090 with 48 GB VRAM and 64 GB system RAM**.
 
-A tested **RTX 3080 10 GB / 64 GB RAM** version retains the original batch-8 FP16 models, full motion bank and 720×1280 output. Browser playback now counts presented frames and preserves queued audio when a viewer falls behind. See the [3080 deployment and measurements](docs/RTX3080.md) and [playback diagnosis and correction](docs/PLAYBACK.md).
+The original **RTX 3080 10 GB / 64 GB RAM** GPT-SoVITS version retains batch-8 FP16 models, the full motion bank and 720×1280 output. The selected MOSS version uses batch 4 after batch-8 playback failed validation. Browser playback counts presented frames and preserves queued audio when a viewer falls behind. See the [3080 measurements](docs/RTX3080.md), [playback correction](docs/PLAYBACK.md) and [MOSS validation](docs/MOSS_LIVE.md).
 
 ![Actual studio while speaking](docs/media/studio-speaking.png)
 
 **Female-A voice casting:** [ten MOSS voices, ten matching SoulX voices and a FireRed reference comparison](docs/VOICES.md), synthesized on the RTX 3080. Open `/voices.html?v=2` for real audio playback, model switching, shortlisting and downloads. The page defaults to MOSS; it does not automatically change the live TTS engine.
+
+**Selected live voice: MOSS 04 · 明朗亲和.** The 3080 studio now uses a persistent local MOSS service for echo scripts and cloud text replies. See [activation, complete-utterance playback, cancellation and measured waiting time](docs/MOSS_LIVE.md). The base installer still prepares GPT-SoVITS; MOSS activation reuses the separately prepared native MOSS runtime.
+
+[Watch MOSS 04 with sound, 720×1280](docs/media/moss-04-live-demo.mp4). All five browser cases passed with no voiced audio scheduling gaps; observed presentation counters were 24.6–25.3 FPS. Short echo scripts took 17–21 seconds to become audible; the tested cloud reply took about 28 seconds.
 
 Five additional adult-host concepts, all in enclosed rooms at night, are available in [nighttime character selection](docs/CHARACTER_CAMERA_V3.md). V3 recomposes 01–03 as a phone-chat close-up, frontal desk stream and **Clove (暮蝶) cosplay** presentation, with original images, visual reference notes, prompts and an offline comparison page.
 
@@ -35,7 +39,7 @@ GitHub may offer a download instead of inline playback for repository MP4 links.
 | Part | Implementation | Execution |
 | --- | --- | --- |
 | Conversation and reasoning | Your OpenAI-compatible channel, Chat Completions or Responses | Optional cloud LLM |
-| Script-to-speech | GPT-SoVITS v2 | Local GPU |
+| Script-to-speech | MOSS 04: NF4 / BF16 model, FP32 CPU codec; GPT-SoVITS v2 remains the base installation option | Local GPU / CPU |
 | Speech features | Whisper tiny features inside MuseTalk; not audience transcription | Local GPU |
 | Lip generation and blending | MuseTalk 1.5, VAE, tracked face crop and compact mouth mask | Local GPU / CPU |
 | Body, hands and dorm background | Reviewed local H3 videos, preprocessed into one avatar bank | Generated locally beforehand; reused during streaming |
@@ -51,9 +55,9 @@ GitHub may offer a download instead of inline playback for repository MP4 links.
 ```mermaid
 flowchart LR
     I[Text input] --> M{Echo or AI}
-    M -->|Echo| T[Local GPT-SoVITS]
+    M -->|Echo| T[Local MOSS 04]
     M -->|AI| L[Configured cloud LLM]
-    L -->|Sentence chunks| T
+    L -->|Complete reply| T
     T --> A[Local speech features]
     A --> U[Local MuseTalk lips]
     B[Reviewed body clip bank] --> U
@@ -140,6 +144,7 @@ The face is photorealistic, but lips and teeth can be softer than the source ima
 | Read next | Purpose |
 | --- | --- |
 | [Documentation index](docs/README.md) | English / Chinese reading paths |
+| [MOSS 04 live voice](docs/MOSS_LIVE.md) | Selected voice, persistent inference, activation, interruption and actual validation |
 | [RTX 3080](docs/RTX3080.md) | Verified 10 GB configuration, measurements and fallback order |
 | [Deployment](docs/DEPLOYMENT.md) | Setup stages, recovery and native dependencies |
 | [Usage](docs/USAGE.md) | Studio, channel, gestures, OBS and HTTP examples |

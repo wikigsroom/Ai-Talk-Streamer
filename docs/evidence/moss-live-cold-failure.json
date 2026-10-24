@@ -1,0 +1,80 @@
+{
+  "ok": false,
+  "engine": "MOSS-TTSD-v1.0",
+  "voice_id": "v04",
+  "cases": [],
+  "checks": {
+    "actual_engine_and_voice_selected": true,
+    "avatar_preview_connected": true
+  },
+  "diagnostics": {
+    "name": "shared audition text through the live avatar",
+    "gaps": [
+      9378.666666666682,
+      9399.999999999956,
+      9631.999999999955,
+      9719.999999999964,
+      9709.333333333283,
+      10650.66666666663,
+      2559.999999999966,
+      7488.0000000000055,
+      9712.000000000038,
+      10448.000000000056,
+      4701.333333333387,
+      3890.6666666667807,
+      2408.000000000434
+    ],
+    "idle_buffer_resets": 3,
+    "transport": {
+      "frames": 1126,
+      "received_frames": 1146,
+      "presented_frames": 1127,
+      "fps": 7.99786723540439,
+      "fps_source": "video_presentation",
+      "width": 720,
+      "height": 1280,
+      "audio_samples": 733440,
+      "audio_energy": 0.060214617112476825,
+      "audio_underruns": 16,
+      "target_audio_buffer_ms": 2400,
+      "audio_buffer_ms": 1978.6666666664985,
+      "missing_packets": 0,
+      "server_skipped_video_frames": 0,
+      "skipped_video_frames": 0,
+      "decode_errors": 0,
+      "max_arrival_gap_ms": 10510.899999999907,
+      "connected": true
+    },
+    "events": [
+      {
+        "status": "generating",
+        "text": "你好，我是林知夏。欢迎来到直播间，今天过得怎么样？别着急，我们慢慢聊。",
+        "engine": "MOSS",
+        "voice_id": "v04",
+        "at": 4826.699999999721
+      },
+      {
+        "request_id": "1792866923612",
+        "generation": 1,
+        "tts_engine": "MOSS",
+        "voice_id": "v04",
+        "status": "start",
+        "text": "你好，我是林知夏。欢迎来到直播间，今天过得怎么样？别着急，我们慢慢聊。",
+        "at": 52042.5
+      },
+      {
+        "request_id": "1792866923612",
+        "generation": 1,
+        "status": "end",
+        "text": "你好，我是林知夏。欢迎来到直播间，今天过得怎么样？别着急，我们慢慢聊。",
+        "tts_engine": "MOSS",
+        "voice_id": "v04",
+        "at": 168464.7999999998
+      }
+    ]
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Browser audio schedule has gaps",
+  "browser_closed": true,
+  "checked_at": "2026-10-24T18:38:08.897Z",
+  "source_record_sha256": "93793163cd81dbc29f6266ce46cebfb59b6a45d78548974949a019ae64233339"
+}

@@ -47,6 +47,8 @@ def llm_response(message, avatar_session, datainfo=None):
                 logger.info('Cloud LLM first text %.3fs', time.perf_counter()-started)
                 first = False
             pending += text
+            if getattr(getattr(avatar_session,'tts',None),'requires_complete_reply',False):
+                continue
             while True:
                 boundary = re.search(r'[。！？!?；;\n]',pending)
                 if boundary is None and len(pending)>80:

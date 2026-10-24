@@ -2,6 +2,10 @@
 
 [Index / 导航](README.md) · [Gallery / 展示](GALLERY.md)
 
+## Selected MOSS 04 / 当前 MOSS 04
+
+The current 3080 MOSS configuration passed all five actual browser cases: shared audition text, novel text, cancellation, recovery and a configured cloud reply. See [the configuration, latency and limits](MOSS_LIVE.md), [browser evidence](evidence/moss-live-browser.json) and [720×1280 recording with audio](media/moss-04-live-demo.mp4). The older OBS recordings below retain their original TTS voices. / 当前 MOSS 04 的五项网页实测均通过，详见专项文档、证据和带声音的竖屏录像；下方较早的 OBS 录像仍保留原语音引擎。
+
 ## Scenario recordings
 
 These five recordings were captured from the **actual live OBS scene**, using the accepted daylight dorm character and local TTS/MuseTalk. The inputs are prepared Echo scripts, not five cloud-generated answers. Each test gates gestures on actual speech, takes an OBS screenshot, checks audio/video, waits for the recording-stopped event and remuxes the closed recording. The published previews preserve the full duration and audio, resized from 720×1280 to 432×768 for GitHub.
@@ -55,7 +59,7 @@ python -m unittest discover -s tests -v
 python -X utf8 devtools/verify-repository.py --media
 ```
 
-The verifier checks Python syntax, JSON, local Markdown links, pinned sources, selected video/photo hashes, contiguous 10,000-frame indices, safe publication paths and media provenance. The unit tests exercise whole-clip boundaries, pending-action replacement and automatic/quiet scheduling. The hosted CI runs repository checks; it does not claim a GPU end-to-end test.
+The verifier checks Python syntax, JSON, local Markdown links, pinned sources, selected video/photo hashes, contiguous 10,000-frame indices, safe publication paths and media provenance. The 18 unit tests exercise blending, whole-clip scheduling, MOSS audio tails, cancellation, stale requests, engine identity, complete cloud replies and safe service startup/shutdown. The hosted CI runs repository checks; it does not claim a GPU end-to-end test.
 
 验证脚本检查语法、JSON、文档链接、锁定源码、素材哈希、连续帧索引和公开文件边界。单元测试覆盖调度边界、最后待播请求与安静/说话选取。CI 不执行 GPU 端到端测试。
 

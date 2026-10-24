@@ -17,7 +17,7 @@ async function connect(){
   const current=new LocalAvatarStream(audioContext,()=>{if(current!==transport)return;connecting=false;setConnected(false);if(events)events.close();if(!unloading){feedback('画面连接已断开，请重新连接。',true);$('connectHint').textContent='检查网络或服务后，重新连接预览。'}});transport=current;statsPrevious=null;window.studioStats=null;
   stream=await current.connect();video.srcObject=stream;current.attachVideo(video);video.muted=muted;await video.play();connecting=false;setConnected(true);feedback('画面已连接。输入文字，发送第一条播报。');log('预览已连接，声音与画面来自同一条本地渲染。');setupMeter();
   events=new EventSource('/sse?sessionid=studio');
-  events.onmessage=event=>{try{const item=JSON.parse(event.data);if(item.status==='start'){feedback('正在播报：'+item.text);log('开始播报：'+item.text)}else if(item.status==='end'){feedback('本段播报完成，可以继续输入。')}else if(item.status==='reply'){log('AI：'+item.text)}else if(item.status==='error'){feedback(item.text,true);log(item.text,true)}}catch{}};
+  events.onmessage=event=>{try{const item=JSON.parse(event.data);if(item.status==='generating'){feedback('MOSS 04 正在生成语音，完成后开始播报。')}else if(item.status==='start'){feedback('正在播报：'+item.text);log('开始播报：'+item.text)}else if(item.status==='end'){feedback('本段播报完成，可以继续输入。')}else if(item.status==='reply'){log('AI：'+item.text)}else if(item.status==='error'){feedback(item.text,true);log(item.text,true)}}catch{}};
  }catch(error){connecting=false;if(transport)transport.close();setConnected(false);feedback(error.message,true);$('connectHint').textContent=error.message;log(error.message,true)}
 }
 

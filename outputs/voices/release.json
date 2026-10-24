@@ -8,16 +8,16 @@
     "FireRed": 1
   },
   "archive": "outputs/voices/female-a-voice-selection-v2.zip",
-  "archive_bytes": 13661941,
-  "archive_sha256": "e41ad2138e6ace06594259a96839acee64eda4c2333b6feec26ba0aa8ab821f8",
+  "archive_bytes": 13668936,
+  "archive_sha256": "2eb062fcecd478f82afd534520bedb56808f015d937be64c0527086f0d8f0982",
   "moss_archive": "outputs/voices/female-a-moss-10-v2.zip",
   "moss_archive_bytes": 8277023,
-  "moss_archive_sha256": "2430c5e7bc1b4f70a4cd9b03e96d5a8b777ff9bd99259f4d9ef0dc830f6955f6",
+  "moss_archive_sha256": "8a4fc0b410ac9200cee9a27481009a802c02f62991ad7dfb0c5184a3b75e86d5",
   "page": "web/voices.html",
-  "page_sha256": "650b82eec2fc83398214b54cfe4c08c3eddc223fcfb17124e2ad3e8c6efd0c55",
-  "studio_sha256": "39da99e51ea5c3a0d29d38663b1445f1d65ebfa0fdd4bf551ebe018903e190d8",
+  "page_sha256": "ffae6b2973149aa1035ea87eae5e0585d0b3f0bd308a0f736b6686cafa49134a",
+  "studio_sha256": "10b05f749de57418065335e1441bd0332492463e627741cbaccbf7492f66d003",
   "static_files": {
-    "voices.html": "650b82eec2fc83398214b54cfe4c08c3eddc223fcfb17124e2ad3e8c6efd0c55",
+    "voices.html": "ffae6b2973149aa1035ea87eae5e0585d0b3f0bd308a0f736b6686cafa49134a",
     "voices.css": "4d3f4a5b13a2e1f258671442c3dbcf0eaf8a60320e5998739b82370df548f7ef",
     "voices.js": "42a1dc8899e07543adbd8d19d65f31615a7d385167ebc28f8d25cb54444e82cc",
     "voice-audio/female-a-v1/benchmark-firered-v01.wav": "59be254ab746d42453ce1cd7e6f9775343fb3b56f3895b19e6d67e45a81f497c",
@@ -41,5 +41,15 @@
     "voice-audio/female-a-v1/voice09-soulx-v09.wav": "503601f77738aa88104573fcfd39ef9fe0dce27476432d02c30b332c9732f1b2",
     "voice-audio/female-a-v1/voice10-moss-v10.wav": "1842164ece8d162b3bb26826610d58693e28a53164cef6f85603e952e24c93b0",
     "voice-audio/female-a-v1/voice10-soulx-v10.wav": "b8e9be009665e4c14ac2072a0d4529a323c7072f83ac544ee36e9dbaf4d2c5ed"
+  },
+  "live_media": {
+    "moss-04-live-demo.mp4": {
+      "sha256": "bc909c3b673ec3a34306ec74cc76f268a216038f953e9584c2aa5b9eaa82de00",
+      "bytes": 1308363
+    },
+    "moss-04-response.gif": {
+      "sha256": "6cd58d2aaa3695b42e8c6651aea6f261041af2e4ea7189b7457ab98e9620bf66",
+      "bytes": 2721248
+    }
   }
 }

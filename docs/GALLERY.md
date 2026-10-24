@@ -8,6 +8,10 @@ All images below are screenshots of the working studio. The reference character 
 
 ## Studio / 演播台
 
+Current MOSS 04 / 当前 MOSS 04: [actual 720×1280 video with sound](media/moss-04-live-demo.mp4) · [screenshot](media/moss-04-live-studio.png) · [validation](MOSS_LIVE.md) · [capture provenance](media/moss-media-manifest.json).
+
+![MOSS 04 real response / 实际响应，无声预览](media/moss-04-response.gif)
+
 ![Desktop studio / 桌面演播台](media/studio-desktop.png)
 
 ![Speaking state / 实际播报状态](media/studio-speaking.png)

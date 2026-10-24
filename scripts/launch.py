@@ -40,16 +40,25 @@ def start_service(name,profile='v2',minimum=None):
         if free<minimum*1024:raise RuntimeError(f'Only {free} MiB GPU memory is free; need {minimum} GiB. Existing applications are left running.')
     env=environment()
     if name=='tts':
-        port=9880;cwd=ROOT/'src/GPT-SoVITS';python=ROOT/'runtime/tts/Scripts/python.exe'
-        args=[str(python),'-X','utf8','-B',str(cwd/'api_v2.py'),'-a','127.0.0.1','-p',str(port),'-c',str(ROOT/'configs'/f'tts-{profile}.yaml')]
+        config=json.loads((ROOT/'configs/livetalking.yaml').read_text(encoding='utf-8-sig'))
+        port=9880
+        if config.get('tts')=='moss-ttsd':
+            moss=json.loads((ROOT/'configs/moss-live.json').read_text(encoding='utf-8'))
+            cwd=ROOT;python=(ROOT/moss['python']).resolve()
+            args=[str(python),'-X','utf8','-B',str(ROOT/'integration/moss_service.py'),'--config',str(ROOT/'configs/moss-live.json')]
+            env.update(PYTHONNOUSERSITE='1',PYTHONUNBUFFERED='1')
+        else:
+            cwd=ROOT/'src/GPT-SoVITS';python=ROOT/'runtime/tts/Scripts/python.exe'
+            args=[str(python),'-X','utf8','-B',str(cwd/'api_v2.py'),'-a','127.0.0.1','-p',str(port),'-c',str(ROOT/'configs'/f'tts-{profile}.yaml')]
     else:
         port=8010;cwd=ROOT/'src/LiveTalking';python=ROOT/'runtime/livetalking/Scripts/python.exe'
         config=json.loads((ROOT/'configs/livetalking.yaml').read_text(encoding='utf-8-sig'))
         if not (cwd/'data/avatars'/config['avatar_id']/'latents.pt').exists():raise RuntimeError('Prepare the selected avatar first.')
         args=[str(python),'-X','utf8','-B',str(cwd/'app.py'),'--config',str(ROOT/'configs/livetalking.yaml')]
     if port_open(port):raise RuntimeError(f'Port {port} is already in use; no duplicate process was started.')
-    stdout=(ROOT/'logs'/f'{name}.runtime.stdout.log').open('a',encoding='utf-8')
-    stderr=(ROOT/'logs'/f'{name}.runtime.stderr.log').open('a',encoding='utf-8')
+    log_name='moss' if name=='tts' and config.get('tts')=='moss-ttsd' else name
+    stdout=(ROOT/'logs'/f'{log_name}.runtime.stdout.log').open('a',encoding='utf-8')
+    stderr=(ROOT/'logs'/f'{log_name}.runtime.stderr.log').open('a',encoding='utf-8')
     process=subprocess.Popen(args,cwd=cwd,env=env,stdin=subprocess.DEVNULL,stdout=stdout,stderr=stderr,close_fds=True,creationflags=subprocess.DETACHED_PROCESS|subprocess.CREATE_NEW_PROCESS_GROUP)
     path=ROOT/'.setup/services.json'
     info=json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
@@ -63,10 +72,13 @@ def stop_services(only=None):
     for name,entry in list(info.items()):
         if only and name!=only:continue
         expected=entry['command'][4].casefold()
+        is_moss=Path(entry['command'][4]).resolve()==(ROOT/'integration/moss_service.py').resolve()
+        registered_python=Path(entry['command'][0]).resolve()
         owned=[]
         for process in psutil.process_iter(['pid','exe','cmdline']):
             try:
-                if not Path(process.info['exe'] or '').resolve().is_relative_to(ROOT):continue
+                executable=Path(process.info['exe'] or '').resolve()
+                if not executable.is_relative_to(ROOT) and not (is_moss and executable==registered_python):continue
                 if expected not in [arg.casefold() for arg in (process.info['cmdline'] or [])]:continue
                 if process.create_time()+15<entry['started']:continue
                 owned.append(process)

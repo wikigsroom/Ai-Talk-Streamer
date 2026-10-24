@@ -39,6 +39,24 @@ avatar=load_avatar(config['avatar_id']);renderer=MuseReal.__new__(MuseReal)
 renderer.vae,renderer.unet,renderer.pe,renderer.timesteps,renderer.audio_processor=model
 renderer.input_latent_list_cycle=avatar[4];renderer.batch_size=config['batch_size']
 warm_up(renderer.batch_size,model);memory_stats('warmed')
+if config.get('tts')=='moss-ttsd':
+    # Prime real speech features and the renderer's actual latent layout before
+    # accepting viewers; synthetic upstream warm-up misses this first batch.
+    import soundfile as sf
+    from scipy.signal import resample_poly
+    from math import gcd
+    voice_config=json.loads((ROOT/'configs/moss-live.json').read_text(encoding='utf-8'))
+    voice_id=voice_config['voice_id']
+    sample=ROOT/'web/voice-audio/female-a-v1'/('benchmark-moss-v01.wav' if voice_id=='v01' else 'voice'+voice_id[1:]+'-moss-'+voice_id+'.wav')
+    wave,rate=sf.read(str(sample),dtype='float32',always_2d=True)
+    factor=gcd(rate,16000)
+    wave=resample_poly(wave.mean(1),16000//factor,rate//factor).astype(np.float32)
+    tick=time.monotonic()
+    with torch.inference_mode():
+        renderer.audio_processor.audio2feat(wave)
+        renderer.inference_batch(0,[np.zeros((50,384),np.float16) for _ in range(renderer.batch_size)])
+    memory_stats('moss_real_speech_warmed')
+    print(json.dumps({'moss_real_speech_warm_seconds':time.monotonic()-tick}),flush=True)
 gc.collect();torch.cuda.empty_cache();cuda_memory=memory_stats('startup_cache_released')
 pipe=r'\\.\pipe\avatar-gpu-'+os.environ['AVATAR_GPU_WORKER_RUN']
 listener=Listener(pipe,family='AF_PIPE',authkey=bytes.fromhex(os.environ['AVATAR_GPU_WORKER_AUTH']))
@@ -60,8 +78,9 @@ try:
             elapsed=time.perf_counter()-start
             aggregate=timings.setdefault(operation,{'count':0,'seconds':0.0,'maximum_seconds':0.0})
             aggregate['count']+=1;aggregate['seconds']+=elapsed;aggregate['maximum_seconds']=max(aggregate['maximum_seconds'],elapsed)
-            if aggregate['count']%25==0:
-                statistics={'at':datetime.datetime.now().astimezone().isoformat(),'batch_size':renderer.batch_size,'operations':timings}
+            if aggregate['count']<=3 or aggregate['count']%25==0:
+                statistics={'at':datetime.datetime.now().astimezone().isoformat(),'batch_size':renderer.batch_size,'operations':timings,
+                            'allocated_mib':round(torch.cuda.memory_allocated()/2**20,1),'reserved_mib':round(torch.cuda.memory_reserved()/2**20,1)}
                 (ROOT/'.setup/gpu-inference-statistics.json').write_text(json.dumps(statistics),encoding='utf-8')
             if elapsed>1:print(json.dumps({'operation':operation,'seconds':elapsed}),flush=True)
         except Exception:connection.send({'ok':False,'error':traceback.format_exc()})

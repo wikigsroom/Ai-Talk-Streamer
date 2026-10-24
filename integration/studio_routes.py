@@ -33,13 +33,21 @@ async def status(request):
             except Exception:pass
             GPU_CACHE['at']=time.monotonic()
     gpu=GPU_CACHE['value']
-    tts=False
+    tts=False;voice=None
     try:
         async with ClientSession(timeout=ClientTimeout(total=2),trust_env=False) as client:
-            async with client.get('http://127.0.0.1:9880/openapi.json') as res:tts=res.status==200
+            if request.app['opt'].tts=='moss-ttsd':
+                async with client.get(request.app['opt'].TTS_SERVER.rstrip('/')+'/health') as res:
+                    state=await res.json()
+                    tts=res.status==200 and state.get('ready',False) and state.get('engine')=='MOSS-TTSD-v1.0' and state.get('voice_id')==getattr(request.app['opt'],'MOSS_VOICE_ID','v04')
+                    voice={key:state.get(key) for key in ('engine','voice_id','label','precision','busy','load_seconds')}
+            else:
+                async with client.get('http://127.0.0.1:9880/openapi.json') as res:tts=res.status==200
     except Exception:pass
     identity=character_identity()
-    return response({'ready':tts,'tts_ready':tts,'avatar_ready':True,'speaking':bool(avatar and avatar.is_speaking()),'sessionid':'studio' if avatar else None,'viewers':len(manager.broadcast.viewers) if manager.broadcast else 0,'event_subscribers':len(avatar.msgqueues) if avatar else 0,'gpu':gpu,'channel':channel_info(),'uptime_seconds':round(time.time()-STARTED),'profile':'GPT-SoVITS v2','avatar':' · '.join((identity['archive_label'],identity['name'],identity['scene']['name'])),'character':identity,'avatar_id':request.app['opt'].avatar_id,'local_media':True,'transport':'local_websocket_jpeg_pcm'})
+    selected_voice=getattr(request.app['opt'],'MOSS_VOICE_ID','v04')
+    profile=('MOSS '+selected_voice.removeprefix('v')+(' · '+voice['label'] if voice and voice.get('label') else '') if request.app['opt'].tts=='moss-ttsd' else 'GPT-SoVITS v2')
+    return response({'ready':tts,'tts_ready':tts,'avatar_ready':True,'speaking':bool(avatar and avatar.is_speaking()),'sessionid':'studio' if avatar else None,'viewers':len(manager.broadcast.viewers) if manager.broadcast else 0,'event_subscribers':len(avatar.msgqueues) if avatar else 0,'gpu':gpu,'channel':channel_info(),'uptime_seconds':round(time.time()-STARTED),'profile':profile,'voice':voice,'avatar':' · '.join((identity['archive_label'],identity['name'],identity['scene']['name'])),'character':identity,'avatar_id':request.app['opt'].avatar_id,'local_media':True,'transport':'local_websocket_jpeg_pcm'})
 
 async def character_record(request):
     identity=character_identity()

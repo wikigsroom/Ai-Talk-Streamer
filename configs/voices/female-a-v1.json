@@ -3131,6 +3131,23 @@
     }
   ],
   "benchmark_note": "样片共 21 段：MOSS 10 款、SoulX 10 款，01 号另有 FireRed 对照。同号使用相同参考音频与逐字稿；选角名称固定，模型输出听感可能不同。基频为自动估算，不能代替听感判断。",
-  "live_integration": "Audition and export only. The running avatar retains GPT-SoVITS until a voice is chosen and its adapter is implemented/tested.",
-  "quality_scope": "Full decoding, duration preservation, clipping/loudness and offline CPU Whisper transcription; no human MOS or blind listening score."
+  "live_integration": "Audition and export do not change the running avatar. See docs/MOSS_LIVE.md for explicit native adapter activation and validation.",
+  "quality_scope": "Full decoding, duration preservation, clipping/loudness and offline CPU Whisper transcription; no human MOS or blind listening score.",
+  "selected_live_voice": {
+    "character": "female-a",
+    "engine": "MOSS-TTSD-v1.0",
+    "adapter": "moss-ttsd",
+    "voice_id": "v04",
+    "label": "明朗亲和",
+    "reference": "assets/voices/female-a-v1/references/v04.wav",
+    "reference_sha256": "72c38cbcf3e06dd86d8edc5d4167f696b42bdac80b31e9f096fa300c94929fa4",
+    "playback_acceptance": "accepted",
+    "evidence": "docs/evidence/moss-live-browser.json",
+    "avatar_batch_size": 4,
+    "output_resolution": [
+      720,
+      1280
+    ],
+    "validated_at": "2026-10-24T19:33:35.043Z"
+  }
 }

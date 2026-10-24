@@ -6,7 +6,7 @@
 
 当前角色档案编号为 **女A**，正式姓名 **林知夏**，配套场景为 **知夏的日光宿舍**。她是**虚构的 22 岁中国女大学生**，沿用白天宿舍、长发、浅蓝卫衣的形象。[角色与素材归档](docs/CHARACTERS.md)提供分类目录、可校验清单和归档包。参考运行环境为 **RTX 4090 48 GB 显存＋64 GB 内存**。
 
-已增加 **RTX 3080 10 GB／64 GB 内存**实测版本，保留原始 batch 8、FP16 模型、完整动作库和 720×1280 输出。网页现统计视频实际呈现的帧率，慢连接积压时保留排队的音频。参见 [3080 部署与实测](docs/RTX3080.md) 和 [播放卡顿排查与修正](docs/PLAYBACK.md)。
+已增加 **RTX 3080 10 GB／64 GB 内存**实测版本。原 GPT-SoVITS 版本保留 batch 8；当前 MOSS 版本在 batch 8 播放验收失败后改用 batch 4，沿用 FP16 人物模型、完整动作库和 720×1280 输出。网页统计视频实际呈现的帧率，慢连接积压时保留排队的音频。参见 [3080 实测](docs/RTX3080.md)、[播放修正](docs/PLAYBACK.md) 和 [MOSS 验收](docs/MOSS_LIVE.md)。
 
 ![实际说话中的演播台](docs/media/studio-speaking.png)
 
@@ -32,10 +32,14 @@ GitHub 对仓库 MP4 链接可能提供下载而非内嵌播放器，README 中�
 
 ## 具体采用的方案
 
+**3080 当前直播音色已选择 MOSS 04「明朗亲和」。** 原文播报与云端文字回复均使用常驻本地 MOSS 服务。启用步骤、完整播报、停止逻辑与生成等待见 [MOSS 实时接入文档](docs/MOSS_LIVE.md)。基础安装器仍准备 GPT-SoVITS；MOSS 分支复用单独准备好的原生推理环境。
+
+[观看 MOSS 04 带声音的 720×1280 实录](docs/media/moss-04-live-demo.mp4)。五项网页用例全部通过，发声期间音频排程间隙为 0，观察时刻画面约 24.6–25.3 FPS。此次短句从提交到实际出声约 17–21 秒，云端回复约 28 秒。
+
 | 环节 | 实现 | 运行位置 |
 | --- | --- | --- |
 | 逻辑、推理、文字对话 | 用户指定的 OpenAI 兼容渠道，支持 Chat Completions / Responses | 可选云端 LLM |
-| 中文语音合成 | GPT-SoVITS v2 | 本地 GPU |
+| 中文语音合成 | MOSS 04：NF4 / BF16 模型、FP32 CPU codec；基础安装仍可使用 GPT-SoVITS v2 | 本地 GPU / CPU |
 | 音频特征 | MuseTalk 使用 Whisper tiny 提取特征，不是观众语音识别 | 本地 GPU |
 | 实时口型与融合 | MuseTalk 1.5、VAE、人脸跟踪与嘴部紧凑遮罩 | 本地 GPU / CPU |
 | 手部、肢体和宿舍画面 | 本地 H3 生成并审核的动作视频 | 准备阶段本地生成，直播时复用 |
@@ -51,9 +55,9 @@ GitHub 对仓库 MP4 链接可能提供下载而非内嵌播放器，README 中�
 ```mermaid
 flowchart LR
     A[输入文字] --> B{原文或 AI}
-    B -->|原文| D[本地 GPT-SoVITS]
+    B -->|原文| D[本地 MOSS 04]
     B -->|AI| C[用户云端 LLM]
-    C -->|分句输出| D
+    C -->|收齐完整回复| D
     D --> E[本地音频特征]
     E --> F[MuseTalk 实时口型]
     G[审核后的身体动作库] --> F
@@ -140,6 +144,7 @@ RTX 3080 安装时增加 `-HardwareProfile rtx3080-original`，随后使用 `.\S
 | 文档 | 说明 |
 | --- | --- |
 | [文档索引](docs/README.md) | 中英阅读路线 |
+| [MOSS 04 实时播报](docs/MOSS_LIVE.md) | 当前音色、常驻推理、接入、打断与实测 |
 | [RTX 3080](docs/RTX3080.md) | 10 GB 显卡实测、优化、迁移和降级顺序 |
 | [部署](docs/DEPLOYMENT.md) | 原生环境、安装步骤、断点恢复 |
 | [使用](docs/USAGE.md) | 播报、渠道、动作、OBS、API |

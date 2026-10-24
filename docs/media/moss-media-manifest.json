@@ -1,0 +1,54 @@
+{
+  "source": "actual browser preview, MediaRecorder VP8/Opus",
+  "browser_evidence": "docs/evidence/moss-live-browser.json",
+  "checked_at": "2026-10-24T19:33:35.043Z",
+  "source_sha256": "a6c0fbbe0289a3b75841874d10fc6f78b5e495fdb62309d3c6adfd8a092bf217",
+  "items": [
+    {
+      "file": "docs/media/moss-04-live-demo.mp4",
+      "description": "Full actual 720x1280 browser preview with MOSS speech",
+      "sha256": "bc909c3b673ec3a34306ec74cc76f268a216038f953e9584c2aa5b9eaa82de00",
+      "bytes": 1308363,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 720,
+            "height": 1280
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio"
+          }
+        ],
+        "format": {
+          "duration": "9.640000"
+        }
+      }
+    },
+    {
+      "file": "docs/media/moss-04-response.gif",
+      "description": "Silent excerpt of the same real preview, original playback speed",
+      "sha256": "6cd58d2aaa3695b42e8c6651aea6f261041af2e4ea7189b7457ab98e9620bf66",
+      "bytes": 2721248,
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "gif",
+            "codec_type": "video",
+            "width": 270,
+            "height": 480
+          }
+        ],
+        "format": {
+          "duration": "7.000000"
+        }
+      }
+    }
+  ]
+}

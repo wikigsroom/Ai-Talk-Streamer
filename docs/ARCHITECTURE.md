@@ -20,8 +20,8 @@ flowchart TB
   subgraph Live
     Q[Browser text] --> C{Echo or cloud conversation}
     C -->|Chat| L[User-configured LLM stream]
-    C -->|Echo| T[Local GPT-SoVITS sentence WAV]
-    L --> T
+    C -->|Echo| T[Local MOSS 04 complete WAV]
+    L -->|Complete reply| T
     T --> F[Whisper speech features]
     F --> U[MuseTalk isolated GPU worker]
     B --> U
@@ -33,6 +33,8 @@ flowchart TB
 ```
 
 ## Code boundaries / 代码分工
+
+The selected MOSS branch uses a persistent NF4/BF16 speech process and CPU codec, buffers the complete reply, and supports generation cancellation. The original GPT-SoVITS branch retains sentence output. See [MOSS live](MOSS_LIVE.md) for activation, process ownership and measurements. / 当前 MOSS 分支使用常驻语音进程与 CPU codec，收齐回复后合成并支持取消；原 GPT-SoVITS 分支保留分句输出，具体见 MOSS 文档。
 
 | Area / 范围 | Files / 文件 | Responsibility / 职责 |
 | --- | --- | --- |

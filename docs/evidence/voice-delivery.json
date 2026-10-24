@@ -6,9 +6,10 @@
     "all_twenty_one_wavs_match_and_support_range": true,
     "download_zip_sha256_and_crc": true,
     "moss_only_zip_has_ten_actual_moss_clips": true,
-    "original_female_a_avatar_and_tts_restored": true,
+    "actual_moss_video_and_gif_published": true,
+    "female_a_moss_04_live_ready": true,
     "studio_has_voice_audition_link": true,
-    "comfy_queue_idle": true
+    "comfy_service_stopped_for_live_vram": true
   },
   "audio": [
     {
@@ -160,8 +161,20 @@
     }
   ],
   "archive": {
-    "bytes": 13661941,
-    "sha256": "e41ad2138e6ace06594259a96839acee64eda4c2333b6feec26ba0aa8ab821f8"
+    "bytes": 13668936,
+    "sha256": "2eb062fcecd478f82afd534520bedb56808f015d937be64c0527086f0d8f0982"
   },
-  "checked_at": "2026-10-25T01:47:26.813417+08:00"
+  "live_media": [
+    {
+      "file": "moss-04-live-demo.mp4",
+      "sha256_matches": true,
+      "range_response": 206
+    },
+    {
+      "file": "moss-04-response.gif",
+      "sha256_matches": true,
+      "range_response": 206
+    }
+  ],
+  "checked_at": "2026-10-25T03:44:00.152175+08:00"
 }

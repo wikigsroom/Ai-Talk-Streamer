@@ -8,7 +8,7 @@
 
 打开运行中演播台的 **`/voices.html?v=2`**，或下载 `female-a-voice-selection-v2.zip` 后打开 `web/voices.html`，即可离线试听。页面默认展示 **MOSS 10 款**，支持切换到 **SoulX 10 款**、同号跨模型对照、单段播放、暂停、拖动、原速/变速试听、音量、WAV 下载、候选保存和 JSON 导出。页面与截图均使用实际生成音频；CSS/JS 版本号用于更新上一版的浏览器缓存。
 
-**这是一批音色选型素材。** 加入候选、导出或改变播放速度不会修改运行中的直播引擎。现有实时直播仍使用 GPT-SoVITS；把 SoulX / MOSS / FireRed 接到实时链路，需要实现并验证 TTS 适配器、排队/打断、分句、采样率与延迟。本次没有把它们标成已经验收的实时方案。
+**当前直播已选用 MOSS 04「明朗亲和」。** 该款通过常驻本地 MOSS 服务接入原文播报与云端文字回复；完整音频生成后开始播放，支持停止和取消。接入配置、实际测试与生成等待见 [MOSS 实时播报](MOSS_LIVE.md)。试听页加入候选、导出或改变播放速度仍不会修改直播引擎；SoulX 与 FireRed 在本批中作为选型样片保留。
 
 另外提供 `female-a-moss-10-v2.zip`：仅包含 MOSS 的十款 WAV、原始 FLAC、对应参考声、实际工作流与清单，方便单独评选。 / A separate MOSS-only ZIP contains ten MOSS clips, their raw FLACs, references, workflows and inventory.
 
@@ -97,7 +97,7 @@ ffmpeg -i input.wav -af "volume=0.85" -c:a pcm_s16le quieter.wav
 
 This release contains **ten distinct registered female reference speakers**, each rendered with **both MOSS and SoulX**, plus FireRed for voice 01: **21 real clips — MOSS 10, SoulX 10, FireRed 1**. Everything ran in native Windows ComfyUI on the existing RTX 3080 10 GB / 64 GB workstation. No cloud TTS, Docker, WSL or virtualization was used. The avatar remains **female-A / Lin Zhixia** in her approved daylight dorm.
 
-Open **`/voices.html?v=2`** on the running studio, or extract the V2 delivery ZIP and open `web/voices.html`. **Ten MOSS clips are shown by default**; switch to SoulX for its ten clips or use each card's same-reference comparison button. The comparison table can select reference 01–10. Voice 01 has three models; all others have two. Shortlist export retains both model and reference ID, including the same reference chosen with two engines. The page also supports seeking, pitch-preserving audition speed, volume and WAV download. It is a casting page: **shortlisting does not switch the live avatar's TTS engine**. Live GPT-SoVITS remains active until a selected voice and the required adapter have been tested.
+Open **`/voices.html?v=2`** on the running studio, or extract the V2 delivery ZIP and open `web/voices.html`. **Ten MOSS clips are shown by default**; switch to SoulX for its ten clips or use each card's same-reference comparison button. The comparison table can select reference 01–10. Voice 01 has three models; all others have two. Shortlist export retains both model and reference ID, including the same reference chosen with two engines. The page also supports seeking, pitch-preserving audition speed, volume and WAV download. **MOSS 04 is now selected for live speech** through the persistent local adapter; see [activation and measured behavior](MOSS_LIVE.md). Shortlisting on the casting page does not change this selection. SoulX and FireRed remain audition comparisons.
 
 All clips use exactly the same Chinese greeting. The three model comparisons use exactly the same voice-01 reference audio and transcript. MOSS used NF4 4-bit LLM weights with BF16 computation and a CPU FP32 codec; FireRed used a BF16 LLM and CUDA FP32 codec; SoulX used the full BF16 LLM with FP32 Flow. The table above records actual first-case wall time, including loading/polling/transfer; warm SoulX cases took roughly 12–17 seconds. These are not first-chunk latency measurements or a guarantee of concurrent real-time video performance.
 

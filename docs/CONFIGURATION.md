@@ -9,6 +9,7 @@
 | `configs/channel.env.example` | Blank template for your cloud channel / 渠道模板 | Yes / 是 |
 | `configs/channel.env` | Real endpoint, key, model and system prompt / 实际渠道 | No / 否 |
 | `configs/livetalking.yaml` | JSON-compatible YAML: avatar ID, TTS URL, reference WAV/text, batch, port / 人物运行设置 | No / 否 |
+| `configs/moss-live.example.json` / `configs/moss-live.json` | Portable template / private native MOSS paths and selected voice; see [MOSS live](MOSS_LIVE.md) / 模板与本机 MOSS 配置 | Template only / 仅模板 |
 | `configs/tts-v2.yaml`, `tts-v2ProPlus.yaml` | Local TTS weights, CUDA device, half precision / 语音权重设置 | No / 否 |
 | `configs/vertical/avatar-profile.json` | Baseline preparation profile, compact mask and bbox shift / 基准预处理规格 | Yes / 是 |
 | `configs/vertical/materials/catalog.json`, `reviews.json`, `motion-index.json` | Reviewed selected assets and contiguous bank indices / 素材、审核和帧索引 | Yes / 是 |
@@ -57,7 +58,7 @@ Changing avatar ID alone is insufficient for a new person. Rebuild its coordinat
 | Port / 端口 | Service / 服务 | Binding / 范围 |
 | --- | --- | --- |
 | 8010 | Studio HTTP + WebSocket + SSE | `0.0.0.0` after studio integration; trusted LAN/VPN only / 演播台集成后监听网卡 |
-| 9880 | Local GPT-SoVITS API | `127.0.0.1` / 仅本机 |
+| 9880 | Selected local TTS API: MOSS 04, or original GPT-SoVITS configuration | `127.0.0.1` / 仅本机 |
 | 4457 | Project OBS WebSocket | Authenticated with a generated local password; restrict via firewall / 随机密码，需防火墙限制 |
 | 8188 | Optional existing native ComfyUI for generation | Not started or installed by the live setup / 可选生成环境 |
 

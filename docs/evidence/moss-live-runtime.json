@@ -1,0 +1,88 @@
+{
+  "checked_at": "2026-10-25T03:35:16.6569788+08:00",
+  "platform": "Windows native",
+  "avatar_batch_size": 4,
+  "avatar_id": "student_dorm_motion_bank_v3",
+  "voice": {
+    "ready": true,
+    "engine": "MOSS-TTSD-v1.0",
+    "voice_id": "v04",
+    "label": "明朗亲和",
+    "precision": "NF4 4-bit / BF16 compute; codec FP32 CPU",
+    "reference_sha256": "72c38cbcf3e06dd86d8edc5d4167f696b42bdac80b31e9f096fa300c94929fa4",
+    "load_seconds": 106.134,
+    "busy": false,
+    "error": null,
+    "recent": [
+      {
+        "engine": "MOSS-TTSD-v1.0",
+        "voice_id": "v04",
+        "characters": 35,
+        "parts": 1,
+        "audio_seconds": 6.88,
+        "generation_seconds": 12.016,
+        "codec_seconds": 2.744,
+        "wall_seconds": 14.797,
+        "peak_allocated_mib": 6385.4,
+        "gain": 0.9817000939838193
+      },
+      {
+        "engine": "MOSS-TTSD-v1.0",
+        "voice_id": "v04",
+        "characters": 28,
+        "parts": 1,
+        "audio_seconds": 6.08,
+        "generation_seconds": 10.644,
+        "codec_seconds": 2.403,
+        "wall_seconds": 15.246,
+        "peak_allocated_mib": 6384.1,
+        "gain": 1.0
+      },
+      {
+        "engine": "MOSS-TTSD-v1.0",
+        "voice_id": "v04",
+        "characters": 33,
+        "parts": 1,
+        "audio_seconds": 6.16,
+        "generation_seconds": 10.708,
+        "codec_seconds": 2.559,
+        "wall_seconds": 13.284,
+        "peak_allocated_mib": 6384.9,
+        "gain": 1.0
+      },
+      {
+        "engine": "MOSS-TTSD-v1.0",
+        "voice_id": "v04",
+        "characters": 29,
+        "parts": 1,
+        "audio_seconds": 6.0,
+        "generation_seconds": 10.4,
+        "codec_seconds": 2.585,
+        "wall_seconds": 13.309,
+        "peak_allocated_mib": 6384.1,
+        "gain": 1.0
+      }
+    ]
+  },
+  "inference": {
+    "at": "2026-10-25T03:33:30.179506+08:00",
+    "batch_size": 4,
+    "operations": {
+      "features": {
+        "count": 160,
+        "seconds": 5.490269800002125,
+        "maximum_seconds": 0.48590409999997064
+      },
+      "render": {
+        "count": 150,
+        "seconds": 23.916286999999556,
+        "maximum_seconds": 2.6360354999999345
+      }
+    },
+    "allocated_mib": 1893.3,
+    "reserved_mib": 3654.0
+  },
+  "gpu_snapshot": "NVIDIA GeForce RTX 3080, 10240 MiB, 9311 MiB, 743 MiB",
+  "comfy_service_running": false,
+  "source_record_sha256": "97e943c543e42edc27025497a5fedb669eed9d448b92079392ce586f3e665244"
+}

@@ -1,0 +1,132 @@
+{
+  "ok": true,
+  "engine": "MOSS-TTSD-v1.0",
+  "voice_id": "v04",
+  "cases": [
+    {
+      "name": "shared audition text through the live avatar",
+      "ok": true,
+      "text": "你好，我是林知夏。欢迎来到直播间，今天过得怎么样？别着急，我们慢慢聊。",
+      "first_audio_event_seconds": 18.369300000000745,
+      "first_voiced_playback_seconds": 21.088466666667397,
+      "total_seconds": 25.583300000000744,
+      "voiced_frames": 140,
+      "audio_schedule_gap_count": 0,
+      "idle_buffer_resets": 1,
+      "transport_fps": 25.34854245881492,
+      "missing_packets": 0
+    },
+    {
+      "name": "novel Mandarin text",
+      "ok": true,
+      "text": "今天的风很轻。我们先喝口水，再聊聊你最近最开心的一件事。",
+      "first_audio_event_seconds": 16.433299999999814,
+      "first_voiced_playback_seconds": 18.573966666665736,
+      "total_seconds": 23.20209999999963,
+      "voiced_frames": 117,
+      "audio_schedule_gap_count": 0,
+      "idle_buffer_resets": 0,
+      "transport_fps": 25.31308286703656,
+      "missing_packets": 0
+    },
+    {
+      "name": "cancel actual generation before playback",
+      "ok": true,
+      "stale_audio_started": false
+    },
+    {
+      "name": "new speech after interruption",
+      "ok": true,
+      "text": "刚才的播报已经停止。现在这句话，是重新生成的 MOSS 四号声音。",
+      "first_audio_event_seconds": 14.886899999999441,
+      "first_voiced_playback_seconds": 17.004200000000864,
+      "total_seconds": 21.2985,
+      "voiced_frames": 134,
+      "audio_schedule_gap_count": 0,
+      "idle_buffer_resets": 1,
+      "transport_fps": 24.745853397551123,
+      "missing_packets": 0
+    },
+    {
+      "name": "configured cloud text reply spoken by local MOSS",
+      "ok": true,
+      "text": "我是虚拟角色林知夏，今天大学生活怎么样呀，愿意跟我聊聊吗？",
+      "first_audio_event_seconds": 26.568800000000746,
+      "first_voiced_playback_seconds": 27.693566666673938,
+      "total_seconds": 32.93710000000056,
+      "voiced_frames": 122,
+      "audio_schedule_gap_count": 0,
+      "idle_buffer_resets": 0,
+      "transport_fps": 24.6305418719334,
+      "missing_packets": 0
+    }
+  ],
+  "checks": {
+    "actual_engine_and_voice_selected": true,
+    "avatar_preview_connected": true,
+    "cloud_reply_uses_local_moss": true,
+    "complete_audio_playback_without_schedule_gaps": true,
+    "cancellation_and_following_request": true,
+    "no_browser_script_errors": true,
+    "preview_closed": true
+  },
+  "diagnostics": {
+    "name": "configured cloud text reply spoken by local MOSS",
+    "gaps": [],
+    "idle_buffer_resets": 0,
+    "transport": {
+      "frames": 2967,
+      "received_frames": 2991,
+      "presented_frames": 2965,
+      "fps": 24.6305418719334,
+      "fps_source": "video_presentation",
+      "width": 720,
+      "height": 1280,
+      "audio_samples": 1914240,
+      "audio_energy": 0.21344978461007116,
+      "audio_underruns": 2,
+      "target_audio_buffer_ms": 2400,
+      "audio_buffer_ms": 349.3333333411073,
+      "missing_packets": 0,
+      "server_skipped_video_frames": 0,
+      "skipped_video_frames": 16,
+      "decode_errors": 0,
+      "max_arrival_gap_ms": 2556.2000000001863,
+      "connected": true
+    },
+    "events": [
+      {
+        "status": "reply",
+        "text": "我是虚拟角色林知夏，今天大学生活怎么样呀，愿意跟我聊聊吗？",
+        "at": 107335.20000000019
+      },
+      {
+        "status": "generating",
+        "text": "我是虚拟角色林知夏，今天大学生活怎么样呀，愿意跟我聊聊吗？",
+        "engine": "MOSS",
+        "voice_id": "v04",
+        "at": 107336.29999999981
+      },
+      {
+        "request_id": "1792870379162",
+        "generation": 6,
+        "tts_engine": "MOSS",
+        "voice_id": "v04",
+        "status": "start",
+        "text": "我是虚拟角色林知夏，今天大学生活怎么样呀，愿意跟我聊聊吗？",
+        "at": 121733.40000000037
+      },
+      {
+        "request_id": "1792870379162",
+        "generation": 6,
+        "status": "end",
+        "text": "我是虚拟角色林知夏，今天大学生活怎么样呀，愿意跟我聊聊吗？",
+        "tts_engine": "MOSS",
+        "voice_id": "v04",
+        "at": 128096.90000000037
+      }
+    ]
+  },
+  "browser_closed": true,
+  "checked_at": "2026-10-24T19:33:35.043Z"
+}

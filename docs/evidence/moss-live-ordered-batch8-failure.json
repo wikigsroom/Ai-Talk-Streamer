@@ -1,0 +1,68 @@
+{
+  "ok": false,
+  "engine": "MOSS-TTSD-v1.0",
+  "voice_id": "v04",
+  "cases": [],
+  "checks": {
+    "actual_engine_and_voice_selected": true,
+    "avatar_preview_connected": true
+  },
+  "diagnostics": {
+    "name": "shared audition text through the live avatar",
+    "gaps": [
+      2421.333333333428
+    ],
+    "idle_buffer_resets": 3,
+    "transport": {
+      "frames": 597,
+      "received_frames": 630,
+      "presented_frames": 597,
+      "fps": 23.54326074160411,
+      "fps_source": "video_presentation",
+      "width": 720,
+      "height": 1280,
+      "audio_samples": 403200,
+      "audio_energy": 0.060214617112476825,
+      "audio_underruns": 4,
+      "target_audio_buffer_ms": 2400,
+      "audio_buffer_ms": 1359.9999999999498,
+      "missing_packets": 0,
+      "server_skipped_video_frames": 0,
+      "skipped_video_frames": 0,
+      "decode_errors": 0,
+      "max_arrival_gap_ms": 4378.9000000003725,
+      "connected": true
+    },
+    "events": [
+      {
+        "status": "generating",
+        "text": "你好，我是林知夏。欢迎来到直播间，今天过得怎么样？别着急，我们慢慢聊。",
+        "engine": "MOSS",
+        "voice_id": "v04",
+        "at": 5880.4000000003725
+      },
+      {
+        "request_id": "1792869772534",
+        "generation": 1,
+        "tts_engine": "MOSS",
+        "voice_id": "v04",
+        "status": "start",
+        "text": "你好，我是林知夏。欢迎来到直播间，今天过得怎么样？别着急，我们慢慢聊。",
+        "at": 29980.700000000186
+      },
+      {
+        "request_id": "1792869772534",
+        "generation": 1,
+        "status": "end",
+        "text": "你好，我是林知夏。欢迎来到直播间，今天过得怎么样？别着急，我们慢慢聊。",
+        "tts_engine": "MOSS",
+        "voice_id": "v04",
+        "at": 40269.59999999963
+      }
+    ]
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Browser audio schedule has gaps",
+  "browser_closed": true,
+  "checked_at": "2026-10-24T19:23:29.366Z",
+  "source_record_sha256": "8f8729dd235ff31ffb752a2257905b7fe79a01c7df7f4ddcba5d73c43bff8ee8"
+}

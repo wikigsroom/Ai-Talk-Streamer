@@ -1,0 +1,17 @@
+{
+  "character": "female-a",
+  "engine": "MOSS-TTSD-v1.0",
+  "adapter": "moss-ttsd",
+  "voice_id": "v04",
+  "label": "明朗亲和",
+  "reference": "assets/voices/female-a-v1/references/v04.wav",
+  "reference_sha256": "72c38cbcf3e06dd86d8edc5d4167f696b42bdac80b31e9f096fa300c94929fa4",
+  "playback_acceptance": "accepted",
+  "evidence": "docs/evidence/moss-live-browser.json",
+  "avatar_batch_size": 4,
+  "output_resolution": [
+    720,
+    1280
+  ],
+  "validated_at": "2026-10-24T19:33:35.043Z"
+}

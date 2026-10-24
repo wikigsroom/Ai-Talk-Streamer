@@ -2,12 +2,13 @@
 
 [English README](../README.md) · [中文 README](../README.zh-CN.md)
 
-This is the documentation for the delivered **daylight dorm / portrait / local-media** implementation. It describes the actual MuseTalk + GPT-SoVITS studio and its limits. The included recordings show real operation of the reference workstation.
+This is the documentation for the delivered **daylight dorm / portrait / local-media** implementation. It describes MuseTalk with the selected MOSS 04 live voice and the original GPT-SoVITS installation option. The included recordings show real operation of the reference workstation; older recordings retain their original voice.
 
 本项目交付的是**白天宿舍、写实人物、9:16 竖屏、本地音视频推理**方案。云端仅承担可选的 LLM 对话；人物肢体使用预生成动作库，口型随实时语音推理。
 
 | Document / 文档 | Read it for / 内容 |
 | --- | --- |
+| [MOSS 04 live / MOSS 04 实时播报](MOSS_LIVE.md) | Selected voice, actual local adapter, cancellation, warm-up and measured waiting time / 当前音色、本地适配器、打断、预热和等待实测 |
 | [Voices / 女A音色](VOICES.md) | Ten MOSS voices and ten matched SoulX voices, plus FireRed 01 / MOSS 十款与 SoulX 十款同号对照、FireRed 01、修改与重新生成 |
 | [RTX 3080 / 3080 部署](RTX3080.md) | Actual 10 GB tests, original batch-8 configuration, screenshots and explicit fallback order / 10 GB 实测、原始 batch 8、截图与降级顺序 |
 | [Playback / 播放连续性](PLAYBACK.md) | Presented-frame measurements, audio integrity and backpressure correction / 实际呈现帧率、音频完整性与队列修正 |

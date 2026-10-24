@@ -1,0 +1,16 @@
+{
+  "runtime_root": "../comfyUI/podcast-trio-runtime",
+  "models_root": "../comfyUI/ComfyUI/models/TTS",
+  "python": "../comfyUI/python_embeded/python.exe",
+  "references": "assets/voices/female-a-v1/references.json",
+  "voice_id": "v04",
+  "label": "明朗亲和",
+  "seed": 20261026,
+  "temperature": 1.1,
+  "top_p": 0.9,
+  "top_k": 50,
+  "repetition_penalty": 1.1,
+  "max_new_tokens": 800,
+  "segment_characters": 70,
+  "cpu_threads": 8
+}
