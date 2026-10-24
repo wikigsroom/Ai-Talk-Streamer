@@ -180,6 +180,27 @@ def main():
     check(scenarios['ok'] and len(scenarios['items']) == 5 and all(c['ok'] for c in scenarios['items']), 'Reference scenario acceptance')
     check(abs(sum(c['seconds'] for c in scenarios['items']) - 217.24) < .01, 'Scenario duration total')
 
+    deployment3080 = load('docs/evidence/rtx3080-deployment.json')
+    check(deployment3080['ok'] and deployment3080['browser_ok'] and deployment3080['cloud_ok'], 'RTX 3080 deployment acceptance')
+    check(deployment3080['profile']['preset'] == 'rtx3080-original' and deployment3080['profile']['batch_size'] == 8,
+          'RTX 3080 original batch profile')
+    browser3080 = load('docs/evidence/rtx3080-browser.json')
+    check(browser3080['ok'] and all(c['ok'] for c in browser3080['checks']), 'RTX 3080 browser checks')
+    speech3080 = next(c for c in browser3080['checks'] if c['name'] == 'speaking_rate')
+    check(speech3080['fps'] >= 22.5 and abs(speech3080['fps'] - (speech3080['after']['frames'] - speech3080['before']['frames']) / speech3080['seconds']) < .001,
+          'RTX 3080 actual received speech frame rate')
+    scenarios3080 = load('docs/evidence/rtx3080-scenarios.json')
+    check(scenarios3080['ok'] and len(scenarios3080['items']) == 5 and all(c['ok'] for c in scenarios3080['items']), 'RTX 3080 five scenarios')
+    check(abs(sum(c['seconds'] for c in scenarios3080['items']) - 294.20) < .01, 'RTX 3080 scenario duration total')
+    media3080 = load('docs/media/rtx3080-manifest.json')
+    check(len(media3080['items']) == 8, 'Expected eight attributable RTX 3080 media files')
+    for item in media3080['items']:
+        path = local(item['file'])
+        check(path.is_file() and path.stat().st_size == item['bytes'] and sha256(path) == item['sha256'], 'RTX 3080 media checksum: ' + item['file'])
+        if path.suffix in {'.mp4', '.gif'}:
+            check(item['source_sha256'] == scenarios3080['items'][0]['sha256'], 'RTX 3080 preview source checksum')
+    counts['rtx3080_scenarios'] = len(scenarios3080['items'])
+
     if args.media:
         probe = shutil.which('ffprobe')
         if not probe:
@@ -198,6 +219,9 @@ def main():
             if relative.startswith('docs/media/s0'):
                 check((video['width'], video['height'], video['r_frame_rate']) == (432, 768, '25/1'), 'Preview format: ' + relative)
                 check(any(s['codec_type'] == 'audio' for s in data['streams']), 'Scenario preview has no audio: ' + relative)
+            if relative == 'docs/media/rtx3080-welcome.mp4':
+                check((video['width'], video['height'], video['r_frame_rate']) == (432, 768, '25/1'), 'RTX 3080 preview format')
+                check(any(s['codec_type'] == 'audio' for s in data['streams']), 'RTX 3080 preview has no audio')
         counts['ffprobe_videos'] = len(videos)
 
     result = {'ok': not failures, 'scope': 'repository checks; not a fresh GPU deployment', 'counts': counts, 'failures': failures}

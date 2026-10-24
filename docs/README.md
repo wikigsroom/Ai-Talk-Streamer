@@ -8,6 +8,7 @@ This is the documentation for the delivered **daylight dorm / portrait / local-m
 
 | Document / 文档 | Read it for / 内容 |
 | --- | --- |
+| [RTX 3080 / 3080 部署](RTX3080.md) | Actual 10 GB tests, original batch-8 configuration, screenshots and explicit fallback order / 10 GB 实测、原始 batch 8、截图与降级顺序 |
 | [Deployment / 部署](DEPLOYMENT.md) | Native Windows prerequisites, installation stages, preparation, restart and recovery / 原生安装、素材预处理、启动与恢复 |
 | [Usage / 使用](USAGE.md) | Browser controls, channel settings, gestures, recording, OBS and HTTP calls / 网页交互、渠道、动作、录制及接口 |
 | [Architecture / 架构](ARCHITECTURE.md) | Media preparation, speech, GPU isolation, frame alignment, transport and cancellation / 准备与实时链路、对齐及打断逻辑 |

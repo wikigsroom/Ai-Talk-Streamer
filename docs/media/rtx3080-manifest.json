@@ -1,0 +1,70 @@
+{
+  "hardware": "RTX 3080 10 GB",
+  "source": "Actual target browser captures and actual portable OBS scenario recording",
+  "items": [
+    {
+      "file": "docs/media/rtx3080-ready.png",
+      "source_name": "actual 3080 browser capture",
+      "source_sha256": null,
+      "description": "Actual browser screenshot, no UI mockup",
+      "sha256": "ce4f58030b162362668cf15e86ac8981242e809a054d1450c0ba95c539be3919",
+      "bytes": 176571
+    },
+    {
+      "file": "docs/media/rtx3080-speaking.png",
+      "source_name": "actual 3080 browser capture",
+      "source_sha256": null,
+      "description": "Actual browser screenshot, no UI mockup",
+      "sha256": "89e14b0f47c30c06dda21b3f5558ddb2bdfc90abf7dbe545adfff764f311bb5c",
+      "bytes": 582287
+    },
+    {
+      "file": "docs/media/rtx3080-mobile.png",
+      "source_name": "actual 3080 browser capture",
+      "source_sha256": null,
+      "description": "Actual browser screenshot, no UI mockup",
+      "sha256": "b8562b3996bf14eaf72fc1a7e7d4c07af0cfa19e4467b40f1c6cb5f083e3c00c",
+      "bytes": 457953
+    },
+    {
+      "file": "docs/media/rtx3080-tests.png",
+      "source_name": "rtx3080-tests.png",
+      "source_sha256": null,
+      "description": "Actual 3080 gallery or cloud conversation screenshot",
+      "sha256": "71088fc196dcf32f2cbb459c6c181136497d104b2a369ee80eed021a9d7f1040",
+      "bytes": 630016
+    },
+    {
+      "file": "docs/media/rtx3080-tests-mobile.png",
+      "source_name": "rtx3080-tests-mobile.png",
+      "source_sha256": null,
+      "description": "Actual 3080 gallery or cloud conversation screenshot",
+      "sha256": "52d5351242095bcc1dd39ab63ad374d2db0aaeb36b58c9d0b55c3e4254229717",
+      "bytes": 491660
+    },
+    {
+      "file": "docs/media/rtx3080-cloud.png",
+      "source_name": "cloud-conversation.png",
+      "source_sha256": null,
+      "description": "Actual 3080 gallery or cloud conversation screenshot",
+      "sha256": "253aca6b0b57f23389aa1a0bf0ed0922f45be17e3940503a77539d829ab7dae0",
+      "bytes": 563680
+    },
+    {
+      "file": "docs/media/rtx3080-welcome.mp4",
+      "source_name": "s01_welcome.mp4",
+      "source_sha256": "192a08316ff053260cbd2fb7bade0bfcab83818d8866a79996803b5baac0dd7e",
+      "description": "Full 40-second actual 3080 OBS welcome scenario, resized for documentation; original 720x1280 has locally synthesized audio",
+      "sha256": "54d7a2992eaf9b0da5e2e4cc09dc3758851af59882e944e01cbd22b8aa14b905",
+      "bytes": 1036709
+    },
+    {
+      "file": "docs/media/rtx3080-live.gif",
+      "source_name": "s01_welcome.mp4",
+      "source_sha256": "192a08316ff053260cbd2fb7bade0bfcab83818d8866a79996803b5baac0dd7e",
+      "description": "Silent six-second actual 3080 recording excerpt at original playback speed, starting at second 12",
+      "sha256": "2224ef4385fca13375fbb7cfaa64028e655b45ee539cff8cf302116886f399f3",
+      "bytes": 1554590
+    }
+  ]
+}

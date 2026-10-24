@@ -1,6 +1,8 @@
 param(
     [string]$Python='python',
-    [switch]$PrepareAvatar
+    [switch]$PrepareAvatar,
+    [ValidateSet('','rtx3080-original','rtx3080-batch4','rtx3080-batch2','rtx3080-batch1','rtx3080-cpu-tts')]
+    [string]$HardwareProfile=''
 )
 $ErrorActionPreference='Stop'
 Set-Location -LiteralPath $PSScriptRoot
@@ -26,5 +28,6 @@ if($PrepareAvatar) {
     }
     Write-Output 'Preparation complete. Start with .\Start-Streamer.cmd'
 } else {
-    Write-Output 'Installation checks complete. Run the four avatar preparation stages in docs/DEPLOYMENT.md before starting.'
+    Write-Output 'Installation checks complete. Run the avatar preparation stages in docs/DEPLOYMENT.md before starting.'
 }
+if($HardwareProfile){Invoke-AvatarStep (Join-Path $PSScriptRoot 'runtime/livetalking/Scripts/python.exe') 'scripts/hardware_profile.py' @($HardwareProfile)}

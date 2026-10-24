@@ -1,0 +1,86 @@
+{
+  "ok": true,
+  "at": "2026-10-24T12:07:45.804Z",
+  "errors": [],
+  "mode": "chat",
+  "uses_existing_channel": true,
+  "configured": true,
+  "prompt": "请用两句简短中文欢迎新观众，并问问对方今天想聊什么。总字数不超过五十字。",
+  "first_reply_ms": 1694,
+  "first_speech_ms": 3600,
+  "first_audio_ms": 3906,
+  "events": [
+    {
+      "status": "reply",
+      "text": "欢迎来到直播间！",
+      "received_ms": 1792843672602
+    },
+    {
+      "status": "reply",
+      "text": "今天想聊点什么？",
+      "received_ms": 1792843672609
+    },
+    {
+      "status": "reply",
+      "text": "找个舒服的位置，一起聊聊吧！",
+      "received_ms": 1792843672664
+    },
+    {
+      "status": "start",
+      "text": "欢迎来到直播间！",
+      "request_id": "1792843670141",
+      "generation": 23,
+      "received_ms": 1792843674508
+    },
+    {
+      "status": "end",
+      "text": "欢迎来到直播间！",
+      "request_id": "1792843670141",
+      "generation": 23,
+      "received_ms": 1792843676200
+    },
+    {
+      "status": "start",
+      "text": "今天想聊点什么？",
+      "request_id": "1792843670141",
+      "generation": 23,
+      "received_ms": 1792843676758
+    },
+    {
+      "status": "end",
+      "text": "今天想聊点什么？",
+      "request_id": "1792843670141",
+      "generation": 23,
+      "received_ms": 1792843678826
+    },
+    {
+      "status": "start",
+      "text": "找个舒服的位置，一起聊聊吧！",
+      "request_id": "1792843670141",
+      "generation": 23,
+      "received_ms": 1792843679110
+    },
+    {
+      "status": "end",
+      "text": "找个舒服的位置，一起聊聊吧！",
+      "request_id": "1792843670141",
+      "generation": 23,
+      "received_ms": 1792843682628
+    }
+  ],
+  "reply": "欢迎来到直播间！今天想聊点什么？找个舒服的位置，一起聊聊吧！",
+  "metrics": {
+    "frames": 360,
+    "fps": 24.578185199849543,
+    "width": 720,
+    "height": 1280,
+    "audio_samples": 230400,
+    "audio_energy": 0.02759103613725166,
+    "connected": true
+  },
+  "delivery_window": {
+    "seconds": 8,
+    "frames": 200,
+    "fps": 25
+  }
+}

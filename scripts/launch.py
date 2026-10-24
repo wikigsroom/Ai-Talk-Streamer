@@ -30,10 +30,14 @@ def require_prepared():
         if not path.exists() or not json.loads(path.read_text(encoding='utf-8'))['ok']:
             raise RuntimeError(f'Preparation checks have not passed; inspect .setup/{name}.result.json')
 
-def start_service(name,profile='v2',minimum=12):
+def start_service(name,profile='v2',minimum=None):
     require_prepared()
-    free=gpu_free()
-    if free<minimum*1024:raise RuntimeError(f'Only {free} MiB GPU memory is free; need {minimum} GiB. Existing applications are left running.')
+    if minimum is None:
+        from hardware_profile import minimum_free_gib
+        minimum=minimum_free_gib(name)
+    if minimum>0:
+        free=gpu_free()
+        if free<minimum*1024:raise RuntimeError(f'Only {free} MiB GPU memory is free; need {minimum} GiB. Existing applications are left running.')
     env=environment()
     if name=='tts':
         port=9880;cwd=ROOT/'src/GPT-SoVITS';python=ROOT/'runtime/tts/Scripts/python.exe'
@@ -79,7 +83,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action',choices=['status','precheck','prepare-avatar','start-tts','start-avatar','start-obs','stop','send'])
     parser.add_argument('--profile',choices=['v2','v2ProPlus'],default='v2')
-    parser.add_argument('--min-free-gib',type=int,default=12)
+    parser.add_argument('--min-free-gib',type=float,default=None)
     parser.add_argument('--text',default='你好，这是本地数字人直播链路测试。')
     parser.add_argument('--chat',action='store_true')
     parser.add_argument('--session',default='')

@@ -36,7 +36,7 @@ def main():
     if '_studio_silent_feature' not in text:
         text=text.replace('        input_feature = self.feature_extractor(', '        if not np.any(wav_data):\n            if not hasattr(self, "_studio_silent_feature"):\n                self._studio_silent_feature = np.zeros((1500, 5, 384), dtype=np.float16)\n            return self._studio_silent_feature\n        input_feature = self.feature_extractor(')
     update(target,text)
-    for name in ['studio_rtc.py','studio_routes.py','isolated_inference.py','local_broadcast.py','frame_store.py','motion_control.py','pose_gallery.py','scenario_gallery.py']:update(LIVE/'server'/name,(ROOT/'integration'/name).read_text(encoding='utf-8'))
+    for name in ['studio_rtc.py','studio_routes.py','isolated_inference.py','local_broadcast.py','frame_store.py','motion_control.py','pose_gallery.py','scenario_gallery.py','fast_blending.py']:update(LIVE/'server'/name,(ROOT/'integration'/name).read_text(encoding='utf-8'))
     for source in (ROOT/'web').glob('*'):
         if source.is_file():update(LIVE/'web'/source.name,source.read_text(encoding='utf-8'))
     update(LIVE/'web/obs.html',(ROOT/'integration/obs.html').read_text(encoding='utf-8'))
@@ -50,6 +50,11 @@ def main():
     target=LIVE/'avatars/musetalk_avatar.py';text=target.read_text(encoding='utf-8')
     if 'from server.frame_store import FrameStore' not in text:
         text=text.replace('def load_avatar(avatar_id):','from server.frame_store import FrameStore\n\ndef load_avatar(avatar_id):')
+    if 'from server.fast_blending import paste_face' not in text:
+        text=text.replace('from server.frame_store import FrameStore','from server.frame_store import FrameStore\nfrom server.fast_blending import paste_face')
+    text=text.replace('combine_frame = get_image_blending(ori_frame, res_frame, bbox, mask, mask_crop_box)','combine_frame = paste_face(ori_frame, res_frame, bbox, mask, mask_crop_box)')
+    text=text.replace('combine_frame = get_image_blending(ori_frame,res_frame,bbox,mask,mask_crop_box)','combine_frame = paste_face(ori_frame,res_frame,bbox,mask,mask_crop_box)')
+    if 'combine_frame = paste_face(' not in text:raise RuntimeError('The pinned MuseTalk blending call was not found')
     text=text.replace('frame_list_cycle = read_imgs(input_img_list)','frame_list_cycle = FrameStore(input_img_list)')
     text=text.replace('mask_list_cycle = read_imgs(input_mask_list)','mask_list_cycle = FrameStore(input_mask_list)')
     text=text.replace('torch.load(latents_out_path)','torch.load(latents_out_path, map_location="cpu")')

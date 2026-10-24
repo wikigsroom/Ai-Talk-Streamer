@@ -1,0 +1,98 @@
+{
+  "ok": true,
+  "at": "2026-10-24T20:05:24.342906+08:00",
+  "gpu": "NVIDIA GeForce RTX 3080, 10240 MiB, 617.42",
+  "profile": {
+    "preset": "rtx3080-original",
+    "batch_size": 8,
+    "tts_device": "cuda",
+    "tts_half": true,
+    "cudnn_benchmark": true,
+    "target_fps": 25,
+    "canvas": [
+      720,
+      1280
+    ],
+    "avatar_id": "student_dorm_motion_bank_v3",
+    "minimum_free_gib": {
+      "tts": 2,
+      "avatar": 2
+    },
+    "applied_at": "2026-10-24T19:52:53.296868+08:00",
+    "note": "The memory gate only permits a launch attempt. Actual model peaks and speed must be measured. No automatic downgrade."
+  },
+  "cold_start": {
+    "samples": 84,
+    "first_at": "2026-10-24T19:52:53.996725+08:00",
+    "last_at": "2026-10-24T19:54:22.323102+08:00",
+    "gpu_peak_mib": 9455,
+    "ram_peak_gib": 16.833
+  },
+  "live_interval": {
+    "samples": 623,
+    "first_at": "2026-10-24T19:54:23.392821+08:00",
+    "last_at": "2026-10-24T20:05:23.554356+08:00",
+    "gpu_peak_mib": 7788,
+    "ram_peak_gib": 18.162
+  },
+  "scenario_interval": {
+    "samples": 308,
+    "first_at": "2026-10-24T19:56:46.728645+08:00",
+    "last_at": "2026-10-24T20:02:12.365893+08:00",
+    "gpu_peak_mib": 7788,
+    "ram_peak_gib": 17.485
+  },
+  "blend_benchmark": {
+    "ok": true,
+    "at": "2026-10-24T19:54:29.023105+08:00",
+    "frame": [
+      720,
+      1280
+    ],
+    "crop": [
+      160,
+      250
+    ],
+    "iterations": 25,
+    "pixels_exact": true,
+    "timings": {
+      "upstream": {
+        "median_ms": 27.77400001650676,
+        "mean_ms": 27.83843199722469
+      },
+      "roi": {
+        "median_ms": 2.65360000776127,
+        "mean_ms": 2.6248360006138682
+      }
+    },
+    "scope": "Synthetic portrait CPU microbenchmark, not end-to-end frame rate"
+  },
+  "scope": "Native environment and prepared-bank migration, not a complete fresh download or regeneration; whole-card and whole-host resource samples at about one-second intervals",
+  "gpu_cleanup": {
+    "gpu_before": "6452, 3602, 0",
+    "gpu_after_project_unload": "851, 9203, 0",
+    "gpu_all_inference_stopped": "259, 9795, 0",
+    "gpu_after_comfy_restart": "449, 9605, 0",
+    "ok": true
+  },
+  "scenarios": {
+    "ok": true,
+    "count": 5,
+    "total_seconds": 294.2
+  },
+  "obs_stats": {
+    "activeFps": 25.0,
+    "availableDiskSpace": 600176.4765625,
+    "averageFrameRenderTime": 0.500968,
+    "cpuUsage": 0.44066234161965157,
+    "memoryUsage": 96.625,
+    "outputSkippedFrames": 0,
+    "outputTotalFrames": 2045,
+    "renderSkippedFrames": 1,
+    "renderTotalFrames": 8984,
+    "webSocketSessionIncomingMessages": 64,
+    "webSocketSessionOutgoingMessages": 84
+  },
+  "browser_ok": true,
+  "cloud_ok": true
+}

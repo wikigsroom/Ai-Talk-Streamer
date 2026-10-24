@@ -1,0 +1,307 @@
+{
+  "ok": true,
+  "preset": "rtx3080-original",
+  "label": "clean-original-optimized",
+  "started": "2026-10-24T11:54:26.964Z",
+  "finished": "2026-10-24T11:55:53.549Z",
+  "checks": [
+    {
+      "name": "connect",
+      "ok": true,
+      "milliseconds": 1177,
+      "metrics": {
+        "frames": 2,
+        "fps": 1.9067594622829962,
+        "width": 720,
+        "height": 1280,
+        "audio_samples": 1280,
+        "audio_energy": 0,
+        "connected": true
+      }
+    },
+    {
+      "name": "idle_rate",
+      "ok": true,
+      "fps": 25.000000000000004,
+      "seconds": 20.08,
+      "before": {
+        "frames": 350,
+        "fps": 25.31814244776407,
+        "width": 720,
+        "height": 1280,
+        "audio_samples": 224000,
+        "audio_energy": 0,
+        "connected": true
+      },
+      "after": {
+        "frames": 852,
+        "fps": 25.492468134414832,
+        "width": 720,
+        "height": 1280,
+        "audio_samples": 545280,
+        "audio_energy": 0,
+        "connected": true
+      },
+      "samples": [
+        {
+          "frames": 400,
+          "fps": 24.676537281481206,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 256000,
+          "audio_energy": 0,
+          "connected": true
+        },
+        {
+          "frames": 450,
+          "fps": 24.65901209855433,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 288000,
+          "audio_energy": 0,
+          "connected": true
+        },
+        {
+          "frames": 500,
+          "fps": 25.306026365082094,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 320000,
+          "audio_energy": 0,
+          "connected": true
+        },
+        {
+          "frames": 551,
+          "fps": 25.751072961373392,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 352640,
+          "audio_energy": 0,
+          "connected": true
+        },
+        {
+          "frames": 601,
+          "fps": 24.943876278373658,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 384640,
+          "audio_energy": 0,
+          "connected": true
+        },
+        {
+          "frames": 651,
+          "fps": 24.980669720125313,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 416640,
+          "audio_energy": 0,
+          "connected": true
+        },
+        {
+          "frames": 701,
+          "fps": 25.119617224880383,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 448640,
+          "audio_energy": 0,
+          "connected": true
+        },
+        {
+          "frames": 751,
+          "fps": 24.92895248556473,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 480640,
+          "audio_energy": 0,
+          "connected": true
+        },
+        {
+          "frames": 801,
+          "fps": 25.321034544852733,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 512640,
+          "audio_energy": 0,
+          "connected": true
+        },
+        {
+          "frames": 852,
+          "fps": 25.492468134414832,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 545280,
+          "audio_energy": 0,
+          "connected": true
+        }
+      ]
+    },
+    {
+      "name": "complete_motion_bank",
+      "ok": true,
+      "clips": 50,
+      "materials": 48,
+      "seconds": 384
+    },
+    {
+      "name": "speech_start",
+      "ok": true,
+      "milliseconds": 22322,
+      "actual_audio": true
+    },
+    {
+      "name": "hand_motion",
+      "ok": true,
+      "id": "m09_explain_right_palm_up"
+    },
+    {
+      "name": "speaking_rate",
+      "ok": true,
+      "fps": 24.79462285287528,
+      "seconds": 20.085,
+      "before": {
+        "frames": 1457,
+        "fps": 24.85243864584888,
+        "width": 720,
+        "height": 1280,
+        "audio_samples": 932480,
+        "audio_energy": 0.0057582251664716755,
+        "connected": true
+      },
+      "after": {
+        "frames": 1955,
+        "fps": 24.82862848791279,
+        "width": 720,
+        "height": 1280,
+        "audio_samples": 1251200,
+        "audio_energy": 0.08511639882018784,
+        "connected": true
+      },
+      "samples": [
+        {
+          "frames": 1507,
+          "fps": 24.915650142745914,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 964480,
+          "audio_energy": 0.027543357539863783,
+          "connected": true
+        },
+        {
+          "frames": 1557,
+          "fps": 25.27940393796432,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 996480,
+          "audio_energy": 0.03518658121343468,
+          "connected": true
+        },
+        {
+          "frames": 1607,
+          "fps": 24.779735682954936,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 1028480,
+          "audio_energy": 0.04607262489607094,
+          "connected": true
+        },
+        {
+          "frames": 1658,
+          "fps": 25.126943412264726,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 1061120,
+          "audio_energy": 0.04775563899084228,
+          "connected": true
+        },
+        {
+          "frames": 1704,
+          "fps": 22.52103066807796,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 1090560,
+          "audio_energy": 0.05800551439891569,
+          "connected": true
+        },
+        {
+          "frames": 1754,
+          "fps": 24.90438495037189,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 1122560,
+          "audio_energy": 0.06609823281742865,
+          "connected": true
+        },
+        {
+          "frames": 1804,
+          "fps": 25.055976117095657,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 1154560,
+          "audio_energy": 0.07325283888028934,
+          "connected": true
+        },
+        {
+          "frames": 1855,
+          "fps": 25.272678903563083,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 1187200,
+          "audio_energy": 0.0774428350344533,
+          "connected": true
+        },
+        {
+          "frames": 1905,
+          "fps": 25.314245810187572,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 1219200,
+          "audio_energy": 0.08213475886173544,
+          "connected": true
+        },
+        {
+          "frames": 1955,
+          "fps": 24.82862848791279,
+          "width": 720,
+          "height": 1280,
+          "audio_samples": 1251200,
+          "audio_energy": 0.08511639882018784,
+          "connected": true
+        }
+      ]
+    },
+    {
+      "name": "audio_present",
+      "ok": true,
+      "audio_energy": 0.10216739492735352
+    },
+    {
+      "name": "recording",
+      "ok": true,
+      "bytes": 15440754
+    },
+    {
+      "name": "mobile",
+      "ok": true,
+      "overflow": false,
+      "width": 720,
+      "height": 1280
+    }
+  ],
+  "errors": [],
+  "events": [
+    {
+      "status": "start",
+      "text": "你好，欢迎来到我的宿舍直播间。现在我正在这台三零八零电脑上和你说话。人物口型、声音和画面合成都由本机完成。你可以输入想说的话，也可以选择招手、倾听和讲解等不同动作。接下来我们一起看看，连续说话时的画面是不是流畅，声音和嘴形是不是协调。",
+      "request_id": "1792842902482",
+      "generation": 2,
+      "received_ms": 1792842925557
+    },
+    {
+      "status": "end",
+      "text": "你好，欢迎来到我的宿舍直播间。现在我正在这台三零八零电脑上和你说话。人物口型、声音和画面合成都由本机完成。你可以输入想说的话，也可以选择招手、倾听和讲解等不同动作。接下来我们一起看看，连续说话时的画面是不是流畅，声音和嘴形是不是协调。",
+      "request_id": "1792842902482",
+      "generation": 2,
+      "received_ms": 1792842952613
+    }
+  ]
+}

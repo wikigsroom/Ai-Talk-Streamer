@@ -1,0 +1,403 @@
+{
+  "ok": true,
+  "at": "2026-10-24T19:56:47.723630+08:00",
+  "items": [
+    {
+      "id": "s01_welcome",
+      "title": "开场欢迎",
+      "description": "招手欢迎观众，随后进入自然播报。",
+      "ok": true,
+      "events": [
+        {
+          "event": "speech_started",
+          "seconds": 9.031,
+          "latency_ms": 8031,
+          "text": "你好，欢迎来我的宿舍坐坐，我是小晴。今天的阳光刚刚好，先和你打个招呼。你可以在网页里写下想说的话，也可以选一个动作，让我陪你聊一会儿。"
+        },
+        {
+          "event": "motion_active",
+          "seconds": 11.687,
+          "id": "m01_welcome_right_wave"
+        },
+        {
+          "event": "phase_motion_during_speech",
+          "seconds": 11.75,
+          "id": "m01_welcome_right_wave",
+          "speaking": true
+        },
+        {
+          "event": "actual_obs_screenshot",
+          "seconds": 16.015,
+          "image": "s01_welcome.png",
+          "speaking": true
+        },
+        {
+          "event": "speech_completed",
+          "seconds": 34.953
+        }
+      ],
+      "test_script_sha256": "abcbee44f4b7e2626e8687128a5ff68cbe018b1e4862c1e892571075913b5930",
+      "media": {
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 720,
+            "height": 1280,
+            "r_frame_rate": "25/1"
+          },
+          {
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "40.000000"
+        }
+      },
+      "seconds": 40.0,
+      "bytes": 14685110,
+      "sha256": "192a08316ff053260cbd2fb7bade0bfcab83818d8866a79996803b5baac0dd7e",
+      "audio_rms": 0.037383727729320526,
+      "audio_peak": 0.7512292861938477
+    },
+    {
+      "id": "s02_explain",
+      "title": "内容讲解",
+      "description": "连续两段讲解，配合摊掌展示与强调动作。",
+      "ok": true,
+      "events": [
+        {
+          "event": "speech_started",
+          "seconds": 8.687,
+          "latency_ms": 7687,
+          "text": "如果今天的学习任务有点多，可以先把它们写下来，再分成几个小步骤。不必一开始就做得很完美，先完成最容易开始的那一步，会轻松很多。"
+        },
+        {
+          "event": "motion_active",
+          "seconds": 17.469,
+          "id": "m09_explain_right_palm_up"
+        },
+        {
+          "event": "phase_motion_during_speech",
+          "seconds": 17.531,
+          "id": "m09_explain_right_palm_up",
+          "speaking": true
+        },
+        {
+          "event": "actual_obs_screenshot",
+          "seconds": 21.75,
+          "image": "s02_explain.png",
+          "speaking": true
+        },
+        {
+          "event": "speech_completed",
+          "seconds": 23.89
+        },
+        {
+          "event": "speech_started",
+          "seconds": 32.64,
+          "latency_ms": 8750,
+          "text": "还有一个小建议：每做完一段，就给自己几分钟休息。喝一点水，看看窗外，再回来继续。进度慢一点也没关系，能持续下去，就是很好的节奏。"
+        },
+        {
+          "event": "motion_active",
+          "seconds": 33.656,
+          "id": "m17_emphasis_right_beat_take2"
+        },
+        {
+          "event": "phase_motion_during_speech",
+          "seconds": 33.719,
+          "id": "m17_emphasis_right_beat_take2",
+          "speaking": true
+        },
+        {
+          "event": "actual_obs_screenshot",
+          "seconds": 37.969,
+          "image": "s02_explain-second.png",
+          "speaking": true
+        },
+        {
+          "event": "speech_completed",
+          "seconds": 58.969
+        }
+      ],
+      "test_script_sha256": "a8833633ff1ecd08a326eb08e636672dea6773a0e63620f3ecab9780657604ab",
+      "media": {
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 720,
+            "height": 1280,
+            "r_frame_rate": "25/1"
+          },
+          {
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "64.040000"
+        }
+      },
+      "seconds": 64.04,
+      "bytes": 21904632,
+      "sha256": "7f620b1ff673de55d555ebba84e2becba2ae9639b6dae63e24f9d52a54146ba6",
+      "audio_rms": 0.03619927912950516,
+      "audio_peak": 0.6904756426811218
+    },
+    {
+      "id": "s03_listen_reply",
+      "title": "聆听后回应",
+      "description": "先安静倾听，再播报准备好的回应文字。",
+      "ok": true,
+      "events": [
+        {
+          "event": "motion_active",
+          "seconds": 1.0,
+          "id": "m25_listen_tilt_right"
+        },
+        {
+          "event": "quiet_listening",
+          "seconds": 6.078,
+          "speaking": false
+        },
+        {
+          "event": "speech_started",
+          "seconds": 14.687,
+          "latency_ms": 8609,
+          "text": "如果你觉得复习时容易分心，可以试着先把手机放远一点，只给自己安排十分钟。时间到了，再决定要不要继续。我们就从这个很小的目标开始，不着急。"
+        },
+        {
+          "event": "motion_active",
+          "seconds": 31.828,
+          "id": "m23_emphasis_nod_left_palm"
+        },
+        {
+          "event": "phase_motion_during_speech",
+          "seconds": 31.89,
+          "id": "m23_emphasis_nod_left_palm",
+          "speaking": true
+        },
+        {
+          "event": "actual_obs_screenshot",
+          "seconds": 36.125,
+          "image": "s03_listen_reply.png",
+          "speaking": true
+        },
+        {
+          "event": "speech_completed",
+          "seconds": 47.922
+        }
+      ],
+      "test_script_sha256": "7b0bb80b9cece8c7a0fb4619f135361929c49b658305475a98577152e36849a2",
+      "media": {
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 720,
+            "height": 1280,
+            "r_frame_rate": "25/1"
+          },
+          {
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "53.000000"
+        }
+      },
+      "seconds": 53.0,
+      "bytes": 16563644,
+      "sha256": "209d8b449773bb03b41985f8e3c395f42d4ce02b014c40ff06be00e75215f037",
+      "audio_rms": 0.03426382318139076,
+      "audio_peak": 0.6471578478813171
+    },
+    {
+      "id": "s04_interrupt_resume",
+      "title": "打断后恢复",
+      "description": "中途停止一段播报，留出静音，再切换新内容继续。",
+      "ok": true,
+      "events": [
+        {
+          "event": "motion_active",
+          "seconds": 6.719,
+          "id": "m15_explain_open_hand_side"
+        },
+        {
+          "event": "speech_started",
+          "seconds": 15.875,
+          "latency_ms": 9156,
+          "text": "今天原本想和你聊一个很长的话题，从早上的课程安排，到下午的自习计划，再到晚上想读的书。不过聊天的时候，如果你突然有了别的想法，也可以随时停下来，我们再换一个新的话题继续。"
+        },
+        {
+          "event": "actual_obs_screenshot",
+          "seconds": 18.672,
+          "image": "s04_interrupt_resume-before-stop.png",
+          "speaking": true
+        },
+        {
+          "event": "interrupted",
+          "seconds": 25.844,
+          "settled_ms": 3172
+        },
+        {
+          "event": "speech_started",
+          "seconds": 35.188,
+          "latency_ms": 6344,
+          "text": "好，刚才那段先停在这里。我们换个轻松的话题吧：最近有没有哪一首歌，或者哪一部电影，让你觉得心情特别好？你可以把名字写下来。"
+        },
+        {
+          "event": "motion_active",
+          "seconds": 41.313,
+          "id": "m29_listen_hands_fold_right"
+        },
+        {
+          "event": "phase_motion_during_speech",
+          "seconds": 41.375,
+          "id": "m29_listen_hands_fold_right",
+          "speaking": true
+        },
+        {
+          "event": "actual_obs_screenshot",
+          "seconds": 45.61,
+          "image": "s04_interrupt_resume.png",
+          "speaking": true
+        },
+        {
+          "event": "speech_completed",
+          "seconds": 50.891
+        }
+      ],
+      "test_script_sha256": "411b14ef2bdf404a4279b964ea6774df6ec62870855f1889c1733bb90d77a44c",
+      "silence_window_seconds": [
+        27.38,
+        28.18
+      ],
+      "media": {
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 720,
+            "height": 1280,
+            "r_frame_rate": "25/1"
+          },
+          {
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "56.000000"
+        }
+      },
+      "seconds": 56.0,
+      "bytes": 22755288,
+      "sha256": "f99aa6ecb6378d1ee87db084f225bd23d1ae5e3d11e77d1127418ab3c7a3e419",
+      "audio_rms": 0.03897113353013992,
+      "audio_peak": 0.8236478567123413,
+      "silence_rms": 0.0
+    },
+    {
+      "id": "s05_closing",
+      "title": "结束告别",
+      "description": "双手收尾、致谢，并以轻挥手结束。",
+      "ok": true,
+      "events": [
+        {
+          "event": "speech_started",
+          "seconds": 8.641,
+          "latency_ms": 7641,
+          "text": "今天就先聊到这里，谢谢你愿意过来坐坐，也谢谢你分享自己的想法。希望这一小会儿的陪伴，能让你的心情轻松一点。不管今天过得怎么样，都记得给努力的自己一点鼓励。"
+        },
+        {
+          "event": "motion_active",
+          "seconds": 13.531,
+          "id": "m47_closing_palms_then_bow"
+        },
+        {
+          "event": "phase_motion_during_speech",
+          "seconds": 13.594,
+          "id": "m47_closing_palms_then_bow",
+          "speaking": true
+        },
+        {
+          "event": "actual_obs_screenshot",
+          "seconds": 17.812,
+          "image": "s05_closing.png",
+          "speaking": true
+        },
+        {
+          "event": "speech_completed",
+          "seconds": 38.187
+        },
+        {
+          "event": "speech_started",
+          "seconds": 45.812,
+          "latency_ms": 7625,
+          "text": "那我们下次再见啦。记得照顾好自己，按时吃饭，也给自己留一点休息的时间。祝你今天接下来的安排都顺顺利利。等下次见面的时候，我们再来分享生活里那些有意思的小发现。"
+        },
+        {
+          "event": "motion_active",
+          "seconds": 47.453,
+          "id": "m41_closing_right_goodbye"
+        },
+        {
+          "event": "phase_motion_during_speech",
+          "seconds": 47.453,
+          "id": "m41_closing_right_goodbye",
+          "speaking": true
+        },
+        {
+          "event": "actual_obs_screenshot",
+          "seconds": 51.719,
+          "image": "s05_closing-wave.png",
+          "speaking": true
+        },
+        {
+          "event": "speech_completed",
+          "seconds": 76.047
+        }
+      ],
+      "test_script_sha256": "758e24ee6d4c83d8ca4cecdcac752962ecc82f4f6722a44c8b5ce1ecd923e6f5",
+      "media": {
+        "streams": [
+          {
+            "codec_type": "video",
+            "width": 720,
+            "height": 1280,
+            "r_frame_rate": "25/1"
+          },
+          {
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "81.160000"
+        }
+      },
+      "seconds": 81.16,
+      "bytes": 27640134,
+      "sha256": "290adf3b7a941224601a18d63ccd219d8d32163572657e4aff0bc99f94bb6bd3",
+      "audio_rms": 0.041020650416612625,
+      "audio_peak": 0.7787052989006042
+    }
+  ],
+  "text_mode": "echo",
+  "scene": "original daytime dorm",
+  "avatar_id": "student_dorm_motion_bank_v3",
+  "obs_stats": {
+    "activeFps": 25.0,
+    "availableDiskSpace": 600176.4765625,
+    "averageFrameRenderTime": 0.500968,
+    "cpuUsage": 0.44066234161965157,
+    "memoryUsage": 96.625,
+    "outputSkippedFrames": 0,
+    "outputTotalFrames": 2045,
+    "renderSkippedFrames": 1,
+    "renderTotalFrames": 8984,
+    "webSocketSessionIncomingMessages": 64,
+    "webSocketSessionOutgoingMessages": 84
+  }
+}

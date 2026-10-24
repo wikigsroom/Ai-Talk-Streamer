@@ -6,6 +6,8 @@
 
 示例人物是**虚构的 22 岁中国女大学生**，沿用白天宿舍、长发、浅蓝卫衣的形象。参考运行环境为 **RTX 4090 48 GB 显存＋64 GB 内存**。
 
+已增加 **RTX 3080 10 GB／64 GB 内存**实测版本：保留原始 batch 8、FP16 模型、完整动作库和 720×1280 输出，实际说话期间测得 **24.79 FPS**。参见 [3080 部署、截图与测试数据](docs/RTX3080.md)。
+
 ![实际说话中的演播台](docs/media/studio-speaking.png)
 
 ## 先看实际效果
@@ -88,6 +90,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Setup-Streamer.ps1 -Prepar
 .\Start-Streamer.cmd
 ```
 
+RTX 3080 安装时增加 `-HardwareProfile rtx3080-original`，随后使用 `.\Start-3080.cmd`。已有完整角色的迁移及显式降级步骤见 [3080 专项文档](docs/RTX3080.md)。
+
 完整安装会下载依赖与模型、应用集成改造、检查本地语音资源，并预处理已提供的视频。预处理占用 GPU，可能持续较长时间并生成大量图像；建议预留 **100 GB 以上空闲磁盘作为规划余量**，这不是实测最低需求。预处理时释放其他 GPU 生成任务，已有完整角色不会被无条件覆盖。
 
 本机访问 **http://127.0.0.1:8010/**；其他设备通过可信局域网或 VPN 访问 `http://<工作站地址>:8010/`。仓库本身不提供公网托管演示，截图来自参考部署。
@@ -132,6 +136,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Setup-Streamer.ps1 -Prepar
 | 文档 | 说明 |
 | --- | --- |
 | [文档索引](docs/README.md) | 中英阅读路线 |
+| [RTX 3080](docs/RTX3080.md) | 10 GB 显卡实测、优化、迁移和降级顺序 |
 | [部署](docs/DEPLOYMENT.md) | 原生环境、安装步骤、断点恢复 |
 | [使用](docs/USAGE.md) | 播报、渠道、动作、OBS、API |
 | [架构](docs/ARCHITECTURE.md) | 准备与直播的数据流、打断逻辑 |

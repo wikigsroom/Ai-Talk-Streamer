@@ -6,6 +6,8 @@ A native Windows studio for a photorealistic **9:16 talking avatar**. Type a scr
 
 The included character is a **fictional 22-year-old Chinese university student in a daylight dormitory**. The reference deployment uses an **RTX 4090 with 48 GB VRAM and 64 GB system RAM**.
 
+A tested **RTX 3080 10 GB / 64 GB RAM** version now retains the original batch-8 FP16 models, full motion bank and 720×1280 output, measuring **24.79 FPS during actual speech**. See the [3080 deployment, screenshots and measurements](docs/RTX3080.md).
+
 ![Actual studio while speaking](docs/media/studio-speaking.png)
 
 ## See the result
@@ -88,6 +90,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Setup-Streamer.ps1 -Prepar
 .\Start-Streamer.cmd
 ```
 
+For an RTX 3080, add `-HardwareProfile rtx3080-original` to setup, then use `.\Start-3080.cmd`. The [3080 runbook](docs/RTX3080.md) also covers an existing prepared installation and explicit fallbacks.
+
 The setup command downloads upstream programs and models, applies the integration, checks dependencies and speech resources, then preprocesses the bundled clips. Preprocessing is a GPU job and can take considerable time and disk space; reserve **100 GB or more of free disk space as a planning allowance**, not a measured minimum. Keep unrelated GPU generation jobs stopped while preparing this avatar. Existing prepared banks are preserved and require explicit inspection before replacement.
 
 Open **http://127.0.0.1:8010/** on the workstation. For a second device use `http://<workstation-address>:8010/` over your trusted LAN or VPN. This repository does not provide a hosted public demo. The screenshots were captured from the reference installation.
@@ -132,6 +136,7 @@ The face is photorealistic, but lips and teeth can be softer than the source ima
 | Read next | Purpose |
 | --- | --- |
 | [Documentation index](docs/README.md) | English / Chinese reading paths |
+| [RTX 3080](docs/RTX3080.md) | Verified 10 GB configuration, measurements and fallback order |
 | [Deployment](docs/DEPLOYMENT.md) | Setup stages, recovery and native dependencies |
 | [Usage](docs/USAGE.md) | Studio, channel, gestures, OBS and HTTP examples |
 | [Architecture](docs/ARCHITECTURE.md) | Preparation and live data flow |

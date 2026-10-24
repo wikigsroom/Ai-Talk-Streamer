@@ -1,6 +1,6 @@
 """One authenticated loopback worker owns the local MuseTalk/Whisper GPU models."""
 from pathlib import Path
-import datetime,json,os,sys,threading,time,traceback
+import datetime,gc,json,os,sys,threading,time,traceback
 from multiprocessing.connection import Listener
 import numpy as np
 import psutil
@@ -16,18 +16,37 @@ def watchdog():
 threading.Thread(target=watchdog,daemon=True).start()
 import torch
 torch.set_num_threads(1);torch.set_num_interop_threads(1)
+hardware_path=ROOT/'configs/hardware-profile.json'
+hardware=json.loads(hardware_path.read_text(encoding='utf-8')) if hardware_path.exists() else {}
+if hardware.get('cudnn_benchmark'):
+    torch.backends.cudnn.benchmark=True
+    if hasattr(torch.backends.cudnn,'benchmark_limit'):torch.backends.cudnn.benchmark_limit=3
+    print(json.dumps({'cudnn_benchmark':True,'benchmark_limit':getattr(torch.backends.cudnn,'benchmark_limit',None)}),flush=True)
 from avatars.musetalk_avatar import load_model,load_avatar,warm_up,MuseReal
-model=load_model();config=json.loads((ROOT/'configs/livetalking.yaml').read_text(encoding='utf-8-sig'))
+
+def memory_stats(stage):
+    torch.cuda.synchronize()
+    data={'stage':stage,'allocated_mib':round(torch.cuda.memory_allocated()/2**20,1),'reserved_mib':round(torch.cuda.memory_reserved()/2**20,1),'peak_allocated_mib':round(torch.cuda.max_memory_allocated()/2**20,1)}
+    print(json.dumps({'cuda_memory':data}),flush=True)
+    return data
+
+model=load_model();memory_stats('models_loaded')
+# FP32-to-FP16 conversion leaves large free blocks in the CUDA allocator.
+# Return those blocks before warming the renderer alongside the speech service.
+gc.collect();torch.cuda.empty_cache();memory_stats('model_cache_released')
+config=json.loads((ROOT/'configs/livetalking.yaml').read_text(encoding='utf-8-sig'))
 avatar=load_avatar(config['avatar_id']);renderer=MuseReal.__new__(MuseReal)
 renderer.vae,renderer.unet,renderer.pe,renderer.timesteps,renderer.audio_processor=model
 renderer.input_latent_list_cycle=avatar[4];renderer.batch_size=config['batch_size']
-warm_up(renderer.batch_size,model);torch.cuda.synchronize()
+warm_up(renderer.batch_size,model);memory_stats('warmed')
+gc.collect();torch.cuda.empty_cache();cuda_memory=memory_stats('startup_cache_released')
 pipe=r'\\.\pipe\avatar-gpu-'+os.environ['AVATAR_GPU_WORKER_RUN']
 listener=Listener(pipe,family='AF_PIPE',authkey=bytes.fromhex(os.environ['AVATAR_GPU_WORKER_AUTH']))
-state={'ready':True,'pid':os.getpid(),'parent_pid':parent.pid,'pipe':pipe,'run_id':os.environ['AVATAR_GPU_WORKER_RUN'],'avatar_id':config['avatar_id'],'at':datetime.datetime.now().astimezone().isoformat()}
+state={'ready':True,'pid':os.getpid(),'parent_pid':parent.pid,'pipe':pipe,'run_id':os.environ['AVATAR_GPU_WORKER_RUN'],'avatar_id':config['avatar_id'],'cuda_memory':cuda_memory,'at':datetime.datetime.now().astimezone().isoformat()}
 (ROOT/'.setup/gpu-worker.json').write_text(json.dumps(state),encoding='utf-8');print(json.dumps(state),flush=True)
 try:
     connection=listener.accept()
+    timings={}
     while True:
         request=connection.recv();start=time.perf_counter()
         try:
@@ -39,6 +58,11 @@ try:
             else:raise ValueError('Unknown GPU operation')
             connection.send({'ok':True,'value':value})
             elapsed=time.perf_counter()-start
+            aggregate=timings.setdefault(operation,{'count':0,'seconds':0.0,'maximum_seconds':0.0})
+            aggregate['count']+=1;aggregate['seconds']+=elapsed;aggregate['maximum_seconds']=max(aggregate['maximum_seconds'],elapsed)
+            if aggregate['count']%25==0:
+                statistics={'at':datetime.datetime.now().astimezone().isoformat(),'batch_size':renderer.batch_size,'operations':timings}
+                (ROOT/'.setup/gpu-inference-statistics.json').write_text(json.dumps(statistics),encoding='utf-8')
             if elapsed>1:print(json.dumps({'operation':operation,'seconds':elapsed}),flush=True)
         except Exception:connection.send({'ok':False,'error':traceback.format_exc()})
 except (EOFError,ConnectionError,OSError):pass
