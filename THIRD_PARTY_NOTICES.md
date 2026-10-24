@@ -14,6 +14,8 @@ The root [Apache-2.0 license](LICENSE) covers the project's original integration
 | FFmpeg builds | [BtbN/FFmpeg-Builds](https://github.com/BtbN/FFmpeg-Builds), [GyanD/codexffmpeg](https://github.com/GyanD/codexffmpeg), licenses of the selected GPL/shared builds | Separate encoding tools and runtime decoder DLLs / 编解码工具及 DLL |
 | Python, uv, PyTorch and libraries | Their upstream licenses, retained in installed distributions / 安装分发中的上游许可 | Native inference environments / 原生运行依赖 |
 | H3 / ComfyUI generation stack | External model/node licenses; not included in live setup / 外部模型与节点许可 | Optional local preparation of new body footage / 可选本地视频准备 |
+| SoulX-Podcast, MOSS-TTSD, FireRedTTS2 | [SoulX](https://github.com/Soul-AILab/SoulX-Podcast), [MOSS](https://github.com/OpenMOSS/MOSS-TTSD), [FireRed](https://github.com/FireRedTeam/FireRedTTS2); respective upstream model/code terms | Existing native ComfyUI engines used for voice auditions; weights are not redistributed / 试听生成，不分发权重 |
+| Common Voice zh-TW references | [Registered local source and CC0-1.0 provenance](assets/voices/female-a-v1/REAL_VOICE_SOURCES.md) | Ten different anonymous reference speakers for female-A casting / 女A十位独立参考说话人 |
 
 The locked application source commits are in [sources.lock.json](configs/sources.lock.json). The license-inspection commits for standalone MuseTalk and CosyVoice are recorded in [docs/licenses/sources.json](docs/licenses/sources.json); those are license provenance, not a claim that the live stack checks out those two repositories. Downloaded model/resource revisions and reference hashes are in [model-files.csv](configs/model-files.csv).
 

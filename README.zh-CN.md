@@ -10,6 +10,8 @@
 
 ![实际说话中的演播台](docs/media/studio-speaking.png)
 
+**女A音色选型：** [10 款独立女声与三个模型对比](docs/VOICES.md)，由 3080 上的 SoulX、MOSS、FireRed 实际生成。运行中演播台的 `/voices.html` 可试听、保存候选及下载；页面选型不会自动修改直播引擎。
+
 五款夜间封闭室内人物方案见[夜间角色选型](docs/CHARACTER_CAMERA_V3.md)。V3 将 01–03 重做为手机聊天近景、正面桌播与**暮蝶 / Clove 真人 Cos** 展示，包含原图、平台机位参考、提示词和可离线打开的对比页面。
 
 ## 先看实际效果

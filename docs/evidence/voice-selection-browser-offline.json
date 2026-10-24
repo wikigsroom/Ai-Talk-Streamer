@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "source": "offline file page",
+  "checks": {
+    "ten_voices_three_models": true,
+    "ten_independent_references": true,
+    "all_twelve_real_audio_files_decode_and_play": true,
+    "single_shared_player_and_pause": true,
+    "shortlist_survives_reload": true,
+    "export_retains_reference_transcript_workflow_and_hash": true,
+    "rate_pitch_preservation_volume_and_seeking": true,
+    "desktop_no_horizontal_overflow": true,
+    "mobile_no_horizontal_overflow": true,
+    "reset_and_disabled_empty_export": true,
+    "no_page_script_errors": true
+  },
+  "audio": [
+    {
+      "id": "benchmark-soulx-v01",
+      "seconds": 7.6,
+      "played": true
+    },
+    {
+      "id": "voice02-soulx-v02",
+      "seconds": 7.68,
+      "played": true
+    },
+    {
+      "id": "voice03-soulx-v03",
+      "seconds": 7.76,
+      "played": true
+    },
+    {
+      "id": "voice04-soulx-v04",
+      "seconds": 7.28,
+      "played": true
+    },
+    {
+      "id": "voice05-soulx-v05",
+      "seconds": 7.2,
+      "played": true
+    },
+    {
+      "id": "voice06-soulx-v06",
+      "seconds": 7.48,
+      "played": true
+    },
+    {
+      "id": "voice07-soulx-v07",
+      "seconds": 8.56,
+      "played": true
+    },
+    {
+      "id": "voice08-soulx-v08",
+      "seconds": 7.28,
+      "played": true
+    },
+    {
+      "id": "voice09-soulx-v09",
+      "seconds": 5.68,
+      "played": true
+    },
+    {
+      "id": "voice10-soulx-v10",
+      "seconds": 8.48,
+      "played": true
+    },
+    {
+      "id": "benchmark-moss-v01",
+      "seconds": 8.08,
+      "played": true
+    },
+    {
+      "id": "benchmark-firered-v01",
+      "seconds": 5.28,
+      "played": true
+    }
+  ],
+  "screenshots": [
+    "docs/media/voice-selection-desktop.png",
+    "docs/media/voice-selection-mobile.png"
+  ],
+  "browser_closed": true,
+  "captured_at": "2026-10-24T16:58:08.589Z"
+}

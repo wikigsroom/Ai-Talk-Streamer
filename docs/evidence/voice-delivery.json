@@ -1,0 +1,103 @@
+{
+  "ok": true,
+  "revision": "female-a-voices-v1",
+  "checks": {
+    "published_page_matches_reviewed_sha256": true,
+    "all_twelve_wavs_match_and_support_range": true,
+    "download_zip_sha256_and_crc": true,
+    "original_female_a_avatar_and_tts_restored": true,
+    "studio_has_voice_audition_link": true,
+    "comfy_queue_idle": true
+  },
+  "audio": [
+    {
+      "id": "benchmark-soulx-v01",
+      "sha256_matches": true,
+      "range_response": 206,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "voice02-soulx-v02",
+      "sha256_matches": true,
+      "range_response": 206,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "voice03-soulx-v03",
+      "sha256_matches": true,
+      "range_response": 206,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "voice04-soulx-v04",
+      "sha256_matches": true,
+      "range_response": 206,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "voice05-soulx-v05",
+      "sha256_matches": true,
+      "range_response": 206,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "voice06-soulx-v06",
+      "sha256_matches": true,
+      "range_response": 206,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "voice07-soulx-v07",
+      "sha256_matches": true,
+      "range_response": 206,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "voice08-soulx-v08",
+      "sha256_matches": true,
+      "range_response": 206,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "voice09-soulx-v09",
+      "sha256_matches": true,
+      "range_response": 206,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "voice10-soulx-v10",
+      "sha256_matches": true,
+      "range_response": 206,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "benchmark-moss-v01",
+      "sha256_matches": true,
+      "range_response": 206,
+      "sample_rate": 24000,
+      "channels": 1
+    },
+    {
+      "id": "benchmark-firered-v01",
+      "sha256_matches": true,
+      "range_response": 206,
+      "sample_rate": 24000,
+      "channels": 1
+    }
+  ],
+  "archive": {
+    "bytes": 8908519,
+    "sha256": "0f46b0b043a4902d1c528c6a78883aa630731f9f8a8f7e1b2428323853113b2a"
+  },
+  "checked_at": "2026-10-25T01:05:10.603023+08:00"
+}

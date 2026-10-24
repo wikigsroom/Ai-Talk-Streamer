@@ -1,0 +1,353 @@
+{
+  "count": 10,
+  "distinct_source_speakers": 10,
+  "sample_rate": 24000,
+  "channels": 1,
+  "reference_processing": "Trim outer silence with margins, join complete transcribed sentences with 150 ms gaps if needed, resample to 24 kHz mono, uniform peak gain only. No pitch or formant shifts.",
+  "profiles": [
+    {
+      "id": "v01",
+      "reference": "assets/voices/female-a-v1/references/v01.wav",
+      "reference_text": "我們會把責任扛起來。讓臺灣的經濟結構轉型。按部就班來規劃與執行。",
+      "reference_lang": "zh",
+      "reference_seconds": 7.494,
+      "reference_sha256": "b18a31cead14b27320aff1626fd24ceb7a0daed5a0ef6564e186369d0b4460c3",
+      "source_speaker_id": "25ddd6e1a32161b6319eb34f28c6b8fc9689e3f397681480967e8590debed3a5",
+      "source_client_id": "52d6c3c361b8b108fbabd98284316f8d2127c57806141d0c8b638a36f182d47976a5a08bd3ec06db2bcd21c480b5d4cb117337cd161174ce1e6f4960126376db",
+      "source_gender_metadata": "female_feminine",
+      "source_age": "not provided; young/adult descriptors are casting directions only",
+      "source_dataset": "OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "source_url": "https://huggingface.co/datasets/OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "license": "CC0-1.0",
+      "clips": [
+        {
+          "file_name": "common_voice_zh-TW_22704609_0000.wav",
+          "sentence": "我們會把責任扛起來。",
+          "predicted_mos": 4.109375,
+          "original_audio_sha256": "4c396b26175096642276cc52e2daab62727eabf7f2ec3eb679fb8cd616aa8063"
+        },
+        {
+          "file_name": "common_voice_zh-TW_22704578_0000.wav",
+          "sentence": "讓臺灣的經濟結構轉型。",
+          "predicted_mos": 4.08203125,
+          "original_audio_sha256": "2c95ca0c810a790cc3b1762ffcfe929da2165e502394f47d3aea1dd09befe39b"
+        },
+        {
+          "file_name": "common_voice_zh-TW_22704661_0000.wav",
+          "sentence": "按部就班來規劃與執行。",
+          "predicted_mos": 3.953125,
+          "original_audio_sha256": "f3911e1013f3740ff1e6769e3f0ea2b21d2aedd02aaa01fadeb37774724ad4ba"
+        }
+      ]
+    },
+    {
+      "id": "v02",
+      "reference": "assets/voices/female-a-v1/references/v02.wav",
+      "reference_text": "臉書社團的管理者。沒看過這麼弱的天才。人體研究倫理審查委員會。",
+      "reference_lang": "zh",
+      "reference_seconds": 7.888,
+      "reference_sha256": "3b6e61832d7a7253fbc0ba5380cc8eb8ec4357870f2243be9c725f550fb30969",
+      "source_speaker_id": "5c1e4bc94eaf3588cfa577a64e6d54aeb507b5260860fc8cfba9c13704e89478",
+      "source_client_id": "f9e7d9edbeff34d9188fc37fcbf718cd1197e95acfd6b37cc7911db882229987b432a61ca54c821c23e5c3e88ffb9a6d728ed3202322426be2d360b7802362c8",
+      "source_gender_metadata": "female_feminine",
+      "source_age": "not provided; young/adult descriptors are casting directions only",
+      "source_dataset": "OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "source_url": "https://huggingface.co/datasets/OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "license": "CC0-1.0",
+      "clips": [
+        {
+          "file_name": "common_voice_zh-TW_17460971_0000.wav",
+          "sentence": "臉書社團的管理者。",
+          "predicted_mos": 4.08203125,
+          "original_audio_sha256": "56ce49a0eadfd5c19bd0d302299ac26a19fb99a5689701bd24e3034b7babecdb"
+        },
+        {
+          "file_name": "common_voice_zh-TW_17461022_0000.wav",
+          "sentence": "沒看過這麼弱的天才。",
+          "predicted_mos": 3.76953125,
+          "original_audio_sha256": "68af3375e9a6e81b9c58e68c480e70dbd9d42ffc9d8ebbdb9f4889012f9c6529"
+        },
+        {
+          "file_name": "common_voice_zh-TW_17460970_0000.wav",
+          "sentence": "人體研究倫理審查委員會。",
+          "predicted_mos": 3.759765625,
+          "original_audio_sha256": "1643837c78a745a8be7bd1ac51456e8241015140558edb5c73fda42ff707d524"
+        }
+      ]
+    },
+    {
+      "id": "v03",
+      "reference": "assets/voices/female-a-v1/references/v03.wav",
+      "reference_text": "青少年的流行次文化。他還是不時去摸摸小孩。表達出了蜘蛛人的成長。",
+      "reference_lang": "zh",
+      "reference_seconds": 7.856,
+      "reference_sha256": "2db6eaef52af4a628d7519c940aa51594057238f4b45cb95938f418d6f7237af",
+      "source_speaker_id": "cc381d5d5e67ea0b37c2924ee808884ca30ba2928bdf04a888a40ea2aee6cead",
+      "source_client_id": "e44faf9ccdb9d8c1b1ca53a9746fb63521f5ea26c264b966fdf249ac2d57358aa5fa46a7a852e43d42dc07b24347e41c07ed8e0cb3453861e14864e6adc6805b",
+      "source_gender_metadata": "female_feminine",
+      "source_age": "not provided; young/adult descriptors are casting directions only",
+      "source_dataset": "OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "source_url": "https://huggingface.co/datasets/OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "license": "CC0-1.0",
+      "clips": [
+        {
+          "file_name": "common_voice_zh-TW_17421125_0000.wav",
+          "sentence": "青少年的流行次文化。",
+          "predicted_mos": 3.97265625,
+          "original_audio_sha256": "20c6c944fc92c8edb90bd5c9b379641dd08e4f383c3e885b96aacdd250a74eeb"
+        },
+        {
+          "file_name": "common_voice_zh-TW_17421273_0000.wav",
+          "sentence": "他還是不時去摸摸小孩。",
+          "predicted_mos": 3.9140625,
+          "original_audio_sha256": "3340a4cb9bec2e820f078a248485157d17d943a633da6073c2dc0ab5e2410fdc"
+        },
+        {
+          "file_name": "common_voice_zh-TW_17424226_0000.wav",
+          "sentence": "表達出了蜘蛛人的成長。",
+          "predicted_mos": 3.912109375,
+          "original_audio_sha256": "bddc41df01cab825cc8aeba744497b3951d7659dcd18d8178c3efb650b0188e8"
+        }
+      ]
+    },
+    {
+      "id": "v04",
+      "reference": "assets/voices/female-a-v1/references/v04.wav",
+      "reference_text": "透過幫助他人來連結世界。萬山魯凱語、多納魯凱語。還沒有做一個明確的答案。",
+      "reference_lang": "zh",
+      "reference_seconds": 7.174,
+      "reference_sha256": "72c38cbcf3e06dd86d8edc5d4167f696b42bdac80b31e9f096fa300c94929fa4",
+      "source_speaker_id": "3efc47dbdc2a5110943c3b43be3607a183bbf8c30cdd99d3cfc2e99d7e87bba2",
+      "source_client_id": "729600140201ad37f1f53b8d73212faa7ff204dee8a792bece925984201920d855901676e0cc12a0ffcccc64ffa2ca11a6a9fee319c207d074b8383340b79257",
+      "source_gender_metadata": "female_feminine",
+      "source_age": "not provided; young/adult descriptors are casting directions only",
+      "source_dataset": "OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "source_url": "https://huggingface.co/datasets/OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "license": "CC0-1.0",
+      "clips": [
+        {
+          "file_name": "common_voice_zh-TW_21316799_0000.wav",
+          "sentence": "透過幫助他人來連結世界。",
+          "predicted_mos": 3.962890625,
+          "original_audio_sha256": "1ffd06ee04f5cecac47620186e2ca18ea476aa6f31460c1b657e037200763e44"
+        },
+        {
+          "file_name": "common_voice_zh-TW_21288407_0000.wav",
+          "sentence": "萬山魯凱語、多納魯凱語。",
+          "predicted_mos": 3.61328125,
+          "original_audio_sha256": "724b499350c984116ddaf3ac6e1604bd2d365c1948fb83e3cdc4cf71cb2fe723"
+        },
+        {
+          "file_name": "common_voice_zh-TW_21308813_0000.wav",
+          "sentence": "還沒有做一個明確的答案。",
+          "predicted_mos": 3.599609375,
+          "original_audio_sha256": "db319a88180123c06c950f7b9780874db45eb8a622038aeb6bb64e60a0b03381"
+        }
+      ]
+    },
+    {
+      "id": "v05",
+      "reference": "assets/voices/female-a-v1/references/v05.wav",
+      "reference_text": "孩子開始念書後。下車後我看了看錶。連入睡的表情都是笑著的。",
+      "reference_lang": "zh",
+      "reference_seconds": 7.728,
+      "reference_sha256": "8b96b032f3674e167ef8a617bb66e7893ced97202610d8c270c9886476f01a89",
+      "source_speaker_id": "efda5b372d2c03ab7e929c21f97697ba40537fd8e753e680464e68ee0bce1f9d",
+      "source_client_id": "28c7936613f6175689665f7997cf7f0f1ca4434145e0ea928419ea1943cd56bb95c07936dbb864b416776ac09aa177e5aef6dc546aa8bbbf6adf6aae8c1f693c",
+      "source_gender_metadata": "female_feminine",
+      "source_age": "not provided; young/adult descriptors are casting directions only",
+      "source_dataset": "OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "source_url": "https://huggingface.co/datasets/OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "license": "CC0-1.0",
+      "clips": [
+        {
+          "file_name": "common_voice_zh-TW_17419364_0000.wav",
+          "sentence": "孩子開始念書後。",
+          "predicted_mos": 3.865234375,
+          "original_audio_sha256": "63b7512c5cbbe051aa09ebb4a37ef35adb40dd722468d742d5516d9685cbeb95"
+        },
+        {
+          "file_name": "common_voice_zh-TW_17419349_0000.wav",
+          "sentence": "下車後我看了看錶。",
+          "predicted_mos": 3.794921875,
+          "original_audio_sha256": "27d4ac4eafa5abba2bee20aad38618b5b689de2408390c09510af438875697ef"
+        },
+        {
+          "file_name": "common_voice_zh-TW_17419095_0000.wav",
+          "sentence": "連入睡的表情都是笑著的。",
+          "predicted_mos": 3.75,
+          "original_audio_sha256": "6014a6e025e21cf6d9e9eca749152206b6d39a85cb89676eeb1d5fc2511aa0e8"
+        }
+      ]
+    },
+    {
+      "id": "v06",
+      "reference": "assets/voices/female-a-v1/references/v06.wav",
+      "reference_text": "開會的目的就是要溝通些歧見。現今世界最活躍的公民科技社群之一。",
+      "reference_lang": "zh",
+      "reference_seconds": 6.982,
+      "reference_sha256": "f384359fb4bf0ea6239afa329b55fe68a4d4f2492f3844443350cc7d3a0cc58a",
+      "source_speaker_id": "7872dd249a14a510ad1654c1167b562299d589e83684fa7f90de92d0a54b49eb",
+      "source_client_id": "64ceef2bdfce1ca5e95cb2c1f0e02843c1985fbf3148db9c96b863c2d533e9b012738377d33a1670c86d5ad751af2a7bac3cdea3037218f7219776efb12ef1a3",
+      "source_gender_metadata": "female_feminine",
+      "source_age": "not provided; young/adult descriptors are casting directions only",
+      "source_dataset": "OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "source_url": "https://huggingface.co/datasets/OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "license": "CC0-1.0",
+      "clips": [
+        {
+          "file_name": "common_voice_zh-TW_19393131_0000.wav",
+          "sentence": "開會的目的就是要溝通些歧見。",
+          "predicted_mos": 3.8359375,
+          "original_audio_sha256": "da5ccef8a7f2e1c2acbc9c2c9d68affba38d3638ce06c1fa80b96415a9ac9f6e"
+        },
+        {
+          "file_name": "common_voice_zh-TW_19393356_0000.wav",
+          "sentence": "現今世界最活躍的公民科技社群之一。",
+          "predicted_mos": 3.818359375,
+          "original_audio_sha256": "f17d579169d474ac9dab789a96f31d0417155d58ecb14ef1b01c60ac97ad461d"
+        }
+      ]
+    },
+    {
+      "id": "v07",
+      "reference": "assets/voices/female-a-v1/references/v07.wav",
+      "reference_text": "回家時經過菜市場。看了兩本很有興趣的書。她在一歲多時感染白喉桿菌。",
+      "reference_lang": "zh",
+      "reference_seconds": 8.264,
+      "reference_sha256": "8ed94878759bed1cfa9d62bb4b6c959d2fd2efe613ae47a3b4e2669857f165e9",
+      "source_speaker_id": "bd4956825940511c93ca4819edbcbac96eb52d885e4d45d95ec08f97d5f8250f",
+      "source_client_id": "914f90a273cf68bf8bb5a2c23c3a33040e1dcd1ed2149673389839b602165014aff7b4b8c448e9a5cb9a93d97a90ad4bc848c6b596f0fe93bb6856a561b69ee2",
+      "source_gender_metadata": "female_feminine",
+      "source_age": "not provided; young/adult descriptors are casting directions only",
+      "source_dataset": "OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "source_url": "https://huggingface.co/datasets/OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "license": "CC0-1.0",
+      "clips": [
+        {
+          "file_name": "common_voice_zh-TW_17507813_0000.wav",
+          "sentence": "回家時經過菜市場。",
+          "predicted_mos": 3.833984375,
+          "original_audio_sha256": "e8626c41a14a0f02ce9ca10ad5bdfbefa4f0f4d38e2bc3cde6e18496c6d3ddcf"
+        },
+        {
+          "file_name": "common_voice_zh-TW_17507765_0000.wav",
+          "sentence": "看了兩本很有興趣的書。",
+          "predicted_mos": 3.755859375,
+          "original_audio_sha256": "fd8287601d98325b62d7b1804c477f91119be5b40b490f67ac2fa19d0c8e37c7"
+        },
+        {
+          "file_name": "common_voice_zh-TW_17507770_0000.wav",
+          "sentence": "她在一歲多時感染白喉桿菌。",
+          "predicted_mos": 3.552734375,
+          "original_audio_sha256": "8ca12d0e5553e928a7ec41f5961f27c922f7d97d9dea83fc6871d2e6361813b3"
+        }
+      ]
+    },
+    {
+      "id": "v08",
+      "reference": "assets/voices/female-a-v1/references/v08.wav",
+      "reference_text": "下班公車要等四十分鐘。研究機構包括學校。完全沒有蟲鳴鳥叫。",
+      "reference_lang": "zh",
+      "reference_seconds": 7.297,
+      "reference_sha256": "96293351e45c5a721339fb2ea28636fea5b746f7816376a01079cbe89f0a5ad6",
+      "source_speaker_id": "3b11a56a809975e0eab7d718e17bbf4f4ead4ad09489c586cfcf99d2d81cbac5",
+      "source_client_id": "e541d2dbad0abb2dd5b7fbd78275af084b41d6fa18c6ce5804a6d2017c748a6cd6f4e6afacf8e20cee01c57c66f153f58f277150654f25014c6b04d36ce8c58f",
+      "source_gender_metadata": "female_feminine",
+      "source_age": "not provided; young/adult descriptors are casting directions only",
+      "source_dataset": "OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "source_url": "https://huggingface.co/datasets/OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "license": "CC0-1.0",
+      "clips": [
+        {
+          "file_name": "common_voice_zh-TW_17381060_0000.wav",
+          "sentence": "下班公車要等四十分鐘。",
+          "predicted_mos": 3.83203125,
+          "original_audio_sha256": "8f8ee67559acc9600cec78cf54b335dd7e3805d6270fc0be9cc79f1481856f6a"
+        },
+        {
+          "file_name": "common_voice_zh-TW_17381106_0000.wav",
+          "sentence": "研究機構包括學校。",
+          "predicted_mos": 3.822265625,
+          "original_audio_sha256": "2ce6778cd695342101366d7fcbab034a936e8249ec3db51473e890dd21ac5bef"
+        },
+        {
+          "file_name": "common_voice_zh-TW_17397260_0000.wav",
+          "sentence": "完全沒有蟲鳴鳥叫。",
+          "predicted_mos": 3.8125,
+          "original_audio_sha256": "f943df56fda7b1575949d8c4a5489916414a85fac79cd9202016cba81297099f"
+        }
+      ]
+    },
+    {
+      "id": "v09",
+      "reference": "assets/voices/female-a-v1/references/v09.wav",
+      "reference_text": "訴說著數十年來的鄉情。中央目的事業主管機關查核。我知道另一個山上的地方。",
+      "reference_lang": "zh",
+      "reference_seconds": 7.472,
+      "reference_sha256": "98d602587dfa7bc28075cbabb91003cb2d5bd123aea663b6aede4e150b9ee50b",
+      "source_speaker_id": "033b81304fd719ba79d6d364cf3dc95704d715db77b312fca328aeb569a2080e",
+      "source_client_id": "99b5aa2e794d9a98150d3724b3482b54ee94b0c391bc43f39d6e8108f5509065934d5c07d80c67f36a3264ae2bd6f00812f3ef215c9b572c51141db33d77072e",
+      "source_gender_metadata": "female_feminine",
+      "source_age": "not provided; young/adult descriptors are casting directions only",
+      "source_dataset": "OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "source_url": "https://huggingface.co/datasets/OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "license": "CC0-1.0",
+      "clips": [
+        {
+          "file_name": "common_voice_zh-TW_17682829_0000.wav",
+          "sentence": "訴說著數十年來的鄉情。",
+          "predicted_mos": 3.7890625,
+          "original_audio_sha256": "0a6b9dcfe071e1098d6e06bcd64ff3835e0554659b7545cdfa49dbe80bdc555a"
+        },
+        {
+          "file_name": "common_voice_zh-TW_17626214_0000.wav",
+          "sentence": "中央目的事業主管機關查核。",
+          "predicted_mos": 3.6328125,
+          "original_audio_sha256": "98f18640e0b9c1faa837a5da4cbef291b5416d3da46f14504ba711f34eddf766"
+        },
+        {
+          "file_name": "common_voice_zh-TW_17628044_0000.wav",
+          "sentence": "我知道另一個山上的地方。",
+          "predicted_mos": 3.552734375,
+          "original_audio_sha256": "3e394626159b426e5977ebc4d897f29bb102751edc6f997688ef015178c56550"
+        }
+      ]
+    },
+    {
+      "id": "v10",
+      "reference": "assets/voices/female-a-v1/references/v10.wav",
+      "reference_text": "連入睡的表情都是笑著的。資料分析專題講座。沒有表演的尾牙。",
+      "reference_lang": "zh",
+      "reference_seconds": 7.396,
+      "reference_sha256": "ad12247c736aa13874861f464cad8ad5ad17456aa0b6f3d73a63886588b4f23f",
+      "source_speaker_id": "d8efe0d97128d855377abdcb6ce5b7c237bbd16b0968e2a2ebd9838fd76d1907",
+      "source_client_id": "530e7998a6bb765b1862e1c835345a3bf550d554e72420289f889ab9b81fe27d75257248fb5491838ebe43f1bd4c0930dcae15624057603e6f194b6bc8f7f5df",
+      "source_gender_metadata": "female_feminine",
+      "source_age": "not provided; young/adult descriptors are casting directions only",
+      "source_dataset": "OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "source_url": "https://huggingface.co/datasets/OKHand/Clean_Common_Voice_Speech_24.0-TW",
+      "license": "CC0-1.0",
+      "clips": [
+        {
+          "file_name": "common_voice_zh-TW_17371833_0000.wav",
+          "sentence": "連入睡的表情都是笑著的。",
+          "predicted_mos": 3.7734375,
+          "original_audio_sha256": "805df23af2cbd33685d50dfd68551a58a6d96d2ebafc3bfe3fb9101ff8edd498"
+        },
+        {
+          "file_name": "common_voice_zh-TW_17372032_0000.wav",
+          "sentence": "資料分析專題講座。",
+          "predicted_mos": 3.7109375,
+          "original_audio_sha256": "ac24ac91fa9937c89495887358cf3ec69e0d32fa82594c22fd568afd44e8c554"
+        },
+        {
+          "file_name": "common_voice_zh-TW_17371989_0000.wav",
+          "sentence": "沒有表演的尾牙。",
+          "predicted_mos": 3.658203125,
+          "original_audio_sha256": "5feab39f593740e7f0049caf3756786e29b9d0d1052106bbc1cd0a388455df76"
+        }
+      ]
+    }
+  ]
+}
