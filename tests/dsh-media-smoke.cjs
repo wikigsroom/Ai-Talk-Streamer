@@ -20,7 +20,7 @@ const origin=process.env.DSH_TEST_BASE_URL||'http://127.0.0.1:8010';
   for(let i=0;i<240;i++){const h=(await api('status')).health;if(h.tts_ready&&h.avatar_ready)break;if(i===239)throw Error('MEDIA_NOT_READY');await page.waitForTimeout(1000)}record('media_ready');
   const endBroadcast=async()=>{const {broadcast}=await api('status');if(broadcast)await api('broadcast/end',{broadcast_id:broadcast.broadcast_id,expected_revision:broadcast.revision});};
   let status=await api('status');if(status.broadcast){await endBroadcast();for(let i=0;i<45&&(await api('status')).broadcast;i++)await page.waitForTimeout(1000);}
-  await page.click('#dshStart');await page.waitForFunction(()=>document.querySelector('#dshLiveState').textContent.includes('LIVE'),null,{timeout:20000});started=true;
+  await page.click('#dshStart');await page.waitForFunction(()=>document.querySelector('#dshLiveState').dataset.state==='LIVE',null,{timeout:20000});started=true;
   record('echo_live',{channel_ai_ready:(await api('status')).health.persona_injection_ready});
   await page.screenshot({path:path.join(output,'studio-dsh.png'),fullPage:true});
   const wait=async(id)=>{for(let i=0;i<180;i++){const row=await api('requests/'+id);if(['COMPLETED','FAILED','CANCELLED','INTERRUPTED','UNKNOWN'].includes(row.status))return row;if(i%10===0)record('playing_progress',{request_id:id,status:row.status,metrics:await page.evaluate(()=>({transport:window.avatarTransport.metrics(),playback:window.avatarTransport.dsh.metrics()}))});await page.waitForTimeout(1000)}throw Error('REQUEST_TIMEOUT');};

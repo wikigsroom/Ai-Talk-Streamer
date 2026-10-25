@@ -219,6 +219,21 @@ def main():
         check(path.is_file() and path.stat().st_size == item['bytes'] and sha256(path) == item['sha256'],
               'DSH management media checksum: ' + item['file'])
     counts['dsh_management_media'] = len(management_media['items'])
+    studio_flow = load('docs/evidence/dsh-studio-session-flow.json')
+    check(studio_flow['passed'] is True and studio_flow['cloud_llm_exercised'] is True
+          and len(studio_flow['checks']) == 10 and all(studio_flow['checks'].values())
+          and studio_flow['request_status'] == 'COMPLETED'
+          and studio_flow['voiced_interval']['audio_resets'] == 0,
+          'DSH session-flow evidence must cover the real AI reply and ten UI checks')
+    studio_media = load('docs/media/dsh-studio-session-manifest.json')
+    check(studio_media['kind'] == 'native_studio_session_flow' and studio_media['cloud_llm_exercised'] is True
+          and studio_media['report_sha256'] == sha256(local(studio_media['report'])),
+          'DSH session media must identify its actual real-channel source')
+    for item in studio_media['items']:
+        path = local(item['file'])
+        check(path.is_file() and path.stat().st_size == item['bytes'] and sha256(path) == item['sha256'],
+              'DSH session media checksum: ' + item['file'])
+    counts['dsh_session_media'] = len(studio_media['items'])
     dsh_docs = load('docs/evidence/dsh-humanity-doc-validation.json')
     for item in dsh_docs['artifacts']:
         digest = hashlib.sha256(local(item['path']).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()

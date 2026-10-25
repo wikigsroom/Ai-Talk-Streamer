@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-10-25T01:03:19.675892+00:00",
+  "checked_at": "2026-10-25T09:16:46.509955+00:00",
   "overall_acceptance": "incomplete",
-  "scope": "Native modules; pinned DSH/Humanity with controlled HTTP model; isolated native Chrome management with fixture facts; production local-media Echo and same-origin SSE. The user cloud channel has not passed.",
+  "scope": "Native modules, pinned DSH/Humanity with controlled HTTP, isolated management fixture, local Echo and real saved-channel three-turn playback. Ten studio session-flow checks and one additional real AI utterance passed; full 20-turn and S1-S5 acceptance remain pending.",
   "module_tests": {
     "node_passed": 44,
     "python_viewer_buffer_passed": 3,
@@ -48,25 +48,39 @@
     "model": "gpt-6-luna",
     "protocol": "responses",
     "source": "studio_channel_env",
-    "compatibility_passed": false,
-    "reason": "Saved-channel real DSH compatibility probe returned 504 MODEL_TIMEOUT after 90.078 seconds; no model, endpoint, protocol or credential substitution",
-    "last_connectivity_observation": "Current revision unchanged; typed deadline failure persisted, persona injection gate remains closed",
+    "compatibility_passed": true,
+    "reason": "User explicitly updated the saved channel; production compatibility and three real playback turns passed after an off-air Node Bridge refresh",
+    "last_connectivity_observation": "Current revision ready; actual persona, tool call, final replies and same-broadcast topic recall verified",
     "last_probe": {
-      "passed": false,
-      "http_status": 504,
-      "error": "MODEL_TIMEOUT",
-      "checked_at": "2026-10-25T00:58:56.394328+00:00",
-      "elapsed_seconds": 90.078,
+      "passed": true,
+      "http_status": 200,
+      "model": "gpt-6-luna",
+      "protocol": "responses",
+      "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+      "tool_calls": 1,
+      "checked_at": "2026-10-25T08:24:00.327569+00:00",
+      "elapsed_seconds": 5.375,
       "kind": "user_saved_channel_real_dsh_compatibility_probe",
       "channel_source": "studio_channel_env"
-    }
+    },
+    "historical_failed_probes": [
+      {
+        "passed": false,
+        "http_status": 504,
+        "error": "MODEL_TIMEOUT",
+        "checked_at": "2026-10-25T00:58:56.394328+00:00",
+        "elapsed_seconds": 90.078,
+        "kind": "user_saved_channel_real_dsh_compatibility_probe",
+        "channel_source": "studio_channel_env"
+      }
+    ]
   },
   "live_scenarios": {
-    "S1": "pending_real_channel",
-    "S2": "pending_real_channel",
-    "S3": "pending_real_channel",
-    "S4": "pending_real_channel",
-    "S5": "pending_real_channel"
+    "S1": "pending_full_scenario",
+    "S2": "pending_full_scenario",
+    "S3": "pending_full_scenario",
+    "S4": "pending_full_scenario",
+    "S5": "pending_full_scenario"
   },
   "code_sha256": {
     "backend/dsh-bridge/auth.mjs": "e063e7f5128ad76c90e1251980c64f80be06eafcfabc2e62e3486b2c25471658",
@@ -107,24 +121,26 @@
     "tests/dsh-host-probe.mjs": "4c771655ab44a52def455917970983164c49c88039df8a698832eba2a3a014fc",
     "tests/dsh-maintenance.test.mjs": "a1da883187e06ca216c7d3e2723a1f5cca17879321d8ff07cd140613da1b2cd1",
     "tests/dsh-management-smoke.mjs": "38647de03814d4b2bb14d61295db51f417eee97c6379fab56beec821d886f965",
-    "tests/dsh-media-smoke.cjs": "5bc607a0b22ab8c9afb6927aeb7fc07b1135586b1ae3a6da7fe14116a6e79dcc",
+    "tests/dsh-media-smoke.cjs": "5d1b7029f18c6b3222cf59ca513bd7c15fc982cf8339c108b94cbd86b5ceb5c5",
     "tests/dsh-memory-load.mjs": "0bcba8be1eacf86d2492795ba8360ea6bbdc0fd0f5e4212d3e4dcdbc20d721a2",
     "tests/dsh-model-faults.mjs": "8fef797168ad57e2d90188fc63f96112c8b0e4d175544c182c2d61f2dc20907a",
     "tests/dsh-playback.test.mjs": "0ce3b6f4daa33ddc02302d8c5977fe20dc6b709744c16e37b4bc9f7a1e474439",
     "tests/dsh-state.test.mjs": "b41e5638eb46cc146f57bb5637034da8f06726a9145c2ea8689030ba021cb2ad",
+    "tests/dsh-studio-smoke.cjs": "dc10c72983614e3a3585480314bf5c052d64b6d316b9b58e38c68df6e3b6d6ea",
     "tests/dsh_routes_probe.py": "a22fc96fec080ccaa02235a3f7ab08bcd7dfa090750da6646afdaacdb8768fae",
     "tests/fixtures/dsh-crash-worker.mjs": "ac0a5200179e4b391f885621a53d5d973a77ff9ab906efa96fbc37816b58de5a",
     "tests/test_dsh_viewer_buffer.py": "9c1a4c067b4f5353e1a263a55479a1a479399f8f3ce2665df83c1ea662c03248",
     "web/browser-id.js": "59238fedc35b3caf1884d43d86f1a40ffa259908a262ef7b1cfe66bee2744705",
     "web/dsh-playback.js": "9d427ddc9e1f0a63e9d6a99aed89d27eecbf5890f29af58a26fb234fb1fbc2af",
-    "web/dsh-studio.css": "23a775cae675103834d736927ae1872f7e7e96a21070b4ca2ff68d129f813d74",
-    "web/dsh-studio.js": "8a15d7f832506262a9276417c79ef64fe74807fe38395a55bfd7dccff6868c19",
+    "web/dsh-studio.css": "f413e19156be2c2de04d4a4a03831a657aa7f7e5b4e72205065970b8009209f5",
+    "web/dsh-studio.js": "1a7887eeb73a3a0fa893e292141f7cd706dcdf2eab84d86cf9dc12fca3d560b0",
+    "web/guide.html": "f3bc37ff3b4802cfd1f4c71223cb44198b376f5799138c54cabc7939fbd5570a",
     "web/local-stream.js": "e82cbfa5848b58274531cf6ee9b991a3e48e088b5785fae3578f3f4119d2cd9e",
     "web/memory.css": "04e1eaf42c9f1af55b83fd16ef98211b04bdc4f3289dd8804b1305b2d59b2287",
     "web/memory.html": "6dca11b19d716e2474b8349a5fb7069f3d54033eae776903b8e233ae2330ab17",
     "web/memory.js": "8cad0c6bc2ad9b35e286539fb6de4f7ddd6caa5ac77bbfa4003805112bbbc538",
-    "web/studio.html": "2a6d1f53d68e5955472aa8f041cbda355cb0130870f44a492d3a15ecb7121b12",
-    "web/studio.js": "21e8015b1b33bc1a40fbb21546ea7610189967759140b60f972567313f3da176"
+    "web/studio.html": "f9b5ffb0719a98b160d386c52ad4a7800af0d8bf78afc11764442d40b3497e38",
+    "web/studio.js": "fa972985ae61d82f850d92740f6ac7d038486dbf5e1bc945fa239409f8349aa5"
   },
   "real_media_echo": {
     "schema_version": 1,
@@ -209,23 +225,38 @@
     }
   },
   "final_local_health": {
-    "checked_at": "2026-10-25T01:03:19.676328+00:00",
+    "checked_at": "2026-10-25T09:16:46.509955+00:00",
     "broadcast_state": "OFFAIR",
     "health": {
+      "process_alive": true,
       "state_store_ready": true,
       "dsh_ready": true,
-      "persona_injection_ready": false,
+      "persona_injection_ready": true,
       "memory_ready": true,
       "projection_synced": true,
+      "projection_lag": 0,
       "tts_ready": true,
       "avatar_ready": true,
-      "rss_bytes": 68767744,
+      "viewers": 0,
+      "authority_ready": false,
+      "channel": {
+        "configured": true,
+        "has_key": true,
+        "source": "studio_channel_env",
+        "provider": "studio-default",
+        "model": "gpt-6-luna",
+        "protocol": "responses",
+        "revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c"
+      },
+      "persona_version": "female-a-v1-a29201a1f275",
       "node": "v24.22.1",
+      "native_humanity_tools": false,
       "versions": {
         "dsh": "0.2.0-rc.2",
         "humanity": "0.1.17",
         "connector": "stream-humanity-v1"
-      }
+      },
+      "rss_bytes": 68308992
     }
   },
   "test_cleanup_and_route_guard": {
@@ -260,7 +291,7 @@
     "memory_revision": 0
   },
   "gpu_sample": {
-    "used_mib": 9238,
+    "used_mib": 9416,
     "total_mib": 10240,
     "utilization_percent": 0,
     "kind": "short_offair_resident_models_sample"
@@ -275,7 +306,12 @@
     "accepted/authority-smoke.json": "5e0c5f95015bbd39355a28b4a3d32612ab105a680f933e01a09aaadde6703a11",
     "accepted/management-smoke.json": "7501ab5e6a6822edde44d35319889a4c8c4237eb5725d5283259fa97b319a917",
     "accepted/cloud-probe-followup.json": "dc60c7b356dee46b676dbd4976fb7f28009397f415de3efdcd92f31e3bb712dd",
-    "accepted/model-faults.json": "d6e5e5b6eb513545ce4cec0ff32667a4fec63650e08a4093eac922e2f49ba040"
+    "accepted/model-faults.json": "d6e5e5b6eb513545ce4cec0ff32667a4fec63650e08a4093eac922e2f49ba040",
+    "studio-flow-unit-tests.tap": "23099fc9a014582eae75431c5f0d2e2ebe3db1458dd2aa6414b01fd7772ddc51",
+    "new-channel-20261025/cloud-probe-followup.json": "eebe92cb615d25360773b15ac49cb35e79a74698918fc74bb76c9a67b3874399",
+    "new-channel-20261025/real-channel-media.json": "c1f8e2ec7fb1254916a611fa97d1b18c257c6c7228ee87c014e142fad2afbd96",
+    "studio-flow-20261025/studio-session-flow.json": "27f7b091d33821c84c479734a2b144fc628289af80654f2a9b7c0b2897eac3e2",
+    "studio-flow-20261025/studio-session-playback.webm": "4ddafb34d142b8af024963a8028a434e00224b4b70a723a2c851f784db817d5d"
   },
   "isolated_management": {
     "schema_version": 1,
@@ -604,5 +640,18 @@
     ],
     "structured_bridge_logs_redacted": true,
     "recovery_verified_for_both_protocols": true
-  }
+  },
+  "real_cloud_three_turn": {
+    "passed": true,
+    "report": "docs/evidence/dsh-real-channel-three-turn.json",
+    "turns": 3,
+    "cloud_llm_exercised": true
+  },
+  "studio_session_flow": {
+    "passed": true,
+    "checks": 10,
+    "report": "docs/evidence/dsh-studio-session-flow.json",
+    "media_manifest": "docs/media/dsh-studio-session-manifest.json"
+  },
+  "source_verification_note": "Backend module sources remain unchanged; the changed web flow was verified by the new native browser test. Older Echo and management receipts retain their historical scopes."
 }

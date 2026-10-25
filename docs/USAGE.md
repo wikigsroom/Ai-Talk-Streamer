@@ -6,11 +6,12 @@
 
 Start the prepared workstation with `Start-Streamer.cmd`, then open `http://127.0.0.1:8010/`. For another device, replace loopback with your workstation's reachable address. Allow only your trusted LAN/VPN through the firewall. A webpage tab can view the same output as OBS; it does not get its own isolated conversation.
 
-启动后打开本机地址；其他设备改用工作站的可达地址。网页与 OBS 共用一位人物和同一条播报队列，多人操作会相互影响。当前没有用户登录或独立会话隔离。
+启动后打开本机地址；其他设备改用工作站的可达地址。网页与 OBS 共用一位人物和同一条播报队列，多人操作会相互影响。启用 DSH 时使用管理员登录和观众身份分区；人物画面仍共用同一输出。连接预览后，管理员需点“开始网页会话”，状态变为“会话进行中”才能发送。暂停后点“恢复网页会话”，结束时点“结束会话”。首次管理员令牌来自工作站的 configs/dsh-operator.token；可直接在演播台登录。
 
 | UI label / 按钮 | Action / 行为 |
 | --- | --- |
 | 连接预览与声音 | Connect live picture/audio; first connection may load the avatar / 连接首帧及音频，首次可能较慢 |
+| 开始网页会话 / 恢复网页会话 | DSH operator starts or resumes this session after preview connection / 登录管理员后开始或恢复当前场次 |
 | 原文播报 → 发送播报 | Locally speak the text exactly; no LLM required / 本地朗读原文，不调用 LLM |
 | AI 回复 → 发送播报 | Send text to the configured cloud channel, then locally speak its reply / 云端产生回复，本地合成与口型 |
 | 停止说话 | Invalidate old generation and flush queued speech / 打断旧播报，已送达的缓冲可能短暂残留 |

@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-25T09:13:55.137530+00:00",
+  "kind": "native_studio_session_flow",
+  "cloud_llm_exercised": true,
+  "source_sha256": "4ddafb34d142b8af024963a8028a434e00224b4b70a723a2c851f784db817d5d",
+  "report_sha256": "27f7b091d33821c84c479734a2b144fc628289af80654f2a9b7c0b2897eac3e2",
+  "report": "docs/evidence/dsh-studio-session-flow.json",
+  "gif_start_seconds": 27.55,
+  "recording_scope": "First actual AI reply including waiting; pause/resume checks are in the report, not this video",
+  "items": [
+    {
+      "file": "docs/media/dsh-studio-session-offair.png",
+      "bytes": 567949,
+      "sha256": "cf094aec150e899164b1cfe2aa4993ae68b88b52beaa5a7939376e138e32b951"
+    },
+    {
+      "file": "docs/media/dsh-studio-session-live.png",
+      "bytes": 562609,
+      "sha256": "30ce131ce68ac4ad3fc8c46cf1868a80966d4623fbcd359f602c0d6c92a96ec3"
+    },
+    {
+      "file": "docs/media/dsh-studio-session-playback.mp4",
+      "bytes": 6187925,
+      "sha256": "00fa1442152214f4602a52198602d35c82031be89a8213698f687705bbf90eab",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 720,
+            "height": 1280
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio"
+          }
+        ],
+        "format": {
+          "duration": "33.960000"
+        }
+      }
+    },
+    {
+      "file": "docs/media/dsh-studio-session-response.gif",
+      "bytes": 1949769,
+      "sha256": "dd5b3f2b024c15eb6a102475097e16db431f8527165ede2fb1868fd36b6dd06b",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "gif",
+            "codec_type": "video",
+            "width": 270,
+            "height": 480
+          }
+        ],
+        "format": {
+          "duration": "4.900000"
+        }
+      }
+    }
+  ]
+}

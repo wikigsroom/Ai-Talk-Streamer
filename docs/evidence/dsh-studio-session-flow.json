@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "kind": "native_studio_session_flow",
+  "started_at": "2026-10-25T09:09:06.806Z",
+  "passed": true,
+  "cloud_llm_exercised": true,
+  "checks": {
+    "offair_preview_and_shortcut_guard": true,
+    "anonymous_start_requires_login": true,
+    "invalid_login_explained_and_cleared": true,
+    "inline_operator_login": true,
+    "explicit_start_enables_send": true,
+    "controlled_late_409_has_actionable_message": true,
+    "real_ai_natural_playback_completed": true,
+    "pause_and_shortcut_guard": true,
+    "resume_same_broadcast_reclaims_playback": true,
+    "end_disables_send": true
+  },
+  "broadcast_id": "bc-7100acf7-a703-4317-be74-c5986b933052",
+  "channel": {
+    "configured": true,
+    "has_key": true,
+    "source": "studio_channel_env",
+    "provider": "studio-default",
+    "model": "gpt-6-luna",
+    "protocol": "responses",
+    "revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c"
+  },
+  "request_id": "req-d170061e-29bd-4164-b3e1-671e1606110d",
+  "request_status": "COMPLETED",
+  "elapsed_seconds": 33.377,
+  "reply": "我叫林知夏，是一位22岁的中国女大学生虚拟角色。",
+  "utterances": [
+    {
+      "status": "COMPLETED",
+      "valid_sample_count": 81920,
+      "contiguous_played_samples": 81920,
+      "completion_event_seq": 254
+    }
+  ],
+  "playback_metrics": {
+    "frames": 824,
+    "received_frames": 928,
+    "presented_frames": 824,
+    "fps": 25.61855322596666,
+    "fps_source": "video_presentation",
+    "width": 720,
+    "height": 1280,
+    "audio_samples": 593920,
+    "audio_energy": 0.045586484962434046,
+    "audio_underruns": 0,
+    "target_audio_buffer_ms": 2400,
+    "audio_buffer_ms": 1798.3673469382993,
+    "missing_packets": 0,
+    "server_skipped_video_frames": 0,
+    "skipped_video_frames": 0,
+    "decode_errors": 0,
+    "max_arrival_gap_ms": 132.69999999552965,
+    "connected": true
+  },
+  "voiced_interval": {
+    "chunks": 119,
+    "audio_gap_max_ms": 0,
+    "audio_resets": 0
+  },
+  "metrics": {
+    "frames": 845,
+    "received_frames": 949,
+    "presented_frames": 844,
+    "fps": 24.149286498353458,
+    "fps_source": "video_presentation",
+    "width": 720,
+    "height": 1280,
+    "audio_samples": 607360,
+    "audio_energy": 0.045586484962434046,
+    "audio_underruns": 0,
+    "target_audio_buffer_ms": 2400,
+    "audio_buffer_ms": 1808.2539682534743,
+    "missing_packets": 0,
+    "server_skipped_video_frames": 0,
+    "skipped_video_frames": 0,
+    "decode_errors": 0,
+    "max_arrival_gap_ms": 132.69999999552965,
+    "connected": true
+  },
+  "browser_errors": [],
+  "finished_at": "2026-10-25T09:09:46.934Z"
+}
