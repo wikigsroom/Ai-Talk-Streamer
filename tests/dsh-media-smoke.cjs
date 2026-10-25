@@ -18,7 +18,8 @@ const origin=process.env.DSH_TEST_BASE_URL||'http://127.0.0.1:8010';
   await page.goto(origin+'/',{waitUntil:'domcontentloaded'});await page.click('#connectBtn');
   await page.waitForFunction(()=>window.avatarTransport?.frames>25,null,{timeout:180000});record('preview_ready');
   for(let i=0;i<240;i++){const h=(await api('status')).health;if(h.tts_ready&&h.avatar_ready)break;if(i===239)throw Error('MEDIA_NOT_READY');await page.waitForTimeout(1000)}record('media_ready');
-  let status=await api('status');if(status.broadcast){await api('broadcast/end',{});for(let i=0;i<45&&(await api('status')).broadcast;i++)await page.waitForTimeout(1000);}
+  const endBroadcast=async()=>{const {broadcast}=await api('status');if(broadcast)await api('broadcast/end',{broadcast_id:broadcast.broadcast_id,expected_revision:broadcast.revision});};
+  let status=await api('status');if(status.broadcast){await endBroadcast();for(let i=0;i<45&&(await api('status')).broadcast;i++)await page.waitForTimeout(1000);}
   await page.click('#dshStart');await page.waitForFunction(()=>document.querySelector('#dshLiveState').textContent.includes('LIVE'),null,{timeout:20000});started=true;
   record('echo_live',{channel_ai_ready:(await api('status')).health.persona_injection_ready});
   await page.screenshot({path:path.join(output,'studio-dsh.png'),fullPage:true});
@@ -37,12 +38,12 @@ const origin=process.env.DSH_TEST_BASE_URL||'http://127.0.0.1:8010';
   await api('cancel',{request_id:b.request_id});record('buffer_cancel',{request_id:b.request_id,status:(await api('requests/'+b.request_id)).status});
   const c=await api('requests',{text:'旧音频已停止。现在这句话属于新的请求，播放完成后才会进入已播上下文。',mode:'echo',idempotency_key:crypto.randomUUID()});
   const recovered=await wait(c.request_id);record('recovery_terminal',{status:recovered.status});assert.equal(recovered.status,'COMPLETED');
-  const memoryPage=await context.newPage();await memoryPage.goto(origin+'/memory',{waitUntil:'networkidle'});await memoryPage.screenshot({path:path.join(output,'memory-dsh.png'),fullPage:true});await memoryPage.close();
-  await api('broadcast/end',{});for(let i=0;i<45&&(await api('status')).broadcast;i++)await page.waitForTimeout(1000);started=false;
+  const memoryPage=await context.newPage();await memoryPage.goto(origin+'/memory',{waitUntil:'domcontentloaded'});await memoryPage.waitForFunction(()=>document.querySelector('#identity').textContent.includes('管理员'));await memoryPage.screenshot({path:path.join(output,'memory-dsh.png'),fullPage:true});await memoryPage.close();
+  await endBroadcast();for(let i=0;i<45&&(await api('status')).broadcast;i++)await page.waitForTimeout(1000);started=false;
   const report={schema_version:1,passed:errors.length===0&&gaps.every(n=>n<=1)&&metrics.transport.missing_packets===0,kind:'real_media_echo_smoke',cloud_llm_exercised:false,requests:[result,recovered].map(r=>({request_id:r.request_id,status:r.status})),metrics:metrics.transport,audio_gap_max_ms:Math.max(0,...gaps),audio_resets:gaps.filter(n=>n>1).length,browser_errors:errors};
   fs.writeFileSync(path.join(output,'media-smoke.json'),JSON.stringify(report,null,2));record('finished',{passed:report.passed});assert.equal(report.passed,true,'Media continuity acceptance failed');
  }finally{
-  if(started&&context){try{await context.request.post(origin+'/api/dsh/broadcast/end',{data:{}})}catch{}}
+  if(started&&context){try{const {broadcast}=await (await context.request.get(origin+'/api/dsh/status')).json();if(broadcast)await context.request.post(origin+'/api/dsh/broadcast/end',{data:{broadcast_id:broadcast.broadcast_id,expected_revision:broadcast.revision}});}catch{}}
   await context?.close();
  }
 })().catch(error=>{record('failed',{name:error.name,message:error.message.split('\n')[0]});process.exitCode=1});

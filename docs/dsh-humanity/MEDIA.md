@@ -18,6 +18,14 @@ These are actual native Chrome captures of the local RTX 3080 system, using MOSS
 
 ![实际人格与记忆管理页](../media/dsh-memory.png)
 
+## 管理功能隔离测试 / Isolated management fixture
+
+以下是另一套**隔离测试账本**的真实 Chrome 截图，显示分页、归档、等值合并和补偿撤销。图中 `management-test-unused` 和测试事实由自动化构造，未调用云端模型、未调用语音推理、未修改正式记忆。该截图展示操作界面与服务端修订结果，不代表人物已经从真实对话中学会这些事实。
+
+![隔离管理测试账本：测试事实，非真实 AI 回忆](../media/dsh-management-fixture.png)
+
+[独立来源与文件校验](../media/dsh-management-manifest.json) · [完整管理规则](ADMINISTRATION.md) · [原生 DSH/Humanity/HTTP/Chrome 测试程序](../../tests/dsh-management-smoke.mjs)。正式环境和隔离账本的证据分开保存。
+
 ## 原文播报 / Echo playback
 
 [下载完整 MP4 / Full actual recording](../media/dsh-echo-playback.mp4)。完整录像保留合成等待，没有用加速或剪掉等待来表示低延迟。下面 GIF 是同一录制中首段人声对应画面的约 7 秒无声摘录，按原速播放。

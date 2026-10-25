@@ -27,7 +27,7 @@
 4. 网页修改后仅新请求读取新快照；在途请求继续使用旧快照。
 5. 新 revision 的真实兼容探针未完成前，AI 不 ready。Echo 保留为明确选择的原文播报模式。
 
-2026-10-25 读取到的配置为 `gpt-6-luna` / `responses`。真实渠道请求曾超过 35 秒未返回 HTTP 响应，DSH 兼容请求亦超时，所以当时 `persona_injection_ready=false`。受控测试端点和 Echo 不证明真实 AI 渠道已恢复。
+2026-10-25 读取到的配置为 `gpt-6-luna` / `responses`。真实渠道请求曾超过 35 秒未返回 HTTP 响应，DSH 兼容请求亦超时，所以当时 `persona_injection_ready=false`。随后以相同已保存渠道再次执行真实 DSH 兼容探针，90.046 秒后返回 500 INTERNAL_ERROR，仍未通过。受控测试端点和 Echo 不证明真实 AI 渠道已恢复。
 
 公开状态只返回 model、protocol、revision、source、has_key，不输出密钥、operator token 或 media token。私有配置、SQLite、运行日志、备份不提交 Git。
 
@@ -46,7 +46,8 @@
 | [store.mjs](../../backend/memory/store.mjs) | SQLite 迁移 hash、WAL/FULL、唯一 owner、同步事务、写故障锁止 |
 | [service.mjs](../../backend/memory/service.mjs) | 来源资格、先分区后排序、上下文、候选规则、合并与镜像 |
 | [scheduler.mjs](../../backend/memory/scheduler.mjs) | 持久调度、分块、预算、租约、原子游标与断点恢复 |
-| [administration.mjs](../../backend/memory/administration.mjs) | 修订、补偿撤销、删除传播、删除 ledger、一致备份 |
+| [administration.mjs](../../backend/memory/administration.mjs) | 修订、归档、等值合并、整组补偿、范围重建、删除 ledger、一致备份 |
+| [query.mjs](../../backend/memory/query.mjs) / [events.mjs](../../backend/dsh-bridge/events.mjs) | revision 绑定 keyset 分页、持久元数据 SSE、权限过滤和背压 |
 | [restore.mjs](../../backend/memory/restore.mjs) | 新目录恢复、删除重放、完整性检查、离线切换 |
 | [dsh_bridge.py](../../integration/dsh_bridge.py) | 8010 同源代理、内部媒体认证、OBS 本机凭据 |
 | [moss_tts.py](../../integration/moss_tts.py) | 完整 MOSS WAV、有效样本数/hash、请求版本校验 |
@@ -76,6 +77,10 @@ DSH 启用后，旧 `/human`、`/humanaudio`、`/set_audiotype`、`/interrupt_ta
 
 超出规则的有据候选为 proposed，由管理员结合来源明确修订批准；身份候选拒绝。这不是通用语义事实自动审核器。相同键和值合并来源，相反值进入 conflicted，双方均不召回。更正产生 revision，补偿撤销不能覆盖后续修改。
 
+管理员可在网页按分区/状态/事实键分页，并执行带 revision 的归档、同分区等值合并和整组补偿撤销。重建必须指定已结束场次、来源版本、分区及起止事件；不能绕过静默、预算和删除屏障。重复抽取完全相同的证据不再制造修订，归档后的旧证据也不会复活。实际 HTTP 字段和失败处理见[管理契约](ADMINISTRATION.md)。
+
+状态事件以持久 SSE 元数据订阅通知，Python 8010 代理逐块转发并保留 Last-Event-ID；不输出原始事件正文。viewer 看不到其他请求的标识或内容。暂停、恢复、下播必须带当前场次和 expected_revision，旧页面不能取消或结束新场次。
+
 当场摘要采用有界引用提取，保留初始话题、显式约定线索和未得到完整播出回答的问题。模型后台摘要只是导航，不能替代原始证据。跨场当前依靠已激活的长期事实；任意故事、情绪和开放问题的跨场自动续写尚未完成真实模型验收。
 
 ## 6. 周期任务的实际语义
@@ -98,13 +103,13 @@ DSH 启用后，旧 `/human`、`/humanaudio`、`/set_audiotype`、`/interrupt_ta
 
 原始输出位于项目私有 outputs/dsh-humanity。模块测试覆盖状态、播放 JS、分区、预算、修订、删除后旧备份恢复和写故障。崩溃测试用真实子进程在 WAL 提交前/后退出；宿主探针使用真实 DSH/Humanity 和受控 HTTP 模型端点。
 
-[真实媒体测试程序](../../tests/dsh-media-smoke.cjs) 明确使用 Echo。2026-10-25 实际原生 Chrome 已通过完整播报、缓冲阶段取消及取消后再播，两条完成请求均收到自然结束回执；一轮采样画面约 25.38 FPS、PCM 无丢包，首条人声区间的排程间隙在浮点误差内为零。这证明本地媒体及播放账本的对应范围，未使用云端 LLM，不证明人物理解、跨场回忆或 S1–S5 通过。复验的精确指标以[机器记录](../evidence/dsh-humanity-runtime.json)为准，截图、完整录像和 GIF 见[实机记录](MEDIA.md)。
+[真实媒体测试程序](../../tests/dsh-media-smoke.cjs) 明确使用 Echo。2026-10-25 实际原生 Chrome 已通过完整播报、缓冲阶段取消及取消后再播，两条完成请求均收到自然结束回执；最新一轮采样画面约 25.37 FPS、PCM 无丢包，首条人声区间的排程间隙在浮点误差内为零。这证明本地媒体及播放账本的对应范围，未使用云端 LLM，不证明人物理解、跨场回忆或 S1–S5 通过。复验的精确指标以[机器记录](../evidence/dsh-humanity-runtime.json)为准，截图、完整录像和 GIF 见[实机记录](MEDIA.md)。
 
 两次定位到的失败仍保留原因：MOSS 常驻时单独重启人物曾降至约 0.7 FPS；按既有加载顺序重启后，首次有声推理仍曾产生约 2.42 秒排程间隙。修复分别为项目内有序重启，以及在完整 WAV 生成后、音频入队前运行相同精度/批次的准备推理。没有把该等待隐藏成实时出声，也没有为此更换音色或降低画面规格。
 
 [双播放器实机程序](../../tests/dsh-authority-smoke.cjs) 在两个真实 Chrome 页面运行演播台和本机 OBS 浏览器源：普通预览无权抢占、受限 OBS 凭据不能发送聊天，OBS 已播 19,372 个样本后接管，旧句 INTERRUPTED、新句 COMPLETED。另修复了迟到取消消息误用新 lease 及旧 heartbeat 错误撤销新 lease 的竞态。这里没有运行 OBS 应用混音器，不将页面测试等同于最终推流录制。
 
-模块证据包括 33 项 Node 测试、3 项 Python ViewerBuffer 测试、原生 aiohttp CORS/旧入口阻断检查。真实 DSH/Humanity 宿主探针使用受控 HTTP 端点，检查 7 次模型请求中的标准/官方 minimal 正负例、上下文确实入请求、人格在途冻结、投影增删改及重启。两分区各 5000 条合成事实的 20 次检索测得 p95 约 32.62 毫秒；这是短时合成负载，不能外推长时稳定性。
+模块证据包括 40 项 Node 测试、3 项 Python ViewerBuffer 测试、原生 aiohttp CORS/旧入口阻断及 SSE 实时转发检查。隔离管理测试使用真实固定版 DSH/Humanity、HTTP 与 Chrome，完成网页分页、归档、补偿、合并、范围重建和订阅；使用明确测试事实，不修改正式记忆、不调用 LLM/TTS。真实宿主模型探针另使用受控 HTTP 端点，检查 7 次请求中的标准/官方 minimal 正负例、上下文确实入请求、人格在途冻结、投影增删改及重启。两分区各 5000 条合成事实的 20 次检索测得 p95 约 32.62 毫秒；这是短时合成负载，不能外推长时稳定性。
 
 仍阻断完整验收的门槛：真实渠道兼容、真实 20 轮对话、A01–A40 剩余实机证据、S1–S5 五段录像、长时资源观察。测试替身、静态检查、截图和原版本视频不能替代；逐项状态见[验收执行记录](ACCEPTANCE.md)。
 

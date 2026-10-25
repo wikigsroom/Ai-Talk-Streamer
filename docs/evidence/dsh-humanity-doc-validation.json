@@ -1,20 +1,21 @@
 {
-  "checked_at": "2026-10-24T23:43:04.902519+00:00",
+  "checked_at": "2026-10-25T00:26:53.950485+00:00",
   "scope": "Current normative documents, embedded/standalone JSON and SQLite example initialization only; runtime evidence is separate",
   "result": "passed",
-  "document_count": 9,
+  "document_count": 10,
   "example_count": 5,
   "sqlite_version": "3.45.3",
   "sqlite_tables": 21,
-  "embedded_json_count": 5,
+  "embedded_json_count": 10,
   "normative_constraints": 16,
   "acceptance_definitions": 40,
   "real_channel_scenario_definitions": 5,
   "runtime_tests_executed_by_this_validator": false,
   "checks": [
-    "nine documents and five standalone examples",
+    "ten documents and five standalone examples",
     "balanced fences: DSH_HUMANITY.md",
     "balanced fences: ACCEPTANCE.md",
+    "balanced fences: ADMINISTRATION.md",
     "balanced fences: CONTRACTS.md",
     "balanced fences: IMPLEMENTATION.md",
     "balanced fences: LIVE_STATE.md",
@@ -38,19 +39,23 @@
   "artifacts": [
     {
       "path": "docs/DSH_HUMANITY.md",
-      "sha256": "59e3f30ccd5feb0e812801f5c92c9a9a4f86ef18c5d5f087c2258d166ade43d1"
+      "sha256": "dbd51567ca10c5a89aa8d6c22ce4c430f90ecdec7063b54e7be0ac20ef3919d5"
     },
     {
       "path": "docs/dsh-humanity/ACCEPTANCE.md",
-      "sha256": "54c7006af47fe893fb212833b229edd12ca90bd112bb8121593196bc8430fe29"
+      "sha256": "6145fe00839dc25672bab1999f7fefb61422e4061a3dc8336fe812f377613820"
+    },
+    {
+      "path": "docs/dsh-humanity/ADMINISTRATION.md",
+      "sha256": "bf76a5d88917fe0ec9621dcadcd3b0f4138017adbfea44769c7b3edb45a944ee"
     },
     {
       "path": "docs/dsh-humanity/CONTRACTS.md",
-      "sha256": "9428ea2e9f382c11a0f641cb811f26204a4d6ff69bc6bf48799995801fa9329d"
+      "sha256": "66b6d18385dc6014d889b0112f5cc42552a7993f2ad720b7700cde6711107289"
     },
     {
       "path": "docs/dsh-humanity/IMPLEMENTATION.md",
-      "sha256": "f9fe65f1f1db5241130d3badc82b1892431e7ca169db64cd2b77a14776a8f6c9"
+      "sha256": "89963883f725045ed4ac04b71a1a82ad3aa8e78cb581762cc4459976aea9eac6"
     },
     {
       "path": "docs/dsh-humanity/LIVE_STATE.md",
@@ -58,7 +63,7 @@
     },
     {
       "path": "docs/dsh-humanity/MEDIA.md",
-      "sha256": "91b27bbba9d77607a36b5b0fc0c6334156c854a403830d7954802b7ae11f5625"
+      "sha256": "91e23857c56723fdd98e033277ecbda21dd807e6cfaea3dcb9330daee776ba58"
     },
     {
       "path": "docs/dsh-humanity/MEMORY_PIPELINE.md",
@@ -70,7 +75,7 @@
     },
     {
       "path": "docs/dsh-humanity/RUNBOOK.md",
-      "sha256": "bf1dabfa7d8886e4dc20a58572f384bdb89146413d96ce20ef6bac93b9506c12"
+      "sha256": "4cf16613451be3ea787a05b0015d09cd5a10cf026f68c6783ac907d57310c150"
     },
     {
       "path": "docs/dsh-humanity/examples/bridge-policy.example.json",

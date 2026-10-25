@@ -64,9 +64,14 @@ export class StreamState extends EventEmitter {
       return this.current();
     });
   }
-  readyBroadcast(broadcastId, healthy) {
+  controlTarget(expected) {
+    const broadcast = this.current();
+    if (expected) requireValue(broadcast?.broadcast_id === expected.broadcast_id && broadcast.revision === expected.expected_revision, 'BROADCAST_REVISION_CONFLICT');
+    return broadcast;
+  }
+  readyBroadcast(broadcastId, healthy, expected) {
     return this.db.tx(() => {
-      const broadcast = this.current();
+      const broadcast = this.controlTarget(expected);
       requireValue(broadcast?.broadcast_id === broadcastId && ['STARTING','RECOVERING','PAUSED'].includes(broadcast.state), 'BROADCAST_NOT_STARTABLE');
       requireValue(healthy && this.authorityReady(broadcastId), 'DEPENDENCIES_NOT_READY', 503);
       if (broadcast.state !== 'STARTING') this.db.run('UPDATE rooms SET runtime_epoch=runtime_epoch+1,generation=generation+1,maintenance_barrier=maintenance_barrier+1 WHERE character_id=? AND room_id=?', ...this.characterRoom);
@@ -80,18 +85,19 @@ export class StreamState extends EventEmitter {
       return this.current();
     });
   }
-  pause(principal) {
+  pause(principal, expected) {
     requireValue(principal.role === 'operator', 'OPERATOR_REQUIRED', 403);
+    this.controlTarget(expected);
     const active = this.active(); if (active) this.cancel(active.request_id, 'paused');
     return this.db.tx(() => {
-      const broadcast = this.current(); requireValue(broadcast?.state === 'LIVE', 'BROADCAST_NOT_LIVE');
+      const broadcast = this.controlTarget(expected); requireValue(broadcast?.state === 'LIVE', 'BROADCAST_NOT_LIVE');
       this.db.run("UPDATE broadcasts SET state='PAUSED',revision=revision+1 WHERE broadcast_id=?", broadcast.broadcast_id);
       this.db.event(this.scope(broadcast), 'broadcast.paused', {}); return this.current();
     });
   }
-  end(principal) {
+  end(principal, expected) {
     requireValue(principal.role === 'operator', 'OPERATOR_REQUIRED', 403);
-    const broadcast = this.current();
+    const broadcast = this.controlTarget(expected);
     if (!broadcast) return { already_ended: true };
     return this.db.tx(() => {
       if (broadcast.state !== 'DRAINING') {

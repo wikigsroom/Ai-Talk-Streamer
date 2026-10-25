@@ -20,7 +20,7 @@ def main():
             raise AssertionError(description)
         checks.append(description)
 
-    check(len(docs) == 9 and len(examples) == 5, 'nine documents and five standalone examples')
+    check(len(docs) == 10 and len(examples) == 5, 'ten documents and five standalone examples')
     inline_count = 0
     for path in docs:
         text = path.read_text(encoding='utf-8-sig')

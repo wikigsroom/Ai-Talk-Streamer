@@ -209,6 +209,16 @@ def main():
         check(path.is_file() and path.stat().st_size == item['bytes'] and sha256(path) == item['sha256'],
               'DSH media checksum: ' + item['file'])
     counts['dsh_documentation_media'] = len(dsh_media['items'])
+    management_media = load('docs/media/dsh-management-manifest.json')
+    check(management_media['kind'] == 'isolated_native_dsh_humanity_http_chrome_management'
+          and management_media['fixture_facts'] is True
+          and management_media['production_memory_mutated'] is False
+          and management_media['cloud_llm_exercised'] is False, 'DSH management screenshot must identify isolated fixture scope')
+    for item in management_media['items']:
+        path = local(item['file'])
+        check(path.is_file() and path.stat().st_size == item['bytes'] and sha256(path) == item['sha256'],
+              'DSH management media checksum: ' + item['file'])
+    counts['dsh_management_media'] = len(management_media['items'])
     dsh_docs = load('docs/evidence/dsh-humanity-doc-validation.json')
     for item in dsh_docs['artifacts']:
         digest = hashlib.sha256(local(item['path']).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()

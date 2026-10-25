@@ -8,7 +8,7 @@
 
 已增加 **RTX 3080 10 GB／64 GB 内存**实测版本。原 GPT-SoVITS 版本保留 batch 8；当前 MOSS 版本在 batch 8 播放验收失败后改用 batch 4，沿用 FP16 人物模型、完整动作库和 720×1280 输出。网页统计视频实际呈现的帧率，慢连接积压时保留排队的音频。参见 [3080 实测](docs/RTX3080.md)、[播放修正](docs/PLAYBACK.md) 和 [MOSS 验收](docs/MOSS_LIVE.md)。
 
-**新增 DSH + Humanity 后端：** 已原生实现人格版本、观众记忆隔离、直播与播放账本，以及下播后、每日、每周的持久整理任务，默认继承网页保存的 API／模型配置。详见[完整方案](docs/DSH_HUMANITY.md)、[原生操作手册](docs/dsh-humanity/RUNBOOK.md)、[逐项验收](docs/dsh-humanity/ACCEPTANCE.md)和[实机页面、录像与 GIF](docs/dsh-humanity/MEDIA.md)。本地 Echo 完整／取消／恢复及受控 DSH/Humanity 宿主测试已通过；最近用户渠道检查超时，真实 AI 对话和五段新增记忆场景尚未通过验收。
+**新增 DSH + Humanity 后端：** 已原生实现人格版本、观众记忆隔离、直播与播放账本，以及下播后、每日、每周的持久整理任务，默认继承网页保存的 API／模型配置。详见[完整方案](docs/DSH_HUMANITY.md)、[原生操作手册](docs/dsh-humanity/RUNBOOK.md)、[逐项验收](docs/dsh-humanity/ACCEPTANCE.md)和[实机页面、录像与 GIF](docs/dsh-humanity/MEDIA.md)。本地 Echo 完整／取消／恢复及受控 DSH/Humanity 宿主测试已通过；最近真实渠道兼容探针在 90 秒后失败，真实 AI 对话和五段新增记忆场景尚未通过验收。
 
 ![实际说话中的演播台](docs/media/studio-speaking.png)
 
@@ -118,6 +118,8 @@ RTX 3080 安装时增加 `-HardwareProfile rtx3080-original`，随后使用 `.\S
 5. 点击 **录制并下载**，结束后保存带声音的 WebM。
 
 DSH 模式结束时点 **下播**：当前句排空后固定证据水位，静默两分钟，再于下播状态整理合格记忆。渠道不可用或重新开播时保留游标，等待恢复。每日 03:30、周一 04:10（Asia/Taipei）执行相应维护；来源规则、压缩、合并、预算、删除及恢复见[记忆流水线](docs/dsh-humanity/MEMORY_PIPELINE.md)。
+
+记忆页还提供按分区/状态/事实键分页、归档、等值合并、补偿撤销和已结束场次的范围重建。写入核验 revision 与操作 ID，事件订阅只传元数据；具体字段、重试和失败处理见[管理操作契约](docs/dsh-humanity/ADMINISTRATION.md)。
 
 使用云端文字模型时，展开 **渠道设置**，填写接口地址、API Key、渠道的**实际模型 ID**及协议，保存后切换 **AI 回复**。例如“GPT 6 Luna”只是显示名称时，不能据此猜测 model ID。变量模板见 `configs/channel.env.example`，真实 `configs/channel.env` 被 Git 忽略；保存时密钥留空会保留原值。
 

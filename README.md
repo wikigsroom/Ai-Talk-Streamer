@@ -8,7 +8,7 @@ The included character is **女A / Lin Zhixia (林知夏)**, a **fictional 22-ye
 
 The original **RTX 3080 10 GB / 64 GB RAM** GPT-SoVITS version retains batch-8 FP16 models, the full motion bank and 720×1280 output. The selected MOSS version uses batch 4 after batch-8 playback failed validation. Browser playback counts presented frames and preserves queued audio when a viewer falls behind. See the [3080 measurements](docs/RTX3080.md), [playback correction](docs/PLAYBACK.md) and [MOSS validation](docs/MOSS_LIVE.md).
 
-**DSH + Humanity backend:** a native implementation now adds a versioned personality, isolated viewer memory, a broadcast/playback ledger, and persistent post-broadcast, daily and weekly maintenance. It inherits the studio's saved API/model configuration. See the [full specification](docs/DSH_HUMANITY.md), [native runbook](docs/dsh-humanity/RUNBOOK.md), [current acceptance](docs/dsh-humanity/ACCEPTANCE.md), and [actual pages, recording and GIF](docs/dsh-humanity/MEDIA.md). Local Echo completion/cancellation/recovery and a controlled DSH/Humanity host probe have passed; the latest user-channel check timed out, so real AI dialogue and the five new memory scenarios remain unaccepted.
+**DSH + Humanity backend:** a native implementation now adds a versioned personality, isolated viewer memory, a broadcast/playback ledger, and persistent post-broadcast, daily and weekly maintenance. It inherits the studio's saved API/model configuration. See the [full specification](docs/DSH_HUMANITY.md), [native runbook](docs/dsh-humanity/RUNBOOK.md), [current acceptance](docs/dsh-humanity/ACCEPTANCE.md), and [actual pages, recording and GIF](docs/dsh-humanity/MEDIA.md). Local Echo completion/cancellation/recovery and a controlled DSH/Humanity host probe have passed; the latest real-channel probe failed after 90 seconds, so real AI dialogue and the five new memory scenarios remain unaccepted.
 
 ![Actual studio while speaking](docs/media/studio-speaking.png)
 
@@ -118,6 +118,8 @@ Source commits are pinned in [sources.lock.json](configs/sources.lock.json); [mo
 5. Click **录制并下载**, then end recording to download a WebM containing the browser's video and audio.
 
 In DSH mode, use **下播** after the session. The backend waits for the current utterance to drain, seals the evidence watermark, waits two minutes, then consolidates eligible memory while off air. It retains checkpoints when the channel is unavailable or a new broadcast begins. Daily maintenance is at 03:30 and weekly maintenance is Monday at 04:10, Asia/Taipei; the [memory pipeline](docs/dsh-humanity/MEMORY_PIPELINE.md) defines source rules, merging, budgets, deletion and recovery.
+
+The memory page also provides filtered pagination, archive, equivalent-fact merge, compensating undo and bounded rebuilds for closed broadcasts. Changes use revision checks and operation IDs; live event notifications carry metadata only. See the [administration contract](docs/dsh-humanity/ADMINISTRATION.md) for exact API fields and failure handling.
 
 For AI conversation, open **渠道设置** and enter your base URL, API key, **actual provider model ID**, and protocol. Save, switch to **AI 回复**, and send a question. Do not assume a display name such as “GPT 6 Luna” is an API model ID. `configs/channel.env.example` documents the environment variables; the real `configs/channel.env` stays untracked. A blank API-key field preserves the previously saved key.
 

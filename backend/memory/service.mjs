@@ -172,6 +172,14 @@ export class MemoryService {
     requireValue(!fence || candidate.sources.every(source => source.event_seq > fence.event_seq), 'DELETION_FENCE');
     const old = this.db.get("SELECT * FROM memory_entries WHERE character_id=? AND room_id=? AND subject_key=? AND fact_key=? AND state='active'", ...this.state.characterRoom, partition, candidate.fact_key);
     const valueJSON = canonical(candidate.value), same = old && old.value_json === valueJSON && old.polarity === candidate.polarity;
+    // Rebuilding the same source range must not create another fact/revision or
+    // reverse an explicit archive. New evidence may still create a reviewable fact.
+    for (const prior of this.db.all("SELECT * FROM memory_entries WHERE character_id=? AND room_id=? AND subject_key=? AND fact_key=? AND value_json=? AND polarity=? AND state!='deleted' ORDER BY updated_at DESC", ...this.state.characterRoom, partition, candidate.fact_key, valueJSON, candidate.polarity)) {
+      const sources = this.db.all('SELECT event_seq,evidence_sha256 FROM memory_sources WHERE memory_id=? AND memory_revision=?', prior.memory_id, prior.revision);
+      if (candidate.sources.every(source => sources.some(saved => saved.event_seq === source.event_seq && saved.evidence_sha256 === source.payload_sha256))) {
+        return { decision: prior.state === 'active' ? 'accepted' : ['proposed','conflicted'].includes(prior.state) ? prior.state : 'stale', reason: 'existing_evidence_no_change:' + prior.state, memory_id: prior.memory_id, revision: prior.revision };
+      }
+    }
     if (same && candidate.state === 'active') {
       const oldSources = this.db.all('SELECT * FROM memory_sources WHERE memory_id=? AND memory_revision=?', old.memory_id, old.revision);
       const next = this.updateInTransaction(old, {}, 'merge_evidence', [...oldSources, ...candidate.sources]);

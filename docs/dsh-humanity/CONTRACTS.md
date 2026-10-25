@@ -6,7 +6,7 @@
 
 ## 当前原生实现的 HTTP 绑定
 
-浏览器经 8010 同源代理，内部服务直连 3092。当前错误为 `{error:"CODE"}`，请求返回 status 字段；目标错误信封/SSE 分页尚未全部落地。身份从 cookie/bearer 解析，正文中的 principal/viewer_id 不授予权限。
+浏览器经 8010 同源代理，内部服务直连 3092。当前错误为 `{error:"CODE"}`，请求返回 status 字段；后文统一错误信封仍为目标语义。身份从 cookie/bearer 解析，正文中的 principal/viewer_id 不授予权限。已实现的分页、持久事件订阅和管理写操作详见[管理契约](ADMINISTRATION.md)。
 
 | 实际路径 | 方法 / 输入 | 权限与含义 |
 | --- | --- | --- |
@@ -15,25 +15,29 @@
 | /api/dsh/login | POST {token} | operator 或稳定观众邀请换 HttpOnly cookie |
 | /api/dsh/probe | POST {} | 管理员执行真实渠道人格/工具兼容探针 |
 | /api/dsh/broadcast/start | POST {} | 管理员创建唯一活动场 |
-| /api/dsh/broadcast/ready | POST {broadcast_id,mode} | STARTING/RECOVERING/PAUSED→LIVE；mode=echo/chat，校验依赖与租约 |
-| /api/dsh/broadcast/pause、/end | POST {} | 管理员暂停/排空下播 |
+| /api/dsh/broadcast/ready | POST {broadcast_id,expected_revision,mode} | STARTING/RECOVERING/PAUSED→LIVE；mode=echo/chat，校验依赖、租约和 CAS |
+| /api/dsh/broadcast/pause、/end | POST {broadcast_id,expected_revision} | 管理员暂停/排空下播；旧场次或版本拒绝 |
 | /api/dsh/requests | POST {text,mode,idempotency_key,public_input?} | 自己分区输入，只有管理员可声明公共输入 |
 | /api/dsh/requests/{id} | GET | 管理员或该请求主体查询 |
 | /api/dsh/cancel | POST {request_id?} | 管理员停止当前/指定请求 |
 | /api/dsh/playback/claim | POST {broadcast_id,consumer_id,replace?} | 管理员显式换权；OBS 受限凭据不能 replace |
 | /api/dsh/playback/heartbeat、/receipt、/cancel-ack | POST | 校验 consumer、lease、epoch、样本、序号和取消窗口 |
 | /api/dsh/persona | GET / POST {document,expected_version} | 管理员读取/发布；具体允许字段见实现 |
-| /api/dsh/memory | GET | 管理员读取最近 1000 条及摘要；当前非通用分页 |
+| /api/dsh/memory | GET ?limit&cursor&subject_key&state&fact_key | 管理员 keyset 分页，默认 50、最多 200；修改后旧 cursor 返回 409 |
 | /api/dsh/memory/source?memory_id=... | GET | 管理员查看来源和 revision |
 | /api/dsh/memory/correct、/undo、/delete | POST | 管理员带 operation_id/revision 修订、补偿或删除 |
+| /api/dsh/memory/archive、/merge | POST | 管理员带操作键、输入 revisions、reason；归档或同分区等值合并 |
+| /api/dsh/events | GET ?after=seq，Last-Event-ID | 已登录 operator/viewer 的持久 SSE 元数据订阅；正文不进入流 |
+| /api/dsh/broadcasts | GET | 管理员读取最近 50 场状态、来源版本和封口水位 |
 | /api/dsh/jobs | GET | 管理员读取任务、调用账与调度 occurrence |
+| /api/dsh/jobs/rebuild | POST | 管理员明确选择已结束场次/分区/起止水位/来源版本/reason，202 入队 |
 | /api/dsh/jobs/resume、/cancel | POST {job_id} | checkpoint 重试/取消，不清预算 |
 | /api/dsh/viewers | POST {label} | 管理员创建稳定邀请，只首次返回邀请凭据 |
 | /api/dsh/backup | POST {} | 管理员下播一致备份 |
 | /api/dsh/shutdown | POST {} | 管理员；活动场未结束时拒绝 |
 | /internal/audio-ready、/media-map、/failed | POST | 内部 media token；不暴露给普通网页 |
 
-当前状态由 GET 轮询，SSE 持久事件订阅、通用分页与任意范围管理重建仍未作为首版公共 API 发布。当前 SQLite 迁移是 backend/memory/migrations 中的 v1/v2；下面示例 SQL 是基础设计，不应由操作者手工在生产库重复执行。
+管理页使用持久 SSE 通知与 GET 回读，保留轮询兜底。上述归档、合并、补偿、分页和有界范围重建均已落地；它们不授予自动推断通用事实或修改人格身份的权限。任务列表/单条事实的完整修订链当前仍未通用分页。当前 SQLite 迁移是 backend/memory/migrations 中的 v1/v2；下面示例 SQL 是基础设计，不应由操作者手工在生产库重复执行。
 
 ## 1. 配置与版本真源
 

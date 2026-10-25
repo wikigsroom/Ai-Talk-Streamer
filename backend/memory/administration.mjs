@@ -46,6 +46,7 @@ export class MemoryAdministration {
   }
   correct(principal, input) {
     requireValue(principal.role === 'operator', 'OPERATOR_REQUIRED', 403);
+    requireValue(!this.locked, 'MEMORY_ADMINISTRATION_BUSY', 503);
     requireValue(input.operation_id && Object.hasOwn(input,'value') && typeof input.content === 'string' && input.content.length > 0 && input.content.length <= 160 && ['positive','negative','neutral'].includes(input.polarity), 'CORRECTION_INVALID', 400);
     const hash = digest(input);
     return this.db.tx(() => {
@@ -62,9 +63,84 @@ export class MemoryAdministration {
       return next;
     });
   }
+  archive(principal,input) {
+    requireValue(principal.role==='operator','OPERATOR_REQUIRED',403);
+    requireValue(!this.locked,'MEMORY_ADMINISTRATION_BUSY',503);
+    requireValue(typeof input.operation_id==='string'&&input.operation_id.length>=8&&typeof input.reason==='string'&&input.reason.trim().length>0&&input.reason.length<=300,'ARCHIVE_INPUT_INVALID',400);
+    const hash=digest({operation:'archive',principal:principal.principal_id,input});
+    return this.db.tx(()=>{
+      const prior=this.db.get('SELECT * FROM operation_results WHERE operation_id=?',input.operation_id);
+      if(prior){requireValue(prior.input_sha256===hash,'OPERATION_ID_CONFLICT');return JSON.parse(prior.result_json);}
+      const old=this.db.get('SELECT * FROM memory_entries WHERE memory_id=?',input.memory_id);
+      requireValue(old&&old.revision===input.expected_revision&&!['deleted','superseded','retracted'].includes(old.state),'MEMORY_REVISION_CONFLICT');
+      const next=this.memory.updateInTransaction(old,{state:'archived'},'operator_archive',undefined,input.operation_id);
+      this.db.event(this.state.scope({}, {actor_kind:'operator',actor_id:principal.principal_id}),'memory.archived',{memory_id:next.memory_id,revision:next.revision,reason:input.reason});
+      const result={memory_id:next.memory_id,revision:next.revision,state:next.state,operation_id:input.operation_id};
+      this.db.run('INSERT INTO operation_results VALUES (?,?,?,?,?)',input.operation_id,'archive',hash,canonical(result),utc(this.db.now()));return result;
+    });
+  }
+  merge(principal,input) {
+    requireValue(principal.role==='operator','OPERATOR_REQUIRED',403);
+    requireValue(!this.locked,'MEMORY_ADMINISTRATION_BUSY',503);
+    requireValue(typeof input.operation_id==='string'&&input.operation_id.length>=8&&typeof input.reason==='string'&&input.reason.trim().length>0&&input.reason.length<=300&&Array.isArray(input.inputs)&&input.inputs.length>=2&&input.inputs.length<=20,'MERGE_INPUT_INVALID',400);
+    requireValue(new Set(input.inputs.map(item=>item?.memory_id)).size===input.inputs.length&&input.inputs.some(item=>item.memory_id===input.target_memory_id),'MERGE_TARGET_INVALID',400);
+    const hash=digest({operation:'merge',principal:principal.principal_id,input});
+    return this.db.tx(()=>{
+      const prior=this.db.get('SELECT * FROM operation_results WHERE operation_id=?',input.operation_id);
+      if(prior){requireValue(prior.input_sha256===hash,'OPERATION_ID_CONFLICT');return JSON.parse(prior.result_json);}
+      const rows=input.inputs.map(item=>{
+        const memory=this.db.get('SELECT * FROM memory_entries WHERE memory_id=?',item.memory_id);
+        requireValue(memory&&memory.revision===item.expected_revision&&!['deleted','superseded','retracted'].includes(memory.state),'MEMORY_REVISION_CONFLICT');
+        requireValue(this.memory.sourceValid(memory),'MERGE_SOURCE_INVALID',422);return memory;
+      });
+      const target=rows.find(memory=>memory.memory_id===input.target_memory_id);
+      requireValue(!/^(identity|persona|character)\./.test(target.fact_key),'PERSONA_REQUIRES_PUBLICATION');
+      const normalize=value=>typeof value==='string'?value.normalize('NFKC').trim():Array.isArray(value)?value.map(normalize):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([key,v])=>[key,normalize(v)])):value;
+      const value=canonical(normalize(JSON.parse(target.value_json)));
+      requireValue(rows.every(memory=>memory.character_id===target.character_id&&memory.room_id===target.room_id&&memory.subject_key===target.subject_key&&memory.visibility===target.visibility&&memory.fact_key===target.fact_key),'MERGE_SCOPE_MISMATCH',422);
+      requireValue(rows.every(memory=>canonical(normalize(JSON.parse(memory.value_json)))===value&&memory.polarity===target.polarity&&memory.valid_from===target.valid_from&&memory.valid_until===target.valid_until),'MERGE_NOT_EQUIVALENT',422);
+      const outside=this.db.get("SELECT memory_id FROM memory_entries WHERE subject_key=? AND fact_key=? AND state='active'",target.subject_key,target.fact_key);
+      requireValue(!outside||rows.some(memory=>memory.memory_id===outside.memory_id),'MERGE_HAS_OTHER_ACTIVE_FACT');
+      const sources=rows.flatMap(memory=>this.db.all('SELECT * FROM memory_sources WHERE memory_id=? AND memory_revision=?',memory.memory_id,memory.revision));
+      const changes=[];
+      for(const memory of rows.filter(memory=>memory.memory_id!==target.memory_id)){
+        const next=this.memory.updateInTransaction(memory,{state:'superseded'},'merge_input:'+input.operation_id);
+        changes.push({memory_id:memory.memory_id,prior_revision:memory.revision,result_revision:next.revision});
+      }
+      const next=this.memory.updateInTransaction(target,{state:'active'},'operator_merge',sources,input.operation_id);
+      changes.unshift({memory_id:target.memory_id,prior_revision:target.revision,result_revision:next.revision});
+      const result={merge_id:input.operation_id,memory_id:next.memory_id,revision:next.revision,inputs:changes};
+      this.db.event(this.state.scope({}, {actor_kind:'operator',actor_id:principal.principal_id}),'memory.merged',{...result,reason:input.reason});
+      this.db.run('INSERT INTO operation_results VALUES (?,?,?,?,?)',input.operation_id,'merge',hash,canonical(result),utc(this.db.now()));return result;
+    });
+  }
   undo(principal, input) {
     requireValue(principal.role === 'operator', 'OPERATOR_REQUIRED', 403);
+    requireValue(!this.locked, 'MEMORY_ADMINISTRATION_BUSY', 503);
+    requireValue(typeof input.operation_id === 'string' && input.operation_id.length >= 8 && input.operation_id.length <= 120 &&
+      (!input.undo_operation_id || typeof input.undo_operation_id === 'string' && input.undo_operation_id.length >= 8 && input.undo_operation_id.length <= 120), 'UNDO_INPUT_INVALID', 400);
     return this.db.tx(() => {
+      const undoId=input.undo_operation_id||'undo:'+input.operation_id,hash=digest({operation:'undo',principal:principal.principal_id,input});
+      const applied=this.db.get('SELECT * FROM operation_results WHERE operation_id=?',undoId);
+      if(applied){requireValue(applied.input_sha256===hash,'OPERATION_ID_CONFLICT');return JSON.parse(applied.result_json);}
+      const operation=this.db.get('SELECT * FROM operation_results WHERE operation_id=?',input.operation_id);
+      if(operation?.operation==='merge'){
+        const merge=JSON.parse(operation.result_json);requireValue(Array.isArray(merge.inputs),'UNDO_SOURCE_NO_LONGER_VALID');
+        const revisions=merge.inputs.map(item=>{
+          const current=this.db.get('SELECT * FROM memory_entries WHERE memory_id=?',item.memory_id);
+          requireValue(current&&current.revision===item.result_revision&&current.state!=='deleted','UNDO_HAS_LATER_REVISION');
+          const prior=this.db.get('SELECT * FROM memory_revisions WHERE memory_id=? AND revision=?',item.memory_id,item.prior_revision);
+          requireValue(prior,'UNDO_SOURCE_NO_LONGER_VALID');
+          const snapshot=JSON.parse(prior.snapshot_json);requireValue(this.memory.sourceValid(snapshot),'UNDO_SOURCE_NO_LONGER_VALID');return {current,snapshot};
+        });
+        const target=revisions[0].current,other=this.db.get("SELECT memory_id FROM memory_entries WHERE subject_key=? AND fact_key=? AND state='active'",target.subject_key,target.fact_key);
+        requireValue(!other||revisions.some(item=>item.current.memory_id===other.memory_id),'UNDO_WOULD_OVERWRITE_NEW_FACT');
+        const restored=revisions.map(({current,snapshot},index)=>this.memory.updateInTransaction(current,{...snapshot,revision:current.revision,updated_at:current.updated_at},'compensating_merge_undo:'+input.operation_id,
+          this.db.all('SELECT * FROM memory_sources WHERE memory_id=? AND memory_revision=?',snapshot.memory_id,snapshot.revision),undoId+':'+index));
+        const result={operation_id:undoId,merge_id:input.operation_id,memory_id:target.memory_id,restored:restored.map(memory=>({memory_id:memory.memory_id,revision:memory.revision,state:memory.state}))};
+        this.db.event(this.state.scope({}, {actor_kind:'operator',actor_id:principal.principal_id}),'memory.merge_undone',result);
+        this.db.run('INSERT INTO operation_results VALUES (?,?,?,?,?)',undoId,'undo_merge',hash,canonical(result),utc(this.db.now()));return result;
+      }
       const revision = this.db.get('SELECT * FROM memory_revisions WHERE operation_id=?', input.operation_id);
       requireValue(revision?.prior_revision, 'UNDO_REVISION_NOT_FOUND', 404);
       const current = this.db.get('SELECT * FROM memory_entries WHERE memory_id=?', revision.memory_id);
@@ -74,7 +150,31 @@ export class MemoryAdministration {
       const other = this.db.get("SELECT memory_id FROM memory_entries WHERE subject_key=? AND fact_key=? AND state='active' AND memory_id!=?", current.subject_key, current.fact_key, current.memory_id);
       requireValue(!other, 'UNDO_WOULD_OVERWRITE_NEW_FACT');
       const sources = this.db.all('SELECT * FROM memory_sources WHERE memory_id=? AND memory_revision=?', snapshot.memory_id, snapshot.revision);
-      return this.memory.updateInTransaction(current, { ...snapshot, revision: current.revision, updated_at: current.updated_at }, 'compensating_undo:' + input.operation_id, sources);
+      const result=this.memory.updateInTransaction(current, { ...snapshot, revision: current.revision, updated_at: current.updated_at }, 'compensating_undo:' + input.operation_id, sources,undoId);
+      this.db.event(this.state.scope({}, {actor_kind:'operator',actor_id:principal.principal_id}),'memory.operation_undone',{memory_id:result.memory_id,revision:result.revision,operation_id:input.operation_id});
+      this.db.run('INSERT INTO operation_results VALUES (?,?,?,?,?)',undoId,'undo',hash,canonical(result),utc(this.db.now()));return result;
+    });
+  }
+  rebuild(principal,input) {
+    requireValue(principal.role==='operator','OPERATOR_REQUIRED',403);
+    requireValue(!this.state.current()&&!this.locked,'REBUILD_REQUIRES_OFFAIR');
+    requireValue(typeof input.operation_id==='string'&&input.operation_id.length>=8&&typeof input.partition_key==='string'&&input.partition_key.length>0&&input.partition_key.length<=120&&Number.isSafeInteger(input.source_start_seq)&&Number.isSafeInteger(input.source_end_seq)&&input.source_start_seq<=input.source_end_seq&&typeof input.reason==='string'&&input.reason.trim().length>0&&input.reason.length<=300,'REBUILD_INPUT_INVALID',400);
+    const hash=digest({operation:'rebuild',principal:principal.principal_id,input});
+    return this.db.tx(()=>{
+      const prior=this.db.get('SELECT * FROM operation_results WHERE operation_id=?',input.operation_id);
+      if(prior){requireValue(prior.input_sha256===hash,'OPERATION_ID_CONFLICT');return JSON.parse(prior.result_json);}
+      const broadcast=this.db.get('SELECT * FROM broadcasts WHERE broadcast_id=?',input.broadcast_id);
+      requireValue(broadcast?.state==='ENDED'&&broadcast.source_revision===input.expected_source_revision,'REBUILD_SOURCE_CHANGED');
+      const first=this.db.get('SELECT MIN(event_seq) n FROM stream_events WHERE broadcast_id=?',broadcast.broadcast_id).n;
+      requireValue(input.source_start_seq>=first&&input.source_end_seq<=broadcast.ended_event_seq,'REBUILD_RANGE_INVALID',400);
+      requireValue(input.partition_key==='public'||this.db.get("SELECT 1 FROM stream_events e JOIN event_payloads p USING(event_seq) WHERE e.broadcast_id=? AND json_extract(p.payload_json,'$.partition_key')=?",broadcast.broadcast_id,input.partition_key),'REBUILD_PARTITION_INVALID',422);
+      const room=this.state.room(),key=digest(['rebuild',...this.state.characterRoom,input.broadcast_id,input.partition_key,broadcast.source_revision,this.state.policy.policy_version,input.source_start_seq,input.source_end_seq,input.operation_id]);
+      const jobId='job-'+key.slice(0,32),now=utc(this.db.now()),notBefore=broadcast.consolidation_not_before>now?broadcast.consolidation_not_before:now;
+      this.db.run("INSERT INTO compaction_jobs(job_id,job_key,job_kind,character_id,room_id,broadcast_id,partition_key,policy_version,source_revision,state,stage,source_start_seq,source_end_seq,consumed_through_seq,maintenance_barrier,not_before,created_at) VALUES (?,?,'rebuild',?,?,?,?,?,?,'PENDING','MANIFEST',?,?,?,?,?,?)",jobId,key,...this.state.characterRoom,input.broadcast_id,input.partition_key,this.state.policy.policy_version,broadcast.source_revision,input.source_start_seq,input.source_end_seq,input.source_start_seq-1,room.maintenance_barrier,notBefore,now);
+      this.db.run('INSERT INTO job_runtime(job_id,deletion_generation) VALUES (?,?)',jobId,room.deletion_generation);
+      const result={job_id:jobId,broadcast_id:broadcast.broadcast_id,partition_key:input.partition_key,source_start_seq:input.source_start_seq,source_end_seq:input.source_end_seq,source_revision:broadcast.source_revision,not_before:notBefore};
+      this.db.event(this.state.scope(broadcast,{actor_kind:'operator',actor_id:principal.principal_id}),'job.rebuild_requested',{...result,reason:input.reason});
+      this.db.run('INSERT INTO operation_results VALUES (?,?,?,?,?)',input.operation_id,'rebuild',hash,canonical(result),now);return result;
     });
   }
   redactInTransaction({ operationId, subject, selectedMemoryId = null, replay = null }) {
@@ -133,6 +233,10 @@ export class MemoryAdministration {
     this.locked = true;
     try {
       const previous = this.db.get('SELECT * FROM redaction_outbox WHERE operation_id=?', input.operation_id);
+      if (previous) {
+        const saved = JSON.parse(previous.payload_json);
+        requireValue(saved.subject_key === input.subject_key && saved.memory_id === (input.memory_id || null), 'OPERATION_ID_CONFLICT');
+      }
       const active = this.state.active(); if (active) this.state.cancel(active.request_id, 'redaction');
       const result = previous ? { ...JSON.parse(previous.payload_json), operation_id:previous.operation_id,generation:previous.generation } : this.db.tx(() => this.redactInTransaction({ operationId:input.operation_id,subject:input.subject_key,selectedMemoryId:input.memory_id || null }));
       this.flushLedger();

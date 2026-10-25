@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-25T00:24:03.911328+00:00",
+  "kind": "isolated_native_dsh_humanity_http_chrome_management",
+  "fixture_facts": true,
+  "production_memory_mutated": false,
+  "cloud_llm_exercised": false,
+  "media_inference_exercised": false,
+  "report_sha256": "7501ab5e6a6822edde44d35319889a4c8c4237eb5725d5283259fa97b319a917",
+  "items": [
+    {
+      "file": "docs/media/dsh-management-fixture.png",
+      "bytes": 103911,
+      "sha256": "4775ae0be9473364684dd2683d2f5edb996cda057bf089af04f0a3ecad589629",
+      "description": "Actual native Chrome management page with explicitly synthetic fixture facts; not AI memory evidence"
+    }
+  ]
+}

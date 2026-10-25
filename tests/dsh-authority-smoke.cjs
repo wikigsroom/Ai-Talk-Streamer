@@ -21,7 +21,7 @@ const record=(event,data={})=>{const row={at:new Date().toISOString(),event,...d
   await obs.waitForFunction(()=>window.avatarTransport?.frames>25,null,{timeout:120000});
   const broadcast=await api('broadcast/start',{});started=true;
   await obs.waitForFunction(()=>!!window.avatarTransport?.dsh.lease,null,{timeout:20000});
-  await api('broadcast/ready',{broadcast_id:broadcast.broadcast_id,mode:'echo'});
+  await api('broadcast/ready',{broadcast_id:broadcast.broadcast_id,expected_revision:broadcast.revision,mode:'echo'});
   assert.equal(await page.evaluate(()=>window.avatarTransport.dsh.metrics().authority),false,'Preview must not acquire authority');
   const refusal=await page.evaluate(async id=>{try{await window.avatarTransport.dsh.claim(id,false);return null}catch(error){return error.message}},broadcast.broadcast_id);
   assert.equal(refusal,'AUTHORITY_ALREADY_HELD');
@@ -50,7 +50,7 @@ const record=(event,data={})=>{const row={at:new Date().toISOString(),event,...d
   for(let i=0;i<180;i++){const row=await api('requests/'+second.request_id);if(row.status==='COMPLETED'){completed=row;break;}assert.ok(!['FAILED','CANCELLED','UNKNOWN'].includes(row.status));await page.waitForTimeout(1000);}
   assert.ok(completed,'Recovery must receive natural-end completion');
   await page.screenshot({path:path.join(output,'authority-after-takeover.png'),fullPage:true});
-  await api('broadcast/end',{});for(let i=0;i<45&&(await api('status')).broadcast;i++)await page.waitForTimeout(1000);started=false;
+  const current=(await api('status')).broadcast;await api('broadcast/end',{broadcast_id:current.broadcast_id,expected_revision:current.revision});for(let i=0;i<45&&(await api('status')).broadcast;i++)await page.waitForTimeout(1000);started=false;
   assert.deepEqual(errors,[]);
   const report={schema_version:1,checked_at:new Date().toISOString(),passed:true,kind:'real_two_chrome_players_with_obs_source_page',cloud_llm_exercised:false,
    obs_application_exercised:false,preview_cannot_claim:true,obs_chat_forbidden:true,old_authority_revoked:true,
@@ -58,7 +58,7 @@ const record=(event,data={})=>{const row={at:new Date().toISOString(),event,...d
    requests:[interrupted,completed].map(row=>({request_id:row.request_id,status:row.status})),browser_errors:errors};
   fs.writeFileSync(path.join(output,'authority-smoke.json'),JSON.stringify(report,null,2));record('finished',{passed:true});
  }finally{
-  if(started&&context){try{await context.request.post(origin+'/api/dsh/broadcast/end',{data:{}})}catch{}}
+  if(started&&context){try{const {broadcast}=await (await context.request.get(origin+'/api/dsh/status')).json();if(broadcast)await context.request.post(origin+'/api/dsh/broadcast/end',{data:{broadcast_id:broadcast.broadcast_id,expected_revision:broadcast.revision}});}catch{}}
   await context?.close();
  }
 })().catch(error=>{record('failed',{name:error.name,message:error.message.split('\n')[0],actual:error.actual,expected:error.expected});process.exitCode=1});

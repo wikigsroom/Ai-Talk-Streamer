@@ -13,18 +13,19 @@
   const mode=document.getElementById('echoTab').getAttribute('aria-selected')==='true'?'echo':'chat';
   await refresh();if(mode==='chat'&&!status.health.persona_injection_ready){note('正在验证所配置模型的人格与工具调用…');await call('probe',{});}
   const b=status.broadcast||await call('broadcast/start',{});
-  await player.claim(b.broadcast_id,false);if(b.state!=='LIVE'){const live=await call('broadcast/ready',{broadcast_id:b.broadcast_id,mode});if(live.runtime_epoch!==player.lease.runtime_epoch)await player.claim(b.broadcast_id,false);}
+  await player.claim(b.broadcast_id,false);if(b.state!=='LIVE'){const live=await call('broadcast/ready',{broadcast_id:b.broadcast_id,expected_revision:b.revision,mode});if(live.runtime_epoch!==player.lease.runtime_epoch)await player.claim(b.broadcast_id,false);}
   note('已开播（'+(mode==='echo'?'原文播报':'AI 对话')+'），当前网页负责播放确认。普通输入按顺序处理。');
  });
  document.getElementById('dshObsStart').onclick=()=>act(async()=>{
   const mode=document.getElementById('echoTab').getAttribute('aria-selected')==='true'?'echo':'chat';
   await refresh();if(mode==='chat'&&!status.health.persona_injection_ready){note('正在验证模型…');await call('probe',{});}
   const b=status.broadcast||await call('broadcast/start',{});note('等待本机 OBS 取得播放确认权…');
-  for(let i=0;i<12;i++){await new Promise(resolve=>setTimeout(resolve,1000));await refresh();if(status.health.authority_ready){const live=status.broadcast.state==='LIVE'?status.broadcast:await call('broadcast/ready',{broadcast_id:b.broadcast_id,mode});note(live.state==='LIVE'?'已开播，OBS 负责播放确认；此网页为预览。':'等待 OBS 重新确认租约。');return;}}
+  for(let i=0;i<12;i++){await new Promise(resolve=>setTimeout(resolve,1000));await refresh();if(status.broadcast?.broadcast_id!==b.broadcast_id)throw Error('直播场次已变化，请重新操作。');if(status.health.authority_ready){const live=status.broadcast.state==='LIVE'?status.broadcast:await call('broadcast/ready',{broadcast_id:b.broadcast_id,expected_revision:status.broadcast.revision,mode});note(live.state==='LIVE'?'已开播，OBS 负责播放确认；此网页为预览。':'等待 OBS 重新确认租约。');return;}}
   throw Error('请打开本机 OBS 浏览器源 http://127.0.0.1:8010/obs.html，再点击 OBS 开播。');
  });
  document.getElementById('dshTake').onclick=()=>act(async()=>{await refresh();if(!status.broadcast)throw Error('请先开播。');await window.avatarTransport.dsh.claim(status.broadcast.broadcast_id,true);note('当前网页已取得播放确认权。');});
- document.getElementById('dshPause').onclick=()=>act(async()=>{await call('broadcast/pause',{});note('已暂停，保留本场上下文。');});
- document.getElementById('dshEnd').onclick=()=>act(async()=>{await call('broadcast/end',{});note('正在排空当前句子；正式下播后等待两分钟，再整理记忆。');});
+ const target=()=>{if(!status?.broadcast)throw Error('当前没有进行中的直播。');return {broadcast_id:status.broadcast.broadcast_id,expected_revision:status.broadcast.revision};};
+ document.getElementById('dshPause').onclick=()=>act(async()=>{await call('broadcast/pause',target());note('已暂停，保留本场上下文。');});
+ document.getElementById('dshEnd').onclick=()=>act(async()=>{await call('broadcast/end',target());note('正在排空当前句子；正式下播后等待两分钟，再整理记忆。');});
  void call('session',{}).then(refresh);const timer=setInterval(refresh,1500);addEventListener('beforeunload',()=>clearInterval(timer));
 })();

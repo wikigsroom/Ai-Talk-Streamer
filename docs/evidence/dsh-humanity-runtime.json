@@ -1,15 +1,17 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-10-24T23:40:42.259398+00:00",
+  "checked_at": "2026-10-25T00:26:04.819824+00:00",
   "overall_acceptance": "incomplete",
-  "scope": "Native module tests, actual DSH/Humanity with a controlled HTTP model, and real local-media Echo tests; user cloud channel has not passed",
+  "scope": "Native modules; pinned DSH/Humanity with controlled HTTP model; isolated native Chrome management with fixture facts; production local-media Echo and same-origin SSE. The user cloud channel has not passed.",
   "module_tests": {
-    "node_passed": 33,
+    "node_passed": 40,
     "python_viewer_buffer_passed": 3,
     "native_aiohttp_cors_routes_passed": true,
     "native_route_count": 15,
     "legacy_speech_bypass_blocked": true,
-    "migration_newline_compatibility_passed": true
+    "migration_newline_compatibility_passed": true,
+    "native_sse_forwarded_before_eof": true,
+    "native_last_event_id_forwarded": true
   },
   "host_probe": {
     "kind": "real_dsh_humanity_with_controlled_http_model",
@@ -42,8 +44,17 @@
     "protocol": "responses",
     "source": "studio_channel_env",
     "compatibility_passed": false,
-    "reason": "HTTP response timeout; no credential or endpoint exported",
-    "last_connectivity_observation": "Bounded unauthenticated model-list request still timed out; no channel substitution"
+    "reason": "Real DSH compatibility probe returned INTERNAL_ERROR after 90.046 seconds; no endpoint, credential, model or protocol substitution",
+    "last_connectivity_observation": "Saved channel revision is unchanged; real probe failed at the configured model deadline",
+    "last_probe": {
+      "passed": false,
+      "http_status": 500,
+      "error": "INTERNAL_ERROR",
+      "checked_at": "2026-10-25T00:21:38.210738+00:00",
+      "elapsed_seconds": 90.046,
+      "kind": "user_saved_channel_real_dsh_compatibility_probe",
+      "channel_source": "studio_channel_env"
+    }
   },
   "live_scenarios": {
     "S1": "pending_real_channel",
@@ -55,27 +66,29 @@
   "code_sha256": {
     "backend/dsh-bridge/auth.mjs": "e063e7f5128ad76c90e1251980c64f80be06eafcfabc2e62e3486b2c25471658",
     "backend/dsh-bridge/channel.mjs": "b6b4437dc772dbb163f2e0e95364fdbc2032c904f8e185e6c634c6142bcb3baa",
+    "backend/dsh-bridge/events.mjs": "5a54845a9fb2ba5c263d48137ccc77a338bbe0ebb922b336705c0c760b39884a",
     "backend/dsh-bridge/host.mjs": "95125209a4d3df37343ff66d443fe8b9c7f2648429e3d1cad515554589967118",
     "backend/dsh-bridge/humanity-port.mjs": "09843503605e51cebac3952175176c64f3da84d465d83f5204f1299a91ca70f6",
     "backend/dsh-bridge/package-lock.json": "2f31c18f71deba93153e6e602ece1652589b1f77df25416ee246b067d20c5a94",
     "backend/dsh-bridge/package.json": "dd1aad8ccf604d32c276a95ee00e2be01a953dea82f21c88f8601232a53b8076",
     "backend/dsh-bridge/persona.mjs": "adeef02c55da9b710f5916de90aa8698349238a734b8cc06abfa29dd47037457",
     "backend/dsh-bridge/policy.mjs": "d3b80997331f64772df7c0d99135ada720f98401a861b1293898fdb83cf98a23",
-    "backend/dsh-bridge/server.mjs": "b3bb6b1553b8987eed78515de5ee88028aeade8fc8d66c519381facaca236504",
-    "backend/dsh-bridge/state.mjs": "0f19736fbf2da97d605ab98bfe898eef13d2a2c4d56c71962b404ca9a67b52fe",
-    "backend/memory/administration.mjs": "fe01b61ff6ed3210f0f16d2507489cc4065af163afcaf62a6b1bf27d24af3652",
+    "backend/dsh-bridge/server.mjs": "406544e0f074b2f29e7c8b4caa1607fc4988616a70cbe34dd8423713cc924d72",
+    "backend/dsh-bridge/state.mjs": "f7cfa3010894073401f8ab1ce7c10dcd73df0b805bc3ef423d8c5390249f80a7",
+    "backend/memory/administration.mjs": "25e7e86ce5b16ee06b937492675898fdadd794bb1ddbe5b5112bb2d9567a30a0",
     "backend/memory/migrations/001-init.sql": "05200dedb805035a3a3a41533f7890981d1c977272e02fcb177bd3b406e1f267",
     "backend/memory/migrations/002-runtime.sql": "e0779fea6be494893d6443ab6dac4f57fe4c3b8c6275daffbf04a5d522f65913",
+    "backend/memory/query.mjs": "ce25ce9a4beb6a76568a99a3f79b5b3a2370e36000925ba87bf914f08b98c4b5",
     "backend/memory/restore.mjs": "54633cbfcc503582b7c5c2c522f6b086e0549b30499d8b5a174f739ed1d2409c",
     "backend/memory/scheduler.mjs": "165cf7c504d440e58a7e69224a13ee9194398a47ff8c55fa64cdd568f0aea738",
-    "backend/memory/service.mjs": "9090672628e663e9676ce0bfcd556598bced9d4a4a1c4f12108558671c76916c",
+    "backend/memory/service.mjs": "e4ac52b16d0815afab35bd89345d0ea37d05c70e6ee801f7fb467eff6caf72a5",
     "backend/memory/store.mjs": "f7b688318f607b69da166e7264b85bc0a52e08594cf24cf80551fbb0a762a17a",
     "deployment/activate_studio.py": "23cf480e002f715ff8e0f134641a8289e0ea3fa8264544b918152522e9f365c5",
     "deployment/deploy_dsh.py": "43416934f7ca368f58014d9aa8ff3b049b0d4752cfcd353d38648bec4f4d7ee6",
     "deployment/install_dsh.ps1": "0de32c62968f0666c0e9aa68060766fdb55fdcdaf672861f4bffb7db420f80f5",
     "deployment/patch_humanity.py": "abb8e43b57acde1eb4bfa06d8c75201495c4872059dc3e9aa52428eb9dac8949",
     "deployment/restart_avatar_for_dsh.py": "974efc993e16e39e722d0582cc3fc269f57b0f7a36f3136eab4eb72627afc06c",
-    "integration/dsh_bridge.py": "03540f64bb934b98cfe8f90b5b9cf46eb933f95396e6330de9e73e18887fd2e6",
+    "integration/dsh_bridge.py": "ca5861d4e67c69b76fd266ca0644d96444751ec5136f6bbe37d6308c411593ce",
     "integration/local_broadcast.py": "5656763baac1449f027be38cb5b89d6fab1fd5ae0a7e471a9359802c97d5ee11",
     "integration/moss_tts.py": "dba5cb09065910279fedad6e2ea4866cf7b514218748637c5bf27deb79648c72",
     "integration/obs.html": "682a36adc61a3622cc3d0446c6e688de2519d2526fb3bab8285157c4eaefa9f9",
@@ -84,25 +97,26 @@
     "scripts/dsh_control.py": "f3f17cbdb2a82adf1d60c8606affb6b146dd21960980770b13cc4e8945a19569",
     "scripts/gpu_worker.py": "ec64e02cdbc99bcea8178a47cd83eb18c988aa0d92de97248375ccb65f705f22",
     "tests/dsh-auth.test.mjs": "3ec52fa546dd0a366e2473c2322516c3b6bf1c65f3234693a122c15297c3cc24",
-    "tests/dsh-authority-smoke.cjs": "607b7e456885481faf6cb2a91989309e48e19eb986c932d8a741423a5bfe460d",
+    "tests/dsh-authority-smoke.cjs": "25a45ad98f6db51ab4c4ed143fc03012c70e790632d0ffede0e7b812ce0e9251",
     "tests/dsh-host-probe.mjs": "4c771655ab44a52def455917970983164c49c88039df8a698832eba2a3a014fc",
-    "tests/dsh-maintenance.test.mjs": "5fb160eee64f0df1c3e679349c009a2ca77ccc09f98fd0a3dcb46cf1237f34eb",
-    "tests/dsh-media-smoke.cjs": "86ce848dc39285918c718df761e99d8b11c52115a50be61bb6c93770320bc7fc",
+    "tests/dsh-maintenance.test.mjs": "a1da883187e06ca216c7d3e2723a1f5cca17879321d8ff07cd140613da1b2cd1",
+    "tests/dsh-management-smoke.mjs": "38647de03814d4b2bb14d61295db51f417eee97c6379fab56beec821d886f965",
+    "tests/dsh-media-smoke.cjs": "5bc607a0b22ab8c9afb6927aeb7fc07b1135586b1ae3a6da7fe14116a6e79dcc",
     "tests/dsh-memory-load.mjs": "0bcba8be1eacf86d2492795ba8360ea6bbdc0fd0f5e4212d3e4dcdbc20d721a2",
     "tests/dsh-playback.test.mjs": "0ce3b6f4daa33ddc02302d8c5977fe20dc6b709744c16e37b4bc9f7a1e474439",
     "tests/dsh-state.test.mjs": "a6f1fa6e8014c2b0e90c058b5019f20cbaabb723b5af2a043935a0f6a2b836ba",
-    "tests/dsh_routes_probe.py": "eed29da9c6b9685e29aa37158bda164d9b876d133d0364759c0c2531f34383a6",
+    "tests/dsh_routes_probe.py": "09a50be4f28d63f526ee8237b6b9a11fe6a009821da6892c2be240f6f881bc58",
     "tests/fixtures/dsh-crash-worker.mjs": "ac0a5200179e4b391f885621a53d5d973a77ff9ab906efa96fbc37816b58de5a",
     "tests/test_dsh_viewer_buffer.py": "9c1a4c067b4f5353e1a263a55479a1a479399f8f3ce2665df83c1ea662c03248",
     "web/browser-id.js": "59238fedc35b3caf1884d43d86f1a40ffa259908a262ef7b1cfe66bee2744705",
     "web/dsh-playback.js": "9d427ddc9e1f0a63e9d6a99aed89d27eecbf5890f29af58a26fb234fb1fbc2af",
     "web/dsh-studio.css": "23a775cae675103834d736927ae1872f7e7e96a21070b4ca2ff68d129f813d74",
-    "web/dsh-studio.js": "7cba186a796292d2ec58d48bacf6d181ee464ad26ee0b173139e7686217188a8",
+    "web/dsh-studio.js": "8a15d7f832506262a9276417c79ef64fe74807fe38395a55bfd7dccff6868c19",
     "web/local-stream.js": "e82cbfa5848b58274531cf6ee9b991a3e48e088b5785fae3578f3f4119d2cd9e",
-    "web/memory.css": "2d4afa3ece7c78b6f82713c58347a89ed819d38eebb7e7e3de5eed6aa8d67b3a",
-    "web/memory.html": "0dfe463bc92bb5a759f2a37b9e9dc51cc42601cfc7e6e54954e87ed964321df6",
-    "web/memory.js": "3a09c4b8d92637b91dc3de098308ffb4728c007b6509ca531237e1906be8a98d",
-    "web/studio.html": "eb70ddc6dade3ccd6e6aeb2adb49dc3c12a858bc6ec1aee489f905888590fcee",
+    "web/memory.css": "04e1eaf42c9f1af55b83fd16ef98211b04bdc4f3289dd8804b1305b2d59b2287",
+    "web/memory.html": "6dca11b19d716e2474b8349a5fb7069f3d54033eae776903b8e233ae2330ab17",
+    "web/memory.js": "8cad0c6bc2ad9b35e286539fb6de4f7ddd6caa5ac77bbfa4003805112bbbc538",
+    "web/studio.html": "2a6d1f53d68e5955472aa8f041cbda355cb0130870f44a492d3a15ecb7121b12",
     "web/studio.js": "21e8015b1b33bc1a40fbb21546ea7610189967759140b60f972567313f3da176"
   },
   "real_media_echo": {
@@ -112,32 +126,32 @@
     "cloud_llm_exercised": false,
     "requests": [
       {
-        "request_id": "req-1ef994bc-a197-40ed-a2b2-3489e04e5ce5",
+        "request_id": "req-17748276-e4e2-494e-ac61-767e1b47947d",
         "status": "COMPLETED"
       },
       {
-        "request_id": "req-81788d1e-bfb7-456c-8af6-a85062e3843a",
+        "request_id": "req-98da3383-b4e9-49d2-aa8d-e5adec8dc362",
         "status": "COMPLETED"
       }
     ],
     "metrics": {
-      "frames": 858,
-      "received_frames": 907,
-      "presented_frames": 858,
-      "fps": 25.379015561362692,
+      "frames": 859,
+      "received_frames": 901,
+      "presented_frames": 860,
+      "fps": 25.367156208277702,
       "fps_source": "video_presentation",
       "width": 720,
       "height": 1280,
-      "audio_samples": 580480,
+      "audio_samples": 576640,
       "audio_energy": 0.040734068775200305,
       "audio_underruns": 0,
       "target_audio_buffer_ms": 2400,
-      "audio_buffer_ms": 2001.1791383213265,
+      "audio_buffer_ms": 1700.2267573689523,
       "missing_packets": 0,
       "server_skipped_video_frames": 0,
       "skipped_video_frames": 0,
       "decode_errors": 0,
-      "max_arrival_gap_ms": 162,
+      "max_arrival_gap_ms": 115.10000000149012,
       "connected": true
     },
     "audio_gap_max_ms": 0,
@@ -188,7 +202,7 @@
     }
   },
   "final_local_health": {
-    "checked_at": "2026-10-24T23:40:42.442486+00:00",
+    "checked_at": "2026-10-25T00:26:04.833804+00:00",
     "broadcast_state": "OFFAIR",
     "health": {
       "state_store_ready": true,
@@ -198,7 +212,7 @@
       "projection_synced": true,
       "tts_ready": true,
       "avatar_ready": true,
-      "rss_bytes": 85647360,
+      "rss_bytes": 67403776,
       "node": "v24.22.1",
       "versions": {
         "dsh": "0.2.0-rc.2",
@@ -230,21 +244,53 @@
         "status": 409,
         "error": "DSH_LEGACY_ROUTE_DISABLED"
       }
-    }
+    },
+    "production_sse": {
+      "status": 200,
+      "content_type": "text/event-stream; charset=utf-8",
+      "first_line": "retry: 2000"
+    },
+    "memory_revision": 0
   },
   "gpu_sample": {
-    "used_mib": 9382,
+    "used_mib": 9304,
     "total_mib": 10240,
     "utilization_percent": 0,
     "kind": "short_offair_resident_models_sample"
   },
   "code_hash_format": "SHA-256 of UTF-8 text normalized to LF; source publication, not raw deployment-file bytes",
   "raw_result_sha256": {
-    "unit-tests.tap": "e1257d1a6437208345ecbacb8a5860afb7ffc71e857e64a3da64f9a2c04ba9d6",
-    "python-tests.txt": "4e03226ee98dfad44ced05a97822fbbd1615322eb05412ad94733253648a2088",
+    "unit-tests.tap": "a611c049ca6a1bc6d71ca2243adea1cd1ca03c6104ac82cb6655e9d00950b287",
+    "python-tests.txt": "1395d1624e4f35aed02cdcf0a9bb067dc66958b9221738e4ee1203ee3c0ce397",
     "host-probe.json": "594a8f9980dd1d0d70a3f90455b5b42ef72c5c9675f663245d834e06cf511248",
     "memory-load.json": "df93659f7eebfabd0ab571b9c608a71fb9faa75e4c26a887c3c24869dae476da",
-    "accepted/media-smoke.json": "d6dfd3ed988d7b20a0c2b5f6c2c6138b05df047064a150e2a8a808de1ad1bf70",
-    "accepted/authority-smoke.json": "5e0c5f95015bbd39355a28b4a3d32612ab105a680f933e01a09aaadde6703a11"
+    "accepted/media-smoke.json": "09a9ae55415feb91aa35f905d494442de17c8fc8844468c5c4cf7ecb79f91a36",
+    "accepted/authority-smoke.json": "5e0c5f95015bbd39355a28b4a3d32612ab105a680f933e01a09aaadde6703a11",
+    "accepted/management-smoke.json": "7501ab5e6a6822edde44d35319889a4c8c4237eb5725d5283259fa97b319a917",
+    "accepted/cloud-probe-followup.json": "3b22fb666b26603588326c09ced616f5afcb413bbcb82bedf8811ab6dd7ac6da"
+  },
+  "isolated_management": {
+    "schema_version": 1,
+    "checked_at": "2026-10-25T00:12:07.365Z",
+    "passed": true,
+    "kind": "isolated_native_dsh_humanity_http_chrome_management",
+    "fixture_facts": true,
+    "production_memory_mutated": false,
+    "cloud_llm_exercised": false,
+    "media_inference_exercised": false,
+    "checks": {
+      "viewer_cannot_manage": true,
+      "source_http": true,
+      "archive_and_compensating_undo": true,
+      "merge_and_group_undo": true,
+      "stale_control_refused": true,
+      "frozen_rebuild_http": true,
+      "browser_keyset_pagination": true,
+      "browser_archive_undo": true,
+      "browser_merge": true,
+      "browser_rebuild": true,
+      "browser_event_subscription": true
+    },
+    "browser_errors": []
   }
 }

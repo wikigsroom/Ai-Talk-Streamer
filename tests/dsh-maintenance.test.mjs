@@ -12,6 +12,10 @@ import {loadPolicy} from '../backend/dsh-bridge/policy.mjs';
 import {initialPersona} from '../backend/dsh-bridge/persona.mjs';
 import {canonical,digest} from '../backend/dsh-bridge/channel.mjs';
 import {spawnSync} from 'node:child_process';
+import {createServer} from 'node:http';
+import {Auth} from '../backend/dsh-bridge/auth.mjs';
+import {EventSubscriptions} from '../backend/dsh-bridge/events.mjs';
+import {memoryPage} from '../backend/memory/query.mjs';
 
 const op={role:'operator',principal_id:'op',viewer_id:'viewer-a'};
 function fixture() {
@@ -31,6 +35,100 @@ function fixture() {
  const seed=(isPublic=false)=>{start();const r=accept('我喜欢茶。',isPublic),partition=isPublic?'public':op.viewer_id,source=memory.eligibleEvents(r.broadcast_id,partition)[0];const candidate=validateExtraction(extract(source),[source],partition)[0];const result=db.tx(()=>memory.mergeInTransaction(candidate,'unit',0));return db.get('SELECT * FROM memory_entries WHERE memory_id=?',result.memory_id)};
  return {root,db,policy,state,memory,admin,port,projection,advance,start,accept,end,extract,seed,close:()=>db.close()};
 }
+test('management: archive/rebuild replay preserves the operator decision; undo is compensating and idempotent',()=>{
+ const f=fixture();try{
+  const m=f.seed(true),source=f.memory.eligibleEvents(f.state.current().broadcast_id,'public')[0],candidate=validateExtraction(f.extract(source),[source],'public')[0];
+  const input={operation_id:'archive-first',memory_id:m.memory_id,expected_revision:1,reason:'停止默认召回'};
+  const archived=f.admin.archive(op,input);assert.deepEqual(f.admin.archive(op,input),archived);assert.equal(f.memory.recall('public').public.length,0);
+  const replay=f.db.tx(()=>f.memory.mergeInTransaction(candidate,'rebuild',0));assert.equal(replay.revision,2);assert.equal(replay.decision,'stale');assert.equal(f.db.get('SELECT COUNT(*) n FROM memory_revisions').n,2);
+  const undone=f.admin.undo(op,{operation_id:input.operation_id});assert.equal(undone.state,'active');assert.equal(undone.revision,3);assert.deepEqual(f.admin.undo(op,{operation_id:input.operation_id}),undone);
+  assert.equal(f.memory.recall('public').public.length,1);assert.throws(()=>f.admin.archive(op,{...input,reason:'改用其他原因'}),/OPERATION_ID_CONFLICT/);
+ }finally{f.close()}
+});
+
+test('management: explicit merge unions evidence, undo restores both inputs, and later edits prevent undo',()=>{
+ const f=fixture();try{
+  const m=f.seed();const r=f.accept('我喜欢茶。'),source=f.memory.eligibleEvents(r.broadcast_id,op.viewer_id).at(-1),candidate={...validateExtraction(f.extract(source),[source],op.viewer_id)[0],state:'proposed'};
+  const other=f.db.tx(()=>f.memory.mergeInTransaction(candidate,'second',0));
+  const input={operation_id:'merge-first',target_memory_id:m.memory_id,inputs:[{memory_id:m.memory_id,expected_revision:1},{memory_id:other.memory_id,expected_revision:1}],reason:'人工确认相同饮品偏好'};
+  const merged=f.admin.merge(op,input);assert.deepEqual(f.admin.merge(op,input),merged);assert.equal(f.db.get('SELECT state FROM memory_entries WHERE memory_id=?',other.memory_id).state,'superseded');
+  assert.equal(f.db.get('SELECT COUNT(*) n FROM memory_sources WHERE memory_id=? AND memory_revision=2',m.memory_id).n,2);
+  const undone=f.admin.undo(op,{operation_id:input.operation_id});assert.deepEqual(undone.restored.map(x=>x.state),['active','proposed']);assert.deepEqual(f.admin.undo(op,{operation_id:input.operation_id}),undone);
+  const next=f.admin.merge(op,{...input,operation_id:'merge-second',inputs:undone.restored.map(x=>({memory_id:x.memory_id,expected_revision:x.revision}))});
+  f.admin.correct(op,{operation_id:'after-merge-edit',memory_id:m.memory_id,expected_revision:next.revision,value:'coffee',content:'明确改为咖啡。',polarity:'positive'});
+  assert.throws(()=>f.admin.undo(op,{operation_id:'merge-second'}),/LATER_REVISION/);assert.equal(f.memory.recall(op.viewer_id).viewer[0].value,'coffee');
+ }finally{f.close()}
+});
+
+test('management: merge rejects a different value or a different viewer before any revision changes',()=>{
+ const f=fixture();try{
+  const m=f.seed();let r=f.accept('我喜欢咖啡。'),source=f.memory.eligibleEvents(r.broadcast_id,op.viewer_id).at(-1);
+  const other=f.db.tx(()=>f.memory.mergeInTransaction({...validateExtraction(f.extract(source,'coffee'),[source],op.viewer_id)[0],state:'proposed'},'different',0));
+  const input={operation_id:'merge-invalid',target_memory_id:m.memory_id,inputs:[{memory_id:m.memory_id,expected_revision:1},{memory_id:other.memory_id,expected_revision:1}],reason:'不应合并'};
+  assert.throws(()=>f.admin.merge(op,input),/NOT_EQUIVALENT/);
+  const viewer={role:'viewer',principal_id:'second-principal',viewer_id:'second-viewer'};r=f.state.accept(viewer,{text:'我喜欢茶。',mode:'echo',idempotency_key:'another-request'});source=f.memory.eligibleEvents(r.broadcast_id,viewer.viewer_id)[0];
+  const foreign=f.db.tx(()=>f.memory.mergeInTransaction(validateExtraction(f.extract(source),[source],viewer.viewer_id)[0],'foreign',0));
+  assert.throws(()=>f.admin.merge(op,{...input,inputs:[input.inputs[0],{memory_id:foreign.memory_id,expected_revision:1}]}),/SCOPE_MISMATCH/);
+  assert.equal(f.db.get('SELECT COUNT(*) n FROM memory_revisions').n,3);assert.equal(f.db.get('SELECT COUNT(*) n FROM operation_results').n,0);
+ }finally{f.close()}
+});
+
+test('management: bounded rebuild persists a frozen source range and cannot bypass offair, quiet time or budget',()=>{
+ const f=fixture();try{
+  const m=f.seed(),broadcast=f.state.current(),start=f.db.get('SELECT MIN(event_seq) n FROM stream_events WHERE broadcast_id=?',broadcast.broadcast_id).n;
+  const input={operation_id:'rebuild-explicit',broadcast_id:broadcast.broadcast_id,expected_source_revision:1,partition_key:op.viewer_id,source_start_seq:start,source_end_seq:start,reason:'复核指定场次'};
+  assert.throws(()=>f.admin.rebuild(op,input),/REQUIRES_OFFAIR/);f.end();const closed=f.db.get('SELECT * FROM broadcasts WHERE broadcast_id=?',broadcast.broadcast_id);
+  const quiet=new Date(f.db.now()+120000).toISOString();f.db.tx(()=>f.db.run('UPDATE broadcasts SET consolidation_not_before=? WHERE broadcast_id=?',quiet,closed.broadcast_id));
+  input.source_end_seq=closed.ended_event_seq;const result=f.admin.rebuild(op,input);assert.equal(result.not_before,quiet);assert.deepEqual(f.admin.rebuild(op,input),result);
+  const job=f.db.get('SELECT * FROM compaction_jobs WHERE job_id=?',result.job_id);assert.equal(job.job_kind,'rebuild');assert.equal(job.consumed_through_seq,start-1);assert.equal(job.source_end_seq,closed.ended_event_seq);
+  assert.throws(()=>f.admin.rebuild(op,{...input,operation_id:'rebuild-over-range',source_end_seq:closed.ended_event_seq+1}),/RANGE_INVALID/);
+  assert.throws(()=>f.admin.rebuild(op,{...input,operation_id:'rebuild-bad-version',expected_source_revision:99}),/SOURCE_CHANGED/);
+  assert.equal(f.db.get('SELECT revision FROM memory_entries WHERE memory_id=?',m.memory_id).revision,1);assert.deepEqual(f.db.integrity(),{integrity:'ok',foreign_keys:[]});
+ }finally{f.close()}
+});
+
+test('management: keyset pages handle equal timestamps and reject changed revisions or filters',()=>{
+ const f=fixture();try{
+  const m=f.seed(),source=f.memory.eligibleEvents(f.state.current().broadcast_id,op.viewer_id)[0],base=validateExtraction(f.extract(source),[source],op.viewer_id)[0];
+  for(let i=0;i<22;i++)f.db.tx(()=>f.memory.mergeInTransaction({...base,fact_key:'test.'+i,state:'proposed'},'page',i));
+  const ids=[],parameters=new URLSearchParams({limit:'7',subject_key:op.viewer_id});let result,first;
+  do{result=memoryPage(f.db,f.state,parameters);first??=result;ids.push(...result.entries.map(row=>row.memory_id));if(result.next_cursor)parameters.set('cursor',result.next_cursor);}while(result.next_cursor);
+  assert.equal(ids.length,23);assert.equal(new Set(ids).size,23);
+  const next=new URLSearchParams({limit:'7',subject_key:op.viewer_id,cursor:first.next_cursor});
+  assert.throws(()=>memoryPage(f.db,f.state,new URLSearchParams({...Object.fromEntries(next),subject_key:'another-viewer'})),/CURSOR_INVALID/);
+  f.admin.archive(op,{operation_id:'page-mutation',memory_id:m.memory_id,expected_revision:1,reason:'分页期间更新'});assert.throws(()=>memoryPage(f.db,f.state,next),/PAGE_CHANGED/);
+  assert.throws(()=>memoryPage(f.db,f.state,new URLSearchParams({limit:'1001'})),/PAGE_LIMIT/);
+ }finally{f.close()}
+});
+
+test('management: stale broadcast controls cannot cancel or end a later broadcast',()=>{
+ const f=fixture();try{
+  f.start();const first=f.state.current();f.end();f.start();const r=f.accept(),active=f.state.activate();assert.equal(r.request_id,active.request_id);
+  const stale={broadcast_id:first.broadcast_id,expected_revision:first.revision};assert.throws(()=>f.state.pause(op,stale),/REVISION_CONFLICT/);assert.throws(()=>f.state.end(op,stale),/REVISION_CONFLICT/);
+  assert.equal(f.state.active().request_id,r.request_id);const current=f.state.current();assert.throws(()=>f.state.readyBroadcast(current.broadcast_id,true,stale),/REVISION_CONFLICT/);
+  const paused=f.state.pause(op,{broadcast_id:current.broadcast_id,expected_revision:current.revision});assert.equal(paused.state,'PAUSED');
+ }finally{f.close()}
+});
+
+test('management: real HTTP event replay is ordered, payload-free, viewer scoped, resumable and revocable',async()=>{
+ const f=fixture(),auth=new Auth(f.root,f.db,f.state),hub=new EventSubscriptions(f.db,f.state,auth,{heartbeatMs:25});
+ const server=createServer((req,res)=>{try{hub.subscribe(req,res,auth.require(req.headers),new URL(req.url,'http://local').searchParams)}catch(error){res.writeHead(error.status||500);res.end(JSON.stringify({error:error.code}));}});
+ const sessions=[];
+ try{
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin='http://127.0.0.1:'+server.address().port;
+  assert.equal((await fetch(origin)).status,401);
+  const secret='unit-viewer-token-'.padEnd(48,'x'),viewer=auth.ensure(secret,'viewer','viewer','scoped-viewer');f.start();
+  const foreign=f.accept('不要泄露这个原文。'),own=f.state.accept(viewer,{text:'我的私有原文也不能出现在事件流。',mode:'echo',idempotency_key:'my-private-request'}),latest=f.db.get('SELECT MAX(event_seq) n FROM stream_events').n;
+  const connect=async headers=>{const response=await fetch(origin,{headers:{Authorization:'Bearer '+secret,...headers},signal:AbortSignal.timeout(4000)});assert.equal(response.status,200);const reader=response.body.getReader();sessions.push(reader);return reader;};
+  const readThrough=async(reader,seq)=>{let text='';while(!text.includes('id: '+seq+'\nevent: checkpoint')){const chunk=await reader.read();assert.equal(chunk.done,false);text+=new TextDecoder().decode(chunk.value);}return text;};
+  let reader=await connect({});const initial=await readThrough(reader,latest);assert.ok(initial.includes(own.request_id));assert.ok(!initial.includes(foreign.request_id));assert.ok(!initial.includes('私有原文'));assert.ok(!initial.includes('不要泄露'));
+  const records=initial.split('\n\n').filter(record=>record.includes('event: state')).map(record=>JSON.parse(record.split('data: ')[1]));assert.deepEqual(records.map(row=>row.event_seq),records.map(row=>row.event_seq).sort((a,b)=>a-b));
+  await reader.cancel();const seq=f.db.tx(()=>f.db.event(f.state.scope(own),'request.test_checkpoint',{text:'仍然不能泄露'}));reader=await connect({'Last-Event-ID':String(latest)});const resumed=await readThrough(reader,seq);assert.ok(resumed.includes('request.test_checkpoint'));assert.ok(!resumed.includes('input.accepted'));assert.ok(!resumed.includes('仍然不能泄露'));
+  f.db.tx(()=>f.db.run('UPDATE principals SET revoked_at=? WHERE principal_id=?',new Date().toISOString(),viewer.principal_id));assert.equal((await reader.read()).done,true);
+ }finally{for(const reader of sessions)await reader.cancel().catch(()=>{});hub.close();const closing=new Promise(resolve=>server.close(resolve));server.closeAllConnections();await closing;f.close();}
+ assert.equal(hub.clients.size,0);
+});
+
 test('A01: legacy Windows migration hashes survive newline conversion; content mismatch still fails closed',()=>{
  const f=fixture();let reopened;
  try{

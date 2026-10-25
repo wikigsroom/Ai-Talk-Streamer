@@ -2,7 +2,7 @@
 
 [文档导航](README.md) · [现有架构](ARCHITECTURE.md) · [MOSS 04 实测](MOSS_LIVE.md)
 
-**状态：实施规范 v1.1；已有原生实现，整体验收进行中。** 本文规定系统必须满足的行为、数据契约与验收条件。代码、3080 部署状态、已执行测试和剩余门槛统一记录在[实施记录](dsh-humanity/IMPLEMENTATION.md)；不能将规范中的要求直接视为已通过。原有 MOSS 实测与新增 DSH 链路的证据分别记录。
+**状态：实施规范 v1.2；已有原生实现，整体验收进行中。** 本文规定系统必须满足的行为、数据契约与验收条件。代码、3080 部署状态、已执行测试和剩余门槛统一记录在[实施记录](dsh-humanity/IMPLEMENTATION.md)；不能将规范中的要求直接视为已通过。原有 MOSS 实测与新增 DSH 链路的证据分别记录。
 
 English overview: This is the normative plan for the native Windows DeepSeek Harness + Humanity backend. It specifies live lifecycle, authoritative playback receipts, viewer isolation, persistent memory, scheduled consolidation and recovery. Native implementation and deployment are in progress; see the implementation record for verified evidence and outstanding gates. DSH can use the studio's existing model configuration; it does not require a DeepSeek model.
 
@@ -19,6 +19,7 @@ English overview: This is the normative plan for the native Windows DeepSeek Har
 | [部署、运维与验收](dsh-humanity/OPERATIONS_TESTING.md) | 原生环境、版本验证、调度、备份、监测、测试和上线门槛 |
 | [实际实现与限制](dsh-humanity/IMPLEMENTATION.md) | 代码位置、真实接口、已经验证的能力和剩余验收 |
 | [操作手册与时间线](dsh-humanity/RUNBOOK.md) | 安装、开播、下播整理、修订、删除和隔离恢复的具体步骤 |
+| [管理操作与范围重建](dsh-humanity/ADMINISTRATION.md) | 归档、等值合并、补偿撤销、分页、持久订阅及管理重建的精确规则 |
 | [策略示例](dsh-humanity/examples/bridge-policy.example.json) | 本项目策略的初始参数；不是 DSH 官方配置格式 |
 | [Humanity 配置示例](dsh-humanity/examples/humanity-config.example.json) | 已核实的插件配置字段与推荐开关 |
 | [数据库设计](dsh-humanity/examples/state-schema.sql) | SQLite 基础设计与约束；运行时由固定迁移文件应用 |

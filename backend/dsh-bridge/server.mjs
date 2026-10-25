@@ -12,6 +12,8 @@ import { Auth } from './auth.mjs';
 import { MemoryService } from '../memory/service.mjs';
 import { MaintenanceScheduler } from '../memory/scheduler.mjs';
 import { MemoryAdministration, purgeSessionBodies } from '../memory/administration.mjs';
+import { memoryPage } from '../memory/query.mjs';
+import { EventSubscriptions } from './events.mjs';
 
 export class StreamBridge {
   constructor(root, runtime, { policyFile, avatarUrl = 'http://127.0.0.1:8010' } = {}) {
@@ -26,6 +28,7 @@ export class StreamBridge {
     const saved=this.db.get("SELECT * FROM personas WHERE publication_state='PUBLISHED' ORDER BY published_at DESC LIMIT 1");
     const persona=saved?{document:JSON.parse(saved.document_json),version:saved.persona_version}:initial;
     this.state=new StreamState(this.db,this.policy,persona.version);this.auth=new Auth(this.root,this.db,this.state);
+    this.events=new EventSubscriptions(this.db,this.state,this.auth);
     this.host=await new DshHost(this.root,this.runtime,this.policy).start();await this.host.publishCharacter(persona.document,persona.version);
     this.db.tx(()=>this.db.run("INSERT INTO personas VALUES (?,?,?,'PUBLISHED',?,?) ON CONFLICT(persona_version) DO UPDATE SET publication_state='PUBLISHED',published_at=excluded.published_at",persona.version,canonical(persona.document),digest(persona.document),utc(this.db.now()),utc(this.db.now())));
     this.memory=new MemoryService(this.db,this.state,this.policy,this.host.port);
@@ -178,6 +181,7 @@ export class StreamBridge {
       if(path==='/api/dsh/login'&&req.method==='POST'){const auth=this.auth.login((await this.body(req)).token);return send({principal:auth.principal},200,{'Set-Cookie':auth.cookie});}
       if(path==='/api/dsh/logout'&&req.method==='POST')return send({ok:true},200,{'Set-Cookie':'dsh_session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0'});
       const principal=this.auth.resolve(req.headers);
+      if(path==='/api/dsh/events'&&req.method==='GET')return this.events.subscribe(req,res,this.auth.require(req.headers),url.searchParams);
       if(path==='/api/dsh/whoami'&&req.method==='GET')return send(this.auth.require(req.headers));
       if(path==='/api/dsh/status'&&req.method==='GET'){await this.refreshMedia();return send(this.publicStatus(principal));}
       if(path==='/api/dsh/requests'&&req.method==='POST'){const p=this.auth.require(req.headers);requireValue(['viewer','operator'].includes(p.role),'VIEWER_REQUIRED',403);requireValue(this.ready&&!this.administration.locked,'BRIDGE_NOT_READY',503);const body=await this.body(req);if((body.mode||'chat')==='chat')requireValue(this.health().persona_injection_ready,'CHANNEL_COMPATIBILITY_REQUIRED',503);const result=this.state.accept(p,body);void this.tick();return send(result,result.duplicate?200:202);}
@@ -200,11 +204,12 @@ export class StreamBridge {
         throw new StreamError('PLAYBACK_SCOPE',403);
       }
       const p=this.auth.require(req.headers,'operator'),body=req.method==='GET'?{}:await this.body(req);
+      if(req.method==='POST'&&['/api/dsh/broadcast/ready','/api/dsh/broadcast/pause','/api/dsh/broadcast/end'].includes(path))requireValue(typeof body.broadcast_id==='string'&&Number.isSafeInteger(body.expected_revision),'BROADCAST_CONTROL_REVISION_REQUIRED',400);
       if(path==='/api/dsh/probe'&&req.method==='POST')return send(await this.probe());
       if(path==='/api/dsh/broadcast/start'&&req.method==='POST')return send(this.state.createBroadcast(p));
-      if(path==='/api/dsh/broadcast/ready'&&req.method==='POST'){const media=await this.refreshMedia();requireValue(['echo','chat'].includes(body.mode||'chat'),'BROADCAST_MODE');const result=this.state.readyBroadcast(body.broadcast_id,this.host.ready&&media.tts_ready&&media.avatar_ready&&(body.mode==='echo'||this.health().persona_injection_ready));this.db.tx(()=>this.db.run('INSERT INTO runtime_meta VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json','broadcast_mode:'+body.broadcast_id,canonical({mode:body.mode||'chat'})));return send({...result,mode:body.mode||'chat'});}
-      if(path==='/api/dsh/broadcast/pause'&&req.method==='POST')return send(this.state.pause(p));
-      if(path==='/api/dsh/broadcast/end'&&req.method==='POST'){const value=this.state.end(p);void this.tick();return send(value);}
+      if(path==='/api/dsh/broadcast/ready'&&req.method==='POST'){const media=await this.refreshMedia();requireValue(['echo','chat'].includes(body.mode||'chat'),'BROADCAST_MODE');const result=this.state.readyBroadcast(body.broadcast_id,this.host.ready&&media.tts_ready&&media.avatar_ready&&(body.mode==='echo'||this.health().persona_injection_ready),body);this.db.tx(()=>this.db.run('INSERT INTO runtime_meta VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json','broadcast_mode:'+body.broadcast_id,canonical({mode:body.mode||'chat'})));return send({...result,mode:body.mode||'chat'});}
+      if(path==='/api/dsh/broadcast/pause'&&req.method==='POST')return send(this.state.pause(p,body));
+      if(path==='/api/dsh/broadcast/end'&&req.method==='POST'){const value=this.state.end(p,body);void this.tick();return send(value);}
       if(path==='/api/dsh/cancel'&&req.method==='POST')return send(this.state.cancel(body.request_id||this.state.active()?.request_id));
       if(path==='/api/dsh/playback/claim'&&req.method==='POST')return send(this.state.claimAuthority(p,body.broadcast_id,body.consumer_id,!!body.replace));
       if(path==='/api/dsh/playback/heartbeat'&&req.method==='POST')return send(this.state.heartbeat(body.lease_id,body.consumer_id));
@@ -212,13 +217,17 @@ export class StreamBridge {
       if(path==='/api/dsh/playback/cancel-ack'&&req.method==='POST')return send(this.state.cancelAck(p,body));
       if(path==='/api/dsh/persona'&&req.method==='GET')return send(this.host.port.readPersona());
       if(path==='/api/dsh/persona'&&req.method==='POST')return send(await this.publishPersona(p,body));
-      if(path==='/api/dsh/memory'&&req.method==='GET')return send({entries:this.db.all('SELECT * FROM memory_entries ORDER BY updated_at DESC LIMIT 1000'),summaries:this.db.all('SELECT * FROM summary_versions ORDER BY created_at DESC LIMIT 30'),revision:this.state.room().memory_revision});
+      if(path==='/api/dsh/memory'&&req.method==='GET')return send(memoryPage(this.db,this.state,url.searchParams));
       if(path==='/api/dsh/memory/source'&&req.method==='GET'){const memoryId=url.searchParams.get('memory_id');return send({revisions:this.db.all('SELECT * FROM memory_revisions WHERE memory_id=? ORDER BY revision',memoryId),sources:this.db.all('SELECT * FROM memory_sources WHERE memory_id=? ORDER BY memory_revision,event_seq',memoryId)});}
       if(path==='/api/dsh/memory/correct'&&req.method==='POST'){const value=this.administration.correct(p,body);void this.memory.project();return send(value);}
-      if(path==='/api/dsh/memory/undo'&&req.method==='POST')return send(this.administration.undo(p,body));
+      if(path==='/api/dsh/memory/archive'&&req.method==='POST'){const value=this.administration.archive(p,body);void this.memory.project();return send(value);}
+      if(path==='/api/dsh/memory/merge'&&req.method==='POST'){const value=this.administration.merge(p,body);void this.memory.project();return send(value);}
+      if(path==='/api/dsh/memory/undo'&&req.method==='POST'){const value=this.administration.undo(p,body);void this.memory.project();return send(value);}
       if(path==='/api/dsh/memory/delete'&&req.method==='POST')return send(await this.administration.delete(p,body));
       if(path==='/api/dsh/viewers'&&req.method==='POST')return send(this.auth.invite(body.label));
       if(path==='/api/dsh/jobs'&&req.method==='GET')return send({jobs:this.db.all('SELECT j.*,r.statistics_json,r.model_call_count FROM compaction_jobs j JOIN job_runtime r USING(job_id) ORDER BY created_at DESC LIMIT 100'),attempts:this.db.all('SELECT * FROM model_attempts ORDER BY created_at DESC LIMIT 100'),occurrences:this.db.all('SELECT * FROM schedule_occurrences ORDER BY created_at DESC LIMIT 20')});
+      if(path==='/api/dsh/jobs/rebuild'&&req.method==='POST')return send(this.administration.rebuild(p,body),202);
+      if(path==='/api/dsh/broadcasts'&&req.method==='GET')return send({broadcasts:this.db.all("SELECT broadcast_id,state,revision,source_revision,ended_event_seq,consolidation_not_before,created_at,ended_at,(SELECT MIN(event_seq) FROM stream_events e WHERE e.broadcast_id=b.broadcast_id) source_start_seq FROM broadcasts b WHERE character_id=? AND room_id=? ORDER BY created_at DESC LIMIT 50",...this.state.characterRoom)});
       if(path==='/api/dsh/jobs/resume'&&req.method==='POST'){this.db.tx(()=>{const job=this.db.get('SELECT * FROM compaction_jobs WHERE job_id=?',body.job_id);requireValue(job&&job.state!=='RUNNING'&&job.state!=='COMPLETED','JOB_NOT_RESUMABLE');requireValue(job.source_revision===this.db.get('SELECT source_revision FROM broadcasts WHERE broadcast_id=?',job.broadcast_id).source_revision,'JOB_SOURCE_CHANGED');this.db.run("UPDATE compaction_jobs SET state='PENDING',not_before=?,reason=NULL WHERE job_id=?",utc(this.db.now()),job.job_id);});return send({ok:true});}
       if(path==='/api/dsh/jobs/cancel'&&req.method==='POST'){this.db.tx(()=>this.db.run("UPDATE compaction_jobs SET state='CANCELLED',lease_generation=lease_generation+1,owner_id=NULL,reason='operator_cancel' WHERE job_id=? AND state!='COMPLETED'",body.job_id));return send({ok:true});}
       if(path==='/api/dsh/backup'&&req.method==='POST')return send(await this.administration.backup());
@@ -232,6 +241,7 @@ export class StreamBridge {
   }
   async close() {
     if(this.closed)return;this.closed=true;this.ready=false;clearInterval(this.timer);clearInterval(this.maintenanceTimer);this.scheduler?.close();
+    this.events?.close();
     for(const controller of this.controllers.values())controller.abort();
     if(this.state?.active())this.state.cancel(this.state.active().request_id,'bridge_shutdown');
     await this.host?.close();await new Promise(resolve=>this.server?this.server.close(resolve):resolve());await new Promise(resolve=>this.managementServer?this.managementServer.close(resolve):resolve());this.db?.close();

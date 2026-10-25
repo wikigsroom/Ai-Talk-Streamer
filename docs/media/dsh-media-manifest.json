@@ -1,30 +1,30 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-10-24T23:28:57.932956+00:00",
+  "checked_at": "2026-10-25T00:23:53.832811+00:00",
   "kind": "real_media_echo_smoke",
   "cloud_llm_exercised": false,
   "source": "Actual native Chrome canvas/PCM MediaRecorder capture; MOSS 04 and MuseTalk",
-  "source_sha256": "066b2a9d758232aa6a0b063fc0744b5c256dfcd9c744a91071a4c13a263a5197",
-  "report_sha256": "d6dfd3ed988d7b20a0c2b5f6c2c6138b05df047064a150e2a8a808de1ad1bf70",
+  "source_sha256": "e7d2fa46312394c040c55a36588b52a582b71c1dee01866b46d14c2a0caaec96",
+  "report_sha256": "09a9ae55415feb91aa35f905d494442de17c8fc8844468c5c4cf7ecb79f91a36",
   "acceptance": "docs/evidence/dsh-humanity-runtime.json",
-  "gif_start_seconds": 24.7,
+  "gif_start_seconds": 24.9,
   "items": [
     {
       "file": "docs/media/dsh-studio.png",
-      "sha256": "216f26e3e97750b41a30a608536062252b286e1fb906dd51d98d15e3da547d00",
-      "bytes": 557218,
+      "sha256": "4403a05deb765eeefafeff4fc6e106c9c2aee641f75f14b01a571b2b721b3e52",
+      "bytes": 558291,
       "description": "Actual browser page, without credential fields expanded"
     },
     {
       "file": "docs/media/dsh-memory.png",
-      "sha256": "c63fa5988f6408ab24bc737fc014152f8e4062e03df2bbb9efb578318ca29ed3",
-      "bytes": 67848,
+      "sha256": "881c42823a7587a6e14a9848169c62a76b43a9f906ba20adf412136d9c369cce",
+      "bytes": 87952,
       "description": "Actual browser page, without credential fields expanded"
     },
     {
       "file": "docs/media/dsh-echo-playback.mp4",
-      "sha256": "95853dadf0692bb568493ea79b80657a163f38bbf1c9423769c86e5833093cf2",
-      "bytes": 6117282,
+      "sha256": "edb4dd3be4c256314c8b1a18d5629032c03d4ef912b8ee6075c34f840109b37f",
+      "bytes": 6295567,
       "description": "Complete real recording, including synthesis wait; Echo, no cloud LLM",
       "media": {
         "programs": [],
@@ -42,14 +42,14 @@
           }
         ],
         "format": {
-          "duration": "32.451827"
+          "duration": "32.520000"
         }
       }
     },
     {
       "file": "docs/media/dsh-echo-response.gif",
-      "sha256": "6776bfa6744f097d03f96e9d6a6d2a03a4fd6392b62ce30f906459b84545e3a7",
-      "bytes": 2761680,
+      "sha256": "25d94130e4232a4a91fc45e26d3de65ee1a998a12d304081a48e66a5aec92b29",
+      "bytes": 2793829,
       "description": "Seven-second silent excerpt from actual speech at original playback speed",
       "media": {
         "programs": [],

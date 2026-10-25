@@ -49,15 +49,26 @@ async def proxy(request, path=None):
     path = path or '/api/dsh/' + request.match_info.get('tail', '')
     if not path.startswith('/api/dsh/'):
         raise web.HTTPForbidden()
-    headers = {key: request.headers[key] for key in ('Cookie', 'Authorization', 'Content-Type', 'Origin') if key in request.headers}
+    headers = {key: request.headers[key] for key in ('Cookie', 'Authorization', 'Content-Type', 'Origin', 'Last-Event-ID') if key in request.headers}
     headers['X-Stream-Original-Host'] = request.host
     target = BRIDGE + path + (('?' + request.query_string) if request.query_string else '')
     try:
-        async with ClientSession(timeout=ClientTimeout(total=100), trust_env=False) as client:
+        streaming = request.method == 'GET' and path == '/api/dsh/events'
+        timeout = ClientTimeout(total=None, connect=3, sock_read=45) if streaming else ClientTimeout(total=100)
+        async with ClientSession(timeout=timeout, trust_env=False) as client:
             async with client.request(request.method, target, data=await request.read(), headers=headers) as result:
                 extra = {'Cache-Control': 'no-store', 'Content-Type': result.headers.get('Content-Type', 'application/json')}
                 if 'Set-Cookie' in result.headers:
                     extra['Set-Cookie'] = result.headers['Set-Cookie']
+                if streaming and result.status == 200 and result.headers.get('Content-Type', '').startswith('text/event-stream'):
+                    response = web.StreamResponse(status=result.status, headers={**extra, 'X-Accel-Buffering': 'no'})
+                    await response.prepare(request)
+                    try:
+                        async for chunk in result.content.iter_any():
+                            await response.write(chunk)
+                    except (asyncio.TimeoutError, OSError, ClientError):
+                        pass
+                    return response
                 return web.Response(body=await result.read(), status=result.status, headers=extra)
     except (asyncio.TimeoutError, OSError, ClientError):
         return web.json_response({'error': 'DSH_BRIDGE_UNAVAILABLE'}, status=503)
