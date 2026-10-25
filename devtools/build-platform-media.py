@@ -46,7 +46,7 @@ def main():
               'gif': {'file': animation.relative_to(ROOT).as_posix(), 'start_seconds': args.start + 2,
                       'duration_seconds': min(8, args.seconds - 2), 'source_sha256': sha(args.input), 'audio': False},
               'ui': {'file': ui.relative_to(ROOT).as_posix(), 'source_sha256': sha(args.ui_recording), 'audio': False}}
-    (folder / 'platform-edit.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
+    (folder / 'platform-edit.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8', newline='\n')
     print(json.dumps(result))
 
 

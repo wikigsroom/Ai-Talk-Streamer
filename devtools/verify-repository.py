@@ -20,6 +20,14 @@ def sha256(path):
             value.update(block)
     return value.hexdigest()
 
+def report_digest_matches(path, expected):
+    """Keep historical Windows report hashes valid after Git newline conversion."""
+    data = path.read_bytes().replace(b'\r\n', b'\n')
+    return expected in {
+        hashlib.sha256(data).hexdigest(),
+        hashlib.sha256(data.replace(b'\n', b'\r\n')).hexdigest(),
+    }
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--media', action='store_true', help='Require native ffprobe and inspect all supplied MP4 files')
@@ -227,7 +235,7 @@ def main():
           'DSH session-flow evidence must cover the real AI reply and ten UI checks')
     studio_media = load('docs/media/dsh-studio-session-manifest.json')
     check(studio_media['kind'] == 'native_studio_session_flow' and studio_media['cloud_llm_exercised'] is True
-          and studio_media['report_sha256'] == sha256(local(studio_media['report'])),
+          and report_digest_matches(local(studio_media['report']), studio_media['report_sha256']),
           'DSH session media must identify its actual real-channel source')
     for item in studio_media['items']:
         path = local(item['file'])
@@ -247,7 +255,7 @@ def main():
     direct_media = load('docs/media/dsh-direct-studio-manifest.json')
     check(direct_media['kind'] == 'native_open_access_studio'
           and direct_media['cloud_llm_exercised'] is True
-          and direct_media['report_sha256'] == sha256(local(direct_media['report'])),
+          and report_digest_matches(local(direct_media['report']), direct_media['report_sha256']),
           'Open-access media must identify its actual real-channel source')
     for item in direct_media['items']:
         path = local(item['file'])
@@ -277,7 +285,7 @@ def main():
         digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
         check(digest == expected, 'Platform evidence source changed: ' + name)
     platform_media = load('docs/media/platform-media-manifest.json')
-    check(platform_media['report_sha256'] == sha256(local(platform_media['report'])),
+    check(report_digest_matches(local(platform_media['report']), platform_media['report_sha256']),
           'Platform media report checksum')
     for item in platform_media['items']:
         path = local(item['file'])

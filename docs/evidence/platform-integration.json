@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-10-25T13:35:45.611938+00:00",
+  "checked_at": "2026-10-25T13:47:14.343798+00:00",
   "kind": "native_windows_platform_integration",
   "application_authentication_required": false,
   "scope": "Native local RTMP and speech acceptance, actual Bilibili room heartbeat, isolated official protocol and browser fixtures; no external audience acceptance",
@@ -405,7 +405,7 @@
     },
     "devtools/verify-repository.py": {
       "historical_sha256": "3bf253cde2fb2b704bace49fdcee734ab6f2f5ff490a002ef3b55b9d9dbab287",
-      "current_sha256": "fd5c7a15c438931c7b60304ce47f213373b077f8e33710734b4687254e4662ee",
+      "current_sha256": "150267f8a8990a50f1878472f72f7b649e4e0cb1a1b4c45ce978fa18da062302",
       "validation": [
         "repository verifier syntax and source/asset/media integrity checks; not part of GPU inference"
       ]
@@ -511,9 +511,9 @@
     "deployment/patch_humanity.py": "abb8e43b57acde1eb4bfa06d8c75201495c4872059dc3e9aa52428eb9dac8949",
     "deployment/restart_avatar_for_dsh.py": "974efc993e16e39e722d0582cc3fc269f57b0f7a36f3136eab4eb72627afc06c",
     "devtools/build-dsh-studio-media.py": "7aacfa474a7137bf0d03de890284993c9cac111492565de4df7d398e8cc87f6d",
-    "devtools/build-platform-media.py": "9aeac0e5f032eae9ad90cdfd78466066f5c8b883c746a3a958b13db91e755344",
+    "devtools/build-platform-media.py": "d0a45bc3b6198e460003fcb036df51bf59b7a0f90d87a4ab764087aa6a45dd94",
     "devtools/validate-platform-local.mjs": "4684e1b411445f9a3b9ed5b237fc4d6363ca141ba4ec3cfa16e15e129af197ef",
-    "devtools/verify-repository.py": "fd5c7a15c438931c7b60304ce47f213373b077f8e33710734b4687254e4662ee",
+    "devtools/verify-repository.py": "150267f8a8990a50f1878472f72f7b649e4e0cb1a1b4c45ce978fa18da062302",
     "integration/dsh_bridge.py": "b2824df85ff6e61fa7e63333ad90c241bd1ba3ba942e66feff075ea08e1fea8f",
     "integration/local_broadcast.py": "5656763baac1449f027be38cb5b89d6fab1fd5ae0a7e471a9359802c97d5ee11",
     "integration/moss_tts.py": "24a1b2d5a7e89c55ddd50b62261225f2f2a9dadf4ad3dd81efebe39760be50c4",
