@@ -27,7 +27,7 @@
 4. 网页修改后仅新请求读取新快照；在途请求继续使用旧快照。
 5. 新 revision 的真实兼容探针未完成前，AI 不 ready。Echo 保留为明确选择的原文播报模式。
 
-2026-10-25 读取到的配置为 `gpt-6-luna` / `responses`。真实渠道请求曾超过 35 秒未返回 HTTP 响应，DSH 兼容请求亦超时，所以当时 `persona_injection_ready=false`。随后以相同已保存渠道再次执行真实 DSH 兼容探针，90.046 秒后返回 500 INTERNAL_ERROR，仍未通过。受控测试端点和 Echo 不证明真实 AI 渠道已恢复。
+2026-10-25 读取到的配置为 `gpt-6-luna` / `responses`。真实渠道请求曾超过 35 秒未返回 HTTP 响应，早期兼容探针在 90.046 秒后错误归为 500 INTERNAL_ERROR。修复错误分类后，对同一已保存渠道的最新真实探针在 90.078 秒后返回 **504 MODEL_TIMEOUT**，仍未通过；`persona_injection_ready=false`。模型、协议、端点和密钥未被替换。受控测试端点和 Echo 不证明真实 AI 渠道已恢复。
 
 公开状态只返回 model、protocol、revision、source、has_key，不输出密钥、operator token 或 media token。私有配置、SQLite、运行日志、备份不提交 Git。
 
@@ -103,13 +103,17 @@ DSH 启用后，旧 `/human`、`/humanaudio`、`/set_audiotype`、`/interrupt_ta
 
 原始输出位于项目私有 outputs/dsh-humanity。模块测试覆盖状态、播放 JS、分区、预算、修订、删除后旧备份恢复和写故障。崩溃测试用真实子进程在 WAL 提交前/后退出；宿主探针使用真实 DSH/Humanity 和受控 HTTP 模型端点。
 
-[真实媒体测试程序](../../tests/dsh-media-smoke.cjs) 明确使用 Echo。2026-10-25 实际原生 Chrome 已通过完整播报、缓冲阶段取消及取消后再播，两条完成请求均收到自然结束回执；最新一轮采样画面约 25.37 FPS、PCM 无丢包，首条人声区间的排程间隙在浮点误差内为零。这证明本地媒体及播放账本的对应范围，未使用云端 LLM，不证明人物理解、跨场回忆或 S1–S5 通过。复验的精确指标以[机器记录](../evidence/dsh-humanity-runtime.json)为准，截图、完整录像和 GIF 见[实机记录](MEDIA.md)。
+[真实媒体测试程序](../../tests/dsh-media-smoke.cjs) 明确使用 Echo。2026-10-25 实际原生 Chrome 已通过完整播报、缓冲阶段取消及取消后再播，两条完成请求均收到自然结束回执；最新一轮采样画面约 25.33 FPS、PCM 无丢包，首条人声区间的排程间隙在浮点误差内为零。这证明本地媒体及播放账本的对应范围，未使用云端 LLM，不证明人物理解、跨场回忆或 S1–S5 通过。复验的精确指标以[机器记录](../evidence/dsh-humanity-runtime.json)为准，截图、完整录像和 GIF 见[实机记录](MEDIA.md)。
 
 两次定位到的失败仍保留原因：MOSS 常驻时单独重启人物曾降至约 0.7 FPS；按既有加载顺序重启后，首次有声推理仍曾产生约 2.42 秒排程间隙。修复分别为项目内有序重启，以及在完整 WAV 生成后、音频入队前运行相同精度/批次的准备推理。没有把该等待隐藏成实时出声，也没有为此更换音色或降低画面规格。
 
 [双播放器实机程序](../../tests/dsh-authority-smoke.cjs) 在两个真实 Chrome 页面运行演播台和本机 OBS 浏览器源：普通预览无权抢占、受限 OBS 凭据不能发送聊天，OBS 已播 19,372 个样本后接管，旧句 INTERRUPTED、新句 COMPLETED。另修复了迟到取消消息误用新 lease 及旧 heartbeat 错误撤销新 lease 的竞态。这里没有运行 OBS 应用混音器，不将页面测试等同于最终推流录制。
 
-模块证据包括 40 项 Node 测试、3 项 Python ViewerBuffer 测试、原生 aiohttp CORS/旧入口阻断及 SSE 实时转发检查。隔离管理测试使用真实固定版 DSH/Humanity、HTTP 与 Chrome，完成网页分页、归档、补偿、合并、范围重建和订阅；使用明确测试事实，不修改正式记忆、不调用 LLM/TTS。真实宿主模型探针另使用受控 HTTP 端点，检查 7 次请求中的标准/官方 minimal 正负例、上下文确实入请求、人格在途冻结、投影增删改及重启。两分区各 5000 条合成事实的 20 次检索测得 p95 约 32.62 毫秒；这是短时合成负载，不能外推长时稳定性。
+模块证据包括 44 项 Node 测试、3 项 Python ViewerBuffer 测试、原生 aiohttp CORS/旧入口阻断及 SSE 实时转发检查。隔离管理测试使用真实固定版 DSH/Humanity、HTTP 与 Chrome，完成网页分页、归档、补偿、合并、范围重建和订阅；使用明确测试事实，不修改正式记忆、不调用 LLM/TTS。真实宿主模型探针另使用受控 HTTP 端点，检查 7 次请求中的标准/官方 minimal 正负例、上下文确实入请求、人格在途冻结、投影增删改及重启。两分区各 5000 条合成事实的 20 次检索测得 p95 约 32.62 毫秒；这是短时合成负载，不能外推长时稳定性。
+
+新增[真实宿主 HTTP 故障矩阵](../../tests/dsh-model-faults.mjs)在 Chat Completions 与 Responses 各执行成功、401、429、500、非法 JSON、断流、流等待超时、主动取消、空回复及恢复，共 20 次请求。固定 DSH/Humanity 实际发 HTTP，每个案例恰好一次 wire request、一次调用预占与一次结算，故障后新请求可恢复。取消关闭流迭代器也在 finally 中结算，不能漏记已发送费用。该测试使用受控本地端点，不使用正式密钥，也不运行 TTS/GPU。
+
+另修复 TTS 超时先 cancel 后 fail 导致的终态错误：明确失败现在直接写 FAILED 并创建清媒体屏障，迟到前缀只更新 observation_revision。Node 媒体命令排队，Python 比较 epoch/generation、重复 speak 去重、拒绝迟到 cancel 清新句；相关模块和真实 aiohttp 处理器验证已在 3080 执行。具体约束见[故障中止与乱序](LIVE_STATE.md#81-故障中止必须使用相同的媒体屏障)。这部分不是生产 MOSS 故障注入测试。
 
 仍阻断完整验收的门槛：真实渠道兼容、真实 20 轮对话、A01–A40 剩余实机证据、S1–S5 五段录像、长时资源观察。测试替身、静态检查、截图和原版本视频不能替代；逐项状态见[验收执行记录](ACCEPTANCE.md)。
 

@@ -4,6 +4,7 @@ import { join, dirname } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { canonical, digest } from './channel.mjs';
 import { inside } from './policy.mjs';
+import { modelFailure } from './model-errors.mjs';
 
 const CORE = new Set(['timer','llm','deepseek-llm-api-extensions','session','session-log-deepseek','typert','typert-loader','agent',
   'session-projection','storage','storage-json','storage-domain','session-persistence-jsonl',
@@ -21,6 +22,7 @@ export class DshHost {
     this.active = new Map(); this.ready = false;
   }
   async start() {
+    if (Number(process.versions.node.split('.')[0]) < 24) throw new Error('DSH_NODE_24_REQUIRED');
     process.env.DSH_HOME = inside(this.root, this.policy.deployment.dsh_home_relative_path);
     process.env.STREAM_LIVE_MODE = '1';
     process.env.DSH_TELEMETRY_DISABLED = '1';
@@ -113,7 +115,7 @@ export class DshHost {
     const memorySnapshot=preparedContext?.humanity_public_snapshot||this.port.requestMemorySnapshot([]);
     if(preparedContext)delete preparedContext.humanity_public_snapshot;
     const maximumSteps=this.policy.conversation.max_memory_tool_rounds+1,contextBudget=this.policy.conversation.context_max_estimated_tokens;
-    let steps = 0, finalReason, handle, lastAssistant = '', lastError;
+    let steps = 0, finalReason, handle, lastAssistant = '', lastError, lastFinish;
     const calls = [];
     try {
       handle = await this.ctx.agents.create({ sessionId,
@@ -167,18 +169,27 @@ export class DshHost {
             if (probe.estimated_input_tokens > contextBudget && !maintenance) throw new Error('STREAM_CONTEXT_BUDGET');
             onProbe?.(probe);
             const settle = onCall?.({ phase: 'reserve', input_sha256: digest(options.messages), provider_revision: snapshot.revision, step: steps });
-            let finish = null, usage = null, sent = false;
+            let finish = null, usage = null, sent = false, settled = false;
             try {
               sent = true;
               onCall?.({ phase: 'sent', attempt: settle });
               for await (const chunk of next()) {
                 if (chunk.type === 'usage') usage = chunk.usage ?? chunk;
-                if (chunk.type === 'done' || chunk.type === 'finish') finish = chunk;
+                if (chunk.type === 'done' || chunk.type === 'finish') finish = lastFinish = chunk;
                 yield chunk;
               }
               calls.push(finish);
-              onCall?.({ phase: 'settle', attempt: settle, finish, usage, sent });
-            } catch (error) { onCall?.({ phase: 'failed', attempt: settle, sent }); throw error; }
+              const failed = ['error','aborted'].includes(finish?.reason?.kind);
+              settled = true;
+              onCall?.({ phase: failed ? 'failed' : 'settle', attempt: settle, finish, usage: failed ? null : usage, sent });
+            } catch (error) {
+              if (!settled) { settled = true; onCall?.({ phase: 'failed', attempt: settle, sent }); }
+              throw error;
+            } finally {
+              // Agent cancellation may close the iterator with return(), bypassing
+              // both finish chunks and catch. Sent attempts still need settlement.
+              if (!settled) onCall?.({ phase: 'failed', attempt: settle, sent });
+            }
           });
         },
       });
@@ -192,19 +203,16 @@ export class DshHost {
           { type: 'text', text: input },
         ] }));
         await handle.agent.whenIdle();
-        if (signal?.aborted) throw new Error('CANCELLED');
+        if (signal?.aborted) throw modelFailure(null, { signal });
         if (lastError || (!lastAssistant && !maintenance) || finalReason?.kind !== 'completed') {
-          const detail=JSON.stringify({name:lastError?.name,message:lastError?.message,reason:finalReason,calls},(_key,value)=>value instanceof Error?{name:value.name,message:value.message}:value)
-            .replaceAll(snapshot.getApiKey(),'[credential]').replaceAll(snapshot.baseUrl,'[channel]').replace(/https?:\/\/[^\s"\\]+/g,'[url]').slice(0,1800);
-          console.error(JSON.stringify({event:'dsh.generation_failed',session_id:sessionId,steps,detail}));
-          const error=new Error('DSH_GENERATION_FAILED',{cause:lastError});error.code='DSH_GENERATION_FAILED';throw error;
+          throw modelFailure(lastError, { signal, finish: lastFinish });
         }
         return { text: lastAssistant.trim(), session_id: sessionId, steps, final_reason: finalReason, calls };
       } finally { signal?.removeEventListener('abort', abort); }
     } catch(error) {
-      const detail=JSON.stringify({name:error.name,message:error.message,cause:error.cause,reason:finalReason},(_key,value)=>value instanceof Error?{name:value.name,message:value.message,code:value.code}:value)
-        .replaceAll(snapshot.getApiKey(),'[credential]').replaceAll(snapshot.baseUrl,'[channel]').replace(/https?:\/\/[^\s"\\]+/g,'[url]').slice(0,1800);
-      console.error(JSON.stringify({event:'dsh.request_failed',session_id:sessionId,steps,detail}));throw error;
+      const failure = modelFailure(error, { signal, finish: lastFinish });
+      console.error(JSON.stringify({event:'dsh.request_failed',session_id:sessionId,steps,provider_revision:snapshot.revision,code:failure.code,status:failure.status,retryable:!!failure.retryable,upstream_code:failure.upstreamCode||null}));
+      throw failure;
     } finally { if (handle) await handle.dispose(); this.active.delete(sessionId); }
   }
   async close() {

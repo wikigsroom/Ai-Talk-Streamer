@@ -3,6 +3,8 @@ from pathlib import Path
 import importlib.util
 import json
 import asyncio
+import sys
+import types
 from aiohttp import web
 from aiohttp.test_utils import TestClient, TestServer
 import aiohttp_cors
@@ -63,9 +65,67 @@ async def check_streaming_proxy():
         module.BRIDGE = saved_bridge
         await server.close()
 
+
+async def check_media_fences():
+    class Avatar:
+        def __init__(self):
+            self.flushes = 0
+            self.queued = []
+        def flush_talk(self):
+            self.flushes += 1
+        def put_msg_txt(self, text, info):
+            self.queued.append((text, info))
+    avatar = Avatar()
+    controls = []
+    manager = types.SimpleNamespace(get_session=lambda _name: avatar)
+    saved_module = sys.modules.get('server.session_manager')
+    sys.modules['server.session_manager'] = types.SimpleNamespace(session_manager=manager)
+    saved_headers, saved_enabled = module.media_headers, module.enabled
+    module.media_headers = lambda: {'Authorization': 'Bearer fixture-only'}
+    module.enabled = lambda: True
+    control_app = web.Application()
+    control_app['rtc_manager'] = types.SimpleNamespace(broadcast=types.SimpleNamespace(cancel=controls.append))
+    control_app.router.add_post('/internal/dsh/{action}', module.avatar_command)
+    headers = {'Authorization': 'Bearer fixture-only'}
+    first = {'request_id': 'one', 'utterance_id': 'u-one', 'runtime_epoch': 4, 'generation': 8, 'text': '旧句'}
+    cancel = {'request_id': 'one', 'runtime_epoch': 4, 'generation': 8, 'new_generation': 9, 'barrier_id': 'fixture-barrier'}
+    try:
+        async with TestClient(TestServer(control_app)) as client:
+            async def post(action, body):
+                result = await client.post('/internal/dsh/' + action, json=body, headers=headers)
+                return result
+            assert (await post('speak', first)).status == 200
+            assert len(avatar.queued) == 1 and avatar.flushes == 1
+            assert (await (await post('speak', first)).json())['duplicate']
+            assert len(avatar.queued) == 1 and avatar.flushes == 1
+            assert (await post('speak', {**first, 'text': '同 ID 换词'})).status == 409
+            assert (await post('cancel', cancel)).status == 200
+            assert avatar.flushes == 2
+            assert (await post('speak', first)).status == 409
+            second = {**first, 'request_id': 'two', 'utterance_id': 'u-two', 'generation': 10, 'text': '新句'}
+            assert (await post('speak', second)).status == 200
+            before = (avatar.flushes, len(controls))
+            stale = await (await post('cancel', cancel)).json()
+            assert stale['accepted'] is False and (avatar.flushes, len(controls)) == before
+            old_epoch = {**cancel, 'runtime_epoch': 3, 'new_generation': 999}
+            assert (await (await post('cancel', old_epoch)).json())['accepted'] is False
+            assert (avatar.flushes, len(controls)) == before
+            next_epoch = {**first, 'runtime_epoch': 5, 'generation': 1}
+            assert (await post('speak', next_epoch)).status == 200
+            assert (avatar._dsh_runtime_epoch, avatar._studio_generation) == (5, 1)
+            assert len(avatar.queued) == 3
+            assert controls[-1]['request_id'] is None  # reset cannot confirm playback
+    finally:
+        module.media_headers, module.enabled = saved_headers, saved_enabled
+        if saved_module is None:
+            sys.modules.pop('server.session_manager', None)
+        else:
+            sys.modules['server.session_manager'] = saved_module
+
 async def main():
     await check_legacy_guard()
     await check_streaming_proxy()
+    await check_media_fences()
 
 asyncio.run(main())
-print(json.dumps({'passed': True, 'route_count': len(list(app.router.routes())), 'cors_preflight': True, 'legacy_speech_bypass_blocked': True, 'sse_forwarded_before_eof': True, 'last_event_id_forwarded': True}))
+print(json.dumps({'passed': True, 'route_count': len(list(app.router.routes())), 'cors_preflight': True, 'legacy_speech_bypass_blocked': True, 'sse_forwarded_before_eof': True, 'last_event_id_forwarded': True, 'media_commands_idempotent': True, 'stale_cancel_does_not_flush_new_speech': True, 'old_epoch_cannot_override_new': True}))

@@ -159,6 +159,9 @@ activate 要求 Bridge 离线，删除 ledger 及生产水位自 prepare 后未�
 | 症状 | 核查及处置 |
 | --- | --- |
 | 8010 可看、AI 不可用 | channel revision、真实 HTTP/兼容探针；修复原渠道，不静默换模型 |
+| MODEL_TIMEOUT | 探针超时为 504；failed receipt 应含当次 revision 和用时。当前保存渠道最新 90.078 秒超时，不循环自动重探、不重复提交口播 |
+| TTS_TIMEOUT / REQUEST_DEADLINE_EXCEEDED | 请求应为 FAILED，并出现 playback.cancel_barrier；迟到 ACK 仅补样本，不改成功。若显示 CANCELLED，核对部署是否仍为旧代码 |
+| 取消后下一句被清掉 | 核对 Node 命令队列和 Python epoch/generation 校验；旧 cancel 必须返回 stale_or_duplicate_fence |
 | 人格不 ready | dsh.stderr.log、固定版本、connector probe；保全主库，不建空库绕过 |
 | WAV 完整而未完成 | manifest 最终样本、租约、played_samples；缺证据不记已播 |
 | 人物约 1 FPS | gpu-worker 日志、加载顺序、显存；下播 ordered-media 重启本项目 |
@@ -167,12 +170,17 @@ activate 要求 Bridge 离线，删除 ledger 及生产水位自 prepare 后未�
 | 数据库满/不可写 | 锁止写入与模型提交；修复存储后重启，不另建空库 |
 
 ```powershell
-node --test tests/dsh-state.test.mjs tests/dsh-playback.test.mjs tests/dsh-maintenance.test.mjs tests/dsh-auth.test.mjs
+& '.\tools\node\node-v24.22.1-win-x64\node.exe' --test --test-reporter=tap tests/dsh-state.test.mjs tests/dsh-playback.test.mjs tests/dsh-maintenance.test.mjs tests/dsh-auth.test.mjs
 python -m unittest discover -s tests -p test_dsh_viewer_buffer.py
 node tests/dsh-host-probe.mjs <project-root> <project-root>/tools/dsh
+node tests/dsh-model-faults.mjs <project-root> <project-root>/tools/dsh
 python tests/dsh_routes_probe.py
 node tests/dsh-media-smoke.cjs <project-root>
 node tests/dsh-authority-smoke.cjs <project-root>
 ```
 
 宿主探针使用真实 DSH/Humanity、独立测试 home 和受控 HTTP 端点，不算用户真实渠道通过。媒体程序需要项目内 Playwright 与原生 Chrome，明确测 Echo，结束关闭自己创建的全部页面/context。最后按 A01–A40/S1–S5 执行真实渠道和视频验收，不能以截图或旧版本视频替代。
+
+宿主与故障矩阵必须使用安装器固定的 Node 24，不能因为 PATH 上存在 Node 22 就直接运行；宿主启动会拒绝不兼容主版本。其余示例 node 同样替换为项目 tools/node 的完整路径。PowerShell 5.1 重定向可能产生 UTF-16 测试日志，读取时按 BOM 解码，不能把解码失败当成测试失败。
+
+故障矩阵只创建私有独立 DSH home 和回环 HTTP 端点，不修改 channel.env、正式记忆或模型配置。报告保存 outputs/dsh-humanity/model-faults.json，含协议/故障、错误码、用时、wire 请求数和 reserve/sent/failed/settle 次序。非法 JSON 的第三方 SDK 可能输出固定测试载荷；公开报告和 Bridge 的结构日志不回显真实渠道、密钥、上游错误正文或用户输入。

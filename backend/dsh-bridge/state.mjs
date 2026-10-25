@@ -301,15 +301,18 @@ export class StreamState extends EventEmitter {
     this.db.event(this.scope(request), 'request.' + status.toLowerCase(), { reason, partial_text_eligible: false });
   }
   fail(requestId, reason) {
-    return this.db.tx(() => { const request = this.request(requestId); if (request) this.terminalInTransaction(request, 'FAILED', reason); });
+    return this.stop(requestId, reason, 'FAILED');
   }
   cancel(requestId, reason = 'operator_stop') {
+    return this.stop(requestId, reason);
+  }
+  stop(requestId, reason, failureStatus) {
     const barrier = this.db.tx(() => {
       const request = this.request(requestId); requireValue(request, 'REQUEST_NOT_FOUND', 404);
       if (TERMINAL_REQUESTS.includes(request.status)) return { already_terminal: true };
-      if (request.status === 'QUEUED') { this.terminalInTransaction(request, 'CANCELLED', reason); return { already_terminal: true, queued_cancelled: true }; }
+      if (request.status === 'QUEUED') { this.terminalInTransaction(request, failureStatus || 'CANCELLED', reason); return { already_terminal: true, queued_cancelled: true }; }
       const utterance = this.db.get('SELECT * FROM utterances WHERE request_id=?', requestId);
-      const status = (utterance?.contiguous_played_samples || 0) > 0 ? 'INTERRUPTED' : 'CANCELLED';
+      const status = failureStatus || ((utterance?.contiguous_played_samples || 0) > 0 ? 'INTERRUPTED' : 'CANCELLED');
       const barrierId = id('cancel');
       this.db.run('UPDATE rooms SET generation=generation+1 WHERE character_id=? AND room_id=?', ...this.characterRoom);
       this.terminalInTransaction(request, status, reason);
@@ -335,9 +338,10 @@ export class StreamState extends EventEmitter {
       requireValue(Number.isSafeInteger(count) && count >= 0 && (!count || manifest && count <= manifest.persisted_through_sample), 'CANCEL_ACK_UNMAPPED');
       const observed = utterance && this.db.get('SELECT * FROM playback_observations WHERE lease_id=? AND utterance_id=?', input.lease_id, utterance.utterance_id);
       requireValue(!observed || count >= observed.played_samples, 'CANCEL_ACK_REGRESSION');
-      if (utterance && count > 0 && ['CANCELLED','INTERRUPTED','UNKNOWN'].includes(utterance.status)) {
-        this.db.run("UPDATE utterances SET status='INTERRUPTED',contiguous_played_samples=?,observation_revision=observation_revision+1 WHERE utterance_id=?", count, utterance.utterance_id);
-        this.db.run("UPDATE requests SET status='INTERRUPTED',revision=revision+1 WHERE request_id=?", request.request_id);
+      if (utterance && count > 0 && ['CANCELLED','INTERRUPTED','UNKNOWN','FAILED'].includes(utterance.status)) {
+        const status = utterance.status === 'FAILED' ? 'FAILED' : 'INTERRUPTED';
+        this.db.run('UPDATE utterances SET status=?,contiguous_played_samples=?,observation_revision=observation_revision+1 WHERE utterance_id=?', status, count, utterance.utterance_id);
+        this.db.run('UPDATE requests SET status=?,revision=revision+1 WHERE request_id=?', status, request.request_id);
       }
       this.db.run('UPDATE cancel_barriers SET acked_at=? WHERE barrier_id=?', utc(this.db.now()), barrier.barrier_id);
       this.db.event(this.scope(request, { actor_kind: 'playback', actor_id: input.consumer_id }), 'playback.cancel_acknowledged', { barrier_id: input.barrier_id, played_samples: count, partial_text_eligible: false });
@@ -351,7 +355,7 @@ export class StreamState extends EventEmitter {
   }
   tick() {
     const request = this.active();
-    if (request && Date.parse(request.active_deadline_at) <= this.db.now()) this.cancel(request.request_id, 'request_deadline');
+    if (request && Date.parse(request.active_deadline_at) <= this.db.now()) this.fail(request.request_id, 'REQUEST_DEADLINE_EXCEEDED');
     else if (request && !this.authorityReady(request.broadcast_id)) {
       this.cancel(request.request_id, 'authority_lost');
       this.db.tx(() => {this.db.run("UPDATE requests SET status='UNKNOWN' WHERE request_id=?", request.request_id);this.db.run("UPDATE utterances SET status='UNKNOWN' WHERE request_id=?",request.request_id);});

@@ -2,11 +2,13 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { StateStore } from '../backend/memory/store.mjs';
 import { StreamState } from '../backend/dsh-bridge/state.mjs';
+import { StreamBridge } from '../backend/dsh-bridge/server.mjs';
 import { MemoryService, validateExtraction } from '../backend/memory/service.mjs';
 import { MaintenanceScheduler } from '../backend/memory/scheduler.mjs';
 import { loadPolicy } from '../backend/dsh-bridge/policy.mjs';
 import { digest } from '../backend/dsh-bridge/channel.mjs';
 import { resolve } from 'node:path';
+import { createServer } from 'node:http';
 
 const root = resolve(process.cwd());
 const op = { role: 'operator', principal_id: 'op', viewer_id: 'viewer-op' };
@@ -19,7 +21,7 @@ function fixture() {
   const policy = structuredClone(loadPolicy(root)); policy.maintenance.post_broadcast_quiet_ms = 0;
   const state = new StreamState(db, policy, 'persona-test'), memory = new MemoryService(db, state, policy, connector());
   const start = () => { const b = state.createBroadcast(op); const lease = state.claimAuthority(op, b.broadcast_id, 'browser-test'); state.readyBroadcast(b.broadcast_id, true); return lease; };
-  return { db, state, memory, policy, start, advance: ms => { now += ms; }, close: () => db.close() };
+  return { db, state, memory, policy, start, advance: ms => { db.tx(()=>db.run('UPDATE bridge_owner SET lease_until=?',now+ms+30000));now += ms; }, close: () => db.close() };
 }
 function accept(state, principal = viewer, text = '我喜欢茶。', key = 'key-' + Math.random()) { return state.accept(principal, { text, idempotency_key: key }); }
 function spoken(f, count = 1000) {
@@ -78,6 +80,71 @@ test('A08/A11: only contiguous mapped natural completion produces completed hist
     assert.equal(f.state.request(u.request_id).status,'COMPLETED');
     assert.equal(f.memory.eligibleEvents(u.broadcast_id,viewer.viewer_id).filter(e=>e.event_type==='playback.completed').length,1);
   } finally { f.close(); }
+});
+
+test('A07: media failure fences and flushes once; a late prefix ACK preserves FAILED', () => {
+  const f=fixture();try {
+    const lease=f.start();accept(f.state);const u=spoken(f);receipt(f,u,lease,400);
+    const generation=f.state.room().generation,barriers=[];f.state.on('cancel',barrier=>barriers.push(barrier));
+    const barrier=f.state.fail(u.request_id,'TTS_FAILED');
+    assert.equal(f.state.request(u.request_id).status,'FAILED');assert.equal(f.state.room().generation,generation+1);
+    assert.deepEqual(barriers,[barrier]);assert.equal(f.state.fail(u.request_id,'other').already_terminal,true);assert.equal(barriers.length,1);
+    assert.equal(receipt(f,u,lease,1000,true,2).accepted,false);
+    assert.throws(()=>f.state.audioReady({...u,valid_sample_count:1000,audio_sha256:digest('late')}),/STALE_GENERATION/);
+    f.state.cancelAck(op,{...barrier,...lease,contiguous_played_samples:450,transport_instance_id:'transport-test'});
+    assert.equal(f.state.request(u.request_id).status,'FAILED');
+    const after=f.db.get('SELECT * FROM utterances WHERE utterance_id=?',u.utterance_id);
+    assert.equal(after.status,'FAILED');assert.equal(after.contiguous_played_samples,450);assert.ok(after.observation_revision>0);
+    assert.equal(f.memory.eligibleEvents(u.broadcast_id,viewer.viewer_id).length,1);
+    assert.equal(f.db.all("SELECT * FROM stream_events WHERE event_type='request.failed'").length,1);
+  }finally{f.close()}
+});
+
+test('A07: the Bridge TTS watchdog records FAILED and starts the next request at a newer generation',async()=>{
+  const f=fixture();try{
+    const lease=f.start();accept(f.state);const active=f.state.activate();
+    const u=f.state.textReady(active.request_id,'等待超时的语音',active.runtime_epoch,active.generation);
+    f.policy.conversation.tts_timeout_ms=1000;f.advance(1100);f.state.heartbeat(lease.lease_id,lease.consumer_id);
+    const queued=accept(f.state,other),started=[],barriers=[];f.state.on('cancel',b=>barriers.push(b));
+    const bridge={closed:false,ready:true,administration:{locked:false},db:f.db,state:f.state,policy:f.policy,processRequest:async request=>started.push(request)};
+    await StreamBridge.prototype.tick.call(bridge);
+    assert.equal(f.state.request(u.request_id).status,'FAILED');assert.equal(barriers.length,1);
+    const event=f.db.get("SELECT event_seq FROM stream_events WHERE request_id=? AND event_type='request.failed'",u.request_id);
+    assert.equal(f.db.payload(event.event_seq).reason,'TTS_TIMEOUT');
+    assert.equal(started[0].request_id,queued.request_id);assert.ok(started[0].generation>barriers[0].new_generation);
+  }finally{f.close()}
+});
+
+test('request deadline is a failure and emits the same media flush barrier',()=>{
+  const f=fixture();try{
+    f.start();accept(f.state);f.policy.conversation.active_request_deadline_ms=1000;const r=f.state.activate(),barriers=[];
+    f.state.on('cancel',b=>barriers.push(b));f.advance(1001);f.state.tick();
+    assert.equal(f.state.request(r.request_id).status,'FAILED');assert.equal(barriers.length,1);
+    const event=f.db.get("SELECT event_seq FROM stream_events WHERE request_id=? AND event_type='request.failed'",r.request_id);
+    assert.equal(f.db.payload(event.event_seq).reason,'REQUEST_DEADLINE_EXCEEDED');
+  }finally{f.close()}
+});
+
+test('media HTTP commands are serialized; stale speech is never sent and a failed command does not poison the queue',async()=>{
+  let announce,release;const started=new Promise(done=>announce=done),held=new Promise(done=>release=done),wire=[];
+  const server=createServer(async(req,res)=>{
+    const chunks=[];for await(const chunk of req)chunks.push(chunk);
+    wire.push({path:req.url,body:JSON.parse(Buffer.concat(chunks))});
+    if(wire.length===1){announce();await held}
+    res.writeHead(wire.at(-1).body.inject_failure?503:200,{'Content-Type':'application/json'});res.end('{"accepted":true}');
+  });
+  await new Promise(done=>server.listen(0,'127.0.0.1',done));
+  const bridge={mediaChain:Promise.resolve(),avatarUrl:'http://127.0.0.1:'+server.address().port,auth:{mediaKey:'fixture'},state:{matches:(_id,_epoch,generation)=>generation===10}};
+  const send=(action,body)=>StreamBridge.prototype.mediaCommand.call(bridge,action,body);
+  try{
+    const cancel=send('cancel',{request_id:'old'});await started;
+    const speak=send('speak',{request_id:'new',runtime_epoch:1,generation:10});await new Promise(done=>setImmediate(done));
+    assert.equal(wire.length,1);release();await Promise.all([cancel,speak]);
+    assert.deepEqual(wire.map(item=>item.path),['/internal/dsh/cancel','/internal/dsh/speak']);
+    await assert.rejects(send('speak',{request_id:'old',runtime_epoch:1,generation:8}),/STALE_GENERATION/);assert.equal(wire.length,2);
+    await assert.rejects(send('cancel',{inject_failure:true}),/MEDIA_COMMAND_FAILED/);
+    assert.deepEqual(await send('cancel',{}),{accepted:true});assert.equal(wire.length,4);
+  }finally{release();server.closeAllConnections();await new Promise(done=>server.close(done))}
 });
 test('A09/A10/A12: cancel fences old generation and accepts bounded partial ack without exact text', () => {
   const f=fixture(); try {

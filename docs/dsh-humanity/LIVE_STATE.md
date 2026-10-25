@@ -238,6 +238,31 @@ Bridge 必须校验身份绑定、租约、样本总量、generation、递增 re
 
 取消后的普通 progress 不再推进旧句子。专用 cancel_ack 必须匹配原 lease 与 barrier，且只能结算冻结前已映射的样本；不得把取消后的 natural_end 当成完成。
 
+### 8.1 故障中止必须使用相同的媒体屏障
+
+当前原生实现由 `StreamState.fail → stop` 集中处理明确失败。不能先调用 cancel 再 fail：cancel 已写入终态时，后面的 fail 会被终态保护忽略，导致 TTS 超时错误显示为 CANCELLED。故障中止必须在一个事务中直接写 FAILED、保留失败原因、递增房间 generation、写取消屏障，再在事务提交后通知 DSH/媒体。
+
+| 触发点 | 持久原因 | 结算与副作用 |
+| --- | --- | --- |
+| DSH 模型截止时间 | MODEL_TIMEOUT | FAILED；只有最终成功输出才允许进入 TTS |
+| SYNTHESIZING 超过 TTS 时限 | TTS_TIMEOUT | FAILED；清理 MOSS、Python 和浏览器待播队列 |
+| 总活跃时限到达 | REQUEST_DEADLINE_EXCEEDED | FAILED；不能因总超时伪装成主动取消 |
+| 媒体/TTS 明确失败回调 | media_or_tts_failed | FAILED；使用同一 generation 屏障 |
+| 管理员取消/暂停 | operator_stop / paused | 有已证实前缀为 INTERRUPTED，否则 CANCELLED |
+
+FAILED 也可能收到停止前的迟到前缀。十秒窗口内，原 lease、transport 和已持久化样本范围都有效时，只增加 contiguous_played_samples 与 observation_revision，request/utterance 仍为 FAILED。重复故障调用不重复升代、发屏障或制造失败事件；已 COMPLETED 的请求不被后续故障降级。失败文本、部分草稿和“估算已说的半句话”仍不能进入已播助手历史。
+
+### 8.2 命令乱序和不确定响应
+
+Node 的 speak/cancel 通过同一个 Promise 队列发送，等待前一条 HTTP 命令结束；准备发送 speak 时再次检查 request、epoch 和 generation。旧请求已取消但其命令还在本地队列时，不再发给人物进程。单次内部 HTTP 最多等待八秒，命令失败不使整个 Promise 队列永久拒绝。
+
+Python 端独立比较 `(runtime_epoch, generation)`，不能仅相信“最后到达”的 HTTP 请求：
+
+1. speak 低于当前二元组返回 409。相同二元组仅接受同 request/utterance/文本 hash 的重复，并直接返回 duplicate，不再次调用 TTS；相同代次换词拒绝。
+2. cancel 以 `(runtime_epoch, new_generation)` 比较，小于或等于当前 fence 时返回未接纳，不能清空新句；旧 epoch 的大 generation 也不能覆盖新 epoch。
+3. speak 严格更新 fence 时，先清掉孤立的旧音频，再入新文本。浏览器收到无 request_id 的 generation_advanced reset，清缓存并更新 fence；此 reset 不具备 cancel_ack 或完成权威。
+4. 故障命令和租约屏障不等于模型或扬声器已经物理停止。网络失联时保留不确定状态，依靠映射与回执拒绝旧结果，不能补成成功。
+
 如果正常完整播放回执已经先提交，之后的 cancel 只影响下一条队列，不能追溯把已完成句子改成未播。如果取消屏障先提交、正常回执后来到，保留为迟到证据，不能把终态直接改成 COMPLETED。以 Bridge 的事件序号与取消屏障决定顺序。
 
 ## 9. 部分播放和文字引用

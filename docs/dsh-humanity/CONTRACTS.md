@@ -6,7 +6,26 @@
 
 ## 当前原生实现的 HTTP 绑定
 
-浏览器经 8010 同源代理，内部服务直连 3092。当前错误为 `{error:"CODE"}`，请求返回 status 字段；后文统一错误信封仍为目标语义。身份从 cookie/bearer 解析，正文中的 principal/viewer_id 不授予权限。已实现的分页、持久事件订阅和管理写操作详见[管理契约](ADMINISTRATION.md)。
+浏览器经 8010 同源代理，内部服务直连 3092。当前错误为 `{error:"CODE"}`，模型错误额外含布尔 retryable，请求返回 status 字段；后文统一对象错误信封仍为目标语义。身份从 cookie/bearer 解析，正文中的 principal/viewer_id 不授予权限。已实现的分页、持久事件订阅和管理写操作详见[管理契约](ADMINISTRATION.md)。
+
+### 当前模型故障码
+
+以下是已实现的桥接码，分类依据固定适配器的 failure.code 或取消信号，不把上游原文当作可公开错误消息。
+
+| HTTP | error | retryable | 原因 |
+| --- | --- | --- | --- |
+| 504 | MODEL_TIMEOUT | true | 截止时间/流空闲/适配器超时 |
+| 409 | MODEL_CANCELLED | false | 明确主动取消；不与超时混用 |
+| 429 | MODEL_RATE_LIMIT | true | 上游限流 |
+| 502 | MODEL_AUTH_FAILED | false | 上游鉴权/凭据失败；不表示本地管理身份失效 |
+| 502 | MODEL_QUOTA_EXHAUSTED | false | 上游账户额度不足 |
+| 502 | MODEL_UPSTREAM_UNAVAILABLE | true | 上游服务端故障 |
+| 502 | MODEL_TRANSPORT_FAILED | true | 连接或流提前关闭 |
+| 502 | MODEL_RESPONSE_INVALID | false | 非法响应/空输出 |
+| 502 | MODEL_REQUEST_REJECTED / MODEL_CONTEXT_EXCEEDED | false | 上游请求或上下文限制 |
+| 502 | DSH_GENERATION_FAILED | false | 不能安全细分的宿主失败 |
+
+retryable 是调用方提示，不授权自动重发前台播报。SDK/Harness 自动重试为零；后台整理仍受独立的租约、次数、退避和预算控制。兼容探针单飞，重复在途探测返回 PROBE_IN_PROGRESS；失败探针保存 passed=false、当前 provider_revision、错误码和用时，不能沿用旧成功记录维持 AI 就绪。
 
 | 实际路径 | 方法 / 输入 | 权限与含义 |
 | --- | --- | --- |

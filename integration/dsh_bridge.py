@@ -2,6 +2,7 @@
 from pathlib import Path
 import asyncio
 import hmac
+import hashlib
 import json
 import requests
 from aiohttp import web, ClientSession, ClientTimeout, ClientError
@@ -92,18 +93,36 @@ async def avatar_command(request):
     if avatar is None:
         raise web.HTTPServiceUnavailable(text='AVATAR_NOT_CONNECTED')
     action = request.match_info['action']
+    broadcast = request.app['rtc_manager'].broadcast
+    current = (int(getattr(avatar, '_dsh_runtime_epoch', 0) or 0), int(getattr(avatar, '_studio_generation', 0) or 0))
     if action == 'speak':
         if not enabled():
             raise web.HTTPConflict(text='DSH_DISABLED')
-        avatar._studio_generation = int(data['generation'])
-        avatar._dsh_runtime_epoch = int(data['runtime_epoch'])
+        incoming = (int(data['runtime_epoch']), int(data['generation']))
+        command = (data['request_id'], data['utterance_id'], hashlib.sha256(data['text'].encode('utf-8')).hexdigest())
+        if incoming < current:
+            raise web.HTTPConflict(text='STALE_GENERATION')
+        if incoming == current:
+            if getattr(avatar, '_dsh_speech_command', None) == command:
+                return web.json_response({'accepted': True, 'duplicate': True})
+            raise web.HTTPConflict(text='GENERATION_COMMAND_CONFLICT')
+        # A higher generation also clears orphaned audio if the previous cancel
+        # response was lost. This fence has no receipt/ACK authority of its own.
+        avatar.flush_talk()
+        avatar._dsh_runtime_epoch, avatar._studio_generation = incoming
+        avatar._dsh_speech_command = command
+        if broadcast:
+            broadcast.cancel({'request_id': None, 'runtime_epoch': incoming[0],
+                              'new_generation': incoming[1], 'reason': 'generation_advanced'})
         info = {key: data[key] for key in ('request_id', 'utterance_id', 'runtime_epoch', 'generation')}
         info['dsh'] = True
         avatar.put_msg_txt(data['text'], info)
     elif action == 'cancel':
-        avatar._studio_generation = int(data['new_generation'])
+        incoming = (int(data['runtime_epoch']), int(data['new_generation']))
+        if incoming <= current:
+            return web.json_response({'accepted': False, 'reason': 'stale_or_duplicate_fence'})
+        avatar._dsh_runtime_epoch, avatar._studio_generation = incoming
         avatar.flush_talk()
-        broadcast = request.app['rtc_manager'].broadcast
         if broadcast:
             broadcast.cancel(data)
     else:

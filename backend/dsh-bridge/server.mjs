@@ -18,7 +18,7 @@ import { EventSubscriptions } from './events.mjs';
 export class StreamBridge {
   constructor(root, runtime, { policyFile, avatarUrl = 'http://127.0.0.1:8010' } = {}) {
     this.root=resolve(root);this.runtime=inside(this.root,runtime);this.policy=loadPolicy(this.root,policyFile);this.avatarUrl=avatarUrl;
-    this.channel=new ChannelConfig(this.root);this.controllers=new Map();this.closed=false;this.probes=[];this.mediaHealth={};this.ready=false;
+    this.channel=new ChannelConfig(this.root);this.controllers=new Map();this.closed=false;this.probes=[];this.mediaHealth={};this.ready=false;this.mediaChain=Promise.resolve();
   }
   async start() {
     this.db=new StateStore(inside(this.root,join(this.policy.deployment.state_relative_path,'stream.sqlite3')));
@@ -64,8 +64,12 @@ export class StreamBridge {
     this.ready=true;
   }
   async mediaCommand(action,body) {
-    const response=await fetch(this.avatarUrl+'/internal/dsh/'+action,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+this.auth.mediaKey},body:canonical(body),signal:AbortSignal.timeout(8000)});
-    requireValue(response.ok,'MEDIA_COMMAND_FAILED',503);return response.json();
+    const command=this.mediaChain.then(async()=>{
+      if(action==='speak')requireValue(this.state.matches(body.request_id,body.runtime_epoch,body.generation),'STALE_GENERATION');
+      const response=await fetch(this.avatarUrl+'/internal/dsh/'+action,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+this.auth.mediaKey},body:canonical(body),signal:AbortSignal.timeout(8000)});
+      requireValue(response.ok,'MEDIA_COMMAND_FAILED',503);return response.json();
+    });
+    this.mediaChain=command.catch(()=>{});return command;
   }
   async refreshMedia() {
     if(this.mediaCheckedAt&&Date.now()-this.mediaCheckedAt<3000)return this.mediaHealth;
@@ -98,12 +102,20 @@ export class StreamBridge {
   }
   async probe() {
     requireValue(this.ready&&!this.administration.locked,'BRIDGE_NOT_READY',503);
-    const snapshot=this.channel.snapshot();let recalls=0;
-    const result=await this.host.generate({sessionId:id('compat'),snapshot,input:'请先调用 stream_memory_recall 查询记忆，然后用一句话介绍你的姓名和虚拟角色身份。',
-      signal:AbortSignal.timeout(this.policy.conversation.model_timeout_ms),tools:async(name)=>{if(name==='stream_memory_recall')recalls++;return {public:[],viewer:[]};},
-      onProbe:probe=>this.recordProbe(probe),onCall:this.onCall({})});
-    const receipt={passed:recalls>0&&this.probes.at(-1)?.has_persona,tool_calls:recalls,result:result.text,model:snapshot.model,protocol:snapshot.protocol,provider_revision:snapshot.revision,tools:this.probes.at(-1)?.tools};
-    this.compatibility=receipt;writeFileSync(inside(this.root,'outputs/dsh-humanity/channel-compatibility.json'),canonical(receipt));return receipt;
+    requireValue(!this.probeRunning,'PROBE_IN_PROGRESS');
+    const snapshot=this.channel.snapshot(),sessionId=id('compat'),started=Date.now();let recalls=0;
+    this.probeRunning=true;
+    const receipt={passed:false,model:snapshot.model,protocol:snapshot.protocol,provider_revision:snapshot.revision,checked_at:utc(started)};
+    this.compatibility=receipt;
+    try {
+      const result=await this.host.generate({sessionId,snapshot,input:'请先调用 stream_memory_recall 查询记忆，然后用一句话介绍你的姓名和虚拟角色身份。',
+        signal:AbortSignal.timeout(this.policy.conversation.model_timeout_ms),tools:async(name)=>{if(name==='stream_memory_recall')recalls++;return {public:[],viewer:[]};},
+        onProbe:probe=>this.recordProbe(probe),onCall:this.onCall({})});
+      const prompt=this.probes.findLast(probe=>probe.session_id===sessionId);
+      Object.assign(receipt,{passed:recalls>0&&!!prompt?.has_persona,tool_calls:recalls,result:result.text,tools:prompt?.tools});
+      return receipt;
+    } catch(error) {Object.assign(receipt,{error:error.code||'INTERNAL_ERROR',retryable:!!error.retryable});throw error;}
+    finally {this.probeRunning=false;receipt.elapsed_ms=Date.now()-started;writeFileSync(inside(this.root,'outputs/dsh-humanity/channel-compatibility.json'),canonical(receipt));}
   }
   async maintenanceModel({job,chunk,schema,signal}) {
     requireValue(this.health().persona_injection_ready,'CHANNEL_COMPATIBILITY_REQUIRED',503);
@@ -144,7 +156,7 @@ export class StreamBridge {
     const active=this.state.active();
     if(active?.status==='SYNTHESIZING') {
       const event=this.db.get("SELECT received_at FROM stream_events WHERE request_id=? AND event_type='utterance.text_ready'",active.request_id);
-      if(event&&Date.now()-Date.parse(event.received_at)>this.policy.conversation.tts_timeout_ms){this.state.cancel(active.request_id,'tts_timeout');this.state.fail(active.request_id,'tts_timeout');}
+      if(event&&this.db.now()-Date.parse(event.received_at)>this.policy.conversation.tts_timeout_ms)this.state.fail(active.request_id,'TTS_TIMEOUT');
     }
     const request=this.state.activate();if(request)void this.processRequest(request);
   }
@@ -235,7 +247,7 @@ export class StreamBridge {
       if(path==='/api/dsh/probes'&&req.method==='GET')return send({probes:this.probes});
       throw new StreamError('NOT_FOUND',404);
     } catch(error) {
-      if(!res.headersSent)send({error:error.code||'INTERNAL_ERROR'},error.status||500);else res.end();
+      if(!res.headersSent)send({error:error.code||'INTERNAL_ERROR',...(typeof error.retryable==='boolean'?{retryable:error.retryable}:{})},error.status||500);else res.end();
       if(!error.status)console.error(JSON.stringify({event:'bridge.error',code:error.code||'INTERNAL_ERROR'}));
     }
   }

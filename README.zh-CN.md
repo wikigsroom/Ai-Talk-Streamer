@@ -8,7 +8,7 @@
 
 已增加 **RTX 3080 10 GB／64 GB 内存**实测版本。原 GPT-SoVITS 版本保留 batch 8；当前 MOSS 版本在 batch 8 播放验收失败后改用 batch 4，沿用 FP16 人物模型、完整动作库和 720×1280 输出。网页统计视频实际呈现的帧率，慢连接积压时保留排队的音频。参见 [3080 实测](docs/RTX3080.md)、[播放修正](docs/PLAYBACK.md) 和 [MOSS 验收](docs/MOSS_LIVE.md)。
 
-**新增 DSH + Humanity 后端：** 已原生实现人格版本、观众记忆隔离、直播与播放账本，以及下播后、每日、每周的持久整理任务，默认继承网页保存的 API／模型配置。详见[完整方案](docs/DSH_HUMANITY.md)、[原生操作手册](docs/dsh-humanity/RUNBOOK.md)、[逐项验收](docs/dsh-humanity/ACCEPTANCE.md)和[实机页面、录像与 GIF](docs/dsh-humanity/MEDIA.md)。本地 Echo 完整／取消／恢复及受控 DSH/Humanity 宿主测试已通过；最近真实渠道兼容探针在 90 秒后失败，真实 AI 对话和五段新增记忆场景尚未通过验收。
+**新增 DSH + Humanity 后端：** 已原生实现人格版本、观众记忆隔离、直播与播放账本，以及下播后、每日、每周的持久整理任务，默认继承网页保存的 API／模型配置。详见[完整方案](docs/DSH_HUMANITY.md)、[原生操作手册](docs/dsh-humanity/RUNBOOK.md)、[逐项验收](docs/dsh-humanity/ACCEPTANCE.md)和[实机页面、录像与 GIF](docs/dsh-humanity/MEDIA.md)。本地 Echo 完整／取消／恢复、44 项模块测试及固定 DSH/Humanity 的 20 个受控 HTTP 故障案例已通过；最新真实渠道探针在 90 秒后返回 `504 MODEL_TIMEOUT`，真实 AI 对话和五段新增记忆场景尚未通过验收。
 
 ![实际说话中的演播台](docs/media/studio-speaking.png)
 
