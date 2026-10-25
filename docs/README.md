@@ -1,5 +1,7 @@
 # Documentation / 文档导航
 
+B站当前默认由官方直播姬输出，详见[直播姬完整方案 / Bilibili Livehime](platforms/BILIBILI_LIVEHIME.md)。该路径不启动或调用 OBS；历史 OBS 媒体保留原来源。
+
 [English README](../README.md) · [中文 README](../README.zh-CN.md)
 
 This is the documentation for the delivered **daylight dorm / portrait / local-media** implementation. It describes MuseTalk with the selected MOSS 04 live voice and the original GPT-SoVITS installation option. The included recordings show real operation of the reference workstation; older recordings retain their original voice.

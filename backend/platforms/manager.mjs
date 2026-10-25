@@ -3,6 +3,7 @@ import { PlatformConfig, PlatformError, PLATFORM_IDS, check } from './config.mjs
 import { PlatformStore } from './store.mjs';
 import { normalizeEvent, eventPrincipal } from './events.mjs';
 import { ObsClient } from './obs.mjs';
+import { LivehimeOutput } from './livehime.mjs';
 import { BilibiliOpenAdapter } from './bilibili.mjs';
 import { BrowserChatAdapter } from './browser.mjs';
 import { RelayAdapter } from './relay.mjs';
@@ -13,15 +14,16 @@ const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 const ACTIVE_OUTPUTS = ['STARTING', 'STREAMING', 'COMPANION_READY', 'MANUAL_LIVE'];
 
 export class PlatformManager {
-  constructor(root, bridge, { store, config, obs, now = () => Date.now() } = {}) {
+  constructor(root, bridge, { store, config, obs, livehime, now = () => Date.now() } = {}) {
     this.root = root; this.bridge = bridge; this.now = now; this.config = config || new PlatformConfig(root); this.store = store || new PlatformStore(join(root, 'state/platforms/control.sqlite3'), now); this.obs = obs || new ObsClient(root, this.config);
+    this.livehime = livehime || new LivehimeOutput(root);
     this.collectors = new Map(); this.collectorStatus = {}; this.cooldowns = new Map(); this.lastReply = 0; this.controlChain = Promise.resolve(); this.wantOutputAuthority = false; this.closed = false;
   }
   start() { this.timer = setInterval(() => { void this.dispatch().catch(() => this.store.count('dispatch_errors')); }, 1000); this.timer.unref(); this.pruneTimer = setInterval(() => this.store.prune(), 3600000); this.pruneTimer.unref(); return this; }
   exclusive(work) { const result = this.controlChain.then(work); this.controlChain = result.catch(() => {}); return result; }
   async body(req) { let bytes=0;const chunks=[];for await(const chunk of req){bytes+=chunk.length;check(bytes<=1024*1024,'PLATFORM_BODY_TOO_LARGE',413);chunks.push(chunk);}try{return chunks.length?JSON.parse(Buffer.concat(chunks).toString('utf8')):{};}catch{throw new PlatformError('PLATFORM_JSON_INVALID',400);} }
   status() {
-    return { access_mode: 'open', authentication_required: false, config: this.config.public(), collectors: this.collectorStatus, outputs: this.store.all('SELECT * FROM outputs'), counters: Object.fromEntries(this.store.all('SELECT * FROM counters').map(row => [row.name, row.value])), pending: this.store.get("SELECT COUNT(*) n FROM events WHERE status='PENDING'").n, events: this.store.recent(), output_player: this.player ? { consumer_id: this.player.consumer_id, last_seen: this.player.at, connected: this.now() - this.player.at < 6000, frames: this.player.frames, audio_state: this.player.audio_state } : null, broadcast: this.bridge.state.current() || null };
+    return { access_mode: 'open', authentication_required: false, config: this.config.public(), collectors: this.collectorStatus, outputs: this.store.all('SELECT * FROM outputs'), counters: Object.fromEntries(this.store.all('SELECT * FROM counters').map(row => [row.name, row.value])), pending: this.store.get("SELECT COUNT(*) n FROM events WHERE status='PENDING'").n, events: this.store.recent(), output_player: this.player ? { consumer_id: this.player.consumer_id, last_seen: this.player.at, connected: this.now() - this.player.at < 6000, renderer: this.player.renderer, frames: this.player.frames, width: this.player.width, height: this.player.height, audio_state: this.player.audio_state } : null, broadcast: this.bridge.state.current() || null };
   }
   ingest(platform, payloads, options = {}) {
     check(!this.closed, 'PLATFORM_SERVICE_STOPPED', 503); const rows = Array.isArray(payloads) ? payloads : [payloads]; check(rows.length <= 1000, 'PLATFORM_BATCH_LIMIT');
@@ -88,7 +90,11 @@ export class PlatformManager {
   async stopCollector(platform) { const adapter = this.collectors.get(platform); this.collectors.delete(platform); await adapter?.stop(); this.collectorStatus[platform] = { state: 'STOPPED', updated_at: this.now() }; return { stopped: true }; }
   outputPlayer(body) {
     check(typeof body.consumer_id === 'string' && body.consumer_id.length <= 150, 'OUTPUT_PLAYER_INVALID');
-    this.player = { consumer_id: body.consumer_id, at: this.now(), frames: Number(body.frames) || 0, audio_state: String(body.audio_state || '').slice(0, 30) };
+    const nativeActive = this.store.all('SELECT * FROM outputs').some(row => ACTIVE_OUTPUTS.includes(row.state) && this.config.value.platforms[row.platform]?.output_mode === 'livehime');
+    const anyActive = this.store.all('SELECT * FROM outputs').some(row => ACTIVE_OUTPUTS.includes(row.state) || row.owned_output);
+    const nativeConfigured = this.config.value.platforms.bilibili.output_mode === 'livehime';
+    if ((nativeActive || nativeConfigured && !anyActive ? 'livehime' : 'obs') !== (body.renderer || 'obs')) return { claim: false, ignored: true };
+    this.player = { consumer_id: body.consumer_id, at: this.now(), renderer: body.renderer || 'obs', frames: Number(body.frames) || 0, width: Number(body.width) || 0, height: Number(body.height) || 0, audio_state: String(body.audio_state || '').slice(0, 30) };
     const broadcast = this.bridge.state.current();
     const lease = broadcast && this.bridge.db.get('SELECT * FROM playback_leases WHERE broadcast_id=?', broadcast.broadcast_id);
     return { claim: !!this.wantOutputAuthority && !!broadcast && broadcast.state !== 'DRAINING' && (!this.bridge.state.authorityReady(broadcast.broadcast_id) || lease?.consumer_id !== body.consumer_id), broadcast_id: broadcast?.broadcast_id || null };
@@ -109,12 +115,37 @@ export class PlatformManager {
       }
       await wait(500);
     }
-    throw new PlatformError('OBS_PLAYER_NOT_READY', 503);
+    throw new PlatformError(this.config.value.platforms[platform].output_mode === 'livehime' ? 'LIVEHIME_PLAYER_NOT_READY' : 'OBS_PLAYER_NOT_READY', 503);
+  }
+  async prepareOutput(platform) {
+    check(PLATFORM_IDS.includes(platform), 'PLATFORM_INVALID');
+    this.checkRenderer(platform);
+    return this.config.value.platforms[platform].output_mode === 'livehime' ? this.livehime.prepare() : this.obs.prepare();
+  }
+  checkRenderer(platform) {
+    const native = this.config.value.platforms[platform].output_mode === 'livehime';
+    const conflict = this.store.all('SELECT * FROM outputs').some(row => row.platform !== platform
+      && (ACTIVE_OUTPUTS.includes(row.state) || row.owned_output)
+      && (this.config.value.platforms[row.platform]?.output_mode === 'livehime') !== native);
+    check(!conflict, 'OUTPUT_RENDERER_CONFLICT');
   }
   async startOutput(platform) {
     return this.exclusive(async () => {
       check(PLATFORM_IDS.includes(platform), 'PLATFORM_INVALID'); const config = this.config.value.platforms[platform];
       const existing = this.store.get('SELECT * FROM outputs WHERE platform=?', platform); check(!existing || !(ACTIVE_OUTPUTS.includes(existing.state)||existing.owned_output), 'PLATFORM_OUTPUT_ALREADY_ACTIVE');
+      this.checkRenderer(platform);
+      if (config.output_mode === 'livehime') {
+        try {
+          await this.livehime.prepare();
+          const broadcastId = await this.ensureSession(platform);
+          // Livehime now owns playback; release the redundant preview and its GPU resources.
+          await this.livehime.close();
+          return this.store.setOutput(platform, { state: 'COMPANION_READY', broadcast_id: broadcastId, owned_output: false, error: null });
+        } catch (error) {
+          this.store.setOutput(platform, { state: 'ERROR', error: error.code || 'LIVEHIME_PREPARE_FAILED' });
+          await this.endIfUnused(); await this.livehime.close(); throw error;
+        }
+      }
       if (config.output_mode === 'obs') check(config.stream_server && config.stream_key, 'STREAM_TARGET_NOT_CONFIGURED');
       const state = await this.obs.status(); if (config.output_mode === 'obs') check(!state.streaming, 'OBS_STREAM_ALREADY_ACTIVE');
       check(state.video.baseWidth === 720 && state.video.baseHeight === 1280, 'OBS_SCENE_NOT_PREPARED');
@@ -147,11 +178,28 @@ export class PlatformManager {
     return this.exclusive(async () => {
       const row = this.store.get('SELECT * FROM outputs WHERE platform=?', platform); check(row && (ACTIVE_OUTPUTS.includes(row.state)||row.owned_output), 'PLATFORM_OUTPUT_NOT_ACTIVE');
       if (row.owned_output) { await this.obs.call('StopStream'); for (let i = 0; i < 20 && (await this.obs.call('GetStreamStatus')).outputActive; i++) await wait(500); check(!(await this.obs.call('GetStreamStatus')).outputActive, 'OBS_STREAM_STOP_TIMEOUT'); }
-      const result = this.store.setOutput(platform, { state: 'STOPPED', owned_output: false, error: null }); await this.endIfUnused(); return result;
+      const result = this.store.setOutput(platform, { state: 'STOPPED', owned_output: false, error: null }); await this.endIfUnused();
+      if (this.config.value.platforms[platform].output_mode === 'livehime') await this.livehime.close();
+      return result;
     });
   }
   async preflight(platform) {
     check(PLATFORM_IDS.includes(platform), 'PLATFORM_INVALID'); const target = this.config.value.platforms[platform]; let obs;
+    if (target.output_mode === 'livehime') {
+      let native;
+      try { native = await this.livehime.status(); } catch (error) { native = { client_installed: false, window_open: false, error: error.code || 'LIVEHIME_UNAVAILABLE' }; }
+      const media = await this.bridge.refreshMedia();
+      const source = this.player?.renderer === 'livehime' && this.now() - this.player.at < 6000 ? this.player : null;
+      return { platform, renderer: 'livehime', obs_required: false, native,
+        checks: { tts_ready: !!media.tts_ready, avatar_ready: !!media.avatar_ready,
+          channel_ready: this.config.value.interaction.mode === 'echo' || this.bridge.health().persona_injection_ready,
+          client_installed: native.client_installed, preview_window: native.window_open,
+          livehime_browser_connected: !!source,
+          vertical_video: source?.width === 720 && source?.height === 1280,
+          output_audio: source?.audio_state === 'running', room_configured: !!target.room_url || !!target.room_id,
+          official_application_required: ['open_live', 'official_callback'].includes(target.comment_mode),
+          collector_running: !!this.collectors.get(platform), audience_delivery_verified: false } };
+    }
     try { obs = await this.obs.status(); } catch (error) { obs = { connected: false, error: error.code || 'OBS_UNAVAILABLE' }; }
     const health = await this.bridge.refreshMedia();
     return { platform, obs, checks: { tts_ready: !!health.tts_ready, avatar_ready: !!health.avatar_ready, channel_ready: this.config.value.interaction.mode === 'echo' || this.bridge.health().persona_injection_ready, obs_connected: obs.connected, vertical_video: obs.connected && obs.video.baseWidth === 720 && obs.video.baseHeight === 1280, stream_target: target.output_mode === 'companion' || !!target.stream_server && !!target.stream_key, room_configured: !!target.room_url || !!target.room_id, official_application_required: ['open_live', 'official_callback'].includes(target.comment_mode), collector_running: !!this.collectors.get(platform), audience_delivery_verified: false } };
@@ -176,12 +224,15 @@ export class PlatformManager {
     if (method === 'POST' && path === '/obs/projector') return send(await this.obs.projector());
     if (method === 'POST' && path === '/obs/record/start') { check(!(await this.obs.call('GetRecordStatus')).outputActive, 'OBS_RECORDING_ALREADY_ACTIVE'); await this.obs.call('StartRecord'); this.ownedRecording = true; return send({ recording: true }); }
     if (method === 'POST' && path === '/obs/record/stop') { check(this.ownedRecording, 'OBS_RECORDING_NOT_OWNED'); const recording = await this.obs.call('StopRecord'); this.ownedRecording = false; return send({ recording: false, path: recording.outputPath }); }
-    const match = path.match(/^\/(bilibili|douyin|custom)\/(preflight|collector\/start|collector\/stop|start|stop|resume|confirm-live)$/);
+    const match = path.match(/^\/(bilibili|douyin|custom)\/(preflight|prepare|client\/launch|window\/close|collector\/start|collector\/stop|start|stop|resume|confirm-live)$/);
     if (match) {
       const [, platform, action] = match;
       if (method === 'GET' && action === 'preflight') return send(await this.preflight(platform));
       if (method === 'POST') {
         const body = await this.body(req);
+        if (action === 'prepare') return send(await this.exclusive(() => this.prepareOutput(platform)));
+        if (action === 'client/launch') { check(platform === 'bilibili' && this.config.value.platforms[platform].output_mode === 'livehime', 'PLATFORM_MODE_INVALID'); return send(await this.livehime.launchClient(true)); }
+        if (action === 'window/close') return send(await this.exclusive(async () => { check(platform === 'bilibili', 'PLATFORM_MODE_INVALID'); const row = this.store.get('SELECT * FROM outputs WHERE platform=?', platform); check(!row || !ACTIVE_OUTPUTS.includes(row.state), 'STOP_PLATFORM_OUTPUT_FIRST'); await this.livehime.close(); return { closed: true, public_broadcast_stopped: false }; }));
         if (action === 'collector/start') return send(await this.startCollector(platform, { visible: body.visible === true }));
         if (action === 'collector/stop') return send(await this.stopCollector(platform));
         if (action === 'start') return send(await this.startOutput(platform));
@@ -192,5 +243,5 @@ export class PlatformManager {
     }
     throw new PlatformError('NOT_FOUND', 404);
   }
-  async close() { this.closed = true; clearInterval(this.timer); clearInterval(this.pruneTimer); await Promise.allSettled([...this.collectors.keys()].map(p => this.stopCollector(p))); await this.controlChain; await this.obs.close(); this.store.close(); }
+  async close() { this.closed = true; clearInterval(this.timer); clearInterval(this.pruneTimer); await Promise.allSettled([...this.collectors.keys()].map(p => this.stopCollector(p))); await this.controlChain; await this.obs.close(); await this.livehime.close(); this.store.close(); }
 }

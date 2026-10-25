@@ -121,6 +121,9 @@ async def memory_page(_request):
 async def platforms_page(_request):
     return web.FileResponse(ROOT / 'web/platforms.html')
 
+async def output_page(_request):
+    return web.FileResponse(ROOT / 'web/obs.html')
+
 
 async def obs_session(request):
     return web.json_response(await async_media('obs-session', {}), headers={'Cache-Control': 'no-store'})
@@ -142,4 +145,5 @@ def configure(app):
     app.router.add_post('/internal/dsh/{action}', avatar_command)
     app.router.add_get('/memory', memory_page)
     app.router.add_get('/platforms', platforms_page)
+    app.router.add_get('/output.html', output_page)
     app.router.add_get('/dsh-evidence/{path:.*}', evidence_file)

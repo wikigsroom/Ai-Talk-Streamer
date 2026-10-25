@@ -16,7 +16,10 @@
 /configs/channel.env
 /configs/platforms.private.json
 /configs/platforms.private.json.tmp
+/configs/livehime-policy.private.json
+/configs/dsh-active-policy.json
 /outputs/platforms/
+/outputs/platforms-*-livehime-tests.log
 /configs/livetalking.yaml
 /configs/hardware-profile.json
 /configs/moss-live.json

@@ -1,0 +1,74 @@
+{
+  "kind": "official_livehime_local_recording_excerpts",
+  "cloud_llm_exercised": false,
+  "edits": [
+    {
+      "id": "welcome",
+      "start_seconds": 45.2,
+      "duration_seconds": 10.2,
+      "file": "docs/media/livehime-welcome.mp4",
+      "audio": true,
+      "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
+      "speed": 1
+    },
+    {
+      "id": "explanation",
+      "start_seconds": 82.7,
+      "duration_seconds": 9.0,
+      "file": "docs/media/livehime-explanation.mp4",
+      "audio": true,
+      "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
+      "speed": 1
+    },
+    {
+      "id": "resume",
+      "start_seconds": 116.5,
+      "duration_seconds": 8.2,
+      "file": "docs/media/livehime-resume.mp4",
+      "audio": true,
+      "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
+      "speed": 1
+    },
+    {
+      "id": "queue-first",
+      "start_seconds": 140.5,
+      "duration_seconds": 3.8,
+      "file": "docs/media/livehime-queue-first.mp4",
+      "audio": true,
+      "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
+      "speed": 1
+    },
+    {
+      "id": "queue-second",
+      "start_seconds": 159.8,
+      "duration_seconds": 3.9,
+      "file": "docs/media/livehime-queue-second.mp4",
+      "audio": true,
+      "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
+      "speed": 1
+    },
+    {
+      "id": "welcome",
+      "start_seconds": 45.2,
+      "duration_seconds": 10.2,
+      "file": "docs/media/livehime-local-preview.mp4",
+      "audio": true,
+      "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
+      "speed": 1
+    },
+    {
+      "file": "docs/media/livehime-local-response.gif",
+      "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
+      "start_seconds": 46.2,
+      "duration_seconds": 6,
+      "audio": false,
+      "speed": 1
+    },
+    {
+      "file": "docs/media/livehime-ui-interaction.mp4",
+      "source_sha256": "4ce420e6d5ce00fed0e73dfb38d9313e7f4b456d9ec0df60002dbbadc70dd189",
+      "audio": false,
+      "speed": 1
+    }
+  ]
+}

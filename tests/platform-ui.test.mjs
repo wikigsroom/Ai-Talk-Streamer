@@ -13,7 +13,8 @@ test('platform page saves real redacted settings, renders comments safely, and f
   let broadcast = null;
   const bridge = { state: { current: () => broadcast }, refreshMedia: async () => ({ tts_ready: true, avatar_ready: true }), health: () => ({ persona_injection_ready: true }) };
   const obs = { status: async () => ({ connected: true, version: 'fixture-31.1.2', video: { baseWidth: 720, baseHeight: 1280 } }), close() {} };
-  const manager = new PlatformManager(folder, bridge, { obs });
+  const livehime={status:async()=>({client_installed:true,window_open:false,player:null}),close:async()=>{}};
+  const manager = new PlatformManager(folder, bridge, { obs,livehime });
   const send = (res, value, status = 200) => { res.writeHead(status, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(value)); };
   const server = createServer(async (req, res) => {
     const url = new URL(req.url, 'http://localhost');
@@ -38,14 +39,22 @@ test('platform page saves real redacted settings, renders comments safely, and f
     await page.goto(base + '/platforms');
     await page.waitForFunction(() => document.querySelector('#setupTitle').textContent === '连接哔哩哔哩');
     await page.locator('#roomUrl').fill('https://live.bilibili.com/595139');
+    assert.equal(await page.locator('#streamFields').isVisible(),false);
+    assert.equal(await page.locator('#recordBtn').isVisible(),false);
+    assert.equal(await page.locator('#outputMode').inputValue(),'livehime');
+    await page.locator('[data-platform="custom"]').click();
     await page.locator('#streamServer').fill('rtmp://127.0.0.1/live');
     await page.locator('#streamKey').fill('fixture-private-key');
     await page.getByRole('button', { name: '保存平台配置' }).click();
     await page.waitForFunction(() => document.querySelector('#saveFeedback').textContent === '平台配置已保存。');
-    assert.equal(manager.config.value.platforms.bilibili.room_id, '595139');
+    assert.equal(manager.config.value.platforms.custom.room_id, '');
     assert.equal(await page.locator('#streamKey').inputValue(), '');
     const redacted = JSON.stringify(await (await fetch(base + '/api/dsh/platforms/config')).json());
-    assert.ok(!redacted.includes('fixture-private-key')); assert.equal(manager.config.public().platforms.bilibili.has_stream_key, true);
+    assert.ok(!redacted.includes('fixture-private-key')); assert.equal(manager.config.public().platforms.custom.has_stream_key, true);
+    await page.locator('[data-platform="bilibili"]').click();
+    await page.locator('#roomUrl').fill('https://live.bilibili.com/595139');
+    await page.getByRole('button', { name: '保存平台配置' }).click();
+    await page.waitForFunction(() => document.querySelector('#saveFeedback').textContent === '平台配置已保存。');
     await page.getByRole('button', { name: '检查连接', exact: true }).click();
     await page.waitForFunction(() => document.querySelector('#avatarState').textContent === '人物与 MOSS 声音就绪');
     manager.ingest('bilibili', { type: 'comment', event_id: 'fixture-xss', room_id: '595139', nickname: '选型观众', user_id: 'test-viewer', text: '<img src=x onerror="window.injected=true">这是一条测试评论' });
@@ -69,6 +78,7 @@ test('platform page saves real redacted settings, renders comments safely, and f
     await page.waitForFunction(() => document.querySelector('#outputState').textContent === '已停止');
     await page.screenshot({ path: join(output, 'platform-mobile-fixture.png'), fullPage: true });
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'No horizontal page overflow on a 390px phone');
+    assert.equal(accepted.filter(path=>path.includes('/obs/')).length,0,'Bilibili page never calls OBS');
     assert.deepEqual(errors, []); assert.ok(!accepted.some(path => path.endsWith('/start')), 'UI never starts publishing while saving or inspecting');
     await context.close(); assert.equal(browser.contexts().length, 0);
   } finally { await browser.close(); server.closeAllConnections(); await new Promise(resolve => server.close(resolve)); await manager.close(); rmSync(folder, { recursive: true, force: true }); }

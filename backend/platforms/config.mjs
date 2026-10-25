@@ -10,7 +10,7 @@ const SECRET_FIELDS = ['stream_key', 'cookie', 'access_key', 'access_secret', 'i
 export function defaults() {
   return { version: 1, obs: { url: 'ws://127.0.0.1:4457', scene: 'AiTalk Vertical', input: 'AiTalk Avatar', width: 720, height: 1280, fps: 25, bitrate: 5000 },
     interaction: { enabled: true, mode: 'chat', minimum_interval_ms: 8000, viewer_cooldown_ms: 15000, ttl_ms: 45000, max_pending: 50 },
-    platforms: Object.fromEntries(PLATFORM_IDS.map(platform => [platform, { room_id: '', room_url: '', output_mode: platform === 'douyin' ? 'companion' : 'obs', comment_mode: platform==='bilibili'?'blivedm':platform==='custom'?'relay':'browser', stream_server: '', stream_key: '', cookie: '', access_key: '', access_secret: '', identity_code: '', app_id: '', callback_secret: '', relay_url: '', item_selector: '', user_selector: '', text_selector: '' }])) };
+    platforms: Object.fromEntries(PLATFORM_IDS.map(platform => [platform, { room_id: '', room_url: '', output_mode: platform === 'bilibili' ? 'livehime' : platform === 'douyin' ? 'companion' : 'obs', comment_mode: platform==='bilibili'?'blivedm':platform==='custom'?'relay':'browser', stream_server: '', stream_key: '', cookie: '', access_key: '', access_secret: '', identity_code: '', app_id: '', callback_secret: '', relay_url: '', item_selector: '', user_selector: '', text_selector: '' }])) };
 }
 export function roomUrl(platform, value) {
   const text = String(value || '').trim();
@@ -47,7 +47,7 @@ export class PlatformConfig {
         if (SECRET_FIELDS.includes(key) && val === null) { target[key] = ''; continue; }
         check(typeof val === 'string' && val.length <= (key === 'cookie' ? 16000 : 4096), 'PLATFORM_CONFIG_INVALID'); target[key] = val.trim();
       }
-      check(['obs', 'companion'].includes(target.output_mode), 'OUTPUT_MODE_INVALID');
+      check(['obs', 'companion', 'livehime'].includes(target.output_mode) && (target.output_mode !== 'livehime' || platform === 'bilibili'), 'OUTPUT_MODE_INVALID');
       check(['browser', 'blivedm', 'open_live', 'official_callback', 'relay', 'disabled'].includes(target.comment_mode), 'COMMENT_MODE_INVALID');
       if (platform !== 'custom') {
         target.room_url = roomUrl(platform, target.room_url || target.room_id);

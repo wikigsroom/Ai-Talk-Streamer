@@ -268,6 +268,38 @@ def main():
         check(digest == item['sha256'], 'DSH documented source changed after validation: ' + item['path'])
     dsh_runtime = load('docs/evidence/dsh-humanity-runtime.json')
     platform_evidence = load('docs/evidence/platform-integration.json')
+    livehime = load('docs/evidence/bilibili-livehime.json')
+    check(livehime['local_acceptance']['ok'] is True
+          and len(livehime['local_acceptance']['steps']) == 5
+          and all(step['status'] in {'COMPLETED', 'PASSED'} for step in livehime['local_acceptance']['steps'])
+          and len(livehime['local_acceptance']['utterances']) == 5
+          and all(utterance['status'] == 'COMPLETED'
+                  and utterance['valid_sample_count'] == utterance['contiguous_played_samples'] > 0
+                  and any(observation['natural_end'] == 1 and observation['played_samples'] == utterance['valid_sample_count']
+                          for observation in utterance['observations'])
+                  for utterance in livehime['local_acceptance']['utterances'])
+          and livehime['obs_used'] is False
+          and livehime['platform_audience_verified'] is False
+          and livehime['module_tests']['node_passed'] >= 76
+          and livehime['module_tests']['node_skipped'] == 0
+          and livehime['module_tests']['python_passed'] >= 23
+          and livehime['module_tests']['native_route_count'] == 21,
+          'Livehime evidence requires five native cases and complete regressions')
+    native_video = next(stream for stream in livehime['local_acceptance']['recording']['probe']['streams']
+                        if stream['codec_type'] == 'video')
+    check((native_video['codec_name'], native_video['width'], native_video['height'], native_video['r_frame_rate'])
+          == ('h264', 720, 1280, '30/1')
+          and livehime['local_acceptance']['audio_measurement']['above_threshold_rms'] > .001
+          and livehime['local_acceptance']['obs_processes'] == [], 'Livehime actual encoding and audio evidence')
+
+    def source_matches(name, current, historical):
+        if current == historical:
+            return True
+        delta = livehime['superseded_sources'].get(name, {})
+        return (historical in delta.get('historical_sha256', [])
+                and current == delta.get('current_sha256')
+                and bool(delta.get('validation')))
+
     check(platform_evidence['local_acceptance']['ok'] is True
           and platform_evidence['module_tests']['node_passed'] >= 68
           and platform_evidence['module_tests']['node_skipped'] == 0
@@ -277,13 +309,23 @@ def main():
     deltas = platform_evidence['superseded_baseline_sources']
     for name, expected in dsh_runtime['code_sha256'].items():
         digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
-        if digest != expected:
+        if not source_matches(name, digest, expected):
             delta = deltas.get(name, {})
-            check(delta.get('historical_sha256') == expected and delta.get('current_sha256') == digest
+            check(delta.get('historical_sha256') == expected and source_matches(name, digest, delta.get('current_sha256'))
                   and bool(delta.get('validation')), 'DSH source lacks current validation evidence: ' + name)
     for name, expected in platform_evidence['code_sha256'].items():
         digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
-        check(digest == expected, 'Platform evidence source changed: ' + name)
+        check(source_matches(name, digest, expected), 'Platform evidence source changed without current evidence: ' + name)
+    for name, expected in livehime['code_sha256'].items():
+        digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
+        check(digest == expected, 'Livehime evidence source changed: ' + name)
+    livehime_media = load('docs/media/livehime-media-manifest.json')
+    check(report_digest_matches(local(livehime_media['report']), livehime_media['report_sha256']), 'Livehime media report checksum')
+    for item in livehime_media['items']:
+        path = local(item['file'])
+        check(path.is_file() and path.stat().st_size == item['bytes'] and sha256(path) == item['sha256'],
+              'Livehime media checksum: ' + item['file'])
+    counts['livehime_documentation_media'] = len(livehime_media['items'])
     platform_media = load('docs/media/platform-media-manifest.json')
     check(report_digest_matches(local(platform_media['report']), platform_media['report_sha256']),
           'Platform media report checksum')
@@ -314,6 +356,9 @@ def main():
             if relative == 'docs/media/rtx3080-welcome.mp4':
                 check((video['width'], video['height'], video['r_frame_rate']) == (432, 768, '25/1'), 'RTX 3080 preview format')
                 check(any(s['codec_type'] == 'audio' for s in data['streams']), 'RTX 3080 preview has no audio')
+            if relative.startswith('docs/media/livehime-') and relative != 'docs/media/livehime-ui-interaction.mp4':
+                check((video['width'], video['height'], video['r_frame_rate']) == (432, 768, '30/1'), 'Livehime preview format: ' + relative)
+                check(any(s['codec_type'] == 'audio' for s in data['streams']), 'Livehime preview has no audio: ' + relative)
         counts['ffprobe_videos'] = len(videos)
 
     result = {'ok': not failures, 'scope': 'repository checks; not a fresh GPU deployment', 'counts': counts, 'failures': failures}

@@ -189,7 +189,7 @@ test('A16/A38: twenty rounds retain initial topic, bounded rolling body and no r
  }finally{f.close()}
 });
 test('A01/A34: a second live SQLite owner cannot start over the first',()=>{
- const f=fixture();try{assert.throws(()=>new StateStore(f.db.file),/OWNER_ACTIVE/)}finally{f.close()}
+ const f=fixture();try{assert.throws(()=>new StateStore(f.db.file,{now:()=>f.db.now()}),/OWNER_ACTIVE/)}finally{f.close()}
 });
 test('A31: an unwritable database stops accepting writes without replacing the canonical file',()=>{
  const f=fixture();try{f.start();const before=f.db.get('SELECT COUNT(*) n FROM requests').n;f.db.tx(()=>f.db.run('PRAGMA query_only=ON'));

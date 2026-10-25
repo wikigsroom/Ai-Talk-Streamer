@@ -2,7 +2,7 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [Documentation](docs/README.md)
 
-A native Windows studio for a photorealistic **9:16 talking avatar**. Type a script, or ask your own cloud LLM a question; the workstation synthesizes the voice, generates the lip motion, plays coordinated body footage, and delivers the same avatar to your browser and OBS.
+A native Windows studio for a photorealistic **9:16 talking avatar**. Type a script, or ask your own cloud LLM a question; the workstation synthesizes the voice, generates the lip motion, plays coordinated body footage, and delivers the avatar to your browser and Bilibili’s official Livehime client.
 
 The included character is **女A / Lin Zhixia (林知夏)**, a **fictional 22-year-old Chinese university student** in **Zhixia's Daylight Dorm**. [Character identity and categorized archive](docs/CHARACTERS.md) include a verified inventory and rebuildable bundle. The reference deployment uses an **RTX 4090 with 48 GB VRAM and 64 GB system RAM**.
 
@@ -12,7 +12,11 @@ The original **RTX 3080 10 GB / 64 GB RAM** GPT-SoVITS version retains batch-8 F
 
 **Open access:** the application has no login, token, IP allowlist or role gates. Preview connection starts the session automatically. [13 actual browser checks, a real AI recording and GIF](docs/dsh-humanity/MEDIA.md#当前无鉴权入口--current-open-access-studio) and [11 isolated management checks](docs/evidence/dsh-open-management.json) passed; the studio and `/memory` are directly usable.
 
-**Live platform integration:** `/platforms` adds native OBS output control, Bilibili Web/Open Live comments, Douyin browser/official callback adapters, generic RTMP targets, persistent event de-duplication and viewer memory partitions. Basic routes support existing streaming accounts without requiring a developer application. See the [assessment and implementation](docs/PLATFORM_INTEGRATION.md), [deployment](docs/platforms/DEPLOYMENT.md), and [acceptance scope](docs/platforms/ACCEPTANCE.md). Local protocol tests do not establish real-account streaming or audience delivery.
+**Bilibili now uses the official Livehime client, without OBS.** A local 720×1280 browser material supplies picture and internal audio; the optional standalone preview is muted. See the [complete Livehime setup and lifecycle](docs/platforms/BILIBILI_LIVEHIME.md). `/platforms` also provides Bilibili Web/Open Live comments, Douyin browser/official callback adapters, generic RTMP targets, persistent event de-duplication and viewer memory partitions. Basic routes support existing streaming accounts without requiring a developer application. See the [assessment and implementation](docs/PLATFORM_INTEGRATION.md), [deployment](docs/platforms/DEPLOYMENT.md), and [acceptance scope](docs/platforms/ACCEPTANCE.md). Local protocol tests do not establish real-account streaming or audience delivery.
+
+![Actual official Livehime portrait source](docs/media/livehime-client.png)
+
+[Watch Livehime with sound](docs/media/livehime-local-preview.mp4) · [Five spoken excerpts, UI recording and GIF](docs/platforms/MEDIA.md). Five local Echo cases passed with actual MOSS playback. Cloud inference initially timed out, then a fresh compatibility probe and a separate AI utterance completed; both results are retained. Public start was requested but the official client requires the account owner's face verification. Audience delivery remains unverified. The complete 209.13-second recording preserves generation waits.
 
 [Actual platform pages, an audible RTMP recording and GIF](docs/platforms/MEDIA.md) document the native event, duplicate, pause/resume and real AI checks. Account publishing and audience delivery are identified separately.
 
@@ -54,7 +58,8 @@ GitHub may offer a download instead of inline playback for repository MP4 links.
 | Body, hands and dorm background | Reviewed local H3 videos, preprocessed into one avatar bank | Generated locally beforehand; reused during streaming |
 | Body scheduling | Whole-clip selection from speaking state and manual requests | Local process |
 | Browser preview and recording | WebSocket JPEG + PCM, canvas and Web Audio, MediaRecorder | Local service + viewer browser |
-| Portrait recording / broadcast output | Portable OBS, 720×1280 at a target 25 FPS | Workstation |
+| Bilibili recording / broadcast output | Official Livehime browser material and internal audio, 720×1280; 30 FPS encoding of the 25 FPS avatar | Workstation |
+| Other platform output | Separate optional OBS / Douyin Companion adapters | Workstation |
 | Reference image creation | Original image edited through the selected image gateway | Preparation only; generated assets are included |
 
 **Echo mode needs no cloud LLM.** AI mode sends your text to the channel you configure. Media inference does not call a cloud avatar, TTS or video endpoint. Installation needs downloads; normal media inference uses local assets.
@@ -73,7 +78,8 @@ flowchart LR
     S[Speech state and manual selection] --> B
     U --> J[Shared JPEG / PCM broadcast]
     J --> W[Browser preview and recording]
-    J --> O[OBS browser source]
+    J --> O[Livehime browser material and internal audio]
+    O --> P[Bilibili recording or broadcast]
 ```
 
 Preparation is separate: reference images → local H3 video → visual review → 720×1280 / 25 FPS encoding → face coordinates, masks and latents → assembled motion bank. The live renderer uses the **same frame index for the body, face latent and mask**. It changes clips at their boundaries rather than cutting a hand gesture in half.
@@ -129,7 +135,7 @@ The memory page also provides filtered pagination, archive, equivalent-fact merg
 
 For AI conversation, open **渠道设置** and enter your base URL, API key, **actual provider model ID**, and protocol. Save, switch to **AI 回复**, and send a question. Do not assume a display name such as “GPT 6 Luna” is an API model ID. `configs/channel.env.example` documents the environment variables; the real `configs/channel.env` stays untracked. A blank API-key field preserves the previously saved key.
 
-For OBS:
+For Bilibili, follow the [Livehime guide](docs/platforms/BILIBILI_LIVEHIME.md) to configure its browser source, internal audio and portrait canvas, then start broadcasting in the official client. Other destinations can still use the existing OBS route:
 
 ```powershell
 .\Avatar.cmd -Action start-obs

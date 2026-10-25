@@ -20,7 +20,7 @@ jobs:
       - name: Motion scheduling and speech adapter behavior
         run: python -m unittest discover -s tests -v
       - name: DSH and platform lifecycle, persistence and protocol tests
-        run: node --test tests/dsh-*.test.mjs tests/platforms.test.mjs tests/platform-obs.test.mjs
+        run: node --test tests/dsh-*.test.mjs tests/platforms.test.mjs tests/platform-obs.test.mjs tests/platform-livehime.test.mjs
       - name: Native HTTP proxy and callback forwarding
         run: python -X utf8 tests/dsh_routes_probe.py
       - name: Native browser fixture dependencies

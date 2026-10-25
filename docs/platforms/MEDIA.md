@@ -1,10 +1,42 @@
 # 平台接入实机页面与录像 / Native platform evidence
 
-本页展示原生 Windows RTX 3080 上的真实服务、OBS 浏览器源和本地 RTMP 接收结果。界面截图通过控制端的独立 Chrome 窗口拍摄，未拦截或模拟接口；拍摄结束已关闭相应浏览器上下文。它们不是 B站或抖音观众端截图。
+## 当前官方直播姬（2026-10-26）
+
+官方直播姬已登录并直接加载女A「林知夏」720×1280 浏览器素材，声音由源内部进入节目混音。这条路径没有使用 OBS。以下是真实客户端、本地服务和官方客户端本地录像，**不是 B站观众端实播**。
+
+![已配置的官方直播姬竖屏画面](../media/livehime-client.png)
+
+![直播姬平台控制页](../media/livehime-platform-desktop.png)
+
+<img src="../media/livehime-platform-mobile.png" alt="直播姬控制页 390px 移动端" width="390">
+
+- [直播姬本地录制带声音节选](../media/livehime-local-preview.mp4)：保留 MOSS 04 实际语音，不补配旁白。
+- [平台页实际操作录屏](../media/livehime-ui-interaction.mp4)：独立浏览器拍摄，无接口模拟，拍摄后关闭上下文。
+- 完整原速录像在运行中工作站的 `/platform-evidence/livehime-local-validation.mp4`，与演播台共用 8010 端口。H.264 + AAC、720×1280、30 FPS；人物推理为 25 FPS。
+
+![直播姬真实说话节选，无声 GIF](../media/livehime-local-response.gif)
+
+五项本地场景为欢迎、去重、讲解、暂停恢复、两条留言按序播放。当前录制是**原文播报**，不包含云端模型生成回复。云端初轮超时，后续探针和独立 AI 播报完成，分别保留记录；该后续播报没有包含在本页五段录像中。真实 B站 595139 弹幕连接与心跳通过，但新观众评论和观众端尚未验收；主播要求公开开播后，直播姬弹出本人操作的人脸验证。
+
+原始录像、节选时间、音频检查、播放账本及来源哈希见[直播姬证据](../evidence/bilibili-livehime.json)与[媒体清单](../media/livehime-media-manifest.json)。GIF/预览只截取说话区间，不代表整条留言的生成等待或响应延迟。公开的客户端截图已裁掉桌面并遮盖账号身份区域。
+
+| 实际语音节选 | 原始录像区间 | 对应用例 |
+|---|---|---|
+| [欢迎](../media/livehime-welcome.mp4) | 45.2–55.4 秒 | L1 |
+| [讲解](../media/livehime-explanation.mp4) | 82.7–91.7 秒 | L3 |
+| [暂停恢复后播报](../media/livehime-resume.mp4) | 116.5–124.7 秒 | L4 |
+| [排队第一条](../media/livehime-queue-first.mp4) | 140.5–144.3 秒 | L5 第一条 |
+| [排队第二条](../media/livehime-queue-second.mp4) | 159.8–163.7 秒 | L5 第二条 |
+
+五段语音不等于五项用例：L2 去重要求没有第二次声音，因此以持久事件与计数验收。完整录像为 209.13 秒。AAC 最大包时间差为 66.667 ms，发生在文件开头 0 秒处；后续包间隔约 21.333 ms。解码峰值约 1.239、超过满幅，原始声音存在峰值余量风险，未用后期压限遮盖；后续应在源音量/音频母带调整后另做实录。时间戳及样本完整不能证明任何观众设备听感绝无卡顿。
+
+## 历史 OBS / 本机 RTMP（2026-10-25）
+
+以下保留原生 Windows RTX 3080 上的真实服务、OBS 浏览器源和本地 RTMP 接收结果。它们属于旧路径；界面截图通过独立 Chrome 拍摄，未模拟接口，拍摄结束关闭相应上下文。它们不是 B站或抖音观众端截图。
 
 控制页截图拍摄于最终测试结束后：本地测试输出与弹幕采集已经停止，平台私有配置已恢复。B站未填写推流参数，因此检查页正确显示“推流配置尚未就绪”；切换平台会清除前一平台的检查结果。
 
-## 控制页面
+### 历史控制页面
 
 ![实际平台接入页面](../media/platform-native-rtmp-desktop.png)
 
@@ -12,7 +44,7 @@
 
 <img src="../media/platform-native-mobile.png" alt="390px 移动端实际页面" width="390">
 
-## 视频与 GIF
+### 历史视频与 GIF
 
 - [带声音的原生推流预览](../media/platform-local-preview.mp4)：来自 OBS → 本机 FFmpeg RTMP 接收结果，保留实际 MOSS 04 语音。
 - [平台页操作录屏](../media/platform-ui-interaction.mp4)：真实页面操作；此录屏不带人物声音。
@@ -22,7 +54,7 @@
 
 GIF 是实际录像的原速节选，不代表整场平台延迟。视频预览的裁剪位置和来源哈希记录在[媒体清单](../media/platform-media-manifest.json)。
 
-## 实际覆盖范围
+### 历史实际覆盖范围
 
 | 项目 | 本次证据说明 |
 |---|---|
@@ -40,4 +72,4 @@ GIF 是实际录像的原速节选，不代表整场平台延迟。视频预览�
 
 ## English
 
-These are captures of the actual native Windows installation and a loopback RTMP recording. Four real MOSS utterances and the duplicate/pause/resume checks exercise the local event-to-speech pipeline; the AI case uses the saved cloud text channel. Bilibili room connectivity is real, while test comments are explicitly injected local events. No external platform audience, account broadcast, approved developer application or Douyin login is claimed. The source/asset hashes and exact measured results are available in the linked evidence manifests.
+The current Bilibili captures use the signed official Livehime client, its internal browser audio and a real local H.264/AAC recording. Five local cases cover greeting, de-duplication, explanation, pause/resume and ordered messages; they use Echo text and local MOSS 04/MuseTalk. An initial cloud timeout and a later successful compatibility probe/AI utterance are retained separately. Real Bilibili room connectivity is separate from locally injected acceptance messages. The requested public start is waiting for the official client's account-owner face verification; no audience acceptance is claimed. The older OBS/RTMP media above retains its original provenance.

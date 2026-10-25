@@ -167,7 +167,7 @@ function nativeOutputFixture(f, { loseStartReply = false } = {}) {
 test('two platforms share one owned broadcast and only the last output ends it', async () => {
   const f = fixture(), output = nativeOutputFixture(f);
   try {
-    f.manager.config.update({ platforms: { bilibili: { stream_server: 'rtmp://127.0.0.1/live', stream_key: 'fixture' } } });
+    f.manager.config.update({ platforms: { bilibili: { output_mode:'obs', stream_server: 'rtmp://127.0.0.1/live', stream_key: 'fixture' } } });
     const first = await f.manager.startOutput('bilibili'), second = await f.manager.startOutput('douyin');
     assert.equal(first.state, 'STREAMING'); assert.equal(second.state, 'COMPANION_READY');
     assert.equal(first.broadcast_id, second.broadcast_id); assert.equal(first.owned_broadcast, 1); assert.equal(second.owned_broadcast, 0);
@@ -181,7 +181,7 @@ test('two platforms share one owned broadcast and only the last output ends it',
 test('a lost OBS start reply retains output ownership until stopping is confirmed', async () => {
   const f = fixture(), output = nativeOutputFixture(f, { loseStartReply: true });
   try {
-    f.manager.config.update({ platforms: { bilibili: { stream_server: 'rtmp://127.0.0.1/live', stream_key: 'fixture' } } });
+    f.manager.config.update({ platforms: { bilibili: { output_mode:'obs', stream_server: 'rtmp://127.0.0.1/live', stream_key: 'fixture' } } });
     await assert.rejects(f.manager.startOutput('bilibili'), { code: 'OBS_TIMEOUT' });
     const row = f.manager.store.get('SELECT * FROM outputs WHERE platform=?', 'bilibili');
     assert.equal(row.state, 'ERROR'); assert.equal(row.owned_output, 1); assert.equal(f.state.current().state, 'LIVE');
@@ -210,5 +210,76 @@ test('stopping a platform does not end a broadcast opened by the existing web st
     f.start(); const id = f.state.current().broadcast_id;
     const row = await f.manager.startOutput('douyin'); assert.equal(row.owned_broadcast, 0);
     await f.manager.stopOutput('douyin'); assert.equal(f.state.current().state, 'LIVE'); assert.equal(f.state.current().broadcast_id, id);
+  } finally { output.stop(); await f.close(); }
+});
+
+function livehimeFixture(f) {
+  const calls = [];
+  f.manager.obs = { close() {}, status() { throw Error('Unexpected OBS dependency'); }, prepare() { throw Error('Unexpected OBS preparation'); }, call() { throw Error('Unexpected OBS RPC'); } };
+  f.manager.livehime = {
+    async prepare() { calls.push('prepare'); return { prepared: true }; },
+    async status() { return { client_installed: true, window_open: true, player: { video_width: 720, video_height: 1280, audio_state: 'running' } }; },
+    async close() { calls.push('close'); },
+  };
+  const timer = setInterval(() => {
+    const broadcast = f.state.current(); if (!broadcast || broadcast.state === 'DRAINING') return;
+    const result = f.manager.outputPlayer({ renderer: 'livehime', consumer_id: 'livehime-fixture', frames: 25, width: 720, height: 1280, audio_state: 'running' });
+    if (result.claim) f.state.claimAuthority(operator, broadcast.broadcast_id, 'livehime-fixture', true);
+  }, 10);
+  return { calls, stop() { clearInterval(timer); } };
+}
+
+test('Bilibili defaults to native Livehime while other destinations reject its mode', async () => {
+  const f = fixture();
+  try {
+    assert.equal(f.manager.config.value.platforms.bilibili.output_mode, 'livehime');
+    assert.throws(() => f.manager.config.update({ platforms: { douyin: { output_mode: 'livehime' } } }), /OUTPUT_MODE/);
+  } finally { await f.close(); }
+});
+
+test('native Livehime prepares, checks, starts, resumes and stops without any OBS call', async () => {
+  const f = fixture(), output = livehimeFixture(f);
+  try {
+    assert.equal((await f.manager.prepareOutput('bilibili')).prepared, true);
+    assert.equal((await f.manager.preflight('bilibili')).checks.livehime_browser_connected, false);
+    f.manager.outputPlayer({ renderer: 'livehime', consumer_id: 'livehime-fixture', frames: 25, width: 720, height: 1280, audio_state: 'running' });
+    const preflight = await f.manager.preflight('bilibili');
+    assert.equal(preflight.obs_required, false); assert.equal(preflight.obs, undefined);
+    assert.equal(preflight.checks.vertical_video, true); assert.equal(preflight.checks.output_audio, true);
+    assert.equal(preflight.checks.audience_delivery_verified, false);
+    const initial = await f.manager.startOutput('bilibili');
+    assert.equal(initial.state, 'COMPANION_READY'); assert.equal(initial.owned_output, 0);
+    assert.equal(output.calls.at(-1), 'close');
+    assert.equal(f.manager.status().output_player.renderer, 'livehime');
+    const lease = f.db.get('SELECT * FROM playback_leases WHERE broadcast_id=?', initial.broadcast_id);
+    assert.equal(lease.consumer_id, 'livehime-fixture');
+    assert.equal(f.manager.outputPlayer({ renderer: 'obs', consumer_id: 'unused-obs', frames: 10, audio_state: 'running' }).ignored, true);
+    assert.equal(f.manager.player.consumer_id, 'livehime-fixture');
+    f.state.pause(operator); await f.manager.resumeOutput('bilibili');
+    assert.equal(f.state.current().broadcast_id, initial.broadcast_id); assert.equal(f.state.current().state, 'LIVE');
+    await f.manager.stopOutput('bilibili');
+    assert.equal(f.state.current().state, 'DRAINING'); assert.equal(output.calls.at(-1), 'close');
+    assert.equal(f.manager.status().outputs[0].state, 'STOPPED');
+  } finally { output.stop(); await f.close(); }
+});
+
+test('native output refuses to take over an active OBS platform renderer', async () => {
+  const f = fixture(), output = livehimeFixture(f);
+  try {
+    f.manager.store.setOutput('custom', { state: 'STREAMING', owned_output: true });
+    await assert.rejects(f.manager.prepareOutput('bilibili'), { code: 'OUTPUT_RENDERER_CONFLICT' });
+    await assert.rejects(f.manager.startOutput('bilibili'), { code: 'OUTPUT_RENDERER_CONFLICT' });
+    assert.deepEqual(output.calls, []);
+  } finally { output.stop(); await f.close(); }
+});
+
+test('failed native preparation preserves an existing studio broadcast and closes its window', async () => {
+  const f = fixture(), output = livehimeFixture(f);
+  try {
+    f.start(); const id = f.state.current().broadcast_id;
+    f.manager.livehime.prepare = async () => { throw Object.assign(Error('missing client'), { code: 'LIVEHIME_NOT_INSTALLED' }); };
+    await assert.rejects(f.manager.startOutput('bilibili'), { code: 'LIVEHIME_NOT_INSTALLED' });
+    assert.equal(f.state.current().broadcast_id, id); assert.equal(f.state.current().state, 'LIVE');
+    assert.equal(f.manager.status().outputs[0].state, 'ERROR'); assert.equal(output.calls.at(-1), 'close');
   } finally { output.stop(); await f.close(); }
 });

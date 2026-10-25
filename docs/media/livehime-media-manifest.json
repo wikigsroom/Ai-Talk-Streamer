@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "kind": "official_livehime_local_recording_media",
+  "report": "docs/evidence/bilibili-livehime.json",
+  "report_sha256": "244e8ec0fa208c561d2017bc1c3a511cef359427eef41d8f576884336568ec1d",
+  "cloud_llm_exercised": false,
+  "platform_audience_verified": false,
+  "items": [
+    {
+      "file": "docs/media/livehime-client.png",
+      "bytes": 400461,
+      "sha256": "bf734503bc9b3eeba4624557dd1cf5e6a0ec67766ad3ad81fe0482f7118e880f",
+      "provenance": "Actual official client screenshot; desktop cropped, account avatar and identity region masked"
+    },
+    {
+      "file": "docs/media/livehime-explanation.mp4",
+      "bytes": 581134,
+      "sha256": "00be9295eac4a6aa6fc051a0035c6403f92f4711e466d192a4cb1348a696a3c6",
+      "id": "explanation",
+      "start_seconds": 82.7,
+      "duration_seconds": 9.0,
+      "audio": true,
+      "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
+      "speed": 1
+    },
+    {
+      "file": "docs/media/livehime-local-preview.mp4",
+      "bytes": 774685,
+      "sha256": "f31b51e715b976858a365af654a253a88f15f08744c5fbccc6e5dfbfb6c8500a",
+      "id": "welcome",
+      "start_seconds": 45.2,
+      "duration_seconds": 10.2,
+      "audio": true,
+      "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
+      "speed": 1
+    },
+    {
+      "file": "docs/media/livehime-local-response.gif",
+      "bytes": 3352803,
+      "sha256": "cea937a04e4e0c9e0f1dbbf47b518337a5d04cb827618e6289e5d2d468337093",
+      "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
+      "start_seconds": 46.2,
+      "duration_seconds": 6,
+      "audio": false,
+      "speed": 1
+    },
+    {
+      "file": "docs/media/livehime-platform-desktop.png",
+      "bytes": 460578,
+      "sha256": "04d37eee6a87e761de9628c5cbafb24c80d872f4a7edc006414f807273dc1ceb"
+    },
+    {
+      "file": "docs/media/livehime-platform-mobile.png",
+      "bytes": 337952,
+      "sha256": "39df1a2ad43eda8d428692141227fa80fcfa9214680ca3a2569e2358c832a874"
+    },
+    {
+      "file": "docs/media/livehime-queue-first.mp4",
+      "bytes": 286817,
+      "sha256": "83335b992a6ab639796e2377f3029636d9ccacbb2911b9ce20470bfddaaae480",
+      "id": "queue-first",
+      "start_seconds": 140.5,
+      "duration_seconds": 3.8,
+      "audio": true,
+      "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
+      "speed": 1
+    },
+    {
+      "file": "docs/media/livehime-queue-second.mp4",
+      "bytes": 324641,
+      "sha256": "27962e4958de7076aae7726334888bad4173ba9ce982762c436a822fff6f9cc2",
+      "id": "queue-second",
+      "start_seconds": 159.8,
+      "duration_seconds": 3.9,
+      "audio": true,
+      "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
+      "speed": 1
+    },
+    {
+      "file": "docs/media/livehime-resume.mp4",
+      "bytes": 540606,
+      "sha256": "9f1487324cce21387773a474387f2a33f7026205d7b1bb8bd0e8860aa99f1d92",
+      "id": "resume",
+      "start_seconds": 116.5,
+      "duration_seconds": 8.2,
+      "audio": true,
+      "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
+      "speed": 1
+    },
+    {
+      "file": "docs/media/livehime-ui-interaction.mp4",
+      "bytes": 257830,
+      "sha256": "394d7e95f4c35d5d0a35c5fb4abf9124c6a8aba898382f26868aa003e218b353",
+      "source_sha256": "4ce420e6d5ce00fed0e73dfb38d9313e7f4b456d9ec0df60002dbbadc70dd189",
+      "audio": false,
+      "speed": 1
+    },
+    {
+      "file": "docs/media/livehime-welcome.mp4",
+      "bytes": 774685,
+      "sha256": "f31b51e715b976858a365af654a253a88f15f08744c5fbccc6e5dfbfb6c8500a",
+      "id": "welcome",
+      "start_seconds": 45.2,
+      "duration_seconds": 10.2,
+      "audio": true,
+      "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
+      "speed": 1
+    }
+  ]
+}
