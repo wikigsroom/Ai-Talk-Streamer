@@ -16,7 +16,7 @@
 
 ![直播姬真实说话节选，无声 GIF](../media/livehime-local-response.gif)
 
-五项本地场景为欢迎、去重、讲解、暂停恢复、两条留言按序播放。当前录制是**原文播报**，不包含云端模型生成回复。云端初轮超时，后续探针和独立 AI 播报完成，分别保留记录；该后续播报没有包含在本页五段录像中。真实 B站 595139 弹幕连接与心跳通过，但新观众评论和观众端尚未验收；主播要求公开开播后，直播姬弹出本人操作的人脸验证。
+五项本地场景为欢迎、去重、讲解、暂停恢复、两条留言按序播放。当前录制是**原文播报**，不包含云端模型生成回复。云端初轮超时，后续探针和独立 AI 播报完成，分别保留记录；该后续播报没有包含在本页五段录像中。真实 B站 595139 弹幕连接与心跳通过。初次开播要求本人完成人脸验证，完成后公开开播成功；独立的公开CDN抓取见下文。新观众评论触发可听回复仍未验收。
 
 原始录像、节选时间、音频检查、播放账本及来源哈希见[直播姬证据](../evidence/bilibili-livehime.json)与[媒体清单](../media/livehime-media-manifest.json)。GIF/预览只截取说话区间，不代表整条留言的生成等待或响应延迟。公开的客户端截图已裁掉桌面并遮盖账号身份区域。
 
@@ -70,6 +70,14 @@ GIF 是实际录像的原速节选，不代表整场平台延迟。视频预览�
 
 完整机器验收记录见[平台证据](../evidence/platform-integration.json)。此前 DSH 的历史证据保留原日期、原来源哈希与原范围；本次新增接入使用独立证据记录变更及复验，未将此前未做的 20 轮记忆验收改为通过。
 
+## 公开CDN后续核验
+
+主播完成官方核验后已实际开播，B站房间595139返回 `live_status=1`。以下独立抓取来自平台公开CDN，时长10.086秒，720×1280 / 30 FPS、H.264＋AAC，FFmpeg完整解码退出码0。抓取时为待机状态，因此不把存在AAC音轨称为已经验证公开语音回复。真实新弹幕→AI→观众端可听仍待测试。
+
+![公开CDN解码画面](../media/bilibili-public-cdn-frame.png)
+
+[查看公开CDN十秒抓取](../media/bilibili-public-cdn-preview.mp4) · [完整方案与证据边界](../archives/2026-10-26-LIVEHIME-HANDOFF.md)。带签名的CDN地址、登录资料和人脸二维码未公开。记录只证明检查时已开播，不保证以后一直在线。
+
 ## English
 
-The current Bilibili captures use the signed official Livehime client, its internal browser audio and a real local H.264/AAC recording. Five local cases cover greeting, de-duplication, explanation, pause/resume and ordered messages; they use Echo text and local MOSS 04/MuseTalk. An initial cloud timeout and a later successful compatibility probe/AI utterance are retained separately. Real Bilibili room connectivity is separate from locally injected acceptance messages. The requested public start is waiting for the official client's account-owner face verification; no audience acceptance is claimed. The older OBS/RTMP media above retains its original provenance.
+The current Bilibili captures use the signed official Livehime client, its internal browser audio and a real local H.264/AAC recording. Five local cases cover greeting, de-duplication, explanation, pause/resume and ordered messages; they use Echo text and local MOSS 04/MuseTalk. An initial cloud timeout and a later successful compatibility probe/AI utterance are retained separately. Real Bilibili room connectivity is separate from locally injected acceptance messages. After owner verification the public room reported live, and a separate 10.086-second CDN capture decoded portrait H.264 video and AAC audio. The capture is an idle interval; it does not verify an audible response to a real viewer comment. The older OBS/RTMP media above retains its original provenance.

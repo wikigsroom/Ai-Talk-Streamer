@@ -2,7 +2,7 @@
   "schema_version": 1,
   "kind": "official_livehime_local_recording_media",
   "report": "docs/evidence/bilibili-livehime.json",
-  "report_sha256": "244e8ec0fa208c561d2017bc1c3a511cef359427eef41d8f576884336568ec1d",
+  "report_sha256": "9d8c074e385155533e1f757ad8591e5ddbac982229037c52e2d5fa4f32b64883",
   "cloud_llm_exercised": false,
   "platform_audience_verified": false,
   "items": [
@@ -105,6 +105,18 @@
       "audio": true,
       "source_sha256": "7273aa82376f9c2a27cdd65fc6e47d8d0b3379c777a4ae00c842dfbfbbbc978c",
       "speed": 1
+    },
+    {
+      "file": "docs/media/bilibili-public-cdn-preview.mp4",
+      "bytes": 4056040,
+      "sha256": "1ab7a69353a6021018279e40532cff869f60fff4b2d49c8aaf4804d477275205",
+      "provenance": "Actual 10.086-second public Bilibili CDN capture after account-owner verification; idle interval; no real viewer comment response asserted"
+    },
+    {
+      "file": "docs/media/bilibili-public-cdn-frame.png",
+      "bytes": 910863,
+      "sha256": "c608d3e51829b513d53e93cd7aff1d4512b3e97122160bbba88851f3265abbad",
+      "provenance": "Actual 10.086-second public Bilibili CDN capture after account-owner verification; idle interval; no real viewer comment response asserted"
     }
   ]
 }

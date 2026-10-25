@@ -5,7 +5,7 @@
   "application_authentication_required": false,
   "obs_used": false,
   "platform_audience_verified": false,
-  "scope": "Official Livehime local recording/five Echo cases; later separate cloud AI playback passed; public start requires owner face verification",
+  "scope": "Official Livehime local five Echo cases; later independent cloud AI playback, owner-verified public start and short public CDN decode; real viewer-comment round trip unverified",
   "module_tests": {
     "node_passed": 76,
     "node_failed": 0,
@@ -1022,7 +1022,48 @@
   "public_start_attempt": {
     "explicitly_requested_by_owner": true,
     "start_button_clicked": true,
-    "official_client_result": "account-owner face verification required",
-    "public_live_verified": false
+    "official_client_result": "owner completed face verification; official client entered broadcasting state",
+    "public_live_verified": true,
+    "initial_official_client_result": "account-owner face verification required",
+    "account_owner_verification_completed": true
+  },
+  "public_broadcast_follow_up": {
+    "checked_at": "2026-10-25T22:46:07.668564+00:00",
+    "room_id": "595139",
+    "public_room_live_status": 1,
+    "play_info_code": 0,
+    "playback_candidates": 6,
+    "comment_response_verified": false,
+    "capture_exit_code": 0,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 720,
+          "height": 1280,
+          "r_frame_rate": "30/1"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "10.086000"
+      }
+    },
+    "cdn_video_and_audio_decoded": true,
+    "room_checked_at": "2026-10-25T22:45:23.050521+00:00",
+    "public_live_started_unix": 1792968289,
+    "capture": "docs/media/bilibili-public-cdn-preview.mp4",
+    "frame": "docs/media/bilibili-public-cdn-frame.png",
+    "capture_state": "idle; audible speech was not measured",
+    "real_viewer_comment_to_audible_reply_verified": false,
+    "signed_cdn_urls_published": false,
+    "source_workstation": "remote-3080"
   }
 }

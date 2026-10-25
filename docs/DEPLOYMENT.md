@@ -2,6 +2,8 @@
 
 [Index / 导航](README.md) · [Configuration / 配置](CONFIGURATION.md) · [Troubleshooting / 排障](TROUBLESHOOTING.md)
 
+**Primary target / 后续主目标：** `remote-4090` / `REMOTE_4090_HOST`。Existing-installation migration, consistent private-state cutover and current readiness are documented in the [4090 runbook](deployment/RTX4090_MIGRATION.md). The generic fresh-install steps below also preserve the original GPT-SoVITS option; the selected MOSS04/DSH/Livehime runtime requires the additional stages in that runbook.
+
 ## Requirements / 环境
 
 The reference machine is Windows x64, an RTX 4090 reporting **48 GB VRAM**, and **63.9 GiB usable host RAM**. A usual 24 GB RTX 4090 is a different capacity and is not the validated reference. Use an NVIDIA driver compatible with the CUDA 12.8 PyTorch wheels. The bootstrap command needs Git, a working Python 3.10+ and Internet access to GitHub, Hugging Face, PyPI, PyTorch and upstream data downloads.

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "kind": "native_target_inventory_and_repository_staging",
+  "checked_at": "2026-10-26T06:57:09+08:00",
+  "decision_date": "2026-10-26",
+  "target": "remote-4090",
+  "source_runtime": "remote-3080",
+  "primary_target_for_future_work": "remote-4090",
+  "gpu": {"name": "NVIDIA GeForce RTX 4090", "total_mib": 49140, "used_mib": 9062, "free_mib": 39561, "utilization_percent": 0, "measurement_scope": "inventory snapshot; not avatar-runtime utilization"},
+  "disk_free_gib": 399.6,
+  "native_python": {
+    "livetalking": "3.10.22", "legacy_tts": "3.10.22", "comfy_embedded": "3.13.14",
+    "torch_import_probe": "initial 15-second import probe timed out; subsequent interpreter-only probe passed; GPU inference not certified"
+  },
+  "existing_installation": {
+    "avatar_id": "student_dorm_motion_bank_v3", "selected_tts_in_legacy_config": "gpt-sovits", "legacy_avatar_batch_size": 8, "legacy_avatar_fps": 25,
+    "prepared_motion_directories_present": true,
+    "moss_vendor_expected_directory_present": false, "moss_models_expected_directory_present": false, "moss_voice_references_in_legacy_assets_present": false,
+    "avatar_port_8010_listening": false, "tts_port_9880_listening": false, "dsh_port_3092_listening": false, "management_port_3091_listening": false,
+    "comfy_port_8188_listening": true, "comfy_queue_running": 0, "comfy_queue_pending": 0
+  },
+  "initial_repository_clone": {
+    "completed": true,
+    "origin": "https://github.com/wikigsroom/Ai-Talk-Streamer.git", "branch": "main",
+    "base_commit": "cfc90783736891b4797cb6c0636e5a185a171832", "base_tracked_files": 990, "initial_working_tree_clean": true,
+    "final_commit_receipt": "operations/migration-4090/repository-sync.json on the target workstation"
+  },
+  "target_profile": {
+    "avatar_precision": "FP16", "avatar_batch_size": 8, "canvas": [720, 1280], "avatar_fps": 25,
+    "tts": "MOSS-TTSD-v1.0 / v04", "tts_precision": "NF4 / BF16 compute; FP32 CPU codec",
+    "dsh": "0.2.0-rc.2", "humanity": "0.1.17", "bilibili_output": "official Livehime browser source", "application_authentication_required": false
+  },
+  "activation_performed": false, "gpu_models_started": false, "private_state_transferred": false, "source_broadcast_stopped_by_sync": false, "new_target_runtime_acceptance_passed": false,
+  "limitations": [
+    "Repository and documentation staging do not install missing MOSS weights, native dependencies, DSH or the official client.",
+    "The source broadcast and memory remain on the 3080 until a deliberate consistent cutover.",
+    "The 3080 measurements do not certify 4090 inference or audience performance."
+  ]
+}

@@ -4,7 +4,7 @@
 
 A native Windows studio for a photorealistic **9:16 talking avatar**. Type a script, or ask your own cloud LLM a question; the workstation synthesizes the voice, generates the lip motion, plays coordinated body footage, and delivers the avatar to your browser and Bilibili’s official Livehime client.
 
-The included character is **女A / Lin Zhixia (林知夏)**, a **fictional 22-year-old Chinese university student** in **Zhixia's Daylight Dorm**. [Character identity and categorized archive](docs/CHARACTERS.md) include a verified inventory and rebuildable bundle. The reference deployment uses an **RTX 4090 with 48 GB VRAM and 64 GB system RAM**.
+The included character is **女A / Lin Zhixia (林知夏)**, a **fictional 22-year-old Chinese university student** in **Zhixia's Daylight Dorm**. [Character identity and categorized archive](docs/CHARACTERS.md) include a verified inventory and rebuildable bundle. The primary target is now the **RTX 4090 workstation with 48 GB VRAM and 64 GB system RAM**. See the [4090 target](docs/RTX4090.md), [native migration and cutover runbook](docs/deployment/RTX4090_MIGRATION.md), and [archived complete solution](docs/archives/2026-10-26-LIVEHIME-HANDOFF.md). Source synchronization and runtime acceptance are tracked separately.
 
 The original **RTX 3080 10 GB / 64 GB RAM** GPT-SoVITS version retains batch-8 FP16 models, the full motion bank and 720×1280 output. The selected MOSS version uses batch 4 after batch-8 playback failed validation. Browser playback counts presented frames and preserves queued audio when a viewer falls behind. See the [3080 measurements](docs/RTX3080.md), [playback correction](docs/PLAYBACK.md) and [MOSS validation](docs/MOSS_LIVE.md).
 
@@ -16,7 +16,7 @@ The original **RTX 3080 10 GB / 64 GB RAM** GPT-SoVITS version retains batch-8 F
 
 ![Actual official Livehime portrait source](docs/media/livehime-client.png)
 
-[Watch Livehime with sound](docs/media/livehime-local-preview.mp4) · [Five spoken excerpts, UI recording and GIF](docs/platforms/MEDIA.md). Five local Echo cases passed with actual MOSS playback. Cloud inference initially timed out, then a fresh compatibility probe and a separate AI utterance completed; both results are retained. Public start was requested but the official client requires the account owner's face verification. Audience delivery remains unverified. The complete 209.13-second recording preserves generation waits.
+[Watch Livehime with sound](docs/media/livehime-local-preview.mp4) · [Five spoken excerpts, UI recording and GIF](docs/platforms/MEDIA.md). Five local Echo cases passed with actual MOSS playback. Cloud inference initially timed out, then a fresh compatibility probe and a separate AI utterance completed; both results are retained. After the owner completed official verification, the room reported live and a separate 10.086-second public CDN capture decoded successfully. A real viewer-comment-to-audible-reply round trip remains unverified; see the [public capture and scope](docs/platforms/MEDIA.md). The complete 209.13-second recording preserves generation waits.
 
 [Actual platform pages, an audible RTMP recording and GIF](docs/platforms/MEDIA.md) document the native event, duplicate, pause/resume and real AI checks. Account publishing and audience delivery are identified separately.
 
