@@ -11,22 +11,23 @@ const record=(event,data={})=>{const row={at:new Date().toISOString(),event,...d
   context=await chromium.launchPersistentContext(path.join(root,'cache/dsh-browser/authority'),{executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,
    viewport:{width:1380,height:1000},env:{...process.env,TEMP:path.join(root,'cache/tmp'),TMP:path.join(root,'cache/tmp')},args:['--no-proxy-server','--disable-gpu','--autoplay-policy=no-user-gesture-required']});
   const api=async(route,body)=>{const r=body===undefined?await context.request.get(origin+'/api/dsh/'+route):await context.request.post(origin+'/api/dsh/'+route,{data:body});const value=await r.json();if(!r.ok())throw Error(route+':'+value.error);return value;};
-  await api('login',{token:fs.readFileSync(path.join(root,'configs/dsh-operator.token'),'utf8').trim()});
   assert.equal((await api('status')).broadcast,null,'Run this test only when off air');
   const page=context.pages()[0]||await context.newPage();page.on('pageerror',error=>errors.push(error.message));
-  await page.goto(origin+'/',{waitUntil:'domcontentloaded'});await page.click('#connectBtn');
+  await page.goto(origin+'/',{waitUntil:'domcontentloaded'});await page.click('#echoTab');await page.click('#connectBtn');
   await page.waitForFunction(()=>window.avatarTransport?.frames>25,null,{timeout:120000});
   const obs=await context.newPage();obs.on('pageerror',error=>errors.push(error.message));
   await obs.goto('http://127.0.0.1:8010/obs.html',{waitUntil:'domcontentloaded'});
   await obs.waitForFunction(()=>window.avatarTransport?.frames>25,null,{timeout:120000});
-  const broadcast=await api('broadcast/start',{});started=true;
+  await page.waitForFunction(()=>document.querySelector('#dshLiveState').dataset.state==='LIVE');
+  const broadcast=(await api('status')).broadcast;started=true;
+  await obs.evaluate(id=>window.avatarTransport.dsh.claim(id,true),broadcast.broadcast_id);
+  await page.waitForFunction(()=>!window.avatarTransport.dsh.lease,null,{timeout:12000});
   await obs.waitForFunction(()=>!!window.avatarTransport?.dsh.lease,null,{timeout:20000});
-  await api('broadcast/ready',{broadcast_id:broadcast.broadcast_id,expected_revision:broadcast.revision,mode:'echo'});
   assert.equal(await page.evaluate(()=>window.avatarTransport.dsh.metrics().authority),false,'Preview must not acquire authority');
   const refusal=await page.evaluate(async id=>{try{await window.avatarTransport.dsh.claim(id,false);return null}catch(error){return error.message}},broadcast.broadcast_id);
   assert.equal(refusal,'AUTHORITY_ALREADY_HELD');
-  const scope=await obs.evaluate(async()=>{const p=window.avatarTransport.dsh;const headers={'Content-Type':'application/json',Authorization:'Bearer '+p.credential};const r=await fetch('/api/dsh/requests',{method:'POST',headers,body:JSON.stringify({text:'must not run',mode:'echo',idempotency_key:window.streamUUID()})});return {status:r.status,error:(await r.json()).error};});
-  assert.equal(scope.status,403);record('obs_authority_and_scope',{preview_refusal:refusal,obs_chat_status:scope.status});
+  const scope=await obs.evaluate(async()=>{const r=await fetch('/api/dsh/memory');return {status:r.status};});
+  assert.equal(scope.status,200);record('obs_playback_and_open_access',{preview_refusal:refusal,obs_memory_status:scope.status});
   const first=await api('requests',{text:'现在由本机浏览器中的 OBS 画面确认播放。稍后会切换到演播台。被打断的句子不能被登记为完整说过，新的句子需要单独确认。',mode:'echo',idempotency_key:crypto.randomUUID()});
   let playing;
   for(let i=0;i<900;i++){
@@ -53,7 +54,7 @@ const record=(event,data={})=>{const row={at:new Date().toISOString(),event,...d
   const current=(await api('status')).broadcast;await api('broadcast/end',{broadcast_id:current.broadcast_id,expected_revision:current.revision});for(let i=0;i<45&&(await api('status')).broadcast;i++)await page.waitForTimeout(1000);started=false;
   assert.deepEqual(errors,[]);
   const report={schema_version:1,checked_at:new Date().toISOString(),passed:true,kind:'real_two_chrome_players_with_obs_source_page',cloud_llm_exercised:false,
-   obs_application_exercised:false,preview_cannot_claim:true,obs_chat_forbidden:true,old_authority_revoked:true,
+   obs_application_exercised:false,preview_cannot_claim:true,obs_management_without_login:true,old_authority_revoked:true,
    partial_played_samples:playing.utterances.find(u=>u.played_samples>0).played_samples,
    requests:[interrupted,completed].map(row=>({request_id:row.request_id,status:row.status})),browser_errors:errors};
   fs.writeFileSync(path.join(output,'authority-smoke.json'),JSON.stringify(report,null,2));record('finished',{passed:true});

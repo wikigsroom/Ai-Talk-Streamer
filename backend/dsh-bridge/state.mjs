@@ -52,7 +52,6 @@ export class StreamState extends EventEmitter {
     return !!lease && !lease.revoked_at && lease.runtime_epoch === this.room().runtime_epoch && Date.parse(lease.expires_at) > this.db.now();
   }
   createBroadcast(principal) {
-    requireValue(principal.role === 'operator', 'OPERATOR_REQUIRED', 403);
     return this.db.tx(() => {
       requireValue(!this.current(), 'BROADCAST_ALREADY_OPEN');
       const room = this.room(), broadcastId = id('bc'), now = utc(this.db.now());
@@ -86,7 +85,6 @@ export class StreamState extends EventEmitter {
     });
   }
   pause(principal, expected) {
-    requireValue(principal.role === 'operator', 'OPERATOR_REQUIRED', 403);
     this.controlTarget(expected);
     const active = this.active(); if (active) this.cancel(active.request_id, 'paused');
     return this.db.tx(() => {
@@ -96,7 +94,6 @@ export class StreamState extends EventEmitter {
     });
   }
   end(principal, expected) {
-    requireValue(principal.role === 'operator', 'OPERATOR_REQUIRED', 403);
     const broadcast = this.controlTarget(expected);
     if (!broadcast) return { already_ended: true };
     return this.db.tx(() => {
@@ -202,7 +199,6 @@ export class StreamState extends EventEmitter {
     });
   }
   claimAuthority(principal, broadcastId, consumerId, replace = false) {
-    requireValue(principal.role === 'operator', 'OPERATOR_REQUIRED', 403);
     requireValue(typeof consumerId === 'string' && consumerId.length >= 8 && consumerId.length <= 100, 'CONSUMER_INVALID', 400);
     const oldLease=this.lease(broadcastId),oldRequest=this.active();let cancelled=null;
     if(this.current()?.broadcast_id===broadcastId&&oldLease&&!oldLease.revoked_at&&oldRequest&&(replace||!this.authorityReady(broadcastId))) {
@@ -262,7 +258,6 @@ export class StreamState extends EventEmitter {
     });
   }
   receipt(principal, input) {
-    requireValue(principal.role === 'operator', 'OPERATOR_REQUIRED', 403);
     return this.db.tx(() => {
       const utterance = this.db.get('SELECT * FROM utterances WHERE utterance_id=?', input.utterance_id);
       requireValue(utterance && Number.isSafeInteger(input.receipt_sequence) && input.receipt_sequence >= 0 && Number.isSafeInteger(input.contiguous_played_samples), 'RECEIPT_INVALID', 400);
@@ -325,7 +320,6 @@ export class StreamState extends EventEmitter {
     return barrier;
   }
   cancelAck(principal, input) {
-    requireValue(principal.role === 'operator', 'OPERATOR_REQUIRED', 403);
     return this.db.tx(() => {
       const barrier = this.db.get('SELECT * FROM cancel_barriers WHERE barrier_id=?', input.barrier_id);
       requireValue(barrier && Date.parse(barrier.expires_at) >= this.db.now(), 'CANCEL_ACK_EXPIRED');

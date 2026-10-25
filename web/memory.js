@@ -1,7 +1,7 @@
 'use strict';
 (()=>{
  const $=id=>document.getElementById(id);
- let operator=false,status,persona,editing,archiving,eventSource,eventTimer,cursor=null,nextCursor=null,pageStack=[],selected=new Map(),broadcasts=[];
+ let status,persona,editing,archiving,eventSource,eventTimer,cursor=null,nextCursor=null,pageStack=[],selected=new Map(),broadcasts=[];
  async function api(path,body){const r=await fetch('/api/dsh/'+path,{method:body===undefined?'GET':'POST',headers:body===undefined?{}:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});const data=await r.json();if(!r.ok)throw Error(data.error||'请求失败');return data;}
  const note=text=>{$('feedback').textContent=text;};
  const attempt=fn=>async event=>{event?.preventDefault();try{await fn();}catch(error){note(error.message==='MEMORY_PAGE_CHANGED'?'记忆已更新，请刷新后重新分页。':error.message);}};
@@ -11,7 +11,7 @@
  function selection(){ $('selectionCount').textContent='已选 '+selected.size+' 条';$('mergeSelected').disabled=selected.size<2||selected.size>20; }
  function operationSaved(id){$('undoOperation').value=id;note('操作已保存：'+id+'。可使用下方补偿撤销。');}
  async function loadMemory(){
-  if(!operator)return;
+
   const parameters=new URLSearchParams({limit:'50'});
   for(const [key,id] of [['subject_key','filterSubject'],['fact_key','filterFact'],['state','filterState']])if($(id).value.trim())parameters.set(key,$(id).value.trim());
   if(cursor)parameters.set('cursor',cursor);
@@ -33,7 +33,7 @@
   }
  }
  async function loadJobs(){
-  if(!operator)return;const data=await api('jobs');$('jobRows').replaceChildren();$('jobCount').textContent=data.jobs.filter(j=>!['COMPLETED','CANCELLED'].includes(j.state)).length+' 项待处理';
+const data=await api('jobs');$('jobRows').replaceChildren();$('jobCount').textContent=data.jobs.filter(j=>!['COMPLETED','CANCELLED'].includes(j.state)).length+' 项待处理';
   for(const job of data.jobs){const row=document.createElement('tr');cell(row,job.job_kind+'\n'+job.partition_key);cell(row,job.state+' / '+job.stage);cell(row,job.consumed_through_seq+' / '+job.source_end_seq);cell(row,(job.reason||'—')+'\n'+new Date(job.not_before).toLocaleString());const td=cell(row,'');
    if(!['RUNNING','COMPLETED'].includes(job.state))button(td,'继续',async()=>{await api('jobs/resume',{job_id:job.job_id});await loadJobs();});if(!['COMPLETED','CANCELLED'].includes(job.state))button(td,'取消',async()=>{await api('jobs/cancel',{job_id:job.job_id});await loadJobs();});$('jobRows').append(row);
   }
@@ -42,9 +42,10 @@
  function selectBroadcast(){const b=broadcasts.find(b=>b.broadcast_id===$('rebuildBroadcast').value);$('rebuildStart').value=b?.source_start_seq||'';$('rebuildEnd').value=b?.ended_event_seq||'';}
  async function loadBroadcasts(){const data=await api('broadcasts');broadcasts=data.broadcasts.filter(b=>b.state==='ENDED');const prior=$('rebuildBroadcast').value;$('rebuildBroadcast').replaceChildren();for(const b of broadcasts){const option=document.createElement('option');option.value=b.broadcast_id;option.textContent=new Date(b.ended_at).toLocaleString()+' · '+b.broadcast_id;$('rebuildBroadcast').append(option);}if(broadcasts.some(b=>b.broadcast_id===prior))$('rebuildBroadcast').value=prior;else selectBroadcast();}
  async function refresh(){status=await api('status');$('liveState').textContent=status.broadcast?.state||'OFFAIR';$('model').textContent=status.health.channel.model||'尚未配置';$('channel').textContent='演播台渠道 · '+(status.health.channel.protocol||'—');$('personaVersion').textContent=status.health.persona_version;$('projection').textContent=status.health.projection_synced?'已同步':'等待同步';$('memoryRevision').textContent='主账本 r'+status.room.memory_revision+' · 删除屏障 '+status.room.deletion_generation;}
- function subscribe(){eventSource?.close();eventSource=new EventSource('/api/dsh/events');eventSource.addEventListener('state',()=>{if(eventTimer)return;eventTimer=setTimeout(()=>{eventTimer=null;void refresh().catch(()=>{});if(operator)void loadJobs().catch(()=>{});},300);});}
- async function signedIn(){const p=await api('whoami');operator=p.role==='operator';$('identity').textContent=(operator?'管理员':p.display_name)+' · 已登录';subscribe();if(operator){persona=await api('persona');$('personaDocument').value=JSON.stringify(persona.document,null,2);resetPage();await loadMemory();await loadJobs();await loadBroadcasts();}}
- $('loginForm').onsubmit=attempt(async()=>{await api('login',{token:$('loginToken').value.trim()});$('loginToken').value='';await signedIn();note('已登录。模型 API 沿用演播台设置，无需重复填写。');});
+ function subscribe(){eventSource?.close();eventSource=new EventSource('/api/dsh/events');eventSource.addEventListener('state',()=>{if(eventTimer)return;eventTimer=setTimeout(()=>{eventTimer=null;void refresh().catch(()=>{});void loadJobs().catch(()=>{});},300);});}
+ async function initialize(){
+  $('identity').textContent='直接使用';subscribe();persona=await api('persona');$('personaDocument').value=JSON.stringify(persona.document,null,2);resetPage();await loadMemory();await loadJobs();await loadBroadcasts();
+ }
  $('refreshMemory').onclick=attempt(async()=>{resetPage();await loadMemory();});$('memoryFilters').onsubmit=attempt(async()=>{resetPage();await loadMemory();});
  $('previousPage').onclick=attempt(async()=>{const oldCursor=cursor,oldStack=[...pageStack];cursor=pageStack.pop()??null;try{await loadMemory();}catch(error){cursor=oldCursor;pageStack=oldStack;throw error;}});
  $('nextPage').onclick=attempt(async()=>{if(!nextCursor)return;const old=cursor;pageStack.push(cursor);cursor=nextCursor;try{await loadMemory();}catch(error){cursor=old;pageStack.pop();throw error;}});
@@ -57,11 +58,9 @@
  $('rebuildBroadcast').onchange=selectBroadcast;
  $('rebuildForm').onsubmit=attempt(async()=>{const b=broadcasts.find(b=>b.broadcast_id===$('rebuildBroadcast').value);if(!b)throw Error('没有可选择的已结束场次。');const r=await api('jobs/rebuild',{operation_id:window.streamUUID(),broadcast_id:b.broadcast_id,expected_source_revision:b.source_revision,partition_key:$('rebuildPartition').value.trim(),source_start_seq:Number($('rebuildStart').value),source_end_seq:Number($('rebuildEnd').value),reason:$('rebuildReason').value});note('已创建 '+r.job_id+'；按静默时间、渠道和预算条件执行。');await loadJobs();});
  $('publishPersona').onclick=attempt(async()=>{const result=await api('persona',{expected_version:status.health.persona_version,document:JSON.parse($('personaDocument').value)});note('已发布 '+result.persona_version);await refresh();});
- $('inviteForm').onsubmit=attempt(async()=>{const result=await api('viewers',{label:$('viewerLabel').value});$('invitation').value=result.invitation_token;note('已创建独立观众身份。相同昵称不会合并记忆。');});
- $('copyInvitation').onclick=attempt(async()=>{await navigator.clipboard.writeText($('invitation').value);note('邀请码已复制。');});
  $('backup').onclick=attempt(async()=>{const result=await api('backup',{});$('backupResult').textContent=JSON.stringify(result.manifest,null,2);note('已创建备份：'+result.backup_id);});
- for(const b of document.querySelectorAll('[data-tab]'))b.onclick=()=>{for(const tab of document.querySelectorAll('.tab'))tab.hidden=tab.id!==b.dataset.tab;for(const item of document.querySelectorAll('[data-tab]'))item.classList.toggle('selected',item===b);if(b.dataset.tab==='jobs'&&operator)void loadBroadcasts().catch(error=>note(error.message));};
- void api('session',{}).then(refresh).then(()=>signedIn().catch(()=>{})).catch(error=>note(error.message));
+ for(const b of document.querySelectorAll('[data-tab]'))b.onclick=()=>{for(const tab of document.querySelectorAll('.tab'))tab.hidden=tab.id!==b.dataset.tab;for(const item of document.querySelectorAll('[data-tab]'))item.classList.toggle('selected',item===b);if(b.dataset.tab==='jobs')void loadBroadcasts().catch(error=>note(error.message));};
+ void refresh().then(initialize).catch(error=>note(error.message));
  const fast=setInterval(()=>refresh().catch(()=>{}),15000),slow=setInterval(()=>{void loadJobs().catch(()=>{});},10000);
  addEventListener('beforeunload',()=>{clearInterval(fast);clearInterval(slow);clearTimeout(eventTimer);eventSource?.close();});
 })();

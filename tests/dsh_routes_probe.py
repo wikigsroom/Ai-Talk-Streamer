@@ -122,10 +122,37 @@ async def check_media_fences():
         else:
             sys.modules['server.session_manager'] = saved_module
 
+
+async def check_open_access_proxy():
+    calls = []
+    async def session(request):
+        calls.append(dict(request.headers))
+        return web.json_response({'principal': {'role': 'operator', 'authentication_required': False}, 'studio': {'auto_start': True}})
+    upstream = web.Application()
+    upstream.router.add_post('/api/dsh/session', session)
+    server = TestServer(upstream)
+    await server.start_server()
+    saved_bridge = module.BRIDGE
+    module.BRIDGE = str(server.make_url('')).rstrip('/')
+    forwarded = web.Application()
+    forwarded.router.add_post('/api/dsh/{tail:.*}', module.proxy)
+    try:
+        async with TestClient(TestServer(forwarded)) as client:
+            for headers in [{}, {'Origin': 'https://different.example'}, {'Authorization': 'Bearer obsolete', 'Cookie': 'dsh_session=invalid'}]:
+                result = await client.post('/api/dsh/session', json={}, headers=headers)
+                assert result.status == 200 and (await result.json())['principal']['authentication_required'] is False
+                assert 'Set-Cookie' not in result.headers
+            assert len(calls) == 3 and all('Authorization' not in h and 'Cookie' not in h for h in calls)
+    finally:
+        module.BRIDGE = saved_bridge
+        await server.close()
+
+
 async def main():
     await check_legacy_guard()
     await check_streaming_proxy()
     await check_media_fences()
+    await check_open_access_proxy()
 
 asyncio.run(main())
-print(json.dumps({'passed': True, 'route_count': len(list(app.router.routes())), 'cors_preflight': True, 'legacy_speech_bypass_blocked': True, 'sse_forwarded_before_eof': True, 'last_event_id_forwarded': True, 'media_commands_idempotent': True, 'stale_cancel_does_not_flush_new_speech': True, 'old_epoch_cannot_override_new': True}))
+print(json.dumps({'passed': True, 'route_count': len(list(app.router.routes())), 'cors_preflight': True, 'legacy_speech_bypass_blocked': True, 'sse_forwarded_before_eof': True, 'last_event_id_forwarded': True, 'media_commands_idempotent': True, 'stale_cancel_does_not_flush_new_speech': True, 'old_epoch_cannot_override_new': True, 'open_access_without_credentials': True, 'cross_origin_not_blocked': True, 'obsolete_credentials_ignored': True}))

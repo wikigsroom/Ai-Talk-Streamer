@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-10-25T09:16:46.509955+00:00",
+  "checked_at": "2026-10-25T10:33:49.906769+00:00",
   "overall_acceptance": "incomplete",
-  "scope": "Native modules, pinned DSH/Humanity with controlled HTTP, isolated management fixture, local Echo and real saved-channel three-turn playback. Ten studio session-flow checks and one additional real AI utterance passed; full 20-turn and S1-S5 acceptance remain pending.",
+  "scope": "Current open-access application: 44 modules, native unauthenticated proxy/HTTP, 13 real workstation browser checks, one real AI and two Echo completions, and 11 isolated real DSH/Humanity management checks. Historical media and channel tests retain their scopes; 20-turn/S1-S5 acceptance remains pending.",
   "module_tests": {
     "node_passed": 44,
     "python_viewer_buffer_passed": 3,
@@ -16,7 +16,10 @@
     "native_stale_cancel_preserves_new_speech": true,
     "native_old_epoch_fenced": true,
     "model_iterator_cancel_settled": true,
-    "native_node_version": "v24.22.1"
+    "native_node_version": "v24.22.1",
+    "native_proxy_without_credentials": true,
+    "native_proxy_cross_origin": true,
+    "native_proxy_ignores_obsolete_credentials": true
   },
   "host_probe": {
     "kind": "real_dsh_humanity_with_controlled_http_model",
@@ -83,9 +86,9 @@
     "S5": "pending_full_scenario"
   },
   "code_sha256": {
-    "backend/dsh-bridge/auth.mjs": "e063e7f5128ad76c90e1251980c64f80be06eafcfabc2e62e3486b2c25471658",
+    "backend/dsh-bridge/auth.mjs": "63eaf97bd96bf9b1109d056686ef0c0bfc074d9b7044afb0c845838f20c291e5",
     "backend/dsh-bridge/channel.mjs": "b6b4437dc772dbb163f2e0e95364fdbc2032c904f8e185e6c634c6142bcb3baa",
-    "backend/dsh-bridge/events.mjs": "5a54845a9fb2ba5c263d48137ccc77a338bbe0ebb922b336705c0c760b39884a",
+    "backend/dsh-bridge/events.mjs": "7beb412d456f470dd41eef16fba346191fb1c44659303d771f8d9c4bc46a1b82",
     "backend/dsh-bridge/host.mjs": "0dae79e10bbd55111acdb101c13eaa7289f0ca0ccd35547c0eb55400a1756174",
     "backend/dsh-bridge/humanity-port.mjs": "09843503605e51cebac3952175176c64f3da84d465d83f5204f1299a91ca70f6",
     "backend/dsh-bridge/model-errors.mjs": "3ba67b32234f6a583c59312947d998fa7e10b9640a40d310f3fed11df0162b6e",
@@ -93,9 +96,9 @@
     "backend/dsh-bridge/package.json": "dd1aad8ccf604d32c276a95ee00e2be01a953dea82f21c88f8601232a53b8076",
     "backend/dsh-bridge/persona.mjs": "adeef02c55da9b710f5916de90aa8698349238a734b8cc06abfa29dd47037457",
     "backend/dsh-bridge/policy.mjs": "d3b80997331f64772df7c0d99135ada720f98401a861b1293898fdb83cf98a23",
-    "backend/dsh-bridge/server.mjs": "bf62b0437aaf2b867a6ec9fba19f8d999118f260808d0ded8b9c74eb8c28fd6b",
-    "backend/dsh-bridge/state.mjs": "6197ad00b3610b5d8cd770cfcaaf3652ca82c7274401ea8e200515404b499553",
-    "backend/memory/administration.mjs": "25e7e86ce5b16ee06b937492675898fdadd794bb1ddbe5b5112bb2d9567a30a0",
+    "backend/dsh-bridge/server.mjs": "6290dd737f0c103fa2c265572de10ddb98754d2fd5d63665d04dfdb306aebb7b",
+    "backend/dsh-bridge/state.mjs": "eeca26a474c11e3b3cb262bd435a43d4aad38ea79b7a34b7d5683260446fb6d3",
+    "backend/memory/administration.mjs": "48130e16f34b61d7c6f8e3c3ccb728c2dc328a6f62dd18ed7360364f609ad72a",
     "backend/memory/migrations/001-init.sql": "05200dedb805035a3a3a41533f7890981d1c977272e02fcb177bd3b406e1f267",
     "backend/memory/migrations/002-runtime.sql": "e0779fea6be494893d6443ab6dac4f57fe4c3b8c6275daffbf04a5d522f65913",
     "backend/memory/query.mjs": "ce25ce9a4beb6a76568a99a3f79b5b3a2370e36000925ba87bf914f08b98c4b5",
@@ -108,39 +111,42 @@
     "deployment/install_dsh.ps1": "0de32c62968f0666c0e9aa68060766fdb55fdcdaf672861f4bffb7db420f80f5",
     "deployment/patch_humanity.py": "abb8e43b57acde1eb4bfa06d8c75201495c4872059dc3e9aa52428eb9dac8949",
     "deployment/restart_avatar_for_dsh.py": "974efc993e16e39e722d0582cc3fc269f57b0f7a36f3136eab4eb72627afc06c",
-    "integration/dsh_bridge.py": "3df52eedb6eb92df46cbee2e647db5ec08b641cc448e75e0e5ec4fb03a43cdae",
+    "devtools/build-dsh-studio-media.py": "7aacfa474a7137bf0d03de890284993c9cac111492565de4df7d398e8cc87f6d",
+    "devtools/verify-repository.py": "3bf253cde2fb2b704bace49fdcee734ab6f2f5ff490a002ef3b55b9d9dbab287",
+    "integration/dsh_bridge.py": "25372eb3863194fd59f2fc1784aec42ccd00b0269e15d49f6452864d753f52d6",
     "integration/local_broadcast.py": "5656763baac1449f027be38cb5b89d6fab1fd5ae0a7e471a9359802c97d5ee11",
     "integration/moss_tts.py": "dba5cb09065910279fedad6e2ea4866cf7b514218748637c5bf27deb79648c72",
-    "integration/obs.html": "682a36adc61a3622cc3d0446c6e688de2519d2526fb3bab8285157c4eaefa9f9",
-    "integration/studio_routes.py": "88b6b005c8ad890e4a665ce520a6b6687492895ca60727a6e48c996adffb5aed",
+    "integration/obs.html": "d1bf37de909fda317cbc3e62a7e1597ec75f58b81f642b50969e78354150b633",
+    "integration/studio_routes.py": "b3033f8917bbe7fb840d0b0702ca35a5d72c94b2e005ef4c5671f17011d055a2",
     "integration/viewer_buffer.py": "b0abb874a1d38869accb88e10e012cc06f971bd07c38f5f875d421bf43a9c6a2",
-    "scripts/dsh_control.py": "f3f17cbdb2a82adf1d60c8606affb6b146dd21960980770b13cc4e8945a19569",
+    "scripts/dsh_control.py": "a1387929e2ac9a3f7371a21b403e9f4414e3affb3ed293d0da9b5c2ec778e7b5",
     "scripts/gpu_worker.py": "ec64e02cdbc99bcea8178a47cd83eb18c988aa0d92de97248375ccb65f705f22",
-    "tests/dsh-auth.test.mjs": "3ec52fa546dd0a366e2473c2322516c3b6bf1c65f3234693a122c15297c3cc24",
-    "tests/dsh-authority-smoke.cjs": "25a45ad98f6db51ab4c4ed143fc03012c70e790632d0ffede0e7b812ce0e9251",
+    "tests/dsh-auth.test.mjs": "979c5b076d70be9ab1996cfffc2af4a066ffeb1af30f55dd2907f099343c0741",
+    "tests/dsh-authority-smoke.cjs": "78c3828e8da3baee1e06ca7dd712ceda2dfabfdfc8b6391437842474e9fd1a72",
+    "tests/dsh-direct-studio-smoke.cjs": "688a4f91cd028565794af8f669904700bc89bec423cd205bd2c07ea0db5ee2ae",
     "tests/dsh-host-probe.mjs": "4c771655ab44a52def455917970983164c49c88039df8a698832eba2a3a014fc",
-    "tests/dsh-maintenance.test.mjs": "a1da883187e06ca216c7d3e2723a1f5cca17879321d8ff07cd140613da1b2cd1",
-    "tests/dsh-management-smoke.mjs": "38647de03814d4b2bb14d61295db51f417eee97c6379fab56beec821d886f965",
-    "tests/dsh-media-smoke.cjs": "5d1b7029f18c6b3222cf59ca513bd7c15fc982cf8339c108b94cbd86b5ceb5c5",
+    "tests/dsh-maintenance.test.mjs": "141616c12c71a4416be9412b7e845a681ff008feaa071051536bc25ea43721e9",
+    "tests/dsh-management-smoke.mjs": "86add5a35c44126d701014674702ea00aa269586b1ba7dd6bb8589b4d9dc90e7",
+    "tests/dsh-media-smoke.cjs": "ebcd621a2ff1277abf3c05070ffc78a64f13690a3e351a13aac039eee79eb77a",
     "tests/dsh-memory-load.mjs": "0bcba8be1eacf86d2492795ba8360ea6bbdc0fd0f5e4212d3e4dcdbc20d721a2",
     "tests/dsh-model-faults.mjs": "8fef797168ad57e2d90188fc63f96112c8b0e4d175544c182c2d61f2dc20907a",
     "tests/dsh-playback.test.mjs": "0ce3b6f4daa33ddc02302d8c5977fe20dc6b709744c16e37b4bc9f7a1e474439",
     "tests/dsh-state.test.mjs": "b41e5638eb46cc146f57bb5637034da8f06726a9145c2ea8689030ba021cb2ad",
-    "tests/dsh-studio-smoke.cjs": "dc10c72983614e3a3585480314bf5c052d64b6d316b9b58e38c68df6e3b6d6ea",
-    "tests/dsh_routes_probe.py": "a22fc96fec080ccaa02235a3f7ab08bcd7dfa090750da6646afdaacdb8768fae",
+    "tests/dsh-studio-smoke.cjs": "c4c4aa91262e312e73dbe4b3e2774c97fbf83b32591bb43785adfb21ac6a4d55",
+    "tests/dsh_routes_probe.py": "5825dcf710ac0bd76e7af0ae9f3bdb61fe1ccbc5daa417281225168c9abcd180",
     "tests/fixtures/dsh-crash-worker.mjs": "ac0a5200179e4b391f885621a53d5d973a77ff9ab906efa96fbc37816b58de5a",
     "tests/test_dsh_viewer_buffer.py": "9c1a4c067b4f5353e1a263a55479a1a479399f8f3ce2665df83c1ea662c03248",
     "web/browser-id.js": "59238fedc35b3caf1884d43d86f1a40ffa259908a262ef7b1cfe66bee2744705",
-    "web/dsh-playback.js": "9d427ddc9e1f0a63e9d6a99aed89d27eecbf5890f29af58a26fb234fb1fbc2af",
+    "web/dsh-playback.js": "74559eeacdcdfd6cbfcccd00c22f20a2fe7c751d507d6428dd3302342d70f237",
     "web/dsh-studio.css": "f413e19156be2c2de04d4a4a03831a657aa7f7e5b4e72205065970b8009209f5",
-    "web/dsh-studio.js": "1a7887eeb73a3a0fa893e292141f7cd706dcdf2eab84d86cf9dc12fca3d560b0",
-    "web/guide.html": "f3bc37ff3b4802cfd1f4c71223cb44198b376f5799138c54cabc7939fbd5570a",
+    "web/dsh-studio.js": "04f9b53add89fd41e52e8e445e8a2502d86f3ce8b0bf199ffa6f20dba949708a",
+    "web/guide.html": "e78d22555ea80d60c98f9b1de1c208e2e164cfe4870f75b5440f75e7c1716741",
     "web/local-stream.js": "e82cbfa5848b58274531cf6ee9b991a3e48e088b5785fae3578f3f4119d2cd9e",
     "web/memory.css": "04e1eaf42c9f1af55b83fd16ef98211b04bdc4f3289dd8804b1305b2d59b2287",
-    "web/memory.html": "6dca11b19d716e2474b8349a5fb7069f3d54033eae776903b8e233ae2330ab17",
-    "web/memory.js": "8cad0c6bc2ad9b35e286539fb6de4f7ddd6caa5ac77bbfa4003805112bbbc538",
-    "web/studio.html": "f9b5ffb0719a98b160d386c52ad4a7800af0d8bf78afc11764442d40b3497e38",
-    "web/studio.js": "fa972985ae61d82f850d92740f6ac7d038486dbf5e1bc945fa239409f8349aa5"
+    "web/memory.html": "0e85c5c8d7164230502ea685044afecd1298966069a83d8fe40decfed1746ef0",
+    "web/memory.js": "0df3c4f9b59549ec903fd171164796763ed068376762fc1650c6098f70328873",
+    "web/studio.html": "d7691a08b052609a9213c29f095a74fa3ea98a85902b46a7ecc968c98bafd319",
+    "web/studio.js": "1004733cba433a8f9ab0ee8dd49ef8bbf087b378aeaa683498e5f711276b5091"
   },
   "real_media_echo": {
     "schema_version": 1,
@@ -225,8 +231,9 @@
     }
   },
   "final_local_health": {
-    "checked_at": "2026-10-25T09:16:46.509955+00:00",
+    "checked_at": "2026-10-25T10:33:49.906769+00:00",
     "broadcast_state": "OFFAIR",
+    "authentication_required": false,
     "health": {
       "process_alive": true,
       "state_store_ready": true,
@@ -256,7 +263,7 @@
         "humanity": "0.1.17",
         "connector": "stream-humanity-v1"
       },
-      "rss_bytes": 68308992
+      "rss_bytes": 66007040
     }
   },
   "test_cleanup_and_route_guard": {
@@ -291,7 +298,7 @@
     "memory_revision": 0
   },
   "gpu_sample": {
-    "used_mib": 9416,
+    "used_mib": 9209,
     "total_mib": 10240,
     "utilization_percent": 0,
     "kind": "short_offair_resident_models_sample"
@@ -311,7 +318,12 @@
     "new-channel-20261025/cloud-probe-followup.json": "eebe92cb615d25360773b15ac49cb35e79a74698918fc74bb76c9a67b3874399",
     "new-channel-20261025/real-channel-media.json": "c1f8e2ec7fb1254916a611fa97d1b18c257c6c7228ee87c014e142fad2afbd96",
     "studio-flow-20261025/studio-session-flow.json": "27f7b091d33821c84c479734a2b144fc628289af80654f2a9b7c0b2897eac3e2",
-    "studio-flow-20261025/studio-session-playback.webm": "4ddafb34d142b8af024963a8028a434e00224b4b70a723a2c851f784db817d5d"
+    "studio-flow-20261025/studio-session-playback.webm": "4ddafb34d142b8af024963a8028a434e00224b4b70a723a2c851f784db817d5d",
+    "open-access-unit-tests.tap": "b507d79fab788505cb683fe47df982f1001a564a3a48bfb31c6705ceeafa26ff",
+    "open-access-20261025/direct-studio-flow.json": "1a87b4be4ccec7ab8315db3976a2cff4b8ed85990a3d0c41a83d114665dc7f60",
+    "open-access-20261025/direct-studio-flow.attempt1.json": "11b3e867b17d22995efe6c31c9716c84f14116ac23024206c38e0eab555d5244",
+    "open-access-20261025/direct-studio-flow.attempt2.json": "e0938a0b72965dfe14e37bf45f2a24aa35496bb16bd936440e210a69031f0748",
+    "open-access-20261025/direct-studio-playback.webm": "19a017a3841a387e2a1f074df2e0be0f501a9e33fe881f95478494d9c482b6c0"
   },
   "isolated_management": {
     "schema_version": 1,
@@ -653,5 +665,61 @@
     "report": "docs/evidence/dsh-studio-session-flow.json",
     "media_manifest": "docs/media/dsh-studio-session-manifest.json"
   },
-  "source_verification_note": "Backend module sources remain unchanged; the changed web flow was verified by the new native browser test. Older Echo and management receipts retain their historical scopes."
+  "source_verification_note": "Current application HTTP, proxy, state/administration role checks and frontends were changed for open access. Forty-four modules, thirteen actual workstation browser checks, eleven isolated management checks and thirty-five deployed source checks passed. Older Echo/manual-login/management receipts describe their original revisions.",
+  "application_access": {
+    "mode": "open",
+    "authentication_required": false,
+    "login_ui": false,
+    "token_files_required": false,
+    "ip_allowlist_required": false,
+    "role_authorization": false,
+    "origin_restrictions": false,
+    "shared_viewer_id": "operator-local",
+    "playback_sample_consistency_checks_retained": true
+  },
+  "open_access_browser": {
+    "passed": true,
+    "checks": 13,
+    "cloud_llm_exercised": true,
+    "completed_turns": 3,
+    "manual_login_requests": 0,
+    "report": "docs/evidence/dsh-direct-studio-flow.json",
+    "media_manifest": "docs/media/dsh-direct-studio-manifest.json",
+    "continuity_scope": "Per-request mapped utterance spans; deliberate pause/end fences excluded"
+  },
+  "open_access_management": {
+    "passed": true,
+    "checks": 11,
+    "report": "docs/evidence/dsh-open-management.json",
+    "fixture_facts": true,
+    "production_memory_mutated": false,
+    "cloud_llm_exercised": false
+  },
+  "open_access_deployment_audit": {
+    "passed": true,
+    "checked_at": "2026-10-25T10:33:49.906769+00:00",
+    "source_files_matched": 35,
+    "legacy_access_files_remaining": [],
+    "remote_test_browser_processes_remaining": []
+  },
+  "open_access_retest_history": [
+    {
+      "attempt": 1,
+      "passed": false,
+      "reason": "MODEL_TRANSPORT_FAILED in the real cloud channel",
+      "raw_report_sha256": "11b3e867b17d22995efe6c31c9716c84f14116ac23024206c38e0eab555d5244"
+    },
+    {
+      "attempt": 2,
+      "passed": false,
+      "reason": "Stream-wide audio timing assertion included deliberate session-change fences; changed verification to each actual request mapped sample spans, then retested all thirteen checks",
+      "raw_report_sha256": "e0938a0b72965dfe14e37bf45f2a24aa35496bb16bd936440e210a69031f0748"
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "checks": 13,
+      "completed_utterances": 3
+    }
+  ]
 }

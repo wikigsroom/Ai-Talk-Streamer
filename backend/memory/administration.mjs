@@ -45,7 +45,6 @@ export class MemoryAdministration {
     }
   }
   correct(principal, input) {
-    requireValue(principal.role === 'operator', 'OPERATOR_REQUIRED', 403);
     requireValue(!this.locked, 'MEMORY_ADMINISTRATION_BUSY', 503);
     requireValue(input.operation_id && Object.hasOwn(input,'value') && typeof input.content === 'string' && input.content.length > 0 && input.content.length <= 160 && ['positive','negative','neutral'].includes(input.polarity), 'CORRECTION_INVALID', 400);
     const hash = digest(input);
@@ -64,7 +63,6 @@ export class MemoryAdministration {
     });
   }
   archive(principal,input) {
-    requireValue(principal.role==='operator','OPERATOR_REQUIRED',403);
     requireValue(!this.locked,'MEMORY_ADMINISTRATION_BUSY',503);
     requireValue(typeof input.operation_id==='string'&&input.operation_id.length>=8&&typeof input.reason==='string'&&input.reason.trim().length>0&&input.reason.length<=300,'ARCHIVE_INPUT_INVALID',400);
     const hash=digest({operation:'archive',principal:principal.principal_id,input});
@@ -80,7 +78,6 @@ export class MemoryAdministration {
     });
   }
   merge(principal,input) {
-    requireValue(principal.role==='operator','OPERATOR_REQUIRED',403);
     requireValue(!this.locked,'MEMORY_ADMINISTRATION_BUSY',503);
     requireValue(typeof input.operation_id==='string'&&input.operation_id.length>=8&&typeof input.reason==='string'&&input.reason.trim().length>0&&input.reason.length<=300&&Array.isArray(input.inputs)&&input.inputs.length>=2&&input.inputs.length<=20,'MERGE_INPUT_INVALID',400);
     requireValue(new Set(input.inputs.map(item=>item?.memory_id)).size===input.inputs.length&&input.inputs.some(item=>item.memory_id===input.target_memory_id),'MERGE_TARGET_INVALID',400);
@@ -115,7 +112,6 @@ export class MemoryAdministration {
     });
   }
   undo(principal, input) {
-    requireValue(principal.role === 'operator', 'OPERATOR_REQUIRED', 403);
     requireValue(!this.locked, 'MEMORY_ADMINISTRATION_BUSY', 503);
     requireValue(typeof input.operation_id === 'string' && input.operation_id.length >= 8 && input.operation_id.length <= 120 &&
       (!input.undo_operation_id || typeof input.undo_operation_id === 'string' && input.undo_operation_id.length >= 8 && input.undo_operation_id.length <= 120), 'UNDO_INPUT_INVALID', 400);
@@ -156,7 +152,6 @@ export class MemoryAdministration {
     });
   }
   rebuild(principal,input) {
-    requireValue(principal.role==='operator','OPERATOR_REQUIRED',403);
     requireValue(!this.state.current()&&!this.locked,'REBUILD_REQUIRES_OFFAIR');
     requireValue(typeof input.operation_id==='string'&&input.operation_id.length>=8&&typeof input.partition_key==='string'&&input.partition_key.length>0&&input.partition_key.length<=120&&Number.isSafeInteger(input.source_start_seq)&&Number.isSafeInteger(input.source_end_seq)&&input.source_start_seq<=input.source_end_seq&&typeof input.reason==='string'&&input.reason.trim().length>0&&input.reason.length<=300,'REBUILD_INPUT_INVALID',400);
     const hash=digest({operation:'rebuild',principal:principal.principal_id,input});
@@ -228,7 +223,6 @@ export class MemoryAdministration {
     return { ...body, generation:nextGeneration,operation_id:operationId };
   }
   async delete(principal, input) {
-    requireValue(principal.role === 'operator', 'OPERATOR_REQUIRED', 403);
     requireValue(input.operation_id && typeof input.subject_key === 'string' && !this.locked, 'DELETION_INPUT_OR_LOCK');
     this.locked = true;
     try {

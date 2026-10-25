@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-25T10:28:24.168164+00:00",
+  "kind": "native_open_access_studio",
+  "cloud_llm_exercised": true,
+  "source_sha256": "19a017a3841a387e2a1f074df2e0be0f501a9e33fe881f95478494d9c482b6c0",
+  "report_sha256": "1a87b4be4ccec7ab8315db3976a2cff4b8ed85990a3d0c41a83d114665dc7f60",
+  "report": "docs/evidence/dsh-direct-studio-flow.json",
+  "gif_start_seconds": 41.85000000000001,
+  "recording_scope": "First actual AI reply including waiting; pause/resume and subsequent Echo checks are in the report, not this video",
+  "items": [
+    {
+      "file": "docs/media/dsh-direct-studio-connected.png",
+      "bytes": 199599,
+      "sha256": "c1eb80cb981355e38f7fe28f685b2e608473307b77e733b3ffc5aa0131790a6b"
+    },
+    {
+      "file": "docs/media/dsh-direct-studio-live.png",
+      "bytes": 578127,
+      "sha256": "e6e67372dc263f78f8d59a569a7cd7614f8396c026e17f4561e7bc3422e4fd41"
+    },
+    {
+      "file": "docs/media/dsh-direct-studio-memory.png",
+      "bytes": 83651,
+      "sha256": "04204c6bd97712feeb9dc07a65c7bf722b235723c35c8c47c932d5a02955ba48"
+    },
+    {
+      "file": "docs/media/dsh-direct-studio-playback.mp4",
+      "bytes": 9156341,
+      "sha256": "e33a7ce19a15e85a900170066f7774350f9c06ac82d0edfa3b0d9dc864036a35",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 720,
+            "height": 1280
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio"
+          }
+        ],
+        "format": {
+          "duration": "48.720000"
+        }
+      }
+    },
+    {
+      "file": "docs/media/dsh-direct-studio-response.gif",
+      "bytes": 1682990,
+      "sha256": "e6967000c2cca67c78c6f5b5d26c34f84546f102145f00faeffc61706d2fa341",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "gif",
+            "codec_type": "video",
+            "width": 270,
+            "height": 480
+          }
+        ],
+        "format": {
+          "duration": "4.900000"
+        }
+      }
+    }
+  ]
+}

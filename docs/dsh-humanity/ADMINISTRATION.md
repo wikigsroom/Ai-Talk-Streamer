@@ -2,20 +2,20 @@
 
 [总方案](../DSH_HUMANITY.md) · [接口契约](CONTRACTS.md) · [记忆流水线](MEMORY_PIPELINE.md) · [运行手册](RUNBOOK.md)
 
-本文规定已实现的管理行为。所有示例均为本项目 `/api/dsh/*` 接口，不能当作 DSH/Humanity 上游 API。管理页为演播台同源 `/memory`。浏览器使用 HttpOnly 登录 cookie；自动化可以使用本地管理员 bearer token，不能把 token 写入 URL、截图或提交仓库。
+本文规定已实现的管理行为，接口均为本项目 `/api/dsh/*`，不能当作上游 DSH/Humanity API。管理页 `/memory` 与演播台均直接开放，不需要登录、cookie、bearer token、IP 白名单、邀请码或角色权限。所有写操作保留版本、幂等和数据一致性检查。
 
-## 1. 权限与写入边界
+## 1. 写入边界（无访问权限门槛）
 
-| 操作 | 权限 | 是否允许直播中执行 | 事务及副作用 |
-| --- | --- | --- | --- |
-| 查询记忆、来源、任务、场次 | operator | 是 | 只读主账本；不访问其他服务的原始会话文件 |
-| 更正、归档、等值合并、补偿撤销 | operator | 是 | 同步主账本事务；新请求读新 revision，已冻结请求快照不改写 |
-| 删除 | operator | 是 | 取消活动请求、清除相关正文、提高删除屏障、重启私有宿主、重新投影 |
-| 指定范围重建 | operator | 否 | 只创建持久作业；依然等待下播静默、来源封口和预算 |
-| 一致备份与关闭 Bridge | operator | 否 | 活动场次未结束时拒绝；备份需宿主无在途请求 |
-| 持久事件订阅 | operator / viewer | 是 | 只读事件元数据；viewer 只接收公开生命周期与自己请求的元数据 |
+| 操作 | 是否允许直播中执行 | 事务及副作用 |
+| --- | --- | --- |
+| 查询记忆、来源、任务、场次 | 是 | 只读主账本 |
+| 更正、归档、等值合并、补偿撤销 | 是 | 同步事务；新请求读新 revision，冻结快照不改写 |
+| 删除 | 是 | 取消活动请求、清除正文、提高删除屏障、重启私有宿主并重新投影 |
+| 指定范围重建 | 否 | 创建持久作业；等待下播静默、来源封口和预算 |
+| 一致备份与关闭 Bridge | 否 | 场次结束后执行，避免在途状态丢失 |
+| 持久事件订阅 | 是 | 所有访问者接收同一实例的生命周期元数据；正文通过对应 GET 查询 |
 
-管理页显示出来不等于拥有写权限。最终权限在服务端校验，playback/OBS 凭据不能编辑记忆、发布人格或创建重建任务。不同登录会话的请求可见性按 principal_id 判断，稳定观众的记忆归属则按服务端 viewer_id 判断。
+所有网页共享稳定账本主体，OBS、普通浏览器和自动化均具有相同的应用访问能力。`principal_id` / `role` 仅保留兼容账本与事件结构，不再用于拒绝请求或过滤资源。旧 token 文件与已签发 cookie 不参与判定。浏览器没有登录和邀请表单；具体使用方式见[运行手册](RUNBOOK.md#3-网页直接使用无鉴权)。
 
 删除和备份运行期间 `MemoryAdministration.locked` 阻止其他事实写入、重建及前台接纳。主账本更新为同步事务，中间没有网络 await。Humanity 更新走 outbox，不能把“主账本已提交”解释为“另一个存储也同时原子提交”。
 
@@ -178,11 +178,11 @@ data: {}
 
 1. SQLite 已提交事件是唯一真源。内存 EventEmitter 只负责唤醒；从数据库 `event_seq > cursor ORDER BY event_seq` 每次读取最多 128 行。
 2. 默认 after=0；只接受非负安全整数，超过当前全局水位返回 `400 EVENT_CURSOR_AHEAD`。浏览器重连使用 Last-Event-ID，优先于 URL 中的初始 after。
-3. state 仅返回事件序号、类型、场次/请求/话语 ID、epoch、generation、received_at。**不返回 event_payloads、原文、actor_id、API key、记忆正文或删除来源。** 元数据通知后按权限 GET 对应资源。
-4. operator 可见本 character/room 的元数据。viewer 只可见 broadcast.*、runtime.started 和 principal_id 属于自己的请求事件。不可见行仍推进扫描水位，checkpoint 通知续读位置；序号不连续属于正常过滤结果。
+3. state 仅返回事件序号、类型、场次/请求/话语 ID、epoch、generation、received_at。**不返回 event_payloads、原文、actor_id、API key、记忆正文或删除来源。** 元数据通知后 GET 对应资源。
+4. 所有访问者可见本 character/room 的共享元数据，不按角色或 principal 过滤。checkpoint 通知续读位置。
 5. 客户端按 event_seq 去重；checkpoint 只更新游标，不触发业务动作。连接重建不自动重复更正、合并、播放或模型调用。
-6. 每 15 秒发送 SSE 注释心跳，不持久化为事实。每次推送和心跳复核凭据，撤销身份后关闭连接；数据库故障也关闭。
-7. 全实例最多 24 个订阅，同一 principal 最多 4 个，超额返回 429。写入遇到背压立即停止读取，不把全部历史堆进内存，drain 后从已扫描游标继续。
+6. 每 15 秒发送 SSE 注释心跳，不持久化为事实。不检查登录或凭据；数据库故障关闭连接。
+7. 全实例最多 24 个订阅，超额返回 429；没有每个身份的订阅限制。写入遇到背压立即停止读取，不把全部历史堆进内存，drain 后从已扫描游标继续。
 8. 浏览器退出、客户端取消、Bridge shutdown 都释放计时器和连接。Bridge 关闭订阅后才能等待 HTTP server.close，不能因长连接无限卡住关闭。
 
 8010 Python 同源代理对该精确 GET 路径使用 StreamResponse，逐块转发，不 `await result.read()` 等待连接结束。总时限关闭，连接超时 3 秒、读间隔超时 45 秒，正常 15 秒心跳能维持连接。代理转发 Last-Event-ID；其他 JSON 请求继续保留原 100 秒限制。

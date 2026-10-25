@@ -6,7 +6,7 @@ class DSHPlayback {
   this.heartbeatMs=1000;this.lastHeartbeat=0;this.closed=false;this.timer=setInterval(()=>this.tick(),250);this.lastError=null;
   this.fence={runtime_epoch:0,generation:0};
  }
- async api(path,data){const headers={'Content-Type':'application/json'};if(this.credential)headers.Authorization='Bearer '+this.credential;const response=await fetch('/api/dsh/'+path,{method:'POST',headers,body:JSON.stringify(data)});const value=await response.json();if(!response.ok)throw Error(value.error||'DSH_REQUEST_FAILED');return value;}
+ async api(path,data){const response=await fetch('/api/dsh/'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});const value=await response.json();if(!response.ok)throw Error(value.error||'DSH_REQUEST_FAILED');return value;}
  async claim(broadcastId,replace=false){this.lease=await this.api('playback/claim',{broadcast_id:broadcastId,consumer_id:this.consumerId,replace});const timing=this.lease.playback_timing;if(timing){this.heartbeatMs=timing.heartbeat_interval_ms;clearInterval(this.timer);this.timer=setInterval(()=>this.tick(),timing.progress_interval_ms);}this.lastHeartbeat=0;return this.lease;}
  control(message){
   if(message.type==='media.map'){

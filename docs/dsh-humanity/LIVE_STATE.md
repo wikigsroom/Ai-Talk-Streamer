@@ -172,7 +172,7 @@ v2 保留二进制头格式，通过 WebSocket 文本控制帧发送 `media.map`
 
 正式模式默认由 OBS 浏览器源担任 authority；只有浏览器测试时，管理员可以明确指定演播台预览端。不能把最先连接的任意观众页面自动升级为 authority。
 
-权威身份包括 `consumer_id / authority_epoch / lease_id / lease_expires_at / broadcast_id / runtime_epoch`。租约通过受控服务端授予，浏览器仅获得当前播放用途的短期凭据；不得向网页暴露 Bridge 内部管理 token 或云端密钥。
+权威身份包括 `consumer_id / authority_epoch / lease_id / lease_expires_at / broadcast_id / runtime_epoch`。租约由服务端记录以协调播放，不作为登录或角色权限；任意网页／OBS 均可领取与显式切换。应用没有内部管理 token，云端模型密钥仍不返回网页。
 
 每秒心跳，八秒未续租视为失效。Bridge 用自身单调时钟判断进程内期限，数据库保存 UTC 时间用于重启后保守恢复。浏览器时间戳只用于诊断，不决定租约是否有效。
 

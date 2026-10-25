@@ -6,7 +6,7 @@
 
 ## 当前原生实现的 HTTP 绑定
 
-浏览器经 8010 同源代理，内部服务直连 3092。当前错误为 `{error:"CODE"}`，模型错误额外含布尔 retryable，请求返回 status 字段；后文统一对象错误信封仍为目标语义。身份从 cookie/bearer 解析，正文中的 principal/viewer_id 不授予权限。已实现的分页、持久事件订阅和管理写操作详见[管理契约](ADMINISTRATION.md)。
+浏览器经 8010 同源代理，内部服务直连 3092。当前错误为 `{error:"CODE"}`，模型错误额外含布尔 retryable，请求返回 status 字段；后文统一对象错误信封仍为目标语义。应用无鉴权，所有 HTTP 请求共享稳定账本主体，不解析 cookie/bearer；正文中的 principal/viewer_id 不切换网页身份。已实现的分页、持久事件订阅和管理写操作详见[管理契约](ADMINISTRATION.md)。
 
 ### 当前模型故障码
 
@@ -27,33 +27,33 @@
 
 retryable 是调用方提示，不授权自动重发前台播报。SDK/Harness 自动重试为零；后台整理仍受独立的租约、次数、退避和预算控制。兼容探针单飞，重复在途探测返回 PROBE_IN_PROGRESS；失败探针保存 passed=false、当前 provider_revision、错误码和用时，不能沿用旧成功记录维持 AI 就绪。
 
-| 实际路径 | 方法 / 输入 | 权限与含义 |
+| 实际路径 | 方法 / 输入 | 含义（均无需鉴权） |
 | --- | --- | --- |
-| /api/dsh/status | GET | 受限状态；不含其他观众输入/密钥 |
-| /api/dsh/session | POST {} | 当前场次匿名身份，跨场不关联 |
-| /api/dsh/login | POST {token} | operator 或稳定观众邀请换 HttpOnly cookie |
-| /api/dsh/probe | POST {} | 管理员执行真实渠道人格/工具兼容探针 |
-| /api/dsh/broadcast/start | POST {} | 管理员创建唯一活动场 |
+| /api/dsh/status | GET | 共享场次状态；不含云端密钥 |
+| /api/dsh/session | POST {} | 共享稳定账本身份及 auto_start；不签发 cookie |
+| /api/dsh/login | POST {} | 兼容空操作，忽略传入 token，不签发 cookie |
+| /api/dsh/probe | POST {} | 操作者执行真实渠道人格/工具兼容探针 |
+| /api/dsh/broadcast/start | POST {} | 操作者创建唯一活动场 |
 | /api/dsh/broadcast/ready | POST {broadcast_id,expected_revision,mode} | STARTING/RECOVERING/PAUSED→LIVE；mode=echo/chat，校验依赖、租约和 CAS |
-| /api/dsh/broadcast/pause、/end | POST {broadcast_id,expected_revision} | 管理员暂停/排空下播；旧场次或版本拒绝 |
-| /api/dsh/requests | POST {text,mode,idempotency_key,public_input?} | 自己分区输入，只有管理员可声明公共输入 |
-| /api/dsh/requests/{id} | GET | 管理员或该请求主体查询 |
-| /api/dsh/cancel | POST {request_id?} | 管理员停止当前/指定请求 |
-| /api/dsh/playback/claim | POST {broadcast_id,consumer_id,replace?} | 管理员显式换权；OBS 受限凭据不能 replace |
+| /api/dsh/broadcast/pause、/end | POST {broadcast_id,expected_revision} | 操作者暂停/排空下播；旧场次或版本拒绝 |
+| /api/dsh/requests | POST {text,mode,idempotency_key,public_input?} | 共享网页身份输入，可声明 public_input |
+| /api/dsh/requests/{id} | GET | 直接查询任意已知请求 |
+| /api/dsh/cancel | POST {request_id?} | 操作者停止当前/指定请求 |
+| /api/dsh/playback/claim | POST {broadcast_id,consumer_id,replace?} | 任意播放器显式切换播放租约，OBS 同样可 replace |
 | /api/dsh/playback/heartbeat、/receipt、/cancel-ack | POST | 校验 consumer、lease、epoch、样本、序号和取消窗口 |
-| /api/dsh/persona | GET / POST {document,expected_version} | 管理员读取/发布；具体允许字段见实现 |
-| /api/dsh/memory | GET ?limit&cursor&subject_key&state&fact_key | 管理员 keyset 分页，默认 50、最多 200；修改后旧 cursor 返回 409 |
-| /api/dsh/memory/source?memory_id=... | GET | 管理员查看来源和 revision |
-| /api/dsh/memory/correct、/undo、/delete | POST | 管理员带 operation_id/revision 修订、补偿或删除 |
-| /api/dsh/memory/archive、/merge | POST | 管理员带操作键、输入 revisions、reason；归档或同分区等值合并 |
-| /api/dsh/events | GET ?after=seq，Last-Event-ID | 已登录 operator/viewer 的持久 SSE 元数据订阅；正文不进入流 |
-| /api/dsh/broadcasts | GET | 管理员读取最近 50 场状态、来源版本和封口水位 |
-| /api/dsh/jobs | GET | 管理员读取任务、调用账与调度 occurrence |
-| /api/dsh/jobs/rebuild | POST | 管理员明确选择已结束场次/分区/起止水位/来源版本/reason，202 入队 |
+| /api/dsh/persona | GET / POST {document,expected_version} | 操作者读取/发布；具体允许字段见实现 |
+| /api/dsh/memory | GET ?limit&cursor&subject_key&state&fact_key | 操作者 keyset 分页，默认 50、最多 200；修改后旧 cursor 返回 409 |
+| /api/dsh/memory/source?memory_id=... | GET | 操作者查看来源和 revision |
+| /api/dsh/memory/correct、/undo、/delete | POST | 操作者带 operation_id/revision 修订、补偿或删除 |
+| /api/dsh/memory/archive、/merge | POST | 操作者带操作键、输入 revisions、reason；归档或同分区等值合并 |
+| /api/dsh/events | GET ?after=seq，Last-Event-ID | 无鉴权持久 SSE 元数据订阅；正文不进入流 |
+| /api/dsh/broadcasts | GET | 操作者读取最近 50 场状态、来源版本和封口水位 |
+| /api/dsh/jobs | GET | 操作者读取任务、调用账与调度 occurrence |
+| /api/dsh/jobs/rebuild | POST | 操作者明确选择已结束场次/分区/起止水位/来源版本/reason，202 入队 |
 | /api/dsh/jobs/resume、/cancel | POST {job_id} | checkpoint 重试/取消，不清预算 |
-| /api/dsh/viewers | POST {label} | 管理员创建稳定邀请，只首次返回邀请凭据 |
-| /api/dsh/backup | POST {} | 管理员下播一致备份 |
-| /api/dsh/shutdown | POST {} | 管理员；活动场未结束时拒绝 |
+| /api/dsh/viewers | POST {label} | 生成观众分区标签，不返回邀请凭据 |
+| /api/dsh/backup | POST {} | 操作者下播一致备份 |
+| /api/dsh/shutdown | POST {} | 操作者；活动场未结束时拒绝 |
 | /internal/audio-ready、/media-map、/failed | POST | 内部 media token；不暴露给普通网页 |
 
 管理页使用持久 SSE 通知与 GET 回读，保留轮询兜底。上述归档、合并、补偿、分页和有界范围重建均已落地；它们不授予自动推断通用事实或修改人格身份的权限。任务列表/单条事实的完整修订链当前仍未通用分页。当前 SQLite 迁移是 backend/memory/migrations 中的 v1/v2；下面示例 SQL 是基础设计，不应由操作者手工在生产库重复执行。
@@ -64,7 +64,7 @@ retryable 是调用方提示，不授权自动重发前台播报。SDK/Harness �
 | --- | --- | --- |
 | [bridge-policy.example.json](examples/bridge-policy.example.json) | 本项目策略格式 | 默认由 policy loader 读取并删除 example_only；自定义运行文件必须严格校验 |
 | [humanity-config.example.json](examples/humanity-config.example.json) | Humanity 0.1.17 配置对象 | 由版本适配器映射到插件配置；不是整份 cordis.patch.yml |
-| [event-envelope.schema.json](examples/event-envelope.schema.json) | 项目存储事件 JSON Schema | 先检查信封，再按 event_type 检查载荷和权限 |
+| [event-envelope.schema.json](examples/event-envelope.schema.json) | 项目存储事件 JSON Schema | 先检查信封，再按 event_type 检查载荷和账本作用域 |
 | [state-schema.sql](examples/state-schema.sql) | SQLite v1 结构设计 | 实际由已实现迁移 runner 应用固定 hash 的 v1/v2 迁移 |
 
 配置至少记录 policy_version、prompt_version、connector_version、persona_version、provider_revision 和 schema_version。热更新只影响新请求；在途请求继续携带原快照，不能中途换模型、人格或判断规则。
@@ -92,7 +92,7 @@ Humanity 配置启用 persona 与 balanced memory，但仅启用 longTerm 公共
 | lease_generation | 作业调度器 | 每次任务接管递增，阻止旧 worker 迟到提交 |
 | deletion_generation | 删除服务 | 删除/撤销控制水位；缓存与恢复必须验证 |
 
-稳定观众映射须使用服务端拥有的不可伪造凭据或平台连接证据。可用 HMAC 将平台 UID 映射为项目内部 ID，映射密钥仅本地保存；未经验证的页面 JSON 不能声明自己是另一个 viewer_id。
+当前网页不区分登录观众，统一使用 operator-local。未来平台连接可把平台 UID 映射为账本分区，作为数据来源记录；不以该映射限制网页和管理 API 访问。
 
 anonymous viewer 不具备跨场身份，不能后台自动把两次匿名访问合并。身份关联、拆分与迁移均是独立管理操作，有来源与审计事件。
 
@@ -127,7 +127,7 @@ payload_sha256 对规范化 JSON 字节计算：UTF-8、键稳定排序、固定
 
 Bridge 使用原生回环 HTTP，默认 `127.0.0.1:3092`；DSH 管理端默认 `127.0.0.1:3091`。这些端口为方案分配，部署前确认无冲突。现有 8010 演播台通过受控代理调用 Bridge，浏览器不直接获得内部 bearer token。
 
-全部写 API 必须有内部认证、幂等键和服务器派生的作用域。operator 管理操作额外校验控制身份；同源检查本身不足以证明管理员身份。播放端凭据只允许对应租约的心跳/回执，不能创建作业或编辑人格。
+全部写 API 无鉴权，保留幂等键、版本、服务器账本作用域和输入校验。所有访问者可操作人格、记忆与作业；播放回执仍需匹配当前租约和样本映射，以防重复或错误记账。
 
 普通状态接口只返回角色显示名、状态和匿名指标；不能暴露云端密钥、Bridge token、其他观众原文或绝对个人目录。服务部署仍限于用户已配置的可信网络访问范围，未实现身份控制前不能扩大管理端访问面。
 
@@ -152,7 +152,7 @@ Bridge 使用原生回环 HTTP，默认 `127.0.0.1:3092`；DSH 管理端默认 `
 
 | 路径 | 用途 | 必须检查 |
 | --- | --- | --- |
-| POST `/v1/broadcasts/{id}/authority` | 管理员授予或切换 authority | 权限、旧租约清理、epoch 更新 |
+| POST `/v1/broadcasts/{id}/authority` | 操作者授予或切换 authority | 旧租约清理、epoch 更新 |
 | POST `/v1/playback/heartbeat` | 续租 | consumer、lease、authority_epoch 与房间绑定 |
 | POST `/v1/playback/progress` | 样本前缀回执 | 租约、已映射范围、单调序号、输出状态 |
 | POST `/v1/playback/cancel-ack` | 取消屏障的最后结算 | barrier、冻结样本前缀、取消窗口 |
@@ -174,7 +174,7 @@ Bridge 使用原生回环 HTTP，默认 `127.0.0.1:3092`；DSH 管理端默认 `
 | POST `/v1/memory/delete-subject` | 删除和阻止再导入 | tombstone、正文清除、摘要失效与 outbox |
 | GET `/v1/persona` | 查看已发布与待发布人格 | 返回版本、hash、来源 |
 | POST `/v1/persona/proposals` | 表达层变更建议 | 不直接作用于在途直播 |
-| POST `/v1/persona/publish` | 管理员发布新版本 | diff、expected_version、固定身份核验 |
+| POST `/v1/persona/publish` | 操作者发布新版本 | diff、expected_version、固定身份核验 |
 | GET `/v1/jobs` | 作业、预算、进度 | 错误和等待原因必须可见 |
 | POST `/v1/jobs/rebuild` | 选择范围重建 | 指定关闭场次、策略和分区，不默认全库 |
 | POST `/v1/jobs/{id}/retry` | 重试失败作业 | 复用 checkpoint；不能重置预算记账 |
@@ -276,7 +276,7 @@ PublicProjectionOperation 不接受 viewer 数据；Bridge 与 connector 双方�
 
 工具没有 subject_key、任意文件路径、shell、浏览器、发消息或执行工作流参数。主体从请求绑定上下文获取。后台结构化提取不开放工具，减少错误循环和无法控制的开销。
 
-原生 `humanity_remember` / `humanity_recall` 的 guard 必须覆盖别名和恢复会话；插件发现不兼容时不默默移除 guard 继续直播。原生人格更新/技能工具同样禁用。管理员通过受控管理 API 修改，与观众对话工具分开。
+原生 `humanity_remember` / `humanity_recall` 的 guard 必须覆盖别名和恢复会话；插件发现不兼容时不默默移除 guard 继续直播。原生人格更新/技能工具同样禁用。操作者通过受控管理 API 修改，与观众对话工具分开。
 
 ## 7. 主账本与事务边界
 

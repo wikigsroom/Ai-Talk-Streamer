@@ -40,16 +40,16 @@
 | [persona.mjs](../../backend/dsh-bridge/persona.mjs) | 女A 人格及不可自动修改的固定身份 |
 | [policy.mjs](../../backend/dsh-bridge/policy.mjs) | 严格策略校验、版本/隔离/存储约束、不可变快照 |
 | [state.mjs](../../backend/dsh-bridge/state.mjs) | 直播/请求/utterance、租约、映射与回执 |
-| [server.mjs](../../backend/dsh-bridge/server.mjs) | 回环 HTTP、权限、真实渠道探针、媒体调用和管理 API |
-| [auth.mjs](../../backend/dsh-bridge/auth.mjs) | 管理登录、稳定观众邀请、匿名场次身份、受限 OBS 凭据 |
+| [server.mjs](../../backend/dsh-bridge/server.mjs) | 无鉴权 HTTP、真实渠道探针、媒体调用和管理 API |
+| [auth.mjs](../../backend/dsh-bridge/auth.mjs) | 共享稳定账本身份；不读取或签发鉴权凭据 |
 | [humanity-port.mjs](../../backend/dsh-bridge/humanity-port.mjs) | 原生人格发布、公共投影、revision 对账、文件 flush |
 | [store.mjs](../../backend/memory/store.mjs) | SQLite 迁移 hash、WAL/FULL、唯一 owner、同步事务、写故障锁止 |
 | [service.mjs](../../backend/memory/service.mjs) | 来源资格、先分区后排序、上下文、候选规则、合并与镜像 |
 | [scheduler.mjs](../../backend/memory/scheduler.mjs) | 持久调度、分块、预算、租约、原子游标与断点恢复 |
 | [administration.mjs](../../backend/memory/administration.mjs) | 修订、归档、等值合并、整组补偿、范围重建、删除 ledger、一致备份 |
-| [query.mjs](../../backend/memory/query.mjs) / [events.mjs](../../backend/dsh-bridge/events.mjs) | revision 绑定 keyset 分页、持久元数据 SSE、权限过滤和背压 |
+| [query.mjs](../../backend/memory/query.mjs) / [events.mjs](../../backend/dsh-bridge/events.mjs) | revision 绑定 keyset 分页、持久共享元数据 SSE 与背压 |
 | [restore.mjs](../../backend/memory/restore.mjs) | 新目录恢复、删除重放、完整性检查、离线切换 |
-| [dsh_bridge.py](../../integration/dsh_bridge.py) | 8010 同源代理、内部媒体认证、OBS 本机凭据 |
+| [dsh_bridge.py](../../integration/dsh_bridge.py) | 8010 HTTP 代理与无鉴权媒体／OBS 路由 |
 | [moss_tts.py](../../integration/moss_tts.py) | 完整 MOSS WAV、有效样本数/hash、请求版本校验 |
 | [gpu_worker.py](../../scripts/gpu_worker.py) | 原生 GPU 隔离进程；语音提交前准备现有推理工作区，避免首个有声包承担首次分配延迟 |
 | [local_broadcast.py](../../integration/local_broadcast.py) | 映射先持久化后转发、JSON 控制 + PCM/JPEG、取消清队列 |
@@ -124,3 +124,7 @@ DSH 启用后，旧 `/human`、`/humanaudio`、`/set_audiotype`、`/interrupt_ta
 新库记录迁移文本 LF 规范化 SHA-256；已有库允许同一精确内容的历史 LF/CRLF hash，避免 Windows 传输或 Git 换行转换造成假损坏。除此之外的内容/hash 差异仍拒绝启动，不修改已记录的旧 hash。已在隔离 SQLite 中验证兼容与内容不匹配拒绝，并在现有 3080 库重启验证。
 
 DSH 故障显示未就绪，不静默走旧无状态 LLM。回退先下播、保留库、验证 schema；旧备份先重放最新独立删除 ledger。激活若会丢失比备份更新的人类互动则拒绝切换。
+
+## 2026-10-25 无鉴权入口更新
+
+按使用者要求，移除应用登录、内部 HTTP 令牌、IP/Origin 拒绝规则、operator/viewer/OBS 角色校验和资源权限过滤。角色字段仅兼容账本，网页共享 operator-local；旧令牌与白名单已退出运行。前端移除所有登录／邀请表单，连接预览自动开场，结束后发送自动再开场。当前 44 项模块测试包含无凭据真实 HTTP 控制、记忆／人格查询、跨来源调用、无凭据 SSE 重放及数据一致性验证；完整浏览器记录见[当前媒体记录](MEDIA.md)。上面的旧权限与 OBS 限制测试仅记录历史行为，已不作为当前要求。

@@ -6,9 +6,29 @@
 
 These are native Chrome captures using local MOSS 04 and MuseTalk. The new session-flow recording uses the configured cloud LLM; historical Echo captures and isolated fixtures are labelled separately. Short dialogue does not establish cross-broadcast memory acceptance.
 
-## 开始会话与真实 AI / Session startup and real AI
+## 当前无鉴权入口 / Current open-access studio
 
-连接预览后需要开始网页会话。未开始、暂停和结束中均不能发送；快捷键也受相同限制。演播台支持直接登录管理员，并将恰逢下播的 `BROADCAST_NOT_LIVE` 转成中文操作提示。
+当前版本已移除网页与应用后端的登录、令牌、IP 白名单、Origin 拒绝规则和角色权限。点击“连接预览与声音”自动开始会话；结束后再次发送自动开场，刷新后重新连接也可继续使用。主动暂停仍需明确恢复。
+
+![新浏览器直接打开，无登录表单](../media/dsh-direct-studio-connected.png)
+
+![自动开场后，真实 AI 已完整说出人物身份](../media/dsh-direct-studio-live.png)
+
+![直接进入真实记忆管理页，无登录或邀请码](../media/dsh-direct-studio-memory.png)
+
+[实际 AI 回复录像](../media/dsh-direct-studio-playback.mp4) 保留云端与本地语音等待，未加速。下面是同一录像中约五秒的原速无声摘录。
+
+![无鉴权入口实际 AI 回复，无声 GIF](../media/dsh-direct-studio-response.gif)
+
+[13 项检查与三次自然播放回执](../evidence/dsh-direct-studio-flow.json) 来自观看电脑上的全新原生 Chrome：没有读取 token 文件、没有浏览器登录请求、没有鉴权 cookie。验证无凭据保存原渠道配置、直接打开记忆管理、连接预览自动开场、真实 AI 回复、主动暂停／恢复、结束后发送自动再开场，以及刷新后重新连接并再次播报。三次请求均 COMPLETED；音频连续性按各请求映射的样本区间计算，排除主动暂停／结束时的清缓冲操作。
+
+MP4 仅录制第一条真实 AI 回复，后续两次 Echo 的完整播放由 JSON 回执记录。一次云端连接故障及一次将切场清缓冲混入语音连续性检查的失败记录保留在私有原始目录。修正检查范围后复验全部通过，未把失败记录覆盖为成功。该短测不替代 20 轮与 S1–S5 的完整记忆验收。
+
+复验：`node tests/dsh-direct-studio-smoke.cjs <项目绝对目录>`；生成素材：`python devtools/build-dsh-studio-media.py <产物目录> --open-access`。[来源与 SHA-256 清单](../media/dsh-direct-studio-manifest.json)。测试结束自身场次并关闭自身浏览器；用户已有标签页不受影响。
+
+## 历史手动登录流程 / Historical manual-login flow
+
+以下保留移除鉴权之前的手动登录版本，展示当时的十项测试；不作为当前使用说明。当前行为以上面的无鉴权记录和运行手册为准。
 
 ![预览已连接、管理员已登录，尚未开始会话；发送按钮禁用](../media/dsh-studio-session-offair.png)
 
@@ -22,7 +42,7 @@ These are native Chrome captures using local MOSS 04 and MuseTalk. The new sessi
 
 录像只包含第一条实际 AI 回复。暂停和恢复通过实际服务与浏览器验证，证据在 JSON 中，不在该录像内。当前渠道另有三轮实际对话与同场主题回忆通过，但 20 轮和 S1–S5 仍未完整验收。
 
-复验：`node tests/dsh-studio-smoke.cjs <项目绝对目录>`；通过后以 `python devtools/build-dsh-studio-media.py <产物目录>` 生成文档素材。测试拒绝接管已有场次，最终结束自身场次并关闭自身浏览器。依赖、来源与文件校验见[独立清单](../media/dsh-studio-session-manifest.json)。
+该历史记录由旧版 `dsh-studio-smoke.cjs` 产生；当前该入口转到新的无鉴权测试。历史记录不重新生成或冒充当前验证。依赖、来源与文件校验见[独立清单](../media/dsh-studio-session-manifest.json)。
 
 ## 演播台 / Studio
 

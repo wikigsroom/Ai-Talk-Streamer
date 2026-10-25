@@ -2,9 +2,11 @@
 
 [文档导航](README.md) · [现有架构](ARCHITECTURE.md) · [MOSS 04 实测](MOSS_LIVE.md)
 
-**状态：实施规范 v1.2；已有原生实现，整体验收进行中。** 本文规定系统必须满足的行为、数据契约与验收条件。代码、3080 部署状态、已执行测试和剩余门槛统一记录在[实施记录](dsh-humanity/IMPLEMENTATION.md)；不能将规范中的要求直接视为已通过。原有 MOSS 实测与新增 DSH 链路的证据分别记录。
+**状态：实施规范 v1.3；已有原生实现，整体验收进行中。** 本文规定系统必须满足的行为、数据契约与验收条件。代码、3080 部署状态、已执行测试和剩余门槛统一记录在[实施记录](dsh-humanity/IMPLEMENTATION.md)；不能将规范中的要求直接视为已通过。原有 MOSS 实测与新增 DSH 链路的证据分别记录。
 
 English overview: This is the normative plan for the native Windows DeepSeek Harness + Humanity backend. It specifies live lifecycle, authoritative playback receipts, viewer isolation, persistent memory, scheduled consolidation and recovery. Native implementation and deployment are in progress; see the implementation record for verified evidence and outstanding gates. DSH can use the studio's existing model configuration; it does not require a DeepSeek model.
+
+**2026-10-25 使用方式变更：应用无鉴权。** 所有网页、管理页和应用 HTTP API 直接开放，无登录、令牌、IP 白名单或角色门槛；连接预览自动开始会话。网页统一使用稳定主体 operator-local，不把不同浏览器当作隔离观众。账本的数据分区、来源、版本、播放租约和记忆一致性规则继续适用；平台观众隔离是数据接入能力，不是网页登录要求。详见[运行手册](dsh-humanity/RUNBOOK.md)。
 
 ## 1. 目标与阅读顺序
 

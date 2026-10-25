@@ -47,9 +47,8 @@ def main():
     if not status()['process_alive']:
         print(json.dumps({'stopped': True, 'already_stopped': True})); return
     # Graceful shutdown is refused while a broadcast is open. End it in the UI first.
-    key = (ROOT / 'configs/dsh-operator.token').read_text(encoding='utf-8').strip()
     request = urllib.request.Request('http://127.0.0.1:3092/api/dsh/shutdown', data=b'{}',
-                                     headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key})
+                                     headers={'Content-Type': 'application/json'})
     with urllib.request.build_opener(urllib.request.ProxyHandler({})).open(request, timeout=15) as reply:
         print(reply.read().decode('utf-8'))
 

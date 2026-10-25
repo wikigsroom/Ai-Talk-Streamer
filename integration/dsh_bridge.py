@@ -1,7 +1,6 @@
 """Loopback DSH connection. Credentials stay in the project configuration files."""
 from pathlib import Path
 import asyncio
-import hmac
 import hashlib
 import json
 import requests
@@ -21,12 +20,12 @@ async def require_accounted_media(request, handler):
     if enabled() and request.method == 'POST' and request.path in (
             '/human', '/humanaudio', '/set_audiotype', '/interrupt_talk', '/record'):
         return web.json_response({'error': 'DSH_LEGACY_ROUTE_DISABLED',
-                                  'message': 'Use the authenticated studio/DSH request and playback controls.'}, status=409)
+                                  'message': 'Use the studio/DSH request and playback controls.'}, status=409)
     return await handler(request)
 
 
 def media_headers():
-    return {'Authorization': 'Bearer ' + (ROOT / 'configs/dsh-media.token').read_text(encoding='utf-8').strip()}
+    return {}
 
 
 def post_media(path, payload, timeout=3):
@@ -42,16 +41,10 @@ async def async_media(path, payload):
 
 
 async def proxy(request, path=None):
-    origin = request.headers.get('Origin')
-    if origin:
-        from urllib.parse import urlsplit
-        if urlsplit(origin).netloc != request.host:
-            raise web.HTTPForbidden(text='ORIGIN_DENIED')
     path = path or '/api/dsh/' + request.match_info.get('tail', '')
     if not path.startswith('/api/dsh/'):
-        raise web.HTTPForbidden()
-    headers = {key: request.headers[key] for key in ('Cookie', 'Authorization', 'Content-Type', 'Origin', 'Last-Event-ID') if key in request.headers}
-    headers['X-Stream-Original-Host'] = request.host
+        raise web.HTTPNotFound()
+    headers = {key: request.headers[key] for key in ('Content-Type', 'Last-Event-ID') if key in request.headers}
     target = BRIDGE + path + (('?' + request.query_string) if request.query_string else '')
     try:
         streaming = request.method == 'GET' and path == '/api/dsh/events'
@@ -59,8 +52,6 @@ async def proxy(request, path=None):
         async with ClientSession(timeout=timeout, trust_env=False) as client:
             async with client.request(request.method, target, data=await request.read(), headers=headers) as result:
                 extra = {'Cache-Control': 'no-store', 'Content-Type': result.headers.get('Content-Type', 'application/json')}
-                if 'Set-Cookie' in result.headers:
-                    extra['Set-Cookie'] = result.headers['Set-Cookie']
                 if streaming and result.status == 200 and result.headers.get('Content-Type', '').startswith('text/event-stream'):
                     response = web.StreamResponse(status=result.status, headers={**extra, 'X-Accel-Buffering': 'no'})
                     await response.prepare(request)
@@ -75,19 +66,8 @@ async def proxy(request, path=None):
         return web.json_response({'error': 'DSH_BRIDGE_UNAVAILABLE'}, status=503)
 
 
-async def require_operator(request):
-    async with ClientSession(timeout=ClientTimeout(total=3), trust_env=False) as client:
-        async with client.get(BRIDGE + '/api/dsh/whoami', headers={key: request.headers[key] for key in ('Cookie', 'Authorization') if key in request.headers}) as result:
-            value = await result.json()
-            if result.status != 200 or value.get('role') != 'operator':
-                raise web.HTTPForbidden(text='请先在人格与记忆页面登录管理员。')
-
-
 async def avatar_command(request):
     from server.session_manager import session_manager
-    expected = media_headers()['Authorization']
-    if request.remote not in ('127.0.0.1', '::1') or not hmac.compare_digest(request.headers.get('Authorization', ''), expected):
-        raise web.HTTPForbidden()
     data = await request.json()
     avatar = session_manager.get_session('studio')
     if avatar is None:
@@ -135,13 +115,6 @@ async def memory_page(_request):
 
 
 async def obs_session(request):
-    if request.remote not in ('127.0.0.1', '::1'):
-        raise web.HTTPForbidden()
-    origin = request.headers.get('Origin')
-    if origin:
-        from urllib.parse import urlsplit
-        if urlsplit(origin).netloc != request.host:
-            raise web.HTTPForbidden()
     return web.json_response(await async_media('obs-session', {}), headers={'Cache-Control': 'no-store'})
 
 

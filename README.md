@@ -10,6 +10,8 @@ The original **RTX 3080 10 GB / 64 GB RAM** GPT-SoVITS version retains batch-8 F
 
 **DSH + Humanity backend:** a native implementation now adds a versioned personality, isolated viewer memory, a broadcast/playback ledger, and persistent post-broadcast, daily and weekly maintenance. It inherits the studio's saved API/model configuration. See the [full specification](docs/DSH_HUMANITY.md), [native runbook](docs/dsh-humanity/RUNBOOK.md), [current acceptance](docs/dsh-humanity/ACCEPTANCE.md), and [actual pages, recording and GIF](docs/dsh-humanity/MEDIA.md). Local Echo completion/cancellation/recovery, 44 module tests, and 20 controlled HTTP fault cases with the pinned DSH/Humanity have passed. The updated saved channel now passes the real compatibility probe and three actual AI playback turns, including same-session topic recall. The full 20-turn run and five new memory scenarios remain pending.
 
+**Open access:** the application has no login, token, IP allowlist or role gates. Preview connection starts the session automatically. [13 actual browser checks, a real AI recording and GIF](docs/dsh-humanity/MEDIA.md#当前无鉴权入口--current-open-access-studio) and [11 isolated management checks](docs/evidence/dsh-open-management.json) passed; the studio and `/memory` are directly usable.
+
 ![Actual studio while speaking](docs/media/studio-speaking.png)
 
 **Female-A voice casting:** [ten MOSS voices, ten matching SoulX voices and a FireRed reference comparison](docs/VOICES.md), synthesized on the RTX 3080. Open `/voices.html?v=2` for real audio playback, model switching, shortlisting and downloads. The page defaults to MOSS; it does not automatically change the live TTS engine.
@@ -112,7 +114,7 @@ Source commits are pinned in [sources.lock.json](configs/sources.lock.json); [mo
 ## Use the studio
 
 1. Click **连接预览与声音** to connect picture and audio. The interface currently uses Chinese labels.
-2. With DSH enabled, connect the preview, log in through **管理员登录** on the studio (or `/memory`), then choose Echo or AI and click **开始网页会话**. Sending becomes available only when the session is live. Use **使用 OBS 开始** with the local OBS source. AI startup additionally requires the real-channel compatibility probe. Follow the [DSH runbook](docs/dsh-humanity/RUNBOOK.md) for this separate backend installation.
+2. With DSH enabled, choose Echo or AI and click **连接预览与声音**. The web session starts automatically. No login, token, IP allowlist or role permissions are required, including on `/memory` and the application APIs. Sending after ending a session starts a new one; explicit pauses require **恢复网页会话**. Use **使用 OBS 开始** with the OBS source. AI mode still checks the configured cloud model. See the [DSH runbook](docs/dsh-humanity/RUNBOOK.md).
 3. Select **原文播报**, enter a short Chinese script and click **发送播报**. A useful starting length is 20–100 Chinese characters. Click **停止说话** to interrupt. DSH queues ordinary new messages; the original backend instead preempts earlier speech.
 4. Select a gesture and click **播放一次**, or use **自动编排** / **安静倾听**. A manual request waits for the current clip to finish, normally up to its remaining eight seconds plus output buffering. The most recent pending manual request wins.
 5. Click **录制并下载**, then end recording to download a WebM containing the browser's video and audio.

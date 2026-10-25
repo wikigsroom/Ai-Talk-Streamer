@@ -110,21 +110,20 @@ test('management: stale broadcast controls cannot cancel or end a later broadcas
  }finally{f.close()}
 });
 
-test('management: real HTTP event replay is ordered, payload-free, viewer scoped, resumable and revocable',async()=>{
+test('open access: HTTP event replay is ordered, payload-free, shared and resumable',async()=>{
  const f=fixture(),auth=new Auth(f.root,f.db,f.state),hub=new EventSubscriptions(f.db,f.state,auth,{heartbeatMs:25});
  const server=createServer((req,res)=>{try{hub.subscribe(req,res,auth.require(req.headers),new URL(req.url,'http://local').searchParams)}catch(error){res.writeHead(error.status||500);res.end(JSON.stringify({error:error.code}));}});
  const sessions=[];
  try{
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin='http://127.0.0.1:'+server.address().port;
-  assert.equal((await fetch(origin)).status,401);
   const secret='unit-viewer-token-'.padEnd(48,'x'),viewer=auth.ensure(secret,'viewer','viewer','scoped-viewer');f.start();
   const foreign=f.accept('不要泄露这个原文。'),own=f.state.accept(viewer,{text:'我的私有原文也不能出现在事件流。',mode:'echo',idempotency_key:'my-private-request'}),latest=f.db.get('SELECT MAX(event_seq) n FROM stream_events').n;
-  const connect=async headers=>{const response=await fetch(origin,{headers:{Authorization:'Bearer '+secret,...headers},signal:AbortSignal.timeout(4000)});assert.equal(response.status,200);const reader=response.body.getReader();sessions.push(reader);return reader;};
+  const connect=async headers=>{const response=await fetch(origin,{headers,signal:AbortSignal.timeout(4000)});assert.equal(response.status,200);const reader=response.body.getReader();sessions.push(reader);return reader;};
   const readThrough=async(reader,seq)=>{let text='';while(!text.includes('id: '+seq+'\nevent: checkpoint')){const chunk=await reader.read();assert.equal(chunk.done,false);text+=new TextDecoder().decode(chunk.value);}return text;};
-  let reader=await connect({});const initial=await readThrough(reader,latest);assert.ok(initial.includes(own.request_id));assert.ok(!initial.includes(foreign.request_id));assert.ok(!initial.includes('私有原文'));assert.ok(!initial.includes('不要泄露'));
+  let reader=await connect({});const initial=await readThrough(reader,latest);assert.ok(initial.includes(own.request_id));assert.ok(initial.includes(foreign.request_id));assert.ok(!initial.includes('私有原文'));assert.ok(!initial.includes('不要泄露'));
   const records=initial.split('\n\n').filter(record=>record.includes('event: state')).map(record=>JSON.parse(record.split('data: ')[1]));assert.deepEqual(records.map(row=>row.event_seq),records.map(row=>row.event_seq).sort((a,b)=>a-b));
   await reader.cancel();const seq=f.db.tx(()=>f.db.event(f.state.scope(own),'request.test_checkpoint',{text:'仍然不能泄露'}));reader=await connect({'Last-Event-ID':String(latest)});const resumed=await readThrough(reader,seq);assert.ok(resumed.includes('request.test_checkpoint'));assert.ok(!resumed.includes('input.accepted'));assert.ok(!resumed.includes('仍然不能泄露'));
-  f.db.tx(()=>f.db.run('UPDATE principals SET revoked_at=? WHERE principal_id=?',new Date().toISOString(),viewer.principal_id));assert.equal((await reader.read()).done,true);
+  await reader.cancel();
  }finally{for(const reader of sessions)await reader.cancel().catch(()=>{});hub.close();const closing=new Promise(resolve=>server.close(resolve));server.closeAllConnections();await closing;f.close();}
  assert.equal(hub.clients.size,0);
 });

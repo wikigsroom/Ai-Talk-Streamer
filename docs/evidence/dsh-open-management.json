@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-25T10:31:14.282Z",
+  "passed": true,
+  "kind": "isolated_native_dsh_humanity_http_chrome_management",
+  "fixture_facts": true,
+  "production_memory_mutated": false,
+  "cloud_llm_exercised": false,
+  "media_inference_exercised": false,
+  "checks": {
+    "management_without_authentication": true,
+    "source_http": true,
+    "archive_and_compensating_undo": true,
+    "merge_and_group_undo": true,
+    "stale_control_refused": true,
+    "frozen_rebuild_http": true,
+    "browser_keyset_pagination": true,
+    "browser_archive_undo": true,
+    "browser_merge": true,
+    "browser_rebuild": true,
+    "browser_event_subscription": true
+  },
+  "browser_errors": []
+}

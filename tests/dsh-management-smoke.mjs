@@ -30,9 +30,9 @@ try{
  await new Promise(resolve=>ui.listen(0,'127.0.0.1',resolve));const origin='http://127.0.0.1:'+ui.address().port;
  bridge=await new StreamBridge(root,join(root,'tools/dsh'),{policyFile:'configs/test-policy.json',avatarUrl:origin}).start();clearInterval(bridge.timer);clearInterval(bridge.maintenanceTimer);
  bridgeOrigin='http://127.0.0.1:'+bridge.server.address().port;
- const call=async(path,body,expected=200,token=bridge.auth.operatorKey)=>{const response=await fetch(bridgeOrigin+'/api/dsh/'+path,{method:body===undefined?'GET':'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body),signal:AbortSignal.timeout(5000)});const value=await response.json();assert.equal(response.status,expected,JSON.stringify({path,value}));return value;};
+ const call=async(path,body,expected=200)=>{const response=await fetch(bridgeOrigin+'/api/dsh/'+path,{method:body===undefined?'GET':'POST',headers:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body),signal:AbortSignal.timeout(5000)});const value=await response.json();assert.equal(response.status,expected,JSON.stringify({path,value}));return value;};
  const viewer=bridge.auth.ensure('viewer-test-credential-'.padEnd(48,'x'),'viewer','观众','test-viewer');
- await call('memory',undefined,403,'viewer-test-credential-'.padEnd(48,'x'));checks.viewer_cannot_manage=true;
+ await call('memory');checks.management_without_authentication=true;
  const broadcast=await call('broadcast/start',{});await call('playback/claim',{broadcast_id:broadcast.broadcast_id,consumer_id:'fixture-browser'});
  await call('broadcast/ready',{broadcast_id:broadcast.broadcast_id,expected_revision:broadcast.revision,mode:'echo'});
  const op={role:'operator',principal_id:'fixture-operator',viewer_id:'operator-local'};
@@ -58,7 +58,7 @@ try{
  const require=createRequire(join(project,'tools/dsh-browser/package.json'));const {chromium}=require('playwright-core');
  mkdirSync(join(root,'cache/tmp'),{recursive:true});context=await chromium.launchPersistentContext(join(root,'cache/chrome-management'),{executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,viewport:{width:1440,height:1120},env:{...process.env,TEMP:join(root,'cache/tmp'),TMP:join(root,'cache/tmp')},args:['--no-proxy-server','--disable-gpu']});
  const page=context.pages()[0]||await context.newPage();page.on('pageerror',error=>errors.push(error.message));await page.goto(origin+'/memory',{waitUntil:'domcontentloaded'});
- await page.fill('#loginToken',bridge.auth.operatorKey);await page.click('#loginForm button');await page.waitForFunction(()=>document.querySelector('#pageInfo').textContent.includes('本页 50 条'));
+ await page.waitForFunction(()=>document.querySelector('#pageInfo').textContent.includes('本页 50 条'));
  await page.click('#nextPage');await page.waitForFunction(()=>document.querySelector('#pageInfo').textContent.includes('第 2 页'));await page.click('#previousPage');await page.waitForFunction(()=>document.querySelector('#pageInfo').textContent.includes('第 1 页'));checks.browser_keyset_pagination=true;
  await page.fill('#filterFact','preference.drink');await page.click('#memoryFilters button');await page.waitForFunction(()=>document.querySelectorAll('#memoryRows tr').length===2);
  const row=page.locator('#memoryRows tr').filter({has:page.locator('td', {hasText:'active / r5'})});await row.getByRole('button',{name:'归档',exact:true}).click();await page.fill('#archiveReason','浏览器归档验证');await page.click('#archiveForm button[type=submit], #archiveForm button:not([type])');await page.waitForFunction(()=>document.querySelector('#feedback').textContent.includes('操作已保存'));

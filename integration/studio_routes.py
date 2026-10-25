@@ -17,10 +17,6 @@ def response(data,status=200):return web.json_response(data,status=status,dumps=
 def channel_info():
     return {'base_url':os.getenv('AVATAR_LLM_BASE_URL',''),'model':os.getenv('AVATAR_LLM_MODEL',''),'protocol':os.getenv('AVATAR_LLM_PROTOCOL','chat_completions'),'system_prompt':os.getenv('AVATAR_SYSTEM_PROMPT','你是一位直播助手，请用简短自然的中文口语回复。'),'has_key':bool(os.getenv('AVATAR_LLM_API_KEY','')),'configured':all(os.getenv(k,'').strip() for k in CHANNEL_KEYS[:3])}
 
-def same_origin(request):
-    origin=request.headers.get('Origin')
-    if origin and urlsplit(origin).netloc!=request.host:raise web.HTTPForbidden(text='请从演播台页面操作。')
-
 async def status(request):
     manager=request.app['rtc_manager'];avatar=session_manager.get_session('studio')
     # Query the driver outside the HTTP loop; the web process needs no CUDA context.
@@ -66,9 +62,7 @@ async def character_archive(request):
 
 async def channel(request):
     if request.method=='GET':return response(channel_info())
-    from server.dsh_bridge import enabled,require_operator
-    if enabled():await require_operator(request)
-    same_origin(request);data=await request.json()
+    data=await request.json()
     base=str(data.get('base_url','')).strip();model=str(data.get('model','')).strip();protocol=data.get('protocol','chat_completions')
     if base and urlsplit(base).scheme not in ('http','https'):return response({'error':'渠道地址需要以 http:// 或 https:// 开头。'},400)
     if protocol not in ('chat_completions','responses'):return response({'error':'请选择支持的请求协议。'},400)
@@ -83,7 +77,7 @@ async def channel(request):
 async def speak(request):
     from server.dsh_bridge import enabled,proxy
     if enabled():return await proxy(request,'/api/dsh/requests')
-    same_origin(request);data=await request.json();text=str(data.get('text','')).strip();mode=data.get('mode','echo')
+    data=await request.json();text=str(data.get('text','')).strip();mode=data.get('mode','echo')
     if not text or len(text)>1500:return response({'error':'请输入 1–1500 字的播报内容。'},400)
     if mode not in ('echo','chat'):return response({'error':'请选择原文播报或 AI 回复。'},400)
     if mode=='chat' and not channel_info()['configured']:return response({'error':'请先在渠道设置中填写地址、密钥和实际模型 ID。'},400)
@@ -100,7 +94,7 @@ async def speak(request):
 async def interrupt(request):
     from server.dsh_bridge import enabled,proxy
     if enabled():return await proxy(request,'/api/dsh/cancel')
-    same_origin(request);avatar=session_manager.get_session('studio')
+    avatar=session_manager.get_session('studio')
     if avatar:
         avatar._studio_generation=getattr(avatar,'_studio_generation',0)+1
         avatar.flush_talk()
@@ -112,7 +106,6 @@ async def poster(request):
     return web.FileResponse(path)
 
 async def upload_portrait(request):
-    same_origin(request)
     from PIL import Image
     import io,hashlib
     data=await request.read()
@@ -175,14 +168,12 @@ async def motion(request):
     avatar=session_manager.get_session('studio')
     controller=getattr(avatar,'motion',None) if avatar else None
     if request.method=='GET':return response(controller.status() if controller else {'available':False,'clips':[]})
-    same_origin(request)
     if not controller:return response({'error':'先连接预览，待动作素材加载后再选择动作。'},409)
     data=await request.json()
     try:return response({'ok':True,'motion':controller.request(str(data.get('id','')))})
     except ValueError:return response({'error':'请选择素材库中已就绪的动作。'},400)
 
 async def local_stream(request):
-    same_origin(request)
     return await request.app['rtc_manager'].handle_local_stream(request)
 
 async def studio_sse(request):

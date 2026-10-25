@@ -234,6 +234,26 @@ def main():
         check(path.is_file() and path.stat().st_size == item['bytes'] and sha256(path) == item['sha256'],
               'DSH session media checksum: ' + item['file'])
     counts['dsh_session_media'] = len(studio_media['items'])
+    direct = load('docs/evidence/dsh-direct-studio-flow.json')
+    check(direct['kind'] == 'native_open_access_studio' and direct['passed'] is True
+          and direct['cloud_llm_exercised'] is True and direct['manual_login_requests'] == 0
+          and len(direct['checks']) == 13 and all(direct['checks'].values())
+          and len(direct['turns']) == 3
+          and all(turn['status'] == 'COMPLETED' and turn['voiced_interval']['audio_resets'] == 0
+                  and all(p['natural_end'] and not p['lost'] and not p['cancelled']
+                          and p['played_samples'] == p['valid_sample_count'] > 0 for p in turn['playback'])
+                  for turn in direct['turns']),
+          'Current open-access evidence must cover thirteen checks and three actual completed utterances')
+    direct_media = load('docs/media/dsh-direct-studio-manifest.json')
+    check(direct_media['kind'] == 'native_open_access_studio'
+          and direct_media['cloud_llm_exercised'] is True
+          and direct_media['report_sha256'] == sha256(local(direct_media['report'])),
+          'Open-access media must identify its actual real-channel source')
+    for item in direct_media['items']:
+        path = local(item['file'])
+        check(path.is_file() and path.stat().st_size == item['bytes'] and sha256(path) == item['sha256'],
+              'Open-access media checksum: ' + item['file'])
+    counts['dsh_open_access_media'] = len(direct_media['items'])
     dsh_docs = load('docs/evidence/dsh-humanity-doc-validation.json')
     for item in dsh_docs['artifacts']:
         digest = hashlib.sha256(local(item['path']).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()

@@ -66,7 +66,7 @@ export class StreamBridge {
   async mediaCommand(action,body) {
     const command=this.mediaChain.then(async()=>{
       if(action==='speak')requireValue(this.state.matches(body.request_id,body.runtime_epoch,body.generation),'STALE_GENERATION');
-      const response=await fetch(this.avatarUrl+'/internal/dsh/'+action,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+this.auth.mediaKey},body:canonical(body),signal:AbortSignal.timeout(8000)});
+      const response=await fetch(this.avatarUrl+'/internal/dsh/'+action,{method:'POST',headers:{'Content-Type':'application/json'},body:canonical(body),signal:AbortSignal.timeout(8000)});
       requireValue(response.ok,'MEDIA_COMMAND_FAILED',503);return response.json();
     });
     this.mediaChain=command.catch(()=>{});return command;
@@ -161,7 +161,7 @@ export class StreamBridge {
     const request=this.state.activate();if(request)void this.processRequest(request);
   }
   async publishPersona(principal,body) {
-    requireValue(principal.role==='operator'&&!this.administration.locked,'OPERATOR_REQUIRED',403);
+    requireValue(!this.administration.locked,'MEMORY_ADMINISTRATION_BUSY',409);
     const current=this.host.port.readPersona();requireValue(body.expected_version===this.state.personaVersion,'PERSONA_VERSION_CONFLICT');
     requireValue(canonical(body.document?.identityCard)===canonical(current.document.identityCard),'IDENTITY_CARD_IMMUTABLE');
     const version='female-a-'+digest(body.document).slice(0,16),now=utc(this.db.now());
@@ -172,10 +172,6 @@ export class StreamBridge {
   }
   publicStatus(principal) {
     const value=this.state.status();
-    if(principal?.role!=='operator') {
-      if(value.active_request?.principal_id!==principal?.principal_id)value.active_request=null;
-      value.queued=value.queued.filter(row=>this.state.request(row.request_id)?.principal_id===principal?.principal_id);
-    }
     return {...value,health:this.health()};
   }
   async body(req) {
@@ -184,38 +180,29 @@ export class StreamBridge {
     try{return chunks.length?JSON.parse(Buffer.concat(chunks).toString('utf8')):{};}catch{throw new StreamError('JSON_INVALID',400);}
   }
   async handle(req,res) {
-    const send=(data,status=200,headers={})=>{if(res.writableEnded)return;res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...headers});res.end(JSON.stringify(data));};
+    const send=(data,status=200,headers={})=>{if(res.writableEnded)return;res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'GET, POST, OPTIONS','Access-Control-Allow-Headers':'Content-Type, Authorization, Last-Event-ID',...headers});res.end(status===204?undefined:JSON.stringify(data));};
     try {
       const url=new URL(req.url,'http://127.0.0.1'),path=url.pathname;
-      if(req.headers.origin)requireValue(new URL(req.headers.origin).host===(req.headers['x-stream-original-host']||req.headers.host),'ORIGIN_DENIED',403);
+      if(req.method==='OPTIONS')return send({},204);
       if(path==='/health'&&req.method==='GET'){await this.refreshMedia();return send(this.health());}
-      if(path==='/api/dsh/session'&&req.method==='POST'){const auth=this.auth.anonymous(req.headers);return send({principal:auth.principal},200,auth.cookie?{'Set-Cookie':auth.cookie}:{});}
-      if(path==='/api/dsh/login'&&req.method==='POST'){const auth=this.auth.login((await this.body(req)).token);return send({principal:auth.principal},200,{'Set-Cookie':auth.cookie});}
-      if(path==='/api/dsh/logout'&&req.method==='POST')return send({ok:true},200,{'Set-Cookie':'dsh_session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0'});
+      if(path==='/api/dsh/session'&&req.method==='POST')return send({...this.auth.anonymous(),access_mode:'open',authentication_required:false,studio:{auto_start:true}});
+      if(path==='/api/dsh/login'&&req.method==='POST')return send({...this.auth.login(),access_mode:'open',authentication_required:false});
+      if(path==='/api/dsh/logout'&&req.method==='POST')return send({ok:true,authentication_required:false});
       const principal=this.auth.resolve(req.headers);
       if(path==='/api/dsh/events'&&req.method==='GET')return this.events.subscribe(req,res,this.auth.require(req.headers),url.searchParams);
       if(path==='/api/dsh/whoami'&&req.method==='GET')return send(this.auth.require(req.headers));
       if(path==='/api/dsh/status'&&req.method==='GET'){await this.refreshMedia();return send(this.publicStatus(principal));}
-      if(path==='/api/dsh/requests'&&req.method==='POST'){const p=this.auth.require(req.headers);requireValue(['viewer','operator'].includes(p.role),'VIEWER_REQUIRED',403);requireValue(this.ready&&!this.administration.locked,'BRIDGE_NOT_READY',503);const body=await this.body(req);if((body.mode||'chat')==='chat')requireValue(this.health().persona_injection_ready,'CHANNEL_COMPATIBILITY_REQUIRED',503);const result=this.state.accept(p,body);void this.tick();return send(result,result.duplicate?200:202);}
-      if(path.startsWith('/api/dsh/requests/')&&req.method==='GET'){const row=this.state.request(path.split('/').at(-1));requireValue(row,'REQUEST_NOT_FOUND',404);requireValue(principal?.role==='operator'||row.principal_id===principal?.principal_id,'REQUEST_FORBIDDEN',403);return send(row);}
+      if(path==='/api/dsh/requests'&&req.method==='POST'){const p=this.auth.resolve();requireValue(this.ready&&!this.administration.locked,'BRIDGE_NOT_READY',503);const body=await this.body(req);if((body.mode||'chat')==='chat')requireValue(this.health().persona_injection_ready,'CHANNEL_COMPATIBILITY_REQUIRED',503);const result=this.state.accept(p,body);void this.tick();return send(result,result.duplicate?200:202);}
+      if(path.startsWith('/api/dsh/requests/')&&req.method==='GET'){const row=this.state.request(path.split('/').at(-1));requireValue(row,'REQUEST_NOT_FOUND',404);return send(row);}
       if(path.startsWith('/internal/')) {
-        const mediaPrincipal=this.auth.require(req.headers,'media');requireValue(!mediaPrincipal.viewer_id,'MEDIA_SERVICE_REQUIRED',403);const body=await this.body(req);
+        const body=await this.body(req);
         if(path==='/internal/obs-session')return send(this.auth.playbackCredential());
         if(path==='/internal/audio-ready')return send(this.state.audioReady(body));
         if(path==='/internal/media-map')return send(this.state.mediaMap(body));
         if(path==='/internal/failed'){this.state.fail(body.request_id,'media_or_tts_failed');return send({ok:true});}
         throw new StreamError('NOT_FOUND',404);
       }
-      if(principal?.role==='playback') {
-        const body=await this.body(req);requireValue(req.method==='POST'&&body.consumer_id===principal.consumer_id,'PLAYBACK_SCOPE',403);
-        const delegated={...principal,role:'operator'};
-        if(path==='/api/dsh/playback/claim'){requireValue(!body.replace,'PLAYBACK_CANNOT_TAKE_OVER',403);return send(this.state.claimAuthority(delegated,body.broadcast_id,body.consumer_id,false));}
-        if(path==='/api/dsh/playback/heartbeat')return send(this.state.heartbeat(body.lease_id,body.consumer_id));
-        if(path==='/api/dsh/playback/receipt')return send(this.state.receipt(delegated,body));
-        if(path==='/api/dsh/playback/cancel-ack')return send(this.state.cancelAck(delegated,body));
-        throw new StreamError('PLAYBACK_SCOPE',403);
-      }
-      const p=this.auth.require(req.headers,'operator'),body=req.method==='GET'?{}:await this.body(req);
+      const p=this.auth.resolve(),body=req.method==='GET'?{}:await this.body(req);
       if(req.method==='POST'&&['/api/dsh/broadcast/ready','/api/dsh/broadcast/pause','/api/dsh/broadcast/end'].includes(path))requireValue(typeof body.broadcast_id==='string'&&Number.isSafeInteger(body.expected_revision),'BROADCAST_CONTROL_REVISION_REQUIRED',400);
       if(path==='/api/dsh/probe'&&req.method==='POST')return send(await this.probe());
       if(path==='/api/dsh/broadcast/start'&&req.method==='POST')return send(this.state.createBroadcast(p));
