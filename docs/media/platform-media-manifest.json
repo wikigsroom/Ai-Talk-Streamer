@@ -1,0 +1,69 @@
+{
+  "kind": "native_platform_pages_and_loopback_rtmp",
+  "external_platform_audience_verified": false,
+  "report": "docs/evidence/platform-integration.json",
+  "report_sha256": "cbab806dbcc3ed15f31775e155c7596f66977da30852ef5988097bb7ae13ee0e",
+  "edit": {
+    "kind": "native_loopback_rtmp_documentation_excerpts",
+    "speed": 1,
+    "preview": {
+      "file": "docs/media/platform-local-preview.mp4",
+      "start_seconds": 25.0,
+      "duration_seconds": 12.0,
+      "source_sha256": "3d4b2c3089b78126ba5a8fa606bbec8f1f2db6833c5ca8078af4a8984fb68a68",
+      "audio": true
+    },
+    "gif": {
+      "file": "docs/media/platform-local-response.gif",
+      "start_seconds": 27.0,
+      "duration_seconds": 8,
+      "source_sha256": "3d4b2c3089b78126ba5a8fa606bbec8f1f2db6833c5ca8078af4a8984fb68a68",
+      "audio": false
+    },
+    "ui": {
+      "file": "docs/media/platform-ui-interaction.mp4",
+      "source_sha256": "d8c6d2b7fd0d2dea52ec5a8a5b148c49670d5a5857fb041272447092c4d45959",
+      "audio": false
+    }
+  },
+  "items": [
+    {
+      "file": "docs/media/platform-local-preview.mp4",
+      "bytes": 593091,
+      "sha256": "9f7c432089054a156af20fb2a0ed0ed3dec1864afef4ab8d5adeeae6925eb747",
+      "source_sha256": "3d4b2c3089b78126ba5a8fa606bbec8f1f2db6833c5ca8078af4a8984fb68a68"
+    },
+    {
+      "file": "docs/media/platform-local-response.gif",
+      "bytes": 3305442,
+      "sha256": "6808d0a0efedabf951dae7289b464706690163ae2787a934fb61630871cfd454",
+      "source_sha256": "3d4b2c3089b78126ba5a8fa606bbec8f1f2db6833c5ca8078af4a8984fb68a68"
+    },
+    {
+      "file": "docs/media/platform-native-avatar.png",
+      "bytes": 1220404,
+      "sha256": "ee459caffc3e7c3bf6aba7ad1268c3669a8807080e8027fe032b695ffa720bca"
+    },
+    {
+      "file": "docs/media/platform-native-bilibili.png",
+      "bytes": 368076,
+      "sha256": "b57b663a07c282e72e2d5ea253328852598474f8419064e40b49acb1cd423416"
+    },
+    {
+      "file": "docs/media/platform-native-mobile.png",
+      "bytes": 257319,
+      "sha256": "252029614be53bb039a973a1feb2f66bbb591b87843743b218c81d380bcc10f0"
+    },
+    {
+      "file": "docs/media/platform-native-rtmp-desktop.png",
+      "bytes": 372690,
+      "sha256": "d8168dbf690bc08b078d3df10fa3f0056e6bfc9097ddd0be72595492fa0b6018"
+    },
+    {
+      "file": "docs/media/platform-ui-interaction.mp4",
+      "bytes": 454472,
+      "sha256": "1291bf33d32145426cfafd23eb89a63508567a405aa83fd1aaa0d19f63e59f97",
+      "source_sha256": "d8c6d2b7fd0d2dea52ec5a8a5b148c49670d5a5857fb041272447092c4d45959"
+    }
+  ]
+}

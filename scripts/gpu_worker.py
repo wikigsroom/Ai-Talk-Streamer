@@ -70,6 +70,11 @@ try:
         try:
             operation=request['operation']
             if operation=='features':value=renderer.audio_processor.audio2feat(request['wave'])[:128]
+            elif operation=='release_cache':
+                # Give MOSS/NVENC the idle renderer's temporary workspace.
+                # Keep model tensors and the selected inference batch intact.
+                gc.collect();torch.cuda.empty_cache()
+                value=memory_stats('before_moss_cache_released')
             elif operation=='prepare_speech':
                 # MOSS has finished and returned transient KV blocks. Allocate
                 # the real renderer workspace before any voiced PCM is queued;

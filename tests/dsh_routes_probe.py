@@ -148,11 +148,43 @@ async def check_open_access_proxy():
         await server.close()
 
 
+async def check_platform_callback_proxy():
+    raw = '[ {"content": "你好", "msg_id": "fixture"} ]\r\n'.encode('utf-8')
+    signed = {'x-msg-type': 'live_comment', 'x-nonce-str': 'fixture-nonce',
+              'x-roomid': '595139', 'x-timestamp': '1792926000', 'x-signature': 'fixture-signature'}
+    async def callback(request):
+        assert await request.read() == raw
+        assert all(request.headers.get(key) == value for key, value in signed.items())
+        assert 'Authorization' not in request.headers and 'Cookie' not in request.headers
+        return web.json_response({'accepted': 1}, status=202)
+    upstream = web.Application()
+    upstream.router.add_post('/api/dsh/platforms/douyin/callback', callback)
+    server = TestServer(upstream)
+    await server.start_server()
+    saved_bridge = module.BRIDGE
+    module.BRIDGE = str(server.make_url('')).rstrip('/')
+    forwarded = web.Application()
+    module.configure(forwarded)
+    try:
+        async with TestClient(TestServer(forwarded)) as client:
+            result = await client.post('/api/dsh/platforms/douyin/callback', data=raw,
+                                      headers={**signed, 'Content-Type': 'application/json',
+                                               'Authorization': 'Bearer obsolete', 'Cookie': 'obsolete=1'})
+            assert result.status == 202 and (await result.json())['accepted'] == 1
+            resource = next(route for route in forwarded.router.routes()
+                            if route.method == 'GET' and route.resource.canonical == '/platforms')
+            assert resource.handler is module.platforms_page
+    finally:
+        module.BRIDGE = saved_bridge
+        await server.close()
+
+
 async def main():
     await check_legacy_guard()
     await check_streaming_proxy()
     await check_media_fences()
     await check_open_access_proxy()
+    await check_platform_callback_proxy()
 
 asyncio.run(main())
 print(json.dumps({'passed': True, 'route_count': len(list(app.router.routes())), 'cors_preflight': True, 'legacy_speech_bypass_blocked': True, 'sse_forwarded_before_eof': True, 'last_event_id_forwarded': True, 'media_commands_idempotent': True, 'stale_cancel_does_not_flush_new_speech': True, 'old_epoch_cannot_override_new': True, 'open_access_without_credentials': True, 'cross_origin_not_blocked': True, 'obsolete_credentials_ignored': True}))

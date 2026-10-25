@@ -259,9 +259,31 @@ def main():
         digest = hashlib.sha256(local(item['path']).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
         check(digest == item['sha256'], 'DSH documented source changed after validation: ' + item['path'])
     dsh_runtime = load('docs/evidence/dsh-humanity-runtime.json')
+    platform_evidence = load('docs/evidence/platform-integration.json')
+    check(platform_evidence['local_acceptance']['ok'] is True
+          and platform_evidence['module_tests']['node_passed'] >= 68
+          and platform_evidence['module_tests']['node_skipped'] == 0
+          and platform_evidence['module_tests']['python_passed'] >= 23
+          and platform_evidence['module_tests']['native_route_count'] == 18,
+          'Platform evidence requires actual local media and complete module/proxy tests')
+    deltas = platform_evidence['superseded_baseline_sources']
     for name, expected in dsh_runtime['code_sha256'].items():
         digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
-        check(digest == expected, 'DSH runtime evidence source changed: ' + name)
+        if digest != expected:
+            delta = deltas.get(name, {})
+            check(delta.get('historical_sha256') == expected and delta.get('current_sha256') == digest
+                  and bool(delta.get('validation')), 'DSH source lacks current validation evidence: ' + name)
+    for name, expected in platform_evidence['code_sha256'].items():
+        digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
+        check(digest == expected, 'Platform evidence source changed: ' + name)
+    platform_media = load('docs/media/platform-media-manifest.json')
+    check(platform_media['report_sha256'] == sha256(local(platform_media['report'])),
+          'Platform media report checksum')
+    for item in platform_media['items']:
+        path = local(item['file'])
+        check(path.is_file() and path.stat().st_size == item['bytes'] and sha256(path) == item['sha256'],
+              'Platform media checksum: ' + item['file'])
+    counts['platform_documentation_media'] = len(platform_media['items'])
 
     if args.media:
         probe = shutil.which('ffprobe')

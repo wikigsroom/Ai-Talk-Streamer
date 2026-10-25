@@ -45,6 +45,10 @@ async def proxy(request, path=None):
     if not path.startswith('/api/dsh/'):
         raise web.HTTPNotFound()
     headers = {key: request.headers[key] for key in ('Content-Type', 'Last-Event-ID') if key in request.headers}
+    if path == '/api/dsh/platforms/douyin/callback':
+        for key in ('x-msg-type', 'x-nonce-str', 'x-roomid', 'x-timestamp', 'x-signature'):
+            if key in request.headers:
+                headers[key] = request.headers[key]
     target = BRIDGE + path + (('?' + request.query_string) if request.query_string else '')
     try:
         streaming = request.method == 'GET' and path == '/api/dsh/events'
@@ -114,6 +118,10 @@ async def memory_page(_request):
     return web.FileResponse(ROOT / 'web/memory.html')
 
 
+async def platforms_page(_request):
+    return web.FileResponse(ROOT / 'web/platforms.html')
+
+
 async def obs_session(request):
     return web.json_response(await async_media('obs-session', {}), headers={'Cache-Control': 'no-store'})
 
@@ -133,4 +141,5 @@ def configure(app):
     app.router.add_post('/api/dsh/{tail:.*}', proxy)
     app.router.add_post('/internal/dsh/{action}', avatar_command)
     app.router.add_get('/memory', memory_page)
+    app.router.add_get('/platforms', platforms_page)
     app.router.add_get('/dsh-evidence/{path:.*}', evidence_file)

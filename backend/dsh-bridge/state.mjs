@@ -132,7 +132,7 @@ export class StreamState extends EventEmitter {
     }
     return created;
   }
-  accept(principal, { text, mode = 'chat', idempotency_key: key, public_input: isPublic = false }) {
+  accept(principal, { text, mode = 'chat', idempotency_key: key, public_input: isPublic = false, source }) {
     requireValue(typeof text === 'string' && text.trim().length > 0 && text.length <= this.policy.conversation.input_max_chars && ['chat','echo'].includes(mode) && typeof key === 'string' && key.length >= 8 && key.length <= 120, 'INPUT_INVALID', 400);
     const partition = principal.role === 'operator' && isPublic ? 'public' : principal.viewer_id;
     requireValue(!!partition, 'VIEWER_IDENTITY_REQUIRED', 401);
@@ -144,7 +144,8 @@ export class StreamState extends EventEmitter {
       const pending = this.db.get("SELECT COUNT(*) AS n FROM requests WHERE broadcast_id=? AND status='QUEUED'", broadcast.broadcast_id).n;
       requireValue(pending < this.policy.conversation.pending_queue_limit, 'QUEUE_FULL', 429);
       const request = { request_id: id('req'), broadcast_id: broadcast.broadcast_id, runtime_epoch: this.room().runtime_epoch };
-      const seq = this.db.event(this.scope(request, { actor_kind: principal.role === 'operator' ? 'operator' : 'viewer', actor_id: principal.principal_id }), 'input.accepted', { text: text.trim(), partition_key: partition, viewer_id: partition === 'public' ? null : partition, mode, verified_principal: principal.principal_id });
+      const metadata=source&&typeof source==='object'?Object.fromEntries(['platform','room_id','event_id','nickname','identity_quality','collector'].filter(key=>typeof source[key]==='string').map(key=>[key,source[key].slice(0,300)])):null;
+      const seq = this.db.event(this.scope(request, { actor_kind: principal.role === 'operator' ? 'operator' : 'viewer', actor_id: principal.principal_id }), 'input.accepted', { text: text.trim(), partition_key: partition, viewer_id: partition === 'public' ? null : partition, mode, verified_principal: principal.principal_id,...(metadata?{source:metadata}:{}) });
       this.db.run(`INSERT INTO requests(request_id,broadcast_id,character_id,room_id,principal_id,viewer_id,mode,status,idempotency_key,input_sha256,runtime_epoch,input_event_seq,created_at,queue_expires_at) VALUES (?,?,?,?,?,?,?,'QUEUED',?,?,?,?,?,?)`,
         request.request_id, broadcast.broadcast_id, ...this.characterRoom, principal.principal_id, partition === 'public' ? null : partition, mode, key, hash, request.runtime_epoch, seq, utc(this.db.now()), utc(this.db.now() + this.policy.conversation.queued_input_ttl_ms));
       return this.request(request.request_id);

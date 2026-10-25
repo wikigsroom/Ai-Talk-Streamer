@@ -12,13 +12,21 @@ jobs:
           python-version: '3.11'
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
       - name: Source, documentation and reviewed asset verification
         run: python -X utf8 devtools/verify-repository.py
       - name: Native audio adapter test dependencies
-        run: python -m pip install numpy scipy soundfile requests
+        run: python -m pip install numpy scipy soundfile requests aiohttp aiohttp-cors
       - name: Motion scheduling and speech adapter behavior
         run: python -m unittest discover -s tests -v
+      - name: DSH and platform lifecycle, persistence and protocol tests
+        run: node --test tests/dsh-*.test.mjs tests/platforms.test.mjs tests/platform-obs.test.mjs
+      - name: Native HTTP proxy and callback forwarding
+        run: python -X utf8 tests/dsh_routes_probe.py
+      - name: Native browser fixture dependencies
+        run: npm ci --ignore-scripts
+      - name: Chat collection and responsive platform page
+        run: node --test tests/platform-browser.test.mjs tests/platform-ui.test.mjs
       - name: JavaScript syntax
         shell: pwsh
         run: |

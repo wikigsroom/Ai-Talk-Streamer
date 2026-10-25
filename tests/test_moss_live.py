@@ -119,6 +119,34 @@ class MossLiveTests(unittest.TestCase):
         adapter.http.post.assert_not_called()
         self.assertFalse(parent.frames)
 
+    def test_idle_renderer_releases_workspace_before_moss_and_prepares_before_audio(self):
+        adapter, parent = self.make_adapter()
+        phases = []
+        gpu = Mock()
+        gpu.call.side_effect = lambda operation: phases.append(operation)
+        parent.audio_processor = SimpleNamespace(client=gpu)
+        response, _ = self.response()
+        adapter.http = Mock()
+        adapter.http.post.side_effect = lambda *args, **kwargs: (phases.append('moss'), response)[1]
+        original = parent.put_audio_frame
+        parent.put_audio_frame = lambda frame, info: (phases.append('pcm'), original(frame, info))[1]
+        adapter.txt_to_audio(('完整语音。', {'generation': 7}))
+        self.assertEqual(phases[:3], ['release_cache', 'moss', 'prepare_speech'])
+        self.assertTrue(parent.frames)
+        self.assertTrue(all(phase == 'pcm' for phase in phases[3:]))
+
+    def test_cancellation_during_cache_release_never_submits_moss(self):
+        adapter, parent = self.make_adapter()
+        gpu = Mock()
+        def cancel(operation):
+            adapter.epoch += 1
+        gpu.call.side_effect = cancel
+        parent.audio_processor = SimpleNamespace(client=gpu)
+        adapter.http = Mock()
+        adapter.txt_to_audio(('已取消。', {'generation': 7}))
+        adapter.http.post.assert_not_called()
+        self.assertFalse(parent.frames)
+
     def test_interruption_while_waiting_discards_the_entire_result(self):
         adapter, parent = self.make_adapter()
         response, _ = self.response()

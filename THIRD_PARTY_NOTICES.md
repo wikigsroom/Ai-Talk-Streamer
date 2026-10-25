@@ -11,6 +11,10 @@ The root [Apache-2.0 license](LICENSE) covers the project's original integration
 | GPT-SoVITS | [RVC-Boss/GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS), [MIT text](docs/licenses/GPT-SoVITS.txt) | Local speech synthesis / 本地语音合成 |
 | CosyVoice demo resource | [FunAudioLLM/CosyVoice](https://github.com/FunAudioLLM/CosyVoice), [Apache-2.0 text](docs/licenses/CosyVoice.txt) | Upstream `asset/zero_shot_prompt.wav` and transcript used as the demonstration TTS reference / 示例参考音频及文本 |
 | OBS Studio | [obsproject/obs-studio](https://github.com/obsproject/obs-studio), upstream license | Separately downloaded portable capture/stream application / 单独下载的录制推流软件 |
+| blivedm 1.1.7 | [xfgryujk/blivedm](https://github.com/xfgryujk/blivedm), MIT; pinned `3bf17fe862b8c2fc6bc04c81c3f0c5db95de93d6` | Separately installed CPU-only Bilibili Web comment adapter; upstream LICENSE retained in its installation / 独立安装的 B站 Web 弹幕接入 |
+| Playwright Core 1.59.1 | [microsoft/playwright](https://github.com/microsoft/playwright), Apache-2.0 | Isolated native Chrome/Edge comment collection and browser tests / 独立本机浏览器采集与验收 |
+| Douyin Live Companion | [Official download](https://streamingtool.douyin.com/), proprietary upstream terms | Separately obtained broadcaster client, not redistributed as project source / 官方主播客户端，单独下载，不作为本项目源码再分发 |
+| 7-Zip 26.05 | [Official downloads](https://www.7-zip.org/download.html), upstream LGPL/BSD/unRAR notices | Project-local client extraction only; downloaded binary and retained license files are not committed / 仅用于项目内解包，程序及许可保留在下载目录 |
 | FFmpeg builds | [BtbN/FFmpeg-Builds](https://github.com/BtbN/FFmpeg-Builds), [GyanD/codexffmpeg](https://github.com/GyanD/codexffmpeg), licenses of the selected GPL/shared builds | Separate encoding tools and runtime decoder DLLs / 编解码工具及 DLL |
 | Python, uv, PyTorch and libraries | Their upstream licenses, retained in installed distributions / 安装分发中的上游许可 | Native inference environments / 原生运行依赖 |
 | H3 / ComfyUI generation stack | External model/node licenses; not included in live setup / 外部模型与节点许可 | Optional local preparation of new body footage / 可选本地视频准备 |

@@ -12,6 +12,10 @@ The original **RTX 3080 10 GB / 64 GB RAM** GPT-SoVITS version retains batch-8 F
 
 **Open access:** the application has no login, token, IP allowlist or role gates. Preview connection starts the session automatically. [13 actual browser checks, a real AI recording and GIF](docs/dsh-humanity/MEDIA.md#当前无鉴权入口--current-open-access-studio) and [11 isolated management checks](docs/evidence/dsh-open-management.json) passed; the studio and `/memory` are directly usable.
 
+**Live platform integration:** `/platforms` adds native OBS output control, Bilibili Web/Open Live comments, Douyin browser/official callback adapters, generic RTMP targets, persistent event de-duplication and viewer memory partitions. Basic routes support existing streaming accounts without requiring a developer application. See the [assessment and implementation](docs/PLATFORM_INTEGRATION.md), [deployment](docs/platforms/DEPLOYMENT.md), and [acceptance scope](docs/platforms/ACCEPTANCE.md). Local protocol tests do not establish real-account streaming or audience delivery.
+
+[Actual platform pages, an audible RTMP recording and GIF](docs/platforms/MEDIA.md) document the native event, duplicate, pause/resume and real AI checks. Account publishing and audience delivery are identified separately.
+
 ![Actual studio while speaking](docs/media/studio-speaking.png)
 
 **Female-A voice casting:** [ten MOSS voices, ten matching SoulX voices and a FireRed reference comparison](docs/VOICES.md), synthesized on the RTX 3080. Open `/voices.html?v=2` for real audio playback, model switching, shortlisting and downloads. The page defaults to MOSS; it does not automatically change the live TTS engine.
@@ -146,7 +150,7 @@ The portable OBS profile / collection is `Avatar Local`, the scene is `Avatar`, 
 | Generation / validation sampled peak | 43.90 GiB VRAM; 58.84 GiB host RAM | Ten-second samples, includes other host usage |
 | Final idle live snapshot | About 12.28 GiB VRAM; 15.97 GiB host RAM | Sample after releasing generation models |
 
-The face is photorealistic, but lips and teeth can be softer than the source image because MuseTalk works in a 256-pixel generated region. Hand/body animation comes from prepared clips; gestures are not generated per word or chosen by semantic intent. There is currently no persistent multi-turn conversation memory, audience microphone ASR, automatic platform-chat ingestion, multi-avatar isolation, user authentication or automatic stream operation. The service is designed for a trusted workstation network, not an unauthenticated Internet-facing deployment. See [testing](docs/TESTING.md) and [configuration](docs/CONFIGURATION.md).
+The face is photorealistic, but lips and teeth can be softer than the source image because MuseTalk works in a 256-pixel generated region. Hand/body animation comes from prepared clips; gestures are not generated per word or chosen by semantic intent. DSH now provides persistent conversation memory, and the platform module implements comment ingestion and explicit OBS output controls. Real-account platform acceptance is tracked separately. Audience microphone ASR, multi-avatar isolation and autonomous stream operation are not implemented. The application intentionally has no login. The service is designed for a trusted workstation network, not an unauthenticated Internet-facing deployment. See [testing](docs/TESTING.md) and [configuration](docs/CONFIGURATION.md).
 
 ## Documentation and development
 

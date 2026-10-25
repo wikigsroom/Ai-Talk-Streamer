@@ -8,6 +8,8 @@ This is the documentation for the delivered **daylight dorm / portrait / local-m
 
 | Document / 文档 | Read it for / 内容 |
 | --- | --- |
+| [Platform integration / 直播平台接入](PLATFORM_INTEGRATION.md) | Bilibili, Douyin, OBS, native comment adapters, event queues and per-viewer memory / 双平台评估、无开放应用基础路径、完整实现和验收边界 |
+| [Platform media / 平台实机录像](platforms/MEDIA.md) | Actual control pages, loopback RTMP, MOSS speech, GIF and account-validation boundaries / 真实页面、本地推流与账号验收边界 |
 | [DSH + Humanity / 人格与持续记忆](DSH_HUMANITY.md) | Normative lifecycle, receipts, isolation, consolidation and recovery; implementation/acceptance status is separate / 状态、播放确认、隔离、压缩合并及恢复；实际状态见实施记录 |
 | [DSH implementation / 实施记录](dsh-humanity/IMPLEMENTATION.md) | Code map, channel inheritance, verified scope and outstanding gates / 代码、继承网页渠道、证据边界及剩余验收 |
 | [DSH runbook / 操作手册](dsh-humanity/RUNBOOK.md) | Native installation, broadcast timeline, schedules, corrections, deletion and restore / 原生安装、下播时间线、周期任务、更正、删除与恢复 |

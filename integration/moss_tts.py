@@ -56,6 +56,11 @@ class MossTTS(BaseTTS):
         request_id = uuid.uuid4().hex
         self.active_request = request_id
         try:
+            gpu = getattr(getattr(self.parent, 'audio_processor', None), 'client', None)
+            if gpu is not None:
+                gpu.call('release_cache')
+                if not self.current(info, epoch):
+                    return
             self.parent.send_msg(json.dumps({'status': 'generating', 'text': text,
                                             'engine': 'MOSS', 'voice_id': self.expected_voice}, ensure_ascii=False))
             response = self.http.post(self.opt.TTS_SERVER.rstrip('/') + '/tts',
@@ -77,7 +82,6 @@ class MossTTS(BaseTTS):
                 wave = resample_poly(wave, self.sample_rate // factor, rate // factor).astype(np.float32)
             logger.info('MOSS %s generated %.3fs audio in %ss', self.expected_voice,
                         len(wave) / self.sample_rate, response.headers.get('X-TTS-Wall-Seconds', '?'))
-            gpu = getattr(getattr(self.parent, 'audio_processor', None), 'client', None)
             if gpu is not None:
                 gpu.call('prepare_speech')
                 if not self.current(info, epoch):

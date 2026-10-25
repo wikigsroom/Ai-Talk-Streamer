@@ -1,0 +1,23 @@
+{
+  "kind": "native_loopback_rtmp_documentation_excerpts",
+  "speed": 1,
+  "preview": {
+    "file": "docs/media/platform-local-preview.mp4",
+    "start_seconds": 25.0,
+    "duration_seconds": 12.0,
+    "source_sha256": "3d4b2c3089b78126ba5a8fa606bbec8f1f2db6833c5ca8078af4a8984fb68a68",
+    "audio": true
+  },
+  "gif": {
+    "file": "docs/media/platform-local-response.gif",
+    "start_seconds": 27.0,
+    "duration_seconds": 8,
+    "source_sha256": "3d4b2c3089b78126ba5a8fa606bbec8f1f2db6833c5ca8078af4a8984fb68a68",
+    "audio": false
+  },
+  "ui": {
+    "file": "docs/media/platform-ui-interaction.mp4",
+    "source_sha256": "d8c6d2b7fd0d2dea52ec5a8a5b148c49670d5a5857fb041272447092c4d45959",
+    "audio": false
+  }
+}

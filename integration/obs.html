@@ -4,10 +4,16 @@
 <script>
 let current,stopped=false,timer,authorityTimer,authorityBusy=false;const video=document.querySelector('video'),notice=document.querySelector('#notice'),context=new AudioContext();
 async function authority(){
- if(authorityBusy||!current?.dsh||current.dsh.lease)return;authorityBusy=true;
+ if(authorityBusy||!current?.dsh)return;authorityBusy=true;
  try{
-  const r=await fetch('/api/dsh/status'),s=await r.json();if(!s.broadcast||s.broadcast.state==='DRAINING'||s.health.authority_ready)return;
-  await current.dsh.claim(s.broadcast.broadcast_id,false);
+  const r=await fetch('/api/dsh/status'),s=await r.json();if(!s.broadcast||s.broadcast.state==='DRAINING')return;
+  let replace=false;
+  if(new URLSearchParams(location.search).get('output')==='platform'){
+   const p=await fetch('/api/dsh/platforms/output/player',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({consumer_id:current.dsh.consumerId,frames:video.getVideoPlaybackQuality?.().totalVideoFrames||0,audio_state:context.state})});
+   if(p.ok)replace=!!(await p.json()).claim;
+  }
+  if(!replace&&s.health.authority_ready)return;
+  await current.dsh.claim(s.broadcast.broadcast_id,replace);
  }catch{}finally{authorityBusy=false;}
 }
 async function connect(){
