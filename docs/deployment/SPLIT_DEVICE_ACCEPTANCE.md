@@ -99,6 +99,12 @@ http://127.0.0.1:8020/receiver/evidence/receiver-full.mp4
 
 ## English
 
+**Current deployment update:** the later [A4090 + B3080 official-client acceptance](RTX3080_RECEIVER.md) passed five cases in the actual Livehime source and six real public-comment replies. Median canvas-update FPS was25.285; no new recording was started. Earlier local-B failures and recordings below retain their historical scope.
+
 Five real 4090→virtual-LAN→B speech cases passed, including duplicate rejection, pause/resume, a cloud personality/context reply and media reconnection. The final run measured a median24.883 presentedFPS, with zero audio underruns, missing packets or decode errors. All five utterances received complete contiguous-sample and natural-end acknowledgement. The actual189.758-second H264/AAC recording includes generation waits; linked excerpts are trimmed at original speed.
 
 The official B-client source and its own audible local recording are separate acceptance gates. A genuine source was added with internal audio and muted desktop/microphone. The signed8.11.1.11202 client started after the account owner approved Windows elevation, and real packet headers confirmed H264 after reconnecting. Its locked-desktop attempt failed: approximately0–1.3 presentedFPS, a170-second timeout, and171.715 seconds between a7.76-second utterance becoming ready and its natural playback receipt. That failure remains explicit. The client's final portrait canvas and audible local recording are still unverified. Formal memory ownership and public broadcast remain unchanged until an intentional, consistent cutover.
+
+## 2026-10-27：B切换至3080的后续实测
+
+B接收服务已改在远程3080运行，刷新后的真正直播姬素材通过五段测试，317次画布更新采样中位25.285FPS，音频欠载、媒体缺包、解码错误均为0。随后由B直播姬公开开播，A采集器实际接收六条观众弹幕，六条回复均自然完整播完。操作者本机8020已停止；B旧推理与旧DSH停服，415个旧状态文件一致备份，A保留唯一当前写入者。没有将旧状态直接覆盖到A，也没有按旧要求新增录制。完整命令、当前边界、截图及三条真实延迟分解见[本次运行记录](RTX3080_RECEIVER.md)与[脱敏证据](../evidence/split-3080-receiver.json)。

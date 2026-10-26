@@ -1,0 +1,120 @@
+{
+  "observed_utc": "2026-10-26T21:35:38.835197+00:00",
+  "runtime_source_commit": "fb7e6e8b0f655b9d6b9863486cc0e6f8b1e8f697",
+  "A": "RTX 4090: avatar, MOSS04, DSH/Humanity, collector",
+  "B": "RTX 3080: receiver and official Livehime",
+  "local_receiver_stopped": true,
+  "portrait": [
+    720,
+    1280
+  ],
+  "tests": [
+    {
+      "id": "s01_native_greeting",
+      "status": "COMPLETED",
+      "elapsed_ms": 38857
+    },
+    {
+      "id": "s02_native_audio",
+      "status": "COMPLETED",
+      "elapsed_ms": 32621
+    },
+    {
+      "id": "s03_native_resume",
+      "status": "COMPLETED",
+      "elapsed_ms": 26955
+    },
+    {
+      "id": "s04_native_response",
+      "status": "COMPLETED",
+      "elapsed_ms": 23353
+    },
+    {
+      "id": "s05_native_memory",
+      "status": "COMPLETED",
+      "elapsed_ms": 39910
+    }
+  ],
+  "duplicate_rejected": true,
+  "cloud_llm_exercised": true,
+  "sample_count": 317,
+  "median_canvas_fps": 25.285,
+  "minimum_canvas_fps": 24.466,
+  "maximum_canvas_fps": 25.39,
+  "receiver": {
+    "active_connections": 1,
+    "upstream_errors": 0,
+    "websocket_connections": 1,
+    "media_connected": true
+  },
+  "playback_metrics": {
+    "frames": 19435,
+    "received_frames": 19535,
+    "fps": 24.663378216433816,
+    "audio_clock_seconds": 781.4906666666667,
+    "decoder_queue": 0,
+    "pending_video_frames": 0,
+    "audio_underruns": 0,
+    "audio_buffer_ms": 4018.6666665322264,
+    "missing_packets": 0,
+    "skipped_video_frames": 0,
+    "decode_errors": 0,
+    "max_arrival_gap_ms": 91.80000001192093,
+    "codec": "h264_nvenc",
+    "fps_source": "canvas_draw",
+    "output_mode": "direct_canvas_audio"
+  },
+  "old_3080_state_backup_files": 415,
+  "old_3080_state_imported_to_A": false,
+  "B_gpu_after_retirement": "1223 MiB, 8831 MiB, 8 %",
+  "real_comment_completions_observed": 6,
+  "real_comment_latency_samples": [
+    {
+      "case": 1,
+      "status": "COMPLETED",
+      "source": "blivedm",
+      "platform_to_first_playback_seconds": 31.263,
+      "collector_to_first_playback_seconds": 31.017,
+      "platform_to_complete_seconds": 39.832,
+      "llm_seconds": 8.746,
+      "tts_seconds": 17.428,
+      "audio_ready_to_first_receipt_seconds": 4.645,
+      "valid_samples": 138240,
+      "played_samples": 138240,
+      "natural_end": true
+    },
+    {
+      "case": 2,
+      "status": "COMPLETED",
+      "source": "blivedm",
+      "platform_to_first_playback_seconds": 27.707,
+      "collector_to_first_playback_seconds": 27.068,
+      "platform_to_complete_seconds": 32.547,
+      "llm_seconds": 10.264,
+      "tts_seconds": 11.536,
+      "audio_ready_to_first_receipt_seconds": 4.725,
+      "valid_samples": 79360,
+      "played_samples": 79360,
+      "natural_end": true
+    },
+    {
+      "case": 3,
+      "status": "COMPLETED",
+      "source": "blivedm",
+      "platform_to_first_playback_seconds": 37.139,
+      "collector_to_first_playback_seconds": 37.351,
+      "platform_to_complete_seconds": 51.482,
+      "llm_seconds": 2.223,
+      "tts_seconds": 29.421,
+      "audio_ready_to_first_receipt_seconds": 4.778,
+      "valid_samples": 231680,
+      "played_samples": 231680,
+      "natural_end": true
+    }
+  ],
+  "measurement_boundary": "Platform event timestamp to accepted positive sample receipt from the official client, not CDN audience latency; platform/server clocks are not guaranteed synchronized.",
+  "public_client_start_observed": true,
+  "public_output_state": "MANUAL_LIVE",
+  "client_recording_created": false,
+  "gift_event_verified": false
+}
