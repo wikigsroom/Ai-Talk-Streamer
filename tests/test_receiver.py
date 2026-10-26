@@ -1,4 +1,5 @@
 import asyncio,importlib.util,json,unittest
+from unittest.mock import patch
 from pathlib import Path
 from aiohttp import web,WSMsgType
 from aiohttp.test_utils import TestClient,TestServer
@@ -46,9 +47,12 @@ class ReceiverTests(unittest.IsolatedAsyncioTestCase):
         status=await (await self.client.get('/receiver/status')).json()
         self.assertEqual(status['media_packets'],1);self.assertFalse(status['authentication_required'])
     async def test_receiver_id_overrides_remote_player_input(self):
-        response=await self.client.post('/api/dsh/platforms/output/player',json={'consumer_id':'x','receiver_id':'spoofed','receiver_client_ready':True})
+        response=await self.client.post('/api/dsh/platforms/output/player',json={'consumer_id':'x','renderer':'livehime','receiver_id':'spoofed','receiver_client_ready':True,
+            'stream_metrics':{'codec':'h264_nvenc','fps':24.9,'missing_packets':-1,'decode_errors':True,'private_key':'must-not-retain'}})
         self.assertEqual(response.status,200);self.assertEqual(self.observed[0]['receiver_id'],'test-b')
         self.assertFalse(self.observed[0]['receiver_client_ready'])
+        self.assertNotIn('stream_metrics',self.observed[0])
+        self.assertEqual(self.gateway.metrics['player_metrics'],{'codec':'h264_nvenc','fps':24.9})
     async def test_upstream_disconnect_returns_actionable_error(self):
         await self.upstream.close()
         result=await self.client.get('/api/studio/status')
@@ -66,6 +70,13 @@ class ReceiverTests(unittest.IsolatedAsyncioTestCase):
         await self.upstream.close()
         self.assertEqual((await self.client.get('/receiver/')).status,200)
         status=await (await self.client.get('/receiver/status')).json();self.assertEqual(status['role'],'receiver')
+        with patch.object(MODULE,'official_client',return_value=Path('official/livehime.exe')),patch.object(MODULE,'running_client',return_value=123),patch.object(MODULE.subprocess,'Popen') as launch:
+            data=await (await self.client.post('/receiver/client/launch')).json()
+            self.assertTrue(data['already_running']);self.assertFalse(data['public_broadcast_started']);launch.assert_not_called()
+        error=OSError('requires elevation');error.winerror=740
+        with patch.object(MODULE,'official_client',return_value=Path('official/livehime.exe')),patch.object(MODULE,'running_client',return_value=None),patch.object(MODULE.subprocess,'Popen',side_effect=error):
+            response=await self.client.post('/receiver/client/launch')
+            self.assertEqual(response.status,409);self.assertEqual((await response.json())['error'],'RECEIVER_CLIENT_ELEVATION_REQUIRED')
 
 class ReceiverConfigTests(unittest.TestCase):
     def test_rejects_remote_bind_and_self_proxy(self):

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "kind": "native_windows_split_device_4090_inference_local_receiver",
-  "checked_at": "2026-10-26T10:54:23.470632+00:00",
+  "checked_at": "2026-10-26T13:24:21.343763+00:00",
   "scope": "Actual 4090 MOSS04/MuseTalk/DSH over virtual LAN to B native Chromium. Official B-client capture and public audience delivery are separate gates.",
   "application_authentication_required": false,
   "virtualization_used": false,
@@ -382,7 +382,49 @@
   "native_livehime": {
     "official_client_capture": false,
     "public_broadcast_started": false,
-    "reason": "B Windows desktop locked; official-client source and local recording remain pending; browser acceptance is complete"
+    "source_configured": true,
+    "official_client_version": "8.11.1.11202",
+    "official_application_signature": "Valid",
+    "source_audio_enabled": true,
+    "desktop_muted": true,
+    "microphone_muted": true,
+    "canvas_verified": false,
+    "observed_utc": "2026-10-26T13:06:31.028339+00:00",
+    "observed_desktop": "Windows locked / LockApp.exe",
+    "observed_codec": "h264_nvenc",
+    "observed_presented_fps": 0.0,
+    "native_attempt": {
+      "run_id": "native-split-01c9ee34b1ea4af58c2dbe3039a1a130",
+      "started_at": "2026-10-26T12:24:14.430554+00:00",
+      "steps": [],
+      "scope": "A4090 to official Livehime browser source on B; locally injected comments; no public stream",
+      "public_broadcast_started": false,
+      "ok": false,
+      "player_before": {
+        "consumer_id": "browser-6f467d05-7aa2-4e38-993f-622324bbabb4",
+        "last_seen": 1793017451352,
+        "connected": true,
+        "renderer": "livehime",
+        "frames": 814,
+        "width": 720,
+        "height": 1280,
+        "audio_state": "running",
+        "receiver_id": "receiver-b",
+        "receiver_client_ready": true
+      },
+      "broadcast_id": "bc-da2b2724-f45f-432a-9c29-bf91184a9bd7",
+      "error": "NATIVE_PLAYBACK_COMPLETION_TIMEOUT",
+      "finished_at": "2026-10-26T12:27:05.713264+00:00"
+    },
+    "speech_evidence": {
+      "request_id": "req-f80ce41c-8fa1-4562-9d36-5502ed3f9556",
+      "valid_sample_count": 124160,
+      "contiguous_played_samples": 124160,
+      "natural_end": true,
+      "audio_ready_utc": "2026-10-26T12:24:29.986Z",
+      "playback_completed_utc": "2026-10-26T12:27:21.701Z"
+    },
+    "reason": "Native source connected, but the locked-session attempt failed its timeout. Full audible official-client recording and final portrait canvas remain unverified."
   },
   "earlier_failed_runs": [
     {
@@ -516,7 +558,7 @@
     "integration/moss_tts.py": "24a1b2d5a7e89c55ddd50b62261225f2f2a9dadf4ad3dd81efebe39760be50c4",
     "integration/motion_control.py": "2d142903b14f2e77954d780b92713a218ce0851d609a3490c82fac028d7ec97b",
     "integration/native_landmarks.py": "8ad0ef3288faf6dc256dd80141b3eb0fe855e3e8b2c65687d82be881ca16dc53",
-    "integration/obs.html": "e78023a490ada1f2c23b5c8308caf272507c76de0341453d43f9f3c07b92f22f",
+    "integration/obs.html": "329048b3de93bed80a41b4313526e0a467d8895a0bb5ea10fc250f110aeab1dd",
     "integration/pose_gallery.py": "66f7e755dffec75427b7c0425ced5adf6090cdc3152152bcebdd2ed2b55b4843",
     "integration/scenario_gallery.py": "8ee37153f861ca647c405c3df474fd50f32f717b2a9509824572722f5f040e8d",
     "integration/stream_encoder.py": "5204d759b6adcb6f0f4c6d452ec4b67290bad69213cf19686cd17697849be598",
@@ -557,7 +599,7 @@
     "scripts/probe_frame_store.py": "50224897cafdb66ca097bd1376bfc842b13c41a978d326f581912d196936935f",
     "scripts/probe_tts.py": "4c1119a20e1031f5b03d242a31b23f131ddccb72e08f9f9b8a2233a29d114d86",
     "scripts/receiver_control.py": "11a26696a4fa4a869abd23b5aac9cd8f9016071901b26159c1330d6a3669555d",
-    "scripts/receiver_service.py": "2c22909b4effd2317d8c37195dfc436b0ac67ebf7f1fe06085d4df81ff6ee0d9",
+    "scripts/receiver_service.py": "fb2d608602fc7bd7ea1c9e0d76a67cdc25840be491ac0c25e93850e922ea8ad5",
     "scripts/record_motion_tour.py": "7c16385a0c3b3e4e7886ee7c60b8bc6713cee1448b4f6749406aa1f3b708bf9e",
     "scripts/record_obs_acceptance.py": "faf57efa6af51fa684231aea1d6665b63b3735d6814963ddfc709968d2853f24",
     "scripts/record_scenario_tests.py": "4384d82c3f904b7513fc64dde39e242b6bdd6d17a7c761fd8ca0677fca486af7",
@@ -594,7 +636,7 @@
     "tests/test_fast_blending.py": "e80c92c471305d1ac79eaaf57ef9656e5cebe75c2b837b454de67404000d9ec3",
     "tests/test_moss_live.py": "b7ae30c14d820b68154eaef1c43ac4e1695abc083b9ad59525dbebc58dd9b294",
     "tests/test_motion_control.py": "b6a3df9a5128addd906be484925a27b0fe232b7e206b47f93fd59cd64131195d",
-    "tests/test_receiver.py": "dfe0165719ba458c13dccf7ca975f7e5ce81c5005811877ff9dbd4bb1f428d18",
+    "tests/test_receiver.py": "1ba538fb2833cd2b470beecf901aea35483d4cf325fc20ffdcffb9f63818302a",
     "web/browser-id.js": "59238fedc35b3caf1884d43d86f1a40ffa259908a262ef7b1cfe66bee2744705",
     "web/character.html": "1d8c8943a81ecea9f8a2a49a0fda675ec71a9011bf552407dac05e19d29beb85",
     "web/character.js": "8dc79933b67d0c555c71bbec29227e3a28257c5062b0660aad2f8ebb0cd31944",
@@ -613,7 +655,7 @@
     "web/platforms.js": "49c16cbed570c3de44bd52c4e49812f6340595813ae2d18bb8ad2f98876ed153",
     "web/poses.html": "a27a0d2d588e886ff18b35066864bcf50b0638107b8eb2350013eb780f97b9c5",
     "web/receiver-evidence.html": "e98b8b7daf8e928a4bfd8cc6e248b82b840325a22f86b406d0e328d95edd4914",
-    "web/receiver.html": "e559451764481bf9342b3383b5ea3b3d67007b88aabe1ca93f1038c26425598a",
+    "web/receiver.html": "a2a8b5dfadfba7d39f05ef3a496932469ae54cc450b31cfc5a49c288b9dc3e3d",
     "web/selection.html": "a23022f0b7a782ea2aea443464901c06a909d1998938beb0f6e675574e153b34",
     "web/studio.css": "b06450c91186f205ba3a6f11c22dafd936c0c9d9296dab2371dbb496d70ecfc7",
     "web/studio.html": "0490b930d8eadfda9f133e22d25149eb0e01a4b9b3d7b3ed4f901402e8a23b6c",
@@ -705,7 +747,7 @@
         "4d7f5a5d5aa6054b84610fd1e457ad3517339f6ca5f99808a85a98bb9497337f",
         "18913329e119978745d8a451fcb576fc55f24c94a1900a1bc5f856f8dfae682c"
       ],
-      "current_sha256": "e78023a490ada1f2c23b5c8308caf272507c76de0341453d43f9f3c07b92f22f",
+      "current_sha256": "329048b3de93bed80a41b4313526e0a467d8895a0bb5ea10fc250f110aeab1dd",
       "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
     },
     "integration/viewer_buffer.py": {

@@ -9,7 +9,7 @@ async function authority(){
  try{
   let replace=false;
   if(new URLSearchParams(location.search).get('output')==='platform'){
-   const p=await fetch('/api/dsh/platforms/output/player',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({consumer_id:current.dsh.consumerId,frames:video.getVideoPlaybackQuality?.().totalVideoFrames||0,width:video.videoWidth,height:video.videoHeight,audio_state:context.state,renderer})});
+   const p=await fetch('/api/dsh/platforms/output/player',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({consumer_id:current.dsh.consumerId,frames:video.getVideoPlaybackQuality?.().totalVideoFrames||0,width:video.videoWidth,height:video.videoHeight,audio_state:context.state,renderer,stream_metrics:current.metrics()})});
    if(p.ok){const output=await p.json();if(output.ignored)return;replace=!!output.claim;}
   }
   if(renderer==='preview')return;

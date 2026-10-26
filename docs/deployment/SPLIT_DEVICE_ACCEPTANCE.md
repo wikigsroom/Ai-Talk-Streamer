@@ -81,7 +81,11 @@ http://127.0.0.1:8020/receiver/evidence/receiver-full.mp4
 
 ## 官方客户端与正式切换边界
 
-目前五段实录来自B的原生Chromium测试播放器。官方直播姬程序已在B打开并使用现有登录状态；本次配置阶段发现B处于Windows锁屏状态，界面操作已暂停，等待账号本人解锁。**尚未将B官方客户端内部浏览器素材、有声本地录制标记为已完成。** 后续实际结果写入同一证据的 `native_livehime` 字段。
+目前五段成功实录来自B的原生Chromium测试播放器。B原先运行官方直播姬6.3；已在保留原场景与设置备份后加入独立浏览器素材、源内音频，并静音桌面与麦克风。随后使用签名有效的官方8.11.1.11202程序，账号本人完成Windows管理员确认。该客户端的真实浏览器素材已连接到B网关，AudioContext为running；重连后实际媒体包头确认为H.264。新版独立使用部分`*_v2`画布字段，最终竖屏画布仍需在客户端中核验。
+
+这次官方客户端尝试没有通过：Windows再次锁屏，观察到其呈现帧率约0～1.3FPS；第一段在170秒测试时限内未完成。服务器在16.622秒后已生成7.76秒音频，但从audio_ready到完整自然播放回执相隔171.715秒。后来收到124,160/124,160个完整连续样本与natural_end，也不足以把超时测试判为通过。该失败及时间线保存在`native_livehime`中；它没有覆盖先前成功的五段浏览器验收。
+
+接收控制台新增客户端帧率、实际媒体编码和有限的播放诊断，便于辨认“连接成功但播放迟缓”。这些是运行观察，不能代替客户端录像或观众端验证。**B官方客户端的最终竖屏画布、有声本地录制仍未标记为完成。** 恢复持续可用的桌面后需要重新验收。
 
 本地播放器的心跳、AudioContext运行和完整样本回执，不足以证明其位于官方客户端或观众已收到流。正式验收仍需要：B直播姬的真实有声录制；结束旧实例后的一致正式记忆迁移；有意公开开播后的观众弹幕→可听回复回环。本轮没有自动切换旧3080公开直播。
 
@@ -89,4 +93,4 @@ http://127.0.0.1:8020/receiver/evidence/receiver-full.mp4
 
 Five real 4090→virtual-LAN→B speech cases passed, including duplicate rejection, pause/resume, a cloud personality/context reply and media reconnection. The final run measured a median24.883 presentedFPS, with zero audio underruns, missing packets or decode errors. All five utterances received complete contiguous-sample and natural-end acknowledgement. The actual189.758-second H264/AAC recording includes generation waits; linked excerpts are trimmed at original speed.
 
-The official B-client source and its own audible local recording are separate acceptance gates. B was locked when native setup was attempted, so those gates remain explicit rather than being inferred from a browser heartbeat. Formal memory ownership and public broadcast are also unchanged until an intentional, consistent cutover.
+The official B-client source and its own audible local recording are separate acceptance gates. A genuine source was added with internal audio and muted desktop/microphone. The signed8.11.1.11202 client started after the account owner approved Windows elevation, and real packet headers confirmed H264 after reconnecting. Its locked-desktop attempt failed: approximately0–1.3 presentedFPS, a170-second timeout, and171.715 seconds between a7.76-second utterance becoming ready and its natural playback receipt. That failure remains explicit. The client's final portrait canvas and audible local recording are still unverified. Formal memory ownership and public broadcast remain unchanged until an intentional, consistent cutover.

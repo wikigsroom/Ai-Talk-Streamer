@@ -1,6 +1,6 @@
 """Native B-device gateway: same-origin browser audio/video from the A-device VPN address."""
 from pathlib import Path
-import argparse,asyncio,ipaddress,json,os,re,socket,subprocess,time
+import argparse,asyncio,ipaddress,json,math,os,re,socket,subprocess,time
 from urllib.parse import urlsplit
 
 from aiohttp import ClientError,ClientSession,ClientTimeout,WSMsgType,web
@@ -36,10 +36,20 @@ def official_client(config):
     if target and not target.is_absolute():target=ROOT/target
     return target.resolve() if target and target.is_file() and target.name.casefold()=='livehime.exe' else None
 
+def running_client(executable):
+    import psutil
+    for process in psutil.process_iter(['name','exe']):
+        try:
+            if (process.info['name'] or '').casefold()=='livehime.exe' and process.info['exe'] and Path(process.info['exe']).resolve()==executable:
+                return process.pid
+        except (psutil.Error,OSError):continue
+    return None
+
 class ReceiverGateway:
     def __init__(self,config):
         self.config=validate_config(config);self.client=None;self.started=time.time();self.active_sockets=set()
-        self.metrics={'http_requests':0,'upstream_errors':0,'websocket_connections':0,'media_packets':0,'media_bytes':0,'last_media_at':None,'last_error':None,'last_http_ms':None}
+        self.metrics={'http_requests':0,'upstream_errors':0,'websocket_connections':0,'media_packets':0,'media_bytes':0,'last_media_at':None,'last_error':None,'last_http_ms':None,'player_metrics':None,'player_metrics_at':None,'media_codec':None,'player_fps':None}
+        self.previous_player=None
     async def startup(self,app):
         self.client=ClientSession(timeout=ClientTimeout(total=None,connect=5,sock_read=120),trust_env=False,auto_decompress=False)
     async def cleanup(self,app):
@@ -64,10 +74,16 @@ class ReceiverGateway:
     async def launch_client(self,request):
         executable=official_client(self.config)
         if executable is None:return web.json_response({'error':'RECEIVER_LIVEHIME_NOT_CONFIGURED'},status=503)
+        existing=running_client(executable)
+        if existing:return web.json_response({'already_running':True,'pid':existing,'public_broadcast_started':False,'on_device':'B'})
         record=ROOT/'outputs/receiver/client-launch.json';record.parent.mkdir(parents=True,exist_ok=True)
         kwargs={'cwd':str(executable.parent),'stdin':subprocess.DEVNULL,'stdout':subprocess.DEVNULL,'stderr':subprocess.DEVNULL,'close_fds':True}
         if os.name=='nt':kwargs['creationflags']=subprocess.DETACHED_PROCESS|subprocess.CREATE_NEW_PROCESS_GROUP|subprocess.CREATE_NO_WINDOW
-        process=subprocess.Popen([str(executable)],**kwargs)
+        try:process=subprocess.Popen([str(executable)],**kwargs)
+        except OSError as error:
+            if getattr(error,'winerror',None)==740:
+                return web.json_response({'error':'RECEIVER_CLIENT_ELEVATION_REQUIRED','message':'此版本需要 Windows 管理员确认。请手动打开已配置的官方直播姬；程序运行后这里会复用它。'},status=409)
+            raise
         value={'launch_requested':True,'pid':process.pid,'public_broadcast_started':False,'on_device':'B'}
         record.write_text(json.dumps(value)+'\n',encoding='utf-8');return web.json_response(value)
     async def page(self,request):return web.FileResponse(ROOT/'web/receiver.html')
@@ -92,6 +108,20 @@ class ReceiverGateway:
             try:data=json.loads(body)
             except ValueError:return web.json_response({'error':'OUTPUT_PLAYER_INVALID'},status=400)
             if not isinstance(data,dict):return web.json_response({'error':'OUTPUT_PLAYER_INVALID'},status=400)
+            now=time.time();frames=data.get('frames');consumer=data.get('consumer_id')
+            if data.get('renderer')=='livehime' and type(frames) is int and 0<=frames<=1e12 and isinstance(consumer,str):
+                old=self.previous_player
+                if old and old['consumer']==consumer and frames>=old['frames'] and now-old['at']>=.5:
+                    self.metrics['player_fps']=round((frames-old['frames'])/(now-old['at']),3)
+                elif not old or old['consumer']!=consumer:self.metrics['player_fps']=None
+                self.previous_player={'consumer':consumer,'frames':frames,'at':now}
+            metrics=data.pop('stream_metrics',None)
+            if data.get('renderer')=='livehime' and isinstance(metrics,dict):
+                # Bounded browser diagnostics are observations, not proof of official-client capture.
+                safe={key:metrics[key] for key in ('frames','presented_frames','fps','audio_underruns','audio_buffer_ms','missing_packets','skipped_video_frames','decode_errors','max_arrival_gap_ms')
+                      if type(metrics.get(key)) in (int,float) and 0<=metrics[key]<=1e12 and math.isfinite(metrics[key])}
+                if metrics.get('codec') in ('jpeg','h264_nvenc'):safe['codec']=metrics['codec']
+                self.metrics.update(player_metrics=safe,player_metrics_at=time.time())
             data.update(receiver_id=self.config['receiver_id'],receiver_client_ready=bool(official_client(self.config)))
             body=json.dumps(data).encode('utf-8')
         try:
@@ -116,7 +146,9 @@ class ReceiverGateway:
         async def forward(source,destination,media=False):
             async for message in source:
                 if message.type==WSMsgType.BINARY:
-                    if media:self.metrics['media_packets']+=1;self.metrics['media_bytes']+=len(message.data);self.metrics['last_media_at']=time.time()
+                    if media:
+                        self.metrics['media_packets']+=1;self.metrics['media_bytes']+=len(message.data);self.metrics['last_media_at']=time.time()
+                        if len(message.data)>=20:self.metrics['media_codec']='h264_nvenc' if message.data[12:16]==b'AVC1' else 'jpeg'
                     await asyncio.wait_for(destination.send_bytes(message.data),5)
                 elif message.type==WSMsgType.TEXT:await asyncio.wait_for(destination.send_str(message.data),5)
                 elif message.type in (WSMsgType.CLOSE,WSMsgType.CLOSED,WSMsgType.ERROR):break
