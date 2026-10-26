@@ -4,7 +4,9 @@
 
 一套运行在 **原生 Windows** 上的 **9:16 写实数字人演播台**：输入播报稿，或通过你自己的云端 LLM 渠道提问，由本机生成语音、实时口型和融合画面，并将人物送到网页与哔哩哔哩官方直播姬。
 
-**当前部署为 A4090 推理、B3080 直播。** A运行MOSS04、MuseTalk FP16 batch8、DSH/Humanity和弹幕采集；B运行轻量接收器与官方直播姬。五段测试已在真正的直播姬浏览器素材中通过，720×1280、画布更新中位25.285FPS，零音频欠载、零媒体丢包、零解码错误。B已公开开播，六条真实弹幕已完整回复。抽测三条到直播姬开始播放约27.7～37.1秒，B站分发到观众的延迟另计、尚未实测；按用户要求未新增录制。详见[3080接收端操作与证据](docs/deployment/RTX3080_RECEIVER.md)、[双机完整部署](docs/deployment/SPLIT_DEVICE.md)和[历史及本次验收](docs/deployment/SPLIT_DEVICE_ACCEPTANCE.md)。
+**当前部署为 A4090 推理、B3080 官方直播姬。** 五段官方客户端验收与七条真实弹幕均已完整播完，本场已下播。[完整可视化性能报告](docs/analysis/README.md)给出逐阶段周期、资源和维护状态：采集收到至首次播放回执平均 **34.10 秒**，至整句完成平均 **44.40 秒**；官方源 317 次采样的 Canvas FPS 中位 25.285。B站 CDN 到观众的延迟未测。下播记忆任务因每日额度耗尽延后，不能视为持久事实整理完成。详见[3080接收端操作与证据](docs/deployment/RTX3080_RECEIVER.md)、[双机完整部署](docs/deployment/SPLIT_DEVICE.md)和[历史及本次验收](docs/deployment/SPLIT_DEVICE_ACCEPTANCE.md)。
+
+**Frozen baseline / 定型版本：** `split-a4090-b3080-v1.0.0` · [Runbook / 配置与操作手册](docs/deployment/BASELINE_A4090_B3080.md) · [Machine-readable release / 发布清单](configs/releases/split-a4090-b3080-v1.json)
 
 当前角色档案编号为 **女A**，正式姓名 **林知夏**，配套场景为 **知夏的日光宿舍**。她是**虚构的 22 岁中国女大学生**，沿用白天宿舍、长发、浅蓝卫衣的形象。[角色与素材归档](docs/CHARACTERS.md)提供分类目录、可校验清单和归档包。后续主运行目标为 **4090 工作站：48 GB 显存＋64 GB 内存**。详见 [4090 目标](docs/RTX4090.md)、[原生迁移与切换手册](docs/deployment/RTX4090_MIGRATION.md)及[完整方案归档](docs/archives/2026-10-26-LIVEHIME-HANDOFF.md)。仓库同步与新机器运行验收分别记录。
 

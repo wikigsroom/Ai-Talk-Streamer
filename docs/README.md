@@ -2,7 +2,7 @@
 
 后续主运行目标为 [4090](RTX4090.md)，完整方案已[归档](archives/2026-10-26-LIVEHIME-HANDOFF.md)，按[迁移与切换手册](deployment/RTX4090_MIGRATION.md)继续运行准备。3080 保留为历史实测参考。
 
-当前运行方案为 **A4090推理 + B本机官方直播姬**：阅读[双机详细部署](deployment/SPLIT_DEVICE.md)、[英文指南](deployment/SPLIT_DEVICE.en.md)与[五段跨机验收、录像和剩余边界](deployment/SPLIT_DEVICE_ACCEPTANCE.md)。接收端不加载人物或语音模型。
+当前运行方案为 **A4090推理 + B3080官方直播姬**：阅读[双机详细部署](deployment/SPLIT_DEVICE.md)、[英文指南](deployment/SPLIT_DEVICE.en.md)与[五段跨机验收、录像和剩余边界](deployment/SPLIT_DEVICE_ACCEPTANCE.md)。接收端不加载人物或语音模型。
 
 B站当前默认由官方直播姬输出，详见[直播姬完整方案 / Bilibili Livehime](platforms/BILIBILI_LIVEHIME.md)。该路径不启动或调用 OBS；历史 OBS 媒体保留原来源。
 
@@ -14,6 +14,8 @@ This is the documentation for the delivered **daylight dorm / portrait / local-m
 
 | Document / 文档 | Read it for / 内容 |
 | --- | --- |
+| [Frozen baseline / 双机方案定型](deployment/BASELINE_A4090_B3080.md) | Versioned A4090+B3080 configuration, restart entry points, acceptance limits and change policy / 固定配置、启动入口、已测边界与变更规则 |
+| [Performance report / 全周期可视化性能复盘](analysis/README.md) | Seven real replies, 32 retained requests, MOSS generation / codec / RTF, playback samples, post-air resources and memory status / 七条实播、全量逐阶段耗时、待机占用与未完成记忆维护 |
 | [Split-device / A推理+B直播](deployment/SPLIT_DEVICE.md) | Native A/B installation, virtual LAN, H264/PCM, receiver, official source audio, memory ownership and recovery / 原生双机部署、源内音频、状态、回执、下播维护与切换 |
 | [A4090 + B3080 current deployment / 当前部署](deployment/RTX3080_RECEIVER.md) | Official-client five-case results, real comments, latency breakdown and receiver restart / 官方客户端五段验证、真实弹幕、延迟分解及重启方法 |
 | [Split-device acceptance / 双机验收](deployment/SPLIT_DEVICE_ACCEPTANCE.md) | Five actual cross-device speech cases, recordings, regression results and official-client boundaries / 五段跨机实录、测试与官方客户端边界 |

@@ -1,0 +1,18 @@
+{
+  "release": "split-a4090-b3080-v1.0.0",
+  "frozen_date": "2026-10-27",
+  "runtime_source_commit": "fb7e6e8b0f655b9d6b9863486cc0e6f8b1e8f697",
+  "status": "media_and_real_comment_playout_accepted_with_documented_limitations",
+  "deployment": "native_windows_split_devices",
+  "A": {"role": "avatar_tts_dsh_state_collector", "gpu": "RTX 4090 48GB", "ram_gb": 64, "state_path": "state/female-a-4090", "ports": {"avatar": 8010, "moss_loopback": 9880, "dsh_loopback": 3092}},
+  "B": {"role": "receiver_official_livehime", "gpu": "RTX 3080 10GB", "ram_gb": 64, "root_suffix": "receiver-b", "loopback_port": 8020, "receiver_id": "receiver-3080", "loads_avatar_or_tts": false},
+  "character": {"id": "female-a", "name": "林知夏", "scene": "知夏的日光宿舍", "motion_clips": 48},
+  "avatar": {"engine": "MuseTalk", "precision": "FP16", "batch_size": 8, "fps": 25, "width": 720, "height": 1280},
+  "tts": {"engine": "MOSS-TTSD-v1.0", "voice_id": "v04", "label": "明朗亲和", "precision": "NF4 4-bit / BF16 compute", "codec": "FP32 CPU", "segment_characters": 70, "complete_waveform_before_playback": true},
+  "transport": {"video": "h264_nvenc", "video_target_bps": 3000000, "audio": "PCM s16 16000Hz mono", "receiver_decode": "software WebCodecs", "canvas_mode": "direct_canvas_audio", "buffer_ms": 4000},
+  "conversation": {"llm": "user_configured_cloud_channel", "current_model_label": "gpt-6-luna", "dsh": "0.2.0-rc.2", "humanity": "0.1.17", "native_humanity_tools": false, "active_requests_per_room": 1, "output_authorities": 1, "playback_lease_ms": 30000},
+  "acceptance": {"official_cases_completed": 5, "real_comments_completed": 7, "official_canvas_samples": 317, "median_canvas_fps": 25.285, "mean_collector_to_first_receipt_s": 34.1034, "mean_collector_to_complete_s": 44.4026},
+  "unresolved": ["post-broadcast memory task deferred at daily maintenance budget; persistent facts not accepted", "public room / official client state reconciliation requires monitoring", "audience CDN latency unmeasured", "real gift events unverified", "full live CPU/GPU peak trace uncollected"],
+  "report": "docs/analysis/2026-10-27/report.md",
+  "runbook": "docs/deployment/BASELINE_A4090_B3080.md"
+}

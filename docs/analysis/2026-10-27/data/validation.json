@@ -1,0 +1,28 @@
+{
+  "checked_utc": "2026-10-26T23:57:58.088819+00:00",
+  "browser": {
+    "ok": true,
+    "checks": [
+      "32 records; recomputed public means; valid samples and completion states",
+      "cohort filters, UNKNOWN state, Echo label, simulator and all six images",
+      "1440px and 390px viewports have no document overflow"
+    ],
+    "errors": [],
+    "browser_closed": true
+  },
+  "pdf": {
+    "pages": 16,
+    "rendered_with": "Poppler pdftoppm",
+    "visual_review": "All pages checked in contact sheet; pages 5,12,14,15 also reviewed individually after pagination fix",
+    "text_within_horizontal_margins": true,
+    "sha256": "336bbf6c83463bb494f683ac08668f97856c736eaf901f6edc79a7159182594b"
+  },
+  "data": {
+    "retained_requests": 32,
+    "completed": 31,
+    "unknown": 1,
+    "public_comments_completed": 7,
+    "official_cases_completed": 5
+  },
+  "scope": "Static documentation and frozen-data consistency; no new live test or recording"
+}
