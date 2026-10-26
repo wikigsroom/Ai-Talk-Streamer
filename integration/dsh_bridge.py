@@ -4,10 +4,12 @@ import asyncio
 import hashlib
 import json
 import requests
+import threading
 from aiohttp import web, ClientSession, ClientTimeout, ClientError
 
 ROOT = Path(__file__).resolve().parents[3]
 BRIDGE = 'http://127.0.0.1:3092'
+_media_clients = threading.local()
 
 
 def enabled():
@@ -29,9 +31,12 @@ def media_headers():
 
 
 def post_media(path, payload, timeout=3):
-    with requests.Session() as client:
-        client.trust_env = False
-        result = client.post(BRIDGE + '/internal/' + path, headers=media_headers(), json=payload, timeout=(1, timeout))
+    # One connection pool per native worker thread: a durable media map is
+    # submitted for each 40 ms packet, without opening 25 TCP connections/s.
+    if not hasattr(_media_clients, 'session'):
+        _media_clients.session = requests.Session()
+        _media_clients.session.trust_env = False
+    with _media_clients.session.post(BRIDGE + '/internal/' + path, headers=media_headers(), json=payload, timeout=(1, timeout)) as result:
         result.raise_for_status()
         return result.json()
 
@@ -122,7 +127,7 @@ async def platforms_page(_request):
     return web.FileResponse(ROOT / 'web/platforms.html')
 
 async def output_page(_request):
-    return web.FileResponse(ROOT / 'web/obs.html')
+    return web.FileResponse(ROOT / 'integration/obs.html')
 
 
 async def obs_session(request):

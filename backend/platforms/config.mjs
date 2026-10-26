@@ -10,7 +10,7 @@ const SECRET_FIELDS = ['stream_key', 'cookie', 'access_key', 'access_secret', 'i
 export function defaults() {
   return { version: 1, obs: { url: 'ws://127.0.0.1:4457', scene: 'AiTalk Vertical', input: 'AiTalk Avatar', width: 720, height: 1280, fps: 25, bitrate: 5000 },
     interaction: { enabled: true, mode: 'chat', minimum_interval_ms: 8000, viewer_cooldown_ms: 15000, ttl_ms: 45000, max_pending: 50 },
-    platforms: Object.fromEntries(PLATFORM_IDS.map(platform => [platform, { room_id: '', room_url: '', output_mode: platform === 'bilibili' ? 'livehime' : platform === 'douyin' ? 'companion' : 'obs', comment_mode: platform==='bilibili'?'blivedm':platform==='custom'?'relay':'browser', stream_server: '', stream_key: '', cookie: '', access_key: '', access_secret: '', identity_code: '', app_id: '', callback_secret: '', relay_url: '', item_selector: '', user_selector: '', text_selector: '' }])) };
+    platforms: Object.fromEntries(PLATFORM_IDS.map(platform => [platform, { room_id: '', room_url: '', output_mode: platform === 'bilibili' ? 'livehime' : platform === 'douyin' ? 'companion' : 'obs', client_location: 'same_device', receiver_url: 'http://127.0.0.1:8020', comment_mode: platform==='bilibili'?'blivedm':platform==='custom'?'relay':'browser', stream_server: '', stream_key: '', cookie: '', access_key: '', access_secret: '', identity_code: '', app_id: '', callback_secret: '', relay_url: '', item_selector: '', user_selector: '', text_selector: '' }])) };
 }
 export function roomUrl(platform, value) {
   const text = String(value || '').trim();
@@ -48,6 +48,12 @@ export class PlatformConfig {
         check(typeof val === 'string' && val.length <= (key === 'cookie' ? 16000 : 4096), 'PLATFORM_CONFIG_INVALID'); target[key] = val.trim();
       }
       check(['obs', 'companion', 'livehime'].includes(target.output_mode) && (target.output_mode !== 'livehime' || platform === 'bilibili'), 'OUTPUT_MODE_INVALID');
+      check(['same_device', 'receiver'].includes(target.client_location) && (target.client_location !== 'receiver' || platform === 'bilibili' && target.output_mode === 'livehime'), 'CLIENT_LOCATION_INVALID');
+      if (target.receiver_url) {
+        let receiver; try { receiver = new URL(target.receiver_url); } catch { throw new PlatformError('RECEIVER_URL_INVALID', 400); }
+        check(['http:', 'https:'].includes(receiver.protocol) && !receiver.username && !receiver.password && receiver.pathname === '/' && !receiver.search && !receiver.hash, 'RECEIVER_URL_INVALID');
+        target.receiver_url = receiver.origin;
+      }
       check(['browser', 'blivedm', 'open_live', 'official_callback', 'relay', 'disabled'].includes(target.comment_mode), 'COMMENT_MODE_INVALID');
       if (platform !== 'custom') {
         target.room_url = roomUrl(platform, target.room_url || target.room_id);

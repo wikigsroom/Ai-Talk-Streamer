@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>数字人直播画面</title>
 <style>html,body{margin:0;width:100%;height:100%;background:#101217;overflow:hidden}video{width:100%;height:100%;object-fit:contain}#notice{position:absolute;inset:0;display:grid;place-items:center;color:#ddd;font:24px sans-serif}#notice[hidden]{display:none}</style>
-<video id="video" autoplay playsinline></video><div id="notice">正在连接本地数字人…</div><script src="/browser-id.js?v=1"></script><script src="/dsh-playback.js?v=3"></script><script src="/local-stream.js?v=dsh2-1"></script>
+<video id="video" autoplay playsinline></video><div id="notice">正在连接本地数字人…</div><script src="/browser-id.js?v=1"></script><script src="/dsh-playback.js?v=split-idle-4"></script><script src="/local-stream.js?v=split-h264-2"></script>
 <script>
 let current,stopped=false,timer,authorityTimer,authorityBusy=false;const video=document.querySelector('video'),notice=document.querySelector('#notice'),context=new AudioContext();
 const renderer=new URLSearchParams(location.search).get('renderer')||'obs';window.avatarAudioContext=context;if(['livehime','preview'].includes(renderer))document.title='女A · 林知夏 · 直播姬画面';if(renderer==='preview')video.muted=true;

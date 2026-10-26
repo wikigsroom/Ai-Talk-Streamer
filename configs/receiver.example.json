@@ -1,0 +1,7 @@
+{
+  "upstream": "http://REMOTE_4090_HOST:8010",
+  "bind": "127.0.0.1",
+  "port": 8020,
+  "receiver_id": "receiver-b",
+  "client_executable": "tools/bilibili-livehime/app/livehime.exe"
+}

@@ -16,14 +16,14 @@ const ACTIVE_OUTPUTS = ['STARTING', 'STREAMING', 'COMPANION_READY', 'MANUAL_LIVE
 export class PlatformManager {
   constructor(root, bridge, { store, config, obs, livehime, now = () => Date.now() } = {}) {
     this.root = root; this.bridge = bridge; this.now = now; this.config = config || new PlatformConfig(root); this.store = store || new PlatformStore(join(root, 'state/platforms/control.sqlite3'), now); this.obs = obs || new ObsClient(root, this.config);
-    this.livehime = livehime || new LivehimeOutput(root);
+    this.livehime = livehime || new LivehimeOutput(root, { receiverConfig: () => this.config.value.platforms.bilibili });
     this.collectors = new Map(); this.collectorStatus = {}; this.cooldowns = new Map(); this.lastReply = 0; this.controlChain = Promise.resolve(); this.wantOutputAuthority = false; this.closed = false;
   }
   start() { this.timer = setInterval(() => { void this.dispatch().catch(() => this.store.count('dispatch_errors')); }, 1000); this.timer.unref(); this.pruneTimer = setInterval(() => this.store.prune(), 3600000); this.pruneTimer.unref(); return this; }
   exclusive(work) { const result = this.controlChain.then(work); this.controlChain = result.catch(() => {}); return result; }
   async body(req) { let bytes=0;const chunks=[];for await(const chunk of req){bytes+=chunk.length;check(bytes<=1024*1024,'PLATFORM_BODY_TOO_LARGE',413);chunks.push(chunk);}try{return chunks.length?JSON.parse(Buffer.concat(chunks).toString('utf8')):{};}catch{throw new PlatformError('PLATFORM_JSON_INVALID',400);} }
   status() {
-    return { access_mode: 'open', authentication_required: false, config: this.config.public(), collectors: this.collectorStatus, outputs: this.store.all('SELECT * FROM outputs'), counters: Object.fromEntries(this.store.all('SELECT * FROM counters').map(row => [row.name, row.value])), pending: this.store.get("SELECT COUNT(*) n FROM events WHERE status='PENDING'").n, events: this.store.recent(), output_player: this.player ? { consumer_id: this.player.consumer_id, last_seen: this.player.at, connected: this.now() - this.player.at < 6000, renderer: this.player.renderer, frames: this.player.frames, width: this.player.width, height: this.player.height, audio_state: this.player.audio_state } : null, broadcast: this.bridge.state.current() || null };
+    return { access_mode: 'open', authentication_required: false, config: this.config.public(), collectors: this.collectorStatus, outputs: this.store.all('SELECT * FROM outputs'), counters: Object.fromEntries(this.store.all('SELECT * FROM counters').map(row => [row.name, row.value])), pending: this.store.get("SELECT COUNT(*) n FROM events WHERE status='PENDING'").n, events: this.store.recent(), output_player: this.player ? { consumer_id: this.player.consumer_id, last_seen: this.player.at, connected: this.now() - this.player.at < 6000, renderer: this.player.renderer, frames: this.player.frames, width: this.player.width, height: this.player.height, audio_state: this.player.audio_state, receiver_id: this.player.receiver_id || null, receiver_client_ready: !!this.player.receiver_client_ready } : null, broadcast: this.bridge.state.current() || null };
   }
   ingest(platform, payloads, options = {}) {
     check(!this.closed, 'PLATFORM_SERVICE_STOPPED', 503); const rows = Array.isArray(payloads) ? payloads : [payloads]; check(rows.length <= 1000, 'PLATFORM_BATCH_LIMIT');
@@ -90,11 +90,17 @@ export class PlatformManager {
   async stopCollector(platform) { const adapter = this.collectors.get(platform); this.collectors.delete(platform); await adapter?.stop(); this.collectorStatus[platform] = { state: 'STOPPED', updated_at: this.now() }; return { stopped: true }; }
   outputPlayer(body) {
     check(typeof body.consumer_id === 'string' && body.consumer_id.length <= 150, 'OUTPUT_PLAYER_INVALID');
+    if (body.receiver_id !== undefined) check(typeof body.receiver_id === 'string' && /^[a-zA-Z0-9_-]{1,100}$/.test(body.receiver_id), 'RECEIVER_ID_INVALID');
+    if (this.config.value.platforms.bilibili.client_location === 'receiver' && body.renderer === 'livehime' && !body.receiver_id) return { claim: false, ignored: true, receiver_required: true };
     const nativeActive = this.store.all('SELECT * FROM outputs').some(row => ACTIVE_OUTPUTS.includes(row.state) && this.config.value.platforms[row.platform]?.output_mode === 'livehime');
     const anyActive = this.store.all('SELECT * FROM outputs').some(row => ACTIVE_OUTPUTS.includes(row.state) || row.owned_output);
     const nativeConfigured = this.config.value.platforms.bilibili.output_mode === 'livehime';
     if ((nativeActive || nativeConfigured && !anyActive ? 'livehime' : 'obs') !== (body.renderer || 'obs')) return { claim: false, ignored: true };
     this.player = { consumer_id: body.consumer_id, at: this.now(), renderer: body.renderer || 'obs', frames: Number(body.frames) || 0, width: Number(body.width) || 0, height: Number(body.height) || 0, audio_state: String(body.audio_state || '').slice(0, 30) };
+    if (body.receiver_id !== undefined) {
+      this.player.receiver_id = body.receiver_id;
+      this.player.receiver_client_ready = body.receiver_client_ready === true;
+    }
     const broadcast = this.bridge.state.current();
     const lease = broadcast && this.bridge.db.get('SELECT * FROM playback_leases WHERE broadcast_id=?', broadcast.broadcast_id);
     return { claim: !!this.wantOutputAuthority && !!broadcast && broadcast.state !== 'DRAINING' && (!this.bridge.state.authorityReady(broadcast.broadcast_id) || lease?.consumer_id !== body.consumer_id), broadcast_id: broadcast?.broadcast_id || null };
@@ -190,6 +196,7 @@ export class PlatformManager {
       try { native = await this.livehime.status(); } catch (error) { native = { client_installed: false, window_open: false, error: error.code || 'LIVEHIME_UNAVAILABLE' }; }
       const media = await this.bridge.refreshMedia();
       const source = this.player?.renderer === 'livehime' && this.now() - this.player.at < 6000 ? this.player : null;
+      if (target.client_location === 'receiver') native = { ...native, client_installed: !!source?.receiver_client_ready, receiver_id: source?.receiver_id || null };
       return { platform, renderer: 'livehime', obs_required: false, native,
         checks: { tts_ready: !!media.tts_ready, avatar_ready: !!media.avatar_ready,
           channel_ready: this.config.value.interaction.mode === 'echo' || this.bridge.health().persona_injection_ready,

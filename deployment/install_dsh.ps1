@@ -18,7 +18,13 @@ Copy-Item -LiteralPath (Join-Path $DshProjectRoot 'backend/dsh-bridge/package-lo
 $env:Path = "$DshNodeFolder;" + $env:Path
 $env:npm_config_cache = Join-Path $DshProjectRoot 'cache/npm-dsh'
 & (Join-Path $DshNodeFolder 'node.exe') --version
-& (Join-Path $DshNodeFolder 'node.exe') (Join-Path $DshNodeFolder 'node_modules/npm/bin/npm-cli.js') ci --prefix $DshRuntime --ignore-scripts --omit=dev --no-audit --no-fund
+# Windows PowerShell 5 wraps native stderr in error records. npm warnings
+# must remain diagnostic output; the process exit code determines success.
+$DshPreviousPreference = $ErrorActionPreference
+try {
+ $ErrorActionPreference = 'Continue'
+ & (Join-Path $DshNodeFolder 'node.exe') (Join-Path $DshNodeFolder 'node_modules/npm/bin/npm-cli.js') ci --prefix $DshRuntime --ignore-scripts --omit=dev --no-audit --no-fund
+} finally { $ErrorActionPreference = $DshPreviousPreference }
 if ($LASTEXITCODE -ne 0) { throw 'Pinned npm ci failed' }
 if (!$PythonExe) { $PythonExe = Join-Path $DshProjectRoot 'runtime/livetalking/Scripts/python.exe' }
 if (!(Test-Path -LiteralPath $PythonExe)) { throw 'Pass -PythonExe with an existing native Python executable' }

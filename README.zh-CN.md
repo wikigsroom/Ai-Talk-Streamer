@@ -4,6 +4,8 @@
 
 一套运行在 **原生 Windows** 上的 **9:16 写实数字人演播台**：输入播报稿，或通过你自己的云端 LLM 渠道提问，由本机生成语音、实时口型和融合画面，并将人物送到网页与哔哩哔哩官方直播姬。
 
+**当前采用 A 推理、B 直播的双机架构。** 4090运行MOSS04、MuseTalk FP16 batch8、DSH和Humanity，本机B通过虚拟网络接收H.264＋PCM，再由B官方直播姬输出。五段真实跨设备交互与断线重连已通过，实际呈现约25FPS，零音频缓冲耗尽、零媒体丢包、零解码错误。详见[双机完整部署与运行细则](docs/deployment/SPLIT_DEVICE.md)、[English guide](docs/deployment/SPLIT_DEVICE.en.md)和[实录与验收边界](docs/deployment/SPLIT_DEVICE_ACCEPTANCE.md)。B官方客户端内部采集和公开切换单独记录。
+
 当前角色档案编号为 **女A**，正式姓名 **林知夏**，配套场景为 **知夏的日光宿舍**。她是**虚构的 22 岁中国女大学生**，沿用白天宿舍、长发、浅蓝卫衣的形象。[角色与素材归档](docs/CHARACTERS.md)提供分类目录、可校验清单和归档包。后续主运行目标为 **4090 工作站：48 GB 显存＋64 GB 内存**。详见 [4090 目标](docs/RTX4090.md)、[原生迁移与切换手册](docs/deployment/RTX4090_MIGRATION.md)及[完整方案归档](docs/archives/2026-10-26-LIVEHIME-HANDOFF.md)。仓库同步与新机器运行验收分别记录。
 
 已增加 **RTX 3080 10 GB／64 GB 内存**实测版本。原 GPT-SoVITS 版本保留 batch 8；当前 MOSS 版本在 batch 8 播放验收失败后改用 batch 4，沿用 FP16 人物模型、完整动作库和 720×1280 输出。网页统计视频实际呈现的帧率，慢连接积压时保留排队的音频。参见 [3080 实测](docs/RTX3080.md)、[播放修正](docs/PLAYBACK.md) 和 [MOSS 验收](docs/MOSS_LIVE.md)。

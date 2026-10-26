@@ -65,7 +65,11 @@ class DSHPlayback {
   if(barrier.runtime_epoch>this.fence.runtime_epoch||barrier.runtime_epoch===this.fence.runtime_epoch&&barrier.new_generation>this.fence.generation)this.fence={runtime_epoch:barrier.runtime_epoch,generation:barrier.new_generation};
   let target=null;
   for(const utterance of this.utterances.values())if(utterance.request_id===barrier.request_id){utterance.played=this.prefix(utterance);utterance.cancelled=true;target=utterance;}
-  this.transport.clearPlayback();this.maps.clear();
+  // Starting the next turn after natural completion must not freeze an idle
+  // picture for another full jitter-buffer interval. Reuse only silent queued
+  // media; interruption or any unfinished speech still clears everything.
+  const idleTransition=barrier.reason==='generation_advanced'&&barrier.request_id===null&&[...this.utterances.values()].every(u=>u.naturalEnded||u.cancelled);
+  if(!idleTransition)this.transport.clearPlayback();this.maps.clear();
   if(this.lease&&target&&this.lease.runtime_epoch===barrier.runtime_epoch&&target.runtime_epoch===this.lease.runtime_epoch)this.send('playback/cancel-ack',{barrier_id:barrier.barrier_id,lease_id:this.lease.lease_id,consumer_id:this.consumerId,
    transport_instance_id:target.transport_instance_id,contiguous_played_samples:target.played});
  }

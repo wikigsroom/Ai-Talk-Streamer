@@ -6,6 +6,7 @@
 - Preserve the selected female-A identity, daylight dorm, MOSS 04 voice and full portrait motion bank. Start 4090 validation with MuseTalk FP16 batch 8; record evidence before any degradation or precision change.
 - Keep application pages and APIs free of login/authentication gates as requested. Platform account verification and the cloud provider's own API protocol remain external requirements.
 - Bilibili's default output is its official Livehime client and its internal browser-source audio. Follow `docs/platforms/BILIBILI_LIVEHIME.md`.
+- The current deployment separates A inference from B broadcast: A runs the avatar, MOSS and the sole DSH/Humanity state writer; B runs the lightweight loopback receiver and official Livehime. Read `docs/deployment/SPLIT_DEVICE.md` and its acceptance record before changes. B's browser source uses its own `127.0.0.1:8020`; do not launch Livehime or an output browser on A for receiver mode.
 - Repository synchronization must not end an active broadcast or create a second authoritative memory writer. Transfer final private state using consistent backups and the deletion ledger; never copy an active SQLite main file alone or reuse recorded PIDs on another host.
 - Close this task's unused browser tabs, contexts and preview windows after browser work. Preserve the user's unrelated applications, browser sessions and GPU jobs.
 - Publish only reviewed source, assets, documents and sanitized evidence. Keep API keys, signed CDN URLs, cookies, platform credentials, private state and model/runtime installations out of Git.

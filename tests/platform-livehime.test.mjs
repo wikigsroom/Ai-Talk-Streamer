@@ -4,6 +4,7 @@ import { EventEmitter } from 'node:events';
 import { mkdirSync, mkdtempSync, writeFileSync, rmSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { LivehimeOutput, LIVEHIME_OUTPUT_URL } from '../backend/platforms/livehime.mjs';
+import { PlatformConfig } from '../backend/platforms/config.mjs';
 
 const output = resolve('outputs/platforms/livehime-tests'); mkdirSync(output, { recursive: true });
 function fixture({ failWindow = false } = {}) {
@@ -66,5 +67,30 @@ test('an installation receipt cannot launch an application outside the project',
   const f = fixture(); try {
     f.installed(); writeFileSync(join(f.root, 'outputs/platforms/setup/bilibili-livehime.json'), JSON.stringify({ prepared: true, application: '../outside.exe', application_signature: { status: 'Valid' } }));
     await assert.rejects(f.instance.launchClient(), { code: 'LIVEHIME_RECEIPT_INVALID' }); assert.deepEqual(f.calls, []);
+  } finally { await f.close(); }
+});
+
+test('split-device preparation never launches a client or preview on the inference host', async () => {
+  const f = fixture(); try {
+    f.instance.receiverConfig = () => ({ client_location: 'receiver', receiver_url: 'http://127.0.0.1:8020' });
+    const value = await f.instance.prepare();
+    assert.equal(value.client_location, 'receiver'); assert.equal(value.receiver_connection_required, true);
+    assert.equal(value.status.deployment, 'split_device'); assert.equal(value.status.client_required_on, 'receiver');
+    assert.equal(value.status.source_url, 'http://127.0.0.1:8020/output.html?output=platform&renderer=livehime');
+    assert.equal((await f.instance.launchClient()).launch_requested, false);
+    assert.deepEqual(f.calls, []);
+  } finally { await f.close(); }
+});
+
+test('split-device settings are explicit, persist, and reject malformed receiver origins', async () => {
+  const f = fixture(); try {
+    const config = new PlatformConfig(f.root);
+    assert.equal(config.value.platforms.bilibili.client_location, 'same_device');
+    config.update({ platforms: { bilibili: { client_location: 'receiver', receiver_url: 'http://127.0.0.1:8020/' } } });
+    assert.equal(new PlatformConfig(f.root).value.platforms.bilibili.receiver_url, 'http://127.0.0.1:8020');
+    assert.throws(() => config.update({ platforms: { douyin: { client_location: 'receiver' } } }), /CLIENT_LOCATION/);
+    for (const receiver_url of ['file:///tmp', 'http://user:secret@localhost:8020', 'http://localhost:8020/path', 'http://localhost:8020/?source=x']) {
+      assert.throws(() => config.update({ platforms: { bilibili: { receiver_url } } }), /RECEIVER_URL/);
+    }
   } finally { await f.close(); }
 });

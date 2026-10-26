@@ -4,6 +4,8 @@
 
 A native Windows studio for a photorealistic **9:16 talking avatar**. Type a script, or ask your own cloud LLM a question; the workstation synthesizes the voice, generates the lip motion, plays coordinated body footage, and delivers the avatar to your browser and Bilibili’s official Livehime client.
 
+**Current architecture: A generates, B broadcasts.** The 4090 runs MOSS 04, MuseTalk FP16 batch 8, DSH and Humanity; a lightweight receiver on B supplies a local browser source to B's official Livehime client over the virtual LAN. Five real cross-device dialogue cases and reconnection passed at approximately 25 presented FPS, with no audio underruns, missing packets or decode errors. See the [English deployment guide](docs/deployment/SPLIT_DEVICE.en.md), [detailed Chinese runbook](docs/deployment/SPLIT_DEVICE.md), and [recordings and acceptance boundaries](docs/deployment/SPLIT_DEVICE_ACCEPTANCE.md). B's official client capture and public cutover are tracked separately.
+
 The included character is **女A / Lin Zhixia (林知夏)**, a **fictional 22-year-old Chinese university student** in **Zhixia's Daylight Dorm**. [Character identity and categorized archive](docs/CHARACTERS.md) include a verified inventory and rebuildable bundle. The primary target is now the **RTX 4090 workstation with 48 GB VRAM and 64 GB system RAM**. See the [4090 target](docs/RTX4090.md), [native migration and cutover runbook](docs/deployment/RTX4090_MIGRATION.md), and [archived complete solution](docs/archives/2026-10-26-LIVEHIME-HANDOFF.md). Source synchronization and runtime acceptance are tracked separately.
 
 The original **RTX 3080 10 GB / 64 GB RAM** GPT-SoVITS version retains batch-8 FP16 models, the full motion bank and 720×1280 output. The selected MOSS version uses batch 4 after batch-8 playback failed validation. Browser playback counts presented frames and preserves queued audio when a viewer falls behind. See the [3080 measurements](docs/RTX3080.md), [playback correction](docs/PLAYBACK.md) and [MOSS validation](docs/MOSS_LIVE.md).
@@ -57,8 +59,8 @@ GitHub may offer a download instead of inline playback for repository MP4 links.
 | Lip generation and blending | MuseTalk 1.5, VAE, tracked face crop and compact mouth mask | Local GPU / CPU |
 | Body, hands and dorm background | Reviewed local H3 videos, preprocessed into one avatar bank | Generated locally beforehand; reused during streaming |
 | Body scheduling | Whole-clip selection from speaking state and manual requests | Local process |
-| Browser preview and recording | WebSocket JPEG + PCM, canvas and Web Audio, MediaRecorder | Local service + viewer browser |
-| Bilibili recording / broadcast output | Official Livehime browser material and internal audio, 720×1280; 30 FPS encoding of the 25 FPS avatar | Workstation |
+| Cross-device media | Shared NVENC H.264 + unchanged PCM, loopback gateway, WebCodecs and Web Audio; JPEG compatibility fallback | A encoder → virtual LAN → B receiver |
+| Bilibili recording / broadcast output | Official Livehime browser material and internal audio, 720×1280; final encoding of the 25 FPS avatar | B device |
 | Other platform output | Separate optional OBS / Douyin Companion adapters | Workstation |
 | Reference image creation | Original image edited through the selected image gateway | Preparation only; generated assets are included |
 
@@ -76,9 +78,10 @@ flowchart LR
     A --> U[Local MuseTalk lips]
     B[Reviewed body clip bank] --> U
     S[Speech state and manual selection] --> B
-    U --> J[Shared JPEG / PCM broadcast]
+    U --> J[Shared H264 / PCM transport]
     J --> W[Browser preview and recording]
-    J --> O[Livehime browser material and internal audio]
+    J --> R[B-device loopback receiver]
+    R --> O[Livehime browser material and internal audio]
     O --> P[Bilibili recording or broadcast]
 ```
 

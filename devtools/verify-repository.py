@@ -292,8 +292,40 @@ def main():
           and livehime['local_acceptance']['audio_measurement']['above_threshold_rms'] > .001
           and livehime['local_acceptance']['obs_processes'] == [], 'Livehime actual encoding and audio evidence')
 
+    split = load('docs/evidence/split-device.json')
+    split_run = split['local_acceptance']
+    check(split_run['ok'] is True and len(split_run['steps']) == 5
+          and all(step['status'] == 'COMPLETED' for step in split_run['steps'])
+          and split_run['duplicate_rejected'] is True
+          and split_run['reconnect']['new_consumer'] is True
+          and split_run['cloud_llm_exercised'] is True
+          and split_run['public_broadcast_started'] is False,
+          'Split-device evidence requires five actual cross-device speech cases and recovery')
+    split_metrics = split_run['final_metrics']
+    check(split_metrics['codec'] == 'h264_nvenc'
+          and (split_metrics['width'], split_metrics['height']) == (720, 1280)
+          and split_metrics['fps'] >= 22
+          and all(split_metrics[name] == 0 for name in ('audio_underruns', 'missing_packets', 'decode_errors')),
+          'Split-device media continuity and actual presentation')
+    check(len(split_run['utterances']) == 5
+          and all(u['status'] == 'COMPLETED'
+                  and u['valid_sample_count'] == u['contiguous_played_samples'] > 0
+                  and any(o['natural_end'] == 1 and o['played_samples'] == u['valid_sample_count']
+                          for o in u['observations']) for u in split_run['utterances'])
+          and split['module_tests']['node_passed'] >= 81
+          and split['module_tests']['node_skipped'] == 0
+          and split['module_tests']['python_passed'] >= 34
+          and split['module_tests']['native_route_count'] == 21,
+          'Split-device complete sample receipts and regressions')
+
     def source_matches(name, current, historical):
         if current == historical:
+            return True
+        successor = split['superseded_sources'].get(name, {})
+        if (historical in successor.get('historical_sha256', [])
+                and current == successor.get('current_sha256')
+                and current == split['code_sha256'].get(name)
+                and bool(successor.get('validation'))):
             return True
         delta = livehime['superseded_sources'].get(name, {})
         return (historical in delta.get('historical_sha256', [])
@@ -318,7 +350,18 @@ def main():
         check(source_matches(name, digest, expected), 'Platform evidence source changed without current evidence: ' + name)
     for name, expected in livehime['code_sha256'].items():
         digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
-        check(digest == expected, 'Livehime evidence source changed: ' + name)
+        check(source_matches(name, digest, expected), 'Livehime evidence source changed: ' + name)
+    for name, expected in split['code_sha256'].items():
+        digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
+        check(digest == expected, 'Split-device evidence source changed: ' + name)
+    split_media = load('docs/media/split-device-media-manifest.json')
+    check(report_digest_matches(local(split_media['report']), split_media['report_sha256']),
+          'Split-device media report checksum')
+    for item in split_media['items']:
+        path = local(item['file'])
+        check(path.is_file() and path.stat().st_size == item['bytes'] and sha256(path) == item['sha256'],
+              'Split-device media checksum: ' + item['file'])
+    counts['split_device_documentation_media'] = len(split_media['items'])
     livehime_media = load('docs/media/livehime-media-manifest.json')
     check(report_digest_matches(local(livehime_media['report']), livehime_media['report_sha256']), 'Livehime media report checksum')
     for item in livehime_media['items']:

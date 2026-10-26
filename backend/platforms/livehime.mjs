@@ -11,8 +11,9 @@ export const LIVEHIME_OUTPUT_URL = 'http://127.0.0.1:8010/output.html?renderer=p
 // Owns one local Chromium application window. Livehime owns its account,
 // capture settings and actual public broadcast; no OBS client is called here.
 export class LivehimeOutput {
-  constructor(root, { playwright, spawnChild = spawn } = {}) {
+  constructor(root, { playwright, spawnChild = spawn, receiverConfig = () => null } = {}) {
     this.root = resolve(root); this.playwright = playwright; this.spawnChild = spawnChild;
+    this.receiverConfig = receiverConfig;
     this.context = null; this.page = null; this.clientRequested = false;
   }
   receipt() {
@@ -27,6 +28,13 @@ export class LivehimeOutput {
     } catch { throw new PlatformError('LIVEHIME_RECEIPT_INVALID', 503); }
   }
   async status() {
+    if (this.receiverConfig()?.client_location === 'receiver') {
+      const base = this.receiverConfig().receiver_url || 'http://127.0.0.1:8020';
+      return { renderer: 'livehime', deployment: 'split_device', client_location: 'receiver', obs_required: false,
+        client_installed: false, client_required_on: 'receiver', client_launch_requested: false, window_open: false,
+        source_url: base + '/output.html?output=platform&renderer=livehime', receiver_page: base + '/receiver/',
+        source_width: 720, source_height: 1280, account_login_verified: false, audience_delivery_verified: false };
+    }
     const receipt = this.receipt();
     let player = null;
     if (this.page && !this.page.isClosed()) {
@@ -48,6 +56,9 @@ export class LivehimeOutput {
       capture_method: 'livehime_browser_source', account_login_verified: false, audience_delivery_verified: false };
   }
   async launchClient(force = false) {
+    if (this.receiverConfig()?.client_location === 'receiver') {
+      return { launch_requested: false, launch_on: 'receiver', receiver_page: (await this.status()).receiver_page, public_broadcast_started: false };
+    }
     const receipt = this.receipt(); check(receipt, 'LIVEHIME_NOT_INSTALLED', 503);
     if (!this.clientRequested || force) {
       const appdata = join(this.root, 'state/platforms/livehime/roaming'), local = join(this.root, 'state/platforms/livehime/local'), temp = join(this.root, 'cache/platforms/livehime-temp');
@@ -64,6 +75,9 @@ export class LivehimeOutput {
     return { launch_requested: true, account_login_verified: false, public_broadcast_started: false };
   }
   async prepare() {
+    if (this.receiverConfig()?.client_location === 'receiver') {
+      return { prepared: true, client_location: 'receiver', receiver_connection_required: true, public_broadcast_started: false, status: await this.status() };
+    }
     if (this.preparing) return this.preparing;
     this.preparing = this.prepareWindow().finally(() => { this.preparing = null; });
     return this.preparing;

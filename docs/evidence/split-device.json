@@ -1,0 +1,848 @@
+{
+  "schema_version": 1,
+  "kind": "native_windows_split_device_4090_inference_local_receiver",
+  "checked_at": "2026-10-26T10:54:23.470632+00:00",
+  "scope": "Actual 4090 MOSS04/MuseTalk/DSH over virtual LAN to B native Chromium. Official B-client capture and public audience delivery are separate gates.",
+  "application_authentication_required": false,
+  "virtualization_used": false,
+  "obs_used": false,
+  "old_3080_broadcast_modified": false,
+  "inference": {
+    "device": "A / remote-4090",
+    "avatar": "student_dorm_motion_bank_v3",
+    "precision": "FP16",
+    "batch_size": 8,
+    "fps": 25,
+    "width": 720,
+    "height": 1280,
+    "motion_clips": 48,
+    "voice": "MOSS 04 / v04",
+    "tts_precision": "NF4/BF16 compute, FP32 CPU codec",
+    "reference_sha256": "72c38cbcf3e06dd86d8edc5d4167f696b42bdac80b31e9f096fa300c94929fa4",
+    "state_path": "state/female-a-4090",
+    "state_scope": "isolated test state; formal 3080 memory ownership preserved",
+    "node": "24.22.1",
+    "dsh": "0.2.0-rc.2",
+    "humanity": "0.1.17"
+  },
+  "receiver": {
+    "device": "B / current native Windows computer",
+    "port": 8020,
+    "bind": "127.0.0.1",
+    "model_processes_required": false,
+    "python": "3.13",
+    "aiohttp": "3.13.3",
+    "psutil": "7.2.1",
+    "official_client_installed": true
+  },
+  "transport": {
+    "video": "h264_nvenc / Annex B / Baseline 3.1",
+    "video_bitrate_bps": 3000000,
+    "fps": 25,
+    "audio": "PCM s16 / 16000 Hz / mono",
+    "buffer_ms": 4000,
+    "mapping_connection_pool": "per-native-thread persistent HTTP session",
+    "output_page_source": "integration/obs.html",
+    "interruption_fences_preserved": true,
+    "idle_media_preserved_only_after_completed_or_cancelled_speech": true
+  },
+  "models_transfer": {
+    "files": 29,
+    "bytes": 23872292036,
+    "source_manifest_sha256": "da265297156997905878ad763d839fbc6bd97b1e0db160244fb3504256f78552",
+    "all_files_sha256_verified": true
+  },
+  "resource_sampling": {
+    "samples": 360,
+    "max_memory_mib": 13300.0,
+    "max_utilization": 68.0,
+    "max_encoder_utilization": 1.0,
+    "scope": "Earlier 360-second H264 validation interval, not a final-run peak guarantee"
+  },
+  "module_tests": {
+    "node_passed": 81,
+    "node_failed": 0,
+    "node_skipped": 0,
+    "python_passed": 34,
+    "native_route_count": 21,
+    "route_checks_passed": true,
+    "receiver_ui": {
+      "ok": true,
+      "errors": [],
+      "videos": 6,
+      "gallery_no_extra_media_sockets": true,
+      "range_http_status": 206,
+      "range_bytes": 1024,
+      "browser_closed": true
+    }
+  },
+  "local_acceptance": {
+    "run_id": "split-f81c487f-6bb4-4cd3-b234-604df006a227",
+    "started_at": "2026-10-26T10:30:19.968Z",
+    "scope": "A inference over virtual LAN to B native Chromium; real MOSS04/MuseTalk/DSH; local injected comments",
+    "public_broadcast_started": false,
+    "official_client_capture": false,
+    "steps": [
+      {
+        "id": "s01_greeting",
+        "text": "大家好，我是林知夏。人物和声音在远端生成，你现在看到的是本机接收的直播画面。",
+        "request_id": "req-6e9012ac-1957-40ed-82c5-542b99c78eda",
+        "status": "COMPLETED",
+        "elapsed_ms": 33019,
+        "started_at": "2026-10-26T10:30:30.651Z",
+        "completed_at": "2026-10-26T10:31:03.670Z"
+      },
+      {
+        "id": "s02_explanation",
+        "text": "现在测试稍长的一段话。背景保持原来的日光宿舍，声音使用第四款音色。希望你能清楚听见每一句话。",
+        "request_id": "req-bc70de8f-3f5e-4d0b-9333-23adac25f0c1",
+        "status": "COMPLETED",
+        "elapsed_ms": 35000,
+        "started_at": "2026-10-26T10:31:03.697Z",
+        "completed_at": "2026-10-26T10:31:38.697Z"
+      },
+      {
+        "id": "s03_resume",
+        "text": "刚才暂停了一下，现在继续聊天。画面恢复以后，声音也会按顺序播放。",
+        "request_id": "req-6a2d4807-9fa2-4b81-baee-c5695a6dcc65",
+        "status": "COMPLETED",
+        "elapsed_ms": 27755,
+        "started_at": "2026-10-26T10:31:41.948Z",
+        "completed_at": "2026-10-26T10:32:09.703Z"
+      },
+      {
+        "id": "s04_expression",
+        "text": "收到你的留言啦，谢谢你来陪我。放松一点，我们慢慢聊。",
+        "request_id": "req-bf9dda16-df43-4ff8-9003-50adb29befa7",
+        "status": "COMPLETED",
+        "elapsed_ms": 27339,
+        "started_at": "2026-10-26T10:32:09.705Z",
+        "completed_at": "2026-10-26T10:32:37.044Z"
+      },
+      {
+        "id": "s05_cloud_memory",
+        "text": "请用一句简短的话介绍自己的名字，并说出刚才我们测试的是哪种直播方式。",
+        "request_id": "req-414a0348-8acc-45df-b013-1b1a87e5bb81",
+        "status": "COMPLETED",
+        "elapsed_ms": 53678,
+        "started_at": "2026-10-26T10:32:37.191Z",
+        "completed_at": "2026-10-26T10:33:30.869Z"
+      }
+    ],
+    "errors": [],
+    "ok": true,
+    "broadcast_id": "bc-08269594-4b4a-4b35-9837-ce3ad32cf528",
+    "preflight": {
+      "platform": "bilibili",
+      "renderer": "livehime",
+      "obs_required": false,
+      "native": {
+        "renderer": "livehime",
+        "deployment": "split_device",
+        "client_location": "receiver",
+        "obs_required": false,
+        "client_installed": true,
+        "client_required_on": "receiver",
+        "client_launch_requested": false,
+        "window_open": false,
+        "receiver_page": "http://127.0.0.1:8020/receiver/",
+        "source_width": 720,
+        "source_height": 1280,
+        "account_login_verified": false,
+        "audience_delivery_verified": false,
+        "receiver_id": "receiver-b"
+      },
+      "checks": {
+        "tts_ready": true,
+        "avatar_ready": true,
+        "channel_ready": true,
+        "client_installed": true,
+        "preview_window": false,
+        "livehime_browser_connected": true,
+        "vertical_video": true,
+        "output_audio": true,
+        "room_configured": true,
+        "official_application_required": false,
+        "collector_running": false,
+        "audience_delivery_verified": false
+      }
+    },
+    "duplicate_rejected": true,
+    "cloud_llm_exercised": true,
+    "final_player": {
+      "consumer_id": "browser-a5d0a4b9-9627-41a5-a401-a89203b051bb",
+      "last_seen": 1793010810402,
+      "connected": true,
+      "renderer": "livehime",
+      "frames": 4653,
+      "width": 720,
+      "height": 1280,
+      "audio_state": "running",
+      "receiver_id": "receiver-b",
+      "receiver_client_ready": true
+    },
+    "final_metrics": {
+      "codec": "h264_nvenc",
+      "frames": 4685,
+      "received_frames": 4794,
+      "presented_frames": 4684,
+      "fps": 24.507401235137223,
+      "fps_source": "video_presentation",
+      "width": 720,
+      "height": 1280,
+      "audio_samples": 3068160,
+      "audio_energy": 0.29146086114214254,
+      "audio_underruns": 0,
+      "target_audio_buffer_ms": 4000,
+      "audio_buffer_ms": 4378.666666661985,
+      "missing_packets": 0,
+      "server_skipped_video_frames": 0,
+      "skipped_video_frames": 0,
+      "decode_errors": 0,
+      "max_arrival_gap_ms": 190.80000000447035,
+      "connected": true
+    },
+    "reconnect": {
+      "new_consumer": true,
+      "metrics": {
+        "codec": "h264_nvenc",
+        "frames": 51,
+        "received_frames": 151,
+        "presented_frames": 51,
+        "fps": 24.823135161879136,
+        "fps_source": "video_presentation",
+        "width": 720,
+        "height": 1280,
+        "audio_samples": 96640,
+        "audio_energy": 0,
+        "audio_underruns": 0,
+        "target_audio_buffer_ms": 4000,
+        "audio_buffer_ms": 3999.9999999987776,
+        "missing_packets": 0,
+        "server_skipped_video_frames": 0,
+        "skipped_video_frames": 0,
+        "decode_errors": 0,
+        "max_arrival_gap_ms": 94.79999999701977,
+        "connected": true
+      }
+    },
+    "finished_at": "2026-10-26T10:33:46.061Z",
+    "utterances": [
+      {
+        "utterance_id": "utt-51a5c655-07f6-4a25-b4e6-188bc5d742e4",
+        "request_id": "req-6e9012ac-1957-40ed-82c5-542b99c78eda",
+        "status": "COMPLETED",
+        "valid_sample_count": 143360,
+        "contiguous_played_samples": 143360,
+        "completion_event_seq": 125,
+        "text": [
+          "大家好，我是林知夏。人物和声音在远端生成，你现在看到的是本机接收的直播画面。"
+        ],
+        "observations": [
+          {
+            "played_samples": 143360,
+            "natural_end": 1
+          }
+        ]
+      },
+      {
+        "utterance_id": "utt-7665212e-5ee6-4c77-a1bf-04392bb54411",
+        "request_id": "req-bc70de8f-3f5e-4d0b-9333-23adac25f0c1",
+        "status": "COMPLETED",
+        "valid_sample_count": 148480,
+        "contiguous_played_samples": 148480,
+        "completion_event_seq": 131,
+        "text": [
+          "现在测试稍长的一段话。背景保持原来的日光宿舍，声音使用第四款音色。希望你能清楚听见每一句话。"
+        ],
+        "observations": [
+          {
+            "played_samples": 148480,
+            "natural_end": 1
+          }
+        ]
+      },
+      {
+        "utterance_id": "utt-3b1ec1f0-ca90-4c59-bf5f-9a4a122a9745",
+        "request_id": "req-6a2d4807-9fa2-4b81-baee-c5695a6dcc65",
+        "status": "COMPLETED",
+        "valid_sample_count": 107520,
+        "contiguous_played_samples": 107520,
+        "completion_event_seq": 140,
+        "text": [
+          "刚才暂停了一下，现在继续聊天。画面恢复以后，声音也会按顺序播放。"
+        ],
+        "observations": [
+          {
+            "played_samples": 107520,
+            "natural_end": 1
+          }
+        ]
+      },
+      {
+        "utterance_id": "utt-48e041f4-66a9-46f0-8b8d-a65a96056b2c",
+        "request_id": "req-bf9dda16-df43-4ff8-9003-50adb29befa7",
+        "status": "COMPLETED",
+        "valid_sample_count": 102400,
+        "contiguous_played_samples": 102400,
+        "completion_event_seq": 146,
+        "text": [
+          "收到你的留言啦，谢谢你来陪我。放松一点，我们慢慢聊。"
+        ],
+        "observations": [
+          {
+            "played_samples": 102400,
+            "natural_end": 1
+          }
+        ]
+      },
+      {
+        "utterance_id": "utt-8631526c-9ad8-4b71-a0b7-6ad4e26c57ac",
+        "request_id": "req-414a0348-8acc-45df-b013-1b1a87e5bb81",
+        "status": "COMPLETED",
+        "valid_sample_count": 117760,
+        "contiguous_played_samples": 117760,
+        "completion_event_seq": 152,
+        "text": [
+          "我叫林知夏，刚才测试的是远端生成画面和声音、由本机接收的直播方式。"
+        ],
+        "observations": [
+          {
+            "played_samples": 117760,
+            "natural_end": 1
+          }
+        ]
+      }
+    ],
+    "metrics_summary": {
+      "samples": 195,
+      "median_presented_fps": 24.883049666493324,
+      "samples_below_22fps": 6,
+      "low_fps_scope": "includes startup/generation control and explicit pause/resume; zero audio underruns; no claim of a constant frame rate"
+    },
+    "context_reply": "我叫林知夏，刚才测试的是远端生成画面和声音、由本机接收的直播方式。",
+    "context_identity_and_split_topology_verified": true
+  },
+  "recording": {
+    "runtime_file": "outputs/split-device/receiver-full.mp4",
+    "sha256": "35b477af11e7cfa5f79fcc8d7f131727913c52203626c583e588df170737c58d",
+    "bytes": 36344770,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 720,
+          "height": 1280,
+          "r_frame_rate": "25/1"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "189.757833",
+        "size": "36344770"
+      }
+    },
+    "decode_exit_code": 0,
+    "audio_measurement": {
+      "duration_seconds": 189.72,
+      "sample_rate": 16000,
+      "rms": 0.03880572044183325,
+      "above_threshold_rms": 0.10707365575600201,
+      "voice_ranges_seconds": [
+        [
+          26.4,
+          34.7
+        ],
+        [
+          60.2,
+          69.1
+        ],
+        [
+          94.3,
+          100.5
+        ],
+        [
+          121.7,
+          127.6
+        ],
+        [
+          174.4,
+          181.1
+        ]
+      ]
+    }
+  },
+  "native_livehime": {
+    "official_client_capture": false,
+    "public_broadcast_started": false,
+    "reason": "B Windows desktop locked; official-client source and local recording remain pending; browser acceptance is complete"
+  },
+  "earlier_failed_runs": [
+    {
+      "run_id": "split-e861cb0d-8bd5-42e8-93b4-925823e6d3b0",
+      "ok": false,
+      "error": "EVENT_UNKNOWN_",
+      "completed_cases": 3,
+      "final_metrics": null,
+      "reason": "Initial H264 transport before persistent media-map HTTP pool / 4-second buffer / idle handoff corrections"
+    },
+    {
+      "run_id": "split-ea526a7a-a993-432a-b0aa-7a287165b05d",
+      "ok": false,
+      "error": "MEDIA_CONTINUITY_FAILED",
+      "completed_cases": 5,
+      "final_metrics": {
+        "codec": "h264_nvenc",
+        "frames": 4684,
+        "received_frames": 5194,
+        "presented_frames": 4681,
+        "fps": 24.640252316147528,
+        "fps_source": "video_presentation",
+        "width": 720,
+        "height": 1280,
+        "audio_samples": 3324160,
+        "audio_energy": 0.3226783632842703,
+        "audio_underruns": 1,
+        "target_audio_buffer_ms": 2400,
+        "audio_buffer_ms": 5170.666666663664,
+        "missing_packets": 0,
+        "server_skipped_video_frames": 0,
+        "skipped_video_frames": 65,
+        "decode_errors": 0,
+        "max_arrival_gap_ms": 2493.60000000149,
+        "connected": true
+      },
+      "reason": "Initial H264 transport before persistent media-map HTTP pool / 4-second buffer / idle handoff corrections"
+    }
+  ],
+  "code_sha256": {
+    "Install-Receiver.ps1": "11bc4d2640a42cd66a561ed60415d70ec1f4fe2e75307a3492e21c707fd5b587",
+    "Start-Inference.ps1": "19b76cc7600708ec3144eace0fa6d418d5e1c065cd659f65619e122627505481",
+    "Start-Receiver.ps1": "6b597bc561046499bc7288d8fbc6faeeb1416e22976d6071f1db49fa05988e9e",
+    "backend/dsh-bridge/auth.mjs": "63eaf97bd96bf9b1109d056686ef0c0bfc074d9b7044afb0c845838f20c291e5",
+    "backend/dsh-bridge/channel.mjs": "b6b4437dc772dbb163f2e0e95364fdbc2032c904f8e185e6c634c6142bcb3baa",
+    "backend/dsh-bridge/events.mjs": "7beb412d456f470dd41eef16fba346191fb1c44659303d771f8d9c4bc46a1b82",
+    "backend/dsh-bridge/host.mjs": "0dae79e10bbd55111acdb101c13eaa7289f0ca0ccd35547c0eb55400a1756174",
+    "backend/dsh-bridge/humanity-port.mjs": "09843503605e51cebac3952175176c64f3da84d465d83f5204f1299a91ca70f6",
+    "backend/dsh-bridge/model-errors.mjs": "3ba67b32234f6a583c59312947d998fa7e10b9640a40d310f3fed11df0162b6e",
+    "backend/dsh-bridge/package-lock.json": "2f31c18f71deba93153e6e602ece1652589b1f77df25416ee246b067d20c5a94",
+    "backend/dsh-bridge/package.json": "dd1aad8ccf604d32c276a95ee00e2be01a953dea82f21c88f8601232a53b8076",
+    "backend/dsh-bridge/persona.mjs": "adeef02c55da9b710f5916de90aa8698349238a734b8cc06abfa29dd47037457",
+    "backend/dsh-bridge/policy.mjs": "d3b80997331f64772df7c0d99135ada720f98401a861b1293898fdb83cf98a23",
+    "backend/dsh-bridge/server.mjs": "65c6880491c6834d9ca873e610cbc7bb08da33e448e09b8dfba1035810fd111b",
+    "backend/dsh-bridge/state.mjs": "548c8c88faf2a719ce3d052e4fa47054efe110ab43e9a7b2b4c2463c9c25f5d9",
+    "backend/memory/administration.mjs": "48130e16f34b61d7c6f8e3c3ccb728c2dc328a6f62dd18ed7360364f609ad72a",
+    "backend/memory/migrations/001-init.sql": "05200dedb805035a3a3a41533f7890981d1c977272e02fcb177bd3b406e1f267",
+    "backend/memory/migrations/002-runtime.sql": "e0779fea6be494893d6443ab6dac4f57fe4c3b8c6275daffbf04a5d522f65913",
+    "backend/memory/query.mjs": "ce25ce9a4beb6a76568a99a3f79b5b3a2370e36000925ba87bf914f08b98c4b5",
+    "backend/memory/restore.mjs": "54633cbfcc503582b7c5c2c522f6b086e0549b30499d8b5a174f739ed1d2409c",
+    "backend/memory/scheduler.mjs": "165cf7c504d440e58a7e69224a13ee9194398a47ff8c55fa64cdd568f0aea738",
+    "backend/memory/service.mjs": "77e9ad91e66e33afff76e5079767196bdd3b02bca7833652abac01dd74bba5d8",
+    "backend/memory/store.mjs": "f7b688318f607b69da166e7264b85bc0a52e08594cf24cf80551fbb0a762a17a",
+    "backend/platforms/bilibili.mjs": "71ac11491e6a56b50ee256605198a59fbbebfc4b7c3174a96380e310626f59df",
+    "backend/platforms/blivedm.mjs": "32563402968f53faa24e0a686dc840404866ac7bfe19d6692ccc753e5b4e8b19",
+    "backend/platforms/browser.mjs": "2936b8f4186092f4b3cdbb63784256ad1f382e71595ecbf39c7c51d4f2f38d7c",
+    "backend/platforms/config.mjs": "5674a4252dd560086b6a3c4880703ae835816c89799b0f628502518e8647b755",
+    "backend/platforms/douyin.mjs": "345cacf45742557d67d967c9877268e634a13a1835eae4c1dbe1e2ec2572b1b5",
+    "backend/platforms/events.mjs": "b4e82d7a3aeb828b3208231a29fbd2a903c526fe0b0c53f8b4c05444ff3a056a",
+    "backend/platforms/livehime.mjs": "d08222870757154acf64b7f40ee7bae81278cb942b4e3244280869b0d7fe6719",
+    "backend/platforms/manager.mjs": "8dd9acb2806596dbec96793e9ab3a0c5d286a47aae4bd6a152a6d87fb4913d8c",
+    "backend/platforms/obs.mjs": "56228218355b7adc1425e06e1e8b9c900f772cf59c50a9ea3f6d7a56c2772983",
+    "backend/platforms/relay.mjs": "e34e7297488f68b949eb5ab604e8bc4b02a3a248e100e0bf7c9c8da390fe534a",
+    "backend/platforms/store.mjs": "9320e17abb67947b16783fbbd3f0a29c76708d5246eb2d8e16652ce82b2cb723",
+    "configs/deployment-target.example.json": "bb9902250da1cb1b6ee9a6619dd787e86b087a8930da1b1503d4e53cc9bcbf97",
+    "configs/receiver.example.json": "45ce5287d07ed826ead9dde2eb756461c9c017e3f6f393d5975d1d0007c8044e",
+    "configs/requirements-receiver.txt": "d2c7af3d3f5bf9414c6aa806430cba67b79108aeffb8a3703220ab672ea91d71",
+    "deployment/activate_moss.py": "5813d97e8992c107928ba6b7d88e94cdf37bee43cc5dbd219a4c924f04a85361",
+    "deployment/activate_studio.py": "e86c6e000827cb43c5a5baf6d102c68016a837ccd59b57ed27a5b0047bd84eb9",
+    "deployment/asset_probe.py": "67da7fc103cd1812bc1805c1fbbd4418c5f7241c8703146b31f48baa0c25d4b1",
+    "deployment/bootstrap.py": "a40002976a823cec4777aa1da2316857d6a76175a761f563ad23a523f214b9ce",
+    "deployment/check_installation.py": "025586acfe0a0fdd8334b6b61041e974db81c813a0af83786dab4e7f700ab583",
+    "deployment/configure_obs_runtime.py": "de3aeb8ef67dff06906af32c085a8deef7d84b6d215557d128f8fd6bbc866e62",
+    "deployment/configure_stack.py": "2f7e37eef600c98c2306354005374b7e8862a045623b313dd4cab04d125f8c5f",
+    "deployment/deploy_dsh.py": "5341ea68dcfa8088dda0fa6ff01998061aa5da36f05d250236b166008d3696be",
+    "deployment/diagnose_runtime.py": "dc97904f88f7c474abc0a65745d8923d067881bef7f9c804ab4451d795bb580d",
+    "deployment/dispatch.py": "35574da2f18460975bfdc818cb53a004b44dacc9f22157a6e82932c29e87162f",
+    "deployment/download_models.py": "2459d1a80e8f336c6a2fc19fe37915867bd49afbc67005ac38cc8f2d347de72c",
+    "deployment/finalize_preparation.py": "63a2939540bd1639132a6fef42f54c649d221e763797d648f55c94a55bdf4a31",
+    "deployment/import_probe.py": "e48428945bf772ec386a31c2fd773296cbd0758ed07214d017ca12932843b237",
+    "deployment/install_dsh.ps1": "dffdc0e9ec06e9e2a4252ef688e5753504040b43166ca5dcf11ad0d4c3c28cb8",
+    "deployment/patch_humanity.py": "abb8e43b57acde1eb4bfa06d8c75201495c4872059dc3e9aa52428eb9dac8949",
+    "deployment/prepare_environments.py": "bf5b087d040777e08568d559c6b2310420caa859037868d667318d4b31a92af9",
+    "deployment/prepare_extras.py": "8bc31b43266e809f7be6871ec4f0bb0a01e5f643b5f5d5c4399a39eb51194118",
+    "deployment/prepare_ffmpeg7.py": "f5b6a701b81dd016b7c867999a29adfb6cc14d618b9028e2886a238074d0d408",
+    "deployment/prepare_runtime_assets.py": "fef38be7fb579937440461e495a60340621d510ef51ddb01880423bd9a403ec5",
+    "deployment/readiness.py": "109614971207a85de05db42e12f70f4e35dbb71ac6dba702a5ecd8fa41ecdd6c",
+    "deployment/restart_avatar_for_dsh.py": "974efc993e16e39e722d0582cc3fc269f57b0f7a36f3136eab4eb72627afc06c",
+    "deployment/run_avatar_stage.py": "4caef9c3aa715666fff42e3d4f37bdc3e0f71ad6972bceb4235a1b007711c3b6",
+    "deployment/run_validation.py": "9d46b77e27a63fcf9cb9a640cff60b5bdcdfda4578dd9d511c5abd5495de82e0",
+    "deployment/select_portrait.py": "36187974e6b9f8c912c3acec67ec4457c6c1915a18d7dc632ae2ab1becb38015",
+    "devtools/build-character-selection.py": "350da6839696831132b13db76665be8febd2a64c861314f1f15d3e05d22b3622",
+    "devtools/build-doc-media.py": "1e3a0ba95b236d1fad5c93125dd054e1a7ebbfa832e504f01c125eab1d55f3a8",
+    "devtools/build-dsh-doc-media.py": "26d2e3f69185375c69416e8d8a331c35f2c471446e077d612a2e0db9e71920cd",
+    "devtools/build-dsh-studio-media.py": "7aacfa474a7137bf0d03de890284993c9cac111492565de4df7d398e8cc87f6d",
+    "devtools/build-livehime-media.py": "66ebae7d67eb2329b1f310b7af526d927db42dc46f91138a1d75d3ada52ea96d",
+    "devtools/build-moss-doc-media.py": "535d983f1a9c80aefdbea8dec44d418ae324b1a4200ba84a8b6bce1098762788",
+    "devtools/build-platform-media.py": "d0a45bc3b6198e460003fcb036df51bf59b7a0f90d87a4ab764087aa6a45dd94",
+    "devtools/capture-character.cjs": "13a1c2c7919b3a61527ab7e8723a1223891bd56b5f88018508e866c528d09b4a",
+    "devtools/capture-selection.cjs": "cd9eaf3da5a7ff8f62fcee2ed41324697f14c33de79876bd0ebc0bedc2dbea8c",
+    "devtools/capture-studio.cjs": "4fb7cb4a4697523128174a34187fbc3e304b2caa6369878bc133be094e066199",
+    "devtools/capture-voices.cjs": "ee8f45814269f93467e363b22bc303647e9489895570bb332810a83af978b3d9",
+    "devtools/check-playback.cjs": "24b8357587cb2a1402f33910142132e48caf04c223ec399772be92a49620b615",
+    "devtools/export-evidence.py": "88b4c52cff7d6a966bbfa579541bfe7ccadb782fb4f505a4812a0ff6c4e6d728",
+    "devtools/materialize-workflow.py": "12cd06c5fdb312c0d50ec062fb61ab1852807a547afcc2bf6794ca111028985b",
+    "devtools/test_viewer_buffer.py": "609ca5eae9e95836f2bfd9c8caadc8b9587455c8a5509e687c62dbd3fa068cbf",
+    "devtools/validate-livehime-local.mjs": "9364de158f121bf9cd6397360acbc9634dad638a4020e598a087b52a83678e6f",
+    "devtools/validate-platform-local.mjs": "4684e1b411445f9a3b9ed5b237fc4d6363ca141ba4ec3cfa16e15e129af197ef",
+    "devtools/validate-split-device.mjs": "4f76eb19327149e17b3ee7f8775d8f015d199a4e7b6d35c70032ce3b59f0c04d",
+    "devtools/verify-dsh-docs.py": "0152d082672717752bea7555d833032592f011b3447036152e60d89896281832",
+    "devtools/verify-moss-live.cjs": "ecb5fa09278c398bbdd2ac2204390373b26ed47f08b665254840f0f2c0d85307",
+    "devtools/verify-repository.py": "9325e9bbd5f077d4d516a2351311b5b1db1ff3700fef7807dcf018f9711e0849",
+    "integration/character_identity.py": "f4186a9459550cb4243b48b6fb74fb047e38a847ef9ba9e4eb819145bc9e919e",
+    "integration/dsh_bridge.py": "792269fe18b3fa3ecfaba886731056580dd0b86e4a1fee241edaee6a3aae49a4",
+    "integration/fast_blending.py": "bb0e8b700148c242ba233f49bf5c0a7004a8d62108c6df7d5119ada6007469a9",
+    "integration/frame_store.py": "9e7819f8fea72c67edfdef90870d9da2b72b97b637d44eeaa1f803fa1be60193",
+    "integration/isolated_inference.py": "a4095b6dcdd7e4a14870b3d23b23ee73c2f20146bb0dc5e591ffbb12809b31e0",
+    "integration/llm_channel.py": "fb6f91d5cfe7ce84875835e56d6b102a4b625eadc4e16ca8fb434ae482bcea1b",
+    "integration/local_broadcast.py": "bded0dd834cae17e630dd0e08360190d290c8d850dbb57896b7439ba26d388f1",
+    "integration/moss_service.py": "d5371435daff876b97038381081085c2bdd1699722d195a32b9081ba5bf7c1a5",
+    "integration/moss_tts.py": "24a1b2d5a7e89c55ddd50b62261225f2f2a9dadf4ad3dd81efebe39760be50c4",
+    "integration/motion_control.py": "2d142903b14f2e77954d780b92713a218ce0851d609a3490c82fac028d7ec97b",
+    "integration/native_landmarks.py": "8ad0ef3288faf6dc256dd80141b3eb0fe855e3e8b2c65687d82be881ca16dc53",
+    "integration/obs.html": "e78023a490ada1f2c23b5c8308caf272507c76de0341453d43f9f3c07b92f22f",
+    "integration/pose_gallery.py": "66f7e755dffec75427b7c0425ced5adf6090cdc3152152bcebdd2ed2b55b4843",
+    "integration/scenario_gallery.py": "8ee37153f861ca647c405c3df474fd50f32f717b2a9509824572722f5f040e8d",
+    "integration/stream_encoder.py": "5204d759b6adcb6f0f4c6d452ec4b67290bad69213cf19686cd17697849be598",
+    "integration/studio_routes.py": "b3033f8917bbe7fb840d0b0702ca35a5d72c94b2e005ef4c5671f17011d055a2",
+    "integration/studio_rtc.py": "82e3244e23b791bf68418e30542892e5605a43e8482cd2b64fc453c0392007e6",
+    "integration/viewer_buffer.py": "1f62c96751d25a16f6156b18ed6eb967222f6043b002e860b5715090677eb1ab",
+    "scripts/analyze_vertical_motion.py": "2f1a85984b1bb6cbc76000c1331e39fbb39cca04ba8f3d31d07f69ae23f4af84",
+    "scripts/archive_character.py": "62b65b45e5ecdf802c2edfc321217544494da6edc893f1e7611a245a5ba976b5",
+    "scripts/assemble_motion_bank.py": "8acef7c38a52dc1f3d1b9085aea79189cded8f7021739798b751c7e2eb95ca2a",
+    "scripts/build-voice-selection.py": "28027e07ff74c0464c96531b809b6620eef4512e11d12c4ebe475e983ce2cd4b",
+    "scripts/compare_vertical_faces.py": "81df4c549e5c3f9c9c17bde126b4bfb5e7e2189f5c116ccf7b09c654b0c9c5ee",
+    "scripts/compose_vertical_loop.py": "c466feaf1bc0e6d13f94070645c21f85dd71231a4a04d94089c06afb468becd5",
+    "scripts/configure_split.py": "3239be1d22b8006c828f1405b90c159c534dd9a895bbb27c87e92ec5dfbd6581",
+    "scripts/configure_vertical_obs.py": "c321a8ea73c9b11860289dca7c32805970f66e11134cb343c25a63c658419c8b",
+    "scripts/delivery_snapshot.py": "cc69578ea32ef7aa75d795feda71bb5b89a7cf3ee176c3448a3613557cd79dc6",
+    "scripts/dispatch_vertical_task.py": "9adb4d647dc3fba2f926acab27118943db1056291e5ecf286d725c992ef7694c",
+    "scripts/dsh_control.py": "a1387929e2ac9a3f7371a21b403e9f4414e3affb3ed293d0da9b5c2ec778e7b5",
+    "scripts/encode_completed_retries.py": "872b1a432de94a3982e0d6ef99fa365ce8a9e4d85adbf61e65b321edbdafb55f",
+    "scripts/encode_material_take.py": "21595a8fcbfdfb338aac1b5541e101a7c4d7369d9c91909cd2912a0649b324c9",
+    "scripts/encode_vertical_sources.py": "d0f94030dfa1b3eeb7678e357ee9422a3b086bec159880f38d7b554f29ad8505",
+    "scripts/final_runtime_checks.py": "9e764ee0669f55bdf9b3524271f04859c16ead967519d3ebc602503ef38db4ca",
+    "scripts/generate_motion_library.py": "f657adbc39d2d0a2258d2eb51dc1769d956dfeb3667f19d3ff8aab1a502ce6cf",
+    "scripts/gpu_worker.py": "520f84344a90d760f46aa8f41ce6e7b1fa8a4ed8f892958c6457e8ef06cc5aa7",
+    "scripts/hardware_profile.py": "99ffe045e84160eca14f4617328bdf243b3df9b307add69d4f21017fa810496f",
+    "scripts/install_platform_runtime.py": "e6eb094496ffda9481df492b386c315401e380027e72434a95d569fc7e11b46f",
+    "scripts/launch.py": "4ed2b7f0db6b0a5ca79518a913338a039a0bc3ae30cde61de0b0f953b6529b85",
+    "scripts/launch_material_preparation.py": "a078fdca28a325edf7209c73b55f29849e47cc8404e773c7c62eab17a6cd52b2",
+    "scripts/launch_motion_library.py": "30d86a3c259ebe1c932e7fc21363d8e1774ff698716833e88699bed0460482df",
+    "scripts/monitor_vertical_resources.py": "3ae09c53613ca7aae49d4ca2638a0db2435d24634d113dca32d23c458b3443c5",
+    "scripts/package_motion_materials.py": "94b30bdb70f6e698f3891657588b0858a9a0e97fc9eee192cfac47d9451ef479",
+    "scripts/platform_blivedm.py": "830c39e591efb9ba9096d1608b4b2be772c46e41cb2ce2fa61691f39872a69e7",
+    "scripts/prepare_avatar.py": "f63a5d2361b0e5b6d2fe9e8b9c6a54f862ed7226a1d57c4b514e0e440c75fe37",
+    "scripts/prepare_bilibili_livehime.py": "42a2e10d45ef50ca02950584c06cc7ca4c45692e740d42ea762f6b321b6a3cdf",
+    "scripts/prepare_douyin_companion.py": "a32da68717680bc0e064b2677d0f8157892c98fbcd646ce4c87ac4be8736c427",
+    "scripts/prepare_livehime_policy.py": "52881ee2fce5d0b5b5ce9b050b14160e0f3ca6f61a59189ad3a3727d7541f991",
+    "scripts/prepare_motion_library.py": "d450ad9e5aebd6f4b89c3512db1c41c8817baaa21e88ff61ef4605774f197c29",
+    "scripts/prepare_vertical_avatar.py": "a523fce3e1183f8fb755acf2fb3cac44f47981d646a610b96db635e22bf3008a",
+    "scripts/probe_frame_store.py": "50224897cafdb66ca097bd1376bfc842b13c41a978d326f581912d196936935f",
+    "scripts/probe_tts.py": "4c1119a20e1031f5b03d242a31b23f131ddccb72e08f9f9b8a2233a29d114d86",
+    "scripts/receiver_control.py": "11a26696a4fa4a869abd23b5aac9cd8f9016071901b26159c1330d6a3669555d",
+    "scripts/receiver_service.py": "2c22909b4effd2317d8c37195dfc436b0ac67ebf7f1fe06085d4df81ff6ee0d9",
+    "scripts/record_motion_tour.py": "7c16385a0c3b3e4e7886ee7c60b8bc6713cee1448b4f6749406aa1f3b708bf9e",
+    "scripts/record_obs_acceptance.py": "faf57efa6af51fa684231aea1d6665b63b3735d6814963ddfc709968d2853f24",
+    "scripts/record_scenario_tests.py": "4384d82c3f904b7513fc64dde39e242b6bdd6d17a7c761fd8ca0677fca486af7",
+    "scripts/record_vertical_acceptance.py": "4b6c1db4c33c29c6ab3a985cdea89ed64a49fe6b29e31e8453f4eaf088264ac3",
+    "scripts/render-voice-selection.py": "b27e9c0bf2fd455925517515be4f5061a2287d195ac86543426e172e4bf2fe5c",
+    "scripts/restart_service.py": "27a56e3156f869c0653269f336b6e45fb794f617af9e7d273d922412d9ed107f",
+    "scripts/runtime_environment.py": "2fbc51f977a71fa7ecec5161cf881c2828ce867c07ce75fbe0394da93200cc2f",
+    "scripts/sitecustomize.py": "1d1e5a27c7c48d9109acbff9421326a720e92b124620e37d122a2ad7b8b9fc65",
+    "scripts/start_studio.py": "0ce9b0927a6d5027b1d04dc7f0697880bb39d973a791acb7461482c5af29befb",
+    "scripts/tracked_landmarks.py": "4a81018210965cbfe868b91c0c8ac6a9a056822040efa7b68b4ea7b8acb2e02f",
+    "scripts/verify-voice-speakers.py": "fc9f7e949369d0417a9f5bf5f298493fd951cf2f47ff6e2794d3c2603d01ce46",
+    "scripts/vertical_face_material.py": "5744c9a81df58d7459f41190949f7024de1f70b5fdbe3b81ee7efb241142af87",
+    "scripts/voice_audio.py": "75eae3515cef2a3cec843fc4250e43b16e95f84d842588573290c76fefc2d9f3",
+    "tests/dsh-auth.test.mjs": "979c5b076d70be9ab1996cfffc2af4a066ffeb1af30f55dd2907f099343c0741",
+    "tests/dsh-authority-smoke.cjs": "78c3828e8da3baee1e06ca7dd712ceda2dfabfdfc8b6391437842474e9fd1a72",
+    "tests/dsh-direct-studio-smoke.cjs": "688a4f91cd028565794af8f669904700bc89bec423cd205bd2c07ea0db5ee2ae",
+    "tests/dsh-host-probe.mjs": "4c771655ab44a52def455917970983164c49c88039df8a698832eba2a3a014fc",
+    "tests/dsh-maintenance.test.mjs": "b10e5f2fe467a9a10f0895388e5fab04908e06658b7ca5d649e1edc755df3f6e",
+    "tests/dsh-management-smoke.mjs": "86add5a35c44126d701014674702ea00aa269586b1ba7dd6bb8589b4d9dc90e7",
+    "tests/dsh-media-smoke.cjs": "ebcd621a2ff1277abf3c05070ffc78a64f13690a3e351a13aac039eee79eb77a",
+    "tests/dsh-memory-load.mjs": "0bcba8be1eacf86d2492795ba8360ea6bbdc0fd0f5e4212d3e4dcdbc20d721a2",
+    "tests/dsh-model-faults.mjs": "8fef797168ad57e2d90188fc63f96112c8b0e4d175544c182c2d61f2dc20907a",
+    "tests/dsh-playback.test.mjs": "1930f3f196a9ddc844f84fa2b2d7ac98c770c201fc2a8701f6c13e08ec8c1dc6",
+    "tests/dsh-state.test.mjs": "b41e5638eb46cc146f57bb5637034da8f06726a9145c2ea8689030ba021cb2ad",
+    "tests/dsh-studio-smoke.cjs": "c4c4aa91262e312e73dbe4b3e2774c97fbf83b32591bb43785adfb21ac6a4d55",
+    "tests/dsh_routes_probe.py": "6ef56b8e1260dff715565b514e9229a0c6637e60b8af1cabbdf64161cb166923",
+    "tests/fixtures/dsh-crash-worker.mjs": "ac0a5200179e4b391f885621a53d5d973a77ff9ab906efa96fbc37816b58de5a",
+    "tests/platform-browser.test.mjs": "48f1228dca5519671011cd519e3b825718ca02bf8427de64d56f7e84af33af12",
+    "tests/platform-livehime.test.mjs": "5710687c18edc76f7451c0da1fc1074c8a0def572bfa7ab1fc56c6d6cf6f1a4f",
+    "tests/platform-obs.test.mjs": "d97b4d5fe3fca54fb05e4402281f6e1cd64b12e3a9e79260f61217cf409319f3",
+    "tests/platform-ui.test.mjs": "4aab2a66f4c4a459a2a7001a8617405f476a8e2b4a9002691ee319605238b9a1",
+    "tests/platforms.test.mjs": "3de5dc40affcd7be8f957c99e47c35d4716d611695d1bfae0a1c4f67a3dec932",
+    "tests/test_dsh_viewer_buffer.py": "37724aa0e914246bde5ae94922c52795d125b9e3b93a6ce2d6221f350c34aaed",
+    "tests/test_fast_blending.py": "e80c92c471305d1ac79eaaf57ef9656e5cebe75c2b837b454de67404000d9ec3",
+    "tests/test_moss_live.py": "b7ae30c14d820b68154eaef1c43ac4e1695abc083b9ad59525dbebc58dd9b294",
+    "tests/test_motion_control.py": "b6a3df9a5128addd906be484925a27b0fe232b7e206b47f93fd59cd64131195d",
+    "tests/test_receiver.py": "dfe0165719ba458c13dccf7ca975f7e5ce81c5005811877ff9dbd4bb1f428d18",
+    "web/browser-id.js": "59238fedc35b3caf1884d43d86f1a40ffa259908a262ef7b1cfe66bee2744705",
+    "web/character.html": "1d8c8943a81ecea9f8a2a49a0fda675ec71a9011bf552407dac05e19d29beb85",
+    "web/character.js": "8dc79933b67d0c555c71bbec29227e3a28257c5062b0660aad2f8ebb0cd31944",
+    "web/dsh-playback.js": "ed130e9be7e79853ad9b2bc53160b6448f61bd535e6d35ca60559dbbc7e68194",
+    "web/dsh-studio.css": "f413e19156be2c2de04d4a4a03831a657aa7f7e5b4e72205065970b8009209f5",
+    "web/dsh-studio.js": "04f9b53add89fd41e52e8e445e8a2502d86f3ce8b0bf199ffa6f20dba949708a",
+    "web/guide.html": "e78d22555ea80d60c98f9b1de1c208e2e164cfe4870f75b5440f75e7c1716741",
+    "web/local-stream.js": "2d6844f876ff544ab7b69700118a4b83de2f6998433fb59273639cb0d4130fc1",
+    "web/materials.html": "86311c2892b95a1466421c12e37b4b6f85dfc64dfd08feb9069a776822e37098",
+    "web/memory.css": "04e1eaf42c9f1af55b83fd16ef98211b04bdc4f3289dd8804b1305b2d59b2287",
+    "web/memory.html": "9e2a5e095b187d74e6c92625bb1b94142e4d0577ad20fa5cf3675a3863cb4d80",
+    "web/memory.js": "0df3c4f9b59549ec903fd171164796763ed068376762fc1650c6098f70328873",
+    "web/motion-ui.js": "392afeb69cbc94aa93857a5f4b2fd861cf65ab0398c793f27d55e31ab75570a2",
+    "web/platforms.css": "5f706dc84b662f34b5061f1040486ff48f4f9dbf6d0cafbba92182f311ed55c5",
+    "web/platforms.html": "416708fdd6f9cf814d30e6cbdfb6fc9f96d8df373b8a19d48c7c0fba3d250774",
+    "web/platforms.js": "49c16cbed570c3de44bd52c4e49812f6340595813ae2d18bb8ad2f98876ed153",
+    "web/poses.html": "a27a0d2d588e886ff18b35066864bcf50b0638107b8eb2350013eb780f97b9c5",
+    "web/receiver-evidence.html": "e98b8b7daf8e928a4bfd8cc6e248b82b840325a22f86b406d0e328d95edd4914",
+    "web/receiver.html": "e559451764481bf9342b3383b5ea3b3d67007b88aabe1ca93f1038c26425598a",
+    "web/selection.html": "a23022f0b7a782ea2aea443464901c06a909d1998938beb0f6e675574e153b34",
+    "web/studio.css": "b06450c91186f205ba3a6f11c22dafd936c0c9d9296dab2371dbb496d70ecfc7",
+    "web/studio.html": "0490b930d8eadfda9f133e22d25149eb0e01a4b9b3d7b3ed4f901402e8a23b6c",
+    "web/studio.js": "1004733cba433a8f9ab0ee8dd49ef8bbf087b378aeaa683498e5f711276b5091",
+    "web/tests.html": "a93cbdd408494b853c633e518f1415449834ce45004c14a3b5e874531f42acca",
+    "web/vertical.css": "f25d43acca1fbd4449a2ee8f8dea8893a82558079cef8342f603688ed3e9f9a2",
+    "web/voices.css": "25595eeb11f02da08135fece159cb04038d303cae3d8e76ab1d781d1606575e2",
+    "web/voices.html": "ffae6b2973149aa1035ea87eae5e0585d0b3f0bd308a0f736b6686cafa49134a",
+    "web/voices.js": "ac95637a4d0ad774e05804bcc243ee82d09c90c66cf97e93b1d29a0b71465ec5"
+  },
+  "superseded_sources": {
+    "backend/dsh-bridge/server.mjs": {
+      "historical_sha256": [
+        "6290dd737f0c103fa2c265572de10ddb98754d2fd5d63665d04dfdb306aebb7b"
+      ],
+      "current_sha256": "65c6880491c6834d9ca873e610cbc7bb08da33e448e09b8dfba1035810fd111b",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "backend/dsh-bridge/state.mjs": {
+      "historical_sha256": [
+        "eeca26a474c11e3b3cb262bd435a43d4aad38ea79b7a34b7d5683260446fb6d3"
+      ],
+      "current_sha256": "548c8c88faf2a719ce3d052e4fa47054efe110ab43e9a7b2b4c2463c9c25f5d9",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "backend/memory/service.mjs": {
+      "historical_sha256": [
+        "e4ac52b16d0815afab35bd89345d0ea37d05c70e6ee801f7fb467eff6caf72a5"
+      ],
+      "current_sha256": "77e9ad91e66e33afff76e5079767196bdd3b02bca7833652abac01dd74bba5d8",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "deployment/activate_studio.py": {
+      "historical_sha256": [
+        "23cf480e002f715ff8e0f134641a8289e0ea3fa8264544b918152522e9f365c5"
+      ],
+      "current_sha256": "e86c6e000827cb43c5a5baf6d102c68016a837ccd59b57ed27a5b0047bd84eb9",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "deployment/deploy_dsh.py": {
+      "historical_sha256": [
+        "43416934f7ca368f58014d9aa8ff3b049b0d4752cfcd353d38648bec4f4d7ee6"
+      ],
+      "current_sha256": "5341ea68dcfa8088dda0fa6ff01998061aa5da36f05d250236b166008d3696be",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "deployment/install_dsh.ps1": {
+      "historical_sha256": [
+        "0de32c62968f0666c0e9aa68060766fdb55fdcdaf672861f4bffb7db420f80f5"
+      ],
+      "current_sha256": "dffdc0e9ec06e9e2a4252ef688e5753504040b43166ca5dcf11ad0d4c3c28cb8",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "devtools/verify-repository.py": {
+      "historical_sha256": [
+        "3bf253cde2fb2b704bace49fdcee734ab6f2f5ff490a002ef3b55b9d9dbab287",
+        "150267f8a8990a50f1878472f72f7b649e4e0cb1a1b4c45ce978fa18da062302",
+        "89b0d9bceed6763d362cb646a7ffd5a3560ca267738b19555fa39929477a373b"
+      ],
+      "current_sha256": "9325e9bbd5f077d4d516a2351311b5b1db1ff3700fef7807dcf018f9711e0849",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "integration/dsh_bridge.py": {
+      "historical_sha256": [
+        "25372eb3863194fd59f2fc1784aec42ccd00b0269e15d49f6452864d753f52d6",
+        "b2824df85ff6e61fa7e63333ad90c241bd1ba3ba942e66feff075ea08e1fea8f",
+        "16dc77041a1bc2595d0d4b9658988142bfbf672986eda699fe4987d7793c22db"
+      ],
+      "current_sha256": "792269fe18b3fa3ecfaba886731056580dd0b86e4a1fee241edaee6a3aae49a4",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "integration/local_broadcast.py": {
+      "historical_sha256": [
+        "5656763baac1449f027be38cb5b89d6fab1fd5ae0a7e471a9359802c97d5ee11"
+      ],
+      "current_sha256": "bded0dd834cae17e630dd0e08360190d290c8d850dbb57896b7439ba26d388f1",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "integration/moss_tts.py": {
+      "historical_sha256": [
+        "dba5cb09065910279fedad6e2ea4866cf7b514218748637c5bf27deb79648c72"
+      ],
+      "current_sha256": "24a1b2d5a7e89c55ddd50b62261225f2f2a9dadf4ad3dd81efebe39760be50c4",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "integration/obs.html": {
+      "historical_sha256": [
+        "d1bf37de909fda317cbc3e62a7e1597ec75f58b81f642b50969e78354150b633",
+        "4d7f5a5d5aa6054b84610fd1e457ad3517339f6ca5f99808a85a98bb9497337f",
+        "18913329e119978745d8a451fcb576fc55f24c94a1900a1bc5f856f8dfae682c"
+      ],
+      "current_sha256": "e78023a490ada1f2c23b5c8308caf272507c76de0341453d43f9f3c07b92f22f",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "integration/viewer_buffer.py": {
+      "historical_sha256": [
+        "b0abb874a1d38869accb88e10e012cc06f971bd07c38f5f875d421bf43a9c6a2"
+      ],
+      "current_sha256": "1f62c96751d25a16f6156b18ed6eb967222f6043b002e860b5715090677eb1ab",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "scripts/gpu_worker.py": {
+      "historical_sha256": [
+        "ec64e02cdbc99bcea8178a47cd83eb18c988aa0d92de97248375ccb65f705f22"
+      ],
+      "current_sha256": "520f84344a90d760f46aa8f41ce6e7b1fa8a4ed8f892958c6457e8ef06cc5aa7",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "tests/dsh-maintenance.test.mjs": {
+      "historical_sha256": [
+        "141616c12c71a4416be9412b7e845a681ff008feaa071051536bc25ea43721e9"
+      ],
+      "current_sha256": "b10e5f2fe467a9a10f0895388e5fab04908e06658b7ca5d649e1edc755df3f6e",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "tests/dsh-playback.test.mjs": {
+      "historical_sha256": [
+        "0ce3b6f4daa33ddc02302d8c5977fe20dc6b709744c16e37b4bc9f7a1e474439"
+      ],
+      "current_sha256": "1930f3f196a9ddc844f84fa2b2d7ac98c770c201fc2a8701f6c13e08ec8c1dc6",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "tests/dsh_routes_probe.py": {
+      "historical_sha256": [
+        "5825dcf710ac0bd76e7af0ae9f3bdb61fe1ccbc5daa417281225168c9abcd180"
+      ],
+      "current_sha256": "6ef56b8e1260dff715565b514e9229a0c6637e60b8af1cabbdf64161cb166923",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "tests/test_dsh_viewer_buffer.py": {
+      "historical_sha256": [
+        "9c1a4c067b4f5353e1a263a55479a1a479399f8f3ce2665df83c1ea662c03248"
+      ],
+      "current_sha256": "37724aa0e914246bde5ae94922c52795d125b9e3b93a6ce2d6221f350c34aaed",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "web/dsh-playback.js": {
+      "historical_sha256": [
+        "74559eeacdcdfd6cbfcccd00c22f20a2fe7c751d507d6428dd3302342d70f237"
+      ],
+      "current_sha256": "ed130e9be7e79853ad9b2bc53160b6448f61bd535e6d35ca60559dbbc7e68194",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "web/local-stream.js": {
+      "historical_sha256": [
+        "e82cbfa5848b58274531cf6ee9b991a3e48e088b5785fae3578f3f4119d2cd9e"
+      ],
+      "current_sha256": "2d6844f876ff544ab7b69700118a4b83de2f6998433fb59273639cb0d4130fc1",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "web/memory.html": {
+      "historical_sha256": [
+        "0e85c5c8d7164230502ea685044afecd1298966069a83d8fe40decfed1746ef0"
+      ],
+      "current_sha256": "9e2a5e095b187d74e6c92625bb1b94142e4d0577ad20fa5cf3675a3863cb4d80",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "web/studio.html": {
+      "historical_sha256": [
+        "d7691a08b052609a9213c29f095a74fa3ea98a85902b46a7ecc968c98bafd319"
+      ],
+      "current_sha256": "0490b930d8eadfda9f133e22d25149eb0e01a4b9b3d7b3ed4f901402e8a23b6c",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "backend/platforms/config.mjs": {
+      "historical_sha256": [
+        "20a57ef87ddd83db2a8c746215b926e7dcc86839f72bd1e05937708088c19172",
+        "caff7c5bbc80bd0a3fc8ca392be4916239ceeb19995bd7ce44dd827935a7b408"
+      ],
+      "current_sha256": "5674a4252dd560086b6a3c4880703ae835816c89799b0f628502518e8647b755",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "backend/platforms/manager.mjs": {
+      "historical_sha256": [
+        "d7600d4012744d8bca06c8aef7c2ec2a0ee3ed6ae93dc5ef4c596eb97d15c169",
+        "d24f5a4e0b196b46075819bae5fc64f89c7ff96c719275216aea495db20e4a50"
+      ],
+      "current_sha256": "8dd9acb2806596dbec96793e9ab3a0c5d286a47aae4bd6a152a6d87fb4913d8c",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "tests/platform-ui.test.mjs": {
+      "historical_sha256": [
+        "8332744b4e2aadf82033270b31706e7b68c7959b0a9feb04ae7e2d296399c235"
+      ],
+      "current_sha256": "4aab2a66f4c4a459a2a7001a8617405f476a8e2b4a9002691ee319605238b9a1",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "tests/platforms.test.mjs": {
+      "historical_sha256": [
+        "efc58134bb636044ccaa44fa04addce705955230d4d3cb7bf3685c331c1310d0",
+        "53466ad8f54d5ecb5bfe1071da87c92c3de190747cf3952c26c8a0ba655d4fbc"
+      ],
+      "current_sha256": "3de5dc40affcd7be8f957c99e47c35d4716d611695d1bfae0a1c4f67a3dec932",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "web/platforms.html": {
+      "historical_sha256": [
+        "2ef10c1ae24d1188a61d391a9d9a3014dee2723eb821856dd6afb8e4f8430cf4",
+        "4891190f2f89ac585a46dbe94dc49bfdbce80bcf25ed30b465ece0f154b8c687"
+      ],
+      "current_sha256": "416708fdd6f9cf814d30e6cbdfb6fc9f96d8df373b8a19d48c7c0fba3d250774",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "web/platforms.js": {
+      "historical_sha256": [
+        "3e260ef6a98b29ecd53feca19c2c0d3141ad84e233bebf3e0a8cb78a268c2a33",
+        "7c23b1f2c42e97221bcc8ebdadec79fb55507a30d7ca2b2c12bcf8461f1645af"
+      ],
+      "current_sha256": "49c16cbed570c3de44bd52c4e49812f6340595813ae2d18bb8ad2f98876ed153",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "backend/platforms/livehime.mjs": {
+      "historical_sha256": [
+        "6e310a1275fe668c8056bc3f3bc875c8922761d8e936a0645002bf6c59c13480"
+      ],
+      "current_sha256": "d08222870757154acf64b7f40ee7bae81278cb942b4e3244280869b0d7fe6719",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    },
+    "tests/platform-livehime.test.mjs": {
+      "historical_sha256": [
+        "c6f5ef7bdeb649717c18ef11a79bd2ebe48e6b2a6f14f1a0b4db32b27b76e16d"
+      ],
+      "current_sha256": "5710687c18edc76f7451c0da1fc1074c8a0def572bfa7ab1fc56c6d6cf6f1a4f",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+    }
+  },
+  "remaining_gates": [
+    "B official Livehime internal source and real local recording",
+    "Formal 3080 memory cutover using a consistent backup",
+    "Public Bilibili viewer comment to audible reply after intentional cutover"
+  ]
+}

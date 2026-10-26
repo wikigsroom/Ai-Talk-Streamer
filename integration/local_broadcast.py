@@ -1,15 +1,17 @@
-"""Paced local JPEG/PCM broadcasting, sharing one native avatar render."""
-import asyncio,queue,struct,threading,time,uuid
+"""Paced H264/JPEG plus PCM broadcasting, sharing one native avatar render."""
+import asyncio,json,queue,struct,threading,time,uuid
 import cv2,numpy as np
 from aiohttp import web
 from utils.logger import logger
 from server.viewer_buffer import ViewerBuffer
+from server.stream_encoder import H264Encoder
 
 class LocalBroadcast:
     def __init__(self,avatar):
         self.avatar=avatar;self.queue=queue.Queue(maxsize=32);self.viewers={};self.quit=threading.Event()
         self.pending=None;self.audio=[];self.events=[];self.sequence=0;self.started=time.perf_counter();self.frames=0
         self.transport_instance_id='transport-'+uuid.uuid4().hex
+        self.encoder=None;self.force_keyframe=False
         avatar.output._player=self
         cv2.setNumThreads(1)
         self.thread=threading.Thread(target=avatar.render,args=(self.quit,),name='local-avatar-render',daemon=True)
@@ -29,9 +31,21 @@ class LocalBroadcast:
             try:item=await asyncio.to_thread(self.queue.get,True,1)
             except queue.Empty:due=time.perf_counter();continue
             frame,audio,events=item
-            try:success,encoded=await asyncio.to_thread(cv2.imencode,'.jpg',frame,[cv2.IMWRITE_JPEG_QUALITY,86])
-            except cv2.error:success=False;encoded=None
-            jpeg=encoded.tobytes() if success else b''
+            work_started=time.perf_counter()
+            jpeg=b'';h264=None;keyframe=False
+            if any(not viewer.preserve_video for viewer in self.viewers.values()):
+                try:success,encoded=await asyncio.to_thread(cv2.imencode,'.jpg',frame,[cv2.IMWRITE_JPEG_QUALITY,86])
+                except cv2.error:success=False;encoded=None
+                jpeg=encoded.tobytes() if success else b''
+            if any(viewer.preserve_video for viewer in self.viewers.values()):
+                force,self.force_keyframe=self.force_keyframe,False
+                try:
+                    if self.encoder is None:self.encoder=H264Encoder()
+                    h264,keyframe=await asyncio.to_thread(self.encoder.encode,frame,self.sequence,force)
+                except Exception:
+                    logger.exception('H264 transport encoder failed')
+                    for ws,viewer in list(self.viewers.items()):
+                        if viewer.preserve_video:self.viewers.pop(ws,None);asyncio.create_task(ws.close(code=1011,message=b'H264 encoder unavailable'))
             control=None
             media=[(index,event) for index,event in events if event.get('dsh') and event.get('valid_samples',0)>0]
             if media:
@@ -55,22 +69,31 @@ class LocalBroadcast:
                         self.avatar.flush_talk()
                         try:await async_media('failed',{'request_id':info['request_id']})
                         except Exception:pass
-            packet=struct.pack('<III',self.sequence,len(jpeg),16000)+jpeg+audio.tobytes()
+            audio_bytes=audio.tobytes()
+            packet=struct.pack('<III',self.sequence,len(jpeg),16000)+jpeg+audio_bytes
+            encoded_packet=struct.pack('<III',self.sequence,len(h264),16000)+h264+audio_bytes if h264 is not None else None
             self.sequence+=1;self.frames+=1
             for ws,viewer in list(self.viewers.items()):
-                if not viewer.put(packet,control):
+                if viewer.preserve_video and viewer.needs_keyframe:
+                    if not keyframe:continue
+                    viewer.needs_keyframe=False
+                if not viewer.put(encoded_packet if viewer.preserve_video else packet,control):
                     # A connection behind by five seconds must reconnect; never cut
                     # words out of queued PCM merely to keep its pictures current.
                     self.viewers.pop(ws,None)
                     asyncio.create_task(ws.close(code=1013,message=b'Viewing connection too slow; reconnect'))
             for _,event in events:self.avatar.notify(event)
+            elapsed=time.perf_counter()-work_started
+            if elapsed>.2:logger.warning('Media packet %s processing delayed %.3fs (mapped=%s)',self.sequence-1,elapsed,bool(media))
             due+=.04
             if due<time.perf_counter()-.2:due=time.perf_counter()
             await asyncio.sleep(max(.001,due-time.perf_counter()))
     async def handle(self,request):
         # JPEG is already compressed; per-message deflate wastes CPU for every viewer.
         ws=web.WebSocketResponse(heartbeat=20,max_msg_size=1024,compress=False);await ws.prepare(request)
-        packets=ViewerBuffer();self.viewers[ws]=packets
+        h264=request.query.get('codec')=='h264'
+        packets=ViewerBuffer(preserve_video=h264);packets.needs_keyframe=h264;self.viewers[ws]=packets
+        if h264:self.force_keyframe=True
         async def sender():
             while not ws.closed:
                 item=await packets.get()
@@ -84,6 +107,10 @@ class LocalBroadcast:
         try:
             async for message in ws:
                 if message.type==web.WSMsgType.ERROR:break
+                if h264 and message.type==web.WSMsgType.TEXT:
+                    try:
+                        if json.loads(message.data).get('type')=='video.keyframe':self.force_keyframe=True
+                    except (ValueError,AttributeError):pass
         finally:
             self.viewers.pop(ws,None);task.cancel();await asyncio.gather(task,return_exceptions=True)
         return ws

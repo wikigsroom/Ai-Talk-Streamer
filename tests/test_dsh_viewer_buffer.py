@@ -9,6 +9,14 @@ module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
 
 
 class BufferTests(unittest.IsolatedAsyncioTestCase):
+    async def test_h264_retains_all_reference_frames_and_pcm_until_disconnect_limit(self):
+        buffer = module.ViewerBuffer(max_images=1, max_packets=3, preserve_video=True)
+        packets = [struct.pack('<III', seq, 9, 16000) + b'AVC1video' + bytes([seq])*1280 for seq in range(4)]
+        for packet in packets[:3]:self.assertTrue(buffer.put(packet))
+        self.assertFalse(buffer.put(packets[3]))
+        self.assertEqual(buffer.skipped_images, 0)
+        for packet in packets[:3]:self.assertEqual(await buffer.get(), packet)
+
     async def test_shedding_keeps_map_and_pcm_together(self):
         buffer = module.ViewerBuffer(max_images=1)
         for seq in range(3):

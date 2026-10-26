@@ -23,6 +23,10 @@
 /configs/livetalking.yaml
 /configs/hardware-profile.json
 /configs/moss-live.json
+/configs/receiver.private.json
+/configs/split-device-policy.private.json
+/outputs/receiver/
+/outputs/split-device/
 /configs/tts-*.yaml
 /outputs/vertical/*
 !/outputs/vertical/materials/

@@ -283,3 +283,24 @@ test('failed native preparation preserves an existing studio broadcast and close
     assert.equal(f.manager.status().outputs[0].state, 'ERROR'); assert.equal(output.calls.at(-1), 'close');
   } finally { output.stop(); await f.close(); }
 });
+
+test('split-device preflight follows fresh B-device playback and ignores an A-device preview', async () => {
+  const f = fixture();
+  try {
+    f.manager.config.update({ platforms: { bilibili: { client_location: 'receiver' } } });
+    const heartbeat = { renderer: 'livehime', consumer_id: 'receiver-player', frames: 125, width: 720, height: 1280, audio_state: 'running' };
+    assert.equal(f.manager.outputPlayer(heartbeat).receiver_required, true);
+    assert.equal(f.manager.player, undefined);
+    assert.throws(() => f.manager.outputPlayer({ ...heartbeat, receiver_id: '<invalid>' }), /RECEIVER_ID_INVALID/);
+    assert.equal(f.manager.player, undefined);
+    f.manager.outputPlayer({ ...heartbeat, receiver_id: 'test-b', receiver_client_ready: true });
+    const preflight = await f.manager.preflight('bilibili');
+    assert.equal(preflight.native.deployment, 'split_device');
+    assert.equal(preflight.native.client_installed, true);
+    assert.equal(preflight.native.receiver_id, 'test-b');
+    assert.equal(preflight.checks.livehime_browser_connected, true);
+    assert.equal(f.manager.status().output_player.receiver_id, 'test-b');
+    f.advance(7000);
+    assert.equal((await f.manager.preflight('bilibili')).native.client_installed, false);
+  } finally { await f.close(); }
+});

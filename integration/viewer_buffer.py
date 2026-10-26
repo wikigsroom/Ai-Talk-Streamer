@@ -5,13 +5,14 @@ import struct
 
 
 class ViewerBuffer:
-    def __init__(self, max_images=3, max_packets=125):
+    def __init__(self, max_images=3, max_packets=125, preserve_video=False):
         self.max_images = max_images
         self.max_packets = max_packets
         self.packets = deque()
         self.images = 0
         self.ready = asyncio.Event()
         self.skipped_images = 0
+        self.preserve_video = preserve_video
 
     @staticmethod
     def _packet(item):
@@ -20,7 +21,7 @@ class ViewerBuffer:
     def put(self, packet, control=None):
         if len(self.packets) >= self.max_packets:
             return False
-        if self.images >= self.max_images:
+        if not self.preserve_video and self.images >= self.max_images:
             for index, pending in enumerate(self.packets):
                 value = self._packet(pending)
                 if value is None:

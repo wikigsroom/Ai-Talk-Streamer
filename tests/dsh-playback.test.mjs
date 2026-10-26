@@ -51,3 +51,18 @@ test('A14: an old heartbeat failure cannot revoke a replacement lease',async()=>
   f.player.send('playback/heartbeat',{lease_id:'new-lease'});await f.player.postChain;
   assert.equal(f.player.lease,null);
 });
+
+test('a new generation preserves silent idle media after a naturally completed turn',()=>{
+  const f=fixture(),s=f.source();f.player.schedule(s,f.metadata,1,640,16000);f.audio.currentTime=2;s.end();
+  assert.equal(f.player.utterances.get('u').naturalEnded,true);
+  const idle=f.source();f.player.cancel({request_id:null,runtime_epoch:1,new_generation:3,reason:'generation_advanced'});
+  assert.equal(idle._dshCancelled,undefined);
+  assert.equal(f.player.fence.generation,3);
+  const late=f.source();f.player.schedule(late,f.metadata,3,640,16000);assert.equal(late._dshCancelled,true);
+});
+
+test('a new generation still flushes unfinished speech even without a target request',()=>{
+  const f=fixture(),s=f.source();f.player.schedule(s,f.metadata,1,640,16000);f.audio.currentTime=1.02;
+  f.player.cancel({request_id:null,runtime_epoch:1,new_generation:3,reason:'generation_advanced'});
+  assert.equal(s._dshCancelled,true);f.audio.currentTime=3;s.end();assert.equal(f.sent.some(x=>x.natural_end),false);
+});

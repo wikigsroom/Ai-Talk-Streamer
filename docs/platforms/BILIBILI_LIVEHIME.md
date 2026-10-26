@@ -1,5 +1,7 @@
 # 哔哩哔哩直播姬接入 / Bilibili Livehime
 
+**最新双机部署：** 人物/语音/DSH在A4090，官方直播姬在B，通过B的 `127.0.0.1:8020` 接收H.264＋PCM。请优先按[A/B完整部署](../deployment/SPLIT_DEVICE.md)和[双机验收](../deployment/SPLIT_DEVICE_ACCEPTANCE.md)执行。下文的8010同机源与3080录像保留为历史方案。
+
 B站当前默认使用官方 Windows 直播姬。人物、MOSS 04、动作库和 DSH + Humanity 继续在本地运行；文字模型使用已保存的渠道。直播姬直接加载本地浏览器源、混合声音、编码和推流，整个 B站运行路径不启动、连接或调用 OBS。
 
 **后续运行位置：** 主运行目标改为 [4090](../RTX4090.md)，按[迁移手册](../deployment/RTX4090_MIGRATION.md)部署和切换；本文保留3080真实配置与验收来源，不把它们直接当作4090实测。

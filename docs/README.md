@@ -2,6 +2,8 @@
 
 后续主运行目标为 [4090](RTX4090.md)，完整方案已[归档](archives/2026-10-26-LIVEHIME-HANDOFF.md)，按[迁移与切换手册](deployment/RTX4090_MIGRATION.md)继续运行准备。3080 保留为历史实测参考。
 
+当前运行方案为 **A4090推理 + B本机官方直播姬**：阅读[双机详细部署](deployment/SPLIT_DEVICE.md)、[英文指南](deployment/SPLIT_DEVICE.en.md)与[五段跨机验收、录像和剩余边界](deployment/SPLIT_DEVICE_ACCEPTANCE.md)。接收端不加载人物或语音模型。
+
 B站当前默认由官方直播姬输出，详见[直播姬完整方案 / Bilibili Livehime](platforms/BILIBILI_LIVEHIME.md)。该路径不启动或调用 OBS；历史 OBS 媒体保留原来源。
 
 [English README](../README.md) · [中文 README](../README.zh-CN.md)
@@ -12,6 +14,8 @@ This is the documentation for the delivered **daylight dorm / portrait / local-m
 
 | Document / 文档 | Read it for / 内容 |
 | --- | --- |
+| [Split-device / A推理+B直播](deployment/SPLIT_DEVICE.md) | Native A/B installation, virtual LAN, H264/PCM, receiver, official source audio, memory ownership and recovery / 原生双机部署、源内音频、状态、回执、下播维护与切换 |
+| [Split-device acceptance / 双机验收](deployment/SPLIT_DEVICE_ACCEPTANCE.md) | Five actual cross-device speech cases, recordings, regression results and official-client boundaries / 五段跨机实录、测试与官方客户端边界 |
 | [RTX 4090 / 后续主运行目标](RTX4090.md) | Complete archive, target inventory, repository synchronization, model/configuration gaps and consistent memory cutover / 归档、同步、部署差异及记忆迁移 |
 | [Platform integration / 直播平台接入](PLATFORM_INTEGRATION.md) | Bilibili, Douyin, OBS, native comment adapters, event queues and per-viewer memory / 双平台评估、无开放应用基础路径、完整实现和验收边界 |
 | [Platform media / 平台实机录像](platforms/MEDIA.md) | Actual control pages, loopback RTMP, MOSS speech, GIF and account-validation boundaries / 真实页面、本地推流与账号验收边界 |
