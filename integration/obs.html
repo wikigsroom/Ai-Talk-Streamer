@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>数字人直播画面</title>
-<style>html,body{margin:0;width:100%;height:100%;background:#101217;overflow:hidden}video{width:100%;height:100%;object-fit:contain}#notice{position:absolute;inset:0;display:grid;place-items:center;color:#ddd;font:24px sans-serif}#notice[hidden]{display:none}</style>
-<video id="video" autoplay playsinline></video><div id="notice">正在连接本地数字人…</div><script src="/browser-id.js?v=1"></script><script src="/dsh-playback.js?v=split-idle-4"></script><script src="/local-stream.js?v=split-h264-2"></script>
+<style>html,body{margin:0;width:100%;height:100%;background:#101217;overflow:hidden}video,canvas{width:100%;height:100%;object-fit:contain}video[hidden]{display:none}#notice{position:absolute;inset:0;display:grid;place-items:center;color:#ddd;font:24px sans-serif}#notice[hidden]{display:none}</style>
+<video id="video" autoplay playsinline></video><div id="notice">正在连接本地数字人…</div><script src="/browser-id.js?v=1"></script><script src="/dsh-playback.js?v=split-idle-4"></script><script src="/local-stream.js?v=split-native-6"></script>
 <script>
 let current,stopped=false,timer,authorityTimer,authorityBusy=false;const video=document.querySelector('video'),notice=document.querySelector('#notice'),context=new AudioContext();
 const renderer=new URLSearchParams(location.search).get('renderer')||'obs';window.avatarAudioContext=context;if(['livehime','preview'].includes(renderer))document.title='女A · 林知夏 · 直播姬画面';if(renderer==='preview')video.muted=true;
@@ -9,7 +9,7 @@ async function authority(){
  try{
   let replace=false;
   if(new URLSearchParams(location.search).get('output')==='platform'){
-   const p=await fetch('/api/dsh/platforms/output/player',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({consumer_id:current.dsh.consumerId,frames:video.getVideoPlaybackQuality?.().totalVideoFrames||0,width:video.videoWidth,height:video.videoHeight,audio_state:context.state,renderer,stream_metrics:current.metrics()})});
+   const p=await fetch('/api/dsh/platforms/output/player',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({consumer_id:current.dsh.consumerId,frames:current.directOutput?current.frames:video.getVideoPlaybackQuality?.().totalVideoFrames||0,width:current.directOutput?current.canvas.width:video.videoWidth,height:current.directOutput?current.canvas.height:video.videoHeight,audio_state:context.state,renderer,stream_metrics:current.metrics()})});
    if(p.ok){const output=await p.json();if(output.ignored)return;replace=!!output.claim;}
   }
   if(renderer==='preview')return;
@@ -19,11 +19,13 @@ async function authority(){
  }catch{}finally{authorityBusy=false;}
 }
 async function connect(){
- if(stopped)return;if(current)current.close();
+ if(stopped)return;if(current){current.close();current.canvas.remove()}
  try{
   await context.resume();
-  current=new LocalAvatarStream(context,()=>{if(!stopped){notice.hidden=false;notice.textContent='连接已断开，正在重连…';clearTimeout(timer);timer=setTimeout(connect,5000)}});window.avatarTransport=current;
-  video.srcObject=await current.connect();current.attachVideo(video);await video.play();notice.hidden=true;window.avatarSession='studio';void authority();
+  current=new LocalAvatarStream(context,event=>{if(!stopped){notice.hidden=false;notice.textContent='连接已断开，正在重连…';clearTimeout(timer);timer=setTimeout(()=>event?.code===4001?location.reload():connect(),5000)}},{directOutput:renderer==='livehime'});window.avatarTransport=current;
+  if(current.directOutput){video.hidden=true;document.body.prepend(current.canvas);await current.connect()}
+  else{video.srcObject=await current.connect();current.attachVideo(video);await video.play()}
+  notice.hidden=true;window.avatarSession='studio';void authority();
  }catch(error){current?.close();notice.hidden=false;notice.textContent='本地服务尚未就绪，正在重连…';clearTimeout(timer);if(!stopped)timer=setTimeout(connect,5000)}
 }
 authorityTimer=setInterval(authority,1500);addEventListener('beforeunload',()=>{stopped=true;clearTimeout(timer);clearInterval(authorityTimer);current?.close();context.close()});connect();

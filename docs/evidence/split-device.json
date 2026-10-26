@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "kind": "native_windows_split_device_4090_inference_local_receiver",
-  "checked_at": "2026-10-26T13:24:21.343763+00:00",
+  "checked_at": "2026-10-26T18:58:38.523835+00:00",
   "scope": "Actual 4090 MOSS04/MuseTalk/DSH over virtual LAN to B native Chromium. Official B-client capture and public audience delivery are separate gates.",
   "application_authentication_required": false,
   "virtualization_used": false,
@@ -60,7 +60,7 @@
     "scope": "Earlier 360-second H264 validation interval, not a final-run peak guarantee"
   },
   "module_tests": {
-    "node_passed": 81,
+    "node_passed": 82,
     "node_failed": 0,
     "node_skipped": 0,
     "python_passed": 34,
@@ -426,6 +426,42 @@
     },
     "reason": "Native source connected, but the locked-session attempt failed its timeout. Full audible official-client recording and final portrait canvas remain unverified."
   },
+  "browser_recovery": {
+    "checked_at": "2026-10-26T18:54:46.484853+00:00",
+    "cause_observed_in_official_cef_log": "Browser WebSocket.close(1011) threw InvalidAccessError during decoder overload, preventing recovery. The unlocked desktop still showed stalled output.",
+    "changes": [
+      "Use browser-legal close code 4001",
+      "Clear old media immediately on disconnect",
+      "Direct canvas and Web Audio destination for Livehime",
+      "Request native software H264 decode in offscreen CEF",
+      "Reload the output page after decoder failure; ordinary network disconnect reconnects"
+    ],
+    "fixture": "tests/local-stream-browser.test.mjs",
+    "fixture_video_sha256": "5088d26a905684d9980ee4e98dc18d7071c4a759bdc97e3ce359ed54b6199487",
+    "real_native_chrome_fixture": {
+      "passed": true,
+      "real_annex_b_720x1280_software_decode": true,
+      "default_audio_output_signal_measured": true,
+      "decoder_overload_recovered": true,
+      "old_media_released": true,
+      "preview_presentation_preserved": true,
+      "owned_contexts_closed": true
+    },
+    "regression": {
+      "node_passed": 82,
+      "node_failed": 0,
+      "node_skipped": 0,
+      "python_passed": 34,
+      "final_browser_fixture_passed": true,
+      "final_receiver_tests_passed": 10
+    },
+    "native_livehime_after_refresh": {
+      "verified": false,
+      "state": "awaiting source refresh and local recording in the official client",
+      "public_broadcast_started": false
+    },
+    "scope": "Automated Chrome fixtures and source corrections; not a replacement for official Livehime recording or the historical five-case 4090 recording."
+  },
   "earlier_failed_runs": [
     {
       "run_id": "split-e861cb0d-8bd5-42e8-93b4-925823e6d3b0",
@@ -558,7 +594,7 @@
     "integration/moss_tts.py": "24a1b2d5a7e89c55ddd50b62261225f2f2a9dadf4ad3dd81efebe39760be50c4",
     "integration/motion_control.py": "2d142903b14f2e77954d780b92713a218ce0851d609a3490c82fac028d7ec97b",
     "integration/native_landmarks.py": "8ad0ef3288faf6dc256dd80141b3eb0fe855e3e8b2c65687d82be881ca16dc53",
-    "integration/obs.html": "329048b3de93bed80a41b4313526e0a467d8895a0bb5ea10fc250f110aeab1dd",
+    "integration/obs.html": "cc12fdd7d358e23db97cba5ace8d97646eb466f35a421b2519e8581ee050d837",
     "integration/pose_gallery.py": "66f7e755dffec75427b7c0425ced5adf6090cdc3152152bcebdd2ed2b55b4843",
     "integration/scenario_gallery.py": "8ee37153f861ca647c405c3df474fd50f32f717b2a9509824572722f5f040e8d",
     "integration/stream_encoder.py": "5204d759b6adcb6f0f4c6d452ec4b67290bad69213cf19686cd17697849be598",
@@ -599,7 +635,7 @@
     "scripts/probe_frame_store.py": "50224897cafdb66ca097bd1376bfc842b13c41a978d326f581912d196936935f",
     "scripts/probe_tts.py": "4c1119a20e1031f5b03d242a31b23f131ddccb72e08f9f9b8a2233a29d114d86",
     "scripts/receiver_control.py": "11a26696a4fa4a869abd23b5aac9cd8f9016071901b26159c1330d6a3669555d",
-    "scripts/receiver_service.py": "fb2d608602fc7bd7ea1c9e0d76a67cdc25840be491ac0c25e93850e922ea8ad5",
+    "scripts/receiver_service.py": "ce556cb323714edbf9466910d212fb363528bdcb686127cf9c41252c04ada2cc",
     "scripts/record_motion_tour.py": "7c16385a0c3b3e4e7886ee7c60b8bc6713cee1448b4f6749406aa1f3b708bf9e",
     "scripts/record_obs_acceptance.py": "faf57efa6af51fa684231aea1d6665b63b3735d6814963ddfc709968d2853f24",
     "scripts/record_scenario_tests.py": "4384d82c3f904b7513fc64dde39e242b6bdd6d17a7c761fd8ca0677fca486af7",
@@ -627,6 +663,7 @@
     "tests/dsh-studio-smoke.cjs": "c4c4aa91262e312e73dbe4b3e2774c97fbf83b32591bb43785adfb21ac6a4d55",
     "tests/dsh_routes_probe.py": "6ef56b8e1260dff715565b514e9229a0c6637e60b8af1cabbdf64161cb166923",
     "tests/fixtures/dsh-crash-worker.mjs": "ac0a5200179e4b391f885621a53d5d973a77ff9ab906efa96fbc37816b58de5a",
+    "tests/local-stream-browser.test.mjs": "3d9d0cda925cff62ee7969fdbb2b356c781b5f13a9c0ba52bbda6bff0a7cd15d",
     "tests/platform-browser.test.mjs": "48f1228dca5519671011cd519e3b825718ca02bf8427de64d56f7e84af33af12",
     "tests/platform-livehime.test.mjs": "5710687c18edc76f7451c0da1fc1074c8a0def572bfa7ab1fc56c6d6cf6f1a4f",
     "tests/platform-obs.test.mjs": "d97b4d5fe3fca54fb05e4402281f6e1cd64b12e3a9e79260f61217cf409319f3",
@@ -636,7 +673,7 @@
     "tests/test_fast_blending.py": "e80c92c471305d1ac79eaaf57ef9656e5cebe75c2b837b454de67404000d9ec3",
     "tests/test_moss_live.py": "b7ae30c14d820b68154eaef1c43ac4e1695abc083b9ad59525dbebc58dd9b294",
     "tests/test_motion_control.py": "b6a3df9a5128addd906be484925a27b0fe232b7e206b47f93fd59cd64131195d",
-    "tests/test_receiver.py": "1ba538fb2833cd2b470beecf901aea35483d4cf325fc20ffdcffb9f63818302a",
+    "tests/test_receiver.py": "4ff384cec128e855d5c335d4592020b8995f07a6134254740c8722d7c26e5f52",
     "web/browser-id.js": "59238fedc35b3caf1884d43d86f1a40ffa259908a262ef7b1cfe66bee2744705",
     "web/character.html": "1d8c8943a81ecea9f8a2a49a0fda675ec71a9011bf552407dac05e19d29beb85",
     "web/character.js": "8dc79933b67d0c555c71bbec29227e3a28257c5062b0660aad2f8ebb0cd31944",
@@ -644,7 +681,7 @@
     "web/dsh-studio.css": "f413e19156be2c2de04d4a4a03831a657aa7f7e5b4e72205065970b8009209f5",
     "web/dsh-studio.js": "04f9b53add89fd41e52e8e445e8a2502d86f3ce8b0bf199ffa6f20dba949708a",
     "web/guide.html": "e78d22555ea80d60c98f9b1de1c208e2e164cfe4870f75b5440f75e7c1716741",
-    "web/local-stream.js": "2d6844f876ff544ab7b69700118a4b83de2f6998433fb59273639cb0d4130fc1",
+    "web/local-stream.js": "2fddecf17a9c2d61405d3b459c7c57161c521ac5ae081f07287a27fd75e70856",
     "web/materials.html": "86311c2892b95a1466421c12e37b4b6f85dfc64dfd08feb9069a776822e37098",
     "web/memory.css": "04e1eaf42c9f1af55b83fd16ef98211b04bdc4f3289dd8804b1305b2d59b2287",
     "web/memory.html": "9e2a5e095b187d74e6c92625bb1b94142e4d0577ad20fa5cf3675a3863cb4d80",
@@ -655,7 +692,7 @@
     "web/platforms.js": "49c16cbed570c3de44bd52c4e49812f6340595813ae2d18bb8ad2f98876ed153",
     "web/poses.html": "a27a0d2d588e886ff18b35066864bcf50b0638107b8eb2350013eb780f97b9c5",
     "web/receiver-evidence.html": "e98b8b7daf8e928a4bfd8cc6e248b82b840325a22f86b406d0e328d95edd4914",
-    "web/receiver.html": "a2a8b5dfadfba7d39f05ef3a496932469ae54cc450b31cfc5a49c288b9dc3e3d",
+    "web/receiver.html": "249eb83d26d1dc9e3258b5151393a010c44a6595cdc8e1f796469578dd2b2c94",
     "web/selection.html": "a23022f0b7a782ea2aea443464901c06a909d1998938beb0f6e675574e153b34",
     "web/studio.css": "b06450c91186f205ba3a6f11c22dafd936c0c9d9296dab2371dbb496d70ecfc7",
     "web/studio.html": "0490b930d8eadfda9f133e22d25149eb0e01a4b9b3d7b3ed4f901402e8a23b6c",
@@ -672,42 +709,42 @@
         "6290dd737f0c103fa2c265572de10ddb98754d2fd5d63665d04dfdb306aebb7b"
       ],
       "current_sha256": "65c6880491c6834d9ca873e610cbc7bb08da33e448e09b8dfba1035810fd111b",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "backend/dsh-bridge/state.mjs": {
       "historical_sha256": [
         "eeca26a474c11e3b3cb262bd435a43d4aad38ea79b7a34b7d5683260446fb6d3"
       ],
       "current_sha256": "548c8c88faf2a719ce3d052e4fa47054efe110ab43e9a7b2b4c2463c9c25f5d9",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "backend/memory/service.mjs": {
       "historical_sha256": [
         "e4ac52b16d0815afab35bd89345d0ea37d05c70e6ee801f7fb467eff6caf72a5"
       ],
       "current_sha256": "77e9ad91e66e33afff76e5079767196bdd3b02bca7833652abac01dd74bba5d8",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "deployment/activate_studio.py": {
       "historical_sha256": [
         "23cf480e002f715ff8e0f134641a8289e0ea3fa8264544b918152522e9f365c5"
       ],
       "current_sha256": "e86c6e000827cb43c5a5baf6d102c68016a837ccd59b57ed27a5b0047bd84eb9",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "deployment/deploy_dsh.py": {
       "historical_sha256": [
         "43416934f7ca368f58014d9aa8ff3b049b0d4752cfcd353d38648bec4f4d7ee6"
       ],
       "current_sha256": "5341ea68dcfa8088dda0fa6ff01998061aa5da36f05d250236b166008d3696be",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "deployment/install_dsh.ps1": {
       "historical_sha256": [
         "0de32c62968f0666c0e9aa68060766fdb55fdcdaf672861f4bffb7db420f80f5"
       ],
       "current_sha256": "dffdc0e9ec06e9e2a4252ef688e5753504040b43166ca5dcf11ad0d4c3c28cb8",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "devtools/verify-repository.py": {
       "historical_sha256": [
@@ -716,7 +753,7 @@
         "89b0d9bceed6763d362cb646a7ffd5a3560ca267738b19555fa39929477a373b"
       ],
       "current_sha256": "9325e9bbd5f077d4d516a2351311b5b1db1ff3700fef7807dcf018f9711e0849",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "integration/dsh_bridge.py": {
       "historical_sha256": [
@@ -725,21 +762,21 @@
         "16dc77041a1bc2595d0d4b9658988142bfbf672986eda699fe4987d7793c22db"
       ],
       "current_sha256": "792269fe18b3fa3ecfaba886731056580dd0b86e4a1fee241edaee6a3aae49a4",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "integration/local_broadcast.py": {
       "historical_sha256": [
         "5656763baac1449f027be38cb5b89d6fab1fd5ae0a7e471a9359802c97d5ee11"
       ],
       "current_sha256": "bded0dd834cae17e630dd0e08360190d290c8d850dbb57896b7439ba26d388f1",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "integration/moss_tts.py": {
       "historical_sha256": [
         "dba5cb09065910279fedad6e2ea4866cf7b514218748637c5bf27deb79648c72"
       ],
       "current_sha256": "24a1b2d5a7e89c55ddd50b62261225f2f2a9dadf4ad3dd81efebe39760be50c4",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "integration/obs.html": {
       "historical_sha256": [
@@ -747,78 +784,78 @@
         "4d7f5a5d5aa6054b84610fd1e457ad3517339f6ca5f99808a85a98bb9497337f",
         "18913329e119978745d8a451fcb576fc55f24c94a1900a1bc5f856f8dfae682c"
       ],
-      "current_sha256": "329048b3de93bed80a41b4313526e0a467d8895a0bb5ea10fc250f110aeab1dd",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "current_sha256": "cc12fdd7d358e23db97cba5ace8d97646eb466f35a421b2519e8581ee050d837",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "integration/viewer_buffer.py": {
       "historical_sha256": [
         "b0abb874a1d38869accb88e10e012cc06f971bd07c38f5f875d421bf43a9c6a2"
       ],
       "current_sha256": "1f62c96751d25a16f6156b18ed6eb967222f6043b002e860b5715090677eb1ab",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "scripts/gpu_worker.py": {
       "historical_sha256": [
         "ec64e02cdbc99bcea8178a47cd83eb18c988aa0d92de97248375ccb65f705f22"
       ],
       "current_sha256": "520f84344a90d760f46aa8f41ce6e7b1fa8a4ed8f892958c6457e8ef06cc5aa7",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "tests/dsh-maintenance.test.mjs": {
       "historical_sha256": [
         "141616c12c71a4416be9412b7e845a681ff008feaa071051536bc25ea43721e9"
       ],
       "current_sha256": "b10e5f2fe467a9a10f0895388e5fab04908e06658b7ca5d649e1edc755df3f6e",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "tests/dsh-playback.test.mjs": {
       "historical_sha256": [
         "0ce3b6f4daa33ddc02302d8c5977fe20dc6b709744c16e37b4bc9f7a1e474439"
       ],
       "current_sha256": "1930f3f196a9ddc844f84fa2b2d7ac98c770c201fc2a8701f6c13e08ec8c1dc6",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "tests/dsh_routes_probe.py": {
       "historical_sha256": [
         "5825dcf710ac0bd76e7af0ae9f3bdb61fe1ccbc5daa417281225168c9abcd180"
       ],
       "current_sha256": "6ef56b8e1260dff715565b514e9229a0c6637e60b8af1cabbdf64161cb166923",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "tests/test_dsh_viewer_buffer.py": {
       "historical_sha256": [
         "9c1a4c067b4f5353e1a263a55479a1a479399f8f3ce2665df83c1ea662c03248"
       ],
       "current_sha256": "37724aa0e914246bde5ae94922c52795d125b9e3b93a6ce2d6221f350c34aaed",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "web/dsh-playback.js": {
       "historical_sha256": [
         "74559eeacdcdfd6cbfcccd00c22f20a2fe7c751d507d6428dd3302342d70f237"
       ],
       "current_sha256": "ed130e9be7e79853ad9b2bc53160b6448f61bd535e6d35ca60559dbbc7e68194",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "web/local-stream.js": {
       "historical_sha256": [
         "e82cbfa5848b58274531cf6ee9b991a3e48e088b5785fae3578f3f4119d2cd9e"
       ],
-      "current_sha256": "2d6844f876ff544ab7b69700118a4b83de2f6998433fb59273639cb0d4130fc1",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "current_sha256": "2fddecf17a9c2d61405d3b459c7c57161c521ac5ae081f07287a27fd75e70856",
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "web/memory.html": {
       "historical_sha256": [
         "0e85c5c8d7164230502ea685044afecd1298966069a83d8fe40decfed1746ef0"
       ],
       "current_sha256": "9e2a5e095b187d74e6c92625bb1b94142e4d0577ad20fa5cf3675a3863cb4d80",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "web/studio.html": {
       "historical_sha256": [
         "d7691a08b052609a9213c29f095a74fa3ea98a85902b46a7ecc968c98bafd319"
       ],
       "current_sha256": "0490b930d8eadfda9f133e22d25149eb0e01a4b9b3d7b3ed4f901402e8a23b6c",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "backend/platforms/config.mjs": {
       "historical_sha256": [
@@ -826,7 +863,7 @@
         "caff7c5bbc80bd0a3fc8ca392be4916239ceeb19995bd7ce44dd827935a7b408"
       ],
       "current_sha256": "5674a4252dd560086b6a3c4880703ae835816c89799b0f628502518e8647b755",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "backend/platforms/manager.mjs": {
       "historical_sha256": [
@@ -834,14 +871,14 @@
         "d24f5a4e0b196b46075819bae5fc64f89c7ff96c719275216aea495db20e4a50"
       ],
       "current_sha256": "8dd9acb2806596dbec96793e9ab3a0c5d286a47aae4bd6a152a6d87fb4913d8c",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "tests/platform-ui.test.mjs": {
       "historical_sha256": [
         "8332744b4e2aadf82033270b31706e7b68c7959b0a9feb04ae7e2d296399c235"
       ],
       "current_sha256": "4aab2a66f4c4a459a2a7001a8617405f476a8e2b4a9002691ee319605238b9a1",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "tests/platforms.test.mjs": {
       "historical_sha256": [
@@ -849,7 +886,7 @@
         "53466ad8f54d5ecb5bfe1071da87c92c3de190747cf3952c26c8a0ba655d4fbc"
       ],
       "current_sha256": "3de5dc40affcd7be8f957c99e47c35d4716d611695d1bfae0a1c4f67a3dec932",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "web/platforms.html": {
       "historical_sha256": [
@@ -857,7 +894,7 @@
         "4891190f2f89ac585a46dbe94dc49bfdbce80bcf25ed30b465ece0f154b8c687"
       ],
       "current_sha256": "416708fdd6f9cf814d30e6cbdfb6fc9f96d8df373b8a19d48c7c0fba3d250774",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "web/platforms.js": {
       "historical_sha256": [
@@ -865,21 +902,21 @@
         "7c23b1f2c42e97221bcc8ebdadec79fb55507a30d7ca2b2c12bcf8461f1645af"
       ],
       "current_sha256": "49c16cbed570c3de44bd52c4e49812f6340595813ae2d18bb8ad2f98876ed153",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "backend/platforms/livehime.mjs": {
       "historical_sha256": [
         "6e310a1275fe668c8056bc3f3bc875c8922761d8e936a0645002bf6c59c13480"
       ],
       "current_sha256": "d08222870757154acf64b7f40ee7bae81278cb942b4e3244280869b0d7fe6719",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     },
     "tests/platform-livehime.test.mjs": {
       "historical_sha256": [
         "c6f5ef7bdeb649717c18ef11a79bd2ebe48e6b2a6f14f1a0b4db32b27b76e16d"
       ],
       "current_sha256": "5710687c18edc76f7451c0da1fc1074c8a0def572bfa7ab1fc56c6d6cf6f1a4f",
-      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227; five real A/B cases, complete sample receipts, 81 Node / 34 Python / 21 native route regressions"
+      "validation": "split-f81c487f-6bb4-4cd3-b234-604df006a227 is the historical five-case Chromium acceptance; current browser recovery separately verified by 82 Node / 34 Python tests, including real Annex-B software decoding and overload recovery. Official-client recording remains pending."
     }
   },
   "remaining_gates": [

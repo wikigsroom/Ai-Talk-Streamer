@@ -33,7 +33,7 @@ flowchart LR
 | MOSS 04 | 运行，本地模型与 CPU codec | 不安装 TTS |
 | DSH / Humanity / 云端渠道 | 运行，唯一权威 | 通过接收服务访问 A |
 | 弹幕接收、去重、观众记忆 | 默认运行 | 只显示平台界面 |
-| 音视频传输 | 一路共享 NVENC H.264，配对 PCM | 转发、硬解码、同一时钟播放 |
+| 音视频传输 | 一路共享 NVENC H.264，配对 PCM | 转发、解码、同一时钟播放 |
 | 官方直播姬、平台登录 | 无需运行 | 运行，保存 B 自己的官方登录 |
 | 最终直播编码、录制、上传 | 无需承担 | 直播姬执行 |
 | 正式状态库与下播维护 | 唯一读写者 | 不保存第二份业务状态 |
@@ -167,7 +167,7 @@ Set-Location -LiteralPath 'E:\dev\sandbox\虚拟数字人直播\Ai-Talk-Streamer
 
 ### 7.2 播放与抖动缓冲
 
-B 使用一个 AudioContext 时钟安排PCM与对应图像。画面临近播放时才硬解，避免在B持有数秒完整解码图像。默认4秒缓冲，`buffer_ms=800..10000`可显式调整。该缓冲增加接收延迟，用于容忍虚拟网络的短暂停顿；它不能保证任意网络中断下仍然连续。
+B 使用一个 AudioContext 时钟安排PCM与对应图像。画面临近播放时才解码，避免在B持有数秒完整解码图像。默认4秒缓冲，`buffer_ms=800..10000`可显式调整。该缓冲增加接收延迟，用于容忍虚拟网络的短暂停顿；它不能保证任意网络中断下仍然连续。
 
 不通过删音频追帧。H264的P帧依赖前序帧，发送队列也不能删参考帧；队列超过125包（约5秒）时断开过慢接收端并重连。JPEG兼容路径可跳过画面，保留全部PCM。
 
@@ -214,7 +214,11 @@ B网关会给播放器心跳附加自己的receiver_id与本机客户端存在�
 
 ## 10. 监控与验收
 
-接收端：`GET /receiver/status`、`POST /receiver/check`。观察接收字节、媒体包、连接数、错误、最近媒体时间。`media_codec`从实际二进制媒体头识别；`player_fps`从同一消费者连续上报的已呈现视频帧数与接收时间计算，不把网络收包数当播放帧率。输出页新增`stream_metrics`后，网关只保留有限、非负、有限值的解码与播放诊断；不会把任意字段转发给A。旧输出页仍能提供已呈现帧差分。页面的 `window.avatarTransport.metrics()` 提供更完整的缓冲、音频耗尽、包缺失与解码错误。上述观察仍不能代替官方客户端的真实有声录制。
+接收端：`GET /receiver/status`、`POST /receiver/check`。观察接收字节、媒体包、连接数、错误、最近媒体时间。`media_codec`从实际二进制媒体头识别；`player_fps`从同一消费者连续上报的帧数与接收时间计算，不把网络收包数当播放帧率。直播姬的`direct_canvas_audio`模式报告画布更新，`fps_source=canvas_draw`；预览保留MediaStream/video路径，其`fps_source=video_presentation`表示视频呈现计数。这些计数均不能证明官方编码器或观众收到同样帧率。网关只保留有限、非负、有限值的诊断；不会把任意字段转发给A。页面的 `window.avatarTransport.metrics()` 提供更完整的缓冲、音频耗尽、包缺失与解码错误。上述观察仍不能代替官方客户端的真实有声录制。
+
+直播姬直接显示解码画布，PCM连接`AudioContext.destination`，由已启用的源内音频捕获；不再经过`canvas.captureStream → video`的二次媒体链路。其WebCodecs请求`prefer-software`，用于排除旧CEF硬件解码队列停滞；这是B的H264解码偏好，不改变A的模型、FP16精度、NVENC或分辨率。静音预览仍使用原有MediaStream路径和硬件解码偏好。两种输出都沿用同一个音频时钟和连续样本回执。该调整须通过实际客户端验收；不能仅凭配置被接受就认定已出帧。输出切换后要刷新浏览器素材或重启客户端，以加载新页面。
+
+解码失败使用4001断开时，输出页在清空旧媒体后等待5秒并刷新页面，从而重新加载播放器代码；普通网络断开则重连当前页面。`audio_clock_seconds`、`decoder_queue`、`pending_video_frames`和`received_frames`可辅助辨认声音时钟、解码与接收之间的积压。
 
 A端：人物、MOSS与DSH健康、`nvidia-smi`的显存/利用率/编码利用率、MOSS单次生成耗时、业务请求的连续播放样本。`logs/avatar.runtime.stderr.log`会记录超过200ms的媒体包处理延迟，便于区分生成、映射提交与网络停顿。
 
@@ -238,6 +242,7 @@ $env:SPLIT_EVIDENCE_DIR = Join-Path (Get-Location) 'outputs/split-device/five-ca
 | H264没启用 | 源必须是B的127.0.0.1:8020；检查VideoDecoder支持与实际codec指标 |
 | 画面约5FPS | 先查是否已回退JPEG；本次链路不接受JPEG作为流畅模式 |
 | 收包稳定、画面低FPS | 查B硬解码、浏览器可见性、CPU/GPU负载和实际呈现计数 |
+| 解码积压后一直不恢复，日志出现1011异常 | 旧客户端JS错误地调用`WebSocket.close(1011)`；浏览器只允许1000或3000～4999。更新至4001恢复分支并刷新源。断线立即清空旧媒体，重连等待新关键帧 |
 | 语音中途卡顿 | 查音频缓冲耗尽与收包最大间隔；不以丢PCM或改播放速率掩盖 |
 | 回复前等待较久 | MOSS仍需整句生成，云端也有等待；分机不改变模型自回归速度 |
 | 本地有声但直播姬无声 | 核对浏览器源内音频、素材音量、直播姬混音器和真实录制音轨 |
@@ -258,7 +263,7 @@ $env:SPLIT_EVIDENCE_DIR = Join-Path (Get-Location) 'outputs/split-device/five-ca
 | `scripts/configure_split.py` / `Start-Inference.ps1` | A分机配置、状态路径保留、原生启动 |
 | `integration/stream_encoder.py` | 单路NVENC、零帧缓存、PTS与音频严格配对 |
 | `integration/local_broadcast.py` / `viewer_buffer.py` | 共享人物泵、持久映射、无丢PCM队列与关键帧请求 |
-| `web/local-stream.js` / `dsh-playback.js` | B硬解码、共同音频时钟、样本回执与取消屏障 |
+| `web/local-stream.js` / `dsh-playback.js` | B解码、共同音频时钟、样本回执与取消屏障 |
 | `backend/platforms/livehime.mjs` / `manager.mjs` | 接收机拓扑、B心跳、预检和本地会话生命周期 |
 | `web/receiver.html` / `web/platforms.js` | 接收控制台与平台设置 |
 | `devtools/validate-split-device.mjs` | 真实五场景、媒体录像和重连验证 |

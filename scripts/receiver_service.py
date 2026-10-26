@@ -118,9 +118,11 @@ class ReceiverGateway:
             metrics=data.pop('stream_metrics',None)
             if data.get('renderer')=='livehime' and isinstance(metrics,dict):
                 # Bounded browser diagnostics are observations, not proof of official-client capture.
-                safe={key:metrics[key] for key in ('frames','presented_frames','fps','audio_underruns','audio_buffer_ms','missing_packets','skipped_video_frames','decode_errors','max_arrival_gap_ms')
+                safe={key:metrics[key] for key in ('frames','received_frames','presented_frames','fps','audio_clock_seconds','decoder_queue','pending_video_frames','audio_underruns','audio_buffer_ms','missing_packets','skipped_video_frames','decode_errors','max_arrival_gap_ms')
                       if type(metrics.get(key)) in (int,float) and 0<=metrics[key]<=1e12 and math.isfinite(metrics[key])}
                 if metrics.get('codec') in ('jpeg','h264_nvenc'):safe['codec']=metrics['codec']
+                if metrics.get('fps_source') in ('video_presentation','canvas_draw'):safe['fps_source']=metrics['fps_source']
+                if metrics.get('output_mode') in ('direct_canvas_audio','media_stream'):safe['output_mode']=metrics['output_mode']
                 self.metrics.update(player_metrics=safe,player_metrics_at=time.time())
             data.update(receiver_id=self.config['receiver_id'],receiver_client_ready=bool(official_client(self.config)))
             body=json.dumps(data).encode('utf-8')

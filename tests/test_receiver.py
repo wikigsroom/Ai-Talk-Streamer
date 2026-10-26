@@ -48,11 +48,11 @@ class ReceiverTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(status['media_packets'],1);self.assertFalse(status['authentication_required'])
     async def test_receiver_id_overrides_remote_player_input(self):
         response=await self.client.post('/api/dsh/platforms/output/player',json={'consumer_id':'x','renderer':'livehime','receiver_id':'spoofed','receiver_client_ready':True,
-            'stream_metrics':{'codec':'h264_nvenc','fps':24.9,'missing_packets':-1,'decode_errors':True,'private_key':'must-not-retain'}})
+            'stream_metrics':{'codec':'h264_nvenc','fps':24.9,'fps_source':'canvas_draw','output_mode':'direct_canvas_audio','missing_packets':-1,'decode_errors':True,'private_key':'must-not-retain'}})
         self.assertEqual(response.status,200);self.assertEqual(self.observed[0]['receiver_id'],'test-b')
         self.assertFalse(self.observed[0]['receiver_client_ready'])
         self.assertNotIn('stream_metrics',self.observed[0])
-        self.assertEqual(self.gateway.metrics['player_metrics'],{'codec':'h264_nvenc','fps':24.9})
+        self.assertEqual(self.gateway.metrics['player_metrics'],{'codec':'h264_nvenc','fps':24.9,'fps_source':'canvas_draw','output_mode':'direct_canvas_audio'})
     async def test_upstream_disconnect_returns_actionable_error(self):
         await self.upstream.close()
         result=await self.client.get('/api/studio/status')
