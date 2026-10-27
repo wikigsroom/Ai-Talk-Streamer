@@ -13,7 +13,7 @@ let browser;const result={ok:false,checks:[],errors:[],browser_closed:false};
  assert(Math.abs(mean('collector_to_first_s')-34.10342857)<.00001);assert(Math.abs(mean('collector_to_complete_s')-44.40257143)<.00001);result.checks.push('32 records; recomputed public means; valid samples and completion states');
  browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--no-proxy-server']});
  const page=await browser.newPage({viewport:{width:1440,height:1050}});page.on('pageerror',e=>result.errors.push(e.message));
- await page.goto(pathToFileURL(path.join(report,'report.html')).href,{waitUntil:'load'});await page.waitForFunction(()=>window.reportReady);
+ await page.goto(process.env.REPORT_QA_URL||pathToFileURL(path.join(report,'report.html')).href,{waitUntil:'load'});await page.waitForFunction(()=>window.reportReady);
  assert.equal(await page.locator('#requests-table tbody tr').count(),7);await page.selectOption('#case-select','R03');assert((await page.textContent('#journey-case')).startsWith('R03'));
  await page.selectOption('#cohort','all');assert.equal(await page.locator('#requests-table tbody tr').count(),32);
  await page.selectOption('#case-select','H04');assert((await page.textContent('#journey-end')).includes('未确认'));

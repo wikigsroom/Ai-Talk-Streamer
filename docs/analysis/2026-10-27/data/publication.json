@@ -1,0 +1,152 @@
+{
+  "ok": true,
+  "verified_utc": "2026-10-27T00:09:42.196380+00:00",
+  "deployment_id": "dpl_B3ceWNDRmZBWAGNj3TXJnHHxSbMH",
+  "project": "remote-4090-workflow-gallery",
+  "public_url": "https://4090.sid.mom/cases/ai-talk-streamer/2026-10-27/report.html",
+  "source_count": 1431,
+  "preserved_source_files": 1410,
+  "base_production_id": "dpl_Cq15EPDmMJznm6KsH6hRDRGMAGCW",
+  "unauthenticated_http_files": [
+    {
+      "file": "index.html",
+      "http_status": 200,
+      "bytes": 118519,
+      "sha256": "f65a8fb6dd1b0ab01fcdc6525786af8e24f71d66e471305be2fbc4e03bf97643"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/report.html",
+      "http_status": 200,
+      "bytes": 618363,
+      "sha256": "6904a15ae66215e02eabd85aa92f1d80a09d876905faa29328d07e4fc2b93c7c"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/report.md",
+      "http_status": 200,
+      "bytes": 25236,
+      "sha256": "51835369086fef71e8466420d13d24bef3c4b0d789d3aaaa406e592d3ae21f5f"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/report.pdf",
+      "http_status": 200,
+      "bytes": 870656,
+      "sha256": "336bbf6c83463bb494f683ac08668f97856c736eaf901f6edc79a7159182594b"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/charts/post-offair-sampling.png",
+      "http_status": 200,
+      "bytes": 67106,
+      "sha256": "8283bf69d2997eff419aa0c7a84456cd2a36472135b93c94f4a1bb804f20df2c"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/charts/post-offair-sampling.svg",
+      "http_status": 200,
+      "bytes": 56162,
+      "sha256": "292bd43e300d24f2da292421c6b05302cf041f81a1fe493a4947b110793e0228"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/charts/process-memory.png",
+      "http_status": 200,
+      "bytes": 54003,
+      "sha256": "def700703d19622bdb75cbbf3d7de454adf57746b1062dc49ac0b7e39b9fc0f9"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/charts/process-memory.svg",
+      "http_status": 200,
+      "bytes": 48469,
+      "sha256": "ea2f55bad65a15f89ee4c68310885797b1585daea8aabf5357a67e8d251a11d3"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/charts/receiver-stability.png",
+      "http_status": 200,
+      "bytes": 112338,
+      "sha256": "ba6f7a1b495263e5a3bd66a5a97fd7034e192e768c4d3fa8be1479b8786ef7c1"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/charts/receiver-stability.svg",
+      "http_status": 200,
+      "bytes": 65089,
+      "sha256": "d67b1009dd91739c14c0151c69951b1e95d1521f7a278d8887a2a5cc46ae8972"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/charts/reply-timeline.png",
+      "http_status": 200,
+      "bytes": 74915,
+      "sha256": "bd96ee742bd7caccec6a346f3fa1bfd445db6d9971fe6523141db8dbfa82f82c"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/charts/reply-timeline.svg",
+      "http_status": 200,
+      "bytes": 83665,
+      "sha256": "208ca5da7bd906f112201bc7c40aaf9555e79c678ad601a25cbfc3bca903cb14"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/charts/resource-capacity.png",
+      "http_status": 200,
+      "bytes": 41274,
+      "sha256": "52f2ec452e93628cf97570050268c4eec5c8e732045d861691be089c0f339ecc"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/charts/resource-capacity.svg",
+      "http_status": 200,
+      "bytes": 34522,
+      "sha256": "1cca6cada823ceda41d8f6664d14cfaeac27a8254227e2aa63b8b88d612a8aa9"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/charts/tts-generation.png",
+      "http_status": 200,
+      "bytes": 72370,
+      "sha256": "8c6339318b9e5c3329ceee1538eb1771e154b776cf7efe21a16b3ed3694b3bf1"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/charts/tts-generation.svg",
+      "http_status": 200,
+      "bytes": 57054,
+      "sha256": "75692d66b4c572735645ebf96d2876119f79bc81cb940a490ca0fe8006c0f7fa"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/data/evidence.json",
+      "http_status": 200,
+      "bytes": 177025,
+      "sha256": "b330106ad2962ceb6ed8bd24ba141924cacaa18bc8ee2f95d7798d5f35f5ce39"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/data/requests.csv",
+      "http_status": 200,
+      "bytes": 10953,
+      "sha256": "72edb89d9c90385616c331ce53bb35b95542e2766697314e5b16f5b27f4451af"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/data/resource-samples.csv",
+      "http_status": 200,
+      "bytes": 7193,
+      "sha256": "428c7c8cce7c19384b2a10ea3eca8f40c7d69d4144e3b3021f757cd1029df326"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/baseline.md",
+      "http_status": 200,
+      "bytes": 6065,
+      "sha256": "c929c9a2a3e6b2451d3cdf8ccf0cbb5bead680e81674285c5fde41ac95bbbf3a"
+    },
+    {
+      "file": "cases/ai-talk-streamer/2026-10-27/baseline.json",
+      "http_status": 200,
+      "bytes": 2202,
+      "sha256": "8703a8b6833bb1da6bd123327cd3c93699192ffa10799fdce045f898e13fb9cd"
+    }
+  ],
+  "scope": "Public static case and existing source preservation; no model or broadcast starts",
+  "browser": {
+    "ok": true,
+    "checks": [
+      "32 records; recomputed public means; valid samples and completion states",
+      "cohort filters, UNKNOWN state, Echo label, simulator and all six images",
+      "1440px and 390px viewports have no document overflow"
+    ],
+    "errors": [],
+    "browser_closed": true
+  },
+  "release": "split-a4090-b3080-v1.0.0",
+  "report_source_commit": "5dce14fa7911b2b02839243619a186b8aeb7e6cd",
+  "credentials_published": false
+}

@@ -6,7 +6,7 @@
 
 **当前部署为 A4090 推理、B3080 官方直播姬。** 五段官方客户端验收与七条真实弹幕均已完整播完，本场已下播。[完整可视化性能报告](docs/analysis/README.md)给出逐阶段周期、资源和维护状态：采集收到至首次播放回执平均 **34.10 秒**，至整句完成平均 **44.40 秒**；官方源 317 次采样的 Canvas FPS 中位 25.285。B站 CDN 到观众的延迟未测。下播记忆任务因每日额度耗尽延后，不能视为持久事实整理完成。详见[3080接收端操作与证据](docs/deployment/RTX3080_RECEIVER.md)、[双机完整部署](docs/deployment/SPLIT_DEVICE.md)和[历史及本次验收](docs/deployment/SPLIT_DEVICE_ACCEPTANCE.md)。
 
-**Frozen baseline / 定型版本：** `split-a4090-b3080-v1.0.0` · [Runbook / 配置与操作手册](docs/deployment/BASELINE_A4090_B3080.md) · [Machine-readable release / 发布清单](configs/releases/split-a4090-b3080-v1.json)
+**Frozen baseline / 定型版本：** `split-a4090-b3080-v1.0.0` · [Online 4090 case / 4090 在线测评](https://4090.sid.mom/cases/ai-talk-streamer/2026-10-27/report.html) · [Runbook / 配置与操作手册](docs/deployment/BASELINE_A4090_B3080.md) · [Machine-readable release / 发布清单](configs/releases/split-a4090-b3080-v1.json)
 
 当前角色档案编号为 **女A**，正式姓名 **林知夏**，配套场景为 **知夏的日光宿舍**。她是**虚构的 22 岁中国女大学生**，沿用白天宿舍、长发、浅蓝卫衣的形象。[角色与素材归档](docs/CHARACTERS.md)提供分类目录、可校验清单和归档包。后续主运行目标为 **4090 工作站：48 GB 显存＋64 GB 内存**。详见 [4090 目标](docs/RTX4090.md)、[原生迁移与切换手册](docs/deployment/RTX4090_MIGRATION.md)及[完整方案归档](docs/archives/2026-10-26-LIVEHIME-HANDOFF.md)。仓库同步与新机器运行验收分别记录。
 
@@ -20,7 +20,7 @@
 
 ![官方直播姬实际竖屏素材](docs/media/livehime-client.png)
 
-[观看直播姬带声音节选](docs/media/livehime-local-preview.mp4) · [五段语音、页面录屏和 GIF](docs/platforms/MEDIA.md)。五项本地原文播报用例通过；云端初轮超时，随后兼容性检查和独立 AI 语音播报完成，两次结果均保留。主播完成人脸验证后已公开开播，房间状态和独立10.086秒公开CDN抓取/解码均已核实；真实观众弹幕触发可听回复仍待验收，详见[公开流媒体与范围](docs/platforms/MEDIA.md)。完整 209.13 秒录像保留了实际生成等待。
+[观看直播姬带声音节选](docs/media/livehime-local-preview.mp4) · [五段语音、页面录屏和 GIF](docs/platforms/MEDIA.md)。五项本地原文播报用例通过；云端初轮超时，随后兼容性检查和独立 AI 语音播报完成，两次结果均保留。主播完成人脸验证后已公开开播，房间状态和独立10.086秒公开CDN抓取/解码均已核实；此早期录像未验收真实弹幕；当前[双机七条真实弹幕报告](docs/analysis/README.md)已验证官方源完整播放，观众端CDN时延仍未测。早期素材详见[公开流媒体与范围](docs/platforms/MEDIA.md)。完整 209.13 秒录像保留了实际生成等待。
 
 [查看实际平台页面、带声音的推流录像和 GIF](docs/platforms/MEDIA.md)。完整工作站验收涵盖 B站/抖音事件、去重、暂停恢复与真实 AI 回复；平台账号公开开播与观众端验收单独标记。
 

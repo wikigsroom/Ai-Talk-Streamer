@@ -1,5 +1,7 @@
 # Documentation / 文档导航
 
+[4090 在线案例测评](https://4090.sid.mom/cases/ai-talk-streamer/2026-10-27/report.html) · [定型基线](deployment/BASELINE_A4090_B3080.md)
+
 后续主运行目标为 [4090](RTX4090.md)，完整方案已[归档](archives/2026-10-26-LIVEHIME-HANDOFF.md)，按[迁移与切换手册](deployment/RTX4090_MIGRATION.md)继续运行准备。3080 保留为历史实测参考。
 
 当前运行方案为 **A4090推理 + B3080官方直播姬**：阅读[双机详细部署](deployment/SPLIT_DEVICE.md)、[英文指南](deployment/SPLIT_DEVICE.en.md)与[五段跨机验收、录像和剩余边界](deployment/SPLIT_DEVICE_ACCEPTANCE.md)。接收端不加载人物或语音模型。
