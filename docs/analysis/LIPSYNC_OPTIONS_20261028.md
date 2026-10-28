@@ -1,8 +1,8 @@
 # 对口型与面部控制选型：2026-10-28
 
-当前建议：以现有 MuseTalk 1.5 为基准，先改善嘴部融合和素材质量；并行候选优先评测 Ditto、SoulX-FlashHead Lite，以及 LivePortrait 表情模板配合 MuseTalk。此文是源代码检查与官方资料评估，**替代模型尚未在本项目跑分，表中没有将官方 FPS 当成本机成绩**。
+当前建议：以现有 MuseTalk 1.5 为基准，先改善嘴部融合和素材质量；新后端首先评测 SoulX-FlashHead Lite，其次 Ditto；LivePortrait 先用于离线表情模板。已按用户要求补充 SoulX-FlashTalk 及相似流式项目，清单共 22 项。此文是源代码检查与第一方资料评估，**替代模型尚未在本项目跑分，表中没有将官方 FPS 当成本机成绩**。
 
-[现有直播间管理](../live-room/README.md) · [本轮实测](../live-room/ACCEPTANCE.md) · [机器可读选型清单](lipsync-options.json)
+[现有直播间管理](../live-room/README.md) · [本轮实测](../live-room/ACCEPTANCE.md) · [机器可读清单](lipsync-options.json) · [CSV表格](lipsync-options.csv) · [流式方案调优设计](STREAMING_AVATAR_TUNING_20261028.md)
 
 ## 当前实际链路
 
@@ -54,12 +54,23 @@ MuseTalk 官方说明人脸区域为 256×256，因此 720×1280 竖屏输出不
 | **L08** | [Wav2Lip](https://github.com/Rudrabha/Wav2Lip) | 视频 + 音频，经典嘴部替换 | 计算较轻，适合作速度基准，嘴部细节较旧 | LiveTalking 有后端；集成成本较低 | 研究对照；原始开放权重限制商业用途，不能直接作为商业直播默认 |
 | **L09** | [EchoMimicV3-Flash](https://github.com/antgroup/echomimic_v3) | 图像/音频/多模态的人像及身体动画 | 官方称 8 步、12 GB、最高768²；不据此认定 25 FPS | 需原生依赖与长段拼接验证，成本高 | 表情/上半身素材、离线自然度参考 |
 | **L10** | [SadTalker](https://github.com/OpenTalker/SadTalker) | 单图 + 音频，3D 运动系数生成头动表情 | 单卡可尝试；官方原流程不是本项目实时后端 | 官方 Windows 入口；老依赖隔离，成本中 | 传统整脸动画对照，优先级较低 |
+| **L11** | [SoulX-FlashTalk](https://github.com/Soul-AILab/SoulX-FlashTalk) | 14B，图像 + 音频，长时流式人物生成 | 官方 **32 FPS / 0.87秒启动为8×H800**；单卡需超过64GB，CPU卸载后约40GB；48G不代表实时 | FlashAttention / CUDA依赖须原生适配；当前没有单4090共驻留达标证据 | 流式架构参考、离线画质组，不替换正式直播 |
+| **L12** | [fast-flashtalk](https://github.com/di-osc/fast-flashtalk) | 社区FlashTalk优化；A8W8、动态卸载、提示缓存 | 作者称4090约2倍相对加速、推荐24GB起；未给足以确认25FPS的绝对成绩 | GemLite、Triton、Flash/SageAttention是原生依赖门槛；流式音频编码还不等于实时帧回调 | 单4090 FlashTalk实验分支，先验证依赖/首帧/质量 |
+| **L13** | [SoulX-LiveAct](https://github.com/Soul-AILab/SoulX-LiveAct) | 18B，长时人物动画，动作/情绪编辑、ConvKV | 官方双H100/H200约20FPS；消费卡卸载模式单5090约6FPS，不能推定4090达25FPS | SageAttention、vLLM、LightVAE等须原生适配；Blackwell FP4加速不能直接套4090 | 动作素材/离线表情参考，暂不作为实时主后端 |
+| **L14** | [Alibaba-Quark LiveAvatar](https://github.com/Alibaba-Quark/LiveAvatar) | 14B，图像 + 音频，4步、块式长时生成 | 官方FP8支持48GB容量；45FPS来自多卡H800，未证明单4090实时 | 原生量化/编译/流式VAE需验证；还须测O07/F07共驻留 | 高质量流式研究组，先做容量和吞吐门槛测试 |
+| **L15** | [Hallo-Live](https://github.com/fudan-generative-vision/Hallo-Live) | 文本驱动，联合生成语音与视频 | 官方 **2×H200约20.38FPS / 0.94秒**；未有本机成绩 | 双流DiT与解码须重构接入；不直接消费既定O07/F07 PCM | 联合生成架构参考，当前音色方案下优先级低 |
+| **L16** | [FLOAT](https://github.com/deepbrainai-research/float) | 单图 + 音频，运动latent流匹配、7类情绪 | 官方测试Linux/A100/V100；没有据此可填的本机25FPS成绩 | 原生旧依赖隔离、流式/打断需适配；正脸分布限制 | 整脸/情绪研究对照；开放权重非商业许可 |
 | **F01** | [MediaPipe Face Landmarker](https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker) | 摄像头/视频 → 关键点、blendshape、头姿矩阵 | 轻量跟踪层；它本身不生成女A画面 | 可用原生/网页跟踪，需接 LivePortrait 或 3D rig | 真人面捕、参数可视化、自动质量分析 |
 | **F02** | [NVIDIA Audio2Face-3D SDK](https://github.com/NVIDIA/Audio2Face-3D-SDK) | 音频 → 面部动画/情绪参数，需要绑定3D角色 | 官方面向实时；总负载还包含3D渲染 | 官方支持 Win10/11、CUDA/TRT；需3D形象和渲染器，成本最高 | 后续3D面控分支，不能直接替换照片视频中的嘴部 |
+| **F03** | [PersonaLive](https://github.com/GVCLab/PersonaLive) | 图像 + 驱动视频/摄像头，流式人像表情迁移 | 有实时实现/TRT路径；12GB离线流式容量不代表本机实时吞吐 | 官方列有社区Windows入口；须接动作驱动，不能仅传TTS音频 | 面捕/表情迁移对照；README限定学术研究 |
+| **F04** | [EditaLive](https://github.com/GVCLab/EditaLive) | PersonaLive后续项目；视频/摄像头的角色与全身编辑 | 官方FP8+快速VAE在H100上约31.4/38.4GiB；卸载更省显存，但无本机速度证据 | FlashAttention/FastVideo内核、原生Windows待适配；在线版本当前横屏 | 离线身体动作/形象编辑参考；README限定学术研究 |
+| **R01** | [StreamAvatar](https://streamavatar.github.io/) | 图像 + 用户/Agent双音频；说话/倾听与手势 | 官方928×704@25、双H800流水，含输入块延迟约1.20秒 | 本次未确认完整官方可部署推理代码与权重；不能列为已可安装选项 | 关注双向互动与身份锚定设计，待完整发布再排评测 |
 
 ## 评测顺序与统一输入
 
-推荐第一批 **L00、L01、L02、L03、L05**，再用 L06 作为离线质量参照。L07 单列训练路线；L04/L09/L10 适合素材生成对照；F01/F02 评测的是控制能力，不能把面捕参数输出速度当成口型视频 FPS。
+推荐第一批 **L00、L01、L03、L02、L05**，再用L06作为离线质量参照。L12是第二批实验路线，先过原生依赖门槛；L07单列训练路线。L04/L09/L10/L11/L13/L14/L16适合离线或研究对照；L15会改变既定语音架构。F01–F04评测控制/驱动能力，不能把参数输出速度当成口型视频FPS；R01未确认完整部署发布，不计入可立即部署的候选数量。
+
+SoulX系列不是同一模型换名字：FlashTalk是14B人物生成，FlashHead是面向消费卡的1.3B人像方案，LiveAct是18B动作与情绪路线。扩大显存只解决容量问题。官方离线演示、`--fps=25`输出参数、CPU卸载成功、两倍相对加速，都不能替代单4090连续25FPS的实测。
 
 | 维度 | 统一执行规则 |
 | --- | --- |
