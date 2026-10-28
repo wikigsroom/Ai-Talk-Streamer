@@ -59,7 +59,8 @@
       "peak_vram_mib": null,
       "quality_score": null,
       "measurement_note": "No new run this turn. L00 refers to archived baseline evidence only.",
-      "排序": 1
+      "排序": 1,
+      "selection_id": "K01"
     },
     {
       "id": "L01",
@@ -82,7 +83,8 @@
       "peak_vram_mib": null,
       "quality_score": null,
       "measurement_note": "No new run this turn. L00 refers to archived baseline evidence only.",
-      "排序": 2
+      "排序": 2,
+      "selection_id": "K02"
     },
     {
       "id": "L07",
@@ -109,7 +111,8 @@
       "peak_vram_mib": null,
       "quality_score": null,
       "measurement_note": "No new run this turn. L00 refers to archived baseline evidence only.",
-      "排序": 3
+      "排序": 3,
+      "selection_id": "K03"
     },
     {
       "id": "L08",
@@ -135,7 +138,8 @@
       "peak_vram_mib": null,
       "quality_score": null,
       "measurement_note": "No new run this turn. L00 refers to archived baseline evidence only.",
-      "排序": 4
+      "排序": 4,
+      "selection_id": "K04"
     },
     {
       "id": "L06",
@@ -163,7 +167,8 @@
       "peak_vram_mib": null,
       "quality_score": null,
       "measurement_note": "No new run this turn. L00 refers to archived baseline evidence only.",
-      "排序": 5
+      "排序": 5,
+      "selection_id": "K05"
     },
     {
       "id": "N03",
@@ -190,7 +195,8 @@
       "generation_seconds": null,
       "peak_vram_mib": null,
       "quality_score": null,
-      "排序": 6
+      "排序": 6,
+      "selection_id": "K06"
     },
     {
       "id": "N01",
@@ -215,7 +221,8 @@
       "generation_seconds": null,
       "peak_vram_mib": null,
       "quality_score": null,
-      "排序": 7
+      "排序": 7,
+      "selection_id": "K07"
     },
     {
       "id": "N02",
@@ -241,7 +248,8 @@
       "generation_seconds": null,
       "peak_vram_mib": null,
       "quality_score": null,
-      "排序": 8
+      "排序": 8,
+      "selection_id": "K08"
     }
   ],
   "watchlist": [
@@ -363,5 +371,20 @@
   "production_engine_changed": false,
   "runtime_adapter_implemented": false,
   "new_benchmarks_run": false,
-  "historical_benchmarks_modified": false
+  "historical_benchmarks_modified": false,
+  "selection_id_policy": {
+    "field": "selection_id",
+    "prefix": "K",
+    "stable_mapping": {
+      "L00": "K01",
+      "L01": "K02",
+      "L07": "K03",
+      "L08": "K04",
+      "L06": "K05",
+      "N03": "K06",
+      "N01": "K07",
+      "N02": "K08"
+    },
+    "note": "Fixed selection identifiers; retain technical id and independent display rank. Reordering does not reassign selection IDs. R02 stays watchlist-only."
+  }
 }
