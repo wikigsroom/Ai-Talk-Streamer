@@ -1,5 +1,7 @@
 # Documentation / 文档导航
 
+[K01–K05 同源60秒口型实测](analysis/lipsync-k01-k05-20261028/ARCHIVE.md)：五段竖屏原片、共用原始O07音频、同步对比页、GIF、逐阶段耗时与资源曲线；[原生集成代码](../benchmarks/k01-k05-60s-20261028/README.md)。K03为合成教师训练试验，K05包含已说明的原生执行适配；共享负载的离线耗时不等于直播延迟，正式直播方案未自动切换。
+
 [女A现有素材的局部口型替换评估](analysis/LOCAL_LIPSYNC_REPLACEMENT_20261028.md)：保留48段动作、2段基础片段、手势与宿舍背景，只替换嘴周；8项局部路线、训练/缓存前置条件、源帧对齐契约与验收方法。MuseTalk优化、Wav2Lip速度对照、LatentSync离线画质对照为当前优先；新增Lip Forcing 14B须先验证原生与资源条件，1.3B仅跟踪发布。[局部JSON](analysis/local-lipsync-options.json) · [局部CSV](analysis/local-lipsync-options.csv)。
 
 [当前 MuseTalk 1.5 检查与口型/面控横评清单](analysis/LIPSYNC_OPTIONS_20261028.md)：实际加载版本、可优化项、22个基准/优化/替代/面控/关注选项与统一评测规范；候选尚未本项目跑分。现已补充[模型磁盘增量预算](analysis/AVATAR_MODEL_STORAGE_20261028.md)，区分逐文件元数据、工程估算、共享组件和未知总量；22项已按首次新增模型大小升序排列，并补充预期成品质量和逐项观看边界。[SoulX-FlashTalk等流式方案调优设计](analysis/STREAMING_AVATAR_TUNING_20261028.md)说明硬件边界、优先级、适配接口和准入条件。

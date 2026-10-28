@@ -1,0 +1,74 @@
+{
+  "ok": true,
+  "checks": {
+    "five_rows": true,
+    "playback_matches_availability": true,
+    "status_matches_results": true,
+    "common_audio_advances": true,
+    "videos_in_sync": true,
+    "seek_is_synchronized": true,
+    "phoneme_checkpoint_seeks": true,
+    "actual_speech_timeline": true,
+    "every_available_model_plays": true,
+    "duration_sort": true,
+    "zoom_toggles": true,
+    "reject_invalid_rating": true,
+    "rating_persists": true,
+    "actual_first_frame_posters": true,
+    "mobile_no_document_overflow": true,
+    "full_html_report_readable": true,
+    "no_javascript_errors": true
+  },
+  "model_playback": {
+    "K01": true,
+    "K02": true,
+    "K03": true,
+    "K04": true,
+    "K05": true
+  },
+  "playback_observations": {
+    "K01": {
+      "start_seconds": 0,
+      "end_seconds": 0.441337,
+      "clock_advance_seconds": 0.441337,
+      "audio_paused": false,
+      "video_paused": false,
+      "drift_seconds": 0.07553399999999999
+    },
+    "K02": {
+      "start_seconds": 0,
+      "end_seconds": 0.434469,
+      "clock_advance_seconds": 0.434469,
+      "audio_paused": false,
+      "video_paused": false,
+      "drift_seconds": 0.011367000000000016
+    },
+    "K03": {
+      "start_seconds": 0,
+      "end_seconds": 0.440338,
+      "clock_advance_seconds": 0.440338,
+      "audio_paused": false,
+      "video_paused": false,
+      "drift_seconds": 0.05474499999999999
+    },
+    "K04": {
+      "start_seconds": 0,
+      "end_seconds": 0.402533,
+      "clock_advance_seconds": 0.402533,
+      "audio_paused": false,
+      "video_paused": false,
+      "drift_seconds": 0.04091499999999998
+    },
+    "K05": {
+      "start_seconds": 0,
+      "end_seconds": 0.414661,
+      "clock_advance_seconds": 0.414661,
+      "audio_paused": false,
+      "video_paused": false,
+      "drift_seconds": 0.06160300000000002
+    }
+  },
+  "errors": [],
+  "url": "http://127.0.0.1:8037/",
+  "note": "Actual clock advancement with unpaused audio/video is required for every model. Full-file/frame/audio verification is recorded separately, not inferred from this browser check. Sorting fixture remained browser-memory-only; final screenshots were taken after reload and personal ratings were cleared."
+}

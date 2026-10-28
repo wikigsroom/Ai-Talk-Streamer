@@ -1,0 +1,46 @@
+{
+  "models\\lipsync-benchmark\\latent\\latentsync_unet.pt": {
+    "ready": true,
+    "bytes": 5072222488,
+    "sha256": "0a478e89eb660f82da4c35dbdde8a5adfb27f99d1b4e50edd03729e1e98316d3"
+  },
+  "models\\lipsync-benchmark\\latent\\whisper\\tiny.pt": {
+    "ready": true,
+    "bytes": 75572083,
+    "sha256": "65147644a518d12f04e32d6f3b26facc3f8dd46e5390956a9424a650c0ce22b9"
+  },
+  "models\\lipsync-benchmark\\wav2lip\\checkpoints\\wav2lip_gan.pth": {
+    "ready": true,
+    "bytes": 435801865,
+    "sha256": "ca9ab7b7b812c0e80a6e70a5977c545a1e8a365a6c49d5e533023c034d7ac3d8"
+  },
+  "operations\\k01-k05-60s-20261028\\latent-source.zip": {
+    "ready": true,
+    "bytes": 8562500,
+    "sha256": "3a1eddcd604eebc4d3b104f3f649101dbe58bb2e1c52e80cf0845c335aebcb69"
+  },
+  "operations\\k01-k05-60s-20261028\\feather-source.zip": {
+    "ready": true,
+    "bytes": 27760299,
+    "sha256": "c640a2f23cea5f2d8fd8e58464cbeafd3b2d8121c0aa38d5e1a72d450cc3252a"
+  },
+  "source-latent": {
+    "ready": true,
+    "repo": "bytedance/LatentSync",
+    "revision": "a229c3948406bc2cf6eaf4873e662e70c6a04746"
+  },
+  "source-feather": {
+    "ready": true,
+    "repo": "anliyuan/FeatherTalk",
+    "revision": "7a8bb0439eb5da5e10601168df329a7052b7edf3"
+  },
+  "environment-feather": {
+    "ready": true,
+    "python": "C:\\dev\\虚拟数字人直播\\runtime\\lipsync-benchmark\\feather\\Scripts\\python.exe"
+  },
+  "environment-latent": {
+    "ready": true,
+    "python": "C:\\dev\\虚拟数字人直播\\runtime\\lipsync-benchmark\\latent\\Scripts\\python.exe"
+  },
+  "completed": true
+}

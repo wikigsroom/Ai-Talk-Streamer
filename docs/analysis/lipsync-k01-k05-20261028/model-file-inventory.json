@@ -1,0 +1,95 @@
+{
+  "observed_at": 1793216226.6244614,
+  "files": [
+    {
+      "path": "models\\lipsync-benchmark\\feather\\female-a-teacher-pilot\\19.pth",
+      "bytes": 66048228,
+      "role": "K03 resumable training checkpoint / optimizer"
+    },
+    {
+      "path": "models\\lipsync-benchmark\\feather\\female-a-teacher-pilot\\29.pth",
+      "bytes": 66050980,
+      "role": "K03 resumable training checkpoint / optimizer"
+    },
+    {
+      "path": "models\\lipsync-benchmark\\feather\\female-a-teacher-pilot\\39.pth",
+      "bytes": 66050980,
+      "role": "K03 resumable training checkpoint / optimizer"
+    },
+    {
+      "path": "models\\lipsync-benchmark\\feather\\female-a-teacher-pilot\\49.pth",
+      "bytes": 66050980,
+      "role": "K03 resumable training checkpoint / optimizer"
+    },
+    {
+      "path": "models\\lipsync-benchmark\\feather\\female-a-teacher-pilot\\59.pth",
+      "bytes": 66050980,
+      "role": "K03 resumable training checkpoint / optimizer"
+    },
+    {
+      "path": "models\\lipsync-benchmark\\feather\\female-a-teacher-pilot\\9.pth",
+      "bytes": 66048228,
+      "role": "K03 resumable training checkpoint / optimizer"
+    },
+    {
+      "path": "models\\lipsync-benchmark\\feather\\female-a-teacher-pilot\\inference.pth",
+      "bytes": 22131521,
+      "role": "K03 deployment identity weights; no optimizer"
+    },
+    {
+      "path": "models\\lipsync-benchmark\\feather\\female-a-teacher-pilot\\last.pth",
+      "bytes": 66050980,
+      "role": "K03 resumable training checkpoint / optimizer"
+    },
+    {
+      "path": "models\\lipsync-benchmark\\latent\\latentsync_unet.pt",
+      "bytes": 5072222488,
+      "role": "K05 inference checkpoint"
+    },
+    {
+      "path": "models\\lipsync-benchmark\\latent\\whisper\\tiny.pt",
+      "bytes": 75572083,
+      "role": "K05 inference checkpoint"
+    },
+    {
+      "path": "models\\lipsync-benchmark\\wav2lip\\checkpoints\\wav2lip_gan.pth",
+      "bytes": 435801865,
+      "role": "K04 downloaded GAN checkpoint"
+    },
+    {
+      "path": "src\\lipsync-benchmark\\feather\\feather_hubert.pth",
+      "bytes": 13480913,
+      "role": "K03 inference audio encoder"
+    },
+    {
+      "path": "src\\lipsync-benchmark\\feather\\data_utils\\checkpoint_epoch_335.pth.tar",
+      "bytes": 5039598,
+      "role": "K03 one-time avatar landmark preprocessing"
+    },
+    {
+      "path": "src\\lipsync-benchmark\\feather\\data_utils\\scrfd_2.5g_kps.onnx",
+      "bytes": 3291017,
+      "role": "K03 one-time avatar landmark preprocessing"
+    },
+    {
+      "path": "cache\\lipsync-benchmark\\torch\\hub\\checkpoints\\vgg19-dcbb9e9d.pth",
+      "bytes": 574673361,
+      "role": "K03 training perceptual loss only; not deployed inference"
+    },
+    {
+      "path": "src\\LiveTalking\\models\\sd-vae\\config.json",
+      "bytes": 547,
+      "role": "existing VAE reused; zero new copy",
+      "sha256": "92d3dfb746fca211a2c9e019e285f8597412211728dce3c5bcf4eda0f2d62e7e"
+    },
+    {
+      "path": "src\\LiveTalking\\models\\sd-vae\\diffusion_pytorch_model.bin",
+      "bytes": 334707217,
+      "role": "existing VAE reused; zero new copy",
+      "sha256": "1b4889b6b1d4ce7ae320a02dedaeff1780ad77d415ea0d744b476155c6377ddc"
+    }
+  ],
+  "includes_training_checkpoints": true,
+  "new_download_status": "setup-progress.json",
+  "inference_and_training_costs_must_be_separated": true
+}

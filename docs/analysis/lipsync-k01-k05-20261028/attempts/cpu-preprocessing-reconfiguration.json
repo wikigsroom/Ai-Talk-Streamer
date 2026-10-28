@@ -1,0 +1,38 @@
+{
+  "previous_suite": {
+    "pid": 18936,
+    "started_at": 1793199924.49452,
+    "complete": false,
+    "stages": [
+      {
+        "script": "render_wav2lip.py",
+        "args": [],
+        "status": "already_completed",
+        "proof": "K04/result.json"
+      },
+      {
+        "script": "render_muse.py",
+        "args": [
+          "TRAIN"
+        ],
+        "status": "already_completed",
+        "proof": "TRAIN/result.json"
+      },
+      {
+        "script": "preprocess_assets.py",
+        "args": [
+          "--cpu"
+        ],
+        "status": "running",
+        "started_at": 1793199930.106049,
+        "pid": 22324
+      }
+    ]
+  },
+  "only_task_processes_stopped": [
+    10416,
+    21536
+  ],
+  "reason": "Validated same weights using CPU ONNX SCRFD + batch16 PFLD; retain already generated valid landmarks",
+  "observed_at": 1793200536.045833
+}

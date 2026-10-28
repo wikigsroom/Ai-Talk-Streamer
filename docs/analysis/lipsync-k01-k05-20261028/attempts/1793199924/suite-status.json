@@ -1,0 +1,25 @@
+{
+  "pid": 20956,
+  "started_at": 1793199784.7180138,
+  "complete": false,
+  "stages": [
+    {
+      "script": "render_wav2lip.py",
+      "args": [],
+      "status": "already_completed",
+      "proof": "K04/result.json"
+    }
+  ],
+  "waiting": {
+    "stage": "prepare_training.py",
+    "gpu_free_mib": 36356.0,
+    "ram_free_gib": 18.57928466796875,
+    "cpu_percent": 91.9,
+    "comfy_running": 1,
+    "comfy_pending": 10,
+    "queue_probe": "HTTP queue",
+    "heavy_stage_waits_for_empty_comfy_queue": true,
+    "ready": false,
+    "observed_at": 1793199920.2527747
+  }
+}

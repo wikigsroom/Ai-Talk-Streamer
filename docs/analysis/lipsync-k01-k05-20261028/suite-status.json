@@ -1,0 +1,58 @@
+{
+  "pid": 9684,
+  "started_at": 1793215164.95018,
+  "complete": true,
+  "stages": [
+    {
+      "script": "render_wav2lip.py",
+      "args": [],
+      "status": "already_completed",
+      "proof": "K04/result.json"
+    },
+    {
+      "script": "render_muse.py",
+      "args": [
+        "TRAIN"
+      ],
+      "status": "already_completed",
+      "proof": "TRAIN/result.json"
+    },
+    {
+      "script": "preprocess_assets.py",
+      "args": [
+        "--cpu"
+      ],
+      "status": "already_completed",
+      "proof": "K03/preprocessing.json"
+    },
+    {
+      "script": "render_latent_bounded.py",
+      "args": [
+        "--resident"
+      ],
+      "status": "already_completed",
+      "proof": "K05/result.json"
+    },
+    {
+      "script": "train_feather.py",
+      "args": [
+        "--cooperative"
+      ],
+      "status": "completed",
+      "started_at": 1793215284.440468,
+      "pid": 13924,
+      "exit_code": 0,
+      "finished_at": 1793215999.6352267
+    },
+    {
+      "script": "render_feather.py",
+      "args": [],
+      "status": "completed",
+      "started_at": 1793216009.1470807,
+      "pid": 18528,
+      "exit_code": 0,
+      "finished_at": 1793216148.2219653
+    }
+  ],
+  "finished_at": 1793216301.230832
+}

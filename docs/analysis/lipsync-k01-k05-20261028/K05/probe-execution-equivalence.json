@@ -1,0 +1,20 @@
+{
+  "probe_only": true,
+  "frames": 16,
+  "seconds": 0.64,
+  "not_a_60_second_test": true,
+  "bitwise_identical": true,
+  "files": [
+    {
+      "path": "diagnostics/k05-fit/probe-0p64s.mp4",
+      "bytes": 224205,
+      "sha256": "23b312842f907969f471595cf63be51f990b651d9c193c5bbe5727c6521ba687"
+    },
+    {
+      "path": "diagnostics/k05-resident-fit/probe-0p64s.mp4",
+      "bytes": 224205,
+      "sha256": "23b312842f907969f471595cf63be51f990b651d9c193c5bbe5727c6521ba687"
+    }
+  ],
+  "scope": "The same short full-strength generation with sequential CPU offload and resident CUDA weights. Does not certify equivalence of every possible input or final60s quality."
+}

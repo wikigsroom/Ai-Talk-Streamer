@@ -1,0 +1,44 @@
+{
+  "pid": 4228,
+  "started_at": 1793200536.4675925,
+  "complete": false,
+  "stages": [
+    {
+      "script": "render_wav2lip.py",
+      "args": [],
+      "status": "already_completed",
+      "proof": "K04/result.json"
+    },
+    {
+      "script": "render_muse.py",
+      "args": [
+        "TRAIN"
+      ],
+      "status": "already_completed",
+      "proof": "TRAIN/result.json"
+    },
+    {
+      "script": "preprocess_assets.py",
+      "args": [
+        "--cpu"
+      ],
+      "status": "completed",
+      "started_at": 1793200542.7297275,
+      "pid": 21952,
+      "exit_code": 0,
+      "finished_at": 1793202126.5234437
+    }
+  ],
+  "waiting": {
+    "stage": "train_feather.py",
+    "gpu_free_mib": 10708.0,
+    "ram_free_gib": 18.732486724853516,
+    "cpu_percent": 44.4,
+    "comfy_running": 1,
+    "comfy_pending": 8,
+    "queue_probe": "HTTP queue",
+    "heavy_stage_waits_for_empty_comfy_queue": true,
+    "ready": false,
+    "observed_at": 1793202346.3963969
+  }
+}

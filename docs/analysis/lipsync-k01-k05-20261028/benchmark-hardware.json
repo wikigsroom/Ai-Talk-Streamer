@@ -1,0 +1,25 @@
+{
+  "observed_at": 1793207602.6076887,
+  "gpu_name_driver_vram_mib_csv": "NVIDIA GeForce RTX 4090, 617.42, 49140",
+  "physical_ram_gib": 63.9002571105957,
+  "cpu_name": "Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz",
+  "physical_cpu_cores": 40,
+  "logical_cpu_threads": 80,
+  "platform": "Windows-10-10.0.17763-SP0",
+  "native_windows": true,
+  "virtualization_used": false,
+  "snapshot_is_not_an_exclusive_resource_window": true,
+  "resource_time_series": "K01-K05/resources.json",
+  "model_jobs_run_serially_within_this_task": true,
+  "other_projects_preserved": true,
+  "torch_cpu_threads": {
+    "K01": 1,
+    "K02": 1,
+    "K03_inference": 1,
+    "K03_training": 2,
+    "K03_preprocessing": 2,
+    "K04": 1,
+    "K05": 2
+  },
+  "ffmpeg_encoder_threads": 4
+}

@@ -1,0 +1,40 @@
+{
+  "id": "K05",
+  "name": "LatentSync 1.6",
+  "ok": false,
+  "probe_only": true,
+  "audio_seconds": 0.64,
+  "offline_prerecorded": true,
+  "configuration": "512 px / FP16 / 16-frame chunks / 20 DDIM steps / CFG 1.5",
+  "num_inference_steps": 20,
+  "guidance_scale": 1.5,
+  "seed": 20261028,
+  "execution_adapter": "bounded frame I/O + VAE batch slicing + sequential CPU weight offload",
+  "allocator_limit_mib": 4096,
+  "source_input": "original common PNG frames; no intermediate source H.264 generation loss",
+  "checkpoint_key_validation": {
+    "missing_keys": [],
+    "unexpected_keys": []
+  },
+  "runtime_versions": {
+    "torch": "2.9.1+cu128",
+    "diffusers": "0.32.2",
+    "accelerate": "1.15.0"
+  },
+  "cold_load_seconds": 89.059073299999,
+  "feature_seconds": 2.2528144999960205,
+  "available_audio_feature_frames": 1502,
+  "affine_transform_video_seconds": 2.1832942999899387,
+  "error": "CUDA out of memory. Tried to allocate 64.00 MiB. GPU 0 has a total capacity of 47.99 GiB of which 23.74 GiB is free. 4.00 GiB allowed; Of the allocated memory 3.90 GiB is allocated by PyTorch, and 74.96 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\虚拟数字人直播\\operations\\k01-k05-60s-20261028\\render_latent_bounded.py\", line 87, in main\n    audio_embeds=torch.stack(chunks[offset:offset+len(ids)]).to('cuda',dtype=torch.float16);audio_embeds=torch.cat([torch.zeros_like(audio_embeds),audio_embeds])\n  File \"C:\\dev\\虚拟数字人直播\\operations\\k01-k05-60s-20261028\\render_latent_bounded.py\", line 70, in timed\n    inp=manifest();paths=sorted((AV/'full_imgs').glob('*.png'),key=lambda p:int(p.stem));coords=pickle.loads((AV/'coords.pkl').read_bytes())\n  File \"C:\\dev\\虚拟数字人直播\\src\\lipsync-benchmark\\latent\\latentsync\\pipelines\\lipsync_pipeline.py\", line 205, in prepare_mask_latents\n    masked_image_latents = self.vae.encode(masked_image).latent_dist.sample(generator=generator)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\lipsync-benchmark\\latent\\lib\\site-packages\\diffusers\\utils\\accelerate_utils.py\", line 46, in wrapper\n    return method(self, *args, **kwargs)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\lipsync-benchmark\\latent\\lib\\site-packages\\diffusers\\models\\autoencoders\\autoencoder_kl.py\", line 279, in encode\n    encoded_slices = [self._encode(x_slice) for x_slice in x.split(1)]\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\lipsync-benchmark\\latent\\lib\\site-packages\\diffusers\\models\\autoencoders\\autoencoder_kl.py\", line 279, in <listcomp>\n    encoded_slices = [self._encode(x_slice) for x_slice in x.split(1)]\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\lipsync-benchmark\\latent\\lib\\site-packages\\diffusers\\models\\autoencoders\\autoencoder_kl.py\", line 256, in _encode\n    enc = self.encoder(x)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\livetalking\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 1775, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\livetalking\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 1786, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\lipsync-benchmark\\latent\\lib\\site-packages\\diffusers\\models\\autoencoders\\vae.py\", line 185, in forward\n    sample = down_block(sample)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\livetalking\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 1775, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\livetalking\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 1786, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\lipsync-benchmark\\latent\\lib\\site-packages\\diffusers\\models\\unets\\unet_2d_blocks.py\", line 1520, in forward\n    hidden_states = resnet(hidden_states, temb=None)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\livetalking\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 1775, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\livetalking\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 1786, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\lipsync-benchmark\\latent\\lib\\site-packages\\diffusers\\models\\resnet.py\", line 351, in forward\n    hidden_states = self.norm2(hidden_states)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\livetalking\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 1775, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\livetalking\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 1786, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\livetalking\\Lib\\site-packages\\accelerate\\hooks.py\", line 192, in new_forward\n    output = module._old_forward(*args, **kwargs)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\livetalking\\Lib\\site-packages\\torch\\nn\\modules\\normalization.py\", line 325, in forward\n    return F.group_norm(input, self.num_groups, self.weight, self.bias, self.eps)\n  File \"C:\\dev\\虚拟数字人直播\\runtime\\livetalking\\Lib\\site-packages\\torch\\nn\\functional.py\", line 2956, in group_norm\n    return torch.group_norm(\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 64.00 MiB. GPU 0 has a total capacity of 47.99 GiB of which 23.74 GiB is free. 4.00 GiB allowed; Of the allocated memory 3.90 GiB is allocated by PyTorch, and 74.96 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n",
+  "process_rss_mib_peak": 10670.5546875,
+  "process_rss_mib_mean": 3073.998345588235,
+  "system_ram_used_mib_peak": 53800.390625,
+  "system_ram_used_mib_mean": 46344.19227941176,
+  "gpu_total_used_mib_peak": 39403.0,
+  "gpu_total_used_mib_mean": 38357.705882352944,
+  "gpu_util_percent_peak": 100.0,
+  "gpu_util_percent_mean": 95.68235294117648,
+  "gpu_power_watts_peak": 460.79,
+  "gpu_power_watts_mean": 441.8881176470587
+}

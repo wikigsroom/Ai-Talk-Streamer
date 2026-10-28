@@ -1,0 +1,39 @@
+{
+  "overview": {
+    "path": "K01-K05-comparison-60s.mp4",
+    "decoded_frames": 1500,
+    "video_seconds": 60.0,
+    "width": 1440,
+    "height": 728,
+    "common_audio": "audio/common-60s.wav"
+  },
+  "gif_previews": [
+    {
+      "path": "mouth-comparison-08s-14s.gif",
+      "source_interval_seconds": [
+        8,
+        14
+      ],
+      "width": 1200,
+      "height": 182,
+      "frames": 60,
+      "actual_gif_seconds": 5.999999999999995,
+      "duration_quantized_to_10fps": true
+    },
+    {
+      "path": "mouth-comparison-silent-tail.gif",
+      "source_interval_seconds": [
+        57.35,
+        60
+      ],
+      "width": 1200,
+      "height": 182,
+      "frames": 27,
+      "actual_gif_seconds": 2.700000000000001,
+      "duration_quantized_to_10fps": true
+    }
+  ],
+  "silent_tail_pcm_bytes": 84800,
+  "silent_tail_is_all_zero": true,
+  "note": "These are derived review assets. GIF durations are measured after encoding and may differ slightly from the source interval because of10fps quantization."
+}

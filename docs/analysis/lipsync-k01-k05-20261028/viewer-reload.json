@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "stopped_only_matching_review_server_pids": [
+    15160,
+    17920
+  ],
+  "observed_at": 1793215160.9776018,
+  "files": [
+    {
+      "path": "K03/progress.json",
+      "windows_attributes": 32,
+      "bytes": 240,
+      "modified_at": 1793214896.9764528
+    },
+    {
+      "path": "K03/training-history.json",
+      "windows_attributes": 32,
+      "bytes": 27311,
+      "modified_at": 1793214764.0701976
+    }
+  ],
+  "no_mcp_or_gpu_job_changed": true
+}

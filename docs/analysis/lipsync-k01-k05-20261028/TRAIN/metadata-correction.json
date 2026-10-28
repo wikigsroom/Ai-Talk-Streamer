@@ -1,0 +1,14 @@
+{
+  "reason": "The initial teacher-frame preparation reused test-run summary labels. Original measured record is retained unchanged; this sidecar corrects derived labels only.",
+  "original_record": "TRAIN/result.json",
+  "actual_training_audio": "training/audio.wav",
+  "audio_seconds": 320.0,
+  "frames_saved_as_jpeg": 8000,
+  "input_audio_sha256": "c4815f2774e71a5c5dbc608d20f11095e5dca687bb379e0951da104c495d31f6",
+  "video": null,
+  "render_wall_seconds_unchanged": 635.473098100003,
+  "render_fps": 12.589045899691348,
+  "render_rtf": 1.9858534315625094,
+  "name": "MuseTalk 1.5 teacher material preparation",
+  "not_a_60_second_test_result": true
+}

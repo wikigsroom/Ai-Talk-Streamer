@@ -1,0 +1,36 @@
+{
+  "observed_at": 1793216637.6064246,
+  "unchanged_verified_files": [
+    {
+      "id": "K01",
+      "video_sha256": "1481a5b33daca3b520febbfe4c76d4d339525b1627a44d38f672a689ab808a7c",
+      "source_audio_sha256": "1f75f4676f21162ab0c7abf8e0dc0e4fe94d0f7bfe8fceb10c4d727c2a3ce5c4",
+      "reused_original_full_decode_and_source_checks": true
+    },
+    {
+      "id": "K02",
+      "video_sha256": "f2d42367f074bbdcf12cb6e560f034467ad6a39f892d5f641bcdd0a45014b62e",
+      "source_audio_sha256": "1f75f4676f21162ab0c7abf8e0dc0e4fe94d0f7bfe8fceb10c4d727c2a3ce5c4",
+      "reused_original_full_decode_and_source_checks": true
+    },
+    {
+      "id": "K03",
+      "video_sha256": "7db98b7c5751edf7d7008555b54ae7d2b4e0a6c3055f4355e5e9a7551333c618",
+      "source_audio_sha256": "1f75f4676f21162ab0c7abf8e0dc0e4fe94d0f7bfe8fceb10c4d727c2a3ce5c4",
+      "reused_original_full_decode_and_source_checks": true
+    },
+    {
+      "id": "K04",
+      "video_sha256": "9d30029d617e03751371ccb1fc6acc12f20c854d3f3e91c4843fbf8a5718c8aa",
+      "source_audio_sha256": "1f75f4676f21162ab0c7abf8e0dc0e4fe94d0f7bfe8fceb10c4d727c2a3ce5c4",
+      "reused_original_full_decode_and_source_checks": true
+    },
+    {
+      "id": "K05",
+      "video_sha256": "7cbbd1f07556b89a1be58faa5fb869c45637fd4f67ee62bb12fd0fad9c9dd044",
+      "source_audio_sha256": "1f75f4676f21162ab0c7abf8e0dc0e4fe94d0f7bfe8fceb10c4d727c2a3ce5c4",
+      "reused_original_full_decode_and_source_checks": true
+    }
+  ],
+  "note": "Original full-frame, source-pixel and soundtrack proofs are retained unchanged after byte-identical video and frozen source-audio hash checks. New or changed files are fully decoded."
+}

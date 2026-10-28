@@ -1,0 +1,51 @@
+{
+  "pid": 13796,
+  "started_at": 1793210307.7660892,
+  "complete": false,
+  "stages": [
+    {
+      "script": "render_wav2lip.py",
+      "args": [],
+      "status": "already_completed",
+      "proof": "K04/result.json"
+    },
+    {
+      "script": "render_muse.py",
+      "args": [
+        "TRAIN"
+      ],
+      "status": "already_completed",
+      "proof": "TRAIN/result.json"
+    },
+    {
+      "script": "preprocess_assets.py",
+      "args": [
+        "--cpu"
+      ],
+      "status": "already_completed",
+      "proof": "K03/preprocessing.json"
+    },
+    {
+      "script": "render_latent_bounded.py",
+      "args": [
+        "--resident"
+      ],
+      "status": "already_completed",
+      "proof": "K05/result.json"
+    },
+    {
+      "script": "train_feather.py",
+      "args": [
+        "--cooperative"
+      ],
+      "status": "failed",
+      "started_at": 1793210350.2170606,
+      "pid": 9044,
+      "exit_code": 1,
+      "finished_at": 1793214937.9362779
+    }
+  ],
+  "error": "train_feather.py failed, see its proof and log. No other project was stopped.",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\虚拟数字人直播\\operations\\k01-k05-60s-20261028\\run_suite.py\", line 86, in main\n    stage('train_feather.py',['--cooperative'],'K03/training.json',gpu=10000,ram=6,heavy=False)\n  File \"C:\\dev\\虚拟数字人直播\\operations\\k01-k05-60s-20261028\\run_suite.py\", line 53, in stage\n    if row['status']=='failed':raise RuntimeError(f'{script} failed, see its proof and log. No other project was stopped.')\nRuntimeError: train_feather.py failed, see its proof and log. No other project was stopped.\n",
+  "finished_at": 1793214945.965523
+}

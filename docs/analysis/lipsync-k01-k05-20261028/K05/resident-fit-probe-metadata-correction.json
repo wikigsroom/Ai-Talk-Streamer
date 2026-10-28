@@ -1,0 +1,6 @@
+{
+  "reason": "Probe reused an old output-path/notes label. Original measured record remains unchanged. The execution_adapter field and actual run were resident CUDA weights.",
+  "actual_video": "diagnostics/k05-resident-fit/probe-0p64s.mp4",
+  "actual_execution": "bounded frame I/O + VAE batch slicing + resident CUDA weights",
+  "unchanged_metrics": "All measured timings, bytes and resource data in resident-fit-probe.json are retained."
+}

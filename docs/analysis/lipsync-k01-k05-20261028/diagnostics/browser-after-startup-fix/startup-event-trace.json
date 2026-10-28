@@ -1,0 +1,82 @@
+{
+  "note": "同步播放中。两路视频共用一条音轨。",
+  "media": [
+    {
+      "id": "master",
+      "time": 4.987112,
+      "paused": false,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "id": "va",
+      "time": 4.979745,
+      "paused": false,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "id": "vb",
+      "time": 4.979736,
+      "paused": false,
+      "seeking": false,
+      "ready": 4
+    }
+  ],
+  "events": [
+    {
+      "event": "play",
+      "id": "master",
+      "at": 579.5,
+      "time": 0,
+      "paused": false,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "event": "playing",
+      "id": "master",
+      "at": 579.8999999761581,
+      "time": 0,
+      "paused": false,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "event": "play",
+      "id": "va",
+      "at": 580,
+      "time": 0.003274,
+      "paused": false,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "event": "playing",
+      "id": "va",
+      "at": 580.0999999940395,
+      "time": 0.003373,
+      "paused": false,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "event": "play",
+      "id": "vb",
+      "at": 580.1999999880791,
+      "time": 0.003298,
+      "paused": false,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "event": "playing",
+      "id": "vb",
+      "at": 580.1999999880791,
+      "time": 0.003354,
+      "paused": false,
+      "seeking": false,
+      "ready": 4
+    }
+  ]
+}

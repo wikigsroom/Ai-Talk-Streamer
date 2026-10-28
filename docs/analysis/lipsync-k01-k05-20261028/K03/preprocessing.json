@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "wall_seconds": 1576.8083606,
+  "device": "cpu",
+  "cpu_threads": 2,
+  "train_frames": 8000,
+  "test_frames": 1500,
+  "landmark_detector": "upstream SCRFD/PFLD 110 points",
+  "audio_encoder": "upstream FeatherHuBERT",
+  "test_motion_disjoint": true
+}

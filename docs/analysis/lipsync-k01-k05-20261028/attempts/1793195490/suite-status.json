@@ -1,0 +1,19 @@
+{
+  "pid": 20700,
+  "started_at": 1793195211.9915404,
+  "complete": false,
+  "stages": [
+    {
+      "script": "render_wav2lip.py",
+      "args": [],
+      "status": "failed",
+      "started_at": 1793195233.563368,
+      "pid": 3368,
+      "exit_code": 0,
+      "finished_at": 1793195252.6186817
+    }
+  ],
+  "error": "render_wav2lip.py failed, see its proof and log. No other project was stopped.",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\虚拟数字人直播\\operations\\k01-k05-60s-20261028\\run_suite.py\", line 42, in main\n    stage('render_wav2lip.py',[],'K04/result.json',gpu=3000,ram=5)\n  File \"C:\\dev\\虚拟数字人直播\\operations\\k01-k05-60s-20261028\\run_suite.py\", line 35, in stage\n    if row['status']=='failed':raise RuntimeError(f'{script} failed, see its proof and log. No other project was stopped.')\nRuntimeError: render_wav2lip.py failed, see its proof and log. No other project was stopped.\n",
+  "finished_at": 1793195252.8055804
+}

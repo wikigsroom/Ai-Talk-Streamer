@@ -1,0 +1,16 @@
+{
+  "feather": {
+    "ok": true,
+    "seconds": 10.270544700004393,
+    "stdout": "{\"imports\": \"ok\", \"torch\": \"2.9.1+cu128\", \"device\": \"CPU smoke only\"}\n",
+    "stderr": "",
+    "no_gpu_allocation": true
+  },
+  "latent": {
+    "ok": true,
+    "seconds": 22.044887500000186,
+    "stdout": "{\"imports\": \"ok\", \"torch\": \"2.9.1+cu128\", \"diffusers\": \"0.32.2\", \"transformers\": \"4.48.0\", \"tokenizer\": \"local assets\"}\n",
+    "stderr": "",
+    "no_gpu_allocation": true
+  }
+}

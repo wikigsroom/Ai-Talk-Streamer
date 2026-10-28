@@ -1,0 +1,56 @@
+{
+  "ok": true,
+  "checks": {
+    "frames_8000": true,
+    "ranges_40": true,
+    "temporal_pairs_7960": true,
+    "all_pairs_within_source_clips": true,
+    "motion_split_disjoint": true,
+    "finite_real_batch": true,
+    "cuda_not_initialized": true
+  },
+  "cpu_only": true,
+  "not_a_training_or_60s_render": true,
+  "model_config": {
+    "model_type": "feathertalk",
+    "image_size": 144,
+    "audio_mode": "hubert",
+    "reparameterized": false
+  },
+  "training_frames": 8000,
+  "source_clip_ranges": 40,
+  "adjacent_training_pairs_per_epoch": 7960,
+  "selected_batchsize": 16,
+  "upstream_train_cli_default_batchsize": 8,
+  "batches_per_epoch": 498,
+  "planned_epochs": 60,
+  "batch_tensor_shapes": [
+    [
+      16,
+      2,
+      6,
+      144,
+      144
+    ],
+    [
+      16,
+      2,
+      3,
+      144,
+      144
+    ],
+    [
+      16,
+      2,
+      40,
+      1024
+    ],
+    [
+      16,
+      2,
+      1,
+      144,
+      144
+    ]
+  ]
+}

@@ -1,5 +1,9 @@
 # Performance analysis / 性能分析
 
+[K01–K05 同源60秒口型横评 / Five local lip-sync recordings](lipsync-k01-k05-20261028/ARCHIVE.md) · [完整HTML报告](lipsync-k01-k05-20261028/report.html) · [同步对比页面](lipsync-k01-k05-20261028/index.html) · [原生实验代码](../../benchmarks/k01-k05-60s-20261028/README.md)
+
+本次口型横评保留女A、宿舍和同一组身体动作，使用同一份O07音频。报告分别记录完整60秒生成、冷加载、人物训练与共享资源等待；K03是合成教师初训，K05是保留网络强度的原生适配。它是独立实验，不改写下方历史实播记录。The new benchmark preserves the original media and measurements; offline rendering throughput is separate from live-stream response latency.
+
 [4090 案例测评 / Online report](https://4090.sid.mom/cases/ai-talk-streamer/2026-10-27/report.html) · [2026-10-27 完整分析](2026-10-27/report.md) · [交互可视化](2026-10-27/report.html) · [16 页 PDF](2026-10-27/report.pdf) · [逐条 CSV](2026-10-27/data/requests.csv) · [资源采样 CSV](2026-10-27/data/resource-samples.csv)
 
 本次冻结报告分析 A4090 推理 + B3080 官方直播姬的 7 条真实弹幕、5 条官方客户端验收，以及 A 当日保留的 20 条较早调试请求。包含逐阶段耗时、MOSS GPU / CPU codec / RTF、317 次播放采样、两机下播后资源、队列与维护周期、云端用量、公开中断及记忆整理的实际状态。

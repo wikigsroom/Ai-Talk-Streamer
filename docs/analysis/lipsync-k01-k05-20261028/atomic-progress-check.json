@@ -1,0 +1,25 @@
+{
+  "ok": true,
+  "checks": {
+    "locked_telemetry_returns_without_aborting": true,
+    "previous_complete_snapshot_retained": true,
+    "fallback_snapshot_retained": true,
+    "unlocked_telemetry_recovers": true,
+    "measured_result_waits_for_real_lock_release": true,
+    "no_temporary_files_left": true,
+    "http_reader_releases_disk_before_slow_transfer": true,
+    "inflight_http_snapshot_is_complete": true,
+    "range_middle": true,
+    "range_suffix": true,
+    "invalid_range_is_416": true
+  },
+  "telemetry_seconds": 0.07855209999252111,
+  "strict_result_seconds": 0.37940020000678487,
+  "source_sha256": "05e8c337acf74b9ad17311106f500652db47fdf6b67c2819dca569a88f8ff3d6",
+  "save_function_ast_sha256": "73ba9bead1406b532f834f19b46c281c88648a1e7223d9a65c7b8dc497410224",
+  "execution_host": "wikigspc",
+  "execution_platform": "Windows-11-10.0.26200-SP0",
+  "observed_at": "2026-10-29T03:25:22.691029+08:00",
+  "scope": "Local B-device regression, separate from A4090 render measurements.",
+  "method": "Real Win32 FILE_SHARE_READ-only handle; executes actual save() extracted without loading CUDA."
+}

@@ -1,0 +1,35 @@
+{
+  "pid": 18936,
+  "started_at": 1793199924.49452,
+  "complete": false,
+  "stages": [
+    {
+      "script": "render_wav2lip.py",
+      "args": [],
+      "status": "already_completed",
+      "proof": "K04/result.json"
+    },
+    {
+      "script": "render_muse.py",
+      "args": [
+        "TRAIN"
+      ],
+      "status": "already_completed",
+      "proof": "TRAIN/result.json"
+    },
+    {
+      "script": "preprocess_assets.py",
+      "args": [
+        "--cpu"
+      ],
+      "status": "failed",
+      "started_at": 1793199930.106049,
+      "pid": 22324,
+      "exit_code": 15,
+      "finished_at": 1793200531.4832878
+    }
+  ],
+  "error": "preprocess_assets.py failed, see its proof and log. No other project was stopped.",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dev\\虚拟数字人直播\\operations\\k01-k05-60s-20261028\\run_suite.py\", line 71, in main\n    stage('preprocess_assets.py',['--cpu'],'K03/preprocessing.json',gpu=0,ram=6,heavy=False)\n  File \"C:\\dev\\虚拟数字人直播\\operations\\k01-k05-60s-20261028\\run_suite.py\", line 53, in stage\n    if row['status']=='failed':raise RuntimeError(f'{script} failed, see its proof and log. No other project was stopped.')\nRuntimeError: preprocess_assets.py failed, see its proof and log. No other project was stopped.\n",
+  "finished_at": 1793200533.9899418
+}

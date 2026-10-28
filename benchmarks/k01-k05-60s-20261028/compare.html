@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>女A · K01—K05 口型横评</title>
+<style>
+:root{color-scheme:light;--paper:#edf2f7;--ink:#172f49;--muted:#576e83;--blue:#2459a5;--line:#cad6e3;--white:#fff;--wait:#8c641d;--ok:#1b7157}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.65 "Microsoft YaHei UI","PingFang SC",sans-serif}main{max-width:1300px;margin:auto;padding:40px 32px 70px}header{border-left:6px solid var(--blue);padding:0 0 5px 22px;margin-bottom:28px}header p{color:var(--muted);margin:4px 0}h1{font:600 clamp(27px,4vw,45px)/1.3 "DengXian","Microsoft YaHei",sans-serif;letter-spacing:-1px;margin:5px 0 12px}h2{font-size:22px;margin:32px 0 12px}a{color:var(--blue)}button,select{font:inherit;color:var(--ink);background:var(--white);border:1px solid var(--line);padding:7px 13px;border-radius:5px;cursor:pointer}button:hover,button[aria-pressed=true]{border-color:var(--blue);background:#dfeafb}button:disabled{opacity:.45;cursor:default}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #4896ef;outline-offset:3px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:12px 0}.toolbar .primary{background:var(--blue);color:#fff;border-color:var(--blue)}.status{border:1px solid var(--line);background:#f7faff;padding:12px 16px;color:var(--muted)}.status strong{color:var(--ink)}.stage{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}.player{min-width:0;background:#fff;border:1px solid var(--line);padding:12px}.player label{display:flex;align-items:center;gap:12px;font-weight:600;margin-bottom:12px}.player select{flex:1;min-width:0}.screen{aspect-ratio:9/16;background:#dce6f0;position:relative;overflow:hidden;max-height:640px;margin:0 auto;display:grid;place-items:center}.screen video{width:100%;height:100%;object-fit:contain}.screen.zoom video{transform:scale(2.6);transform-origin:50% 28%}.placeholder{position:absolute;color:var(--muted);padding:30px;text-align:center}.screen.has-video .placeholder{display:none}.clock{font:16px/1.4 Consolas,monospace;margin-left:auto}.seek{width:100%;accent-color:var(--blue)}table{width:100%;border-collapse:collapse;text-align:left;background:#fff}th{font-size:12px;font-weight:600;color:var(--muted);background:#e6edf5}td,th{padding:13px 12px;border-bottom:1px solid var(--line);vertical-align:top}td.number{font-family:Consolas,monospace;font-variant-numeric:tabular-nums;white-space:nowrap}.scroll{overflow:auto}.tag{font-size:12px;padding:3px 8px;background:#e9eff6;border-radius:3px;white-space:nowrap}.tag.ok{background:#e5f2eb;color:var(--ok)}.tag.wait{background:#f6eddc;color:var(--wait)}.note{font-size:13px;color:var(--muted)}.observations{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.observations article{background:#fff;border:1px solid var(--line);padding:16px}.observations h3{font-size:15px;margin:0 0 6px}.observations p{margin:0;color:var(--muted)}.files{display:flex;gap:20px;flex-wrap:wrap}.small{font-size:12px;color:var(--muted)}footer{margin-top:35px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:12px}.ratings{display:flex;gap:8px;flex-wrap:wrap}.ratings input{width:55px;padding:7px;border:1px solid var(--line)}@media(max-width:700px){main{padding:22px 14px}.stage{gap:10px}.player{padding:7px}.player label{display:block;font-size:12px}.player select{width:100%;font-size:12px;padding:4px}.observations{grid-template-columns:1fr}td,th{padding:10px 8px}.toolbar{gap:6px}.toolbar button{font-size:13px}header{padding-left:15px}.screen{max-height:none}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+<main>
+<header><p>林知夏 / 女A / 4090 本地口型模块对比</p><h1>同一分钟，比较五种口型方案。</h1><p>同一声音 · 同一动作 · 720 × 1280 · 25 FPS。人物、手部和背景沿用现有素材。</p></header>
+<div class="status" id="summary" aria-live="polite">正在读取实测状态。</div>
+<div class="stage"><div class="player"><label>A 组<select id="left" aria-label="选择 A 组"></select></label><div class="screen"><video id="va" muted playsinline preload="auto"></video><div class="placeholder">等待该组录播完成</div></div></div><div class="player"><label>B 组<select id="right" aria-label="选择 B 组"></select></label><div class="screen"><video id="vb" muted playsinline preload="auto"></video><div class="placeholder">等待该组录播完成</div></div></div></div>
+<audio id="master" preload="auto"></audio>
+<div class="toolbar"><button id="play" class="primary" disabled>同步播放</button><button id="pause">暂停</button><button id="restart">回到开头</button><button id="zoom" aria-pressed="false">嘴部放大</button><label><input type="checkbox" id="sound" checked>播放共用音频</label><span class="clock" id="clock">00:00 / 01:00</span></div>
+<input id="seek" class="seek" type="range" min="0" max="60" step="0.04" value="0" aria-label="同步播放位置">
+<p class="note" id="play-note">两路视频共用一条音轨；拖动进度条可检查同一时刻。放大视图仅用于观察嘴部，原文件保持完整竖屏。</p>
+<div class="toolbar" id="checkpoints" aria-label="关键检查位置"><span class="small">快速定位</span><button data-seek="7.83">07.83s · 闭唇音</button><button data-seek="11.24">11.24s · 泡泡 / 葡萄</button><button data-seek="41.52">41.52s · 数字</button><button data-seek="57.35">57.35s · 句尾静音</button></div>
+<details><summary>展开测试台词与动作时间轴</summary><div class="scroll"><table><thead><tr><th>时间 / 秒</th><th>实际台词</th></tr></thead><tbody id="speech-timeline"></tbody></table></div><p class="note" id="motion-timeline"></p></details>
+<h2>逐项实测</h2><div class="toolbar" id="sort"><span class="small">排序</span><button data-sort="id" aria-pressed="true">编号</button><button data-sort="render_wall_seconds" aria-pressed="false">生成耗时 ↑</button><button data-sort="render_rtf" aria-pressed="false">RTF ↑</button><button data-sort="torch_peak_allocated_mib" aria-pressed="false">进程显存 ↑</button></div>
+<div class="scroll"><table><thead><tr><th>编号 / 方案</th><th>状态</th><th>60 秒生成耗时</th><th>RTF / FPS</th><th>冷启动</th><th>含初始化总耗时</th><th>进程显存峰值</th><th>文件</th></tr></thead><tbody id="rows"></tbody></table></div>
+<p class="note">RTF = 生成耗时 ÷ 60；小于 1 表示该次离线生成快于播放速度。进程显存取 PyTorch 峰值。各次后台负载与入口线程限制见报告，这些首轮记录不能视为独占 GPU 速度排名，也不能替代直播端到端延迟。</p>
+__FIGURES_HTML__
+<h2>观看时重点比较</h2><div class="observations"><article><h3>闭口与爆破音</h3><p>8—15 秒观察“爸爸妈妈”“泡泡”等闭唇动作；再看句间停顿有没有持续张嘴。</p></article><article><h3>牙齿与嘴角</h3><p>留意牙齿纹理是否跳动、嘴角是否拖影，以及嘴部皮肤与原脸的颜色接缝。</p></article><article><h3>动作中的稳定性</h3><p>每 8 秒切换同一动作片段。区分素材的镜头切换与口型模块造成的抖动、身份变化。</p></article></div>
+<h2>个人选型记录</h2><p class="note">按 1—5 分记录你的偏好。记录保存在本浏览器中，不会改动实测数据。</p><div class="toolbar"><select id="rating-id" aria-label="评分方案"></select><label>口型 <input id="rating-lip" type="number" min="1" max="5" step="1" style="width:55px"></label><label>自然度 <input id="rating-natural" type="number" min="1" max="5" step="1" style="width:55px"></label><label>稳定性 <input id="rating-stable" type="number" min="1" max="5" step="1" style="width:55px"></label><button id="save-rating">保存评分</button><button id="export-rating">导出评分 JSON</button></div><p class="small" id="rating-status" aria-live="polite"></p>
+<h2>范围与原始资料</h2><p id="scope">这是既有素材上替换局部口播模块的离线实验。「文件验证通过」检查帧数、音轨与局部替换边界，不代表口型质量达标。K03 使用独立音频和独立动作生成教师训练素材，须结合训练记录理解结果；K04 为研究用途权重。没有自动口型质量分数或未经验证的 SyncNet 成绩。具体画面问题与选型判断见完整报告。</p><div class="files"><a href="report.html">完整中文测评</a><a href="protocol.md">复现与指标说明</a><a href="results.json">原始实测 JSON</a><a href="results.csv">对比表 CSV</a><a href="audio/common-60s.wav">共用原始 WAV</a><a href="audio/input.json">台词与时间轴</a><a href="input-manifest.json">素材编号与输入校验</a><a href="verification-summary.json">逐文件验证</a></div>
+<footer id="stamp">实验记录保持原始状态；未运行、失败与通过会分别标注。</footer>
+</main>
+<script id="benchmark-data" type="application/json">__BENCHMARK_JSON__</script>
+<script>
+'use strict';
+const data=JSON.parse(document.getElementById('benchmark-data').textContent),items=data.items,el=id=>document.getElementById(id),videos=[el('va'),el('vb')],audio=el('master');let running=false,sortKey='id',playVersion=0;
+const fmt=(v,d=2)=>Number.isFinite(v)?v.toFixed(d):'—',escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function summary(extra=''){const passed=items.filter(x=>x.ok&&x.verified).length,generated=items.filter(x=>x.ok).length;el('summary').innerHTML=`<strong>${passed} / 5 组已完成文件验证</strong>　${generated} 组已生成。${escape(data.status_note||'尚未运行的组别没有实测成绩。')}${extra?'<br>'+escape(extra):''}`}summary();
+el('stamp').textContent=`记录时间：${data.generated_at||'未生成'}。原始记录、失败信息与训练条件均保留。`;
+if(data.audio_available)audio.src='audio/common-60s.wav';
+for(const id of ['left','right','rating-id'])for(const item of items){const option=document.createElement('option');option.value=item.id;option.textContent=`${item.id} · ${item.name}`;el(id).append(option)}el('right').value=items[1]?.id||items[0].id;
+function stop(){playVersion++;running=false;audio.pause();for(const video of videos)video.pause()}
+function load(){stop();[el('left'),el('right')].forEach((select,i)=>{const item=items.find(x=>x.id===select.value),video=videos[i];video.parentElement.classList.toggle('has-video',Boolean(item.ok&&item.video));if(item.ok&&item.video){video.poster=item.id+'/stills/0000.jpg';video.src=item.video;video.load()}else{video.removeAttribute('src');video.removeAttribute('poster');video.load()}});el('play').disabled=!data.audio_available||!videos.every(v=>v.getAttribute('src'));audio.currentTime=0;el('seek').value=0}
+el('left').onchange=el('right').onchange=load;
+async function play(){if(el('play').disabled||running)return;const version=++playVersion;try{audio.muted=!el('sound').checked;for(const video of videos)if(Math.abs(video.currentTime-audio.currentTime)>.04)video.currentTime=audio.currentTime;await Promise.all([audio.play(),...videos.map(v=>v.play())]);if(version!==playVersion)return;running=true;el('play-note').textContent='同步播放中。两路视频共用一条音轨。'}catch(e){if(version!==playVersion)return;stop();el('play-note').textContent='播放未能开始：'+e.message}}
+el('play').onclick=play;el('pause').onclick=stop;el('restart').onclick=()=>{stop();audio.currentTime=0;videos.forEach(v=>{if(v.src)v.currentTime=0});el('seek').value=0};
+function seekTo(t){t=Math.max(0,Math.min(60,Number(t)));audio.currentTime=t;videos.forEach(v=>{if(v.getAttribute('src'))v.currentTime=t});el('seek').value=t}
+el('seek').oninput=()=>seekTo(el('seek').value);
+el('speech-timeline').innerHTML=(data.timeline?.speech||[]).map(s=>`<tr><td><button data-seek="${Number(s.start_seconds)}">${fmt(s.start_seconds)}–${fmt(s.end_seconds)}</button></td><td>${escape(s.text)}</td></tr>`).join('');
+el('motion-timeline').textContent=(data.timeline?.motion||[]).map(c=>`${fmt(c.timeline_start_seconds,0)}–${fmt(c.timeline_end_seconds,0)}s：${c.title}`).join('；');
+for(const container of [el('checkpoints'),el('speech-timeline')])container.addEventListener('click',e=>{const b=e.target.closest('button[data-seek]');if(b)seekTo(b.dataset.seek)});
+el('sound').onchange=()=>audio.muted=!el('sound').checked;el('zoom').onclick=()=>{const zoom=el('zoom').getAttribute('aria-pressed')!=='true';el('zoom').setAttribute('aria-pressed',String(zoom));document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('zoom',zoom))};audio.onended=stop;
+for(const video of videos)video.addEventListener('error',()=>{stop();el('play-note').textContent='该组视频无法加载，请检查文件是否生成完成。'});
+for(const media of [audio,...videos])media.addEventListener('waiting',()=>{if(running&&!media.seeking){stop();el('play-note').textContent='音视频正在缓冲，已暂停同步。缓冲后点击同步播放继续。'}});
+function tick(){const t=audio.currentTime||0;if(running){for(const video of videos)if(!video.seeking&&video.readyState>=2&&Math.abs(video.currentTime-t)>.18)video.currentTime=t;el('seek').value=t}el('clock').textContent=`${String(Math.floor(t/60)).padStart(2,'0')}:${String(Math.floor(t%60)).padStart(2,'0')} / 01:00`;requestAnimationFrame(tick)}
+function table(){const sorted=[...items].sort((a,b)=>sortKey==='id'?a.id.localeCompare(b.id):(Number.isFinite(a[sortKey])?a[sortKey]:Infinity)-(Number.isFinite(b[sortKey])?b[sortKey]:Infinity)||a.id.localeCompare(b.id));el('rows').innerHTML=sorted.map(x=>`<tr><td><strong>${x.id}</strong><br>${escape(x.name)}${x.synthetic_teacher_pilot?'<br><span class="small">合成教师训练实验版</span>':''}</td><td><span class="tag ${x.ok&&x.verified?'ok':'wait'}">${x.ok?(x.verified?'文件验证通过':'待验证'):(x.error?'运行失败':'待测试')}</span></td><td class="number">${fmt(x.render_wall_seconds)} s</td><td class="number">${fmt(x.render_rtf)} / ${fmt(x.render_fps)}</td><td class="number">${fmt(x.cold_load_seconds)} s</td><td class="number">${fmt(x.total_with_load_seconds)} s</td><td class="number">${fmt(x.torch_peak_allocated_mib,0)} MiB</td><td>${x.ok?`<a href="${escape(x.video)}">60 秒 MP4</a><br><a href="${x.id}/result.json">原始记录</a>`:x.error?escape(String(x.error).split('\n')[0]).slice(0,220)+`<br><a href="${x.id}/result.json">失败详情</a>`:'完成后提供'}</td></tr>`).join('')}
+for(const button of el('sort').querySelectorAll('button'))button.onclick=()=>{sortKey=button.dataset.sort;el('sort').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));table()};
+function getRatings(){try{return JSON.parse(localStorage.getItem('female-a-lipsync-k01-k05-ratings')||'{}')}catch{return {}}}
+function showRating(){const r=getRatings()[el('rating-id').value]||{};el('rating-lip').value=r.lip||'';el('rating-natural').value=r.natural||'';el('rating-stable').value=r.stable||''}
+el('rating-id').onchange=showRating;el('save-rating').onclick=()=>{const r={lip:Number(el('rating-lip').value),natural:Number(el('rating-natural').value),stable:Number(el('rating-stable').value)};if(Object.values(r).some(v=>!Number.isInteger(v)||v<1||v>5)){el('rating-status').textContent='请填写 1—5 的整数评分。';return}const ratings=getRatings();ratings[el('rating-id').value]={...r,recorded_at:new Date().toISOString()};try{localStorage.setItem('female-a-lipsync-k01-k05-ratings',JSON.stringify(ratings));el('rating-status').textContent='已在本浏览器保存。'}catch(e){el('rating-status').textContent='无法保存：'+e.message}};
+el('export-rating').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(getRatings(),null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='female-a-k01-k05-personal-ratings.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};table();load();showRating();tick();
+async function getJson(path){try{const r=await fetch(path,{cache:'no-store'});return r.ok?await r.json():null}catch{return null}}
+async function refresh(){
+ if(document.hidden||window.__benchmarkPageTest)return;
+ const fresh=await getJson('results.json');if(!fresh)return;
+ for(const item of items){const updated=fresh.items.find(x=>x.id===item.id);if(updated)Object.assign(item,updated)}
+ Object.assign(data,{status_note:fresh.status_note,complete:fresh.complete,audio_available:fresh.audio_available});
+ if(data.audio_available&&!audio.getAttribute('src'))audio.src='audio/common-60s.wav';table();
+ const [s,prep,training,k5,setup]=await Promise.all(['suite-status.json','K03/preprocessing.json','K03/progress.json','K05/bounded-progress.json','setup-progress.json'].map(getJson));
+ const notes=[];
+ if(s?.error)notes.push('后台测试暂停：'+s.error);
+ else if(s?.waiting){
+  const w=s.waiting;
+  if(Number.isFinite(w.gpu_free_mib))notes.push(`等待计算资源：可用显存 ${(w.gpu_free_mib/1024).toFixed(1)} GiB，内存 ${Number(w.ram_free_gib).toFixed(1)} GiB`);
+  else notes.push('等待所需计算资源');
+ }else if(s){
+  const active=s.stages?.find(x=>x.status==='running');
+  const names={'render_latent_bounded.py':'K05 正式60秒录播','train_feather.py':'K03 人物训练','render_feather.py':'K03 正式60秒录播'};
+  if(active)notes.push(names[active.script]||'正在执行测试');
+ }
+ if(!items.find(x=>x.id==='K03').ok){
+  if(prep?.ok)notes.push('K03 训练与测试预处理已完成');
+  if(training?.epoch!==undefined)notes.push(`K03 已完成 ${training.epoch}/${training.total_epochs||60} 轮`+(training.steps_in_epoch?`，当前轮 ${training.steps_in_epoch} 批次`:''));
+  if(training?.stage==='yielding to shared resource use')notes.push(`当前等待空闲资源：可用内存 ${Number(training.ram_free_gib).toFixed(2)} GiB / 门槛 4 GiB，可用显存 ${(Number(training.gpu_free_mib)/1024).toFixed(1)} GiB；已保留训练进度`);
+ }
+ if(!items.find(x=>x.id==='K05').ok){
+  if(k5&&!k5.probe_only)notes.push(`K05 录播：${k5.frames_completed||0}/${k5.total_frames||1500} 帧`+(k5.stage==='denoising'?`，当前块 ${k5.step}/20 步`:''));
+  const w=setup&&Object.entries(setup).find(([k])=>k.endsWith('latentsync_unet.pt'))?.[1];
+  if(w&&!w.ready&&w.expected_bytes)notes.push(`K05权重下载：${(100*w.downloading_bytes/w.expected_bytes).toFixed(1)}%`);
+ }
+ summary(notes.join('；'));el('stamp').textContent=`记录时间：${fresh.generated_at||'未生成'}。原始记录、失败信息与训练条件均保留。`;
+ if(!running){
+  const selected=[el('left'),el('right')].map(s=>items.find(x=>x.id===s.value));el('play').disabled=!data.audio_available||!selected.every(x=>x.ok&&x.video);
+  selected.forEach((item,i)=>{if(item.ok&&item.video&&!videos[i].getAttribute('src')){videos[i].poster=item.id+'/stills/0000.jpg';videos[i].src=item.video;videos[i].parentElement.classList.add('has-video')}});
+ }
+}
+setInterval(refresh,20000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
+</script></html>

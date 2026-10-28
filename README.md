@@ -2,6 +2,8 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [Documentation](docs/README.md)
 
+**K01–K05 lip-sync benchmark:** five same-input 60-second portrait recordings, original O07 audio, synchronized comparison, GIFs, stage timings and resource charts. [Complete report and media](docs/analysis/lipsync-k01-k05-20261028/ARCHIVE.md) · [Native experiment source](benchmarks/k01-k05-60s-20261028/README.md). K03 is a synthetic-teacher training pilot; K05 uses a documented native execution adapter. Shared-load offline throughput is separate from live latency.
+
 **New room console and decoration:** open `/admin` to manage BGM, automatic speech ducking, filters, three coordinated themes, live comments, message cards, moderation and private agent chat. [Complete room guide](docs/live-room/GUIDE.en.md) · [Operations](docs/live-room/RUNBOOK.md) · [Five-case acceptance](docs/live-room/ACCEPTANCE.md). Native A4090 + B3080 official Livehime remains the deployment; no public broadcast was started during this local validation.
 
 ![Deployed room administration](docs/media/room/admin-overview.png)

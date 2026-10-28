@@ -1,0 +1,32 @@
+{
+  "ok": false,
+  "checks": {
+    "five_rows": true,
+    "playback_matches_availability": true,
+    "status_matches_results": true,
+    "common_audio_advances": false,
+    "videos_in_sync": true,
+    "seek_is_synchronized": true,
+    "phoneme_checkpoint_seeks": true,
+    "actual_speech_timeline": true,
+    "every_available_model_plays": true,
+    "duration_sort": true,
+    "zoom_toggles": true,
+    "reject_invalid_rating": true,
+    "rating_persists": true,
+    "actual_first_frame_posters": true,
+    "mobile_no_document_overflow": true,
+    "full_html_report_readable": true,
+    "no_javascript_errors": true
+  },
+  "model_playback": {
+    "K01": true,
+    "K02": true,
+    "K03": true,
+    "K04": true,
+    "K05": true
+  },
+  "errors": [],
+  "url": "http://192.168.196.209:8035/",
+  "note": "Actual available-file playback and review-page checks. Full-file/frame/audio verification is recorded separately, not inferred from this browser check. Sorting fixture remained browser-memory-only; final screenshots were taken after reload and personal ratings were cleared."
+}

@@ -1,0 +1,90 @@
+{
+  "resumed_from_epoch": 56,
+  "current_invocation_started_at": 1793215303.3823256,
+  "current_entry_wall_seconds": 693.1792305999988,
+  "prior_failed_stage_wall_seconds": 7104.709164857864,
+  "aggregate_measured_training_wall_seconds": 7797.888395457863,
+  "aggregate_boundary": "current training entry plus prior suite stage windows; excludes idle gap between invocations, includes prior launch/publication overhead",
+  "epochs_completed_in_current_invocation": 4,
+  "retained_completed_epochs": 56,
+  "random_state_restored": false,
+  "random_state_note": "Upstream model/optimizer/epoch resume; reseeds20261028, not an uninterrupted bit-identical random sequence.",
+  "prior_attempts": [
+    {
+      "archived_at": 1793210306.9888515,
+      "archive": "attempts/K03-training-1793209884",
+      "failure": "[WinError 5] 拒绝访问。: 'C:\\\\dev\\\\虚拟数字人直播\\\\outputs\\\\lipsync-k01-k05-60s-20261028\\\\K03\\\\progress.json.tmp' -> 'C:\\\\dev\\\\虚拟数字人直播\\\\outputs\\\\lipsync-k01-k05-60s-20261028\\\\K03\\\\progress.json'",
+      "completed_epochs": 23,
+      "stage_started_at": 1793207434.8815973,
+      "stage_finished_at": 1793209951.8715448,
+      "stage_wall_seconds": 2516.9899475574493,
+      "wall_boundary": "suite launch boundary to child exit; includes task wrapper/publication overhead",
+      "random_state_note": "Upstream checkpoints restore model/optimizer/epoch but do not preserve all Python/NumPy/CUDA RNG states. The resumed invocation reseeds20261028; this is not bit-identical to uninterrupted training.",
+      "files": [
+        {
+          "path": "suite-status.json",
+          "bytes": 1832,
+          "sha256": "bbc3cf5a7b8bd79655466566c34dc85629e2de18bf19e18b0b56607bd841ee32"
+        },
+        {
+          "path": "K03-training/result.json",
+          "bytes": 1937,
+          "sha256": "14c3982ff5af374bbb8585b7ab6e729ceb47064dd411cbae583221264f8cfbb9"
+        },
+        {
+          "path": "K03-training/resources.json",
+          "bytes": 611320,
+          "sha256": "1b82a82860c7cc119e0d3a18962e7a929fcb1a06b128c005d708a3d2da265b72"
+        },
+        {
+          "path": "K03/training-history.json",
+          "bytes": 10466,
+          "sha256": "da563b7896decabe0d57a34171a8829c752b9037173de333c20e2287a14d4c37"
+        },
+        {
+          "path": "K03/progress.json",
+          "bytes": 241,
+          "sha256": "bb1272273c4d88b269d3aeab8be7c6d91ec1bd36c653c595436484ebfe98cc05"
+        }
+      ]
+    },
+    {
+      "archived_at": 1793215160.0096693,
+      "archive": "attempts/K03-training-1793214921",
+      "failure": "[WinError 5] 拒绝访问。: 'C:\\\\dev\\\\虚拟数字人直播\\\\outputs\\\\lipsync-k01-k05-60s-20261028\\\\K03\\\\progress.json.8408.21372.tmp' -> 'C:\\\\dev\\\\虚拟数字人直播\\\\outputs\\\\lipsync-k01-k05-60s-20261028\\\\K03\\\\progress.json'",
+      "completed_epochs": 56,
+      "stage_started_at": 1793210350.2170606,
+      "stage_finished_at": 1793214937.9362779,
+      "stage_wall_seconds": 4587.719217300415,
+      "wall_boundary": "suite launch boundary to child exit; includes task wrapper/publication overhead",
+      "random_state_note": "Upstream checkpoints restore model/optimizer/epoch but do not preserve all Python/NumPy/CUDA RNG states. The resumed invocation reseeds20261028; this is not bit-identical to uninterrupted training.",
+      "files": [
+        {
+          "path": "suite-status.json",
+          "bytes": 1747,
+          "sha256": "09ddea5ba292eb558bc70cd1f1039fdff2c2f1a0dcd2f3abbab19ff557683a43"
+        },
+        {
+          "path": "K03-training/result.json",
+          "bytes": 1844,
+          "sha256": "6b7af8607186054d20defbe04d1740eb74657a5a47c496ed7de9dab26f33ac04"
+        },
+        {
+          "path": "K03-training/resources.json",
+          "bytes": 1170017,
+          "sha256": "e2e1880024f89cf7deb69e809a297eb444f5f16d326a2a3931d5ec786e912275"
+        },
+        {
+          "path": "K03/training-history.json",
+          "bytes": 27311,
+          "sha256": "7e59f5189ea82e47236d6e2d6d014b22053a903ad1ab917c8a6e45600346a86c"
+        },
+        {
+          "path": "K03/progress.json",
+          "bytes": 240,
+          "sha256": "08a6f591fc21afb805e874e43bbd8e314f1331ba49753d02949e519f42eb5ec8"
+        }
+      ]
+    }
+  ]
+}

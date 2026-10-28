@@ -1,0 +1,35 @@
+{
+  "models": [
+    {
+      "repo": "ByteDance/LatentSync-1.6",
+      "revision": "c42c7e6c8e9c213626389fa7d9a3c444b8536353",
+      "file": "latentsync_unet.pt",
+      "bytes": 5072222488,
+      "sha256": "0a478e89eb660f82da4c35dbdde8a5adfb27f99d1b4e50edd03729e1e98316d3"
+    },
+    {
+      "repo": "ByteDance/LatentSync-1.6",
+      "revision": "c42c7e6c8e9c213626389fa7d9a3c444b8536353",
+      "file": "whisper/tiny.pt",
+      "bytes": 75572083,
+      "sha256": "65147644a518d12f04e32d6f3b26facc3f8dd46e5390956a9424a650c0ce22b9"
+    },
+    {
+      "repo": "camenduru/Wav2Lip",
+      "revision": "bfcd9263d1ccb60ab724f074e7c1b3555f6cb162",
+      "file": "checkpoints/wav2lip_gan.pth",
+      "bytes": 435801865,
+      "sha256": "ca9ab7b7b812c0e80a6e70a5977c545a1e8a365a6c49d5e533023c034d7ac3d8"
+    }
+  ],
+  "sources": {
+    "feather": {
+      "repo": "anliyuan/FeatherTalk",
+      "revision": "7a8bb0439eb5da5e10601168df329a7052b7edf3"
+    },
+    "latent": {
+      "repo": "bytedance/LatentSync",
+      "revision": "a229c3948406bc2cf6eaf4873e662e70c6a04746"
+    }
+  }
+}

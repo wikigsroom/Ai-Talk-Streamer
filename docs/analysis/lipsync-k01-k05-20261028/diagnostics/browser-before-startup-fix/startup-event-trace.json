@@ -1,0 +1,190 @@
+{
+  "note": "视频正在缓冲，已暂停同步。缓冲后点击同步播放继续。",
+  "media": [
+    {
+      "id": "master",
+      "time": 0.005385,
+      "paused": true,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "id": "va",
+      "time": 0.002655,
+      "paused": true,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "id": "vb",
+      "time": 0.07136,
+      "paused": true,
+      "seeking": false,
+      "ready": 4
+    }
+  ],
+  "events": [
+    {
+      "event": "seeking",
+      "id": "va",
+      "at": 531.9000000059605,
+      "time": 0,
+      "paused": false,
+      "seeking": true,
+      "ready": 1
+    },
+    {
+      "event": "seeking",
+      "id": "vb",
+      "at": 532.0999999940395,
+      "time": 0,
+      "paused": false,
+      "seeking": true,
+      "ready": 1
+    },
+    {
+      "event": "play",
+      "id": "va",
+      "at": 532.0999999940395,
+      "time": 0,
+      "paused": false,
+      "seeking": true,
+      "ready": 1
+    },
+    {
+      "event": "waiting",
+      "id": "va",
+      "at": 532.1999999880791,
+      "time": 0,
+      "paused": false,
+      "seeking": true,
+      "ready": 1
+    },
+    {
+      "event": "play",
+      "id": "vb",
+      "at": 532.2999999821186,
+      "time": 0,
+      "paused": false,
+      "seeking": true,
+      "ready": 1
+    },
+    {
+      "event": "waiting",
+      "id": "vb",
+      "at": 532.4000000059605,
+      "time": 0,
+      "paused": false,
+      "seeking": true,
+      "ready": 1
+    },
+    {
+      "event": "seeked",
+      "id": "va",
+      "at": 673.0999999940395,
+      "time": 0.000766,
+      "paused": false,
+      "seeking": false,
+      "ready": 3
+    },
+    {
+      "event": "playing",
+      "id": "va",
+      "at": 673.2999999821186,
+      "time": 0.000894,
+      "paused": false,
+      "seeking": false,
+      "ready": 3
+    },
+    {
+      "event": "seeked",
+      "id": "vb",
+      "at": 730.9000000059605,
+      "time": 0.000494,
+      "paused": false,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "event": "playing",
+      "id": "vb",
+      "at": 731.0999999940395,
+      "time": 0.000622,
+      "paused": false,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "event": "play",
+      "id": "master",
+      "at": 732.2999999821186,
+      "time": 0,
+      "paused": false,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "event": "playing",
+      "id": "master",
+      "at": 732.5,
+      "time": 0,
+      "paused": false,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "event": "seeking",
+      "id": "va",
+      "at": 862.7999999821186,
+      "time": 0.002655,
+      "paused": false,
+      "seeking": true,
+      "ready": 1
+    },
+    {
+      "event": "waiting",
+      "id": "va",
+      "at": 863,
+      "time": 0.002655,
+      "paused": false,
+      "seeking": true,
+      "ready": 1
+    },
+    {
+      "event": "pause",
+      "id": "master",
+      "at": 863.4000000059605,
+      "time": 0.005385,
+      "paused": true,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "event": "pause",
+      "id": "va",
+      "at": 863.4000000059605,
+      "time": 0.002655,
+      "paused": true,
+      "seeking": true,
+      "ready": 1
+    },
+    {
+      "event": "pause",
+      "id": "vb",
+      "at": 863.5,
+      "time": 0.07136,
+      "paused": true,
+      "seeking": false,
+      "ready": 4
+    },
+    {
+      "event": "seeked",
+      "id": "va",
+      "at": 889.0999999940395,
+      "time": 0.002655,
+      "paused": true,
+      "seeking": false,
+      "ready": 4
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "pid": 20960,
+  "started_at": 1793197873.7993205,
+  "complete": false,
+  "stages": [
+    {
+      "script": "render_wav2lip.py",
+      "args": [],
+      "status": "already_completed",
+      "proof": "K04/result.json"
+    },
+    {
+      "script": "render_muse.py",
+      "args": [
+        "TRAIN"
+      ],
+      "status": "completed",
+      "started_at": 1793198135.4620106,
+      "pid": 5036,
+      "exit_code": 0,
+      "finished_at": 1793198841.0972812
+    }
+  ],
+  "waiting": {
+    "stage": "Feather dependency installation",
+    "observed_at": 1793199761.7046154
+  }
+}
