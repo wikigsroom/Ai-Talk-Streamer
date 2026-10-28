@@ -1,0 +1,5263 @@
+{
+  "release": "split-a4090-b3080-v1.1.0-o07-f07",
+  "observed_utc": "2026-10-28T00:51:27.063059+00:00",
+  "scope": "New O07/F07 native local release acceptance. Synthetic events traversed A4090, the existing VPN receiver, B3080 official Livehime browser material and DSH playback receipts. No public broadcast or recording was started. Historical benchmark records were not edited.",
+  "public_broadcast_started": false,
+  "runtime_acceptance": {
+    "passed": true,
+    "cases": [
+      {
+        "name": "01-O07-short",
+        "requested_voice": "O07",
+        "actual_voice": "O07",
+        "engine": "OmniVoice",
+        "fallback": false,
+        "audio_seconds": 4.98,
+        "wall_seconds": 2.9810930999956327,
+        "sha256": "13a27ce8477fa081ada18947729c2c9722336eea8a3da40a92527ede4f84cd86",
+        "bytes": 239084,
+        "file": "01-O07-short.wav"
+      },
+      {
+        "name": "02-O07-long",
+        "requested_voice": "O07",
+        "actual_voice": "O07",
+        "engine": "OmniVoice",
+        "fallback": false,
+        "audio_seconds": 20.8,
+        "wall_seconds": 2.8438380000006873,
+        "sha256": "d730141fc78cec531c319711f87ccc9d1c87cb1b4ab87068d3b58a9c7822194c",
+        "bytes": 998444,
+        "file": "02-O07-long.wav"
+      },
+      {
+        "name": "03-F07-explicit",
+        "requested_voice": "F07",
+        "actual_voice": "F07",
+        "engine": "F5-TTS-v1",
+        "fallback": false,
+        "audio_seconds": 4.362666666666667,
+        "wall_seconds": 2.588076499996532,
+        "sha256": "80ccd5f60dbaab8f3e2324054d987c0a0235d85636decb16378257045d494b10",
+        "bytes": 209452,
+        "file": "03-F07-explicit.wav"
+      },
+      {
+        "name": "04-real-fault-fallback",
+        "requested_voice": "O07",
+        "actual_voice": "F07",
+        "engine": "F5-TTS-v1",
+        "fallback": true,
+        "audio_seconds": 3.7973333333333334,
+        "wall_seconds": 5.359592699998757,
+        "sha256": "9e246a10c8e68b27dde563043ac55342306a06cd3649adbbaf79c855e3bc44ab",
+        "bytes": 182316,
+        "file": "04-real-fault-fallback.wav"
+      },
+      {
+        "name": "05-F07-selected",
+        "requested_voice": "F07",
+        "actual_voice": "F07",
+        "engine": "F5-TTS-v1",
+        "fallback": false,
+        "audio_seconds": 3.232,
+        "wall_seconds": 2.466294400001061,
+        "sha256": "0638365b7d284abe18ffb1375e2b3aead3d3102517b650ba111212706a526fd0",
+        "bytes": 155180,
+        "file": "05-F07-selected.wav"
+      },
+      {
+        "name": "06-O07-restored",
+        "requested_voice": "O07",
+        "actual_voice": "O07",
+        "engine": "OmniVoice",
+        "fallback": false,
+        "audio_seconds": 4.28,
+        "wall_seconds": 2.9307874999940395,
+        "sha256": "32996f5866a22141b590f072a36d9f835ac1fedd7b3a03e5cd63d34da2130312",
+        "bytes": 205484,
+        "file": "06-O07-restored.wav"
+      }
+    ],
+    "python_passed": 46,
+    "python_regression_returncode": 0,
+    "cancel_before_registration": true,
+    "active_cancel_no_fallback": true,
+    "real_primary_process_failure_fallback": true,
+    "manual_switch_and_restore": true
+  },
+  "module_tests": {
+    "command": "node --test tests/*.test.mjs",
+    "node_passed": 82,
+    "node_failed": 0,
+    "node_skipped": 0,
+    "duration_ms": 32987.629,
+    "browser_contexts_closed": true,
+    "python_passed": 46,
+    "browser_checks": {
+      "correct_pair": true,
+      "auditions_decode": true,
+      "one_audition_at_a_time": true,
+      "mobile_no_overflow": true,
+      "viewing_does_not_mutate_or_start_session": true,
+      "no_browser_errors": true
+    },
+    "browser_closed": true
+  },
+  "audition_browser_decode": {
+    "note": "AudioContext resamples to its native playback rate; this is not the WAV source rate",
+    "items": [
+      {
+        "file": "O07-audition.wav",
+        "duration": 16.05,
+        "rate": 48000,
+        "channels": 1,
+        "bytes": 770478
+      },
+      {
+        "file": "F07-audition.wav",
+        "duration": 14.538666666666666,
+        "rate": 48000,
+        "channels": 1,
+        "bytes": 697934
+      }
+    ]
+  },
+  "first_attempt": {
+    "passed": false,
+    "started_at": "2026-10-27T23:51:29.338608+00:00",
+    "finished_at": "2026-10-27T23:53:45.086523+00:00",
+    "completed_cases": 5,
+    "metrics": {
+      "observations": 252,
+      "receiver_canvas_fps_mean": 12.886603174603174,
+      "receiver_canvas_fps_min": 0.0,
+      "receiver_canvas_fps_max": 25.395,
+      "audio_buffer_ms_min": 0,
+      "audio_buffer_ms_max": 4010.666666654288,
+      "continuity_deltas": {
+        "audio_underruns": 16,
+        "missing_packets": 0,
+        "decode_errors": 0
+      }
+    },
+    "raw_sha256": "167982ae3d28ea5e20b223b3583ac3ac32debe53fa5d7acb96a1231a6c4bc0cd",
+    "remediation": "Reloaded the official native browser material with explicit buffer_ms=4000 and release query. Retained original FP16/batch8 and model steps. The fresh-material retest follows; this does not prove the cause of all earlier stalls."
+  },
+  "local_acceptance": {
+    "ok": true,
+    "started_at": "2026-10-28T00:46:51.843535+00:00",
+    "finished_at": "2026-10-28T00:48:44.917657+00:00",
+    "duplicate_rejected": true,
+    "cloud_llm_exercised": true,
+    "steps": [
+      {
+        "id": "s01_native_greeting",
+        "text": "大家好，我是林知夏。画面和声音在四零九零生成，通过虚拟网络传给三零八零设备上的直播姬。",
+        "request_id": "req-817e1d87-585b-4792-b605-7114c9f3dc77",
+        "status": "COMPLETED",
+        "elapsed_ms": 17710,
+        "completed_at": "2026-10-28T00:47:10.135222+00:00",
+        "mode": "echo",
+        "voice_selected": "O07",
+        "timing_seconds": {
+          "thinking_to_text_seconds": 0.015,
+          "text_to_audio_ready_seconds": 5.107,
+          "audio_ready_to_first_positive_receipt_seconds": 4.907,
+          "accepted_to_first_positive_receipt_seconds": 10.063,
+          "accepted_to_natural_end_receipt_seconds": 16.972,
+          "utterance_audio_seconds": 7.12
+        },
+        "utterances": [
+          {
+            "utterance_id": "utt-7fc85c56-f395-44c1-961f-fd06afe4dea8",
+            "status": "COMPLETED",
+            "valid_sample_count": 113920,
+            "contiguous_played_samples": 113920,
+            "observations": [
+              {
+                "played_samples": 113920,
+                "natural_end": 1
+              }
+            ],
+            "first_positive_receipt": {
+              "received_at": "2026-10-28T00:47:03.492Z",
+              "contiguous_played_samples": 3520,
+              "natural_end": 0,
+              "accepted": 1
+            },
+            "last_receipt": {
+              "received_at": "2026-10-28T00:47:10.401Z",
+              "contiguous_played_samples": 113920,
+              "natural_end": 1,
+              "accepted": 1
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_seq": 296,
+            "event_type": "input.accepted",
+            "received_at": "2026-10-28T00:46:53.429Z"
+          },
+          {
+            "event_seq": 297,
+            "event_type": "request.thinking",
+            "received_at": "2026-10-28T00:46:53.463Z"
+          },
+          {
+            "event_seq": 298,
+            "event_type": "context.assembled",
+            "received_at": "2026-10-28T00:46:53.473Z"
+          },
+          {
+            "event_seq": 299,
+            "event_type": "utterance.text_ready",
+            "received_at": "2026-10-28T00:46:53.478Z",
+            "text": "大家好，我是林知夏。画面和声音在四零九零生成，通过虚拟网络传给三零八零设备上的直播姬。"
+          },
+          {
+            "event_seq": 300,
+            "event_type": "utterance.audio_ready",
+            "received_at": "2026-10-28T00:46:58.585Z"
+          },
+          {
+            "event_seq": 301,
+            "event_type": "playback.completed",
+            "received_at": "2026-10-28T00:47:10.402Z"
+          }
+        ]
+      },
+      {
+        "id": "s02_native_audio",
+        "text": "现在听到的是欧零七主用音色。声音从浏览器素材内部送出，人物保持日光宿舍场景。",
+        "request_id": "req-2890df17-6be8-4191-8607-0de49c5d0ea8",
+        "status": "COMPLETED",
+        "elapsed_ms": 15072,
+        "completed_at": "2026-10-28T00:47:25.225870+00:00",
+        "mode": "echo",
+        "voice_selected": "O07",
+        "timing_seconds": {
+          "thinking_to_text_seconds": 0.01,
+          "text_to_audio_ready_seconds": 2.961,
+          "audio_ready_to_first_positive_receipt_seconds": 4.821,
+          "accepted_to_first_positive_receipt_seconds": 7.8,
+          "accepted_to_natural_end_receipt_seconds": 13.835,
+          "utterance_audio_seconds": 6.19
+        },
+        "utterances": [
+          {
+            "utterance_id": "utt-4c162ffe-a93d-4730-8721-47ff7690c173",
+            "status": "COMPLETED",
+            "valid_sample_count": 99040,
+            "contiguous_played_samples": 99040,
+            "observations": [
+              {
+                "played_samples": 99040,
+                "natural_end": 1
+              }
+            ],
+            "first_positive_receipt": {
+              "received_at": "2026-10-28T00:47:19.245Z",
+              "contiguous_played_samples": 2389,
+              "natural_end": 0,
+              "accepted": 1
+            },
+            "last_receipt": {
+              "received_at": "2026-10-28T00:47:25.280Z",
+              "contiguous_played_samples": 99040,
+              "natural_end": 1,
+              "accepted": 1
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_seq": 302,
+            "event_type": "input.accepted",
+            "received_at": "2026-10-28T00:47:11.444Z"
+          },
+          {
+            "event_seq": 303,
+            "event_type": "request.thinking",
+            "received_at": "2026-10-28T00:47:11.453Z"
+          },
+          {
+            "event_seq": 304,
+            "event_type": "context.assembled",
+            "received_at": "2026-10-28T00:47:11.459Z"
+          },
+          {
+            "event_seq": 305,
+            "event_type": "utterance.text_ready",
+            "received_at": "2026-10-28T00:47:11.463Z",
+            "text": "现在听到的是欧零七主用音色。声音从浏览器素材内部送出，人物保持日光宿舍场景。"
+          },
+          {
+            "event_seq": 306,
+            "event_type": "utterance.audio_ready",
+            "received_at": "2026-10-28T00:47:14.424Z"
+          },
+          {
+            "event_seq": 307,
+            "event_type": "playback.completed",
+            "received_at": "2026-10-28T00:47:25.281Z"
+          }
+        ]
+      },
+      {
+        "id": "s03_native_resume",
+        "text": "刚才暂停了一下，现在继续。人物、动作和声音应该自然连贯。",
+        "request_id": "req-07ba40ed-9e44-4538-849d-b586c1d96eb1",
+        "status": "COMPLETED",
+        "elapsed_ms": 14017,
+        "completed_at": "2026-10-28T00:47:42.823311+00:00",
+        "mode": "echo",
+        "voice_selected": "O07",
+        "timing_seconds": {
+          "thinking_to_text_seconds": 0.009,
+          "text_to_audio_ready_seconds": 2.943,
+          "audio_ready_to_first_positive_receipt_seconds": 4.819,
+          "accepted_to_first_positive_receipt_seconds": 7.778,
+          "accepted_to_natural_end_receipt_seconds": 12.096,
+          "utterance_audio_seconds": 4.38
+        },
+        "utterances": [
+          {
+            "utterance_id": "utt-684cf291-d11c-46dc-b48e-eb916602bf46",
+            "status": "COMPLETED",
+            "valid_sample_count": 70080,
+            "contiguous_played_samples": 70080,
+            "observations": [
+              {
+                "played_samples": 70080,
+                "natural_end": 1
+              }
+            ],
+            "first_positive_receipt": {
+              "received_at": "2026-10-28T00:47:38.242Z",
+              "contiguous_played_samples": 1109,
+              "natural_end": 0,
+              "accepted": 1
+            },
+            "last_receipt": {
+              "received_at": "2026-10-28T00:47:42.560Z",
+              "contiguous_played_samples": 70080,
+              "natural_end": 1,
+              "accepted": 1
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_seq": 311,
+            "event_type": "input.accepted",
+            "received_at": "2026-10-28T00:47:30.463Z"
+          },
+          {
+            "event_seq": 312,
+            "event_type": "request.thinking",
+            "received_at": "2026-10-28T00:47:30.471Z"
+          },
+          {
+            "event_seq": 313,
+            "event_type": "context.assembled",
+            "received_at": "2026-10-28T00:47:30.476Z"
+          },
+          {
+            "event_seq": 314,
+            "event_type": "utterance.text_ready",
+            "received_at": "2026-10-28T00:47:30.480Z",
+            "text": "刚才暂停了一下，现在继续。人物、动作和声音应该自然连贯。"
+          },
+          {
+            "event_seq": 315,
+            "event_type": "utterance.audio_ready",
+            "received_at": "2026-10-28T00:47:33.423Z"
+          },
+          {
+            "event_seq": 316,
+            "event_type": "playback.completed",
+            "received_at": "2026-10-28T00:47:42.561Z"
+          }
+        ]
+      },
+      {
+        "id": "s04_native_response",
+        "text": "现在切换到备用音色，收到你的留言啦。人物、动作和当前会话仍然保留。",
+        "request_id": "req-eeacbfb0-10d7-4671-b73b-9f34b91ffe81",
+        "status": "COMPLETED",
+        "elapsed_ms": 14036,
+        "completed_at": "2026-10-28T00:47:57.000909+00:00",
+        "mode": "echo",
+        "voice_selected": "F07",
+        "timing_seconds": {
+          "thinking_to_text_seconds": 0.009,
+          "text_to_audio_ready_seconds": 3.205,
+          "audio_ready_to_first_positive_receipt_seconds": 4.797,
+          "accepted_to_first_positive_receipt_seconds": 8.018,
+          "accepted_to_natural_end_receipt_seconds": 12.649,
+          "utterance_audio_seconds": 4.651
+        },
+        "utterances": [
+          {
+            "utterance_id": "utt-e0d318d2-beac-4ee5-a5d1-20cf46169f92",
+            "status": "COMPLETED",
+            "valid_sample_count": 74411,
+            "contiguous_played_samples": 74411,
+            "observations": [
+              {
+                "played_samples": 74411,
+                "natural_end": 1
+              }
+            ],
+            "first_positive_receipt": {
+              "received_at": "2026-10-28T00:47:52.489Z",
+              "contiguous_played_samples": 640,
+              "natural_end": 0,
+              "accepted": 1
+            },
+            "last_receipt": {
+              "received_at": "2026-10-28T00:47:57.120Z",
+              "contiguous_played_samples": 74411,
+              "natural_end": 1,
+              "accepted": 1
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_seq": 317,
+            "event_type": "input.accepted",
+            "received_at": "2026-10-28T00:47:44.471Z"
+          },
+          {
+            "event_seq": 318,
+            "event_type": "request.thinking",
+            "received_at": "2026-10-28T00:47:44.478Z"
+          },
+          {
+            "event_seq": 319,
+            "event_type": "context.assembled",
+            "received_at": "2026-10-28T00:47:44.483Z"
+          },
+          {
+            "event_seq": 320,
+            "event_type": "utterance.text_ready",
+            "received_at": "2026-10-28T00:47:44.487Z",
+            "text": "现在切换到备用音色，收到你的留言啦。人物、动作和当前会话仍然保留。"
+          },
+          {
+            "event_seq": 321,
+            "event_type": "utterance.audio_ready",
+            "received_at": "2026-10-28T00:47:47.692Z"
+          },
+          {
+            "event_seq": 322,
+            "event_type": "playback.completed",
+            "received_at": "2026-10-28T00:47:57.120Z"
+          }
+        ]
+      },
+      {
+        "id": "s05_native_memory",
+        "text": "请用一句简短的话说出你的名字，并说说刚才画面是由哪台设备生成、由什么客户端接收的。",
+        "request_id": "req-926e714b-34c6-41f3-ae4c-0d51e7395433",
+        "status": "COMPLETED",
+        "elapsed_ms": 47807,
+        "completed_at": "2026-10-28T00:48:44.869199+00:00",
+        "mode": "chat",
+        "voice_selected": "O07",
+        "timing_seconds": {
+          "thinking_to_text_seconds": 32.473,
+          "text_to_audio_ready_seconds": 2.894,
+          "audio_ready_to_first_positive_receipt_seconds": 4.901,
+          "accepted_to_first_positive_receipt_seconds": 40.276,
+          "accepted_to_natural_end_receipt_seconds": 46.665,
+          "utterance_audio_seconds": 6.53
+        },
+        "utterances": [
+          {
+            "utterance_id": "utt-d67b8a08-f8f7-428a-95fe-3f90a4b4aa3f",
+            "status": "COMPLETED",
+            "valid_sample_count": 104480,
+            "contiguous_played_samples": 104480,
+            "observations": [
+              {
+                "played_samples": 104480,
+                "natural_end": 1
+              }
+            ],
+            "first_positive_receipt": {
+              "received_at": "2026-10-28T00:48:38.757Z",
+              "contiguous_played_samples": 2069,
+              "natural_end": 0,
+              "accepted": 1
+            },
+            "last_receipt": {
+              "received_at": "2026-10-28T00:48:45.146Z",
+              "contiguous_played_samples": 104480,
+              "natural_end": 1,
+              "accepted": 1
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_seq": 323,
+            "event_type": "input.accepted",
+            "received_at": "2026-10-28T00:47:58.481Z"
+          },
+          {
+            "event_seq": 324,
+            "event_type": "request.thinking",
+            "received_at": "2026-10-28T00:47:58.489Z"
+          },
+          {
+            "event_seq": 325,
+            "event_type": "context.assembled",
+            "received_at": "2026-10-28T00:47:58.494Z"
+          },
+          {
+            "event_seq": 326,
+            "event_type": "utterance.text_ready",
+            "received_at": "2026-10-28T00:48:30.962Z",
+            "text": "我是林知夏；刚才画面由四零九零生成，经虚拟网络传给三零八零设备上的直播姬接收。"
+          },
+          {
+            "event_seq": 327,
+            "event_type": "utterance.audio_ready",
+            "received_at": "2026-10-28T00:48:33.856Z"
+          },
+          {
+            "event_seq": 328,
+            "event_type": "playback.completed",
+            "received_at": "2026-10-28T00:48:45.147Z"
+          }
+        ]
+      }
+    ],
+    "metrics_summary": {
+      "observations": 214,
+      "receiver_canvas_fps_mean": 25.000088785046728,
+      "receiver_canvas_fps_min": 24.64,
+      "receiver_canvas_fps_max": 25.402,
+      "audio_buffer_ms_min": 3949.3333329069173,
+      "audio_buffer_ms_max": 4010.6666662975385,
+      "continuity_deltas": {
+        "audio_underruns": 0,
+        "missing_packets": 0,
+        "decode_errors": 0
+      }
+    },
+    "receiver_metrics": [
+      {
+        "at": "2026-10-28T00:46:52.440772+00:00",
+        "fps": 24.655,
+        "player": {
+          "frames": 24648,
+          "received_frames": 24748,
+          "fps": 24.651875540754467,
+          "audio_clock_seconds": 990,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3999.999999675879,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:46:52.960947+00:00",
+        "fps": 24.655,
+        "player": {
+          "frames": 24648,
+          "received_frames": 24748,
+          "fps": 24.651875540754467,
+          "audio_clock_seconds": 990,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3999.999999675879,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:46:53.481578+00:00",
+        "fps": 24.655,
+        "player": {
+          "frames": 24648,
+          "received_frames": 24748,
+          "fps": 24.651875540754467,
+          "audio_clock_seconds": 990,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3999.999999675879,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:46:53.999587+00:00",
+        "fps": 25.349,
+        "player": {
+          "frames": 24686,
+          "received_frames": 24785,
+          "fps": 25.351924745216117,
+          "audio_clock_seconds": 991.5013333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.666666341155,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:46:54.522729+00:00",
+        "fps": 25.349,
+        "player": {
+          "frames": 24686,
+          "received_frames": 24785,
+          "fps": 25.351924745216117,
+          "audio_clock_seconds": 991.5013333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.666666341155,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:46:55.041789+00:00",
+        "fps": 25.349,
+        "player": {
+          "frames": 24686,
+          "received_frames": 24785,
+          "fps": 25.351924745216117,
+          "audio_clock_seconds": 991.5013333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.666666341155,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:46:55.559997+00:00",
+        "fps": 25.303,
+        "player": {
+          "frames": 24724,
+          "received_frames": 24823,
+          "fps": 25.296232192984657,
+          "audio_clock_seconds": 993,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3999.9999996731503,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:46:56.079124+00:00",
+        "fps": 25.303,
+        "player": {
+          "frames": 24724,
+          "received_frames": 24823,
+          "fps": 25.296232192984657,
+          "audio_clock_seconds": 993,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3999.9999996731503,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:46:56.595053+00:00",
+        "fps": 25.303,
+        "player": {
+          "frames": 24724,
+          "received_frames": 24823,
+          "fps": 25.296232192984657,
+          "audio_clock_seconds": 993,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3999.9999996731503,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:46:57.112965+00:00",
+        "fps": 24.71,
+        "player": {
+          "frames": 24761,
+          "received_frames": 24860,
+          "fps": 24.707846410684475,
+          "audio_clock_seconds": 994.5013333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666663384267,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:46:57.633587+00:00",
+        "fps": 24.71,
+        "player": {
+          "frames": 24761,
+          "received_frames": 24860,
+          "fps": 24.707846410684475,
+          "audio_clock_seconds": 994.5013333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666663384267,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:46:58.155342+00:00",
+        "fps": 24.71,
+        "player": {
+          "frames": 24761,
+          "received_frames": 24860,
+          "fps": 24.707846410684475,
+          "audio_clock_seconds": 994.5013333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666663384267,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:46:58.673466+00:00",
+        "fps": 25.304,
+        "player": {
+          "frames": 24799,
+          "received_frames": 24898,
+          "fps": 25.301285038348198,
+          "audio_clock_seconds": 996,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3999.999999670422,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:46:59.194777+00:00",
+        "fps": 25.304,
+        "player": {
+          "frames": 24799,
+          "received_frames": 24898,
+          "fps": 25.301285038348198,
+          "audio_clock_seconds": 996,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3999.999999670422,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:46:59.720785+00:00",
+        "fps": 24.674,
+        "player": {
+          "frames": 24836,
+          "received_frames": 24935,
+          "fps": 24.683122081387594,
+          "audio_clock_seconds": 997.5013333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.666666335698,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:00.237731+00:00",
+        "fps": 24.674,
+        "player": {
+          "frames": 24836,
+          "received_frames": 24935,
+          "fps": 24.683122081387594,
+          "audio_clock_seconds": 997.5013333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.666666335698,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:00.758591+00:00",
+        "fps": 24.674,
+        "player": {
+          "frames": 24836,
+          "received_frames": 24935,
+          "fps": 24.683122081387594,
+          "audio_clock_seconds": 997.5013333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.666666335698,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:01.273860+00:00",
+        "fps": 25.319,
+        "player": {
+          "frames": 24874,
+          "received_frames": 24973,
+          "fps": 25.321516625775875,
+          "audio_clock_seconds": 999,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3999.9999996676934,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:01.789157+00:00",
+        "fps": 25.319,
+        "player": {
+          "frames": 24874,
+          "received_frames": 24973,
+          "fps": 25.321516625775875,
+          "audio_clock_seconds": 999,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3999.9999996676934,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:02.304323+00:00",
+        "fps": 25.319,
+        "player": {
+          "frames": 24874,
+          "received_frames": 24973,
+          "fps": 25.321516625775875,
+          "audio_clock_seconds": 999,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3999.9999996676934,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 89.69999998807907,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:02.845886+00:00",
+        "fps": 24.668,
+        "player": {
+          "frames": 24911,
+          "received_frames": 25010,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 1000.5013333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666663329697,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:03.367136+00:00",
+        "fps": 24.668,
+        "player": {
+          "frames": 24911,
+          "received_frames": 25010,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 1000.5013333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666663329697,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:03.884010+00:00",
+        "fps": 24.668,
+        "player": {
+          "frames": 24911,
+          "received_frames": 25010,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 1000.5013333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666663329697,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:04.400908+00:00",
+        "fps": 25.349,
+        "player": {
+          "frames": 24949,
+          "received_frames": 25048,
+          "fps": 25.35361622611273,
+          "audio_clock_seconds": 1002.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332998285,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:04.915348+00:00",
+        "fps": 25.349,
+        "player": {
+          "frames": 24949,
+          "received_frames": 25048,
+          "fps": 25.35361622611273,
+          "audio_clock_seconds": 1002.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332998285,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:05.437501+00:00",
+        "fps": 25.349,
+        "player": {
+          "frames": 24949,
+          "received_frames": 25048,
+          "fps": 25.35361622611273,
+          "audio_clock_seconds": 1002.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332998285,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:05.959161+00:00",
+        "fps": 24.668,
+        "player": {
+          "frames": 24986,
+          "received_frames": 25085,
+          "fps": 24.66173431960675,
+          "audio_clock_seconds": 1003.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663303167,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:06.478222+00:00",
+        "fps": 24.668,
+        "player": {
+          "frames": 24986,
+          "received_frames": 25085,
+          "fps": 24.66173431960675,
+          "audio_clock_seconds": 1003.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663303167,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:07.003456+00:00",
+        "fps": 24.668,
+        "player": {
+          "frames": 24986,
+          "received_frames": 25085,
+          "fps": 24.66173431960675,
+          "audio_clock_seconds": 1003.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663303167,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:07.521854+00:00",
+        "fps": 25.312,
+        "player": {
+          "frames": 25024,
+          "received_frames": 25123,
+          "fps": 25.31139678924816,
+          "audio_clock_seconds": 1005.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329955567,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:08.039728+00:00",
+        "fps": 25.312,
+        "player": {
+          "frames": 25024,
+          "received_frames": 25123,
+          "fps": 25.31139678924816,
+          "audio_clock_seconds": 1005.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329955567,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:08.557591+00:00",
+        "fps": 25.312,
+        "player": {
+          "frames": 25024,
+          "received_frames": 25123,
+          "fps": 25.31139678924816,
+          "audio_clock_seconds": 1005.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329955567,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:09.076728+00:00",
+        "fps": 24.683,
+        "player": {
+          "frames": 25061,
+          "received_frames": 25160,
+          "fps": 24.683122081387594,
+          "audio_clock_seconds": 1006.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663275882,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:09.594843+00:00",
+        "fps": 24.683,
+        "player": {
+          "frames": 25061,
+          "received_frames": 25160,
+          "fps": 24.683122081387594,
+          "audio_clock_seconds": 1006.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663275882,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:10.111814+00:00",
+        "fps": 24.683,
+        "player": {
+          "frames": 25061,
+          "received_frames": 25160,
+          "fps": 24.683122081387594,
+          "audio_clock_seconds": 1006.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663275882,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:10.168498+00:00",
+        "fps": 24.683,
+        "player": {
+          "frames": 25061,
+          "received_frames": 25160,
+          "fps": 24.683122081387594,
+          "audio_clock_seconds": 1006.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663275882,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:10.681936+00:00",
+        "fps": 25.282,
+        "player": {
+          "frames": 25099,
+          "received_frames": 25198,
+          "fps": 25.335022335225037,
+          "audio_clock_seconds": 1008.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332992828,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:11.201064+00:00",
+        "fps": 25.282,
+        "player": {
+          "frames": 25099,
+          "received_frames": 25198,
+          "fps": 25.335022335225037,
+          "audio_clock_seconds": 1008.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332992828,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:11.719440+00:00",
+        "fps": 24.727,
+        "player": {
+          "frames": 25136,
+          "received_frames": 25235,
+          "fps": 24.676537281971676,
+          "audio_clock_seconds": 1009.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663248598,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:12.240798+00:00",
+        "fps": 24.727,
+        "player": {
+          "frames": 25136,
+          "received_frames": 25235,
+          "fps": 24.676537281971676,
+          "audio_clock_seconds": 1009.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663248598,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:12.760199+00:00",
+        "fps": 24.727,
+        "player": {
+          "frames": 25136,
+          "received_frames": 25235,
+          "fps": 24.676537281971676,
+          "audio_clock_seconds": 1009.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663248598,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:13.279721+00:00",
+        "fps": 25.337,
+        "player": {
+          "frames": 25174,
+          "received_frames": 25273,
+          "fps": 25.336711561340152,
+          "audio_clock_seconds": 1011.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329900997,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:13.796970+00:00",
+        "fps": 25.337,
+        "player": {
+          "frames": 25174,
+          "received_frames": 25273,
+          "fps": 25.336711561340152,
+          "audio_clock_seconds": 1011.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329900997,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:14.315590+00:00",
+        "fps": 25.337,
+        "player": {
+          "frames": 25174,
+          "received_frames": 25273,
+          "fps": 25.336711561340152,
+          "audio_clock_seconds": 1011.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329900997,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:14.834981+00:00",
+        "fps": 24.652,
+        "player": {
+          "frames": 25211,
+          "received_frames": 25310,
+          "fps": 24.651875540754467,
+          "audio_clock_seconds": 1012.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663221313,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:15.351228+00:00",
+        "fps": 24.652,
+        "player": {
+          "frames": 25211,
+          "received_frames": 25310,
+          "fps": 24.651875540754467,
+          "audio_clock_seconds": 1012.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663221313,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:15.873537+00:00",
+        "fps": 24.652,
+        "player": {
+          "frames": 25211,
+          "received_frames": 25310,
+          "fps": 24.651875540754467,
+          "audio_clock_seconds": 1012.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663221313,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:16.393224+00:00",
+        "fps": 25.333,
+        "player": {
+          "frames": 25249,
+          "received_frames": 25348,
+          "fps": 25.331644557633442,
+          "audio_clock_seconds": 1014.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329873713,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:16.910023+00:00",
+        "fps": 25.333,
+        "player": {
+          "frames": 25249,
+          "received_frames": 25348,
+          "fps": 25.331644557633442,
+          "audio_clock_seconds": 1014.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329873713,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:17.430073+00:00",
+        "fps": 25.333,
+        "player": {
+          "frames": 25249,
+          "received_frames": 25348,
+          "fps": 25.331644557633442,
+          "audio_clock_seconds": 1014.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329873713,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:17.948033+00:00",
+        "fps": 24.676,
+        "player": {
+          "frames": 25286,
+          "received_frames": 25385,
+          "fps": 24.67653728099073,
+          "audio_clock_seconds": 1015.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666319403,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:18.464795+00:00",
+        "fps": 24.676,
+        "player": {
+          "frames": 25286,
+          "received_frames": 25385,
+          "fps": 24.67653728099073,
+          "audio_clock_seconds": 1015.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666319403,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:18.981408+00:00",
+        "fps": 24.676,
+        "player": {
+          "frames": 25286,
+          "received_frames": 25385,
+          "fps": 24.67653728099073,
+          "audio_clock_seconds": 1015.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666319403,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:19.500621+00:00",
+        "fps": 25.346,
+        "player": {
+          "frames": 25324,
+          "received_frames": 25423,
+          "fps": 25.34009069145521,
+          "audio_clock_seconds": 1017.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329846428,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:20.022487+00:00",
+        "fps": 25.346,
+        "player": {
+          "frames": 25324,
+          "received_frames": 25423,
+          "fps": 25.34009069145521,
+          "audio_clock_seconds": 1017.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329846428,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:20.537587+00:00",
+        "fps": 25.346,
+        "player": {
+          "frames": 25324,
+          "received_frames": 25423,
+          "fps": 25.34009069145521,
+          "audio_clock_seconds": 1017.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329846428,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 101.59999996423721,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:21.052689+00:00",
+        "fps": 24.646,
+        "player": {
+          "frames": 25361,
+          "received_frames": 25460,
+          "fps": 24.65023317788141,
+          "audio_clock_seconds": 1018.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663166743,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 102.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:21.579759+00:00",
+        "fps": 24.646,
+        "player": {
+          "frames": 25361,
+          "received_frames": 25460,
+          "fps": 24.65023317788141,
+          "audio_clock_seconds": 1018.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663166743,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 102.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:22.097576+00:00",
+        "fps": 24.646,
+        "player": {
+          "frames": 25361,
+          "received_frames": 25460,
+          "fps": 24.65023317788141,
+          "audio_clock_seconds": 1018.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663166743,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 102.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:22.612304+00:00",
+        "fps": 25.319,
+        "player": {
+          "frames": 25399,
+          "received_frames": 25498,
+          "fps": 25.31982942410592,
+          "audio_clock_seconds": 1020.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329819143,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 102.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:23.133133+00:00",
+        "fps": 25.319,
+        "player": {
+          "frames": 25399,
+          "received_frames": 25498,
+          "fps": 25.31982942410592,
+          "audio_clock_seconds": 1020.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329819143,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 102.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:23.652623+00:00",
+        "fps": 25.319,
+        "player": {
+          "frames": 25399,
+          "received_frames": 25498,
+          "fps": 25.31982942410592,
+          "audio_clock_seconds": 1020.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329819143,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 102.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:24.172657+00:00",
+        "fps": 24.684,
+        "player": {
+          "frames": 25436,
+          "received_frames": 25535,
+          "fps": 24.683122081387594,
+          "audio_clock_seconds": 1021.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663140595,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 102.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:24.691669+00:00",
+        "fps": 24.684,
+        "player": {
+          "frames": 25436,
+          "received_frames": 25535,
+          "fps": 24.683122081387594,
+          "audio_clock_seconds": 1021.5093333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663140595,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 102.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:25.210272+00:00",
+        "fps": 25.332,
+        "player": {
+          "frames": 25474,
+          "received_frames": 25573,
+          "fps": 25.31645569620253,
+          "audio_clock_seconds": 1023.0106666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329792995,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 102.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:28.816407+00:00",
+        "fps": 25.328,
+        "player": {
+          "frames": 25549,
+          "received_frames": 25648,
+          "fps": 25.328267679596124,
+          "audio_clock_seconds": 1026.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329766847,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 102.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:29.328600+00:00",
+        "fps": 25.328,
+        "player": {
+          "frames": 25549,
+          "received_frames": 25648,
+          "fps": 25.328267679596124,
+          "audio_clock_seconds": 1026.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329766847,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 102.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:29.847917+00:00",
+        "fps": 24.646,
+        "player": {
+          "frames": 25586,
+          "received_frames": 25685,
+          "fps": 24.66173431960675,
+          "audio_clock_seconds": 1027.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666308489,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 102.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:30.361767+00:00",
+        "fps": 24.646,
+        "player": {
+          "frames": 25586,
+          "received_frames": 25685,
+          "fps": 24.66173431960675,
+          "audio_clock_seconds": 1027.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666308489,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 102.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:30.877807+00:00",
+        "fps": 24.646,
+        "player": {
+          "frames": 25586,
+          "received_frames": 25685,
+          "fps": 24.66173431960675,
+          "audio_clock_seconds": 1027.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666308489,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 102.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:31.395858+00:00",
+        "fps": 25.359,
+        "player": {
+          "frames": 25624,
+          "received_frames": 25723,
+          "fps": 25.345161075974488,
+          "audio_clock_seconds": 1029.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332973956,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:31.915128+00:00",
+        "fps": 25.359,
+        "player": {
+          "frames": 25624,
+          "received_frames": 25723,
+          "fps": 25.345161075974488,
+          "audio_clock_seconds": 1029.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332973956,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:32.433898+00:00",
+        "fps": 25.359,
+        "player": {
+          "frames": 25624,
+          "received_frames": 25723,
+          "fps": 25.345161075974488,
+          "audio_clock_seconds": 1029.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332973956,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:32.951591+00:00",
+        "fps": 24.661,
+        "player": {
+          "frames": 25661,
+          "received_frames": 25760,
+          "fps": 24.65680394469688,
+          "audio_clock_seconds": 1030.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663057604,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:33.473115+00:00",
+        "fps": 24.661,
+        "player": {
+          "frames": 25661,
+          "received_frames": 25760,
+          "fps": 24.65680394469688,
+          "audio_clock_seconds": 1030.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663057604,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:33.998083+00:00",
+        "fps": 24.661,
+        "player": {
+          "frames": 25661,
+          "received_frames": 25760,
+          "fps": 24.65680394469688,
+          "audio_clock_seconds": 1030.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663057604,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:34.517473+00:00",
+        "fps": 25.343,
+        "player": {
+          "frames": 25699,
+          "received_frames": 25798,
+          "fps": 25.345161074966892,
+          "audio_clock_seconds": 1032.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329712277,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:35.036815+00:00",
+        "fps": 25.343,
+        "player": {
+          "frames": 25699,
+          "received_frames": 25798,
+          "fps": 25.345161074966892,
+          "audio_clock_seconds": 1032.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329712277,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:35.556204+00:00",
+        "fps": 25.343,
+        "player": {
+          "frames": 25699,
+          "received_frames": 25798,
+          "fps": 25.345161074966892,
+          "audio_clock_seconds": 1032.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329712277,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:36.072525+00:00",
+        "fps": 24.659,
+        "player": {
+          "frames": 25736,
+          "received_frames": 25835,
+          "fps": 24.656803945676263,
+          "audio_clock_seconds": 1033.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666303032,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:36.587278+00:00",
+        "fps": 24.659,
+        "player": {
+          "frames": 25736,
+          "received_frames": 25835,
+          "fps": 24.656803945676263,
+          "audio_clock_seconds": 1033.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666303032,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:37.102746+00:00",
+        "fps": 24.659,
+        "player": {
+          "frames": 25736,
+          "received_frames": 25835,
+          "fps": 24.656803945676263,
+          "audio_clock_seconds": 1033.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666303032,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:37.619939+00:00",
+        "fps": 25.261,
+        "player": {
+          "frames": 25774,
+          "received_frames": 25872,
+          "fps": 25.313082866235664,
+          "audio_clock_seconds": 1035.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3949.3333329685356,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:38.136551+00:00",
+        "fps": 25.261,
+        "player": {
+          "frames": 25774,
+          "received_frames": 25872,
+          "fps": 25.313082866235664,
+          "audio_clock_seconds": 1035.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3949.3333329685356,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:38.652302+00:00",
+        "fps": 25.261,
+        "player": {
+          "frames": 25774,
+          "received_frames": 25872,
+          "fps": 25.313082866235664,
+          "audio_clock_seconds": 1035.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3949.3333329685356,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:39.173426+00:00",
+        "fps": 24.725,
+        "player": {
+          "frames": 25811,
+          "received_frames": 25910,
+          "fps": 24.673246199574812,
+          "audio_clock_seconds": 1036.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663003034,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:39.695098+00:00",
+        "fps": 24.725,
+        "player": {
+          "frames": 25811,
+          "received_frames": 25910,
+          "fps": 24.673246199574812,
+          "audio_clock_seconds": 1036.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666663003034,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:40.213647+00:00",
+        "fps": 25.34,
+        "player": {
+          "frames": 25849,
+          "received_frames": 25948,
+          "fps": 25.341780593531176,
+          "audio_clock_seconds": 1038.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329657708,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:40.728330+00:00",
+        "fps": 25.34,
+        "player": {
+          "frames": 25849,
+          "received_frames": 25948,
+          "fps": 25.341780593531176,
+          "audio_clock_seconds": 1038.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329657708,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:41.244388+00:00",
+        "fps": 25.34,
+        "player": {
+          "frames": 25849,
+          "received_frames": 25948,
+          "fps": 25.341780593531176,
+          "audio_clock_seconds": 1038.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329657708,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:41.762896+00:00",
+        "fps": 24.657,
+        "player": {
+          "frames": 25886,
+          "received_frames": 25986,
+          "fps": 24.65680394469688,
+          "audio_clock_seconds": 1039.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666662975385,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:42.281667+00:00",
+        "fps": 24.657,
+        "player": {
+          "frames": 25886,
+          "received_frames": 25986,
+          "fps": 24.65680394469688,
+          "audio_clock_seconds": 1039.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666662975385,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:42.799261+00:00",
+        "fps": 24.657,
+        "player": {
+          "frames": 25886,
+          "received_frames": 25986,
+          "fps": 24.65680394469688,
+          "audio_clock_seconds": 1039.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666662975385,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:42.980467+00:00",
+        "fps": 24.657,
+        "player": {
+          "frames": 25886,
+          "received_frames": 25986,
+          "fps": 24.65680394469688,
+          "audio_clock_seconds": 1039.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666662975385,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:43.493540+00:00",
+        "fps": 25.356,
+        "player": {
+          "frames": 25924,
+          "received_frames": 26023,
+          "fps": 25.355307933744083,
+          "audio_clock_seconds": 1041.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329630423,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:44.012683+00:00",
+        "fps": 25.356,
+        "player": {
+          "frames": 25924,
+          "received_frames": 26023,
+          "fps": 25.355307933744083,
+          "audio_clock_seconds": 1041.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329630423,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:44.534475+00:00",
+        "fps": 25.356,
+        "player": {
+          "frames": 25924,
+          "received_frames": 26023,
+          "fps": 25.355307933744083,
+          "audio_clock_seconds": 1041.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329630423,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:45.056126+00:00",
+        "fps": 24.641,
+        "player": {
+          "frames": 25961,
+          "received_frames": 26060,
+          "fps": 24.642024642024644,
+          "audio_clock_seconds": 1042.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662948464,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:45.583888+00:00",
+        "fps": 24.641,
+        "player": {
+          "frames": 25961,
+          "received_frames": 26060,
+          "fps": 24.642024642024644,
+          "audio_clock_seconds": 1042.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662948464,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:46.100719+00:00",
+        "fps": 24.641,
+        "player": {
+          "frames": 25961,
+          "received_frames": 26060,
+          "fps": 24.642024642024644,
+          "audio_clock_seconds": 1042.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662948464,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:46.615640+00:00",
+        "fps": 25.351,
+        "player": {
+          "frames": 25999,
+          "received_frames": 26098,
+          "fps": 25.355307933744083,
+          "audio_clock_seconds": 1044.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332960314,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:47.139952+00:00",
+        "fps": 25.351,
+        "player": {
+          "frames": 25999,
+          "received_frames": 26098,
+          "fps": 25.355307933744083,
+          "audio_clock_seconds": 1044.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332960314,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:47.656677+00:00",
+        "fps": 25.351,
+        "player": {
+          "frames": 25999,
+          "received_frames": 26098,
+          "fps": 25.355307933744083,
+          "audio_clock_seconds": 1044.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332960314,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:48.172438+00:00",
+        "fps": 24.679,
+        "player": {
+          "frames": 26036,
+          "received_frames": 26135,
+          "fps": 24.65680394469688,
+          "audio_clock_seconds": 1045.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666292118,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:48.688433+00:00",
+        "fps": 24.679,
+        "player": {
+          "frames": 26036,
+          "received_frames": 26135,
+          "fps": 24.65680394469688,
+          "audio_clock_seconds": 1045.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666292118,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:49.205584+00:00",
+        "fps": 25.303,
+        "player": {
+          "frames": 26074,
+          "received_frames": 26173,
+          "fps": 25.321516625775875,
+          "audio_clock_seconds": 1047.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329575853,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:49.724616+00:00",
+        "fps": 25.303,
+        "player": {
+          "frames": 26074,
+          "received_frames": 26173,
+          "fps": 25.321516625775875,
+          "audio_clock_seconds": 1047.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329575853,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:50.243596+00:00",
+        "fps": 25.303,
+        "player": {
+          "frames": 26074,
+          "received_frames": 26173,
+          "fps": 25.321516625775875,
+          "audio_clock_seconds": 1047.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329575853,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:50.768465+00:00",
+        "fps": 24.687,
+        "player": {
+          "frames": 26111,
+          "received_frames": 26210,
+          "fps": 24.684768830868325,
+          "audio_clock_seconds": 1048.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662893895,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:51.290605+00:00",
+        "fps": 24.687,
+        "player": {
+          "frames": 26111,
+          "received_frames": 26210,
+          "fps": 24.684768830868325,
+          "audio_clock_seconds": 1048.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662893895,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:51.808475+00:00",
+        "fps": 24.687,
+        "player": {
+          "frames": 26111,
+          "received_frames": 26210,
+          "fps": 24.684768830868325,
+          "audio_clock_seconds": 1048.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662893895,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:52.324742+00:00",
+        "fps": 25.333,
+        "player": {
+          "frames": 26149,
+          "received_frames": 26248,
+          "fps": 25.345161074966892,
+          "audio_clock_seconds": 1050.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332954857,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:52.839413+00:00",
+        "fps": 25.333,
+        "player": {
+          "frames": 26149,
+          "received_frames": 26248,
+          "fps": 25.345161074966892,
+          "audio_clock_seconds": 1050.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332954857,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:53.356200+00:00",
+        "fps": 25.333,
+        "player": {
+          "frames": 26149,
+          "received_frames": 26248,
+          "fps": 25.345161074966892,
+          "audio_clock_seconds": 1050.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332954857,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:53.873148+00:00",
+        "fps": 24.653,
+        "player": {
+          "frames": 26186,
+          "received_frames": 26285,
+          "fps": 24.642024642024644,
+          "audio_clock_seconds": 1051.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666286661,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:54.391559+00:00",
+        "fps": 24.653,
+        "player": {
+          "frames": 26186,
+          "received_frames": 26285,
+          "fps": 24.642024642024644,
+          "audio_clock_seconds": 1051.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666286661,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:54.911150+00:00",
+        "fps": 24.653,
+        "player": {
+          "frames": 26186,
+          "received_frames": 26285,
+          "fps": 24.642024642024644,
+          "audio_clock_seconds": 1051.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666286661,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:55.429536+00:00",
+        "fps": 25.341,
+        "player": {
+          "frames": 26224,
+          "received_frames": 26323,
+          "fps": 25.345161074966892,
+          "audio_clock_seconds": 1053.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329521283,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:55.945431+00:00",
+        "fps": 25.341,
+        "player": {
+          "frames": 26224,
+          "received_frames": 26323,
+          "fps": 25.345161074966892,
+          "audio_clock_seconds": 1053.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329521283,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:56.461553+00:00",
+        "fps": 25.341,
+        "player": {
+          "frames": 26224,
+          "received_frames": 26323,
+          "fps": 25.345161074966892,
+          "audio_clock_seconds": 1053.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329521283,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:56.975354+00:00",
+        "fps": 24.652,
+        "player": {
+          "frames": 26261,
+          "received_frames": 26360,
+          "fps": 24.64694910757648,
+          "audio_clock_seconds": 1054.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662839325,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:57.074956+00:00",
+        "fps": 24.652,
+        "player": {
+          "frames": 26261,
+          "received_frames": 26360,
+          "fps": 24.64694910757648,
+          "audio_clock_seconds": 1054.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662839325,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:57.589274+00:00",
+        "fps": 24.652,
+        "player": {
+          "frames": 26261,
+          "received_frames": 26360,
+          "fps": 24.64694910757648,
+          "audio_clock_seconds": 1054.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662839325,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:58.106010+00:00",
+        "fps": 24.652,
+        "player": {
+          "frames": 26261,
+          "received_frames": 26360,
+          "fps": 24.64694910757648,
+          "audio_clock_seconds": 1054.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662839325,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:58.623610+00:00",
+        "fps": 25.283,
+        "player": {
+          "frames": 26299,
+          "received_frames": 26398,
+          "fps": 25.35192474420798,
+          "audio_clock_seconds": 1056.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329494,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:59.141076+00:00",
+        "fps": 25.283,
+        "player": {
+          "frames": 26299,
+          "received_frames": 26398,
+          "fps": 25.35192474420798,
+          "audio_clock_seconds": 1056.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329494,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:47:59.662901+00:00",
+        "fps": 25.283,
+        "player": {
+          "frames": 26299,
+          "received_frames": 26398,
+          "fps": 25.35192474420798,
+          "audio_clock_seconds": 1056.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329494,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:00.181774+00:00",
+        "fps": 24.732,
+        "player": {
+          "frames": 26336,
+          "received_frames": 26435,
+          "fps": 24.666666666666668,
+          "audio_clock_seconds": 1057.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666281204,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:00.699558+00:00",
+        "fps": 24.732,
+        "player": {
+          "frames": 26336,
+          "received_frames": 26435,
+          "fps": 24.666666666666668,
+          "audio_clock_seconds": 1057.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666281204,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:01.218055+00:00",
+        "fps": 25.285,
+        "player": {
+          "frames": 26374,
+          "received_frames": 26473,
+          "fps": 25.33671156234708,
+          "audio_clock_seconds": 1059.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329466714,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:01.732030+00:00",
+        "fps": 25.285,
+        "player": {
+          "frames": 26374,
+          "received_frames": 26473,
+          "fps": 25.33671156234708,
+          "audio_clock_seconds": 1059.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329466714,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:02.254539+00:00",
+        "fps": 25.285,
+        "player": {
+          "frames": 26374,
+          "received_frames": 26473,
+          "fps": 25.33671156234708,
+          "audio_clock_seconds": 1059.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329466714,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:02.779144+00:00",
+        "fps": 24.711,
+        "player": {
+          "frames": 26411,
+          "received_frames": 26510,
+          "fps": 24.66009064190755,
+          "audio_clock_seconds": 1060.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662784755,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:03.293477+00:00",
+        "fps": 24.711,
+        "player": {
+          "frames": 26411,
+          "received_frames": 26510,
+          "fps": 24.66009064190755,
+          "audio_clock_seconds": 1060.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662784755,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:03.815541+00:00",
+        "fps": 24.711,
+        "player": {
+          "frames": 26411,
+          "received_frames": 26510,
+          "fps": 24.66009064190755,
+          "audio_clock_seconds": 1060.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662784755,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:04.334596+00:00",
+        "fps": 25.349,
+        "player": {
+          "frames": 26449,
+          "received_frames": 26548,
+          "fps": 25.348542459413338,
+          "audio_clock_seconds": 1062.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332943943,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:04.853606+00:00",
+        "fps": 25.349,
+        "player": {
+          "frames": 26449,
+          "received_frames": 26548,
+          "fps": 25.348542459413338,
+          "audio_clock_seconds": 1062.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332943943,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:05.373655+00:00",
+        "fps": 25.349,
+        "player": {
+          "frames": 26449,
+          "received_frames": 26548,
+          "fps": 25.348542459413338,
+          "audio_clock_seconds": 1062.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332943943,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:05.895111+00:00",
+        "fps": 24.64,
+        "player": {
+          "frames": 26486,
+          "received_frames": 26585,
+          "fps": 24.642024642024644,
+          "audio_clock_seconds": 1063.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666275747,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:06.412233+00:00",
+        "fps": 24.64,
+        "player": {
+          "frames": 26486,
+          "received_frames": 26585,
+          "fps": 24.642024642024644,
+          "audio_clock_seconds": 1063.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666275747,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:06.931903+00:00",
+        "fps": 24.64,
+        "player": {
+          "frames": 26486,
+          "received_frames": 26585,
+          "fps": 24.642024642024644,
+          "audio_clock_seconds": 1063.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666275747,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:07.454185+00:00",
+        "fps": 25.35,
+        "player": {
+          "frames": 26524,
+          "received_frames": 26623,
+          "fps": 25.348542458405472,
+          "audio_clock_seconds": 1065.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329412144,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:07.975180+00:00",
+        "fps": 25.35,
+        "player": {
+          "frames": 26524,
+          "received_frames": 26623,
+          "fps": 25.348542458405472,
+          "audio_clock_seconds": 1065.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329412144,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:08.498258+00:00",
+        "fps": 25.35,
+        "player": {
+          "frames": 26524,
+          "received_frames": 26623,
+          "fps": 25.348542458405472,
+          "audio_clock_seconds": 1065.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329412144,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:09.016815+00:00",
+        "fps": 24.669,
+        "player": {
+          "frames": 26561,
+          "received_frames": 26660,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 1066.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662730186,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:09.534833+00:00",
+        "fps": 24.669,
+        "player": {
+          "frames": 26561,
+          "received_frames": 26660,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 1066.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662730186,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:10.053863+00:00",
+        "fps": 24.669,
+        "player": {
+          "frames": 26561,
+          "received_frames": 26660,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 1066.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662730186,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:10.572343+00:00",
+        "fps": 25.328,
+        "player": {
+          "frames": 26599,
+          "received_frames": 26698,
+          "fps": 25.329956005060776,
+          "audio_clock_seconds": 1068.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332938486,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:11.092016+00:00",
+        "fps": 25.328,
+        "player": {
+          "frames": 26599,
+          "received_frames": 26698,
+          "fps": 25.329956005060776,
+          "audio_clock_seconds": 1068.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332938486,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:11.615327+00:00",
+        "fps": 25.328,
+        "player": {
+          "frames": 26599,
+          "received_frames": 26698,
+          "fps": 25.329956005060776,
+          "audio_clock_seconds": 1068.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332938486,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:12.133368+00:00",
+        "fps": 24.698,
+        "player": {
+          "frames": 26636,
+          "received_frames": 26735,
+          "fps": 24.681475552586672,
+          "audio_clock_seconds": 1069.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.66666627029,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:12.653670+00:00",
+        "fps": 24.698,
+        "player": {
+          "frames": 26636,
+          "received_frames": 26735,
+          "fps": 24.681475552586672,
+          "audio_clock_seconds": 1069.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.66666627029,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:13.175950+00:00",
+        "fps": 24.698,
+        "player": {
+          "frames": 26636,
+          "received_frames": 26735,
+          "fps": 24.681475552586672,
+          "audio_clock_seconds": 1069.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.66666627029,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:13.696309+00:00",
+        "fps": 25.19,
+        "player": {
+          "frames": 26674,
+          "received_frames": 26773,
+          "fps": 25.324891702765743,
+          "audio_clock_seconds": 1071.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329357574,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:14.215179+00:00",
+        "fps": 25.19,
+        "player": {
+          "frames": 26674,
+          "received_frames": 26773,
+          "fps": 25.324891702765743,
+          "audio_clock_seconds": 1071.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329357574,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:14.735868+00:00",
+        "fps": 24.787,
+        "player": {
+          "frames": 26711,
+          "received_frames": 26810,
+          "fps": 24.669955993936465,
+          "audio_clock_seconds": 1072.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662675616,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:15.253113+00:00",
+        "fps": 24.787,
+        "player": {
+          "frames": 26711,
+          "received_frames": 26810,
+          "fps": 24.669955993936465,
+          "audio_clock_seconds": 1072.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662675616,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:15.771449+00:00",
+        "fps": 24.787,
+        "player": {
+          "frames": 26711,
+          "received_frames": 26810,
+          "fps": 24.669955993936465,
+          "audio_clock_seconds": 1072.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662675616,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:16.291116+00:00",
+        "fps": 25.277,
+        "player": {
+          "frames": 26749,
+          "received_frames": 26848,
+          "fps": 25.328267679596124,
+          "audio_clock_seconds": 1074.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332933029,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:16.809825+00:00",
+        "fps": 25.277,
+        "player": {
+          "frames": 26749,
+          "received_frames": 26848,
+          "fps": 25.328267679596124,
+          "audio_clock_seconds": 1074.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332933029,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:17.332512+00:00",
+        "fps": 25.277,
+        "player": {
+          "frames": 26749,
+          "received_frames": 26848,
+          "fps": 25.328267679596124,
+          "audio_clock_seconds": 1074.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332933029,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:17.856130+00:00",
+        "fps": 24.705,
+        "player": {
+          "frames": 26786,
+          "received_frames": 26885,
+          "fps": 24.65516092509756,
+          "audio_clock_seconds": 1075.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666264833,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:18.377821+00:00",
+        "fps": 24.705,
+        "player": {
+          "frames": 26786,
+          "received_frames": 26885,
+          "fps": 24.65516092509756,
+          "audio_clock_seconds": 1075.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666264833,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:18.896195+00:00",
+        "fps": 24.705,
+        "player": {
+          "frames": 26786,
+          "received_frames": 26885,
+          "fps": 24.65516092509756,
+          "audio_clock_seconds": 1075.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666264833,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:19.413400+00:00",
+        "fps": 25.329,
+        "player": {
+          "frames": 26824,
+          "received_frames": 26923,
+          "fps": 25.328267679596124,
+          "audio_clock_seconds": 1077.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329303005,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:19.930551+00:00",
+        "fps": 25.329,
+        "player": {
+          "frames": 26824,
+          "received_frames": 26923,
+          "fps": 25.328267679596124,
+          "audio_clock_seconds": 1077.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329303005,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:20.447247+00:00",
+        "fps": 25.329,
+        "player": {
+          "frames": 26824,
+          "received_frames": 26923,
+          "fps": 25.328267679596124,
+          "audio_clock_seconds": 1077.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329303005,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:20.967500+00:00",
+        "fps": 24.686,
+        "player": {
+          "frames": 26861,
+          "received_frames": 26960,
+          "fps": 24.686415799109763,
+          "audio_clock_seconds": 1078.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662621046,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:21.490442+00:00",
+        "fps": 24.686,
+        "player": {
+          "frames": 26861,
+          "received_frames": 26960,
+          "fps": 24.686415799109763,
+          "audio_clock_seconds": 1078.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662621046,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:22.007896+00:00",
+        "fps": 24.686,
+        "player": {
+          "frames": 26861,
+          "received_frames": 26960,
+          "fps": 24.686415799109763,
+          "audio_clock_seconds": 1078.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.6666662621046,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:22.529490+00:00",
+        "fps": 25.307,
+        "player": {
+          "frames": 26899,
+          "received_frames": 26998,
+          "fps": 25.308025308025307,
+          "audio_clock_seconds": 1080.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332927572,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:23.051000+00:00",
+        "fps": 25.307,
+        "player": {
+          "frames": 26899,
+          "received_frames": 26998,
+          "fps": 25.308025308025307,
+          "audio_clock_seconds": 1080.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332927572,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:23.570837+00:00",
+        "fps": 25.307,
+        "player": {
+          "frames": 26899,
+          "received_frames": 26998,
+          "fps": 25.308025308025307,
+          "audio_clock_seconds": 1080.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.333332927572,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:24.092753+00:00",
+        "fps": 24.685,
+        "player": {
+          "frames": 26936,
+          "received_frames": 27035,
+          "fps": 24.684768830868325,
+          "audio_clock_seconds": 1081.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666259376,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:24.612172+00:00",
+        "fps": 24.685,
+        "player": {
+          "frames": 26936,
+          "received_frames": 27035,
+          "fps": 24.684768830868325,
+          "audio_clock_seconds": 1081.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666259376,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:25.131493+00:00",
+        "fps": 24.685,
+        "player": {
+          "frames": 26936,
+          "received_frames": 27035,
+          "fps": 24.684768830868325,
+          "audio_clock_seconds": 1081.5093333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666259376,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:25.652677+00:00",
+        "fps": 25.323,
+        "player": {
+          "frames": 26974,
+          "received_frames": 27073,
+          "fps": 25.32320405131031,
+          "audio_clock_seconds": 1083.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329248435,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:26.172191+00:00",
+        "fps": 25.323,
+        "player": {
+          "frames": 26974,
+          "received_frames": 27073,
+          "fps": 25.32320405131031,
+          "audio_clock_seconds": 1083.0106666666666,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3989.3333329248435,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:26.691384+00:00",
+        "fps": 25.352,
+        "player": {
+          "frames": 27012,
+          "received_frames": 27110,
+          "fps": 25.353616227121,
+          "audio_clock_seconds": 1084.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3959.9999995900816,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:27.206606+00:00",
+        "fps": 25.352,
+        "player": {
+          "frames": 27012,
+          "received_frames": 27110,
+          "fps": 25.353616227121,
+          "audio_clock_seconds": 1084.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3959.9999995900816,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:27.724661+00:00",
+        "fps": 25.352,
+        "player": {
+          "frames": 27012,
+          "received_frames": 27110,
+          "fps": 25.353616227121,
+          "audio_clock_seconds": 1084.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3959.9999995900816,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:28.242075+00:00",
+        "fps": 24.648,
+        "player": {
+          "frames": 27049,
+          "received_frames": 27148,
+          "fps": 24.648591032850796,
+          "audio_clock_seconds": 1086.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666662553216,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:28.759988+00:00",
+        "fps": 24.648,
+        "player": {
+          "frames": 27049,
+          "received_frames": 27148,
+          "fps": 24.648591032850796,
+          "audio_clock_seconds": 1086.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666662553216,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:29.277600+00:00",
+        "fps": 24.648,
+        "player": {
+          "frames": 27049,
+          "received_frames": 27148,
+          "fps": 24.648591032850796,
+          "audio_clock_seconds": 1086.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666662553216,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:29.796806+00:00",
+        "fps": 24.669,
+        "player": {
+          "frames": 27086,
+          "received_frames": 27185,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 1087.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3959.999999587353,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:30.319664+00:00",
+        "fps": 24.669,
+        "player": {
+          "frames": 27086,
+          "received_frames": 27185,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 1087.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3959.999999587353,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:30.837864+00:00",
+        "fps": 24.669,
+        "player": {
+          "frames": 27086,
+          "received_frames": 27185,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 1087.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3959.999999587353,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:31.359776+00:00",
+        "fps": 25.283,
+        "player": {
+          "frames": 27124,
+          "received_frames": 27223,
+          "fps": 25.329956005060776,
+          "audio_clock_seconds": 1089.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.666666252593,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:31.879605+00:00",
+        "fps": 25.283,
+        "player": {
+          "frames": 27124,
+          "received_frames": 27223,
+          "fps": 25.329956005060776,
+          "audio_clock_seconds": 1089.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.666666252593,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:32.400346+00:00",
+        "fps": 25.283,
+        "player": {
+          "frames": 27124,
+          "received_frames": 27223,
+          "fps": 25.329956005060776,
+          "audio_clock_seconds": 1089.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.666666252593,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:32.919190+00:00",
+        "fps": 25.402,
+        "player": {
+          "frames": 27162,
+          "received_frames": 27260,
+          "fps": 25.356999867147227,
+          "audio_clock_seconds": 1090.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3959.9999995846247,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:33.437814+00:00",
+        "fps": 25.402,
+        "player": {
+          "frames": 27162,
+          "received_frames": 27260,
+          "fps": 25.356999867147227,
+          "audio_clock_seconds": 1090.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3959.9999995846247,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:33.956883+00:00",
+        "fps": 25.402,
+        "player": {
+          "frames": 27162,
+          "received_frames": 27260,
+          "fps": 25.356999867147227,
+          "audio_clock_seconds": 1090.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3959.9999995846247,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:34.474466+00:00",
+        "fps": 24.67,
+        "player": {
+          "frames": 27199,
+          "received_frames": 27298,
+          "fps": 24.666666666666668,
+          "audio_clock_seconds": 1092.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666662498646,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:34.993887+00:00",
+        "fps": 24.67,
+        "player": {
+          "frames": 27199,
+          "received_frames": 27298,
+          "fps": 24.666666666666668,
+          "audio_clock_seconds": 1092.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666662498646,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:35.514230+00:00",
+        "fps": 24.67,
+        "player": {
+          "frames": 27199,
+          "received_frames": 27298,
+          "fps": 24.666666666666668,
+          "audio_clock_seconds": 1092.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666662498646,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:36.038121+00:00",
+        "fps": 24.661,
+        "player": {
+          "frames": 27236,
+          "received_frames": 27335,
+          "fps": 24.66009064190755,
+          "audio_clock_seconds": 1093.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3959.999999581896,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:36.557387+00:00",
+        "fps": 24.661,
+        "player": {
+          "frames": 27236,
+          "received_frames": 27335,
+          "fps": 24.66009064190755,
+          "audio_clock_seconds": 1093.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3959.999999581896,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:37.078223+00:00",
+        "fps": 24.661,
+        "player": {
+          "frames": 27236,
+          "received_frames": 27335,
+          "fps": 24.66009064190755,
+          "audio_clock_seconds": 1093.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3959.999999581896,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:37.593040+00:00",
+        "fps": 25.325,
+        "player": {
+          "frames": 27274,
+          "received_frames": 27373,
+          "fps": 25.324891702765743,
+          "audio_clock_seconds": 1095.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.666666247136,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:38.109204+00:00",
+        "fps": 25.325,
+        "player": {
+          "frames": 27274,
+          "received_frames": 27373,
+          "fps": 25.324891702765743,
+          "audio_clock_seconds": 1095.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.666666247136,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:38.624530+00:00",
+        "fps": 25.325,
+        "player": {
+          "frames": 27274,
+          "received_frames": 27373,
+          "fps": 25.324891702765743,
+          "audio_clock_seconds": 1095.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.666666247136,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:39.142483+00:00",
+        "fps": 25.342,
+        "player": {
+          "frames": 27312,
+          "received_frames": 27410,
+          "fps": 25.33671156234708,
+          "audio_clock_seconds": 1096.5306666666668,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3949.3333329123743,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:39.658838+00:00",
+        "fps": 25.342,
+        "player": {
+          "frames": 27312,
+          "received_frames": 27410,
+          "fps": 25.33671156234708,
+          "audio_clock_seconds": 1096.5306666666668,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3949.3333329123743,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:40.179312+00:00",
+        "fps": 24.663,
+        "player": {
+          "frames": 27349,
+          "received_frames": 27448,
+          "fps": 24.666666666666668,
+          "audio_clock_seconds": 1098.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666662444077,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:40.701501+00:00",
+        "fps": 24.663,
+        "player": {
+          "frames": 27349,
+          "received_frames": 27448,
+          "fps": 24.666666666666668,
+          "audio_clock_seconds": 1098.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666662444077,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:41.217832+00:00",
+        "fps": 24.663,
+        "player": {
+          "frames": 27349,
+          "received_frames": 27448,
+          "fps": 24.666666666666668,
+          "audio_clock_seconds": 1098.0213333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3978.6666662444077,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:41.738393+00:00",
+        "fps": 25.337,
+        "player": {
+          "frames": 27387,
+          "received_frames": 27486,
+          "fps": 25.338401012730394,
+          "audio_clock_seconds": 1099.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3999.999999576403,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:42.256426+00:00",
+        "fps": 25.337,
+        "player": {
+          "frames": 27387,
+          "received_frames": 27486,
+          "fps": 25.338401012730394,
+          "audio_clock_seconds": 1099.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3999.999999576403,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:42.778354+00:00",
+        "fps": 25.337,
+        "player": {
+          "frames": 27387,
+          "received_frames": 27486,
+          "fps": 25.338401012730394,
+          "audio_clock_seconds": 1099.52,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3999.999999576403,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:43.296736+00:00",
+        "fps": 24.667,
+        "player": {
+          "frames": 27424,
+          "received_frames": 27523,
+          "fps": 24.665022332432567,
+          "audio_clock_seconds": 1101.0293333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666241641,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:43.818994+00:00",
+        "fps": 24.667,
+        "player": {
+          "frames": 27424,
+          "received_frames": 27523,
+          "fps": 24.665022332432567,
+          "audio_clock_seconds": 1101.0293333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666241641,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:44.332772+00:00",
+        "fps": 24.667,
+        "player": {
+          "frames": 27424,
+          "received_frames": 27523,
+          "fps": 24.665022332432567,
+          "audio_clock_seconds": 1101.0293333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3970.666666241641,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      },
+      {
+        "at": "2026-10-28T00:48:44.845198+00:00",
+        "fps": 25.312,
+        "player": {
+          "frames": 27462,
+          "received_frames": 27560,
+          "fps": 25.324891702765743,
+          "audio_clock_seconds": 1102.5306666666668,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3949.3333329069173,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 200.9000000357628,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        }
+      }
+    ],
+    "context_reply": "我是林知夏；刚才画面由四零九零生成，经虚拟网络传给三零八零设备上的直播姬接收。",
+    "public_broadcast_started": false,
+    "raw_sha256": "f5043af4471c84dd5a070b718fa84c5fb1ccd6bfa86bfe412a1199de9ace8262",
+    "receipt_clock": "All phase deltas use A server timestamps. First positive receipt is a proxy for playback, not an acoustic or audience-CDN measurement. B elapsed_ms is its separate whole-case clock."
+  },
+  "final_runtime": {
+    "offair": true,
+    "active_request": false,
+    "selected_voice": "O07",
+    "tts_ready": true,
+    "workers": {
+      "O07": {
+        "ready": true,
+        "engine": "OmniVoice",
+        "voice_id": "O07",
+        "busy": false,
+        "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+        "load_seconds": 28.20300000000134
+      },
+      "F07": {
+        "ready": true,
+        "engine": "F5-TTS-v1",
+        "voice_id": "F07",
+        "busy": false,
+        "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+        "load_seconds": 100.39099999999598
+      }
+    },
+    "dsh_ready": true,
+    "memory_ready": true,
+    "persona_injection_ready": true,
+    "projection_lag": 0,
+    "health_source": "read-only live status after all tests"
+  },
+  "resource_observation": {
+    "at": "2026-10-28T00:51:27.063059+00:00",
+    "scope": "Whole A-device point observation after tests; not a sampled peak or per-process allocation",
+    "gpu_used_mib": 11137,
+    "gpu_free_mib": 37486,
+    "gpu_utilization_percent": 1,
+    "encoder_utilization_percent": 1,
+    "system_ram_used_mib": 13961.7,
+    "system_ram_total_mib": 65433.9,
+    "gpu_operations": {
+      "at": "2026-10-28T08:48:34.764190+08:00",
+      "batch_size": 8,
+      "operations": {
+        "release_cache": {
+          "count": 10,
+          "seconds": 3.897938800007978,
+          "maximum_seconds": 1.546730000001844
+        },
+        "prepare_speech": {
+          "count": 10,
+          "seconds": 2.0886238000020967,
+          "maximum_seconds": 0.23401010000088718
+        },
+        "features": {
+          "count": 177,
+          "seconds": 6.362118899989582,
+          "maximum_seconds": 0.08543099999951664
+        },
+        "render": {
+          "count": 175,
+          "seconds": 32.82498690002103,
+          "maximum_seconds": 0.24514130000170553
+        }
+      },
+      "allocated_mib": 1893.3,
+      "reserved_mib": 4716.0
+    },
+    "render_frames_per_second_compute_only": 42.650435909209854
+  },
+  "limitations": [
+    "Public real-comment, gift and audience-CDN acceptance was not repeated with these voices.",
+    "Official source canvas/Web Audio receipts do not prove an audience heard the broadcast or that the official encoder captured every frame.",
+    "Five cases and point resource samples are not a long-duration soak test.",
+    "Prior memory-maintenance budget deferral and public/official room-state reconciliation remain separate unresolved gates.",
+    "Models use complete-waveform generation; no claim of token-level streaming TTS."
+  ],
+  "historical_measurements_unchanged": true,
+  "downloads_performed": false,
+  "code_sha256": {
+    "configs/deployment-target.example.json": "ba0227682c0ebdb2f4f517b803ae64862b4d4271b85e8a5fc60d6dd0e4460ef9",
+    "configs/releases/current.json": "87d757a1db97950c04abd84a34b1d4af97f0264d98c2634641c4cf7f957194fc",
+    "configs/releases/o07-f07-runtime-lock.json": "5862a4dfa7fbb0b3ee9ec4ce9f4fee3679b26d3262d9109fc00226202a406606",
+    "configs/releases/split-a4090-b3080-o07-f07-v1.json": "e2596e0dd08e29c50eb9d541bd53eb2ee770371266a0ca77cf10074c4c7463f9",
+    "configs/resident-tts.example.json": "c9fa0855108af0c0528868f269ae54170a822f5e156448550ec84ad5a2599e49",
+    "configs/voices/female-a-o07-f07.json": "1fbe8a25715f69eee25373c2f4288fd6d87ca40e40d17ef38a317ac20be7cd95",
+    "deployment/activate_resident_tts.py": "5a40a51327492341f8797bbe1f9fdf81494879378ed6b7c3f9996f04c3e5425f",
+    "deployment/deploy_dsh.py": "4878de44faf5156753da0ad4687ce7345534a199edc88cfcc88c0a339caf1b3b",
+    "deployment/restart_avatar_for_dsh.py": "3cea5b2717ed93844561b31fd1c33e9bf1b8f6ed0b2360c90ec5124b319ccfb3",
+    "devtools/verify-repository.py": "3d39438ad11db0f87de6a6b2dcc2a2e5673bf16d09c75812c1af2490ad1085b6",
+    "integration/isolated_inference.py": "ca7300ea4e7e87ae70b121efff321df46ce4aff68219f414a0073964f1d4f7a6",
+    "integration/resident_tts.py": "e50d56e0444dc74c6ad427e37980bb1c72a36ab02d571d6cd19d79fb53babc05",
+    "integration/resident_tts_service.py": "1752b6df27fe75c38a06005dd2b13c182bd8ceaa958103b214ab9876a0d1b167",
+    "integration/resident_tts_worker.py": "05689cf2161271b37dafc0b54f5165ce99dc9a421487f61abe868d4a6384291f",
+    "integration/studio_routes.py": "a7133871c5721c3c68ecb1279dee14aa6e6619dce3f221991bd27573b5b100a6",
+    "scripts/gpu_worker.py": "59a8b2895b1ca3b2238b04a561b2daa2104214796cae3c7ae79ac3ff8d445a84",
+    "scripts/launch.py": "93fd2b635f6a2dbb71777db9fb35c8b55db798e5fc276a6543b86672a86f4c69",
+    "scripts/start_studio.py": "3ca2d20fe4e536930fe6110b019a4dab7e4f4d8e5d5f1069ba980ba8ca112918",
+    "scripts/tts_control.py": "62bbd518c5f255c57c0a7a3a151697e629ee6d237cc0d116782d91348e45483a",
+    "tests/test_resident_tts.py": "e56b4eb40ce8aa0e0bdb61aab982a89eb0efb5e785da7cedb7ef195a9c43c1bb",
+    "web/studio.html": "192f8875c34eecee4e9976622e8c7108997f810ef9321ec6fba9fdfb7b4cb2d3",
+    "web/studio.js": "71ee7281e3472c7494b133d191211699381e05952f9e0c8316ed173a1673c8f5",
+    "web/voice-settings.html": "d977f2add22367d6192e249f882ef09b5991dabe4da190d8eb94139a063ec02f"
+  },
+  "superseded_sources": {
+    "configs/deployment-target.example.json": {
+      "historical_sha256": [
+        "bb9902250da1cb1b6ee9a6619dd787e86b087a8930da1b1503d4e53cc9bcbf97"
+      ],
+      "current_sha256": "ba0227682c0ebdb2f4f517b803ae64862b4d4271b85e8a5fc60d6dd0e4460ef9",
+      "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
+    },
+    "deployment/deploy_dsh.py": {
+      "historical_sha256": [
+        "43416934f7ca368f58014d9aa8ff3b049b0d4752cfcd353d38648bec4f4d7ee6",
+        "5341ea68dcfa8088dda0fa6ff01998061aa5da36f05d250236b166008d3696be"
+      ],
+      "current_sha256": "4878de44faf5156753da0ad4687ce7345534a199edc88cfcc88c0a339caf1b3b",
+      "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
+    },
+    "deployment/restart_avatar_for_dsh.py": {
+      "historical_sha256": [
+        "974efc993e16e39e722d0582cc3fc269f57b0f7a36f3136eab4eb72627afc06c"
+      ],
+      "current_sha256": "3cea5b2717ed93844561b31fd1c33e9bf1b8f6ed0b2360c90ec5124b319ccfb3",
+      "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
+    },
+    "integration/isolated_inference.py": {
+      "historical_sha256": [
+        "a4095b6dcdd7e4a14870b3d23b23ee73c2f20146bb0dc5e591ffbb12809b31e0"
+      ],
+      "current_sha256": "ca7300ea4e7e87ae70b121efff321df46ce4aff68219f414a0073964f1d4f7a6",
+      "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
+    },
+    "integration/studio_routes.py": {
+      "historical_sha256": [
+        "b3033f8917bbe7fb840d0b0702ca35a5d72c94b2e005ef4c5671f17011d055a2"
+      ],
+      "current_sha256": "a7133871c5721c3c68ecb1279dee14aa6e6619dce3f221991bd27573b5b100a6",
+      "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
+    },
+    "scripts/gpu_worker.py": {
+      "historical_sha256": [
+        "520f84344a90d760f46aa8f41ce6e7b1fa8a4ed8f892958c6457e8ef06cc5aa7",
+        "ec64e02cdbc99bcea8178a47cd83eb18c988aa0d92de97248375ccb65f705f22"
+      ],
+      "current_sha256": "59a8b2895b1ca3b2238b04a561b2daa2104214796cae3c7ae79ac3ff8d445a84",
+      "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
+    },
+    "scripts/launch.py": {
+      "historical_sha256": [
+        "4ed2b7f0db6b0a5ca79518a913338a039a0bc3ae30cde61de0b0f953b6529b85"
+      ],
+      "current_sha256": "93fd2b635f6a2dbb71777db9fb35c8b55db798e5fc276a6543b86672a86f4c69",
+      "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
+    },
+    "scripts/start_studio.py": {
+      "historical_sha256": [
+        "0ce9b0927a6d5027b1d04dc7f0697880bb39d973a791acb7461482c5af29befb"
+      ],
+      "current_sha256": "3ca2d20fe4e536930fe6110b019a4dab7e4f4d8e5d5f1069ba980ba8ca112918",
+      "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
+    },
+    "web/studio.html": {
+      "historical_sha256": [
+        "0490b930d8eadfda9f133e22d25149eb0e01a4b9b3d7b3ed4f901402e8a23b6c",
+        "d7691a08b052609a9213c29f095a74fa3ea98a85902b46a7ecc968c98bafd319"
+      ],
+      "current_sha256": "192f8875c34eecee4e9976622e8c7108997f810ef9321ec6fba9fdfb7b4cb2d3",
+      "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
+    },
+    "web/studio.js": {
+      "historical_sha256": [
+        "1004733cba433a8f9ab0ee8dd49ef8bbf087b378aeaa683498e5f711276b5091"
+      ],
+      "current_sha256": "71ee7281e3472c7494b133d191211699381e05952f9e0c8316ed173a1673c8f5",
+      "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
+    },
+    "devtools/verify-repository.py": {
+      "historical_sha256": [
+        "150267f8a8990a50f1878472f72f7b649e4e0cb1a1b4c45ce978fa18da062302",
+        "3bf253cde2fb2b704bace49fdcee734ab6f2f5ff490a002ef3b55b9d9dbab287",
+        "89b0d9bceed6763d362cb646a7ffd5a3560ca267738b19555fa39929477a373b",
+        "9325e9bbd5f077d4d516a2351311b5b1db1ff3700fef7807dcf018f9711e0849"
+      ],
+      "current_sha256": "3d39438ad11db0f87de6a6b2dcc2a2e5673bf16d09c75812c1af2490ad1085b6",
+      "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
+    }
+  },
+  "source_reports": {
+    "4090-runtime-acceptance.json": {
+      "sha256": "43dd38888d1623f39ebd9b7d0f773e501e1a59cc886ca1ad4eb27b065ddd1ca6",
+      "bytes": 12834
+    },
+    "4090-final-observations.json": {
+      "sha256": "0d98ad9be4ef191ac797b12f1d528764fede66da906050477f84e4a0416ee76f",
+      "bytes": 38059
+    },
+    "3080-first-run.json": {
+      "sha256": "167982ae3d28ea5e20b223b3583ac3ac32debe53fa5d7acb96a1231a6c4bc0cd",
+      "bytes": 172107
+    },
+    "3080-second-run.json": {
+      "sha256": "f5043af4471c84dd5a070b718fa84c5fb1ccd6bfa86bfe412a1199de9ace8262",
+      "bytes": 151457
+    },
+    "voice-ui.json": {
+      "sha256": "c8a68991a21df81e559bb6bec1e890e9eaa8da3212e9a461e210e779385bdc42",
+      "bytes": 587
+    }
+  }
+}

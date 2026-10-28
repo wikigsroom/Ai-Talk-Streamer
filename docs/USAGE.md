@@ -1,5 +1,7 @@
 # Studio usage and API / 演播台使用与接口
 
+> Current voice / 当前语音：**O07 OmniVoice 主用，F07 F5-TTS v1 备用**。启动、切换、回退与新版验收以[新版手册](deployment/BASELINE_O07_F07.md)为准；本页旧MOSS记录/命令保留历史来源。Historical MOSS measurements are not new-release latency.
+
 [Index / 导航](README.md) · [Configuration / 配置](CONFIGURATION.md)
 
 ## Browser workflow / 网页操作

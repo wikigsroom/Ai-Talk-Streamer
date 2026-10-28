@@ -318,8 +318,52 @@ def main():
           and split['module_tests']['native_route_count'] == 21,
           'Split-device complete sample receipts and regressions')
 
+    voice_release = load('docs/evidence/voice-o07-f07.json')
+    voice_runtime = voice_release['runtime_acceptance']
+    check(voice_runtime['passed'] is True
+          and voice_runtime['python_passed'] >= 46
+          and voice_release['module_tests']['node_passed'] >= 82
+          and voice_release['module_tests']['node_skipped'] == 0
+          and voice_runtime['active_cancel_no_fallback'] is True
+          and voice_runtime['real_primary_process_failure_fallback'] is True
+          and voice_runtime['manual_switch_and_restore'] is True,
+          'O07/F07 evidence requires real synthesis, cancellation, process-failure fallback and regressions')
+    new_native = voice_release['local_acceptance']
+    check(new_native['ok'] is True and len(new_native['steps']) == 5
+          and new_native['duplicate_rejected'] is True
+          and new_native['cloud_llm_exercised'] is True
+          and new_native['public_broadcast_started'] is False
+          and all(step['status'] == 'COMPLETED'
+                  and len(step['utterances']) == 1
+                  and all(u['status'] == 'COMPLETED'
+                          and u['contiguous_played_samples'] == u['valid_sample_count'] > 0
+                          and u['last_receipt']['natural_end'] == 1
+                          for u in step['utterances']) for step in new_native['steps'])
+          and new_native['metrics_summary']['receiver_canvas_fps_mean'] >= 23
+          and all(v == 0 for v in new_native['metrics_summary']['continuity_deltas'].values())
+          and voice_release['first_attempt']['passed'] is False
+          and voice_release['final_runtime']['selected_voice'] == 'O07'
+          and voice_release['final_runtime']['offair'] is True,
+          'O07/F07 native receiver requires five full receipts, continuous playback and retained failed attempt')
+    for name, expected in voice_release['code_sha256'].items():
+        digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
+        check(digest == expected, 'O07/F07 source changed after validation: ' + name)
+    pair = load('configs/voices/female-a-o07-f07.json')
+    check(pair['default_voice_id'] == 'O07' and pair['fallback_voice_id'] == 'F07'
+          and sha256(local(pair['reference_audio'])) == pair['reference_sha256'], 'O07/F07 fixed synthetic reference')
+    for voice in pair['voices']:
+        check(sha256(local(voice['audition'])) == voice['audition_sha256'], 'Selected audition checksum: ' + voice['id'])
+
     def source_matches(name, current, historical):
         if current == historical:
+            return True
+        # New acceptance supersedes source hashes only. Historical measurements,
+        # recordings and their checksums continue to be verified unchanged.
+        voice_delta = voice_release['superseded_sources'].get(name, {})
+        if (historical in voice_delta.get('historical_sha256', [])
+                and current == voice_delta.get('current_sha256')
+                and current == voice_release['code_sha256'].get(name)
+                and bool(voice_delta.get('validation'))):
             return True
         successor = split['superseded_sources'].get(name, {})
         if (historical in successor.get('historical_sha256', [])
@@ -353,7 +397,7 @@ def main():
         check(source_matches(name, digest, expected), 'Livehime evidence source changed: ' + name)
     for name, expected in split['code_sha256'].items():
         digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
-        check(digest == expected, 'Split-device evidence source changed: ' + name)
+        check(source_matches(name, digest, expected), 'Split-device evidence source changed: ' + name)
     split_media = load('docs/media/split-device-media-manifest.json')
     check(report_digest_matches(local(split_media['report']), split_media['report_sha256']),
           'Split-device media report checksum')

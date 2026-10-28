@@ -42,7 +42,13 @@ def start_service(name,profile='v2',minimum=None):
     if name=='tts':
         config=json.loads((ROOT/'configs/livetalking.yaml').read_text(encoding='utf-8-sig'))
         port=9880
-        if config.get('tts')=='moss-ttsd':
+        if config.get('tts')=='resident-local':
+            cwd=ROOT;python=ROOT/'runtime/livetalking/Scripts/python.exe'
+            args=[str(python),'-u','-X','utf8','-B',str(ROOT/'integration/resident_tts_service.py'),'--config',str(ROOT/'configs/resident-tts.json')]
+            # Keep the script in the existing services registry's command[4] slot.
+            args.remove('-u')
+            env.update(PYTHONNOUSERSITE='1',PYTHONUNBUFFERED='1')
+        elif config.get('tts')=='moss-ttsd':
             moss=json.loads((ROOT/'configs/moss-live.json').read_text(encoding='utf-8'))
             cwd=ROOT;python=(ROOT/moss['python']).resolve()
             args=[str(python),'-X','utf8','-B',str(ROOT/'integration/moss_service.py'),'--config',str(ROOT/'configs/moss-live.json')]
@@ -56,7 +62,7 @@ def start_service(name,profile='v2',minimum=None):
         if not (cwd/'data/avatars'/config['avatar_id']/'latents.pt').exists():raise RuntimeError('Prepare the selected avatar first.')
         args=[str(python),'-X','utf8','-B',str(cwd/'app.py'),'--config',str(ROOT/'configs/livetalking.yaml')]
     if port_open(port):raise RuntimeError(f'Port {port} is already in use; no duplicate process was started.')
-    log_name='moss' if name=='tts' and config.get('tts')=='moss-ttsd' else name
+    log_name=('resident-tts' if config.get('tts')=='resident-local' else 'moss') if name=='tts' and config.get('tts') in ('moss-ttsd','resident-local') else name
     stdout=(ROOT/'logs'/f'{log_name}.runtime.stdout.log').open('a',encoding='utf-8')
     stderr=(ROOT/'logs'/f'{log_name}.runtime.stderr.log').open('a',encoding='utf-8')
     process=subprocess.Popen(args,cwd=cwd,env=env,stdin=subprocess.DEVNULL,stdout=stdout,stderr=stderr,close_fds=True,creationflags=subprocess.DETACHED_PROCESS|subprocess.CREATE_NEW_PROCESS_GROUP)

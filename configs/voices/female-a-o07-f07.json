@@ -1,0 +1,36 @@
+{
+  "character_id": "female-a",
+  "name": "林知夏",
+  "selected_at": "2026-10-28",
+  "default_voice_id": "O07",
+  "fallback_voice_id": "F07",
+  "reference_text": "晚上好，我是林知夏。今天也想陪你，慢慢聊一会儿。",
+  "reference_audio": "assets/voices/female-a-o07/reference.wav",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "source": "2026-10-28 independent voice casting; synthetic OmniVoice young-adult female reference",
+  "seed": 2026102807,
+  "voices": [
+    {
+      "id": "O07",
+      "engine": "OmniVoice",
+      "label": "夏栀 · 温柔清甜",
+      "role": "default",
+      "steps": 32,
+      "precision": "FP16",
+      "audition": "assets/voices/female-a-o07/O07-audition.wav",
+      "audition_sha256": "3efecac1020b8b35f286966336a2530e438ee5def3a2d536fbc0440dc5e11d8c",
+      "source_repository": "https://github.com/k2-fsa/OmniVoice"
+    },
+    {
+      "id": "F07",
+      "engine": "F5-TTS v1",
+      "label": "夏栀 · 温柔清甜",
+      "role": "fallback",
+      "steps": 32,
+      "precision": "FP32",
+      "audition": "assets/voices/female-a-o07/F07-audition.wav",
+      "audition_sha256": "556ca894a6d7cc4a9f1f85fbb627a31a72fb9cdb7c40c329c410bd970c4aec57",
+      "source_repository": "https://github.com/SWivid/F5-TTS"
+    }
+  ]
+}

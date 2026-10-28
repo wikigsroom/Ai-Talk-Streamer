@@ -1,5 +1,7 @@
 # A4090 + B3080：当前双机运行记录
 
+> Current voice / 当前语音：**O07 OmniVoice 主用，F07 F5-TTS v1 备用**。启动、切换、回退与新版验收以[新版手册](BASELINE_O07_F07.md)为准；本页旧MOSS记录/命令保留历史来源。Historical MOSS measurements are not new-release latency.
+
 [English below](#english) · [完整架构](SPLIT_DEVICE.md) · [机器可读证据](../evidence/split-3080-receiver.json)
 
 **定型与最终复盘：** 本场已下播，最终7条真实弹幕完整播完。按A同机时钟统计，首次回执平均34.10s、整句完成平均44.40s；下文三条表保留早期抽测口径。请优先阅读[定型基线](BASELINE_A4090_B3080.md)和[全量可视化报告](../analysis/README.md)，其中记录平台中断、待机资源与记忆维护延后。

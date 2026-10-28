@@ -14,20 +14,42 @@ ROOT = Path(__file__).resolve().parents[1]
 def start():
     config = json.loads((ROOT / 'configs/livetalking.yaml').read_text(encoding='utf-8-sig'))
     moss = config.get('tts') == 'moss-ttsd'
-    if moss and port_open(9880) and not port_open(8010):
+    resident = config.get('tts') == 'resident-local'
+    if (moss or resident) and port_open(9880) and not port_open(8010):
         raise RuntimeError('Stop both project services first: MuseTalk must initialize before the MOSS model loads')
     # MuseTalk has a large FP32-to-FP16 conversion peak. Return its startup
     # allocator cache before loading MOSS alongside the final FP16 renderer.
-    services = [('avatar', 8010), ('tts', 9880)] if moss else [('tts', 9880), ('avatar', 8010)]
+    services = [('avatar', 8010), ('tts', 9880)] if moss or resident else [('tts', 9880), ('avatar', 8010)]
     for name, port in services:
         if not port_open(port):
             start_service(name)
-        for attempt in range(180):
+        # Importing CUDA libraries and reading the full 10,000-frame bank from
+        # a cold Windows filesystem can exceed three minutes. Keep startup
+        # serialized; a timeout must never trigger a duplicate avatar process.
+        for attempt in range(900 if name == 'avatar' else 180):
             if port_open(port):
                 break
             time.sleep(1)
         else:
             raise RuntimeError(name + ' did not become ready; inspect project logs')
+    if resident:
+        http = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+        deadline = time.monotonic()+360
+        while time.monotonic()<deadline:
+            try:
+                with http.open('http://127.0.0.1:9880/health',timeout=5) as response:
+                    current = json.load(response)
+                if current.get('error') and not current.get('initializing'):
+                    raise RuntimeError('O07/F07 startup failed; inspect logs/resident-tts.runtime.stderr.log')
+                if current.get('ready') and all(current.get('workers',{}).get(v,{}).get('ready') for v in ('O07','F07')):
+                    if current.get('service')!='resident-tts' or current.get('reference_sha256')!=config.get('TTS_REFERENCE_SHA256'):
+                        raise RuntimeError('Running speech service does not match the approved voice pair')
+                    break
+            except (urllib.error.URLError,TimeoutError):
+                pass
+            time.sleep(1)
+        else:
+            raise RuntimeError('O07/F07 models did not become ready within six minutes')
     if moss:
         http = urllib.request.build_opener(urllib.request.ProxyHandler({}))
         deadline = time.monotonic() + 240

@@ -1,0 +1,15 @@
+{
+  "release": "split-a4090-b3080-v1.1.0-o07-f07",
+  "default_voice_id": "O07",
+  "automatic_fallback": true,
+  "synthesis_timeout_seconds": 90,
+  "seed": 2026102807,
+  "reference_audio": "assets/voices/female-a-o07/reference.wav",
+  "reference_text": "晚上好，我是林知夏。今天也想陪你，慢慢聊一会儿。",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "warmup_audio": "assets/voices/female-a-o07/O07-audition.wav",
+  "voices": {
+    "O07": {"engine": "OmniVoice", "python": "runtime/tts-benchmark/omnivoice/Scripts/python.exe", "source": "src/tts-benchmark/omnivoice", "model": "models/tts-benchmark/omnivoice", "port": 9881, "precision": "FP16", "steps": 32},
+    "F07": {"engine": "F5-TTS-v1", "python": "runtime/tts-benchmark/f5/Scripts/python.exe", "source": "src/tts-benchmark/f5", "model": "models/tts-benchmark/f5", "vocoder": "models/tts-benchmark/vocos-mel24", "port": 9882, "precision": "FP32", "steps": 32}
+  }
+}

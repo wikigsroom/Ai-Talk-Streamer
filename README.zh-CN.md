@@ -2,11 +2,15 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [完整文档](docs/README.md)
 
+**当前语音定型：O07 / OmniVoice 主用，F07 / F5-TTS v1 备用。** 保持A4090推理＋B3080官方直播姬、女A日光宿舍、MuseTalk FP16 batch 8。[新版完整操作手册](docs/deployment/BASELINE_O07_F07.md) · [发布清单](configs/releases/split-a4090-b3080-o07-f07-v1.json) · [独立新增验收](docs/evidence/voice-o07-f07.json)。`/voice-settings` 提供试听和下一句切换。下文旧录像与测评数字保留原引擎和日期，不作为新版性能数据。
+
 一套运行在 **原生 Windows** 上的 **9:16 写实数字人演播台**：输入播报稿，或通过你自己的云端 LLM 渠道提问，由本机生成语音、实时口型和融合画面，并将人物送到网页与哔哩哔哩官方直播姬。
 
-**当前部署为 A4090 推理、B3080 官方直播姬。** 五段官方客户端验收与七条真实弹幕均已完整播完，本场已下播。[完整可视化性能报告](docs/analysis/README.md)给出逐阶段周期、资源和维护状态：采集收到至首次播放回执平均 **34.10 秒**，至整句完成平均 **44.40 秒**；官方源 317 次采样的 Canvas FPS 中位 25.285。B站 CDN 到观众的延迟未测。下播记忆任务因每日额度耗尽延后，不能视为持久事实整理完成。详见[3080接收端操作与证据](docs/deployment/RTX3080_RECEIVER.md)、[双机完整部署](docs/deployment/SPLIT_DEVICE.md)和[历史及本次验收](docs/deployment/SPLIT_DEVICE_ACCEPTANCE.md)。
+[O07/F07 新版验收](docs/deployment/O07_F07_ACCEPTANCE.md)：六个真实语音/故障/恢复用例、46项Python、82项Node及官方B客户端五段本地播放复测通过。刷新4秒缓冲素材后214次观测平均25.000FPS，无新增音频欠载、缺包或解码错误；首轮失败保留。未重复公开开播与观众CDN验证。
 
-**Frozen baseline / 定型版本：** `split-a4090-b3080-v1.0.0` · [Online 4090 case / 4090 在线测评](https://4090.sid.mom/cases/ai-talk-streamer/2026-10-27/report.html) · [Runbook / 配置与操作手册](docs/deployment/BASELINE_A4090_B3080.md) · [Machine-readable release / 发布清单](configs/releases/split-a4090-b3080-v1.json)
+**2026-10-27历史部署为 A4090 推理、B3080 官方直播姬。** 五段官方客户端验收与七条真实弹幕均已完整播完，本场已下播。[完整可视化性能报告](docs/analysis/README.md)给出逐阶段周期、资源和维护状态：采集收到至首次播放回执平均 **34.10 秒**，至整句完成平均 **44.40 秒**；官方源 317 次采样的 Canvas FPS 中位 25.285。B站 CDN 到观众的延迟未测。下播记忆任务因每日额度耗尽延后，不能视为持久事实整理完成。详见[3080接收端操作与证据](docs/deployment/RTX3080_RECEIVER.md)、[双机完整部署](docs/deployment/SPLIT_DEVICE.md)和[历史及本次验收](docs/deployment/SPLIT_DEVICE_ACCEPTANCE.md)。
+
+**Historical baseline / 历史定型版本：** `split-a4090-b3080-v1.0.0` · [Online 4090 case / 4090 在线测评](https://4090.sid.mom/cases/ai-talk-streamer/2026-10-27/report.html) · [Runbook / 配置与操作手册](docs/deployment/BASELINE_A4090_B3080.md) · [Machine-readable release / 发布清单](configs/releases/split-a4090-b3080-v1.json)
 
 当前角色档案编号为 **女A**，正式姓名 **林知夏**，配套场景为 **知夏的日光宿舍**。她是**虚构的 22 岁中国女大学生**，沿用白天宿舍、长发、浅蓝卫衣的形象。[角色与素材归档](docs/CHARACTERS.md)提供分类目录、可校验清单和归档包。后续主运行目标为 **4090 工作站：48 GB 显存＋64 GB 内存**。详见 [4090 目标](docs/RTX4090.md)、[原生迁移与切换手册](docs/deployment/RTX4090_MIGRATION.md)及[完整方案归档](docs/archives/2026-10-26-LIVEHIME-HANDOFF.md)。仓库同步与新机器运行验收分别记录。
 
@@ -48,7 +52,7 @@ GitHub 对仓库 MP4 链接可能提供下载而非内嵌播放器，README 中�
 
 ## 具体采用的方案
 
-**3080 当前直播音色已选择 MOSS 04「明朗亲和」。** 原文播报与云端文字回复均使用常驻本地 MOSS 服务。启用步骤、完整播报、停止逻辑与生成等待见 [MOSS 实时接入文档](docs/MOSS_LIVE.md)。基础安装器仍准备 GPT-SoVITS；MOSS 分支复用单独准备好的原生推理环境。
+**当前采用O07主用、F07备用的常驻本地语音服务。** 本段MOSS04录像及生成等待为历史参考，详见新版操作手册。此前3080原文播报与云端回复使用MOSS04。启用步骤、完整播报、停止逻辑与生成等待见 [MOSS 实时接入文档](docs/MOSS_LIVE.md)。基础安装器仍准备 GPT-SoVITS；MOSS 分支复用单独准备好的原生推理环境。
 
 [观看 MOSS 04 带声音的 720×1280 实录](docs/media/moss-04-live-demo.mp4)。五项网页用例全部通过，发声期间音频排程间隙为 0，观察时刻画面约 24.6–25.3 FPS。此次短句从提交到实际出声约 17–21 秒，云端回复约 28 秒。
 
@@ -56,7 +60,7 @@ GitHub 对仓库 MP4 链接可能提供下载而非内嵌播放器，README 中�
 | --- | --- | --- |
 | 逻辑、推理、文字对话 | 用户指定的 OpenAI 兼容渠道，支持 Chat Completions / Responses | 可选云端 LLM |
 | 人格、观众记忆与周期整理 | 固定 DSH + Humanity、SQLite/WAL、来源校验与持久作业 | 原生 Node／本地存储；对话与抽取使用已配置云端 LLM |
-| 中文语音合成 | MOSS 04：NF4 / BF16 模型、FP32 CPU codec；基础安装仍可使用 GPT-SoVITS v2 | 本地 GPU / CPU |
+| 中文语音合成 | O07 OmniVoice FP16 /32步；F07 F5-TTS v1 FP32 /32NFE备用；完整波形后播出 | A本地 GPU |
 | 音频特征 | MuseTalk 使用 Whisper tiny 提取特征，不是观众语音识别 | 本地 GPU |
 | 实时口型与融合 | MuseTalk 1.5、VAE、人脸跟踪与嘴部紧凑遮罩 | 本地 GPU / CPU |
 | 手部、肢体和宿舍画面 | 本地 H3 生成并审核的动作视频 | 准备阶段本地生成，直播时复用 |
@@ -73,7 +77,7 @@ GitHub 对仓库 MP4 链接可能提供下载而非内嵌播放器，README 中�
 ```mermaid
 flowchart LR
     A[输入文字] --> B{原文或 AI}
-    B -->|原文| D[本地 MOSS 04]
+    B -->|原文| D[O07 OmniVoice / F07备用]
     B -->|AI| C[用户云端 LLM]
     C -->|收齐完整回复| D
     D --> E[本地音频特征]
@@ -107,6 +111,8 @@ flowchart LR
 入选源素材按普通 Git 文件提供，克隆会下载数百 MB 媒体。模型权重、安装后的程序、Python 环境、密钥、原始长录屏和体积很大的解码角色帧不入库。可直接用随仓库视频重建角色，**无需重新生成 H3 视频**。见[素材文档](docs/MATERIALS.md)。
 
 ## 安装与启动
+
+当前O07/F07版本使用4090已有环境与模型，按[新版手册](docs/deployment/BASELINE_O07_F07.md)激活。以下全新安装命令准备的是历史GPT-SoVITS基础版，不能替代O07/F07部署。
 
 准备原生 Windows x64、Git、用于引导安装的 Python 3.10+、支持 CUDA 12.8 PyTorch 的 NVIDIA 驱动及足够磁盘空间。脚本会创建两套原生 Python 3.10 环境，分别运行语音和人物。全程不使用 Docker、WSL 或虚拟机。
 

@@ -1,5 +1,7 @@
 # Native Windows deployment / 原生 Windows 部署
 
+> Current voice / 当前语音：**O07 OmniVoice 主用，F07 F5-TTS v1 备用**。启动、切换、回退与新版验收以[新版手册](deployment/BASELINE_O07_F07.md)为准；本页旧MOSS记录/命令保留历史来源。Historical MOSS measurements are not new-release latency.
+
 [Index / 导航](README.md) · [Configuration / 配置](CONFIGURATION.md) · [Troubleshooting / 排障](TROUBLESHOOTING.md)
 
 **Primary target / 后续主目标：** `remote-4090` / `REMOTE_4090_HOST`。Existing-installation migration, consistent private-state cutover and current readiness are documented in the [4090 runbook](deployment/RTX4090_MIGRATION.md). The generic fresh-install steps below also preserve the original GPT-SoVITS option; the selected MOSS04/DSH/Livehime runtime requires the additional stages in that runbook.

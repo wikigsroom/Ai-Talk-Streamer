@@ -22,7 +22,7 @@ def main():
             if json.load(response).get('broadcast'):
                 raise RuntimeError('End the active broadcast before restarting project media')
     config = json.loads((ROOT / 'configs/livetalking.yaml').read_text(encoding='utf-8-sig'))
-    moss_running = config.get('tts') == 'moss-ttsd' and port_open(9880)
+    moss_running = config.get('tts') in ('moss-ttsd','resident-local') and port_open(9880)
     if moss_running and not options.ordered_media:
         raise RuntimeError('Resident MOSS requires --ordered-media to preserve the validated GPU loading order')
     if moss_running:

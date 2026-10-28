@@ -32,7 +32,12 @@ async def status(request):
     tts=False;voice=None
     try:
         async with ClientSession(timeout=ClientTimeout(total=2),trust_env=False) as client:
-            if request.app['opt'].tts=='moss-ttsd':
+            if request.app['opt'].tts=='resident-local':
+                async with client.get(request.app['opt'].TTS_SERVER.rstrip('/')+'/health') as res:
+                    state=await res.json()
+                    tts=res.status==200 and state.get('ready',False) and state.get('service')=='resident-tts' and state.get('reference_sha256')==getattr(request.app['opt'],'TTS_REFERENCE_SHA256','')
+                    voice={key:state.get(key) for key in ('engine','voice_id','label','precision','busy','workers','degraded','primary_voice_id','fallback_voice_id')}
+            elif request.app['opt'].tts=='moss-ttsd':
                 async with client.get(request.app['opt'].TTS_SERVER.rstrip('/')+'/health') as res:
                     state=await res.json()
                     tts=res.status==200 and state.get('ready',False) and state.get('engine')=='MOSS-TTSD-v1.0' and state.get('voice_id')==getattr(request.app['opt'],'MOSS_VOICE_ID','v04')
@@ -43,6 +48,8 @@ async def status(request):
     identity=character_identity()
     selected_voice=getattr(request.app['opt'],'MOSS_VOICE_ID','v04')
     profile=('MOSS '+selected_voice.removeprefix('v')+(' · '+voice['label'] if voice and voice.get('label') else '') if request.app['opt'].tts=='moss-ttsd' else 'GPT-SoVITS v2')
+    if request.app['opt'].tts=='resident-local':
+        profile=(voice or {}).get('voice_id','O07')+' · '+(voice or {}).get('engine','OmniVoice')+' / F07 备用'
     return response({'ready':tts,'tts_ready':tts,'avatar_ready':True,'speaking':bool(avatar and avatar.is_speaking()),'sessionid':'studio' if avatar else None,'viewers':len(manager.broadcast.viewers) if manager.broadcast else 0,'event_subscribers':len(avatar.msgqueues) if avatar else 0,'gpu':gpu,'channel':channel_info(),'uptime_seconds':round(time.time()-STARTED),'profile':profile,'voice':voice,'avatar':' · '.join((identity['archive_label'],identity['name'],identity['scene']['name'])),'character':identity,'avatar_id':request.app['opt'].avatar_id,'local_media':True,'transport':'local_websocket_jpeg_pcm'})
 
 async def character_record(request):
@@ -50,6 +57,26 @@ async def character_record(request):
     path=ROOT/identity['archive']['registry']
     archive=json.loads(path.read_text(encoding='utf-8')) if path.is_file() else None
     return response({'character':identity,'archive':archive,'download_ready':(ROOT/identity['archive']['zip']).is_file()})
+
+
+async def voice_settings(request):
+    if request.method=='GET':
+        return web.FileResponse(ROOT/'web/voice-settings.html')
+    if request.app['opt'].tts!='resident-local':
+        return response({'error':'当前未启用 O07/F07 语音服务'},409)
+    data=await request.json()
+    if data.get('voice_id') not in ('O07','F07'):
+        return response({'error':'请选择 O07 或 F07'},400)
+    async with ClientSession(timeout=ClientTimeout(total=8),trust_env=False) as client:
+        async with client.post(request.app['opt'].TTS_SERVER.rstrip('/')+'/voice',json={'voice_id':data['voice_id']}) as result:
+            return response(await result.json(),status=result.status)
+
+
+async def voice_sample(request):
+    name=request.match_info['name']
+    if name not in ('O07-audition.wav','F07-audition.wav'):
+        raise web.HTTPNotFound()
+    return web.FileResponse(ROOT/'assets/voices/female-a-o07'/name)
 
 async def character_page(request):return web.FileResponse(ROOT/'web/character.html')
 
@@ -218,6 +245,9 @@ def setup_studio(app):
     native_routes.sse_handler=studio_sse
     app.router.add_get('/api/studio/stream',local_stream)
     app.router.add_get('/api/studio/status',status)
+    app.router.add_get('/voice-settings',voice_settings)
+    app.router.add_get('/voice-audio/female-a-o07/{name}',voice_sample)
+    app.router.add_post('/api/studio/voice',voice_settings)
     app.router.add_get('/api/studio/character',character_record)
     app.router.add_get('/character',character_page)
     app.router.add_get('/character/reference.png',character_reference)

@@ -1,5 +1,7 @@
 # Documentation / 文档导航
 
+**当前语音为 O07 / OmniVoice 主用、F07 / F5-TTS v1 备用。** [新版手册](deployment/BASELINE_O07_F07.md)、[配置清单](../configs/releases/split-a4090-b3080-o07-f07-v1.json)和[独立验收](evidence/voice-o07-f07.json)描述本次切换；所有旧测评与原始音频保持原样。
+
 [4090 在线案例测评](https://4090.sid.mom/cases/ai-talk-streamer/2026-10-27/report.html) · [定型基线](deployment/BASELINE_A4090_B3080.md)
 
 后续主运行目标为 [4090](RTX4090.md)，完整方案已[归档](archives/2026-10-26-LIVEHIME-HANDOFF.md)，按[迁移与切换手册](deployment/RTX4090_MIGRATION.md)继续运行准备。3080 保留为历史实测参考。
@@ -10,13 +12,15 @@ B站当前默认由官方直播姬输出，详见[直播姬完整方案 / Bilibi
 
 [English README](../README.md) · [中文 README](../README.zh-CN.md)
 
-This is the documentation for the delivered **daylight dorm / portrait / local-media** implementation. It describes MuseTalk with the selected MOSS 04 live voice and the original GPT-SoVITS installation option. The included recordings show real operation of the reference workstation; older recordings retain their original voice.
+This is the documentation for the delivered **daylight dorm / portrait / local-media** implementation. It describes MuseTalk with O07/F07 local speech. MOSS 04 and the original GPT-SoVITS installation remain historical references. The included recordings show real operation of the reference workstation; older recordings retain their original voice.
 
 本项目交付的是**白天宿舍、写实人物、9:16 竖屏、本地音视频推理**方案。云端仅承担可选的 LLM 对话；人物肢体使用预生成动作库，口型随实时语音推理。
 
 | Document / 文档 | Read it for / 内容 |
 | --- | --- |
-| [Frozen baseline / 双机方案定型](deployment/BASELINE_A4090_B3080.md) | Versioned A4090+B3080 configuration, restart entry points, acceptance limits and change policy / 固定配置、启动入口、已测边界与变更规则 |
+| [O07/F07 current release / 当前语音定型](deployment/BASELINE_O07_F07.md) | Local resident engines, reference identity, manual switching, serial fallback and cancellation / 常驻语音、参考、切换与恢复 |
+| [O07/F07 acceptance / 新版独立验收](deployment/O07_F07_ACCEPTANCE.md) | Six actual TTS cases, five official B-client cases, failed first attempt, phase times and measured limits / 六项语音、五段官方源、首轮失败和阶段时延 |
+| [Historical baseline / 历史双机方案定型](deployment/BASELINE_A4090_B3080.md) | Versioned A4090+B3080 configuration, restart entry points, acceptance limits and change policy / 固定配置、启动入口、已测边界与变更规则 |
 | [Performance report / 全周期可视化性能复盘](analysis/README.md) | Seven real replies, 32 retained requests, MOSS generation / codec / RTF, playback samples, post-air resources and memory status / 七条实播、全量逐阶段耗时、待机占用与未完成记忆维护 |
 | [Split-device / A推理+B直播](deployment/SPLIT_DEVICE.md) | Native A/B installation, virtual LAN, H264/PCM, receiver, official source audio, memory ownership and recovery / 原生双机部署、源内音频、状态、回执、下播维护与切换 |
 | [A4090 + B3080 current deployment / 当前部署](deployment/RTX3080_RECEIVER.md) | Official-client five-case results, real comments, latency breakdown and receiver restart / 官方客户端五段验证、真实弹幕、延迟分解及重启方法 |

@@ -21,11 +21,20 @@ The root [Apache-2.0 license](LICENSE) covers the project's original integration
 | Python, uv, PyTorch and libraries | Their upstream licenses, retained in installed distributions / 安装分发中的上游许可 | Native inference environments / 原生运行依赖 |
 | H3 / ComfyUI generation stack | External model/node licenses; not included in live setup / 外部模型与节点许可 | Optional local preparation of new body footage / 可选本地视频准备 |
 | SoulX-Podcast, MOSS-TTSD, FireRedTTS2 | [SoulX](https://github.com/Soul-AILab/SoulX-Podcast), [MOSS](https://github.com/OpenMOSS/MOSS-TTSD), [FireRed](https://github.com/FireRedTeam/FireRedTTS2); respective upstream model/code terms | Existing native ComfyUI engines used for voice auditions; weights are not redistributed / 试听生成，不分发权重 |
+| OmniVoice | [k2-fsa/OmniVoice](https://github.com/k2-fsa/OmniVoice), Apache-2.0 code; [pretrained model](https://huggingface.co/k2-fsa/OmniVoice), CC-BY-NC-4.0 | Current O07 local TTS; weights are not redistributed / 当前主用语音，不分发权重 |
+| F5-TTS v1 | [SWivid/F5-TTS](https://github.com/SWivid/F5-TTS), MIT code; pretrained weights CC-BY-NC-4.0 | F07 local backup, EMA checkpoint and local Vocos / 备用语音 |
+| O07 synthetic reference | [Voice provenance and digests](configs/voices/female-a-o07-f07.json) | OmniVoice-generated reference reused by O07 and F07; no newly sourced real-person voice / 共用合成参考 |
 | Common Voice zh-TW references | [Registered local source and CC0-1.0 provenance](assets/voices/female-a-v1/REAL_VOICE_SOURCES.md) | Ten different anonymous reference speakers for female-A casting / 女A十位独立参考说话人 |
 
 The locked application source commits are in [sources.lock.json](configs/sources.lock.json). The license-inspection commits for standalone MuseTalk and CosyVoice are recorded in [docs/licenses/sources.json](docs/licenses/sources.json); those are license provenance, not a claim that the live stack checks out those two repositories. Downloaded model/resource revisions and reference hashes are in [model-files.csv](configs/model-files.csv).
 
 应用源码固定提交与许可证取证提交用途不同，不应混淆。MuseTalk/CosyVoice 的许可证取证版本不代表直播安装会单独检出这两个版本；模型资源的修订和哈希见清单。
+
+## Current O07 / F07 voice pair
+
+The O07 reference and the two auditions in `assets/voices/female-a-o07/` are synthetic audio generated in the separate 2026-10-28 casting task. F07 clones that same reference. See the [current runbook](docs/deployment/BASELINE_O07_F07.md). The pretrained model terms apply independently of the integration and code licenses. Earlier MOSS/SoulX/GPT-SoVITS recordings retain their own reference provenance.
+
+O07/F07为本次合成参考及两款试听，不使用新真人录音。两套所用预训练权重的CC-BY-NC条款与代码许可分开适用。旧演示声音的来源说明继续保留。
 
 ## Weights and reference voice / 权重与参考声音
 

@@ -39,15 +39,19 @@ avatar=load_avatar(config['avatar_id']);renderer=MuseReal.__new__(MuseReal)
 renderer.vae,renderer.unet,renderer.pe,renderer.timesteps,renderer.audio_processor=model
 renderer.input_latent_list_cycle=avatar[4];renderer.batch_size=config['batch_size']
 warm_up(renderer.batch_size,model);memory_stats('warmed')
-if config.get('tts')=='moss-ttsd':
+if config.get('tts') in ('moss-ttsd','resident-local'):
     # Prime real speech features and the renderer's actual latent layout before
     # accepting viewers; synthetic upstream warm-up misses this first batch.
     import soundfile as sf
     from scipy.signal import resample_poly
     from math import gcd
-    voice_config=json.loads((ROOT/'configs/moss-live.json').read_text(encoding='utf-8'))
-    voice_id=voice_config['voice_id']
-    sample=ROOT/'web/voice-audio/female-a-v1'/('benchmark-moss-v01.wav' if voice_id=='v01' else 'voice'+voice_id[1:]+'-moss-'+voice_id+'.wav')
+    if config.get('tts')=='resident-local':
+        voice_config=json.loads((ROOT/'configs/resident-tts.json').read_text(encoding='utf-8'))
+        sample=ROOT/voice_config['warmup_audio']
+    else:
+        voice_config=json.loads((ROOT/'configs/moss-live.json').read_text(encoding='utf-8'))
+        voice_id=voice_config['voice_id']
+        sample=ROOT/'web/voice-audio/female-a-v1'/('benchmark-moss-v01.wav' if voice_id=='v01' else 'voice'+voice_id[1:]+'-moss-'+voice_id+'.wav')
     wave,rate=sf.read(str(sample),dtype='float32',always_2d=True)
     factor=gcd(rate,16000)
     wave=resample_poly(wave.mean(1),16000//factor,rate//factor).astype(np.float32)

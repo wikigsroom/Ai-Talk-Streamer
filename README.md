@@ -2,15 +2,19 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [Documentation](docs/README.md)
 
+**Current voice release: O07 / OmniVoice**, with **F07 / F5-TTS v1** as the approved backup. Native A4090 inference + B3080 official Livehime; female-A, daylight dorm and MuseTalk FP16 batch 8 remain fixed. [Complete new runbook](docs/deployment/BASELINE_O07_F07.md) · [Release manifest](configs/releases/split-a4090-b3080-o07-f07-v1.json) · [New acceptance evidence](docs/evidence/voice-o07-f07.json). Open `/voice-settings` for auditions and next-request switching. Historical recordings and benchmark numbers below retain their original engines and dates.
+
 A native Windows studio for a photorealistic **9:16 talking avatar**. Type a script, or ask your own cloud LLM a question; the workstation synthesizes the voice, generates the lip motion, plays coordinated body footage, and delivers the avatar to your browser and Bilibili’s official Livehime client.
 
-**Current deployment: A4090 inference + B3080 official Livehime.** Five official-client cases and seven real comment replies completed. This broadcast has ended. See the [complete visual performance report](docs/analysis/README.md): mean collector-to-first-playout receipt **34.10 s**, mean complete reply **44.40 s**, and 317 official-source samples at median 25.285 Canvas FPS. Audience CDN delay is unmeasured. Post-broadcast memory maintenance was deferred at its daily budget; this does not mean persistent facts were consolidated. [B3080 runbook](docs/deployment/RTX3080_RECEIVER.md) · [split-device architecture](docs/deployment/SPLIT_DEVICE.md).
+[O07/F07 release acceptance](docs/deployment/O07_F07_ACCEPTANCE.md): six real synthesis/fault/recovery cases, 46 Python tests, 82 Node tests and five official B-client local playback cases passed. After refreshing the four-second-buffer material, 214 observations averaged 25.000 canvas FPS with no additional audio underruns, missing packets or decode errors. The first failed continuity run is retained. Public broadcasting and audience CDN delivery were not repeated.
 
-**Frozen baseline / 定型版本：** `split-a4090-b3080-v1.0.0` · [Online 4090 case / 4090 在线测评](https://4090.sid.mom/cases/ai-talk-streamer/2026-10-27/report.html) · [Runbook / 配置与操作手册](docs/deployment/BASELINE_A4090_B3080.md) · [Machine-readable release / 发布清单](configs/releases/split-a4090-b3080-v1.json)
+**Historical 2026-10-27 deployment: A4090 inference + B3080 official Livehime.** Five official-client cases and seven real comment replies completed. This broadcast has ended. See the [complete visual performance report](docs/analysis/README.md): mean collector-to-first-playout receipt **34.10 s**, mean complete reply **44.40 s**, and 317 official-source samples at median 25.285 Canvas FPS. Audience CDN delay is unmeasured. Post-broadcast memory maintenance was deferred at its daily budget; this does not mean persistent facts were consolidated. [B3080 runbook](docs/deployment/RTX3080_RECEIVER.md) · [split-device architecture](docs/deployment/SPLIT_DEVICE.md).
+
+**Historical baseline / 历史定型版本：** `split-a4090-b3080-v1.0.0` · [Online 4090 case / 4090 在线测评](https://4090.sid.mom/cases/ai-talk-streamer/2026-10-27/report.html) · [Runbook / 配置与操作手册](docs/deployment/BASELINE_A4090_B3080.md) · [Machine-readable release / 发布清单](configs/releases/split-a4090-b3080-v1.json)
 
 The included character is **女A / Lin Zhixia (林知夏)**, a **fictional 22-year-old Chinese university student** in **Zhixia's Daylight Dorm**. [Character identity and categorized archive](docs/CHARACTERS.md) include a verified inventory and rebuildable bundle. The primary target is now the **RTX 4090 workstation with 48 GB VRAM and 64 GB system RAM**. See the [4090 target](docs/RTX4090.md), [native migration and cutover runbook](docs/deployment/RTX4090_MIGRATION.md), and [archived complete solution](docs/archives/2026-10-26-LIVEHIME-HANDOFF.md). Source synchronization and runtime acceptance are tracked separately.
 
-The original **RTX 3080 10 GB / 64 GB RAM** GPT-SoVITS version retains batch-8 FP16 models, the full motion bank and 720×1280 output. The selected MOSS version uses batch 4 after batch-8 playback failed validation. Browser playback counts presented frames and preserves queued audio when a viewer falls behind. See the [3080 measurements](docs/RTX3080.md), [playback correction](docs/PLAYBACK.md) and [MOSS validation](docs/MOSS_LIVE.md).
+The original **RTX 3080 10 GB / 64 GB RAM** GPT-SoVITS version retains batch-8 FP16 models, the full motion bank and 720×1280 output. The historical 3080 MOSS version uses batch 4 after batch-8 playback failed validation. Browser playback counts presented frames and preserves queued audio when a viewer falls behind. See the [3080 measurements](docs/RTX3080.md), [playback correction](docs/PLAYBACK.md) and [MOSS validation](docs/MOSS_LIVE.md).
 
 **DSH + Humanity backend:** a native implementation now adds a versioned personality, isolated viewer memory, a broadcast/playback ledger, and persistent post-broadcast, daily and weekly maintenance. It inherits the studio's saved API/model configuration. See the [full specification](docs/DSH_HUMANITY.md), [native runbook](docs/dsh-humanity/RUNBOOK.md), [current acceptance](docs/dsh-humanity/ACCEPTANCE.md), and [actual pages, recording and GIF](docs/dsh-humanity/MEDIA.md). Local Echo completion/cancellation/recovery, 44 module tests, and 20 controlled HTTP fault cases with the pinned DSH/Humanity have passed. The updated saved channel now passes the real compatibility probe and three actual AI playback turns, including same-session topic recall. The full 20-turn run and five new memory scenarios remain pending.
 
@@ -28,7 +32,7 @@ The original **RTX 3080 10 GB / 64 GB RAM** GPT-SoVITS version retains batch-8 F
 
 **Female-A voice casting:** [ten MOSS voices, ten matching SoulX voices and a FireRed reference comparison](docs/VOICES.md), synthesized on the RTX 3080. Open `/voices.html?v=2` for real audio playback, model switching, shortlisting and downloads. The page defaults to MOSS; it does not automatically change the live TTS engine.
 
-**Selected live voice: MOSS 04 · 明朗亲和.** The persistent MOSS service now runs on A4090 for echo scripts and cloud text replies. The earlier3080 voice experiments remain in [activation, complete-utterance playback, cancellation and measured waiting time](docs/MOSS_LIVE.md). The base installer still prepares GPT-SoVITS; MOSS activation reuses the separately prepared native MOSS runtime.
+**Historical live voice: MOSS 04 · 明朗亲和.** The earlier persistent MOSS service ran on A4090 for echo scripts and cloud text replies. The earlier3080 voice experiments remain in [activation, complete-utterance playback, cancellation and measured waiting time](docs/MOSS_LIVE.md). The base installer still prepares GPT-SoVITS; MOSS activation reuses the separately prepared native MOSS runtime.
 
 [Watch MOSS 04 with sound, 720×1280](docs/media/moss-04-live-demo.mp4). All five browser cases passed with no voiced audio scheduling gaps; observed presentation counters were 24.6–25.3 FPS. Short echo scripts took 17–21 seconds to become audible; the tested cloud reply took about 28 seconds.
 
@@ -56,7 +60,7 @@ GitHub may offer a download instead of inline playback for repository MP4 links.
 | --- | --- | --- |
 | Conversation and reasoning | Your OpenAI-compatible channel, Chat Completions or Responses | Optional cloud LLM |
 | Personality, viewer memory and maintenance | Pinned DSH + Humanity, SQLite/WAL, source validation and persistent jobs | Native Node / local storage; configured cloud LLM for dialogue and extraction |
-| Script-to-speech | MOSS 04: NF4 / BF16 model, FP32 CPU codec; GPT-SoVITS v2 remains the base installation option | Local GPU / CPU |
+| Script-to-speech | O07 OmniVoice FP16 /32 steps; F07 F5-TTS v1 FP32 /32 NFE backup; complete waveform before playback | Local A GPU |
 | Speech features | Whisper tiny features inside MuseTalk; not audience transcription | Local GPU |
 | Lip generation and blending | MuseTalk 1.5, VAE, tracked face crop and compact mouth mask | Local GPU / CPU |
 | Body, hands and dorm background | Reviewed local H3 videos, preprocessed into one avatar bank | Generated locally beforehand; reused during streaming |
@@ -73,7 +77,7 @@ GitHub may offer a download instead of inline playback for repository MP4 links.
 ```mermaid
 flowchart LR
     I[Text input] --> M{Echo or AI}
-    M -->|Echo| T[Local MOSS 04]
+    M -->|Echo| T[Local O07 OmniVoice / F07 backup]
     M -->|AI| L[Configured cloud LLM]
     L -->|Complete reply| T
     T --> A[Local speech features]
@@ -108,6 +112,8 @@ The two baseline clips bring the live bank to **50 clips, 400 seconds and 10,000
 Selected source media are included as regular Git files; the clone contains several hundred MB of media. Model weights, installed programs, Python environments, credentials, raw recordings and the large decoded avatar bank are excluded. [Material layout and regeneration](docs/MATERIALS.md) explain how to rebuild the bank from the included clips **without regenerating H3 videos**.
 
 ## Install on native Windows
+
+For the current O07/F07 release, use the [new runbook](docs/deployment/BASELINE_O07_F07.md) with the prepared 4090 environments and models. The historical bootstrap below installs the GPT-SoVITS foundation; it does not install the O07/F07 runtime.
 
 Prerequisites: Windows x64, Git, a bootstrap Python 3.10+, an NVIDIA driver suitable for the pinned CUDA 12.8 PyTorch wheels, sufficient local disk space, and the reference GPU/RAM capacity. The installer creates separate native Python 3.10 environments for speech and avatar inference. No Docker, WSL or virtual machine is used.
 

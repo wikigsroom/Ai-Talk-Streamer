@@ -18,6 +18,8 @@ def main():
                 ('studio_routes.py', 'dsh_bridge.py', 'local_broadcast.py', 'stream_encoder.py', 'viewer_buffer.py')]
     mappings += [(ROOT / 'integration/moss_tts.py', live / 'tts/moss.py'),
                  (ROOT / 'integration/obs.html', live / 'web/obs.html')]
+    if (ROOT / 'integration/resident_tts.py').is_file():
+        mappings.append((ROOT / 'integration/resident_tts.py', live / 'tts/resident_local.py'))
     mappings += [(source, live / 'web' / source.name) for source in (ROOT / 'web').iterdir() if source.is_file()]
     receipts = []
     for source, target in mappings:

@@ -1,5 +1,7 @@
 # Split-device inference and official Bilibili Livehime
 
+> Current voice / 当前语音：**O07 OmniVoice 主用，F07 F5-TTS v1 备用**。启动、切换、回退与新版验收以[新版手册](BASELINE_O07_F07.md)为准；本页旧MOSS记录/命令保留历史来源。Historical MOSS measurements are not new-release latency.
+
 [中文完整操作手册](SPLIT_DEVICE.md) · [Acceptance](SPLIT_DEVICE_ACCEPTANCE.md) · [4090 target](../RTX4090.md)
 
 Run **MOSS 04, MuseTalk, DSH and Humanity on device A**, and run **the official Bilibili Livehime client on device B**. A and B communicate over the existing virtual LAN. This implementation uses native Windows Python and Node processes throughout.

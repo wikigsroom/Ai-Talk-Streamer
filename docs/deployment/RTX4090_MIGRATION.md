@@ -1,5 +1,7 @@
 # 4090 原生迁移、运行准备与切换
 
+> Current voice / 当前语音：**O07 OmniVoice 主用，F07 F5-TTS v1 备用**。启动、切换、回退与新版验收以[新版手册](BASELINE_O07_F07.md)为准；本页旧MOSS记录/命令保留历史来源。Historical MOSS measurements are not new-release latency.
+
 **后续执行更新：** 4090已完成原生MOSS模型/vendor、DSH/Humanity和batch8人物部署，并通过A→虚拟网络→B的五段真实交互与重连验收。新的默认方案为[A推理+B直播姬](SPLIT_DEVICE.md)，详见[当次证据](SPLIT_DEVICE_ACCEPTANCE.md)。本页下方的同步前库存保留历史时间语义；正式记忆仍须按一致切换程序迁移。
 
 [4090 目标](../RTX4090.md) · [归档](../archives/2026-10-26-LIVEHIME-HANDOFF.md) · [总部署](../DEPLOYMENT.md) · [直播姬](../platforms/BILIBILI_LIVEHIME.md) · [人格记忆手册](../dsh-humanity/RUNBOOK.md)

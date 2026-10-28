@@ -1,5 +1,7 @@
 # A 推理 + B 直播姬：原生 Windows 双机部署
 
+> Current voice / 当前语音：**O07 OmniVoice 主用，F07 F5-TTS v1 备用**。启动、切换、回退与新版验收以[新版手册](BASELINE_O07_F07.md)为准；本页旧MOSS记录/命令保留历史来源。Historical MOSS measurements are not new-release latency.
+
 [English guide](SPLIT_DEVICE.en.md) · [4090 目标](../RTX4090.md) · [直播姬](../platforms/BILIBILI_LIVEHIME.md) · [人格与记忆](../DSH_HUMANITY.md)
 
 本方案将 **人物、语音、人格和记忆放在 A 设备**，将 **官方哔哩哔哩直播姬和最终推流放在 B 设备**。两台设备通过现有 ZeroTier 等虚拟网络通信。新增代码直接运行于原生 Windows Python / Node，不使用 Docker、WSL 或虚拟机。
