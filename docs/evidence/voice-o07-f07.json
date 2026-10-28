@@ -5149,7 +5149,7 @@
     "scripts/start_studio.py": "3ca2d20fe4e536930fe6110b019a4dab7e4f4d8e5d5f1069ba980ba8ca112918",
     "scripts/tts_control.py": "62bbd518c5f255c57c0a7a3a151697e629ee6d237cc0d116782d91348e45483a",
     "tests/test_resident_tts.py": "e56b4eb40ce8aa0e0bdb61aab982a89eb0efb5e785da7cedb7ef195a9c43c1bb",
-    "web/studio.html": "192f8875c34eecee4e9976622e8c7108997f810ef9321ec6fba9fdfb7b4cb2d3",
+    "web/studio.html": "2d055ab48530fa44837381ab86c418dcbf7a8fc1fbe00f2a062624b2c9d68852",
     "web/studio.js": "71ee7281e3472c7494b133d191211699381e05952f9e0c8316ed173a1673c8f5",
     "web/voice-settings.html": "d977f2add22367d6192e249f882ef09b5991dabe4da190d8eb94139a063ec02f"
   },
@@ -5174,6 +5174,16 @@
         "974efc993e16e39e722d0582cc3fc269f57b0f7a36f3136eab4eb72627afc06c"
       ],
       "current_sha256": "3cea5b2717ed93844561b31fd1c33e9bf1b8f6ed0b2360c90ec5124b319ccfb3",
+      "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
+    },
+    "devtools/verify-repository.py": {
+      "historical_sha256": [
+        "150267f8a8990a50f1878472f72f7b649e4e0cb1a1b4c45ce978fa18da062302",
+        "3bf253cde2fb2b704bace49fdcee734ab6f2f5ff490a002ef3b55b9d9dbab287",
+        "89b0d9bceed6763d362cb646a7ffd5a3560ca267738b19555fa39929477a373b",
+        "9325e9bbd5f077d4d516a2351311b5b1db1ff3700fef7807dcf018f9711e0849"
+      ],
+      "current_sha256": "3d39438ad11db0f87de6a6b2dcc2a2e5673bf16d09c75812c1af2490ad1085b6",
       "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
     },
     "integration/isolated_inference.py": {
@@ -5215,9 +5225,10 @@
     "web/studio.html": {
       "historical_sha256": [
         "0490b930d8eadfda9f133e22d25149eb0e01a4b9b3d7b3ed4f901402e8a23b6c",
+        "192f8875c34eecee4e9976622e8c7108997f810ef9321ec6fba9fdfb7b4cb2d3",
         "d7691a08b052609a9213c29f095a74fa3ea98a85902b46a7ecc968c98bafd319"
       ],
-      "current_sha256": "192f8875c34eecee4e9976622e8c7108997f810ef9321ec6fba9fdfb7b4cb2d3",
+      "current_sha256": "2d055ab48530fa44837381ab86c418dcbf7a8fc1fbe00f2a062624b2c9d68852",
       "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
     },
     "web/studio.js": {
@@ -5225,16 +5236,6 @@
         "1004733cba433a8f9ab0ee8dd49ef8bbf087b378aeaa683498e5f711276b5091"
       ],
       "current_sha256": "71ee7281e3472c7494b133d191211699381e05952f9e0c8316ed173a1673c8f5",
-      "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
-    },
-    "devtools/verify-repository.py": {
-      "historical_sha256": [
-        "150267f8a8990a50f1878472f72f7b649e4e0cb1a1b4c45ce978fa18da062302",
-        "3bf253cde2fb2b704bace49fdcee734ab6f2f5ff490a002ef3b55b9d9dbab287",
-        "89b0d9bceed6763d362cb646a7ffd5a3560ca267738b19555fa39929477a373b",
-        "9325e9bbd5f077d4d516a2351311b5b1db1ff3700fef7807dcf018f9711e0849"
-      ],
-      "current_sha256": "3d39438ad11db0f87de6a6b2dcc2a2e5673bf16d09c75812c1af2490ad1085b6",
       "validation": "46 Python tests; 82 Node tests; six real GPU TTS cases; five native B3080 playback cases with full natural-end receipts; new evidence only, historical reports/audio unchanged"
     }
   },
