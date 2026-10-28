@@ -16,3 +16,6 @@
 
 # Preserve the formatting of verbatim upstream license texts.
 docs/licenses/*.txt -whitespace
+
+# Keep pinned upstream CPU fixtures byte-for-byte, including original whitespace.
+tests/fixtures/livetalking-c7269433/*.py -text -whitespace

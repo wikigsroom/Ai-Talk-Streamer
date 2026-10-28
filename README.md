@@ -2,6 +2,8 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [Documentation](docs/README.md)
 
+**Selected lip-sync: K02**, MuseTalk 1.5 FP16/batch 8 with local mouth blending, bounded color matching and a PCM silence gate. It adds **no model weights**. [K02 release and cleanup runbook](docs/deployment/BASELINE_K02.md) · [Validation/deployment status](docs/evidence/lipsync-k02-selection-20261029.json). Twenty-one CPU checks pass; A4090 activation and removal of dedicated K03–K05 installations await control recovery. O07/F07, the room console, motion bank and original benchmark media are preserved.
+
 **K01–K05 lip-sync benchmark:** five same-input 60-second portrait recordings, original O07 audio, synchronized comparison, GIFs, stage timings and resource charts. [Complete report and media](docs/analysis/lipsync-k01-k05-20261028/ARCHIVE.md) · [Native experiment source](benchmarks/k01-k05-60s-20261028/README.md). K03 is a synthetic-teacher training pilot; K05 uses a documented native execution adapter. Shared-load offline throughput is separate from live latency.
 
 **New room console and decoration:** open `/admin` to manage BGM, automatic speech ducking, filters, three coordinated themes, live comments, message cards, moderation and private agent chat. [Complete room guide](docs/live-room/GUIDE.en.md) · [Operations](docs/live-room/RUNBOOK.md) · [Five-case acceptance](docs/live-room/ACCEPTANCE.md). Native A4090 + B3080 official Livehime remains the deployment; no public broadcast was started during this local validation.

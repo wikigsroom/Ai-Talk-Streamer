@@ -1,5 +1,7 @@
 # Documentation / 文档导航
 
+[K02 正式选型与定稿](deployment/BASELINE_K02.md)：MuseTalk 共用权重、局部嘴周融合和匹配音频帧的静音门控，新增模型为零；21 项 CPU 检查已过，4090 部署及 K03～K05 专用模型清理仍待控制恢复。[独立状态回执](evidence/lipsync-k02-selection-20261029.json)。以下原始横评保持当时事实与原片。
+
 [K01–K05 同源60秒口型实测](analysis/lipsync-k01-k05-20261028/ARCHIVE.md)：五段竖屏原片、共用原始O07音频、同步对比页、GIF、逐阶段耗时与资源曲线；[原生集成代码](../benchmarks/k01-k05-60s-20261028/README.md)。K03为合成教师训练试验，K05包含已说明的原生执行适配；共享负载的离线耗时不等于直播延迟，正式直播方案未自动切换。
 
 [女A现有素材的局部口型替换评估](analysis/LOCAL_LIPSYNC_REPLACEMENT_20261028.md)：保留48段动作、2段基础片段、手势与宿舍背景，只替换嘴周；8项局部路线、训练/缓存前置条件、源帧对齐契约与验收方法。MuseTalk优化、Wav2Lip速度对照、LatentSync离线画质对照为当前优先；新增Lip Forcing 14B须先验证原生与资源条件，1.3B仅跟踪发布。[局部JSON](analysis/local-lipsync-options.json) · [局部CSV](analysis/local-lipsync-options.csv)。

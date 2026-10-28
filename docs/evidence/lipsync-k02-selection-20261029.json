@@ -1,0 +1,59 @@
+{
+  "at": "2026-10-29T06:22:08.734861+08:00",
+  "release": "split-a4090-b3080-v1.2.1-k02",
+  "decision": "user_selected_K02_and_requested_removal_of_other_candidate_models",
+  "selected": "K02",
+  "local_validation": {
+    "ok": true,
+    "tests": 21,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 3.0912949000194203,
+    "scope": "native CPU: frozen K02 pixel equivalence; actual pinned frame consumer; offline activation backups; cleanup boundaries; existing blend and motion tests",
+    "remote_deployment_tested": false,
+    "gpu_models_loaded": false
+  },
+  "activation": "pending_user_notification_to_retry_MCP",
+  "cleanup": "not_executed_remote_control_unavailable",
+  "remote_retries_paused_by_user": true,
+  "last_control_state": {
+    "state": "unavailable",
+    "generation": 1196
+  },
+  "new_models_downloaded": false,
+  "gpu_models_loaded_by_this_change": false,
+  "additional_model_bytes": 0,
+  "removed_candidates_requested": [
+    "K03",
+    "K04",
+    "K05"
+  ],
+  "historical_retired_weights": {
+    "files": 15,
+    "logical_bytes": 6664564202,
+    "source": "docs/analysis/lipsync-k01-k05-20261028/model-file-inventory.json",
+    "actual_reclaimed_bytes": null,
+    "note": "Frozen inventory only. Environments/caches excluded; no current disk reclamation claimed."
+  },
+  "preserved": [
+    "shared MuseTalk 1.5 / Whisper / sd-vae",
+    "Kokoro PyTorch",
+    "MeloTTS Chinese",
+    "F5-TTS v1 / F07",
+    "OmniVoice / O07",
+    "female-A identity and full motion bank",
+    "DSH/Humanity and private state",
+    "B receiver / official Livehime / room admin",
+    "all original benchmark results and media"
+  ],
+  "history_check": {
+    "base_commit": "f9f79bc",
+    "paths": [
+      "docs/analysis/lipsync-k01-k05-20261028",
+      "benchmarks/k01-k05-60s-20261028"
+    ],
+    "modified_paths": [],
+    "unchanged": true
+  },
+  "runbook": "docs/deployment/BASELINE_K02.md"
+}

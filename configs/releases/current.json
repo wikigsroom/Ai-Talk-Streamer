@@ -1,7 +1,8 @@
 {
-  "release": "split-a4090-b3080-v1.2.0-room-admin",
-  "manifest": "configs/releases/split-a4090-b3080-room-v1.2.json",
-  "runbook": "docs/live-room/RUNBOOK.md",
+  "release": "split-a4090-b3080-v1.2.1-k02",
+  "manifest": "configs/releases/split-a4090-b3080-k02-v1.2.1.json",
+  "runbook": "docs/deployment/BASELINE_K02.md",
   "voice_manifest": "configs/releases/split-a4090-b3080-o07-f07-v1.json",
-  "historical_manifest": "configs/releases/split-a4090-b3080-v1.json"
+  "historical_manifest": "configs/releases/split-a4090-b3080-v1.json",
+  "room_manifest": "configs/releases/split-a4090-b3080-room-v1.2.json"
 }

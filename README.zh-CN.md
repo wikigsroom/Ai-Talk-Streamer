@@ -2,6 +2,8 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [完整文档](docs/README.md)
 
+**口型正式选定 K02：** MuseTalk 1.5 FP16/batch 8＋局部嘴周融合、有限色差修正与 PCM 静音门控，新增模型 **0 字节**。[定稿与清理手册](docs/deployment/BASELINE_K02.md) · [独立验收和部署状态](docs/evidence/lipsync-k02-selection-20261029.json)。21 项本地 CPU 检查通过；4090 部署与 K03～K05 专用模型删除等待控制恢复。O07/F07、后台、动作库和原始测评保留。
+
 **K01–K05 口型横评：** 五组同源60秒竖屏原片、O07原始音频、同步对比页面、GIF、逐阶段耗时与资源曲线。[完整报告与素材](docs/analysis/lipsync-k01-k05-20261028/ARCHIVE.md) · [原生实验代码](benchmarks/k01-k05-60s-20261028/README.md)。K03为合成教师训练试验，K05含已说明的原生执行适配；共享负载的离线吞吐与直播响应延迟分开记录。
 
 **新增直播间导播台与包装：** 打开 `/admin`，可管理 BGM、人声压低音乐、滤镜、三套主题、弹幕、留言卡、屏蔽规则和 Agent 私聊。[完整方案与功能表](docs/live-room/README.md) · [操作部署手册](docs/live-room/RUNBOOK.md) · [五段实测](docs/live-room/ACCEPTANCE.md)。沿用 4090 推理＋3080 官方直播姬，本次仅做本地会话验证。
