@@ -2908,7 +2908,12 @@
       "component_ids": [],
       "basis": "existing",
       "note": "现有 MuseTalk、Whisper、VAE 和人脸辅助模型继续保留；不是说模型本身体积为零。",
-      "source_urls": []
+      "source_urls": [],
+      "expected_quality": "保留原片身体、手势与宿舍背景；嘴部256×256重绘，牙齿/唇色/融合边缘是重点检查项，动作仍会循环。",
+      "quality_assessment_basis": "current_project_pipeline_and_primary_source",
+      "quality_source_urls": [
+        "https://github.com/TMElyralab/MuseTalk"
+      ]
     },
     "L01": {
       "display": "0 GB（复用当前权重）",
@@ -2917,144 +2922,27 @@
       "component_ids": [],
       "basis": "existing",
       "note": "仅参数、素材筛选、融合与调度优化；若额外上增强模型应单列，不包含在此行。",
-      "source_urls": []
+      "source_urls": [],
+      "expected_quality": "预期改善嘴周闪烁、肤色接缝、句尾闭口和动作切换；脸部纹理上限与自由手势能力仍受当前模型/素材约束。",
+      "quality_assessment_basis": "engineering_expectation_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/TMElyralab/MuseTalk"
+      ]
     },
-    "L02": {
-      "display": "约 2.31 GB（PyTorch）",
-      "estimated_min_gb": 2.3147,
-      "estimated_max_gb": 2.3147,
-      "component_ids": [
-        "ditto_torch"
-      ],
-      "basis": "file_metadata",
-      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。 ONNX 是另一种约 2.53 GB 的路径；导出/重建 Windows TensorRT engine 会另占磁盘，不能直接复用上游 Linux 构件。",
-      "source_urls": []
-    },
-    "L03": {
-      "display": "约 8.16 GB（Lite + LTX VAE + 音频编码器）",
-      "estimated_min_gb": 8.1619,
-      "estimated_max_gb": 8.1619,
-      "component_ids": [
-        "flashhead_lite",
-        "vae_ltx",
-        "wav2vec_en"
-      ],
-      "basis": "file_metadata",
-      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
-      "source_urls": []
-    },
-    "L04": {
-      "display": "约 6.92 GB（Pro + Wan VAE + 音频编码器）",
-      "estimated_min_gb": 6.9161,
-      "estimated_max_gb": 6.9161,
-      "component_ids": [
-        "flashhead_pro",
-        "vae_wan",
-        "wav2vec_en"
-      ],
-      "basis": "file_metadata",
-      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
-      "source_urls": []
-    },
-    "L05": {
-      "display": "约 0.66 GB（人像模式）",
-      "estimated_min_gb": 0.6589,
-      "estimated_max_gb": 0.6589,
-      "component_ids": [
-        "liveportrait_human"
-      ],
-      "basis": "file_metadata",
-      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。 动物权重不计入，当前 MuseTalk 不重复计入。",
-      "source_urls": []
-    },
-    "L09": {
-      "display": "约 20.75 GB（Flash-Pro + Wan 配套编码器/VAE）",
-      "estimated_min_gb": 20.7498,
-      "estimated_max_gb": 20.7498,
-      "component_ids": [
-        "echo_flash",
-        "echo_base",
-        "wav2vec_zh"
-      ],
-      "basis": "file_metadata",
-      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
-      "source_urls": []
-    },
-    "L11": {
-      "display": "约 54.79 GB（官方兼容权重组）",
-      "estimated_min_gb": 54.7864,
-      "estimated_max_gb": 54.7864,
-      "component_ids": [
-        "flashtalk_bundle",
-        "wav2vec_zh"
-      ],
-      "basis": "file_metadata",
-      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
-      "source_urls": []
-    },
-    "L13": {
-      "display": "约 54.79 GB（官方兼容权重组）",
-      "estimated_min_gb": 54.7905,
-      "estimated_max_gb": 54.7905,
-      "component_ids": [
-        "liveact_bundle",
-        "wav2vec_zh"
-      ],
-      "basis": "file_metadata",
-      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
-      "source_urls": []
-    },
-    "L14": {
-      "display": "约 47.08 GB（基础 S2V + LoRA）",
-      "estimated_min_gb": 47.0759,
-      "estimated_max_gb": 47.0759,
-      "component_ids": [
-        "liveavatar_base",
-        "liveavatar_lora"
-      ],
-      "basis": "file_metadata",
-      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
-      "source_urls": []
-    },
-    "L15": {
-      "display": "约 38.64 GB（推理必需权重组）",
-      "estimated_min_gb": 38.6389,
-      "estimated_max_gb": 38.6389,
-      "component_ids": [
-        "hallo_dit",
-        "hallo_t5",
-        "hallo_vae",
-        "hallo_audio"
-      ],
-      "basis": "file_metadata",
-      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
-      "source_urls": []
-    },
-    "F04": {
-      "display": "约 56.62 GB（官方脚本筛选的推理配套）",
-      "estimated_min_gb": 56.623,
-      "estimated_max_gb": 56.623,
-      "component_ids": [
-        "edita_base",
-        "edita_lora",
-        "edita_vae"
-      ],
-      "basis": "file_metadata",
-      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
-      "source_urls": []
-    },
-    "L06": {
-      "display": "约 5.2–5.6 GB；整包约 10 GB",
-      "estimated_min_gb": 5.2,
-      "estimated_max_gb": 5.6,
-      "component_ids": [
-        "latentsync_inference",
-        "sd_vae"
-      ],
-      "basis": "engineering_estimate",
-      "note": "推理主权重和 tiny 约 5.15 GB，另计裁脸模型；复用现有同版本 SD VAE 时减少约 0.33 GB。官方整仓含评测/训练辅助权重达 9.64 GB，加单格式 VAE 接近 10 GB，不是最小推理安装量。",
+    "F01": {
+      "display": "约 0.00376 GB（3.76 MB）",
+      "estimated_min_gb": 0.003758596,
+      "estimated_max_gb": 0.003758596,
+      "component_ids": [],
+      "basis": "http_head",
+      "note": "官方 face_landmarker.task 的 Content-Length 为 3,758,596 字节；不包含渲染角色或图像生成模型。",
       "source_urls": [
-        "https://github.com/bytedance/LatentSync/blob/main/scripts/inference.py"
+        "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/latest/face_landmarker.task"
+      ],
+      "expected_quality": "提供眨眼、嘴形与头姿跟踪参数；成品细节取决于后续人物模型/渲染器，单独使用不会生成女A说话视频。",
+      "quality_assessment_basis": "primary_source_capability_and_integration_inference",
+      "quality_source_urls": [
+        "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker"
       ]
     },
     "L07": {
@@ -3066,6 +2954,12 @@
       "note": "只估部署推理权重：已发布 FeatherHuBERT 13,480,913 字节 + 5.46M 参数视觉模型 FP32 原始参数约 21.84 MB；序列化/缓冲需余量。女A专属视觉模型尚未训练。预处理检测/关键点、训练检查点和数据另计；旧 Ultralight 的 WeNet/HuBERT 分支大小须按所选编码器重算，不能沿用此数字。",
       "source_urls": [
         "https://github.com/anliyuan/FeatherTalk/blob/main/docs/WEIGHTS.md",
+        "https://github.com/anliyuan/FeatherTalk",
+        "https://github.com/anliyuan/Ultralight-Digital-Human"
+      ],
+      "expected_quality": "专属训练可贴合固定女A；默认144×144视觉模型的唇纹、牙齿特写细节有限，侧脸/遮嘴效果依赖训练素材。",
+      "quality_assessment_basis": "primary_source_architecture_and_training_dependence_not_benchmarked",
+      "quality_source_urls": [
         "https://github.com/anliyuan/FeatherTalk",
         "https://github.com/anliyuan/Ultralight-Digital-Human"
       ]
@@ -3080,6 +2974,46 @@
       "source_urls": [
         "https://github.com/Rudrabha/Wav2Lip",
         "https://github.com/OpenTalker/SadTalker/releases/tag/v0.0.2"
+      ],
+      "expected_quality": "可保留源片并完成基本口型同步；需留意嘴部偏软、牙齿细节和嘴周拼接，适合作速度/同步对照。",
+      "quality_assessment_basis": "primary_source_and_architecture_inference_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/Rudrabha/Wav2Lip"
+      ]
+    },
+    "L05": {
+      "display": "约 0.66 GB（人像模式）",
+      "estimated_min_gb": 0.6589,
+      "estimated_max_gb": 0.6589,
+      "component_ids": [
+        "liveportrait_human"
+      ],
+      "basis": "file_metadata",
+      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。 动物权重不计入，当前 MuseTalk 不重复计入。",
+      "source_urls": [],
+      "expected_quality": "可补充眨眼、微笑和点头，提升倾听表情；大幅转头、遮挡和与MuseTalk同时控制嘴部时需要处理变形/冲突。",
+      "quality_assessment_basis": "primary_source_capability_and_cascade_inference_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/KlingAIResearch/LivePortrait"
+      ]
+    },
+    "F02": {
+      "display": "约 0.78 GB；含情绪约 2.05 GB³",
+      "estimated_min_gb": 0.777138567,
+      "estimated_max_gb": 2.048456831,
+      "component_ids": [
+        "a2f_v3",
+        "a2e"
+      ],
+      "basis": "file_metadata_optional",
+      "note": "选 v3 基础模型包约 0.777 GB，选配 Audio2Emotion ONNX 增加约 1.271 GB；不包含旧 v2 三个人物包、TensorRT engine、3D角色与渲染器。情绪权重需要接受官方访问许可。",
+      "source_urls": [
+        "https://github.com/NVIDIA/Audio2Face-3D-SDK/blob/main/download_models.bat"
+      ],
+      "expected_quality": "能驱动3D角色的嘴、脸颊和表情；最终写实程度由角色建模、牙齿、材质与灯光决定，需要另建女A的3D资产。",
+      "quality_assessment_basis": "primary_source_capability_and_rendering_dependency",
+      "quality_source_urls": [
+        "https://github.com/NVIDIA/Audio2Face-3D-SDK"
       ]
     },
     "L10": {
@@ -3091,6 +3025,174 @@
       "note": "官方 v0.0.2-rc 单个 256/512 检查点均为 725,066,984 字节，选一个；mapping 约 0.156 GB，另计裁脸/可选 GFPGAN。不要把旧版全部检查点和两种分辨率一起相加。",
       "source_urls": [
         "https://github.com/OpenTalker/SadTalker/releases/tag/v0.0.2-rc"
+      ],
+      "expected_quality": "单图能生成说话、眨眼和头动；固定镜头可作整脸动画参考，需检查头颈接缝、表情僵硬和增强后的身份变化。",
+      "quality_assessment_basis": "primary_source_architecture_and_review_targets_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/OpenTalker/SadTalker"
+      ]
+    },
+    "L02": {
+      "display": "约 2.31 GB（PyTorch）",
+      "estimated_min_gb": 2.3147,
+      "estimated_max_gb": 2.3147,
+      "component_ids": [
+        "ditto_torch"
+      ],
+      "basis": "file_metadata",
+      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。 ONNX 是另一种约 2.53 GB 的路径；导出/重建 Windows TensorRT engine 会另占磁盘，不能直接复用上游 Linux 构件。",
+      "source_urls": [],
+      "expected_quality": "可把口型、头姿、眨眼作为整体头部运动来生成/控制；细节与侧脸形变待测，身体和手势仍需独立素材。",
+      "quality_assessment_basis": "primary_source_capability_and_engineering_expectation_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/antgroup/ditto-talkinghead"
+      ]
+    },
+    "L06": {
+      "display": "约 5.2–5.6 GB；整包约 10 GB",
+      "estimated_min_gb": 5.2,
+      "estimated_max_gb": 5.6,
+      "component_ids": [
+        "latentsync_inference",
+        "sd_vae"
+      ],
+      "basis": "engineering_estimate",
+      "note": "推理主权重和 tiny 约 5.15 GB，另计裁脸模型；复用现有同版本 SD VAE 时减少约 0.33 GB。官方整仓含评测/训练辅助权重达 9.64 GB，加单格式 VAE 接近 10 GB，不是最小推理安装量。",
+      "source_urls": [
+        "https://github.com/bytedance/LatentSync/blob/main/scripts/inference.py"
+      ],
+      "expected_quality": "512分辨率训练针对嘴部模糊，适合精修唇形与口腔细节；保留原片动作，仍需检查牙齿闪烁和采样失真。",
+      "quality_assessment_basis": "primary_source_release_notes_and_expected_use_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/bytedance/LatentSync"
+      ]
+    },
+    "L04": {
+      "display": "约 6.92 GB（Pro + Wan VAE + 音频编码器）",
+      "estimated_min_gb": 6.9161,
+      "estimated_max_gb": 6.9161,
+      "component_ids": [
+        "flashhead_pro",
+        "vae_wan",
+        "wav2vec_en"
+      ],
+      "basis": "file_metadata",
+      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
+      "source_urls": [],
+      "expected_quality": "偏重人像细节与自然表演的候选；本机口型/牙齿尚未横评，官方单4090约10.8FPS，直接直播会有流畅性不足。",
+      "quality_assessment_basis": "primary_source_variants_and_throughput_with_unmeasured_quality",
+      "quality_source_urls": [
+        "https://github.com/Soul-AILab/SoulX-FlashHead",
+        "https://soul-ailab.github.io/soulx-flashhead/"
+      ]
+    },
+    "L03": {
+      "display": "约 8.16 GB（Lite + LTX VAE + 音频编码器）",
+      "estimated_min_gb": 8.1619,
+      "estimated_max_gb": 8.1619,
+      "component_ids": [
+        "flashhead_lite",
+        "vae_ltx",
+        "wav2vec_en"
+      ],
+      "basis": "file_metadata",
+      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
+      "source_urls": [],
+      "expected_quality": "可从单图流式生成口型和头部运动，有望减少素材循环感；需实测唇齿、发丝、身份与背景的长时稳定性。",
+      "quality_assessment_basis": "primary_source_capability_and_engineering_expectation_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/Soul-AILab/SoulX-FlashHead",
+        "https://soul-ailab.github.io/soulx-flashhead/"
+      ]
+    },
+    "F03": {
+      "display": "约 15–17 GB（部分估算）",
+      "estimated_min_gb": 15,
+      "estimated_max_gb": 17,
+      "component_ids": [
+        "personalive_core",
+        "sd_vae"
+      ],
+      "basis": "engineering_estimate_partial",
+      "note": "已核实六个 PersonaLive 核心文件约 10.55 GB；另加 SD 图像变体 UNet、图像编码器和 VAE。上游下载脚本指向的 lambdalabs 主分支当前没有返回所需权重，外部底模不能声称已逐文件核实；15–17 GB 只作预算，待确认可用底模版本。",
+      "source_urls": [
+        "https://github.com/GVCLab/PersonaLive/blob/main/tools/download_weights.py"
+      ],
+      "expected_quality": "把驱动者的眉眼、嘴形和头动迁移到角色，适合丰富表情；依赖驱动视频/摄像头，遮挡和跨脸型匹配待测。",
+      "quality_assessment_basis": "primary_source_capability_and_driver_dependency_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/GVCLab/PersonaLive"
+      ]
+    },
+    "L09": {
+      "display": "约 20.75 GB（Flash-Pro + Wan 配套编码器/VAE）",
+      "estimated_min_gb": 20.7498,
+      "estimated_max_gb": 20.7498,
+      "component_ids": [
+        "echo_flash",
+        "echo_base",
+        "wav2vec_zh"
+      ],
+      "basis": "file_metadata",
+      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
+      "source_urls": [],
+      "expected_quality": "可生成头部及身体动画，适合制作配套表演素材；少步加速下需检查口型、牙齿、手指和跨段连贯性。",
+      "quality_assessment_basis": "primary_source_capability_and_parameter_tradeoffs_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/antgroup/echomimic_v3"
+      ]
+    },
+    "L15": {
+      "display": "约 38.64 GB（推理必需权重组）",
+      "estimated_min_gb": 38.6389,
+      "estimated_max_gb": 38.6389,
+      "component_ids": [
+        "hallo_dit",
+        "hallo_t5",
+        "hallo_vae",
+        "hallo_audio"
+      ],
+      "basis": "file_metadata",
+      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
+      "source_urls": [],
+      "expected_quality": "语音与人物联合生成，有利于统一表演节奏；原生流程会改变O07/F07音色链路，单4090观看流畅度未验证。",
+      "quality_assessment_basis": "primary_source_joint_generation_and_integration_inference_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/fudan-generative-vision/Hallo-Live"
+      ]
+    },
+    "L14": {
+      "display": "约 47.08 GB（基础 S2V + LoRA）",
+      "estimated_min_gb": 47.0759,
+      "estimated_max_gb": 47.0759,
+      "component_ids": [
+        "liveavatar_base",
+        "liveavatar_lora"
+      ],
+      "basis": "file_metadata",
+      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
+      "source_urls": [],
+      "expected_quality": "面向长时连续人物生成，预期减少短动作反复播放；需核对脸、衣服、手部与背景漂移，单4090流畅度未知。",
+      "quality_assessment_basis": "primary_source_capability_and_review_targets_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/Alibaba-Quark/LiveAvatar"
+      ]
+    },
+    "L11": {
+      "display": "约 54.79 GB（官方兼容权重组）",
+      "estimated_min_gb": 54.7864,
+      "estimated_max_gb": 54.7864,
+      "component_ids": [
+        "flashtalk_bundle",
+        "wav2vec_zh"
+      ],
+      "basis": "file_metadata",
+      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
+      "source_urls": [],
+      "expected_quality": "可统一生成流式人物表演，适合观察口型与头肩动作协调；脸部细节待同源对比，单4090供帧是主要落地门槛。",
+      "quality_assessment_basis": "primary_source_capability_and_single_gpu_feasibility_inference",
+      "quality_source_urls": [
+        "https://github.com/Soul-AILab/SoulX-FlashTalk"
       ]
     },
     "L12": {
@@ -3105,6 +3207,47 @@
       "note": "这是独立采用本方案的首次原始权重预算；若已下载 L11 且路径共用，新增原始权重约零。A8W8 是运行时量化路径，不自动缩小原始下载文件；若另存量化权重/编译缓存，须追加实测占用。",
       "source_urls": [
         "https://github.com/di-osc/fast-flashtalk"
+      ],
+      "expected_quality": "延续FlashTalk的表演能力；量化后的唇齿细节、肤质、运动与首帧需对照原版，不能预设加速后画质不变。",
+      "quality_assessment_basis": "community_primary_source_and_quantization_review_targets_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/di-osc/fast-flashtalk",
+        "https://github.com/Soul-AILab/SoulX-FlashTalk"
+      ]
+    },
+    "L13": {
+      "display": "约 54.79 GB（官方兼容权重组）",
+      "estimated_min_gb": 54.7905,
+      "estimated_max_gb": 54.7905,
+      "component_ids": [
+        "liveact_bundle",
+        "wav2vec_zh"
+      ],
+      "basis": "file_metadata",
+      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
+      "source_urls": [],
+      "expected_quality": "支持动作/情绪编辑与长时人物表演，适合扩充姿态素材；需验证手部、身份和动作切换，单4090实时性不足以确认。",
+      "quality_assessment_basis": "primary_source_action_emotion_capabilities_and_quality_note_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/Soul-AILab/SoulX-LiveAct"
+      ]
+    },
+    "F04": {
+      "display": "约 56.62 GB（官方脚本筛选的推理配套）",
+      "estimated_min_gb": 56.623,
+      "estimated_max_gb": 56.623,
+      "component_ids": [
+        "edita_base",
+        "edita_lora",
+        "edita_vae"
+      ],
+      "basis": "file_metadata",
+      "note": "按所列组件的公开文件大小求和；小型配置/tokenizer 另有少量开销，未经安装验证。",
+      "source_urls": [],
+      "expected_quality": "支持角色、服装与全身动作编辑，适合扩展形象素材；需重点检查手指、遮挡、衣纹，当前在线横屏须适配竖屏。",
+      "quality_assessment_basis": "primary_source_capability_and_review_targets_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/GVCLab/EditaLive"
       ]
     },
     "L16": {
@@ -3120,45 +3263,11 @@
       "source_urls": [
         "https://github.com/deepbrainai-research/float",
         "https://drive.google.com/file/d/1rvWuM12cyvNvBQNCLmG4Fr2L1rpjQBF0/view"
-      ]
-    },
-    "F01": {
-      "display": "约 0.00376 GB（3.76 MB）",
-      "estimated_min_gb": 0.003758596,
-      "estimated_max_gb": 0.003758596,
-      "component_ids": [],
-      "basis": "http_head",
-      "note": "官方 face_landmarker.task 的 Content-Length 为 3,758,596 字节；不包含渲染角色或图像生成模型。",
-      "source_urls": [
-        "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/latest/face_landmarker.task"
-      ]
-    },
-    "F02": {
-      "display": "约 0.78 GB；含情绪约 2.05 GB³",
-      "estimated_min_gb": 0.777138567,
-      "estimated_max_gb": 2.048456831,
-      "component_ids": [
-        "a2f_v3",
-        "a2e"
       ],
-      "basis": "file_metadata_optional",
-      "note": "选 v3 基础模型包约 0.777 GB，选配 Audio2Emotion ONNX 增加约 1.271 GB；不包含旧 v2 三个人物包、TensorRT engine、3D角色与渲染器。情绪权重需要接受官方访问许可。",
-      "source_urls": [
-        "https://github.com/NVIDIA/Audio2Face-3D-SDK/blob/main/download_models.bat"
-      ]
-    },
-    "F03": {
-      "display": "约 15–17 GB（部分估算）",
-      "estimated_min_gb": 15,
-      "estimated_max_gb": 17,
-      "component_ids": [
-        "personalive_core",
-        "sd_vae"
-      ],
-      "basis": "engineering_estimate_partial",
-      "note": "已核实六个 PersonaLive 核心文件约 10.55 GB；另加 SD 图像变体 UNet、图像编码器和 VAE。上游下载脚本指向的 lambdalabs 主分支当前没有返回所需权重，外部底模不能声称已逐文件核实；15–17 GB 只作预算，待确认可用底模版本。",
-      "source_urls": [
-        "https://github.com/GVCLab/PersonaLive/blob/main/tools/download_weights.py"
+      "expected_quality": "单图可生成带情绪的脸部和头部运动；适合正脸表演参考，非正面、头身贴合与手势仍需另行处理。",
+      "quality_assessment_basis": "primary_source_capability_and_documented_frontal_limit_not_benchmarked",
+      "quality_source_urls": [
+        "https://github.com/deepbrainai-research/float"
       ]
     },
     "R01": {
@@ -3170,7 +3279,20 @@
       "note": "尚未确认完整官方可部署推理包及文件清单；不按论文参数量虚构下载体积。",
       "source_urls": [
         "https://streamavatar.github.io/"
+      ],
+      "expected_quality": "研究展示包含说话、倾听和手势，符合双向互动目标；发布完整性尚未确认，当前不能承诺女A成品质量。",
+      "quality_assessment_basis": "research_project_description_only_not_reproduced",
+      "quality_source_urls": [
+        "https://streamavatar.github.io/"
       ]
     }
+  },
+  "default_sort": {
+    "field": "additional_model_gb_min",
+    "direction": "ascending",
+    "basis": "first installation from current baseline, base configuration, lower bound of estimate range; optional components excluded from sort",
+    "unknowns": "last; a partial known component total is not a complete size",
+    "ties": "id ascending; stable option IDs preserved",
+    "shared_case": "fast-flashtalk sorted by first original-weight installation, not zero when sharing a separately installed L11"
   }
 }

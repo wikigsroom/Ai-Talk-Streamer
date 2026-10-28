@@ -1,6 +1,6 @@
 # Documentation / 文档导航
 
-[当前 MuseTalk 1.5 检查与口型/面控横评清单](analysis/LIPSYNC_OPTIONS_20261028.md)：实际加载版本、可优化项、22个基准/优化/替代/面控/关注选项与统一评测规范；候选尚未本项目跑分。现已补充[模型磁盘增量预算](analysis/AVATAR_MODEL_STORAGE_20261028.md)，区分逐文件元数据、工程估算、共享组件和未知总量。[SoulX-FlashTalk等流式方案调优设计](analysis/STREAMING_AVATAR_TUNING_20261028.md)说明硬件边界、优先级、适配接口和准入条件。
+[当前 MuseTalk 1.5 检查与口型/面控横评清单](analysis/LIPSYNC_OPTIONS_20261028.md)：实际加载版本、可优化项、22个基准/优化/替代/面控/关注选项与统一评测规范；候选尚未本项目跑分。现已补充[模型磁盘增量预算](analysis/AVATAR_MODEL_STORAGE_20261028.md)，区分逐文件元数据、工程估算、共享组件和未知总量；22项已按首次新增模型大小升序排列，并补充预期成品质量和逐项观看边界。[SoulX-FlashTalk等流式方案调优设计](analysis/STREAMING_AVATAR_TUNING_20261028.md)说明硬件边界、优先级、适配接口和准入条件。
 
 **直播间管理与装修 v1.2：** [完整功能方案](live-room/README.md)、[English guide](live-room/GUIDE.en.md)、[架构](live-room/ARCHITECTURE.md)、[操作部署](live-room/RUNBOOK.md)、[接口](live-room/API.md)、[独立实测验收](live-room/ACCEPTANCE.md)。`/admin` 控制 BGM、滤镜、弹幕姬、留言姬、导播私聊与运行状态。
 
