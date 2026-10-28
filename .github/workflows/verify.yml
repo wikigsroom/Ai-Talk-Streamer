@@ -35,6 +35,11 @@ jobs:
           '```text' | Out-File -Append -Encoding utf8 $env:GITHUB_STEP_SUMMARY
           Get-Content outputs/ci/browser-tests.txt | Out-File -Append -Encoding utf8 $env:GITHUB_STEP_SUMMARY
           '```' | Out-File -Append -Encoding utf8 $env:GITHUB_STEP_SUMMARY
+          if ($AvatarBrowserExit -ne 0) {
+            $AvatarFailure = (Get-Content outputs/ci/browser-tests.txt -Tail 180) -join "`n"
+            $AvatarFailure = $AvatarFailure.Replace('%','%25').Replace("`r",'%0D').Replace("`n",'%0A')
+            Write-Output "::error title=Native browser failure::$AvatarFailure"
+          }
           exit $AvatarBrowserExit
       - name: Retain browser diagnostics
         if: always()
