@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "provenance": "Original procedural instrumental compositions, created for Ai-Talk-Streamer; no external recordings or voice samples.",
+  "license": "CC0-1.0",
+  "sample_rate": 24000,
+  "channels": 1,
+  "bits": 16,
+  "tracks": [
+    {
+      "id": "daylight-notes",
+      "name": "日光便笺",
+      "path": "assets/room/bgm/daylight-notes.wav",
+      "duration": 28.8,
+      "bytes": 1382444,
+      "sha256": "f14ef4566ba5f05d60c49a4a9084db23f031074b0cb54e6f80ac2c3c42f276e2",
+      "position": 0,
+      "peak_dbfs": -16.953,
+      "rms_dbfs": -28.652
+    },
+    {
+      "id": "window-breeze",
+      "name": "窗边微风",
+      "path": "assets/room/bgm/window-breeze.wav",
+      "duration": 32.0,
+      "bytes": 1536044,
+      "sha256": "866b6b68a0d3729029da6ab8ce6742eca70f13f7097a5215a3d33b15534cfd16",
+      "position": 1,
+      "peak_dbfs": -16.731,
+      "rms_dbfs": -28.686
+    },
+    {
+      "id": "small-weekend",
+      "name": "小小周末",
+      "path": "assets/room/bgm/small-weekend.wav",
+      "duration": 30.0,
+      "bytes": 1440044,
+      "sha256": "fc4fc4ad5af9e34b6144fee96e2bc5ce3cc63c6b9fe55bf68dd5bffb614aae34",
+      "position": 2,
+      "peak_dbfs": -17.167,
+      "rms_dbfs": -28.646
+    }
+  ]
+}

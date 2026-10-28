@@ -1,5 +1,9 @@
 # Documentation / 文档导航
 
+[当前 MuseTalk 1.5 检查与口型/面控横评清单](analysis/LIPSYNC_OPTIONS_20261028.md)：实际加载版本、可优化项、13 个基准/优化/替代/面控选项与统一评测规范；候选尚未本项目跑分。
+
+**直播间管理与装修 v1.2：** [完整功能方案](live-room/README.md)、[English guide](live-room/GUIDE.en.md)、[架构](live-room/ARCHITECTURE.md)、[操作部署](live-room/RUNBOOK.md)、[接口](live-room/API.md)、[独立实测验收](live-room/ACCEPTANCE.md)。`/admin` 控制 BGM、滤镜、弹幕姬、留言姬、导播私聊与运行状态。
+
 **当前语音为 O07 / OmniVoice 主用、F07 / F5-TTS v1 备用。** [新版手册](deployment/BASELINE_O07_F07.md)、[配置清单](../configs/releases/split-a4090-b3080-o07-f07-v1.json)和[独立验收](evidence/voice-o07-f07.json)描述本次切换；所有旧测评与原始音频保持原样。
 
 [4090 在线案例测评](https://4090.sid.mom/cases/ai-talk-streamer/2026-10-27/report.html) · [定型基线](deployment/BASELINE_A4090_B3080.md)

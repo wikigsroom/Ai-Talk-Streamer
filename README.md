@@ -2,6 +2,12 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [Documentation](docs/README.md)
 
+**New room console and decoration:** open `/admin` to manage BGM, automatic speech ducking, filters, three coordinated themes, live comments, message cards, moderation and private agent chat. [Complete room guide](docs/live-room/GUIDE.en.md) · [Operations](docs/live-room/RUNBOOK.md) · [Five-case acceptance](docs/live-room/ACCEPTANCE.md). Native A4090 + B3080 official Livehime remains the deployment; no public broadcast was started during this local validation.
+
+![Deployed room administration](docs/media/room/admin-overview.png)
+
+[Six-page console tour (silent GIF)](docs/media/room/admin-tour.gif) · [Comment/message management](docs/media/room/admin-messages.png)
+
 **Current voice release: O07 / OmniVoice**, with **F07 / F5-TTS v1** as the approved backup. Native A4090 inference + B3080 official Livehime; female-A, daylight dorm and MuseTalk FP16 batch 8 remain fixed. [Complete new runbook](docs/deployment/BASELINE_O07_F07.md) · [Release manifest](configs/releases/split-a4090-b3080-o07-f07-v1.json) · [New acceptance evidence](docs/evidence/voice-o07-f07.json). Open `/voice-settings` for auditions and next-request switching. Historical recordings and benchmark numbers below retain their original engines and dates.
 
 A native Windows studio for a photorealistic **9:16 talking avatar**. Type a script, or ask your own cloud LLM a question; the workstation synthesizes the voice, generates the lip motion, plays coordinated body footage, and delivers the avatar to your browser and Bilibili’s official Livehime client.

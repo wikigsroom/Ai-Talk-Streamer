@@ -1,0 +1,124 @@
+{
+  "release": "split-a4090-b3080-v1.2.0-room-admin",
+  "frozen_date": "2026-10-28",
+  "status": "local_room_native_accepted_public_audience_gates_pending",
+  "deployment": "native_windows_split_devices",
+  "A": {
+    "role": "avatar_tts_dsh_state_collector",
+    "gpu": "RTX 4090 48GB",
+    "ram_gb": 64,
+    "state_path": "state/female-a-4090",
+    "ports": {
+      "avatar": 8010,
+      "tts_broker_loopback": 9880,
+      "O07_loopback": 9881,
+      "F07_loopback": 9882,
+      "dsh_loopback": 3092
+    }
+  },
+  "B": {
+    "role": "receiver_official_livehime",
+    "gpu": "RTX 3080 10GB",
+    "ram_gb": 64,
+    "root_suffix": "receiver-b",
+    "loopback_port": 8020,
+    "receiver_id": "receiver-3080",
+    "loads_avatar_or_tts": false
+  },
+  "character": {
+    "id": "female-a",
+    "name": "林知夏",
+    "scene": "知夏的日光宿舍",
+    "motion_clips": 48
+  },
+  "avatar": {
+    "engine": "MuseTalk",
+    "precision": "FP16",
+    "batch_size": 8,
+    "fps": 25,
+    "width": 720,
+    "height": 1280
+  },
+  "tts": {
+    "adapter": "resident-local",
+    "default_voice_id": "O07",
+    "fallback_voice_id": "F07",
+    "label": "夏栀 · 温柔清甜",
+    "automatic_fallback": true,
+    "primary": {
+      "engine": "OmniVoice",
+      "precision": "FP16",
+      "steps": 32
+    },
+    "backup": {
+      "engine": "F5-TTS-v1",
+      "precision": "FP32",
+      "nfe": 32,
+      "ema": true,
+      "vocoder": "local Vocos"
+    },
+    "speed": 1.0,
+    "seed": 2026102807,
+    "reference": "configs/voices/female-a-o07-f07.json",
+    "complete_waveform_before_playback": true,
+    "worker_sample_rate": 24000,
+    "media_sample_rate": 16000,
+    "max_part_characters": 140,
+    "max_text_characters": 1500,
+    "timeout_seconds": 90,
+    "synthesis_parallelism": 1,
+    "cancel_triggers_fallback": false,
+    "actual_engine_identified": true
+  },
+  "transport": {
+    "video": "h264_nvenc",
+    "video_target_bps": 3000000,
+    "audio": "PCM s16 16000Hz mono",
+    "receiver_decode": "software WebCodecs",
+    "canvas_mode": "direct_canvas_audio",
+    "buffer_ms": 4000
+  },
+  "conversation": {
+    "llm": "user_configured_cloud_channel",
+    "current_model_label": "gpt-6-luna",
+    "dsh": "0.2.0-rc.2",
+    "humanity": "0.1.17",
+    "native_humanity_tools": false,
+    "active_requests_per_room": 1,
+    "output_authorities": 1,
+    "playback_lease_ms": 30000
+  },
+  "historical_baseline": "split-a4090-b3080-v1.0.0",
+  "runbook": "docs/live-room/RUNBOOK.md",
+  "runtime_lock": "configs/releases/o07-f07-runtime-lock.json",
+  "acceptance_report": "docs/live-room/ACCEPTANCE.md",
+  "evidence": "docs/evidence/room-admin.json",
+  "history_immutable": true,
+  "downloads_performed": false,
+  "unresolved": [
+    "public O07/F07 real-comment and gift acceptance not repeated",
+    "audience CDN latency unmeasured",
+    "prior memory-maintenance deferral remains a separate gate",
+    "public/official room-state reconciliation requires monitoring"
+  ],
+  "voice_baseline": "split-a4090-b3080-v1.1.0-o07-f07",
+  "room": {
+    "version": "room-v1.2",
+    "admin_path": "/admin",
+    "overlay_path": "/overlay",
+    "service": "inside_existing_dsh",
+    "database": "state/live-room/control.sqlite3",
+    "audio_mix": "B_official_source_only",
+    "private_agent_requires_explicit_speech": true,
+    "themes": [
+      "daylight",
+      "paper",
+      "evening"
+    ],
+    "bgm_tracks": 3,
+    "default_music_gain": 0.22,
+    "default_duck_gain": 0.23,
+    "uploads_max_bytes": 134217728,
+    "public_broadcast_started": false
+  }
+}

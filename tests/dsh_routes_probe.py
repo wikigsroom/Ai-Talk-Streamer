@@ -44,6 +44,7 @@ async def check_streaming_proxy():
         return response
     upstream = web.Application()
     upstream.router.add_get('/api/dsh/events', events)
+    upstream.router.add_get('/api/dsh/room/events', events)
     server = TestServer(upstream)
     await server.start_server()
     saved_bridge = module.BRIDGE
@@ -52,14 +53,15 @@ async def check_streaming_proxy():
     forwarded.router.add_get('/api/dsh/{tail:.*}', module.proxy)
     try:
         async with TestClient(TestServer(forwarded)) as client:
-            result = await client.get('/api/dsh/events', headers={'Last-Event-ID': '41'})
-            assert result.status == 200
-            # Must arrive while the upstream response is still open. A buffered
-            # proxy would time out here instead of delivering the first event.
-            first = await asyncio.wait_for(result.content.readuntil(b'\n\n'), 2)
-            assert b'id: 42' in first
-            release.set()
-            assert b'heartbeat' in await asyncio.wait_for(result.read(), 2)
+            for path in ('/api/dsh/events', '/api/dsh/room/events'):
+                release.clear()
+                result = await client.get(path, headers={'Last-Event-ID': '41'})
+                assert result.status == 200
+                # Must arrive before upstream finishes, through both SSE paths.
+                first = await asyncio.wait_for(result.content.readuntil(b'\n\n'), 2)
+                assert b'id: 42' in first
+                release.set()
+                assert b'heartbeat' in await asyncio.wait_for(result.read(), 2)
     finally:
         release.set()
         module.BRIDGE = saved_bridge

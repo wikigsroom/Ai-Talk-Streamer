@@ -15,6 +15,7 @@ import { MemoryAdministration, purgeSessionBodies } from '../memory/administrati
 import { memoryPage } from '../memory/query.mjs';
 import { EventSubscriptions } from './events.mjs';
 import { PlatformManager } from '../platforms/manager.mjs';
+import { RoomManager } from '../room/manager.mjs';
 
 export class StreamBridge {
   constructor(root, runtime, { policyFile, avatarUrl = 'http://127.0.0.1:8010' } = {}) {
@@ -44,6 +45,7 @@ export class StreamBridge {
       void this.mediaCommand('cancel',barrier).catch(()=>{});
     });
     await this.memory.project();
+    this.room = new RoomManager(this.root, this).start();
     this.platforms = new PlatformManager(this.root, this).start();
     this.server=createServer((req,res)=>{void this.handle(req,res);});
     await new Promise((resolve,reject)=>{this.server.once('error',reject);this.server.listen(this.policy.deployment.bridge_port,this.policy.deployment.bridge_host,resolve);});
@@ -186,6 +188,7 @@ export class StreamBridge {
     try {
       const url=new URL(req.url,'http://127.0.0.1'),path=url.pathname;
       if(req.method==='OPTIONS')return send({},204);
+      if(path.startsWith('/api/dsh/room/'))return await this.room.handle(req,res,url,send);
       if(path.startsWith('/api/dsh/platforms'))return await this.platforms.handle(req,res,url,send);
       if(path==='/health'&&req.method==='GET'){await this.refreshMedia();return send(this.health());}
       if(path==='/api/dsh/session'&&req.method==='POST')return send({...this.auth.anonymous(),access_mode:'open',authentication_required:false,studio:{auto_start:true}});
@@ -244,6 +247,7 @@ export class StreamBridge {
   async close() {
     if(this.closed)return;this.closed=true;this.ready=false;clearInterval(this.timer);clearInterval(this.maintenanceTimer);this.scheduler?.close();
     this.events?.close();
+    await this.room?.close();
     await this.platforms?.close();
     for(const controller of this.controllers.values())controller.abort();
     if(this.state?.active())this.state.cancel(this.state.active().request_id,'bridge_shutdown');

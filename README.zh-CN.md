@@ -2,6 +2,12 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [完整文档](docs/README.md)
 
+**新增直播间导播台与包装：** 打开 `/admin`，可管理 BGM、人声压低音乐、滤镜、三套主题、弹幕、留言卡、屏蔽规则和 Agent 私聊。[完整方案与功能表](docs/live-room/README.md) · [操作部署手册](docs/live-room/RUNBOOK.md) · [五段实测](docs/live-room/ACCEPTANCE.md)。沿用 4090 推理＋3080 官方直播姬，本次仅做本地会话验证。
+
+![实际部署的直播间导播台](docs/media/room/admin-overview.png)
+
+[六区巡览 GIF（无声）](docs/media/room/admin-tour.gif) · [弹幕与留言管理截图](docs/media/room/admin-messages.png)
+
 **当前语音定型：O07 / OmniVoice 主用，F07 / F5-TTS v1 备用。** 保持A4090推理＋B3080官方直播姬、女A日光宿舍、MuseTalk FP16 batch 8。[新版完整操作手册](docs/deployment/BASELINE_O07_F07.md) · [发布清单](configs/releases/split-a4090-b3080-o07-f07-v1.json) · [独立新增验收](docs/evidence/voice-o07-f07.json)。`/voice-settings` 提供试听和下一句切换。下文旧录像与测评数字保留原引擎和日期，不作为新版性能数据。
 
 一套运行在 **原生 Windows** 上的 **9:16 写实数字人演播台**：输入播报稿，或通过你自己的云端 LLM 渠道提问，由本机生成语音、实时口型和融合画面，并将人物送到网页与哔哩哔哩官方直播姬。

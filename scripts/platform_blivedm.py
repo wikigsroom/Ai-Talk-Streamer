@@ -46,7 +46,7 @@ class Handler(blivedm.BaseHandler):
         emit({'kind': 'event', 'room_id': str(client.room_id), 'event': {
             'type': 'comment', 'event_id': 'sc-'+str(message.id), 'room_id': str(client.room_id),
             'user_id': str(message.uid), 'nickname': message.uname,
-            'text': message.message, 'timestamp': int(time.time()*1000)}})
+            'text': message.message, 'notice_kind': 'superchat', 'timestamp': int(time.time()*1000)}})
 
 
 async def main():

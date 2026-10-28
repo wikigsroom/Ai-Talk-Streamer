@@ -103,7 +103,8 @@ class ReceiverGateway:
         if request.headers.get('Upgrade','').lower()=='websocket':return await self.websocket(request,target)
         self.metrics['http_requests']+=1;started=time.perf_counter()
         headers={key:value for key,value in request.headers.items() if key.lower() not in HOP_HEADERS|{'host','accept-encoding'}}
-        body=await request.read()
+        upload=request.path=='/api/dsh/room/tracks/upload' and request.method=='POST'
+        body=request.content.iter_chunked(256*1024) if upload else await request.read()
         if request.path=='/api/dsh/platforms/output/player' and request.method=='POST':
             try:data=json.loads(body)
             except ValueError:return web.json_response({'error':'OUTPUT_PLAYER_INVALID'},status=400)

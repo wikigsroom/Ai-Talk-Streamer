@@ -27,7 +27,7 @@ export class PlatformManager {
   }
   ingest(platform, payloads, options = {}) {
     check(!this.closed, 'PLATFORM_SERVICE_STOPPED', 503); const rows = Array.isArray(payloads) ? payloads : [payloads]; check(rows.length <= 1000, 'PLATFORM_BATCH_LIMIT');
-    const results = [];
+    const results = [], addedEvents = [];
     this.store.db.exec('BEGIN IMMEDIATE');
     try {
       for (const payload of rows) {
@@ -39,9 +39,14 @@ export class PlatformManager {
         if (this.now() - event.occurred_at > this.config.value.interaction.ttl_ms) { status = 'EXPIRED'; reason = 'event_ttl'; }
         if (status === 'PENDING' && this.store.get("SELECT COUNT(*) n FROM events WHERE status='PENDING'").n >= this.config.value.interaction.max_pending) { status = 'DROPPED'; reason = 'event_queue_full'; this.store.count('overload_drops'); }
         const added = this.store.insert(event, status, reason); results.push({ event_key: event.event_key, duplicate: !added, status });
+        if (added) addedEvents.push(event);
       }
       this.store.db.exec('COMMIT');
     } catch (error) { this.store.db.exec('ROLLBACK'); throw error; }
+    for (const event of addedEvents) {
+      try { this.bridge.room?.acceptPlatformEvent(event); }
+      catch (error) { if (this.bridge.room) this.bridge.room.lastError = error.code || 'ROOM_MESSAGE_STORAGE_ERROR'; this.store.count('room_display_errors'); }
+    }
     return { accepted: results.length, results };
   }
   async dispatch() {
@@ -59,6 +64,7 @@ export class PlatformManager {
       if (policy.mode === 'chat' && !this.bridge.health().persona_injection_ready) return;
       const rows = this.store.all("SELECT * FROM events WHERE status='PENDING' ORDER BY received_at,rowid LIMIT 50");
       for (const event of rows) {
+        if (this.bridge.room?.blocked(event)) { this.store.run("UPDATE events SET status='IGNORED',reason='room_moderation' WHERE event_key=?", event.event_key); continue; }
         const principal = eventPrincipal(event), last = this.cooldowns.get(principal.principal_id) || 0;
         if (last && this.now() - last < policy.viewer_cooldown_ms) { this.store.run("UPDATE events SET status='IGNORED',reason='viewer_cooldown' WHERE event_key=?", event.event_key); continue; }
         const key = 'platform-' + event.event_key;

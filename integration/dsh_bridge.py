@@ -49,19 +49,25 @@ async def proxy(request, path=None):
     path = path or '/api/dsh/' + request.match_info.get('tail', '')
     if not path.startswith('/api/dsh/'):
         raise web.HTTPNotFound()
-    headers = {key: request.headers[key] for key in ('Content-Type', 'Last-Event-ID') if key in request.headers}
+    headers = {key: request.headers[key] for key in ('Content-Type', 'Last-Event-ID', 'Range') if key in request.headers}
     if path == '/api/dsh/platforms/douyin/callback':
         for key in ('x-msg-type', 'x-nonce-str', 'x-roomid', 'x-timestamp', 'x-signature'):
             if key in request.headers:
                 headers[key] = request.headers[key]
     target = BRIDGE + path + (('?' + request.query_string) if request.query_string else '')
     try:
-        streaming = request.method == 'GET' and path == '/api/dsh/events'
-        timeout = ClientTimeout(total=None, connect=3, sock_read=45) if streaming else ClientTimeout(total=100)
+        streaming = request.method == 'GET' and path in ('/api/dsh/events', '/api/dsh/room/events')
+        audio = path.startswith('/api/dsh/room/audio/')
+        upload = path == '/api/dsh/room/tracks/upload'
+        timeout = ClientTimeout(total=None, connect=3, sock_read=45) if streaming else ClientTimeout(total=300 if upload else 100)
+        body = request.content.iter_chunked(256 * 1024) if upload else await request.read()
         async with ClientSession(timeout=timeout, trust_env=False) as client:
-            async with client.request(request.method, target, data=await request.read(), headers=headers) as result:
+            async with client.request(request.method, target, data=body, headers=headers) as result:
                 extra = {'Cache-Control': 'no-store', 'Content-Type': result.headers.get('Content-Type', 'application/json')}
-                if streaming and result.status == 200 and result.headers.get('Content-Type', '').startswith('text/event-stream'):
+                for key in ('Content-Range', 'Accept-Ranges', 'Content-Length'):
+                    if key in result.headers:
+                        extra[key] = result.headers[key]
+                if audio or streaming and result.status == 200 and result.headers.get('Content-Type', '').startswith('text/event-stream'):
                     response = web.StreamResponse(status=result.status, headers={**extra, 'X-Accel-Buffering': 'no'})
                     await response.prepare(request)
                     try:
@@ -130,6 +136,14 @@ async def output_page(_request):
     return web.FileResponse(ROOT / 'integration/obs.html')
 
 
+async def admin_page(_request):
+    return web.FileResponse(ROOT / 'web/admin.html')
+
+
+async def overlay_page(_request):
+    return web.FileResponse(ROOT / 'web/room-overlay.html')
+
+
 async def obs_session(request):
     return web.json_response(await async_media('obs-session', {}), headers={'Cache-Control': 'no-store'})
 
@@ -151,4 +165,6 @@ def configure(app):
     app.router.add_get('/memory', memory_page)
     app.router.add_get('/platforms', platforms_page)
     app.router.add_get('/output.html', output_page)
+    app.router.add_get('/admin', admin_page)
+    app.router.add_get('/overlay', overlay_page)
     app.router.add_get('/dsh-evidence/{path:.*}', evidence_file)

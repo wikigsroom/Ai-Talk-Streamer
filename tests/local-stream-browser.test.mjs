@@ -5,6 +5,7 @@ import { createServer } from 'node:http';
 import { createRequire } from 'node:module';
 import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import { DEFAULTS, FILTERS } from '../backend/room/defaults.mjs';
 
 const root = resolve(process.cwd());
 const modulePath = join(root, 'node_modules/playwright-core');
@@ -26,8 +27,11 @@ test('native browser source outputs canvas/audio directly, recovers from decoder
   };
   const server = createServer((req, res) => {
     const path = new URL(req.url, 'http://localhost').pathname;
-    const files = { '/output.html': 'integration/obs.html', '/browser-id.js': 'web/browser-id.js', '/dsh-playback.js': 'web/dsh-playback.js', '/local-stream.js': 'web/local-stream.js' };
-    if (files[path]) { res.writeHead(200, { 'Content-Type': path.endsWith('.html') ? 'text/html' : 'application/javascript' }); res.end(readFileSync(join(root, files[path]))); }
+    const files = { '/output.html': 'integration/obs.html', '/browser-id.js': 'web/browser-id.js', '/dsh-playback.js': 'web/dsh-playback.js', '/local-stream.js': 'web/local-stream.js', ...Object.fromEntries(['room-client.js','room-audio.js','room-overlay.js','room-overlay.css'].map(name => ['/' + name, 'web/' + name])) };
+    const room = { server_time: Date.now(), revision: 1, settings: DEFAULTS, presets: FILTERS, music: { track_id: null, playing: false, position: 0, repeat: 'one', version: 1 }, tracks: [], messages: [], board: {}, agent: {} };
+    if (path === '/api/dsh/room/state') { res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(room)); }
+    else if (path === '/api/dsh/room/events') { res.writeHead(200, { 'Content-Type': 'text/event-stream' }); res.end('event: snapshot\ndata: ' + JSON.stringify(room) + '\n\n'); }
+    else if (files[path]) { res.writeHead(200, { 'Content-Type': path.endsWith('.html') ? 'text/html' : path.endsWith('.css') ? 'text/css' : 'application/javascript' }); res.end(readFileSync(join(root, files[path]))); }
     else if (path === '/fixture.jpg') { res.writeHead(200, { 'Content-Type': 'image/jpeg' }); res.end(jpeg); }
     else { req.resume(); res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ broadcast: null, claim: false })); }
   });

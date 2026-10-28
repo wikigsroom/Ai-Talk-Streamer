@@ -1,0 +1,5703 @@
+{
+  "release": "split-a4090-b3080-v1.2.0-room-admin",
+  "observed_utc": "2026-10-28T08:05:44.903382+00:00",
+  "scope": "A4090 real O07/F07 inference to the existing B3080 official Livehime browser source; local session and synthetic events only",
+  "public_broadcast_started": false,
+  "local_acceptance": {
+    "ok": true,
+    "scope": "A4090 real O07/F07 inference to the existing B3080 official Livehime browser source; local session and synthetic events only",
+    "public_broadcast_started": false,
+    "started_at": "2026-10-28T06:16:21.942935+00:00",
+    "cases": [
+      {
+        "id": "R1-O07-BGM",
+        "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+        "text": "大家好，我是林知夏。欢迎来到我的日光宿舍，一起聊聊今天开心的小事吧。",
+        "status": "COMPLETED",
+        "elapsed_ms": 13535,
+        "voice": "O07",
+        "utterances": [
+          {
+            "utterance_id": "utt-b89260f4-b0d4-423d-ad84-476e9d774a5b",
+            "status": "COMPLETED",
+            "valid_sample_count": 87680,
+            "contiguous_played_samples": 87680,
+            "observations": [
+              {
+                "played_samples": 87680,
+                "natural_end": 1
+              }
+            ],
+            "first_positive_receipt": {
+              "received_at": "2026-10-28T06:16:30.780Z",
+              "contiguous_played_samples": 320,
+              "natural_end": 0,
+              "accepted": 1
+            },
+            "last_receipt": {
+              "received_at": "2026-10-28T06:16:36.259Z",
+              "contiguous_played_samples": 87680,
+              "natural_end": 1,
+              "accepted": 1
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_seq": 335,
+            "event_type": "input.accepted",
+            "received_at": "2026-10-28T06:16:22.913Z"
+          },
+          {
+            "event_seq": 336,
+            "event_type": "request.thinking",
+            "received_at": "2026-10-28T06:16:22.917Z"
+          },
+          {
+            "event_seq": 337,
+            "event_type": "context.assembled",
+            "received_at": "2026-10-28T06:16:22.922Z"
+          },
+          {
+            "event_seq": 338,
+            "event_type": "utterance.text_ready",
+            "received_at": "2026-10-28T06:16:22.925Z",
+            "text": "大家好，我是林知夏。欢迎来到我的日光宿舍，一起聊聊今天开心的小事吧。"
+          },
+          {
+            "event_seq": 339,
+            "event_type": "utterance.audio_ready",
+            "received_at": "2026-10-28T06:16:26.024Z"
+          },
+          {
+            "event_seq": 340,
+            "event_type": "playback.completed",
+            "received_at": "2026-10-28T06:16:36.260Z"
+          }
+        ]
+      },
+      {
+        "id": "R2-BOARD-FILTER",
+        "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+        "text": "看到你的留言啦。有时候，一杯喜欢的饮料和朋友的一句问候，就能让一天变得很好。",
+        "status": "COMPLETED",
+        "elapsed_ms": 14125,
+        "voice": "O07",
+        "utterances": [
+          {
+            "utterance_id": "utt-9a136994-b46c-46b7-a24e-2ffd7bb67ce1",
+            "status": "COMPLETED",
+            "valid_sample_count": 100480,
+            "contiguous_played_samples": 100480,
+            "observations": [
+              {
+                "played_samples": 100480,
+                "natural_end": 1
+              }
+            ],
+            "first_positive_receipt": {
+              "received_at": "2026-10-28T06:16:44.273Z",
+              "contiguous_played_samples": 2048,
+              "natural_end": 0,
+              "accepted": 1
+            },
+            "last_receipt": {
+              "received_at": "2026-10-28T06:16:50.420Z",
+              "contiguous_played_samples": 100480,
+              "natural_end": 1,
+              "accepted": 1
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_seq": 341,
+            "event_type": "input.accepted",
+            "received_at": "2026-10-28T06:16:36.507Z"
+          },
+          {
+            "event_seq": 342,
+            "event_type": "request.thinking",
+            "received_at": "2026-10-28T06:16:36.515Z"
+          },
+          {
+            "event_seq": 343,
+            "event_type": "context.assembled",
+            "received_at": "2026-10-28T06:16:36.521Z"
+          },
+          {
+            "event_seq": 344,
+            "event_type": "utterance.text_ready",
+            "received_at": "2026-10-28T06:16:36.525Z",
+            "text": "看到你的留言啦。有时候，一杯喜欢的饮料和朋友的一句问候，就能让一天变得很好。"
+          },
+          {
+            "event_seq": 345,
+            "event_type": "utterance.audio_ready",
+            "received_at": "2026-10-28T06:16:39.523Z"
+          },
+          {
+            "event_seq": 346,
+            "event_type": "playback.completed",
+            "received_at": "2026-10-28T06:16:50.420Z"
+          }
+        ]
+      },
+      {
+        "id": "R3-NORMAL-COMMENT-ROUTING",
+        "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+        "status": "COMPLETED",
+        "text": "知夏，测试一下弹幕互动。今天也要好好休息，照顾自己。",
+        "elapsed_ms": 13306,
+        "voice": "O07",
+        "utterances": [
+          {
+            "utterance_id": "utt-5005144a-edf8-4c72-b05a-7bedad1ba569",
+            "status": "COMPLETED",
+            "valid_sample_count": 64960,
+            "contiguous_played_samples": 64960,
+            "observations": [
+              {
+                "played_samples": 64960,
+                "natural_end": 1
+              }
+            ],
+            "first_positive_receipt": {
+              "received_at": "2026-10-28T06:16:59.523Z",
+              "contiguous_played_samples": 2218,
+              "natural_end": 0,
+              "accepted": 1
+            },
+            "last_receipt": {
+              "received_at": "2026-10-28T06:17:03.459Z",
+              "contiguous_played_samples": 64960,
+              "natural_end": 1,
+              "accepted": 1
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_seq": 347,
+            "event_type": "input.accepted",
+            "received_at": "2026-10-28T06:16:51.711Z"
+          },
+          {
+            "event_seq": 348,
+            "event_type": "request.thinking",
+            "received_at": "2026-10-28T06:16:51.717Z"
+          },
+          {
+            "event_seq": 349,
+            "event_type": "context.assembled",
+            "received_at": "2026-10-28T06:16:51.722Z"
+          },
+          {
+            "event_seq": 350,
+            "event_type": "utterance.text_ready",
+            "received_at": "2026-10-28T06:16:51.725Z",
+            "text": "知夏，测试一下弹幕互动。今天也要好好休息，照顾自己。"
+          },
+          {
+            "event_seq": 351,
+            "event_type": "utterance.audio_ready",
+            "received_at": "2026-10-28T06:16:54.802Z"
+          },
+          {
+            "event_seq": 352,
+            "event_type": "playback.completed",
+            "received_at": "2026-10-28T06:17:03.460Z"
+          }
+        ]
+      },
+      {
+        "id": "R4-F07-GIFT",
+        "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+        "text": "谢谢你送来的小星星。这是本地礼物提醒测试，也祝你今天有很多小小的幸运。",
+        "status": "COMPLETED",
+        "elapsed_ms": 12705,
+        "voice": "F07",
+        "utterances": [
+          {
+            "utterance_id": "utt-2f398cd5-02b9-4823-b28d-f6578ec4ac7d",
+            "status": "COMPLETED",
+            "valid_sample_count": 78848,
+            "contiguous_played_samples": 78848,
+            "observations": [
+              {
+                "played_samples": 78848,
+                "natural_end": 1
+              }
+            ],
+            "first_positive_receipt": {
+              "received_at": "2026-10-28T06:17:11.800Z",
+              "contiguous_played_samples": 3029,
+              "natural_end": 0,
+              "accepted": 1
+            },
+            "last_receipt": {
+              "received_at": "2026-10-28T06:17:16.544Z",
+              "contiguous_played_samples": 78848,
+              "natural_end": 1,
+              "accepted": 1
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_seq": 353,
+            "event_type": "input.accepted",
+            "received_at": "2026-10-28T06:17:04.084Z"
+          },
+          {
+            "event_seq": 354,
+            "event_type": "request.thinking",
+            "received_at": "2026-10-28T06:17:04.092Z"
+          },
+          {
+            "event_seq": 355,
+            "event_type": "context.assembled",
+            "received_at": "2026-10-28T06:17:04.102Z"
+          },
+          {
+            "event_seq": 356,
+            "event_type": "utterance.text_ready",
+            "received_at": "2026-10-28T06:17:04.104Z",
+            "text": "谢谢你送来的小星星。这是本地礼物提醒测试，也祝你今天有很多小小的幸运。"
+          },
+          {
+            "event_seq": 357,
+            "event_type": "utterance.audio_ready",
+            "received_at": "2026-10-28T06:17:06.792Z"
+          },
+          {
+            "event_seq": 358,
+            "event_type": "playback.completed",
+            "received_at": "2026-10-28T06:17:16.544Z"
+          }
+        ]
+      },
+      {
+        "id": "R5-EXPLICIT-AGENT-TO-PROGRAM",
+        "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+        "text": "我是林知夏，喜欢在日光宿舍里聊点轻松的小事；今天可以聊聊最近发现的一件微小但让人开心的事。",
+        "status": "COMPLETED",
+        "elapsed_ms": 15602,
+        "voice": "O07",
+        "utterances": [
+          {
+            "utterance_id": "utt-0dc50533-1112-4999-a86d-d7783c3d31ba",
+            "status": "COMPLETED",
+            "valid_sample_count": 121760,
+            "contiguous_played_samples": 121760,
+            "observations": [
+              {
+                "played_samples": 121760,
+                "natural_end": 1
+              }
+            ],
+            "first_positive_receipt": {
+              "received_at": "2026-10-28T06:17:30.029Z",
+              "contiguous_played_samples": 128,
+              "natural_end": 0,
+              "accepted": 1
+            },
+            "last_receipt": {
+              "received_at": "2026-10-28T06:17:37.652Z",
+              "contiguous_played_samples": 121760,
+              "natural_end": 1,
+              "accepted": 1
+            }
+          }
+        ],
+        "events": [
+          {
+            "event_seq": 359,
+            "event_type": "input.accepted",
+            "received_at": "2026-10-28T06:17:22.187Z"
+          },
+          {
+            "event_seq": 360,
+            "event_type": "request.thinking",
+            "received_at": "2026-10-28T06:17:22.192Z"
+          },
+          {
+            "event_seq": 361,
+            "event_type": "context.assembled",
+            "received_at": "2026-10-28T06:17:22.197Z"
+          },
+          {
+            "event_seq": 362,
+            "event_type": "utterance.text_ready",
+            "received_at": "2026-10-28T06:17:22.200Z",
+            "text": "我是林知夏，喜欢在日光宿舍里聊点轻松的小事；今天可以聊聊最近发现的一件微小但让人开心的事。"
+          },
+          {
+            "event_seq": 363,
+            "event_type": "utterance.audio_ready",
+            "received_at": "2026-10-28T06:17:25.352Z"
+          },
+          {
+            "event_seq": 364,
+            "event_type": "playback.completed",
+            "received_at": "2026-10-28T06:17:37.653Z"
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "at": 1793168183.066,
+        "fps": 24.663,
+        "stream": {
+          "frames": 12483,
+          "received_frames": 12583,
+          "fps": 24.678183151941447,
+          "audio_clock_seconds": 8376.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666704850795,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 81.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168182477,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": false,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 0,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 2,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168183.686,
+        "fps": 24.663,
+        "stream": {
+          "frames": 12483,
+          "received_frames": 12583,
+          "fps": 24.678183151941447,
+          "audio_clock_seconds": 8376.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666704850795,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 81.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168182477,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": false,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 0,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 2,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168184.305,
+        "fps": 25.314,
+        "stream": {
+          "frames": 12521,
+          "received_frames": 12620,
+          "fps": 25.31308286724071,
+          "audio_clock_seconds": 8377.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.333337183969,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 81.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168183976,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 1.018667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168184.918,
+        "fps": 25.314,
+        "stream": {
+          "frames": 12521,
+          "received_frames": 12620,
+          "fps": 25.31308286724071,
+          "audio_clock_seconds": 8377.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.333337183969,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 81.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168183976,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 1.018667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168185.538,
+        "fps": 25.314,
+        "stream": {
+          "frames": 12521,
+          "received_frames": 12620,
+          "fps": 25.31308286724071,
+          "audio_clock_seconds": 8377.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.333337183969,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 81.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168183976,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 1.018667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168186.161,
+        "fps": 24.686,
+        "stream": {
+          "frames": 12558,
+          "received_frames": 12658,
+          "fps": 24.686415799109763,
+          "audio_clock_seconds": 8379.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666670550563,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 81.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168185473,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 2.517333,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "AUDIO_READY"
+        }
+      },
+      {
+        "at": 1793168186.779,
+        "fps": 24.686,
+        "stream": {
+          "frames": 12558,
+          "received_frames": 12658,
+          "fps": 24.686415799109763,
+          "audio_clock_seconds": 8379.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666670550563,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 81.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168185473,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 2.517333,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "AUDIO_READY"
+        }
+      },
+      {
+        "at": 1793168187.394,
+        "fps": 25.32,
+        "stream": {
+          "frames": 12596,
+          "received_frames": 12695,
+          "fps": 25.31982942410592,
+          "audio_clock_seconds": 8380.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000039164734,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 81.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168186975,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 4.026953,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168188.009,
+        "fps": 25.32,
+        "stream": {
+          "frames": 12596,
+          "received_frames": 12695,
+          "fps": 25.31982942410592,
+          "audio_clock_seconds": 8380.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000039164734,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 81.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168186975,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 4.026953,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168188.623,
+        "fps": 24.665,
+        "stream": {
+          "frames": 12633,
+          "received_frames": 12733,
+          "fps": 24.663378216433816,
+          "audio_clock_seconds": 8382.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666706160468,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 81.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168188480,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 5.519274,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168189.241,
+        "fps": 24.665,
+        "stream": {
+          "frames": 12633,
+          "received_frames": 12733,
+          "fps": 24.663378216433816,
+          "audio_clock_seconds": 8382.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666706160468,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 81.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168188480,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 5.519274,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168189.853,
+        "fps": 24.665,
+        "stream": {
+          "frames": 12633,
+          "received_frames": 12733,
+          "fps": 24.663378216433816,
+          "audio_clock_seconds": 8382.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666706160468,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 81.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168188480,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 5.519274,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168190.472,
+        "fps": 25.338,
+        "stream": {
+          "frames": 12671,
+          "received_frames": 12770,
+          "fps": 25.34009069044802,
+          "audio_clock_seconds": 8383.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.333337314936,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 81.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168189967,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 7.017044,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168191.088,
+        "fps": 25.338,
+        "stream": {
+          "frames": 12671,
+          "received_frames": 12770,
+          "fps": 25.34009069044802,
+          "audio_clock_seconds": 8383.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.333337314936,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 81.30000001192093,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168189967,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 7.017044,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168191.71,
+        "fps": 24.665,
+        "stream": {
+          "frames": 12708,
+          "received_frames": 12807,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 8385.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3960.0000040136365,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 133,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168191476,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "current_time": 8.517333,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.1257907535412806,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168192.322,
+        "fps": 24.665,
+        "stream": {
+          "frames": 12708,
+          "received_frames": 12807,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 8385.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3960.0000040136365,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 133,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168191476,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "current_time": 8.517333,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.1257907535412806,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168192.939,
+        "fps": 24.665,
+        "stream": {
+          "frames": 12708,
+          "received_frames": 12807,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 8385.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3960.0000040136365,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 133,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168191476,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "current_time": 8.517333,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.1257907535412806,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168193.554,
+        "fps": 25.301,
+        "stream": {
+          "frames": 12746,
+          "received_frames": 12846,
+          "fps": 25.32995600606716,
+          "audio_clock_seconds": 8386.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4032.0000040483137,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 133,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168192980,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "current_time": 10.021333,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.39927007227004946,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168194.166,
+        "fps": 25.301,
+        "stream": {
+          "frames": 12746,
+          "received_frames": 12846,
+          "fps": 25.32995600606716,
+          "audio_clock_seconds": 8386.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4032.0000040483137,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 133,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168192980,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "current_time": 10.021333,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.39927007227004946,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168194.784,
+        "fps": 24.696,
+        "stream": {
+          "frames": 12783,
+          "received_frames": 12883,
+          "fps": 24.66831122015987,
+          "audio_clock_seconds": 8388.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4000.0000040799932,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 133,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168194481,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "current_time": 11.52,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.6732360090037836,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168195.401,
+        "fps": 24.696,
+        "stream": {
+          "frames": 12783,
+          "received_frames": 12883,
+          "fps": 24.66831122015987,
+          "audio_clock_seconds": 8388.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4000.0000040799932,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 133,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168194481,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "current_time": 11.52,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.6732360090037836,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168196.021,
+        "fps": 24.696,
+        "stream": {
+          "frames": 12783,
+          "received_frames": 12883,
+          "fps": 24.66831122015987,
+          "audio_clock_seconds": 8388.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4000.0000040799932,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 133,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168194481,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "current_time": 11.52,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.6732360090037836,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168196.669,
+        "fps": 25.327,
+        "stream": {
+          "frames": 12821,
+          "received_frames": 12920,
+          "fps": 25.328267680602377,
+          "audio_clock_seconds": 8389.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.3333374459035,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 133,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168195974,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "current_time": 13.024759,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.9467153277325524,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168197.289,
+        "fps": 25.327,
+        "stream": {
+          "frames": 12821,
+          "received_frames": 12920,
+          "fps": 25.328267680602377,
+          "audio_clock_seconds": 8389.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.3333374459035,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 133,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168195974,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-e17bc068-99fe-493a-836a-c341419bd7ad",
+          "current_time": 13.024759,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.9467153277325524,
+          "config_revision": 3,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168197.903,
+        "fps": 24.659,
+        "stream": {
+          "frames": 12858,
+          "received_frames": 12958,
+          "fps": 24.66173431960675,
+          "audio_clock_seconds": 8391.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4000.000004145477,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168197476,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 14.523368,
+          "music_gain": 0.21941794455051422,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168198.52,
+        "fps": 24.659,
+        "stream": {
+          "frames": 12858,
+          "received_frames": 12958,
+          "fps": 24.66173431960675,
+          "audio_clock_seconds": 8391.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4000.000004145477,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168197476,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 14.523368,
+          "music_gain": 0.21941794455051422,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168199.139,
+        "fps": 25.363,
+        "stream": {
+          "frames": 12896,
+          "received_frames": 12995,
+          "fps": 25.35192474420798,
+          "audio_clock_seconds": 8392.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.000004178408,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168198978,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 16.027313,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168199.759,
+        "fps": 25.363,
+        "stream": {
+          "frames": 12896,
+          "received_frames": 12995,
+          "fps": 25.35192474420798,
+          "audio_clock_seconds": 8392.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.000004178408,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168198978,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 16.027313,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "AUDIO_READY"
+        }
+      },
+      {
+        "at": 1793168200.376,
+        "fps": 25.363,
+        "stream": {
+          "frames": 12896,
+          "received_frames": 12995,
+          "fps": 25.35192474420798,
+          "audio_clock_seconds": 8392.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.000004178408,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168198978,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 16.027313,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168200.993,
+        "fps": 24.65,
+        "stream": {
+          "frames": 12933,
+          "received_frames": 13033,
+          "fps": 24.651875541733457,
+          "audio_clock_seconds": 8394.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666708779812,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168200474,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 17.52,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168201.611,
+        "fps": 24.65,
+        "stream": {
+          "frames": 12933,
+          "received_frames": 13033,
+          "fps": 24.651875541733457,
+          "audio_clock_seconds": 8394.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666708779812,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168200474,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 17.52,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168202.231,
+        "fps": 25.341,
+        "stream": {
+          "frames": 12971,
+          "received_frames": 13070,
+          "fps": 25.341780593531176,
+          "audio_clock_seconds": 8395.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000042438915,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168201966,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 19.016039,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168202.849,
+        "fps": 25.341,
+        "stream": {
+          "frames": 12971,
+          "received_frames": 13070,
+          "fps": 25.341780593531176,
+          "audio_clock_seconds": 8395.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000042438915,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168201966,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 19.016039,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168203.472,
+        "fps": 25.341,
+        "stream": {
+          "frames": 12971,
+          "received_frames": 13070,
+          "fps": 25.341780593531176,
+          "audio_clock_seconds": 8395.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000042438915,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168201966,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 19.016039,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168204.087,
+        "fps": 24.67,
+        "stream": {
+          "frames": 13008,
+          "received_frames": 13108,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 8397.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666670943465,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168203471,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 20.516755,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168204.708,
+        "fps": 24.67,
+        "stream": {
+          "frames": 13008,
+          "received_frames": 13108,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 8397.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666670943465,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168203471,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 20.516755,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168205.335,
+        "fps": 25.337,
+        "stream": {
+          "frames": 13046,
+          "received_frames": 13145,
+          "fps": 25.338401012730394,
+          "audio_clock_seconds": 8398.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.000004309375,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168204965,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "current_time": 22.017862,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.12866241970986247,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168205.95,
+        "fps": 25.337,
+        "stream": {
+          "frames": 13046,
+          "received_frames": 13145,
+          "fps": 25.338401012730394,
+          "audio_clock_seconds": 8398.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.000004309375,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168204965,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "current_time": 22.017862,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.12866241970986247,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168206.57,
+        "fps": 25.337,
+        "stream": {
+          "frames": 13046,
+          "received_frames": 13145,
+          "fps": 25.338401012730394,
+          "audio_clock_seconds": 8398.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.000004309375,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168204965,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "current_time": 22.017862,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.12866241970986247,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168207.188,
+        "fps": 24.652,
+        "stream": {
+          "frames": 13083,
+          "received_frames": 13183,
+          "fps": 24.651875541733457,
+          "audio_clock_seconds": 8400.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666710089485,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168206470,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "current_time": 23.52,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.3677282371144585,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168207.81,
+        "fps": 24.652,
+        "stream": {
+          "frames": 13083,
+          "received_frames": 13183,
+          "fps": 24.651875541733457,
+          "audio_clock_seconds": 8400.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666710089485,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168206470,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "current_time": 23.52,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.3677282371144585,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168208.423,
+        "fps": 25.349,
+        "stream": {
+          "frames": 13121,
+          "received_frames": 13220,
+          "fps": 25.348542458405472,
+          "audio_clock_seconds": 8401.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000043748587,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168207973,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "current_time": 25.018667,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.6063694260688619,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168209.038,
+        "fps": 25.349,
+        "stream": {
+          "frames": 13121,
+          "received_frames": 13220,
+          "fps": 25.348542458405472,
+          "audio_clock_seconds": 8401.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000043748587,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168207973,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "current_time": 25.018667,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.6063694260688619,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168209.659,
+        "fps": 24.669,
+        "stream": {
+          "frames": 13158,
+          "received_frames": 13258,
+          "fps": 24.66009064288719,
+          "audio_clock_seconds": 8403.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4000.0000044074113,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168209489,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "current_time": 26.517333,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.845435243473458,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168210.277,
+        "fps": 24.669,
+        "stream": {
+          "frames": 13158,
+          "received_frames": 13258,
+          "fps": 24.66009064288719,
+          "audio_clock_seconds": 8403.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4000.0000044074113,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168209489,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "current_time": 26.517333,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.845435243473458,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168210.889,
+        "fps": 24.669,
+        "stream": {
+          "frames": 13158,
+          "received_frames": 13258,
+          "fps": 24.66009064288719,
+          "audio_clock_seconds": 8403.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4000.0000044074113,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168209489,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-2ffb11e4-31b6-451b-91b6-564cc10e4709",
+          "current_time": 26.517333,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.845435243473458,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": null
+      },
+      {
+        "at": 1793168211.507,
+        "fps": 25.313,
+        "stream": {
+          "frames": 13196,
+          "received_frames": 13295,
+          "fps": 25.31139678924816,
+          "audio_clock_seconds": 8404.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.3333377733215,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168210973,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 28.027484,
+          "music_gain": 0.20536920428276062,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": null
+      },
+      {
+        "at": 1793168212.121,
+        "fps": 25.313,
+        "stream": {
+          "frames": 13196,
+          "received_frames": 13295,
+          "fps": 25.31139678924816,
+          "audio_clock_seconds": 8404.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.3333377733215,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168210973,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 28.027484,
+          "music_gain": 0.20536920428276062,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168212.743,
+        "fps": 24.678,
+        "stream": {
+          "frames": 13233,
+          "received_frames": 13333,
+          "fps": 24.689710396959143,
+          "audio_clock_seconds": 8406.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666711399157,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168212475,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 0.709333,
+          "music_gain": 0.2199806272983551,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168213.368,
+        "fps": 24.678,
+        "stream": {
+          "frames": 13233,
+          "received_frames": 13333,
+          "fps": 24.689710396959143,
+          "audio_clock_seconds": 8406.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666711399157,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168212475,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 0.709333,
+          "music_gain": 0.2199806272983551,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168213.991,
+        "fps": 24.678,
+        "stream": {
+          "frames": 13233,
+          "received_frames": 13333,
+          "fps": 24.689710396959143,
+          "audio_clock_seconds": 8406.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666711399157,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168212475,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 0.709333,
+          "music_gain": 0.2199806272983551,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168214.607,
+        "fps": 25.322,
+        "stream": {
+          "frames": 13271,
+          "received_frames": 13371,
+          "fps": 25.321516624770158,
+          "audio_clock_seconds": 8407.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4032.000004506699,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168213980,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 2.215975,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168215.226,
+        "fps": 25.322,
+        "stream": {
+          "frames": 13271,
+          "received_frames": 13371,
+          "fps": 25.321516624770158,
+          "audio_clock_seconds": 8407.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4032.000004506699,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168213980,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 2.215975,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "AUDIO_READY"
+        }
+      },
+      {
+        "at": 1793168215.843,
+        "fps": 24.7,
+        "stream": {
+          "frames": 13308,
+          "received_frames": 13408,
+          "fps": 24.684768830868325,
+          "audio_clock_seconds": 8409.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666712053993,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168215469,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 3.705572,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168216.468,
+        "fps": 24.7,
+        "stream": {
+          "frames": 13308,
+          "received_frames": 13408,
+          "fps": 24.684768830868325,
+          "audio_clock_seconds": 8409.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666712053993,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168215469,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 3.705572,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168217.086,
+        "fps": 24.7,
+        "stream": {
+          "frames": 13308,
+          "received_frames": 13408,
+          "fps": 24.684768830868325,
+          "audio_clock_seconds": 8409.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666712053993,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168215469,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 3.705572,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168217.701,
+        "fps": 25.298,
+        "stream": {
+          "frames": 13346,
+          "received_frames": 13445,
+          "fps": 25.331644556626923,
+          "audio_clock_seconds": 8410.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000045713095,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168216971,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 5.210667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168218.311,
+        "fps": 25.298,
+        "stream": {
+          "frames": 13346,
+          "received_frames": 13445,
+          "fps": 25.331644556626923,
+          "audio_clock_seconds": 8410.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000045713095,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168216971,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 5.210667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168218.942,
+        "fps": 24.674,
+        "stream": {
+          "frames": 13383,
+          "received_frames": 13483,
+          "fps": 24.65516092509756,
+          "audio_clock_seconds": 8412.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666671270883,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168218470,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 6.709333,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168219.559,
+        "fps": 24.674,
+        "stream": {
+          "frames": 13383,
+          "received_frames": 13483,
+          "fps": 24.65516092509756,
+          "audio_clock_seconds": 8412.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666671270883,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168218470,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 6.709333,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168220.173,
+        "fps": 25.313,
+        "stream": {
+          "frames": 13421,
+          "received_frames": 13520,
+          "fps": 25.31308286724071,
+          "audio_clock_seconds": 8413.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.3333379697724,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168219974,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "current_time": 8.213565,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.13990147671195033,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168220.79,
+        "fps": 25.313,
+        "stream": {
+          "frames": 13421,
+          "received_frames": 13520,
+          "fps": 25.31308286724071,
+          "audio_clock_seconds": 8413.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.3333379697724,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168219974,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "current_time": 8.213565,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.13990147671195033,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168221.416,
+        "fps": 25.313,
+        "stream": {
+          "frames": 13421,
+          "received_frames": 13520,
+          "fps": 25.31308286724071,
+          "audio_clock_seconds": 8413.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.3333379697724,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168219974,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "current_time": 8.213565,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.13990147671195033,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168222.03,
+        "fps": 24.693,
+        "stream": {
+          "frames": 13458,
+          "received_frames": 13558,
+          "fps": 24.694653940936803,
+          "audio_clock_seconds": 8415.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666713363666,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168221476,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "current_time": 9.706667,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.5096880120077294,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168222.652,
+        "fps": 24.693,
+        "stream": {
+          "frames": 13458,
+          "received_frames": 13558,
+          "fps": 24.694653940936803,
+          "audio_clock_seconds": 8415.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666713363666,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168221476,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "current_time": 9.706667,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.5096880120077294,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168223.267,
+        "fps": 25.257,
+        "stream": {
+          "frames": 13496,
+          "received_frames": 13595,
+          "fps": 25.306339904705,
+          "audio_clock_seconds": 8416.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.333338035256,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168222979,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "current_time": 11.220763,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.8788177328534569,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168223.888,
+        "fps": 25.257,
+        "stream": {
+          "frames": 13496,
+          "received_frames": 13595,
+          "fps": 25.306339904705,
+          "audio_clock_seconds": 8416.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.333338035256,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168222979,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "current_time": 11.220763,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.8788177328534569,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": null
+      },
+      {
+        "at": 1793168224.505,
+        "fps": 25.257,
+        "stream": {
+          "frames": 13496,
+          "received_frames": 13595,
+          "fps": 25.306339904705,
+          "audio_clock_seconds": 8416.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.333338035256,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168222979,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-3d2b4acd-abd6-437a-8738-0e5254ca9d1e",
+          "current_time": 11.220763,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.8788177328534569,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168225.12,
+        "fps": 24.751,
+        "stream": {
+          "frames": 13533,
+          "received_frames": 13633,
+          "fps": 24.696302228555858,
+          "audio_clock_seconds": 8418.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4000.0000047348294,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168224482,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 12.709333,
+          "music_gain": 0.21846149861812592,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168225.736,
+        "fps": 24.751,
+        "stream": {
+          "frames": 13533,
+          "received_frames": 13633,
+          "fps": 24.696302228555858,
+          "audio_clock_seconds": 8418.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4000.0000047348294,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168224482,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 12.709333,
+          "music_gain": 0.21846149861812592,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168226.349,
+        "fps": 25.277,
+        "stream": {
+          "frames": 13571,
+          "received_frames": 13670,
+          "fps": 25.31645569620253,
+          "audio_clock_seconds": 8419.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.3333381007396,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168225975,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 14.213885,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168226.965,
+        "fps": 25.277,
+        "stream": {
+          "frames": 13571,
+          "received_frames": 13670,
+          "fps": 25.31645569620253,
+          "audio_clock_seconds": 8419.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.3333381007396,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168225975,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 14.213885,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "AUDIO_READY"
+        }
+      },
+      {
+        "at": 1793168227.584,
+        "fps": 25.277,
+        "stream": {
+          "frames": 13571,
+          "received_frames": 13670,
+          "fps": 25.31645569620253,
+          "audio_clock_seconds": 8419.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.3333381007396,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168225975,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 14.213885,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "AUDIO_READY"
+        }
+      },
+      {
+        "at": 1793168228.2,
+        "fps": 24.702,
+        "stream": {
+          "frames": 13608,
+          "received_frames": 13708,
+          "fps": 24.679829242458784,
+          "audio_clock_seconds": 8421.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666671467334,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168227474,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 15.706667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168228.817,
+        "fps": 24.702,
+        "stream": {
+          "frames": 13608,
+          "received_frames": 13708,
+          "fps": 24.679829242458784,
+          "audio_clock_seconds": 8421.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666671467334,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168227474,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 15.706667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168229.433,
+        "fps": 25.331,
+        "stream": {
+          "frames": 13646,
+          "received_frames": 13746,
+          "fps": 25.336711561340152,
+          "audio_clock_seconds": 8422.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4032.000004834117,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168228980,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 17.219025,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168230.047,
+        "fps": 25.331,
+        "stream": {
+          "frames": 13646,
+          "received_frames": 13746,
+          "fps": 25.336711561340152,
+          "audio_clock_seconds": 8422.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4032.000004834117,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168228980,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 17.219025,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168230.664,
+        "fps": 24.684,
+        "stream": {
+          "frames": 13683,
+          "received_frames": 13783,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 8424.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666715328174,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168230481,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 18.719128,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168231.279,
+        "fps": 24.684,
+        "stream": {
+          "frames": 13683,
+          "received_frames": 13783,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 8424.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666715328174,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168230481,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 18.719128,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168231.906,
+        "fps": 24.684,
+        "stream": {
+          "frames": 13683,
+          "received_frames": 13783,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 8424.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666715328174,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168230481,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 18.719128,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168232.523,
+        "fps": 25.318,
+        "stream": {
+          "frames": 13721,
+          "received_frames": 13820,
+          "fps": 25.318142448266794,
+          "audio_clock_seconds": 8425.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.333338231707,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168231975,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "current_time": 20.208033,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.07467532369898211,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168233.142,
+        "fps": 25.318,
+        "stream": {
+          "frames": 13721,
+          "received_frames": 13820,
+          "fps": 25.318142448266794,
+          "audio_clock_seconds": 8425.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.333338231707,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168231975,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "current_time": 20.208033,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.07467532369898211,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168233.759,
+        "fps": 24.664,
+        "stream": {
+          "frames": 13758,
+          "received_frames": 13858,
+          "fps": 24.66502233145253,
+          "audio_clock_seconds": 8427.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666671598301,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168233479,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "current_time": 21.71266,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.37932900334607283,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168234.378,
+        "fps": 24.664,
+        "stream": {
+          "frames": 13758,
+          "received_frames": 13858,
+          "fps": 24.66502233145253,
+          "audio_clock_seconds": 8427.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666671598301,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168233479,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "current_time": 21.71266,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.37932900334607283,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168234.993,
+        "fps": 24.664,
+        "stream": {
+          "frames": 13758,
+          "received_frames": 13858,
+          "fps": 24.66502233145253,
+          "audio_clock_seconds": 8427.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666671598301,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168233479,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "current_time": 21.71266,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.37932900334607283,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168235.607,
+        "fps": 25.337,
+        "stream": {
+          "frames": 13796,
+          "received_frames": 13895,
+          "fps": 25.335022335225037,
+          "audio_clock_seconds": 8428.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000049642113,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168234971,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "current_time": 23.210667,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.6834415574519278,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168236.226,
+        "fps": 25.337,
+        "stream": {
+          "frames": 13796,
+          "received_frames": 13895,
+          "fps": 25.335022335225037,
+          "audio_clock_seconds": 8428.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000049642113,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168234971,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "current_time": 23.210667,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.6834415574519278,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168236.838,
+        "fps": 24.67,
+        "stream": {
+          "frames": 13833,
+          "received_frames": 13933,
+          "fps": 24.669955993936465,
+          "audio_clock_seconds": 8430.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666716637847,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168236479,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "current_time": 24.709333,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.9880952370990186,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": null
+      },
+      {
+        "at": 1793168239.196,
+        "fps": 24.67,
+        "stream": {
+          "frames": 13833,
+          "received_frames": 13933,
+          "fps": 24.669955993936465,
+          "audio_clock_seconds": 8430.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666716637847,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168236479,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-54cd5809-0f01-4664-bcae-82c4d6483312",
+          "current_time": 24.709333,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.9880952370990186,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": null
+      },
+      {
+        "at": 1793168239.817,
+        "fps": 24.7,
+        "stream": {
+          "frames": 13908,
+          "received_frames": 14008,
+          "fps": 24.674891630543513,
+          "audio_clock_seconds": 8433.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4000.0000050622475,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168239489,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 27.706667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": null
+      },
+      {
+        "at": 1793168240.433,
+        "fps": 24.7,
+        "stream": {
+          "frames": 13908,
+          "received_frames": 14008,
+          "fps": 24.674891630543513,
+          "audio_clock_seconds": 8433.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4000.0000050622475,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168239489,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 27.706667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": null
+      },
+      {
+        "at": 1793168241.052,
+        "fps": 24.7,
+        "stream": {
+          "frames": 13908,
+          "received_frames": 14008,
+          "fps": 24.674891630543513,
+          "audio_clock_seconds": 8433.101333333334,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4000.0000050622475,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168239489,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 27.706667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": null
+      },
+      {
+        "at": 1793168241.671,
+        "fps": 25.305,
+        "stream": {
+          "frames": 13946,
+          "received_frames": 14046,
+          "fps": 25.31308286724071,
+          "audio_clock_seconds": 8434.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4021.333338429031,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168240971,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 0.4,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": null
+      },
+      {
+        "at": 1793168242.296,
+        "fps": 25.305,
+        "stream": {
+          "frames": 13946,
+          "received_frames": 14046,
+          "fps": 25.31308286724071,
+          "audio_clock_seconds": 8434.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4021.333338429031,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168240971,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 0.4,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": null
+      },
+      {
+        "at": 1793168242.916,
+        "fps": 24.682,
+        "stream": {
+          "frames": 13983,
+          "received_frames": 14083,
+          "fps": 24.681475551605327,
+          "audio_clock_seconds": 8436.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666671794752,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168242478,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 1.898667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168243.536,
+        "fps": 24.682,
+        "stream": {
+          "frames": 13983,
+          "received_frames": 14083,
+          "fps": 24.681475551605327,
+          "audio_clock_seconds": 8436.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666671794752,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168242478,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 1.898667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168244.154,
+        "fps": 25.334,
+        "stream": {
+          "frames": 14021,
+          "received_frames": 14120,
+          "fps": 25.333333333333332,
+          "audio_clock_seconds": 8437.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.000005160662,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168243974,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 3.403706,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168244.776,
+        "fps": 25.334,
+        "stream": {
+          "frames": 14021,
+          "received_frames": 14120,
+          "fps": 25.333333333333332,
+          "audio_clock_seconds": 8437.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.000005160662,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168243974,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 3.403706,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168245.395,
+        "fps": 25.334,
+        "stream": {
+          "frames": 14021,
+          "received_frames": 14120,
+          "fps": 25.333333333333332,
+          "audio_clock_seconds": 8437.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.000005160662,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168243974,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 3.403706,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "SYNTHESIZING"
+        }
+      },
+      {
+        "at": 1793168246.018,
+        "fps": 24.67,
+        "stream": {
+          "frames": 14058,
+          "received_frames": 14158,
+          "fps": 24.669955994916894,
+          "audio_clock_seconds": 8439.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666718602355,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168245477,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 4.905043,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "AUDIO_READY"
+        }
+      },
+      {
+        "at": 1793168246.636,
+        "fps": 24.67,
+        "stream": {
+          "frames": 14058,
+          "received_frames": 14158,
+          "fps": 24.669955994916894,
+          "audio_clock_seconds": 8439.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666718602355,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168245477,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 4.905043,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168247.258,
+        "fps": 25.331,
+        "stream": {
+          "frames": 14096,
+          "received_frames": 14193,
+          "fps": 25.331644556626923,
+          "audio_clock_seconds": 8440.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3912.0000052243995,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168246982,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 6.410667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168247.874,
+        "fps": 25.331,
+        "stream": {
+          "frames": 14096,
+          "received_frames": 14193,
+          "fps": 25.331644556626923,
+          "audio_clock_seconds": 8440.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3912.0000052243995,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168246982,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 6.410667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168248.499,
+        "fps": 25.331,
+        "stream": {
+          "frames": 14096,
+          "received_frames": 14193,
+          "fps": 25.331644556626923,
+          "audio_clock_seconds": 8440.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 1,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3912.0000052243995,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168246982,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 6.410667,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168249.112,
+        "fps": 24.673,
+        "stream": {
+          "frames": 14133,
+          "received_frames": 14233,
+          "fps": 24.67324619859412,
+          "audio_clock_seconds": 8442.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666671925719,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168248464,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 7.8959,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168249.729,
+        "fps": 24.673,
+        "stream": {
+          "frames": 14133,
+          "received_frames": 14233,
+          "fps": 24.67324619859412,
+          "audio_clock_seconds": 8442.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.666671925719,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168248464,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 7.8959,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "BUFFERING"
+        }
+      },
+      {
+        "at": 1793168250.352,
+        "fps": 25.318,
+        "stream": {
+          "frames": 14171,
+          "received_frames": 14270,
+          "fps": 25.318142448266794,
+          "audio_clock_seconds": 8443.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000052916293,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168249973,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 9.397333,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168250.965,
+        "fps": 25.318,
+        "stream": {
+          "frames": 14171,
+          "received_frames": 14270,
+          "fps": 25.318142448266794,
+          "audio_clock_seconds": 8443.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000052916293,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168249973,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 9.397333,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168251.585,
+        "fps": 25.318,
+        "stream": {
+          "frames": 14171,
+          "received_frames": 14270,
+          "fps": 25.318142448266794,
+          "audio_clock_seconds": 8443.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000052916293,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168249973,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": false,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": null,
+          "current_time": 9.397333,
+          "music_gain": 0.2199999988079071,
+          "speech_gain": 1,
+          "speech_progress": 0,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168252.2,
+        "fps": 24.667,
+        "stream": {
+          "frames": 14208,
+          "received_frames": 14308,
+          "fps": 24.666666666666668,
+          "audio_clock_seconds": 8445.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666719912027,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168251472,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "current_time": 10.896,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.18782303917168794,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168252.816,
+        "fps": 24.667,
+        "stream": {
+          "frames": 14208,
+          "received_frames": 14308,
+          "fps": 24.666666666666668,
+          "audio_clock_seconds": 8445.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.6666719912027,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168251472,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "current_time": 10.896,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.18782303917168794,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168253.437,
+        "fps": 25.297,
+        "stream": {
+          "frames": 14246,
+          "received_frames": 14345,
+          "fps": 25.331644556626923,
+          "audio_clock_seconds": 8446.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.333338690092,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168252973,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "current_time": 12.4,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.38475689812486186,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168254.057,
+        "fps": 25.297,
+        "stream": {
+          "frames": 14246,
+          "received_frames": 14345,
+          "fps": 25.331644556626923,
+          "audio_clock_seconds": 8446.6,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3981.333338690092,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168252973,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "current_time": 12.4,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.38475689812486186,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168254.674,
+        "fps": 24.693,
+        "stream": {
+          "frames": 14283,
+          "received_frames": 14383,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 8448.098666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4002.6666720568755,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168254475,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "current_time": 13.898667,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.5820411731972486,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168255.293,
+        "fps": 24.693,
+        "stream": {
+          "frames": 14283,
+          "received_frames": 14383,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 8448.098666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4002.6666720568755,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168254475,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "current_time": 13.898667,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.5820411731972486,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168255.91,
+        "fps": 24.693,
+        "stream": {
+          "frames": 14283,
+          "received_frames": 14383,
+          "fps": 24.66831122114017,
+          "audio_clock_seconds": 8448.098666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4002.6666720568755,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168254475,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "current_time": 13.898667,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.5820411731972486,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168256.529,
+        "fps": 25.323,
+        "stream": {
+          "frames": 14321,
+          "received_frames": 14420,
+          "fps": 25.348542458405472,
+          "audio_clock_seconds": 8449.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000054225966,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168255973,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "current_time": 15.402784,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.7789750321504224,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168257.152,
+        "fps": 25.323,
+        "stream": {
+          "frames": 14321,
+          "received_frames": 14420,
+          "fps": 25.348542458405472,
+          "audio_clock_seconds": 8449.589333333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 3992.0000054225966,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168255973,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "current_time": 15.402784,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.7789750321504224,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "PLAYING"
+        }
+      },
+      {
+        "at": 1793168257.766,
+        "fps": 24.679,
+        "stream": {
+          "frames": 14358,
+          "received_frames": 14458,
+          "fps": 24.64530740103589,
+          "audio_clock_seconds": 8451.090666666667,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 4010.66667212217,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 149.60000002384186,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "mixer": {
+          "consumer_id": "browser-f3e51cc2-e1f1-4ecc-846b-11727aeaa219",
+          "at": 1793168257481,
+          "track_id": "daylight-notes",
+          "audio_state": "running",
+          "music_playing": true,
+          "ducked": true,
+          "muted": false,
+          "error": null,
+          "speaking_request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "current_time": 16.896,
+          "music_gain": 0.050599999725818634,
+          "speech_gain": 1,
+          "speech_progress": 0.9762593072228092,
+          "config_revision": 4,
+          "connected": true
+        },
+        "active": {
+          "request_id": "req-006b6207-40b2-4763-beba-ec06d2893c0c",
+          "status": "PLAYING"
+        }
+      }
+    ],
+    "checks": {
+      "large_upload": {
+        "bytes": 4147244,
+        "duration": 86.4,
+        "track_id": "18d70113-c4e3-4237-bb05-33b89695568f"
+      },
+      "range_forwarding": true,
+      "private_agent": {
+        "job_id": "be372884-5942-4ee7-b6d0-1607dc0ac407",
+        "elapsed_ms": 5291,
+        "reply": "我是林知夏，喜欢在日光宿舍里聊点轻松的小事；今天可以聊聊最近发现的一件微小但让人开心的事。",
+        "auto_spoken": false
+      },
+      "ducking_observed": true
+    },
+    "initial_receiver": {
+      "frames": 12446,
+      "received_frames": 12545,
+      "fps": 25.32320405231616,
+      "audio_clock_seconds": 8374.589333333333,
+      "decoder_queue": 0,
+      "pending_video_frames": 0,
+      "audio_underruns": 0,
+      "audio_buffer_ms": 3992.000003785506,
+      "missing_packets": 0,
+      "skipped_video_frames": 0,
+      "decode_errors": 0,
+      "max_arrival_gap_ms": 81.30000001192093,
+      "codec": "h264_nvenc",
+      "fps_source": "canvas_draw",
+      "output_mode": "direct_canvas_audio"
+    },
+    "final_receiver": {
+      "frames": 14358,
+      "received_frames": 14458,
+      "fps": 24.64530740103589,
+      "audio_clock_seconds": 8451.090666666667,
+      "decoder_queue": 0,
+      "pending_video_frames": 0,
+      "audio_underruns": 0,
+      "audio_buffer_ms": 4010.66667212217,
+      "missing_packets": 0,
+      "skipped_video_frames": 0,
+      "decode_errors": 0,
+      "max_arrival_gap_ms": 149.60000002384186,
+      "codec": "h264_nvenc",
+      "fps_source": "canvas_draw",
+      "output_mode": "direct_canvas_audio"
+    },
+    "continuity_deltas": {
+      "audio_underruns": 0,
+      "missing_packets": 0,
+      "decode_errors": 0
+    },
+    "fps": {
+      "samples": 119,
+      "mean": 24.991,
+      "min": 24.65,
+      "max": 25.363
+    },
+    "final_state": {
+      "offair": true,
+      "music_playing": false,
+      "muted": false,
+      "voice_id": "O07"
+    },
+    "finished_at": "2026-10-28T06:17:38.116840+00:00"
+  },
+  "module_tests": {
+    "node_passed": 96,
+    "node_failed": 0,
+    "node_skipped": 0,
+    "python_passed": 46,
+    "native_route_count": 27,
+    "logs": [
+      {
+        "path": "docs/evidence/room-admin-node.txt",
+        "sha256": "521347da4365e64b2bbb0c001974147b806b4f70d452fc31c4502148678f3283"
+      },
+      {
+        "path": "docs/evidence/room-admin-python.txt",
+        "sha256": "44b319617d802e0df64b455d9f26b30e89ffd99f09200a3d052620a08b780fee"
+      },
+      {
+        "path": "docs/evidence/room-admin-routes.txt",
+        "sha256": "db3abc4f859314259abbf0f8a7a38f3dd579a3e3ecc6498fca005542fd4ad7f4"
+      }
+    ]
+  },
+  "first_attempt": {
+    "ok": false,
+    "scope": "A4090 real O07/F07 inference to the existing B3080 official Livehime browser source; local session and synthetic events only",
+    "public_broadcast_started": false,
+    "started_at": "2026-10-28T04:45:42.658720+00:00",
+    "cases": [],
+    "samples": [],
+    "checks": {},
+    "initial_receiver": {
+      "frames": 73282,
+      "received_frames": 73383,
+      "fps": 24.683122081387594,
+      "audio_clock_seconds": 2935.5893333333333,
+      "decoder_queue": 0,
+      "pending_video_frames": 0,
+      "audio_underruns": 0,
+      "audio_buffer_ms": 4039.9999979067616,
+      "missing_packets": 0,
+      "skipped_video_frames": 0,
+      "decode_errors": 0,
+      "max_arrival_gap_ms": 116.59999996423721,
+      "codec": "h264_nvenc",
+      "fps_source": "canvas_draw",
+      "output_mode": "direct_canvas_audio"
+    },
+    "error": "413 Client Error: Request Entity Too Large for url: http://127.0.0.1:8020/api/dsh/room/tracks/upload?name=room-acceptance-loop.wav",
+    "final_state": {
+      "offair": true,
+      "music_playing": false,
+      "muted": false,
+      "voice_id": "O07"
+    },
+    "finished_at": "2026-10-28T04:45:42.924960+00:00"
+  },
+  "final_update": {
+    "ok": true,
+    "offair": true,
+    "voice_id": "O07",
+    "panic_and_restore": true,
+    "music_playing": false,
+    "muted": false,
+    "public_broadcast_started": false
+  },
+  "sequence_note": "Five native cases preceded the final queued-panic cancellation and local test-marker correction. Full 96 Node regressions passed on final source; A sole DSH was restarted and panic/mute restore checked. No codec/TTS/mixer changes in that final correction.",
+  "resources_after_run": {
+    "observed_utc": "2026-10-28T07:09:52.746774+00:00",
+    "gpu": "11137, 37486, 0, 0",
+    "system_ram_used_mib": 18753.9,
+    "system_ram_total_mib": 65433.9,
+    "gpu_statistics": {
+      "at": "2026-10-28T14:17:26.436081+08:00",
+      "batch_size": 8,
+      "operations": {
+        "release_cache": {
+          "count": 5,
+          "seconds": 1.3230205000072601,
+          "maximum_seconds": 0.2888239999956568
+        },
+        "prepare_speech": {
+          "count": 5,
+          "seconds": 0.9037313000080758,
+          "maximum_seconds": 0.18975670000509126
+        },
+        "features": {
+          "count": 75,
+          "seconds": 2.250063700033934,
+          "maximum_seconds": 0.05680759999813745
+        },
+        "render": {
+          "count": 75,
+          "seconds": 12.329709700017702,
+          "maximum_seconds": 0.19073550000030082
+        }
+      },
+      "allocated_mib": 1893.3,
+      "reserved_mib": 4716.0
+    }
+  },
+  "code_sha256": {
+    ".github/workflows/verify.yml": "3cf0dfcd772bba4b88b2a5c1547019989f190bedc391c5f43591b2fc09b1d0ea",
+    "backend/dsh-bridge/server.mjs": "410b2330e4b45e3cef53e8f54e1e6d4e038087f3ac0663044d0abb9664a88ccd",
+    "backend/platforms/events.mjs": "6048c1b7e00d5f27c11240531986466d6429a1d1b41402f6857b73f0816b0ca9",
+    "backend/platforms/manager.mjs": "613bd3a304295d7469bcfea8f851fa41bd9e30775a0ee649f10ffe9a3f5e4787",
+    "backend/room/defaults.mjs": "12508ea3254dbdc2587e1e9ef2a206550ed7800aec65303b65c15543c3670080",
+    "backend/room/manager.mjs": "c1afe6ee6c8b1e776bc2ec52e610311e1f679317d5b1514bcd9bf6b2a7ddd658",
+    "backend/room/media.mjs": "89a52f9abe3bcd0855b5f3765a3fe9ed4fc02c2eb686b693abb73c27359631a4",
+    "backend/room/store.mjs": "072b50b92ea63783fe1e925a55fa64a9d5a7712064007c52c6a6a82a0f9fb20d",
+    "configs/releases/current.json": "591c43ccdaef035f78aa07d059bfad56f0c9f099b3a08c6d040cbbdbe0727ab3",
+    "devtools/accept-room-live.py": "ecb6829600f9faebfcc24ef219598b2b1c6e4e2836051cd82516e089e10bcc28",
+    "devtools/capture-room-admin.cjs": "002ec432c419c59a14b16753286e064e342c6aa49edbf15a42c7222573ffefde",
+    "devtools/generate-room-bgm.py": "82457ac71badf7d675c807589cdcb15d02575cf387d69ac8356273e2d561a605",
+    "devtools/verify-repository.py": "a26289b22c875d0acb57c03e6f54f0f40d6038576e3cc2b2a6d7f2e6cc6dc555",
+    "integration/dsh_bridge.py": "d62e3c8e082b5c48caecdd8d3ee1f6605065696fd34d5a21f9efba343a9fe036",
+    "integration/obs.html": "1a573472e4ff3a85a1bb5132e79accd24910ebafef8e671edd7e0cdf08c3c7f4",
+    "scripts/platform_blivedm.py": "504130abcaca7d5d36112b0342dda20898920e3a3afff32a05b046693dcc792a",
+    "scripts/receiver_control.py": "5789c0488b3b6b04e82413362f10d326929f67f5323ad52aecb1540162be49ac",
+    "scripts/receiver_service.py": "5a9fe8d45a01d754f4c37fc0c5059e34380596b9a7ec8b145e1b2cc361212556",
+    "tests/dsh_routes_probe.py": "02d63c4960eb16e0c4d636ba7418c3052ec2410036a3a8e6a24bb975fedee40e",
+    "tests/local-stream-browser.test.mjs": "515170ac9886c7d7c6c5b6d778818135f7e3e886e68f1eb530a1e9c34f618991",
+    "tests/room-control.test.mjs": "1a108a56758772296ac890ef2cac16b1f7189686c50766c72b8e3506e7d9a23b",
+    "tests/room-fixture.mjs": "c948dba0c49f122d9da49dbcf2144d739976c28b7ffeaa79281995c4ec8cbb9b",
+    "tests/room-ui.test.mjs": "006162b5b86be66d856181c5f6889f3526673eecaccaf7a2cb5a46cd1cdf26ca",
+    "web/admin.css": "39ff19e45fcab7b8fff054fb9d83e7701a6fd6a4888b7b37eff48023e7eb8a20",
+    "web/admin.html": "9290fb26932c8e9d8b37813e16762661cc80f4ed4c461a48e7391cc31ef3233c",
+    "web/admin.js": "92fe4d4269e72a271c6311a2fab3c0ce0194da16d7349f9d74ad807fecc285ad",
+    "web/local-stream.js": "3a8d824c4a4c1b887972d55000cf87ac9e039cf85f59755c15c5153beec87a50",
+    "web/room-audio.js": "a3db402bf9db661debb41a2f7d10c8053571c150d474cbdb46670e0ddd4b2b91",
+    "web/room-client.js": "4eed4d5d6db8cfebae875a08c6145c44813041bdf22a667e2dbef80552bb00f2",
+    "web/room-overlay.css": "2f052df955420d21be1158b8fe7512d92b0067de90080d448ed09e0142f53f6d",
+    "web/room-overlay.html": "3f6d3fd09aa7e3235964469aab32904dca80b9cd49201462da9c40283d6b92cf",
+    "web/room-overlay.js": "8ba1e2797b7cc577389a6014981b32718312b0cf7cd37cf958a9845f171c27f9",
+    "web/studio.html": "115dac14e9896cd1936af293158804e5d8f8f79fb74071d7ee72126490846d91"
+  },
+  "superseded_sources": {
+    "backend/dsh-bridge/server.mjs": {
+      "historical_sha256": [
+        "6290dd737f0c103fa2c265572de10ddb98754d2fd5d63665d04dfdb306aebb7b",
+        "65c6880491c6834d9ca873e610cbc7bb08da33e448e09b8dfba1035810fd111b"
+      ],
+      "current_sha256": "410b2330e4b45e3cef53e8f54e1e6d4e038087f3ac0663044d0abb9664a88ccd",
+      "validation": "docs/live-room/ACCEPTANCE.md; final 96 Node, 46 Python, 27 native routes; five native receiver cases plus documented final DSH-only correction"
+    },
+    "backend/platforms/events.mjs": {
+      "historical_sha256": [
+        "b4e82d7a3aeb828b3208231a29fbd2a903c526fe0b0c53f8b4c05444ff3a056a"
+      ],
+      "current_sha256": "6048c1b7e00d5f27c11240531986466d6429a1d1b41402f6857b73f0816b0ca9",
+      "validation": "docs/live-room/ACCEPTANCE.md; final 96 Node, 46 Python, 27 native routes; five native receiver cases plus documented final DSH-only correction"
+    },
+    "backend/platforms/manager.mjs": {
+      "historical_sha256": [
+        "8dd9acb2806596dbec96793e9ab3a0c5d286a47aae4bd6a152a6d87fb4913d8c",
+        "d24f5a4e0b196b46075819bae5fc64f89c7ff96c719275216aea495db20e4a50",
+        "d7600d4012744d8bca06c8aef7c2ec2a0ee3ed6ae93dc5ef4c596eb97d15c169"
+      ],
+      "current_sha256": "613bd3a304295d7469bcfea8f851fa41bd9e30775a0ee649f10ffe9a3f5e4787",
+      "validation": "docs/live-room/ACCEPTANCE.md; final 96 Node, 46 Python, 27 native routes; five native receiver cases plus documented final DSH-only correction"
+    },
+    "configs/releases/current.json": {
+      "historical_sha256": [
+        "87d757a1db97950c04abd84a34b1d4af97f0264d98c2634641c4cf7f957194fc"
+      ],
+      "current_sha256": "591c43ccdaef035f78aa07d059bfad56f0c9f099b3a08c6d040cbbdbe0727ab3",
+      "validation": "docs/live-room/ACCEPTANCE.md; final 96 Node, 46 Python, 27 native routes; five native receiver cases plus documented final DSH-only correction"
+    },
+    "devtools/verify-repository.py": {
+      "historical_sha256": [
+        "150267f8a8990a50f1878472f72f7b649e4e0cb1a1b4c45ce978fa18da062302",
+        "3bf253cde2fb2b704bace49fdcee734ab6f2f5ff490a002ef3b55b9d9dbab287",
+        "3d39438ad11db0f87de6a6b2dcc2a2e5673bf16d09c75812c1af2490ad1085b6",
+        "89b0d9bceed6763d362cb646a7ffd5a3560ca267738b19555fa39929477a373b",
+        "9325e9bbd5f077d4d516a2351311b5b1db1ff3700fef7807dcf018f9711e0849"
+      ],
+      "current_sha256": "a26289b22c875d0acb57c03e6f54f0f40d6038576e3cc2b2a6d7f2e6cc6dc555",
+      "validation": "docs/live-room/ACCEPTANCE.md; final 96 Node, 46 Python, 27 native routes; five native receiver cases plus documented final DSH-only correction"
+    },
+    "integration/dsh_bridge.py": {
+      "historical_sha256": [
+        "16dc77041a1bc2595d0d4b9658988142bfbf672986eda699fe4987d7793c22db",
+        "25372eb3863194fd59f2fc1784aec42ccd00b0269e15d49f6452864d753f52d6",
+        "792269fe18b3fa3ecfaba886731056580dd0b86e4a1fee241edaee6a3aae49a4",
+        "b2824df85ff6e61fa7e63333ad90c241bd1ba3ba942e66feff075ea08e1fea8f"
+      ],
+      "current_sha256": "d62e3c8e082b5c48caecdd8d3ee1f6605065696fd34d5a21f9efba343a9fe036",
+      "validation": "docs/live-room/ACCEPTANCE.md; final 96 Node, 46 Python, 27 native routes; five native receiver cases plus documented final DSH-only correction"
+    },
+    "integration/obs.html": {
+      "historical_sha256": [
+        "18913329e119978745d8a451fcb576fc55f24c94a1900a1bc5f856f8dfae682c",
+        "4d7f5a5d5aa6054b84610fd1e457ad3517339f6ca5f99808a85a98bb9497337f",
+        "cc12fdd7d358e23db97cba5ace8d97646eb466f35a421b2519e8581ee050d837",
+        "d1bf37de909fda317cbc3e62a7e1597ec75f58b81f642b50969e78354150b633"
+      ],
+      "current_sha256": "1a573472e4ff3a85a1bb5132e79accd24910ebafef8e671edd7e0cdf08c3c7f4",
+      "validation": "docs/live-room/ACCEPTANCE.md; final 96 Node, 46 Python, 27 native routes; five native receiver cases plus documented final DSH-only correction"
+    },
+    "scripts/platform_blivedm.py": {
+      "historical_sha256": [
+        "830c39e591efb9ba9096d1608b4b2be772c46e41cb2ce2fa61691f39872a69e7"
+      ],
+      "current_sha256": "504130abcaca7d5d36112b0342dda20898920e3a3afff32a05b046693dcc792a",
+      "validation": "docs/live-room/ACCEPTANCE.md; final 96 Node, 46 Python, 27 native routes; five native receiver cases plus documented final DSH-only correction"
+    },
+    "scripts/receiver_control.py": {
+      "historical_sha256": [
+        "11a26696a4fa4a869abd23b5aac9cd8f9016071901b26159c1330d6a3669555d"
+      ],
+      "current_sha256": "5789c0488b3b6b04e82413362f10d326929f67f5323ad52aecb1540162be49ac",
+      "validation": "docs/live-room/ACCEPTANCE.md; final 96 Node, 46 Python, 27 native routes; five native receiver cases plus documented final DSH-only correction"
+    },
+    "scripts/receiver_service.py": {
+      "historical_sha256": [
+        "ce556cb323714edbf9466910d212fb363528bdcb686127cf9c41252c04ada2cc"
+      ],
+      "current_sha256": "5a9fe8d45a01d754f4c37fc0c5059e34380596b9a7ec8b145e1b2cc361212556",
+      "validation": "docs/live-room/ACCEPTANCE.md; final 96 Node, 46 Python, 27 native routes; five native receiver cases plus documented final DSH-only correction"
+    },
+    "tests/dsh_routes_probe.py": {
+      "historical_sha256": [
+        "5825dcf710ac0bd76e7af0ae9f3bdb61fe1ccbc5daa417281225168c9abcd180",
+        "6ef56b8e1260dff715565b514e9229a0c6637e60b8af1cabbdf64161cb166923"
+      ],
+      "current_sha256": "02d63c4960eb16e0c4d636ba7418c3052ec2410036a3a8e6a24bb975fedee40e",
+      "validation": "docs/live-room/ACCEPTANCE.md; final 96 Node, 46 Python, 27 native routes; five native receiver cases plus documented final DSH-only correction"
+    },
+    "tests/local-stream-browser.test.mjs": {
+      "historical_sha256": [
+        "3d9d0cda925cff62ee7969fdbb2b356c781b5f13a9c0ba52bbda6bff0a7cd15d"
+      ],
+      "current_sha256": "515170ac9886c7d7c6c5b6d778818135f7e3e886e68f1eb530a1e9c34f618991",
+      "validation": "docs/live-room/ACCEPTANCE.md; final 96 Node, 46 Python, 27 native routes; five native receiver cases plus documented final DSH-only correction"
+    },
+    "web/local-stream.js": {
+      "historical_sha256": [
+        "2fddecf17a9c2d61405d3b459c7c57161c521ac5ae081f07287a27fd75e70856",
+        "6cd58580f5c3a2ca410d387387f8b2c3a4187fc392346615bb6b52697aedc4ec",
+        "e82cbfa5848b58274531cf6ee9b991a3e48e088b5785fae3578f3f4119d2cd9e"
+      ],
+      "current_sha256": "3a8d824c4a4c1b887972d55000cf87ac9e039cf85f59755c15c5153beec87a50",
+      "validation": "docs/live-room/ACCEPTANCE.md; final 96 Node, 46 Python, 27 native routes; five native receiver cases plus documented final DSH-only correction"
+    },
+    "web/studio.html": {
+      "historical_sha256": [
+        "0490b930d8eadfda9f133e22d25149eb0e01a4b9b3d7b3ed4f901402e8a23b6c",
+        "192f8875c34eecee4e9976622e8c7108997f810ef9321ec6fba9fdfb7b4cb2d3",
+        "2d055ab48530fa44837381ab86c418dcbf7a8fc1fbe00f2a062624b2c9d68852",
+        "d7691a08b052609a9213c29f095a74fa3ea98a85902b46a7ecc968c98bafd319"
+      ],
+      "current_sha256": "115dac14e9896cd1936af293158804e5d8f8f79fb74071d7ee72126490846d91",
+      "validation": "docs/live-room/ACCEPTANCE.md; final 96 Node, 46 Python, 27 native routes; five native receiver cases plus documented final DSH-only correction"
+    }
+  },
+  "media": [
+    {
+      "path": "assets/room/bgm/daylight-notes.wav",
+      "bytes": 1382444,
+      "sha256": "f14ef4566ba5f05d60c49a4a9084db23f031074b0cb54e6f80ac2c3c42f276e2"
+    },
+    {
+      "path": "assets/room/bgm/small-weekend.wav",
+      "bytes": 1440044,
+      "sha256": "fc4fc4ad5af9e34b6144fee96e2bc5ce3cc63c6b9fe55bf68dd5bffb614aae34"
+    },
+    {
+      "path": "assets/room/bgm/window-breeze.wav",
+      "bytes": 1536044,
+      "sha256": "866b6b68a0d3729029da6ab8ce6742eca70f13f7097a5215a3d33b15534cfd16"
+    },
+    {
+      "path": "docs/media/room/admin-agent.png",
+      "bytes": 387789,
+      "sha256": "23101bbf9a575700539acb7e5a95348c89fe8b587c0f4361f63e77cc8af06e30"
+    },
+    {
+      "path": "docs/media/room/admin-logs.png",
+      "bytes": 422524,
+      "sha256": "ad1752c4c71e4802b64abe38e28df671e8f6115f0c5a9cea48ec5a4ecd4364e6"
+    },
+    {
+      "path": "docs/media/room/admin-messages.png",
+      "bytes": 425297,
+      "sha256": "8e62fabbdaa28b8c87bff35791f6d2089c617c66ea41ac1e3563933324e19cfa"
+    },
+    {
+      "path": "docs/media/room/admin-mobile.png",
+      "bytes": 166690,
+      "sha256": "685b7aeffdd410669d4a49f8f75b39f8643f7ff398532d31cb32a1bdc54f1f1e"
+    },
+    {
+      "path": "docs/media/room/admin-music.png",
+      "bytes": 396201,
+      "sha256": "dc0dbde7a29685cf463052bb2561115ba63a838aa010a6d031f88deb122b035b"
+    },
+    {
+      "path": "docs/media/room/admin-overview.png",
+      "bytes": 412621,
+      "sha256": "1701f0cb6a1cbaa270e7871847e38d87286a2a5a091230a72a5b2711e29346c6"
+    },
+    {
+      "path": "docs/media/room/admin-tour.gif",
+      "bytes": 623170,
+      "sha256": "7011eff0a145dcb5615979d7184ef283d7a59c099c9b15b4ccec8ecfc7b6c18d"
+    },
+    {
+      "path": "docs/media/room/admin-visual.png",
+      "bytes": 394447,
+      "sha256": "38f1ca5d883cf1878ece81812244bbca4199449530e0011a5a9ebc34149a3072"
+    },
+    {
+      "path": "docs/media/room/program-preview.png",
+      "bytes": 266524,
+      "sha256": "7e92f3fb9e89e34118cec224e7d3b2869d22610836d1cbe8f0dfafe89789d2b7"
+    }
+  ],
+  "historical_data_changed": false,
+  "downloads_performed": false
+}

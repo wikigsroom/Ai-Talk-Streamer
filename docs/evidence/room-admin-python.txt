@@ -1,0 +1,56 @@
+test_cancel_is_an_explicit_barrier_and_removes_all_old_pcm (test_dsh_viewer_buffer.BufferTests) ... ok
+test_h264_retains_all_reference_frames_and_pcm_until_disconnect_limit (test_dsh_viewer_buffer.BufferTests) ... ok
+test_shedding_keeps_map_and_pcm_together (test_dsh_viewer_buffer.BufferTests) ... ok
+test_slow_consumer_is_rejected_without_silently_cutting_pcm (test_dsh_viewer_buffer.BufferTests) ... ok
+test_pixels_match_upstream_for_soft_masks_and_boundary_crops (test_fast_blending.BlendingCompatibility) ... ok
+test_cancel_before_queue_registration_does_not_touch_model (test_moss_live.MossLiveTests) ... ok
+test_cancellation_during_cache_release_never_submits_moss (test_moss_live.MossLiveTests) ... ok
+test_final_partial_frame_is_retained_and_padded (test_moss_live.MossLiveTests) ... ok
+test_idle_renderer_releases_workspace_before_moss_and_prepares_before_audio (test_moss_live.MossLiveTests) ... ok
+test_interruption_while_waiting_discards_the_entire_result (test_moss_live.MossLiveTests) ... ok
+test_long_text_partition_preserves_every_character (test_moss_live.MossLiveTests) ... ok
+test_moss_buffers_the_complete_cloud_reply (test_moss_live.MossLiveTests) ... ok
+test_stale_generation_never_submits_or_plays (test_moss_live.MossLiveTests) ... ok
+test_startup_finishes_avatar_initialization_before_loading_moss (test_moss_live.MossLiveTests) ... ok
+test_stop_matches_registered_external_moss_interpreter_and_script (test_moss_live.MossLiveTests) ... ok
+test_wrong_engine_is_rejected_and_next_request_recovers (test_moss_live.MossLiveTests) ... ok
+test_auto_includes_explanation_while_speaking (test_motion_control.MotionContinuityTests) ... ok
+test_auto_or_calm_cancels_pending_manual_request (test_motion_control.MotionContinuityTests) ... ok
+test_batch_sizes_do_not_change_body_frame_continuity (test_motion_control.MotionContinuityTests) ... ok
+test_calm_automatic_mode_stays_quiet_during_speech (test_motion_control.MotionContinuityTests) ... ok
+test_latest_pending_request_replaces_earlier_one (test_motion_control.MotionContinuityTests) ... ok
+test_manual_clip_plays_once_then_returns_to_quiet_selection (test_motion_control.MotionContinuityTests) ... ok
+test_manual_request_preserves_remaining_body_frames (test_motion_control.MotionContinuityTests) ... ok
+test_unknown_id_does_not_change_pending_action (test_motion_control.MotionContinuityTests) ... ok
+test_private_vpn_origin_and_ipv6_supported (test_receiver.ReceiverConfigTests) ... ok
+test_rejects_remote_bind_and_self_proxy (test_receiver.ReceiverConfigTests) ... ok
+test_local_dashboard_is_available_without_a (test_receiver.ReceiverTests) ... ok
+test_receiver_id_overrides_remote_player_input (test_receiver.ReceiverTests) ... ok
+test_recording_download_cannot_select_a_private_config (test_receiver.ReceiverTests) ... ok
+test_recording_gallery_is_local_and_does_not_open_a_media_connection (test_receiver.ReceiverTests) ... ok
+test_same_origin_http_preserves_post_body (test_receiver.ReceiverTests) ... ok
+test_upstream_disconnect_returns_actionable_error (test_receiver.ReceiverTests) ... ok
+test_websocket_disconnect_closes_b_and_a_new_connection_recovers (test_receiver.ReceiverTests) ... ok
+test_websocket_preserves_control_before_exact_pcm_packet (test_receiver.ReceiverTests) ... ok
+test_adapter_rejects_wrong_reference_and_stale_result (test_resident_tts.ResidentTests) ... ok
+test_adapter_reports_actual_backup_and_retains_partial_tail (test_resident_tts.ResidentTests) ... ok
+test_cancel_before_registration_never_touches_worker (test_resident_tts.ResidentTests) ... ok
+test_default_uses_approved_primary_without_fallback (test_resident_tts.ResidentTests) ... Studio is ready: http://127.0.0.1:8010/
+Remote access: http://<your-host>:8010/
+Stopped tts (1 project processes)
+{"event": "speech_ready", "request_id": "first", "requested_voice": "O07", "voice_id": "O07", "engine": "OmniVoice", "fallback": false, "fallback_reason": null, "audio_seconds": 0.020041666666666666, "wall_seconds": 0.0, "model_seconds": 1.2, "reference_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "audio_sha256": "1a5c6b9821efa66ac0606f87026b2dc73036cd490843fa7bab13a8cf5ac57fa0"}
+ok
+test_identity_mismatch_cannot_escape_when_failover_disabled (test_resident_tts.ResidentTests) ... ok
+test_interrupted_primary_does_not_trigger_backup (test_resident_tts.ResidentTests) ... ok
+test_manual_backup_never_silently_retries_primary (test_resident_tts.ResidentTests) ... ok
+test_partition_preserves_text_punctuation_and_long_runs (test_resident_tts.ResidentTests) ... ok
+test_real_failure_selects_only_approved_backup (test_resident_tts.ResidentTests) ... {"event": "speech_ready", "request_id": "fallback", "requested_voice": "O07", "voice_id": "F07", "engine": "F5-TTS-v1", "fallback": true, "fallback_reason": "OSError", "audio_seconds": 0.020041666666666666, "wall_seconds": 0.0, "model_seconds": 1.2, "reference_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "audio_sha256": "1a5c6b9821efa66ac0606f87026b2dc73036cd490843fa7bab13a8cf5ac57fa0"}
+ok
+test_switch_is_rejected_while_request_is_queued (test_resident_tts.ResidentTests) ... ok
+test_timeout_must_stop_own_worker_before_backup (test_resident_tts.ResidentTests) ... ok
+test_windows_venv_descendants_stop_before_launcher (test_resident_tts.ResidentTests) ... ok
+
+----------------------------------------------------------------------
+Ran 46 tests in 2.506s
+
+OK

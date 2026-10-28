@@ -48,7 +48,22 @@ def main():
         process=psutil.Process(record['pid'])
         if Path(process.exe()).resolve()!=Path(record['command'][0]).resolve() or record['command'][4] not in process.cmdline() or process.create_time()<record['started_at']-10:
             raise RuntimeError('Receiver process ownership mismatch')
-        process.terminate();process.wait(timeout=10)
+        # A native Windows venv launcher has a second Python process. Stop only
+        # descendants running this exact receiver/config before its launcher.
+        children=[]
+        for child in process.children(recursive=True):
+            try:
+                command=child.cmdline()
+                if record['command'][4] in command and str(CONFIG) in command:
+                    children.append(child)
+            except psutil.NoSuchProcess:
+                pass
+        for child in reversed(children):
+            try:child.terminate()
+            except psutil.NoSuchProcess:pass
+        _,alive=psutil.wait_procs(children,timeout=10)
+        if alive:raise RuntimeError('Receiver descendants did not stop; launcher left intact')
+        if process.is_running():process.terminate();process.wait(timeout=10)
     except psutil.NoSuchProcess:pass
     print(json.dumps({'stopped':True,'inference_host_unchanged':True,'public_broadcast_stopped':False}))
 

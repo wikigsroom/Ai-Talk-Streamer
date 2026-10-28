@@ -23,6 +23,7 @@ class LocalAvatarStream {
   // Sending that output through another MediaStream/video element can stall
   // in an offscreen CEF renderer, so Livehime consumes the canvas directly.
   this.destination=this.directOutput?this.audioContext.destination:this.audioContext.createMediaStreamDestination();
+  if(window.RoomAudioMixer&&window.roomClient)this.roomMixer=new RoomAudioMixer(this.audioContext,this.destination,window.roomClient,{audible:new URLSearchParams(location.search).get('renderer')!=='preview'});
   if(!this.directOutput){
    this.stream=this.canvas.captureStream(0);this.videoTrack=this.stream.getVideoTracks()[0];
    if(typeof this.videoTrack.requestFrame!=='function'){
@@ -71,8 +72,9 @@ class LocalAvatarStream {
   const now=this.audioContext.currentTime;
   if(!this.next||this.next<now-.000001){if(this.next)this.audioUnderruns++;this.next=now+this.bufferSeconds}
   const at=this.next;this.next+=pcm.length/rate;
-  const source=this.audioContext.createBufferSource();source.buffer=buffer;source.connect(this.destination);this.sources.add(source);source.onended=()=>{this.sources.delete(source);source.disconnect()};source.start(at);
+  const source=this.audioContext.createBufferSource();source.buffer=buffer;source.connect(this.roomMixer?.speech||this.destination);this.sources.add(source);source.onended=()=>{this.sources.delete(source);source.disconnect()};source.start(at);
   this.dsh?.schedule(source,metadata,at,pcm.length,rate);
+  this.roomMixer?.schedule(source,metadata,at,rate);
   this.samples+=pcm.length;this.energy+=energy/rate;
   if(!length){this.serverSkippedVideo++;return}
   // Keep compressed pictures until close to playout, rather than retaining
@@ -154,9 +156,11 @@ class LocalAvatarStream {
   for(const [timer,picture] of this.timers){clearTimeout(timer);picture.close()}this.timers.clear();
   for(const source of this.sources)try{source.stop()}catch{}
   this.stream?.getTracks().forEach(track=>track.stop());if(!this.directOutput)this.destination?.disconnect();
+  this.roomMixer?.close();
  }
  clearPlayback(){
   this.presentationRevision++;this.next=0;
+  this.roomMixer?.clear();
   this.avcFrames.clear();
   if(this.running&&this.avcDecoder){this.configureAVC();if(this.ws?.readyState===WebSocket.OPEN)this.ws.send(JSON.stringify({type:'video.keyframe'}))}
   for(const timer of this.imageTimers)clearTimeout(timer);this.imageTimers.clear();

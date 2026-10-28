@@ -345,9 +345,49 @@ def main():
           and voice_release['final_runtime']['selected_voice'] == 'O07'
           and voice_release['final_runtime']['offair'] is True,
           'O07/F07 native receiver requires five full receipts, continuous playback and retained failed attempt')
+    room_release = load('docs/evidence/room-admin.json')
+    room_run = room_release['local_acceptance']
+    check(room_run['ok'] is True and len(room_run['cases']) == 5
+          and room_release['public_broadcast_started'] is False
+          and all(c['status'] == 'COMPLETED' and len(c['utterances']) == 1
+                  and all(u['valid_sample_count'] == u['contiguous_played_samples'] > 0
+                          and u['last_receipt']['natural_end'] == 1
+                          and u['last_receipt']['accepted'] == 1 for u in c['utterances'])
+                  for c in room_run['cases'])
+          and room_run['fps']['samples'] >= 100 and room_run['fps']['mean'] >= 24
+          and all(v == 0 for v in room_run['continuity_deltas'].values())
+          and room_run['checks']['ducking_observed'] is True
+          and room_run['checks']['range_forwarding'] is True
+          and room_run['checks']['large_upload']['bytes'] > 2 * 1024**2
+          and room_run['checks']['private_agent']['auto_spoken'] is False
+          and room_release['module_tests']['node_passed'] >= 96
+          and room_release['module_tests']['node_skipped'] == 0
+          and room_release['module_tests']['python_passed'] >= 46
+          and room_release['module_tests']['native_route_count'] >= 27
+          and room_release['first_attempt']['ok'] is False
+          and room_release['final_update']['panic_and_restore'] is True
+          and room_release['final_update']['offair'] is True,
+          'Room release requires real full-sample playback, mixer, upload and regression evidence')
+    for name, expected in room_release['code_sha256'].items():
+        digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
+        check(digest == expected, 'Room source changed after validation: ' + name)
+    for item in room_release['media']:
+        path = local(item['path'])
+        check(path.is_file() and path.stat().st_size == item['bytes'] and sha256(path) == item['sha256'],
+              'Room media checksum: ' + item['path'])
+    for item in room_release['module_tests']['logs']:
+        check(report_digest_matches(local(item['path']), item['sha256']), 'Room regression log checksum: ' + item['path'])
+
+    def room_source_matches(name, current, historical):
+        delta = room_release['superseded_sources'].get(name, {})
+        return (historical in delta.get('historical_sha256', [])
+                and current == delta.get('current_sha256')
+                and current == room_release['code_sha256'].get(name)
+                and bool(delta.get('validation')))
+
     for name, expected in voice_release['code_sha256'].items():
         digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
-        check(digest == expected, 'O07/F07 source changed after validation: ' + name)
+        check(digest == expected or room_source_matches(name, digest, expected), 'O07/F07 source lacks successor validation: ' + name)
     pair = load('configs/voices/female-a-o07-f07.json')
     check(pair['default_voice_id'] == 'O07' and pair['fallback_voice_id'] == 'F07'
           and sha256(local(pair['reference_audio'])) == pair['reference_sha256'], 'O07/F07 fixed synthetic reference')
@@ -356,6 +396,8 @@ def main():
 
     def source_matches(name, current, historical):
         if current == historical:
+            return True
+        if room_source_matches(name, current, historical):
             return True
         # New acceptance supersedes source hashes only. Historical measurements,
         # recordings and their checksums continue to be verified unchanged.
