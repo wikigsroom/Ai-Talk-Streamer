@@ -1,6 +1,8 @@
 # 对口型与面部控制选型：2026-10-28
 
-当前建议：以现有 MuseTalk 1.5 为基准，先改善嘴部融合和素材质量；新后端首先评测 SoulX-FlashHead Lite，其次 Ditto；LivePortrait 先用于离线表情模板。已按用户要求补充 SoulX-FlashTalk 及相似流式项目，清单共 22 项。此文是源代码检查与第一方资料评估，**替代模型尚未在本项目跑分，表中没有将官方 FPS 当成本机成绩**。
+当前约束已收窄为**保留女A动作、身体手势和宿舍背景，只替换局部口型模块**。优先级更新为MuseTalk优化、Wav2Lip速度对照、LatentSync离线画质对照；FeatherTalk需要对齐训练集，新增Lip Forcing 14B须先过原生与资源门槛。此前FlashHead Lite / Ditto的整头生成建议不再作为当前接入顺序。详见[局部替换专题、8项适配表与接口约束](LOCAL_LIPSYNC_REPLACEMENT_20261028.md)。
+
+下方保留22项广义口型/面控清单和原编号、磁盘升序、预期质量，供查阅范围差异。此文是源代码检查与第一方资料评估，**替代模型尚未在本项目跑分，表中没有将官方FPS当成本机成绩**。
 
 [现有直播间管理](../live-room/README.md) · [本轮实测](../live-room/ACCEPTANCE.md) · [机器可读清单](lipsync-options.json) · [CSV表格](lipsync-options.csv) · [模型磁盘预算](AVATAR_MODEL_STORAGE_20261028.md) · [流式方案调优设计](STREAMING_AVATAR_TUNING_20261028.md)
 
@@ -52,13 +54,13 @@ MuseTalk 官方说明人脸区域为 256×256，因此 720×1280 竖屏输出不
 | 3 | **F01** | [MediaPipe Face Landmarker](https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker) | 摄像头/视频 → 关键点、blendshape、头姿矩阵 | 轻量跟踪层；它本身不生成女A画面 | 可用原生/网页跟踪，需接 LivePortrait 或 3D rig | 约 0.00376 GB（3.76 MB） | 提供眨眼、嘴形与头姿跟踪参数；成品细节取决于后续人物模型/渲染器，单独使用不会生成女A说话视频。 | 真人面捕、参数可视化、自动质量分析 |
 | 4 | **L07** | [FeatherTalk](https://github.com/anliyuan/FeatherTalk) / [Ultralight](https://github.com/anliyuan/Ultralight-Digital-Human) | 按角色训练的轻量口型，音频 + 专属模型/素材 | 轻量、适合低延迟；女A专属训练效果未知 | Ultralight 有 LiveTalking 入口，新 FeatherTalk 需适配；最大成本是干净对齐训练视频 | FeatherTalk 约 0.04–0.10 GB¹ | 专属训练可贴合固定女A；默认144×144视觉模型的唇纹、牙齿特写细节有限，侧脸/遮嘴效果依赖训练素材。 | 固定女A长期运营的性能路线；现有静音动作不等同训练集 |
 | 5 | **L08** | [Wav2Lip](https://github.com/Rudrabha/Wav2Lip) | 视频 + 音频，经典嘴部替换 | 计算较轻，适合作速度基准，嘴部细节较旧 | LiveTalking 有后端；集成成本较低 | 约 0.53–0.60 GB（估算） | 可保留源片并完成基本口型同步；需留意嘴部偏软、牙齿细节和嘴周拼接，适合作速度/同步对照。 | 研究对照；原始开放权重限制商业用途，不能直接作为商业直播默认 |
-| 6 | **L05** | [LivePortrait](https://github.com/KlingAIResearch/LivePortrait) + MuseTalk | 驱动视频/表情模板控制头姿、眼睛、嘴部，口型仍由 MuseTalk | 适合先离线建表情模板；实时级联需测耗时/冲突 | 官方有人像模式 Windows 入口；融合顺序和嘴部控制需设计 | 约 0.66 GB（人像模式） | 可补充眨眼、微笑和点头，提升倾听表情；大幅转头、遮挡和与MuseTalk同时控制嘴部时需要处理变形/冲突。 | **优先补表情**，眨眼/微笑/倾听，不直接当纯音频口型替代 |
+| 6 | **L05** | [LivePortrait](https://github.com/KlingAIResearch/LivePortrait) + MuseTalk | 驱动视频/表情模板控制头姿、眼睛、嘴部，口型仍由 MuseTalk | 适合先离线建表情模板；实时级联需测耗时/冲突 | 官方有人像模式 Windows 入口；融合顺序和嘴部控制需设计 | 约 0.66 GB（人像模式） | 可补充眨眼、微笑和点头，提升倾听表情；大幅转头、遮挡和与MuseTalk同时控制嘴部时需要处理变形/冲突。 | 独立表情/素材分支；不纳入本次局部口型替换 |
 | 7 | **F02** | [NVIDIA Audio2Face-3D SDK](https://github.com/NVIDIA/Audio2Face-3D-SDK) | 音频 → 面部动画/情绪参数，需要绑定3D角色 | 官方面向实时；总负载还包含3D渲染 | 官方支持 Win10/11、CUDA/TRT；需3D形象和渲染器，成本最高 | 约 0.78 GB；含情绪约 2.05 GB³ | 能驱动3D角色的嘴、脸颊和表情；最终写实程度由角色建模、牙齿、材质与灯光决定，需要另建女A的3D资产。 | 后续3D面控分支，不能直接替换照片视频中的嘴部 |
 | 8 | **L10** | [SadTalker](https://github.com/OpenTalker/SadTalker) | 单图 + 音频，3D 运动系数生成头动表情 | 单卡可尝试；官方原流程不是本项目实时后端 | 官方 Windows 入口；老依赖隔离，成本中 | 约 1.0–1.5 GB（估算） | 单图能生成说话、眨眼和头动；固定镜头可作整脸动画参考，需检查头颈接缝、表情僵硬和增强后的身份变化。 | 传统整脸动画对照，优先级较低 |
-| 9 | **L02** | [Ditto](https://github.com/antgroup/ditto-talkinghead) | 单图 + 音频，头部/表情，在线流式运动控制 | 官方面向实时；本机 FPS/共驻留未知 | 官方测试为 CentOS/A100/TRT8.6.1，另有 PyTorch；需 Windows 适配与重建 engine | 约 2.31 GB（PyTorch） | 可把口型、头姿、眨眼作为整体头部运动来生成/控制；细节与侧脸形变待测，身体和手势仍需独立素材。 | 实时替代主候选，成本中高 |
+| 9 | **L02** | [Ditto](https://github.com/antgroup/ditto-talkinghead) | 单图 + 音频，头部/表情，在线流式运动控制 | 官方面向实时；本机 FPS/共驻留未知 | 官方测试为 CentOS/A100/TRT8.6.1，另有 PyTorch；需 Windows 适配与重建 engine | 约 2.31 GB（PyTorch） | 可把口型、头姿、眨眼作为整体头部运动来生成/控制；细节与侧脸形变待测，身体和手势仍需独立素材。 | 整头生成分支；不纳入本次局部口型替换 |
 | 10 | **L06** | [LatentSync 1.6](https://github.com/bytedance/LatentSync) | 视频 + 音频，512 分辨率扩散口型 | 官方推理最低 **18 GB**；48 GB 有容量余量，不能预设实时 | 上游脚本需原生依赖适配；可保留整段身体背景 | 约 5.2–5.6 GB；整包约 10 GB | 512分辨率训练针对嘴部模糊，适合精修唇形与口腔细节；保留原片动作，仍需检查牙齿闪烁和采样失真。 | 离线画质参考、重要片段精修 |
 | 11 | **L04** | [SoulX-FlashHead Pro](https://github.com/Soul-AILab/SoulX-FlashHead) | 同系列更重的人像生成 | 官方单 4090 **10.8 FPS**，未达本项目 25 FPS 门槛 | 同上且负载更高；48 GB 不会自动改善计算速度 | 约 6.92 GB（Pro + Wan VAE + 音频编码器） | 偏重人像细节与自然表演的候选；本机口型/牙齿尚未横评，官方单4090约10.8FPS，直接直播会有流畅性不足。 | 画质参考/离线素材，暂不作为单卡实时默认 |
-| 12 | **L03** | [SoulX-FlashHead Lite](https://github.com/Soul-AILab/SoulX-FlashHead) | 单图 + 音频，持续流式说话人像 | 官方单 4090 **96 FPS**；本项目未测，不含当前完整链路 | FlashAttention 等依赖需原生验证；替换人物生成后端，成本高 | 约 8.16 GB（Lite + LTX VAE + 音频编码器） | 可从单图流式生成口型和头部运动，有望减少素材循环感；需实测唇齿、发丝、身份与背景的长时稳定性。 | 实时新方案重点候选，观察脸部清晰度与长时漂移 |
+| 12 | **L03** | [SoulX-FlashHead Lite](https://github.com/Soul-AILab/SoulX-FlashHead) | 单图 + 音频，持续流式说话人像 | 官方单 4090 **96 FPS**；本项目未测，不含当前完整链路 | FlashAttention 等依赖需原生验证；替换人物生成后端，成本高 | 约 8.16 GB（Lite + LTX VAE + 音频编码器） | 可从单图流式生成口型和头部运动，有望减少素材循环感；需实测唇齿、发丝、身份与背景的长时稳定性。 | 整头生成分支；不纳入本次局部口型替换 |
 | 13 | **F03** | [PersonaLive](https://github.com/GVCLab/PersonaLive) | 图像 + 驱动视频/摄像头，流式人像表情迁移 | 有实时实现/TRT路径；12GB离线流式容量不代表本机实时吞吐 | 官方列有社区Windows入口；须接动作驱动，不能仅传TTS音频 | 约 15–17 GB（部分估算） | 把驱动者的眉眼、嘴形和头动迁移到角色，适合丰富表情；依赖驱动视频/摄像头，遮挡和跨脸型匹配待测。 | 面捕/表情迁移对照；README限定学术研究 |
 | 14 | **L09** | [EchoMimicV3-Flash](https://github.com/antgroup/echomimic_v3) | 图像/音频/多模态的人像及身体动画 | 官方称 8 步、12 GB、最高768²；不据此认定 25 FPS | 需原生依赖与长段拼接验证，成本高 | 约 20.75 GB（Flash-Pro + Wan 配套编码器/VAE） | 可生成头部及身体动画，适合制作配套表演素材；少步加速下需检查口型、牙齿、手指和跨段连贯性。 | 表情/上半身素材、离线自然度参考 |
 | 15 | **L15** | [Hallo-Live](https://github.com/fudan-generative-vision/Hallo-Live) | 文本驱动，联合生成语音与视频 | 官方 **2×H200约20.38FPS / 0.94秒**；未有本机成绩 | 双流DiT与解码须重构接入；不直接消费既定O07/F07 PCM | 约 38.64 GB（推理必需权重组） | 语音与人物联合生成，有利于统一表演节奏；原生流程会改变O07/F07音色链路，单4090观看流畅度未验证。 | 联合生成架构参考，当前音色方案下优先级低 |
@@ -76,7 +78,7 @@ MuseTalk 官方说明人脸区域为 256×256，因此 720×1280 竖屏输出不
 
 ## 评测顺序与统一输入
 
-推荐第一批 **L00、L01、L03、L02、L05**，再用L06作为离线质量参照。L12是第二批实验路线，先过原生依赖门槛；L07单列训练路线。L04/L09/L10/L11/L13/L14/L16适合离线或研究对照；L15会改变既定语音架构。F01–F04评测控制/驱动能力，不能把参数输出速度当成口型视频FPS；R01未确认完整部署发布，不计入可立即部署的候选数量。
+本次局部替换第一批为 **L00、L01、L08、L06**：分别是现有基准、当前模型优化、速度对照、离线画质对照。L07以对齐训练语料为前置；新增N03 Lip Forcing 14B是通过原生运行和资源门槛后的条件实验，N01 DINet/N02 Diff2Lip为第三批。详见[局部清单](local-lipsync-options.json)。整头/身体生成和面捕方案保留在广义清单，不作为当前素材的局部替换候选；L15还会改变语音架构，R01未确认完整部署发布。
 
 SoulX系列不是同一模型换名字：FlashTalk是14B人物生成，FlashHead是面向消费卡的1.3B人像方案，LiveAct是18B动作与情绪路线。扩大显存只解决容量问题。官方离线演示、`--fps=25`输出参数、CPU卸载成功、两倍相对加速，都不能替代单4090连续25FPS的实测。
 

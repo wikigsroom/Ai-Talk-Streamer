@@ -38,7 +38,9 @@
       "quality_source_urls": [
         "https://github.com/TMElyralab/MuseTalk"
       ],
-      "排序": 1
+      "排序": 1,
+      "local_module_fit": "existing_local_backend",
+      "local_module_replacement_note": "当前局部基准，保留"
     },
     {
       "id": "L01",
@@ -66,7 +68,9 @@
       "quality_source_urls": [
         "https://github.com/TMElyralab/MuseTalk"
       ],
-      "排序": 2
+      "排序": 2,
+      "local_module_fit": "same_backend_optimization",
+      "local_module_replacement_note": "优先当前素材/融合/调度优化"
     },
     {
       "id": "F01",
@@ -97,7 +101,9 @@
       "quality_source_urls": [
         "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker"
       ],
-      "排序": 3
+      "排序": 3,
+      "local_module_fit": "helper_only",
+      "local_module_replacement_note": "关键点/质量分析辅助，本身不生成口型"
     },
     {
       "id": "L07",
@@ -130,7 +136,9 @@
         "https://github.com/anliyuan/FeatherTalk",
         "https://github.com/anliyuan/Ultralight-Digital-Human"
       ],
-      "排序": 4
+      "排序": 4,
+      "local_module_fit": "conditional_identity_training",
+      "local_module_replacement_note": "需要正确对齐的女A说话训练集；静音动作不等同标签"
     },
     {
       "id": "L08",
@@ -161,7 +169,9 @@
       "quality_source_urls": [
         "https://github.com/Rudrabha/Wav2Lip"
       ],
-      "排序": 5
+      "排序": 5,
+      "local_module_fit": "local_adapter_candidate",
+      "local_module_replacement_note": "源帧嘴周回贴；需覆盖当前worker和动作补丁；限非商业对照"
     },
     {
       "id": "L05",
@@ -169,7 +179,7 @@
       "输入与能力": "驱动视频/表情模板控制头姿、眼睛、嘴部，口型仍由 MuseTalk",
       "硬件与实时判断": "适合先离线建表情模板；实时级联需测耗时/冲突",
       "原生与接入": "官方有人像模式 Windows 入口；融合顺序和嘴部控制需设计",
-      "用途": "**优先补表情**，眨眼/微笑/倾听，不直接当纯音频口型替代",
+      "用途": "独立表情/素材分支；不纳入本次局部口型替换",
       "hot_first_frame_ms": null,
       "generation_seconds": null,
       "peak_vram_mib": null,
@@ -194,7 +204,9 @@
       "quality_source_urls": [
         "https://github.com/KlingAIResearch/LivePortrait"
       ],
-      "排序": 6
+      "排序": 6,
+      "local_module_fit": "expression_branch_out_of_scope",
+      "local_module_replacement_note": "表情/头姿会改变嘴周之外，另建素材分支"
     },
     {
       "id": "F02",
@@ -230,7 +242,9 @@
       "quality_source_urls": [
         "https://github.com/NVIDIA/Audio2Face-3D-SDK"
       ],
-      "排序": 7
+      "排序": 7,
+      "local_module_fit": "requires_3d_assets",
+      "local_module_replacement_note": "需要3D角色/渲染链"
     },
     {
       "id": "L10",
@@ -261,7 +275,9 @@
       "quality_source_urls": [
         "https://github.com/OpenTalker/SadTalker"
       ],
-      "排序": 8
+      "排序": 8,
+      "local_module_fit": "whole_avatar_branch_out_of_scope",
+      "local_module_replacement_note": "主链路生成整头/人物运动；不直接保持当前源帧并只改嘴周"
     },
     {
       "id": "L02",
@@ -269,7 +285,7 @@
       "输入与能力": "单图 + 音频，头部/表情，在线流式运动控制",
       "硬件与实时判断": "官方面向实时；本机 FPS/共驻留未知",
       "原生与接入": "官方测试为 CentOS/A100/TRT8.6.1，另有 PyTorch；需 Windows 适配与重建 engine",
-      "用途": "实时替代主候选，成本中高",
+      "用途": "整头生成分支；不纳入本次局部口型替换",
       "hot_first_frame_ms": null,
       "generation_seconds": null,
       "peak_vram_mib": null,
@@ -294,7 +310,9 @@
       "quality_source_urls": [
         "https://github.com/antgroup/ditto-talkinghead"
       ],
-      "排序": 9
+      "排序": 9,
+      "local_module_fit": "whole_avatar_branch_out_of_scope",
+      "local_module_replacement_note": "主链路生成整头/人物运动；不直接保持当前源帧并只改嘴周"
     },
     {
       "id": "L06",
@@ -330,7 +348,9 @@
       "quality_source_urls": [
         "https://github.com/bytedance/LatentSync"
       ],
-      "排序": 10
+      "排序": 10,
+      "local_module_fit": "local_offline_candidate",
+      "local_module_replacement_note": "视频ROI修补/逆变换；先离线测画质和RTF"
     },
     {
       "id": "L04",
@@ -367,7 +387,9 @@
         "https://github.com/Soul-AILab/SoulX-FlashHead",
         "https://soul-ailab.github.io/soulx-flashhead/"
       ],
-      "排序": 11
+      "排序": 11,
+      "local_module_fit": "whole_avatar_branch_out_of_scope",
+      "local_module_replacement_note": "主链路生成整头/人物运动；不直接保持当前源帧并只改嘴周"
     },
     {
       "id": "L03",
@@ -375,7 +397,7 @@
       "输入与能力": "单图 + 音频，持续流式说话人像",
       "硬件与实时判断": "官方单 4090 **96 FPS**；本项目未测，不含当前完整链路",
       "原生与接入": "FlashAttention 等依赖需原生验证；替换人物生成后端，成本高",
-      "用途": "实时新方案重点候选，观察脸部清晰度与长时漂移",
+      "用途": "整头生成分支；不纳入本次局部口型替换",
       "hot_first_frame_ms": null,
       "generation_seconds": null,
       "peak_vram_mib": null,
@@ -404,7 +426,9 @@
         "https://github.com/Soul-AILab/SoulX-FlashHead",
         "https://soul-ailab.github.io/soulx-flashhead/"
       ],
-      "排序": 12
+      "排序": 12,
+      "local_module_fit": "whole_avatar_branch_out_of_scope",
+      "local_module_replacement_note": "主链路生成整头/人物运动；不直接保持当前源帧并只改嘴周"
     },
     {
       "id": "F03",
@@ -440,7 +464,9 @@
       "quality_source_urls": [
         "https://github.com/GVCLab/PersonaLive"
       ],
-      "排序": 13
+      "排序": 13,
+      "local_module_fit": "expression_branch_out_of_scope",
+      "local_module_replacement_note": "驱动视频表情迁移，不是当前纯嘴周替换"
     },
     {
       "id": "L09",
@@ -477,7 +503,9 @@
       "quality_source_urls": [
         "https://github.com/antgroup/echomimic_v3"
       ],
-      "排序": 14
+      "排序": 14,
+      "local_module_fit": "whole_avatar_branch_out_of_scope",
+      "local_module_replacement_note": "主链路生成整头/人物运动；不直接保持当前源帧并只改嘴周"
     },
     {
       "id": "L15",
@@ -516,7 +544,9 @@
       "quality_source_urls": [
         "https://github.com/fudan-generative-vision/Hallo-Live"
       ],
-      "排序": 15
+      "排序": 15,
+      "local_module_fit": "changes_voice_architecture",
+      "local_module_replacement_note": "语音视频联合生成，改变既定O07/F07"
     },
     {
       "id": "L14",
@@ -551,7 +581,9 @@
       "quality_source_urls": [
         "https://github.com/Alibaba-Quark/LiveAvatar"
       ],
-      "排序": 16
+      "排序": 16,
+      "local_module_fit": "whole_avatar_branch_out_of_scope",
+      "local_module_replacement_note": "主链路生成整头/人物运动；不直接保持当前源帧并只改嘴周"
     },
     {
       "id": "L11",
@@ -586,7 +618,9 @@
       "quality_source_urls": [
         "https://github.com/Soul-AILab/SoulX-FlashTalk"
       ],
-      "排序": 17
+      "排序": 17,
+      "local_module_fit": "whole_avatar_branch_out_of_scope",
+      "local_module_replacement_note": "主链路生成整头/人物运动；不直接保持当前源帧并只改嘴周"
     },
     {
       "id": "L12",
@@ -622,7 +656,9 @@
         "https://github.com/di-osc/fast-flashtalk",
         "https://github.com/Soul-AILab/SoulX-FlashTalk"
       ],
-      "排序": 18
+      "排序": 18,
+      "local_module_fit": "whole_avatar_branch_out_of_scope",
+      "local_module_replacement_note": "主链路生成整头/人物运动；不直接保持当前源帧并只改嘴周"
     },
     {
       "id": "L13",
@@ -657,7 +693,9 @@
       "quality_source_urls": [
         "https://github.com/Soul-AILab/SoulX-LiveAct"
       ],
-      "排序": 19
+      "排序": 19,
+      "local_module_fit": "whole_avatar_branch_out_of_scope",
+      "local_module_replacement_note": "主链路生成整头/人物运动；不直接保持当前源帧并只改嘴周"
     },
     {
       "id": "F04",
@@ -694,7 +732,9 @@
       "quality_source_urls": [
         "https://github.com/GVCLab/EditaLive"
       ],
-      "排序": 20
+      "排序": 20,
+      "local_module_fit": "expression_branch_out_of_scope",
+      "local_module_replacement_note": "人物/身体编辑，超出嘴周替换"
     },
     {
       "id": "L16",
@@ -730,7 +770,9 @@
       "quality_source_urls": [
         "https://github.com/deepbrainai-research/float"
       ],
-      "排序": 21
+      "排序": 21,
+      "local_module_fit": "whole_avatar_branch_out_of_scope",
+      "local_module_replacement_note": "主链路生成整头/人物运动；不直接保持当前源帧并只改嘴周"
     },
     {
       "id": "R01",
@@ -760,15 +802,16 @@
       "quality_source_urls": [
         "https://streamavatar.github.io/"
       ],
-      "排序": 22
+      "排序": 22,
+      "local_module_fit": "unconfirmed_release_and_out_of_scope",
+      "local_module_replacement_note": "完整部署发布未确认，研究范围超出局部口型"
     }
   ],
   "first_wave": [
     "L00",
     "L01",
-    "L03",
-    "L02",
-    "L05"
+    "L08",
+    "L06"
   ],
   "new_models_downloaded": false,
   "production_engine_changed": false,
@@ -790,5 +833,12 @@
     "display_rank_field": "排序",
     "display_precision": "GB values generally use two decimal places; retain 0.00376 GB for the small MediaPipe model. Sorting uses original numeric estimates, not formatted strings. Original option IDs are identifiers, not ranks."
   },
-  "quality_note": "Expected visible behavior from primary-source capabilities and project architecture; no new benchmark or video blind review. Quality scores remain null. Current L00 playback continuity is not an objective visual quality score."
+  "quality_note": "Expected visible behavior from primary-source capabilities and project architecture; no new benchmark or video blind review. Quality scores remain null. Current L00 playback continuity is not an objective visual quality score.",
+  "local_module_evaluation": {
+    "document": "LOCAL_LIPSYNC_REPLACEMENT_20261028.md",
+    "options": "local-lipsync-options.json",
+    "csv": "local-lipsync-options.csv",
+    "scope": "Retain female-A source frames, motion bank, hands/body/background; replace only a bounded mouth/perioral image region.",
+    "supersedes_prior_whole_head_priority": true
+  }
 }

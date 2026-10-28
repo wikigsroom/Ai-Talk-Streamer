@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-28",
+  "scope": "Retain female-A source frames, motion bank, hands/body/background; replace only a bounded mouth/perioral image region.",
+  "architecture": "A4090 48GB/64GB native Windows; B3080 official Livehime; O07 primary/F07 backup; same DSH writer.",
+  "material_inventory": {
+    "accepted_motion_clips": 48,
+    "base_clips": 2,
+    "scheduled_clips": 50,
+    "frames": 10000,
+    "program_width": 720,
+    "program_height": 1280,
+    "fps": 25
+  },
+  "default_sort": {
+    "field": "additional_model_gb_min",
+    "direction": "ascending",
+    "unknowns": "last",
+    "note": "Base-install lower bound; cost order is not quality or execution priority."
+  },
+  "size_note": "Decimal GB model planning budget, not VRAM or installed measurement. Environments, exported engines, training/preprocess caches excluded. Null means unknown.",
+  "decision": {
+    "first_wave": [
+      "L00",
+      "L01",
+      "L08",
+      "L06"
+    ],
+    "conditional": [
+      "L07",
+      "N03"
+    ],
+    "third_wave": [
+      "N01",
+      "N02"
+    ]
+  },
+  "options": [
+    {
+      "id": "L00",
+      "name": "MuseTalk 1.5 当前基准",
+      "additional_model_gb_min": 0,
+      "additional_model_gb_max": 0,
+      "additional_model_disk": "0 GB（已安装）",
+      "size_basis": "Inherited unchanged from the broad planning table; not an installed measurement.",
+      "source_material_reuse": "完整复用：原帧、手势、背景和动作索引",
+      "cache_reuse": "保留当前模型专属latent/坐标/遮罩",
+      "identity_training": "无需新增训练",
+      "adapter_effort": "已接入",
+      "realtime_assessment": "已归档的当前节目链路约25FPS；不代表视觉质量满分",
+      "recommendation": "保留唯一已验证基准",
+      "expected_visible_quality": "保留原片身体、手势与宿舍背景；嘴部256×256重绘，牙齿/唇色/融合边缘是重点检查项，动作仍会循环。",
+      "source_urls": [
+        "https://github.com/TMElyralab/MuseTalk"
+      ],
+      "measured_in_this_project": true,
+      "hot_first_frame_ms": null,
+      "generation_seconds": null,
+      "peak_vram_mib": null,
+      "quality_score": null,
+      "measurement_note": "No new run this turn. L00 refers to archived baseline evidence only.",
+      "排序": 1
+    },
+    {
+      "id": "L01",
+      "name": "MuseTalk 局部优化 / 可选ONNX或TensorRT实验",
+      "additional_model_gb_min": 0,
+      "additional_model_gb_max": 0,
+      "additional_model_disk": "0 GB（复用当前权重）",
+      "size_basis": "Inherited unchanged from the broad planning table; not an installed measurement.",
+      "source_material_reuse": "完整复用",
+      "cache_reuse": "素材/latent可复用；预处理改变时新增版本",
+      "identity_training": "无需新增训练",
+      "adapter_effort": "低；图导出另测原生算子",
+      "realtime_assessment": "先测融合与句尾；导出engine另计磁盘，不预设提速",
+      "recommendation": "P0 当前模型优化",
+      "expected_visible_quality": "预期改善嘴周闪烁、肤色接缝、句尾闭口和动作切换；脸部纹理上限与自由手势能力仍受当前模型/素材约束。",
+      "source_urls": [],
+      "measured_in_this_project": false,
+      "hot_first_frame_ms": null,
+      "generation_seconds": null,
+      "peak_vram_mib": null,
+      "quality_score": null,
+      "measurement_note": "No new run this turn. L00 refers to archived baseline evidence only.",
+      "排序": 2
+    },
+    {
+      "id": "L07",
+      "name": "FeatherTalk / Ultralight 条件路线",
+      "additional_model_gb_min": 0.04,
+      "additional_model_gb_max": 0.1,
+      "additional_model_disk": "FeatherTalk 约 0.04–0.10 GB¹",
+      "size_basis": "Inherited unchanged from the broad planning table; not an installed measurement.",
+      "source_material_reuse": "原帧和动作可复用；训练标签缺失",
+      "cache_reuse": "重建关键点、角色模型及对应音频编码；不复用Muse latent",
+      "identity_training": "需要女A同身份、音画对齐的说话训练集；静音动作随配TTS无效",
+      "adapter_effort": "高；训练与适配是主要工作，新FeatherTalk与旧Ultralight不通用",
+      "realtime_assessment": "轻量结构具有性能潜力，女A未训练，未证明该链路25FPS",
+      "recommendation": "补齐训练前置后再排",
+      "expected_visible_quality": "专属训练可贴合固定女A；默认144×144视觉模型的唇纹、牙齿特写细节有限，侧脸/遮嘴效果依赖训练素材。",
+      "source_urls": [
+        "https://github.com/anliyuan/FeatherTalk",
+        "https://github.com/anliyuan/Ultralight-Digital-Human",
+        "https://github.com/anliyuan/FeatherTalk/blob/main/docs/WEIGHTS.md"
+      ],
+      "measured_in_this_project": false,
+      "hot_first_frame_ms": null,
+      "generation_seconds": null,
+      "peak_vram_mib": null,
+      "quality_score": null,
+      "measurement_note": "No new run this turn. L00 refers to archived baseline evidence only.",
+      "排序": 3
+    },
+    {
+      "id": "L08",
+      "name": "Wav2Lip / Wav2Lip-GAN",
+      "additional_model_gb_min": 0.53,
+      "additional_model_gb_max": 0.6,
+      "additional_model_disk": "约 0.53–0.60 GB（估算）",
+      "size_basis": "Inherited unchanged from the broad planning table; not an installed measurement.",
+      "source_material_reuse": "完整复用；替换自循环帧索引并限制嘴周回贴",
+      "cache_reuse": "重建96人脸输入与mel；可评估复用已验证的检测坐标",
+      "identity_training": "通用权重无需角色训练",
+      "adapter_effort": "中；上游已有后端，本项目独立worker/动作补丁仍需适配",
+      "realtime_assessment": "适合低成本速度对照；本项目未测，不预设画质提升",
+      "recommendation": "P1速度对照；开放权重仅非商业",
+      "expected_visible_quality": "可保留源片并完成基本口型同步；需留意嘴部偏软、牙齿细节和嘴周拼接，适合作速度/同步对照。",
+      "source_urls": [
+        "https://github.com/Rudrabha/Wav2Lip",
+        "https://github.com/OpenTalker/SadTalker/releases/tag/v0.0.2"
+      ],
+      "measured_in_this_project": false,
+      "hot_first_frame_ms": null,
+      "generation_seconds": null,
+      "peak_vram_mib": null,
+      "quality_score": null,
+      "measurement_note": "No new run this turn. L00 refers to archived baseline evidence only.",
+      "排序": 4
+    },
+    {
+      "id": "L06",
+      "name": "LatentSync 1.6",
+      "additional_model_gb_min": 5.2,
+      "additional_model_gb_max": 5.6,
+      "additional_model_disk": "约 5.2–5.6 GB；整包约 10 GB",
+      "size_basis": "Inherited unchanged from the broad planning table; not an installed measurement.",
+      "source_material_reuse": "完整复用；512对齐后逆变换局部回贴",
+      "cache_reuse": "新建512仿射/掩码/特征；Muse VAE latent不通用",
+      "identity_training": "通用权重无需角色训练",
+      "adapter_effort": "中高；分块时序、源帧对应和帧回调",
+      "realtime_assessment": "官方最低18GB显存；先离线测画质与RTF，未证明4090直播25FPS",
+      "recommendation": "P1离线画质对照",
+      "expected_visible_quality": "512分辨率训练针对嘴部模糊，适合精修唇形与口腔细节；保留原片动作，仍需检查牙齿闪烁和采样失真。",
+      "source_urls": [
+        "https://github.com/bytedance/LatentSync",
+        "https://github.com/bytedance/LatentSync/blob/main/scripts/inference.py",
+        "https://huggingface.co/ByteDance/LatentSync-1.6/tree/c42c7e6c8e9c213626389fa7d9a3c444b8536353",
+        "https://huggingface.co/stabilityai/sd-vae-ft-mse/tree/31f26fdeee1355a5c34592e401dd41e45d25a493"
+      ],
+      "measured_in_this_project": false,
+      "hot_first_frame_ms": null,
+      "generation_seconds": null,
+      "peak_vram_mib": null,
+      "quality_score": null,
+      "measurement_note": "No new run this turn. L00 refers to archived baseline evidence only.",
+      "排序": 5
+    },
+    {
+      "id": "N03",
+      "name": "Lip Forcing 14B",
+      "additional_model_gb_min": 41.0,
+      "additional_model_gb_max": 42.0,
+      "additional_model_disk": "约41–42 GB工程预算；主要权重40.86 GB，检测/tokenizer等另计",
+      "size_basis": "Major weights known; reserve for auxiliary files. Includes one-time T5 for text embeddings. No teacher/base diffusion shards. No credit for unverified shared local files.",
+      "source_material_reuse": "源视频条件+mouth-only回贴；需用现有indices替换默认参考循环",
+      "cache_reuse": "新建512对齐、VAE/时序缓存、wav2vec特征及文本embedding",
+      "identity_training": "公开14B通用权重可先试，无需先训练女A",
+      "adapter_effort": "高；原生Windows、按块帧回调、有界队列、句尾对齐与共驻留",
+      "realtime_assessment": "官方H200约37GB峰值为预计算文本场景；运行时T5约50GB。4090吞吐与O07/F07共驻留均未测；31FPS属于未发布1.3B在H100上的论文成绩",
+      "recommendation": "第二批条件实验；不列为可立即切换的正式后端",
+      "expected_visible_quality": "参考视频的身体、头姿与背景保留，512局部生成可比较唇齿细节与时间一致性；手遮嘴、动作边界与女A身份须同源盲评",
+      "source_urls": [
+        "https://github.com/cvlab-kaist/LipForcing",
+        "https://cvlab-kaist.github.io/LipForcing/",
+        "https://huggingface.co/JinhyukJang/lipforcing/tree/49f1f15bdc0d266e6e6ef64ccaa1ee86367a8799",
+        "https://github.com/cvlab-kaist/LipForcing/blob/fc864771eb347ca3ccaaef9c0b583ff6ccc9f184/scripts/inference/inference_streaming.py"
+      ],
+      "measured_in_this_project": false,
+      "hot_first_frame_ms": null,
+      "generation_seconds": null,
+      "peak_vram_mib": null,
+      "quality_score": null,
+      "排序": 6
+    },
+    {
+      "id": "N01",
+      "name": "DINet",
+      "additional_model_gb_min": null,
+      "additional_model_gb_max": null,
+      "additional_model_disk": "未知；官方资源包尚无已核实逐文件清单",
+      "size_basis": "Unknown; do not infer zero or a total from model architecture.",
+      "source_material_reuse": "源视频、关键点与参考帧条件；输出脸区域加嘴周mask贴回",
+      "cache_reuse": "重建OpenFace/DeepSpeech/裁剪与时序上下文",
+      "identity_training": "可先试通用权重；官方提醒训练集泛化有限",
+      "adapter_effort": "高；旧依赖、源帧索引、局部输出与上下文边界",
+      "realtime_assessment": "Windows预处理入口存在，不等于完整推理已通过；本项目25FPS未测",
+      "recommendation": "第三批候选，先正面正常光照片段",
+      "expected_visible_quality": "256 mouth区域变形修补可保留源动作；唇形、牙齿细节与侧脸泛化需测，不能承诺优于现有MuseTalk",
+      "source_urls": [
+        "https://github.com/MRzzm/DINet",
+        "https://github.com/MRzzm/DINet/blob/master/inference.py"
+      ],
+      "measured_in_this_project": false,
+      "hot_first_frame_ms": null,
+      "generation_seconds": null,
+      "peak_vram_mib": null,
+      "quality_score": null,
+      "排序": 7
+    },
+    {
+      "id": "N02",
+      "name": "Diff2Lip",
+      "additional_model_gb_min": null,
+      "additional_model_gb_max": null,
+      "additional_model_disk": "未知；官方资源未核实完整字节数",
+      "size_basis": "Unknown; pretrained/checkpoint and auxiliary sizes not verified.",
+      "source_material_reuse": "视频脸框+mel，掩码扩散结果贴回源帧",
+      "cache_reuse": "新建脸框/掩码与mel上下文；不使用Muse latent",
+      "identity_training": "可先试公开通用权重",
+      "adapter_effort": "高；原生旧依赖、离线批处理到回调及音频时间映射",
+      "realtime_assessment": "多步扩散，默认离线流程；没有本项目实时达标证据",
+      "recommendation": "第三批离线局部画质对照",
+      "expected_visible_quality": "可比较局部唇齿与身份保持；扩散帧间闪烁、合成边界及耗时待女A实测",
+      "source_urls": [
+        "https://github.com/soumik-kanad/diff2lip",
+        "https://github.com/soumik-kanad/diff2lip/blob/main/generate.py",
+        "https://soumik-kanad.github.io/diff2lip/"
+      ],
+      "measured_in_this_project": false,
+      "hot_first_frame_ms": null,
+      "generation_seconds": null,
+      "peak_vram_mib": null,
+      "quality_score": null,
+      "排序": 8
+    }
+  ],
+  "watchlist": [
+    {
+      "id": "R02",
+      "name": "Lip Forcing 1.3B",
+      "public_weights_available": false,
+      "additional_model_gb_min": null,
+      "additional_model_gb_max": null,
+      "note": "Official roadmap still pending; 31FPS is H100 paper evidence, not released 14B or local 4090 measurement.",
+      "source_urls": [
+        "https://github.com/cvlab-kaist/LipForcing",
+        "https://cvlab-kaist.github.io/LipForcing/"
+      ]
+    }
+  ],
+  "lipforcing_storage": {
+    "known_major_weight_bytes": 40858346043,
+    "known_major_weight_gb": 40.858346043,
+    "budget_gb_min": 41.0,
+    "budget_gb_max": 42.0,
+    "excluded_training_only": [
+      "teacher checkpoint",
+      "base Wan diffusion shards",
+      "SyncNet training reward"
+    ],
+    "additional_unmeasured": [
+      "InsightFace detector/aligner",
+      "tokenizer/config/mouth mask"
+    ],
+    "components": [
+      {
+        "name": "Lip Forcing merged 14B student",
+        "bytes": 28588528943,
+        "sha256": "ea9f111f374a208a80b6604e2c698639f03ad666bb7cda72c727a93cd43e4307",
+        "repository": "JinhyukJang/lipforcing",
+        "revision": "49f1f15bdc0d266e6e6ef64ccaa1ee86367a8799",
+        "file": "lipforcing_14b.pth",
+        "source_url": "https://huggingface.co/JinhyukJang/lipforcing/tree/49f1f15bdc0d266e6e6ef64ccaa1ee86367a8799"
+      },
+      {
+        "name": "Wan2.1 VAE",
+        "bytes": 507609880,
+        "sha256": "38071ab59bd94681c686fa51d75a1968f64e470262043be31f7a094e442fd981",
+        "repository": "Soul-AILab/SoulX-FlashHead-1_3B",
+        "revision": "5fbd2e44ba08ab2deb28bd55cff2c15523e51ba5",
+        "file": "VAE_Wan/Wan2.1_VAE.pth",
+        "source_url": "https://huggingface.co/Soul-AILab/SoulX-FlashHead-1_3B/tree/5fbd2e44ba08ab2deb28bd55cff2c15523e51ba5",
+        "provenance": "Existing public metadata manifest; matching runtime loading/format must be checked before reuse."
+      },
+      {
+        "name": "wav2vec2-base-960h",
+        "bytes": 377607901,
+        "sha256": "8aa76ab2243c81747a1f832954586bc566090c83a0ac167df6f31f0fa917d74a",
+        "repository": "facebook/wav2vec2-base-960h",
+        "revision": "22aad52d435eb6dbaf354bdad9b0da84ce7d6156",
+        "file": "model.safetensors",
+        "source_url": "https://huggingface.co/facebook/wav2vec2-base-960h/tree/22aad52d435eb6dbaf354bdad9b0da84ce7d6156",
+        "provenance": "Existing public metadata manifest; matching runtime loading/format must be checked before reuse."
+      },
+      {
+        "name": "UMT5-XXL for one-time text preparation",
+        "bytes": 11361920418,
+        "sha256": "7cace0da2b446bbbbc57d031ab6cf163a3d59b366da94e5afe36745b746fd81d",
+        "repository": "Wan-AI/Wan2.1-T2V-1.3B",
+        "revision": "37ec512624d61f7aa208f7ea8140a131f93afc9a",
+        "file": "models_t5_umt5-xxl-enc-bf16.pth",
+        "source_url": "https://huggingface.co/Wan-AI/Wan2.1-T2V-1.3B/tree/37ec512624d61f7aa208f7ea8140a131f93afc9a",
+        "provenance": "Existing public metadata manifest; matching runtime loading/format must be checked before reuse."
+      },
+      {
+        "name": "TAEW tiny decoder",
+        "bytes": 22678901,
+        "git_blob_sha": "d6ffa27358914606153bbb790bd1da1c5cf822fd",
+        "source_url": "https://github.com/madebyollin/taehv/blob/main/taew2_1.pth"
+      }
+    ]
+  },
+  "source_snapshots": [
+    {
+      "name": "feathertalk-inference",
+      "git_blob_sha": "e98fafa2f535a435e1053c7de40e680bd1d3bafe",
+      "source_url": "https://github.com/anliyuan/FeatherTalk/blob/main/inference.py",
+      "decoded_source_sha256": "66bbae74c96f71612bd33a34441effdb39a513667adbc220b6a5ebd3fd294714"
+    },
+    {
+      "name": "dinet-inference",
+      "git_blob_sha": "ea21b30553a48b7045eeca0d2590cf4068aae09c",
+      "source_url": "https://github.com/MRzzm/DINet/blob/master/inference.py",
+      "decoded_source_sha256": "5d50b77b3ac93ccd7eff3f8aee9cb4f2c3447aa0c13ead33550ee40b0c236f92"
+    },
+    {
+      "name": "diff2lip-generate",
+      "git_blob_sha": "4b9d746ee3a953aa0806ceb4149f438b6def418a",
+      "source_url": "https://github.com/soumik-kanad/diff2lip/blob/main/generate.py",
+      "decoded_source_sha256": "cced62c38e54e451dfbd2c765928e9c437141c431e71e4d7a6b15a6d203e229b"
+    },
+    {
+      "name": "lipforcing-readme",
+      "git_blob_sha": "077fb87918897b4b7ab7d8437e82b63375e65e04",
+      "source_url": "https://github.com/cvlab-kaist/LipForcing/blob/main/README.md",
+      "decoded_source_sha256": "4d40f2c28cdb3614338c3726f17e53c2c474f315edb41f5417dc2b70972b4485"
+    },
+    {
+      "name": "lipforcing-streaming",
+      "git_blob_sha": "cf36ffcee6b40beb3d67644d3bb6f91831f451c3",
+      "source_url": "https://github.com/cvlab-kaist/LipForcing/blob/main/scripts/inference/inference_streaming.py",
+      "decoded_source_sha256": "1b9a02f6f4759061a2dfe93631bb2d3e4ca811fdb8a39a2832c98f5f753e1820"
+    },
+    {
+      "name": "lipforcing-common",
+      "git_blob_sha": "f51743cdf1fb75fe9069bf0eba85a798b0073ae5",
+      "source_url": "https://github.com/cvlab-kaist/LipForcing/blob/main/scripts/inference/_common.py",
+      "decoded_source_sha256": "f2c09d72c74675a05c4d813bca69403620d90f564eb5cc964aa4aabf0473779f"
+    }
+  ],
+  "document": "LOCAL_LIPSYNC_REPLACEMENT_20261028.md",
+  "new_models_downloaded": false,
+  "production_engine_changed": false,
+  "runtime_adapter_implemented": false,
+  "new_benchmarks_run": false,
+  "historical_benchmarks_modified": false
+}
