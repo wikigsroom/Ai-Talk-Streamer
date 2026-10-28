@@ -1,5 +1,7 @@
 # Documentation / 文档导航
 
+[当前3080原生定稿](deployment/RTX3080_K02_RELEASE.md)：K02、O07/F07、同机官方直播姬、batch4实测；[五段可视化报告](analysis/native-rtx3080-k02-20261029/report.html)保留原batch8失败和最终通过证据。
+
 [K02 正式选型与定稿](deployment/BASELINE_K02.md)：MuseTalk 共用权重、局部嘴周融合和匹配音频帧的静音门控，新增模型为零；21 项 CPU 检查已过，4090 部署及 K03～K05 专用模型清理仍待控制恢复。[独立状态回执](evidence/lipsync-k02-selection-20261029.json)。以下原始横评保持当时事实与原片。
 
 [K01–K05 同源60秒口型实测](analysis/lipsync-k01-k05-20261028/ARCHIVE.md)：五段竖屏原片、共用原始O07音频、同步对比页、GIF、逐阶段耗时与资源曲线；[原生集成代码](../benchmarks/k01-k05-60s-20261028/README.md)。K03为合成教师训练试验，K05包含已说明的原生执行适配；共享负载的离线耗时不等于直播延迟，正式直播方案未自动切换。

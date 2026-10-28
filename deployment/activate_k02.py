@@ -55,8 +55,12 @@ def activate(root):
     root = root.resolve(strict=True)
     live = root/'src/LiveTalking'
     options = json.loads((root/'configs/livetalking.yaml').read_text('utf-8-sig'))
-    if (options.get('model'), options.get('batch_size'), options.get('fps')) != ('musetalk', 8, 25):
-        raise RuntimeError('Expected preserved MuseTalk batch8 / 25 FPS configuration')
+    hardware_path = root/'configs/hardware-profile.json'
+    hardware = json.loads(hardware_path.read_text('utf-8-sig')) if hardware_path.exists() else {}
+    approved_batch = options.get('batch_size') == 8 or (
+        options.get('batch_size') == 4 and hardware.get('preset') == 'rtx3080-k02-batch4')
+    if options.get('model') != 'musetalk' or options.get('fps') != 25 or not approved_batch:
+        raise RuntimeError('Expected MuseTalk / 25 FPS with batch8 or the explicit RTX3080 batch4 profile')
     base_path, muse_path = live/'avatars/base_avatar.py', live/'avatars/musetalk_avatar.py'
     base, muse = patch_sources(base_path.read_text('utf-8-sig'), muse_path.read_text('utf-8-sig'))
     helper = root/'integration/lipsync_k02.py'
@@ -68,7 +72,8 @@ def activate(root):
         if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == 'PROFILE' for t in node.targets))
     changed = {base_path: base, muse_path: muse,
         live/'server/lipsync_k02.py': helper.read_text('utf-8-sig'),
-        root/'configs/lipsync.json': json.dumps(profile, ensure_ascii=False, indent=2)}
+        root/'configs/lipsync.json': json.dumps({**profile, 'batch_size':options['batch_size'],
+            'reference_profile_batch_size':profile['batch_size']}, ensure_ascii=False, indent=2)}
     stamp = datetime.datetime.now().astimezone().isoformat()
     backup = root/'.setup/k02/backups'/datetime.datetime.now().strftime('%Y%m%d-%H%M%S-%f')
     records = []
@@ -82,7 +87,7 @@ def activate(root):
         temp.write_text(text+'\n', encoding='utf-8', newline='\n')
         temp.replace(target)
         records.append({'path':target.relative_to(root).as_posix(), 'sha256':hashlib.sha256(target.read_bytes()).hexdigest()})
-    receipt = {'at':stamp, 'profile':profile, 'files':records,
+    receipt = {'at':stamp, 'profile':profile, 'files':records, 'batch_size':options['batch_size'],
         'backup':backup.relative_to(root).as_posix(), 'services_started':False,
         'new_models_downloaded':False, 'remote_inference_validated':False,
         'private_livetalking_config_changed':False, 'memory_or_platform_changed':False}

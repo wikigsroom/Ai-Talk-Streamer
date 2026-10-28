@@ -1,0 +1,111 @@
+{
+  "release": "native-rtx3080-v1.2.2-k02-o07-f07",
+  "frozen_date": "2026-10-29",
+  "status": "native_3080_local_acceptance_passed_public_stream_not_retested",
+  "deployment": "native_windows_single_3080_with_loopback_receiver",
+  "hardware": {
+    "gpu": "RTX 3080",
+    "vram_mib": 10240,
+    "ram_gb": 64
+  },
+  "character": {
+    "id": "female-a",
+    "name": "林知夏",
+    "scene": "知夏的日光宿舍",
+    "motion_clips": 48
+  },
+  "avatar": {
+    "engine": "MuseTalk 1.5",
+    "precision": "FP16",
+    "batch_size": 4,
+    "reference_batch_size": 8,
+    "hardware_preset": "rtx3080-k02-batch4",
+    "fps": 25,
+    "width": 720,
+    "height": 1280,
+    "lipsync_profile": "K02",
+    "additional_lipsync_model_bytes": 0
+  },
+  "fallback_decision": "Original batch8 failed actual continuity twice; batch4 selected under the existing user authorization; precision, steps, resolution and K02 compositor retained.",
+  "tts": {
+    "primary": {
+      "id": "O07",
+      "engine": "OmniVoice",
+      "precision": "FP16",
+      "steps": 32
+    },
+    "backup": {
+      "id": "F07",
+      "engine": "F5-TTS v1",
+      "precision": "FP32",
+      "nfe": 32,
+      "ema": true,
+      "vocoder": "Vocos"
+    },
+    "seed": 2026102807,
+    "speed": 1.0,
+    "reference": "configs/voices/female-a-o07-f07.json",
+    "synthesis_parallelism": 1,
+    "complete_waveform_before_playback": true,
+    "release_idle_cache_after_utterance": true
+  },
+  "conversation": {
+    "model": "gpt-6-luna",
+    "protocol": "responses",
+    "dsh": "0.2.0-rc.2",
+    "humanity": "0.1.17",
+    "native_humanity_tools": false,
+    "state_path": "state/female-a-3080-k02",
+    "historical_4090_memory_migrated": false,
+    "sole_state_writer": true,
+    "unique_private_execution_per_turn": true
+  },
+  "transport": {
+    "video": "h264_nvenc",
+    "audio": "PCM s16 / 16000 Hz mono",
+    "buffer_ms": 4000,
+    "upstream": "http://127.0.0.1:8010",
+    "official_source": "http://127.0.0.1:8020/output.html?output=platform&renderer=livehime",
+    "single_playback_authority": true
+  },
+  "ports": {
+    "studio": 8010,
+    "tts_broker_loopback": 9880,
+    "O07_loopback": 9881,
+    "F07_loopback": 9882,
+    "dsh_loopback": 3092,
+    "receiver_loopback": 8020
+  },
+  "runbook": "docs/deployment/RTX3080_K02_RELEASE.md",
+  "runtime_lock": "configs/releases/rtx3080-k02-runtime-lock.json",
+  "acceptance_report": "docs/analysis/native-rtx3080-k02-20261029/README.md",
+  "visual_report": "docs/analysis/native-rtx3080-k02-20261029/report.html",
+  "evidence": "docs/evidence/native-rtx3080-k02-20261029.json",
+  "validation": {
+    "fps": {
+      "samples": 89,
+      "mean": 24.98878651685393,
+      "min": 24.625,
+      "max": 25.354
+    },
+    "continuity": {
+      "audio_underruns": 0,
+      "missing_packets": 0,
+      "decode_errors": 0
+    },
+    "gpu_peak_mib": 8027.0,
+    "ram_peak_gib": 10.84637451171875
+  },
+  "public_broadcast_started": false,
+  "historical_benchmarks_preserved": true,
+  "not_validated": [
+    "real-account comments and gifts in a public stream",
+    "audience CDN delay",
+    "long-duration production stability",
+    "cross-day memory consolidation",
+    "migration of historical 4090 private state"
+  ],
+  "previous_release": "split-a4090-b3080-v1.2.1-k02",
+  "4090_control": "paused_until_user_notification",
+  "4090_candidate_cleanup": "pending_unchanged"
+}

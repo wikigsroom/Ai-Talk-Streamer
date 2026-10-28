@@ -6,7 +6,7 @@ class RoomAudioMixer {
     this.limiter.threshold.value = -3; this.limiter.knee.value = 3; this.limiter.ratio.value = 12; this.limiter.attack.value = 0.003; this.limiter.release.value = 0.18;
     this.speech.connect(this.master); this.musicGain.connect(this.master); this.master.connect(this.limiter); this.limiter.connect(destination);
     this.audio = document.createElement('audio'); this.audio.preload = 'metadata'; this.audio.crossOrigin = 'anonymous'; this.audio.hidden = true;
-    this.audio.addEventListener('error', () => { this.error = 'BGM_MEDIA_ERROR_' + (this.audio.error?.code || 'UNKNOWN'); });
+    this.audio.addEventListener('error', () => { this.error = 'BGM_MEDIA_ERROR_' + (this.audio.error?.code || 'UNKNOWN'); this.retryAt = performance.now() + 3000; });
     this.audio.addEventListener('loadedmetadata', () => { this.sync(true); });
     this.audioSource = context.createMediaElementSource(this.audio); this.audioSource.connect(this.musicGain);
     this.changed = () => this.sync(); room.addEventListener('change', this.changed);
@@ -23,14 +23,14 @@ class RoomAudioMixer {
     this.master.gain.setTargetAtTime(settings.audio.muted || !this.audible ? 0 : 1, t, 0.025);
     this.speech.gain.setTargetAtTime(settings.audio.speech_volume, t, 0.025);
     if (!this.audible || !track) { this.audio.pause(); return; }
-    if (track.id !== this.trackId) { this.trackId = track.id; this.audio.src = track.url; this.audio.load(); this.error = null; force = true; }
+    if (track.id !== this.trackId || (this.audio.error && performance.now() >= (this.retryAt || 0))) { this.trackId = track.id; this.retryAt = performance.now() + 3000; this.audio.src = track.url; this.audio.load(); this.error = null; force = true; }
     this.audio.loop = music.repeat === 'one';
     if (this.audio.readyState >= 1 && (force || music.version !== this.version || performance.now() - (this.lastSync || 0) > 5000)) {
       const expected = this.expectedPosition(); if (Math.abs(this.audio.currentTime - expected) > (force || music.version !== this.version ? 0.08 : 0.75)) try { this.audio.currentTime = expected; } catch { this.error = 'BGM_SEEK_FAILED'; }
       this.lastSync = performance.now();
     }
     this.version = music.version;
-    if (music.playing && !settings.audio.muted && this.audio.paused) this.audio.play().then(() => { this.error = null; }).catch(() => { this.error = 'BGM_AUTOPLAY_BLOCKED'; });
+    if (music.playing && !settings.audio.muted && this.audio.paused) this.audio.play().then(() => { this.error = null; }).catch(e => { this.error = e.name === 'NotAllowedError' ? 'BGM_AUTOPLAY_BLOCKED' : 'BGM_MEDIA_ERROR_' + (this.audio.error?.code || 'UNKNOWN'); });
     else if (!music.playing || settings.audio.muted) this.audio.pause();
   }
   schedule(source, metadata, at, rate) {
@@ -40,6 +40,7 @@ class RoomAudioMixer {
   }
   tick() {
     if (this.closed) return; const now = this.context.currentTime, settings = this.room.state?.settings.audio;
+    if (this.audible && this.audio.error && this.room.connected && performance.now() >= (this.retryAt || 0)) this.sync(true);
     this.slots = this.slots.filter(s => s.end >= now - 0.05 && !s.source._dshCancelled);
     const slot = this.slots.find(s => s.start <= now + 0.035 && s.end >= now);
     const duck = !!slot && settings?.ducking === true, target = (settings?.music_volume || 0) * (duck ? settings.duck_level : 1);

@@ -36,7 +36,7 @@ def main():
         RECORD.parent.mkdir(parents=True,exist_ok=True)
         command=[sys.executable,'-X','utf8','-B',str(ROOT/'scripts/receiver_service.py'),'--config',str(CONFIG)]
         kwargs={'cwd':ROOT,'stdin':subprocess.DEVNULL,'close_fds':True}
-        if os.name=='nt':kwargs['creationflags']=subprocess.DETACHED_PROCESS|subprocess.CREATE_NEW_PROCESS_GROUP|subprocess.CREATE_NO_WINDOW
+        if os.name=='nt':kwargs['creationflags']=subprocess.CREATE_NEW_PROCESS_GROUP|subprocess.CREATE_NO_WINDOW
         with (RECORD.parent/'stdout.log').open('ab') as out,(RECORD.parent/'stderr.log').open('ab') as err:
             process=subprocess.Popen(command,stdout=out,stderr=err,**kwargs)
         RECORD.write_text(json.dumps({'pid':process.pid,'command':command,'started_at':time.time()},ensure_ascii=False,indent=2),encoding='utf-8')

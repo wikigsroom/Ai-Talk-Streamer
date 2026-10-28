@@ -123,6 +123,19 @@ class K02Tests(unittest.TestCase):
             installed = (root/'src/LiveTalking/server/lipsync_k02.py').read_text('utf-8')
             self.assertEqual(ast.dump(ast.parse(installed)),
                              ast.dump(ast.parse((ROOT/'integration/lipsync_k02.py').read_text('utf-8'))))
+            # A generic batch4 configuration must not silently change the
+            # selected baseline. Only the explicitly measured 3080 variant may.
+            batch4 = json.loads(original)
+            batch4['batch_size'] = 4
+            config.write_text(json.dumps(batch4), encoding='utf-8')
+            with patch('deployment.activate_k02.socket.socket') as socket_mock:
+                socket_mock.return_value.__enter__.return_value.connect_ex.return_value = 1
+                with self.assertRaises(RuntimeError):activate(root)
+                (root/'configs/hardware-profile.json').write_text(
+                    json.dumps({'preset':'rtx3080-k02-batch4'}), encoding='utf-8')
+                receipt4 = activate(root)
+            self.assertEqual(receipt4['batch_size'], 4)
+            self.assertEqual(json.loads(config.read_text('utf-8')), batch4)
 
     def test_patched_consumer_uses_each_dequeued_audio_without_reordering(self):
         import time

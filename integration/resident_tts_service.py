@@ -64,7 +64,7 @@ class Broker:
                 str(ROOT/'integration/resident_tts_worker.py'), '--config', str(self.config_path),
                 '--voice', voice, '--parent-pid', str(os.getpid())], cwd=ROOT, env=env,
                 stdin=subprocess.DEVNULL, stdout=out, stderr=err,
-                creationflags=0x08000208 if os.name == 'nt' else 0)
+                creationflags=0x08000200 if os.name == 'nt' else 0)
         self.children[voice] = child
         deadline = time.monotonic()+180
         while time.monotonic() < deadline:

@@ -56,6 +56,10 @@ def main():
     tokens = re.compile(r'\b(?:sk-[A-Za-z0-9_-]{24,}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,})\b')
     forbidden_roots = {'.setup', 'src', 'runtime', 'tools', 'cache', 'logs', 'downloads', 'models', 'node_modules', '.publish'}
     forbidden_names = {'channel.env', 'device.json', 'remote_control.py', 'remote_run.py', 'services.json'}
+    # Earlier, already-published experiments contain LAN host markers. Preserve
+    # those frozen files byte-for-byte; an exception applies only to its exact
+    # normalized digest, never to credentials or newly edited archive content.
+    legacy_hosts = load('configs/repository/historical-host-identifiers.json')['files']
     texts = {}
     for path in files:
         rel = path.relative_to(ROOT)
@@ -71,7 +75,9 @@ def main():
             try:
                 text = path.read_text(encoding='utf-8-sig')
                 texts[path] = text
-                check(not private.search(text), 'Private device identifier in: ' + rel.as_posix())
+                legacy = legacy_hosts.get(rel.as_posix(), {})
+                exact_legacy = (legacy.get('sha256_lf') == hashlib.sha256(text.replace('\r\n', '\n').encode()).hexdigest())
+                check(not private.search(text) or exact_legacy, 'Private device identifier in: ' + rel.as_posix())
                 check(not tokens.search(text), 'Possible credential in: ' + rel.as_posix())
             except UnicodeError:
                 failures.append('Invalid UTF-8 source: ' + rel.as_posix())
@@ -368,9 +374,42 @@ def main():
           and room_release['final_update']['panic_and_restore'] is True
           and room_release['final_update']['offair'] is True,
           'Room release requires real full-sample playback, mixer, upload and regression evidence')
+    native_3080 = load('docs/evidence/native-rtx3080-k02-20261029.json')
+    native_report = load(native_3080['report'])
+    native_final = native_report['final']
+    check(native_3080['passed'] is True and native_report['passed'] is True
+          and report_digest_matches(local(native_3080['report']), native_3080['report_sha256'])
+          and native_report['parameters']['batch_size'] == 4
+          and len(native_final['cases']) == 5
+          and all(c['status'] == 'COMPLETED' for c in native_final['cases'])
+          and native_final['fps']['mean'] >= 23
+          and all(native_final['continuity'][k] == 0 for k in ('audio_underruns', 'missing_packets', 'decode_errors'))
+          and all(c['status'] == 'COMPLETED' for c in native_report['private_agent_turns'])
+          and len(native_report['private_agent_turns']) == 2
+          and native_final['checks']['private_agent_not_auto_spoken']['job_status'] == 'COMPLETED'
+          and native_final['checks']['no_comfy_job_overlap'] is True
+          and native_3080['module_tests']['python_passed'] == 35
+          and native_3080['module_tests']['node_passed'] == 11
+          and native_report['scope']['public_broadcast'] is False,
+          'Native3080 acceptance requires actual five-case playback, continuity, private turns and scoped regressions')
+    for item in native_report['artifacts']:
+        artifact = local(str(Path(native_3080['report']).parent / item['path']))
+        check((sha256(artifact) == item['sha256'] if artifact.suffix == '.png'
+               else report_digest_matches(artifact, item['sha256'])), 'Native3080 artifact checksum: ' + item['path'])
+    for name, expected in native_3080['code_sha256'].items():
+        actual = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
+        check(actual == expected, 'Native3080 source changed after acceptance: ' + name)
+
+    def native_source_matches(name, current, historical):
+        delta = native_3080['superseded_sources'].get(name, {})
+        return (historical in delta.get('historical_sha256', [])
+                and current == delta.get('current_sha256')
+                and current == native_3080['code_sha256'].get(name)
+                and bool(delta.get('validation')))
+
     for name, expected in room_release['code_sha256'].items():
         digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
-        check(digest == expected, 'Room source changed after validation: ' + name)
+        check(digest == expected or native_source_matches(name, digest, expected), 'Room source changed after validation: ' + name)
     for item in room_release['media']:
         path = local(item['path'])
         check(path.is_file() and path.stat().st_size == item['bytes'] and sha256(path) == item['sha256'],
@@ -387,7 +426,8 @@ def main():
 
     for name, expected in voice_release['code_sha256'].items():
         digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
-        check(digest == expected or room_source_matches(name, digest, expected), 'O07/F07 source lacks successor validation: ' + name)
+        check(digest == expected or room_source_matches(name, digest, expected)
+              or native_source_matches(name, digest, expected), 'O07/F07 source lacks successor validation: ' + name)
     pair = load('configs/voices/female-a-o07-f07.json')
     check(pair['default_voice_id'] == 'O07' and pair['fallback_voice_id'] == 'F07'
           and sha256(local(pair['reference_audio'])) == pair['reference_sha256'], 'O07/F07 fixed synthetic reference')
@@ -396,6 +436,8 @@ def main():
 
     def source_matches(name, current, historical):
         if current == historical:
+            return True
+        if native_source_matches(name, current, historical):
             return True
         if room_source_matches(name, current, historical):
             return True

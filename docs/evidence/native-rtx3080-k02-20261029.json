@@ -1,0 +1,218 @@
+{
+  "release": "native-rtx3080-v1.2.2-k02-o07-f07",
+  "passed": true,
+  "scope": "Actual native RTX3080 local official-source acceptance, synthetic platform events; no public broadcast",
+  "report": "docs/analysis/native-rtx3080-k02-20261029/summary.json",
+  "report_sha256": "8cc4658f81cfaa6f74c19e8d8bd8fc3c11557d6ff2a6f96833243088b36a0a49",
+  "runbook": "docs/deployment/RTX3080_K02_RELEASE.md",
+  "module_tests": {
+    "python_passed": 35,
+    "node_passed": 11,
+    "failures": 0,
+    "python_suites": {
+      "test_resident_tts.py": 12,
+      "test_lipsync_k02.py": 8,
+      "test_receiver.py": 12,
+      "test_dsh_control.py": 3
+    },
+    "node_suite": "tests/room-control.test.mjs"
+  },
+  "validation": {
+    "fps": {
+      "samples": 89,
+      "mean": 24.98878651685393,
+      "min": 24.625,
+      "max": 25.354
+    },
+    "continuity": {
+      "audio_underruns": 0,
+      "missing_packets": 0,
+      "decode_errors": 0
+    },
+    "gpu_peak_mib": 8027.0,
+    "ram_peak_gib": 10.84637451171875
+  },
+  "public_broadcast_started": false,
+  "historical_memory_migrated": false,
+  "code_sha256": {
+    "backend/room/manager.mjs": "635a93deec52f159a55524cbb3344af1700c40cf1cf93886dd428c0607842657",
+    "configs/releases/current.json": "40b5f389777333b1fec43d57f739bfc9c8c12b1d77ee0ecaf1f53d26d02f7fad",
+    "deployment/activate_k02.py": "89fb745b48094b4e0fa0cc6d9200637dd8804454a110bc6a78122e0d8005e2b7",
+    "deployment/activate_studio.py": "7f2a6a3d09899881a0112865544764ad0b89cc309579d2817818dca3cab4fca1",
+    "deployment/configure_rtx3080_k02.py": "4e99b79516909fd74896d6073bedc688b2c56c375ac355c8623935196fa114fc",
+    "devtools/verify-repository.py": "0d34ae0a9c6c9652211cdb8f25162daa9378b74c73b90b92bd89393a9be4b0a5",
+    "integration/isolated_inference.py": "ee14f4a678feae0b50b7dba896d1fc2c9fabd1f6cb26bbc83b51c0f434e67b13",
+    "integration/obs.html": "f369a031869552471cddb83ea23f9c0d0a9772f6dae2946b54fd9111801b2017",
+    "integration/resident_tts_service.py": "6e01d7acf51fa38d1446714ca6bab3c489f10a9059207de9805187ab49cb9d8b",
+    "integration/resident_tts_worker.py": "3439c957888ab1b4e8ff6fc24a99a55afc4944b3ad9fa9d47e6f14e8a75564e8",
+    "scripts/dsh_control.py": "c1fdd38b9c1880df190ac43f875bdc86df5779d0da7c6ffb96ebd8d175120974",
+    "scripts/launch.py": "028933b2cacef340c225c65206322a039164f0eea2c89a4e768eb8d61faac3cf",
+    "scripts/receiver_control.py": "a5cf6305c13f96ebfb0fd7e838a9e65c806c9fabd128c10bb5552459bca263e4",
+    "scripts/receiver_service.py": "2258b1fa23af2127b3404b48aeec7480299cd12ae65087a51df567714210622e",
+    "tests/room-control.test.mjs": "e8e7c18f1341503e6b297d7b348be6378f1b562be7f790cba1917005f1dd84b6",
+    "tests/test_dsh_control.py": "34115938655de53b0df633809dd7372d70709f8b6ab32f81d1712669c480a592",
+    "tests/test_lipsync_k02.py": "9196010683d607cc8441a54c56741e8899dd31c33f72fd31d0befca307a125a9",
+    "tests/test_receiver.py": "0c1dd6fbf640e2d3ce8d2805e843f8f5528e68051d28ae3ccd909f8891623556",
+    "web/admin.html": "90e809284ac75262a1a3470c5091718ada8ee53237478f234fdac7dc88ea2c2d",
+    "web/admin.js": "630a64ca913983472666fb487b79d9098254b5f9ddb4a52f978cb5e3a6568a29",
+    "web/room-audio.js": "6b72227b736e7308cdf9f53bbd7111eaf63b9efe48d1d7803568046c8123a320"
+  },
+  "superseded_sources": {
+    "backend/room/manager.mjs": {
+      "historical_sha256": [
+        "c1afe6ee6c8b1e776bc2ec52e610311e1f679317d5b1514bcd9bf6b2a7ddd658"
+      ],
+      "current_sha256": "635a93deec52f159a55524cbb3344af1700c40cf1cf93886dd428c0607842657",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "configs/releases/current.json": {
+      "historical_sha256": [
+        "591c43ccdaef035f78aa07d059bfad56f0c9f099b3a08c6d040cbbdbe0727ab3",
+        "87d757a1db97950c04abd84a34b1d4af97f0264d98c2634641c4cf7f957194fc",
+        "fcc31d18d62b39b6bbd9ef34742d720103a36e2fb470c921c02fcb3a9d01b7dc"
+      ],
+      "current_sha256": "40b5f389777333b1fec43d57f739bfc9c8c12b1d77ee0ecaf1f53d26d02f7fad",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "deployment/activate_k02.py": {
+      "historical_sha256": [
+        "b51adf09effa1610cce69b9ae3840d92719cd3dfd0baa3580562c09b1b659d65"
+      ],
+      "current_sha256": "89fb745b48094b4e0fa0cc6d9200637dd8804454a110bc6a78122e0d8005e2b7",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "deployment/activate_studio.py": {
+      "historical_sha256": [
+        "23cf480e002f715ff8e0f134641a8289e0ea3fa8264544b918152522e9f365c5",
+        "7f2a6a3d09899881a0112865544764ad0b89cc309579d2817818dca3cab4fca1",
+        "e86c6e000827cb43c5a5baf6d102c68016a837ccd59b57ed27a5b0047bd84eb9"
+      ],
+      "current_sha256": "7f2a6a3d09899881a0112865544764ad0b89cc309579d2817818dca3cab4fca1",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "devtools/verify-repository.py": {
+      "historical_sha256": [
+        "150267f8a8990a50f1878472f72f7b649e4e0cb1a1b4c45ce978fa18da062302",
+        "3bf253cde2fb2b704bace49fdcee734ab6f2f5ff490a002ef3b55b9d9dbab287",
+        "3d39438ad11db0f87de6a6b2dcc2a2e5673bf16d09c75812c1af2490ad1085b6",
+        "89b0d9bceed6763d362cb646a7ffd5a3560ca267738b19555fa39929477a373b",
+        "9325e9bbd5f077d4d516a2351311b5b1db1ff3700fef7807dcf018f9711e0849",
+        "a26289b22c875d0acb57c03e6f54f0f40d6038576e3cc2b2a6d7f2e6cc6dc555"
+      ],
+      "current_sha256": "0d34ae0a9c6c9652211cdb8f25162daa9378b74c73b90b92bd89393a9be4b0a5",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "integration/isolated_inference.py": {
+      "historical_sha256": [
+        "a4095b6dcdd7e4a14870b3d23b23ee73c2f20146bb0dc5e591ffbb12809b31e0",
+        "ca7300ea4e7e87ae70b121efff321df46ce4aff68219f414a0073964f1d4f7a6"
+      ],
+      "current_sha256": "ee14f4a678feae0b50b7dba896d1fc2c9fabd1f6cb26bbc83b51c0f434e67b13",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "integration/obs.html": {
+      "historical_sha256": [
+        "18913329e119978745d8a451fcb576fc55f24c94a1900a1bc5f856f8dfae682c",
+        "1a573472e4ff3a85a1bb5132e79accd24910ebafef8e671edd7e0cdf08c3c7f4",
+        "4d7f5a5d5aa6054b84610fd1e457ad3517339f6ca5f99808a85a98bb9497337f",
+        "cc12fdd7d358e23db97cba5ace8d97646eb466f35a421b2519e8581ee050d837",
+        "d1bf37de909fda317cbc3e62a7e1597ec75f58b81f642b50969e78354150b633"
+      ],
+      "current_sha256": "f369a031869552471cddb83ea23f9c0d0a9772f6dae2946b54fd9111801b2017",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "integration/resident_tts_service.py": {
+      "historical_sha256": [
+        "1752b6df27fe75c38a06005dd2b13c182bd8ceaa958103b214ab9876a0d1b167"
+      ],
+      "current_sha256": "6e01d7acf51fa38d1446714ca6bab3c489f10a9059207de9805187ab49cb9d8b",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "integration/resident_tts_worker.py": {
+      "historical_sha256": [
+        "05689cf2161271b37dafc0b54f5165ce99dc9a421487f61abe868d4a6384291f"
+      ],
+      "current_sha256": "3439c957888ab1b4e8ff6fc24a99a55afc4944b3ad9fa9d47e6f14e8a75564e8",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "scripts/dsh_control.py": {
+      "historical_sha256": [
+        "a1387929e2ac9a3f7371a21b403e9f4414e3affb3ed293d0da9b5c2ec778e7b5"
+      ],
+      "current_sha256": "c1fdd38b9c1880df190ac43f875bdc86df5779d0da7c6ffb96ebd8d175120974",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "scripts/launch.py": {
+      "historical_sha256": [
+        "4ed2b7f0db6b0a5ca79518a913338a039a0bc3ae30cde61de0b0f953b6529b85",
+        "93fd2b635f6a2dbb71777db9fb35c8b55db798e5fc276a6543b86672a86f4c69"
+      ],
+      "current_sha256": "028933b2cacef340c225c65206322a039164f0eea2c89a4e768eb8d61faac3cf",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "scripts/receiver_control.py": {
+      "historical_sha256": [
+        "11a26696a4fa4a869abd23b5aac9cd8f9016071901b26159c1330d6a3669555d",
+        "5789c0488b3b6b04e82413362f10d326929f67f5323ad52aecb1540162be49ac"
+      ],
+      "current_sha256": "a5cf6305c13f96ebfb0fd7e838a9e65c806c9fabd128c10bb5552459bca263e4",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "scripts/receiver_service.py": {
+      "historical_sha256": [
+        "5a9fe8d45a01d754f4c37fc0c5059e34380596b9a7ec8b145e1b2cc361212556",
+        "ce556cb323714edbf9466910d212fb363528bdcb686127cf9c41252c04ada2cc"
+      ],
+      "current_sha256": "2258b1fa23af2127b3404b48aeec7480299cd12ae65087a51df567714210622e",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "tests/room-control.test.mjs": {
+      "historical_sha256": [
+        "1a108a56758772296ac890ef2cac16b1f7189686c50766c72b8e3506e7d9a23b"
+      ],
+      "current_sha256": "e8e7c18f1341503e6b297d7b348be6378f1b562be7f790cba1917005f1dd84b6",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "tests/test_lipsync_k02.py": {
+      "historical_sha256": [
+        "f63e2e8a75845cbe5aa0097ee2a5aa5031c360a451af1caf7967d84db0d0e0cd"
+      ],
+      "current_sha256": "9196010683d607cc8441a54c56741e8899dd31c33f72fd31d0befca307a125a9",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "tests/test_receiver.py": {
+      "historical_sha256": [
+        "4ff384cec128e855d5c335d4592020b8995f07a6134254740c8722d7c26e5f52"
+      ],
+      "current_sha256": "0c1dd6fbf640e2d3ce8d2805e843f8f5528e68051d28ae3ccd909f8891623556",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "web/admin.html": {
+      "historical_sha256": [
+        "9290fb26932c8e9d8b37813e16762661cc80f4ed4c461a48e7391cc31ef3233c"
+      ],
+      "current_sha256": "90e809284ac75262a1a3470c5091718ada8ee53237478f234fdac7dc88ea2c2d",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "web/admin.js": {
+      "historical_sha256": [
+        "92fe4d4269e72a271c6311a2fab3c0ce0194da16d7349f9d74ad807fecc285ad"
+      ],
+      "current_sha256": "630a64ca913983472666fb487b79d9098254b5f9ddb4a52f978cb5e3a6568a29",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    },
+    "web/room-audio.js": {
+      "historical_sha256": [
+        "a3db402bf9db661debb41a2f7d10c8053571c150d474cbdb46670e0ddd4b2b91"
+      ],
+      "current_sha256": "6b72227b736e7308cdf9f53bbd7111eaf63b9efe48d1d7803568046c8123a320",
+      "validation": "Native3080 actual five-case GPU playback and new scoped regressions; repository verifier checks the exact new artifact/source hashes."
+    }
+  },
+  "historical_benchmarks_modified": false,
+  "repository_legacy_preservation": {
+    "files": 14,
+    "modified_historical_files": 0,
+    "policy": "configs/repository/historical-host-identifiers.json"
+  }
+}

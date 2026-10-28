@@ -1,0 +1,62 @@
+{
+  "base_commit": "588fb2a00054c2892bc08b71fe94d2f23e6390e4",
+  "scope": "Exact unchanged historical files only; not a directory exemption. No token exceptions.",
+  "files": {
+    "benchmarks/k01-k05-60s-20261028/archive_review_bundle.py": {
+      "sha256_lf": "5d9be43466e7684db06cc327e4bab67951668ad5d6814a80b64b484a496bdc26",
+      "reason": "Frozen already-published experiment contains host/local-path references; do not change measurements or source. Credential scanning remains strict."
+    },
+    "benchmarks/k01-k05-60s-20261028/bootstrap.py": {
+      "sha256_lf": "d179959f442acb332b6bced439cb35bc604486b550fa0ab47b1aed69e02cd551",
+      "reason": "Frozen already-published experiment contains host/local-path references; do not change measurements or source. Credential scanning remains strict."
+    },
+    "benchmarks/k01-k05-60s-20261028/build_report.py": {
+      "sha256_lf": "60c07d8020e3fdc3f027cd79383dd953f31a66161a03f947faff6cbab278829c",
+      "reason": "Frozen already-published experiment contains host/local-path references; do not change measurements or source. Credential scanning remains strict."
+    },
+    "benchmarks/k01-k05-60s-20261028/prepare_offline_environments.py": {
+      "sha256_lf": "9f56563560256ca997cd3366dfb73731fe90ed3e7d31345c6fba9da5173b7b20",
+      "reason": "Frozen already-published experiment contains host/local-path references; do not change measurements or source. Credential scanning remains strict."
+    },
+    "benchmarks/k01-k05-60s-20261028/README.md": {
+      "sha256_lf": "1114dadea17fcccef15c58166ffd00c875bf844c05fe4aa0bac3975dd0865e19",
+      "reason": "Frozen already-published experiment contains host/local-path references; do not change measurements or source. Credential scanning remains strict."
+    },
+    "benchmarks/k01-k05-60s-20261028/RUNBOOK.md": {
+      "sha256_lf": "00c7266fdeea500fff7dc1ea8b35ce4ea61d64fc986c430e5ef1d3af2bcaafeb",
+      "reason": "Frozen already-published experiment contains host/local-path references; do not change measurements or source. Credential scanning remains strict."
+    },
+    "benchmarks/k01-k05-60s-20261028/sync_deliverables.py": {
+      "sha256_lf": "1c369fc14437312a5d4d3f3d7d77765cac961e4248fed122195baa699d45378f",
+      "reason": "Frozen already-published experiment contains host/local-path references; do not change measurements or source. Credential scanning remains strict."
+    },
+    "docs/analysis/lipsync-k01-k05-20261028/ARCHIVE.md": {
+      "sha256_lf": "0651c49c0f72ca74ecc95126ec7a259c2f63346163b643cb02a961f5d6562bab",
+      "reason": "Frozen already-published experiment contains host/local-path references; do not change measurements or source. Credential scanning remains strict."
+    },
+    "docs/analysis/lipsync-k01-k05-20261028/delivery-receipt.json": {
+      "sha256_lf": "f1b1d6ffb7d6f9875b6748c80e498b4d3f4e331795bbdd004371ca5c4778e6b6",
+      "reason": "Frozen already-published experiment contains host/local-path references; do not change measurements or source. Credential scanning remains strict."
+    },
+    "docs/analysis/lipsync-k01-k05-20261028/diagnostics/browser-before-startup-fix/page-review-remote.json": {
+      "sha256_lf": "201788328ae93071f5deb212e75773299b43f152595dad164e9b2154248a102a",
+      "reason": "Frozen already-published experiment contains host/local-path references; do not change measurements or source. Credential scanning remains strict."
+    },
+    "docs/analysis/lipsync-k01-k05-20261028/page-review-before-fix-remote.json": {
+      "sha256_lf": "201788328ae93071f5deb212e75773299b43f152595dad164e9b2154248a102a",
+      "reason": "Frozen already-published experiment contains host/local-path references; do not change measurements or source. Credential scanning remains strict."
+    },
+    "docs/analysis/lipsync-k01-k05-20261028/page-review-remote.json": {
+      "sha256_lf": "6d5dbf94d8e6b4e3b1dcdf3dfea8fb6c2e1d57fb0dee561115ab9a68eb5f3753",
+      "reason": "Frozen already-published experiment contains host/local-path references; do not change measurements or source. Credential scanning remains strict."
+    },
+    "docs/analysis/lipsync-k01-k05-20261028/protocol.md": {
+      "sha256_lf": "00c7266fdeea500fff7dc1ea8b35ce4ea61d64fc986c430e5ef1d3af2bcaafeb",
+      "reason": "Frozen already-published experiment contains host/local-path references; do not change measurements or source. Credential scanning remains strict."
+    },
+    "docs/analysis/lipsync-k01-k05-20261028/README.md": {
+      "sha256_lf": "d91ecebde52f9cf9d918a7a78bfa0bf030129c4d3043c89f40c942a8d323231a",
+      "reason": "Frozen already-published experiment contains host/local-path references; do not change measurements or source. Credential scanning remains strict."
+    }
+  }
+}

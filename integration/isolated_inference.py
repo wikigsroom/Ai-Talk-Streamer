@@ -11,7 +11,7 @@ class GPUClient:
         self.run_id=secrets.token_hex(12)
         env=os.environ.copy();env.update(AVATAR_GPU_WORKER_CHILD='1',AVATAR_GPU_WORKER_AUTH=self.token,AVATAR_GPU_WORKER_RUN=self.run_id,AVATAR_GPU_PARENT=str(os.getpid()))
         stdout=(ROOT/'logs/gpu-worker.stdout.log').open('a',encoding='utf-8');stderr=(ROOT/'logs/gpu-worker.stderr.log').open('a',encoding='utf-8')
-        self.process=subprocess.Popen([str(ROOT/'runtime/livetalking/Scripts/python.exe'),'-X','utf8','-B',str(ROOT/'scripts/gpu_worker.py')],cwd=ROOT/'src/LiveTalking',env=env,stdin=subprocess.DEVNULL,stdout=stdout,stderr=stderr,close_fds=True,creationflags=subprocess.DETACHED_PROCESS|subprocess.CREATE_NEW_PROCESS_GROUP)
+        self.process=subprocess.Popen([str(ROOT/'runtime/livetalking/Scripts/python.exe'),'-X','utf8','-B',str(ROOT/'scripts/gpu_worker.py')],cwd=ROOT/'src/LiveTalking',env=env,stdin=subprocess.DEVNULL,stdout=stdout,stderr=stderr,close_fds=True,creationflags=subprocess.CREATE_NEW_PROCESS_GROUP|subprocess.CREATE_NO_WINDOW)
         state=ROOT/'.setup/gpu-worker.json'
         deadline=time.monotonic()+900
         while time.monotonic()<deadline:

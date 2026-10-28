@@ -1,0 +1,739 @@
+{
+  "release": "native-rtx3080-v1.2.2-k02-o07-f07",
+  "scope": "Actual imports on the prepared RTX3080 host; a new record, not an edit to the historical 4090 lock.",
+  "python": "3.10.22",
+  "source_validation": {
+    "OmniVoice": {
+      "commit": "08be0b4ccbac3e13e374e86fbfead4b4cac343e2",
+      "python_files": 49
+    },
+    "F5-TTS": {
+      "commit": "45868abaabd74aabf03cd673d6dd00cc9d9c01ae",
+      "python_files": 47
+    },
+    "newline_rule": "CRLF normalized only when normalized SHA256 matches the fixed source lock"
+  },
+  "actual_imports": {
+    "O07": {
+      "torch": {
+        "version": "2.9.1+cu128",
+        "file": "runtime/livetalking/Lib/site-packages/torch/__init__.py"
+      },
+      "torchaudio": {
+        "version": "2.9.1+cu128",
+        "file": "runtime/livetalking/Lib/site-packages/torchaudio/__init__.py"
+      },
+      "transformers": {
+        "version": "5.3.0",
+        "file": "runtime/tts-benchmark/omnivoice/lib/site-packages/transformers/__init__.py"
+      },
+      "huggingface_hub": {
+        "version": "1.3.0",
+        "file": "runtime/tts-benchmark/omnivoice/lib/site-packages/huggingface_hub/__init__.py"
+      },
+      "tokenizers": {
+        "version": "0.22.2",
+        "file": "runtime/tts-benchmark/omnivoice/lib/site-packages/tokenizers/__init__.py"
+      },
+      "numpy": {
+        "version": "1.26.4",
+        "file": "runtime/livetalking/Lib/site-packages/numpy/__init__.py"
+      },
+      "soundfile": {
+        "version": "0.14.0",
+        "file": "runtime/tts-benchmark/omnivoice/lib/site-packages/soundfile.py"
+      },
+      "einx": {
+        "version": "0.4.3",
+        "file": "runtime/tts-benchmark/omnivoice/lib/site-packages/einx/__init__.py"
+      },
+      "x_transformers": {
+        "version": null,
+        "file": "runtime/tts-benchmark/omnivoice/lib/site-packages/x_transformers/__init__.py"
+      },
+      "sentencepiece": {
+        "version": "0.2.2",
+        "file": "runtime/tts-benchmark/omnivoice/lib/site-packages/sentencepiece/__init__.py"
+      }
+    },
+    "F07": {
+      "torch": {
+        "version": "2.9.1+cu128",
+        "file": "runtime/livetalking/Lib/site-packages/torch/__init__.py"
+      },
+      "torchaudio": {
+        "version": "2.9.1+cu128",
+        "file": "runtime/livetalking/Lib/site-packages/torchaudio/__init__.py"
+      },
+      "transformers": {
+        "version": "4.51.3",
+        "file": "runtime/livetalking/Lib/site-packages/transformers/__init__.py"
+      },
+      "huggingface_hub": {
+        "version": "0.36.2",
+        "file": "runtime/livetalking/Lib/site-packages/huggingface_hub/__init__.py"
+      },
+      "tokenizers": {
+        "version": "0.21.4",
+        "file": "runtime/livetalking/Lib/site-packages/tokenizers/__init__.py"
+      },
+      "numpy": {
+        "version": "1.26.4",
+        "file": "runtime/livetalking/Lib/site-packages/numpy/__init__.py"
+      },
+      "soundfile": {
+        "version": "0.14.0",
+        "file": "runtime/tts-benchmark/f5/lib/site-packages/soundfile.py"
+      },
+      "einx": {
+        "version": "0.4.3",
+        "file": "runtime/tts-benchmark/f5/lib/site-packages/einx/__init__.py"
+      },
+      "x_transformers": {
+        "version": null,
+        "file": "runtime/tts-benchmark/f5/lib/site-packages/x_transformers/__init__.py"
+      },
+      "sentencepiece": {
+        "version": "0.2.2",
+        "file": "runtime/tts-benchmark/f5/lib/site-packages/sentencepiece/__init__.py"
+      }
+    }
+  },
+  "sources": {
+    "omnivoice": {
+      "root": "src/tts-benchmark/omnivoice",
+      "python_files": [
+        {
+          "path": "omnivoice/__init__.py",
+          "sha256": "5f67ccc291ee6763fff077102a9a8bfa2e6496b90321cbc8fa5197981089030d",
+          "bytes": 739
+        },
+        {
+          "path": "omnivoice/cli/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "omnivoice/cli/demo.py",
+          "sha256": "4b571bc1a87d65486a671c373916fcf86c0181aeba6da08d07eb8d6bf3cc09e4",
+          "bytes": 18929
+        },
+        {
+          "path": "omnivoice/cli/infer.py",
+          "sha256": "8bcb5d851e86f0ce63c27b32a499595e4b137b8c4ec285dbca3c6d77d7abe637",
+          "bytes": 5050
+        },
+        {
+          "path": "omnivoice/cli/infer_batch.py",
+          "sha256": "c96b76a6718d6f86ea19e597e17b0faf6830b01b2393da48781d29af7c6585ff",
+          "bytes": 18918
+        },
+        {
+          "path": "omnivoice/cli/merge_lora.py",
+          "sha256": "12487775094c5bd9b34a849eefb387a88a5c9d51b071243fac7317e8d90c45c9",
+          "bytes": 4437
+        },
+        {
+          "path": "omnivoice/cli/train.py",
+          "sha256": "6c7a2ebdd9231e61a0b0c99239c4d183237d1560928f38334bb72e4d496d138a",
+          "bytes": 2426
+        },
+        {
+          "path": "omnivoice/data/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "omnivoice/data/batching.py",
+          "sha256": "b49ae0db981abfb0f5326489a85356dbdd50eb1cdc1cded7047dc5477a03eb9c",
+          "bytes": 6780
+        },
+        {
+          "path": "omnivoice/data/collator.py",
+          "sha256": "887909358d939a9d9faafe85a8a1262037d9691e2620353ed0594db4bc6dd048",
+          "bytes": 6416
+        },
+        {
+          "path": "omnivoice/data/dataset.py",
+          "sha256": "3a251eb763db048c7ca7307bbae3bf7abe55e6eab5b30ddee68dfa4b1f993f03",
+          "bytes": 17669
+        },
+        {
+          "path": "omnivoice/data/processor.py",
+          "sha256": "a2e73179ece03f99724ec0b4d8f918045eba7ea9055d4f78ec123f320b90ec19",
+          "bytes": 9439
+        },
+        {
+          "path": "omnivoice/eval/__init__.py",
+          "sha256": "ff84ecc53c92d4f48ee63d3e3687bb9ea6ebac427a04b82c005c9408991442b7",
+          "bytes": 155
+        },
+        {
+          "path": "omnivoice/eval/models/ecapa_tdnn_wavlm.py",
+          "sha256": "8d29068abc507793fc93aae1f37f816f02186f25bef018e7e365f84737ddf20f",
+          "bytes": 11055
+        },
+        {
+          "path": "omnivoice/eval/models/utmos.py",
+          "sha256": "4b55e2205ac5e6f7f1cd365e5de02a5225ad6797d7bd572abd6dd141901bbe5c",
+          "bytes": 12181
+        },
+        {
+          "path": "omnivoice/eval/mos/utmos.py",
+          "sha256": "8c062fa394d3c00f14641bf7a9da3dfb9e4710ffd01135aa19155ca2c278ca88",
+          "bytes": 9865
+        },
+        {
+          "path": "omnivoice/eval/speaker_similarity/sim.py",
+          "sha256": "0c6d027ba8876095f2a6f653e58d7dcd26c44614315f6c1222f860ae08842fa3",
+          "bytes": 10483
+        },
+        {
+          "path": "omnivoice/eval/utils.py",
+          "sha256": "8dec576ed534957b34d8fa87870f1617a266dcfcd22613f0e849ba07d1376365",
+          "bytes": 2900
+        },
+        {
+          "path": "omnivoice/eval/wer/common.py",
+          "sha256": "bacae7787cbf795900e75989c43169a19d6503905eb60fa61ea736175c5e9f82",
+          "bytes": 3331
+        },
+        {
+          "path": "omnivoice/eval/wer/fleurs.py",
+          "sha256": "a683d386f7a80ef33c180b5cd07ee7c7c275a367c4cbfe785315a801a0af7c0d",
+          "bytes": 16765
+        },
+        {
+          "path": "omnivoice/eval/wer/hubert.py",
+          "sha256": "86d194e6e46bbea1b974d78800a9775f535ea945c28d3232861dfac004099623",
+          "bytes": 9537
+        },
+        {
+          "path": "omnivoice/eval/wer/minimax.py",
+          "sha256": "71fb796c4efb061cd4a2a357f8259719a8b6dcea4cbb4a44d209c2d1e1a63219",
+          "bytes": 19012
+        },
+        {
+          "path": "omnivoice/eval/wer/norm_config_module.py",
+          "sha256": "30b23099d9dd2b4a575378f4ebb3d3012138607671291c3e5df7c895d6bcb88e",
+          "bytes": 7091
+        },
+        {
+          "path": "omnivoice/eval/wer/seedtts.py",
+          "sha256": "ea28c19cab0901738b5fe392de0ec862703b616875180f7200e2f6b5410fae1f",
+          "bytes": 12906
+        },
+        {
+          "path": "omnivoice/eval/wer/sensevoice.py",
+          "sha256": "57e79af1b6fad2e296fd473419cfd1b2ee55b3f7982e89620bdd03fa37ef97d1",
+          "bytes": 10019
+        },
+        {
+          "path": "omnivoice/eval/wer/text_norm_omni.py",
+          "sha256": "3400820a24db0a97f47bd8534a98e2fa0b82d6cefea82730c8e5783c5d37271d",
+          "bytes": 3342
+        },
+        {
+          "path": "omnivoice/models/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "omnivoice/models/omnivoice.py",
+          "sha256": "631050ba94775b9c8a72ec3b2d84777c38317e2e502b1998d3128fedf88846ff",
+          "bytes": 66510
+        },
+        {
+          "path": "omnivoice/models/omnivoice_flashinfer.py",
+          "sha256": "7568e042e614b890b2e3fffa8296a2c9a44fdc1a95bc748063facf307cd3cdb1",
+          "bytes": 25415
+        },
+        {
+          "path": "omnivoice/scripts/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "omnivoice/scripts/denoise_audio.py",
+          "sha256": "23921924e59e004853752715f3387af98cec8698309704cd81b7d742f3b49e51",
+          "bytes": 36186
+        },
+        {
+          "path": "omnivoice/scripts/extract_audio_tokens.py",
+          "sha256": "60712cf824dffe460e6ddbf3ddba211cba042406dd19b39703b07548f65b23e1",
+          "bytes": 22211
+        },
+        {
+          "path": "omnivoice/scripts/extract_audio_tokens_add_noise.py",
+          "sha256": "0f6563d62f131847ca0e2fa93812fc94cabc5a2922c76ecde9664e40ad946a51",
+          "bytes": 29418
+        },
+        {
+          "path": "omnivoice/scripts/jsonl_to_webdataset.py",
+          "sha256": "0a35c6c3f115d4334c208013df7c9ada2b2e0660e7225b022138de925dc410d7",
+          "bytes": 13425
+        },
+        {
+          "path": "omnivoice/training/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "omnivoice/training/builder.py",
+          "sha256": "0b145881d7fcc43f1c69f1b4b343037506d3beb716cf147640f35d8ce7a6ebeb",
+          "bytes": 9585
+        },
+        {
+          "path": "omnivoice/training/checkpoint.py",
+          "sha256": "75cd80d782a9f06f92f519e8474a6ae094428b58c7390391ed7888b6aaf744ed",
+          "bytes": 5945
+        },
+        {
+          "path": "omnivoice/training/config.py",
+          "sha256": "287aaac50ebd95556aff92c6a51f05d959a8f8f79f39c5ffc972a49d399a5c3b",
+          "bytes": 4136
+        },
+        {
+          "path": "omnivoice/training/trainer.py",
+          "sha256": "e727dae341397132cefd4016d54e34244752247b378315a805f14d51353dd987",
+          "bytes": 13511
+        },
+        {
+          "path": "omnivoice/utils/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "omnivoice/utils/audio.py",
+          "sha256": "6e2154cb8936138ee6c417c253dc9b222500ed322e6fbb2c0377a0b6850b8b48",
+          "bytes": 10285
+        },
+        {
+          "path": "omnivoice/utils/common.py",
+          "sha256": "c72d5a05cad42e0992eac08402c130d18e2c11fe2c3f6f73449a2c4dfbae9c09",
+          "bytes": 2464
+        },
+        {
+          "path": "omnivoice/utils/data_utils.py",
+          "sha256": "7ab9f89be912140b6e1104bb1d36f433412aed44fe655a0c98ef36d66bc0b05e",
+          "bytes": 2406
+        },
+        {
+          "path": "omnivoice/utils/duration.py",
+          "sha256": "3a0b468e89eb2a109a270fe4386ce1afe57305c08375a524a1af08399dfaf772",
+          "bytes": 11641
+        },
+        {
+          "path": "omnivoice/utils/lang_map.py",
+          "sha256": "e7924def0990d215aa94356f2ab17512a7b77e9cd43bc9bded093f757dfc1cd9",
+          "bytes": 17726
+        },
+        {
+          "path": "omnivoice/utils/lora.py",
+          "sha256": "0ea4ca3f0ea7338cb323aa5fa1da8192e67fa1596986f23cfc0eb584ca5d9cc8",
+          "bytes": 2229
+        },
+        {
+          "path": "omnivoice/utils/text.py",
+          "sha256": "ec833278ea7dcb22dfd3d27c3a932f8fb64948826242abb721a63b33b1c0a45a",
+          "bytes": 13733
+        },
+        {
+          "path": "omnivoice/utils/voice_design.py",
+          "sha256": "23fbbbe31641b6e23c54fd46d7c64956e032239a6dfd96dab2e8615e598f46ab",
+          "bytes": 3021
+        },
+        {
+          "path": "tests/test_lora.py",
+          "sha256": "03bc1916707c59dafae6ea156c6f7b1f2a06276fb6860edf025e164d1b94dec3",
+          "bytes": 8061
+        }
+      ],
+      "tree_sha256": "de5e229423b17af405773f46e90e256d7abc01bd72a4879884ef1eb462f2f901"
+    },
+    "f5": {
+      "root": "src/tts-benchmark/f5",
+      "python_files": [
+        {
+          "path": "src/f5_tts/api.py",
+          "sha256": "961fff392af63f8a6953a821db07ebda23195eb28f8502dfa00bfa30b422159f",
+          "bytes": 4770
+        },
+        {
+          "path": "src/f5_tts/device_utils.py",
+          "sha256": "b0737ea2992b256e80ad1367194839905fee573be925b38f518d79dee5b0f9ff",
+          "bytes": 1665
+        },
+        {
+          "path": "src/f5_tts/eval/ecapa_tdnn.py",
+          "sha256": "3d934824932b71e6ba3824c817367328c5f099335106dc03e6ba68a143da6a0a",
+          "bytes": 11366
+        },
+        {
+          "path": "src/f5_tts/eval/eval_infer_batch.py",
+          "sha256": "4999aa894b1f87280299d86fd5690386c1e488c32040db0ad1969fbefe68c8d7",
+          "bytes": 8044
+        },
+        {
+          "path": "src/f5_tts/eval/eval_librispeech_test_clean.py",
+          "sha256": "70a228d4d25ba6699289e1ce8eb38a4ef1d006863efe974c2608d48ed9da0dda",
+          "bytes": 3928
+        },
+        {
+          "path": "src/f5_tts/eval/eval_seedtts_testset.py",
+          "sha256": "2e046db52648d1cb79d63b29cba7b6769f0274d8a80f0c0f5cab72cadbcfd973",
+          "bytes": 3663
+        },
+        {
+          "path": "src/f5_tts/eval/eval_utmos.py",
+          "sha256": "6bbcb14c38808b08f1663800d39438fdc7b3e817090147031313e47404d27d0d",
+          "bytes": 1546
+        },
+        {
+          "path": "src/f5_tts/eval/utils_eval.py",
+          "sha256": "9aacdcaa876456bcccefc56afe6e7abe81aacfcd46fa98857cdec5ae29236269",
+          "bytes": 14430
+        },
+        {
+          "path": "src/f5_tts/infer/infer_cli.py",
+          "sha256": "db00ddbe0d45fb22a4258ad14707393f543ff59873b4693e26952d1c51e05f01",
+          "bytes": 11581
+        },
+        {
+          "path": "src/f5_tts/infer/infer_gradio.py",
+          "sha256": "1ffb3b32a8434f632f0f1dd5daf697724566bfdd71f90def3cc7c82d58d272c7",
+          "bytes": 41900
+        },
+        {
+          "path": "src/f5_tts/infer/speech_edit.py",
+          "sha256": "319d70a175af2cad1bb2503bd8d453ed4f87dcf745b30335197dca82bfc05d96",
+          "bytes": 8140
+        },
+        {
+          "path": "src/f5_tts/infer/utils_infer.py",
+          "sha256": "f4cdc874c112762d7f6f8be03c787b385a1c0315f50f47b837040632a01ad54d",
+          "bytes": 21274
+        },
+        {
+          "path": "src/f5_tts/model/__init__.py",
+          "sha256": "a27d1406ccf102af4dfc9e5c9071f06739e21eb356f312784274731f088953a0",
+          "bytes": 267
+        },
+        {
+          "path": "src/f5_tts/model/backbones/dit.py",
+          "sha256": "838484daeea0ffcb5af9048e994721b02016229ed536afaecd6fe0d6d40ecd21",
+          "bytes": 12942
+        },
+        {
+          "path": "src/f5_tts/model/backbones/mmdit.py",
+          "sha256": "fdffb0406a34fb5056dc44311da087af9e010ea4ca9557c49cb159263b79ac56",
+          "bytes": 8674
+        },
+        {
+          "path": "src/f5_tts/model/backbones/unett.py",
+          "sha256": "fcb129294a64edffa59668b14bb5fd6af599df53046dc0ecfbaffaaec0001012",
+          "bytes": 10288
+        },
+        {
+          "path": "src/f5_tts/model/cfm.py",
+          "sha256": "88cea5f87b78a39dce292910ccac4b9e59d62171f245e2bf6a17c09426a35208",
+          "bytes": 9760
+        },
+        {
+          "path": "src/f5_tts/model/dataset.py",
+          "sha256": "59da5c37743c7faa5dfbc2126255eea69f105dbb5d99fe9cdc1d7392ddf04e1b",
+          "bytes": 11315
+        },
+        {
+          "path": "src/f5_tts/model/modules.py",
+          "sha256": "92a1d97756bc7773a75c20e0e2fc913b3220f2ae2e6f042126f3ad8a57da9ce8",
+          "bytes": 29927
+        },
+        {
+          "path": "src/f5_tts/model/trainer.py",
+          "sha256": "559fed0588adbc3a161974d7a053fe3efc24a74c0466046f7f43a7c26dc19247",
+          "bytes": 20589
+        },
+        {
+          "path": "src/f5_tts/model/utils.py",
+          "sha256": "37bf43bd5206cc0df0af28939bfdb6fe1d72fb222c88acef922f1da6e7dc8cd2",
+          "bytes": 7101
+        },
+        {
+          "path": "src/f5_tts/runtime/triton_trtllm/benchmark.py",
+          "sha256": "d0c302441df9d763f6e0391c25f9b4eff953dceb1f050a8a6837fa4538280bc2",
+          "bytes": 18027
+        },
+        {
+          "path": "src/f5_tts/runtime/triton_trtllm/client_grpc.py",
+          "sha256": "9e1ce18a95cf9fb9cbde6076eba471e92901ccdfbc732f600c35bc6bbc9562e4",
+          "bytes": 16352
+        },
+        {
+          "path": "src/f5_tts/runtime/triton_trtllm/client_http.py",
+          "sha256": "135d276a1090012ecf77210a18f0791f24593e94639b6017236ea5e60415570a",
+          "bytes": 5184
+        },
+        {
+          "path": "src/f5_tts/runtime/triton_trtllm/model_repo_f5_tts/f5_tts/1/f5_tts_trtllm.py",
+          "sha256": "53754eded577498614f649669d9c9685b8744551d76aedbfdd16add47a6e4d3d",
+          "bytes": 20029
+        },
+        {
+          "path": "src/f5_tts/runtime/triton_trtllm/model_repo_f5_tts/f5_tts/1/model.py",
+          "sha256": "4bba70f466f43b7b8e6621232b8bc6cb92495531e07d723f9cc994f68ece9afa",
+          "bytes": 11786
+        },
+        {
+          "path": "src/f5_tts/runtime/triton_trtllm/patch/__init__.py",
+          "sha256": "3646bc4561f11285ed5c20c5f10458d5f6086db6062bfeb9adb6889f560a566a",
+          "bytes": 7142
+        },
+        {
+          "path": "src/f5_tts/runtime/triton_trtllm/patch/f5tts/model.py",
+          "sha256": "015ba697a1f049292db108cfab609a8b8396d65cda8e8003d5f17cd7ac6651eb",
+          "bytes": 8661
+        },
+        {
+          "path": "src/f5_tts/runtime/triton_trtllm/patch/f5tts/modules.py",
+          "sha256": "c93b5d052da7be52b12f2efb41be78c701aeda5e0f407457fd3c0e187d9d9532",
+          "bytes": 15363
+        },
+        {
+          "path": "src/f5_tts/runtime/triton_trtllm/scripts/conv_stft.py",
+          "sha256": "9284255817c07d01ef0c1f72ccdcdc6f0fd6cb65a00ba9170b0bfa46f2c614d2",
+          "bytes": 10136
+        },
+        {
+          "path": "src/f5_tts/runtime/triton_trtllm/scripts/convert_checkpoint.py",
+          "sha256": "34caf2c80ff133c2b6d1322fcb877e8e8825033ca49c9c54675bf808988343bb",
+          "bytes": 11227
+        },
+        {
+          "path": "src/f5_tts/runtime/triton_trtllm/scripts/export_vocoder_to_onnx.py",
+          "sha256": "72c9953957b8be407255e0642519f0817158c4fdb5550dc8ccc57b124828bd98",
+          "bytes": 4713
+        },
+        {
+          "path": "src/f5_tts/runtime/triton_trtllm/scripts/fill_template.py",
+          "sha256": "2341448e22389ebd542a52552ba5c093ebd6096c2cc7d5e00c9c598e7b062654",
+          "bytes": 1120
+        },
+        {
+          "path": "src/f5_tts/scripts/count_max_epoch.py",
+          "sha256": "43c0b6aa0a0a924397c53b71cb0b00eac662736f7daa94790e413147a8bf05de",
+          "bytes": 1105
+        },
+        {
+          "path": "src/f5_tts/scripts/count_max_epoch_precise.py",
+          "sha256": "17a7c9a9f8bd9d472d8a0cdb84b9e59330b2395b35c507e645d725f97f5a1bee",
+          "bytes": 832
+        },
+        {
+          "path": "src/f5_tts/scripts/count_params_gflops.py",
+          "sha256": "ea250747154d3900b617f90c24c9447c9c992397a3b6e08f774bb84a21846af9",
+          "bytes": 1359
+        },
+        {
+          "path": "src/f5_tts/socket_client.py",
+          "sha256": "301265e66a6fca7849462861c53751be848df709d1b9b755d098798e81cf25e6",
+          "bytes": 2019
+        },
+        {
+          "path": "src/f5_tts/socket_server.py",
+          "sha256": "3caa641dec0c68c171651cf1bb9be2d9d1a3f868106689e04fe3959c0e6cf152",
+          "bytes": 8912
+        },
+        {
+          "path": "src/f5_tts/train/datasets/prepare_csv_wavs.py",
+          "sha256": "8e1f716b9bc71ed28bb45fdc72e17286f77a9f29aef74fd81e95011bb3784321",
+          "bytes": 10987
+        },
+        {
+          "path": "src/f5_tts/train/datasets/prepare_emilia.py",
+          "sha256": "0214bce1545884b95ce9e16dd61d75479286e5955bdd9d0834a42cfef93a50e3",
+          "bytes": 7431
+        },
+        {
+          "path": "src/f5_tts/train/datasets/prepare_emilia_v2.py",
+          "sha256": "e18f77529c899d30462b695198fb05dc65f0b0ba13cb628b9a7e850ad4569f1e",
+          "bytes": 3245
+        },
+        {
+          "path": "src/f5_tts/train/datasets/prepare_libritts.py",
+          "sha256": "d8a00942f02dee0cb224bce62c21dcc9818372a420865d1e4fb8426d69c4fc4a",
+          "bytes": 3181
+        },
+        {
+          "path": "src/f5_tts/train/datasets/prepare_ljspeech.py",
+          "sha256": "276621646c891f2bcef37ea8275311ea4f5b27da443e7dc37ab37aeffc8e286d",
+          "bytes": 2276
+        },
+        {
+          "path": "src/f5_tts/train/datasets/prepare_wenetspeech4tts.py",
+          "sha256": "6bf9b9bdf17dd6e3200b73c58fc18ec3932e479b88a633a3396394eecd54f822",
+          "bytes": 4581
+        },
+        {
+          "path": "src/f5_tts/train/finetune_cli.py",
+          "sha256": "c04786bf9631406fbea26b1b51f469fa6e7ddb9a3607090baa217ef45c23c4ae",
+          "bytes": 7593
+        },
+        {
+          "path": "src/f5_tts/train/finetune_gradio.py",
+          "sha256": "05d090fb09cec11fc9b9a0632056405e04a8464824871b105897f100e78af675",
+          "bytes": 68521
+        },
+        {
+          "path": "src/f5_tts/train/train.py",
+          "sha256": "4ce652616480e39db38babda63f49d793bbf57f1eb635fb843d76de7ea156a7a",
+          "bytes": 3126
+        }
+      ],
+      "tree_sha256": "2301dc589c718df71c9db34f01af197dcf8a62177439ca5d92b1820d8c87500a"
+    }
+  },
+  "model_files": [
+    {
+      "path": "models/tts-benchmark/omnivoice/.gitattributes",
+      "bytes": 2203,
+      "sha256": "96ee05ea1bd18470c8cd8021ce4271ea9a6326964065624e52c92b55d5037759"
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/audio_tokenizer/config.json",
+      "bytes": 2531,
+      "sha256": "eefb20806f7104e77c9a5277c9df0f9bb8826b08eb1d4e8ab2b9829b6ef9fac1"
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/audio_tokenizer/LICENSE",
+      "bytes": 9171,
+      "sha256": "ac933dc084d119bd20401956b90d11ae87c248b2da62622cd580d82cdf2fa049"
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/audio_tokenizer/model.safetensors",
+      "bytes": 805665628,
+      "sha256": "fe7c5e8785e0a05833e1bfc3e002ec7f55af21e306b2e7154a448c1f54ccfb0d"
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/audio_tokenizer/preprocessor_config.json",
+      "bytes": 206,
+      "sha256": "ae61eea88558608ee2fa86d2aec9fce8d99a5ff75d09cb7651ccce21ae1d9084"
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/audio_tokenizer/README.md",
+      "bytes": 5174,
+      "sha256": "0336368f8274a5ed09f54cee8d56a851ecee96026d9f391a6735762c16608a60"
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/benchmark-download.json",
+      "bytes": 223,
+      "sha256": "e8ca20da0c50923e62aca1cae49c083a9ba0fe346c08098842ceab18ce7e131b"
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/benchmark-manifest.json",
+      "bytes": 6498,
+      "sha256": "40c01409b1ef1ee5b2d5909f4bc00b9004c6f8e36292cbd78f51591638723778"
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/chat_template.jinja",
+      "bytes": 4168,
+      "sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8"
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/config.json",
+      "bytes": 2238,
+      "sha256": "5e359117e13b420c5e0c925d4aba650d624767131f1d1746928f8b850d5dc372"
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/configuration.json",
+      "bytes": 61,
+      "sha256": "bacf4159b4ad6935aa17bd2e73d27702ac64a039af6d928157d8eb33c6a7b454"
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/model.safetensors",
+      "bytes": 2450344112,
+      "sha256": "730839316de585f4c8298ec0e1712efc10fb19c6fa4e36eb741cb8d51ebcf6aa"
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/README.md",
+      "bytes": 9424,
+      "sha256": "b5d645a1874baa96a460a0e3a7d5a262811d682d04ce235878a16d5fed287fd3"
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/tokenizer.json",
+      "bytes": 11423986,
+      "sha256": "408f669b7e2b045fdf54201d815bd364e6667dbd845115da81239c40bc6dcfd1"
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/tokenizer_config.json",
+      "bytes": 533,
+      "sha256": "49f78845596a82bf15c83673794bdf9f76f812b11f60ab6a2239d9be65b00676"
+    },
+    {
+      "path": "models/tts-benchmark/f5/.gitattributes",
+      "bytes": 1685,
+      "sha256": "f4677a4c4a003a983eaaee51e70cc616beba1dc2e8ca0e37d40e81b08618996f"
+    },
+    {
+      "path": "models/tts-benchmark/f5/benchmark-download.json",
+      "bytes": 225,
+      "sha256": "c4a6897e09f2ad637558f4f1d2f1f0f806d4b6290725ffe1ef94b0059168ecac"
+    },
+    {
+      "path": "models/tts-benchmark/f5/benchmark-manifest.json",
+      "bytes": 2467,
+      "sha256": "5b30be8be05822e3177490a282b1cf059633ca5f721eb5da1b549c9d170f01f0"
+    },
+    {
+      "path": "models/tts-benchmark/f5/configuration.json",
+      "bytes": 25,
+      "sha256": "3caa7e27973c6cd2181b5ee817702cf2d52091a4dea8e3c640ae29331411cf2e"
+    },
+    {
+      "path": "models/tts-benchmark/f5/model_1250000.safetensors",
+      "bytes": 1348435761,
+      "sha256": "670900fd14e6c458b95da6e9ed317cdb20dbaf7a1c02ac06a05475a9d32b6a38"
+    },
+    {
+      "path": "models/tts-benchmark/f5/README.md",
+      "bytes": 1736,
+      "sha256": "a55b18eb42dfa2edcd3efb976033f994653399246e87d6aa01dc858cf77cf1f9"
+    },
+    {
+      "path": "models/tts-benchmark/f5/vocab.txt",
+      "bytes": 11255,
+      "sha256": "4e173934be56219eb38759fa8d4c48132d5a34454f0c44abce409bcf6a07ec46"
+    },
+    {
+      "path": "models/tts-benchmark/vocos-mel24/.gitattributes",
+      "bytes": 1477,
+      "sha256": "db7c0371f46f0840b8f25794c1e3321c9b5820a8cb6ba9694a46fc64b8fae5a6"
+    },
+    {
+      "path": "models/tts-benchmark/vocos-mel24/benchmark-download.json",
+      "bytes": 266,
+      "sha256": "422f4613994c9c66ed35edb8035686aee4e7468e02149e6079b411c8ceb44fa3"
+    },
+    {
+      "path": "models/tts-benchmark/vocos-mel24/benchmark-manifest.json",
+      "bytes": 577,
+      "sha256": "1fb49a93328790d43b46c1ced306576d9d7adb49b4f3270e3c3e8a30d1e9c1b9"
+    },
+    {
+      "path": "models/tts-benchmark/vocos-mel24/config.yaml",
+      "bytes": 461,
+      "sha256": "da9033922f969a47f0c160010226919e59f27761fd5066f3828d46de6650b0fc"
+    },
+    {
+      "path": "models/tts-benchmark/vocos-mel24/pytorch_model.bin",
+      "bytes": 54365991,
+      "sha256": "97ec976ad1fd67a33ab2682d29c0ac7df85234fae875aefcc5fb215681a91b2a"
+    },
+    {
+      "path": "models/tts-benchmark/vocos-mel24/README.md",
+      "bytes": 1830,
+      "sha256": "5858497d76d58914b29958a0f448e7b4fd3bb54940100baaa7520d4a56d8b3df"
+    }
+  ],
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8"
+}

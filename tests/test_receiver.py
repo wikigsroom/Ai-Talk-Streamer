@@ -16,8 +16,9 @@ class ReceiverTests(unittest.IsolatedAsyncioTestCase):
         response=await self.client.get('/receiver/evidence/channel.env')
         self.assertEqual(response.status,404)
     async def asyncSetUp(self):
-        self.observed=[]
+        self.observed=[];self.broadcast=None
         async def endpoint(request):
+            if request.path=='/api/dsh/status':return web.json_response({'broadcast':self.broadcast})
             if request.path=='/api/studio/stream':
                 ws=web.WebSocketResponse(compress=False);await ws.prepare(request)
                 await ws.send_json({'type':'media.map','sample_count':640})
@@ -66,6 +67,20 @@ class ReceiverTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual((await recovered.receive(timeout=2)).type,WSMsgType.TEXT)
             self.assertEqual((await recovered.receive(timeout=2)).data,b'\x00\x01portrait-pcm\x00\xff')
         self.assertEqual(self.gateway.metrics['websocket_connections'],2)
+    async def test_offair_source_reload_reaches_existing_websocket(self):
+        ws=await self.client.ws_connect('/api/studio/stream')
+        await ws.receive(timeout=2);await ws.receive(timeout=2)
+        pending=asyncio.create_task(self.client.post('/receiver/player/reload'))
+        close=await ws.receive(timeout=3)
+        self.assertEqual(close.type,WSMsgType.CLOSE);self.assertEqual(close.data,4001)
+        result=await pending
+        self.assertEqual(result.status,200);self.assertEqual((await result.json())['reload_requested'],1)
+        await ws.close()
+    async def test_source_reload_preserves_active_session(self):
+        self.broadcast={'broadcast_id':'active-session'}
+        result=await self.client.post('/receiver/player/reload')
+        self.assertEqual(result.status,409)
+        self.assertEqual((await result.json())['error'],'END_LOCAL_SESSION_BEFORE_RELOAD')
     async def test_local_dashboard_is_available_without_a(self):
         await self.upstream.close()
         self.assertEqual((await self.client.get('/receiver/')).status,200)

@@ -87,6 +87,16 @@ class ReceiverGateway:
         value={'launch_requested':True,'pid':process.pid,'public_broadcast_started':False,'on_device':'B'}
         record.write_text(json.dumps(value)+'\n',encoding='utf-8');return web.json_response(value)
     async def page(self,request):return web.FileResponse(ROOT/'web/receiver.html')
+    async def reload_player(self,request):
+        # Refresh the existing official source without automating the desktop.
+        # Never reset a currently active speech/broadcast session.
+        async with self.client.get(self.config['upstream']+'/api/dsh/status',timeout=ClientTimeout(total=8)) as response:
+            if response.status!=200:return web.json_response({'error':'UPSTREAM_NOT_READY'},status=503)
+            state=await response.json()
+        if state.get('broadcast'):return web.json_response({'error':'END_LOCAL_SESSION_BEFORE_RELOAD'},status=409)
+        sockets=list(self.active_sockets)
+        await asyncio.gather(*(ws.close(code=4001,message=b'Operator requested source refresh')for ws in sockets),return_exceptions=True)
+        return web.json_response({'ok':True,'reload_requested':len(sockets),'public_broadcast_started':False})
     async def evidence_page(self,request):return web.FileResponse(ROOT/'web/receiver-evidence.html')
     async def evidence_file(self,request):
         name=request.match_info['name']
@@ -121,6 +131,7 @@ class ReceiverGateway:
                 # Bounded browser diagnostics are observations, not proof of official-client capture.
                 safe={key:metrics[key] for key in ('frames','received_frames','presented_frames','fps','audio_clock_seconds','decoder_queue','pending_video_frames','audio_underruns','audio_buffer_ms','missing_packets','skipped_video_frames','decode_errors','max_arrival_gap_ms')
                       if type(metrics.get(key)) in (int,float) and 0<=metrics[key]<=1e12 and math.isfinite(metrics[key])}
+                if type(metrics.get('target_audio_buffer_ms'))in(int,float)and 800<=metrics['target_audio_buffer_ms']<=10000:safe['target_audio_buffer_ms']=metrics['target_audio_buffer_ms']
                 if metrics.get('codec') in ('jpeg','h264_nvenc'):safe['codec']=metrics['codec']
                 if metrics.get('fps_source') in ('video_presentation','canvas_draw'):safe['fps_source']=metrics['fps_source']
                 if metrics.get('output_mode') in ('direct_canvas_audio','media_stream'):safe['output_mode']=metrics['output_mode']
@@ -168,6 +179,7 @@ class ReceiverGateway:
     def application(self):
         app=web.Application(client_max_size=2*1024*1024);app.on_startup.append(self.startup);app.on_cleanup.append(self.cleanup)
         app.router.add_get('/receiver/status',self.status);app.router.add_post('/receiver/check',self.check)
+        app.router.add_post('/receiver/player/reload',self.reload_player)
         app.router.add_post('/receiver/client/launch',self.launch_client);app.router.add_get('/receiver/',self.page)
         app.router.add_get('/receiver/evidence/',self.evidence_page);app.router.add_get('/receiver/evidence/{name}',self.evidence_file)
         app.router.add_route('*','/{path:.*}',self.proxy);return app

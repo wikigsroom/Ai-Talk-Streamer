@@ -2,7 +2,9 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [完整文档](docs/README.md)
 
-**口型正式选定 K02：** MuseTalk 1.5 FP16/batch 8＋局部嘴周融合、有限色差修正与 PCM 静音门控，新增模型 **0 字节**。[定稿与清理手册](docs/deployment/BASELINE_K02.md) · [独立验收和部署状态](docs/evidence/lipsync-k02-selection-20261029.json)。21 项本地 CPU 检查通过；4090 部署与 K03～K05 专用模型删除等待控制恢复。O07/F07、后台、动作库和原始测评保留。
+**当前部署定稿：3080 原生同机 / K02 / O07主用＋F07备用。** 人物、TTS、DSH/Humanity及官方直播姬均在10 GB显卡主机运行。原batch8实际连续性不达标后，定稿batch4；五段最终实测平均 **24.989 Canvas FPS**，新增音频欠载、缺包和解码错误均为0。[部署与操作手册](docs/deployment/RTX3080_K02_RELEASE.md) · [可视化测试报告](docs/analysis/native-rtx3080-k02-20261029/report.html) · [发布清单](configs/releases/native-rtx3080-k02-v1.2.2.json)。本轮为本地播放，未重复公开开播、未迁移4090历史记忆；以下旧版记录保留原范围。
+
+**此前A4090口型选型记录 K02：** MuseTalk 1.5 FP16/batch 8＋局部嘴周融合、有限色差修正与 PCM 静音门控，新增模型 **0 字节**。[定稿与清理手册](docs/deployment/BASELINE_K02.md) · [独立验收和部署状态](docs/evidence/lipsync-k02-selection-20261029.json)。21 项本地 CPU 检查通过；4090 部署与 K03～K05 专用模型删除等待控制恢复。O07/F07、后台、动作库和原始测评保留。
 
 **K01–K05 口型横评：** 五组同源60秒竖屏原片、O07原始音频、同步对比页面、GIF、逐阶段耗时与资源曲线。[完整报告与素材](docs/analysis/lipsync-k01-k05-20261028/ARCHIVE.md) · [原生实验代码](benchmarks/k01-k05-60s-20261028/README.md)。K03为合成教师训练试验，K05含已说明的原生执行适配；共享负载的离线吞吐与直播响应延迟分开记录。
 

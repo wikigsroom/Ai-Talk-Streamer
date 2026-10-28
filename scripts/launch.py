@@ -65,7 +65,7 @@ def start_service(name,profile='v2',minimum=None):
     log_name=('resident-tts' if config.get('tts')=='resident-local' else 'moss') if name=='tts' and config.get('tts') in ('moss-ttsd','resident-local') else name
     stdout=(ROOT/'logs'/f'{log_name}.runtime.stdout.log').open('a',encoding='utf-8')
     stderr=(ROOT/'logs'/f'{log_name}.runtime.stderr.log').open('a',encoding='utf-8')
-    process=subprocess.Popen(args,cwd=cwd,env=env,stdin=subprocess.DEVNULL,stdout=stdout,stderr=stderr,close_fds=True,creationflags=subprocess.DETACHED_PROCESS|subprocess.CREATE_NEW_PROCESS_GROUP)
+    process=subprocess.Popen(args,cwd=cwd,env=env,stdin=subprocess.DEVNULL,stdout=stdout,stderr=stderr,close_fds=True,creationflags=subprocess.CREATE_NEW_PROCESS_GROUP|subprocess.CREATE_NO_WINDOW)
     path=ROOT/'.setup/services.json'
     info=json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
     info[name]={'pid':process.pid,'command':args,'started':time.time()};path.write_text(json.dumps(info,ensure_ascii=False,indent=2),encoding='utf-8')

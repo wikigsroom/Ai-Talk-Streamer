@@ -78,6 +78,13 @@ test('private agent uses persona host and budget, does not speak or mutate viewe
     for (let i = 0; i < 30 && f.manager.agentJob.status === 'RUNNING'; i++) await new Promise(r => setTimeout(r, 5));
     assert.equal(f.manager.agentJob.status, 'COMPLETED'); assert.equal(f.accepted.length, 0); assert.equal(f.manager.agentHistory().at(-1).text, '这是后台建议。');
     const context = JSON.parse(options.context); assert.equal(context.humanity_public_snapshot.memory_ids.length, 0); assert.equal((await options.tools('stream_memory_propose', {})).memory_write_enabled, false); assert.equal(typeof options.onCall, 'function');
+    const nativeSession = options.sessionId, logicalSession = f.manager.agentSession;
+    await f.post('agent', { action: 'ask', text: '接着给我一句自然的过渡' });
+    for (let i = 0; i < 30 && f.manager.agentJob.status === 'RUNNING'; i++) await new Promise(r => setTimeout(r, 5));
+    assert.equal(f.manager.agentJob.status, 'COMPLETED'); assert.notEqual(options.sessionId, nativeSession);
+    assert.equal(f.manager.agentSession, logicalSession); assert.equal(f.manager.agentHistory().length, 4);
+    assert.ok(JSON.parse(options.context).operator_history.some(m => m.role === 'assistant' && m.text === '这是后台建议。'));
+    assert.equal(f.accepted.length, 0);
     const old = f.manager.agentSession; await f.post('agent', { action: 'new' }); assert.notEqual(f.manager.agentSession, old); assert.equal(f.manager.agentHistory().length, 0);
   } finally { await f.close(); }
 });

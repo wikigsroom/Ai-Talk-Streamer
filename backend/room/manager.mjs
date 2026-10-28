@@ -175,7 +175,9 @@ export class RoomManager {
     try {
       const context = JSON.stringify({ task: '这是主播与导播之间的私下对话，不向观众播报。保持林知夏人格，协助规划话题、解释当前房间设置。不得声称已操作后台。不要记忆观众资料。', operator_history: this.agentHistory().slice(-12), room: { title: this.store.settings.identity.title, topic: this.store.settings.identity.topic, music_playing: this.music.playing, muted: this.store.settings.audio.muted }, humanity_public_snapshot: { text: '本次为导播私聊；无观众记忆注入，不生成观众记忆候选。', memory_ids: [], mirror_revision: 0 } });
       const timeout = this.bridge.policy?.conversation?.model_timeout_ms || 90000;
-      const result = await this.bridge.host.generate({ sessionId: session, snapshot: this.bridge.channel.snapshot(), input: text, context, signal: AbortSignal.any([job.controller.signal, AbortSignal.timeout(timeout)]), maxTokens: 384,
+      // Chat history belongs to the stable operator session; the pinned DSH
+      // per-request host needs a fresh native agent/session for every turn.
+      const result = await this.bridge.host.generate({ sessionId: session + '-turn-' + job.id, snapshot: this.bridge.channel.snapshot(), input: text, context, signal: AbortSignal.any([job.controller.signal, AbortSignal.timeout(timeout)]), maxTokens: 384,
         tools: async () => ({ public: [], viewer: [], private_operator_conversation: true, memory_write_enabled: false }), onCall: this.bridge.onCall({ maxTokens: 384 }) });
       if (this.closed || job.controller.signal.aborted || this.agentJob !== job || session !== this.agentSession) return;
       check(typeof result.text === 'string' && result.text.trim(), 'AGENT_EMPTY_REPLY', 502);

@@ -79,7 +79,19 @@ class Engine:
                 'engine': self.spec['engine'], 'voice_id': self.voice, 'pid': os.getpid(),
                 'parent_pid': os.getppid(), 'busy': self.active is not None,
                 'reference_sha256': self.config['reference_sha256'],
-                'load_seconds': getattr(self, 'load_seconds', None), 'recent': self.recent}
+                'load_seconds': getattr(self, 'load_seconds', None), 'recent': self.recent,
+                'cuda_memory': getattr(self, 'cuda_memory', None)}
+
+    def release_idle_cache(self):
+        """Return completed utterance workspaces while retaining all model weights.
+
+        On a 10 GB card a second resident voice must not retain the first voice's
+        freed activations. This runs at utterance boundaries, never per video frame.
+        """
+        torch = self.torch
+        torch.cuda.empty_cache()
+        self.cuda_memory = {'allocated_mib': torch.cuda.memory_allocated()/2**20,
+                            'reserved_mib': torch.cuda.memory_reserved()/2**20}
 
     def initialize(self):
         try:
@@ -117,6 +129,7 @@ class Engine:
             self.load_seconds = time.monotonic()-started
             self._generate('晚上好，我是林知夏。', 'warmup')
             torch.cuda.synchronize()
+            self.release_idle_cache()
             self.ready = True
             print(json.dumps({'event': 'ready', **self.status()}, ensure_ascii=False), flush=True)
         except Exception as exc:
@@ -189,6 +202,12 @@ class Engine:
                 return stream.getvalue(), metrics
             finally:
                 self.active = None
+                try:
+                    self.release_idle_cache()
+                except Exception:
+                    # Preserve the original synthesis error if the CUDA context
+                    # itself failed. The broker still reports that failed request.
+                    traceback.print_exc()
 
 
 def make_handler(engine):
