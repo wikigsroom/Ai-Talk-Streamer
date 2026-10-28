@@ -37,7 +37,8 @@
       "quality_assessment_basis": "current_project_pipeline_and_primary_source",
       "quality_source_urls": [
         "https://github.com/TMElyralab/MuseTalk"
-      ]
+      ],
+      "排序": 1
     },
     {
       "id": "L01",
@@ -64,7 +65,8 @@
       "quality_assessment_basis": "engineering_expectation_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/TMElyralab/MuseTalk"
-      ]
+      ],
+      "排序": 2
     },
     {
       "id": "F01",
@@ -94,7 +96,8 @@
       "quality_assessment_basis": "primary_source_capability_and_integration_inference",
       "quality_source_urls": [
         "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker"
-      ]
+      ],
+      "排序": 3
     },
     {
       "id": "L07",
@@ -126,7 +129,8 @@
       "quality_source_urls": [
         "https://github.com/anliyuan/FeatherTalk",
         "https://github.com/anliyuan/Ultralight-Digital-Human"
-      ]
+      ],
+      "排序": 4
     },
     {
       "id": "L08",
@@ -156,7 +160,8 @@
       "quality_assessment_basis": "primary_source_and_architecture_inference_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/Rudrabha/Wav2Lip"
-      ]
+      ],
+      "排序": 5
     },
     {
       "id": "L05",
@@ -188,7 +193,8 @@
       "quality_assessment_basis": "primary_source_capability_and_cascade_inference_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/KlingAIResearch/LivePortrait"
-      ]
+      ],
+      "排序": 6
     },
     {
       "id": "F02",
@@ -223,7 +229,8 @@
       "quality_assessment_basis": "primary_source_capability_and_rendering_dependency",
       "quality_source_urls": [
         "https://github.com/NVIDIA/Audio2Face-3D-SDK"
-      ]
+      ],
+      "排序": 7
     },
     {
       "id": "L10",
@@ -253,7 +260,8 @@
       "quality_assessment_basis": "primary_source_architecture_and_review_targets_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/OpenTalker/SadTalker"
-      ]
+      ],
+      "排序": 8
     },
     {
       "id": "L02",
@@ -285,7 +293,8 @@
       "quality_assessment_basis": "primary_source_capability_and_engineering_expectation_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/antgroup/ditto-talkinghead"
-      ]
+      ],
+      "排序": 9
     },
     {
       "id": "L06",
@@ -320,7 +329,8 @@
       "quality_assessment_basis": "primary_source_release_notes_and_expected_use_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/bytedance/LatentSync"
-      ]
+      ],
+      "排序": 10
     },
     {
       "id": "L04",
@@ -356,7 +366,8 @@
       "quality_source_urls": [
         "https://github.com/Soul-AILab/SoulX-FlashHead",
         "https://soul-ailab.github.io/soulx-flashhead/"
-      ]
+      ],
+      "排序": 11
     },
     {
       "id": "L03",
@@ -392,7 +403,8 @@
       "quality_source_urls": [
         "https://github.com/Soul-AILab/SoulX-FlashHead",
         "https://soul-ailab.github.io/soulx-flashhead/"
-      ]
+      ],
+      "排序": 12
     },
     {
       "id": "F03",
@@ -427,7 +439,8 @@
       "quality_assessment_basis": "primary_source_capability_and_driver_dependency_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/GVCLab/PersonaLive"
-      ]
+      ],
+      "排序": 13
     },
     {
       "id": "L09",
@@ -463,7 +476,8 @@
       "quality_assessment_basis": "primary_source_capability_and_parameter_tradeoffs_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/antgroup/echomimic_v3"
-      ]
+      ],
+      "排序": 14
     },
     {
       "id": "L15",
@@ -501,7 +515,8 @@
       "quality_assessment_basis": "primary_source_joint_generation_and_integration_inference_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/fudan-generative-vision/Hallo-Live"
-      ]
+      ],
+      "排序": 15
     },
     {
       "id": "L14",
@@ -535,7 +550,8 @@
       "quality_assessment_basis": "primary_source_capability_and_review_targets_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/Alibaba-Quark/LiveAvatar"
-      ]
+      ],
+      "排序": 16
     },
     {
       "id": "L11",
@@ -569,7 +585,8 @@
       "quality_assessment_basis": "primary_source_capability_and_single_gpu_feasibility_inference",
       "quality_source_urls": [
         "https://github.com/Soul-AILab/SoulX-FlashTalk"
-      ]
+      ],
+      "排序": 17
     },
     {
       "id": "L12",
@@ -589,7 +606,7 @@
         "https://huggingface.co/TencentGameMate/chinese-wav2vec2-base/tree/3991242c806928916fff4a8c0e4f76acf661b743"
       ],
       "category": "avatar",
-      "预计新增模型磁盘": "首次约 54.8 GB；复用 L11 约 0 GB²",
+      "预计新增模型磁盘": "首次约 54.79 GB；复用 L11 约 0 GB²",
       "additional_model_gb_min": 54.7864,
       "additional_model_gb_max": 54.7864,
       "additional_model_size_basis": "file_metadata_shared",
@@ -604,7 +621,8 @@
       "quality_source_urls": [
         "https://github.com/di-osc/fast-flashtalk",
         "https://github.com/Soul-AILab/SoulX-FlashTalk"
-      ]
+      ],
+      "排序": 18
     },
     {
       "id": "L13",
@@ -638,7 +656,8 @@
       "quality_assessment_basis": "primary_source_action_emotion_capabilities_and_quality_note_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/Soul-AILab/SoulX-LiveAct"
-      ]
+      ],
+      "排序": 19
     },
     {
       "id": "F04",
@@ -674,7 +693,8 @@
       "quality_assessment_basis": "primary_source_capability_and_review_targets_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/GVCLab/EditaLive"
-      ]
+      ],
+      "排序": 20
     },
     {
       "id": "L16",
@@ -709,7 +729,8 @@
       "quality_assessment_basis": "primary_source_capability_and_documented_frontal_limit_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/deepbrainai-research/float"
-      ]
+      ],
+      "排序": 21
     },
     {
       "id": "R01",
@@ -738,7 +759,8 @@
       "quality_assessment_basis": "research_project_description_only_not_reproduced",
       "quality_source_urls": [
         "https://streamavatar.github.io/"
-      ]
+      ],
+      "排序": 22
     }
   ],
   "first_wave": [
@@ -764,7 +786,9 @@
     "basis": "first installation from current baseline, base configuration, lower bound of estimate range; optional components excluded from sort",
     "unknowns": "last; a partial known component total is not a complete size",
     "ties": "id ascending; stable option IDs preserved",
-    "shared_case": "fast-flashtalk sorted by first original-weight installation, not zero when sharing a separately installed L11"
+    "shared_case": "fast-flashtalk sorted by first original-weight installation, not zero when sharing a separately installed L11",
+    "display_rank_field": "排序",
+    "display_precision": "GB values generally use two decimal places; retain 0.00376 GB for the small MediaPipe model. Sorting uses original numeric estimates, not formatted strings. Original option IDs are identifiers, not ranks."
   },
   "quality_note": "Expected visible behavior from primary-source capabilities and project architecture; no new benchmark or video blind review. Quality scores remain null. Current L00 playback continuity is not an objective visual quality score."
 }

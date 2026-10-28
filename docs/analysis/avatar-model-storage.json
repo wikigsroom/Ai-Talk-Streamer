@@ -2913,7 +2913,8 @@
       "quality_assessment_basis": "current_project_pipeline_and_primary_source",
       "quality_source_urls": [
         "https://github.com/TMElyralab/MuseTalk"
-      ]
+      ],
+      "sort_rank": 1
     },
     "L01": {
       "display": "0 GB（复用当前权重）",
@@ -2927,7 +2928,8 @@
       "quality_assessment_basis": "engineering_expectation_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/TMElyralab/MuseTalk"
-      ]
+      ],
+      "sort_rank": 2
     },
     "F01": {
       "display": "约 0.00376 GB（3.76 MB）",
@@ -2943,7 +2945,8 @@
       "quality_assessment_basis": "primary_source_capability_and_integration_inference",
       "quality_source_urls": [
         "https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker"
-      ]
+      ],
+      "sort_rank": 3
     },
     "L07": {
       "display": "FeatherTalk 约 0.04–0.10 GB¹",
@@ -2962,7 +2965,8 @@
       "quality_source_urls": [
         "https://github.com/anliyuan/FeatherTalk",
         "https://github.com/anliyuan/Ultralight-Digital-Human"
-      ]
+      ],
+      "sort_rank": 4
     },
     "L08": {
       "display": "约 0.53–0.60 GB（估算）",
@@ -2979,7 +2983,8 @@
       "quality_assessment_basis": "primary_source_and_architecture_inference_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/Rudrabha/Wav2Lip"
-      ]
+      ],
+      "sort_rank": 5
     },
     "L05": {
       "display": "约 0.66 GB（人像模式）",
@@ -2995,7 +3000,8 @@
       "quality_assessment_basis": "primary_source_capability_and_cascade_inference_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/KlingAIResearch/LivePortrait"
-      ]
+      ],
+      "sort_rank": 6
     },
     "F02": {
       "display": "约 0.78 GB；含情绪约 2.05 GB³",
@@ -3014,7 +3020,8 @@
       "quality_assessment_basis": "primary_source_capability_and_rendering_dependency",
       "quality_source_urls": [
         "https://github.com/NVIDIA/Audio2Face-3D-SDK"
-      ]
+      ],
+      "sort_rank": 7
     },
     "L10": {
       "display": "约 1.0–1.5 GB（估算）",
@@ -3030,7 +3037,8 @@
       "quality_assessment_basis": "primary_source_architecture_and_review_targets_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/OpenTalker/SadTalker"
-      ]
+      ],
+      "sort_rank": 8
     },
     "L02": {
       "display": "约 2.31 GB（PyTorch）",
@@ -3046,7 +3054,8 @@
       "quality_assessment_basis": "primary_source_capability_and_engineering_expectation_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/antgroup/ditto-talkinghead"
-      ]
+      ],
+      "sort_rank": 9
     },
     "L06": {
       "display": "约 5.2–5.6 GB；整包约 10 GB",
@@ -3065,7 +3074,8 @@
       "quality_assessment_basis": "primary_source_release_notes_and_expected_use_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/bytedance/LatentSync"
-      ]
+      ],
+      "sort_rank": 10
     },
     "L04": {
       "display": "约 6.92 GB（Pro + Wan VAE + 音频编码器）",
@@ -3084,7 +3094,8 @@
       "quality_source_urls": [
         "https://github.com/Soul-AILab/SoulX-FlashHead",
         "https://soul-ailab.github.io/soulx-flashhead/"
-      ]
+      ],
+      "sort_rank": 11
     },
     "L03": {
       "display": "约 8.16 GB（Lite + LTX VAE + 音频编码器）",
@@ -3103,7 +3114,8 @@
       "quality_source_urls": [
         "https://github.com/Soul-AILab/SoulX-FlashHead",
         "https://soul-ailab.github.io/soulx-flashhead/"
-      ]
+      ],
+      "sort_rank": 12
     },
     "F03": {
       "display": "约 15–17 GB（部分估算）",
@@ -3122,7 +3134,8 @@
       "quality_assessment_basis": "primary_source_capability_and_driver_dependency_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/GVCLab/PersonaLive"
-      ]
+      ],
+      "sort_rank": 13
     },
     "L09": {
       "display": "约 20.75 GB（Flash-Pro + Wan 配套编码器/VAE）",
@@ -3140,7 +3153,8 @@
       "quality_assessment_basis": "primary_source_capability_and_parameter_tradeoffs_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/antgroup/echomimic_v3"
-      ]
+      ],
+      "sort_rank": 14
     },
     "L15": {
       "display": "约 38.64 GB（推理必需权重组）",
@@ -3159,7 +3173,8 @@
       "quality_assessment_basis": "primary_source_joint_generation_and_integration_inference_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/fudan-generative-vision/Hallo-Live"
-      ]
+      ],
+      "sort_rank": 15
     },
     "L14": {
       "display": "约 47.08 GB（基础 S2V + LoRA）",
@@ -3176,7 +3191,8 @@
       "quality_assessment_basis": "primary_source_capability_and_review_targets_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/Alibaba-Quark/LiveAvatar"
-      ]
+      ],
+      "sort_rank": 16
     },
     "L11": {
       "display": "约 54.79 GB（官方兼容权重组）",
@@ -3193,10 +3209,11 @@
       "quality_assessment_basis": "primary_source_capability_and_single_gpu_feasibility_inference",
       "quality_source_urls": [
         "https://github.com/Soul-AILab/SoulX-FlashTalk"
-      ]
+      ],
+      "sort_rank": 17
     },
     "L12": {
-      "display": "首次约 54.8 GB；复用 L11 约 0 GB²",
+      "display": "首次约 54.79 GB；复用 L11 约 0 GB²",
       "estimated_min_gb": 54.7864,
       "estimated_max_gb": 54.7864,
       "component_ids": [
@@ -3213,7 +3230,8 @@
       "quality_source_urls": [
         "https://github.com/di-osc/fast-flashtalk",
         "https://github.com/Soul-AILab/SoulX-FlashTalk"
-      ]
+      ],
+      "sort_rank": 18
     },
     "L13": {
       "display": "约 54.79 GB（官方兼容权重组）",
@@ -3230,7 +3248,8 @@
       "quality_assessment_basis": "primary_source_action_emotion_capabilities_and_quality_note_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/Soul-AILab/SoulX-LiveAct"
-      ]
+      ],
+      "sort_rank": 19
     },
     "F04": {
       "display": "约 56.62 GB（官方脚本筛选的推理配套）",
@@ -3248,7 +3267,8 @@
       "quality_assessment_basis": "primary_source_capability_and_review_targets_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/GVCLab/EditaLive"
-      ]
+      ],
+      "sort_rank": 20
     },
     "L16": {
       "display": "已知编码器约 1.64 GB + 主模型待核实",
@@ -3268,7 +3288,8 @@
       "quality_assessment_basis": "primary_source_capability_and_documented_frontal_limit_not_benchmarked",
       "quality_source_urls": [
         "https://github.com/deepbrainai-research/float"
-      ]
+      ],
+      "sort_rank": 21
     },
     "R01": {
       "display": "未公布/未确认，无法可靠估算",
@@ -3284,7 +3305,8 @@
       "quality_assessment_basis": "research_project_description_only_not_reproduced",
       "quality_source_urls": [
         "https://streamavatar.github.io/"
-      ]
+      ],
+      "sort_rank": 22
     }
   },
   "default_sort": {
@@ -3293,6 +3315,8 @@
     "basis": "first installation from current baseline, base configuration, lower bound of estimate range; optional components excluded from sort",
     "unknowns": "last; a partial known component total is not a complete size",
     "ties": "id ascending; stable option IDs preserved",
-    "shared_case": "fast-flashtalk sorted by first original-weight installation, not zero when sharing a separately installed L11"
+    "shared_case": "fast-flashtalk sorted by first original-weight installation, not zero when sharing a separately installed L11",
+    "display_rank_field": "排序",
+    "display_precision": "GB values generally use two decimal places; retain 0.00376 GB for the small MediaPipe model. Sorting uses original numeric estimates, not formatted strings. Original option IDs are identifiers, not ranks."
   }
 }
