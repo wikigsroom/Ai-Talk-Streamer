@@ -26,7 +26,26 @@ jobs:
       - name: Native browser fixture dependencies
         run: npm ci --ignore-scripts
       - name: Chat collection and responsive platform page
-        run: node --test tests/platform-browser.test.mjs tests/platform-ui.test.mjs tests/local-stream-browser.test.mjs tests/room-ui.test.mjs
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force outputs/ci | Out-Null
+          node --test --test-reporter=tap tests/platform-browser.test.mjs tests/platform-ui.test.mjs tests/local-stream-browser.test.mjs tests/room-ui.test.mjs 2>&1 | Tee-Object -FilePath outputs/ci/browser-tests.txt
+          $AvatarBrowserExit = $LASTEXITCODE
+          '### Native browser checks' | Out-File -Append -Encoding utf8 $env:GITHUB_STEP_SUMMARY
+          '```text' | Out-File -Append -Encoding utf8 $env:GITHUB_STEP_SUMMARY
+          Get-Content outputs/ci/browser-tests.txt | Out-File -Append -Encoding utf8 $env:GITHUB_STEP_SUMMARY
+          '```' | Out-File -Append -Encoding utf8 $env:GITHUB_STEP_SUMMARY
+          exit $AvatarBrowserExit
+      - name: Retain browser diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-browser-diagnostics
+          path: |
+            outputs/ci/browser-tests.txt
+            outputs/room-admin/ui/*.png
+          if-no-files-found: ignore
+          retention-days: 7
       - name: JavaScript syntax
         shell: pwsh
         run: |
