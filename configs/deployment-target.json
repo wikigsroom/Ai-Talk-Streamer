@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "target": null,
-  "branch": "main",
-  "deployment_allowed": false
+  "target": "rtx4090",
+  "branch": "deploy/rtx4090",
+  "deployment_allowed": true
 }
