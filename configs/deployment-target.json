@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "target": null,
-  "branch": "main",
-  "deployment_allowed": false
+  "target": "rtx3080",
+  "branch": "deploy/rtx3080",
+  "deployment_allowed": true
 }

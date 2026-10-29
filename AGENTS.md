@@ -1,5 +1,7 @@
 # Project operation constraints
 
+**This checkout is deploy/rtx3080; inference target rtx3080.** Use FP16 batch4 and `state/female-a-3080-k02`.
+
 - Work only inside this project. Use native Windows/Python/Node; never start Docker, WSL or virtual machines.
 - **Read `configs/deployment-target.json`, `configs/deployment-targets.json` and `docs/deployment/DEVICE_BRANCHES.md` first.** `main` is shared source and cannot start inference. Device branches are `deploy/rtx3080` and `deploy/rtx4090`; each owns its release pointer and state path. Never use a remembered device default.
 - Before inference deployment/start, run `scripts/deployment_target.py`. Git branch, source receipt, GPU, batch and DSH state must agree. Copied runtimes require `.setup/deployment-origin.json`; do not fabricate or manually switch this receipt to bypass a mismatch.

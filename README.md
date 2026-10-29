@@ -3,7 +3,7 @@
 [English](README.md) · [简体中文](README.zh-CN.md) · [Documentation](docs/README.md)
 
 <!-- deployment-branch:start -->
-**Branch: main — shared source.** Select the [RTX3080 branch](https://github.com/wikigsroom/Ai-Talk-Streamer/tree/deploy/rtx3080) or [RTX4090 branch](https://github.com/wikigsroom/Ai-Talk-Streamer/tree/deploy/rtx4090) before deployment. Each branch owns its release pointer and state root. Read the [device/branch contract](docs/deployment/DEVICE_BRANCHES.md).
+**Branch: deploy/rtx3080. Native RTX3080 cohost deployment.** K02 / FP16 batch4, O07 primary and F07 backup; avatar, speech, DSH and official Livehime run on3080. State root: `state/female-a-3080-k02`. [Runbook](docs/deployment/RTX3080_K02_RELEASE.md) · [Device contract](docs/deployment/DEVICE_BRANCHES.md). Five local playback cases passed; public streaming was not repeated.
 <!-- deployment-branch:end -->
 
 **Validated RTX3080 variant: K02 / O07 + F07.** The user-requested single-host variant runs avatar, local TTS, DSH/Humanity and official Livehime on the 10 GB workstation. Actual batch8 continuity failed; the accepted batch4 configuration averaged **24.989 Canvas FPS**, with zero new audio underruns, missing packets or decode errors over five utterances. [Runbook](docs/deployment/RTX3080_K02_RELEASE.md) · [Interactive report](docs/analysis/native-rtx3080-k02-20261029/report.html) · [Release manifest](configs/releases/native-rtx3080-k02-v1.2.2.json). This was local playback; public streaming and historical 4090 memory migration were not repeated. Earlier releases and measurements below retain their original scope.
