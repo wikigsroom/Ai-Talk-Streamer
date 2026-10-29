@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-29",
+  "base_commit": "0814ca7",
+  "scope": "Branch isolation, read-only target validation and existing CPU regressions. No new GPU performance or4090 activation claim.",
+  "unit_tests_passed": 31,
+  "inference_retested": false,
+  "4090_contacted": false,
+  "historical_benchmarks_modified": false,
+  "test_logs": [
+    {
+      "path": "docs/evidence/device-branches-20261029/target-tests.txt",
+      "sha256": "bee2720816698c055f3118438affc5bbb2a9c906de2907f4868e2f3cd64ffb22",
+      "passed": 20
+    },
+    {
+      "path": "docs/evidence/device-branches-20261029/dsh-tests.txt",
+      "sha256": "817cf78acce2d5d00d42219a16117c2e0ed72da186370f71f1314870da844c80",
+      "passed": 3
+    },
+    {
+      "path": "docs/evidence/device-branches-20261029/k02-tests.txt",
+      "sha256": "cb6266a3285a898854e5c19597b38280de76685d97113c7f7459794ea3f95369",
+      "passed": 8
+    }
+  ],
+  "code_sha256": {
+    "scripts/deployment_target.py": "097987c28aff5c66b21889ebe7effa9f2ef1bfac6dd12d484c576d9bc9e39f03",
+    "scripts/launch.py": "32101e9b9853ff231fc9eb724b11d0abaa968a9940bb5b64457457190c88f873",
+    "scripts/start_studio.py": "26fd74793eb9aeb4e16f456106699189c4b006416018235db0865b46aa1d283e",
+    "scripts/dsh_control.py": "b46da8c9b1f22cb3dbbeaa733b118b8e8f1a77aca5e1961fa924853bb782d062",
+    "deployment/configure_rtx3080_k02.py": "db61fef7f0941865574b44b29572738a0123c23c7cdc590c69c376c305d43472",
+    "deployment/activate_k02.py": "f3c17fea7be9460c09906a0d015ae3c9d6369717507e688191354a62b23327d5",
+    "devtools/verify-repository.py": "d599e3db5e37d48b036c147b9d2e49f52ba190d88ddcb23a9f80c5177ae75b06",
+    "configs/deployment-targets.json": "a9c8247331003f8b865d0d36d776e05f645038afdaf78232f7939e1389fe9162",
+    "tests/test_deployment_target.py": "de4b413c9a7aa723985be8ba6fa0ce48f069aa618f3e8c2f1f1d3a4a7c824a95"
+  },
+  "release_pointer_sha256": [
+    "ebf4663995140c7fbfefd09a925a0389dd3a1e6d6aa02388757cf28e6e08c6b8",
+    "734036280d74ecfe289e514e69b4c207216af7a0ecb8c88454f6fefc9e641a46",
+    "0fd85a34308535ce51302f2e334e7a339cb2bb29f1e7f373cdbf0ffea915d322"
+  ],
+  "superseded_sources": {
+    "scripts/launch.py": {
+      "historical_sha256": [
+        "028933b2cacef340c225c65206322a039164f0eea2c89a4e768eb8d61faac3cf",
+        "4ed2b7f0db6b0a5ca79518a913338a039a0bc3ae30cde61de0b0f953b6529b85",
+        "93fd2b635f6a2dbb71777db9fb35c8b55db798e5fc276a6543b86672a86f4c69"
+      ],
+      "validation": "20 device guard tests plus3 process ownership and8 K02 CPU regressions; no model or memory-data changes."
+    },
+    "scripts/start_studio.py": {
+      "historical_sha256": [
+        "0ce9b0927a6d5027b1d04dc7f0697880bb39d973a791acb7461482c5af29befb",
+        "3ca2d20fe4e536930fe6110b019a4dab7e4f4d8e5d5f1069ba980ba8ca112918"
+      ],
+      "validation": "20 device guard tests plus3 process ownership and8 K02 CPU regressions; no model or memory-data changes."
+    },
+    "scripts/dsh_control.py": {
+      "historical_sha256": [
+        "a1387929e2ac9a3f7371a21b403e9f4414e3affb3ed293d0da9b5c2ec778e7b5",
+        "c1fdd38b9c1880df190ac43f875bdc86df5779d0da7c6ffb96ebd8d175120974"
+      ],
+      "validation": "20 device guard tests plus3 process ownership and8 K02 CPU regressions; no model or memory-data changes."
+    },
+    "deployment/configure_rtx3080_k02.py": {
+      "historical_sha256": [
+        "4e99b79516909fd74896d6073bedc688b2c56c375ac355c8623935196fa114fc"
+      ],
+      "validation": "20 device guard tests plus3 process ownership and8 K02 CPU regressions; no model or memory-data changes."
+    },
+    "deployment/activate_k02.py": {
+      "historical_sha256": [
+        "89fb745b48094b4e0fa0cc6d9200637dd8804454a110bc6a78122e0d8005e2b7",
+        "b51adf09effa1610cce69b9ae3840d92719cd3dfd0baa3580562c09b1b659d65"
+      ],
+      "validation": "20 device guard tests plus3 process ownership and8 K02 CPU regressions; no model or memory-data changes."
+    },
+    "devtools/verify-repository.py": {
+      "historical_sha256": [
+        "0d34ae0a9c6c9652211cdb8f25162daa9378b74c73b90b92bd89393a9be4b0a5",
+        "150267f8a8990a50f1878472f72f7b649e4e0cb1a1b4c45ce978fa18da062302",
+        "3bf253cde2fb2b704bace49fdcee734ab6f2f5ff490a002ef3b55b9d9dbab287",
+        "3d39438ad11db0f87de6a6b2dcc2a2e5673bf16d09c75812c1af2490ad1085b6",
+        "89b0d9bceed6763d362cb646a7ffd5a3560ca267738b19555fa39929477a373b",
+        "9325e9bbd5f077d4d516a2351311b5b1db1ff3700fef7807dcf018f9711e0849",
+        "a26289b22c875d0acb57c03e6f54f0f40d6038576e3cc2b2a6d7f2e6cc6dc555"
+      ],
+      "validation": "20 device guard tests plus3 process ownership and8 K02 CPU regressions; no model or memory-data changes."
+    },
+    "configs/releases/current.json": {
+      "historical_sha256": [
+        "40b5f389777333b1fec43d57f739bfc9c8c12b1d77ee0ecaf1f53d26d02f7fad",
+        "591c43ccdaef035f78aa07d059bfad56f0c9f099b3a08c6d040cbbdbe0727ab3",
+        "87d757a1db97950c04abd84a34b1d4af97f0264d98c2634641c4cf7f957194fc",
+        "fcc31d18d62b39b6bbd9ef34742d720103a36e2fb470c921c02fcb3a9d01b7dc"
+      ],
+      "validation": "20 device guard tests plus3 process ownership and8 K02 CPU regressions; no model or memory-data changes."
+    }
+  }
+}

@@ -35,6 +35,9 @@ def load(name):
 
 
 def configure(batch_size=4):
+    import runpy
+    runpy.run_path(str(ROOT/'scripts/deployment_target.py'))['validate_target'](
+        ROOT, expected_target='rtx3080', check_runtime=False)
     if batch_size not in (4, 8):
         raise ValueError('Only measured RTX3080 batch profiles are supported')
     for port in (8010, 9880, 9881, 9882, 3091, 3092):

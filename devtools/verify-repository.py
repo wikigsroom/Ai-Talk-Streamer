@@ -396,11 +396,42 @@ def main():
         artifact = local(str(Path(native_3080['report']).parent / item['path']))
         check((sha256(artifact) == item['sha256'] if artifact.suffix == '.png'
                else report_digest_matches(artifact, item['sha256'])), 'Native3080 artifact checksum: ' + item['path'])
+    import importlib.util
+    guard_spec = importlib.util.spec_from_file_location('repository_target_guard', local('scripts/deployment_target.py'))
+    guard = importlib.util.module_from_spec(guard_spec)
+    guard_spec.loader.exec_module(guard)
+    try:
+        registry, selected = guard.contract(ROOT)
+        actual_branch = subprocess.check_output(['git','branch','--show-current'],cwd=ROOT,text=True).strip()
+        check(actual_branch == selected['branch'], 'Git branch and deployment descriptor differ')
+        target_contract_valid = actual_branch == selected['branch']
+    except (KeyError, ValueError, RuntimeError) as exc:
+        target_contract_valid = False
+        check(False, 'Deployment target contract: ' + str(exc))
+    branches = load('docs/evidence/device-branches-20261029.json')
+    check(branches['unit_tests_passed'] == 31 and branches['inference_retested'] is False,
+          'Device-branch evidence must distinguish guard tests from GPU benchmarks')
+    for item in branches['test_logs']:
+        check(report_digest_matches(local(item['path']), item['sha256']), 'Device-branch regression log: ' + item['path'])
+    for name, expected in branches['code_sha256'].items():
+        digest = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n','\n').encode()).hexdigest()
+        check(digest == expected, 'Device-branch source changed after validation: ' + name)
+
+    def branch_source_matches(name, current, historical):
+        delta = branches['superseded_sources'].get(name, {})
+        if historical not in delta.get('historical_sha256', []):
+            return False
+        if name == 'configs/releases/current.json':
+            return target_contract_valid and current in branches['release_pointer_sha256']
+        return current == branches['code_sha256'].get(name) and bool(delta.get('validation'))
+
     for name, expected in native_3080['code_sha256'].items():
         actual = hashlib.sha256(local(name).read_text(encoding='utf-8-sig').replace('\r\n', '\n').encode()).hexdigest()
-        check(actual == expected, 'Native3080 source changed after acceptance: ' + name)
+        check(actual == expected or branch_source_matches(name, actual, expected), 'Native3080 source changed after acceptance: ' + name)
 
     def native_source_matches(name, current, historical):
+        if branch_source_matches(name, current, historical):
+            return True
         delta = native_3080['superseded_sources'].get(name, {})
         return (historical in delta.get('historical_sha256', [])
                 and current == delta.get('current_sha256')

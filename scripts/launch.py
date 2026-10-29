@@ -31,6 +31,8 @@ def require_prepared():
             raise RuntimeError(f'Preparation checks have not passed; inspect .setup/{name}.result.json')
 
 def start_service(name,profile='v2',minimum=None):
+    from deployment_target import validate_target
+    validate_target(ROOT)
     require_prepared()
     if minimum is None:
         from hardware_profile import minimum_free_gib

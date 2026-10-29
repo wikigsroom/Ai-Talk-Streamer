@@ -2,7 +2,11 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [Documentation](docs/README.md)
 
-**Current deployment: native RTX3080 / K02 / O07 + F07.** The user-requested single-host variant runs avatar, local TTS, DSH/Humanity and official Livehime on the 10 GB workstation. Actual batch8 continuity failed; the accepted batch4 configuration averaged **24.989 Canvas FPS**, with zero new audio underruns, missing packets or decode errors over five utterances. [Runbook](docs/deployment/RTX3080_K02_RELEASE.md) · [Interactive report](docs/analysis/native-rtx3080-k02-20261029/report.html) · [Release manifest](configs/releases/native-rtx3080-k02-v1.2.2.json). This was local playback; public streaming and historical 4090 memory migration were not repeated. Earlier releases and measurements below retain their original scope.
+<!-- deployment-branch:start -->
+**Branch: main — shared source.** Select the [RTX3080 branch](https://github.com/wikigsroom/Ai-Talk-Streamer/tree/deploy/rtx3080) or [RTX4090 branch](https://github.com/wikigsroom/Ai-Talk-Streamer/tree/deploy/rtx4090) before deployment. Each branch owns its release pointer and state root. Read the [device/branch contract](docs/deployment/DEVICE_BRANCHES.md).
+<!-- deployment-branch:end -->
+
+**Validated RTX3080 variant: K02 / O07 + F07.** The user-requested single-host variant runs avatar, local TTS, DSH/Humanity and official Livehime on the 10 GB workstation. Actual batch8 continuity failed; the accepted batch4 configuration averaged **24.989 Canvas FPS**, with zero new audio underruns, missing packets or decode errors over five utterances. [Runbook](docs/deployment/RTX3080_K02_RELEASE.md) · [Interactive report](docs/analysis/native-rtx3080-k02-20261029/report.html) · [Release manifest](configs/releases/native-rtx3080-k02-v1.2.2.json). This was local playback; public streaming and historical 4090 memory migration were not repeated. Earlier releases and measurements below retain their original scope.
 
 **Historical A4090 selection: K02**, MuseTalk 1.5 FP16/batch 8 with local mouth blending, bounded color matching and a PCM silence gate. It adds **no model weights**. [K02 release and cleanup runbook](docs/deployment/BASELINE_K02.md) · [Validation/deployment status](docs/evidence/lipsync-k02-selection-20261029.json). Twenty-one CPU checks pass; A4090 activation and removal of dedicated K03–K05 installations await control recovery. O07/F07, the room console, motion bank and original benchmark media are preserved.
 

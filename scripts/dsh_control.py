@@ -46,6 +46,8 @@ def main():
             raise RuntimeError('DSH is already running; no duplicate was started')
         if owned_processes():
             raise RuntimeError('A project DSH owner is still starting or closing; stop it before restarting')
+        import runpy
+        runpy.run_path(str(ROOT/'scripts/deployment_target.py'))['validate_target'](ROOT)
         node = ROOT / 'tools/node/node-v24.22.1-win-x64/node.exe'
         command = [str(node), str(ROOT / 'backend/dsh-bridge/server.mjs'), str(ROOT)]
         pointer = ROOT / 'configs/dsh-active-policy.json'

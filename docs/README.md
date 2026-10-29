@@ -1,5 +1,7 @@
 # Documentation / 文档导航
 
+**先确认分支与设备：** [3080 / 4090分支规范](deployment/DEVICE_BRANCHES.md)。`main`不直接部署；原生3080与A4090+B3080有不同的推理角色、batch和记忆目录。
+
 [当前3080原生定稿](deployment/RTX3080_K02_RELEASE.md)：K02、O07/F07、同机官方直播姬、batch4实测；[五段可视化报告](analysis/native-rtx3080-k02-20261029/report.html)保留原batch8失败和最终通过证据。
 
 [K02 正式选型与定稿](deployment/BASELINE_K02.md)：MuseTalk 共用权重、局部嘴周融合和匹配音频帧的静音门控，新增模型为零；21 项 CPU 检查已过，4090 部署及 K03～K05 专用模型清理仍待控制恢复。[独立状态回执](evidence/lipsync-k02-selection-20261029.json)。以下原始横评保持当时事实与原片。

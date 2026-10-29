@@ -1,11 +1,17 @@
 {
-  "release": "native-rtx3080-v1.2.2-k02-o07-f07",
-  "manifest": "configs/releases/native-rtx3080-k02-v1.2.2.json",
-  "runbook": "docs/deployment/RTX3080_K02_RELEASE.md",
-  "voice_manifest": "configs/releases/split-a4090-b3080-o07-f07-v1.json",
-  "historical_manifest": "configs/releases/split-a4090-b3080-v1.json",
-  "room_manifest": "configs/releases/split-a4090-b3080-room-v1.2.json",
-  "previous_manifest": "configs/releases/split-a4090-b3080-k02-v1.2.1.json",
-  "runtime_lock": "configs/releases/rtx3080-k02-runtime-lock.json",
-  "target": "remote-3080"
+  "release": null,
+  "target": null,
+  "deployment_allowed": false,
+  "targets": {
+    "rtx3080": {
+      "branch": "deploy/rtx3080",
+      "manifest": "configs/releases/native-rtx3080-k02-v1.2.2.json",
+      "runbook": "docs/deployment/RTX3080_K02_RELEASE.md"
+    },
+    "rtx4090": {
+      "branch": "deploy/rtx4090",
+      "manifest": "configs/releases/split-a4090-b3080-k02-v1.2.1.json",
+      "runbook": "docs/deployment/BASELINE_K02.md"
+    }
+  }
 }

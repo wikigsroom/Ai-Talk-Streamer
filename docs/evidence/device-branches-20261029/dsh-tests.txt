@@ -1,0 +1,9 @@
+test_closed_http_port_does_not_allow_a_second_owner (test_dsh_control.DshControlTests.test_closed_http_port_does_not_allow_a_second_owner) ... ok
+test_exact_server_and_project_root_are_both_required (test_dsh_control.DshControlTests.test_exact_server_and_project_root_are_both_required) ... ok
+test_stop_finishes_only_the_known_closing_owner (test_dsh_control.DshControlTests.test_stop_finishes_only_the_known_closing_owner) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.033s
+
+OK
+{"stopped": true, "owned_processes": 1}

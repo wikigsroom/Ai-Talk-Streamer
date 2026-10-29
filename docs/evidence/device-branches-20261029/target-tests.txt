@@ -1,0 +1,25 @@
+test_3080_configurator_cannot_run_on_the_4090_branch (test_deployment_target.DeploymentTargetTests.test_3080_configurator_cannot_run_on_the_4090_branch) ... ok
+test_3080_copied_runtime_is_valid (test_deployment_target.DeploymentTargetTests.test_3080_copied_runtime_is_valid) ... ok
+test_3080_source_cannot_start_on_4090 (test_deployment_target.DeploymentTargetTests.test_3080_source_cannot_start_on_4090) ... ok
+test_4090_copied_runtime_is_valid (test_deployment_target.DeploymentTargetTests.test_4090_copied_runtime_is_valid) ... ok
+test_4090_source_cannot_start_on_3080 (test_deployment_target.DeploymentTargetTests.test_4090_source_cannot_start_on_3080) ... ok
+test_batch_from_other_device_is_rejected (test_deployment_target.DeploymentTargetTests.test_batch_from_other_device_is_rejected) ... ok
+test_check_is_read_only (test_deployment_target.DeploymentTargetTests.test_check_is_read_only) ... ok
+test_cross_branch_descriptor_is_rejected (test_deployment_target.DeploymentTargetTests.test_cross_branch_descriptor_is_rejected) ... ok
+test_detached_checkout_is_rejected (test_deployment_target.DeploymentTargetTests.test_detached_checkout_is_rejected) ... ok
+test_external_policy_path_is_rejected (test_deployment_target.DeploymentTargetTests.test_external_policy_path_is_rejected) ... ok
+test_matching_git_checkout_is_valid (test_deployment_target.DeploymentTargetTests.test_matching_git_checkout_is_valid) ... ok
+test_mixed_gpus_cannot_silently_use_the_wrong_default (test_deployment_target.DeploymentTargetTests.test_mixed_gpus_cannot_silently_use_the_wrong_default) ... ok
+test_other_device_memory_is_rejected (test_deployment_target.DeploymentTargetTests.test_other_device_memory_is_rejected) ... ok
+test_other_target_receipt_is_rejected (test_deployment_target.DeploymentTargetTests.test_other_target_receipt_is_rejected) ... ok
+test_shared_main_cannot_start_inference (test_deployment_target.DeploymentTargetTests.test_shared_main_cannot_start_inference) ... ok
+test_small_4090_variant_requires_an_explicit_new_profile (test_deployment_target.DeploymentTargetTests.test_small_4090_variant_requires_an_explicit_new_profile) ... ok
+test_unidentified_copied_runtime_is_rejected (test_deployment_target.DeploymentTargetTests.test_unidentified_copied_runtime_is_rejected) ... ok
+test_unpinned_receipt_is_rejected (test_deployment_target.DeploymentTargetTests.test_unpinned_receipt_is_rejected) ... ok
+test_wrong_git_branch_is_rejected (test_deployment_target.DeploymentTargetTests.test_wrong_git_branch_is_rejected) ... ok
+test_wrong_release_pointer_is_rejected (test_deployment_target.DeploymentTargetTests.test_wrong_release_pointer_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.420s
+
+OK

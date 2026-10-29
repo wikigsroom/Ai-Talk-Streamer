@@ -101,4 +101,7 @@ def activate(root):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
-    activate(parser.parse_args().root)
+    args = parser.parse_args()
+    import runpy
+    runpy.run_path(str(args.root/'scripts/deployment_target.py'))['validate_target'](args.root)
+    activate(args.root)

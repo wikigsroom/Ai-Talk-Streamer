@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def start():
+    from deployment_target import validate_target
+    validate_target(ROOT)
     config = json.loads((ROOT / 'configs/livetalking.yaml').read_text(encoding='utf-8-sig'))
     moss = config.get('tts') == 'moss-ttsd'
     resident = config.get('tts') == 'resident-local'
