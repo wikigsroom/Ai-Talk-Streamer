@@ -13,6 +13,7 @@ import io
 import json
 import math
 import struct
+import subprocess
 import time
 import uuid
 import wave
@@ -67,7 +68,7 @@ class Studio:
         self.source_queue = asyncio.Queue(maxsize=96)
         self.last_source = time.monotonic()
         self.source_connected = False
-        self.closed_bgr = cv2.imread(str(root / self.character['appearance_reference']))
+        self.closed_bgr = cv2.imdecode(np.fromfile(root / self.character['appearance_reference'], dtype=np.uint8), cv2.IMREAD_COLOR)
         if self.closed_bgr is None or self.closed_bgr.shape[:2] != (512, 512):
             raise ValueError('NAIMEI_REFERENCE_INVALID')
         self.closed_jpeg = self.jpeg(self.closed_bgr)
@@ -93,21 +94,27 @@ class Studio:
             return result
 
     def load_actions(self):
+        ffmpeg = next((Path(self.config['shared_installation_root']) / 'tools/ffmpeg').rglob('ffmpeg.exe'))
         for aid, asset in self.assets.items():
             path = (self.root / asset['path']).resolve()
             if not path.is_relative_to(self.root) or not path.is_file():
                 raise ValueError('ACTION_PATH_INVALID')
-            capture = cv2.VideoCapture(str(path))
+            if hashlib.sha256(path.read_bytes()).hexdigest() != asset['sha256']:
+                raise ValueError('ACTION_CHECKSUM_MISMATCH')
+            capture = subprocess.Popen([str(ffmpeg), '-v', 'error', '-i', str(path),
+                '-f', 'rawvideo', '-pix_fmt', 'bgr24', 'pipe:1'], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+                creationflags=0x08000000)
             frames = []
             while True:
-                ok, bgr = capture.read()
-                if not ok:
+                raw = capture.stdout.read(512 * 512 * 3)
+                if not raw:
                     break
-                if bgr.shape[:2] != (512, 512):
+                if len(raw) != 512 * 512 * 3:
                     raise ValueError('ACTION_SIZE_INVALID')
+                bgr = np.frombuffer(raw, dtype=np.uint8).reshape(512, 512, 3)
                 frames.append(self.jpeg(bgr))
-            capture.release()
-            if len(frames) < 2:
+            capture.stdout.close()
+            if capture.wait() or len(frames) < 2:
                 raise ValueError('ACTION_EMPTY')
             # All entries/exits use the exact runtime JPEG, independent of H264
             # rounding at the generated clip endpoints.

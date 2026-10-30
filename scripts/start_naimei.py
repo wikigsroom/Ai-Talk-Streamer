@@ -22,9 +22,11 @@ def health(port, path='/health'):
         return {}
 
 
-def wait_ready(port, timeout, path='/health'):
+def wait_ready(port, timeout, path='/health', child=None):
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
+        if child is not None and child.poll() is not None:
+            raise RuntimeError(f'Naimei service {port} exited; inspect its own stderr log')
         value = health(port, path)
         if value.get('ready') or value.get('health', {}).get('dsh_ready'):
             return value
@@ -62,6 +64,7 @@ def main():
                AVATAR_CHARACTER_ID='naimei', STREAM_PROJECT_ROOT=str(root), DSH_DISABLE_TELEMETRY='1')
 
     def start(name, command, port, path='/health', timeout=240):
+        child = None
         if occupied(port):
             value = health(port, path)
             owned = previous.get(name, {}).get('root') == str(root)
@@ -75,7 +78,7 @@ def main():
                     stdout=out, stderr=err, stdin=subprocess.DEVNULL, creationflags=0x08000000)
             previous[name] = {'pid': child.pid, 'port': port, 'root': str(root), 'started_at': time.time()}
             registry.write_text(json.dumps(previous, ensure_ascii=False, indent=2), encoding='utf-8')
-        return wait_ready(port, timeout, path)
+        return wait_ready(port, timeout, path, child)
 
     start('voice-primary', [python, '-X', 'utf8', '-B', '-m', 'integration.naimei_voice_worker',
           '--root', root, '--shared-root', shared, '--port', '9891'], 9891, timeout=900)
