@@ -1,0 +1,30 @@
+{
+  "request_id": "asset-resume",
+  "character_id": "naimei",
+  "engine": "OmniVoice",
+  "voice_id": "NMV01",
+  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+  "audio_seconds": 3.35,
+  "wall_seconds": 2.780999999959022,
+  "spoken_text": "我回来啦。刚才聊到哪里了？我们继续。",
+  "captions": [
+    {
+      "text": "我回来啦。刚才聊到哪里了？我们继续。",
+      "sample_start": 0,
+      "sample_end": 53600
+    }
+  ],
+  "caption_sample_rate": 16000,
+  "alignment": "actual_generated_segment_boundaries",
+  "asset_id": "resume",
+  "path": "assets/naimei/live-v1/voice/cues/resume.wav",
+  "text": "我回来啦。刚才聊到哪里了？我们继续。",
+  "bytes": 160844,
+  "sha256": "4d8ed7b26abbcd4b7f6ce247a4d9c57af53c48e443b1cc3dc95ade013408b00f",
+  "rms_dbfs": -21.598345536303526,
+  "peak_dbfs": -4.028281785599997,
+  "clipped_samples": 0,
+  "wall_seconds_with_http": 2.827999999979511,
+  "listening_review": "pending",
+  "mouth_review": "pending"
+}

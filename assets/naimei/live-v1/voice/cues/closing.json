@@ -1,0 +1,30 @@
+{
+  "request_id": "asset-closing",
+  "character_id": "naimei",
+  "engine": "OmniVoice",
+  "voice_id": "NMV01",
+  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+  "audio_seconds": 5.44,
+  "wall_seconds": 2.9070000000065193,
+  "spoken_text": "今天先到这里，谢谢你陪我度过这段时间。好好休息，下次再见。",
+  "captions": [
+    {
+      "text": "今天先到这里，谢谢你陪我度过这段时间。好好休息，下次再见。",
+      "sample_start": 0,
+      "sample_end": 87040
+    }
+  ],
+  "caption_sample_rate": 16000,
+  "alignment": "actual_generated_segment_boundaries",
+  "asset_id": "closing",
+  "path": "assets/naimei/live-v1/voice/cues/closing.wav",
+  "text": "今天先到这里，谢谢你陪我度过这段时间。好好休息，下次再见。",
+  "bytes": 261164,
+  "sha256": "e3f3894224cc42327e093e529a28932d36353d3ec732817c4917268e8ce6dac5",
+  "rms_dbfs": -23.760295324595017,
+  "peak_dbfs": -5.124768834615779,
+  "clipped_samples": 0,
+  "wall_seconds_with_http": 2.937000000034459,
+  "listening_review": "pending",
+  "mouth_review": "pending"
+}

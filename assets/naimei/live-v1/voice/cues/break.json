@@ -1,0 +1,30 @@
+{
+  "request_id": "asset-break",
+  "character_id": "naimei",
+  "engine": "OmniVoice",
+  "voice_id": "NMV01",
+  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+  "audio_seconds": 3.75,
+  "wall_seconds": 2.8119999999762513,
+  "spoken_text": "我去喝口水，很快回来。你也记得休息一下。",
+  "captions": [
+    {
+      "text": "我去喝口水，很快回来。你也记得休息一下。",
+      "sample_start": 0,
+      "sample_end": 60000
+    }
+  ],
+  "caption_sample_rate": 16000,
+  "alignment": "actual_generated_segment_boundaries",
+  "asset_id": "break",
+  "path": "assets/naimei/live-v1/voice/cues/break.wav",
+  "text": "我去喝口水，很快回来。你也记得休息一下。",
+  "bytes": 180044,
+  "sha256": "b24fbf52248768c4701484edca971703dee4d6c1333e7fe04eb99c30975b1350",
+  "rms_dbfs": -23.490276296866483,
+  "peak_dbfs": -2.9820340298399923,
+  "clipped_samples": 0,
+  "wall_seconds_with_http": 2.85999999998603,
+  "listening_review": "pending",
+  "mouth_review": "pending"
+}

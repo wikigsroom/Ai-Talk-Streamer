@@ -11,9 +11,12 @@ export const LIVEHIME_OUTPUT_URL = 'http://127.0.0.1:8010/output.html?renderer=p
 // Owns one local Chromium application window. Livehime owns its account,
 // capture settings and actual public broadcast; no OBS client is called here.
 export class LivehimeOutput {
-  constructor(root, { playwright, spawnChild = spawn, receiverConfig = () => null } = {}) {
+  constructor(root, { playwright, spawnChild = spawn, receiverConfig = () => null,
+    sourceUrl = LIVEHIME_SOURCE_URL, previewUrl = LIVEHIME_OUTPUT_URL,
+    windowTitle = LIVEHIME_WINDOW_TITLE, canvasOutput = false } = {}) {
     this.root = resolve(root); this.playwright = playwright; this.spawnChild = spawnChild;
     this.receiverConfig = receiverConfig;
+    this.sourceUrl = sourceUrl; this.previewUrl = previewUrl; this.windowTitle = windowTitle; this.canvasOutput = canvasOutput;
     this.context = null; this.page = null; this.clientRequested = false;
   }
   receipt() {
@@ -39,20 +42,20 @@ export class LivehimeOutput {
     let player = null;
     if (this.page && !this.page.isClosed()) {
       try {
-        player = await this.page.evaluate(() => ({
+        player = await this.page.evaluate(canvasOutput => ({
           title: document.title, width: innerWidth, height: innerHeight,
-          video_width: document.querySelector('video')?.videoWidth || 0,
-          video_height: document.querySelector('video')?.videoHeight || 0,
-          frames: document.querySelector('video')?.getVideoPlaybackQuality?.().totalVideoFrames || 0,
+          video_width: canvasOutput ? window.avatarTransport?.canvas?.width || 0 : document.querySelector('video')?.videoWidth || 0,
+          video_height: canvasOutput ? window.avatarTransport?.canvas?.height || 0 : document.querySelector('video')?.videoHeight || 0,
+          frames: canvasOutput ? window.avatarTransport?.frames || 0 : document.querySelector('video')?.getVideoPlaybackQuality?.().totalVideoFrames || 0,
           audio_state: window.avatarAudioContext?.state || 'unknown',
           consumer_id: window.avatarTransport?.dsh?.consumerId || null,
-        }));
+        }), this.canvasOutput);
       } catch {}
     }
     return { renderer: 'livehime', obs_required: false, client_installed: !!receipt,
       client_version: receipt?.version || null, client_launch_requested: this.clientRequested,
-      window_open: !!this.page && !this.page.isClosed(), window_title: LIVEHIME_WINDOW_TITLE,
-      player, source_url: LIVEHIME_SOURCE_URL, source_width: 720, source_height: 1280,
+      window_open: !!this.page && !this.page.isClosed(), window_title: this.windowTitle,
+      player, source_url: this.sourceUrl, source_width: 720, source_height: 1280,
       capture_method: 'livehime_browser_source', account_login_verified: false, audience_delivery_verified: false };
   }
   async launchClient(force = false) {
@@ -97,23 +100,25 @@ export class LivehimeOutput {
       const context = this.context = await chromium.launchPersistentContext(join(this.root, 'cache/platforms/livehime-output'), {
         executablePath, headless: false, chromiumSandbox: true, viewport: { width: 720, height: 1280 }, deviceScaleFactor: 1,
         ignoreDefaultArgs: ['--enable-automation'],
-        args: ['--app=' + LIVEHIME_OUTPUT_URL, '--window-size=720,1310', '--window-position=20,30',
+        args: ['--app=' + this.previewUrl, '--window-size=720,1310', '--window-position=20,30',
           '--autoplay-policy=no-user-gesture-required', '--disable-extensions', '--no-first-run',
           '--disable-background-timer-throttling', '--disable-renderer-backgrounding',
           '--disable-backgrounding-occluded-windows', '--disable-features=CalculateNativeWinOcclusion'],
       });
       let pages = context.pages();
-      this.page = pages.find(page => page.url().startsWith(LIVEHIME_OUTPUT_URL)) || pages[0] || await context.newPage();
-      if (!this.page.url().startsWith(LIVEHIME_OUTPUT_URL)) await this.page.goto(LIVEHIME_OUTPUT_URL, { waitUntil: 'domcontentloaded', timeout: 15000 });
+      this.page = pages.find(page => page.url().startsWith(this.previewUrl)) || pages[0] || await context.newPage();
+      if (!this.page.url().startsWith(this.previewUrl)) await this.page.goto(this.previewUrl, { waitUntil: 'domcontentloaded', timeout: 15000 });
       for (const other of context.pages()) if (other !== this.page) await other.close();
       this.page.on('close', () => { void context.close().catch(() => {}); if (this.context === context) this.context = null; });
       context.on('close', () => { if (this.context === context) { this.context = null; this.page = null; } });
-      await this.page.waitForFunction(() => {
+      await this.page.waitForFunction(canvasOutput => {
+        if (canvasOutput) return window.avatarTransport?.canvas?.width === 512 && window.avatarTransport?.canvas?.height === 512
+          && window.avatarAudioContext?.state === 'running' && window.avatarTransport.frames > 0;
         const video = document.querySelector('video');
         return video?.videoWidth === 720 && video.videoHeight === 1280
           && window.avatarAudioContext?.state === 'running'
           && (video.getVideoPlaybackQuality?.().totalVideoFrames || 0) > 0;
-      }, null, { timeout: 30000 });
+      }, this.canvasOutput, { timeout: 30000 });
       return { prepared: true, public_broadcast_started: false, status: await this.status() };
     } catch (error) {
       await this.close();

@@ -4,9 +4,9 @@ document.body.dataset.layout=params.get('layout')==='landscape'?'landscape':'por
 document.title='奶妹 · '+(preview?'静音预览':'正式直播画面');
 const scene=params.get('scene')==='backup'?'backup':'main';
 document.documentElement.style.setProperty('--scene-image','url("/naimei-assets/scenes/'+scene+'.jpg")');
-const context=new AudioContext(),room=window.roomClient=new RoomClient();
+const context=new AudioContext(),room=window.roomClient=new RoomClient({pollOnly:true});
 window.avatarAudioContext=context;room.start().catch(()=>{});
-let transport,stopped=false,reconnectTimer,authorityBusy=false,lastSfx=0;
+let transport,stopped=false,reconnectTimer,authorityBusy=false,lastSfx=0,live=false;
 const captionCache=new Map(),captionPending=new Set();
 function notice(text){const node=document.getElementById('notice');node.textContent=text;node.hidden=!text;}
 async function post(path,body){
@@ -17,14 +17,15 @@ async function authority(){
  if(preview||authorityBusy||!transport?.dsh||context.state!=='running')return;authorityBusy=true;
  try{
   const state=await fetch('/api/dsh/status').then(r=>r.json());
-  if(state.broadcast?.state==='LIVE'&&!state.health.authority_ready)await transport.dsh.claim(state.broadcast.broadcast_id,false);
+  live=state.broadcast?.state==='LIVE';
+  if(['STARTING','LIVE','RECOVERING','PAUSED'].includes(state.broadcast?.state)&&!state.health.authority_ready)await transport.dsh.claim(state.broadcast.broadcast_id,false);
   if(transport.dsh.lease){
    const consumer_id=transport.dsh.consumerId;
    await post('/api/dsh/platforms/output/player',{consumer_id,renderer:'livehime',frames:transport.presentedFrames,
     width:document.body.dataset.layout==='portrait'?720:1280,height:document.body.dataset.layout==='portrait'?1280:720,audio_state:context.state});
    if(transport.roomMixer)await post('/api/dsh/room/player',{consumer_id,...transport.roomMixer.metrics()});
   }
- }catch{}finally{authorityBusy=false}
+ }catch{live=false;}finally{authorityBusy=false}
 }
 async function connect(){
  if(stopped)return;transport?.close();document.getElementById('avatar-frame').replaceChildren();
@@ -45,7 +46,7 @@ function getCaptions(requestId){
  }).catch(()=>{}).finally(()=>captionPending.delete(requestId));
 }
 function captions(){
- if(transport?.roomMixer){const audible=!preview&&!!transport.dsh?.lease;if(transport.roomMixer.audible!==audible){transport.roomMixer.audible=audible;transport.roomMixer.sync()}}
+ if(transport?.roomMixer){const audible=!preview&&live&&!!transport.dsh?.lease;if(transport.roomMixer.audible!==audible){transport.roomMixer.audible=audible;transport.roomMixer.sync()}}
  const utterances=transport?.dsh?.utterances,now=context.currentTime;let text='';
  if(utterances)for(const value of utterances.values()){
   if(value.cancelled)continue;const span=value.spans.find(s=>s.start<=now&&now<s.end);if(!span)continue;
@@ -62,7 +63,7 @@ async function updateProgramme(){
  try{const a=await fetch('/api/studio/status').then(r=>r.json());
   if(a.programme){document.getElementById('programme-title').textContent=a.programme.title;document.getElementById('programme-subtitle').textContent=a.programme.subtitle}
   if(a.sfx&&a.sfx.sequence>lastSfx){lastSfx=a.sfx.sequence;
-   if(!preview&&transport?.dsh?.lease&&Date.now()/1000-a.sfx.time<2){
+   if(!preview&&live&&transport?.dsh?.lease&&Date.now()/1000-a.sfx.time<2){
     const data=await fetch('/naimei-assets/audio/'+a.sfx.id+'.wav').then(r=>r.arrayBuffer());
     const source=context.createBufferSource(),gain=context.createGain();source.buffer=await context.decodeAudioData(data);
     gain.gain.value=.45;source.connect(gain);gain.connect(transport.roomMixer.master);

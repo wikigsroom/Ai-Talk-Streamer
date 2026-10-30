@@ -7,6 +7,16 @@ import { LivehimeOutput, LIVEHIME_OUTPUT_URL } from '../backend/platforms/livehi
 import { PlatformConfig } from '../backend/platforms/config.mjs';
 
 const output = resolve('outputs/platforms/livehime-tests'); mkdirSync(output, { recursive: true });
+test('Naimei exposes its own formal source and canvas transport without a female-A URL', async () => {
+  const instance = new LivehimeOutput(output, { sourceUrl: 'http://127.0.0.1:8052/output.html?renderer=livehime&codec=jpeg',
+    previewUrl: 'http://127.0.0.1:8052/output.html?renderer=preview&codec=jpeg', windowTitle: '奶妹 · O01 · 直播姬画面', canvasOutput: true });
+  const value = await instance.status();
+  assert.equal(value.source_url, 'http://127.0.0.1:8052/output.html?renderer=livehime&codec=jpeg');
+  assert.match(value.window_title, /奶妹/);
+  assert.doesNotMatch(value.window_title, /林知夏/);
+  assert.equal(instance.canvasOutput, true);
+  assert.equal(value.client_installed, false);
+});
 function fixture({ failWindow = false } = {}) {
   const root = mkdtempSync(join(output, 'case-')), calls = [], events = new Map();
   const page = { closed: false, isClosed() { return this.closed; }, url: () => LIVEHIME_OUTPUT_URL,

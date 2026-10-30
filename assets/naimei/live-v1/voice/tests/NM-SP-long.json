@@ -1,0 +1,35 @@
+{
+  "request_id": "asset-NM-SP-long",
+  "character_id": "naimei",
+  "engine": "OmniVoice",
+  "voice_id": "NMV01",
+  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+  "audio_seconds": 11.87,
+  "wall_seconds": 5.7189999999827705,
+  "spoken_text": "有时候我们不用急着把所有事情做完，先把眼前的一小步走稳，再抬头看看窗外，喝口水，和身边的朋友聊聊天，今天也可以过得很踏实。",
+  "captions": [
+    {
+      "text": "有时候我们不用急着把所有事情做完，先把眼前的一小步走稳，再抬头看看窗外，",
+      "sample_start": 0,
+      "sample_end": 112160
+    },
+    {
+      "text": "喝口水，和身边的朋友聊聊天，今天也可以过得很踏实。",
+      "sample_start": 113760,
+      "sample_end": 189920
+    }
+  ],
+  "caption_sample_rate": 16000,
+  "alignment": "actual_generated_segment_boundaries",
+  "asset_id": "NM-SP-long",
+  "path": "assets/naimei/live-v1/voice/tests/NM-SP-long.wav",
+  "text": "有时候我们不用急着把所有事情做完，先把眼前的一小步走稳，再抬头看看窗外，喝口水，和身边的朋友聊聊天，今天也可以过得很踏实。",
+  "bytes": 569804,
+  "sha256": "9ecb60992f5440a8c862b2c94f701c64e894f86383e010c25cf0d7abb9812d28",
+  "rms_dbfs": -22.706906191668587,
+  "peak_dbfs": -3.3036505782359966,
+  "clipped_samples": 0,
+  "wall_seconds_with_http": 5.75,
+  "listening_review": "pending",
+  "mouth_review": "pending"
+}

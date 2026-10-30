@@ -54,6 +54,7 @@ class Studio:
         self.stage = 'starting'
         self.state = 'idle'
         self.programme = None
+        self.scheduled_cue = None
         self.sfx = None
         self.sfx_sequence = 0
         self.assets = {x['id']: x for x in self.pack.get('actions', []) if x.get('runtime_enabled')}
@@ -433,16 +434,22 @@ class Studio:
             'avatar_ready': bool(self.engine_health.get('ready') and self.source_connected),
             'tts_ready': bool(self.tts_health.get('ready')), 'ready': self.stage == 'ready',
             'stage': self.stage, 'state': self.state, 'viewers': len(self.viewers), 'speaking': self.mapping is not None,
+            'manual_speech_ready': self.stage == 'ready' and bool(self.tts_health.get('ready')) and self.source_connected,
             'size': 512, 'fps': 25, 'voice_id': self.voice_id, 'profile': '奶妹 · 本地声音',
             'transport': 'local_websocket_jpeg_pcm', 'transport_instance_id': self.transport_id,
             'native_windows_only': True, 'cloud_inference_allowed': False,
             'character_quality_accepted': bool(self.config.get('quality_accepted')),
-            'public_broadcast_allowed': False, 'programme': self.programme, 'sfx': self.sfx,
+            'public_broadcast_allowed': False, 'programme': self.programme, 'scheduled_cue': self.scheduled_cue, 'sfx': self.sfx,
             'actions': list(self.assets.values()), 'counters': dict(self.stats),
             'output_fps_measured': len(self.intervals) / sum(self.intervals) if self.intervals else 0,
             'source_queue_frames': self.source_queue.qsize(), 'pending_speech_frames': len(self.pending), 'events': list(self.events)})
 
     async def proxy(self, request):
+        parts = request.path.split('/')
+        if (not self.config.get('public_broadcast_allowed') and request.method == 'POST'
+                and len(parts) == 6 and parts[1:4] == ['api', 'dsh', 'platforms']
+                and parts[4] in {'bilibili', 'douyin', 'custom'} and parts[5] in {'start', 'resume', 'confirm-live'}):
+            return web.json_response({'error': 'NAIMEI_PUBLIC_BROADCAST_NOT_ENABLED'}, status=409)
         if request.path.startswith('/api/dsh/requests') and request.method == 'POST':
             value = await request.json()
             if value.get('mode', 'chat') != 'echo':
@@ -481,11 +488,18 @@ class Studio:
         cue = next((x for x in cues if x['id'] == value.get('cue_id')), None)
         if not cue:
             return web.json_response({'error': 'CUE_NOT_FOUND'}, status=400)
+        delay = value.get('delay_seconds', 0)
+        if isinstance(delay, bool) or not isinstance(delay, (int, float)) or not 0 <= delay <= 600:
+            return web.json_response({'error': 'CUE_DELAY_INVALID'}, status=400)
         if self.cue_task and not self.cue_task.done():
             return web.json_response({'error': 'CUE_IN_PROGRESS'}, status=409)
-        self.programme = cue
+        self.scheduled_cue = {'cue_id': cue['id'], 'due_at': time.time() + delay}
         async def run():
             try:
+                if delay:
+                    await asyncio.sleep(delay)
+                self.scheduled_cue = None
+                self.programme = cue
                 aid = cue.get('action_before')
                 if aid in self.frames and not self.mapping:
                     self.action, self.action_index = aid, 0
@@ -494,8 +508,10 @@ class Studio:
                 self.event('programme_cue', cue_id=cue['id'], request_id=result.get('request_id'))
             except (RuntimeError, OSError, asyncio.TimeoutError) as exc:
                 self.event('programme_cue_failed', cue_id=cue['id'], error=str(exc))
+            finally:
+                self.scheduled_cue = None
         self.cue_task = asyncio.create_task(run())
-        return web.json_response({'accepted': True, 'cue': cue})
+        return web.json_response({'accepted': True, 'cue': cue, 'delay_seconds': delay})
 
     async def voice_command(self, request):
         value = await request.json()

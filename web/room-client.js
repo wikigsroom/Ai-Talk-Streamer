@@ -1,8 +1,12 @@
 'use strict';
 class RoomClient extends EventTarget {
-  constructor() { super(); this.state = null; this.offset = 0; this.connected = false; this.closed = false; this.messages = []; }
+  constructor({ pollOnly = false } = {}) { super(); this.pollOnly = pollOnly; this.state = null; this.offset = 0; this.connected = false; this.closed = false; this.messages = []; }
   async start() {
     await this.refresh().catch(() => {}); if (this.closed) return this;
+    if (this.pollOnly) {
+      this.timer = setInterval(async () => { if (this.refreshing) return; this.refreshing = true; try { await this.refresh(); this.connected = true; } catch { this.connected = false; } finally { this.refreshing = false; } }, 500);
+      return this;
+    }
     this.events = new EventSource('/api/dsh/room/events');
     for (const type of ['snapshot', 'state', 'agent', 'message']) this.events.addEventListener(type, e => {
       try {

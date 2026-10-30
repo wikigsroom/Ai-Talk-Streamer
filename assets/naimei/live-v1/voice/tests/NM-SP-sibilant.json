@@ -1,0 +1,30 @@
+{
+  "request_id": "asset-NM-SP-sibilant",
+  "character_id": "naimei",
+  "engine": "OmniVoice",
+  "voice_id": "NMV01",
+  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+  "audio_seconds": 2.9,
+  "wall_seconds": 2.797000000020489,
+  "spoken_text": "早上三次散步，总是走在最左侧。",
+  "captions": [
+    {
+      "text": "早上三次散步，总是走在最左侧。",
+      "sample_start": 0,
+      "sample_end": 46400
+    }
+  ],
+  "caption_sample_rate": 16000,
+  "alignment": "actual_generated_segment_boundaries",
+  "asset_id": "NM-SP-sibilant",
+  "path": "assets/naimei/live-v1/voice/tests/NM-SP-sibilant.wav",
+  "text": "早上三次散步，总是走在最左侧。",
+  "bytes": 139244,
+  "sha256": "13d3f8699dbb098f9aee03327a93c47c19d65c0ad152a21cd5bdb84aaf824ef4",
+  "rms_dbfs": -25.503876552048006,
+  "peak_dbfs": -7.4318471873152205,
+  "clipped_samples": 0,
+  "wall_seconds_with_http": 2.844000000040978,
+  "listening_review": "pending",
+  "mouth_review": "pending"
+}

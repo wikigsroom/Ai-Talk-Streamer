@@ -1,0 +1,30 @@
+{
+  "request_id": "asset-NM-SP-pause-long",
+  "character_id": "naimei",
+  "engine": "OmniVoice",
+  "voice_id": "NMV01",
+  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+  "audio_seconds": 3.53,
+  "wall_seconds": 2.7820000000065193,
+  "spoken_text": "我们先说到这里。接下来，换一个小话题。",
+  "captions": [
+    {
+      "text": "我们先说到这里。接下来，换一个小话题。",
+      "sample_start": 0,
+      "sample_end": 56480
+    }
+  ],
+  "caption_sample_rate": 16000,
+  "alignment": "actual_generated_segment_boundaries",
+  "asset_id": "NM-SP-pause-long",
+  "path": "assets/naimei/live-v1/voice/tests/NM-SP-pause-long.wav",
+  "text": "我们先说到这里。接下来，换一个小话题。",
+  "bytes": 169484,
+  "sha256": "928df6271ff5ce8708d43e8403217d2753b5adde3c1455dc3d1a20b3e89484c0",
+  "rms_dbfs": -21.778199266810514,
+  "peak_dbfs": -4.385790428449199,
+  "clipped_samples": 0,
+  "wall_seconds_with_http": 2.8130000000237487,
+  "listening_review": "pending",
+  "mouth_review": "pending"
+}

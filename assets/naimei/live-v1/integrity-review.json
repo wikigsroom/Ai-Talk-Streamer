@@ -1,0 +1,40 @@
+{
+  "character_id": "naimei",
+  "source_branch": "naimei",
+  "scope": "A01-A14",
+  "files": 188,
+  "bytes": 33791155,
+  "enabled_silent_actions": 15,
+  "rejected_actions_preserved": 5,
+  "voice_references": 3,
+  "speech_wavs": 25,
+  "speech_seconds": 102.42,
+  "speech_clipped_samples": 0,
+  "audio": [
+    {
+      "path": "assets/naimei/live-v1/audio/gentle-arrival.wav",
+      "channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "path": "assets/naimei/live-v1/audio/gentle-close.wav",
+      "channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "path": "assets/naimei/live-v1/audio/orange-room.wav",
+      "channels": 2,
+      "sample_rate": 48000
+    },
+    {
+      "path": "assets/naimei/live-v1/audio/quiet-company.wav",
+      "channels": 2,
+      "sample_rate": 48000
+    }
+  ],
+  "additional_model_weights_bytes": 0,
+  "integrity_passed": true,
+  "live_speech_quality_accepted": false,
+  "voice_user_audition_confirmed": false,
+  "note": "Integrity and asset completeness do not imply lip/fang or pronunciation acceptance."
+}

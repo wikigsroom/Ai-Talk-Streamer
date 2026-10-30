@@ -1,0 +1,30 @@
+{
+  "request_id": "asset-NM-SP-velar",
+  "character_id": "naimei",
+  "engine": "OmniVoice",
+  "voice_id": "NMV01",
+  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+  "audio_seconds": 3.11,
+  "wall_seconds": 2.6560000000172295,
+  "spoken_text": "哥哥开口夸可可，湖边空气格外好。",
+  "captions": [
+    {
+      "text": "哥哥开口夸可可，湖边空气格外好。",
+      "sample_start": 0,
+      "sample_end": 49760
+    }
+  ],
+  "caption_sample_rate": 16000,
+  "alignment": "actual_generated_segment_boundaries",
+  "asset_id": "NM-SP-velar",
+  "path": "assets/naimei/live-v1/voice/tests/NM-SP-velar.wav",
+  "text": "哥哥开口夸可可，湖边空气格外好。",
+  "bytes": 149324,
+  "sha256": "595315ffd6180189ca5093a1cf8d85246621e342bd3b64c95832b00f38d019b6",
+  "rms_dbfs": -23.114722039308603,
+  "peak_dbfs": -3.838594144107611,
+  "clipped_samples": 0,
+  "wall_seconds_with_http": 2.7030000000377186,
+  "listening_review": "pending",
+  "mouth_review": "pending"
+}

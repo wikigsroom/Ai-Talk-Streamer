@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "character_id": "naimei",
+  "default_voice_id": "NMV01",
+  "label": "奶妹 · 橙光暖甜",
+  "engine": "OmniVoice",
+  "fallback_engine": "F5-TTS-v1",
+  "fallback_voice_id": "NMV01",
+  "fallback_requires_stopped_primary_request": true,
+  "voice_origin": "local OmniVoice instruction-based voice design; no female-A reference reused",
+  "reference_text": "大家好，我是奶妹。今天也想陪你，慢慢聊一会儿。",
+  "voices": [
+    {
+      "id": "NMV01",
+      "label": "橙光暖甜",
+      "instruction": "female, moderate pitch",
+      "reference": "assets/naimei/live-v1/voice/NMV01-reference.wav",
+      "reference_text": "大家好，我是奶妹。今天也想陪你，慢慢聊一会儿。",
+      "sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "seed": 2026103101
+    },
+    {
+      "id": "NMV02",
+      "label": "元气清亮",
+      "instruction": "female, high pitch",
+      "reference": "assets/naimei/live-v1/voice/NMV02-reference.wav",
+      "reference_text": "大家好，我是奶妹。今天也想陪你，慢慢聊一会儿。",
+      "sha256": "d5b2640e35adec9b4112ed8bfc81e1abe81eb44ee25764043e93b2b383a9991c",
+      "seed": 2026103102
+    },
+    {
+      "id": "NMV03",
+      "label": "柔和陪伴",
+      "instruction": "female, low pitch",
+      "reference": "assets/naimei/live-v1/voice/NMV03-reference.wav",
+      "reference_text": "大家好，我是奶妹。今天也想陪你，慢慢聊一会儿。",
+      "sha256": "e60381f9def57fce409187e100e9f3b9ca9004ed96c1962ab7f1a2f6f82b0669",
+      "seed": 2026103103
+    }
+  ],
+  "sample_rate": 24000,
+  "steps": 32,
+  "speed": 1.0,
+  "seed": 2026103114,
+  "user_audition_confirmed": false,
+  "new_model_weight_bytes": 0,
+  "cloud_inference_allowed": false
+}

@@ -1,0 +1,30 @@
+{
+  "request_id": "asset-NM-SP-intro",
+  "character_id": "naimei",
+  "engine": "OmniVoice",
+  "voice_id": "NMV01",
+  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+  "audio_seconds": 3.74,
+  "wall_seconds": 2.9060000000172295,
+  "spoken_text": "大家好，我是奶妹。今天也一起待一会儿吧。",
+  "captions": [
+    {
+      "text": "大家好，我是奶妹。今天也一起待一会儿吧。",
+      "sample_start": 0,
+      "sample_end": 59840
+    }
+  ],
+  "caption_sample_rate": 16000,
+  "alignment": "actual_generated_segment_boundaries",
+  "asset_id": "NM-SP-intro",
+  "path": "assets/naimei/live-v1/voice/tests/NM-SP-intro.wav",
+  "text": "大家好，我是奶妹。今天也一起待一会儿吧。",
+  "bytes": 179564,
+  "sha256": "93d9a67dc25a1f53005a67d3eeaff21a052f023fc38ee2b7add591cc44215f02",
+  "rms_dbfs": -22.156181467224823,
+  "peak_dbfs": -3.0454116980206396,
+  "clipped_samples": 0,
+  "wall_seconds_with_http": 2.952999999979511,
+  "listening_review": "pending",
+  "mouth_review": "pending"
+}

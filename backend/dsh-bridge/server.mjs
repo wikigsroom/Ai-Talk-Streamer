@@ -135,9 +135,10 @@ export class StreamBridge {
     const controller=new AbortController();this.controllers.set(request.request_id,controller);
     const signal=AbortSignal.any([controller.signal,AbortSignal.timeout(this.policy.conversation.model_timeout_ms)]);
     try {
-      const snapshot=this.channel.snapshot(),context=this.memory.context(request,snapshot),input=this.state.input(request).text;
+      const input=this.state.input(request).text;
       let speech=input;
       if(request.mode==='chat') {
+        const snapshot=this.channel.snapshot(),context=this.memory.context(request,snapshot);
         const result=await this.host.generate({sessionId:request.dsh_session_id,snapshot,input,context,signal,
           tools:async(name,value)=>name==='stream_memory_recall'?this.memory.recall(request.viewer_id||'public',typeof value.query==='string'?value.query:input):this.memory.propose(request,value),
           onCall:this.onCall({requestId:request.request_id}),onProbe:probe=>this.recordProbe(probe)});

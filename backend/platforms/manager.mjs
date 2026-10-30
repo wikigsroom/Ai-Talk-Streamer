@@ -16,7 +16,11 @@ const ACTIVE_OUTPUTS = ['STARTING', 'STREAMING', 'COMPANION_READY', 'MANUAL_LIVE
 export class PlatformManager {
   constructor(root, bridge, { store, config, obs, livehime, now = () => Date.now() } = {}) {
     this.root = root; this.bridge = bridge; this.now = now; this.config = config || new PlatformConfig(root); this.store = store || new PlatformStore(join(root, 'state/platforms/control.sqlite3'), now); this.obs = obs || new ObsClient(root, this.config);
-    this.livehime = livehime || new LivehimeOutput(root, { receiverConfig: () => this.config.value.platforms.bilibili });
+    const naimei = bridge.policy?.identity?.character_id === 'naimei';
+    this.livehime = livehime || new LivehimeOutput(root, { receiverConfig: () => this.config.value.platforms.bilibili,
+      ...(naimei ? { sourceUrl: bridge.avatarUrl + '/output.html?renderer=livehime&codec=jpeg&buffer_ms=800&layout=portrait',
+        previewUrl: bridge.avatarUrl + '/output.html?renderer=preview&codec=jpeg&buffer_ms=800&layout=portrait',
+        windowTitle: '奶妹 · O01 · 直播姬画面', canvasOutput: true } : {}) });
     this.collectors = new Map(); this.collectorStatus = {}; this.cooldowns = new Map(); this.lastReply = 0; this.controlChain = Promise.resolve(); this.wantOutputAuthority = false; this.closed = false;
   }
   start() { this.timer = setInterval(() => { void this.dispatch().catch(() => this.store.count('dispatch_errors')); }, 1000); this.timer.unref(); this.pruneTimer = setInterval(() => this.store.prune(), 3600000); this.pruneTimer.unref(); return this; }

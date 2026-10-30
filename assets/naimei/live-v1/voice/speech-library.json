@@ -1,0 +1,767 @@
+{
+  "character_id": "naimei",
+  "voice_id": "NMV01",
+  "engine": "OmniVoice",
+  "test_count": 20,
+  "programme_cues": 5,
+  "assets": [
+    {
+      "request_id": "asset-NM-SP-intro",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.74,
+      "wall_seconds": 2.9060000000172295,
+      "spoken_text": "大家好，我是奶妹。今天也一起待一会儿吧。",
+      "captions": [
+        {
+          "text": "大家好，我是奶妹。今天也一起待一会儿吧。",
+          "sample_start": 0,
+          "sample_end": 59840
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-intro",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-intro.wav",
+      "text": "大家好，我是奶妹。今天也一起待一会儿吧。",
+      "bytes": 179564,
+      "sha256": "93d9a67dc25a1f53005a67d3eeaff21a052f023fc38ee2b7add591cc44215f02",
+      "rms_dbfs": -22.156181467224823,
+      "peak_dbfs": -3.0454116980206396,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.952999999979511,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-vowels-a",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 4.35,
+      "wall_seconds": 2.8130000000237487,
+      "spoken_text": "啊，哦，呃，咿，呜，迂。阿姨一路问我，屋外有没有乌云。",
+      "captions": [
+        {
+          "text": "啊，哦，呃，咿，呜，迂。阿姨一路问我，屋外有没有乌云。",
+          "sample_start": 0,
+          "sample_end": 69600
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-vowels-a",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-vowels-a.wav",
+      "text": "啊，哦，呃，咿，呜，迂。阿姨一路问我，屋外有没有乌云。",
+      "bytes": 208844,
+      "sha256": "e6ca9d1f221c2a7cf534add97241a7b1349e213f94e714eee05a22f04d5661ec",
+      "rms_dbfs": -22.058466283617655,
+      "peak_dbfs": -3.1141857419200356,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.844000000040978,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-bilabial",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.12,
+      "wall_seconds": 2.797000000020489,
+      "spoken_text": "爸爸抱着宝宝，慢慢把苹果搬过来。",
+      "captions": [
+        {
+          "text": "爸爸抱着宝宝，慢慢把苹果搬过来。",
+          "sample_start": 0,
+          "sample_end": 49920
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-bilabial",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-bilabial.wav",
+      "text": "爸爸抱着宝宝，慢慢把苹果搬过来。",
+      "bytes": 149804,
+      "sha256": "9e7de1a83298bc5a6e8e990e1db8caf42ef0aed20aaba7dfcdcbe03525f22f64",
+      "rms_dbfs": -19.966666484685362,
+      "peak_dbfs": -3.8923692302894484,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.8290000000270084,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-labiodental",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.08,
+      "wall_seconds": 2.75,
+      "spoken_text": "芳芳分发饭盒，风吹翻了粉色围巾。",
+      "captions": [
+        {
+          "text": "芳芳分发饭盒，风吹翻了粉色围巾。",
+          "sample_start": 0,
+          "sample_end": 49280
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-labiodental",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-labiodental.wav",
+      "text": "芳芳分发饭盒，风吹翻了粉色围巾。",
+      "bytes": 147884,
+      "sha256": "09505de179967a1412669d8c478c9669531a40c663ef931ed3880d54606d6c86",
+      "rms_dbfs": -23.003086143940017,
+      "peak_dbfs": -5.968273526641827,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.7959999999729916,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-alveolar",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.31,
+      "wall_seconds": 2.719000000040978,
+      "spoken_text": "弟弟拿着蓝色袋子，等到天亮再出门。",
+      "captions": [
+        {
+          "text": "弟弟拿着蓝色袋子，等到天亮再出门。",
+          "sample_start": 0,
+          "sample_end": 52960
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-alveolar",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-alveolar.wav",
+      "text": "弟弟拿着蓝色袋子，等到天亮再出门。",
+      "bytes": 158924,
+      "sha256": "5a7e1262a77c2e6dcb06485765f722d2419d797a34fd338a50baaa151cee5532",
+      "rms_dbfs": -24.299202958360905,
+      "peak_dbfs": -8.089128351634455,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.75,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-velar",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.11,
+      "wall_seconds": 2.6560000000172295,
+      "spoken_text": "哥哥开口夸可可，湖边空气格外好。",
+      "captions": [
+        {
+          "text": "哥哥开口夸可可，湖边空气格外好。",
+          "sample_start": 0,
+          "sample_end": 49760
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-velar",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-velar.wav",
+      "text": "哥哥开口夸可可，湖边空气格外好。",
+      "bytes": 149324,
+      "sha256": "595315ffd6180189ca5093a1cf8d85246621e342bd3b64c95832b00f38d019b6",
+      "rms_dbfs": -23.114722039308603,
+      "peak_dbfs": -3.838594144107611,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.7030000000377186,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-palatal",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.52,
+      "wall_seconds": 2.75,
+      "spoken_text": "琪琪轻轻敲下琴键，谢谢小溪边的朋友。",
+      "captions": [
+        {
+          "text": "琪琪轻轻敲下琴键，谢谢小溪边的朋友。",
+          "sample_start": 0,
+          "sample_end": 56320
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-palatal",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-palatal.wav",
+      "text": "琪琪轻轻敲下琴键，谢谢小溪边的朋友。",
+      "bytes": 169004,
+      "sha256": "b3b196b8a63455c272a5c365297b94acea555526829d2cb33a47142f25e6c31b",
+      "rms_dbfs": -24.495382194347005,
+      "peak_dbfs": -5.363284641926789,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.764999999955762,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-retroflex",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.12,
+      "wall_seconds": 2.7030000000377186,
+      "spoken_text": "这是十只纸船，乘着晨风驶向山城。",
+      "captions": [
+        {
+          "text": "这是十只纸船，乘着晨风驶向山城。",
+          "sample_start": 0,
+          "sample_end": 49920
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-retroflex",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-retroflex.wav",
+      "text": "这是十只纸船，乘着晨风驶向山城。",
+      "bytes": 149804,
+      "sha256": "099be539d7af0db1080bf3225c286e8b2b0583addc4ce16d56cad09b0247c6cf",
+      "rms_dbfs": -26.013477591974908,
+      "peak_dbfs": -8.532107444654272,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.75,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-sibilant",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 2.9,
+      "wall_seconds": 2.797000000020489,
+      "spoken_text": "早上三次散步，总是走在最左侧。",
+      "captions": [
+        {
+          "text": "早上三次散步，总是走在最左侧。",
+          "sample_start": 0,
+          "sample_end": 46400
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-sibilant",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-sibilant.wav",
+      "text": "早上三次散步，总是走在最左侧。",
+      "bytes": 139244,
+      "sha256": "13d3f8699dbb098f9aee03327a93c47c19d65c0ad152a21cd5bdb84aaf824ef4",
+      "rms_dbfs": -25.503876552048006,
+      "peak_dbfs": -7.4318471873152205,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.844000000040978,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-round",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.95,
+      "wall_seconds": 2.8290000000270084,
+      "spoken_text": "乌云悠悠飘过屋顶，圆圆的月亮又露出来了。",
+      "captions": [
+        {
+          "text": "乌云悠悠飘过屋顶，圆圆的月亮又露出来了。",
+          "sample_start": 0,
+          "sample_end": 63200
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-round",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-round.wav",
+      "text": "乌云悠悠飘过屋顶，圆圆的月亮又露出来了。",
+      "bytes": 189644,
+      "sha256": "b88371af68c983e2e104abeb0cbc2ed66efdbccbfef98c4aebf9cc3c80f4daf9",
+      "rms_dbfs": -22.496400105487027,
+      "peak_dbfs": -4.960401082914258,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.8589999999967404,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-wide",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.75,
+      "wall_seconds": 2.452999999979511,
+      "spoken_text": "姐姐今天特别开心，甜甜地说一声谢谢你。",
+      "captions": [
+        {
+          "text": "姐姐今天特别开心，甜甜地说一声谢谢你。",
+          "sample_start": 0,
+          "sample_end": 60000
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-wide",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-wide.wav",
+      "text": "姐姐今天特别开心，甜甜地说一声谢谢你。",
+      "bytes": 180044,
+      "sha256": "1714e63eab91d24c93ae49836e13e7e85f784a6d40ed1abf0fce4bf6ab5f26ca",
+      "rms_dbfs": -26.65977289682818,
+      "peak_dbfs": -9.861256185465596,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.4689999999827705,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-close-open",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.6,
+      "wall_seconds": 2.8439999999827705,
+      "spoken_text": "妈妈。爸爸。慢慢来。现在一起说，欢迎回来。",
+      "captions": [
+        {
+          "text": "妈妈。爸爸。慢慢来。现在一起说，欢迎回来。",
+          "sample_start": 0,
+          "sample_end": 57600
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-close-open",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-close-open.wav",
+      "text": "妈妈。爸爸。慢慢来。现在一起说，欢迎回来。",
+      "bytes": 172844,
+      "sha256": "0b4a22d8bc07e29351a0562ce39d7bef9dff6e1dcfa1b6f73360a0be2b19e9e7",
+      "rms_dbfs": -20.914336253331008,
+      "peak_dbfs": -3.98288065227723,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.85999999998603,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-fast",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 4.43,
+      "wall_seconds": 2.6410000000032596,
+      "spoken_text": "葡萄皮剥不剥，苹果块摆不摆，别着急，我们慢慢说。",
+      "captions": [
+        {
+          "text": "葡萄皮剥不剥，苹果块摆不摆，别着急，我们慢慢说。",
+          "sample_start": 0,
+          "sample_end": 70880
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-fast",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-fast.wav",
+      "text": "葡萄皮剥不剥，苹果块摆不摆，别着急，我们慢慢说。",
+      "bytes": 212684,
+      "sha256": "d213f352474296e1988ff65ed1e3336fe447440ed9249dee30412a45f9582eab",
+      "rms_dbfs": -22.16670167807317,
+      "peak_dbfs": -3.8036126645328823,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.6709999999729916,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-pause-short",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 2.28,
+      "wall_seconds": 2.75,
+      "spoken_text": "你好，先停一下，现在继续。",
+      "captions": [
+        {
+          "text": "你好，先停一下，现在继续。",
+          "sample_start": 0,
+          "sample_end": 36480
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-pause-short",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-pause-short.wav",
+      "text": "你好，先停一下，现在继续。",
+      "bytes": 109484,
+      "sha256": "ba277def6ec59d5df89c318eff6d078cf8ebb9592308261a72e791a35772c7ac",
+      "rms_dbfs": -24.755261885537028,
+      "peak_dbfs": -3.097887731140924,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.7660000000032596,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-pause-long",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.53,
+      "wall_seconds": 2.7820000000065193,
+      "spoken_text": "我们先说到这里。接下来，换一个小话题。",
+      "captions": [
+        {
+          "text": "我们先说到这里。接下来，换一个小话题。",
+          "sample_start": 0,
+          "sample_end": 56480
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-pause-long",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-pause-long.wav",
+      "text": "我们先说到这里。接下来，换一个小话题。",
+      "bytes": 169484,
+      "sha256": "928df6271ff5ce8708d43e8403217d2753b5adde3c1455dc3d1a20b3e89484c0",
+      "rms_dbfs": -21.778199266810514,
+      "peak_dbfs": -4.385790428449199,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.8130000000237487,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-question",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.76,
+      "wall_seconds": 2.797000000020489,
+      "spoken_text": "你今天过得怎么样？有什么想和我聊的吗？",
+      "captions": [
+        {
+          "text": "你今天过得怎么样？有什么想和我聊的吗？",
+          "sample_start": 0,
+          "sample_end": 60160
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-question",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-question.wav",
+      "text": "你今天过得怎么样？有什么想和我聊的吗？",
+      "bytes": 180524,
+      "sha256": "59bb378349dd3b4edc27ee6a00f2e59b1110f4c16b6eba0ec4ce8bc65d3b9ad7",
+      "rms_dbfs": -22.95639762905941,
+      "peak_dbfs": -4.3319371710002255,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.8439999999827705,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-happy",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.76,
+      "wall_seconds": 2.655999999959022,
+      "spoken_text": "这件小事也太可爱了，我已经开始期待啦。",
+      "captions": [
+        {
+          "text": "这件小事也太可爱了，我已经开始期待啦。",
+          "sample_start": 0,
+          "sample_end": 60160
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-happy",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-happy.wav",
+      "text": "这件小事也太可爱了，我已经开始期待啦。",
+      "bytes": 180524,
+      "sha256": "d4bd7b417f311eb81f6226f7c5b7e37228607d9129010500382830b45f6e4eae",
+      "rms_dbfs": -20.706637027936743,
+      "peak_dbfs": -3.6042549609997874,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.702999999979511,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-soft",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 4.18,
+      "wall_seconds": 2.702999999979511,
+      "spoken_text": "今天已经辛苦了，可以慢一点，我们一件一件来。",
+      "captions": [
+        {
+          "text": "今天已经辛苦了，可以慢一点，我们一件一件来。",
+          "sample_start": 0,
+          "sample_end": 66880
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-soft",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-soft.wav",
+      "text": "今天已经辛苦了，可以慢一点，我们一件一件来。",
+      "bytes": 200684,
+      "sha256": "872aa3ae95c079042b1f22f30f4311097c38546290466e1dc93e23e8a8854cd9",
+      "rms_dbfs": -24.825265341753884,
+      "peak_dbfs": -5.966692789040681,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.75,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-numbers",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 5.15,
+      "wall_seconds": 2.8439999999827705,
+      "spoken_text": "现在是十月三十一日，晚上八点三十分，画面每秒二十五帧。",
+      "captions": [
+        {
+          "text": "现在是十月三十一日，晚上八点三十分，画面每秒二十五帧。",
+          "sample_start": 0,
+          "sample_end": 82400
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-numbers",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-numbers.wav",
+      "text": "现在是十月三十一日，晚上八点三十分，画面每秒二十五帧。",
+      "bytes": 247244,
+      "sha256": "68b4e171aba8f4f0739292965967520fbaff9d0b48e103e492cc4626ca269e02",
+      "rms_dbfs": -23.205834373569573,
+      "peak_dbfs": -5.628782347450771,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.875,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-NM-SP-long",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 11.87,
+      "wall_seconds": 5.7189999999827705,
+      "spoken_text": "有时候我们不用急着把所有事情做完，先把眼前的一小步走稳，再抬头看看窗外，喝口水，和身边的朋友聊聊天，今天也可以过得很踏实。",
+      "captions": [
+        {
+          "text": "有时候我们不用急着把所有事情做完，先把眼前的一小步走稳，再抬头看看窗外，",
+          "sample_start": 0,
+          "sample_end": 112160
+        },
+        {
+          "text": "喝口水，和身边的朋友聊聊天，今天也可以过得很踏实。",
+          "sample_start": 113760,
+          "sample_end": 189920
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "NM-SP-long",
+      "path": "assets/naimei/live-v1/voice/tests/NM-SP-long.wav",
+      "text": "有时候我们不用急着把所有事情做完，先把眼前的一小步走稳，再抬头看看窗外，喝口水，和身边的朋友聊聊天，今天也可以过得很踏实。",
+      "bytes": 569804,
+      "sha256": "9ecb60992f5440a8c862b2c94f701c64e894f86383e010c25cf0d7abb9812d28",
+      "rms_dbfs": -22.706906191668587,
+      "peak_dbfs": -3.3036505782359966,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 5.75,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-opening",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 6.3,
+      "wall_seconds": 2.9369999999762513,
+      "spoken_text": "大家好，我是奶妹。欢迎来到我的橙光小屋，找个舒服的位置，我们慢慢聊。",
+      "captions": [
+        {
+          "text": "大家好，我是奶妹。欢迎来到我的橙光小屋，找个舒服的位置，我们慢慢聊。",
+          "sample_start": 0,
+          "sample_end": 100800
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "opening",
+      "path": "assets/naimei/live-v1/voice/cues/opening.wav",
+      "text": "大家好，我是奶妹。欢迎来到我的橙光小屋，找个舒服的位置，我们慢慢聊。",
+      "bytes": 302444,
+      "sha256": "b8082d6b8d215cfd76ba3e64e2ae28863857cfa24835c28ea0c55e02a628d160",
+      "rms_dbfs": -22.121926281101686,
+      "peak_dbfs": -5.108525485308216,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.9689999999827705,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-transition",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.07,
+      "wall_seconds": 2.6410000000032596,
+      "spoken_text": "我们换个轻松一点的话题，接着聊。",
+      "captions": [
+        {
+          "text": "我们换个轻松一点的话题，接着聊。",
+          "sample_start": 0,
+          "sample_end": 49120
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "transition",
+      "path": "assets/naimei/live-v1/voice/cues/transition.wav",
+      "text": "我们换个轻松一点的话题，接着聊。",
+      "bytes": 147404,
+      "sha256": "4f01ed00d4b3970237d8b9c0df270a61f63ae3797b55648c22823580cd675793",
+      "rms_dbfs": -23.945104103551085,
+      "peak_dbfs": -4.444842366277116,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.687000000034459,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-break",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.75,
+      "wall_seconds": 2.8119999999762513,
+      "spoken_text": "我去喝口水，很快回来。你也记得休息一下。",
+      "captions": [
+        {
+          "text": "我去喝口水，很快回来。你也记得休息一下。",
+          "sample_start": 0,
+          "sample_end": 60000
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "break",
+      "path": "assets/naimei/live-v1/voice/cues/break.wav",
+      "text": "我去喝口水，很快回来。你也记得休息一下。",
+      "bytes": 180044,
+      "sha256": "b24fbf52248768c4701484edca971703dee4d6c1333e7fe04eb99c30975b1350",
+      "rms_dbfs": -23.490276296866483,
+      "peak_dbfs": -2.9820340298399923,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.85999999998603,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-resume",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 3.35,
+      "wall_seconds": 2.780999999959022,
+      "spoken_text": "我回来啦。刚才聊到哪里了？我们继续。",
+      "captions": [
+        {
+          "text": "我回来啦。刚才聊到哪里了？我们继续。",
+          "sample_start": 0,
+          "sample_end": 53600
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "resume",
+      "path": "assets/naimei/live-v1/voice/cues/resume.wav",
+      "text": "我回来啦。刚才聊到哪里了？我们继续。",
+      "bytes": 160844,
+      "sha256": "4d8ed7b26abbcd4b7f6ce247a4d9c57af53c48e443b1cc3dc95ade013408b00f",
+      "rms_dbfs": -21.598345536303526,
+      "peak_dbfs": -4.028281785599997,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.827999999979511,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    },
+    {
+      "request_id": "asset-closing",
+      "character_id": "naimei",
+      "engine": "OmniVoice",
+      "voice_id": "NMV01",
+      "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+      "audio_seconds": 5.44,
+      "wall_seconds": 2.9070000000065193,
+      "spoken_text": "今天先到这里，谢谢你陪我度过这段时间。好好休息，下次再见。",
+      "captions": [
+        {
+          "text": "今天先到这里，谢谢你陪我度过这段时间。好好休息，下次再见。",
+          "sample_start": 0,
+          "sample_end": 87040
+        }
+      ],
+      "caption_sample_rate": 16000,
+      "alignment": "actual_generated_segment_boundaries",
+      "asset_id": "closing",
+      "path": "assets/naimei/live-v1/voice/cues/closing.wav",
+      "text": "今天先到这里，谢谢你陪我度过这段时间。好好休息，下次再见。",
+      "bytes": 261164,
+      "sha256": "e3f3894224cc42327e093e529a28932d36353d3ec732817c4917268e8ce6dac5",
+      "rms_dbfs": -23.760295324595017,
+      "peak_dbfs": -5.124768834615779,
+      "clipped_samples": 0,
+      "wall_seconds_with_http": 2.937000000034459,
+      "listening_review": "pending",
+      "mouth_review": "pending"
+    }
+  ],
+  "new_model_weight_bytes": 0,
+  "cloud_inference_allowed": false,
+  "listening_acceptance": false
+}

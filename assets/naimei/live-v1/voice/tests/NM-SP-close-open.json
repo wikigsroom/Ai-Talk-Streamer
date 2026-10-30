@@ -1,0 +1,30 @@
+{
+  "request_id": "asset-NM-SP-close-open",
+  "character_id": "naimei",
+  "engine": "OmniVoice",
+  "voice_id": "NMV01",
+  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+  "audio_seconds": 3.6,
+  "wall_seconds": 2.8439999999827705,
+  "spoken_text": "妈妈。爸爸。慢慢来。现在一起说，欢迎回来。",
+  "captions": [
+    {
+      "text": "妈妈。爸爸。慢慢来。现在一起说，欢迎回来。",
+      "sample_start": 0,
+      "sample_end": 57600
+    }
+  ],
+  "caption_sample_rate": 16000,
+  "alignment": "actual_generated_segment_boundaries",
+  "asset_id": "NM-SP-close-open",
+  "path": "assets/naimei/live-v1/voice/tests/NM-SP-close-open.wav",
+  "text": "妈妈。爸爸。慢慢来。现在一起说，欢迎回来。",
+  "bytes": 172844,
+  "sha256": "0b4a22d8bc07e29351a0562ce39d7bef9dff6e1dcfa1b6f73360a0be2b19e9e7",
+  "rms_dbfs": -20.914336253331008,
+  "peak_dbfs": -3.98288065227723,
+  "clipped_samples": 0,
+  "wall_seconds_with_http": 2.85999999998603,
+  "listening_review": "pending",
+  "mouth_review": "pending"
+}

@@ -1,0 +1,30 @@
+{
+  "request_id": "asset-NM-SP-wide",
+  "character_id": "naimei",
+  "engine": "OmniVoice",
+  "voice_id": "NMV01",
+  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+  "audio_seconds": 3.75,
+  "wall_seconds": 2.452999999979511,
+  "spoken_text": "姐姐今天特别开心，甜甜地说一声谢谢你。",
+  "captions": [
+    {
+      "text": "姐姐今天特别开心，甜甜地说一声谢谢你。",
+      "sample_start": 0,
+      "sample_end": 60000
+    }
+  ],
+  "caption_sample_rate": 16000,
+  "alignment": "actual_generated_segment_boundaries",
+  "asset_id": "NM-SP-wide",
+  "path": "assets/naimei/live-v1/voice/tests/NM-SP-wide.wav",
+  "text": "姐姐今天特别开心，甜甜地说一声谢谢你。",
+  "bytes": 180044,
+  "sha256": "1714e63eab91d24c93ae49836e13e7e85f784a6d40ed1abf0fce4bf6ab5f26ca",
+  "rms_dbfs": -26.65977289682818,
+  "peak_dbfs": -9.861256185465596,
+  "clipped_samples": 0,
+  "wall_seconds_with_http": 2.4689999999827705,
+  "listening_review": "pending",
+  "mouth_review": "pending"
+}
