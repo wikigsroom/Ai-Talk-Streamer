@@ -527,7 +527,14 @@ class Studio:
         if self.cue_task:
             self.cue_task.cancel()
             await asyncio.gather(self.cue_task, return_exceptions=True)
-        result = await self.api('/api/dsh/cancel', {})
+            self.cue_task = None
+        self.scheduled_cue = None
+        status = await self.api('/api/dsh/status')
+        for queued in status.get('queued', []):
+            await self.api('/api/dsh/cancel', {'request_id': queued['request_id']})
+        status = await self.api('/api/dsh/status')
+        active = status.get('active_request')
+        result = await self.api('/api/dsh/cancel', {'request_id': active['request_id']}) if active else {'already_idle': True}
         self.action = None
         self.blend_to_closed()
         return web.json_response({'accepted': True, 'dsh': result})

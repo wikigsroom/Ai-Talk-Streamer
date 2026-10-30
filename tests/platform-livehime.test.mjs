@@ -73,6 +73,18 @@ test('failed native media readiness closes the created browser context', async (
   } finally { await f.close(); }
 });
 
+test('Naimei can launch the signed client with the current user permissions', async () => {
+  const f = fixture(); try {
+    f.installed(); f.instance.runAsInvoker = true;
+    await f.instance.launchClient();
+    const client = f.calls.find(call => call?.executable);
+    assert.equal(client.options.env.__COMPAT_LAYER, 'RunAsInvoker');
+    assert.equal(client.options.windowsHide, true);
+    assert.equal(client.options.detached, true);
+    assert.ok(client.options.env.APPDATA.startsWith(f.root));
+  } finally { await f.close(); }
+});
+
 test('an installation receipt cannot launch an application outside the project', async () => {
   const f = fixture(); try {
     f.installed(); writeFileSync(join(f.root, 'outputs/platforms/setup/bilibili-livehime.json'), JSON.stringify({ prepared: true, application: '../outside.exe', application_signature: { status: 'Valid' } }));

@@ -13,9 +13,10 @@ export const LIVEHIME_OUTPUT_URL = 'http://127.0.0.1:8010/output.html?renderer=p
 export class LivehimeOutput {
   constructor(root, { playwright, spawnChild = spawn, receiverConfig = () => null,
     sourceUrl = LIVEHIME_SOURCE_URL, previewUrl = LIVEHIME_OUTPUT_URL,
-    windowTitle = LIVEHIME_WINDOW_TITLE, canvasOutput = false } = {}) {
+    windowTitle = LIVEHIME_WINDOW_TITLE, canvasOutput = false, runAsInvoker = false } = {}) {
     this.root = resolve(root); this.playwright = playwright; this.spawnChild = spawnChild;
     this.receiverConfig = receiverConfig;
+    this.runAsInvoker = runAsInvoker;
     this.sourceUrl = sourceUrl; this.previewUrl = previewUrl; this.windowTitle = windowTitle; this.canvasOutput = canvasOutput;
     this.context = null; this.page = null; this.clientRequested = false;
   }
@@ -53,6 +54,7 @@ export class LivehimeOutput {
       } catch {}
     }
     return { renderer: 'livehime', obs_required: false, client_installed: !!receipt,
+      client_permission_mode: this.runAsInvoker ? 'current_user' : 'application_default',
       client_version: receipt?.version || null, client_launch_requested: this.clientRequested,
       window_open: !!this.page && !this.page.isClosed(), window_title: this.windowTitle,
       player, source_url: this.sourceUrl, source_width: 720, source_height: 1280,
@@ -69,7 +71,8 @@ export class LivehimeOutput {
       await new Promise((resolveLaunch, reject) => {
         const child = this.spawnChild(receipt.application, [], {
           cwd: join(receipt.application, '..'), detached: true, windowsHide: true, stdio: 'ignore',
-          env: { ...process.env, APPDATA: appdata, LOCALAPPDATA: local, TEMP: temp, TMP: temp },
+          env: { ...process.env, APPDATA: appdata, LOCALAPPDATA: local, TEMP: temp, TMP: temp,
+            ...(this.runAsInvoker ? { __COMPAT_LAYER: 'RunAsInvoker' } : {}) },
         });
         child.once('error', () => reject(new PlatformError('LIVEHIME_LAUNCH_FAILED', 503)));
         child.once('spawn', () => { child.unref(); this.clientRequested = true; resolveLaunch(); });

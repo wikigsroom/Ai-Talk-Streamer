@@ -17,16 +17,31 @@ import { MemoryService } from '../backend/memory/service.mjs';
 import { loadPolicy } from '../backend/dsh-bridge/policy.mjs';
 const root = resolve(process.cwd()), output = join(root, 'outputs/platforms/tests'); mkdirSync(output, { recursive: true });
 const operator = { role: 'operator', principal_id: 'local', viewer_id: 'operator-local' };
-function fixture() {
+function fixture({ characterId } = {}) {
   const folder = mkdtempSync(join(output, 'case-')); let now = 1792926000000;
   const db = new StateStore(':memory:', { now: () => now, heartbeat: false }), policy = loadPolicy(root), state = new StreamState(db, policy, 'persona-test');
   const memory = new MemoryService(db, state, policy, { mirrorRevision: 0, setNativeMemoryInjection() {}, setVerifiedMirrorRevision() {}, inspectProjection() { return null; } });
   const bridge = { state, db, ready: true, administration: { locked: false }, auth: { resolve: () => operator }, host: { ready: true }, health: () => ({ persona_injection_ready: true }), refreshMedia: async () => ({ tts_ready: true, avatar_ready: true }), tick: async () => {}, async body(req) { let raw = ''; for await (const chunk of req) raw += chunk; return raw ? JSON.parse(raw) : {}; } };
+  if (characterId) { bridge.policy = { identity: { character_id: characterId } }; bridge.avatarUrl = 'http://127.0.0.1:8052'; }
   const manager = new PlatformManager(folder, bridge, { now: () => now });
   const start = () => { const b = state.createBroadcast(operator); const lease = state.claimAuthority(operator, b.broadcast_id, 'obs-test'); state.readyBroadcast(b.broadcast_id, true); return lease; };
   const event = (id = 'event-1', user = '123', platform = 'bilibili') => ({ platform, event: { type: 'comment', event_id: id, room_id: '456', user_id: user, nickname: '同一个昵称', text: '我喜欢茶。', timestamp: now } });
   return { folder, db, state, policy, memory, bridge, manager, start, event, advance(ms) { db.tx(() => db.run('UPDATE bridge_owner SET lease_until=?', now + ms + 30000)); now += ms; }, async close() { await manager.close(); db.close(); rmSync(folder, { recursive: true, force: true }); } };
 }
+
+test('Naimei preflight distinguishes a formal browser from verified native embedding', async () => {
+  const f = fixture({ characterId: 'naimei' }); try {
+    f.manager.config.update({ platforms: { bilibili: { output_mode: 'livehime' } } });
+    f.bridge.health = () => ({ persona_injection_ready: false });
+    f.manager.player = { renderer: 'livehime', at: f.manager.now(), width: 720, height: 1280, audio_state: 'running' };
+    const value = await f.manager.preflight('bilibili');
+    assert.equal(value.checks.channel_ready, true);
+    assert.equal(value.checks.formal_source_connected, true);
+    assert.equal(value.checks.native_browser_embedding_verified, false);
+    assert.equal(Object.hasOwn(value.checks, 'livehime_browser_connected'), false);
+    assert.equal(value.checks.audience_delivery_verified, false);
+  } finally { await f.close(); }
+});
 
 test('private platform settings never return secrets and blank edits preserve them', async () => {
   const f = fixture(); try {

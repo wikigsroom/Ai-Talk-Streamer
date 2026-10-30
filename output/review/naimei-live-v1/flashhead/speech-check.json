@@ -1,0 +1,182 @@
+{
+  "started": "2026-10-30T21:06:49.691Z",
+  "native_windows": true,
+  "character_size": [
+    512,
+    512
+  ],
+  "target_fps": 25,
+  "source": "actual FlashHead NML1 JPEG + paired PCM; not DSH end-to-end",
+  "quality_accepted": false,
+  "cases": [
+    {
+      "id": "NM-SP-intro",
+      "audio_seconds": 3.74,
+      "accepted": {
+        "accepted": true,
+        "epoch": 16,
+        "audio_seconds": 3.74
+      },
+      "frames": 150,
+      "speech_frames": 94,
+      "output_fps": 25.00704435012742,
+      "first_speech_seconds": 0.7990647,
+      "missing_packets": 0,
+      "max_arrival_gap_ms": 45.616399999999885,
+      "contiguous_audio": true,
+      "tail_sample": 60160,
+      "visual_evidence": {
+        "unique_mouth_crops": 94,
+        "consecutive_mouth_delta_mean": 6.462700411837588,
+        "consecutive_mouth_delta_p95": 14.577165412902808,
+        "note": "Pixel variation is diagnostic; mouth/fang acceptance needs visual inspection."
+      }
+    },
+    {
+      "id": "NM-SP-bilabial",
+      "audio_seconds": 3.12,
+      "accepted": {
+        "accepted": true,
+        "epoch": 17,
+        "audio_seconds": 3.12
+      },
+      "frames": 133,
+      "speech_frames": 78,
+      "output_fps": 25.05850972182852,
+      "first_speech_seconds": 0.7467442000000001,
+      "missing_packets": 0,
+      "max_arrival_gap_ms": 45.11250000000109,
+      "contiguous_audio": true,
+      "tail_sample": 49920,
+      "visual_evidence": {
+        "unique_mouth_crops": 78,
+        "consecutive_mouth_delta_mean": 5.310527529035296,
+        "consecutive_mouth_delta_p95": 9.656048583984376,
+        "note": "Pixel variation is diagnostic; mouth/fang acceptance needs visual inspection."
+      }
+    },
+    {
+      "id": "NM-SP-vowels-a",
+      "audio_seconds": 4.35,
+      "accepted": {
+        "accepted": true,
+        "epoch": 18,
+        "audio_seconds": 4.35
+      },
+      "frames": 166,
+      "speech_frames": 109,
+      "output_fps": 25.115354824709886,
+      "first_speech_seconds": 0.8039048999999996,
+      "missing_packets": 0,
+      "max_arrival_gap_ms": 43.67709999999897,
+      "contiguous_audio": true,
+      "tail_sample": 69760,
+      "visual_evidence": {
+        "unique_mouth_crops": 109,
+        "consecutive_mouth_delta_mean": 3.3751968172965228,
+        "consecutive_mouth_delta_p95": 8.099392390251158,
+        "note": "Pixel variation is diagnostic; mouth/fang acceptance needs visual inspection."
+      }
+    },
+    {
+      "id": "NM-SP-pause-short",
+      "audio_seconds": 2.28,
+      "accepted": {
+        "accepted": true,
+        "epoch": 19,
+        "audio_seconds": 2.28
+      },
+      "frames": 112,
+      "speech_frames": 57,
+      "output_fps": 25.19114290308994,
+      "first_speech_seconds": 0.7652620000000024,
+      "missing_packets": 0,
+      "max_arrival_gap_ms": 44.35910000000149,
+      "contiguous_audio": true,
+      "tail_sample": 36480,
+      "visual_evidence": {
+        "unique_mouth_crops": 57,
+        "consecutive_mouth_delta_mean": 5.519435450434685,
+        "consecutive_mouth_delta_p95": 10.475781679153442,
+        "note": "Pixel variation is diagnostic; mouth/fang acceptance needs visual inspection."
+      }
+    },
+    {
+      "id": "NM-SP-numbers",
+      "audio_seconds": 5.15,
+      "accepted": {
+        "accepted": true,
+        "epoch": 20,
+        "audio_seconds": 5.15
+      },
+      "frames": 184,
+      "speech_frames": 129,
+      "output_fps": 25.041168776163918,
+      "first_speech_seconds": 0.7823603999999977,
+      "missing_packets": 0,
+      "max_arrival_gap_ms": 44.818299999999,
+      "contiguous_audio": true,
+      "tail_sample": 82560,
+      "visual_evidence": {
+        "unique_mouth_crops": 129,
+        "consecutive_mouth_delta_mean": 4.260062349028885,
+        "consecutive_mouth_delta_p95": 7.640270209312435,
+        "note": "Pixel variation is diagnostic; mouth/fang acceptance needs visual inspection."
+      }
+    },
+    {
+      "id": "NM-SP-long",
+      "audio_seconds": 11.87,
+      "accepted": {
+        "accepted": true,
+        "epoch": 21,
+        "audio_seconds": 11.87
+      },
+      "frames": 356,
+      "speech_frames": 297,
+      "output_fps": 25.082670184627744,
+      "first_speech_seconds": 0.8291189999999988,
+      "missing_packets": 0,
+      "max_arrival_gap_ms": 44.985899999999674,
+      "contiguous_audio": true,
+      "tail_sample": 190080,
+      "visual_evidence": {
+        "unique_mouth_crops": 297,
+        "consecutive_mouth_delta_mean": 4.412035115667291,
+        "consecutive_mouth_delta_p95": 8.46086597442627,
+        "note": "Pixel variation is diagnostic; mouth/fang acceptance needs visual inspection."
+      }
+    },
+    {
+      "id": "NM-SP-close-open",
+      "audio_seconds": 3.6,
+      "accepted": {
+        "accepted": true,
+        "epoch": 22,
+        "audio_seconds": 3.6
+      },
+      "frames": 147,
+      "speech_frames": 90,
+      "output_fps": 25.11269191493273,
+      "first_speech_seconds": 0.7620973999999987,
+      "missing_packets": 0,
+      "max_arrival_gap_ms": 67.45150000000285,
+      "contiguous_audio": true,
+      "tail_sample": 57600,
+      "visual_evidence": {
+        "unique_mouth_crops": 90,
+        "consecutive_mouth_delta_mean": 5.034596352095015,
+        "consecutive_mouth_delta_p95": 8.29598274230957,
+        "note": "Pixel variation is diagnostic; mouth/fang acceptance needs visual inspection."
+      }
+    }
+  ],
+  "completed": true,
+  "finished": "2026-10-30T21:07:39.644Z",
+  "mouth_roi": [
+    185,
+    352,
+    329,
+    445
+  ]
+}

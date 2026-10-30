@@ -1,0 +1,198 @@
+{
+  "character_id": "naimei",
+  "source_branch": "naimei",
+  "scope": "A01-A14 plus native local live integration",
+  "native_windows": true,
+  "cloud_inference": false,
+  "public_broadcast_started": false,
+  "asset_integrity": {
+    "character_id": "naimei",
+    "source_branch": "naimei",
+    "scope": "A01-A14",
+    "files": 190,
+    "bytes": 33950316,
+    "enabled_silent_actions": 15,
+    "rejected_actions_preserved": 5,
+    "voice_references": 3,
+    "speech_wavs": 25,
+    "speech_seconds": 102.42,
+    "fallback_speech_wavs": 1,
+    "fallback_speech_seconds": 3.296,
+    "speech_clipped_samples": 0,
+    "audio": [
+      {
+        "path": "assets/naimei/live-v1/audio/gentle-arrival.wav",
+        "channels": 2,
+        "sample_rate": 48000
+      },
+      {
+        "path": "assets/naimei/live-v1/audio/gentle-close.wav",
+        "channels": 2,
+        "sample_rate": 48000
+      },
+      {
+        "path": "assets/naimei/live-v1/audio/orange-room.wav",
+        "channels": 2,
+        "sample_rate": 48000
+      },
+      {
+        "path": "assets/naimei/live-v1/audio/quiet-company.wav",
+        "channels": 2,
+        "sample_rate": 48000
+      }
+    ],
+    "additional_model_weights_bytes": 0,
+    "integrity_passed": true,
+    "live_speech_quality_accepted": false,
+    "voice_user_audition_confirmed": false,
+    "note": "Integrity and asset completeness do not imply lip/fang or pronunciation acceptance."
+  },
+  "tests": {
+    "python_passed": 36,
+    "node_passed": 73
+  },
+  "formal_browser": {
+    "completed": true,
+    "checks": [
+      "formal_player_claims_real_authority",
+      "preview_is_silent_without_authority",
+      "second_formal_player_stays_silent",
+      "formal_bgm_started",
+      "intro_natural_audio_completion",
+      "phonetics_natural_audio_completion",
+      "pause-numbers_natural_audio_completion",
+      "interruption_fenced",
+      "recovery_natural_audio_completion",
+      "silent_action_returns_to_idle",
+      "sfx_only_on_formal_source",
+      "voice-nmv02_natural_audio_completion",
+      "formal_bgm_stopped",
+      "rehearsal_completed_no_public_broadcast"
+    ],
+    "speech_requests": [
+      {
+        "label": "intro",
+        "status": "COMPLETED",
+        "elapsed_seconds": 10.2
+      },
+      {
+        "label": "phonetics",
+        "status": "COMPLETED",
+        "elapsed_seconds": 10.401
+      },
+      {
+        "label": "pause-numbers",
+        "status": "COMPLETED",
+        "elapsed_seconds": 12.595
+      },
+      {
+        "label": "interrupt",
+        "status": "INTERRUPTED",
+        "elapsed_seconds": null
+      },
+      {
+        "label": "recovery",
+        "status": "COMPLETED",
+        "elapsed_seconds": 8.355
+      },
+      {
+        "label": "voice-nmv02",
+        "status": "COMPLETED",
+        "elapsed_seconds": 8.388
+      }
+    ],
+    "transport": {
+      "codec": "jpeg",
+      "output_mode": "direct_canvas_audio",
+      "frames": 1865,
+      "received_frames": 1934,
+      "presented_frames": null,
+      "fps": 24.858757062146893,
+      "fps_source": "canvas_draw",
+      "width": 512,
+      "height": 512,
+      "audio_clock_seconds": 77.37066666666666,
+      "decoder_queue": 0,
+      "pending_video_frames": 0,
+      "audio_samples": 1237760,
+      "audio_energy": 0.15869585071667108,
+      "audio_underruns": 1,
+      "target_audio_buffer_ms": 800,
+      "audio_buffer_ms": 829.3333333352706,
+      "missing_packets": 0,
+      "server_skipped_video_frames": 0,
+      "skipped_video_frames": 0,
+      "decode_errors": 0,
+      "max_arrival_gap_ms": 1207.2999999970198,
+      "connected": true
+    },
+    "recorded_frames": 1818,
+    "recorded_seconds": 72.72,
+    "caption_observations": 88,
+    "ducking_observations": 89,
+    "created_browser_closed": true
+  },
+  "programme": {
+    "completed": true,
+    "checks": [
+      {
+        "name": "delayed_cue_cancellation_prevents_execution"
+      },
+      {
+        "name": "delayed_programme_action_speech_completed"
+      },
+      {
+        "name": "sample_clock_captions_and_ducking_observed"
+      },
+      {
+        "name": "five_second_canvas_cadence",
+        "measurement": {
+          "frames": 125,
+          "seconds": 5,
+          "fps": 25
+        }
+      }
+    ],
+    "created_browser_closed": true
+  },
+  "director": {
+    "passed": true,
+    "manual_speech_ready": true,
+    "preview_canvas_fps_5s": 25.132143213324024,
+    "page_errors": [],
+    "created_browser_closed": true
+  },
+  "fallback": {
+    "engine": "F5-TTS-v1",
+    "voice_id": "NMV01",
+    "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+    "audio_seconds": 3.296,
+    "wall_seconds": 4.10999999998603,
+    "binding_and_pcm_verified": true,
+    "human_listening_accepted": false
+  },
+  "native_client": {
+    "installed": true,
+    "version": "8.12.0.11221",
+    "permission_mode": "current_user",
+    "silent_preview_prepared": true,
+    "preview_browser_closed": true,
+    "account_login_verified": false,
+    "native_browser_embedding_verified": false,
+    "audience_delivery_verified": false,
+    "note": "Formal Chrome playback does not prove embedding inside Livehime; the official client is at its login window."
+  },
+  "video": {
+    "path": "output/review/naimei-live-v1/browser/奶妹-真实链路联调.mp4",
+    "bytes": 12195179,
+    "sha256": "ac509723adc9b7dbf126ec8b775b0b11a154390084d7a113c505bfa28a591c55",
+    "contains": "actual role JPEG frames and paired speech PCM from the formal stream; programme layout in screenshots; BGM/SFX verified separately"
+  },
+  "live_speech_quality_accepted": false,
+  "quality_failures": [
+    "fangs disappear or become human teeth",
+    "eyes/irises deform",
+    "face blurs in parts of speech"
+  ],
+  "performance_limits": "Short rehearsals only. One audio underrun and about 1.207s maximum arrival gap were observed; not a claim of long-term zero-stutter operation."
+}

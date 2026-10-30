@@ -17,10 +17,11 @@ export class PlatformManager {
   constructor(root, bridge, { store, config, obs, livehime, now = () => Date.now() } = {}) {
     this.root = root; this.bridge = bridge; this.now = now; this.config = config || new PlatformConfig(root); this.store = store || new PlatformStore(join(root, 'state/platforms/control.sqlite3'), now); this.obs = obs || new ObsClient(root, this.config);
     const naimei = bridge.policy?.identity?.character_id === 'naimei';
+    this.naimei = naimei;
     this.livehime = livehime || new LivehimeOutput(root, { receiverConfig: () => this.config.value.platforms.bilibili,
       ...(naimei ? { sourceUrl: bridge.avatarUrl + '/output.html?renderer=livehime&codec=jpeg&buffer_ms=800&layout=portrait',
         previewUrl: bridge.avatarUrl + '/output.html?renderer=preview&codec=jpeg&buffer_ms=800&layout=portrait',
-        windowTitle: '奶妹 · O01 · 直播姬画面', canvasOutput: true } : {}) });
+        windowTitle: '奶妹 · O01 · 直播姬画面', canvasOutput: true, runAsInvoker: true } : {}) });
     this.collectors = new Map(); this.collectorStatus = {}; this.cooldowns = new Map(); this.lastReply = 0; this.controlChain = Promise.resolve(); this.wantOutputAuthority = false; this.closed = false;
   }
   start() { this.timer = setInterval(() => { void this.dispatch().catch(() => this.store.count('dispatch_errors')); }, 1000); this.timer.unref(); this.pruneTimer = setInterval(() => this.store.prune(), 3600000); this.pruneTimer.unref(); return this; }
@@ -209,9 +210,9 @@ export class PlatformManager {
       if (target.client_location === 'receiver') native = { ...native, client_installed: !!source?.receiver_client_ready, receiver_id: source?.receiver_id || null };
       return { platform, renderer: 'livehime', obs_required: false, native,
         checks: { tts_ready: !!media.tts_ready, avatar_ready: !!media.avatar_ready,
-          channel_ready: this.config.value.interaction.mode === 'echo' || this.bridge.health().persona_injection_ready,
+          channel_ready: this.naimei || this.config.value.interaction.mode === 'echo' || this.bridge.health().persona_injection_ready,
           client_installed: native.client_installed, preview_window: native.window_open,
-          livehime_browser_connected: !!source,
+          ...(this.naimei ? { formal_source_connected: !!source, native_browser_embedding_verified: false } : { livehime_browser_connected: !!source }),
           vertical_video: source?.width === 720 && source?.height === 1280,
           output_audio: source?.audio_state === 'running', room_configured: !!target.room_url || !!target.room_id,
           official_application_required: ['open_live', 'official_callback'].includes(target.comment_mode),

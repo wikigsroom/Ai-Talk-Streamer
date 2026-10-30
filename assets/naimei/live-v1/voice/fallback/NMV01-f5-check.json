@@ -1,0 +1,24 @@
+{
+  "request_id": "naimei-fallback-f8590625f0d74ba195c7d7101beac31f",
+  "character_id": "naimei",
+  "engine": "F5-TTS-v1",
+  "voice_id": "NMV01",
+  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
+  "audio_seconds": 3.296,
+  "wall_seconds": 4.10999999998603,
+  "spoken_text": "你好，我是奶妹。这是备用声音的本地检查。",
+  "captions": [
+    {
+      "text": "你好，我是奶妹。这是备用声音的本地检查。",
+      "sample_start": 0,
+      "sample_end": 52736
+    }
+  ],
+  "caption_sample_rate": 16000,
+  "alignment": "actual_generated_segment_boundaries",
+  "text": "你好，我是奶妹。这是备用声音的本地检查。",
+  "engine_header": "F5-TTS-v1",
+  "sha256": "a3bdf852ed1020f632d8a25c031a405d4a154f0178610e47ff3f46ab31f8f3f5",
+  "binding_and_pcm_verified": true,
+  "human_listening_accepted": false
+}

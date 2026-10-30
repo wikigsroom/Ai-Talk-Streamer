@@ -13,7 +13,7 @@ $status=Invoke-RestMethod 'http://127.0.0.1:3094/api/dsh/status' -TimeoutSec 5
 if ($status.health.character_id -ne 'naimei') {throw 'Another character owns the bridge'}
 $platform=Invoke-RestMethod 'http://127.0.0.1:3094/api/dsh/platforms/status' -TimeoutSec 5
 foreach($row in $platform.outputs){if($row.state -in @('STARTING','STREAMING','COMPANION_READY','MANUAL_LIVE')) {throw 'Platform output is active; no service was stopped'}}
-if($status.active){throw 'Speech is active; no service was stopped'}
+if($status.active_request){throw 'Speech is active; no service was stopped'}
 if($status.broadcast.state -eq 'LIVE') {
   $body=@{broadcast_id=$status.broadcast.broadcast_id;expected_revision=$status.broadcast.revision}|ConvertTo-Json -Compress
   Invoke-RestMethod 'http://127.0.0.1:3094/api/dsh/broadcast/pause' -Method Post -Body $body -ContentType 'application/json' -TimeoutSec 5|Out-Null

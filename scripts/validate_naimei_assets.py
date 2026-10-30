@@ -72,6 +72,13 @@ def main():
             assert np.isfinite(data).all() and np.abs(data).max() < .99 and np.sqrt(np.mean(data ** 2)) > .0001
             audio.append({'path': path.relative_to(ROOT).as_posix(), 'channels': stream.getnchannels(), 'sample_rate': stream.getframerate()})
     assert len(audio) == 4
+    fallback = read('voice/fallback/NMV01-f5-check.json')
+    fallback_path = verified('assets/naimei/live-v1/voice/fallback/NMV01-f5-check.wav', fallback['sha256'])
+    assert fallback['binding_and_pcm_verified'] and not fallback['human_listening_accepted']
+    assert fallback['reference_sha256'] == next(v['sha256'] for v in profile['voices'] if v['id'] == 'NMV01')
+    with wave.open(str(fallback_path), 'rb') as stream:
+        assert (stream.getframerate(), stream.getnchannels(), stream.getsampwidth()) == (24000, 1, 2)
+        assert stream.getnframes() > 2400
     assert len(list((PACK / 'programme').glob('*.png'))) == 10
     records = []
     for path in sorted(PACK.rglob('*')):
@@ -88,6 +95,7 @@ def main():
               'files': len(records), 'bytes': sum(x['字节'] for x in records), 'enabled_silent_actions': len(enabled),
               'rejected_actions_preserved': len(pack['actions']) - len(enabled), 'voice_references': 3,
               'speech_wavs': len(speech), 'speech_seconds': sum(x['audio_seconds'] for x in speech),
+              'fallback_speech_wavs': 1, 'fallback_speech_seconds': fallback['audio_seconds'],
               'speech_clipped_samples': 0, 'audio': audio, 'additional_model_weights_bytes': 0,
               'integrity_passed': True, 'live_speech_quality_accepted': False,
               'voice_user_audition_confirmed': False, 'note': 'Integrity and asset completeness do not imply lip/fang or pronunciation acceptance.'}
