@@ -42,6 +42,9 @@ def validate_target(root=ROOT, *, expected_target=None, check_hardware=True, che
     if expected_target is not None and target != expected_target:
         raise RuntimeError('This operation requires ' + expected_target + '; selected target is ' + target)
     spec = registry['targets'][target]
+    naimei = spec.get('engine') == 'flashhead-lite'
+    if naimei and expected_target != target:
+        raise RuntimeError('Naimei uses scripts/start_naimei.py; explicitly select naimei-rtx4090 instead of starting the inherited MuseTalk launcher')
     flags = {'creationflags':0x08000000} if os.name == 'nt' else {}
     if (root/'.git').exists():
         branch = subprocess.check_output(['git','-C',str(root),'branch','--show-current'],text=True,timeout=10,**flags).strip()
@@ -54,15 +57,27 @@ def validate_target(root=ROOT, *, expected_target=None, check_hardware=True, che
         origin = read(origin_path)
         if (origin.get('target'),origin.get('branch')) != (target,selected['branch']) or not re.fullmatch('[0-9a-f]{40}',str(origin.get('source_commit',''))):
             raise RuntimeError('Runtime source receipt belongs to another deployment target')
+        if naimei and (not re.fullmatch('[0-9a-f]{64}', str(origin.get('archive_sha256', ''))) or not origin.get('verified_source_manifest')):
+            raise RuntimeError('Naimei requires a verified source archive receipt from the naimei branch')
     if check_hardware:
         raw = subprocess.check_output(['nvidia-smi','--query-gpu=name,memory.total','--format=csv,noheader,nounits'],text=True,timeout=10,**flags)
         devices = [line.rsplit(',',1) for line in raw.strip().splitlines()]
         if not devices or any(len(row)!=2 or not re.search(spec['gpu_pattern'],row[0]) or int(row[1]) < spec['minimum_vram_mib'] for row in devices):
             raise RuntimeError('Inference GPU does not match ' + target + '; services were not started')
     if check_runtime:
-        options = read(root/'configs/livetalking.yaml')
-        if (options.get('model'),options.get('batch_size'),options.get('fps')) != ('musetalk',spec['batch_size'],25):
-            raise RuntimeError('MuseTalk configuration differs from the selected device baseline')
+        if naimei:
+            options = read(root/'configs/naimei/live-runtime.json')
+            expected = ('naimei', 'flashhead-lite', 512, 25, 4, spec['batch_size'])
+            actual = tuple(options.get(key) for key in ('character_id', 'engine', 'size', 'fps', 'steps', 'stream_batch_size'))
+            if actual != expected or options.get('target') != target or not options.get('native_windows_only') or options.get('cloud_inference_allowed'):
+                raise RuntimeError('Naimei runtime differs from its native 512x512 single-stream contract')
+            character = read(root/'configs/characters/naimei.json')
+            if character.get('id') != 'naimei' or character.get('runtime_avatar_id') != 'naimei-o01-flashhead-512':
+                raise RuntimeError('Naimei runtime character mismatch')
+        else:
+            options = read(root/'configs/livetalking.yaml')
+            if (options.get('model'),options.get('batch_size'),options.get('fps')) != ('musetalk',spec['batch_size'],25):
+                raise RuntimeError('MuseTalk configuration differs from the selected device baseline')
         pointer = read(root/'configs/dsh-active-policy.json')
         policy_path = (root/pointer['policy_file']).resolve()
         if not policy_path.is_relative_to(root):
@@ -78,8 +93,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root',type=Path,default=ROOT)
     parser.add_argument('--describe',action='store_true')
+    parser.add_argument('--expected-target',default=None)
     args = parser.parse_args()
     if args.describe:
         print(json.dumps(contract(args.root)[1],ensure_ascii=False,indent=2))
     else:
-        print(json.dumps(validate_target(args.root),ensure_ascii=False,indent=2))
+        print(json.dumps(validate_target(args.root,expected_target=args.expected_target),ensure_ascii=False,indent=2))

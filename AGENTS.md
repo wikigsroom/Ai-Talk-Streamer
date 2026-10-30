@@ -1,6 +1,8 @@
 # Project operation constraints
 
-**This checkout is deploy/rtx3080; inference target rtx3080.** Use FP16 batch4 and `state/female-a-3080-k02`.
+**This checkout is `naimei`, used for the Naimei character and asset construction requested on 2026-10-31.** Keep the sibling `mc` checkout and its uncommitted changes intact. The user explicitly authorized Sub2 image generation and the existing remote4090 native H3 workflows for this asset work. The Naimei live resolution is fixed at 512x512, target25FPS; mouth/fang quality remains pending. Store new assets, prompts, manifests and review evidence separately. Preserve original character references and female-A assets.
+
+The user additionally authorized implementing A01-A14 and connecting Naimei to the live system on this branch. This branch now owns the separate `naimei-rtx4090` contract, O01 512x512 single-stream FlashHead runtime, and `state/naimei`; use `scripts/start_naimei.py` and explicit target validation. The inherited MuseTalk launchers must reject this target. Preserve the rtx3080/rtx4090 device-baseline definitions and the historical K02 activation pause. Use a distinct verified Naimei source archive and installation; never copy old source receipts or state. Asset generation and local rehearsal are authorized; do not start public broadcasting. A15-A22 remain deferred.
 
 - Work only inside this project. Use native Windows/Python/Node; never start Docker, WSL or virtual machines.
 - **Read `configs/deployment-target.json`, `configs/deployment-targets.json` and `docs/deployment/DEVICE_BRANCHES.md` first.** `main` is shared source and cannot start inference. Device branches are `deploy/rtx3080` and `deploy/rtx4090`; each owns its release pointer and state path. Never use a remembered device default.

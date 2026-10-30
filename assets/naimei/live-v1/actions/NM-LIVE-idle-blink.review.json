@@ -1,0 +1,29 @@
+{
+  "id": "NM-LIVE-idle-blink",
+  "task": "A04",
+  "label": "待机·自然眨眼",
+  "state": "idle",
+  "path": "assets/naimei/live-v1/actions/NM-LIVE-idle-blink.mp4",
+  "sha256": "c5ced049054c14d97e54a239537513555066ac37dadea0a7fc129f06532f0cb7",
+  "size": [
+    512,
+    512
+  ],
+  "fps": 25,
+  "source_fps": 24,
+  "source_frames": 148,
+  "decoded_playback_frames": 165,
+  "duration": 6.6,
+  "audio": false,
+  "outfit_id": "O01",
+  "entry_exit_anchor_frames": 5,
+  "canonical_first_last_jpeg_enforced_by_player": true,
+  "may_overlay_arbitrary_speech": false,
+  "loopable": true,
+  "all_frame_mean_delta": 0.9088893518215273,
+  "all_frame_p95_delta": 2.6777554829915364,
+  "mouth_mean_delta": 0.9881481845732435,
+  "runtime_enabled": false,
+  "review_status": "full_decode_complete_visual_review_pending",
+  "live_speech_quality_accepted": false
+}

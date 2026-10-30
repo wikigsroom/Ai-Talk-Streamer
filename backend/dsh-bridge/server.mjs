@@ -26,7 +26,7 @@ export class StreamBridge {
     this.db=new StateStore(inside(this.root,join(this.policy.deployment.state_relative_path,'stream.sqlite3')));
     this.db.on('owner-lost',()=>{this.ready=false;void this.close();});
     this.db.on('storage-fault',()=>{this.ready=false;this.scheduler?.close();for(const controller of this.controllers.values())controller.abort();});
-    const initial=initialPersona(this.root);
+    const initial=initialPersona(this.root,this.policy.identity.character_id);
     const saved=this.db.get("SELECT * FROM personas WHERE publication_state='PUBLISHED' ORDER BY published_at DESC LIMIT 1");
     const persona=saved?{document:JSON.parse(saved.document_json),version:saved.persona_version}:initial;
     this.state=new StreamState(this.db,this.policy,persona.version);this.auth=new Auth(this.root,this.db,this.state);
@@ -52,7 +52,7 @@ export class StreamBridge {
     this.managementServer=createServer((_req,res)=>{res.writeHead(302,{Location:this.avatarUrl+'/memory','Cache-Control':'no-store'});res.end();});
     await new Promise((resolve,reject)=>{this.managementServer.once('error',reject);this.managementServer.listen(this.policy.deployment.management_port,this.policy.deployment.management_host,resolve);});
     this.timer=setInterval(()=>{void this.tick();},1000);this.timer.unref();
-    this.maintenanceTimer=setInterval(()=>{void this.scheduler.tick().catch(()=>{});void this.memory.project().catch(()=>{});},this.policy.maintenance.poll_interval_ms);this.maintenanceTimer.unref();
+    this.maintenanceTimer=setInterval(()=>{if(this.policy.features?.automatic_memory_enabled!==false)void this.scheduler.tick().catch(()=>{});void this.memory.project().catch(()=>{});},this.policy.maintenance.poll_interval_ms);this.maintenanceTimer.unref();
     this.ready=true;
     console.log(JSON.stringify({event:'bridge.ready',port:this.policy.deployment.bridge_port,model:this.channel.publicInfo().model,channel_source:'studio_channel_env'}));
     return this;
@@ -84,7 +84,7 @@ export class StreamBridge {
   }
   health() {
     const projectionLag=this.db.get("SELECT COUNT(*) n FROM mirror_outbox WHERE state NOT IN ('APPLIED','SUPERSEDED')").n;
-    return {process_alive:true,state_store_ready:!this.db.faulted,dsh_ready:this.ready&&this.host.ready,
+    return {character_id:this.policy.identity.character_id,process_alive:true,state_store_ready:!this.db.faulted,dsh_ready:this.ready&&this.host.ready,
       persona_injection_ready:!!this.compatibility?.passed&&this.compatibility.provider_revision===this.channel.publicInfo().revision,memory_ready:!this.administration?.locked,
       projection_synced:projectionLag===0&&this.host.port.injectionEnabled,projection_lag:projectionLag,
       ...this.mediaHealth,authority_ready:this.state.current()?this.state.authorityReady(this.state.current().broadcast_id):false,
@@ -256,7 +256,7 @@ export class StreamBridge {
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
   const root=resolve(process.argv[2]||''),runtime=resolve(root,process.argv[3]||'tools/dsh');
-  const bridge=new StreamBridge(root,runtime,{policyFile:process.argv[4]||undefined});
+  const bridge=new StreamBridge(root,runtime,{policyFile:process.argv[4]||undefined,avatarUrl:process.argv[5]||'http://127.0.0.1:8010'});
   process.on('SIGTERM',()=>{void bridge.close();});process.on('SIGINT',()=>{void bridge.close();});
   try{await bridge.start();}catch(error){console.error(JSON.stringify({event:'bridge.start_failed',code:error.code||error.message}));await bridge.close();process.exitCode=1;}
 }

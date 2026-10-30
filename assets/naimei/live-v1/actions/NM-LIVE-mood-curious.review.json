@@ -1,0 +1,29 @@
+{
+  "id": "NM-LIVE-mood-curious",
+  "task": "A08",
+  "label": "好奇·轻挑眉",
+  "state": "emotion",
+  "path": "assets/naimei/live-v1/actions/NM-LIVE-mood-curious.mp4",
+  "sha256": "0e34a32275d95cb3d5cb21c59cb25f014165d374d5c3a8cecd451887fe17826c",
+  "size": [
+    512,
+    512
+  ],
+  "fps": 25,
+  "source_fps": 24,
+  "source_frames": 148,
+  "decoded_playback_frames": 165,
+  "duration": 6.6,
+  "audio": false,
+  "outfit_id": "O01",
+  "entry_exit_anchor_frames": 5,
+  "canonical_first_last_jpeg_enforced_by_player": true,
+  "may_overlay_arbitrary_speech": false,
+  "loopable": false,
+  "all_frame_mean_delta": 1.2536036328571598,
+  "all_frame_p95_delta": 4.968328030904133,
+  "mouth_mean_delta": 0.8494122810851764,
+  "runtime_enabled": false,
+  "review_status": "full_decode_complete_visual_review_pending",
+  "live_speech_quality_accepted": false
+}

@@ -1,0 +1,19 @@
+{
+  "character_id": "naimei",
+  "outfit_id": "O01",
+  "size": [
+    512,
+    512
+  ],
+  "runtime_reference": "assets/naimei/live-v1/reference/closed.png",
+  "runtime_reference_sha256": "e9333922c83c1d21985c51f73f081db6e24fb223620c0062109ca87f6bf13427",
+  "framing": "existing validated-resolution close-up; eyes, hat and mouth retain the live reference positions",
+  "mouth_review_roi_xyxy": [
+    185,
+    352,
+    329,
+    445
+  ],
+  "diagnostic_open_images_are_runtime_inputs": false,
+  "note": "Open-mouth stills are detail references, not a calibrated phoneme set or alternate live source."
+}

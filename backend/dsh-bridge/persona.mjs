@@ -1,10 +1,24 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { digest } from './channel.mjs';
 
-export function initialPersona(root) {
-  const character = JSON.parse(readFileSync(join(root, 'configs/characters/female-a.json'), 'utf8'));
-  if (character.id !== 'female-a' || character.name !== '林知夏' || character.age !== 22 || !character.fictional) throw new Error('CHARACTER_IDENTITY_MISMATCH');
+export function initialPersona(root, characterId) {
+  if (!characterId) {
+    const active = join(root, 'configs/active-character.json');
+    characterId = process.env.AVATAR_CHARACTER_ID || (existsSync(active) ? JSON.parse(readFileSync(active, 'utf8')).character_id : 'female-a');
+  }
+  if (!/^[a-z][a-z0-9-]{0,63}$/.test(characterId)) throw new Error('CHARACTER_ID_INVALID');
+  const character = JSON.parse(readFileSync(join(root, 'configs/characters', characterId + '.json'), 'utf8'));
+  if (character.id !== characterId || !character.fictional || !character.name || !character.persona_prompt) throw new Error('CHARACTER_IDENTITY_MISMATCH');
+  if (characterId === 'female-a' && (character.name !== '林知夏' || character.age !== 22)) throw new Error('CHARACTER_IDENTITY_MISMATCH');
+  if (characterId !== 'female-a') {
+    if (!Array.isArray(character.identity_fields) || !character.identity_fields.length || !Array.isArray(character.persona_sections)) throw new Error('CHARACTER_PERSONA_REQUIRED');
+    const document = { schemaVersion: 1,
+      identityCard: { fields: character.identity_fields, initializedAt: '2026-10-31T00:00:00.000Z', sealedAt: '2026-10-31T00:00:00.000Z' },
+      mutableLayer: { sections: character.persona_sections, userDefined: [] },
+    };
+    return { document, version: characterId + '-v1-' + digest(document).slice(0, 12), character };
+  }
   const document = { schemaVersion: 1,
     identityCard: { fields: [
       { key: '姓名', value: character.name, custom: false },
@@ -20,5 +34,5 @@ export function initialPersona(root) {
       { title: '行为边界', items: ['如实说明自己是虚拟角色；不把虚构学生身份说成现实经历。', '不泄露另一位观众的专属记忆，不改写已发布身份。'] },
     ], userDefined: [] },
   };
-  return { document, version: 'female-a-v1-' + digest(document).slice(0, 12), character };
+  return { document, version: characterId + '-v1-' + digest(document).slice(0, 12), character };
 }

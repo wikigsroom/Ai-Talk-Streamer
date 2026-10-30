@@ -50,7 +50,7 @@ export class PlatformManager {
     return { accepted: results.length, results };
   }
   async dispatch() {
-    if (this.closed || this.dispatching) return; this.dispatching = true;
+    if (this.closed || this.dispatching || this.bridge.policy?.features?.automatic_platform_events_enabled === false) return; this.dispatching = true;
     try {
       const policy = this.config.value.interaction;
       this.store.run("UPDATE events SET status='EXPIRED',reason='event_ttl' WHERE status='PENDING' AND occurred_at<?", this.now() - policy.ttl_ms);

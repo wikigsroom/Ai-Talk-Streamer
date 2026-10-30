@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "character_native_size": [
+    512,
+    512
+  ],
+  "fps": 25,
+  "compositing": {
+    "mode": "opaque_fixed_frame",
+    "transparent_video_claimed": false,
+    "note": "Use the complete neutral-background character frame inside the programme layout; no unreviewed matte edges."
+  },
+  "portrait": {
+    "canvas": [
+      720,
+      1280
+    ],
+    "character": [
+      58,
+      384,
+      604,
+      604
+    ],
+    "title": [
+      58,
+      166,
+      604,
+      130
+    ],
+    "captions": [
+      58,
+      1000,
+      604,
+      160
+    ]
+  },
+  "landscape": {
+    "canvas": [
+      1280,
+      720
+    ],
+    "character": [
+      90,
+      101,
+      518,
+      518
+    ],
+    "title": [
+      704,
+      230,
+      512,
+      130
+    ],
+    "captions": [
+      704,
+      440,
+      512,
+      180
+    ]
+  },
+  "scene_options": [
+    "main",
+    "backup"
+  ],
+  "default": "portrait"
+}

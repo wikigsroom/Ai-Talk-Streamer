@@ -1,12 +1,7 @@
 {
-  "release": "native-rtx3080-v1.2.2-k02-o07-f07",
-  "manifest": "configs/releases/native-rtx3080-k02-v1.2.2.json",
-  "runbook": "docs/deployment/RTX3080_K02_RELEASE.md",
-  "voice_manifest": "configs/releases/split-a4090-b3080-o07-f07-v1.json",
-  "historical_manifest": "configs/releases/split-a4090-b3080-v1.json",
-  "room_manifest": "configs/releases/split-a4090-b3080-room-v1.2.json",
-  "previous_manifest": "configs/releases/split-a4090-b3080-k02-v1.2.1.json",
-  "runtime_lock": "configs/releases/rtx3080-k02-runtime-lock.json",
-  "target": "remote-3080",
-  "deployment_branch": "deploy/rtx3080"
+  "release": "naimei-o01-live-v1",
+  "manifest": "configs/releases/naimei-o01-live-v1.json",
+  "runbook": "docs/naimei/A01-A14实施与直播接入.md",
+  "target": "naimei-rtx4090",
+  "deployment_branch": "naimei"
 }

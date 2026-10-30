@@ -4,7 +4,7 @@ import { dirname } from 'node:path';
 import { DEFAULTS, patchSettings } from './defaults.mjs';
 
 export class RoomStore {
-  constructor(path) {
+  constructor(path, { defaults = DEFAULTS } = {}) {
     mkdirSync(dirname(path), { recursive: true }); this.db = new DatabaseSync(path);
     this.db.exec(`PRAGMA journal_mode=WAL; PRAGMA busy_timeout=3000;
       CREATE TABLE IF NOT EXISTS meta(key TEXT PRIMARY KEY,value TEXT NOT NULL);
@@ -13,7 +13,7 @@ export class RoomStore {
       CREATE TABLE IF NOT EXISTS audit(seq INTEGER PRIMARY KEY AUTOINCREMENT,at INTEGER NOT NULL,action TEXT NOT NULL,detail TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS agent(seq INTEGER PRIMARY KEY AUTOINCREMENT,session TEXT NOT NULL,at INTEGER NOT NULL,role TEXT NOT NULL,text TEXT NOT NULL);
     `);
-    this.settings = patchSettings(DEFAULTS, this.get('settings', DEFAULTS));
+    this.settings = patchSettings(defaults, this.get('settings', defaults));
     this.revision = this.get('revision', 1);
   }
   all(sql, ...args) { return this.db.prepare(sql).all(...args); }

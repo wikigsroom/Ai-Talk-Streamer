@@ -1,0 +1,29 @@
+{
+  "id": "NM-LIVE-react-welcome",
+  "task": "A07",
+  "label": "欢迎·轻点头",
+  "state": "reaction",
+  "path": "assets/naimei/live-v1/actions/NM-LIVE-react-welcome.mp4",
+  "sha256": "cd25fa53231073c1a0aedf332e0d22f953bc6c4c5ad3dff8ae8134799f8621f4",
+  "size": [
+    512,
+    512
+  ],
+  "fps": 25,
+  "source_fps": 24,
+  "source_frames": 148,
+  "decoded_playback_frames": 165,
+  "duration": 6.6,
+  "audio": false,
+  "outfit_id": "O01",
+  "entry_exit_anchor_frames": 5,
+  "canonical_first_last_jpeg_enforced_by_player": true,
+  "may_overlay_arbitrary_speech": false,
+  "loopable": false,
+  "all_frame_mean_delta": 1.8903701053402289,
+  "all_frame_p95_delta": 5.558553123474121,
+  "mouth_mean_delta": 2.0567172125574302,
+  "runtime_enabled": false,
+  "review_status": "full_decode_complete_visual_review_pending",
+  "live_speech_quality_accepted": false
+}

@@ -1,0 +1,29 @@
+{
+  "id": "NM-LIVE-think-side",
+  "task": "A05",
+  "label": "思考·轻歪头",
+  "state": "thinking",
+  "path": "assets/naimei/live-v1/actions/NM-LIVE-think-side.mp4",
+  "sha256": "c791d3fd30691697cafdb94e3ed74f6ec74ea6301e54bc7682924d205c9bcb14",
+  "size": [
+    512,
+    512
+  ],
+  "fps": 25,
+  "source_fps": 24,
+  "source_frames": 148,
+  "decoded_playback_frames": 165,
+  "duration": 6.6,
+  "audio": false,
+  "outfit_id": "O01",
+  "entry_exit_anchor_frames": 5,
+  "canonical_first_last_jpeg_enforced_by_player": true,
+  "may_overlay_arbitrary_speech": false,
+  "loopable": false,
+  "all_frame_mean_delta": 1.9155418969751372,
+  "all_frame_p95_delta": 7.327973937988278,
+  "mouth_mean_delta": 0.9421482974910395,
+  "runtime_enabled": false,
+  "review_status": "full_decode_complete_visual_review_pending",
+  "live_speech_quality_accepted": false
+}

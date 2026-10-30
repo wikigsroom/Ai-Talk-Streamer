@@ -1,0 +1,29 @@
+{
+  "id": "NM-LIVE-mood-concern",
+  "task": "A08",
+  "label": "关切·柔和目光",
+  "state": "emotion",
+  "path": "assets/naimei/live-v1/actions/NM-LIVE-mood-concern.mp4",
+  "sha256": "ff90b0817a0f5cf6bb568d0e9e13ef46501c5b59587cdc51f370a38bd3882c29",
+  "size": [
+    512,
+    512
+  ],
+  "fps": 25,
+  "source_fps": 24,
+  "source_frames": 148,
+  "decoded_playback_frames": 165,
+  "duration": 6.6,
+  "audio": false,
+  "outfit_id": "O01",
+  "entry_exit_anchor_frames": 5,
+  "canonical_first_last_jpeg_enforced_by_player": true,
+  "may_overlay_arbitrary_speech": false,
+  "loopable": false,
+  "all_frame_mean_delta": 0.8657974305191661,
+  "all_frame_p95_delta": 2.5985843658447254,
+  "mouth_mean_delta": 0.6906041769871103,
+  "runtime_enabled": false,
+  "review_status": "full_decode_complete_visual_review_pending",
+  "live_speech_quality_accepted": false
+}

@@ -37,10 +37,13 @@ export function loadPolicy(root, file) {
   const shape = structuredClone(policyTemplate);
   delete shape.example_only;
   const policy = file ? JSON.parse(readFileSync(inside(root, file), 'utf8')) : structuredClone(shape);
+  if (Object.hasOwn(policy, 'features')) shape.features = { automatic_memory_enabled: true, automatic_platform_events_enabled: true };
   sameShape(policy, shape);
   if (policy.schema_version !== 1 || policy.policy_version !== POLICY_VERSION) throw new Error('CONFIG_VERSION');
   if(policy.versions.dsh_candidate!=='0.2.0-rc.2'||policy.versions.humanity_base!=='0.1.17'||policy.versions.allow_unpinned_dependencies||!policy.versions.runtime_validation_required||!policy.versions.humanity_connector_patch_required)throw new Error('CONFIG_VERSION_LOCK');
-  if(policy.identity.character_id!=='female-a'||policy.identity.room_id!=='room-main'||policy.identity.anonymous_cross_broadcast_memory||policy.identity.viewer_identity_source!=='server_verified_principal'||policy.identity.character_source!=='configs/characters/female-a.json')throw new Error('CONFIG_IDENTITY_SCOPE');
+  const characterId=policy.identity.character_id;
+  if(!['female-a','naimei'].includes(characterId)||policy.identity.room_id!=='room-main'||policy.identity.anonymous_cross_broadcast_memory||policy.identity.viewer_identity_source!=='server_verified_principal'||policy.identity.character_source!==`configs/characters/${characterId}.json`)throw new Error('CONFIG_IDENTITY_SCOPE');
+  if(characterId==='naimei'&&(!/^state\/naimei(?:\/|$)/.test(policy.deployment.state_relative_path.replaceAll('\\','/'))||!policy.deployment.dsh_home_relative_path.replaceAll('\\','/').startsWith(policy.deployment.state_relative_path.replaceAll('\\','/')+'/')))throw new Error('CONFIG_CHARACTER_STATE_SCOPE');
   if (policy.deployment.mode !== 'native_windows' || policy.deployment.bridge_host !== '127.0.0.1' || policy.deployment.management_host !== '127.0.0.1') throw new Error('CONFIG_DEPLOYMENT');
   if (policy.conversation.session_strategy !== 'per_request_standard' || policy.conversation.active_requests_per_room !== 1 || policy.playback.authorities_per_broadcast !== 1 || policy.maintenance.concurrency !== 1) throw new Error('CONFIG_SINGLE_OWNER');
   if (policy.memory.canonical_store !== 'sqlite' || policy.memory.humanity_projection !== 'public_only') throw new Error('CONFIG_MEMORY_OWNER');

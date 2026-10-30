@@ -1,0 +1,167 @@
+{
+  "method": "decoded frames, sampled full-frame contacts, all-frame mouth contacts; not an audio-lip acceptance",
+  "accepted_silent_motions": 15,
+  "rejected_candidates_preserved": 5,
+  "reviews": [
+    {
+      "id": "NM-LIVE-idle-breath",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-idle-breath-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-idle-breath-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-idle-blink",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-idle-blink-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-idle-blink-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-idle-gaze",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-idle-gaze-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-idle-gaze-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-listen-nod",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-listen-nod-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-listen-nod-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-listen-tilt",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-listen-tilt-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-listen-tilt-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-think-up",
+      "runtime_enabled": false,
+      "review_status": "rejected",
+      "review_notes": "The mouth opens in a silent thinking shot.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-think-up-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-think-up-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-think-side",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-think-side-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-think-side-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-react-welcome",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-react-welcome-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-react-welcome-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-react-thanks",
+      "runtime_enabled": false,
+      "review_status": "rejected",
+      "review_notes": "The large bow clips the muzzle at the lower frame edge.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-react-thanks-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-react-thanks-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-react-approve",
+      "runtime_enabled": false,
+      "review_status": "rejected",
+      "review_notes": "The green irises flash white during the reaction.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-react-approve-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-react-approve-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-react-encourage",
+      "runtime_enabled": false,
+      "review_status": "rejected",
+      "review_notes": "The mouth opens with a human-like tooth strip.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-react-encourage-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-react-encourage-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-react-soft-smile",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-react-soft-smile-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-react-soft-smile-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-react-goodbye",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-react-goodbye-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-react-goodbye-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-mood-curious",
+      "runtime_enabled": false,
+      "review_status": "rejected",
+      "review_notes": "The mouth opens in a silent curiosity shot.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-mood-curious-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-mood-curious-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-mood-concern",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-mood-concern-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-mood-concern-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-think-up-r2",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-think-up-r2-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-think-up-r2-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-react-approve-r2",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-react-approve-r2-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-react-approve-r2-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-react-encourage-r2",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-react-encourage-r2-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-react-encourage-r2-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-mood-curious-r2",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-mood-curious-r2-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-mood-curious-r2-mouth-all-frames.jpg"
+    },
+    {
+      "id": "NM-LIVE-react-thanks-r2",
+      "runtime_enabled": true,
+      "review_status": "silent_motion_visual_review_passed",
+      "review_notes": "Closed muzzle retained; reference costume/hair/green eyes retained in sampled full frames; all-frame mouth contact reviewed.",
+      "full_frame_contact": "output/review/naimei-live-v1/NM-LIVE-react-thanks-r2-contact.jpg",
+      "all_frame_mouth_contact": "output/review/naimei-live-v1/NM-LIVE-react-thanks-r2-mouth-all-frames.jpg"
+    }
+  ]
+}

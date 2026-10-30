@@ -1,7 +1,8 @@
 'use strict';
 class LocalAvatarStream {
- constructor(audioContext,onClose,{directOutput=false}={}){
+ constructor(audioContext,onClose,{directOutput=false,audible=null}={}){
   this.audioContext=audioContext;this.onClose=onClose;this.directOutput=directOutput;
+  this.audible=audible;
   this.canvas=document.createElement('canvas');this.canvas.width=720;this.canvas.height=1280;
   this.context=this.canvas.getContext('2d',{alpha:false});
   this.timers=new Map();this.sources=new Set();this.running=true;this.next=0;
@@ -23,7 +24,7 @@ class LocalAvatarStream {
   // Sending that output through another MediaStream/video element can stall
   // in an offscreen CEF renderer, so Livehime consumes the canvas directly.
   this.destination=this.directOutput?this.audioContext.destination:this.audioContext.createMediaStreamDestination();
-  if(window.RoomAudioMixer&&window.roomClient)this.roomMixer=new RoomAudioMixer(this.audioContext,this.destination,window.roomClient,{audible:new URLSearchParams(location.search).get('renderer')!=='preview'});
+  if(window.RoomAudioMixer&&window.roomClient)this.roomMixer=new RoomAudioMixer(this.audioContext,this.destination,window.roomClient,{audible:this.audible??(new URLSearchParams(location.search).get('renderer')!=='preview')});
   if(!this.directOutput){
    this.stream=this.canvas.captureStream(0);this.videoTrack=this.stream.getVideoTracks()[0];
    if(typeof this.videoTrack.requestFrame!=='function'){

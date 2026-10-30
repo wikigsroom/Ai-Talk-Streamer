@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "tracks": [
+    {
+      "id": "naimei-orange-room",
+      "name": "橙光小屋 · 轻柔弦音",
+      "path": "assets/naimei/live-v1/audio/orange-room.wav",
+      "duration": 24,
+      "bytes": 4608044,
+      "sha256": "0b34e4da529af986ed0231e94dfa2607587f6ff63adaa4b8edd5e058f69e8c19",
+      "position": 0,
+      "origin": "local procedural sine/partial synthesis; no external audio sample",
+      "loop": true
+    },
+    {
+      "id": "naimei-quiet-company",
+      "name": "安静陪伴 · 暖色音垫",
+      "path": "assets/naimei/live-v1/audio/quiet-company.wav",
+      "duration": 24,
+      "bytes": 4608044,
+      "sha256": "6625ee85ee1558060b23285a0d41d6e61432255d7c99fac66fc7abd203f80dbb",
+      "position": 1,
+      "origin": "local procedural sine/partial synthesis; no external audio sample",
+      "loop": true
+    }
+  ]
+}

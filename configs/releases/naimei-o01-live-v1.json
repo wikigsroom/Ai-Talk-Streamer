@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "naimei-o01-live-v1",
+  "character_id": "naimei",
+  "source_branch": "naimei",
+  "target": "naimei-rtx4090",
+  "engine": "SoulX-FlashHead Lite",
+  "outfit_id": "O01",
+  "native_size": [
+    512,
+    512
+  ],
+  "fps": 25,
+  "runtime_config": "configs/naimei/live-runtime.json",
+  "asset_pack": "assets/naimei/live-v1/pack.json",
+  "speech_quality_accepted": false,
+  "public_broadcast_allowed": false
+}

@@ -10,7 +10,20 @@ const keyFor = e => e.user_id ? createHash('sha256').update(JSON.stringify([e.pl
 const cleanTrack = ({ path: _path, ...track }) => ({ ...track, url: '/api/dsh/room/audio/' + track.id });
 export class RoomManager {
   constructor(root, bridge, { now = () => Date.now(), store, probe } = {}) {
-    this.root = resolve(root); this.bridge = bridge; this.now = now; this.store = store || new RoomStore(join(root, 'state/live-room/control.sqlite3')); this.probe = probe;
+    this.root = resolve(root); this.bridge = bridge; this.now = now;
+    const defaults = structuredClone(DEFAULTS);
+    const characterId = bridge?.policy?.identity?.character_id;
+    if (characterId && characterId !== 'female-a') {
+      const character = JSON.parse(readFileSync(join(root, bridge.policy.identity.character_source), 'utf8'));
+      if (character.id !== characterId) throw new Error('CHARACTER_IDENTITY_MISMATCH');
+      defaults.identity.title = character.scene.name;
+      defaults.identity.announcement = `欢迎来到${character.scene.name} · 我是虚拟主播${character.name}`;
+      defaults.audio.music_volume = 0.16;
+      this.bgmManifest = character.bgm_manifest;
+    }
+    this.defaults = defaults;
+    const roomState = characterId === 'naimei' ? join(bridge.policy.deployment.state_relative_path, 'room/control.sqlite3') : 'state/live-room/control.sqlite3';
+    this.store = store || new RoomStore(join(root, roomState), { defaults }); this.probe = probe;
     this.clients = new Set(); this.sequence = 0; this.epoch = randomUUID(); this.closed = false; this.uploading = false; this.player = null;
     this.music = { track_id: null, playing: false, position: 0, anchor_at: now(), repeat: 'one', shuffle: false, version: 1, ...this.store.get('music', {}) };
     // Restarts never resume music unexpectedly in a running official client.
@@ -37,7 +50,7 @@ export class RoomManager {
     this.pruneTimer = setInterval(() => this.store.prune(this.now()), 3600000); this.pruneTimer.unref(); return this;
   }
   seedTracks() {
-    const manifest = join(this.root, 'assets/room/bgm/manifest.json'); if (!existsSync(manifest)) return;
+    const manifest = join(this.root, this.bgmManifest || 'assets/room/bgm/manifest.json'); if (!existsSync(manifest)) return;
     for (const item of JSON.parse(readFileSync(manifest, 'utf8')).tracks) {
       const path = resolve(this.root, item.path); check(path.startsWith(this.root + (process.platform === 'win32' ? '\\' : '/')), 'BGM_MANIFEST_PATH');
       if (!existsSync(path)) continue;
@@ -212,7 +225,7 @@ export class RoomManager {
     check(req.method === 'POST', 'ROOM_ROUTE_NOT_FOUND', 404); const body = await this.body(req);
     if (path === '/config') return send(this.configure(body));
     if (path === '/import') { check(body.schema_version === 1, 'ROOM_IMPORT_SCHEMA'); return send(this.configure({ expected_revision: body.expected_revision, patch: body.settings })); }
-    if (path === '/reset') return send(this.configure({ expected_revision: body.expected_revision, patch: DEFAULTS }));
+    if (path === '/reset') return send(this.configure({ expected_revision: body.expected_revision, patch: this.defaults }));
     if (path === '/music') return send(this.musicControl(body));
     if (path === '/messages') return send(this.messageControl(body));
     if (path === '/speak') return send(this.speak(body), 202);

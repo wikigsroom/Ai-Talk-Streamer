@@ -1,0 +1,42 @@
+[
+  {
+    "id": "opening",
+    "label": "开场",
+    "text": "大家好，我是奶妹。欢迎来到我的橙光小屋，找个舒服的位置，我们慢慢聊。",
+    "title": "奶妹的橙光小屋",
+    "subtitle": "今天也一起待一会儿",
+    "action_before": "NM-LIVE-react-welcome"
+  },
+  {
+    "id": "transition",
+    "label": "转场",
+    "text": "我们换个轻松一点的话题，接着聊。",
+    "title": "换个小话题",
+    "subtitle": "慢慢来，我们一起",
+    "action_before": "NM-LIVE-think-side"
+  },
+  {
+    "id": "break",
+    "label": "短暂离开",
+    "text": "我去喝口水，很快回来。你也记得休息一下。",
+    "title": "奶妹去喝口水",
+    "subtitle": "稍等一会儿，很快回来",
+    "action_before": "NM-LIVE-react-goodbye"
+  },
+  {
+    "id": "resume",
+    "label": "恢复",
+    "text": "我回来啦。刚才聊到哪里了？我们继续。",
+    "title": "奶妹回来啦",
+    "subtitle": "接着聊聊刚才的话题",
+    "action_before": "NM-LIVE-react-welcome"
+  },
+  {
+    "id": "closing",
+    "label": "下播",
+    "text": "今天先到这里，谢谢你陪我度过这段时间。好好休息，下次再见。",
+    "title": "今天也谢谢你",
+    "subtitle": "下次见，我们接着聊",
+    "action_before": "NM-LIVE-react-thanks-r2"
+  }
+]
