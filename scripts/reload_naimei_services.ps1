@@ -20,15 +20,24 @@ if($status.broadcast.state -eq 'LIVE') {
 }
 $registryPath=Join-Path $rootPath 'state\naimei\processes\services.json'
 $registry=Get-Content -Raw -Encoding UTF8 -LiteralPath $registryPath|ConvertFrom-Json
+$allProcesses=@(Get-CimInstance Win32_Process)
+$verifiedPids=@()
 foreach($name in @('bridge','studio')) {
   $entry=$registry.$name
   if($entry.root -ne $rootPath){throw "Unowned $name process; nothing else was stopped"}
   $process=Get-CimInstance Win32_Process -Filter ('ProcessId='+[int]$entry.pid)
   $script=if($name -eq 'bridge'){'backend\dsh-bridge\server.mjs'}else{'integration.naimei_studio'}
   if($process -and ($process.CommandLine -notlike ('*'+$rootPath+'*') -or $process.CommandLine -notlike ('*'+$script+'*'))) {throw "Process ownership mismatch for $name"}
+  # Native venv Python has a launcher and a base-interpreter child. Both
+  # must be stopped to ensure the replacement source actually takes effect.
+  if($process){
+    $verifiedPids+=@($allProcesses|Where-Object {
+      $_.CommandLine -and $_.CommandLine.Contains($rootPath) -and $_.CommandLine.Contains($script) -and
+      ($_.ProcessId -eq [int]$entry.pid -or $_.ParentProcessId -eq [int]$entry.pid)
+    }|ForEach-Object {$_.ProcessId})
+  }
 }
-foreach($name in @('bridge','studio')) {
-  $taskPid=[int]$registry.$name.pid
+foreach($taskPid in @($verifiedPids|Select-Object -Unique)) {
   if(Get-Process -Id $taskPid -ErrorAction SilentlyContinue){Stop-Process -Id $taskPid}
 }
 $python='C:\dev\虚拟数字人直播\runtime\python\cpython-3.10.22-windows-x86_64-none\python.exe'
