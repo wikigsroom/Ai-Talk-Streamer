@@ -35,6 +35,7 @@ files.add('docs/naimei/A01-A14实施与直播接入.md')
 files.add('docs/naimei/A01-A14验收与阻塞报告.md')
 files.add('docs/naimei/直播接入任务清单.csv')
 files.add('docs/naimei/原选音色核验与恢复.md')
+files.add('docs/naimei/播放按钮故障修复.md')
 records = []
 archive = OUT / 'naimei-source.zip'
 with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=3) as bundle:

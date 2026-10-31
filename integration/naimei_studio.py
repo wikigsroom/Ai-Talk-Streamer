@@ -472,6 +472,8 @@ class Studio:
             value = await request.json()
             if value.get('mode', 'chat') != 'echo':
                 return web.json_response({'error': 'NAIMEI_A01_A14_MANUAL_SPEECH_ONLY'}, status=409)
+            if not await self.playback_ready():
+                return web.json_response({'error': 'NAIMEI_PLAYBACK_SOURCE_REQUIRED'}, status=409)
             body = json.dumps(value).encode('utf-8')
         else:
             body = await request.read()
@@ -487,6 +489,11 @@ class Studio:
                 return response
         except (OSError, asyncio.TimeoutError):
             return web.json_response({'error': 'NAIMEI_BRIDGE_UNAVAILABLE'}, status=503)
+
+    async def playback_ready(self):
+        status = await self.api('/api/dsh/status')
+        return bool((status.get('broadcast') or {}).get('state') == 'LIVE'
+                    and status.get('health', {}).get('authority_ready'))
 
     async def action_command(self, request):
         value = await request.json()
@@ -511,25 +518,32 @@ class Studio:
             return web.json_response({'error': 'CUE_DELAY_INVALID'}, status=400)
         if self.cue_task and not self.cue_task.done():
             return web.json_response({'error': 'CUE_IN_PROGRESS'}, status=409)
-        self.scheduled_cue = {'cue_id': cue['id'], 'due_at': time.time() + delay}
+        if not await self.playback_ready():
+            return web.json_response({'error': 'NAIMEI_PLAYBACK_SOURCE_REQUIRED'}, status=409)
+        run_id = 'cue-' + uuid.uuid4().hex
+        self.scheduled_cue = {'cue_id': cue['id'], 'cue_run_id': run_id, 'due_at': time.time() + delay}
         async def run():
             try:
                 if delay:
                     await asyncio.sleep(delay)
                 self.scheduled_cue = None
+                if not await self.playback_ready():
+                    raise RuntimeError('NAIMEI_PLAYBACK_SOURCE_REQUIRED')
                 self.programme = cue
                 aid = cue.get('action_before')
                 if aid in self.frames and not self.mapping:
                     self.action, self.action_index = aid, 0
                     await asyncio.sleep(len(self.frames[aid]) / 25)
+                if not await self.playback_ready():
+                    raise RuntimeError('NAIMEI_PLAYBACK_SOURCE_REQUIRED')
                 result = await self.api('/api/dsh/requests', {'text': cue['text'], 'mode': 'echo', 'idempotency_key': 'cue-' + uuid.uuid4().hex})
-                self.event('programme_cue', cue_id=cue['id'], request_id=result.get('request_id'))
+                self.event('programme_cue', cue_id=cue['id'], cue_run_id=run_id, request_id=result.get('request_id'))
             except (RuntimeError, OSError, asyncio.TimeoutError) as exc:
-                self.event('programme_cue_failed', cue_id=cue['id'], error=str(exc))
+                self.event('programme_cue_failed', cue_id=cue['id'], cue_run_id=run_id, error=str(exc))
             finally:
                 self.scheduled_cue = None
         self.cue_task = asyncio.create_task(run())
-        return web.json_response({'accepted': True, 'cue': cue, 'delay_seconds': delay})
+        return web.json_response({'accepted': True, 'cue': cue, 'cue_run_id': run_id, 'delay_seconds': delay})
 
     async def voice_command(self, request):
         value = await request.json()

@@ -6,7 +6,7 @@ const scene=params.get('scene')==='backup'?'backup':'main';
 document.documentElement.style.setProperty('--scene-image','url("/naimei-assets/scenes/'+scene+'.jpg")');
 const context=new AudioContext(),room=window.roomClient=new RoomClient({pollOnly:true});
 window.avatarAudioContext=context;room.start().catch(()=>{});
-let transport,stopped=false,reconnectTimer,authorityBusy=false,lastSfx=0,live=false,authorityProof=0,authorityEpoch=null;
+let transport,stopped=false,connecting=false,reconnectTimer,authorityBusy=false,lastSfx=0,live=false,authorityProof=0,authorityEpoch=null;
 const captionCache=new Map(),captionPending=new Set();
 function notice(text){const node=document.getElementById('notice');node.textContent=text;node.hidden=!text;}
 async function post(path,body){
@@ -37,17 +37,22 @@ async function authority(){
 }
 function audibleAuthority(){return !preview&&live&&!!transport?.dsh?.lease&&authorityEpoch===transport.dsh.lease.runtime_epoch&&performance.now()-authorityProof<2000}
 async function connect(){
- if(stopped)return;authorityProof=0;authorityEpoch=null;transport?.close();document.getElementById('avatar-frame').replaceChildren();
+ if(stopped||connecting)return;connecting=true;authorityProof=0;authorityEpoch=null;transport?.close();document.getElementById('avatar-frame').replaceChildren();
  try{
-  await context.resume();
+  const resumed=context.resume();
+  if(context.state!=='running')notice(preview?'点击这里启用预览':'点击这里启用画面与声音');
+  await resumed;
+  if(stopped)return;
   transport=new LocalAvatarStream(context,()=>{notice('连接已断开，正在恢复…');if(!stopped)reconnectTimer=setTimeout(connect,2000)},{directOutput:true,audible:false});
   window.avatarTransport=transport;transport.bufferSeconds=.8;document.getElementById('avatar-frame').append(transport.canvas);
   await transport.connect();notice('');await authority();
- }catch{notice('点击这里启用画面与声音')}
+ }catch{notice(preview?'点击这里启用预览':'点击这里启用画面与声音')}finally{connecting=false}
 }
-document.getElementById('notice').addEventListener('click',async()=>{
+async function enablePlayback(){
  await context.resume();if(!transport?.running)await connect();else{notice('');await authority()}
-});
+}
+document.getElementById('notice').addEventListener('click',enablePlayback);
+document.getElementById('notice').addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();void enablePlayback()}});
 function getCaptions(requestId){
  if(captionCache.has(requestId)||captionPending.has(requestId))return;captionPending.add(requestId);
  fetch('/api/naimei/captions/'+encodeURIComponent(requestId)).then(r=>r.ok?r.json():null).then(value=>{
