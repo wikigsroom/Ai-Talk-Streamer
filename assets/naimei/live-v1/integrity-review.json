@@ -2,15 +2,21 @@
   "character_id": "naimei",
   "source_branch": "naimei",
   "scope": "A01-A14",
-  "files": 190,
-  "bytes": 33950316,
+  "files": 195,
+  "bytes": 33532513,
   "enabled_silent_actions": 15,
   "rejected_actions_preserved": 5,
-  "voice_references": 3,
+  "voice_references": 1,
+  "voice_ids": [
+    "O07",
+    "F07"
+  ],
+  "voice_auditions": 2,
+  "voice_reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
   "speech_wavs": 25,
-  "speech_seconds": 102.42,
-  "fallback_speech_wavs": 1,
-  "fallback_speech_seconds": 3.296,
+  "speech_seconds": 87.78,
+  "fallback_speech_wavs": 2,
+  "fallback_speech_seconds": 6.613333333333333,
   "speech_clipped_samples": 0,
   "audio": [
     {
@@ -37,6 +43,7 @@
   "additional_model_weights_bytes": 0,
   "integrity_passed": true,
   "live_speech_quality_accepted": false,
-  "voice_user_audition_confirmed": false,
-  "note": "Integrity and asset completeness do not imply lip/fang or pronunciation acceptance."
+  "voice_user_audition_confirmed": true,
+  "naimei_voice_user_audition_confirmed": false,
+  "note": "Original voice choice is retained. Integrity does not imply new role pronunciation or lip/fang acceptance."
 }

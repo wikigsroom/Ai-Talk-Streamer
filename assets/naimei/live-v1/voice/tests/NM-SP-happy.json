@@ -2,16 +2,20 @@
   "request_id": "asset-NM-SP-happy",
   "character_id": "naimei",
   "engine": "OmniVoice",
-  "voice_id": "NMV01",
-  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
-  "audio_seconds": 3.76,
-  "wall_seconds": 2.655999999959022,
+  "voice_id": "O07",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "precision": "torch.float16",
+  "steps": 32,
+  "seed": 2026102807,
+  "model": "models/tts-benchmark/omnivoice",
+  "audio_seconds": 3.21,
+  "wall_seconds": 2.202999999979511,
   "spoken_text": "这件小事也太可爱了，我已经开始期待啦。",
   "captions": [
     {
       "text": "这件小事也太可爱了，我已经开始期待啦。",
       "sample_start": 0,
-      "sample_end": 60160
+      "sample_end": 51360
     }
   ],
   "caption_sample_rate": 16000,
@@ -19,12 +23,12 @@
   "asset_id": "NM-SP-happy",
   "path": "assets/naimei/live-v1/voice/tests/NM-SP-happy.wav",
   "text": "这件小事也太可爱了，我已经开始期待啦。",
-  "bytes": 180524,
-  "sha256": "d4bd7b417f311eb81f6226f7c5b7e37228607d9129010500382830b45f6e4eae",
-  "rms_dbfs": -20.706637027936743,
-  "peak_dbfs": -3.6042549609997874,
+  "bytes": 154124,
+  "sha256": "1c9be5af82e1d1eb963aa49f76da71c0454475a13a121b7f58b32dea0a139179",
+  "rms_dbfs": -23.304660328035936,
+  "peak_dbfs": -7.65356211300197,
   "clipped_samples": 0,
-  "wall_seconds_with_http": 2.702999999979511,
+  "wall_seconds_with_http": 2.2339999999967404,
   "listening_review": "pending",
   "mouth_review": "pending"
 }

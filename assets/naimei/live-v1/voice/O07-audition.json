@@ -1,0 +1,27 @@
+{
+  "request_id": "approved-audition-d22fddfe20da4999a0ecbc54bc64acd9",
+  "character_id": "naimei",
+  "engine": "OmniVoice",
+  "voice_id": "O07",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "precision": "torch.float16",
+  "steps": 32,
+  "seed": 2026102807,
+  "model": "models/tts-benchmark/omnivoice",
+  "audio_seconds": 3.6,
+  "wall_seconds": 2.922000000020489,
+  "spoken_text": "大家好，我是奶妹。今天也想陪你，慢慢聊一会儿。",
+  "captions": [
+    {
+      "text": "大家好，我是奶妹。今天也想陪你，慢慢聊一会儿。",
+      "sample_start": 0,
+      "sample_end": 57600
+    }
+  ],
+  "caption_sample_rate": 16000,
+  "alignment": "actual_generated_segment_boundaries",
+  "text": "大家好，我是奶妹。今天也想陪你，慢慢聊一会儿。",
+  "sha256": "1e8f8e2dd745c43ec904bdbc9aeaea3c9698943a0e975d87dfa3e314adf07a66",
+  "binding_and_pcm_verified": true,
+  "human_listening_accepted": false
+}

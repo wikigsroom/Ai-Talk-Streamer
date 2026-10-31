@@ -2,16 +2,20 @@
   "request_id": "asset-NM-SP-palatal",
   "character_id": "naimei",
   "engine": "OmniVoice",
-  "voice_id": "NMV01",
-  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
-  "audio_seconds": 3.52,
-  "wall_seconds": 2.75,
+  "voice_id": "O07",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "precision": "torch.float16",
+  "steps": 32,
+  "seed": 2026102807,
+  "model": "models/tts-benchmark/omnivoice",
+  "audio_seconds": 2.8,
+  "wall_seconds": 2.219000000040978,
   "spoken_text": "琪琪轻轻敲下琴键，谢谢小溪边的朋友。",
   "captions": [
     {
       "text": "琪琪轻轻敲下琴键，谢谢小溪边的朋友。",
       "sample_start": 0,
-      "sample_end": 56320
+      "sample_end": 44800
     }
   ],
   "caption_sample_rate": 16000,
@@ -19,12 +23,12 @@
   "asset_id": "NM-SP-palatal",
   "path": "assets/naimei/live-v1/voice/tests/NM-SP-palatal.wav",
   "text": "琪琪轻轻敲下琴键，谢谢小溪边的朋友。",
-  "bytes": 169004,
-  "sha256": "b3b196b8a63455c272a5c365297b94acea555526829d2cb33a47142f25e6c31b",
-  "rms_dbfs": -24.495382194347005,
-  "peak_dbfs": -5.363284641926789,
+  "bytes": 134444,
+  "sha256": "e0934398b89b2551673b7146bad3d7e3dd569bd95ba1594fd34516be33f942b1",
+  "rms_dbfs": -24.165494799514757,
+  "peak_dbfs": -10.157456733107587,
   "clipped_samples": 0,
-  "wall_seconds_with_http": 2.764999999955762,
+  "wall_seconds_with_http": 2.25,
   "listening_review": "pending",
   "mouth_review": "pending"
 }

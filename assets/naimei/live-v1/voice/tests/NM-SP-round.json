@@ -2,16 +2,20 @@
   "request_id": "asset-NM-SP-round",
   "character_id": "naimei",
   "engine": "OmniVoice",
-  "voice_id": "NMV01",
-  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
-  "audio_seconds": 3.95,
-  "wall_seconds": 2.8290000000270084,
+  "voice_id": "O07",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "precision": "torch.float16",
+  "steps": 32,
+  "seed": 2026102807,
+  "model": "models/tts-benchmark/omnivoice",
+  "audio_seconds": 3.32,
+  "wall_seconds": 2.297000000020489,
   "spoken_text": "乌云悠悠飘过屋顶，圆圆的月亮又露出来了。",
   "captions": [
     {
       "text": "乌云悠悠飘过屋顶，圆圆的月亮又露出来了。",
       "sample_start": 0,
-      "sample_end": 63200
+      "sample_end": 53120
     }
   ],
   "caption_sample_rate": 16000,
@@ -19,12 +23,12 @@
   "asset_id": "NM-SP-round",
   "path": "assets/naimei/live-v1/voice/tests/NM-SP-round.wav",
   "text": "乌云悠悠飘过屋顶，圆圆的月亮又露出来了。",
-  "bytes": 189644,
-  "sha256": "b88371af68c983e2e104abeb0cbc2ed66efdbccbfef98c4aebf9cc3c80f4daf9",
-  "rms_dbfs": -22.496400105487027,
-  "peak_dbfs": -4.960401082914258,
+  "bytes": 159404,
+  "sha256": "935dbd0455b30f6be7b5688cd048edeed9b352d91c3b61cf2ec5c1f85b097811",
+  "rms_dbfs": -19.825521416927586,
+  "peak_dbfs": -6.213579973483963,
   "clipped_samples": 0,
-  "wall_seconds_with_http": 2.8589999999967404,
+  "wall_seconds_with_http": 2.327999999979511,
   "listening_review": "pending",
   "mouth_review": "pending"
 }

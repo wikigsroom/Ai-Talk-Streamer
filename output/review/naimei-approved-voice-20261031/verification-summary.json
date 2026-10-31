@@ -1,0 +1,32 @@
+{
+  "character_id": "naimei",
+  "branch": "naimei",
+  "default_voice_id": "O07",
+  "fallback_voice_id": "F07",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "model_fingerprint_files": 11,
+  "model_fingerprints_matched": true,
+  "python_tests": 49,
+  "python_tests_passed": true,
+  "formal_player_requests": [
+    {
+      "voice_id": "O07",
+      "request_id": "req-e7106836-285e-4e6e-b5a1-f76590e4295f",
+      "completed": true,
+      "natural_end": true
+    },
+    {
+      "voice_id": "F07",
+      "request_id": "req-c55aa035-38a5-4f7e-8b44-25dffee721f9",
+      "completed": true,
+      "natural_end": true
+    }
+  ],
+  "browser_pages_created_by_test_closed": true,
+  "old_nmv_voice_rejected": true,
+  "speech_asset_count": 25,
+  "additional_model_weight_bytes": 0,
+  "naimei_listening_accepted": false,
+  "character_quality_accepted": false,
+  "public_broadcast_started": false
+}

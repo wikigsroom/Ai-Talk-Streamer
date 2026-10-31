@@ -2,16 +2,20 @@
   "request_id": "asset-NM-SP-fast",
   "character_id": "naimei",
   "engine": "OmniVoice",
-  "voice_id": "NMV01",
-  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
-  "audio_seconds": 4.43,
-  "wall_seconds": 2.6410000000032596,
+  "voice_id": "O07",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "precision": "torch.float16",
+  "steps": 32,
+  "seed": 2026102807,
+  "model": "models/tts-benchmark/omnivoice",
+  "audio_seconds": 3.84,
+  "wall_seconds": 2.297000000020489,
   "spoken_text": "葡萄皮剥不剥，苹果块摆不摆，别着急，我们慢慢说。",
   "captions": [
     {
       "text": "葡萄皮剥不剥，苹果块摆不摆，别着急，我们慢慢说。",
       "sample_start": 0,
-      "sample_end": 70880
+      "sample_end": 61440
     }
   ],
   "caption_sample_rate": 16000,
@@ -19,12 +23,12 @@
   "asset_id": "NM-SP-fast",
   "path": "assets/naimei/live-v1/voice/tests/NM-SP-fast.wav",
   "text": "葡萄皮剥不剥，苹果块摆不摆，别着急，我们慢慢说。",
-  "bytes": 212684,
-  "sha256": "d213f352474296e1988ff65ed1e3336fe447440ed9249dee30412a45f9582eab",
-  "rms_dbfs": -22.16670167807317,
-  "peak_dbfs": -3.8036126645328823,
+  "bytes": 184364,
+  "sha256": "663ad9c89d80277bd2116bcae5c02d391c53b7fdf2eee2451b1dbab88f456583",
+  "rms_dbfs": -20.803169071595853,
+  "peak_dbfs": -3.941053114844138,
   "clipped_samples": 0,
-  "wall_seconds_with_http": 2.6709999999729916,
+  "wall_seconds_with_http": 2.3130000000237487,
   "listening_review": "pending",
   "mouth_review": "pending"
 }

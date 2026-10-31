@@ -2,16 +2,20 @@
   "request_id": "asset-NM-SP-retroflex",
   "character_id": "naimei",
   "engine": "OmniVoice",
-  "voice_id": "NMV01",
-  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
-  "audio_seconds": 3.12,
-  "wall_seconds": 2.7030000000377186,
+  "voice_id": "O07",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "precision": "torch.float16",
+  "steps": 32,
+  "seed": 2026102807,
+  "model": "models/tts-benchmark/omnivoice",
+  "audio_seconds": 2.71,
+  "wall_seconds": 2.2810000000172295,
   "spoken_text": "这是十只纸船，乘着晨风驶向山城。",
   "captions": [
     {
       "text": "这是十只纸船，乘着晨风驶向山城。",
       "sample_start": 0,
-      "sample_end": 49920
+      "sample_end": 43360
     }
   ],
   "caption_sample_rate": 16000,
@@ -19,12 +23,12 @@
   "asset_id": "NM-SP-retroflex",
   "path": "assets/naimei/live-v1/voice/tests/NM-SP-retroflex.wav",
   "text": "这是十只纸船，乘着晨风驶向山城。",
-  "bytes": 149804,
-  "sha256": "099be539d7af0db1080bf3225c286e8b2b0583addc4ce16d56cad09b0247c6cf",
-  "rms_dbfs": -26.013477591974908,
-  "peak_dbfs": -8.532107444654272,
+  "bytes": 130124,
+  "sha256": "46993b3aefa32443733e70357db375a91a2e4673cd33afda8d9ef0984b8eb8a8",
+  "rms_dbfs": -22.47054936794533,
+  "peak_dbfs": -8.110681438718492,
   "clipped_samples": 0,
-  "wall_seconds_with_http": 2.75,
+  "wall_seconds_with_http": 2.3130000000237487,
   "listening_review": "pending",
   "mouth_review": "pending"
 }

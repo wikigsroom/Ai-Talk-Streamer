@@ -1,0 +1,30 @@
+{
+  "request_id": "approved-route-check-80094e4f19bf4c6b9ff5ed12ac29ebe2",
+  "character_id": "naimei",
+  "engine": "F5-TTS-v1",
+  "voice_id": "F07",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "precision": "torch.float32",
+  "steps": 32,
+  "seed": 2026102807,
+  "model": "models/tts-benchmark/f5",
+  "audio_seconds": 3.7973333333333334,
+  "wall_seconds": 1.8589999999967404,
+  "spoken_text": "奶妹仍然使用原来选定的声音，备用模型也使用同一份参考。",
+  "captions": [
+    {
+      "text": "奶妹仍然使用原来选定的声音，备用模型也使用同一份参考。",
+      "sample_start": 0,
+      "sample_end": 60757
+    }
+  ],
+  "caption_sample_rate": 16000,
+  "alignment": "actual_generated_segment_boundaries",
+  "text": "奶妹仍然使用原来选定的声音，备用模型也使用同一份参考。",
+  "sha256": "2ed4fab45443576c5b9f5f8b76e3a7531f3a3ebfaf819029600ef67ed9ce171c",
+  "primary_failure_injected_in_isolated_adapter": true,
+  "fallback_inference_real": true,
+  "production_primary_stopped": false,
+  "busy_primary_blocks_fallback": true,
+  "human_listening_accepted": false
+}

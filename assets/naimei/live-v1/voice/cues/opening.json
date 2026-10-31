@@ -2,16 +2,20 @@
   "request_id": "asset-opening",
   "character_id": "naimei",
   "engine": "OmniVoice",
-  "voice_id": "NMV01",
-  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
-  "audio_seconds": 6.3,
-  "wall_seconds": 2.9369999999762513,
+  "voice_id": "O07",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "precision": "torch.float16",
+  "steps": 32,
+  "seed": 2026102807,
+  "model": "models/tts-benchmark/omnivoice",
+  "audio_seconds": 5.32,
+  "wall_seconds": 2.422000000020489,
   "spoken_text": "大家好，我是奶妹。欢迎来到我的橙光小屋，找个舒服的位置，我们慢慢聊。",
   "captions": [
     {
       "text": "大家好，我是奶妹。欢迎来到我的橙光小屋，找个舒服的位置，我们慢慢聊。",
       "sample_start": 0,
-      "sample_end": 100800
+      "sample_end": 85120
     }
   ],
   "caption_sample_rate": 16000,
@@ -19,12 +23,12 @@
   "asset_id": "opening",
   "path": "assets/naimei/live-v1/voice/cues/opening.wav",
   "text": "大家好，我是奶妹。欢迎来到我的橙光小屋，找个舒服的位置，我们慢慢聊。",
-  "bytes": 302444,
-  "sha256": "b8082d6b8d215cfd76ba3e64e2ae28863857cfa24835c28ea0c55e02a628d160",
-  "rms_dbfs": -22.121926281101686,
-  "peak_dbfs": -5.108525485308216,
+  "bytes": 255404,
+  "sha256": "b3a47bc0677cb83e11cdbf07f3988e6564a1a7acf02f69e493391a68e183d595",
+  "rms_dbfs": -20.549975287807605,
+  "peak_dbfs": -5.112822240101781,
   "clipped_samples": 0,
-  "wall_seconds_with_http": 2.9689999999827705,
+  "wall_seconds_with_http": 2.4380000000237487,
   "listening_review": "pending",
   "mouth_review": "pending"
 }

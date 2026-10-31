@@ -11,6 +11,8 @@ import urllib.request
 from deployment_target import validate_target
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from integration.naimei_voice_contract import load_profile, worker_matches
 HTTP = urllib.request.build_opener(urllib.request.ProxyHandler({}))
 
 
@@ -48,6 +50,7 @@ def main():
     args = parser.parse_args()
     root = args.root.resolve()
     result = validate_target(root, expected_target='naimei-rtx4090')
+    profile = load_profile(root)
     if os.name != 'nt':
         raise RuntimeError('NAIMEI_REQUIRES_NATIVE_WINDOWS')
     config = json.loads((root / 'configs/naimei/live-runtime.json').read_text('utf-8'))
@@ -78,7 +81,11 @@ def main():
                     stdout=out, stderr=err, stdin=subprocess.DEVNULL, creationflags=0x08000000)
             previous[name] = {'pid': child.pid, 'port': port, 'root': str(root), 'started_at': time.time()}
             registry.write_text(json.dumps(previous, ensure_ascii=False, indent=2), encoding='utf-8')
-        return wait_ready(port, timeout, path, child)
+        value = wait_ready(port, timeout, path, child)
+        voice_id = {'voice-primary': 'O07', 'voice-fallback': 'F07'}.get(name)
+        if voice_id and not worker_matches(profile, value, voice_id):
+            raise RuntimeError('APPROVED_RUNNING_VOICE_MISMATCH:' + name)
+        return value
 
     start('voice-primary', [python, '-X', 'utf8', '-B', '-m', 'integration.naimei_voice_worker',
           '--root', root, '--shared-root', shared, '--port', '9891'], 9891, timeout=900)

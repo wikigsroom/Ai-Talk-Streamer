@@ -2,16 +2,20 @@
   "request_id": "asset-NM-SP-labiodental",
   "character_id": "naimei",
   "engine": "OmniVoice",
-  "voice_id": "NMV01",
-  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
-  "audio_seconds": 3.08,
-  "wall_seconds": 2.75,
+  "voice_id": "O07",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "precision": "torch.float16",
+  "steps": 32,
+  "seed": 2026102807,
+  "model": "models/tts-benchmark/omnivoice",
+  "audio_seconds": 2.7,
+  "wall_seconds": 2.3130000000237487,
   "spoken_text": "芳芳分发饭盒，风吹翻了粉色围巾。",
   "captions": [
     {
       "text": "芳芳分发饭盒，风吹翻了粉色围巾。",
       "sample_start": 0,
-      "sample_end": 49280
+      "sample_end": 43200
     }
   ],
   "caption_sample_rate": 16000,
@@ -19,12 +23,12 @@
   "asset_id": "NM-SP-labiodental",
   "path": "assets/naimei/live-v1/voice/tests/NM-SP-labiodental.wav",
   "text": "芳芳分发饭盒，风吹翻了粉色围巾。",
-  "bytes": 147884,
-  "sha256": "09505de179967a1412669d8c478c9669531a40c663ef931ed3880d54606d6c86",
-  "rms_dbfs": -23.003086143940017,
-  "peak_dbfs": -5.968273526641827,
+  "bytes": 129644,
+  "sha256": "f8000e3d7085773c4aca88b2b180995e53eec7d4981f4603d20de79346f0ce4f",
+  "rms_dbfs": -24.241751727848047,
+  "peak_dbfs": -9.341716593596633,
   "clipped_samples": 0,
-  "wall_seconds_with_http": 2.7959999999729916,
+  "wall_seconds_with_http": 2.3589999999967404,
   "listening_review": "pending",
   "mouth_review": "pending"
 }

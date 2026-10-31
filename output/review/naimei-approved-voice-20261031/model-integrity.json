@@ -1,0 +1,71 @@
+{
+  "model_files": [
+    {
+      "path": "models/tts-benchmark/omnivoice/audio_tokenizer/config.json",
+      "bytes": 2531,
+      "sha256": "eefb20806f7104e77c9a5277c9df0f9bb8826b08eb1d4e8ab2b9829b6ef9fac1",
+      "match": true
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/audio_tokenizer/model.safetensors",
+      "bytes": 805665628,
+      "sha256": "fe7c5e8785e0a05833e1bfc3e002ec7f55af21e306b2e7154a448c1f54ccfb0d",
+      "match": true
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/audio_tokenizer/preprocessor_config.json",
+      "bytes": 206,
+      "sha256": "ae61eea88558608ee2fa86d2aec9fce8d99a5ff75d09cb7651ccce21ae1d9084",
+      "match": true
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/config.json",
+      "bytes": 2238,
+      "sha256": "5e359117e13b420c5e0c925d4aba650d624767131f1d1746928f8b850d5dc372",
+      "match": true
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/model.safetensors",
+      "bytes": 2450344112,
+      "sha256": "730839316de585f4c8298ec0e1712efc10fb19c6fa4e36eb741cb8d51ebcf6aa",
+      "match": true
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/tokenizer.json",
+      "bytes": 11423986,
+      "sha256": "408f669b7e2b045fdf54201d815bd364e6667dbd845115da81239c40bc6dcfd1",
+      "match": true
+    },
+    {
+      "path": "models/tts-benchmark/omnivoice/tokenizer_config.json",
+      "bytes": 533,
+      "sha256": "49f78845596a82bf15c83673794bdf9f76f812b11f60ab6a2239d9be65b00676",
+      "match": true
+    },
+    {
+      "path": "models/tts-benchmark/f5/model_1250000.safetensors",
+      "bytes": 1348435761,
+      "sha256": "670900fd14e6c458b95da6e9ed317cdb20dbaf7a1c02ac06a05475a9d32b6a38",
+      "match": true
+    },
+    {
+      "path": "models/tts-benchmark/f5/vocab.txt",
+      "bytes": 11255,
+      "sha256": "4e173934be56219eb38759fa8d4c48132d5a34454f0c44abce409bcf6a07ec46",
+      "match": true
+    },
+    {
+      "path": "models/tts-benchmark/vocos-mel24/config.yaml",
+      "bytes": 461,
+      "sha256": "da9033922f969a47f0c160010226919e59f27761fd5066f3828d46de6650b0fc",
+      "match": true
+    },
+    {
+      "path": "models/tts-benchmark/vocos-mel24/pytorch_model.bin",
+      "bytes": 54365991,
+      "sha256": "97ec976ad1fd67a33ab2682d29c0ac7df85234fae875aefcc5fb215681a91b2a",
+      "match": true
+    }
+  ],
+  "all_matched": true
+}

@@ -2,16 +2,20 @@
   "request_id": "asset-NM-SP-soft",
   "character_id": "naimei",
   "engine": "OmniVoice",
-  "voice_id": "NMV01",
-  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
-  "audio_seconds": 4.18,
-  "wall_seconds": 2.702999999979511,
+  "voice_id": "O07",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "precision": "torch.float16",
+  "steps": 32,
+  "seed": 2026102807,
+  "model": "models/tts-benchmark/omnivoice",
+  "audio_seconds": 3.57,
+  "wall_seconds": 2.1709999999729916,
   "spoken_text": "今天已经辛苦了，可以慢一点，我们一件一件来。",
   "captions": [
     {
       "text": "今天已经辛苦了，可以慢一点，我们一件一件来。",
       "sample_start": 0,
-      "sample_end": 66880
+      "sample_end": 57120
     }
   ],
   "caption_sample_rate": 16000,
@@ -19,12 +23,12 @@
   "asset_id": "NM-SP-soft",
   "path": "assets/naimei/live-v1/voice/tests/NM-SP-soft.wav",
   "text": "今天已经辛苦了，可以慢一点，我们一件一件来。",
-  "bytes": 200684,
-  "sha256": "872aa3ae95c079042b1f22f30f4311097c38546290466e1dc93e23e8a8854cd9",
-  "rms_dbfs": -24.825265341753884,
-  "peak_dbfs": -5.966692789040681,
+  "bytes": 171404,
+  "sha256": "f86f926f3a643bde9693f983042ce248f0116a245a308c470ab14994b8899047",
+  "rms_dbfs": -22.916607169659315,
+  "peak_dbfs": -10.04719593669324,
   "clipped_samples": 0,
-  "wall_seconds_with_http": 2.75,
+  "wall_seconds_with_http": 2.202999999979511,
   "listening_review": "pending",
   "mouth_review": "pending"
 }

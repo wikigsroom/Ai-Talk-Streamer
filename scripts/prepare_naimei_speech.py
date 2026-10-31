@@ -7,7 +7,11 @@ import json
 import time
 import urllib.request
 import wave
+import sys
 import numpy as np
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from integration.naimei_voice_contract import load_profile, cache_matches
+from integration.naimei_text import spoken_text
 
 
 def main():
@@ -17,6 +21,8 @@ def main():
     args = parser.parse_args()
     root = args.root.resolve()
     pack = root / 'assets/naimei/live-v1'
+    profile = load_profile(root)
+    voice = next(v for v in profile['voices'] if v['id'] == profile['default_voice_id'])
     http = urllib.request.build_opener(urllib.request.ProxyHandler({}))
     tests = json.loads((pack / 'speech-tests.json').read_text('utf-8'))
     cues = json.loads((pack / 'programme-cues.json').read_text('utf-8'))
@@ -28,11 +34,13 @@ def main():
         target = folder / (aid + '.wav')
         metrics_path = folder / (aid + '.json')
         if target.exists() and metrics_path.exists():
-            results.append(json.loads(metrics_path.read_text('utf-8')))
-            continue
+            cached = json.loads(metrics_path.read_text('utf-8'))
+            if cache_matches(cached, voice, spoken_text(item['text'])) and hashlib.sha256(target.read_bytes()).hexdigest() == cached.get('sha256'):
+                results.append(cached)
+                continue
         rid = 'asset-' + aid
         request = urllib.request.Request(args.url + '/tts', data=json.dumps({
-            'text': item['text'], 'request_id': rid, 'voice_id': 'NMV01'}).encode(),
+            'text': item['text'], 'request_id': rid, 'voice_id': voice['id']}).encode(),
             headers={'Content-Type': 'application/json'})
         started = time.monotonic()
         with http.open(request, timeout=180) as response:
@@ -40,6 +48,8 @@ def main():
             engine = response.headers['X-TTS-Engine']
         with http.open(args.url + '/metrics/' + rid, timeout=10) as response:
             metrics = json.load(response)
+        if not cache_matches(metrics, voice, spoken_text(item['text'])) or engine != voice['engine']:
+            raise RuntimeError('UNAPPROVED_SPEECH_ASSET:' + aid)
         with wave.open(io.BytesIO(body)) as stream:
             rate, channels, width = stream.getframerate(), stream.getnchannels(), stream.getsampwidth()
             pcm = np.frombuffer(stream.readframes(stream.getnframes()), dtype='<i2').astype(np.float32) / 32768
@@ -68,7 +78,8 @@ def main():
         status = {'completed': len(results), 'total': len(tests) + len(cues), 'last_asset': aid}
         (pack / 'voice/preparation-status.json').write_text(json.dumps(status), encoding='utf-8')
         print(json.dumps(status), flush=True)
-    report = {'character_id': 'naimei', 'voice_id': 'NMV01', 'engine': engine if 'engine' in locals() else 'OmniVoice',
+    report = {'character_id': 'naimei', 'voice_id': voice['id'], 'engine': voice['engine'],
+        'reference_sha256': voice['sha256'],
         'test_count': len(tests), 'programme_cues': len(cues), 'assets': results,
         'new_model_weight_bytes': 0, 'cloud_inference_allowed': False, 'listening_acceptance': False}
     (pack / 'voice/speech-library.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')

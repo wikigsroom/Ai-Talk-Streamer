@@ -21,18 +21,20 @@ for folder in ['backend', 'web', 'docs/dsh-humanity/examples', 'assets/naimei/li
 for folder in ['configs/naimei']:
     files.update(x.relative_to(ROOT).as_posix() for x in (ROOT / folder).glob('*.json'))
 files.update(['integration/character_identity.py', 'integration/naimei_studio.py', 'integration/naimei_media.py',
-    'integration/naimei_voice_worker.py', 'integration/naimei_text.py', 'integration/naimei_lan_client.py',
+    'integration/naimei_voice_worker.py', 'integration/naimei_voice_contract.py', 'integration/naimei_text.py', 'integration/naimei_lan_client.py',
     'scripts/deployment_target.py', 'scripts/start_naimei.py', 'scripts/install_naimei.py', 'scripts/prepare_naimei_speech.py',
-    'scripts/validate_naimei_assets.py', 'scripts/verify_naimei_fallback.py',
+    'scripts/validate_naimei_assets.py', 'scripts/verify_naimei_fallback.py', 'scripts/prepare_naimei_auditions.py', 'scripts/verify_naimei_voice_failover.py',
     'scripts/reload_naimei_services.ps1',
     'scripts/link_naimei_livehime.ps1',
     'scripts/prepare_bilibili_livehime.py', 'scripts/prepare_douyin_companion.py',
     'configs/active-character.json', 'configs/deployment-target.json', 'configs/deployment-targets.json',
     'configs/releases/current.json', 'configs/releases/naimei-o01-live-v1.json',
-    'configs/characters/naimei.json', 'configs/dsh-active-policy.json'])
+    'configs/characters/naimei.json', 'configs/dsh-active-policy.json',
+    'configs/voices/female-a-o07-f07.json', 'configs/resident-tts.example.json'])
 files.add('docs/naimei/A01-A14实施与直播接入.md')
 files.add('docs/naimei/A01-A14验收与阻塞报告.md')
 files.add('docs/naimei/直播接入任务清单.csv')
+files.add('docs/naimei/原选音色核验与恢复.md')
 records = []
 archive = OUT / 'naimei-source.zip'
 with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=3) as bundle:

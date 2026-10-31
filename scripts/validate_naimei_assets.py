@@ -4,10 +4,14 @@ import csv
 import hashlib
 import json
 import wave
+import sys
 import numpy as np
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from integration.naimei_voice_contract import load_profile, cache_matches
+from integration.naimei_text import spoken_text
 PACK = ROOT / 'assets/naimei/live-v1'
 
 
@@ -37,14 +41,25 @@ def main():
         assert item['silent_only'] and not item['may_overlay_arbitrary_speech']
         if item['runtime_enabled']:
             assert item['review_status'] == 'silent_motion_visual_review_passed'
-    profile = read('voice/profile.json')
-    assert profile['character_id'] == 'naimei' and profile['default_voice_id'] == 'NMV01'
-    assert len(profile['voices']) == 3
+    profile = load_profile(ROOT)
+    primary = next(v for v in profile['voices'] if v['id'] == 'O07')
+    assert len(profile['voices']) == 2
     for item in profile['voices']:
         verified(item['reference'], item['sha256'])
+        audition_path = ROOT / item['audition']
+        audition = json.loads(audition_path.with_suffix('.json').read_text('utf-8'))
+        verified(item['audition'], audition['sha256'])
+        assert cache_matches(audition, item, spoken_text(audition['text']))
+        assert audition['voice_id'] in {'O07', 'F07'} and '奶妹' in audition['spoken_text']
+        assert not audition['human_listening_accepted']
+        with wave.open(str(audition_path), 'rb') as stream:
+            assert (stream.getframerate(), stream.getnchannels(), stream.getsampwidth()) == (24000, 1, 2)
+            assert stream.getnframes() > 2400
+    assert not list((PACK / 'voice').glob('NMV*'))
     speech = read('voice/speech-library.json')['assets']
     assert len(speech) == 25
     for item in speech:
+        assert cache_matches(item, primary, spoken_text(item['text']))
         path = verified(item['path'], item['sha256'])
         assert path.with_suffix('.json').is_file() and path.with_suffix('.srt').is_file()
         with wave.open(str(path), 'rb') as stream:
@@ -72,13 +87,17 @@ def main():
             assert np.isfinite(data).all() and np.abs(data).max() < .99 and np.sqrt(np.mean(data ** 2)) > .0001
             audio.append({'path': path.relative_to(ROOT).as_posix(), 'channels': stream.getnchannels(), 'sample_rate': stream.getframerate()})
     assert len(audio) == 4
-    fallback = read('voice/fallback/NMV01-f5-check.json')
-    fallback_path = verified('assets/naimei/live-v1/voice/fallback/NMV01-f5-check.wav', fallback['sha256'])
+    fallback = read('voice/fallback/F07-f5-check.json')
+    fallback_path = verified('assets/naimei/live-v1/voice/fallback/F07-f5-check.wav', fallback['sha256'])
     assert fallback['binding_and_pcm_verified'] and not fallback['human_listening_accepted']
-    assert fallback['reference_sha256'] == next(v['sha256'] for v in profile['voices'] if v['id'] == 'NMV01')
+    assert cache_matches(fallback, next(v for v in profile['voices'] if v['id'] == 'F07'), spoken_text(fallback['text']))
     with wave.open(str(fallback_path), 'rb') as stream:
         assert (stream.getframerate(), stream.getnchannels(), stream.getsampwidth()) == (24000, 1, 2)
         assert stream.getnframes() > 2400
+    failover = read('voice/fallback/O07-to-F07-check.json')
+    verified('assets/naimei/live-v1/voice/fallback/O07-to-F07-check.wav', failover['sha256'])
+    assert cache_matches(failover, next(v for v in profile['voices'] if v['id'] == 'F07'), spoken_text(failover['text']))
+    assert failover['busy_primary_blocks_fallback'] and failover['fallback_inference_real']
     assert len(list((PACK / 'programme').glob('*.png'))) == 10
     records = []
     for path in sorted(PACK.rglob('*')):
@@ -93,12 +112,16 @@ def main():
         writer.writerows(records)
     result = {'character_id': 'naimei', 'source_branch': 'naimei', 'scope': 'A01-A14',
               'files': len(records), 'bytes': sum(x['字节'] for x in records), 'enabled_silent_actions': len(enabled),
-              'rejected_actions_preserved': len(pack['actions']) - len(enabled), 'voice_references': 3,
+              'rejected_actions_preserved': len(pack['actions']) - len(enabled), 'voice_references': 1,
+              'voice_ids': [v['id'] for v in profile['voices']], 'voice_auditions': 2,
+              'voice_reference_sha256': profile['reference_sha256'],
               'speech_wavs': len(speech), 'speech_seconds': sum(x['audio_seconds'] for x in speech),
-              'fallback_speech_wavs': 1, 'fallback_speech_seconds': fallback['audio_seconds'],
+              'fallback_speech_wavs': 2, 'fallback_speech_seconds': fallback['audio_seconds'] + failover['audio_seconds'],
               'speech_clipped_samples': 0, 'audio': audio, 'additional_model_weights_bytes': 0,
               'integrity_passed': True, 'live_speech_quality_accepted': False,
-              'voice_user_audition_confirmed': False, 'note': 'Integrity and asset completeness do not imply lip/fang or pronunciation acceptance.'}
+              'voice_user_audition_confirmed': profile['user_audition_confirmed'],
+              'naimei_voice_user_audition_confirmed': profile['naimei_audition_confirmed'],
+              'note': 'Original voice choice is retained. Integrity does not imply new role pronunciation or lip/fang acceptance.'}
     (PACK / 'integrity-review.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), 'utf-8')
     print(json.dumps(result, ensure_ascii=False))
 

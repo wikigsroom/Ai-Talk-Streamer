@@ -2,16 +2,20 @@
   "request_id": "asset-NM-SP-question",
   "character_id": "naimei",
   "engine": "OmniVoice",
-  "voice_id": "NMV01",
-  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
-  "audio_seconds": 3.76,
-  "wall_seconds": 2.797000000020489,
+  "voice_id": "O07",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "precision": "torch.float16",
+  "steps": 32,
+  "seed": 2026102807,
+  "model": "models/tts-benchmark/omnivoice",
+  "audio_seconds": 3.21,
+  "wall_seconds": 2.2339999999967404,
   "spoken_text": "你今天过得怎么样？有什么想和我聊的吗？",
   "captions": [
     {
       "text": "你今天过得怎么样？有什么想和我聊的吗？",
       "sample_start": 0,
-      "sample_end": 60160
+      "sample_end": 51360
     }
   ],
   "caption_sample_rate": 16000,
@@ -19,12 +23,12 @@
   "asset_id": "NM-SP-question",
   "path": "assets/naimei/live-v1/voice/tests/NM-SP-question.wav",
   "text": "你今天过得怎么样？有什么想和我聊的吗？",
-  "bytes": 180524,
-  "sha256": "59bb378349dd3b4edc27ee6a00f2e59b1110f4c16b6eba0ec4ce8bc65d3b9ad7",
-  "rms_dbfs": -22.95639762905941,
-  "peak_dbfs": -4.3319371710002255,
+  "bytes": 154124,
+  "sha256": "7987562d398f2f27eb457e49581995dc2439ea0924c38009a8146294be90daa9",
+  "rms_dbfs": -22.186266185250133,
+  "peak_dbfs": -5.994133046442258,
   "clipped_samples": 0,
-  "wall_seconds_with_http": 2.8439999999827705,
+  "wall_seconds_with_http": 2.25,
   "listening_review": "pending",
   "mouth_review": "pending"
 }

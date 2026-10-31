@@ -24,6 +24,7 @@ from scipy.signal import resample_poly
 from integration.character_identity import character_identity
 from integration.naimei_media import parse_source, packet, SpeechMapping, CommandFence, SILENCE
 from integration.naimei_text import spoken_text
+from integration.naimei_voice_contract import load_profile, route_for, cache_matches, worker_matches
 
 
 class Studio:
@@ -43,7 +44,8 @@ class Studio:
         self.cue_task = None
         self.sequence = 0
         self.transport_id = 'naimei-' + uuid.uuid4().hex
-        self.voice_id = 'NMV01'
+        self.voice_profile = load_profile(root)
+        self.voice_id = self.voice_profile['default_voice_id']
         self.stats = Counter()
         self.events = deque(maxlen=80)
         self.captions = {}
@@ -51,6 +53,7 @@ class Studio:
         self.sent_at = None
         self.engine_health = {}
         self.tts_health = {}
+        self.fallback_health = {}
         self.stage = 'starting'
         self.state = 'idle'
         self.programme = None
@@ -155,15 +158,20 @@ class Studio:
 
     async def refresh_health(self):
         while True:
-            for name, url in [('engine_health', self.config['engine_url']), ('tts_health', self.config['tts_primary_url'])]:
+            for name, url in [('engine_health', self.config['engine_url']), ('tts_health', self.config['tts_primary_url']),
+                              ('fallback_health', self.config['tts_fallback_url'])]:
                 try:
                     async with self.http.get(url + '/health', timeout=ClientTimeout(total=2)) as response:
                         value = await response.json()
                         setattr(self, name, value if response.status == 200 else {'ready': False})
                 except (OSError, asyncio.TimeoutError):
                     setattr(self, name, {'ready': False})
-            self.stage = 'ready' if self.engine_health.get('ready') and self.tts_health.get('ready') else 'waiting_for_local_services'
+            self.stage = 'ready' if self.engine_health.get('ready') and self.voice_ready() else 'waiting_for_local_services'
             await asyncio.sleep(2)
+
+    def voice_ready(self):
+        health = {'tts_primary_url': self.tts_health, 'tts_fallback_url': self.fallback_health}
+        return any(worker_matches(self.voice_profile, health[name], voice['id']) for name, voice in route_for(self.voice_profile, self.voice_id))
 
     async def source_reader(self):
         while True:
@@ -301,17 +309,17 @@ class Studio:
             queue.put_nowait(({'type': 'playback.cancel', **barrier}, None))
 
     async def synthesize(self, text, request_id):
-        profile = json.loads((self.root / self.config['voice_profile']).read_text('utf-8'))
+        profile = self.voice_profile
         voice = next(x for x in profile['voices'] if x['id'] == self.voice_id)
-        if self.voice_id == 'NMV01':
+        if self.voice_id == profile['default_voice_id']:
             for metadata_file in (self.root / 'assets/naimei/live-v1/voice/cues').glob('*.json'):
                 cached = json.loads(metadata_file.read_text('utf-8'))
                 wav_path = metadata_file.with_suffix('.wav')
-                if cached.get('spoken_text') == spoken_text(text) and cached.get('reference_sha256') == voice['sha256'] and wav_path.exists():
+                if cache_matches(cached, voice, spoken_text(text)) and wav_path.exists():
                     audio = wav_path.read_bytes()
                     if hashlib.sha256(audio).hexdigest() == cached.get('sha256'):
                         return audio, cached['engine'], {**cached, 'request_id': request_id}
-        for index, name in enumerate(('tts_primary_url', 'tts_fallback_url')):
+        for index, (name, actual_voice) in enumerate(route_for(profile, self.voice_id)):
             if index:
                 # A timeout is not proof that primary computation stopped.
                 async with self.http.post(self.config['tts_primary_url'] + '/cancel', json={'request_id': request_id}, timeout=ClientTimeout(total=3)):
@@ -320,16 +328,20 @@ class Studio:
                     if (await response.json()).get('busy'):
                         raise RuntimeError('PRIMARY_STILL_COMPUTING_NO_FALLBACK')
             try:
-                async with self.http.post(self.config[name] + '/tts', json={'text': spoken_text(text), 'request_id': request_id, 'voice_id': self.voice_id}, timeout=ClientTimeout(total=110)) as response:
+                async with self.http.post(self.config[name] + '/tts', json={'text': spoken_text(text), 'request_id': request_id, 'voice_id': actual_voice['id']}, timeout=ClientTimeout(total=110)) as response:
                     if response.status != 200:
                         raise RuntimeError('LOCAL_TTS_FAILED')
-                    if response.headers.get('X-TTS-Character') != 'naimei' or response.headers.get('X-TTS-Voice') != self.voice_id or response.headers.get('X-TTS-Reference-SHA256') != voice['sha256']:
+                    if (response.headers.get('X-TTS-Character') != 'naimei'
+                            or response.headers.get('X-TTS-Voice') != actual_voice['id']
+                            or response.headers.get('X-TTS-Reference-SHA256') != actual_voice['sha256']
+                            or response.headers.get('X-TTS-Engine') != actual_voice['engine']):
                         raise ValueError('VOICE_REFERENCE_MISMATCH')
                     audio = await response.read()
                     engine = response.headers.get('X-TTS-Engine')
                 async with self.http.get(self.config[name] + '/metrics/' + request_id, timeout=ClientTimeout(total=3)) as response:
                     metrics = await response.json()
-                    if response.status != 200 or metrics.get('request_id') != request_id:
+                    if (response.status != 200 or metrics.get('request_id') != request_id
+                            or not cache_matches(metrics, actual_voice, spoken_text(text))):
                         raise ValueError('CAPTION_METRICS_MISMATCH')
                 return audio, engine, metrics
             except (RuntimeError, asyncio.TimeoutError, OSError):
@@ -375,7 +387,9 @@ class Studio:
             if not self.fence.matches(command):
                 return
             self.mapping = SpeechMapping(command, result['epoch'], len(pcm))
-            self.event('speech_input_ready', request_id=rid, voice_id=self.voice_id, engine=engine, samples=len(pcm))
+            self.event('speech_input_ready', request_id=rid, voice_id=metrics['voice_id'],
+                       selected_voice_id=self.voice_id, reference_sha256=metrics['reference_sha256'],
+                       engine=engine, samples=len(pcm))
         except asyncio.CancelledError:
             raise
         except Exception as exc:
@@ -432,10 +446,14 @@ class Studio:
     async def status(self, _request):
         return web.json_response({'character': self.character, 'avatar': '奶妹 · O01 橙子日常装',
             'avatar_ready': bool(self.engine_health.get('ready') and self.source_connected),
-            'tts_ready': bool(self.tts_health.get('ready')), 'ready': self.stage == 'ready',
+            'tts_ready': self.voice_ready(), 'ready': self.stage == 'ready',
             'stage': self.stage, 'state': self.state, 'viewers': len(self.viewers), 'speaking': self.mapping is not None,
-            'manual_speech_ready': self.stage == 'ready' and bool(self.tts_health.get('ready')) and self.source_connected,
-            'size': 512, 'fps': 25, 'voice_id': self.voice_id, 'profile': '奶妹 · 本地声音',
+            'manual_speech_ready': self.stage == 'ready' and self.voice_ready() and self.source_connected,
+            'size': 512, 'fps': 25, 'voice_id': self.voice_id, 'profile': self.voice_profile['label'],
+            'voice_label': next(v['label'] for v in self.voice_profile['voices'] if v['id'] == self.voice_id),
+            'voice_engine': next(v['engine'] for v in self.voice_profile['voices'] if v['id'] == self.voice_id),
+            'voice_contract_ready': self.voice_ready(),
+            'voice_reference_sha256': self.voice_profile['reference_sha256'],
             'transport': 'local_websocket_jpeg_pcm', 'transport_instance_id': self.transport_id,
             'native_windows_only': True, 'cloud_inference_allowed': False,
             'character_quality_accepted': bool(self.config.get('quality_accepted')),
@@ -515,7 +533,7 @@ class Studio:
 
     async def voice_command(self, request):
         value = await request.json()
-        profile = json.loads((self.root / self.config['voice_profile']).read_text('utf-8'))
+        profile = self.voice_profile
         if value.get('voice_id') not in {v['id'] for v in profile['voices']}:
             return web.json_response({'error': 'VOICE_ID_INVALID'}, status=400)
         if self.mapping or self.speech_task and not self.speech_task.done():

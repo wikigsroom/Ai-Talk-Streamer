@@ -1,24 +1,28 @@
 {
-  "request_id": "naimei-fallback-f8590625f0d74ba195c7d7101beac31f",
+  "request_id": "naimei-fallback-3c6d5bc8dacb4fc9a951977fdb1b168f",
   "character_id": "naimei",
   "engine": "F5-TTS-v1",
-  "voice_id": "NMV01",
-  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
-  "audio_seconds": 3.296,
-  "wall_seconds": 4.10999999998603,
+  "voice_id": "F07",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "precision": "torch.float32",
+  "steps": 32,
+  "seed": 2026102807,
+  "model": "models/tts-benchmark/f5",
+  "audio_seconds": 2.816,
+  "wall_seconds": 1.7349999999860302,
   "spoken_text": "你好，我是奶妹。这是备用声音的本地检查。",
   "captions": [
     {
       "text": "你好，我是奶妹。这是备用声音的本地检查。",
       "sample_start": 0,
-      "sample_end": 52736
+      "sample_end": 45056
     }
   ],
   "caption_sample_rate": 16000,
   "alignment": "actual_generated_segment_boundaries",
   "text": "你好，我是奶妹。这是备用声音的本地检查。",
   "engine_header": "F5-TTS-v1",
-  "sha256": "a3bdf852ed1020f632d8a25c031a405d4a154f0178610e47ff3f46ab31f8f3f5",
+  "sha256": "b0242ba3497d4723475bc7e531260069e172636be3ad5eaba1ea851b813400a2",
   "binding_and_pcm_verified": true,
   "human_listening_accepted": false
 }

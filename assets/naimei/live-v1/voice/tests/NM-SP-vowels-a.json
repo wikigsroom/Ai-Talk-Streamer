@@ -2,16 +2,20 @@
   "request_id": "asset-NM-SP-vowels-a",
   "character_id": "naimei",
   "engine": "OmniVoice",
-  "voice_id": "NMV01",
-  "reference_sha256": "7b082199946e4047062fc0698b7b72d4435c1bbbff1f1712d4ccf93560859d9f",
-  "audio_seconds": 4.35,
-  "wall_seconds": 2.8130000000237487,
+  "voice_id": "O07",
+  "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+  "precision": "torch.float16",
+  "steps": 32,
+  "seed": 2026102807,
+  "model": "models/tts-benchmark/omnivoice",
+  "audio_seconds": 3.72,
+  "wall_seconds": 2.25,
   "spoken_text": "啊，哦，呃，咿，呜，迂。阿姨一路问我，屋外有没有乌云。",
   "captions": [
     {
       "text": "啊，哦，呃，咿，呜，迂。阿姨一路问我，屋外有没有乌云。",
       "sample_start": 0,
-      "sample_end": 69600
+      "sample_end": 59520
     }
   ],
   "caption_sample_rate": 16000,
@@ -19,12 +23,12 @@
   "asset_id": "NM-SP-vowels-a",
   "path": "assets/naimei/live-v1/voice/tests/NM-SP-vowels-a.wav",
   "text": "啊，哦，呃，咿，呜，迂。阿姨一路问我，屋外有没有乌云。",
-  "bytes": 208844,
-  "sha256": "e6ca9d1f221c2a7cf534add97241a7b1349e213f94e714eee05a22f04d5661ec",
-  "rms_dbfs": -22.058466283617655,
-  "peak_dbfs": -3.1141857419200356,
+  "bytes": 178604,
+  "sha256": "913a979a1a29e382c5e2ac4fdc561b88eeb8093af1212349081013a4d5efcb96",
+  "rms_dbfs": -19.16294699046581,
+  "peak_dbfs": -1.4221684091417623,
   "clipped_samples": 0,
-  "wall_seconds_with_http": 2.844000000040978,
+  "wall_seconds_with_http": 2.2810000000172295,
   "listening_review": "pending",
   "mouth_review": "pending"
 }
