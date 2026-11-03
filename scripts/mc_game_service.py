@@ -98,6 +98,8 @@ def run(root=ROOT):
     try:
         display.acquire()
         result['display_keep_awake'] = display.proof()
+        from native_log_archive import prepare_console_log
+        result['console_log'] = prepare_console_log(root, logs / 'application-console.log')
         with (logs / 'application-console.log').open('ab') as stream:
             child = job.spawn([str(java), '@' + str(argfile)], cwd=work, stdout=stream, stderr=stream)
             result['process'] = child.identity(); atomic_json(root, root / PROCESS, result)
