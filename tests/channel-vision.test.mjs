@@ -83,3 +83,20 @@ test('channel provider rejects channel changes, preserves native scope and repor
   await assert.rejects(provider.analyze(entry,'screen',AbortSignal.timeout(3000)),{code:'GAME_VISION_CHANNEL_CHANGED'});
   provider.close();assert.equal(provider.available(),false);
 });
+
+test('channel vision includes only frame-bound hands and rejects a contradictory held-shield caption',async t=>{
+  const f=await gameFixture();t.after(()=>f.close());mkdirSync(join(f.folder,'configs'),{recursive:true});
+  writeFileSync(join(f.folder,'configs/mc-vision.json'),JSON.stringify({schema_version:2,provider:'studio_channel',model:'gpt-6-luna',observe_interval_ms:20000}));
+  const revision='d'.repeat(64);f.bridge.channel={publicInfo:()=>({configured:true,model:'gpt-6-luna',protocol:'responses',revision}),snapshot:()=>({model:'gpt-6-luna',revision})};
+  let input;f.bridge.host={ready:true,generate:async value=>{input=value.input;return {description:{caption:'右下持有盾牌。',visible_text:[],unknowns:[]},model:'gpt-6-luna'};}};
+  const provider=new ChannelVisionProvider(f.manager);t.after(()=>provider.close());
+  const entry={bytes:image,meta:{frame_id:'fixture-grounded-frame',source_seq:7,captured_at:new Date().toISOString(),width:32,height:18},
+    nativeHands:{binding:'frame_source_seq',source_seq:7,hands:{selected_hotbar:0,mainhand:{item_id:'gravestone:obituary',count:1},offhand:{item_id:'minecraft:air',count:0}}}};
+  await assert.rejects(provider.analyze(entry,'screen',AbortSignal.timeout(3000)),{code:'GAME_VISION_HELD_ITEM_CONFLICT'});
+  assert(input.includes('gravestone:obituary'));assert.equal(provider.status().last_result.state,'failed');
+  assert.equal(provider.status().last_result.caption,undefined,'a false caption cannot enter the completed observation');
+  assert.equal(provider.status().last_result.held_item_grounding.source_seq,7);
+  delete entry.nativeHands;f.bridge.host.generate=async value=>{input=value.input;return {description,model:'gpt-6-luna'};};
+  await provider.analyze(entry,'screen',AbortSignal.timeout(3000));assert(input.includes('不判断玩家手持物'));
+  assert.equal(provider.status().last_result.held_item_grounding.binding,'unavailable');
+});

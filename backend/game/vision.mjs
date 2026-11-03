@@ -4,6 +4,7 @@ import { join, resolve, relative, isAbsolute } from 'node:path';
 import { createHash } from 'node:crypto';
 import { GameError, ensure } from './errors.mjs';
 import { validate } from './protocol.mjs';
+import { heldShieldConflict } from './native-hands.mjs';
 
 export function channelVisionLock(root) {
   const file=join(root,'configs/mc-vision.json');
@@ -37,13 +38,19 @@ export class ChannelVisionProvider {
       width:entry.meta.width,height:entry.meta.height,purpose,model_id:snapshot.model,
       runtime_id:'studio-channel-'+snapshot.revision.slice(0,24),provider_revision:snapshot.revision,
       protocol:snapshot.protocol,started_at:new Date().toISOString(),image_sha256:createHash('sha256').update(entry.bytes).digest('hex')};
+    const grounding=entry.nativeHands||null;
+    receipt.held_item_grounding=grounding||{binding:'unavailable'};
     try {
       const result=await m.bridge.host.generate({purpose:'vision',snapshot,image:entry.bytes,
-        input:'观察目的：'+purpose+'。这是同一MC玩家刚刚捕获的完整游戏画面，只返回画面观察JSON。',signal:combined,maxTokens:512,
+        input:'观察目的：'+purpose+'。这是同一MC玩家刚刚捕获的完整游戏画面，只返回画面观察JSON。'
+          +(grounding?'与画面source_seq一致的原生采样（采样与渲染瞬间仍有时间差）：'+JSON.stringify(grounding)
+            +'。玩家手持物以这些item_id为准，不凭轮廓改称盾牌等装备；不认识模组物品时只说未知物品。'
+            :'缺少与该帧source_seq一致的手持物采样；只描述环境、界面和可见危险，不判断玩家手持物。'),signal:combined,maxTokens:512,
         onCall:m.bridge.onCall?.({maxTokens:512}),onProbe:probe=>m.bridge.recordProbe?.(probe)});
       ensure(!combined.aborted,'GAME_VISION_CANCELLED',409);
       ensure(m.bridge.channel.publicInfo().revision===snapshot.revision,'GAME_VISION_CHANNEL_CHANGED',409);
       validate('VisionDescription',result.description);
+      ensure(!heldShieldConflict(result.description,grounding),'GAME_VISION_HELD_ITEM_CONFLICT',502);
       Object.assign(receipt,{state:'succeeded',elapsed_ms:Math.round(performance.now()-started),usage:result.usage,...result.description});
       return {...result.description,model_id:result.model,runtime_id:receipt.runtime_id};
     } catch(error) {

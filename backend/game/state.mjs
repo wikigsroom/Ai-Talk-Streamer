@@ -2,6 +2,7 @@ import { EventEmitter } from 'node:events';
 import { performance } from 'node:perf_hooks';
 import { validate } from './protocol.mjs';
 import { ensure } from './errors.mjs';
+import { nativeHands } from './native-hands.mjs';
 
 const EMPTY = { schema_version: 1, game_instance_id: null, bridge_boot_id: null, world_id: null,
   world_session_id: null, connection_generation: null, seq: null, observed_at: null, rule_fingerprint: null,
@@ -11,9 +12,11 @@ export class GameState extends EventEmitter {
   constructor({ clock = () => performance.now(), staleMs = 2000 } = {}) {
     super(); this.clock = clock; this.staleMs = staleMs; this.value = structuredClone(EMPTY);
     this.connected = false; this.received = null; this.revision = 0; this.gap = false;
+    this.handSamples = new Map();
   }
   attach(identity) {
     this.identity = { ...identity }; this.connected = true; this.received = null; this.gap = false;
+    this.handSamples.clear();
     this.value = { ...structuredClone(EMPTY), ...identity }; this.changed();
   }
   assertIdentity(envelope) {
@@ -27,17 +30,19 @@ export class GameState extends EventEmitter {
     if (!changedWorld && this.value.seq !== null && value.seq <= this.value.seq) return false;
     if (!changedWorld) ensure(value.control_epoch >= (this.value.control_epoch ?? 0), 'GAME_STALE_EPOCH');
     const oldWorld = this.value.world_session_id;
+    if(changedWorld)this.handSamples.clear();
     this.value = structuredClone(value); this.received = this.clock(); this.gap = false;
+    this.rememberHands();
     if (changedWorld) this.emit('world', { previous: oldWorld, current: value.world_session_id });
     this.changed(); return true;
   }
   delta(value) {
     ensure(value.world_session_id === this.value.world_session_id, 'GAME_WORLD_CHANGED');
     if (this.value.seq !== null && value.seq <= this.value.seq) return false;
-    if (this.gap || value.base_seq !== this.value.seq) { this.gap = true; this.changed(); this.emit('gap'); return false; }
+    if (this.gap || value.base_seq !== this.value.seq) { this.gap = true; this.handSamples.clear(); this.changed(); this.emit('gap'); return false; }
     ensure(value.seq > value.base_seq, 'GAME_SEQUENCE_INVALID', 400);
     const next = { ...this.value, ...value.changes, seq: value.seq, observed_at: value.observed_at };
-    validate('Observation', next); this.value = next; this.received = this.clock(); this.changed(); return true;
+    validate('Observation', next); this.value = next; this.received = this.clock(); this.rememberHands(); this.changed(); return true;
   }
   control(result) {
     ensure(result.world_session_id === this.value.world_session_id, 'GAME_WORLD_CHANGED');
@@ -46,7 +51,27 @@ export class GameState extends EventEmitter {
       inputs_released: result.inputs_released, automation_ready: result.automation_ready }); this.changed();
   }
   disconnect() {
+    this.handSamples.clear();
     this.connected = false; this.gap = true; this.value.automation_ready = false; this.value.lease_remaining_ms = null; this.changed();
+  }
+  rememberHands() {
+    const hands=nativeHands(this.value),now=this.clock();
+    for(const [seq,sample] of this.handSamples)if(now-sample.received>this.staleMs)this.handSamples.delete(seq);
+    if(!hands)return;
+    const state=this.value;
+    this.handSamples.set(state.seq,{received:now,hands,observed_at:state.observed_at,bridge_boot_id:state.bridge_boot_id,
+      world_session_id:state.world_session_id,connection_generation:state.connection_generation});
+    while(this.handSamples.size>128)this.handSamples.delete(this.handSamples.keys().next().value);
+  }
+  frameHands(meta) {
+    const sample=this.handSamples.get(meta.source_seq);
+    if(!this.connected||this.gap||!sample||this.clock()-sample.received>this.staleMs
+      ||sample.bridge_boot_id!==meta.boot||sample.world_session_id!==meta.world
+      ||sample.connection_generation!==this.value.connection_generation)return null;
+    const delta=Date.parse(meta.captured_at)-Date.parse(sample.observed_at);
+    if(!Number.isFinite(delta)||delta < -250||delta>1000)return null;
+    return structuredClone({binding:'frame_source_seq',source_seq:meta.source_seq,observed_at:sample.observed_at,
+      sample_to_capture_ms:delta,hands:sample.hands});
   }
   view() {
     const age = this.received === null ? null : Math.max(0, Math.floor(this.clock() - this.received));

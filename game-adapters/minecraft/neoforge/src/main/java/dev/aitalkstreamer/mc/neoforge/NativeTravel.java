@@ -77,9 +77,9 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
     private boolean waterRoute;
     private boolean navigationSwimming;
     private int escapeSprintTicks;
-    private static final int MAX_ROUTE_RECOVERIES = 4;
-    private int routeRecoveries;
+    private final NativeRouteRecovery routeRecovery = new NativeRouteRecovery();
     private JsonObject lastRouteRecovery;
+    private JsonObject lastLandingRecovery;
 
     NativeTravel(Minecraft client, NativeInputOwner inputs) {
         this.client = client; this.inputs = inputs;
@@ -163,7 +163,8 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         ticks = searches = walked = attemptedBlocks = inventoryPackets = arrivalTicks = escapeSprintTicks = 0; confirmedInventory = -1;
         waterTicks=0;waterRoute=false;
         routeFailure=null;
-        routeRecoveries=0;lastRouteRecovery=null;
+        routeRecovery.bind(str(accepted,"task_id"),world,player,connection);
+        lastRouteRecovery=null;lastLandingRecovery=null;
         stair=null;stairReceipt=null;stairCut=null;stairSteps=stairCuts=stairPackets=0;stairStarted=0;stairCleared.clear();stairEvidence.clear();
         inventoryTarget = target; gather = skill.equals("gather");
         progressAt = now(); lastProgress = client.player.position(); miningAt = pickupUntil = 0;
@@ -470,7 +471,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
                 "next", next == null ? null : obj("x", next.x(), "y", next.y(), "z", next.z()),
                 "feet_standable", stand(feet()), "horizontal_collision", client.player.horizontalCollision,
                 "path_points_remaining", path.size(), "searches", searches,
-                "step_diagnostics",stepDiagnostics(next),"route_recoveries",routeRecoveries);
+                "step_diagnostics",stepDiagnostics(next),"route_recoveries",routeRecovery.attempts());
         return new LocalTaskFailure(NAVIGATION_NO_ROUTE);
     }
     private Point recoverRoute(Point goal, double distance, Point rejected) {
@@ -482,8 +483,8 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         Point next=null;
         if (!waterRoute && !client.player.isInWater() && !client.player.isInLava() && client.player.onGround()) {
             outcome="recovery_budget_exhausted";
-            if (routeRecoveries<MAX_ROUTE_RECOVERIES) {
-                routeRecoveries++;searches++;
+            if (routeRecovery.admitRoute()) {
+                searches++;
                 var route=NativeWalkPlanner.find(terrain(false),feet(),goal,distance,1024);
                 outcome="no_safe_alternative";
                 if (route.points().size()>1 && (route.reachesGoal() || feet().distanceSquared(goal)>24*24)) {
@@ -496,13 +497,30 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
             }
         }
         lastRouteRecovery=obj("observed_at",java.time.Instant.now().toString(),"task_id",task.get("task_id"),
-                "attempts",routeRecoveries,"limit",MAX_ROUTE_RECOVERIES,"outcome",outcome,
+                "attempts",routeRecovery.attempts(),"limit",NativeRouteRecovery.MAX_ATTEMPTS,"outcome",outcome,
                 "rejected_step",obj("x",rejected.x(),"y",rejected.y(),"z",rejected.z()),
                 "step_diagnostics",diagnostics,"original_deadline_retained",true,"progress_clock_reset",false);
         return next;
     }
+    private boolean awaitLanding(String stage, Point goal, Point rejected) {
+        // Only release this task's ordinary inputs. Vanilla physics decides
+        // whether and where the player lands; neither position nor velocity is written.
+        scope.stopMining(control,permit);scope.move(0,false,control,permit);
+        var state=routeRecovery.landing(client.player.onGround(),client.player.isInWater(),client.player.isInLava());
+        lastLandingRecovery=obj("observed_at",java.time.Instant.now().toString(),"task_id",task.get("task_id"),
+                "stage",stage,"state",state.name(),"episode_ticks",routeRecovery.episodeTicks(),
+                "total_ticks",routeRecovery.landingTicks(),"episodes",routeRecovery.episodes(),
+                "episode_limit",NativeEscapeLanding.MAX_TICKS,"task_limit",NativeRouteRecovery.MAX_TOTAL_LANDING_TICKS,
+                "position",obj("x",client.player.getX(),"y",client.player.getY(),"z",client.player.getZ()),
+                "on_ground",client.player.onGround(),"in_water",client.player.isInWater(),
+                "original_deadline_retained",true,"progress_clock_reset",false,"velocity_or_position_written",false);
+        if (state==NativeEscapeLanding.State.TIMED_OUT || state==NativeEscapeLanding.State.UNSUPPORTED && !client.player.isInWater())
+            throw routeFailure("landing_recovery_"+state.name().toLowerCase(Locale.ROOT),goal,rejected);
+        return state!=NativeEscapeLanding.State.READY;
+    }
     private boolean walk(Point goal, double distance) {
         if(gather)gatherRouteGoal=goal;
+        if (routeRecovery.waiting() && awaitLanding("observing_landing",goal,path.peek())) return false;
         boolean swimming=client.player.isInWater();
         if(swimming && !waterRoute) {
             var route=NativeWalkPlanner.find(waterTerrain(),feet(),goal,0,256);searches++;
@@ -546,6 +564,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         }
         if (!goal.equals(pathGoal) || pathRadius != distance || next == null
                 || !(waterRoute ? stand(next) || waterCell(next) : stand(next, true)) || feet().distanceSquared(next) > 12) {
+            if (!swimming && !client.player.onGround() && awaitLanding("before_route_search",goal,next)) return false;
             var route = NativeWalkPlanner.find(waterRoute ? waterTerrain() : terrain(true), feet(), goal, waterRoute ? 0 : distance, waterRoute ? 256 : 1024); searches++;
             if(waterRoute && !NativeWaterRoute.admissible(feet(),goal,stand(goal),route))throw new LocalTaskFailure(NAVIGATION_NO_ROUTE);
             if (!waterRoute && !route.reachesGoal() && goal.y()>feet().y() && beginStair(goal)) return false;
@@ -558,6 +577,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         // Terrain changes between search and action are checked before each bounded input write.
         if (!(waterRoute ? (stand(next) || waterCell(next)) && waterEdge(feet(),next)
                 : stand(next) && walkEdge(feet(),next,false))) {
+            if (!swimming && !client.player.onGround() && awaitLanding("changed_next_step",goal,next)) return false;
             if (!waterRoute && clearRouteLeaves(next)) return false;
             Point rejected=next;
             next=recoverRoute(goal,distance,rejected);
@@ -954,8 +974,11 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         return obj("task_id", task == null ? null : task.get("task_id"), "active", !closed, "gather", gather,
                 "ticks", ticks, "arrival_ticks", arrivalTicks, "path_searches", searches, "walked_waypoints", walked, "block_attempts", attemptedBlocks,
                 "escape_sprint_input_ticks", escapeSprintTicks, "ordinary_sprint_key", true,
-                "route_recoveries",routeRecoveries,"route_recovery_limit",MAX_ROUTE_RECOVERIES,
+                "route_recoveries",routeRecovery.attempts(),"route_recovery_limit",NativeRouteRecovery.MAX_ATTEMPTS,
+                "route_recovery_scope","original_task_and_native_context",
                 "last_route_recovery",lastRouteRecovery,
+                "landing_wait_ticks",routeRecovery.landingTicks(),"landing_wait_limit",NativeRouteRecovery.MAX_TOTAL_LANDING_TICKS,
+                "last_landing_recovery",lastLandingRecovery,
                 "server_inventory_packets", inventoryPackets, "confirmed_inventory", confirmedInventory,
                 "skipped_sources", skippedSources.size(), "skipped_drops", skippedDrops.size(),
                 "stalled_approaches",stalledApproaches,"temporarily_blocked_sources",blockedSources.size(),

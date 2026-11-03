@@ -81,7 +81,8 @@ export class FrameStore {
       while(this.entries.size>=2) {const removable=[...this.entries].find(([,entry])=>!entry.pinned);ensure(removable,'GAME_FRAME_CACHE_BUSY',429);this.entries.delete(removable[0]);}
       const receipt={frame_id:frameId,operation_id:meta.operation_id,world_session_id:meta.world,source_seq:meta.source_seq,
         width:meta.width,height:meta.height,content_type:'image/jpeg',byte_length:length,received_at:utc(this.manager.wall()),expires_at:utc(this.manager.wall()+30000)};
-      validate('FrameReceipt',receipt);this.entries.set(frameId,{receipt,meta,bytes,digest,receivedMono:this.manager.clock(),pinned:false});pending.frameId=frameId;return receipt;
+      const nativeHands=this.manager.state.frameHands(meta);
+      validate('FrameReceipt',receipt);this.entries.set(frameId,{receipt,meta,bytes,digest,nativeHands,receivedMono:this.manager.clock(),pinned:false});pending.frameId=frameId;return receipt;
     } catch(error) {if(error instanceof GameError)throw error;throw new GameError('GAME_FRAME_UPLOAD_FAILED',400);}
     finally {clearTimeout(timer);this.controllers.delete(controller);this.uploading=false;}
   }

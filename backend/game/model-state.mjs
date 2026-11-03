@@ -1,4 +1,5 @@
 import { canonical } from '../dsh-bridge/channel.mjs';
+import { nativeHands } from './native-hands.mjs';
 
 /** Bounded model context; the complete native observation stays available to the UI and executor. */
 export function modelState(value, { inventory = false, worldLedger = true } = {}) {
@@ -9,6 +10,7 @@ export function modelState(value, { inventory = false, worldLedger = true } = {}
   }
   if (state.details) {
     const details = state.details;
+    const hands=nativeHands(state);if(hands)details.held_items=hands;
     delete details.inventory_slots; omitted.push('details.inventory_slots');
     if (details.gui) {
       details.gui.slot_count = details.gui.slots?.length ?? 0;

@@ -7,6 +7,7 @@
       "tests": [
         "tests/channel-vision.test.mjs",
         "tests/game-vision.test.mjs",
+        "tests/game-native-hands.test.mjs",
         "tests/dsh-model-queue.test.mjs",
         "tests/dsh-bridge-work.test.mjs",
         "tests/dsh-lifecycle.test.mjs",
