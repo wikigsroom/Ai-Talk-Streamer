@@ -11,7 +11,7 @@ export const GAME_ACTION_TOOLS = ['game_start_task', 'game_cancel_task'];
 const descriptions = {
   game_plan_item: '由 Mindcraft 物品依赖规划器读取当前原生配方及库存，返回达到 target_total 总库存的下一条固定技能；不执行、不授予控制。传 minecraft:item_id、target_total 1至64。next_goal仍须game_check_action及game_start_task，satisfied只表示本次原生库存已达到目标。unsupported_dependency需更换可行目标或探索，不等待人工操作。',
   game_get_state: '读取当前状态、数据年龄、世界/基地/会话/检查点、跨场目标的下一步及待核对任务。返回有省略标记的原生摘要，省略槽位不表示空槽；库存总量可用game_query_inventory。历史完成与人工结束未知任务不等于当前库存或效果成功。',
-  game_get_recent_events: '读取当前世界最近游戏事件，limit最多50，可带cursor。',
+  game_get_recent_events: '读取当前世界最近游戏事件，limit最多50。不带cursor读取最新一页；带cursor按接收序号正序增量读取。事件是历史，不是当前库存或动作权限。',
   game_query_inventory: '查询当前已知背包，可选item_ids最多32项。',
   game_get_recipe: '按item_id、count查询当前服务器已接收配方、每批产量、批次数及材料槽选项。多配方不自动选择；truncated表示不完整。材料仅投影物品ID，unknown_fields保留组件、解锁、服务器限制及库存分配未知；查到配方不表示现在可合成或已经完成。',
   game_check_action: '只读检查固定goal的当前前置条件；不会执行。gather.count是相对任务起始库存的新增数量，craft.count是新增产物单位数，按配方批量向上取整；二者均不包含已有库存。return_base只指定已登记base_id，由服务端核对世界、维度、修订及位置，不猜基地坐标。',
@@ -76,8 +76,11 @@ export class GameTools {
     if (name === 'game_get_recent_events') {
       const limit = args.limit ?? 20; ensure(Number.isInteger(limit) && limit > 0 && limit <= 50, 'GAME_REQUEST_INVALID', 400);
       ensure(args.cursor === undefined || typeof args.cursor === 'string' && /^[0-9]{1,15}$/.test(args.cursor), 'GAME_CURSOR_INVALID', 400);
-      const rows = this.manager.store.all('SELECT rowid,value FROM game_events WHERE world_session_id=? AND rowid>? ORDER BY rowid LIMIT ?',
-        this.manager.state.value.world_session_id, Number(args.cursor || 0), limit);
+      const rows = args.cursor===undefined
+        ? this.manager.store.all('SELECT rowid,value FROM game_events WHERE world_session_id=? ORDER BY rowid DESC LIMIT ?',
+          this.manager.state.value.world_session_id,limit).reverse()
+        : this.manager.store.all('SELECT rowid,value FROM game_events WHERE world_session_id=? AND rowid>? ORDER BY rowid LIMIT ?',
+          this.manager.state.value.world_session_id,Number(args.cursor),limit);
       return { items: rows.map(r => JSON.parse(r.value)), next_cursor: rows.length ? String(rows.at(-1).rowid) : null };
     }
     if (name === 'game_query_inventory') {

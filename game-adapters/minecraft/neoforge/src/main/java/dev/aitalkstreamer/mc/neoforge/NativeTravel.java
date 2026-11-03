@@ -430,9 +430,17 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         var frontiers=new JsonArray();String dimension=client.level.dimension().location().toString();
         for(Point candidate:selected)frontiers.add(obj("position",obj("dimension",dimension,
                 "x",candidate.x(),"y",candidate.y(),"z",candidate.z())));
+        var excavation=new JsonArray();
+        if(!swimming && client.player.onGround())for(int[] direction:new int[][]{{1,0},{-1,0},{0,1},{0,-1}}) {
+            Point candidate=new Point(at.getX()+direction[0],at.getY()+1,at.getZ()+direction[1]);
+            var step=stepPlan(candidate);
+            if(step!=null && step.to().equals(candidate))excavation.add(obj("position",obj("dimension",dimension,
+                    "x",candidate.x(),"y",candidate.y(),"z",candidate.z()),
+                    "kind","one_step_excavation","route_verified",false,"cuts",step.cuts().size()));
+        }
         navigationCache=obj("source","runtime_client","sampled_at",java.time.Instant.now().toString(),
                 "origin",obj("dimension",dimension,"x",at.getX(),"y",at.getY(),"z",at.getZ()),
-                "radius",8,"search_budget",256,"frontiers",frontiers,"action_precondition_required",true,
+                "radius",8,"search_budget",256,"frontiers",frontiers,"excavation_frontiers",excavation,"action_precondition_required",true,
                 "unknown_fields",List.of("outside_search_budget","unloaded_chunks","future_collisions","server_rules"));
         navigationWorld=client.level;navigationPlayer=client.player;navigationConnection=client.getConnection();
         navigationFeet=at.immutable();navigationAt=sampled;navigationSwimming=swimming;return navigationCache.deepCopy();

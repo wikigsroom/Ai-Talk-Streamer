@@ -1,7 +1,36 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { modelState, planningState, planningStateRead } from '../backend/game/model-state.mjs';
+import { modelState, planningState, planningStateRead, planningEvents } from '../backend/game/model-state.mjs';
 import { gameFixture } from './game-fixture.mjs';
+
+test('recent events start with the latest world page and explicit cursors retain incremental order',async t=>{
+ const f=await gameFixture();t.after(()=>f.close());const game=await f.connect();
+ for(let i=0;i<30;i++){
+  const value={event_id:'event-'+i,world_session_id:game.observation.world_session_id,seq:i,kind:'inventory_changed',data:{count:i}};
+  f.manager.store.run('INSERT INTO game_events VALUES(?,?,?,?)',value.event_id,value.world_session_id,new Date().toISOString(),JSON.stringify(value));
+ }
+ f.manager.store.run('INSERT INTO game_events VALUES(?,?,?,?)','foreign-event','different-session',new Date().toISOString(),JSON.stringify({event_id:'foreign-event'}));
+ const latest=await f.manager.tools.invoke('game_get_recent_events',{limit:3});
+ assert.deepEqual(latest.items.map(x=>x.event_id),['event-27','event-28','event-29']);
+ const first=await f.manager.tools.invoke('game_get_recent_events',{limit:3,cursor:'0'});
+ assert.deepEqual(first.items.map(x=>x.event_id),['event-0','event-1','event-2']);
+ const next=await f.manager.tools.invoke('game_get_recent_events',{limit:2,cursor:first.next_cursor});
+ assert.deepEqual(next.items.map(x=>x.event_id),['event-3','event-4']);
+ assert.deepEqual(latest.items.at(-1).data,{count:29});
+});
+
+test('large historical event bodies cannot consume planning context or hide an older critical event',()=>{
+ const page={items:Array.from({length:50},(_,i)=>({event_id:'e-'+i,delivery_seq:i,world_session_id:'current',seq:i,
+  occurred_at:'2026-11-03T07:28:00Z',kind:i===3?'player_damaged':'inventory_changed',severity:i===3?'critical':'normal',task_id:null,
+  data:{inventory:Array.from({length:41},()=>({item_id:'minecraft:cobblestone',count:64,components:'opaque'.repeat(1000)}))}})),next_cursor:'50'};
+ const before=structuredClone(page),result=planningEvents(page);
+ assert.equal(result.items.length,8);assert.equal(result.items[0].event_id,'e-3');assert.equal(result.items.at(-1).event_id,'e-49');
+ assert.equal(result.items[0].severity,'critical');assert.equal(result.items[0].kind,'player_damaged');
+ assert.equal(result.model_projection.omitted_events,42);assert.deepEqual(result.model_projection.omitted_fields,['items.data']);
+ assert.equal(result.model_projection.historical_not_current,true);assert.equal(result.next_cursor,'50');
+ assert(JSON.stringify(result).length<3000);assert.deepEqual(page,before);
+ const empty=planningEvents({items:[],next_cursor:null});assert.equal(empty.items.length,0);assert.equal(empty.next_cursor,null);
+});
 
 test('a full container cannot consume the speech context or erase native facts', () => {
   const source = { bridge_boot_id: 'current-boot', world_session_id: 'current-world', seq: 91,

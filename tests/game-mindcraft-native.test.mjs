@@ -18,6 +18,68 @@ const runtimeDetails = environment => ({source:'runtime_client',selected_hotbar:
   environment:{biome:'minecraft:plains',day_time:1,raining:false,thundering:false,...environment},
   received_rules:{difficulty:'normal',game_mode:'survival',world_border_size:1000},
   nearby_hostiles:[],hostiles_truncated:false,unknown_fields:[]});
+
+test('native navigation contracts carry excavation candidates without claiming a verified route',()=>{
+ const p={dimension:'minecraft:overworld',x:1262,y:69,z:-96},nav=navigation(p,[]);
+ const row={position:{...p,x:p.x+1,y:p.y+1},kind:'one_step_excavation',route_verified:false,cuts:2};
+ nav.excavation_frontiers=[row];validate('NavigationObservation',nav);
+ for(const change of [{cuts:0},{cuts:4},{route_verified:true},{kind:'predicted_tunnel'}]) {
+  assert.throws(()=>validate('NavigationObservation',{...nav,excavation_frontiers:[{...row,...change}]}));
+ }
+ validate('NavigationObservation',navigation(p,[]));
+});
+
+test('a fresh adjacent excavation exit is checked before flat food exploration and is never a success claim',async()=>{
+ const f=fixture(),p=f.state.player.position,target={...p,x:p.x+1,y:p.y+1},nav=navigation(p,[{...p,x:p.x+4}]);
+ nav.excavation_frontiers=[{position:target,kind:'one_step_excavation',route_verified:false,cuts:2}];
+ f.observe({player:{position:p,health:20,food:20},details:{hazards:{on_ground:true},navigation:nav}});
+ assert.equal(await f.planner.explore({},'missing_food',{preferSurface:true}),true);
+ assert.deepEqual(f.calls.filter(x=>x.name==='game_start_task').at(-1).args.goal,{skill:'navigate',target,radius:0});
+ assert.equal(f.planner.lastPlan.stage,'excavate_observed_exit');assert.equal(f.planner.lastPlan.route_verified,false);
+ assert.equal(f.calls.filter(x=>x.name==='game_check_action').length,1);
+ assert.equal(f.tasks.get('task-0').state,'accepted');assert.equal(f.tasks.get('task-0').effect_status,'unknown');
+});
+
+test('stale, foreign, speculative and nonadjacent excavation candidates cannot authorize a digging goal',async()=>{
+ for(const mode of ['stale','foreign','source','origin','distant','height','speculative','cuts']){
+  const f=fixture(),p=f.state.player.position,target={...p,x:p.x+1,y:p.y+1},nav=navigation(p,[]);
+  const row={position:target,kind:'one_step_excavation',route_verified:false,cuts:2};nav.excavation_frontiers=[row];
+  if(mode==='stale')nav.sampled_at='2000-01-01T00:00:00Z';
+  if(mode==='foreign')target.dimension='minecraft:the_nether';
+  if(mode==='source')nav.source='model_prediction';
+  if(mode==='origin')nav.origin={...p,z:p.z+1};
+  if(mode==='distant')target.x+=2;
+  if(mode==='height')target.y++;
+  if(mode==='speculative')row.route_verified=true;
+  if(mode==='cuts')row.cuts=4;
+  f.observe({player:{position:p,health:20,food:20},details:{hazards:{on_ground:true},navigation:nav}});
+  await f.planner.explore({},'missing_food',{preferSurface:true});
+  assert.notEqual(f.planner.lastPlan?.stage,'excavate_observed_exit',mode);
+ }
+});
+
+test('sixteen exploration destinations bound one region; genuine new ground replenishes a later region',async()=>{
+ const f=fixture(),p=f.state.player.position;
+ const observe=(position,target,ground=true)=>f.observe({player:{position,health:20,food:20},
+  details:{hazards:{on_ground:ground},navigation:navigation(position,[target])}});
+ const fill=async origin=>{
+  for(let i=0;i<16;i++){
+   const target={...origin,x:origin.x+1+i%8,z:origin.z+(i<8?1:-1)};observe(origin,target);
+   assert.equal(await f.planner.explore({},'missing_food',{preferSurface:true}),true);
+  }
+ };
+ await fill(p);observe(p,{...p,z:p.z+2});
+ assert.equal(await f.planner.explore({},'missing_food',{preferSurface:true}),false);
+ assert.equal(f.planner.lastPlan.state,'exploration_window_exhausted');
+ observe({...p,y:p.y+3},{...p,x:1,y:p.y+4},false);
+ assert.equal(await f.planner.explore({},'missing_food',{preferSurface:true}),false,'airborne height does not replenish');
+ const next={...p,x:p.x+8};await fill(next);
+ observe(p,{...p,z:p.z+2});
+ assert.equal(await f.planner.explore({},'missing_food',{preferSurface:true}),false,'returning to the original hole cannot reset the budget');
+ const higher={...next,y:next.y+3};observe(higher,{...higher,z:higher.z+1});
+ assert.equal(await f.planner.explore({},'missing_food',{preferSurface:true}),true);
+ assert.equal(f.calls.filter(x=>x.name==='game_start_task').length,33);
+});
 const lock = JSON.parse(readFileSync(new URL('upstream.lock.json',base)));
 test('Mindcraft algorithm is a fixed MIT upstream module with import injection only', () => {
   for (const file of lock.files) assert.equal(createHash('sha256').update(readFileSync(new URL(file.file,base))).digest('hex'),file.sha256);

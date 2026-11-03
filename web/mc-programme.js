@@ -42,7 +42,7 @@
  }
  async function connect(){
   if(closed)return;const old=transport;transport=null;old?.close();overlay.avatar.replaceChildren();
-  const current=new LocalAvatarStream(context,()=>{if(closed||current!==transport)return;authority(false);clearTimeout(retry);retry=setTimeout(()=>void connect(),3000);status()},{directOutput:true,protocolVersion:3,playbackAuthority:!preview,audible:false,receiptsRequired:!preview});
+  const current=new LocalAvatarStream(context,event=>{if(closed||current!==transport)return;authority(false);if(event?.code===4001){close();location.reload();return}clearTimeout(retry);retry=setTimeout(()=>void connect(),3000);status()},{directOutput:true,protocolVersion:3,playbackAuthority:!preview,audible:false,receiptsRequired:!preview});
   transport=window.avatarTransport=current;current.onAuthorityLost=()=>{if(current===transport){authority(false);status()}};overlay.setTransport(current);
   try{await current.connect();if(closed||current!==transport)return;await report();status()}catch{if(!closed&&current===transport){current.close();status();clearTimeout(retry);retry=setTimeout(()=>void connect(),3000)}}
  }

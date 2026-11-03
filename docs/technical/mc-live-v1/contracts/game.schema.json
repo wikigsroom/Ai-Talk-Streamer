@@ -13310,6 +13310,21 @@
             "additionalProperties": false
           }
         },
+        "excavation_frontiers": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "properties": {
+              "position": { "$ref": "#/$defs/Position" },
+              "kind": { "const": "one_step_excavation" },
+              "route_verified": { "const": false },
+              "cuts": { "type": "integer", "minimum": 1, "maximum": 3 }
+            },
+            "required": [ "position", "kind", "route_verified", "cuts" ],
+            "additionalProperties": false
+          }
+        },
         "action_precondition_required": {
           "const": true
         },

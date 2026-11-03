@@ -67,6 +67,26 @@ async function environment({formal=false,reduced=false,occupied=false,claimDelay
  return {f,page,posts,errors,external,sessions,emit,resize:()=>{width=960},releaseReady:()=>releaseReady?.(),close};
 }
 
+test('operator source refresh reloads the page and releases its old media connection',async()=>{
+ const e=await environment();try{
+  const old=await e.page.evaluate(()=>{window.oldSourceMarker=true;return avatarTransport.metricsTransportId});
+  const loaded=e.page.waitForEvent('load');for(const session of e.sessions)session.ws.close(4001,'Operator requested source refresh');
+  await loaded;await e.page.waitForFunction(()=>window.avatarTransport?.frames>2);
+  const current=await e.page.evaluate(()=>({marker:window.oldSourceMarker,id:avatarTransport.metricsTransportId}));
+  assert.equal(current.marker,undefined);assert.notEqual(current.id,old);
+  await until(()=>e.sessions.size===1);assert.deepEqual(e.posts,[]);
+ }finally{await e.close()}
+});
+
+test('an ordinary media interruption reconnects without reloading the programme',async()=>{
+ const e=await environment();try{
+  const old=await e.page.evaluate(()=>{window.keptSourceMarker=true;return avatarTransport.metricsTransportId});
+  for(const session of e.sessions)session.ws.close(1012,'Upstream disconnected; reconnect');
+  await e.page.waitForFunction(old=>window.avatarTransport?.frames>2&&avatarTransport.metricsTransportId!==old,old);
+  assert.equal(await e.page.evaluate(()=>window.keptSourceMarker),true);await until(()=>e.sessions.size===1);
+ }finally{await e.close()}
+});
+
 test('formal MC programme uses actual v3 H264, sole PCM authority and safe transparent geometry',async()=>{
  const e=await environment({formal:true});try{
   await e.page.waitForFunction(()=>avatarTransport.audible&&avatarTransport.frames>5);

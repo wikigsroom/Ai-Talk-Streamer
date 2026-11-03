@@ -34,6 +34,7 @@ export class MindcraftNativePlanner {
   constructor(manager) { this.manager = manager; this.reset(null); }
   reset(scope) { this.scope = scope; this.completed = new Set(); this.pending = null; this.denied = new Map(); this.lastPlan = null;
     this.explored = new Set(); this.exploreIndex = 0; this.exploreOrigin = null; this.lastTable = null;
+    this.exploreWindowCount=0;this.exploreWindows=new Set();
     this.stationHistoryChecked = false; this.unconfirmedTables = new Set(); this.terrainPlacements = 0;
     this.terrainAnchors = new Map(); this.terrainGatherings = 0; this.exitStance = null; }
   report(value) {
@@ -374,20 +375,39 @@ export class MindcraftNativePlanner {
     const state=this.manager.state.requireFresh(),p=state.player?.position,h=state.details?.hazards;
     // Coordinates below are candidate route queries, never observed safe cells.
     // Only the real native route check can admit a move. Stop bounded exploration
-    // when survival is urgent, or this connection's 16 destinations are exhausted.
+    // when survival is urgent, or this terrain region's 16 destinations are exhausted.
     if (!p || state.player.health<12 || state.player.food<6 || h?.in_lava || h?.on_fire || h?.in_water ||
-      mindcraftThreats(state).some(row => row.visible!==false && row.distance<=6) || this.explored.size>=16) return false;
-    this.exploreOrigin ||= p;
+      mindcraftThreats(state).some(row => row.visible!==false && row.distance<=6)) return false;
+    const region=canonical([p.dimension,Math.floor(p.x/8),Math.floor(p.y/3),Math.floor(p.z/8)]);
+    // Replenish only after received movement into a new terrain region. Time,
+    // reconnect-free hopping and a return to the same hole cannot reset a cap.
+    const moved=this.exploreOrigin && h?.on_ground===true && (Math.hypot(p.x-this.exploreOrigin.x,p.z-this.exploreOrigin.z)>=8
+      || p.y-this.exploreOrigin.y>=3 || !preferSurface && this.exploreOrigin.y-p.y>=3);
+    if(!this.exploreOrigin || moved && !this.exploreWindows.has(region)) {
+      this.exploreOrigin=structuredClone(p);this.exploreWindowCount=0;this.exploreWindows.add(region);
+      while(this.exploreWindows.size>64)this.exploreWindows.delete(this.exploreWindows.values().next().value);
+    }
+    if(this.exploreWindowCount>=16) {
+      this.lastPlan={engine:'mindcraft_item_goal_native',state:'exploration_window_exhausted',reason,
+        window_origin:this.exploreOrigin,admitted_destinations:this.exploreWindowCount,
+        requires_new_received_terrain_progress:true};this.report(this.lastPlan);return false;
+    }
+    const remember=key=>{
+      this.exploreWindowCount++;this.explored.add(key);
+      while(this.explored.size>128)this.explored.delete(this.explored.values().next().value);
+    };
     let attempted=0;
-    const frontiers=this.frontiers(state);
+    const excavation=preferSurface?this.excavationFrontiers(state):[],excavationKeys=new Set(excavation.map(canonical));
+    const frontiers=[...excavation,...this.frontiers(state)];
     if(preferSurface)frontiers.sort((a,b)=>b.y-a.y);
     for(const target of frontiers) {
       const key=canonical(target);
       if(this.explored.has(key) || Math.hypot(target.x-this.exploreOrigin.x,target.z-this.exploreOrigin.z)>24)continue;
       if(attempted++>=4)break;
       if(await this.submit({skill:'navigate',target,radius:0},context,
-        {engine:'mindcraft_item_goal_native',stage:'explore_observed_frontier',reason})) {
-        this.explored.add(key);return true;
+        {engine:'mindcraft_item_goal_native',stage:excavationKeys.has(key)?'excavate_observed_exit':'explore_observed_frontier',reason,
+          ...(excavationKeys.has(key)?{requires_excavation:true,route_verified:false}:{})})) {
+        remember(key);return true;
       }
     }
     const offsets=preferSurface
@@ -402,7 +422,7 @@ export class MindcraftNativePlanner {
       const goal={skill:'navigate',target,radius:1};
       if (await this.submit(goal,context,{engine:'mindcraft_item_goal_native',stage:'explore_for_dependency',reason,
         exploration_preference:preferSurface?'higher_ground_for_food':'resource_dependency',candidate_only:true})) {
-        this.explored.add(key);return true;
+        remember(key);return true;
       }
     }
     return false;
@@ -414,6 +434,17 @@ export class MindcraftNativePlanner {
     return (value.frontiers || []).slice(0,8).map(row=>row.position).filter(target=>target?.dimension===p.dimension
       && ['x','y','z'].every(axis=>Number.isInteger(target[axis])) && Math.abs(target.y-p.y)<=4
       && Math.hypot(target.x-p.x,target.z-p.z)<=12);
+  }
+  excavationFrontiers(state) {
+    const value=state.details?.navigation,p=state.player?.position;
+    const age=(this.manager.wall?.() ?? Date.now())-Date.parse(value?.sampled_at);
+    if(!p || value?.source!=='runtime_client' || canonical(value.origin)!==canonical(p)
+        || !Number.isFinite(age) || age< -1000 || age>4000)return [];
+    return (value.excavation_frontiers || []).slice(0,4).filter(row=>row.kind==='one_step_excavation'
+      && row.route_verified===false && Number.isInteger(row.cuts) && row.cuts>=1 && row.cuts<=3)
+      .map(row=>row.position).filter(at=>at?.dimension===p.dimension
+        && ['x','y','z'].every(axis=>Number.isInteger(at[axis])) && at.y===p.y+1
+        && Math.abs(at.x-p.x)+Math.abs(at.z-p.z)===1);
   }
   async retreat(context,state) {
     const swimming=state.details?.hazards?.in_water === true;

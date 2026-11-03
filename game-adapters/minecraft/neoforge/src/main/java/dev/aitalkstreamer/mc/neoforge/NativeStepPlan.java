@@ -20,10 +20,22 @@ public final class NativeStepPlan {
         long rise = (long)goal.y() - start.y();
         if (rise < 1 || rise > 8 || Math.abs((long)goal.x()-start.x()) > 24
                 || Math.abs((long)goal.z()-start.z()) > 24) return null;
-        if (!terrain.destination(goal) || terrain.clearance(new Point(start.x(),start.y()+1,start.z())) != Cell.CLEAR) return null;
+        boolean standingGoal=terrain.destination(goal);
+        // A single adjacent rise may itself need excavation. Its two body
+        // cells and retained support are inspected now; a distant solid target
+        // cannot authorize an imagined tunnel or an unknown future landing.
+        boolean excavatingGoal=!standingGoal && rise==1
+                && Math.abs((long)goal.x()-start.x())+Math.abs((long)goal.z()-start.z())==1
+                && terrain.support(new Point(goal.x(),goal.y()-1,goal.z()));
+        if(excavatingGoal) {
+            Cell feet=terrain.clearance(goal),head=terrain.clearance(new Point(goal.x(),goal.y()+1,goal.z()));
+            excavatingGoal=feet!=Cell.BLOCKED && head!=Cell.BLOCKED && (feet==Cell.CUT || head==Cell.CUT);
+        }
+        if ((!standingGoal && !excavatingGoal) || terrain.clearance(new Point(start.x(),start.y()+1,start.z())) != Cell.CLEAR) return null;
         Step best = null;
         for (int[] d : new int[][]{{1,0},{-1,0},{0,1},{0,-1}}) {
             Point next = new Point(start.x()+d[0], start.y()+1, start.z()+d[1]);
+            if(excavatingGoal && !next.equals(goal))continue;
             if (!terrain.support(new Point(next.x(),start.y(),next.z()))) continue;
             var cuts = new ArrayList<Point>(); boolean blocked = false;
             for (Point cell : List.of(new Point(start.x(),start.y()+2,start.z()),

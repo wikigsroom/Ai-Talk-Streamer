@@ -111,6 +111,19 @@ export function planningStateRead(initial, current) {
   return result;
 }
 
+/** Historical event identities for planning; full event bodies remain in the ledger. */
+export function planningEvents(page) {
+  const items=page.items || [],selected=new Set();
+  for(let i=items.length-1;i>=0 && selected.size<8;i--)if(items[i].severity==='critical')selected.add(i);
+  for(let i=items.length-1;i>=0 && selected.size<8;i--)selected.add(i);
+  const keep=['event_id','delivery_seq','world_session_id','seq','occurred_at','kind','severity','task_id'];
+  return {items:[...selected].sort((a,b)=>a-b).map(i=>Object.fromEntries(keep.filter(k=>Object.hasOwn(items[i],k))
+    .map(k=>[k,structuredClone(items[i][k])]))),next_cursor:page.next_cursor,
+    model_projection:{kind:'bounded_planning_events',source_page_events:items.length,omitted_events:items.length-selected.size,
+      omitted_fields:['items.data'],historical_not_current:true,
+      rule:'仅保留历史事件编号、类型、时间、严重度和任务来源；省略事件详情不表示没有变化。当前库存和危险以新鲜状态为准，任务效果另查game_get_task。'}};
+}
+
 /** Speech describes observations; route meshes and task histories are read elsewhere. */
 export function speechState(value) {
   const keep=['world_id','world_session_id','seq','observed_at','freshness','mode','screen','active_task_id','player','unknown_fields'];
