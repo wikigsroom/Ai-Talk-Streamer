@@ -1,0 +1,4899 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261103-095",
+  "round": "095",
+  "at": "2026-11-03T05:57:01.718070+00:00",
+  "branch": "mc",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "scope": "NATIVE_WORKSTATION_AND_JOINT_CONTEXT_OBSERVATION_NOT_COMPLETE_APPLICATION_ACCEPTANCE",
+  "local_application_tests": 0,
+  "virtualization_used": false,
+  "remote4090_connected": false,
+  "source_files": 1006,
+  "source_snapshot_sha256": "2eb5113897e3106cdd53b01b060c919d786149965d5e35d41da19c2d770e8a6b",
+  "source_archive_sha256": "19597de0686ff9b0779b3275449c6014628b456929d862e06fe593fdb10353ae",
+  "native_build_reused": {
+    "source_files_unchanged": 65,
+    "sha256": "24c52dce56d607a8ce2aa3fa952ad03e9eb4869407ad6b60ce9979037e6f07ce",
+    "built_and_fixtures_passed_round": "094",
+    "repeat_java_tests": false
+  },
+  "policy_migration": {
+    "field": "conversation.context_max_estimated_tokens",
+    "before": 6000,
+    "after": 12000,
+    "only_semantic_field_changed": true,
+    "exact_backup_sha256": "8efadd74d9a4aefd97977d957a6c9374c36569df9bccbf125cd7b717f1ecafd7",
+    "after_sha256": "1aba677cdf0e53fb7ade93c487a24ebfe3f64beef2b7aa01a44e32ee83ca792e",
+    "pointer_unchanged": true,
+    "private_contents_exported": false,
+    "reverified_without_second_write": true
+  },
+  "checks": {
+    "core": {
+      "tests": 371,
+      "pass": 371,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "targeted_pass": 127,
+    "dsh_guard_cases": 10,
+    "scripted_guard_requests": 21,
+    "suites_overlap_do_not_sum": true,
+    "not_real_game_acceptance": true
+  },
+  "runtime": {
+    "scope": "SAVED_REMOTE_OBSERVATION_NOT_COMPLETE_APPLICATION_ACCEPTANCE",
+    "window_seconds": 600.6147177219391,
+    "observations": 570,
+    "task_count": 40,
+    "task_states": {
+      "succeeded": 31,
+      "failed": 8,
+      "cancelled": 1
+    },
+    "task_reasons": {
+      "GAME_NAVIGATION_NO_ROUTE": 8,
+      "CONTROL_CHANGED": 1
+    },
+    "verified_navigation": 20,
+    "productive_tasks": [
+      {
+        "task_id": "task-35f34237-ac09-4736-8756-59ea37bb1f94",
+        "goal": {
+          "count": 3,
+          "item_id": "minecraft:cobblestone",
+          "skill": "gather"
+        },
+        "updated_at": "2026-11-03T05:37:55.943928700Z"
+      },
+      {
+        "task_id": "task-f0d9000b-750e-45d6-8f4b-00fea92cead5",
+        "goal": {
+          "count": 2,
+          "item_id": "minecraft:stick",
+          "skill": "craft"
+        },
+        "updated_at": "2026-11-03T05:38:01.144642500Z"
+      },
+      {
+        "task_id": "task-af28eb0c-8899-4395-9967-c08f139c5d71",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:stone_axe",
+          "skill": "craft"
+        },
+        "updated_at": "2026-11-03T05:38:07.704299300Z"
+      },
+      {
+        "task_id": "task-0d66052c-8639-42d0-bb2e-1a204ba8c150",
+        "goal": {
+          "count": 4,
+          "item_id": "minecraft:cobblestone",
+          "skill": "gather"
+        },
+        "updated_at": "2026-11-03T05:38:18.337132200Z"
+      },
+      {
+        "task_id": "task-e91cdb2a-205c-472c-a54f-27db336b7af8",
+        "goal": {
+          "count": 4,
+          "item_id": "minecraft:cobblestone",
+          "skill": "gather"
+        },
+        "updated_at": "2026-11-03T05:38:29.305339100Z"
+      },
+      {
+        "task_id": "task-f26d9a28-f472-49d2-9bd8-d6f5bec8d2a0",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:furnace",
+          "skill": "craft"
+        },
+        "updated_at": "2026-11-03T05:38:54.966055100Z"
+      },
+      {
+        "task_id": "task-4979d90c-a13d-4fe9-8ec6-ea166d22b4b0",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:cobblestone",
+          "skill": "gather"
+        },
+        "updated_at": "2026-11-03T05:40:39.512379800Z"
+      },
+      {
+        "task_id": "task-51524875-8c88-42e9-9aac-2a5c10ceec08",
+        "goal": {
+          "item_id": "minecraft:dirt",
+          "purpose": "activate",
+          "skill": "use_item",
+          "target": {
+            "dimension": "minecraft:overworld",
+            "x": 1259,
+            "y": 66,
+            "z": -97
+          }
+        },
+        "updated_at": "2026-11-03T05:41:47.018752200Z"
+      },
+      {
+        "task_id": "task-18e95766-aed5-4ae5-bedb-74657253986d",
+        "goal": {
+          "item_id": "minecraft:dirt",
+          "purpose": "activate",
+          "skill": "use_item",
+          "target": {
+            "dimension": "minecraft:overworld",
+            "x": 1259,
+            "y": 68,
+            "z": -98
+          }
+        },
+        "updated_at": "2026-11-03T05:42:10.938661100Z"
+      },
+      {
+        "task_id": "task-ceada189-da25-4459-abfb-04cb909012ff",
+        "goal": {
+          "count": 2,
+          "item_id": "minecraft:cobblestone",
+          "skill": "gather"
+        },
+        "updated_at": "2026-11-03T05:43:51.278820100Z"
+      },
+      {
+        "task_id": "task-e979dd3c-63fa-457f-9529-2ed0bf34c3d2",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:cobblestone",
+          "skill": "gather"
+        },
+        "updated_at": "2026-11-03T05:45:18.602914100Z"
+      }
+    ],
+    "productive_by_item": {
+      "minecraft:cobblestone": 6,
+      "minecraft:stick": 1,
+      "minecraft:stone_axe": 1,
+      "minecraft:furnace": 1,
+      "minecraft:dirt": 2
+    },
+    "death_transitions": 0,
+    "first_inventory": {
+      "cottonly:cotton_seeds": 2,
+      "gravestone:obituary": 1,
+      "minecraft:dirt": 32,
+      "minecraft:oak_planks": 3,
+      "minecraft:oak_sapling": 5,
+      "minecraft:rotten_flesh": 8,
+      "minecraft:stone_pickaxe": 1,
+      "minecraft:wheat_seeds": 2,
+      "minecraft:wooden_pickaxe": 1
+    },
+    "last_inventory": {
+      "cottonly:cotton_seeds": 2,
+      "gravestone:obituary": 1,
+      "minecraft:cobblestone": 22,
+      "minecraft:dirt": 35,
+      "minecraft:furnace": 1,
+      "minecraft:oak_planks": 1,
+      "minecraft:oak_sapling": 5,
+      "minecraft:rotten_flesh": 8,
+      "minecraft:stick": 2,
+      "minecraft:stone_axe": 1,
+      "minecraft:stone_pickaxe": 1,
+      "minecraft:wheat_seeds": 2,
+      "minecraft:wooden_pickaxe": 1
+    },
+    "inventory_change": {
+      "minecraft:cobblestone": 22,
+      "minecraft:dirt": 3,
+      "minecraft:furnace": 1,
+      "minecraft:oak_planks": -2,
+      "minecraft:stick": 2,
+      "minecraft:stone_axe": 1
+    },
+    "formal_speech_completions": 23,
+    "final_playback_audit": {
+      "scope": "READ_ONLY_SAME_BROADCAST_AFTER_NORMAL_STOP",
+      "broadcast_id": "bc-b3b494e1-15a8-4bea-a623-b9cddc63d063",
+      "states": {
+        "answered": 23,
+        "discarded": 24
+      },
+      "completed_formal_utterances": 23,
+      "items": [
+        {
+          "narration_id": "narr-349d935013a6187af5e91be457a4c72a373f029c",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-7ba72171-cf20-4e07-9600-db386e3daf76",
+          "completion_event_seq": 2919,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2919
+          }
+        },
+        {
+          "narration_id": "narr-6bb9799f3f32147fbe630ac425099ceba31d26b3",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-94e9bca6-4b2e-48ec-a6e6-be516b3f83f5",
+          "completion_event_seq": 2926,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2926
+          }
+        },
+        {
+          "narration_id": "narr-23d2043c6c7e3837d511376ae9273bba8617bf83",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-7e642b00-f98f-4fca-b94e-022a2b8c5bbd",
+          "completion_event_seq": 2933,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2933
+          }
+        },
+        {
+          "narration_id": "narr-1e307a419462eadc6ce663beaaced2502c17c7dd",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-46ea93e7-9ef1-435f-8d1d-de60dcf99327",
+          "completion_event_seq": 2940,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2940
+          }
+        },
+        {
+          "narration_id": "narr-b5fd8772e1587a08e5d9c97e11e8271981872db6",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-bf4943df-c683-457e-b0ba-c2a6deadf767",
+          "completion_event_seq": 2947,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2947
+          }
+        },
+        {
+          "narration_id": "narr-ed4c7795302b8a6d616e38de34cbec44874e8864",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-6e85ea30d0864882998e86143ef7e1c724ca415f",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-98dcd0cd-5b00-40b8-8cca-18aa51b3d4b5",
+          "completion_event_seq": 2954,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2954
+          }
+        },
+        {
+          "narration_id": "narr-696b949fd30d4956fec51cdf388859a9733a5643",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-9daa2fdf6bbf6f5dc69aff63f096274bdf347ec2",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-819c5ce5-612b-46da-8449-2e3b451f3f04",
+          "completion_event_seq": 2961,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2961
+          }
+        },
+        {
+          "narration_id": "narr-dd89dd4b82afee02d22cf16b7b1cd2c134fd07d2",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-f7809e71c5f25e440fe2bdfe8f5d717eb3fca2a9",
+          "state": "discarded",
+          "reason": "REPEATED_FAILURE_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-430dad780a14b88efe972ddb5c3fd0eade2c112c",
+          "state": "discarded",
+          "reason": "REPEATED_FAILURE_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-5d8ecb29e37942ed9a7cd5fd82c5862924a41b21",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-902869431063022b2102a358b90680e647d5ac31",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-034fb4cfd196ab62bad3392d407345b84e3819fd",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-57d9ea0e3f20a7de1451f468bfa253d3172ac7d5",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-49772e06bb87e6beaa7816ffb6fe69c48ac33062",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-57a38a0cc85d32810293079460857fc6013e95f2",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-b0021943-5073-4041-b6e0-4fba0314ab9e",
+          "completion_event_seq": 2968,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2968
+          }
+        },
+        {
+          "narration_id": "narr-73a91ba863365ca328f370ec75e9c82a01968104",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-df03c32cdc0f4efa5039199c5e06a4abe5788e10",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-d3c3decb-2f4f-4477-8d53-1f78f19a7a4a",
+          "completion_event_seq": 2975,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2975
+          }
+        },
+        {
+          "narration_id": "narr-a701a6a0c9f0f0d1c2462c8543f273b307dfcd5a",
+          "state": "discarded",
+          "reason": "REPEATED_FAILURE_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-036bb4cf0bf54cde7ebd5c4482b169fcb562d3af",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-3417b95c-1042-411c-9834-ad9575cbcff0",
+          "completion_event_seq": 2982,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2982
+          }
+        },
+        {
+          "narration_id": "narr-cabb1823d298ac542e2a6e639ee3831be14e1ea3",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-edbfc350232f3ca1770da60667438d2f185fd33a",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-0c902eb53fff88b81c13b87e827204ee796390e8",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-1207446f-8afa-4fba-a483-2b0a55e3256f",
+          "completion_event_seq": 2989,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2989
+          }
+        },
+        {
+          "narration_id": "narr-d075a1a6e2dba26afa0b6072ac0f6be80475a879",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-86af66357705054c9d3d8568b277e1d75efbb5bc",
+          "state": "discarded",
+          "reason": "REPEATED_FAILURE_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-349d87e61e324272b554efd21d1ea1d5aad72bf6",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-bac9f46c-1ea5-4b19-8f14-2c63511db8db",
+          "completion_event_seq": 2996,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2996
+          }
+        },
+        {
+          "narration_id": "narr-b300e85508c0009700e4ee05ee2fcde11e10fb31",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-22f86c1e62ac4a455b25b75fa5fce9e0733a015d",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-66d2dec6-1e27-41f1-a5b4-e660a0c3e1fd",
+          "completion_event_seq": 3003,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 3003
+          }
+        },
+        {
+          "narration_id": "narr-bb53d4aee7a44db4dc8177261cd0fd13228812b3",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-15d5da089dcfcf569a6d618fb0759ada18143d19",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-c5ebf1c1-fa94-4ccd-97af-a0156835a9c8",
+          "completion_event_seq": 3010,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 3010
+          }
+        },
+        {
+          "narration_id": "narr-dae99518f52f0d2a4d682db486f120773d884c6c",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-b8d4f092-cc27-4101-b9b1-e1f73b555257",
+          "completion_event_seq": 3017,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 3017
+          }
+        },
+        {
+          "narration_id": "narr-2b14c86c01f8c9d51e5dc51283b82d97c2acbd8d",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-a3d7a53640db9d5bf6f2fefaa47dff79d8b4ee35",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-26a2db108921cb7f271df037424cb505539594a4",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-712c4fa20125a1b65b55c1cd217a1bf03fe8e620",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-43497a12-d336-4f3f-9807-b874699a43ec",
+          "completion_event_seq": 3024,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 3024
+          }
+        },
+        {
+          "narration_id": "narr-43293f6c1af853a483bfb1db065ae0b13e139d57",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-762e29c9-5f77-4f3c-8303-82324f55465a",
+          "completion_event_seq": 3031,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 3031
+          }
+        },
+        {
+          "narration_id": "narr-f48caf73febe3c2e8e5f8fda868d4f65b689e726",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-1a0390fbac9bb6a326c89f218500392c4d4c9cc7",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-6dadda9caae45d6735d43f071aa510d2f1893ade",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-f1d2bdc7-924e-4719-9cb9-57aeed3fe210",
+          "completion_event_seq": 3038,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 3038
+          }
+        },
+        {
+          "narration_id": "narr-7958ca067da28b8bef52ac2c2923153f1aa84f42",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-c2b31798-c2a0-4829-ab1f-42c420685641",
+          "completion_event_seq": 3045,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 3045
+          }
+        },
+        {
+          "narration_id": "narr-fcca86cfc0a5eaf94346e222ea5367541f23c0de",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-ea3d9e1b-ee53-4d99-8019-c839f7a7da6b",
+          "completion_event_seq": 3052,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 3052
+          }
+        },
+        {
+          "narration_id": "narr-65eb1d4c2caf370ca71d54c25b172b1a8d7ba60b",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-dd4c34a4-3367-492a-ad06-af003764a681",
+          "completion_event_seq": 3059,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 3059
+          }
+        },
+        {
+          "narration_id": "narr-83ef01cbb51ad93e4f03c46ee6be87af466d6b64",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-752b8eabd8f0c97122c7d4bbf4746bfc5a74d40f",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-5fc5fc5d-049f-4d2f-bd89-e27cb088c84a",
+          "completion_event_seq": 3066,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 3066
+          }
+        },
+        {
+          "narration_id": "narr-d7964f0c90b9d58e43d6a7cb0d866ff0631d484e",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-d3a31d24-9a0a-43f5-852a-055fd1e2dafb",
+          "completion_event_seq": 3073,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 3073
+          }
+        }
+      ],
+      "database_writes": 0
+    },
+    "final_task_audit": {
+      "scope": "READ_ONLY_ALL_WORLD_SESSION_TASKS_AFTER_NORMAL_STOP",
+      "database_writes": 0,
+      "items": [
+        {
+          "task_id": "task-35f34237-ac09-4736-8756-59ea37bb1f94",
+          "goal": {
+            "count": 3,
+            "item_id": "minecraft:cobblestone",
+            "skill": "gather"
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:37:55.943928700Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-f0d9000b-750e-45d6-8f4b-00fea92cead5",
+          "goal": {
+            "count": 2,
+            "item_id": "minecraft:stick",
+            "skill": "craft"
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:38:01.144642500Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-af28eb0c-8899-4395-9967-c08f139c5d71",
+          "goal": {
+            "count": 1,
+            "item_id": "minecraft:stone_axe",
+            "skill": "craft"
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:38:07.704299300Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-0d66052c-8639-42d0-bb2e-1a204ba8c150",
+          "goal": {
+            "count": 4,
+            "item_id": "minecraft:cobblestone",
+            "skill": "gather"
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:38:18.337132200Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-e91cdb2a-205c-472c-a54f-27db336b7af8",
+          "goal": {
+            "count": 4,
+            "item_id": "minecraft:cobblestone",
+            "skill": "gather"
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:38:29.305339100Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-7e5fc96e-768f-4b66-8372-a0c88f02ea38",
+          "goal": {
+            "radius": 2,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1262,
+              "y": 72,
+              "z": -97
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:38:49.216789900Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-f26d9a28-f472-49d2-9bd8-d6f5bec8d2a0",
+          "goal": {
+            "count": 1,
+            "item_id": "minecraft:furnace",
+            "skill": "craft"
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:38:54.966055100Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-0636dd9c-0088-4e39-826f-b99906a132ca",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1260,
+              "y": 67,
+              "z": -97
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:39:02.426277700Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-9036109a-4fb7-4b61-b6ef-23033c639a59",
+          "goal": {
+            "radius": 2,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1262,
+              "y": 72,
+              "z": -97
+            }
+          },
+          "state": "failed",
+          "effect_status": "unknown",
+          "reason": "GAME_NAVIGATION_NO_ROUTE",
+          "version": 3,
+          "updated_at": "2026-11-03T05:39:08.630747200Z",
+          "before_pause_snapshot_state": "failed",
+          "last_native_transition": {
+            "state": "failed",
+            "reason": "GAME_NAVIGATION_NO_ROUTE",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-8f1c20b0-3b8a-4d6d-aa06-eb74f1e72547",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1259,
+              "y": 66,
+              "z": -97
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:39:15.050914500Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-452aef3c-d364-4cf0-b987-b7000daf9081",
+          "goal": {
+            "radius": 2,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1262,
+              "y": 72,
+              "z": -97
+            }
+          },
+          "state": "failed",
+          "effect_status": "unknown",
+          "reason": "GAME_NAVIGATION_NO_ROUTE",
+          "version": 3,
+          "updated_at": "2026-11-03T05:39:20.820642700Z",
+          "before_pause_snapshot_state": "failed",
+          "last_native_transition": {
+            "state": "failed",
+            "reason": "GAME_NAVIGATION_NO_ROUTE",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-09eb75c1-0be6-40e2-8660-454cb2924496",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1263,
+              "y": 71,
+              "z": -96
+            }
+          },
+          "state": "failed",
+          "effect_status": "unknown",
+          "reason": "GAME_NAVIGATION_NO_ROUTE",
+          "version": 3,
+          "updated_at": "2026-11-03T05:39:25.367169700Z",
+          "before_pause_snapshot_state": "failed",
+          "last_native_transition": {
+            "state": "failed",
+            "reason": "GAME_NAVIGATION_NO_ROUTE",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-72081851-9d58-45b3-b516-ae8a2ad87930",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1259,
+              "y": 67,
+              "z": -96
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:39:34.509681900Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-b3b08fb2-8a57-46fa-a151-1af4e80d3828",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1262,
+              "y": 70,
+              "z": -96
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:39:40.430202200Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-58e13bc6-cec8-4b7f-9f38-683bd0075fe4",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1261,
+              "y": 69,
+              "z": -97
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:39:46.144897900Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-edbeb323-1fcc-463e-bdeb-52ccd95fda85",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1261,
+              "y": 69,
+              "z": -96
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:39:51.732218300Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-33507f81-cedb-48b1-91fd-ae306b579dbf",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1260,
+              "y": 68,
+              "z": -96
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:39:57.904041100Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-78f1cbf0-c145-47f7-881e-7849f736d52b",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1259,
+              "y": 66,
+              "z": -97
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:40:12.103773100Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-3c4cd5ad-59f4-472a-9ebc-8b1a64f04029",
+          "goal": {
+            "radius": 2,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1262,
+              "y": 72,
+              "z": -97
+            }
+          },
+          "state": "failed",
+          "effect_status": "unknown",
+          "reason": "GAME_NAVIGATION_NO_ROUTE",
+          "version": 3,
+          "updated_at": "2026-11-03T05:40:14.200876900Z",
+          "before_pause_snapshot_state": "failed",
+          "last_native_transition": {
+            "state": "failed",
+            "reason": "GAME_NAVIGATION_NO_ROUTE",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-c13b7db1-99a5-4ac8-8954-2e03e5894b41",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1263,
+              "y": 71,
+              "z": -96
+            }
+          },
+          "state": "failed",
+          "effect_status": "unknown",
+          "reason": "GAME_NAVIGATION_NO_ROUTE",
+          "version": 3,
+          "updated_at": "2026-11-03T05:40:27.584799200Z",
+          "before_pause_snapshot_state": "failed",
+          "last_native_transition": {
+            "state": "failed",
+            "reason": "GAME_NAVIGATION_NO_ROUTE",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-4979d90c-a13d-4fe9-8ec6-ea166d22b4b0",
+          "goal": {
+            "count": 1,
+            "item_id": "minecraft:cobblestone",
+            "skill": "gather"
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:40:39.512379800Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-1f1bc004-dd7a-4f5f-bc21-d943192e7e01",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1262,
+              "y": 69,
+              "z": -96
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:40:41.201375Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-2b30be19-861b-4d06-9b6c-64d348fba0d6",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1258,
+              "y": 67,
+              "z": -96
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:40:48.517318900Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-c9e4808b-fb09-42b1-a823-6ee9d829b52f",
+          "goal": {
+            "radius": 2,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1262,
+              "y": 72,
+              "z": -97
+            }
+          },
+          "state": "failed",
+          "effect_status": "unknown",
+          "reason": "GAME_NAVIGATION_NO_ROUTE",
+          "version": 3,
+          "updated_at": "2026-11-03T05:40:57.601395300Z",
+          "before_pause_snapshot_state": "failed",
+          "last_native_transition": {
+            "state": "failed",
+            "reason": "GAME_NAVIGATION_NO_ROUTE",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-00a84f35-65a8-4ddb-84fd-6f49494b78c4",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1259,
+              "y": 68,
+              "z": -95
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:41:05.303984Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-bf8f527a-23cd-4c03-8c1a-d9da75c364a1",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1262,
+              "y": 69,
+              "z": -96
+            }
+          },
+          "state": "failed",
+          "effect_status": "unknown",
+          "reason": "GAME_NAVIGATION_NO_ROUTE",
+          "version": 3,
+          "updated_at": "2026-11-03T05:41:23.669802500Z",
+          "before_pause_snapshot_state": "failed",
+          "last_native_transition": {
+            "state": "failed",
+            "reason": "GAME_NAVIGATION_NO_ROUTE",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-fb984d80-1d32-45b6-b955-910855dca043",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1259,
+              "y": 68,
+              "z": -95
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:41:46.060353500Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-51524875-8c88-42e9-9aac-2a5c10ceec08",
+          "goal": {
+            "item_id": "minecraft:dirt",
+            "purpose": "activate",
+            "skill": "use_item",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1259,
+              "y": 66,
+              "z": -97
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:41:47.018752200Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-09f79d3b-8f66-496c-bb85-8925764da12a",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1259,
+              "y": 67,
+              "z": -97
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:41:53.794952500Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-dce4219e-6878-48f5-b27a-0019274e4a09",
+          "goal": {
+            "radius": 2,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1262,
+              "y": 72,
+              "z": -97
+            }
+          },
+          "state": "failed",
+          "effect_status": "unknown",
+          "reason": "GAME_NAVIGATION_NO_ROUTE",
+          "version": 3,
+          "updated_at": "2026-11-03T05:42:06.997407600Z",
+          "before_pause_snapshot_state": "failed",
+          "last_native_transition": {
+            "state": "failed",
+            "reason": "GAME_NAVIGATION_NO_ROUTE",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-18e95766-aed5-4ae5-bedb-74657253986d",
+          "goal": {
+            "item_id": "minecraft:dirt",
+            "purpose": "activate",
+            "skill": "use_item",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1259,
+              "y": 68,
+              "z": -98
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:42:10.938661100Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-59475c14-35cd-41c8-a4ff-a0e5ba99d007",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1259,
+              "y": 69,
+              "z": -98
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:42:17.329964200Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-41c99142-f4d6-4ebc-95d8-3b5928db1049",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1259,
+              "y": 67,
+              "z": -97
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:42:24.208968500Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-7869d590-2aa4-4bf3-9f3c-390214e5f171",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1262,
+              "y": 69,
+              "z": -96
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:42:39.931781700Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-ceada189-da25-4459-abfb-04cb909012ff",
+          "goal": {
+            "count": 2,
+            "item_id": "minecraft:cobblestone",
+            "skill": "gather"
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:43:51.278820100Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-6bb4de35-d14b-46ba-b074-e6f53bab55c1",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1261,
+              "y": 68,
+              "z": -97
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:43:53.096650800Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-521bb6ba-3f13-406d-b13f-7c4b5d4e09be",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1261,
+              "y": 68,
+              "z": -96
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:43:59.061095500Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-e979dd3c-63fa-457f-9529-2ed0bf34c3d2",
+          "goal": {
+            "count": 1,
+            "item_id": "minecraft:cobblestone",
+            "skill": "gather"
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:45:18.602914100Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-c9e6af3e-6034-4b8a-b306-9f31bc95dd8d",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1260,
+              "y": 67,
+              "z": -97
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T05:47:11.663951500Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-b6c0301e-f7ea-4e9f-9ea6-e87900ff9284",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1260,
+              "y": 69,
+              "z": -98
+            }
+          },
+          "state": "cancelled",
+          "effect_status": "unknown",
+          "reason": "CONTROL_CHANGED",
+          "version": 3,
+          "updated_at": "2026-11-03T05:47:49.389274100Z",
+          "before_pause_snapshot_state": "running",
+          "last_native_transition": {
+            "state": "cancelled",
+            "reason": "CONTROL_CHANGED",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        }
+      ],
+      "native_planner_audit": {
+        "rows": 168,
+        "truncated": false,
+        "states": {
+          "task_submitted": 31,
+          "observed_result": 30,
+          "route_blocked": 106,
+          "historical_workstation_unconfirmed": 1
+        },
+        "stages": {
+          "unspecified": 51,
+          "return_to_known_workstation": 8,
+          "explore_observed_frontier": 14,
+          "explore_for_dependency": 91,
+          "build_exit_support": 2,
+          "climb_verified_support": 2
+        },
+        "blocked_items": {
+          "minecraft:wheat": 14,
+          "unspecified": 92
+        },
+        "first_blocked_samples": [
+          {
+            "at": "2026-11-03T05:38:58.844Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE",
+            "item_id": "minecraft:bread",
+            "next_goal": {
+              "count": 3,
+              "item_id": "minecraft:wheat",
+              "skill": "gather"
+            },
+            "based_on_seq": 1566
+          },
+          {
+            "at": "2026-11-03T05:39:50.528Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE",
+            "item_id": "minecraft:bread",
+            "next_goal": {
+              "count": 3,
+              "item_id": "minecraft:wheat",
+              "skill": "gather"
+            },
+            "based_on_seq": 2597
+          },
+          {
+            "at": "2026-11-03T05:40:02.582Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE",
+            "item_id": "minecraft:bread",
+            "next_goal": {
+              "count": 3,
+              "item_id": "minecraft:wheat",
+              "skill": "gather"
+            },
+            "based_on_seq": 2838
+          },
+          {
+            "at": "2026-11-03T05:40:02.682Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T05:40:02.787Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T05:40:02.928Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T05:40:03.135Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T05:40:05.636Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T05:40:05.739Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T05:40:05.845Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T05:40:05.948Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T05:40:18.870Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          }
+        ],
+        "last_samples": [
+          {
+            "at": "2026-11-03T05:46:35.955Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T05:46:36.058Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T05:47:06.172Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T05:47:06.325Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T05:47:06.430Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T05:47:06.535Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T05:47:11.991Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE",
+            "item_id": "minecraft:bread",
+            "next_goal": {
+              "count": 3,
+              "item_id": "minecraft:wheat",
+              "skill": "gather"
+            },
+            "based_on_seq": 11428
+          },
+          {
+            "at": "2026-11-03T05:47:12.206Z",
+            "state": "task_submitted",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_observed_frontier",
+            "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE",
+            "next_goal": {
+              "radius": 0,
+              "skill": "navigate",
+              "target": {
+                "dimension": "minecraft:overworld",
+                "x": 1260,
+                "y": 69,
+                "z": -98
+              }
+            },
+            "task_id": "task-b6c0301e-f7ea-4e9f-9ea6-e87900ff9284"
+          }
+        ]
+      },
+      "recorded_before_pause": 40,
+      "all_world_session_task_count": 40,
+      "additional_task_ids_after_snapshot": [],
+      "final_task_states": {
+        "succeeded": 31,
+        "failed": 8,
+        "cancelled": 1
+      },
+      "final_task_reasons": {
+        "GAME_NAVIGATION_NO_ROUTE": 8,
+        "CONTROL_CHANGED": 1
+      },
+      "nonterminal_count": 0
+    },
+    "narration_reasons": {
+      "INTERMEDIATE_NAVIGATION_SUPPRESSED": 20,
+      "REPEATED_FAILURE_SUPPRESSED": 4
+    },
+    "vision_states": {
+      "succeeded": 28,
+      "failed": 2
+    },
+    "visions": [
+      {
+        "frame_id": "frame-d6019c10-6f2d-441b-ad19-4e0743c847c5",
+        "source_seq": 164,
+        "captured_at": "2026-11-03T05:37:48.611569400Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:37:49.345Z",
+        "image_sha256": "92f0240bd23c70715f020b3b1a5a3670c9305005d4c00a0470e2ffa0f918c34a",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 164,
+          "observed_at": "2026-11-03T05:37:48.529703Z",
+          "sample_to_capture_ms": 82,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 4599,
+        "caption": "视角紧贴一张工作台，画面大多被木质方块遮挡；准星对着工作台。手持未知物品，未见明显危险。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "Forest"
+        ],
+        "unknowns": [
+          "周围地形被遮挡，无法判断环境细节"
+        ],
+        "usage": {
+          "input_tokens": 2813,
+          "output_tokens": 77,
+          "total_tokens": 2890
+        }
+      },
+      {
+        "frame_id": "frame-d97b233a-e39a-4048-ada5-4a383203b243",
+        "source_seq": 565,
+        "captured_at": "2026-11-03T05:38:08.646997700Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:38:09.226Z",
+        "image_sha256": "8310a8adc56486db981c4a89ccec6d83eca508c21a25c6ef697cb45c16409add",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 565,
+          "observed_at": "2026-11-03T05:38:08.547029600Z",
+          "sample_to_capture_ms": 99,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "failed",
+        "elapsed_ms": 165,
+        "code": "MODEL_PREEMPTED",
+        "usage": {
+          "input_tokens": null,
+          "output_tokens": null,
+          "total_tokens": null
+        }
+      },
+      {
+        "frame_id": "frame-2c04c659-0cab-4b42-9bc6-8b8322f864f1",
+        "source_seq": 967,
+        "captured_at": "2026-11-03T05:38:28.731819100Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:38:29.178Z",
+        "image_sha256": "db6b33b9cf0bfa8573d4c6c4c6bdec28382b116bb449b5980144be0cb6fe6fc4",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 2606,
+        "caption": "昏暗的地下石质空间，正对一块带紫色斑点的矿石方块；准星对准矿石，未见生物或明显危险。",
+        "visible_text": [
+          "顶部提示：Sal Ammonia Ore",
+          "矿石来源标注：Thaumcraft",
+          "小地图显示地形：Forest"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 83,
+          "total_tokens": 2784
+        }
+      },
+      {
+        "frame_id": "frame-5334b114-19fd-4fb1-b1ab-271188365e4d",
+        "source_seq": 1369,
+        "captured_at": "2026-11-03T05:38:48.801790900Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:38:49.329Z",
+        "image_sha256": "1be7d981bfc76a41d6087a3aaaf76d4ca8b351df4bb6db5ee55d24a3bd4fd1c4",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3090,
+        "caption": "身处狭窄昏暗的地下土石空间，前方有大量土块遮挡，近处可见掉落的土块物品；未见敌对生物。",
+        "visible_text": [
+          "顶部方块提示：Dirt / Minecraft",
+          "小地图显示生物群系 Forest"
+        ],
+        "unknowns": [
+          "前方被遮挡，无法确认通道深处情况"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 92,
+          "total_tokens": 2793
+        }
+      },
+      {
+        "frame_id": "frame-50fa33c4-4412-4c78-8880-54c56ac71742",
+        "source_seq": 1772,
+        "captured_at": "2026-11-03T05:39:08.982807600Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:39:09.421Z",
+        "image_sha256": "138c685aa965f3bd395e6274341125e9542f0ce00d1206ed4460d16d221f76fd",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 1772,
+          "observed_at": "2026-11-03T05:39:08.901850700Z",
+          "sample_to_capture_ms": 81,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3878,
+        "caption": "身处狭窄昏暗的石质通道，正前方是深色方块，准星对准石块；未见生物或明显危险。手持物为未知模组物品。",
+        "visible_text": [
+          "Stone",
+          "Minecraft",
+          "1261 69 -96",
+          "Forest"
+        ],
+        "unknowns": [
+          "前方深色方块的具体种类不明"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 91,
+          "total_tokens": 2906
+        }
+      },
+      {
+        "frame_id": "frame-f177ba33-ccaa-48cf-8912-a2a292ddf8b8",
+        "source_seq": 2174,
+        "captured_at": "2026-11-03T05:39:29.040980800Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:39:29.473Z",
+        "image_sha256": "52afcd50835b36eca191a036c4b3963344f08be76a4324753b932001082f23a1",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 2174,
+          "observed_at": "2026-11-03T05:39:28.996985900Z",
+          "sample_to_capture_ms": 44,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3655,
+        "caption": "身处狭窄的地下通道，正前方是泥土，左侧为石头、右侧为泥土，地面也是石头。准星对着前方泥土；画面中未见生物或明显危险。",
+        "visible_text": [
+          "顶部方块提示：Dirt / Minecraft",
+          "右上角：1262 70 -96，Forest"
+        ],
+        "unknowns": [
+          "手持物为未知模组物品（gravestone:obituary）；副手为空。"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 116,
+          "total_tokens": 2931
+        }
+      },
+      {
+        "frame_id": "frame-f1044546-2814-4cb2-9fa6-96b99faa3b6e",
+        "source_seq": 2577,
+        "captured_at": "2026-11-03T05:39:49.216696200Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:39:49.649Z",
+        "image_sha256": "04554dbc4043ec007b7102fca95b31813069924b79e83ca76e05391f03bf582c",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 2577,
+          "observed_at": "2026-11-03T05:39:49.139717100Z",
+          "sample_to_capture_ms": 77,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 2983,
+        "caption": "视角紧贴昏暗的石质墙面，准星指向石头；画面未见生物，当前环境狭窄且光线不足。",
+        "visible_text": [
+          "方块提示：Stone / Minecraft",
+          "小地图标示 Forest"
+        ],
+        "unknowns": [
+          "右下手持物对应模组物品，名称含义未知",
+          "周围地形与潜在危险被墙面遮挡"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 98,
+          "total_tokens": 2913
+        }
+      },
+      {
+        "frame_id": "frame-5a65bc8a-e677-49e6-a2bb-168c25924d36",
+        "source_seq": 2976,
+        "captured_at": "2026-11-03T05:40:09.230363Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:40:09.802Z",
+        "image_sha256": "9729a1fc061c152d7239262f3373b5fdbadaf387637100fa1b1d139374371b06",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 2976,
+          "observed_at": "2026-11-03T05:40:09.100405900Z",
+          "sample_to_capture_ms": 130,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3685,
+        "caption": "昏暗的地下石质空间，正对着带紫色矿脉的矿石方块；准星指向矿石。生命与饥饿值显示充足，未见明显敌对生物。",
+        "visible_text": [
+          "Sal Ammoniaco Ore",
+          "Thaumcraft",
+          "1260 68 -96",
+          "Forest"
+        ],
+        "unknowns": [
+          "手持物为未知模组物品。"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 97,
+          "total_tokens": 2912
+        }
+      },
+      {
+        "frame_id": "frame-3d9de1f7-58a3-4c5d-9923-6e6f32436fac",
+        "source_seq": 3382,
+        "captured_at": "2026-11-03T05:40:29.455068400Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:40:29.897Z",
+        "image_sha256": "29466f615fadc718db7d777263bfcf8ead949df3554214425404bd28bf7d1e71",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 11501,
+        "caption": "昏暗狭窄的石质通道，正前方是石块，上方可见泥土；未见明显生物或其他危险。画面有准星、状态栏和小地图。",
+        "visible_text": [
+          "方块提示：Stone / Minecraft",
+          "小地图：1261 69 -96",
+          "生物群系：Forest"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 206,
+          "total_tokens": 2907
+        }
+      },
+      {
+        "frame_id": "frame-d941372e-7db2-4add-8d00-eb81ab4b8b63",
+        "source_seq": 3786,
+        "captured_at": "2026-11-03T05:40:49.671259300Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:40:50.523Z",
+        "image_sha256": "a393ba97210ef155f5a60a7ca8e816ba5f07a325c48d571652fb8b7059e65c9a",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3714,
+        "caption": "视野几乎被近距离的深色方块遮挡，准星对着方块；顶部提示目标为盐氨矿石。未见明显敌对生物。",
+        "visible_text": [
+          "Sal Ammoniac Ore",
+          "Theurgy",
+          "小地图：Forest",
+          "生命与饥饿条均显示满格"
+        ],
+        "unknowns": [
+          "方块周围地形不可见"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 91,
+          "total_tokens": 2792
+        }
+      },
+      {
+        "frame_id": "frame-a46c7731-a85e-4f25-bfa0-2cde1fe93d70",
+        "source_seq": 4186,
+        "captured_at": "2026-11-03T05:41:09.649315400Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:41:10.093Z",
+        "image_sha256": "cbdb5122091a72cb4d98cb0eba2b7a79284982430ac8332ddccbf1be2cd25bf2",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 16599,
+        "caption": "画面几乎被近处的深色石质方块包围，准星对着石块；环境昏暗，未见生物或其他明显危险。底部显示生命、饥饿值和快捷栏，右上有小地图。",
+        "visible_text": [
+          "Stone",
+          "Minecraft",
+          "Forest"
+        ],
+        "unknowns": [
+          "周围环境因昏暗而难以辨认"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 219,
+          "total_tokens": 2920
+        }
+      },
+      {
+        "frame_id": "frame-81f64d91-1ec1-4bc2-a078-5acc425ef67e",
+        "source_seq": 4587,
+        "captured_at": "2026-11-03T05:41:29.779415700Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:41:30.300Z",
+        "image_sha256": "f5acf51f853940d6fe2edf51b18266ba66f94f6ff9199b23058860a70543a541",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 7208,
+        "caption": "昏暗的地下石质通道，前方有凸出的石块，右侧通道较暗；未见敌对生物或其他明显危险。",
+        "visible_text": [
+          "目标方块：Stone",
+          "小地图显示生物群系 Forest",
+          "小地图下方坐标样式文字：1260 68 -96"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 84,
+          "total_tokens": 2785
+        }
+      },
+      {
+        "frame_id": "frame-39a25e9a-198c-4ee7-8bd4-59647657648d",
+        "source_seq": 4988,
+        "captured_at": "2026-11-03T05:41:49.764020600Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:41:50.206Z",
+        "image_sha256": "7d610db12ca03d0a9d6bec0fbf4c45ecae3ce7c9792d6ef271f9430352628ea7",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 4726,
+        "caption": "昏暗封闭的石质空间，视线对准一块泥土；周围未见生物或明显危险。底部显示生命、饥饿值和快捷栏，右上有圆形地图。",
+        "visible_text": [
+          "方块提示：Dirt / Minecraft",
+          "地图：1259 67 -96",
+          "地图生物群系：Forest"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 92,
+          "total_tokens": 2793
+        }
+      },
+      {
+        "frame_id": "frame-58dcf36c-47f4-4253-b59e-505640251c57",
+        "source_seq": 5389,
+        "captured_at": "2026-11-03T05:42:09.818432600Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:42:10.265Z",
+        "image_sha256": "d638c40219e1337895c9e79ae5e95ec8913ae876681b4fcb5625ea1b61f5ef86",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 5389,
+          "observed_at": "2026-11-03T05:42:09.739457900Z",
+          "sample_to_capture_ms": 79,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3232,
+        "caption": "身处昏暗狭窄的地下空间，周围是石头与泥土，视野被近处方块遮挡；未见生物，环境受限。手持物为未知模组物品。",
+        "visible_text": [
+          "顶部方块提示：Stone / Minecraft",
+          "小地图显示：Forest"
+        ],
+        "unknowns": [
+          "前方通道与地下空间的具体结构不可见",
+          "右下手持物外观无法确认其用途"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 107,
+          "total_tokens": 2922
+        }
+      },
+      {
+        "frame_id": "frame-0eab1f62-ff44-4dec-90b0-035a0d362a2a",
+        "source_seq": 5791,
+        "captured_at": "2026-11-03T05:42:29.924093900Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:42:30.358Z",
+        "image_sha256": "d4ba2180baa5e992f2a0b954215b188193e4a6c590ab06cba3dc1ee6de75ff51",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 10239,
+        "caption": "身处昏暗的地下石质通道，前方有突出石块，右侧墙面可见紫色矿石；未见明显生物或即时危险。",
+        "visible_text": [
+          "准星指向：Stone / Minecraft",
+          "小地图标注：Forest"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 71,
+          "total_tokens": 2772
+        }
+      },
+      {
+        "frame_id": "frame-e10b2698-af29-4445-995d-43bf5a630313",
+        "source_seq": 6194,
+        "captured_at": "2026-11-03T05:42:50.119369Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:42:50.636Z",
+        "image_sha256": "df1ea38f90d64bc38d36a0cada923b221f4a4ed7757bfda6f7e811137300cf2f",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 6194,
+          "observed_at": "2026-11-03T05:42:50.010403200Z",
+          "sample_to_capture_ms": 109,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 7497,
+        "caption": "身处狭窄昏暗的石质通道，准星对着前方方块；画面未见生物或明显危险。手持物为未知模组物品。",
+        "visible_text": [
+          "方块提示：Stone / Minecraft",
+          "小地图：Forest"
+        ],
+        "unknowns": [
+          "手持模组物品的具体用途未知"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 181,
+          "total_tokens": 2996
+        }
+      },
+      {
+        "frame_id": "frame-05b1ffc8-ad87-492e-8280-895101da36aa",
+        "source_seq": 6594,
+        "captured_at": "2026-11-03T05:43:10.080068900Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:43:10.501Z",
+        "image_sha256": "cc74beb06f48737cde49b6c8b9ce6cc985c1f737ea2b6b2074b12b67196d6314",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 6594,
+          "observed_at": "2026-11-03T05:43:10.000094100Z",
+          "sample_to_capture_ms": 80,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 9174,
+        "caption": "身处狭窄昏暗的地下石质通道，正对一面深色方块；画面未见生物，前方视野受阻。手持物为未知模组物品。",
+        "visible_text": [
+          "目标方块：Stone（Minecraft）",
+          "坐标：1261 69 -96",
+          "生物群系：Forest"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 91,
+          "total_tokens": 2906
+        }
+      },
+      {
+        "frame_id": "frame-4c91272b-e032-4a85-98fe-6314ba7fc5a9",
+        "source_seq": 6996,
+        "captured_at": "2026-11-03T05:43:30.144236900Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:43:30.588Z",
+        "image_sha256": "f23028259dc7e8fd9a8e9923ddebd6243720be16c43861f3144b161ba9cb1f14",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 6996,
+          "observed_at": "2026-11-03T05:43:30.099251100Z",
+          "sample_to_capture_ms": 45,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 6204,
+        "caption": "身处狭窄昏暗的石质通道，正对一面深色方块墙；画面右下可见手持的未知模组物品。",
+        "visible_text": [
+          "目标方块提示：Stone / Minecraft",
+          "小地图显示：Forest",
+          "生命与饥饿条均显示满格",
+          "快捷栏可见多种物品与方块"
+        ],
+        "unknowns": [
+          "通道前方是否有危险或可通行空间不可见"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 110,
+          "total_tokens": 2925
+        }
+      },
+      {
+        "frame_id": "frame-06b1611d-8139-4362-b091-7d46257032d8",
+        "source_seq": 7396,
+        "captured_at": "2026-11-03T05:43:50.171900500Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:43:50.601Z",
+        "image_sha256": "f8ba50459f9d4a27f9870a0a54628928ab3ff4e8391412d29ef347b5ebee5950",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "failed",
+        "elapsed_ms": 1335,
+        "code": "MODEL_PREEMPTED",
+        "usage": {
+          "input_tokens": null,
+          "output_tokens": null,
+          "total_tokens": null
+        }
+      },
+      {
+        "frame_id": "frame-19bae113-755c-4bcb-85e0-3749417834e7",
+        "source_seq": 7798,
+        "captured_at": "2026-11-03T05:44:10.271645900Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:44:10.786Z",
+        "image_sha256": "d858630ea5f6ef5a30ee5bd22312c361ff2dfad5608179b52d2477d2701c07df",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 7798,
+          "observed_at": "2026-11-03T05:44:10.199580900Z",
+          "sample_to_capture_ms": 72,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 12766,
+        "caption": "视角紧贴昏暗的石质墙面，准星对准石头；右下手持未知模组物品。画面未见明显目标或敌人。",
+        "visible_text": [
+          "顶部方块提示：Stone / Minecraft",
+          "小地图下方：1261 68 -96、Forest"
+        ],
+        "unknowns": [
+          "石墙后方及周围地形不可见",
+          "手持模组物品的具体用途未知"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 102,
+          "total_tokens": 2917
+        }
+      },
+      {
+        "frame_id": "frame-981e675b-bdac-4983-9090-6d1cce58200d",
+        "source_seq": 8206,
+        "captured_at": "2026-11-03T05:44:30.665262600Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:44:31.105Z",
+        "image_sha256": "7d2d5519e706d1f3f9bbfc80e9be5e9edbad4cd03eb6e03612e24c8cc0548dca",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 9884,
+        "caption": "画面紧贴一面灰色石质方块墙，准星对准墙面；环境昏暗，未见生物或其他明显危险。底部显示生命与饥饿状态及快捷栏，右上角有圆形地图。",
+        "visible_text": [
+          "顶部提示：Stone / Minecraft",
+          "地图显示：Forest",
+          "地图坐标显示：1261 68 -96"
+        ],
+        "unknowns": [
+          "墙后区域与周围环境不可见",
+          "画面未显示明确目标或任务"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 228,
+          "total_tokens": 2929
+        }
+      },
+      {
+        "frame_id": "frame-5bf7105e-4ce4-4a29-a1fa-e73df461405f",
+        "source_seq": 8606,
+        "captured_at": "2026-11-03T05:44:50.657006200Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:44:51.119Z",
+        "image_sha256": "8fc36bc6a84e45879210725397ca29494ff7a23bb1a3c92142049c71a00ac82b",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 8606,
+          "observed_at": "2026-11-03T05:44:50.615020600Z",
+          "sample_to_capture_ms": 42,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 13766,
+        "caption": "视角贴近一面灰色石质方块墙，环境昏暗，准星对着石头；手持物为未知模组物品。",
+        "visible_text": [
+          "顶部方块提示：Stone / Minecraft",
+          "右上小地图：Forest；下方显示1261 68 -96"
+        ],
+        "unknowns": [
+          "画面未见明显生物或其他危险；周围地形被墙遮挡"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 98,
+          "total_tokens": 2913
+        }
+      },
+      {
+        "frame_id": "frame-4fc6c89d-f5a7-4f22-99be-1d5ae2f463d7",
+        "source_seq": 9009,
+        "captured_at": "2026-11-03T05:45:10.787856200Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:45:11.211Z",
+        "image_sha256": "54660daa6ca0915aecfb99285afb8016b97b072d8440d198a56415f1c6c25f14",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 9131,
+        "caption": "视角紧贴昏暗的石质方块墙面，准星对着石头；画面未见生物或其他明显危险。",
+        "visible_text": [
+          "顶部方块提示：Stone / Minecraft",
+          "右上小地图标注 Forest；下方有数字坐标",
+          "底部显示生命、饥饿条和物品栏"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 88,
+          "total_tokens": 2789
+        }
+      },
+      {
+        "frame_id": "frame-d978f9ab-b588-47d1-90cd-2ff1da6890d2",
+        "source_seq": 9410,
+        "captured_at": "2026-11-03T05:45:30.885091900Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:45:31.407Z",
+        "image_sha256": "666e341898464f490ecb960989aeeb82f2dbe95542639b9154e54a50d727a790",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 9410,
+          "observed_at": "2026-11-03T05:45:30.791098400Z",
+          "sample_to_capture_ms": 94,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 7304,
+        "caption": "画面处于昏暗的石质地下通道，准星对着石块；右手持有未知模组物品。未见生物或明显危险，底部显示生命、饥饿值和快捷栏。",
+        "visible_text": [
+          "Stone",
+          "Minecraft",
+          "1261 68 -96",
+          "Forest"
+        ],
+        "unknowns": [
+          "右手物品的模组名称与用途未知",
+          "通道前方因光线昏暗而难以辨认"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 216,
+          "total_tokens": 3031
+        }
+      },
+      {
+        "frame_id": "frame-1cccad05-0f0f-4b06-a69d-6fa934b93d78",
+        "source_seq": 9811,
+        "captured_at": "2026-11-03T05:45:50.915178300Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:45:51.365Z",
+        "image_sha256": "09303fd3f8471461f016989df8507b8fa49fc6a9573d129a44de2e8c2d5aa133",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 9811,
+          "observed_at": "2026-11-03T05:45:50.871192200Z",
+          "sample_to_capture_ms": 44,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 10871,
+        "caption": "画面处于昏暗的石质狭窄空间，前方被石块挡住；未见生物或明确危险。右手持有未知物品，底部显示生命与饥饿状态。",
+        "visible_text": [
+          "Stone",
+          "Minecraft",
+          "1261 68 -96",
+          "Forest"
+        ],
+        "unknowns": [
+          "未见开阔地形或明确目标",
+          "未知手持物为模组物品"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 101,
+          "total_tokens": 2916
+        }
+      },
+      {
+        "frame_id": "frame-c9c7dd1d-f6ff-47a9-a71e-db7427ecffba",
+        "source_seq": 10213,
+        "captured_at": "2026-11-03T05:46:11.021514200Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:46:11.463Z",
+        "image_sha256": "614495ec6484c9b57af0a51f8c1aa313125bb192bc1aa41cae437ccb6975fa86",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 10213,
+          "observed_at": "2026-11-03T05:46:10.969525300Z",
+          "sample_to_capture_ms": 52,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 6271,
+        "caption": "身处昏暗狭窄的石质空间，视线对着石块；周围地形受限，未见生物或明显危险。手持物为未知模组物品。",
+        "visible_text": [
+          "顶部：Stone / Minecraft",
+          "小地图：1261 68 -96，Forest"
+        ],
+        "unknowns": [
+          "狭道前方及周围状况因昏暗难以辨认",
+          "手持模组物品具体用途未知"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 109,
+          "total_tokens": 2924
+        }
+      },
+      {
+        "frame_id": "frame-182866b0-8ab5-433b-95d5-eaa599472da1",
+        "source_seq": 10614,
+        "captured_at": "2026-11-03T05:46:31.054769500Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:46:31.479Z",
+        "image_sha256": "a41d48350d2bf136ddbe5b87520bb2cbd1574821ee965621fbba6f3ed19ba464",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 7028,
+        "caption": "视角处于昏暗的地下石质空间，头顶和两侧被石块包围，正前方有一段向前延伸的狭窄通道；画面未见生物或明确危险。",
+        "visible_text": [
+          "顶部方框显示“Stone / Minecraft”",
+          "小地图下方显示“1261 68 -96”和“Forest”"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 95,
+          "total_tokens": 2796
+        }
+      },
+      {
+        "frame_id": "frame-8647ada8-9b7a-4426-8143-a28f8caf11c7",
+        "source_seq": 11017,
+        "captured_at": "2026-11-03T05:46:51.231991300Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:46:51.755Z",
+        "image_sha256": "4b72e351ecb45fff0312c8a7ebd174c5f0872dd6aed0c476cb9c42287b0bd550",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 11017,
+          "observed_at": "2026-11-03T05:46:51.170367Z",
+          "sample_to_capture_ms": 61,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 4009,
+        "caption": "画面几乎被黑暗中的石质方块包围，正对着一段狭窄石质通道；准星指向石头。未见生物，前方能见度很低。",
+        "visible_text": [
+          "方块提示：Stone / Minecraft",
+          "小地图标示生物群系 Forest"
+        ],
+        "unknowns": [
+          "通道深处是否有实体或危险无法看清",
+          "手持物为未知模组物品"
+        ],
+        "usage": {
+          "input_tokens": 2814,
+          "output_tokens": 106,
+          "total_tokens": 2920
+        }
+      },
+      {
+        "frame_id": "frame-4823cbc8-ecdf-49dd-bce9-ac315fbd72e5",
+        "source_seq": 11419,
+        "captured_at": "2026-11-03T05:47:11.284075100Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:47:11.726Z",
+        "image_sha256": "7a20cf16cb93f91578e7bba0c70ae44ec1e131e937e81419768621cf9f461415",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 11419,
+          "observed_at": "2026-11-03T05:47:11.240085100Z",
+          "sample_to_capture_ms": 44,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 4837,
+        "caption": "昏暗的地下石洞内，前方准星对着一块矿石，顶部显示矿石名称；地面一侧有泥土，未见生物或明显危险。手持物为未知模组物品。",
+        "visible_text": [
+          "Sal Ammoniaco Ore",
+          "Theurgy",
+          "1260 68 -96",
+          "Forest"
+        ],
+        "unknowns": [
+          "洞穴其余区域因光线昏暗难以辨认",
+          "未知模组物品的具体用途"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 244,
+          "total_tokens": 3059
+        }
+      },
+      {
+        "frame_id": "frame-635d373e-20a9-47b5-898a-599d82ffd9e7",
+        "source_seq": 11820,
+        "captured_at": "2026-11-03T05:47:31.376638600Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T05:47:31.816Z",
+        "image_sha256": "eef1d795d541c2c16376ecac6748b279f753514b24b556ec25c87741839d5a7d",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3496,
+        "caption": "画面处于昏暗的石质封闭空间，准星对着前方石块；可见生命与饥饿条、快捷栏和右上角小地图，未见生物或其他明显危险。",
+        "visible_text": [
+          "方块提示：Stone / Minecraft",
+          "小地图：Forest",
+          "小地图坐标：1260 68 -97"
+        ],
+        "unknowns": [
+          "周围空间因光线昏暗而难以辨认"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 186,
+          "total_tokens": 2887
+        }
+      }
+    ],
+    "successful_vision_mean_ms": 6926.892857142857,
+    "vision_grounding_bindings": {
+      "frame_source_seq": 17,
+      "unavailable": 13
+    },
+    "native_planner_audit": {
+      "rows": 168,
+      "truncated": false,
+      "states": {
+        "task_submitted": 31,
+        "observed_result": 30,
+        "route_blocked": 106,
+        "historical_workstation_unconfirmed": 1
+      },
+      "stages": {
+        "unspecified": 51,
+        "return_to_known_workstation": 8,
+        "explore_observed_frontier": 14,
+        "explore_for_dependency": 91,
+        "build_exit_support": 2,
+        "climb_verified_support": 2
+      },
+      "blocked_items": {
+        "minecraft:wheat": 14,
+        "unspecified": 92
+      },
+      "first_blocked_samples": [
+        {
+          "at": "2026-11-03T05:38:58.844Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 3,
+            "item_id": "minecraft:wheat",
+            "skill": "gather"
+          },
+          "based_on_seq": 1566
+        },
+        {
+          "at": "2026-11-03T05:39:50.528Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 3,
+            "item_id": "minecraft:wheat",
+            "skill": "gather"
+          },
+          "based_on_seq": 2597
+        },
+        {
+          "at": "2026-11-03T05:40:02.582Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 3,
+            "item_id": "minecraft:wheat",
+            "skill": "gather"
+          },
+          "based_on_seq": 2838
+        },
+        {
+          "at": "2026-11-03T05:40:02.682Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T05:40:02.787Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T05:40:02.928Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T05:40:03.135Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T05:40:05.636Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T05:40:05.739Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T05:40:05.845Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T05:40:05.948Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T05:40:18.870Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        }
+      ],
+      "last_samples": [
+        {
+          "at": "2026-11-03T05:46:35.955Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T05:46:36.058Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T05:47:06.172Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T05:47:06.325Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T05:47:06.430Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T05:47:06.535Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T05:47:11.991Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 3,
+            "item_id": "minecraft:wheat",
+            "skill": "gather"
+          },
+          "based_on_seq": 11428
+        },
+        {
+          "at": "2026-11-03T05:47:12.206Z",
+          "state": "task_submitted",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_observed_frontier",
+          "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE",
+          "next_goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1260,
+              "y": 69,
+              "z": -98
+            }
+          },
+          "task_id": "task-b6c0301e-f7ea-4e9f-9ea6-e87900ff9284"
+        }
+      ]
+    },
+    "last_non_navigation_completion_at": "2026-11-03T05:45:18.602914100Z",
+    "seconds_after_last_non_navigation_completion": 150.60941290855408,
+    "sampled_navigation_within_radius_at_admission": [],
+    "model_context": {
+      "scope": "SAMPLED_BOUNDED_PROMPT_METRICS_NOT_BILLING_OR_RAW_PROMPTS",
+      "capacity": 12000,
+      "sampled_probes": 104,
+      "by_purpose": {
+        "speech": 25,
+        "vision": 1,
+        "game_plan": 78
+      },
+      "denied_count": 0,
+      "estimated_input_tokens_max": 11993,
+      "above_old_6000_admitted": 68,
+      "includes_startup_tail": true,
+      "probe_rows": [
+        {
+          "sampled_at": 1793684268.5985682,
+          "session_id": "compat-669a4d9a-2702-4fc6-bf91-eafb0e836cc8",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 1298,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684268.5985682,
+          "session_id": "compat-669a4d9a-2702-4fc6-bf91-eafb0e836cc8",
+          "purpose": "speech",
+          "step": 2,
+          "estimated_input_tokens": 1803,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684268.5985682,
+          "session_id": "compat-669a4d9a-2702-4fc6-bf91-eafb0e836cc8",
+          "purpose": "speech",
+          "step": 3,
+          "estimated_input_tokens": 2609,
+          "budget_admitted": true,
+          "replay_transport_characters": 1978,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "stream_memory_recall": 1
+          }
+        },
+        {
+          "sampled_at": 1793684269.653788,
+          "session_id": null,
+          "purpose": "vision",
+          "step": null,
+          "estimated_input_tokens": null,
+          "budget_admitted": null,
+          "replay_transport_characters": null,
+          "replay_transport_within_limit": null,
+          "completed_tool_calls": null
+        },
+        {
+          "sampled_at": 1793684276.9356937,
+          "session_id": "dsh-req-7ba72171-cf20-4e07-9600-db386e3daf76",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 3136,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684289.4558256,
+          "session_id": "dsh-req-94e9bca6-4b2e-48ec-a6e6-be516b3f83f5",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 3073,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684300.9574904,
+          "session_id": "dsh-req-7e642b00-f98f-4fca-b94e-022a2b8c5bbd",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 3322,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684312.4750202,
+          "session_id": "dsh-req-46ea93e7-9ef1-435f-8d1d-de60dcf99327",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 3517,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684325.0690017,
+          "session_id": "dsh-req-bf4943df-c683-457e-b0ba-c2a6deadf767",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 4065,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684340.725215,
+          "session_id": "dsh-req-98dcd0cd-5b00-40b8-8cca-18aa51b3d4b5",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 4332,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684354.786996,
+          "session_id": "dsh-req-819c5ce5-612b-46da-8449-2e3b451f3f04",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 4426,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684403.88342,
+          "session_id": "mc-plan-b0d7941e-e4a2-47cc-8171-2fdda7d7f467",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5666,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684403.88342,
+          "session_id": "dsh-req-b0021943-5073-4041-b6e0-4fba0314ab9e",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 6284,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684406.988459,
+          "session_id": "mc-plan-778ba1cd-7d1c-4952-8273-606a3ad8da6f",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5667,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684408.0291257,
+          "session_id": "mc-plan-778ba1cd-7d1c-4952-8273-606a3ad8da6f",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 6454,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684419.4895754,
+          "session_id": "dsh-req-d3c3decb-2f4f-4477-8d53-1f78f19a7a4a",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 4894,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684421.9159393,
+          "session_id": "mc-plan-ac133366-bd64-4e18-96bc-c7d9690c6c41",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5667,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684422.9557962,
+          "session_id": "mc-plan-ac133366-bd64-4e18-96bc-c7d9690c6c41",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 9359,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1
+          }
+        },
+        {
+          "sampled_at": 1793684426.0865731,
+          "session_id": "mc-plan-ac133366-bd64-4e18-96bc-c7d9690c6c41",
+          "purpose": "game_plan",
+          "step": 3,
+          "estimated_input_tokens": 10146,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1,
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684429.2191474,
+          "session_id": "mc-plan-794b9611-d8ee-4d15-9fe7-255662a2c1ac",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5699,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684430.2518015,
+          "session_id": "mc-plan-794b9611-d8ee-4d15-9fe7-255662a2c1ac",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 9358,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1
+          }
+        },
+        {
+          "sampled_at": 1793684434.4306304,
+          "session_id": "mc-plan-794b9611-d8ee-4d15-9fe7-255662a2c1ac",
+          "purpose": "game_plan",
+          "step": 3,
+          "estimated_input_tokens": 10652,
+          "budget_admitted": true,
+          "replay_transport_characters": 4134,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1,
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684441.7693148,
+          "session_id": "dsh-req-3417b95c-1042-411c-9834-ad9575cbcff0",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 4903,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684459.7717552,
+          "session_id": "dsh-req-1207446f-8afa-4fba-a483-2b0a55e3256f",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 5343,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684469.2349327,
+          "session_id": "mc-plan-3d7129b9-e33a-45d7-970b-9982d731b6bb",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5665,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684473.4009674,
+          "session_id": "mc-plan-3d7129b9-e33a-45d7-970b-9982d731b6bb",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 9359,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1
+          }
+        },
+        {
+          "sampled_at": 1793684477.5905166,
+          "session_id": "mc-plan-3d7129b9-e33a-45d7-970b-9982d731b6bb",
+          "purpose": "game_plan",
+          "step": 3,
+          "estimated_input_tokens": 10668,
+          "budget_admitted": true,
+          "replay_transport_characters": 2406,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1,
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684480.6910572,
+          "session_id": "mc-plan-3d7129b9-e33a-45d7-970b-9982d731b6bb",
+          "purpose": "game_plan",
+          "step": 4,
+          "estimated_input_tokens": 11993,
+          "budget_admitted": true,
+          "replay_transport_characters": 4660,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1,
+            "game_check_action": 2
+          }
+        },
+        {
+          "sampled_at": 1793684486.979993,
+          "session_id": "mc-plan-50e8b2e7-ba6f-434a-a4c6-59ae2c3d172f",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5470,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684489.057349,
+          "session_id": "mc-plan-50e8b2e7-ba6f-434a-a4c6-59ae2c3d172f",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 9282,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1
+          }
+        },
+        {
+          "sampled_at": 1793684494.3164363,
+          "session_id": "mc-plan-50e8b2e7-ba6f-434a-a4c6-59ae2c3d172f",
+          "purpose": "game_plan",
+          "step": 3,
+          "estimated_input_tokens": 10053,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1,
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684498.5512438,
+          "session_id": "dsh-req-bac9f46c-1ea5-4b19-8f14-2c63511db8db",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 6674,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684499.5811615,
+          "session_id": "mc-plan-1ab79b46-1b92-4385-b3dd-221a9fad904d",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5592,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684501.6675005,
+          "session_id": "mc-plan-1ab79b46-1b92-4385-b3dd-221a9fad904d",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 9404,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1
+          }
+        },
+        {
+          "sampled_at": 1793684503.748186,
+          "session_id": "mc-plan-1ab79b46-1b92-4385-b3dd-221a9fad904d",
+          "purpose": "game_plan",
+          "step": 3,
+          "estimated_input_tokens": 10191,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1,
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684509.941983,
+          "session_id": "dsh-req-66d2dec6-1e27-41f1-a5b4-e660a0c3e1fd",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 6026,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684527.6751916,
+          "session_id": "dsh-req-c5ebf1c1-fa94-4ccd-97af-a0156835a9c8",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 6032,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684545.4515722,
+          "session_id": "dsh-req-b8d4f092-cc27-4101-b9b1-e1f73b555257",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 6511,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684549.6597834,
+          "session_id": "mc-plan-e5872e33-c761-4723-91bf-f69bf1238229",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5553,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684551.7370923,
+          "session_id": "mc-plan-e5872e33-c761-4723-91bf-f69bf1238229",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 9125,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1
+          }
+        },
+        {
+          "sampled_at": 1793684553.8270876,
+          "session_id": "mc-plan-e5872e33-c761-4723-91bf-f69bf1238229",
+          "purpose": "game_plan",
+          "step": 3,
+          "estimated_input_tokens": 9912,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1,
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684561.2163525,
+          "session_id": "mc-plan-effd3f81-d59c-4787-be1f-ac44d530767c",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5948,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684566.3659725,
+          "session_id": "mc-plan-effd3f81-d59c-4787-be1f-ac44d530767c",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 9944,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1
+          }
+        },
+        {
+          "sampled_at": 1793684569.5805597,
+          "session_id": "mc-plan-effd3f81-d59c-4787-be1f-ac44d530767c",
+          "purpose": "game_plan",
+          "step": 3,
+          "estimated_input_tokens": 10713,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1,
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684579.014438,
+          "session_id": "mc-plan-a5acd99e-282d-4393-a4c2-43e90a1362a9",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5773,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684582.1717927,
+          "session_id": "mc-plan-a5acd99e-282d-4393-a4c2-43e90a1362a9",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 6543,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684585.2925165,
+          "session_id": "dsh-req-43497a12-d336-4f3f-9807-b874699a43ec",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 8111,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684589.5012543,
+          "session_id": "mc-plan-fea9727b-2cfc-418c-8d3e-a297dda57a70",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 6231,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684594.7316089,
+          "session_id": "mc-plan-fea9727b-2cfc-418c-8d3e-a297dda57a70",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 7001,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684599.99342,
+          "session_id": "mc-plan-69e7c853-3c0a-4a68-982f-df510968aba7",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 6029,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684606.2668839,
+          "session_id": "mc-plan-69e7c853-3c0a-4a68-982f-df510968aba7",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 6799,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684609.4082832,
+          "session_id": "mc-plan-ac2bced7-392c-4e1b-afbe-e4b2daedde8e",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 6487,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684611.4861104,
+          "session_id": "mc-plan-ac2bced7-392c-4e1b-afbe-e4b2daedde8e",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 7256,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684617.7785618,
+          "session_id": "mc-plan-b252522f-f9e6-46c2-9abb-1dc4f612e4ab",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 6157,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684619.8666983,
+          "session_id": "mc-plan-b252522f-f9e6-46c2-9abb-1dc4f612e4ab",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 6927,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684624.0950875,
+          "session_id": "mc-plan-afa1da25-4440-44ff-a806-e59ea49057c5",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 6382,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684626.1760874,
+          "session_id": "mc-plan-afa1da25-4440-44ff-a806-e59ea49057c5",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 7138,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684632.469856,
+          "session_id": "dsh-req-762e29c9-5f77-4f3c-8303-82324f55465a",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 5334,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684645.0425334,
+          "session_id": "mc-plan-e98bba21-b457-41e4-b681-aa4e2d951e7e",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5444,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684647.130796,
+          "session_id": "mc-plan-e98bba21-b457-41e4-b681-aa4e2d951e7e",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 6206,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684650.3116138,
+          "session_id": "mc-plan-59353a36-dea7-4790-b2cc-e914b18a5324",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5581,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684654.4787405,
+          "session_id": "mc-plan-59353a36-dea7-4790-b2cc-e914b18a5324",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 6343,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684663.934282,
+          "session_id": "mc-plan-eda61a12-53fc-4e4d-8ea1-bda60f2bcf88",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5580,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684670.6182802,
+          "session_id": "mc-plan-eda61a12-53fc-4e4d-8ea1-bda60f2bcf88",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 6351,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684681.0326822,
+          "session_id": "mc-plan-b25ea74d-af93-4826-902e-209cc5fdaa44",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5835,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684684.1645558,
+          "session_id": "mc-plan-b25ea74d-af93-4826-902e-209cc5fdaa44",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 6604,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684688.3239136,
+          "session_id": "dsh-req-f1d2bdc7-924e-4719-9cb9-57aeed3fe210",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 7190,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684691.451902,
+          "session_id": "mc-plan-bf97b7e7-18a4-49f9-a70a-980af954410b",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 6324,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684694.6329644,
+          "session_id": "mc-plan-bf97b7e7-18a4-49f9-a70a-980af954410b",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 7094,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684704.9989684,
+          "session_id": "mc-plan-c399954f-fdaf-41b9-b4be-f55507f0acab",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5992,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684708.1619103,
+          "session_id": "mc-plan-c399954f-fdaf-41b9-b4be-f55507f0acab",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 6762,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684711.2862759,
+          "session_id": "mc-plan-04cbc1a4-8d57-47d0-817e-a67e064949a4",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5844,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684713.4291759,
+          "session_id": "mc-plan-04cbc1a4-8d57-47d0-817e-a67e064949a4",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 6600,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684720.7511945,
+          "session_id": "dsh-req-c2b31798-c2a0-4829-ab1f-42c420685641",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 5332,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684724.9508903,
+          "session_id": "mc-plan-b83af959-ec1a-40b0-9603-cc6eae7c2780",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5434,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684728.068795,
+          "session_id": "mc-plan-b83af959-ec1a-40b0-9603-cc6eae7c2780",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 9308,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1
+          }
+        },
+        {
+          "sampled_at": 1793684731.2219644,
+          "session_id": "mc-plan-b83af959-ec1a-40b0-9603-cc6eae7c2780",
+          "purpose": "game_plan",
+          "step": 3,
+          "estimated_input_tokens": 10081,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1,
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684739.5706446,
+          "session_id": "mc-plan-9dcf0921-f199-4cf4-bf07-c57c6ae94b1d",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5659,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684743.7851262,
+          "session_id": "mc-plan-9dcf0921-f199-4cf4-bf07-c57c6ae94b1d",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 6429,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684750.082998,
+          "session_id": "mc-plan-b5204b25-6dba-49f7-86af-cb16902cace9",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 6137,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684755.3249369,
+          "session_id": "dsh-req-ea3d9e1b-ee53-4d99-8019-c839f7a7da6b",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 6843,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684762.6965883,
+          "session_id": "mc-plan-e8e4c7b4-0823-4b81-b77a-f31bd0063b91",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5914,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684770.9955227,
+          "session_id": "mc-plan-e8e4c7b4-0823-4b81-b77a-f31bd0063b91",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 9792,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1
+          }
+        },
+        {
+          "sampled_at": 1793684773.0579891,
+          "session_id": "mc-plan-e8e4c7b4-0823-4b81-b77a-f31bd0063b91",
+          "purpose": "game_plan",
+          "step": 3,
+          "estimated_input_tokens": 10562,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1,
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684778.2583094,
+          "session_id": "mc-plan-ef757d7a-dca9-4636-a8a5-c89c47776c1f",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 6046,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684781.4089837,
+          "session_id": "mc-plan-ef757d7a-dca9-4636-a8a5-c89c47776c1f",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 6816,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684783.4544525,
+          "session_id": "mc-plan-ef757d7a-dca9-4636-a8a5-c89c47776c1f",
+          "purpose": "game_plan",
+          "step": 3,
+          "estimated_input_tokens": 10861,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1,
+            "game_get_recent_events": 1
+          }
+        },
+        {
+          "sampled_at": 1793684786.5600026,
+          "session_id": "mc-plan-796a2294-39d8-4a33-a2b0-5b707a3bac49",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 6416,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684788.6993213,
+          "session_id": "mc-plan-796a2294-39d8-4a33-a2b0-5b707a3bac49",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 7186,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684791.8545148,
+          "session_id": "mc-plan-2f188435-a1ac-4cb3-a231-3c104adddb95",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 6266,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684793.9785213,
+          "session_id": "mc-plan-2f188435-a1ac-4cb3-a231-3c104adddb95",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 7022,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684799.1451197,
+          "session_id": "dsh-req-dd4c34a4-3367-492a-ad06-af003764a681",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 6870,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684801.283488,
+          "session_id": "mc-plan-465f7f6a-4e05-4fdd-b60e-426f3d6913f8",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 5921,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684803.373638,
+          "session_id": "mc-plan-465f7f6a-4e05-4fdd-b60e-426f3d6913f8",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 9800,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1
+          }
+        },
+        {
+          "sampled_at": 1793684805.4435759,
+          "session_id": "mc-plan-465f7f6a-4e05-4fdd-b60e-426f3d6913f8",
+          "purpose": "game_plan",
+          "step": 3,
+          "estimated_input_tokens": 10561,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_get_state": 1,
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684808.5340118,
+          "session_id": "mc-plan-eb1da350-a7f4-4dbc-9a81-8383caeec259",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 6378,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684810.6068544,
+          "session_id": "mc-plan-eb1da350-a7f4-4dbc-9a81-8383caeec259",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 7148,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684815.826607,
+          "session_id": "mc-plan-cb3a4318-843d-49fd-b819-7481fcad3e15",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 6040,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684818.9921806,
+          "session_id": "mc-plan-cb3a4318-843d-49fd-b819-7481fcad3e15",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 6810,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684821.0707347,
+          "session_id": "mc-plan-9b3696c8-e6fc-4493-a6f7-d4106993a14a",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 6384,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684823.1537178,
+          "session_id": "mc-plan-9b3696c8-e6fc-4493-a6f7-d4106993a14a",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 7154,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684827.37366,
+          "session_id": "mc-plan-f9f00228-e7d6-47a6-b6ad-59dd1f246933",
+          "purpose": "game_plan",
+          "step": 1,
+          "estimated_input_tokens": 6260,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        },
+        {
+          "sampled_at": 1793684829.456374,
+          "session_id": "mc-plan-f9f00228-e7d6-47a6-b6ad-59dd1f246933",
+          "purpose": "game_plan",
+          "step": 2,
+          "estimated_input_tokens": 7048,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {
+            "game_check_action": 1
+          }
+        },
+        {
+          "sampled_at": 1793684841.961602,
+          "session_id": "dsh-req-5fc5fc5d-049f-4d2f-bd89-e27cb088c84a",
+          "purpose": "speech",
+          "step": 1,
+          "estimated_input_tokens": 7313,
+          "budget_admitted": true,
+          "replay_transport_characters": 0,
+          "replay_transport_within_limit": true,
+          "completed_tool_calls": {}
+        }
+      ]
+    },
+    "resource_and_media_observation": {
+      "scope": "UNATTRIBUTABLE_RECEIVER_DIAGNOSTICS_AND_SHARED_HOST_RESOURCES_NOT_PRESENTATION_ACCEPTANCE",
+      "samples": 124,
+      "fresh_renderer_samples": 116,
+      "metrics_attribution_valid": false,
+      "diagnostic_gap": "RECEIVER_RECORDS_BEFORE_UPSTREAM_ADMISSION_WITHOUT_POSTING_CONSUMER_OR_MEDIA_STREAM_ID",
+      "counter_regressions_between_unbound_reports": {
+        "frames": 20,
+        "audio_underruns": 18,
+        "missing_packets": 0,
+        "skipped_video_frames": 9,
+        "decode_errors": 0
+      },
+      "reset_or_mixed_sources_cannot_be_distinguished": true,
+      "fps_or_underrun_aggregate_withheld": true,
+      "fps_sources": {
+        "canvas_draw": 116
+      },
+      "gpu_samples": 21,
+      "gpu_memory_peak_mib": 8641.0,
+      "gpu_utilization_mean": 45.19047619047619,
+      "system_cpu_mean": 13.7,
+      "browser_contexts_opened": 0,
+      "gameplay_inputs": 0
+    },
+    "public_collector": {
+      "ok": true,
+      "room_id": "595139",
+      "guest_mode_verified": true,
+      "duration_seconds": 626.9386842250824,
+      "connected_observed": true,
+      "collector_started_by_worker": true,
+      "owned_collector_stopped": true,
+      "event_types": {},
+      "scope": "PUBLIC_GUEST_COLLECTION_NOT_PUBLIC_BROADCAST_OR_VIEWER_ACCEPTANCE",
+      "real_new_events": 0,
+      "sampled_states": {
+        "CONNECTING": 1,
+        "CONNECTED": 311
+      }
+    },
+    "observed_gather_with_workstation_task_ids": [
+      "task-0d66052c-8639-42d0-bb2e-1a204ba8c150",
+      "task-35f34237-ac09-4736-8756-59ea37bb1f94",
+      "task-4979d90c-a13d-4fe9-8ec6-ea166d22b4b0",
+      "task-ceada189-da25-4459-abfb-04cb909012ff",
+      "task-e91cdb2a-205c-472c-a54f-27db336b7af8",
+      "task-e979dd3c-63fa-457f-9529-2ed0bf34c3d2"
+    ],
+    "sampled_explicitly_occluded_hostiles": 0,
+    "audio_drain_vitals": {
+      "health_before": 20,
+      "health_after": 20,
+      "world_time_before": 228547,
+      "world_time_after": 228547
+    },
+    "native_world_pause_confirmed": true,
+    "no_manual_gameplay": true,
+    "transferred_files": 27,
+    "checks": {
+      "core": {
+        "tests": 371,
+        "pass": 371,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "targeted_pass": 127,
+      "dsh_guard_cases": 10,
+      "scripted_guard_requests": 21,
+      "suites_overlap_do_not_sum": true,
+      "not_real_game_acceptance": true
+    },
+    "keep_inventory_after_engine_save": true,
+    "not_performance_or_long_survival_acceptance": true
+  },
+  "first_targeted_attempt": {
+    "passed": 126,
+    "failed": 1,
+    "cause": "NEW_TEST_EXPECTED_STICKS_BEFORE_ACTUAL_SOLVER_STONE_DEPENDENCY",
+    "corrected_test_verified": true
+  },
+  "services_ready": true,
+  "application_ready": false,
+  "keep_inventory_after_engine_save": true,
+  "saved_world_sha256": "701b71e4e7ea31a301c4308c7c83b7093374ec787bc49874f8c1d7fd2305103a",
+  "original_world_backup_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
+  "normal_game_exit": {
+    "exit_code": 0,
+    "graceful_close_requested": true,
+    "all_owned_processes_closed": true,
+    "bounded_job_cleanup_required": null
+  },
+  "owned_services_after_stop": {
+    "dsh": false,
+    "avatar": false,
+    "tts": false,
+    "receiver": false,
+    "vision": false,
+    "minecraft": false
+  },
+  "official_clients_preserved": true,
+  "candidate_disabled": true,
+  "internal_broadcast_closed": true,
+  "worker_task_submissions": 0,
+  "game_keys_issued": 0,
+  "manual_takeover": false,
+  "world_reset": false,
+  "inventory_injection": false,
+  "public_broadcast_started": false,
+  "formal_acceptance_advanced": 0,
+  "formal_acceptance_passed": 0,
+  "new_avatar_clips": 0,
+  "inherited_todos_open": 117,
+  "new_video_recorded": false,
+  "report": "docs/technical/mc-live-v1/工作台与095联合上下文修复.md",
+  "github_publication": {
+    "branch": "mc",
+    "source_commit": "c16d0b3b74d9bda80ddd7eab839a4e8631de8f26",
+    "source_pushed_and_remote_verified": true,
+    "documentation_published_with_this_revision": true
+  },
+  "read_only_audit_sha256": {
+    "playback": "a91b532338339dc9a979bc337cc5a6dce3197bf9ce142ac1386caa530d31ef08",
+    "tasks": "d63f5e47a1a09855ea8c73f4a3a0d7e9df60e7fdbe265b3a27300097b49cf73a"
+  },
+  "transport_cleanup": {
+    "ok": true,
+    "purpose": "BYTE_TRANSFER_HELPER_CLOSED_AFTER_EVIDENCE_VERIFICATION",
+    "pid": 6568,
+    "creation_time_verified": true,
+    "command_path_verified": true,
+    "listener_owner_verified": true,
+    "port": 2528,
+    "listeners_after": 0,
+    "unrelated_processes_stopped": false,
+    "browser_contexts_opened": 0,
+    "at": "2026-11-03T05:56:50.0836993Z"
+  },
+  "browser_contexts_opened_this_round": 0,
+  "evidence_files": [
+    {
+      "file": "audit095-expected-sha.json",
+      "bytes": 166,
+      "sha256": "49e87097fbc3477f73225a6c4d17d171f8b0b561eaa2cad09044aab5e3877e63"
+    },
+    {
+      "file": "audit095-result.json",
+      "bytes": 14573,
+      "sha256": "a91b532338339dc9a979bc337cc5a6dce3197bf9ce142ac1386caa530d31ef08"
+    },
+    {
+      "file": "audit095-tasks-result.json",
+      "bytes": 34549,
+      "sha256": "d63f5e47a1a09855ea8c73f4a3a0d7e9df60e7fdbe265b3a27300097b49cf73a"
+    },
+    {
+      "file": "core095-inputs.json",
+      "bytes": 137459,
+      "sha256": "6fa49c7de20f9bd54591c48c3ead2b009f73592740d23092a72e467b6a7228db"
+    },
+    {
+      "file": "core095-report.json",
+      "bytes": 819,
+      "sha256": "7d3407bd90be61c19b8c79a2cbe16b1ecaa0d2cb6a6d0bb7cfa18954368d4076"
+    },
+    {
+      "file": "core095b.log",
+      "bytes": 819,
+      "sha256": "7d3407bd90be61c19b8c79a2cbe16b1ecaa0d2cb6a6d0bb7cfa18954368d4076"
+    },
+    {
+      "file": "deploy095-progress.json",
+      "bytes": 72,
+      "sha256": "6c7cded81b97da9ca954606d7c56da25a2da32a68b97e2c044364dd8ea71a09d"
+    },
+    {
+      "file": "deploy095-result.json",
+      "bytes": 9731,
+      "sha256": "0c1e7ccbb9089ef33fe6f307a124c6bd76cdbdd78a14390a347c6a3f660af665"
+    },
+    {
+      "file": "deploy095b-progress.json",
+      "bytes": 71,
+      "sha256": "f2d8d5b733648ace3a3a2785d1b23204507ccb45d067878050e0153fbbcc65ed"
+    },
+    {
+      "file": "deploy095b-result.json",
+      "bytes": 4585,
+      "sha256": "2b75915bf22d6bf3c13b7a9abceb642f72d114591a44aff42f816e892389d1b1"
+    },
+    {
+      "file": "finish095-result.json",
+      "bytes": 121686,
+      "sha256": "63024bce96e9b4fe01aaff7d37fdb398c4f3dc34bdb9bbd6133b3c1311ec50d4"
+    },
+    {
+      "file": "guards095-result.json",
+      "bytes": 11665,
+      "sha256": "8dcb8fd44778e0fb1c1f7a49828a739af46a73193d1e2ce5e650ce15835ac479"
+    },
+    {
+      "file": "guards095b.log",
+      "bytes": 3594,
+      "sha256": "314d692f08e8ee43a2c2145076fd142be4be5e6d345e12f390dbe01b2af4cc34"
+    },
+    {
+      "file": "monitor095-result.json",
+      "bytes": 363091,
+      "sha256": "2f73bf02ab50031c4cf860a35b7b82c3e349f8f82b8ba77aa64b819670595ea5"
+    },
+    {
+      "file": "native095-session-progress.json",
+      "bytes": 86,
+      "sha256": "c3d6ea1e22c5ffd08f6a588f1c99548a4bdf5b25cedd0355ad02db7f67059622"
+    },
+    {
+      "file": "native095-session-result.json",
+      "bytes": 3476070,
+      "sha256": "026a66304acaeac3c75c8061fb25f2902911b50d4c13d78e4019da7feed1526a"
+    },
+    {
+      "file": "native095-targeted.log",
+      "bytes": 13094,
+      "sha256": "3ba24daa74b1a4f358e478f704f4273a9dcdc3320a4255b4522fc63d865e7479"
+    },
+    {
+      "file": "native095-vision-1.jpg",
+      "bytes": 116137,
+      "sha256": "92f0240bd23c70715f020b3b1a5a3670c9305005d4c00a0470e2ffa0f918c34a"
+    },
+    {
+      "file": "native095-vision-2.jpg",
+      "bytes": 106424,
+      "sha256": "db6b33b9cf0bfa8573d4c6c4c6bdec28382b116bb449b5980144be0cb6fe6fc4"
+    },
+    {
+      "file": "native095-vision-3.jpg",
+      "bytes": 144053,
+      "sha256": "1be7d981bfc76a41d6087a3aaaf76d4ca8b351df4bb6db5ee55d24a3bd4fd1c4"
+    },
+    {
+      "file": "native095-vision-4.jpg",
+      "bytes": 117528,
+      "sha256": "138c685aa965f3bd395e6274341125e9542f0ce00d1206ed4460d16d221f76fd"
+    },
+    {
+      "file": "native095b-targeted.log",
+      "bytes": 11973,
+      "sha256": "35595b146883b44063d7025d0d86470e279f1cce1c661adbddba871ee16bbb72"
+    },
+    {
+      "file": "neoforge095b-status.log",
+      "bytes": 410,
+      "sha256": "21c2cc567f4bf1cf3fba01950958e0cc67348c74696ced9c3c9e21f874a195e3"
+    },
+    {
+      "file": "orchestration095-result.json",
+      "bytes": 1414,
+      "sha256": "9ab61544a83ae707d6a6789ce882134734a43293002d346968933d5de2605c19"
+    },
+    {
+      "file": "platform095-result.json",
+      "bytes": 37557,
+      "sha256": "d3e3e573c90b4435d88b292e3a4887f34b214eab67bbd877ab17b8324f1d1d4b"
+    },
+    {
+      "file": "preflight095b.log",
+      "bytes": 805,
+      "sha256": "8dbb8fce6f06e7773c120a2f95c6b455de84066e9d4e06ae81c3ee57ce7d70bb"
+    },
+    {
+      "file": "prepare095b.log",
+      "bytes": 376,
+      "sha256": "e74c18bfd957724d28fd68924273e844f3ddf80755ccdf2f5e3e79524a0b4e30"
+    },
+    {
+      "file": "prompt095-summary.json",
+      "bytes": 40446,
+      "sha256": "0a0c15564060fa452a934e96b8dc46a433721adacd0b0efa11b959d07f128089"
+    },
+    {
+      "file": "readiness095b.log",
+      "bytes": 3361,
+      "sha256": "5ed3aa5303fdafc2447f5c6150799cd2cb09059a8be8ba3187b6ff40ecb91ae5"
+    },
+    {
+      "file": "start095b.log",
+      "bytes": 1007,
+      "sha256": "51fa962bee221ef87861d4010d1232e360587364e41210faa54cbf9bfca8b3ca"
+    },
+    {
+      "file": "stop095.log",
+      "bytes": 169,
+      "sha256": "0838675953289f276b84f2470da731166fdf705eeadc09044e730e6cb292e9a6"
+    },
+    {
+      "file": "target095b.log",
+      "bytes": 608,
+      "sha256": "4dbcfec2718b633c6352b009cfbb3833d4257a00f407720b698de3aa5f001b80"
+    },
+    {
+      "file": "transfer095-result.json",
+      "bytes": 4922,
+      "sha256": "ead45f77578651a47eb071321337d8cd9baf76c10b5a6a0629d247bf24061a62"
+    }
+  ]
+}
