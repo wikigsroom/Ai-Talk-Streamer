@@ -77,6 +77,9 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
     private boolean waterRoute;
     private boolean navigationSwimming;
     private int escapeSprintTicks;
+    private static final int MAX_ROUTE_RECOVERIES = 4;
+    private int routeRecoveries;
+    private JsonObject lastRouteRecovery;
 
     NativeTravel(Minecraft client, NativeInputOwner inputs) {
         this.client = client; this.inputs = inputs;
@@ -160,6 +163,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         ticks = searches = walked = attemptedBlocks = inventoryPackets = arrivalTicks = escapeSprintTicks = 0; confirmedInventory = -1;
         waterTicks=0;waterRoute=false;
         routeFailure=null;
+        routeRecoveries=0;lastRouteRecovery=null;
         stair=null;stairReceipt=null;stairCut=null;stairSteps=stairCuts=stairPackets=0;stairStarted=0;stairCleared.clear();stairEvidence.clear();
         inventoryTarget = target; gather = skill.equals("gather");
         progressAt = now(); lastProgress = client.player.position(); miningAt = pickupUntil = 0;
@@ -260,10 +264,10 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         double shallow=shallowSurfaceY(point),feetY=Double.isFinite(shallow)?shallow:point.y();
         boolean floor = Double.isFinite(shallow) || support.isFaceSturdy(client.level, below, Direction.UP)
                 || support.is(BlockTags.LEAVES) && !shape.isEmpty() && shape.max(Direction.Axis.Y) == 1 || stairFloor;
-        if (!floor) return false;
+        if (!floor) return supportedIntegerOrigin(point);
         var body = new AABB(at.getX() + .19, feetY + .01, at.getZ() + .19,
                 at.getX() + .81, feetY + 1.81, at.getZ() + .81);
-        return client.level.noCollision(client.player, body) || leaves && leafSpace(body);
+        return client.level.noCollision(client.player, body) || leaves && leafSpace(body) || supportedIntegerOrigin(point);
     }
     private boolean loadedDry(AABB area) {
         for(int x=(int)Math.floor(area.minX);x<=(int)Math.floor(area.maxX);x++)
@@ -285,6 +289,16 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         if(!NativePartialFooting.admissible(feet().y(),body.minY,body.getYsize(),
                 client.player.onGround(),true,true,true))return false;
         return NativePartialFooting.admissible(feet().y(),body.minY,body.getYsize(),client.player.onGround(),
+                client.level.noCollision(client.player,body),
+                !client.level.noCollision(client.player,body.move(0,-.025,0)),
+                loadedDry(body.move(0,-.025,0)));
+    }
+    private boolean supportedIntegerOrigin(Point point) {
+        if (!point.equals(feet())) return false;
+        var body=client.player.getBoundingBox();
+        if (!NativePartialFooting.supportedIntegerOrigin(point.y(),body.minY,body.getYsize(),
+                client.player.onGround(),true,true,true)) return false;
+        return NativePartialFooting.supportedIntegerOrigin(point.y(),body.minY,body.getYsize(),client.player.onGround(),
                 client.level.noCollision(client.player,body),
                 !client.level.noCollision(client.player,body.move(0,-.025,0)),
                 loadedDry(body.move(0,-.025,0)));
@@ -437,6 +451,17 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         var hit=sight(leafCut);if(hit==null)throw new LocalTaskFailure(NAVIGATION_NO_ROUTE);
         aim(hit.getLocation());scope.mine(leafCut,hit.getDirection(),control,permit);return true;
     }
+    private JsonObject stepDiagnostics(Point next) {
+        if (next == null) return null;
+        var swept=edge(feet(),next);var body=client.player.getBoundingBox();
+        return obj("next_standable",stand(next),"next_standable_with_leaves",stand(next,true),
+                "next_block",BuiltInRegistries.BLOCK.getKey(client.level.getBlockState(pos(next)).getBlock()).toString(),
+                "next_support",BuiltInRegistries.BLOCK.getKey(client.level.getBlockState(pos(next).below()).getBlock()).toString(),
+                "edge_loaded_dry",loadedDry(swept),"edge_body_clear",client.level.noCollision(client.player,swept),
+                "actual_body_clear",client.level.noCollision(client.player,body),
+                "actual_support_below",!client.level.noCollision(client.player,body.move(0,-.025,0)),
+                "actual_feet_y",client.player.getY(),"next_surface_y",footY(next));
+    }
     private LocalTaskFailure routeFailure(String stage, Point goal, Point next) {
         routeFailure = obj("observed_at", java.time.Instant.now().toString(), "stage", stage,
                 "task_id", task.get("task_id"), "on_ground", client.player.onGround(),
@@ -444,8 +469,37 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
                 "goal", obj("x", goal.x(), "y", goal.y(), "z", goal.z()),
                 "next", next == null ? null : obj("x", next.x(), "y", next.y(), "z", next.z()),
                 "feet_standable", stand(feet()), "horizontal_collision", client.player.horizontalCollision,
-                "path_points_remaining", path.size(), "searches", searches);
+                "path_points_remaining", path.size(), "searches", searches,
+                "step_diagnostics",stepDiagnostics(next),"route_recoveries",routeRecoveries);
         return new LocalTaskFailure(NAVIGATION_NO_ROUTE);
+    }
+    private Point recoverRoute(Point goal, double distance, Point rejected) {
+        var diagnostics=stepDiagnostics(rejected);
+        // Retry inside the same task, world, permit and input scope. The original
+        // no-progress clock and task deadline keep running; a search is not progress.
+        scope.stopMining(control,permit);scope.move(0,false,control,permit);
+        String outcome="not_dry_grounded";
+        Point next=null;
+        if (!waterRoute && !client.player.isInWater() && !client.player.isInLava() && client.player.onGround()) {
+            outcome="recovery_budget_exhausted";
+            if (routeRecoveries<MAX_ROUTE_RECOVERIES) {
+                routeRecoveries++;searches++;
+                var route=NativeWalkPlanner.find(terrain(false),feet(),goal,distance,1024);
+                outcome="no_safe_alternative";
+                if (route.points().size()>1 && (route.reachesGoal() || feet().distanceSquared(goal)>24*24)) {
+                    Point candidate=route.points().get(1);
+                    if (stand(candidate) && walkEdge(feet(),candidate,false)) {
+                        path.clear();path.addAll(route.points());path.remove();
+                        pathGoal=goal;pathRadius=distance;next=path.peek();outcome="new_route_admitted";
+                    }
+                }
+            }
+        }
+        lastRouteRecovery=obj("observed_at",java.time.Instant.now().toString(),"task_id",task.get("task_id"),
+                "attempts",routeRecoveries,"limit",MAX_ROUTE_RECOVERIES,"outcome",outcome,
+                "rejected_step",obj("x",rejected.x(),"y",rejected.y(),"z",rejected.z()),
+                "step_diagnostics",diagnostics,"original_deadline_retained",true,"progress_clock_reset",false);
+        return next;
     }
     private boolean walk(Point goal, double distance) {
         if(gather)gatherRouteGoal=goal;
@@ -505,7 +559,9 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         if (!(waterRoute ? (stand(next) || waterCell(next)) && waterEdge(feet(),next)
                 : stand(next) && walkEdge(feet(),next,false))) {
             if (!waterRoute && clearRouteLeaves(next)) return false;
-            throw routeFailure("next_step_changed", goal, next);
+            Point rejected=next;
+            next=recoverRoute(goal,distance,rejected);
+            if (next==null) throw routeFailure("next_step_changed",goal,rejected);
         }
         scope.stopMining(control, permit);
         double dx = next.x() + .5 - client.player.getX(), dz = next.z() + .5 - client.player.getZ();
@@ -898,6 +954,8 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         return obj("task_id", task == null ? null : task.get("task_id"), "active", !closed, "gather", gather,
                 "ticks", ticks, "arrival_ticks", arrivalTicks, "path_searches", searches, "walked_waypoints", walked, "block_attempts", attemptedBlocks,
                 "escape_sprint_input_ticks", escapeSprintTicks, "ordinary_sprint_key", true,
+                "route_recoveries",routeRecoveries,"route_recovery_limit",MAX_ROUTE_RECOVERIES,
+                "last_route_recovery",lastRouteRecovery,
                 "server_inventory_packets", inventoryPackets, "confirmed_inventory", confirmedInventory,
                 "skipped_sources", skippedSources.size(), "skipped_drops", skippedDrops.size(),
                 "stalled_approaches",stalledApproaches,"temporarily_blocked_sources",blockedSources.size(),

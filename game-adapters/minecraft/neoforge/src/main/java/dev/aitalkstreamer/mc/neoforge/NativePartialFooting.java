@@ -17,4 +17,11 @@ public final class NativePartialFooting {
                 && bodyHeight>=1.7 && bodyHeight<=1.9
                 && grounded && actualBodyClear && supportBelow && loadedDry;
     }
+    /** The real body may touch a neighboring support while its integer cell has no full floor. */
+    public static boolean supportedIntegerOrigin(int cellY, double feetY, double bodyHeight,
+            boolean grounded, boolean actualBodyClear, boolean supportBelow, boolean loadedDry) {
+        return Double.isFinite(feetY) && feetY == cellY && Double.isFinite(bodyHeight)
+                && bodyHeight >= 1.7 && bodyHeight <= 1.9
+                && grounded && actualBodyClear && supportBelow && loadedDry;
+    }
 }

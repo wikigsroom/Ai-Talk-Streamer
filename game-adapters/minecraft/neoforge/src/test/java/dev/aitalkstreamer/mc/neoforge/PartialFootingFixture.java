@@ -51,6 +51,20 @@ public final class PartialFootingFixture {
         check(route.reachesGoal() && route.points().contains(new NativeWalkPlanner.Point(1,74,0)));
         check(NativeWalkPlanner.reachable(terrain,new NativeWalkPlanner.Point(0,75,0),8,256).contains(new NativeWalkPlanner.Point(2,75,0)));
         check(!footing(74,path,1.8,true,true,true,true)); // Generic partial-origin allowance stays capped at half a block.
+        // The currently observed body can rest over an edge at an integer Y.
+        // This never admits another cell or a falling, blocked, wet or unsupported body.
+        check(NativePartialFooting.supportedIntegerOrigin(75,75,1.8,true,true,true,true));
+        check(NativePartialFooting.supportedIntegerOrigin(-20,-20,1.8,true,true,true,true));
+        check(!NativePartialFooting.supportedIntegerOrigin(75,75,1.8,false,true,true,true));
+        check(!NativePartialFooting.supportedIntegerOrigin(75,75,1.8,true,false,true,true));
+        check(!NativePartialFooting.supportedIntegerOrigin(75,75,1.8,true,true,false,true));
+        check(!NativePartialFooting.supportedIntegerOrigin(75,75,1.8,true,true,true,false));
+        check(!NativePartialFooting.supportedIntegerOrigin(75,74.9375,1.8,true,true,true,true));
+        check(!NativePartialFooting.supportedIntegerOrigin(75,75.125,1.8,true,true,true,true));
+        check(!NativePartialFooting.supportedIntegerOrigin(75,Double.NaN,1.8,true,true,true,true));
+        check(!NativePartialFooting.supportedIntegerOrigin(75,75,Double.NaN,true,true,true,true));
+        check(!NativePartialFooting.supportedIntegerOrigin(75,75,1.5,true,true,true,true));
+        check(!NativePartialFooting.supportedIntegerOrigin(75,75,2,true,true,true,true));
         System.out.println("PASS "+checks+" actual partial-footing boundaries; no world writes or input");
     }
 }
