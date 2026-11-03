@@ -1,0 +1,968 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261104-100",
+  "round": "100",
+  "at": "2026-11-03T22:00:51.018668+00:00",
+  "branch": "mc",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "scope": "REMOTE_NATIVE_OBSERVATION_WITH_UNMET_FULL_DELIVERY_GATES",
+  "source_commit": "33c76e5645e21bb647f89c940895b1d3424964c6",
+  "source_files": 1012,
+  "source_snapshot_sha256": "3749d7009df18637a25e67940079f13f08ad751c7167f03123c7bf969f1a8012",
+  "source_archive_sha256": "b972828adef77f962889033cb6d817e3e31784039a1e184db1f4c530efd80aec",
+  "native_build": {
+    "sha256": "7e26b720a35e6caf425de141e2eed67e16675542680d73e99d08ff22d5610864",
+    "bytes": 12545007,
+    "compiled_against": "actual_supplied_neoforge_21.1.248_mojmap_libraries",
+    "classes": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/build/classes-095ccb3964ce48dfa5b3994e5f169c63"
+  },
+  "checks": {
+    "core": {
+      "tests": 404,
+      "pass": 404,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "java_fixtures": 18,
+    "suites_overlap_do_not_sum": true
+  },
+  "unchanged_suites_not_rerun": {
+    "receiver": {
+      "round": "098b",
+      "passed": 19
+    },
+    "programme_browser": {
+      "round": "098b",
+      "passed": 12
+    },
+    "programme_assets": {
+      "round": "098b",
+      "passed": 3
+    }
+  },
+  "runtime": {
+    "window_seconds": 600.4289832115173,
+    "observations": 567,
+    "task_count": 61,
+    "task_states": {
+      "succeeded": 59,
+      "cancelled": 2
+    },
+    "task_reasons": {
+      "LEASE_EXPIRED": 1,
+      "CONTROL_CHANGED": 1
+    },
+    "verified_navigation": 59,
+    "productive_by_item": {},
+    "productive_by_skill_item": {},
+    "death_transitions": 0,
+    "formal_speech_completions": 13,
+    "vision_states": {
+      "succeeded": 25,
+      "failed": 5
+    },
+    "first_player": {
+      "health": 12.033335,
+      "max_health": 20,
+      "food": 17,
+      "oxygen": 300,
+      "position": {
+        "dimension": "minecraft:overworld",
+        "x": 1504,
+        "y": 75,
+        "z": -171
+      }
+    },
+    "last_player": {
+      "health": 12.033335,
+      "max_health": 20,
+      "food": 17,
+      "oxygen": 300,
+      "position": {
+        "dimension": "minecraft:overworld",
+        "x": 1540,
+        "y": 75,
+        "z": -171
+      }
+    },
+    "sampled_y_range": [
+      74,
+      78
+    ],
+    "seconds_after_last_non_navigation_completion": null,
+    "excavation_frontier_samples": 18,
+    "sampled_confirmed_step_cuts": 3,
+    "origin_alignment_tasks": {
+      "task-cf72925e-2f74-48ec-b434-0490ff9cbf43": {
+        "episodes": 1,
+        "total_ticks": 34
+      },
+      "task-ba986742-8686-44d8-b5d4-16d4bc274e19": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-fe8544a0-fe8c-4c46-b108-ed2b1604c5c8": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-858ac1e4-2a63-423d-8141-7ad132d14763": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-55d9905a-e59f-4af9-b73b-dae97b34bb2c": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-fcbd755d-12f0-4a84-94c0-7312b93234d5": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-4d49223b-8aa0-4424-bdd4-4fe7b7b89305": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-ce31ab27-b5aa-48bf-a053-a9b91eada157": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-92493115-59cf-4ef0-9210-85a18025f991": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-b82984ab-bbb0-4778-80df-a8ff43cfa1d3": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-06b24958-9253-4666-8a53-fed0095a892c": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-e033843d-1dd0-470a-a7c2-8f2050d608c2": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-1eedccaf-52f8-4a2e-b2da-136327be1d66": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-55175307-6b15-47b9-a327-d2d74193c289": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-5a1a16bf-d285-4345-a87a-b61ced12bd95": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-860e5dd1-110d-4665-b28b-5aec7d94f26b": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-b3ea49f7-32da-4bfb-ba26-0ed103d05560": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-d6c11971-0a03-4740-8edc-26e15f344a1c": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-342b66c5-c4a7-458b-961f-207d6b6071ce": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-65378a1b-2c57-4f56-957c-704772c272d0": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-fa584acd-44a7-4535-92f2-ea333bdd6525": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-fe1dbe53-ebdc-4f6e-88ee-36e1f10943d8": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-786843c8-19f3-4d48-ae14-544543ac774f": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-72279918-967a-4a43-b2cd-e34769a8bc15": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-e555a430-5136-4b61-b8c9-0b5ef8c0bef1": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-c79f9da8-4341-4833-83e3-24e95748c390": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-83b4cb6d-a3ce-45c5-8f3f-09b7037638fe": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-670ff44a-3002-4bc7-a080-199bd9935729": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-1972f355-e855-48ff-bb8c-dba0447602c9": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-ba4df570-5cf3-4ab9-b641-18f726abf11a": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-030c32ca-35da-45f8-9c97-05a35fe9023b": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-814e8c2f-318b-41a6-9b01-01f5cd4c7ccd": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-a53879d4-99ac-4ce5-8db3-f77ac180e711": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-354d1ed7-2838-4725-9e1e-e5482c07afa5": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-2260edc9-14dc-4899-b724-52fddbd589cc": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-ca9b6390-f84a-4aa1-8c74-bfdbdef9e4d2": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-48142b8b-6ffa-41d7-a2ec-b336eb75500b": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-ba4246c7-5ea0-45bf-b49b-6654867a82ac": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-e99a7372-9640-4ad4-a886-94084a25f2b0": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-913337a6-aeb5-4496-8000-73a2debce3f1": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-ba1fea1d-485a-461d-8d00-97bc2e2f77c8": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-564c077a-626b-49c5-9607-0030d1abcf73": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-c4f25fc8-4072-42a2-9d9c-1c1a1bb7ea8e": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-bdec80e5-b7d3-43cd-b68e-211431e2b626": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-d44d0034-e888-45d3-bc16-6029a9dadfb8": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-e14fbc3e-87a4-431a-a31a-da28abc7bba6": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-fd941356-d6d9-4aa5-830b-889c67de90f6": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-d712a34a-15f0-43fc-bb02-c939c3be4268": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-ee539b73-2b5c-4bb9-b418-6dd27fdd6666": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-fc702301-f9fb-4ced-8005-f58ce9234a74": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-31fd0c92-9424-424e-bb3c-8679336b7f0c": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-ec8a9baf-c0f1-4a93-bf11-761a11ae269c": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-c04576a4-7cfe-4e6f-95b5-09da1ff197c8": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-b1e525a7-2963-4b9d-a532-31ffe3700bf3": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-c2e3abb3-fe8f-4621-a887-b237ddcfe16b": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-c7633304-54e1-420d-a231-6ffc45ea4e4a": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-b9e8fc91-a328-48a8-9267-69926f6f92af": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-9e331ffe-6b66-44ed-8abf-f469018c549a": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-3461c469-7f07-482e-ad4d-90b45a154400": {
+        "episodes": 0,
+        "total_ticks": 0
+      }
+    },
+    "pre_first_death_progress": {
+      "death_task_count": 0,
+      "first_death_at": null,
+      "samples": 567,
+      "max_y": 78,
+      "max_horizontal_distance_from_start": 63.387695966961914,
+      "verified_navigation_before_death": 59
+    },
+    "death_inventory_sample_brackets": [],
+    "food_observations": {
+      "samples": 567,
+      "nonempty_samples": 0,
+      "radius_values": [
+        16
+      ],
+      "vertical_radius_values": [
+        6
+      ],
+      "sources_by_item": {},
+      "explicit_scan_origins": 567
+    },
+    "native_food_strategy_yields": 17,
+    "verified_food_gather_tasks": [],
+    "verified_food_crafts": [],
+    "inventory_change": {
+      "minecraft:cobbled_deepslate": 4
+    }
+  },
+  "prompt_summary": {
+    "scope": "SAMPLED_BOUNDED_PROMPT_METRICS_NOT_BILLING_OR_RAW_PROMPTS",
+    "capacity": 12000,
+    "sampled_probes": 61,
+    "by_purpose": {
+      "speech": 17,
+      "vision": 1,
+      "game_plan": 43
+    },
+    "denied_count": 1,
+    "estimated_input_tokens_max": 15244,
+    "above_old_6000_admitted": 49,
+    "includes_startup_tail": true,
+    "admitted_estimated_input_tokens_max": 11052
+  },
+  "performance": {
+    "scope": "SOURCE_BOUND_RENDERER_DIAGNOSTICS_NOT_OFFICIAL_CAPTURE_OR_CDN_ACCEPTANCE",
+    "samples": 121,
+    "bound_segments": [
+      {
+        "binding": {
+          "receiver_epoch": "ae4775f6-65fc-4a29-ad0a-222ee22914ef",
+          "consumer_id": "browser-73c871ed-cce4-4231-896c-766266b25123",
+          "transport_id": "avatar-3a27ca8c-b769-4b12-8798-a27f428dd772",
+          "media_stream_id": "media-6137d043c96f44ff80ad9500c57f0686",
+          "media_protocol_version": 3,
+          "counter_segment": 1
+        },
+        "distinct_reports": 115,
+        "duration_seconds": 599.9943964481354,
+        "reported_canvas_fps_mean": 20.352744931351154,
+        "counter_delta": {
+          "frames": 12072,
+          "audio_underruns": 28,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0
+        }
+      }
+    ],
+    "incomplete_or_unowned_fresh_samples": 0,
+    "stale_or_absent_samples": 5,
+    "fps_aggregate_withheld_without_complete_binding": false,
+    "gpu_samples": 21,
+    "gpu_memory_peak_mib": 8799.0,
+    "gpu_utilization_mean": 42.0,
+    "system_cpu_mean": 12.602479338842976,
+    "browser_contexts_opened": 0
+  },
+  "public_guest": {
+    "duration_seconds": 611.6633214950562,
+    "connected_observed": true,
+    "event_types": {},
+    "events": [],
+    "owned_collector_stopped": true
+  },
+  "startup_diagnostic": {
+    "thread_dump_sha256": "b8182ff721af3f7fe25d774f764de267d4f1ad5700cf2e8f2cf8551ded4942d8",
+    "thread_dump_bytes": 265478,
+    "promoter_wait_blocks": 0,
+    "java_level_deadlock_reported": false,
+    "restarted": false,
+    "game_inputs_issued": 0,
+    "console_structure": {
+      "scope": "BOUNDED_READ_ONLY_CONSOLE_STRUCTURE_NO_CHAT_OR_RAW_LINES",
+      "at": 1793741514.3855743,
+      "log_bytes": 4726937430,
+      "log_mtime": 1793739503.378308,
+      "tail_bytes": 65536,
+      "tail_sha256": "63058a87cd02539f0a2e08549935f60f14bd4814d5d001144c3afb9015e2f762",
+      "exception_classes": [
+        [
+          "java.nio.file.AccessDeniedException",
+          8
+        ],
+        [
+          "com.mojang.brigadier.exceptions.CommandSyntaxException",
+          5
+        ],
+        [
+          "java.lang.ClassNotFoundException",
+          1
+        ]
+      ],
+      "stack_frames": [
+        [
+          [
+            "cpw.mods.securejarhandler/cpw.mods.cl.ModuleClassLoader.loadClass",
+            "ModuleClassLoader.java",
+            "216"
+          ],
+          2
+        ]
+      ],
+      "thread_levels": [
+        [
+          [
+            "Render thread",
+            "INFO"
+          ],
+          161
+        ],
+        [
+          [
+            "Server thread",
+            "INFO"
+          ],
+          96
+        ],
+        [
+          [
+            "Render thread",
+            "WARN"
+          ],
+          49
+        ],
+        [
+          [
+            "mc-native-facts",
+            "ERROR"
+          ],
+          8
+        ],
+        [
+          [
+            "Server thread",
+            "WARN"
+          ],
+          2
+        ]
+      ],
+      "file_modified": false
+    },
+    "full_startup_performance_accepted": false
+  },
+  "prior_attempts": {
+    "purpose": "PRESERVE_TERMINAL_PRE_GAME_ATTEMPTS_WITHOUT_OVERWRITING_EVIDENCE",
+    "archive": "outputs/mc-validation/round-100/attempts-before-100c",
+    "files": {
+      "build100.log": "7a6fb42e2794dd3c40ed3d929d05e8331820e57b0b5b6738b53cbf6cc78079f3",
+      "deploy100-bootstrap.json": "bb846a41d371f2a746253782ca4fa7ef496829e31a808c6c42e35127765fcdb7",
+      "deploy100-progress.json": "7e0b033e79d27bf26b0a4c93d65de72143afab3b2bd62c291d3c4c104bd16a01",
+      "deploy100-result.json": "4aa1057e70f31f30899655b0d367ff00c308100f2287fe45728de5500473c1a0",
+      "deploy100-transfer.json": "d0a9da40de404dbca27395d9c5ef07d42f7aafeb9b94c6b4eb0e2e2e634c5a0e",
+      "deploy100-worker.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "deploy100b-bootstrap.json": "a9331a94be4f2c807540cd5cc04bf1b0a8f553931c081ad09a87649a49fbe1f1",
+      "deploy100b-progress.json": "693a6ea3c275fa00b85a5b4358483541c8ba4b0c3d3756e9c4dd5c2e971392d4",
+      "deploy100b-result.json": "024d9f23489ed9b1699a4185d472415e271e6523ee4c4da6728bd6c53cc1d1c4",
+      "deploy100b-transfer.json": "1d7d4086e5c984c4e74586e03a2b7831cceca43548c84af610b506f48a7f06e2",
+      "deploy100b-worker.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "deploy100c-bootstrap.json": "f20a7a9597b57eec3e67dcc8fe77255c88f58b0fa3a8c9978c11a5b41a6a93db",
+      "fixture-compile100.log": "2caeb0fc41712d5cef0d1934e4908fa603e1d740935be3bac747e445080f6a9b"
+    },
+    "game_started_by_initial_attempts": false,
+    "current_bootstrap_preserved": true
+  },
+  "log_alias_receipt": {
+    "purpose": "HARD_LINK_NAMES_FOR_IDENTICAL_WORKER_STDOUT_NO_RESULT_EDIT",
+    "at": 1793741342.6237934,
+    "deployment_owner": {
+      "pid": 2928,
+      "create_time": 1793741129.0421584,
+      "script_sha256": "5dccbd115e7856069cf000d318514ad4b40ae3710342bd73bef7a21584f4b7c5",
+      "host": "DESKTOP-2QQPN1H",
+      "at": 1793741129.0542872
+    },
+    "aliases": [
+      {
+        "actual_stdout": "build100.log",
+        "compatible_name": "build100c.log",
+        "same_ntfs_file": true,
+        "created_empty_future_stdout_slot": false
+      },
+      {
+        "actual_stdout": "fixture-compile100.log",
+        "compatible_name": "fixture-compile100c.log",
+        "same_ntfs_file": true,
+        "created_empty_future_stdout_slot": false
+      },
+      {
+        "actual_stdout": "core100.log",
+        "compatible_name": "core100c.log",
+        "same_ntfs_file": true,
+        "created_empty_future_stdout_slot": false
+      },
+      {
+        "actual_stdout": "readiness100.log",
+        "compatible_name": "readiness100c.log",
+        "same_ntfs_file": true,
+        "created_empty_future_stdout_slot": false
+      },
+      {
+        "actual_stdout": "preflight100.log",
+        "compatible_name": "preflight100c.log",
+        "same_ntfs_file": true,
+        "created_empty_future_stdout_slot": true
+      },
+      {
+        "actual_stdout": "prepare100.log",
+        "compatible_name": "prepare100c.log",
+        "same_ntfs_file": true,
+        "created_empty_future_stdout_slot": true
+      },
+      {
+        "actual_stdout": "target100.log",
+        "compatible_name": "target100c.log",
+        "same_ntfs_file": true,
+        "created_empty_future_stdout_slot": true
+      },
+      {
+        "actual_stdout": "start100.log",
+        "compatible_name": "start100c.log",
+        "same_ntfs_file": true,
+        "created_empty_future_stdout_slot": true
+      }
+    ],
+    "source_or_runtime_code_modified": false
+  },
+  "application_ready": false,
+  "candidate_disabled": true,
+  "services_after": {
+    "dsh": false,
+    "avatar": false,
+    "tts": false,
+    "receiver": false,
+    "vision": false,
+    "minecraft": false
+  },
+  "official_clients_preserved": true,
+  "world": {
+    "keepInventory": true,
+    "normal_engine_save": true,
+    "sha256": "e06947d18eb39ac00ea40a32d977dc5c07c21519b1f02263d4da1e2c54aba5ac",
+    "backup089_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f"
+  },
+  "cleanup": {
+    "runtime_browser_contexts_opened": 0,
+    "fixture_browser_contexts_closed": 0,
+    "byte_helper": {
+      "ok": true,
+      "purpose": "BYTE_TRANSFER_HELPER_CLOSED_AFTER_EVIDENCE_VERIFICATION",
+      "pid": 8864,
+      "creation_time_verified": true,
+      "command_path_verified": true,
+      "listener_owner_verified": true,
+      "port": 2532,
+      "listeners_after": 0,
+      "unrelated_processes_stopped": false,
+      "browser_contexts_opened": 0,
+      "at": "2026-11-03T22:00:42.5121015Z"
+    },
+    "workers_remaining": null,
+    "orchestration_child_workers_joined": 6,
+    "independent_final_process_census_pending": true,
+    "remote_skill_unavailable_reason": "ANOTHER_LOCAL_TASK_OWNS_DEVICE_SKILL_LOCK"
+  },
+  "private_policy": {
+    "changed_this_round": false,
+    "sha256": null,
+    "current_round_hash_rechecked": false,
+    "contents_exported": false
+  },
+  "implemented_ids": [
+    "I1138",
+    "I1139",
+    "I1140",
+    "I1141",
+    "I1142",
+    "I1143",
+    "I1144",
+    "I1145",
+    "I1146"
+  ],
+  "formal_acceptance_passed": 0,
+  "formal_acceptance_advanced": 0,
+  "new_avatar_clips": 0,
+  "inherited_todos_open": 117,
+  "new_video_recorded": false,
+  "report": "docs/technical/mc-live-v1/可见食物搜索与100自主规划修复.md",
+  "github_publication": {
+    "branch": "mc",
+    "source_commit": "33c76e5645e21bb647f89c940895b1d3424964c6",
+    "source_pushed_and_remote_verified": true,
+    "documentation_published_with_this_revision": true,
+    "push_pending": false
+  },
+  "raw_evidence_policy": "Ignored originals retained locally and on3080; sanitized summaries and file hashes only.",
+  "raw_artifacts": [
+    {
+      "file": "ArrivalRadiusFixture100c.log",
+      "bytes": 204,
+      "sha256": "0ead68e79a6d7d9bdf4210f3482e88f10e2bb1f314427f501711424b6ecd3e5e"
+    },
+    {
+      "file": "audit100c-expected-sha.json",
+      "bytes": 166,
+      "sha256": "b853b640d9c573f37dc0bb0c48b1464cb498982c7727a0f81ff130b466e1e93c"
+    },
+    {
+      "file": "audit100c-result.json",
+      "bytes": 19831,
+      "sha256": "b21e30024cf48a8ae6866c896f1325d6ab65a576497c253a97afa8aad3e3c8ff"
+    },
+    {
+      "file": "audit100c-tasks-result.json",
+      "bytes": 52234,
+      "sha256": "be035c9a62c6d6295cb003acb3fca8b0db1fd028f533ddf8c95f3947830bf9fa"
+    },
+    {
+      "file": "build100.log",
+      "bytes": 14298,
+      "sha256": "52765defeed9a80d8a196c6893af52870ad6d410b1b7878f6bf16352c9763c8e"
+    },
+    {
+      "file": "build100c.log",
+      "bytes": 14298,
+      "sha256": "52765defeed9a80d8a196c6893af52870ad6d410b1b7878f6bf16352c9763c8e"
+    },
+    {
+      "file": "console100c-structure.json",
+      "bytes": 1217,
+      "sha256": "9db2227b08df0ff3a57c5e18a741f9c54dff76ab348a155883bf53a5779597db"
+    },
+    {
+      "file": "core100.log",
+      "bytes": 820,
+      "sha256": "bd50fadece70baf4bada6b655971c4c8c0ba9a10c771883dc60c9be1a40a2025"
+    },
+    {
+      "file": "core100c-inputs.json",
+      "bytes": 138525,
+      "sha256": "7c33eb24d80a5ce1118686602a6bce6db815492dcde4859b5218e0a939f9a4fb"
+    },
+    {
+      "file": "core100c-report.json",
+      "bytes": 820,
+      "sha256": "bd50fadece70baf4bada6b655971c4c8c0ba9a10c771883dc60c9be1a40a2025"
+    },
+    {
+      "file": "core100c.log",
+      "bytes": 820,
+      "sha256": "bd50fadece70baf4bada6b655971c4c8c0ba9a10c771883dc60c9be1a40a2025"
+    },
+    {
+      "file": "deploy100c-bootstrap.json",
+      "bytes": 204,
+      "sha256": "f20a7a9597b57eec3e67dcc8fe77255c88f58b0fa3a8c9978c11a5b41a6a93db"
+    },
+    {
+      "file": "deploy100c-progress.json",
+      "bytes": 71,
+      "sha256": "b9d7c43cd8bb0c392337dd2f5057768b3e400069aeb130c5d342e2966dd7b8d9"
+    },
+    {
+      "file": "deploy100c-result.json",
+      "bytes": 6098,
+      "sha256": "6c602e789152a603bf0995037fbd64253714944ec34a38cdfc6c76979e899af6"
+    },
+    {
+      "file": "deploy100c-transfer.json",
+      "bytes": 6323,
+      "sha256": "ae83b3bf18e7e9baf23d82b3b74483fabb264eb9ed31c651b58ff4a989d97c95"
+    },
+    {
+      "file": "deploy100c-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "DiagonalRouteFixture100c.log",
+      "bytes": 92,
+      "sha256": "7e75f57485e283ba84a760a40b4fc45fd77bdb3fde97c7355673e7e48d1b96a8"
+    },
+    {
+      "file": "DryDescentFixture100c.log",
+      "bytes": 80,
+      "sha256": "3eea82aafda98d3efc020c6a6bff9ea1a6f4006584a7ca958e5c076906e3b368"
+    },
+    {
+      "file": "EscapeLandingFixture100c.log",
+      "bytes": 63,
+      "sha256": "62c8cc1b85f3941cad2d8edf66da1ea2bdadd3441ab56e3c327a8222b2ecd872"
+    },
+    {
+      "file": "EscapeMotionFixture100c.log",
+      "bytes": 62,
+      "sha256": "59e30bc89230aaa20d8373909fdb9c0272eafbf3623a50e75686263b22a0878c"
+    },
+    {
+      "file": "ExcavationStepFixture100c.log",
+      "bytes": 58,
+      "sha256": "7af78cc5285243d6b063b712d829091bb3ab237069e3971dd8189f7564998975"
+    },
+    {
+      "file": "finish100c-result.json",
+      "bytes": 129792,
+      "sha256": "ad26064df076ddb91b362f5f1de6908f2f39c5ffe5406c8ac5b5a74865d592ff"
+    },
+    {
+      "file": "fixture-compile100.log",
+      "bytes": 492,
+      "sha256": "5ffb86de2772a00979b77e4d3bc992b7fc9ac65184884d63d8c34fb670165d1a"
+    },
+    {
+      "file": "fixture-compile100c.log",
+      "bytes": 492,
+      "sha256": "5ffb86de2772a00979b77e4d3bc992b7fc9ac65184884d63d8c34fb670165d1a"
+    },
+    {
+      "file": "focus100c-receipt.json",
+      "bytes": 214,
+      "sha256": "db771f37a1b712d86c80f3aff2ef7620a0d5c482331694b3e60bec481613136d"
+    },
+    {
+      "file": "FrontierFixture100c.log",
+      "bytes": 61,
+      "sha256": "84537d9e96e383c138dd76950882cd44549af2061c8d5383cb4a99883f17ee75"
+    },
+    {
+      "file": "log-alias100c-receipt.json",
+      "bytes": 1875,
+      "sha256": "abd6d3203a2c2ac35684fbd47532aadb0b9f1d65cc38b7c8a2e64bbbff076ba0"
+    },
+    {
+      "file": "monitor100c-result.json",
+      "bytes": 462856,
+      "sha256": "f39bbe2b79244ab887ddb4781beb9da8d33dccb61e852e7c1360e46156afe0b7"
+    },
+    {
+      "file": "native100c-session-progress.json",
+      "bytes": 86,
+      "sha256": "50fc1d380b746e4207f665d82d7d41d1426fe6e67ba9726e37a8d8982fec4079"
+    },
+    {
+      "file": "native100c-session-result.json",
+      "bytes": 5500432,
+      "sha256": "0b9f9da76fc4703b3042434eb63286b447827179f7f3a9646e74ec3aa66422e5"
+    },
+    {
+      "file": "native100c-vision-1.jpg",
+      "bytes": 357161,
+      "sha256": "40b13ac9bca1af78c6296727fb8ad3fb7ccb0fd066e938e8bcfe442791826e3b"
+    },
+    {
+      "file": "native100c-vision-2.jpg",
+      "bytes": 423231,
+      "sha256": "d9cefb6c9658b1516eb8b1481602161c70a41bb93c84c59d1af877bfb65fa3d7"
+    },
+    {
+      "file": "native100c-vision-3.jpg",
+      "bytes": 239718,
+      "sha256": "3e5f0a6f14311d21b53df3fc26f63495db520ce278f1f5f4809f9976685cdc0b"
+    },
+    {
+      "file": "native100c-vision-4.jpg",
+      "bytes": 414458,
+      "sha256": "ae254054725fa8c3c8410cf3dd3dcfce425f7e53f52ea61db49c18975076eac2"
+    },
+    {
+      "file": "NativeFoodAimFixture100c.log",
+      "bytes": 109,
+      "sha256": "d5949af93d0a71911bb7a955db2e8f06664cca5cf3031be3906ffb40db2fa18e"
+    },
+    {
+      "file": "NativeFoodPlanFixture100c.log",
+      "bytes": 64,
+      "sha256": "2d4256c14ee44a8e80158f46d557c91717405ff69bfc78a4e68f8255ab185847"
+    },
+    {
+      "file": "NativeWorldFramesFixture100c.log",
+      "bytes": 71,
+      "sha256": "b502b9db318ef800421887d48eae442229a0009f238c87203a7377caf87d1f88"
+    },
+    {
+      "file": "orchestration100c-bootstrap.json",
+      "bytes": 175,
+      "sha256": "aa20b0fef9eaac6086a1e9a42a1566c9f0342929e72269fdc1a37a2e01abfb80"
+    },
+    {
+      "file": "orchestration100c-result.json",
+      "bytes": 1624,
+      "sha256": "8fe3b00db1198cfafd870093a51adbd9c8d3b9673f3f8fab479eb5426c9539b4"
+    },
+    {
+      "file": "PartialFootingFixture100c.log",
+      "bytes": 69,
+      "sha256": "78be713b0b076fccf6547276cbeda2779420cde5a5eede44f572fd030fca8980"
+    },
+    {
+      "file": "platform100c-result.json",
+      "bytes": 36484,
+      "sha256": "25e7fd778362a05a41a4e6ad669e7e4a8a36c1d3f8d140115a3d830a36fc1ab6"
+    },
+    {
+      "file": "preflight100.log",
+      "bytes": 805,
+      "sha256": "8dbb8fce6f06e7773c120a2f95c6b455de84066e9d4e06ae81c3ee57ce7d70bb"
+    },
+    {
+      "file": "preflight100c.log",
+      "bytes": 805,
+      "sha256": "8dbb8fce6f06e7773c120a2f95c6b455de84066e9d4e06ae81c3ee57ce7d70bb"
+    },
+    {
+      "file": "prepare100.log",
+      "bytes": 376,
+      "sha256": "c86249f1e8b72c307ba29aeeccf65574b2077cbe0a89e2c6172068d1f37553ed"
+    },
+    {
+      "file": "prepare100c.log",
+      "bytes": 376,
+      "sha256": "c86249f1e8b72c307ba29aeeccf65574b2077cbe0a89e2c6172068d1f37553ed"
+    },
+    {
+      "file": "prompt100c-summary.json",
+      "bytes": 23774,
+      "sha256": "ab3a3559a18bf0e2535ee2de09d3b9519962d6f0339b833feb3193ca53f341d9"
+    },
+    {
+      "file": "readiness100.log",
+      "bytes": 3361,
+      "sha256": "ce97e0c508f5319c4bc268a95af7c5e63446afea710e86cea50311ad8bf2253c"
+    },
+    {
+      "file": "readiness100c.log",
+      "bytes": 3361,
+      "sha256": "ce97e0c508f5319c4bc268a95af7c5e63446afea710e86cea50311ad8bf2253c"
+    },
+    {
+      "file": "RouteAlignmentFixture100c.log",
+      "bytes": 97,
+      "sha256": "3c19fa7bedfb3a118591f7682d36c858bb3cb5071092f674f17893d4ad6af6a2"
+    },
+    {
+      "file": "RouteRecoveryBudgetFixture100c.log",
+      "bytes": 80,
+      "sha256": "f6c52d7974a814f14caa21f1f5bcf7a0c51dc465a1e1a7725a75d5e5cbb0084d"
+    },
+    {
+      "file": "RouteRecoveryFixture100c.log",
+      "bytes": 82,
+      "sha256": "a5c734ac4ee4ba7336d153a136437ce536b1122bee055f57e6dfd4c2dca275f4"
+    },
+    {
+      "file": "SoilDescentFixture100c.log",
+      "bytes": 87,
+      "sha256": "49d164c3ae2b3fb92a2212dd7bc29f01f4c01cad00d1fd86410f8183de61279a"
+    },
+    {
+      "file": "start100.log",
+      "bytes": 1007,
+      "sha256": "51fa962bee221ef87861d4010d1232e360587364e41210faa54cbf9bfca8b3ca"
+    },
+    {
+      "file": "start100c.log",
+      "bytes": 1007,
+      "sha256": "51fa962bee221ef87861d4010d1232e360587364e41210faa54cbf9bfca8b3ca"
+    },
+    {
+      "file": "startup100c-thread-result.json",
+      "bytes": 432,
+      "sha256": "9839d851ae2fa77abf1c3224201151261de581ea0f95737416e7e6d5d611d694"
+    },
+    {
+      "file": "startup100c-thread-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "stop100c.log",
+      "bytes": 169,
+      "sha256": "0838675953289f276b84f2470da731166fdf705eeadc09044e730e6cb292e9a6"
+    },
+    {
+      "file": "target100.log",
+      "bytes": 608,
+      "sha256": "31b866d1a64dd9cb3dd790494cb3e4e7d94fbc9161e32f458eeb0c298fd23643"
+    },
+    {
+      "file": "target100c.log",
+      "bytes": 608,
+      "sha256": "31b866d1a64dd9cb3dd790494cb3e4e7d94fbc9161e32f458eeb0c298fd23643"
+    },
+    {
+      "file": "TerrainStepFixture100c.log",
+      "bytes": 36,
+      "sha256": "08de1db873bc605ddfd2e6a40143c95deb3b808037dab949e0faca19cdd0f135"
+    },
+    {
+      "file": "transfer100c-result.json",
+      "bytes": 4213,
+      "sha256": "bd007d84ab7cd7a1760f39467fba3d48686bc3703c70aa69ae654969904d5017"
+    },
+    {
+      "file": "TravelProgressFixture100c.log",
+      "bytes": 102,
+      "sha256": "a528cd1e95827070f5e822dcd623da5e12d6e06e414debb982c49040d716f76a"
+    },
+    {
+      "file": "WaterRouteFixture100c.log",
+      "bytes": 78,
+      "sha256": "10154e63ef2b0becdb9992534ed0cd80985b1c3c8dce4f6b0c3edb6160d012fc"
+    }
+  ]
+}
