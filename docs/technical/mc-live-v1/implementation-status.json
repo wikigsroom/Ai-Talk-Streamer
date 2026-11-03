@@ -4,50 +4,50 @@
   "branch": "mc",
   "goal_status": "active",
   "overall_status": "in_progress_full_application_not_accepted",
-  "current_round": "092",
-  "turn_classification": "bounded_landing_and_native_hand_grounding_remote_reviewed_full_acceptance_pending",
+  "current_round": "093",
+  "turn_classification": "diagonal_routes_and_actual_sprint_observation_remote_reviewed_full_acceptance_pending",
   "delivery_mode": "single_integrated_release",
   "user_facing_release_count": 1,
   "progress_document": "docs/technical/mc-live-v1/实现进度.md",
-  "latest_evidence": "docs/evidence/mc-runtime-round-092.json",
+  "latest_evidence": "docs/evidence/mc-runtime-round-093.json",
   "current_round_implemented_ids": [
-    "I1082",
-    "I1083",
-    "I1084",
-    "I1085",
-    "I1086",
-    "I1087"
+    "I1088",
+    "I1089",
+    "I1090",
+    "I1091",
+    "I1092",
+    "I1093"
   ],
   "required_domains": [
     {
       "id": "D01",
       "required": true,
-      "status": "round092_remote_services_ready_complete_application_pending",
+      "status": "round093_remote_services_ready_complete_application_pending",
       "remaining": "完整安装包与许可、干净Windows重建、来源与全部副本审计、异常启动回收、缓存与回退自动化；六项服务ready不等于完整application_ready。"
     },
     {
       "id": "D02",
       "required": true,
-      "status": "round092_landing_and_native_hand_grounding_reviewed_full_acceptance_pending",
+      "status": "round093_diagonal_routes_remote_observed_full_acceptance_pending",
       "remaining": "模组实体与容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物及后续联机差异。"
     },
     {
       "id": "D03",
       "required": true,
-      "status": "round092_landing_and_native_hand_grounding_reviewed_full_acceptance_pending",
-      "remaining": "日/夜多敌持续撤离、真实动态地形/落地恢复覆盖、普通PvE、食物与重生补给、GUI/水/岩浆/窒息、租约和长期停止；有界等待和原任务预算已实现，持续生存仍需通过。"
+      "status": "round093_diagonal_routes_remote_observed_full_acceptance_pending",
+      "remaining": "日/夜多敌持续撤离、动态地形/落地恢复、普通PvE、食物和重生补给、GUI/水/岩浆/窒息、租约与长期停止；093增加斜向检查和实际冲刺观测，持续生存仍须通过。"
     },
     {
       "id": "D04",
       "required": true,
-      "status": "round092_landing_and_native_hand_grounding_reviewed_full_acceptance_pending",
-      "remaining": "持续资源→工具→食物长链、熔炼、种收吃、容器往返、耐久更换、模组资源、探索建造；092本场核验采集/制作2条，不替代完整技能验收。"
+      "status": "round093_diagonal_routes_remote_observed_full_acceptance_pending",
+      "remaining": "持续资源→工具→食物长链、熔炼、种收吃、容器往返、耐久更换、模组资源与探索建造；093本场核验非导航动作0条，不代替完整技能验收。"
     },
     {
       "id": "D05",
       "required": true,
-      "status": "round092_landing_and_native_hand_grounding_reviewed_full_acceptance_pending",
-      "remaining": "Mindcraft依赖覆盖、复杂路线与有效逃生、失败后改策、跨场长期目标/工作台补给、真实互动并发、模型预算/公平性/取消与事实核验。"
+      "status": "round093_diagonal_routes_remote_observed_full_acceptance_pending",
+      "remaining": "Mindcraft依赖覆盖、地下资源发现与可达性、有效逃生、失败后改策、跨场目标/工作台补给及真正按需放台制作、真实互动并发、模型预算/公平性/取消与事实核验；093便携工作台改动不代表石器生产链通过。"
     },
     {
       "id": "D06",
@@ -70,8 +70,8 @@
     {
       "id": "D09",
       "required": true,
-      "status": "round092_landing_and_native_hand_grounding_reviewed_full_acceptance_pending",
-      "remaining": "持续有效游玩、及时且符合事实的自然解说、人物供帧/4秒重缓冲、真实弹幕合成和手机观看；092同场正式完成6条，迟到与事实一致性、实际呈现FPS仍需改善。"
+      "status": "round093_diagonal_routes_remote_observed_full_acceptance_pending",
+      "remaining": "持续有效游玩、及时且符合事实的自然解说、人物供帧/4秒重缓冲、真实弹幕合成和手机观看；093同场正式播完6条，延迟、过期和实际呈现FPS仍需改善。"
     },
     {
       "id": "D10",
@@ -88,8 +88,8 @@
     {
       "id": "D12",
       "required": true,
-      "status": "round092_landing_and_native_hand_grounding_reviewed_full_acceptance_pending",
-      "remaining": "真实JPEG→Luna的模组物品/危险准确率、更多装备与复杂画面误识别、帧与世界绑定、超时取消、公平性及联合负载；092增加同序号手持物核对与已知盾牌误报拒绝，不代表完整准确率通过。"
+      "status": "round093_diagonal_routes_remote_observed_full_acceptance_pending",
+      "remaining": "真实JPEG→Luna的模组物品/危险准确率、OCR与复杂状态条、装备误识别、帧与世界绑定、超时取消、公平性及联合负载；保留092同序号手持物核对，短场成功描述不代表完整准确率。"
     },
     {
       "id": "D13",
@@ -100,8 +100,8 @@
     {
       "id": "D14",
       "required": true,
-      "status": "round092_landing_and_native_hand_grounding_reviewed_full_acceptance_pending",
-      "remaining": "冷启动、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转、异常退出及存活世界真实暂停与口播排空；092正常保存和计划停机已复核。"
+      "status": "round093_diagonal_routes_remote_observed_full_acceptance_pending",
+      "remaining": "冷启动与重复资源核对耗时、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转、异常退出及存活世界真实暂停与口播排空；093正常保存和计划停机已复核。"
     },
     {
       "id": "D15",
@@ -392,34 +392,34 @@
   "known_incomplete_integration": [
     "D01 完整安装包与许可、干净Windows重建、来源与全部副本审计、异常启动回收、缓存与回退自动化；六项服务ready不等于完整application_ready。",
     "D02 模组实体与容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物及后续联机差异。",
-    "D03 日/夜多敌持续撤离、真实动态地形/落地恢复覆盖、普通PvE、食物与重生补给、GUI/水/岩浆/窒息、租约和长期停止；有界等待和原任务预算已实现，持续生存仍需通过。",
-    "D04 持续资源→工具→食物长链、熔炼、种收吃、容器往返、耐久更换、模组资源、探索建造；092本场核验采集/制作2条，不替代完整技能验收。",
-    "D05 Mindcraft依赖覆盖、复杂路线与有效逃生、失败后改策、跨场长期目标/工作台补给、真实互动并发、模型预算/公平性/取消与事实核验。",
+    "D03 日/夜多敌持续撤离、动态地形/落地恢复、普通PvE、食物和重生补给、GUI/水/岩浆/窒息、租约与长期停止；093增加斜向检查和实际冲刺观测，持续生存仍须通过。",
+    "D04 持续资源→工具→食物长链、熔炼、种收吃、容器往返、耐久更换、模组资源与探索建造；093本场核验非导航动作0条，不代替完整技能验收。",
+    "D05 Mindcraft依赖覆盖、地下资源发现与可达性、有效逃生、失败后改策、跨场目标/工作台补给及真正按需放台制作、真实互动并发、模型预算/公平性/取消与事实核验；093便携工作台改动不代表石器生产链通过。",
     "D06 595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连和节目展示；公开连接缺现场事件，不伪造样本，不重复要求用户发送。",
     "D07 真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复及唯一写者隔离。",
     "D08 完整原生状态/启停/任务/资源/音量/诊断/恢复与两方案切换；090左右换边及6个手机页面记录保留，仍需有真实消息时队列保留、并发和完整操作流程验收。",
-    "D09 持续有效游玩、及时且符合事实的自然解说、人物供帧/4秒重缓冲、真实弹幕合成和手机观看；092同场正式完成6条，迟到与事实一致性、实际呈现FPS仍需改善。",
+    "D09 持续有效游玩、及时且符合事实的自然解说、人物供帧/4秒重缓冲、真实弹幕合成和手机观看；093同场正式播完6条，延迟、过期和实际呈现FPS仍需改善。",
     "D10 两套各2闲置+48动作共100段新素材、索引、口型、圆形遮罩与接缝；仍0/100，原female-A历史素材保留。",
     "D11 原生游戏声/人声/BGM压低恢复、O07/F07故障切换、唯一音源与完整实录验收。",
-    "D12 真实JPEG→Luna的模组物品/危险准确率、更多装备与复杂画面误识别、帧与世界绑定、超时取消、公平性及联合负载；092增加同序号手持物核对与已知盾牌误报拒绝，不代表完整准确率通过。",
+    "D12 真实JPEG→Luna的模组物品/危险准确率、OCR与复杂状态条、装备误识别、帧与世界绑定、超时取消、公平性及联合负载；保留092同序号手持物核对，短场成功描述不代表完整准确率。",
     "D13 公开状态核对、独立观众CDN音画和端到端时延；本轮内部验证未公开开播。",
-    "D14 冷启动、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转、异常退出及存活世界真实暂停与口播排空；092正常保存和计划停机已复核。",
+    "D14 冷启动与重复资源核对耗时、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转、异常退出及存活世界真实暂停与口播排空；093正常保存和计划停机已复核。",
     "D15 正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/20项交接；继承117项冻结待办原编号不变。"
   ],
   "current_round_validation": {
-    "round": "092",
-    "evidence": "docs/evidence/mc-runtime-round-092.json",
-    "report": "docs/technical/mc-live-v1/落地等待与092视觉核对.md",
+    "round": "093",
+    "evidence": "docs/evidence/mc-runtime-round-093.json",
+    "report": "docs/technical/mc-live-v1/斜向寻路与093自主观察.md",
     "checks": {
       "core": {
-        "tests": 364,
-        "pass": 364,
+        "tests": 366,
+        "pass": 366,
         "fail": 0,
         "cancelled": 0,
         "skipped": 0,
         "todo": 0
       },
-      "targeted_pass": 96,
+      "targeted_pass": 98,
       "java_fixtures": [
         {
           "name": "EscapeLandingFixture",
@@ -464,45 +464,53 @@
         {
           "name": "RouteRecoveryBudgetFixture",
           "result": "PASS 87 original-task recovery and landing boundary checks; no game acceptance"
+        },
+        {
+          "name": "DiagonalRouteFixture",
+          "result": "PASS 57 diagonal support/corner/live-edge/search boundaries; no game input or world writes"
         }
       ],
       "suites_overlap_do_not_sum": true,
       "not_real_game_acceptance": true
     },
     "runtime": {
-      "window_seconds": 90.83551597595215,
-      "observations": 85,
-      "verified_navigation": 9,
-      "productive_tasks": [
+      "window_seconds": 300.7173433303833,
+      "observations": 284,
+      "death_transitions": 0,
+      "verified_navigation": 16,
+      "productive_tasks": [],
+      "formal_speech_completions": 6,
+      "diagonal_route_task_count": 4,
+      "sampled_max_observed_sprint_ticks": 0,
+      "workstation_observation": {
+        "crafted_table_tasks": 0,
+        "placed_table_tasks": 0,
+        "tables_before": 1,
+        "tables_after": 1,
+        "on_demand_native_crafting_stage_covered": false
+      },
+      "cobblestone_gather_observation": [
         {
-          "task_id": "task-4d30a1fe-01b5-4bbb-a0fe-79e4e1c61e82",
-          "goal": {
-            "count": 2,
-            "item_id": "minecraft:stick",
-            "skill": "craft"
-          }
-        },
-        {
-          "task_id": "task-3601121a-2d00-4ced-9fe3-90615465a9fb",
-          "goal": {
-            "count": 3,
-            "item_id": "minecraft:oak_planks",
-            "skill": "craft"
-          }
+          "task_id": "task-772bdab0-0b77-4519-9f88-6bb25b641be7",
+          "state": "failed",
+          "effect_status": "unknown",
+          "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE"
         }
       ],
-      "death_transitions": 2,
-      "sampled_ready_landings": 1,
-      "vision_states": {
-        "succeeded": 4,
-        "failed": 1
+      "inventory_change": {
+        "minecraft:dirt": 23,
+        "minecraft:oak_sapling": 2,
+        "minecraft:wheat_seeds": 2
       },
-      "formal_speech_completions": 6
+      "vision_states": {
+        "succeeded": 13,
+        "failed": 2
+      }
     },
     "formal_acceptance_advanced": 0,
     "github_publication": {
       "branch": "mc",
-      "source_commit": "64e0a2321d9da4c7052ab23dcf49a9887562fe1d",
+      "source_commit": "94223697967a84e5f70e7afa7aca1d8a79094f8e",
       "source_pushed_and_remote_verified": true,
       "documentation_published_with_this_revision": true
     }
@@ -2911,9 +2919,9 @@
     "continuous_survival_verified": false
   },
   "current_runtime_verification": {
-    "round": "092",
+    "round": "093",
     "remote_3080_tested": true,
-    "source_snapshot_sha256": "07813b5573a7dc6ebc903ad04b6d900cbc5d4fb2e2e9e284030733539677324b",
+    "source_snapshot_sha256": "120fc56896723b43bedbe0bc847a181cc4cf108422cc335265a892196c520145",
     "candidate_disabled": true,
     "keep_inventory_after_engine_save": true,
     "normal_save_stop_verified": true,
@@ -14146,6 +14154,22 @@
     "full_acceptance_pending": true,
     "github_push_pending": false,
     "source_commit": "64e0a2321d9da4c7052ab23dcf49a9887562fe1d",
+    "documentation_published_with_this_revision": true
+  },
+  "round093_follow_up": {
+    "implemented_ids": [
+      "I1088",
+      "I1089",
+      "I1090",
+      "I1091",
+      "I1092",
+      "I1093"
+    ],
+    "evidence": "docs/evidence/mc-runtime-round-093.json",
+    "report": "docs/technical/mc-live-v1/斜向寻路与093自主观察.md",
+    "full_acceptance_pending": true,
+    "github_push_pending": false,
+    "source_commit": "94223697967a84e5f70e7afa7aca1d8a79094f8e",
     "documentation_published_with_this_revision": true
   }
 }

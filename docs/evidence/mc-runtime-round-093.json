@@ -1,0 +1,1587 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261103-093",
+  "round": "093",
+  "at": "2026-11-03T04:09:24.103932+00:00",
+  "branch": "mc",
+  "scope": "BOUNDED_DIAGONAL_ROUTES_AND_SPRINT_OBSERVATION_NOT_COMPLETE_APPLICATION_ACCEPTANCE",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "local_application_tests": 0,
+  "virtualization_used": false,
+  "remote4090_connected": false,
+  "source_files": 1004,
+  "source_snapshot_sha256": "120fc56896723b43bedbe0bc847a181cc4cf108422cc335265a892196c520145",
+  "source_archive_sha256": "1e3bb63fa24d4811255e34e92dc111ce11f17fad20e3e61682a8eab8748ffeea",
+  "native_build": {
+    "sha256": "ffc083b2f2ac9d35fdc6fe65da3666a1a3b8beda98763b3a1d8ccc733083823e",
+    "bytes": 12536541,
+    "compiled_against": "actual_supplied_neoforge_21.1.248_mojmap_libraries",
+    "classes": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/build/classes-3d03ee98a8d943eba3de031e1442dc2a"
+  },
+  "unchanged_java_sources_vs_first_run": 273,
+  "before_portable_fix": {
+    "window_seconds": 300.91773414611816,
+    "observations": 286,
+    "death_transitions": 1,
+    "task_count": 51,
+    "task_states": {
+      "cancelled": 5,
+      "succeeded": 46
+    },
+    "verified_navigation": 24,
+    "formal_speech_completions": 14,
+    "diagonal_route_task_count": 21,
+    "sampled_max_diagonal_route_edges": 13,
+    "sampled_max_sprint_input_ticks": 43,
+    "sampled_max_observed_sprint_ticks": 49,
+    "death_inventory_checks": [
+      {
+        "at": 1793676696.4013703,
+        "before": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:oak_planks": 2,
+          "minecraft:rotten_flesh": 8,
+          "minecraft:stick": 4
+        },
+        "after": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:oak_planks": 2,
+          "minecraft:rotten_flesh": 8,
+          "minecraft:stick": 4
+        },
+        "all_previous_items_retained": true
+      }
+    ],
+    "source_commit": "bd1d25a56dce72c29de4234d6a88a1a324082ad7"
+  },
+  "checks": {
+    "core": {
+      "tests": 366,
+      "pass": 366,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "targeted_pass": 98,
+    "java_fixtures": [
+      {
+        "name": "EscapeLandingFixture",
+        "result": "PASS 13 escape landing observations; no world or input writes"
+      },
+      {
+        "name": "EscapeMotionFixture",
+        "result": "PASS 17 escape input boundaries; no world or movement writes"
+      },
+      {
+        "name": "PartialFootingFixture",
+        "result": "PASS 44 actual partial-footing boundaries; no world writes or input"
+      },
+      {
+        "name": "TerrainStepFixture",
+        "result": "terrain step boundaries passed: 21"
+      },
+      {
+        "name": "FrontierFixture",
+        "result": "PASS 9 frontier regression checks; no world writes or input"
+      },
+      {
+        "name": "DryDescentFixture",
+        "result": "PASS 19 roof-route and dry-descent regression checks; no world writes or input"
+      },
+      {
+        "name": "ArrivalRadiusFixture",
+        "result": "PASS arrival radius around an obstructed center, exact stance, already arrived, vertical gap and blocked edges\nPASS bounded reachable observations and leaf-clearance server/world/context receipt fences"
+      },
+      {
+        "name": "WaterRouteFixture",
+        "result": "PASS 8 water route admission boundaries; fixture terrain, no actual swimming"
+      },
+      {
+        "name": "NativeWorldFramesFixture",
+        "result": "PASS: 15 frame lifecycle checks; JVM_FIXTURE_NOT_DESKTOP_PRESENTATION"
+      },
+      {
+        "name": "RouteRecoveryFixture",
+        "result": "PASS 21 changed-corridor route checks; no actual movement or survival acceptance"
+      },
+      {
+        "name": "RouteRecoveryBudgetFixture",
+        "result": "PASS 87 original-task recovery and landing boundary checks; no game acceptance"
+      },
+      {
+        "name": "DiagonalRouteFixture",
+        "result": "PASS 57 diagonal support/corner/live-edge/search boundaries; no game input or world writes"
+      }
+    ],
+    "suites_overlap_do_not_sum": true,
+    "not_real_game_acceptance": true
+  },
+  "runtime": {
+    "observation_ok": true,
+    "window_seconds": 300.7173433303833,
+    "observations": 284,
+    "sampled_auto_alive_seconds_approx": 299.55372619628906,
+    "death_transitions": 0,
+    "normal_save_stop_ok": true,
+    "keep_inventory_after_engine_save": true,
+    "task_count": 17,
+    "task_states": {
+      "succeeded": 16,
+      "failed": 1
+    },
+    "task_reasons": {
+      "GAME_GATHER_RESOURCE_UNAVAILABLE": 1
+    },
+    "verified_navigation": 16,
+    "productive_tasks": [],
+    "sampled_route_failures": [],
+    "route_recovery_events": [],
+    "diagnostic_sampling_complete": false,
+    "narration_count": 25,
+    "narration_states": {
+      "failed": 3,
+      "answered": 6,
+      "discarded": 16
+    },
+    "visions": [
+      {
+        "frame_id": "frame-2be42b06-6a9f-4235-a4b1-213e72afbbe7",
+        "source_seq": 800,
+        "captured_at": "2026-11-03T04:01:12.872099500Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:01:13.566Z",
+        "image_sha256": "57469bc6bf825f83023fa09e5065fe4e2b0a9c7917933c96414bf95c6cc3cfd1",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 800,
+          "observed_at": "2026-11-03T04:01:12.772130100Z",
+          "sample_to_capture_ms": 100,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 4086,
+        "caption": "身处树冠较低的森林，地面为草地，周围有橡树与白桦树，散落着几支箭；未见明显敌对生物。右手持未知模组物品，左手为空。",
+        "visible_text": [
+          "坐标：1264 76 -86",
+          "生物群系：Forest"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2814,
+          "output_tokens": 88,
+          "total_tokens": 2902
+        }
+      },
+      {
+        "frame_id": "frame-18bd6a7b-dc3d-497f-8ab4-a4002919258d",
+        "source_seq": 1205,
+        "captured_at": "2026-11-03T04:01:33.100285200Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:01:33.556Z",
+        "image_sha256": "dcf9a5a754243ffbee687b2f64d946356638a22c1772e653bc791abfe1b843a2",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3268,
+        "caption": "森林地面草木茂密，中央近处是一棵橡木，准星对准树干；左侧有牛，周围树叶遮挡视野。",
+        "visible_text": [
+          "橡木 / Minecraft",
+          "小地图：Forest"
+        ],
+        "unknowns": [
+          "树叶间是否有其他生物或威胁不清楚"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 83,
+          "total_tokens": 2784
+        }
+      },
+      {
+        "frame_id": "frame-af11920c-9629-43f0-8f9a-84c8d66b2feb",
+        "source_seq": 1606,
+        "captured_at": "2026-11-03T04:01:53.138773800Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:01:53.604Z",
+        "image_sha256": "7ce96bee8ca0c06331a6bbef6dcf9807d75ebc7c816a9ee17a4fcefe9681b1f0",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3103,
+        "caption": "森林中紧贴一棵橡木树干，周围枝叶茂密；准星对着树干，画面未见明显敌对生物或即时危险。",
+        "visible_text": [
+          "Oak Log",
+          "Minecraft",
+          "Forest",
+          "坐标显示：1072 76 -78"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 75,
+          "total_tokens": 2776
+        }
+      },
+      {
+        "frame_id": "frame-6c514ecc-3678-48fd-aa4d-19eeaaad929c",
+        "source_seq": 2007,
+        "captured_at": "2026-11-03T04:02:13.174263100Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:02:13.686Z",
+        "image_sha256": "3e1860022ad0e206e3d0ed6777ea9b7b47343deed795b23cb75c603d0375f114",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 2007,
+          "observed_at": "2026-11-03T04:02:13.131301Z",
+          "sample_to_capture_ms": 43,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "failed",
+        "elapsed_ms": 736,
+        "code": "MODEL_PREEMPTED",
+        "usage": {
+          "input_tokens": null,
+          "output_tokens": null,
+          "total_tokens": null
+        }
+      },
+      {
+        "frame_id": "frame-f0efb690-2f2a-4493-abff-ccb576d192cd",
+        "source_seq": 2409,
+        "captured_at": "2026-11-03T04:02:33.305306800Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:02:33.828Z",
+        "image_sha256": "34b535246be38daf55241c29af63e4686cdf4be064ddfdf4e31a32f97056405a",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 4142,
+        "caption": "茂密森林中树干、低垂树冠和草地遮挡视野，前方有一头牛，地面散落多件物品；右侧草丛附近有红色叉形标记。",
+        "visible_text": [
+          "小地图下方显示“1281 76 -84”",
+          "生物群系显示“Forest”"
+        ],
+        "unknowns": [
+          "地面散落物品的具体种类不明",
+          "红色叉形标记的含义不明"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 115,
+          "total_tokens": 2816
+        }
+      },
+      {
+        "frame_id": "frame-39e2e482-19b7-488c-8fdb-370790fef7e6",
+        "source_seq": 2811,
+        "captured_at": "2026-11-03T04:02:53.382298900Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:02:54.084Z",
+        "image_sha256": "3d7de448a1a0ebe61be804b0a0e249cbb7e91f1c60ea50a6114d4865ef23627f",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 2811,
+          "observed_at": "2026-11-03T04:02:53.308295800Z",
+          "sample_to_capture_ms": 74,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "failed",
+        "elapsed_ms": 1154,
+        "code": "MODEL_PREEMPTED",
+        "usage": {
+          "input_tokens": null,
+          "output_tokens": null,
+          "total_tokens": null
+        }
+      },
+      {
+        "frame_id": "frame-238e2e22-68c6-4447-9aa4-8239dc63c1ce",
+        "source_seq": 3212,
+        "captured_at": "2026-11-03T04:03:13.424255800Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:03:13.855Z",
+        "image_sha256": "6c7abe5aa47786afe131df7e2ec9af20249d1041f272068cdac5250cf1b9a132",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 2947,
+        "caption": "视角贴近草方块与泥土构成的狭窄凹处，准星对着草方块侧面；画面未见明显敌对生物或即时危险。",
+        "visible_text": [
+          "方块提示：Grass Block / Minecraft",
+          "小地图显示 Forest；坐标样式文字为1287 75 -94"
+        ],
+        "unknowns": [
+          "右下大型浅色物体具体是什么不明"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 99,
+          "total_tokens": 2800
+        }
+      },
+      {
+        "frame_id": "frame-58ce541f-0fc6-40a6-af96-665cc79c501b",
+        "source_seq": 3613,
+        "captured_at": "2026-11-03T04:03:33.468521Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:03:33.972Z",
+        "image_sha256": "c5701239ae6a9e11cb9b9aaa4f8ab6d9582f92e696fb44d8feb77f21cf62f9e2",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3805,
+        "caption": "白天的森林地面长满草，橡树与白桦树环绕；树间可见工作台，右侧有一只羊，未见明显敌对生物。",
+        "visible_text": [
+          "地图标注坐标“1284 76 -99”",
+          "地图标注生物群系“Forest”"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 84,
+          "total_tokens": 2785
+        }
+      },
+      {
+        "frame_id": "frame-9fb0a0ff-842d-4b8f-9184-cb03c30774fc",
+        "source_seq": 4014,
+        "captured_at": "2026-11-03T04:03:53.626405700Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:03:54.144Z",
+        "image_sha256": "0c62b8e844b1721c31e0f702205ea3078dfd42d2205b91867accfff3d2352c88",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 4014,
+          "observed_at": "2026-11-03T04:03:53.481473300Z",
+          "sample_to_capture_ms": 145,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5122,
+        "caption": "白桦与橡树组成的森林，地面覆草，左侧露出工作台；准星对准草方块，未见明显敌对生物。主手为未知模组物品。",
+        "visible_text": [
+          "Short Grass",
+          "Project: Vibrant Journeys",
+          "Forest",
+          "1261 76 -99"
+        ],
+        "unknowns": [
+          "地上的白色与棕色小物体无法确认种类",
+          "主手物品 gravestone:obituary 的具体用途未知"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 260,
+          "total_tokens": 3075
+        }
+      },
+      {
+        "frame_id": "frame-6957a6e6-3b02-477b-b008-2f00a3c2842e",
+        "source_seq": 4415,
+        "captured_at": "2026-11-03T04:04:13.592389Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:04:14.073Z",
+        "image_sha256": "73ae408050af0216730b1171136f7a73d64ffeeb4a5a17de43d5c049ee376a41",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3536,
+        "caption": "森林草地空地，周围是密集树木；前方有牛和羊，地上散落箭矢及棕色物品，右侧树旁有工作台。",
+        "visible_text": [
+          "顶部提示“Short Grass / Project: Vibrant Journeys”",
+          "小地图显示 Forest；坐标文字为1250 76 -98",
+          "牛羊上方可见名称与状态条"
+        ],
+        "unknowns": [
+          "地上棕色散落物品具体种类不明",
+          "远处红色标记含义不明"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 126,
+          "total_tokens": 2827
+        }
+      },
+      {
+        "frame_id": "frame-cc91219d-4134-4fed-a517-b04bd668e7b1",
+        "source_seq": 4816,
+        "captured_at": "2026-11-03T04:04:33.616229200Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:04:34.171Z",
+        "image_sha256": "ee0e64bab7469d1a689b8e2a47ce01bb944dc9f5933807f3dc187074b2871038",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 10324,
+        "caption": "森林地面长满草，橡树与白桦树干、茂密树冠遮挡视野；地上散落几根骨头，未见生物或明显即时危险。",
+        "visible_text": [
+          "小地图显示“Forest”",
+          "小地图下方显示“1261 76 -98”"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 82,
+          "total_tokens": 2783
+        }
+      },
+      {
+        "frame_id": "frame-510bc15f-909c-431a-bc20-fed056b12858",
+        "source_seq": 5217,
+        "captured_at": "2026-11-03T04:04:53.695151300Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:04:54.170Z",
+        "image_sha256": "68d53c84d0bc1cf24c77513eda7df1d4190adf47479d2f12016f6028aa3d9f8c",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 5217,
+          "observed_at": "2026-11-03T04:04:53.635175300Z",
+          "sample_to_capture_ms": 60,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3853,
+        "caption": "森林生物群系的草地林间，有橡树与白桦树，视野较暗；地面散落白色物件，左侧有红色叉号标记。手持物为未知物品。",
+        "visible_text": [
+          "1261 76 -98",
+          "Forest"
+        ],
+        "unknowns": [
+          "地面白色物件的种类不明"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 89,
+          "total_tokens": 2904
+        }
+      },
+      {
+        "frame_id": "frame-df514335-a9e8-4adc-b563-2191f169d10d",
+        "source_seq": 5619,
+        "captured_at": "2026-11-03T04:05:13.789880100Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:05:14.283Z",
+        "image_sha256": "43ad98383545dfa77677939672bb6ba909a0ce6d2d74296e99348895368207bc",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 5619,
+          "observed_at": "2026-11-03T04:05:13.721902200Z",
+          "sample_to_capture_ms": 68,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5521,
+        "caption": "森林生物群系的草地林间空地，周围有橡树与白桦树；地面散落几件物品。手持未知模组物品，未见明显敌对生物。",
+        "visible_text": [
+          "1261 76 -98",
+          "Forest"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 75,
+          "total_tokens": 2890
+        }
+      },
+      {
+        "frame_id": "frame-d6db4e79-d7d5-41b9-bcf3-ce5ac5387090",
+        "source_seq": 6020,
+        "captured_at": "2026-11-03T04:05:33.823833300Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:05:34.322Z",
+        "image_sha256": "023acf499102a84c1cc2bd6ca6a214617d6e23b4676ee246e0b4a42d22163604",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5052,
+        "caption": "森林中树木密集，地面长满草，近处有一只白羊；画面未见明显敌对生物。底部显示生命值、饥饿值和快捷栏。",
+        "visible_text": [
+          "羊：100%",
+          "1261 76 -98",
+          "Forest"
+        ],
+        "unknowns": [
+          "画面中的红色叉号用途不明。"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 223,
+          "total_tokens": 2924
+        }
+      },
+      {
+        "frame_id": "frame-4eab548e-0261-4cce-af7b-c6c926ddde54",
+        "source_seq": 6421,
+        "captured_at": "2026-11-03T04:05:53.910327100Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:05:54.393Z",
+        "image_sha256": "0fd4cfa9a655e274f0da194b1224806310fbe9a59447f02b4227a42b5547784d",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3754,
+        "caption": "茂密森林地面有草丛与橡树、白桦树干，树冠遮挡视野；左上方露出红色光柱，林间可见红色标记。",
+        "visible_text": [
+          "右上小地图下方：1261 76 -98",
+          "右上小地图下方：Forest"
+        ],
+        "unknowns": [
+          "林间红色标记所指目标不明",
+          "地面浅色物体身份不明"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 108,
+          "total_tokens": 2809
+        }
+      }
+    ],
+    "ordinary_respawns_confirmed": 0,
+    "transferred_files": 35,
+    "narration_reasons": {
+      "STREAM_CONTEXT_BUDGET": 3,
+      "INTERMEDIATE_NAVIGATION_SUPPRESSED": 16
+    },
+    "landing_recovery_events": [
+      {
+        "observed_at": "2026-11-03T04:02:41.759100100Z",
+        "task_id": "task-772bdab0-0b77-4519-9f88-6bb25b641be7",
+        "stage": "observing_landing",
+        "state": "READY",
+        "episode_ticks": 2,
+        "total_ticks": 2,
+        "episodes": 1,
+        "episode_limit": 20,
+        "task_limit": 40,
+        "position": {
+          "x": 1282.7052480359018,
+          "y": 76.0,
+          "z": -83.23491654540311
+        },
+        "on_ground": true,
+        "in_water": false,
+        "original_deadline_retained": true,
+        "progress_clock_reset": false,
+        "velocity_or_position_written": false
+      }
+    ],
+    "sampled_ready_landings": 1,
+    "landing_task_outcomes": [
+      {
+        "task_id": "task-772bdab0-0b77-4519-9f88-6bb25b641be7",
+        "episode": 1,
+        "state": "failed",
+        "effect_status": "unknown"
+      }
+    ],
+    "route_recovery_task_max": 0,
+    "landing_wait_task_max": 2,
+    "vision_states": {
+      "succeeded": 13,
+      "failed": 2
+    },
+    "vision_grounding_bindings": {
+      "frame_source_seq": 6,
+      "unavailable": 9
+    },
+    "vision_grounding_exact_source_verified": true,
+    "successful_vision_latency_ms": [
+      4086,
+      3268,
+      3103,
+      4142,
+      2947,
+      3805,
+      5122,
+      3536,
+      10324,
+      3853,
+      5521,
+      5052,
+      3754
+    ],
+    "successful_vision_mean_ms": 4501,
+    "successful_captions_mentioning_shield": [],
+    "death_inventory_checks": [],
+    "first_inventory": {
+      "cottonly:cotton_seeds": 2,
+      "gravestone:obituary": 1,
+      "minecraft:crafting_table": 1,
+      "minecraft:oak_planks": 3,
+      "minecraft:oak_sapling": 3,
+      "minecraft:rotten_flesh": 8,
+      "minecraft:stick": 2,
+      "minecraft:wooden_pickaxe": 1
+    },
+    "last_inventory": {
+      "cottonly:cotton_seeds": 2,
+      "gravestone:obituary": 1,
+      "minecraft:crafting_table": 1,
+      "minecraft:dirt": 23,
+      "minecraft:oak_planks": 3,
+      "minecraft:oak_sapling": 5,
+      "minecraft:rotten_flesh": 8,
+      "minecraft:stick": 2,
+      "minecraft:wheat_seeds": 2,
+      "minecraft:wooden_pickaxe": 1
+    },
+    "final_playback_audit": {
+      "scope": "READ_ONLY_SAME_BROADCAST_AFTER_NORMAL_STOP",
+      "broadcast_id": "bc-f0b352e9-4754-4a93-a060-56cde157a885",
+      "states": {
+        "discarded": 16,
+        "answered": 6,
+        "failed": 3
+      },
+      "completed_formal_utterances": 6,
+      "items": [
+        {
+          "narration_id": "narr-891fea12b3b0bf929c647d1d6e629e9b02c4fc06",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-f9539d415a8ffe1807768e166afbce745b02eb55",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-0a9a3c7d24a9142db849e746df9fd31323866d13",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-26157177020b9e15379654ac7ce0e36603543724",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-934b4288-e671-4c6b-b0f6-92d49396cbd3",
+          "completion_event_seq": 2676,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2676
+          }
+        },
+        {
+          "narration_id": "narr-5419f29af7d33ba850ba4e858d5443b08a47c05b",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-f8dabddc3fabf05a15aba75f8c27dcd060e132d0",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-4b6e9f52b45a783844a055c46823fedeb717fef2",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-6cadc2fec0572c133ac13e85ab9a25642a14e7f7",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-44dbe778122ae7a41c670232dc6d324ead194d39",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-b51bc2c8-193a-4b5c-8b1c-6dda334f4d30",
+          "completion_event_seq": 2683,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2683
+          }
+        },
+        {
+          "narration_id": "narr-95a7990878c3d71dc474a8602ca8fd72ced84afa",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-529a1fe70a1a4b4aeaca67289ca7ed266ec8de34",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-9387c05d9fdd3adc7568136e2d58e980089f7020",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-c25ad622-0087-47ac-8bfc-764156d066b0",
+          "completion_event_seq": 2690,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2690
+          }
+        },
+        {
+          "narration_id": "narr-5c0dfb6faa8b1153f7ec5e9a6b7dbeefa50f7a46",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-0fff7dd6-d73d-470f-85c8-c5b62ad5fe8e",
+          "completion_event_seq": 2697,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2697
+          }
+        },
+        {
+          "narration_id": "narr-9e718bf9226894d06e8c1058e0374def20f70930",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-646b37229fba8d794434bec57db33463664c1431",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-6d5153e0706341e4237ca27c589b521db848a798",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-e43a7edbaaf6fc82ece67e4fb9498818469ac45a",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-7b770c904354d181336c604b802080795b3078ff",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-397a2d9bb945199b324e804312eda8a863b19fdb",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-4b74eba5-90d4-4afb-8d25-0030981ce9af",
+          "completion_event_seq": 2704,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2704
+          }
+        },
+        {
+          "narration_id": "narr-4ecabef515e3720d3e5888ea8f42abf6336be4a9",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-2e4ab3c3d527013cb952d368c78b19f126debf26",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-acf15009a15359ba636e6b348bc0ec26f15f6935",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-9c3eb12e-1c51-4788-a52c-95c9f1c71a07",
+          "completion_event_seq": 2711,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2711
+          }
+        },
+        {
+          "narration_id": "narr-fb49676fcbe3b9800b41009ee94463f6c57a39a9",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-b0efc119-6ca1-49d4-8f19-35fcac3f87e0",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-ff1e7e2cc0095125af0123935a8f45cda54f47ef",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-602005a6-3673-4d04-8e1c-6d2dd7f3c475",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-8735a069a5dc4fedf5c2155bebc79d76dc86e257",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-0f0cb48a-ddca-44a5-ad85-391c5df5f6ae",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        }
+      ],
+      "database_writes": 0
+    },
+    "formal_speech_completions": 6,
+    "final_task_audit": {
+      "scope": "READ_ONLY_ALL_WORLD_SESSION_TASKS_AFTER_NORMAL_STOP",
+      "database_writes": 0,
+      "items": [
+        {
+          "task_id": "task-20d8a245-335d-426f-9a91-2880661f046c",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1272,
+              "y": 76,
+              "z": -86
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:01:16.822623900Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-efaece62-ab9e-433a-a841-83ba0bcd4530",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1280,
+              "y": 76,
+              "z": -86
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:01:23.954464100Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-7ba86eb6-412b-4063-a860-78c5298b0675",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1288,
+              "y": 76,
+              "z": -86
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:01:30.940661200Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-56a4fccf-7ba0-4b3a-bea9-83b179545d9a",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1280,
+              "y": 76,
+              "z": -78
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:01:42.218005900Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-4fbcb80b-c7bc-4f0e-92b2-53324243d0e2",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1272,
+              "y": 76,
+              "z": -78
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:01:50.245619Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-966eb299-6bdc-4ea4-b52a-4eab1cb2c38b",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1264,
+              "y": 76,
+              "z": -76
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:02:01.212220400Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-a401c848-1b52-40ad-ad14-72100e1bb6f9",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1272,
+              "y": 76,
+              "z": -76
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:02:11.763709800Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-61a3ddcd-94e0-410c-92e8-e30314953d96",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1280,
+              "y": 76,
+              "z": -76
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:02:19.078014200Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-1beeaf58-fb31-43cc-a8c0-44509f9d2322",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1281,
+              "y": 76,
+              "z": -84
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:02:30.121532800Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-772bdab0-0b77-4519-9f88-6bb25b641be7",
+          "goal": {
+            "count": 3,
+            "item_id": "minecraft:cobblestone",
+            "skill": "gather"
+          },
+          "state": "failed",
+          "effect_status": "unknown",
+          "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE",
+          "version": 3,
+          "updated_at": "2026-11-03T04:03:28.438768500Z",
+          "before_pause_snapshot_state": "failed",
+          "last_native_transition": {
+            "state": "failed",
+            "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-41c2e9a0-679e-4672-a58c-a397d309aa17",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1277,
+              "y": 76,
+              "z": -99
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:03:35.424955200Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-40b528f7-d320-416a-bfe2-e261865d9ac3",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1269,
+              "y": 76,
+              "z": -99
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:03:42.368481400Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-e70902d7-00d1-4078-984c-1a59d4889a9a",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1261,
+              "y": 76,
+              "z": -99
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:03:48.972258100Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-f89d1ea1-e0c4-4cb0-87e1-673fa150026a",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1253,
+              "y": 76,
+              "z": -99
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:03:56.881452300Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-32c51ab6-3ce6-4c7e-8e6f-2a3abf60e59f",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1245,
+              "y": 76,
+              "z": -98
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:04:07.737214900Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-69b13a22-8591-4167-83d4-6b9afb399586",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1253,
+              "y": 76,
+              "z": -98
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:04:14.586271900Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-4c530bac-8a8c-4dfc-9338-96e8eceff752",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1261,
+              "y": 76,
+              "z": -98
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:04:21.134909400Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        }
+      ],
+      "recorded_before_pause": 17,
+      "all_world_session_task_count": 17,
+      "additional_task_ids_after_snapshot": [],
+      "final_task_states": {
+        "succeeded": 16,
+        "failed": 1
+      },
+      "final_task_reasons": {
+        "GAME_GATHER_RESOURCE_UNAVAILABLE": 1
+      },
+      "nonterminal_count": 0
+    },
+    "task_states_before_pause": {
+      "succeeded": 16,
+      "failed": 1
+    },
+    "task_reasons_before_pause": {
+      "GAME_GATHER_RESOURCE_UNAVAILABLE": 1
+    },
+    "task_count_before_pause": 17,
+    "workstation_observation": {
+      "crafted_table_tasks": 0,
+      "placed_table_tasks": 0,
+      "tables_before": 1,
+      "tables_after": 1,
+      "on_demand_native_crafting_stage_covered": false
+    },
+    "cobblestone_gather_observation": [
+      {
+        "task_id": "task-772bdab0-0b77-4519-9f88-6bb25b641be7",
+        "state": "failed",
+        "effect_status": "unknown",
+        "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE"
+      }
+    ],
+    "inventory_change": {
+      "minecraft:dirt": 23,
+      "minecraft:oak_sapling": 2,
+      "minecraft:wheat_seeds": 2
+    },
+    "native_world_pause_confirmed": true,
+    "audio_drain_vitals": {
+      "health_before": 20,
+      "health_after": 20,
+      "world_time_before": 204403,
+      "world_time_after": 204403
+    },
+    "diagonal_route_task_count": 4,
+    "sampled_max_diagonal_route_edges": 8,
+    "sampled_max_sprint_input_ticks": 0,
+    "sampled_max_observed_sprint_ticks": 0,
+    "task_history_became_stable_after_stop": true,
+    "no_manual_gameplay": true,
+    "not_performance_or_long_survival_acceptance": true,
+    "verified_non_navigation_by_skill": {},
+    "verified_non_navigation_by_item": {}
+  },
+  "services_ready": true,
+  "application_ready": false,
+  "keep_inventory_after_engine_save": true,
+  "saved_world_sha256": "b5125dbbe2d1d4e8c6d51d337475264355c4e84d9e37ea118370164a5caf1c9a",
+  "original_world_backup_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
+  "normal_game_exit": {
+    "exit_code": 0,
+    "graceful_close_requested": true,
+    "all_owned_processes_closed": true,
+    "bounded_job_cleanup_required": null
+  },
+  "owned_services_after_stop": {
+    "dsh": false,
+    "avatar": false,
+    "tts": false,
+    "receiver": false,
+    "vision": false,
+    "minecraft": false
+  },
+  "official_clients_preserved": true,
+  "candidate_disabled": true,
+  "internal_broadcast_closed": true,
+  "worker_task_submissions": 0,
+  "game_keys_issued": 0,
+  "manual_takeover": false,
+  "world_reset": false,
+  "inventory_injection": false,
+  "public_broadcast_started": false,
+  "formal_acceptance_advanced": 0,
+  "formal_acceptance_passed": 0,
+  "new_avatar_clips": 0,
+  "inherited_todos_open": 117,
+  "new_video_recorded": false,
+  "new_ui_or_resource_benchmark": false,
+  "report": "docs/technical/mc-live-v1/斜向寻路与093自主观察.md",
+  "github_publication": {
+    "branch": "mc",
+    "source_commit": "94223697967a84e5f70e7afa7aca1d8a79094f8e",
+    "source_pushed_and_remote_verified": true,
+    "documentation_published_with_this_revision": true
+  },
+  "read_only_audit_sha256": {
+    "playback": "d00a9f59b7f8b1e09f1374024c58a22688e0a939e696d45789bcd75595e95efd",
+    "tasks": "c639f329a24f1333b5680e713c9a75804d8c9684b4f11e00b38631627f1b6713"
+  },
+  "transport_cleanup": {
+    "ok": true,
+    "purpose": "BYTE_TRANSFER_HELPER_CLOSED_AFTER_EVIDENCE_VERIFICATION",
+    "pid": 6568,
+    "creation_time_verified": true,
+    "command_path_verified": true,
+    "listener_owner_verified": true,
+    "port": 2526,
+    "listeners_after": 0,
+    "unrelated_processes_stopped": false,
+    "browser_contexts_opened": 0,
+    "at": "2026-11-03T04:09:08.3259909Z"
+  },
+  "browser_contexts_opened_this_round": 0,
+  "initial_observation_failure": {
+    "cause": "WORKER_PORT_REPLACED_WITH_ROUND_NUMBER",
+    "observations": 0,
+    "worker_auto_requests": 0,
+    "preserved": true,
+    "corrected_run": "093b"
+  }
+}
