@@ -42,6 +42,11 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
     private BlockPos blockTarget;
     private BlockPos coverTarget;
     private Point coverApproach;
+    private NativeStepReceipt coverReceipt;
+    private int coverPackets,soilDescentSteps;
+    private BlockPos soilSource;
+    private Point soilDestination;
+    private final List<JsonObject> coverEvidence=new ArrayList<>();
     private BlockPos leafCut;
     private NativeStepReceipt leafReceipt;
     private final Set<BlockPos> leafCuts = new HashSet<>();
@@ -158,6 +163,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         blockedSources.entrySet().removeIf(row -> now()-row.getValue()>60000);
         scope = inputs.scope(); path.clear(); pathGoal = destination = null; blockTarget = null;
         miningStance = null; coverTarget=null;coverApproach=null;excavatedCover.clear();skippedSources.clear(); skippedDrops.clear();
+        coverReceipt=null;coverPackets=soilDescentSteps=0;soilSource=null;soilDestination=null;coverEvidence.clear();
         pickupExclusionFeet=feet();gatherRouteGoal=null;
         leafCut=null;leafReceipt=null;leafCuts.clear();
         stalledApproaches=0;
@@ -627,8 +633,8 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         return Set.of(Blocks.STONE,Blocks.DEEPSLATE,Blocks.TUFF,Blocks.GRANITE,Blocks.DIORITE,Blocks.ANDESITE,
                 Blocks.DIRT,Blocks.GRASS_BLOCK,Blocks.COARSE_DIRT,Blocks.ROOTED_DIRT,Blocks.PODZOL,Blocks.MYCELIUM).contains(state.getBlock());
     }
-    private NativeStepPlan.Step stepPlan(Point goal) {
-        return NativeStepPlan.choose(new NativeStepPlan.Terrain() {
+    private NativeStepPlan.Terrain stepTerrain(boolean soilOnly) {
+        return new NativeStepPlan.Terrain() {
             public boolean destination(Point p) { return stand(p); }
             public boolean support(Point p) {
                 BlockPos at=pos(p);
@@ -644,9 +650,27 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
                 BlockState state=client.level.getBlockState(at);
                 if(!state.getFluidState().isEmpty() || hazardous(state) || state.hasBlockEntity())return NativeStepPlan.Cell.BLOCKED;
                 if(state.getCollisionShape(client.level,at).isEmpty())return NativeStepPlan.Cell.CLEAR;
-                return plainRockOrSoil(state) && safeBreak(at)?NativeStepPlan.Cell.CUT:NativeStepPlan.Cell.BLOCKED;
+                return (soilOnly?soil(state):plainRockOrSoil(state)) && safeBreak(at)?NativeStepPlan.Cell.CUT:NativeStepPlan.Cell.BLOCKED;
             }
-        },feet(),goal);
+        };
+    }
+    private NativeStepPlan.Step stepPlan(Point goal) {
+        return NativeStepPlan.choose(stepTerrain(false),feet(),goal);
+    }
+    private NativeStepPlan.Step soilPlan(BlockPos source) {
+        return NativeSoilDescent.choose(stepTerrain(true),feet(),point(source),wanted==Items.COBBLESTONE
+                && client.level.hasChunkAt(source) && this.source(client.level.getBlockState(source),Items.COBBLESTONE));
+    }
+    private boolean beginSoilDescent(BlockPos source) {
+        if(stair!=null || !client.player.onGround() || stairSteps>=8 || stairCuts+excavatedCover.size()>=24
+                || stairStarted!=0 && now()-stairStarted>120000)return false;
+        var plan=soilPlan(source);if(plan==null)return false;
+        scope.move(0,false,control,permit);scope.stopMining(control,permit);
+        soilSource=source.immutable();soilDestination=plan.to();stair=plan;stairCleared.clear();
+        path.clear();pathGoal=soilDestination;pathRadius=0;
+        if(stairStarted==0)stairStarted=now();
+        // Admission is not progress. The original deadline/no-progress clock remains active.
+        return true;
     }
     private boolean beginStair(Point goal) {
         if(stairSteps>=8 || stairCuts>=24 || stairStarted!=0 && now()-stairStarted>120000)return false;
@@ -691,12 +715,13 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
                     && (stairCut==null || stairCut.equals(ray.getBlockPos()))) { hit=ray;break; }
         }
         if(hit==null || !safeBreak(hit.getBlockPos()) || !plainRockOrSoil(client.level.getBlockState(hit.getBlockPos()))
+                || soilDestination!=null && !soil(client.level.getBlockState(hit.getBlockPos()))
                 || client.player.getEyePosition().distanceToSqr(hit.getLocation())>Math.pow(client.player.blockInteractionRange(),2))
             throw new LocalTaskFailure(NAVIGATION_NO_ROUTE);
         int selected=tools.prepare(client.level.getBlockState(hit.getBlockPos()));if(selected<0)return false;
         scope.select(selected,control,permit);aim(hit.getLocation());
         if(stairCut==null) {
-            if(stairCuts>=24)throw new LocalTaskFailure(NAVIGATION_NO_PROGRESS);
+            if(stairCuts+excavatedCover.size()>=24)throw new LocalTaskFailure(NAVIGATION_NO_PROGRESS);
             stairCut=hit.getBlockPos().immutable();stairReceipt=new NativeStepReceipt(point(stairCut),this::stairContext,NativeTravel::now);stairCuts++;
         }
         scope.mine(stairCut,hit.getDirection(),control,permit);return false;
@@ -706,6 +731,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         skippedDrops.clear();
         if(stairReceipt!=null)stairReceipt.packet(point(at),state.isAir());
         if(leafReceipt!=null)leafReceipt.packet(point(at),state.isAir());
+        if(coverReceipt!=null)coverReceipt.packet(point(at),state.isAir());
     }
     private static boolean resourceSupported(Item item) {
         if (NativeFoodPlan.gatherable(BuiltInRegistries.ITEM.getKey(item).toString())) return true;
@@ -747,6 +773,12 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
     }
     private BlockPos findBlock(Item item, Set<BlockPos> excluded) {
         blockedSources.entrySet().removeIf(row -> now()-row.getValue()>60000);
+        // Keep the received rock target across its soil cuts and descent steps.
+        // Reselecting every exposed dirt face exhausted the budget without reaching stone.
+        if(!closed && gather && item==wanted && excluded==skippedSources && soilSource!=null
+                && item==Items.COBBLESTONE && !excluded.contains(soilSource)
+                && !blockedSources.containsKey(soilSource) && client.level.hasChunkAt(soilSource)
+                && source(client.level.getBlockState(soilSource),item) && safeBreak(soilSource))return soilSource;
         BlockPos origin = client.player.blockPosition(), closest = null; double distance = Double.POSITIVE_INFINITY;
         int depth=item==Items.COBBLESTONE?12:6;
         for (int y = -depth; y <= 6; y++) for (int x = -12; x <= 12; x++) for (int z = -12; z <= 12; z++) {
@@ -771,7 +803,8 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         for (int search = 0; search < 3; search++) {
             var target = findBlock(item, excluded);
             if (target == null) return false;
-            if (sight(target) != null || stance(target) != null || soilCover(target, item) != null) return true;
+            if (sight(target) != null || stance(target) != null || soilCover(target, item) != null
+                    || NativeSoilDescent.choose(stepTerrain(true),feet(),point(target),item==Items.COBBLESTONE)!=null) return true;
             excluded.add(target);
         }
         return false;
@@ -795,12 +828,31 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         return hit;
     }
     private boolean clearSoilCover(BlockPos source){
-        if(excavatedCover.size()>=24)return false;
+        if(excavatedCover.size()+stairCuts>=24)return false;
         var hit=soilCover(source,wanted);if(hit==null)return false;
         // Only the first actual obstruction on the ray to known stone, never the player's support or an unknown tunnel.
-        coverTarget=hit.getBlockPos().immutable();excavatedCover.add(coverTarget);
-        scope.move(0,false,control,permit);int selected=tool(client.level.getBlockState(coverTarget));
-        if(selected<0)return true;scope.select(selected,control,permit);aim(hit.getLocation());scope.mine(coverTarget,hit.getDirection(),control,permit);return true;
+        scope.move(0,false,control,permit);int selected=tool(client.level.getBlockState(hit.getBlockPos()));
+        if(selected<0)return true;
+        soilSource=source.immutable();coverTarget=hit.getBlockPos().immutable();excavatedCover.add(coverTarget);
+        coverReceipt=new NativeStepReceipt(point(coverTarget),this::stairContext,NativeTravel::now);
+        scope.select(selected,control,permit);aim(hit.getLocation());scope.mine(coverTarget,hit.getDirection(),control,permit);return true;
+    }
+    private boolean continueSoilCover() {
+        if(coverReceipt==null)return false;
+        var state=client.level.getBlockState(coverTarget);
+        if(coverReceipt.confirmed(state.isAir())) {
+            scope.stopMining(control,permit);coverPackets+=coverReceipt.packets();
+            coverEvidence.add(obj("x",coverTarget.getX(),"y",coverTarget.getY(),"z",coverTarget.getZ(),
+                    "server_packets",coverReceipt.packets(),"server_confirmed_clear",true));
+            Point next=point(coverTarget);
+            if(stand(next,true) && NativeWalkPlanner.find(terrain(true),feet(),next,0,256).reachesGoal())coverApproach=next;
+            coverReceipt.close();coverReceipt=null;coverTarget=null;progressAt=now();return false;
+        }
+        scope.move(0,false,control,permit);
+        if(state.isAir()){scope.stopMining(control,permit);return true;}
+        if(!soil(state) || !safeBreak(coverTarget))throw new LocalTaskFailure(GATHER_BLOCK_FORBIDDEN);
+        var hit=sight(coverTarget);if(hit==null)throw new LocalTaskFailure(GATHER_NO_PROGRESS);
+        aim(hit.getLocation());scope.mine(coverTarget,hit.getDirection(),control,permit);return true;
     }
     private boolean safeBreak(BlockPos at) {
         if (!client.level.hasChunkAt(at) || !client.level.getWorldBorder().isWithinBounds(at)) return false;
@@ -875,15 +927,20 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
     }
     private void collect() {
         if(!feet().equals(pickupExclusionFeet)){skippedDrops.clear();pickupExclusionFeet=feet();}
+        if(soilDestination!=null) {
+            if(soilSource==null || !client.level.hasChunkAt(soilSource)
+                    || !source(client.level.getBlockState(soilSource),wanted))throw new LocalTaskFailure(GATHER_RESOURCE_UNAVAILABLE);
+            if(walk(soilDestination,0)) {
+                if(stair!=null){stairSteps++;stair=null;stairCleared.clear();}
+                soilDescentSteps++;soilDestination=null;blockTarget=null;miningStance=null;
+                path.clear();pathGoal=null;gatherRouteGoal=null;
+            }
+            return;
+        }
         // Keep the admitted collection approach fixed while a bounded, server-
         // acknowledged stair step is in progress; a new drop cannot redirect it.
         if(stair!=null && gatherRouteGoal!=null){walk(gatherRouteGoal,0);return;}
-        if(coverTarget!=null && !soil(client.level.getBlockState(coverTarget))){
-            scope.stopMining(control,permit);
-            Point next=point(coverTarget);
-            if(stand(next,true) && NativeWalkPlanner.find(terrain(true),feet(),next,0,256).reachesGoal())coverApproach=next;
-            coverTarget=null;progressAt=now();
-        }
+        if(continueSoilCover())return;
         if(coverApproach!=null) {
             try {if(!walk(coverApproach,0))return;}
             catch(LocalTaskFailure changed){if(changed.reason!=NAVIGATION_NO_ROUTE)throw changed;
@@ -924,7 +981,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
                 if (blockTarget == null) throw new LocalTaskFailure(GATHER_RESOURCE_UNAVAILABLE);
                 miningStance = sight(blockTarget) != null ? feet() : stance(blockTarget);
                 if (miningStance != null) { miningAt = 0; break; }
-                if(clearSoilCover(blockTarget)){blockTarget=null;return;}
+                if(beginSoilDescent(blockTarget) || clearSoilCover(blockTarget)){blockTarget=null;return;}
                 skippedSources.add(blockTarget); blockTarget = null;
                 if(skippedSources.size()>=64)throw new LocalTaskFailure(GATHER_RESOURCE_UNAVAILABLE);
             }
@@ -955,7 +1012,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
                 scope.stopMining(control, permit); scope.move(0, false, control, permit);
                 skippedSources.add(blockTarget); blockTarget = null; miningStance = null; path.clear(); return;
             }
-            if(clearSoilCover(blockTarget))return;
+            if(beginSoilDescent(blockTarget) || clearSoilCover(blockTarget))return;
             // A wood target may be covered by foliage. Clear only the actual visible, non-support leaf.
             var visible = client.level.clip(new ClipContext(client.player.getEyePosition(), targetPoint(blockTarget),
                     ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, client.player));
@@ -981,7 +1038,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         scope.look((float) Math.toDegrees(Math.atan2(-delta.x, delta.z)),
                 (float) -Math.toDegrees(Math.atan2(delta.y, Math.hypot(delta.x, delta.z))), control, permit);
     }
-    private void stop() { if(leafReceipt!=null)leafReceipt.close();if(stairReceipt!=null)stairReceipt.close();if(tools!=null)tools.close();if (scope != null) scope.release(); closed = true; path.clear(); }
+    private void stop() { if(coverReceipt!=null)coverReceipt.close();if(leafReceipt!=null)leafReceipt.close();if(stairReceipt!=null)stairReceipt.close();if(tools!=null)tools.close();if (scope != null) scope.release(); closed = true; path.clear(); }
     int clickRevision(int original){return tools==null?original:tools.clickRevision(original);}
     void inventory(net.minecraft.network.protocol.game.ClientboundContainerSetContentPacket packet){if(tools!=null)tools.inventory(packet);}
     @Override public void cancel() { stop(); }
@@ -1002,6 +1059,10 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
                 "mining_stance",miningStance==null?null:obj("x",miningStance.x(),"y",miningStance.y(),"z",miningStance.z()),
                 "mining_elapsed_ms",miningAt==0?0:now()-miningAt,
                 "soil_cover_blocks_attempted",excavatedCover.size(),
+                "soil_cover_server_packets",coverPackets,"soil_cover_confirmed_cuts",coverEvidence,
+                "soil_descent",obj("source",soilSource==null?null:obj("x",soilSource.getX(),"y",soilSource.getY(),"z",soilSource.getZ()),
+                        "destination",soilDestination==null?null:obj("x",soilDestination.x(),"y",soilDestination.y(),"z",soilDestination.z()),
+                        "completed_steps",soilDescentSteps,"shared_step_limit",8,"shared_cut_limit",24,"original_deadline_retained",true),
                 "route_leaves_attempted",leafCuts.size(),"route_leaf_ack_pending",leafReceipt!=null && !closed,
                 "tool_belt",tools==null?null:tools.proof(),
                 "step_exit",obj("steps",stairSteps,"cuts_attempted",stairCuts,"server_packets",stairPackets,
