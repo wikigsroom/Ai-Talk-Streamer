@@ -1,0 +1,1227 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261103-092",
+  "round": "092",
+  "at": "2026-11-03T02:55:31.588628+00:00",
+  "branch": "mc",
+  "scope": "BOUNDED_NATIVE_LANDING_AND_FRAME_HAND_GROUNDING_NOT_COMPLETE_APPLICATION_ACCEPTANCE",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "local_application_tests": 0,
+  "virtualization_used": false,
+  "remote4090_connected": false,
+  "source_files": 1003,
+  "source_snapshot_sha256": "07813b5573a7dc6ebc903ad04b6d900cbc5d4fb2e2e9e284030733539677324b",
+  "source_archive_sha256": "c6425e72db8bc00f77d064dc5dc146191d1dcb513d5f0dfe424a630243bb03b6",
+  "native_build": {
+    "sha256": "c6eaebda1a5ec5bac5ce69447db629b6a443838d668dd79d951b1c711d53a1be",
+    "bytes": 12535696,
+    "compiled_against": "actual_supplied_neoforge_21.1.248_mojmap_libraries",
+    "classes": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/build/classes-055cbcbea973444ba477801b89324597"
+  },
+  "checks": {
+    "core": {
+      "tests": 364,
+      "pass": 364,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "targeted_pass": 96,
+    "java_fixtures": [
+      {
+        "name": "EscapeLandingFixture",
+        "result": "PASS 13 escape landing observations; no world or input writes"
+      },
+      {
+        "name": "EscapeMotionFixture",
+        "result": "PASS 17 escape input boundaries; no world or movement writes"
+      },
+      {
+        "name": "PartialFootingFixture",
+        "result": "PASS 44 actual partial-footing boundaries; no world writes or input"
+      },
+      {
+        "name": "TerrainStepFixture",
+        "result": "terrain step boundaries passed: 21"
+      },
+      {
+        "name": "FrontierFixture",
+        "result": "PASS 9 frontier regression checks; no world writes or input"
+      },
+      {
+        "name": "DryDescentFixture",
+        "result": "PASS 19 roof-route and dry-descent regression checks; no world writes or input"
+      },
+      {
+        "name": "ArrivalRadiusFixture",
+        "result": "PASS arrival radius around an obstructed center, exact stance, already arrived, vertical gap and blocked edges\nPASS bounded reachable observations and leaf-clearance server/world/context receipt fences"
+      },
+      {
+        "name": "WaterRouteFixture",
+        "result": "PASS 8 water route admission boundaries; fixture terrain, no actual swimming"
+      },
+      {
+        "name": "NativeWorldFramesFixture",
+        "result": "PASS: 15 frame lifecycle checks; JVM_FIXTURE_NOT_DESKTOP_PRESENTATION"
+      },
+      {
+        "name": "RouteRecoveryFixture",
+        "result": "PASS 21 changed-corridor route checks; no actual movement or survival acceptance"
+      },
+      {
+        "name": "RouteRecoveryBudgetFixture",
+        "result": "PASS 87 original-task recovery and landing boundary checks; no game acceptance"
+      }
+    ],
+    "suites_overlap_do_not_sum": true,
+    "not_real_game_acceptance": true
+  },
+  "runtime": {
+    "observation_ok": true,
+    "window_seconds": 90.83551597595215,
+    "observations": 85,
+    "sampled_auto_alive_seconds_approx": 83.52652716636658,
+    "death_transitions": 2,
+    "normal_save_stop_ok": true,
+    "keep_inventory_after_engine_save": true,
+    "task_count": 15,
+    "task_states": {
+      "cancelled": 4,
+      "succeeded": 11
+    },
+    "task_reasons": {
+      "CONTROL_CHANGED": 1,
+      "PLAYER_DEATH": 2,
+      "AGENT_EMERGENCY_THREAT": 1
+    },
+    "verified_navigation": 9,
+    "productive_tasks": [
+      {
+        "task_id": "task-4d30a1fe-01b5-4bbb-a0fe-79e4e1c61e82",
+        "goal": {
+          "count": 2,
+          "item_id": "minecraft:stick",
+          "skill": "craft"
+        }
+      },
+      {
+        "task_id": "task-3601121a-2d00-4ced-9fe3-90615465a9fb",
+        "goal": {
+          "count": 3,
+          "item_id": "minecraft:oak_planks",
+          "skill": "craft"
+        }
+      }
+    ],
+    "sampled_route_failures": [],
+    "route_recovery_events": [
+      {
+        "observed_at": "2026-11-03T02:47:15.324283900Z",
+        "task_id": "task-feb40e65-1a65-4830-9146-1eeefb3859d7",
+        "attempts": 1,
+        "limit": 4,
+        "outcome": "new_route_admitted",
+        "rejected_step": {
+          "x": 1361,
+          "y": 72,
+          "z": -158
+        },
+        "step_diagnostics": {
+          "next_standable": true,
+          "next_standable_with_leaves": true,
+          "next_block": "minecraft:air",
+          "next_support": "minecraft:copper_ore",
+          "edge_loaded_dry": true,
+          "edge_body_clear": true,
+          "actual_body_clear": true,
+          "actual_support_below": true,
+          "actual_feet_y": 75.0,
+          "next_surface_y": 72.0
+        },
+        "original_deadline_retained": true,
+        "progress_clock_reset": false
+      },
+      {
+        "observed_at": "2026-11-03T02:47:40.014564500Z",
+        "task_id": "task-16ee81c7-fd03-4cc8-91bb-9f5e0b28a54f",
+        "attempts": 1,
+        "limit": 4,
+        "outcome": "new_route_admitted",
+        "rejected_step": {
+          "x": 1357,
+          "y": 74,
+          "z": -148
+        },
+        "step_diagnostics": {
+          "next_standable": true,
+          "next_standable_with_leaves": true,
+          "next_block": "minecraft:dirt_path",
+          "next_support": "minecraft:dirt",
+          "edge_loaded_dry": true,
+          "edge_body_clear": false,
+          "actual_body_clear": true,
+          "actual_support_below": true,
+          "actual_feet_y": 75.0,
+          "next_surface_y": 74.9375
+        },
+        "original_deadline_retained": true,
+        "progress_clock_reset": false
+      }
+    ],
+    "diagnostic_sampling_complete": false,
+    "narration_count": 29,
+    "narration_states": {
+      "pending": 2,
+      "expired": 12,
+      "playing": 1,
+      "discarded": 9,
+      "answered": 5
+    },
+    "visions": [
+      {
+        "frame_id": "frame-8612fc5c-4992-4508-9e1b-0a1af2cb71cb",
+        "source_seq": 842,
+        "captured_at": "2026-11-03T02:46:40.612768900Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T02:46:41.934Z",
+        "image_sha256": "934751a62fd5dc63ea88aa74e14f51e64ad4e91051185834cc6610df34f2ffdd",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 842,
+          "observed_at": "2026-11-03T02:46:40.482811200Z",
+          "sample_to_capture_ms": 130,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 4943,
+        "caption": "夜间雨中的草地平原，周围有树木、砖房和近处的黄色方块堆；手持未知模组物品，未见明显敌人。",
+        "visible_text": [
+          "小地图显示：1365 75 -162",
+          "Plains",
+          "100"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2814,
+          "output_tokens": 73,
+          "total_tokens": 2887
+        }
+      },
+      {
+        "frame_id": "frame-c81a0f4a-7155-4fac-8524-79ad5d0ab55b",
+        "source_seq": 1247,
+        "captured_at": "2026-11-03T02:47:00.722566600Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T02:47:01.408Z",
+        "image_sha256": "724408fcc8300e68a582160160ddd389b3884ec65c3ee5b547fba3642cdb59ca",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 1247,
+          "observed_at": "2026-11-03T02:47:00.673581600Z",
+          "sample_to_capture_ms": 49,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5294,
+        "caption": "昏暗森林中可见草地、树木与零星地面物；近处树干遮挡右侧视野。画面有准星、快捷栏和状态条，右上角有小地图。主手为未知物品。",
+        "visible_text": [
+          "小地图下方：1388 75 -197",
+          "Forest",
+          "45/100"
+        ],
+        "unknowns": [
+          "画面较暗，远处细节不清",
+          "主手物品名称与用途未知"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 111,
+          "total_tokens": 2926
+        }
+      },
+      {
+        "frame_id": "frame-e27bf290-34ca-440c-aad6-b1d49760bf1c",
+        "source_seq": 1647,
+        "captured_at": "2026-11-03T02:47:20.793972Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T02:47:21.319Z",
+        "image_sha256": "f41e507ceaf49a394d5f8cd79b4688fdf80897ac28f473a37b457f10b8166118",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 1647,
+          "observed_at": "2026-11-03T02:47:20.651038300Z",
+          "sample_to_capture_ms": 142,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "failed",
+        "elapsed_ms": 2516,
+        "code": "MODEL_PREEMPTED",
+        "usage": {
+          "input_tokens": null,
+          "output_tokens": null,
+          "total_tokens": null
+        }
+      },
+      {
+        "frame_id": "frame-e3a8e797-9cf5-4142-bef9-2aeefa3be1b7",
+        "source_seq": 2053,
+        "captured_at": "2026-11-03T02:47:41.104217400Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T02:47:41.834Z",
+        "image_sha256": "2b6e097a0390a9a4dff53879535bf131cb3220d7cd8347f88e8b8ca8c6d1e8b6",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 2053,
+          "observed_at": "2026-11-03T02:47:40.957262900Z",
+          "sample_to_capture_ms": 147,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5643,
+        "caption": "雨中的森林小径旁紧贴着砖墙，准星对着砖块；右侧可见树叶和草丛，未见明显敌对生物。手持物为未知模组物品。",
+        "visible_text": [
+          "Bricks / Minecraft",
+          "地图显示：1357 74 -148",
+          "Forest",
+          "能量条：60/100"
+        ],
+        "unknowns": [
+          "手持物具体用途未知",
+          "小径前方被树叶遮挡"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 203,
+          "total_tokens": 3018
+        }
+      },
+      {
+        "frame_id": "frame-6a5e0ac0-6776-4ae4-8d8e-4a2716ce0cf6",
+        "source_seq": 2453,
+        "captured_at": "2026-11-03T02:48:01.008288200Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T02:48:01.549Z",
+        "image_sha256": "3b972617a8fd55bd223b171bb1dc8c991ca30eaa56d617ec347cc5caaa0f7933",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5170,
+        "caption": "雨中的森林地面有橡树、白桦树和草丛，附近散布石块、木板及砖块结构；前景有僵尸，远处可见红色光柱。",
+        "visible_text": [
+          "Zombie",
+          "99/100",
+          "Forest",
+          "1379 75 -152"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 202,
+          "total_tokens": 2903
+        }
+      }
+    ],
+    "ordinary_respawns_confirmed": 3,
+    "transferred_files": 32,
+    "narration_reasons": {
+      "GAME_NARRATION_EXPIRED": 12,
+      "INTERMEDIATE_NAVIGATION_SUPPRESSED": 9
+    },
+    "landing_recovery_events": [
+      {
+        "observed_at": "2026-11-03T02:47:07.364446700Z",
+        "task_id": "task-f34d505d-71f2-45a8-b947-d5987e31f5d9",
+        "stage": "observing_landing",
+        "state": "READY",
+        "episode_ticks": 7,
+        "total_ticks": 7,
+        "episodes": 1,
+        "episode_limit": 20,
+        "task_limit": 40,
+        "position": {
+          "x": 1379.300000011921,
+          "y": 75.0,
+          "z": -129.33185185367103
+        },
+        "on_ground": true,
+        "in_water": false,
+        "original_deadline_retained": true,
+        "progress_clock_reset": false,
+        "velocity_or_position_written": false
+      }
+    ],
+    "sampled_ready_landings": 1,
+    "landing_task_outcomes": [
+      {
+        "task_id": "task-f34d505d-71f2-45a8-b947-d5987e31f5d9",
+        "episode": 1,
+        "state": "cancelled",
+        "effect_status": "unknown"
+      }
+    ],
+    "route_recovery_task_max": 1,
+    "landing_wait_task_max": 7,
+    "vision_states": {
+      "succeeded": 4,
+      "failed": 1
+    },
+    "vision_grounding_bindings": {
+      "frame_source_seq": 4,
+      "unavailable": 1
+    },
+    "vision_grounding_exact_source_verified": true,
+    "successful_vision_latency_ms": [
+      4943,
+      5294,
+      5643,
+      5170
+    ],
+    "successful_vision_mean_ms": 5262.5,
+    "successful_captions_mentioning_shield": [],
+    "death_inventory_checks": [
+      {
+        "at": 1793674027.9112458,
+        "before": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:oak_log": 1,
+          "minecraft:rotten_flesh": 8
+        },
+        "after": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:oak_log": 1,
+          "minecraft:rotten_flesh": 8
+        },
+        "all_previous_items_retained": true
+      },
+      {
+        "at": 1793674083.0250132,
+        "before": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:oak_planks": 2,
+          "minecraft:rotten_flesh": 8,
+          "minecraft:stick": 4
+        },
+        "after": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:oak_planks": 2,
+          "minecraft:rotten_flesh": 8,
+          "minecraft:stick": 4
+        },
+        "all_previous_items_retained": true
+      }
+    ],
+    "first_inventory": {
+      "cottonly:cotton_seeds": 2,
+      "gravestone:obituary": 1,
+      "minecraft:oak_log": 1,
+      "minecraft:rotten_flesh": 5
+    },
+    "last_inventory": {
+      "cottonly:cotton_seeds": 2,
+      "gravestone:obituary": 1,
+      "minecraft:oak_planks": 2,
+      "minecraft:rotten_flesh": 8,
+      "minecraft:stick": 4
+    },
+    "final_playback_audit": {
+      "scope": "READ_ONLY_SAME_BROADCAST_AFTER_NORMAL_STOP",
+      "broadcast_id": "bc-cde9e740-8338-450f-91cb-278accab40bf",
+      "states": {
+        "answered": 6,
+        "discarded": 10,
+        "expired": 13,
+        "failed": 1
+      },
+      "completed_formal_utterances": 6,
+      "items": [
+        {
+          "narration_id": "narr-404481d35678613b5548777cca0e7a44241173aa",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-00ba0e99-80f8-42eb-b940-2066f86342fb",
+          "completion_event_seq": 2430,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2430
+          }
+        },
+        {
+          "narration_id": "narr-74e1574dfb4a052e82453b41bdf1b1d83c15eee4",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-c3f46042746a2e88a9aec0fcd23432a703e36595",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-67ef37c7c1fc05f3cf4345d4086fc94e09b2122e",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-86dc6a88c84fbe1a74791cd5e29988bcd406fa75",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-2ab4a0443610b11d62963c62ba1ac543ee1187ac",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-98df7e74-10f5-4687-b1c7-e4c1b67d95ee",
+          "completion_event_seq": 2437,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2437
+          }
+        },
+        {
+          "narration_id": "narr-1ff06142708f90fd019452c8622506718e561813",
+          "state": "expired",
+          "reason": "GAME_NARRATION_EXPIRED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-d718269a65f263f52e7be774ca1d1d07495a4b76",
+          "state": "expired",
+          "reason": "GAME_NARRATION_EXPIRED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-43d441dbad9f390e20e58524e20f965e2a9c3119",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-87cbd6178c2affe78633820223f7727975ec15d8",
+          "state": "expired",
+          "reason": "GAME_NARRATION_EXPIRED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-3404169d7f24609d76d7bfe2c1f15c83246c501a",
+          "state": "expired",
+          "reason": "GAME_NARRATION_EXPIRED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-0518a2f0d3a012def2323d64c34f0f2725037da8",
+          "state": "expired",
+          "reason": "GAME_NARRATION_EXPIRED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-2177dffb11e398f38d0a00a48e97e53c6c52fb33",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-cb368ecb-3f1f-4737-a8e9-d8db270902ba",
+          "completion_event_seq": 2444,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2444
+          }
+        },
+        {
+          "narration_id": "narr-6f84bead50c79e42de280b1512e2c19be6023e10",
+          "state": "expired",
+          "reason": "GAME_NARRATION_EXPIRED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-0538e98995ab1d96288283c62fb84fb760512f4e",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-7d7878e81e3a89801574a4cd2af041f16f7086f0",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-4d0f1ae0-e370-45c6-8d98-fba9a2b93184",
+          "completion_event_seq": 2451,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2451
+          }
+        },
+        {
+          "narration_id": "narr-c3518764bd584406c51ae73a5944038046b60907",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-6b300e4b-8efc-4846-a32e-d0739d5a2364",
+          "completion_event_seq": 2458,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2458
+          }
+        },
+        {
+          "narration_id": "narr-725a4e62113e2c21de26d30134a613ceb3387324",
+          "state": "expired",
+          "reason": "GAME_NARRATION_EXPIRED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-36c9bd70973a46305d5a06a9c8fee74fba96aeea",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-d825ecfd2cdba26c1d1c29cd2882e1934280f727",
+          "state": "expired",
+          "reason": "GAME_NARRATION_EXPIRED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-982facb70a9add75f82099aef8823635f32e2f62",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-90dc82ab702e477b69276a1ea5a9abc85cf5fb87",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-64721f543edf09368613021840f216048e5810f9",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-f46b1761-947c-4952-b82c-69f372459926",
+          "completion_event_seq": 2465,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2465
+          }
+        },
+        {
+          "narration_id": "narr-82842156a5a27907bea5fdf86786a2aa9b4b272b",
+          "state": "expired",
+          "reason": "GAME_NARRATION_EXPIRED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-1be5d9c2b703330aeb316ef29ffb372ce64088b9",
+          "state": "expired",
+          "reason": "GAME_NARRATION_EXPIRED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-c45aa5cdad57e4eabb80b9a77a507c4cfc680200",
+          "state": "expired",
+          "reason": "GAME_NARRATION_EXPIRED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-e286e9317ffead93997785e36f59ea1a6403f2d4",
+          "state": "failed",
+          "reason": "GAME_NARRATION_BROADCAST_CHANGED",
+          "request_id": "req-7691544b-405f-4bd6-ab1b-4f076f5f1d1b",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": {
+            "status": "CANCELLED",
+            "completion_event_seq": null
+          }
+        },
+        {
+          "narration_id": "narr-10efaa4bc31f4d151de1f6098aa9f53b8dcf3d9e",
+          "state": "expired",
+          "reason": "GAME_NARRATION_EXPIRED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-5581b17b109d5af0e8c1aab36e90ff9de18d64fc",
+          "state": "expired",
+          "reason": "GAME_NARRATION_EXPIRED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-9529027d1adef5e0c7a2fdf67dd9bd4e77e31d34",
+          "state": "discarded",
+          "reason": "GAME_NARRATION_BROADCAST_CHANGED",
+          "request_id": null,
+          "completion_event_seq": null
+        }
+      ],
+      "database_writes": 0
+    },
+    "formal_speech_completions": 6,
+    "final_task_audit": {
+      "scope": "READ_ONLY_SAME_SESSION_TASKS_AFTER_NORMAL_STOP",
+      "database_writes": 0,
+      "items": [
+        {
+          "task_id": "task-997e3a3c-2422-4dc8-990b-7591de27901c",
+          "goal": {
+            "count": 1,
+            "item_id": "minecraft:oak_log",
+            "skill": "gather"
+          },
+          "state": "cancelled",
+          "effect_status": "unknown",
+          "reason": "CONTROL_CHANGED",
+          "version": 3,
+          "updated_at": "2026-11-03T02:48:11.607233800Z",
+          "before_pause_snapshot_state": "running",
+          "last_native_transition": {
+            "state": "cancelled",
+            "reason": "CONTROL_CHANGED",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-33ce8952-d591-4217-88fc-13b168cca7b1",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1381,
+              "y": 75,
+              "z": -155
+            }
+          },
+          "state": "cancelled",
+          "effect_status": "unknown",
+          "reason": "PLAYER_DEATH",
+          "version": 3,
+          "updated_at": "2026-11-03T02:48:02.226899300Z",
+          "before_pause_snapshot_state": "cancelled",
+          "last_native_transition": {
+            "state": "cancelled",
+            "reason": "PLAYER_DEATH",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-84e4d201-21f4-4c4d-8c59-2bf30d711b8e",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1373,
+              "y": 74,
+              "z": -147
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T02:47:54.660009200Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-4c172860-a7b9-4d71-a425-9c3ca04872f5",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1365,
+              "y": 75,
+              "z": -138
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T02:47:48.453964Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-16ee81c7-fd03-4cc8-91bb-9f5e0b28a54f",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1358,
+              "y": 75,
+              "z": -146
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T02:47:41.830596700Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-e1b5ae09-7064-4c26-ac5c-60f8d854dbda",
+          "goal": {
+            "count": 1,
+            "item_id": "minecraft:oak_log",
+            "skill": "gather"
+          },
+          "state": "cancelled",
+          "effect_status": "unknown",
+          "reason": "AGENT_EMERGENCY_THREAT",
+          "version": 3,
+          "updated_at": "2026-11-03T02:47:34.569322600Z",
+          "before_pause_snapshot_state": "cancelled",
+          "last_native_transition": {
+            "state": "cancelled",
+            "reason": "AGENT_EMERGENCY_THREAT",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-4d30a1fe-01b5-4bbb-a0fe-79e4e1c61e82",
+          "goal": {
+            "count": 2,
+            "item_id": "minecraft:stick",
+            "skill": "craft"
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T02:47:27.395286500Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-3601121a-2d00-4ced-9fe3-90615465a9fb",
+          "goal": {
+            "count": 3,
+            "item_id": "minecraft:oak_planks",
+            "skill": "craft"
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T02:47:21.418774100Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-feb40e65-1a65-4830-9146-1eeefb3859d7",
+          "goal": {
+            "radius": 2,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1360,
+              "y": 76,
+              "z": -154
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T02:47:16.305016900Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-f34d505d-71f2-45a8-b947-d5987e31f5d9",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1371,
+              "y": 75,
+              "z": -124
+            }
+          },
+          "state": "cancelled",
+          "effect_status": "unknown",
+          "reason": "PLAYER_DEATH",
+          "version": 3,
+          "updated_at": "2026-11-03T02:47:07.615362500Z",
+          "before_pause_snapshot_state": "cancelled",
+          "last_native_transition": {
+            "state": "cancelled",
+            "reason": "PLAYER_DEATH",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-dbe8a7d1-cc6d-41b6-b38e-8b4b9b31da7d",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1380,
+              "y": 75,
+              "z": -130
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T02:47:05.903563200Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-7fcfc5f3-1bba-44fb-ae2e-4d80320a0642",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1389,
+              "y": 75,
+              "z": -137
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T02:46:59.459053800Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-21db8011-effe-4684-a20f-94f864028809",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1381,
+              "y": 75,
+              "z": -142
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T02:46:53.878159900Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-1464f27e-b5eb-45ba-9153-e31c634215cc",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1381,
+              "y": 75,
+              "z": -149
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T02:46:51.219744200Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-9dd7094b-a390-446f-bffe-e9f64bf02a80",
+          "goal": {
+            "radius": 1,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1373,
+              "y": 75,
+              "z": -156
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T02:46:45.405481400Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        }
+      ],
+      "final_task_states": {
+        "cancelled": 4,
+        "succeeded": 11
+      },
+      "final_task_reasons": {
+        "CONTROL_CHANGED": 1,
+        "PLAYER_DEATH": 2,
+        "AGENT_EMERGENCY_THREAT": 1
+      },
+      "nonterminal_count": 0
+    },
+    "task_states_before_pause": {
+      "running": 1,
+      "cancelled": 3,
+      "succeeded": 11
+    },
+    "task_reasons_before_pause": {
+      "PLAYER_DEATH": 2,
+      "AGENT_EMERGENCY_THREAT": 1
+    },
+    "native_world_pause_confirmed": true,
+    "audio_drain_vitals": {
+      "health_before": 20,
+      "health_after": 20,
+      "world_time_before": 192282,
+      "world_time_after": 192282
+    },
+    "native_pause_and_audio_drain_observed": true,
+    "ready_landing_task_succeeded": false,
+    "productive_crafts_used_retained_previous_round_oak_log": true
+  },
+  "services_ready": true,
+  "application_ready": false,
+  "keep_inventory_after_engine_save": true,
+  "saved_world_sha256": "d51eda4ec30d07a5c44b195f6671d7e7e86da0931ac38d5fa8462d960cbb7846",
+  "original_world_backup_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
+  "normal_game_exit": {
+    "exit_code": 0,
+    "graceful_close_requested": true,
+    "all_owned_processes_closed": true,
+    "bounded_job_cleanup_required": null
+  },
+  "owned_services_after_stop": {
+    "dsh": false,
+    "avatar": false,
+    "tts": false,
+    "receiver": false,
+    "vision": false,
+    "minecraft": false
+  },
+  "official_clients_preserved": true,
+  "candidate_disabled": true,
+  "internal_broadcast_closed": true,
+  "worker_task_submissions": 0,
+  "game_keys_issued": 0,
+  "manual_takeover": false,
+  "world_reset": false,
+  "inventory_injection": false,
+  "public_broadcast_started": false,
+  "formal_acceptance_advanced": 0,
+  "formal_acceptance_passed": 0,
+  "new_avatar_clips": 0,
+  "inherited_todos_open": 117,
+  "new_video_recorded": false,
+  "new_ui_or_resource_benchmark": false,
+  "report": "docs/technical/mc-live-v1/落地等待与092视觉核对.md",
+  "github_publication": {
+    "branch": "mc",
+    "source_commit": "64e0a2321d9da4c7052ab23dcf49a9887562fe1d",
+    "source_pushed_and_remote_verified": true,
+    "documentation_published_with_this_revision": true
+  },
+  "read_only_audit_sha256": {
+    "speech": "4e7b368dd5951375971f83697a9cb5d1b8ee6479a0cd601cf888dd7aa6ea47be",
+    "tasks": "0379595a7962dbfcbc633f9f05292b805d52d1be6ed362b9bd0e4de83aa27a97"
+  },
+  "transport_cleanup": {
+    "ok": true,
+    "owned_helper_stopped": true,
+    "pid": 2500,
+    "port": 2525,
+    "remaining_listeners": 0,
+    "purpose": "BYTE_TRANSFER_ONLY"
+  },
+  "browser_contexts_opened_this_round": 0
+}

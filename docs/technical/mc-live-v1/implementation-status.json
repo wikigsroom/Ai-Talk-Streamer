@@ -4,49 +4,50 @@
   "branch": "mc",
   "goal_status": "active",
   "overall_status": "in_progress_full_application_not_accepted",
-  "current_round": "091",
-  "turn_classification": "native_bounded_replanning_remote_verified_full_application_pending",
+  "current_round": "092",
+  "turn_classification": "bounded_landing_and_native_hand_grounding_remote_reviewed_full_acceptance_pending",
   "delivery_mode": "single_integrated_release",
   "user_facing_release_count": 1,
   "progress_document": "docs/technical/mc-live-v1/实现进度.md",
-  "latest_evidence": "docs/evidence/mc-runtime-round-091.json",
+  "latest_evidence": "docs/evidence/mc-runtime-round-092.json",
   "current_round_implemented_ids": [
-    "I1077",
-    "I1078",
-    "I1079",
-    "I1080",
-    "I1081"
+    "I1082",
+    "I1083",
+    "I1084",
+    "I1085",
+    "I1086",
+    "I1087"
   ],
   "required_domains": [
     {
       "id": "D01",
       "required": true,
-      "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
+      "status": "round092_remote_services_ready_complete_application_pending",
       "remaining": "完整安装包与许可、干净Windows重建、来源与全部副本审计、异常启动回收、缓存与回退自动化；六项服务ready不等于完整application_ready。"
     },
     {
       "id": "D02",
       "required": true,
-      "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
+      "status": "round092_landing_and_native_hand_grounding_reviewed_full_acceptance_pending",
       "remaining": "模组实体与容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物及后续联机差异。"
     },
     {
       "id": "D03",
       "required": true,
-      "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
-      "remaining": "日/夜多敌持续撤离、普通下落途中误判无路、动态改路/落脚及跨生存子流程总预算、PvE、食物/重生补给、GUI/水/岩浆/窒息与长期停止；091已有5次改路后核验到达，持续生存仍未通过。"
+      "status": "round092_landing_and_native_hand_grounding_reviewed_full_acceptance_pending",
+      "remaining": "日/夜多敌持续撤离、真实动态地形/落地恢复覆盖、普通PvE、食物与重生补给、GUI/水/岩浆/窒息、租约和长期停止；有界等待和原任务预算已实现，持续生存仍需通过。"
     },
     {
       "id": "D04",
       "required": true,
-      "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
-      "remaining": "持续资源→工具→食物长链、熔炼、种收吃、容器往返、耐久更换、模组资源、探索建造；091核验采集/制作任务1条，不替代完整技能验收。"
+      "status": "round092_landing_and_native_hand_grounding_reviewed_full_acceptance_pending",
+      "remaining": "持续资源→工具→食物长链、熔炼、种收吃、容器往返、耐久更换、模组资源、探索建造；092本场核验采集/制作2条，不替代完整技能验收。"
     },
     {
       "id": "D05",
       "required": true,
-      "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
-      "remaining": "Mindcraft依赖覆盖、复杂路线和可达撤离、失败后有效改策、长期目标和跨场工作台补给、真实互动并发、模型预算/公平性/迟到取消与事实核验。"
+      "status": "round092_landing_and_native_hand_grounding_reviewed_full_acceptance_pending",
+      "remaining": "Mindcraft依赖覆盖、复杂路线与有效逃生、失败后改策、跨场长期目标/工作台补给、真实互动并发、模型预算/公平性/取消与事实核验。"
     },
     {
       "id": "D06",
@@ -64,13 +65,13 @@
       "id": "D08",
       "required": true,
       "status": "round090_actual_chat_side_and_six_mobile_pages_passed_full_operator_acceptance_pending",
-      "remaining": "完整原生状态/启停/任务/资源/音量/诊断/恢复与两方案切换；090已过左右换边及6个手机页面，仍需有真实消息时队列保留、并发及完整操作流程验收。"
+      "remaining": "完整原生状态/启停/任务/资源/音量/诊断/恢复与两方案切换；090左右换边及6个手机页面记录保留，仍需有真实消息时队列保留、并发和完整操作流程验收。"
     },
     {
       "id": "D09",
       "required": true,
-      "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
-      "remaining": "持续有效游玩、及时且符合事实的自然解说、人物供帧/4秒重缓冲、真实弹幕合成和手机观看；091同场正式完成5条、过期11条，迟到与事实一致性仍需改善，画布FPS不替代呈现FPS。"
+      "status": "round092_landing_and_native_hand_grounding_reviewed_full_acceptance_pending",
+      "remaining": "持续有效游玩、及时且符合事实的自然解说、人物供帧/4秒重缓冲、真实弹幕合成和手机观看；092同场正式完成6条，迟到与事实一致性、实际呈现FPS仍需改善。"
     },
     {
       "id": "D10",
@@ -87,8 +88,8 @@
     {
       "id": "D12",
       "required": true,
-      "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
-      "remaining": "真实JPEG→Luna的模组物品/危险准确率、手持讣告被误认盾牌的结构化校验、旧帧与世界绑定、误识别、超时取消、队列公平性及游戏/人物联合负载。"
+      "status": "round092_landing_and_native_hand_grounding_reviewed_full_acceptance_pending",
+      "remaining": "真实JPEG→Luna的模组物品/危险准确率、更多装备与复杂画面误识别、帧与世界绑定、超时取消、公平性及联合负载；092增加同序号手持物核对与已知盾牌误报拒绝，不代表完整准确率通过。"
     },
     {
       "id": "D13",
@@ -99,14 +100,14 @@
     {
       "id": "D14",
       "required": true,
-      "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
-      "remaining": "冷启动、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转、异常退出及存活世界真实暂停与口播排空；091正常保存和计划停机已复核。"
+      "status": "round092_landing_and_native_hand_grounding_reviewed_full_acceptance_pending",
+      "remaining": "冷启动、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转、异常退出及存活世界真实暂停与口播排空；092正常保存和计划停机已复核。"
     },
     {
       "id": "D15",
       "required": true,
       "status": "not_accepted",
-      "remaining": "正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/交接；继承117项冻结待办原编号不变。"
+      "remaining": "正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/20项交接；继承117项冻结待办原编号不变。"
     }
   ],
   "acceptance": [
@@ -387,55 +388,38 @@
   "remote_4090_control": "paused",
   "current_inherited_target": "rtx3080",
   "layout_unchanged": true,
-  "last_updated": "2026-11-03T02:10:09.163761+00:00",
+  "last_updated": "2026-11-03T02:55:31.588628+00:00",
   "known_incomplete_integration": [
     "D01 完整安装包与许可、干净Windows重建、来源与全部副本审计、异常启动回收、缓存与回退自动化；六项服务ready不等于完整application_ready。",
     "D02 模组实体与容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物及后续联机差异。",
-    "D03 日/夜多敌持续撤离、普通下落途中误判无路、动态改路/落脚及跨生存子流程总预算、PvE、食物/重生补给、GUI/水/岩浆/窒息与长期停止；091已有5次改路后核验到达，持续生存仍未通过。",
-    "D04 持续资源→工具→食物长链、熔炼、种收吃、容器往返、耐久更换、模组资源、探索建造；091核验采集/制作任务1条，不替代完整技能验收。",
-    "D05 Mindcraft依赖覆盖、复杂路线和可达撤离、失败后有效改策、长期目标和跨场工作台补给、真实互动并发、模型预算/公平性/迟到取消与事实核验。",
+    "D03 日/夜多敌持续撤离、真实动态地形/落地恢复覆盖、普通PvE、食物与重生补给、GUI/水/岩浆/窒息、租约和长期停止；有界等待和原任务预算已实现，持续生存仍需通过。",
+    "D04 持续资源→工具→食物长链、熔炼、种收吃、容器往返、耐久更换、模组资源、探索建造；092本场核验采集/制作2条，不替代完整技能验收。",
+    "D05 Mindcraft依赖覆盖、复杂路线与有效逃生、失败后改策、跨场长期目标/工作台补给、真实互动并发、模型预算/公平性/取消与事实核验。",
     "D06 595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连和节目展示；公开连接缺现场事件，不伪造样本，不重复要求用户发送。",
     "D07 真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复及唯一写者隔离。",
-    "D08 完整原生状态/启停/任务/资源/音量/诊断/恢复与两方案切换；090已过左右换边及6个手机页面，仍需有真实消息时队列保留、并发及完整操作流程验收。",
-    "D09 持续有效游玩、及时且符合事实的自然解说、人物供帧/4秒重缓冲、真实弹幕合成和手机观看；091同场正式完成5条、过期11条，迟到与事实一致性仍需改善，画布FPS不替代呈现FPS。",
+    "D08 完整原生状态/启停/任务/资源/音量/诊断/恢复与两方案切换；090左右换边及6个手机页面记录保留，仍需有真实消息时队列保留、并发和完整操作流程验收。",
+    "D09 持续有效游玩、及时且符合事实的自然解说、人物供帧/4秒重缓冲、真实弹幕合成和手机观看；092同场正式完成6条，迟到与事实一致性、实际呈现FPS仍需改善。",
     "D10 两套各2闲置+48动作共100段新素材、索引、口型、圆形遮罩与接缝；仍0/100，原female-A历史素材保留。",
     "D11 原生游戏声/人声/BGM压低恢复、O07/F07故障切换、唯一音源与完整实录验收。",
-    "D12 真实JPEG→Luna的模组物品/危险准确率、手持讣告被误认盾牌的结构化校验、旧帧与世界绑定、误识别、超时取消、队列公平性及游戏/人物联合负载。",
+    "D12 真实JPEG→Luna的模组物品/危险准确率、更多装备与复杂画面误识别、帧与世界绑定、超时取消、公平性及联合负载；092增加同序号手持物核对与已知盾牌误报拒绝，不代表完整准确率通过。",
     "D13 公开状态核对、独立观众CDN音画和端到端时延；本轮内部验证未公开开播。",
-    "D14 冷启动、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转、异常退出及存活世界真实暂停与口播排空；091正常保存和计划停机已复核。",
-    "D15 正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/交接；继承117项冻结待办原编号不变。"
+    "D14 冷启动、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转、异常退出及存活世界真实暂停与口播排空；092正常保存和计划停机已复核。",
+    "D15 正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/20项交接；继承117项冻结待办原编号不变。"
   ],
   "current_round_validation": {
-    "schema_version": 1,
-    "id": "MC-20261103-091",
-    "round": "091",
-    "at": "2026-11-03T02:10:09.163761+00:00",
-    "branch": "mc",
-    "scope": "BOUNDED_NATIVE_REPLANNING_AND_REAL_GAME_OBSERVATION_NOT_FULL_RELEASE_ACCEPTANCE",
-    "device": "remote-3080",
-    "host": "DESKTOP-2QQPN1H",
-    "local_application_tests": 0,
-    "virtualization_used": false,
-    "remote4090_connected": false,
-    "source_files": 999,
-    "source_snapshot_sha256": "3b5ba34e5fb0e3f60467b7c411a2fb95c4d1730562f4a5110052d1f74db1b950",
-    "source_archive_sha256": "37c480570218689e39a67df220ec3249ea943ab535489aebe5edd0ed000bb173",
-    "native_build": {
-      "sha256": "93b2c6834e0304263b734cdf9fbfd5113ef980004a834ec27b2a44c0f6c20c57",
-      "bytes": 12533637,
-      "compiled_against": "actual_supplied_neoforge_21.1.248_mojmap_libraries",
-      "classes": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/build/classes-50c695b5563d40a9b9453ab47e20656a"
-    },
+    "round": "092",
+    "evidence": "docs/evidence/mc-runtime-round-092.json",
+    "report": "docs/technical/mc-live-v1/落地等待与092视觉核对.md",
     "checks": {
       "core": {
-        "tests": 359,
-        "pass": 359,
+        "tests": 364,
+        "pass": 364,
         "fail": 0,
         "cancelled": 0,
         "skipped": 0,
         "todo": 0
       },
-      "targeted_pass": 87,
+      "targeted_pass": 96,
       "java_fixtures": [
         {
           "name": "EscapeLandingFixture",
@@ -476,748 +460,52 @@
         {
           "name": "RouteRecoveryFixture",
           "result": "PASS 21 changed-corridor route checks; no actual movement or survival acceptance"
+        },
+        {
+          "name": "RouteRecoveryBudgetFixture",
+          "result": "PASS 87 original-task recovery and landing boundary checks; no game acceptance"
         }
       ],
       "suites_overlap_do_not_sum": true,
       "not_real_game_acceptance": true
     },
     "runtime": {
-      "window_seconds": 149.24830412864685,
-      "observations": 140,
-      "sampled_auto_alive_seconds_approx": 145.0809817314148,
-      "death_transitions": 2,
-      "ordinary_respawns_confirmed": 2,
-      "task_count": 24,
-      "task_states": {
-        "cancelled": 3,
-        "succeeded": 19,
-        "failed": 2
-      },
-      "task_reasons": {
-        "PLAYER_DEATH": 2,
-        "AGENT_EMERGENCY_THREAT": 1,
-        "GAME_NAVIGATION_NO_ROUTE": 2
-      },
-      "verified_navigation": 18,
+      "window_seconds": 90.83551597595215,
+      "observations": 85,
+      "verified_navigation": 9,
       "productive_tasks": [
         {
-          "task_id": "task-4a368466-8b86-4671-93ad-c7f003233c65",
+          "task_id": "task-4d30a1fe-01b5-4bbb-a0fe-79e4e1c61e82",
           "goal": {
-            "count": 1,
-            "item_id": "minecraft:oak_log",
-            "skill": "gather"
+            "count": 2,
+            "item_id": "minecraft:stick",
+            "skill": "craft"
+          }
+        },
+        {
+          "task_id": "task-3601121a-2d00-4ced-9fe3-90615465a9fb",
+          "goal": {
+            "count": 3,
+            "item_id": "minecraft:oak_planks",
+            "skill": "craft"
           }
         }
       ],
-      "sampled_route_failures": [
-        {
-          "observed_at": "2026-11-03T02:00:51.990329300Z",
-          "stage": "next_step_changed",
-          "task_id": "task-6e7827da-a55e-4fe5-989b-c5477af6f6d9",
-          "on_ground": false,
-          "position": {
-            "x": 1361.0757845334476,
-            "y": 74.53584062504456,
-            "z": -157.49815000940552
-          },
-          "goal": {
-            "x": 1360,
-            "y": 71,
-            "z": -158
-          },
-          "next": {
-            "x": 1361,
-            "y": 72,
-            "z": -158
-          },
-          "feet_standable": false,
-          "horizontal_collision": false,
-          "path_points_remaining": 2,
-          "searches": 6,
-          "step_diagnostics": {
-            "next_standable": true,
-            "next_standable_with_leaves": true,
-            "next_block": "minecraft:air",
-            "next_support": "minecraft:copper_ore",
-            "edge_loaded_dry": true,
-            "edge_body_clear": true,
-            "actual_body_clear": true,
-            "actual_support_below": false,
-            "actual_feet_y": 74.53584062504456,
-            "next_surface_y": 72.0
-          },
-          "route_recoveries": 0
-        },
-        {
-          "observed_at": "2026-11-03T02:01:07.830529Z",
-          "stage": "next_step_changed",
-          "task_id": "task-674b25d6-e534-423b-8395-0975bdca6a0c",
-          "on_ground": false,
-          "position": {
-            "x": 1381.5601213776722,
-            "y": 74.46634750372172,
-            "z": -172.061774079661
-          },
-          "goal": {
-            "x": 1385,
-            "y": 74,
-            "z": -177
-          },
-          "next": {
-            "x": 1381,
-            "y": 72,
-            "z": -173
-          },
-          "feet_standable": false,
-          "horizontal_collision": false,
-          "path_points_remaining": 8,
-          "searches": 1,
-          "step_diagnostics": {
-            "next_standable": true,
-            "next_standable_with_leaves": true,
-            "next_block": "minecraft:air",
-            "next_support": "minecraft:grass_block",
-            "edge_loaded_dry": true,
-            "edge_body_clear": true,
-            "actual_body_clear": true,
-            "actual_support_below": false,
-            "actual_feet_y": 74.46634750372172,
-            "next_surface_y": 72.0
-          },
-          "route_recoveries": 0
-        }
-      ],
-      "route_recovery_events": [
-        {
-          "observed_at": "2026-11-03T02:00:51.990329300Z",
-          "task_id": "task-6e7827da-a55e-4fe5-989b-c5477af6f6d9",
-          "attempts": 0,
-          "limit": 4,
-          "outcome": "not_dry_grounded",
-          "rejected_step": {
-            "x": 1361,
-            "y": 72,
-            "z": -158
-          },
-          "step_diagnostics": {
-            "next_standable": true,
-            "next_standable_with_leaves": true,
-            "next_block": "minecraft:air",
-            "next_support": "minecraft:copper_ore",
-            "edge_loaded_dry": true,
-            "edge_body_clear": true,
-            "actual_body_clear": true,
-            "actual_support_below": false,
-            "actual_feet_y": 74.53584062504456,
-            "next_surface_y": 72.0
-          },
-          "original_deadline_retained": true,
-          "progress_clock_reset": false
-        },
-        {
-          "observed_at": "2026-11-03T02:00:57.706829Z",
-          "task_id": "task-72d8d83a-037b-4e19-a183-271ef77c5050",
-          "attempts": 1,
-          "limit": 4,
-          "outcome": "new_route_admitted",
-          "rejected_step": {
-            "x": 1368,
-            "y": 74,
-            "z": -165
-          },
-          "step_diagnostics": {
-            "next_standable": true,
-            "next_standable_with_leaves": true,
-            "next_block": "minecraft:dirt_path",
-            "next_support": "minecraft:dirt",
-            "edge_loaded_dry": true,
-            "edge_body_clear": false,
-            "actual_body_clear": true,
-            "actual_support_below": true,
-            "actual_feet_y": 74.9375,
-            "next_surface_y": 74.9375
-          },
-          "original_deadline_retained": true,
-          "progress_clock_reset": false
-        },
-        {
-          "observed_at": "2026-11-03T02:01:07.830529Z",
-          "task_id": "task-674b25d6-e534-423b-8395-0975bdca6a0c",
-          "attempts": 0,
-          "limit": 4,
-          "outcome": "not_dry_grounded",
-          "rejected_step": {
-            "x": 1381,
-            "y": 72,
-            "z": -173
-          },
-          "step_diagnostics": {
-            "next_standable": true,
-            "next_standable_with_leaves": true,
-            "next_block": "minecraft:air",
-            "next_support": "minecraft:grass_block",
-            "edge_loaded_dry": true,
-            "edge_body_clear": true,
-            "actual_body_clear": true,
-            "actual_support_below": false,
-            "actual_feet_y": 74.46634750372172,
-            "next_surface_y": 72.0
-          },
-          "original_deadline_retained": true,
-          "progress_clock_reset": false
-        },
-        {
-          "observed_at": "2026-11-03T02:01:17.464131300Z",
-          "task_id": "task-164bc63b-8c69-42bb-8402-acea2f245bf5",
-          "attempts": 1,
-          "limit": 4,
-          "outcome": "new_route_admitted",
-          "rejected_step": {
-            "x": 1393,
-            "y": 74,
-            "z": -162
-          },
-          "step_diagnostics": {
-            "next_standable": true,
-            "next_standable_with_leaves": true,
-            "next_block": "minecraft:short_grass",
-            "next_support": "minecraft:grass_block",
-            "edge_loaded_dry": true,
-            "edge_body_clear": false,
-            "actual_body_clear": true,
-            "actual_support_below": true,
-            "actual_feet_y": 73.9375,
-            "next_surface_y": 74.0
-          },
-          "original_deadline_retained": true,
-          "progress_clock_reset": false
-        },
-        {
-          "observed_at": "2026-11-03T02:01:29.604711400Z",
-          "task_id": "task-fd229f0b-cf16-4471-9836-d098b91e48aa",
-          "attempts": 1,
-          "limit": 4,
-          "outcome": "new_route_admitted",
-          "rejected_step": {
-            "x": 1409,
-            "y": 74,
-            "z": -147
-          },
-          "step_diagnostics": {
-            "next_standable": true,
-            "next_standable_with_leaves": true,
-            "next_block": "minecraft:air",
-            "next_support": "minecraft:grass_block",
-            "edge_loaded_dry": true,
-            "edge_body_clear": false,
-            "actual_body_clear": true,
-            "actual_support_below": true,
-            "actual_feet_y": 74.0,
-            "next_surface_y": 74.0
-          },
-          "original_deadline_retained": true,
-          "progress_clock_reset": false
-        },
-        {
-          "observed_at": "2026-11-03T02:02:39.571753600Z",
-          "task_id": "task-63dc9f25-5dc3-412c-89a4-237c3a2108f9",
-          "attempts": 1,
-          "limit": 4,
-          "outcome": "new_route_admitted",
-          "rejected_step": {
-            "x": 1368,
-            "y": 75,
-            "z": -152
-          },
-          "step_diagnostics": {
-            "next_standable": true,
-            "next_standable_with_leaves": true,
-            "next_block": "minecraft:short_grass",
-            "next_support": "minecraft:grass_block",
-            "edge_loaded_dry": true,
-            "edge_body_clear": false,
-            "actual_body_clear": true,
-            "actual_support_below": true,
-            "actual_feet_y": 75.0,
-            "next_surface_y": 75.0
-          },
-          "original_deadline_retained": true,
-          "progress_clock_reset": false
-        },
-        {
-          "observed_at": "2026-11-03T02:03:10.463172500Z",
-          "task_id": "task-ef0a152f-d1de-4acd-a44f-42b3c73e588d",
-          "attempts": 1,
-          "limit": 4,
-          "outcome": "new_route_admitted",
-          "rejected_step": {
-            "x": 1399,
-            "y": 74,
-            "z": -151
-          },
-          "step_diagnostics": {
-            "next_standable": true,
-            "next_standable_with_leaves": true,
-            "next_block": "minecraft:air",
-            "next_support": "minecraft:grass_block",
-            "edge_loaded_dry": true,
-            "edge_body_clear": false,
-            "actual_body_clear": true,
-            "actual_support_below": true,
-            "actual_feet_y": 74.0,
-            "next_surface_y": 74.0
-          },
-          "original_deadline_retained": true,
-          "progress_clock_reset": false
-        }
-      ],
-      "diagnostic_sampling_complete": false,
-      "application_ready": false,
-      "formal_survival_acceptance_passed": false,
-      "observation_stop_reason": "TWO_REAL_DEATHS_REVIEW_NEW_DIAGNOSTICS",
-      "recovery_task_results": [
-        {
-          "task_id": "task-6e7827da-a55e-4fe5-989b-c5477af6f6d9",
-          "recovery": "not_dry_grounded",
-          "task_state": "failed",
-          "effect_status": "unknown"
-        },
-        {
-          "task_id": "task-72d8d83a-037b-4e19-a183-271ef77c5050",
-          "recovery": "new_route_admitted",
-          "task_state": "succeeded",
-          "effect_status": "verified"
-        },
-        {
-          "task_id": "task-674b25d6-e534-423b-8395-0975bdca6a0c",
-          "recovery": "not_dry_grounded",
-          "task_state": "failed",
-          "effect_status": "unknown"
-        },
-        {
-          "task_id": "task-164bc63b-8c69-42bb-8402-acea2f245bf5",
-          "recovery": "new_route_admitted",
-          "task_state": "succeeded",
-          "effect_status": "verified"
-        },
-        {
-          "task_id": "task-fd229f0b-cf16-4471-9836-d098b91e48aa",
-          "recovery": "new_route_admitted",
-          "task_state": "succeeded",
-          "effect_status": "verified"
-        },
-        {
-          "task_id": "task-63dc9f25-5dc3-412c-89a4-237c3a2108f9",
-          "recovery": "new_route_admitted",
-          "task_state": "succeeded",
-          "effect_status": "verified"
-        },
-        {
-          "task_id": "task-ef0a152f-d1de-4acd-a44f-42b3c73e588d",
-          "recovery": "new_route_admitted",
-          "task_state": "succeeded",
-          "effect_status": "verified"
-        }
-      ]
+      "death_transitions": 2,
+      "sampled_ready_landings": 1,
+      "vision_states": {
+        "succeeded": 4,
+        "failed": 1
+      },
+      "formal_speech_completions": 6
     },
-    "vision": {
-      "model_id": "gpt-6-luna",
-      "source": "ACTUAL_NATIVE_JAVA_JPEG",
-      "samples": [
-        {
-          "frame_id": "frame-565f5b48-8258-4764-a5b1-b638528c3014",
-          "source_seq": 1185,
-          "captured_at": "2026-11-03T02:00:46.696314500Z",
-          "width": 1920,
-          "height": 1080,
-          "model_id": "gpt-6-luna",
-          "state": "succeeded",
-          "elapsed_ms": 5104,
-          "image_sha256": "af4882339b0bd061df0985cd51317d1ef581f920ebbbd84b31873b63494a2f57",
-          "caption": "雨夜的森林村落，草地与土路旁有树木和砖、木质房屋；右侧一只僵尸靠近，准星对着前方，右下持有盾牌。",
-          "visible_text": [
-            "小地图显示“Forest”及坐标“1352 75 -150”",
-            "僵尸目标栏显示“Zombie”",
-            "右侧名称被截断，显示“Vengea…”",
-            "底部显示生命、饥饿值、快捷栏及“4/100”"
-          ],
-          "unknowns": [
-            "右侧截断名称的完整内容不明"
-          ]
-        },
-        {
-          "frame_id": "frame-bcbc8daf-4596-4c01-90e6-e364c536cd48",
-          "source_seq": 1584,
-          "captured_at": "2026-11-03T02:01:06.574892100Z",
-          "width": 1920,
-          "height": 1080,
-          "model_id": "gpt-6-luna",
-          "state": "failed",
-          "elapsed_ms": 2530,
-          "image_sha256": "25aff78cce5e42676c0af0b75af5e98a86bfae48031fccf24b8af93327488cfa",
-          "code": "MODEL_PREEMPTED"
-        },
-        {
-          "frame_id": "frame-5b5a4c1a-9793-4e46-833e-014f659f995d",
-          "source_seq": 1986,
-          "captured_at": "2026-11-03T02:01:26.670799300Z",
-          "width": 1920,
-          "height": 1080,
-          "model_id": "gpt-6-luna",
-          "state": "failed",
-          "elapsed_ms": 386,
-          "image_sha256": "bd95921e37fe59693c026059d103c2baf262e34f1e6ba8283d96aef800be60ce",
-          "code": "MODEL_PREEMPTED"
-        },
-        {
-          "frame_id": "frame-6f996b94-5471-4cb1-a523-1c9d95a0cd8d",
-          "source_seq": 2389,
-          "captured_at": "2026-11-03T02:01:46.822182800Z",
-          "width": 1920,
-          "height": 1080,
-          "model_id": "gpt-6-luna",
-          "state": "succeeded",
-          "elapsed_ms": 3635,
-          "image_sha256": "7683f5e3862d29ae6871d509fc13f88bc5a692b4b59d5bfbd38432483b64be8c",
-          "caption": "夜间雨中的森林，树木密集，草地上有红色蘑菇；前方可见一只带绿色名称与生命条的生物，右下持有盾牌。",
-          "visible_text": [
-            "地图标注：Forest",
-            "地图显示坐标：1427 75 -130"
-          ],
-          "unknowns": [
-            "生物名称较模糊，无法确认。"
-          ]
-        },
-        {
-          "frame_id": "frame-748ffb75-9dea-42a0-8443-f6b2ddf61b32",
-          "source_seq": 2794,
-          "captured_at": "2026-11-03T02:02:07.050034100Z",
-          "width": 1920,
-          "height": 1080,
-          "model_id": "gpt-6-luna",
-          "state": "succeeded",
-          "elapsed_ms": 2811,
-          "image_sha256": "bf6a5413f79e2fd398655670abce2a01d50cbf1dd883fb96c54c62632e933737",
-          "caption": "第一人称视角被茂密树叶遮挡，前方可见林地地面和树干；未见明确敌人，视野受阻。",
-          "visible_text": [
-            "目标方块：Oak Leaves",
-            "生物群系：Forest",
-            "小地图旁显示1355 74 -145",
-            "状态条显示22/100"
-          ],
-          "unknowns": [
-            "叶片遮挡处的地形与目标不明",
-            "遮挡区域内是否有危险无法确认"
-          ]
-        },
-        {
-          "frame_id": "frame-45507975-e50d-4589-ab1a-90be00d61eef",
-          "source_seq": 3195,
-          "captured_at": "2026-11-03T02:02:27.128719500Z",
-          "width": 1920,
-          "height": 1080,
-          "model_id": "gpt-6-luna",
-          "state": "succeeded",
-          "elapsed_ms": 3457,
-          "image_sha256": "68df4dcd446c06ac38bc63a0877b62b9ac113a88dcfa9b5a97215e07dde87c14",
-          "caption": "昏暗森林中有白桦与深色树木，左侧可见村庄房屋；地面散落物品，右前方有红色标记，手持盾牌。",
-          "visible_text": [
-            "小地图显示坐标1374 75 -137",
-            "Forest",
-            "62/100"
-          ],
-          "unknowns": [
-            "地面散落物品的具体种类不明"
-          ]
-        },
-        {
-          "frame_id": "frame-b8be98cc-1532-4a6d-949a-eba9b1684067",
-          "source_seq": 3598,
-          "captured_at": "2026-11-03T02:02:47.260600700Z",
-          "width": 1920,
-          "height": 1080,
-          "model_id": "gpt-6-luna",
-          "state": "succeeded",
-          "elapsed_ms": 4509,
-          "image_sha256": "f8182b956ec257421ab175cc1dd20ec2437c2588a5d832e42d5b48059a04daad",
-          "caption": "夜间森林中正在下雨，树冠低垂，地面长满草，有白桦树和蜘蛛网。前方有数只带血条的敌对生物，近处地上散落物品；视野昏暗，存在危险。",
-          "visible_text": [
-            "坐标：1375 75 -140",
-            "Forest"
-          ],
-          "unknowns": []
-        },
-        {
-          "frame_id": "frame-a6b1eab3-eb7e-4150-a8e6-5c3db628e3da",
-          "source_seq": 3998,
-          "captured_at": "2026-11-03T02:03:07.311786400Z",
-          "width": 1920,
-          "height": 1080,
-          "model_id": "gpt-6-luna",
-          "state": "succeeded",
-          "elapsed_ms": 4317,
-          "image_sha256": "69ec3d12c7a3840fcfc237655d9e20efe2aad09d6ec95ad90e60e22d307a13b2",
-          "caption": "雨夜森林中树木茂密、草地昏暗，前方可见羊和红色叉号标记，地面散落物品；手持盾牌，生命值偏低，未见明确敌对生物。",
-          "visible_text": [
-            "1392 75 -147",
-            "Forest",
-            "Shop"
-          ],
-          "unknowns": [
-            "地面散落物品的种类不明",
-            "红色叉号标记的含义不明"
-          ]
-        }
-      ],
-      "images": [
-        {
-          "file": "native091-vision-1.jpg",
-          "frame_id": "frame-565f5b48-8258-4764-a5b1-b638528c3014",
-          "sha256": "af4882339b0bd061df0985cd51317d1ef581f920ebbbd84b31873b63494a2f57",
-          "bytes": 268577
-        },
-        {
-          "file": "native091-vision-2.jpg",
-          "frame_id": "frame-6f996b94-5471-4cb1-a523-1c9d95a0cd8d",
-          "sha256": "7683f5e3862d29ae6871d509fc13f88bc5a692b4b59d5bfbd38432483b64be8c",
-          "bytes": 201000
-        },
-        {
-          "file": "native091-vision-3.jpg",
-          "frame_id": "frame-748ffb75-9dea-42a0-8443-f6b2ddf61b32",
-          "sha256": "bf6a5413f79e2fd398655670abce2a01d50cbf1dd883fb96c54c62632e933737",
-          "bytes": 176404
-        },
-        {
-          "file": "native091-vision-4.jpg",
-          "frame_id": "frame-45507975-e50d-4589-ab1a-90be00d61eef",
-          "sha256": "68df4dcd446c06ac38bc63a0877b62b9ac113a88dcfa9b5a97215e07dde87c14",
-          "bytes": 218575
-        }
-      ],
-      "accuracy_benchmark_complete": false,
-      "reviewed_accuracy_issue": "held_gravestone_obituary_misidentified_as_shield_in_visual_captions",
-      "success_count": 6,
-      "preempted_count": 2,
-      "success_mean_ms": 3972.1666666666665
-    },
-    "narration": {
-      "same_internal_broadcast_only": true,
-      "snapshot_before_pause_and_end": false,
-      "count": 41,
-      "states": {
-        "answered": 5,
-        "discarded": 22,
-        "expired": 11,
-        "failed": 2,
-        "cancelled": 1
-      },
-      "completed_formal_utterances": 5,
-      "read_only_after_stop": true,
-      "independent_audience_verified": false
-    },
-    "keep_inventory_after_engine_save": true,
-    "world_rule_or_inventory_edits_this_round": 0,
-    "world_reset": false,
-    "original_world_backup_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
-    "saved_world_sha256": "292de7ecedd64d266b86523709f50d1eb2447747651bc534fee9618514a6e364",
-    "worker_task_submissions": 0,
-    "game_keys_issued": 0,
-    "worker_auto_requests": 1,
-    "manual_takeover": false,
-    "public_broadcast_started": false,
-    "cleanup": {
-      "native_world_pause_confirmed": false,
-      "normal_game_exit": {
-        "exit_code": 0,
-        "graceful_close_requested": true,
-        "all_owned_processes_closed": true,
-        "bounded_job_cleanup_required": null
-      },
-      "internal_broadcast_closed": true,
-      "services_after": {
-        "dsh": false,
-        "avatar": false,
-        "tts": false,
-        "receiver": false,
-        "vision": false,
-        "minecraft": false
-      },
-      "official_clients_preserved": true
-    },
-    "formal_acceptance_passed": 0,
-    "new_avatar_assets": 0,
-    "inherited_open_items": 117,
-    "all_required_domains_remaining": [
-      {
-        "id": "D01",
-        "required": true,
-        "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
-        "remaining": "完整安装包与许可、干净Windows重建、来源与全部副本审计、异常启动回收、缓存与回退自动化；六项服务ready不等于完整application_ready。"
-      },
-      {
-        "id": "D02",
-        "required": true,
-        "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
-        "remaining": "模组实体与容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物及后续联机差异。"
-      },
-      {
-        "id": "D03",
-        "required": true,
-        "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
-        "remaining": "日/夜多敌持续撤离、普通下落途中误判无路、动态改路/落脚及跨生存子流程总预算、PvE、食物/重生补给、GUI/水/岩浆/窒息与长期停止；091已有5次改路后核验到达，持续生存仍未通过。"
-      },
-      {
-        "id": "D04",
-        "required": true,
-        "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
-        "remaining": "持续资源→工具→食物长链、熔炼、种收吃、容器往返、耐久更换、模组资源、探索建造；091核验采集/制作任务1条，不替代完整技能验收。"
-      },
-      {
-        "id": "D05",
-        "required": true,
-        "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
-        "remaining": "Mindcraft依赖覆盖、复杂路线和可达撤离、失败后有效改策、长期目标和跨场工作台补给、真实互动并发、模型预算/公平性/迟到取消与事实核验。"
-      },
-      {
-        "id": "D06",
-        "required": true,
-        "status": "round090_public_guest_reconnected_no_new_real_events",
-        "remaining": "595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连和节目展示；公开连接缺现场事件，不伪造样本，不重复要求用户发送。"
-      },
-      {
-        "id": "D07",
-        "required": true,
-        "status": "community_recall_mood_soul_adapted_full_memory_lifecycle_pending",
-        "remaining": "真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复及唯一写者隔离。"
-      },
-      {
-        "id": "D08",
-        "required": true,
-        "status": "round090_actual_chat_side_and_six_mobile_pages_passed_full_operator_acceptance_pending",
-        "remaining": "完整原生状态/启停/任务/资源/音量/诊断/恢复与两方案切换；090已过左右换边及6个手机页面，仍需有真实消息时队列保留、并发及完整操作流程验收。"
-      },
-      {
-        "id": "D09",
-        "required": true,
-        "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
-        "remaining": "持续有效游玩、及时且符合事实的自然解说、人物供帧/4秒重缓冲、真实弹幕合成和手机观看；091同场正式完成5条、过期11条，迟到与事实一致性仍需改善，画布FPS不替代呈现FPS。"
-      },
-      {
-        "id": "D10",
-        "required": true,
-        "status": "not_generated",
-        "remaining": "两套各2闲置+48动作共100段新素材、索引、口型、圆形遮罩与接缝；仍0/100，原female-A历史素材保留。"
-      },
-      {
-        "id": "D11",
-        "required": true,
-        "status": "approved_voice_pair_integrated_audio_acceptance_pending",
-        "remaining": "原生游戏声/人声/BGM压低恢复、O07/F07故障切换、唯一音源与完整实录验收。"
-      },
-      {
-        "id": "D12",
-        "required": true,
-        "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
-        "remaining": "真实JPEG→Luna的模组物品/危险准确率、手持讣告被误认盾牌的结构化校验、旧帧与世界绑定、误识别、超时取消、队列公平性及游戏/人物联合负载。"
-      },
-      {
-        "id": "D13",
-        "required": true,
-        "status": "official_local_output_verified_public_audience_pending",
-        "remaining": "公开状态核对、独立观众CDN音画和端到端时延；本轮内部验证未公开开播。"
-      },
-      {
-        "id": "D14",
-        "required": true,
-        "status": "round091_native_bounded_replanning_implemented_real_runtime_reviewed_full_acceptance_pending",
-        "remaining": "冷启动、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转、异常退出及存活世界真实暂停与口播排空；091正常保存和计划停机已复核。"
-      },
-      {
-        "id": "D15",
-        "required": true,
-        "status": "not_accepted",
-        "remaining": "正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/交接；继承117项冻结待办原编号不变。"
-      }
-    ],
-    "raw_evidence_sha256": {
-      "deploy091-result.json": "5734f22dbed0c449e6370ff520c0675aeb47fc6c68c3240918c752362aa3c4de",
-      "native091-session-result.json": "6fa154e12a512dfe3773a0fa70fd8dfa686c8749707aef00c4a58e479d6558d3",
-      "finish091-result.json": "af4a4be67d9958a010b1038f8c66a338cc5f3f21421bedbf25cfad2e1ecfc285",
-      "transfer091-result.json": "830ee4a4219c6d4e11dc89429ba06975a0893d6f3f8ee04c114cf9cc98f243b4",
-      "audit091-result.json": "7091303e997f5da3e978b08011e10e96a438b62403e80e76fa887f34b6a741c9"
-    },
-    "transfer_files_hash_size_verified": 31,
-    "additional_read_only_audit_hash_verified": true,
+    "formal_acceptance_advanced": 0,
     "github_publication": {
       "branch": "mc",
-      "source_commit": "0c892b92896692d8448bbbfddb6d0b0eef15ccaa",
-      "source_commit_remote_verified": true,
-      "status": "source_published_documentation_in_this_revision",
-      "url": "https://github.com/wikigsroom/Ai-Talk-Streamer/tree/mc",
-      "private_state_models_runtimes_and_raw_logs_published": false
-    },
-    "report": "docs/technical/mc-live-v1/原生改路与091实机复核.md",
-    "death_inventory_checks": [
-      {
-        "before": [
-          {
-            "item_id": "gravestone:obituary",
-            "count": 1
-          },
-          {
-            "item_id": "minecraft:rotten_flesh",
-            "count": 3
-          }
-        ],
-        "after_death": [
-          {
-            "item_id": "gravestone:obituary",
-            "count": 1
-          },
-          {
-            "item_id": "minecraft:rotten_flesh",
-            "count": 3
-          }
-        ],
-        "previous_items_present": true
-      },
-      {
-        "before": [
-          {
-            "item_id": "gravestone:obituary",
-            "count": 1
-          },
-          {
-            "item_id": "minecraft:oak_log",
-            "count": 1
-          },
-          {
-            "item_id": "minecraft:rotten_flesh",
-            "count": 5
-          }
-        ],
-        "after_death": [
-          {
-            "item_id": "cottonly:cotton_seeds",
-            "count": 2
-          },
-          {
-            "item_id": "gravestone:obituary",
-            "count": 1
-          },
-          {
-            "item_id": "minecraft:oak_log",
-            "count": 1
-          },
-          {
-            "item_id": "minecraft:rotten_flesh",
-            "count": 5
-          }
-        ],
-        "previous_items_present": true
-      }
-    ]
+      "source_commit": "64e0a2321d9da4c7052ab23dcf49a9887562fe1d",
+      "source_pushed_and_remote_verified": true,
+      "documentation_published_with_this_revision": true
+    }
   },
   "documentation_validation": {
     "classification": "DOCUMENT_AND_CONTRACT_VALIDATION_ONLY",
@@ -3623,9 +2911,9 @@
     "continuous_survival_verified": false
   },
   "current_runtime_verification": {
-    "round": "091",
+    "round": "092",
     "remote_3080_tested": true,
-    "source_snapshot_sha256": "3b5ba34e5fb0e3f60467b7c411a2fb95c4d1730562f4a5110052d1f74db1b950",
+    "source_snapshot_sha256": "07813b5573a7dc6ebc903ad04b6d900cbc5d4fb2e2e9e284030733539677324b",
     "candidate_disabled": true,
     "keep_inventory_after_engine_save": true,
     "normal_save_stop_verified": true,
@@ -3634,11 +2922,12 @@
     "formal_survival_acceptance_passed": false
   },
   "latest_turn_implemented_ids": [
-    "I1077",
-    "I1078",
-    "I1079",
-    "I1080",
-    "I1081"
+    "I1082",
+    "I1083",
+    "I1084",
+    "I1085",
+    "I1086",
+    "I1087"
   ],
   "sample120_user_requested_recording": {
     "video": "outputs/mc-validation/round-088/remote-evidence/mc-live-dsh-mc-agent-088d-120s.mp4",
@@ -14841,6 +14130,22 @@
     "full_acceptance_pending": true,
     "github_push_pending": false,
     "source_commit": "0c892b92896692d8448bbbfddb6d0b0eef15ccaa",
+    "documentation_published_with_this_revision": true
+  },
+  "round092_follow_up": {
+    "implemented_ids": [
+      "I1082",
+      "I1083",
+      "I1084",
+      "I1085",
+      "I1086",
+      "I1087"
+    ],
+    "evidence": "docs/evidence/mc-runtime-round-092.json",
+    "report": "docs/technical/mc-live-v1/落地等待与092视觉核对.md",
+    "full_acceptance_pending": true,
+    "github_push_pending": false,
+    "source_commit": "64e0a2321d9da4c7052ab23dcf49a9887562fe1d",
     "documentation_published_with_this_revision": true
   }
 }
