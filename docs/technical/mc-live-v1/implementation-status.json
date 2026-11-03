@@ -5,7 +5,7 @@
   "goal_status": "active",
   "overall_status": "in_progress_full_application_not_accepted",
   "current_round": "090",
-  "turn_classification": "native_airborne_escape_fixed_remote_build_and_fixtures_passed_runtime_pending",
+  "turn_classification": "native_escape_landing_observed_real_survival_failed_ui_verified_and_source_pushed",
   "delivery_mode": "single_integrated_release",
   "user_facing_release_count": 1,
   "progress_document": "docs/technical/mc-live-v1/实现进度.md",
@@ -14,13 +14,17 @@
     "I1069",
     "I1070",
     "I1071",
-    "I1072"
+    "I1072",
+    "I1073",
+    "I1074",
+    "I1075",
+    "I1076"
   ],
   "required_domains": [
     {
       "id": "D01",
       "required": true,
-      "status": "native_services_restored_engine_save_verified_complete_application_pending",
+      "status": "round090_remote_build_preparation_and_services_passed_complete_application_pending",
       "remaining": "完整安装包与许可、干净Windows重建、来源与全部副本审计、异常启动回收、缓存与回退自动化；六项服务ready不等于完整application_ready。"
     },
     {
@@ -32,14 +36,14 @@
     {
       "id": "D03",
       "required": true,
-      "status": "actual_gather_threat_preemption_verified_multi_hostile_escape_failed_keep_inventory_retained",
-      "remaining": "夜间多敌撤离、受击腾空/寻路失败改策、普通PvE、食物与重生后补给、GUI/水/岩浆/窒息、租约和长期停止；采集遇险取消已有实机回执，仍不能替代成功逃生。"
+      "status": "escape_landing_observed_next_step_route_failures_and_survival_still_failed",
+      "remaining": "日/夜多敌连续撤离、next_step_changed时有界改路、实际整数边缘落脚、普通PvE、食物/重生补给、GUI/水/岩浆/窒息与长期停止；落地等待已实测，持续生存仍失败。"
     },
     {
       "id": "D04",
       "required": true,
-      "status": "historical_item_progress_preserved_new_run_zero_productive_tasks",
-      "remaining": "持续资源→工具→食物长链、熔炼、种收吃、容器往返、工具耐久与更换、模组资源、探索建造；历史木镐成果不等于本轮持续生存。"
+      "status": "round090_zero_verified_productive_tasks_sustained_resource_chain_pending",
+      "remaining": "持续资源→工具→食物长链、熔炼、种收吃、容器往返、耐久更换、模组资源、探索建造；090核验采集/制作任务仍0。"
     },
     {
       "id": "D05",
@@ -50,7 +54,7 @@
     {
       "id": "D06",
       "required": true,
-      "status": "guest_room_connection_verified_real_event_chain_pending",
+      "status": "round090_public_guest_reconnected_no_new_real_events",
       "remaining": "595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连和节目展示；公开连接缺现场事件，不伪造样本，不重复要求用户发送。"
     },
     {
@@ -62,14 +66,14 @@
     {
       "id": "D08",
       "required": true,
-      "status": "planting_desktop_mobile_editors_verified_complete_operator_flows_pending",
-      "remaining": "完整原生状态/启停/任务/资源/音量/诊断/故障恢复、手机、留言左右切换与两方案可追溯切换。"
+      "status": "round090_actual_chat_side_and_six_mobile_pages_passed_full_operator_acceptance_pending",
+      "remaining": "完整原生状态/启停/任务/资源/音量/诊断/恢复与两方案切换；090已过左右换边及6个手机页面，仍需有真实消息时队列保留、并发及完整操作流程验收。"
     },
     {
       "id": "D09",
       "required": true,
-      "status": "luna_120s_programme_delivered_avatar_supply_and_quality_pending",
-      "remaining": "持续有效游玩、自然及时且符合事实的解说、人物持续供帧与4秒重缓冲、真实弹幕合成和手机观看；生成FPS不能替代实际呈现FPS。"
+      "status": "round090_four_answered_twenty_two_expired_canvas_metrics_not_presented_fps",
+      "remaining": "持续有效游玩、及时且符合事实的自然解说、人物供帧/4秒重缓冲、真实弹幕合成和手机观看；090解说22条过期，画布更新FPS不能替代呈现FPS。"
     },
     {
       "id": "D10",
@@ -86,7 +90,7 @@
     {
       "id": "D12",
       "required": true,
-      "status": "gpt6_luna_real_game_image_verified_accuracy_preemption_and_long_load_pending",
+      "status": "round090_three_real_jpeg_luna_results_succeeded_accuracy_and_long_load_pending",
       "remaining": "真实JPEG→Luna的模组物品/危险准确率、旧帧与世界绑定、误识别、超时取消、队列公平性及游戏/人物联合负载。"
     },
     {
@@ -98,8 +102,8 @@
     {
       "id": "D14",
       "required": true,
-      "status": "luna_start_save_shutdown_verified_performance_and_long_stability_pending",
-      "remaining": "冷启动、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转、异常退出及实际暂停与正常保存。"
+      "status": "round090_expected_stop_and_normal_world_save_verified_live_pause_and_long_stability_pending",
+      "remaining": "冷启动、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转、异常退出及存活世界真实暂停与口播排空；090正常保存/计划停机已过，死亡等待资源采样不替代长期游玩。"
     },
     {
       "id": "D15",
@@ -386,31 +390,31 @@
   "remote_4090_control": "paused",
   "current_inherited_target": "rtx3080",
   "layout_unchanged": true,
-  "last_updated": "2026-11-03T00:55:23.619494+00:00",
+  "last_updated": "2026-11-03T01:27:09.648718+00:00",
   "known_incomplete_integration": [
     "D01 工程运行 完整安装包与许可、干净Windows重建、来源与全部副本审计、异常启动回收、缓存与回退自动化；六项服务ready不等于完整application_ready。",
     "D02 游戏接入 模组实体与容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物及后续联机差异。",
-    "D03 自主控制 夜间多敌撤离、受击腾空/寻路失败改策、普通PvE、食物与重生后补给、GUI/水/岩浆/窒息、租约和长期停止；采集遇险取消已有实机回执，仍不能替代成功逃生。",
-    "D04 生存技能 持续资源→工具→食物长链、熔炼、种收吃、容器往返、工具耐久与更换、模组资源、探索建造；历史木镐成果不等于本轮持续生存。",
+    "D03 自主控制 日/夜多敌连续撤离、next_step_changed时有界改路、实际整数边缘落脚、普通PvE、食物/重生补给、GUI/水/岩浆/窒息与长期停止；落地等待已实测，持续生存仍失败。",
+    "D04 生存技能 持续资源→工具→食物长链、熔炼、种收吃、容器往返、耐久更换、模组资源、探索建造；090核验采集/制作任务仍0。",
     "D05 DSH规划 Mindcraft依赖覆盖、复杂路线与可达撤离、失败后改策、长期目标和跨场工作台补给、真实互动并发、模型预算/公平性/迟到取消与事实核验。",
     "D06 真实互动 595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连和节目展示；公开连接缺现场事件，不伪造样本，不重复要求用户发送。",
     "D07 记忆数据 真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复及唯一写者隔离。",
-    "D08 后台界面 完整原生状态/启停/任务/资源/音量/诊断/故障恢复、手机、留言左右切换与两方案可追溯切换。",
-    "D09 横屏节目 持续有效游玩、自然及时且符合事实的解说、人物持续供帧与4秒重缓冲、真实弹幕合成和手机观看；生成FPS不能替代实际呈现FPS。",
+    "D08 后台界面 完整原生状态/启停/任务/资源/音量/诊断/恢复与两方案切换；090已过左右换边及6个手机页面，仍需有真实消息时队列保留、并发及完整操作流程验收。",
+    "D09 横屏节目 持续有效游玩、及时且符合事实的自然解说、人物供帧/4秒重缓冲、真实弹幕合成和手机观看；090解说22条过期，画布更新FPS不能替代呈现FPS。",
     "D10 人物素材 两套各2闲置+48动作共100段新素材、索引、口型、圆形遮罩与接缝；仍0/100，原female-A历史素材保留。",
     "D11 声音混音 原生游戏声/人声/BGM压低恢复、O07/F07故障切换、唯一音源与完整实录验收。",
     "D12 视觉理解 真实JPEG→Luna的模组物品/危险准确率、旧帧与世界绑定、误识别、超时取消、队列公平性及游戏/人物联合负载。",
     "D13 平台输出 公开状态核对、独立观众CDN音画和端到端时延；本轮内部验证未公开开播。",
-    "D14 运维稳定 冷启动、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转、异常退出及实际暂停与正常保存。",
+    "D14 运维稳定 冷启动、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转、异常退出及存活世界真实暂停与口播排空；090正常保存/计划停机已过，死亡等待资源采样不替代长期游玩。",
     "D15 完整交付 正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/交接；继承117项冻结待办原编号不变。"
   ],
   "current_round_validation": {
     "schema_version": 1,
     "id": "MC-20261103-090",
     "round": "090",
-    "at": "2026-11-03T00:55:23.619494+00:00",
+    "at": "2026-11-03T01:27:09.648718+00:00",
     "branch": "mc",
-    "scope": "NATIVE_AIRBORNE_ESCAPE_BUILD_AND_REGRESSION_RUNTIME_PENDING_NOT_RELEASE_ACCEPTANCE",
+    "scope": "REAL_NATIVE_RUN_AND_NORMAL_SAVE_SURVIVAL_FAILED_NOT_RELEASE_ACCEPTANCE",
     "device": "remote-3080",
     "host": "DESKTOP-2QQPN1H",
     "local_application_tests": 0,
@@ -475,16 +479,486 @@
       "missing_Gson_in_fixture_runtime",
       "multiple_Gson_versions_require_actual_game_artifact"
     ],
-    "keep_inventory": "true_verified_in_original_world_round089_and_before_round090_start",
+    "keep_inventory": "true_verified_across_three_new_deaths_and_normal_engine_save",
     "world_rule_or_inventory_edits_this_round": 0,
     "runtime": {
-      "state": "starting",
-      "actual_autonomous_play_validation": "pending"
+      "state": "OBSERVED_AND_NORMALLY_STOPPED",
+      "survival_passed": false,
+      "application_ready": false,
+      "observation_window_seconds": 601.1551134586334,
+      "observations": 294,
+      "sampled_auto_alive_seconds_approx": 51.642,
+      "observation_window_includes_death_wait": true,
+      "ordinary_respawns_confirmed": 3,
+      "observed_death_transitions": 3,
+      "death_inventory_observations": [
+        {
+          "before_inventory": [
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:rotten_flesh",
+              "count": 1
+            }
+          ],
+          "after_inventory": [
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:rotten_flesh",
+              "count": 1
+            }
+          ],
+          "previous_items_present_after_death": true
+        },
+        {
+          "before_inventory": [
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:rotten_flesh",
+              "count": 1
+            }
+          ],
+          "after_inventory": [
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:rotten_flesh",
+              "count": 1
+            }
+          ],
+          "previous_items_present_after_death": true
+        },
+        {
+          "before_inventory": [
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:rotten_flesh",
+              "count": 3
+            }
+          ],
+          "after_inventory": [
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:rotten_flesh",
+              "count": 3
+            }
+          ],
+          "previous_items_present_after_death": true
+        }
+      ],
+      "tasks": 10,
+      "task_states": {
+        "failed": 5,
+        "cancelled": 2,
+        "succeeded": 3
+      },
+      "task_failure_reasons": {
+        "GAME_NAVIGATION_NO_ROUTE": 5,
+        "PLAYER_DEATH": 2
+      },
+      "verified_navigation_tasks": 3,
+      "verified_productive_tasks": 0,
+      "landing_observations": [
+        {
+          "phase": "DONE",
+          "escape_landing_ticks": 2,
+          "escape_landing_input_actions": 0,
+          "outcome": "escape_landed",
+          "enemy_health": 48.0
+        }
+      ],
+      "sampled_route_failures": [
+        {
+          "observed_at": "2026-11-03T01:08:14.822530900Z",
+          "stage": "next_step_changed",
+          "task_id": "task-06518795-13d9-4710-bde9-93d37319168c",
+          "on_ground": true,
+          "position": {
+            "x": 1368.7582135678315,
+            "y": 74.9375,
+            "z": -164.59616984985954
+          },
+          "goal": {
+            "x": 1368,
+            "y": 75,
+            "z": -171
+          },
+          "next": {
+            "x": 1368,
+            "y": 74,
+            "z": -166
+          },
+          "feet_standable": true,
+          "horizontal_collision": false,
+          "path_points_remaining": 5,
+          "searches": 1
+        },
+        {
+          "observed_at": "2026-11-03T01:08:32.018945500Z",
+          "stage": "next_step_changed",
+          "task_id": "task-8b3b214b-7d8c-47c1-a9f0-6a1b0fda7092",
+          "on_ground": true,
+          "position": {
+            "x": 1360.7874314904243,
+            "y": 75.0,
+            "z": -161.49884477585917
+          },
+          "goal": {
+            "x": 1359,
+            "y": 73,
+            "z": -159
+          },
+          "next": {
+            "x": 1360,
+            "y": 74,
+            "z": -161
+          },
+          "feet_standable": false,
+          "horizontal_collision": false,
+          "path_points_remaining": 3,
+          "searches": 1
+        },
+        {
+          "observed_at": "2026-11-03T01:08:38.529609400Z",
+          "stage": "next_step_changed",
+          "task_id": "task-2d19c089-17e0-4a20-89c6-27c76099208f",
+          "on_ground": true,
+          "position": {
+            "x": 1355.5020901550865,
+            "y": 74.9375,
+            "z": -157.71047666873397
+          },
+          "goal": {
+            "x": 1352,
+            "y": 74,
+            "z": -156
+          },
+          "next": {
+            "x": 1354,
+            "y": 74,
+            "z": -158
+          },
+          "feet_standable": true,
+          "horizontal_collision": false,
+          "path_points_remaining": 4,
+          "searches": 1
+        },
+        {
+          "observed_at": "2026-11-03T01:08:45.307525200Z",
+          "stage": "next_step_changed",
+          "task_id": "task-4b7ced4b-7b66-42f6-9e99-f565780059c2",
+          "on_ground": true,
+          "position": {
+            "x": 1349.5001804321016,
+            "y": 75.0,
+            "z": -147.70559926712033
+          },
+          "goal": {
+            "x": 1346,
+            "y": 75,
+            "z": -148
+          },
+          "next": {
+            "x": 1348,
+            "y": 75,
+            "z": -148
+          },
+          "feet_standable": true,
+          "horizontal_collision": false,
+          "path_points_remaining": 2,
+          "searches": 1
+        }
+      ],
+      "all_failure_diagnostics_captured": false,
+      "worker_task_submissions": 0,
+      "game_keys_issued": 0,
+      "worker_auto_requests": 1,
+      "manual_takeover": false,
+      "source_unchanged": true,
+      "original_world": "MC Live Offline 083",
+      "username": "NAIMEI",
+      "candidate_enabled": false,
+      "world_rule_or_inventory_edits_this_round": 0,
+      "keep_inventory_after_engine_save": true,
+      "original_world_backup_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
+      "saved_world_sha256": "1948f1086f3d9a85704d088b65f44124cbcc27f53b5bab0fd1ae88e8118209cd",
+      "native_world_pause_confirmed": false,
+      "normal_game_close_before_audio_drain": true,
+      "normal_game_exit": {
+        "exit_code": 0,
+        "graceful_close_requested": true,
+        "all_owned_processes_closed": true,
+        "bounded_job_cleanup_required": null
+      },
+      "internal_broadcast_closed": true,
+      "owned_services_after": {
+        "dsh": false,
+        "avatar": false,
+        "tts": false,
+        "receiver": false,
+        "vision": false,
+        "minecraft": false
+      },
+      "official_clients_preserved": true,
+      "latest_supervision": {
+        "phase": "STOPPED",
+        "reason": "EXPECTED_STOP",
+        "updated_at": "2026-11-03T01:18:57.365701+00:00",
+        "family_empty_confirmed": true,
+        "registry_cleanup_confirmed": true,
+        "supervisor_alive": false
+      }
     },
     "public_broadcast_started": false,
     "formal_acceptance_passed": 0,
     "new_avatar_assets": 0,
-    "github_publication": "reviewed_source_and_sanitized_documents_staged_push_pending"
+    "github_publication": {
+      "branch": "mc",
+      "source_commit": "577ecc2c050f9085dd8d482098128c78f39b3f80",
+      "source_commit_remote_verified": true,
+      "url": "https://github.com/wikigsroom/Ai-Talk-Streamer/tree/mc",
+      "raw_logs_private_state_models_and_runtimes_published": false
+    },
+    "vision": {
+      "model_id": "gpt-6-luna",
+      "source": "ACTUAL_NATIVE_JAVA_JPEG",
+      "local_model_process_required": false,
+      "new_results": 3,
+      "states": {
+        "succeeded": 3
+      },
+      "success_mean_ms": 5233.666666666667,
+      "samples": [
+        {
+          "state": "succeeded",
+          "elapsed_ms": 4885,
+          "image_sha256": "112beccc8462b668a401454cc86ca2779c1ed07178a8e87324f6ac6f71600b77",
+          "width": 1920,
+          "height": 1080,
+          "caption": "白天的平原村庄环境：土路旁有高草、树木、火把、砖墙建筑和一堆干草捆；前景草丛遮挡部分视野，未见明显敌对生物。",
+          "unknowns": [
+            "干草捆附近的建筑内部情况不可见",
+            "右下方白色物体具体为何物不确定"
+          ]
+        },
+        {
+          "state": "succeeded",
+          "elapsed_ms": 4299,
+          "image_sha256": "e6cf6d5a853c166b00c56081d6cd24a45d9fdce4cc583c7dff53e7169d38ee4a",
+          "width": 1920,
+          "height": 1080,
+          "caption": "草地村庄中有草径、木屋、火把柱和左侧草垛，周围有树木；右侧红色光柱标记处。",
+          "unknowns": [
+            "红色光柱标记的具体含义不明",
+            "手持物品及快捷栏物品细节不确定"
+          ]
+        },
+        {
+          "state": "succeeded",
+          "elapsed_ms": 6517,
+          "image_sha256": "6fb25a4b2198d9d1053490243ea5ddf4c408c27b3182d2ce564f73336f5911da",
+          "width": 1920,
+          "height": 1080,
+          "caption": "晴朗的平原草地与树林间有一座砖墙石顶小屋，右侧堆着干草块；远处可见一个人形实体，身份不明。",
+          "unknowns": [
+            "远处人形实体的身份不明",
+            "手持物品外观不清，无法确认是什么"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "file": "native090-vision-1.jpg",
+          "frame_id": "frame-77155289-b9d8-4ac7-90db-938dcb27516c",
+          "sha256": "112beccc8462b668a401454cc86ca2779c1ed07178a8e87324f6ac6f71600b77",
+          "bytes": 357595
+        },
+        {
+          "file": "native090-vision-2.jpg",
+          "frame_id": "frame-85f240b4-05e6-454b-a25a-88554f56d138",
+          "sha256": "e6cf6d5a853c166b00c56081d6cd24a45d9fdce4cc583c7dff53e7169d38ee4a",
+          "bytes": 334575
+        },
+        {
+          "file": "native090-vision-3.jpg",
+          "frame_id": "frame-9cf71f95-d38a-46a0-9abd-31b63d2da31c",
+          "sha256": "6fb25a4b2198d9d1053490243ea5ddf4c408c27b3182d2ce564f73336f5911da",
+          "bytes": 338623
+        }
+      ],
+      "accuracy_benchmark_complete": false
+    },
+    "narration": {
+      "scope": "SAME_INTERNAL_BROADCAST_FILTERED_FROM_HISTORY",
+      "items": 31,
+      "states": {
+        "expired": 22,
+        "answered": 4,
+        "discarded": 4,
+        "cancelled": 1
+      },
+      "answered_requires_existing_completion_event": true,
+      "independent_audience_playback_verified": false
+    },
+    "actual_ui": {
+      "ok": true,
+      "checks": [
+        {
+          "check": "actual_chat_side_left",
+          "side": "left",
+          "chat_x": 32,
+          "gift_x": 32,
+          "avatar_width": 264,
+          "avatar_height": 264,
+          "audible": false,
+          "selected_comment": false
+        },
+        {
+          "check": "actual_chat_side_right",
+          "side": "right",
+          "chat_x": 1480,
+          "gift_x": 1480,
+          "avatar_width": 264,
+          "avatar_height": 264,
+          "audible": false,
+          "selected_comment": false
+        },
+        {
+          "check": "actual_admin_mobile_overview",
+          "horizontal_overflow": false
+        },
+        {
+          "check": "actual_admin_mobile_music",
+          "horizontal_overflow": false
+        },
+        {
+          "check": "actual_admin_mobile_visual",
+          "horizontal_overflow": false
+        },
+        {
+          "check": "actual_admin_mobile_messages",
+          "horizontal_overflow": false
+        },
+        {
+          "check": "actual_admin_mobile_agent",
+          "horizontal_overflow": false
+        },
+        {
+          "check": "actual_admin_mobile_logs",
+          "horizontal_overflow": false
+        }
+      ],
+      "page_errors": [],
+      "preview_muted": true,
+      "original_side_restored": true,
+      "owned_browser_closed": true,
+      "real_messages_present_during_test": false,
+      "viewer_events_injected": 0,
+      "queue_stress_acceptance_passed": false
+    },
+    "guest_collection": {
+      "room_id": "595139",
+      "mode": "blivedm",
+      "guest": true,
+      "connected": true,
+      "new_event_count": 0,
+      "pending": 0,
+      "elapsed_start_to_stop_seconds": 369,
+      "normal_stop": true,
+      "viewer_events_injected": 0,
+      "real_interaction_acceptance_passed": false
+    },
+    "resource_observations": {
+      "ok": true,
+      "samples": 78,
+      "seconds": 391.30475401878357,
+      "canvas_draw_fps": {
+        "min": 0,
+        "max": 25.60231077146247,
+        "median": 24.77072860318567
+      },
+      "audio_buffer_ms": {
+        "min": 0,
+        "max": 4110.476190893678,
+        "median": 2338.6666663286633
+      },
+      "audio_underrun_counts": {
+        "min": 0,
+        "max": 2,
+        "median": 2.0
+      },
+      "max_arrival_gap_ms": {
+        "min": 54,
+        "max": 547.4000000953674,
+        "median": 547.4000000953674
+      },
+      "system_memory_used_bytes": {
+        "min": 13458821120,
+        "max": 21847293952,
+        "median": 20550113280.0
+      },
+      "system_cpu_percent": {
+        "min": 0.0,
+        "max": 12.6,
+        "median": 6.5
+      },
+      "gpu_samples": [
+        "NVIDIA GeForce RTX 3080, 8557, 10240, 35, 46",
+        "NVIDIA GeForce RTX 3080, 8557, 10240, 29, 47",
+        "NVIDIA GeForce RTX 3080, 8559, 10240, 38, 48",
+        "NVIDIA GeForce RTX 3080, 8559, 10240, 27, 49",
+        "NVIDIA GeForce RTX 3080, 8558, 10240, 30, 50",
+        "NVIDIA GeForce RTX 3080, 8558, 10240, 30, 50",
+        "NVIDIA GeForce RTX 3080, 8558, 10240, 29, 51",
+        "NVIDIA GeForce RTX 3080, 8558, 10240, 28, 52",
+        "NVIDIA GeForce RTX 3080, 8558, 10240, 27, 49",
+        "NVIDIA GeForce RTX 3080, 8558, 10240, 29, 44",
+        "NVIDIA GeForce RTX 3080, 8558, 10240, 24, 44",
+        "NVIDIA GeForce RTX 3080, 8558, 10240, 28, 46",
+        "NVIDIA GeForce RTX 3080, 8558, 10240, 30, 47"
+      ],
+      "scope": "DEATH_SCREEN_WAIT_AND_NORMAL_CLOSE_NOT_EFFECTIVE_GAMEPLAY_LOAD",
+      "presented_or_audience_fps_verified": false,
+      "underrun_counters_reset_with_consumer_reconnection": true
+    },
+    "transfer": {
+      "nonempty_files_verified": 43,
+      "empty_artifacts": [
+        {
+          "file": "fixture-compile090.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "transfer": "EMPTY_FILE_RECORDED_IN_MANIFEST"
+        }
+      ],
+      "first_attempt": "EMPTY_LOG_REJECTED_HTTP_413_RETAINED",
+      "retry": "BYTE_TRANSFER_ONLY_ALL_HASHES_MATCHED"
+    },
+    "raw_evidence_sha256": {
+      "native090-session-result.json": "2d2b2347037f4247285ed2642846ba7ddbbda720ea0469e8eb15419dc9d1c68f",
+      "finish090-result.json": "67128b12deffed78d61944807167106eeb0434f8e6ec5b658a94f5d6a3ee94a3",
+      "ui090-result.json": "58bd5f82706ac8ef7946e934cf5ec28d4ad743f3578e0fc5248a91bf5a82abd9",
+      "monitor090-result.json": "fb086c3ea625e35367a33da348d2d5918087ff436c7d82007d90e7dd8f81e20f",
+      "guest090-result.json": "4f2402aa537fa7d7b2e5e5e80230521504abedb67f31e3769098fe618a918aa3",
+      "transfer090b-result.json": "f60ca30d4a3842e4c6ec87cc0e64955e5e1541df3f3b0b452a35f70eb4497863"
+    },
+    "report": "docs/technical/mc-live-v1/原生撤离与090实机复核.md"
   },
   "documentation_validation": {
     "classification": "DOCUMENT_AND_CONTRACT_VALIDATION_ONLY",
@@ -2900,22 +3374,27 @@
     "continuous_survival_verified": false
   },
   "current_runtime_verification": {
-    "round": "089",
+    "round": "090",
     "remote_3080_tested": true,
     "native_route_restored": true,
     "candidate_disabled": true,
     "keep_inventory_after_engine_save": true,
-    "services_ready": true,
+    "services_ready_during_start": true,
     "application_ready": false,
     "survival_passed": false,
     "normal_save_stop_verified": true,
-    "source_snapshot_sha256": "4e548629e38cc7dba076970a5c1be3d8217a14ad453e0febd782e3dd64ff0a22"
+    "owned_services_stopped": true,
+    "source_snapshot_sha256": "40652bc070662e26831f530b21b0ae569ba5855ae8c41d0296d6108319c31457"
   },
   "latest_turn_implemented_ids": [
     "I1069",
     "I1070",
     "I1071",
-    "I1072"
+    "I1072",
+    "I1073",
+    "I1074",
+    "I1075",
+    "I1076"
   ],
   "sample120_user_requested_recording": {
     "video": "outputs/mc-validation/round-088/remote-evidence/mc-live-dsh-mc-agent-088d-120s.mp4",
@@ -14090,11 +14569,19 @@
       "I1069",
       "I1070",
       "I1071",
-      "I1072"
+      "I1072",
+      "I1073",
+      "I1074",
+      "I1075",
+      "I1076"
     ],
     "evidence": "docs/evidence/mc-runtime-round-090.json",
-    "actual_survival_pending": true,
-    "normal_save_pending": true,
-    "github_push_pending": true
+    "report": "docs/technical/mc-live-v1/原生撤离与090实机复核.md",
+    "autonomous_observation_complete": true,
+    "survival_acceptance_pending": true,
+    "normal_save_pending": false,
+    "github_source_push_pending": false,
+    "source_commit": "577ecc2c050f9085dd8d482098128c78f39b3f80",
+    "formal_acceptance_advanced": false
   }
 }
