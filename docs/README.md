@@ -1,6 +1,8 @@
 # Documentation / 文档导航
 
-当前MC候选验证：[DSH-MC-Agent兼容接入与120秒对比](technical/mc-live-v1/DSH-MC-Agent兼容接入与120秒对比.md)，编号`MC-20261103-088`。使用用户Mineflayer兼容包、同一Luna渠道与知夏主播；旧原生冻结保持留存，候选实测不替代完整发布验收。
+当前MC进度：[096执行反馈与播放诊断修复](technical/mc-live-v1/执行反馈与096播放诊断修复.md)，编号`MC-20261103-096`。原生Agent＋Mindcraft＋gpt-6-luna；本轮为3080源与协议检查，最近真实游玩仍为095，死亡不掉落保持开启。
+
+历史MC候选验证（当前已停用）：[DSH-MC-Agent兼容接入与120秒对比](technical/mc-live-v1/DSH-MC-Agent兼容接入与120秒对比.md)，编号`MC-20261103-088`。使用用户Mineflayer兼容包、同一Luna渠道与知夏主播；旧原生冻结保持留存，候选实测不替代完整发布验收。
 
 当前MC方案冻结：[Luna原生方案087 / F01](freezes/20261103MC-LUNA-R087-F01/README.md)，冻结编号`20261103MC-LUNA-R087-F01`，包含模型职责、接口约束、布局、120秒实况、失败、117项待办和校验归档。正式验收仍0/68。
 
