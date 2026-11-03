@@ -9,6 +9,7 @@ import threading
 from urllib.parse import urlsplit
 from yarl import URL
 from aiohttp import web, ClientSession, ClientTimeout, ClientError, WSMsgType
+from async_timeout import timeout as frame_timeout
 
 _SOURCE = Path(__file__).resolve()
 ROOT = _SOURCE.parents[3] if _SOURCE.parent.name == 'server' else _SOURCE.parents[1]
@@ -49,7 +50,7 @@ async def game_frame_proxy(request, target):
             'X-MC-World-Session-Id', 'X-MC-Seq', 'X-MC-Captured-At', 'X-MC-Width', 'X-MC-Height')
     headers = {key: request.headers[key] for key in keys if key in request.headers}
     try:
-        async with asyncio.timeout(6):
+        async with frame_timeout(6):
             async with ClientSession(timeout=ClientTimeout(total=6), trust_env=False, auto_decompress=False) as client:
                 async with client.request(request.method, target, data=bounded_body() if upload else None,
                                           headers=headers, allow_redirects=False) as upstream:

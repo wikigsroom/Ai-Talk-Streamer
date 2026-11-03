@@ -72,6 +72,9 @@ test('formal MC programme uses actual v3 H264, sole PCM authority and safe trans
   await e.page.waitForFunction(()=>avatarTransport.audible&&avatarTransport.frames>5);
   const state=await e.page.evaluate(()=>({canvas:[avatarTransport.canvas.width,avatarTransport.canvas.height],description:avatarTransport.avcConfig.description.length,protocol:avatarTransport.protocolVersion,authority:!!avatarTransport.dsh.lease,frames:avatarTransport.frames,stage:getComputedStyle(mcOverlay.stage).backgroundColor,body:getComputedStyle(document.body).backgroundColor,iframes:document.querySelectorAll('iframe,video').length,avatar:mcOverlay.avatar.getBoundingClientRect().toJSON()}));
   assert.deepEqual(state.canvas,[640,640]);assert.ok(state.description>10);assert.equal(state.protocol,3);assert.equal(state.authority,true);assert.equal(state.iframes,0);assert.equal(state.stage,'rgba(0, 0, 0, 0)');assert.equal(state.body,'rgba(0, 0, 0, 0)');assert.equal(state.avatar.x,1624);assert.equal(state.avatar.width,264);
+  const player=e.posts.find(p=>p.path.endsWith('output/player')).body;
+  assert.match(player.consumer_id,/^browser-/);assert.match(player.stream_metrics.transport_id,/^avatar-/);
+  assert.equal(player.stream_metrics.media_stream_id,'fixture-640');assert.equal(player.stream_metrics.media_protocol_version,3);
   e.f.manager.caption={request_id:'fixture-speech',text:'这是已经提交播报的完整文字。人物字幕只跟随实际有效的声音样本。'};e.f.manager.emit();
   await e.page.waitForFunction(()=>!mcOverlay.caption.hidden&&mcOverlay.caption.textContent.length>0);
   const receipt=await until(()=>e.posts.find(p=>p.path.endsWith('/receipt')&&p.body.contiguous_played_samples>0));
@@ -166,8 +169,11 @@ test('snapshot reconnect does not replay gifts; stale/duplicate/overflow message
 test('media reset resizes the real decoder, clears old PCM and captions; flying mode and scenes never post game control',async()=>{
  const e=await environment({formal:true});try{
   await e.page.waitForFunction(()=>avatarTransport.audible);const initial=await e.page.evaluate(()=>{window.oldSources=[...avatarTransport.sources].map(source=>{const state={source,ended:false};source.addEventListener('ended',()=>state.ended=true,{once:true});return state});window.oldRevision=avatarTransport.presentationRevision;return avatarTransport.mediaInit.stream_id});
+  const initialTransport=await e.page.evaluate(()=>avatarTransport.metrics().transport_id);
   e.resize();await e.page.waitForFunction(()=>avatarTransport.canvas.width===960&&avatarTransport.canvas.height===540&&avatarTransport.frames>8);
   const resized=await e.page.evaluate(()=>({id:avatarTransport.mediaInit.stream_id,oldStopped:oldSources.every(s=>s.source._dshCancelled||s.ended),revision:avatarTransport.presentationRevision,decoderErrors:avatarTransport.decodeErrors}));assert.notEqual(resized.id,initial);assert.ok(resized.revision>0);assert.equal(resized.oldStopped,true);assert.equal(resized.decoderErrors,0);
+  const resetReport=await until(()=>e.posts.find(p=>p.path.endsWith('output/player')&&p.body.stream_metrics.media_stream_id==='fixture-960'));
+  assert.equal(resetReport.body.stream_metrics.transport_id,initialTransport);
   await e.f.post('config',{expected_revision:e.f.manager.store.revision,patch:{overlay:{danmaku:true,mc_avatar_variant:'landscape',mc_scene:'break',mc_chat_side:'left'}}});
   for(let i=0;i<6;i++)e.emit('fly'+i,'向着下一个山坡出发');
   await e.page.waitForFunction(()=>mcOverlay.visible.length>=2&&mcOverlay.visible.every(e=>e.el.classList.contains('mc-flying')));

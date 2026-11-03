@@ -6,6 +6,7 @@ import unittest
 from pathlib import Path
 from aiohttp import ClientSession, web
 from aiohttp.test_utils import TestServer
+from async_timeout import timeout as frame_timeout
 from integration import dsh_bridge
 
 SPEC = importlib.util.spec_from_file_location('frame_receiver', Path(__file__).resolve().parents[1] / 'scripts/receiver_service.py')
@@ -79,7 +80,7 @@ class FrameProxyTests(unittest.IsolatedAsyncioTestCase):
             yield b'\xff\xd9'
         pending = asyncio.create_task(self.client.post(self.receiver.make_url(PATH), data=slow(), headers=HEADERS))
         try:
-            async with asyncio.timeout(2):
+            async with frame_timeout(2):
                 while not (self.gateway.frame_uploading and dsh_bridge._frame_uploading): await asyncio.sleep(.005)
             for server in (self.proxy, self.receiver):
                 async with self.client.post(server.make_url(PATH), data=b'x', headers=HEADERS) as response:

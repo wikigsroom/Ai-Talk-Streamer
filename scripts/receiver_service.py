@@ -4,6 +4,7 @@ import argparse,asyncio,ipaddress,json,math,os,re,socket,subprocess,time,uuid
 from urllib.parse import urlsplit
 
 from aiohttp import ClientError,ClientSession,ClientTimeout,WSMsgType,web
+from async_timeout import timeout as frame_timeout
 
 ROOT=Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG=ROOT/'configs/receiver.private.json'
@@ -221,7 +222,7 @@ class ReceiverGateway:
         headers={key:value for key,value in request.headers.items() if key.lower() not in HOP_HEADERS|{'host','accept-encoding'}}
         if request.content_length is not None:headers['Content-Length']=str(request.content_length)
         try:
-            async with asyncio.timeout(6):
+            async with frame_timeout(6):
                 async with self.client.request(request.method,target,data=bounded_body() if upload else None,headers=headers,allow_redirects=False) as upstream:
                     chunks=[];size=0
                     async for chunk in upstream.content.iter_chunked(65536):
