@@ -1,0 +1,1287 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261104-101",
+  "round": "101",
+  "at": "2026-11-03T22:58:49.944020+00:00",
+  "branch": "mc",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "scope": "REMOTE_NATIVE_OBSERVATION_AND_STOPPED_LOG_PRESERVATION_WITH_UNMET_DELIVERY_GATES",
+  "observation_run": "101b",
+  "build_and_startup_run": "101",
+  "source_commit": "bafe253f0ec890fc12745f77504ce814c789b731",
+  "source_files": 1015,
+  "source_snapshot_sha256": "ed1a6c4d3c9d99dc06db376a9a8650b982946a104304d73092db381484df2100",
+  "source_archive_sha256": "858498a8aac9f80fa8d871c2d4a7d1075adfe32e9c85a203d3181175f99a55e8",
+  "native_build": {
+    "sha256": "8466cc1e4d277c674b899849111ec388da57be97276741b2e4785e108ca2b79d",
+    "bytes": 12556666,
+    "compiled_against": "actual_supplied_neoforge_21.1.248_mojmap_libraries",
+    "classes": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/build/classes-9c30239b0af14889a22c4c27b6648166"
+  },
+  "checks": {
+    "core": {
+      "tests": 413,
+      "pass": 413,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "java_fixtures": 19,
+    "suites_overlap_do_not_sum": true
+  },
+  "unchanged_suites_not_rerun": {
+    "receiver": {
+      "round": "098b",
+      "passed": 19
+    },
+    "programme_browser": {
+      "round": "098b",
+      "passed": 12
+    },
+    "programme_assets": {
+      "round": "098b",
+      "passed": 3
+    }
+  },
+  "runtime": {
+    "window_seconds": 600.8807764053345,
+    "observations": 573,
+    "task_count": 48,
+    "task_states": {
+      "succeeded": 38,
+      "cancelled": 6,
+      "failed": 4
+    },
+    "task_reasons": {
+      "AGENT_EMERGENCY_THREAT": 3,
+      "PLAYER_DEATH": 3,
+      "GAME_NAVIGATION_NO_ROUTE": 4
+    },
+    "verified_navigation": 36,
+    "productive_by_item": {
+      "minecraft:hay_block": 1,
+      "minecraft:wheat": 1
+    },
+    "productive_by_skill_item": {
+      "gather:minecraft:hay_block": 1,
+      "craft:minecraft:wheat": 1
+    },
+    "death_transitions": 4,
+    "formal_speech_completions": 18,
+    "vision_states": {
+      "succeeded": 16,
+      "failed": 5
+    },
+    "first_player": {
+      "health": 12.033335,
+      "max_health": 20,
+      "food": 17,
+      "oxygen": 300,
+      "position": {
+        "dimension": "minecraft:overworld",
+        "x": 1542,
+        "y": 75,
+        "z": -169
+      }
+    },
+    "last_player": {
+      "health": 0,
+      "max_health": 20,
+      "food": 17,
+      "oxygen": 300,
+      "position": {
+        "dimension": "minecraft:overworld",
+        "x": 1356,
+        "y": 74,
+        "z": -148
+      }
+    },
+    "sampled_y_range": [
+      72,
+      77
+    ],
+    "seconds_after_last_non_navigation_completion": 471.3092451095581,
+    "excavation_frontier_samples": 3,
+    "sampled_confirmed_step_cuts": 0,
+    "origin_alignment_tasks": {
+      "task-5afe6cc4-f87e-49ae-a7cc-f13c52acf145": {
+        "episodes": 1,
+        "total_ticks": 3
+      },
+      "task-0d5fc540-35ff-4376-8dcc-196ee56443f1": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-bb47d72a-ebda-42c2-b989-7a8d79ca8ae3": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-df219389-8692-4a4c-98ab-28939823ed14": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-ac448cfb-9f67-4290-89f9-b8d8223f6f3d": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-c525a0c2-8e96-4e8f-a7ca-c2c70e82dd5e": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-8c03996d-ffbd-48ad-977f-9c4bd3525759": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-cb5c5be8-4272-49c3-90f5-9ee828de8c2a": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-02d430fe-b874-41ee-b85e-e6ca25a50011": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-1832fcf8-8a7b-44cf-8003-3d9ab1018cc2": {
+        "episodes": 1,
+        "total_ticks": 5
+      },
+      "task-5cd2a3d1-2dd1-4fcd-897a-a7ff3fa55fad": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-9112deb0-d19f-4fa0-b301-9bf42b7a5fee": {
+        "episodes": 1,
+        "total_ticks": 12
+      },
+      "task-6b0d32f1-47a8-43a5-ad96-8e1da9287bf4": {
+        "episodes": 1,
+        "total_ticks": 13
+      },
+      "task-70b0025b-9957-4ed9-94c9-600aa39d8356": {
+        "episodes": 1,
+        "total_ticks": 6
+      },
+      "task-8e4f05e4-e422-4911-a7c1-07a006c28b5a": {
+        "episodes": 1,
+        "total_ticks": 9
+      },
+      "task-6082fac9-a3a7-44a9-8977-c97eb3cfa8e7": {
+        "episodes": 1,
+        "total_ticks": 2
+      },
+      "task-6fb616c9-311d-4064-a4b8-8ee723b4771d": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-58fbe044-ca3c-43b5-93b3-d6c9284bfc6c": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-c8775a93-8651-4992-b70d-a69c53edb9b5": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-23deef87-9912-46a1-949a-9208ec17358f": {
+        "episodes": 1,
+        "total_ticks": 7
+      },
+      "task-3837e2f9-2549-4478-8fab-516e7c83558d": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-12012f78-9d91-4069-a299-c05559780ae1": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-950dfaa9-12a7-437d-ac98-48d93712e8c4": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-cfc942c4-eb93-42dc-8893-106cc7684eaa": {
+        "episodes": 1,
+        "total_ticks": 13
+      },
+      "task-cfe6ea67-defc-4d05-989b-2b696e7860db": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-54cd7021-9bfb-48c4-bb92-acd61bf9c834": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-71092a8e-24f2-4fb7-a438-24c196a50cfe": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-cc1a5f76-99e6-40ba-92e2-25e129d88fa9": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-f7aa51f3-3712-4e4f-9ce6-bc12eb08710c": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-9729211c-8640-4a24-a443-cba2bb533564": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-63dc01d2-d579-48f3-bb2e-e7e905528aa4": {
+        "episodes": 1,
+        "total_ticks": 8
+      },
+      "task-28f01479-71d5-40dd-ba7b-fc0699b92ed4": {
+        "episodes": 1,
+        "total_ticks": 6
+      },
+      "task-5d252d3a-9b19-4021-9fb8-af7274c7e74d": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-82e2ff50-dc61-4acf-9702-1f4380937087": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-87d6aa5f-6eb2-438c-ab92-54f9398d08a2": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-e6a67db8-d757-4176-b7e0-a46b2864300d": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-2182640e-9ba0-4faf-b57d-34dddaacf9ad": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-81581433-96a8-4186-9522-fbaeac09b94a": {
+        "episodes": 1,
+        "total_ticks": 4
+      },
+      "task-49ca670e-8400-4d67-a9a9-1bf5a4c708b2": {
+        "episodes": 1,
+        "total_ticks": 6
+      },
+      "task-f610cad0-a228-4594-8d40-cda0689ba641": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-bc04139d-23f9-4757-b1ff-07da64179f33": {
+        "episodes": 1,
+        "total_ticks": 11
+      },
+      "task-2c1745b4-5da6-4ed7-8aba-fe1fe4d24d22": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-66481c78-d42f-451e-b762-8e1054e672c6": {
+        "episodes": 1,
+        "total_ticks": 1
+      },
+      "task-cf8d0e18-0e9c-4254-a9a1-aaa423a76d8c": {
+        "episodes": 1,
+        "total_ticks": 2
+      },
+      "task-38759d0a-9dab-427e-96a7-230623b7c263": {
+        "episodes": 1,
+        "total_ticks": 5
+      }
+    },
+    "pre_first_death_progress": {
+      "death_task_count": 3,
+      "first_death_at": 1793746104.799377,
+      "samples": 97,
+      "max_y": 75,
+      "max_horizontal_distance_from_start": 37.44329045369811,
+      "verified_navigation_before_death": 11
+    },
+    "death_inventory_sample_brackets": [
+      {
+        "before_at": 1793746104.0296092,
+        "after_at": 1793746109.3082225,
+        "sample_interval_seconds": 5.278613328933716,
+        "before_inventory": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:arrow": 2,
+          "minecraft:bone": 1,
+          "minecraft:cobbled_deepslate": 4,
+          "minecraft:cobblestone": 69,
+          "minecraft:dirt": 99,
+          "minecraft:furnace": 1,
+          "minecraft:oak_planks": 1,
+          "minecraft:oak_sapling": 5,
+          "minecraft:rotten_flesh": 4,
+          "minecraft:spider_eye": 1,
+          "minecraft:stick": 2,
+          "minecraft:stone_axe": 1,
+          "minecraft:stone_pickaxe": 1,
+          "minecraft:string": 2,
+          "minecraft:wheat_seeds": 2,
+          "minecraft:wooden_pickaxe": 1
+        },
+        "after_inventory": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:arrow": 2,
+          "minecraft:bone": 1,
+          "minecraft:cobbled_deepslate": 4,
+          "minecraft:cobblestone": 69,
+          "minecraft:dirt": 99,
+          "minecraft:furnace": 1,
+          "minecraft:oak_planks": 1,
+          "minecraft:oak_sapling": 5,
+          "minecraft:rotten_flesh": 4,
+          "minecraft:spider_eye": 1,
+          "minecraft:stick": 2,
+          "minecraft:stone_axe": 1,
+          "minecraft:stone_pickaxe": 1,
+          "minecraft:string": 2,
+          "minecraft:wheat_seeds": 2,
+          "minecraft:wooden_pickaxe": 1
+        },
+        "item_count_changes": {},
+        "scope": "NEAREST_ALIVE_SAMPLES_BRACKETING_A_SAMPLED_DEATH_NOT_EXACT_DEATH_TICK_OR_COMPLETE_MODDED_INVENTORY_ACCEPTANCE"
+      },
+      {
+        "before_at": 1793746310.150998,
+        "after_at": 1793746314.2765393,
+        "sample_interval_seconds": 4.1255412101745605,
+        "before_inventory": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:arrow": 2,
+          "minecraft:bone": 1,
+          "minecraft:cobbled_deepslate": 4,
+          "minecraft:cobblestone": 69,
+          "minecraft:dirt": 99,
+          "minecraft:furnace": 1,
+          "minecraft:oak_planks": 1,
+          "minecraft:oak_sapling": 6,
+          "minecraft:rotten_flesh": 5,
+          "minecraft:spider_eye": 1,
+          "minecraft:stick": 2,
+          "minecraft:stone_axe": 1,
+          "minecraft:stone_pickaxe": 1,
+          "minecraft:string": 2,
+          "minecraft:wheat": 9,
+          "minecraft:wheat_seeds": 2,
+          "minecraft:wooden_pickaxe": 1
+        },
+        "after_inventory": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:arrow": 2,
+          "minecraft:bone": 1,
+          "minecraft:cobbled_deepslate": 4,
+          "minecraft:cobblestone": 69,
+          "minecraft:dirt": 99,
+          "minecraft:furnace": 1,
+          "minecraft:oak_planks": 1,
+          "minecraft:oak_sapling": 6,
+          "minecraft:rotten_flesh": 5,
+          "minecraft:spider_eye": 1,
+          "minecraft:stick": 2,
+          "minecraft:stone_axe": 1,
+          "minecraft:stone_pickaxe": 1,
+          "minecraft:string": 2,
+          "minecraft:wheat": 9,
+          "minecraft:wheat_seeds": 2,
+          "minecraft:wooden_pickaxe": 1
+        },
+        "item_count_changes": {},
+        "scope": "NEAREST_ALIVE_SAMPLES_BRACKETING_A_SAMPLED_DEATH_NOT_EXACT_DEATH_TICK_OR_COMPLETE_MODDED_INVENTORY_ACCEPTANCE"
+      },
+      {
+        "before_at": 1793746364.593999,
+        "after_at": 1793746368.7550006,
+        "sample_interval_seconds": 4.161001682281494,
+        "before_inventory": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:arrow": 2,
+          "minecraft:bone": 1,
+          "minecraft:cobbled_deepslate": 4,
+          "minecraft:cobblestone": 69,
+          "minecraft:dirt": 99,
+          "minecraft:furnace": 1,
+          "minecraft:oak_planks": 1,
+          "minecraft:oak_sapling": 6,
+          "minecraft:rotten_flesh": 5,
+          "minecraft:spider_eye": 1,
+          "minecraft:stick": 2,
+          "minecraft:stone_axe": 1,
+          "minecraft:stone_pickaxe": 1,
+          "minecraft:string": 2,
+          "minecraft:wheat": 9,
+          "minecraft:wheat_seeds": 2,
+          "minecraft:wooden_pickaxe": 1
+        },
+        "after_inventory": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:arrow": 2,
+          "minecraft:bone": 1,
+          "minecraft:cobbled_deepslate": 4,
+          "minecraft:cobblestone": 69,
+          "minecraft:dirt": 99,
+          "minecraft:furnace": 1,
+          "minecraft:oak_planks": 1,
+          "minecraft:oak_sapling": 6,
+          "minecraft:rotten_flesh": 5,
+          "minecraft:spider_eye": 1,
+          "minecraft:stick": 2,
+          "minecraft:stone_axe": 1,
+          "minecraft:stone_pickaxe": 1,
+          "minecraft:string": 2,
+          "minecraft:wheat": 9,
+          "minecraft:wheat_seeds": 2,
+          "minecraft:wooden_pickaxe": 1
+        },
+        "item_count_changes": {},
+        "scope": "NEAREST_ALIVE_SAMPLES_BRACKETING_A_SAMPLED_DEATH_NOT_EXACT_DEATH_TICK_OR_COMPLETE_MODDED_INVENTORY_ACCEPTANCE"
+      }
+    ],
+    "food_observations": {
+      "samples": 573,
+      "nonempty_samples": 345,
+      "radius_values": [
+        16
+      ],
+      "vertical_radius_values": [
+        6
+      ],
+      "sources_by_item": {
+        "minecraft:mutton": 22,
+        "minecraft:porkchop": 17,
+        "minecraft:hay_block": 1155,
+        "minecraft:beef": 16
+      },
+      "explicit_scan_origins": 573
+    },
+    "native_food_strategy_yields": 6,
+    "verified_food_gather_tasks": [
+      {
+        "task_id": "task-70b0025b-9957-4ed9-94c9-600aa39d8356",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:hay_block",
+          "skill": "gather"
+        },
+        "updated_at": "2026-11-03T22:48:48.539899300Z"
+      }
+    ],
+    "verified_food_crafts": [
+      {
+        "task_id": "task-7604b40b-0b7b-4fe7-8f1a-ab112b63b3a1",
+        "goal": {
+          "count": 9,
+          "item_id": "minecraft:wheat",
+          "skill": "craft"
+        },
+        "updated_at": "2026-11-03T22:48:53.032399500Z"
+      }
+    ],
+    "verified_raw_food_gather_tasks": [],
+    "verified_cooked_food_tasks": [],
+    "verified_eating_tasks": [],
+    "verified_furnace_placements": [],
+    "native_hunting_tasks": {},
+    "pre_first_death_health_and_food": {
+      "first_health": 12.033335,
+      "maximum_health": 12.033335,
+      "first_food": 17,
+      "maximum_food": 17,
+      "regeneration_is_not_respawn": true,
+      "scope": "SAMPLED_VITALS_WITH_ORDINARY_EATING_TASK_RECEIPTS_NOT_DAMAGE_OR_REGENERATION_INJECTION"
+    },
+    "inventory_change": {
+      "minecraft:oak_sapling": 1,
+      "minecraft:rotten_flesh": 1,
+      "minecraft:wheat": 9
+    },
+    "sampled_activity": {
+      "scope": "APPROXIMATE_BOUNDED_SAMPLE_INTERVALS_NOT_TICK_ACCURATE_SURVIVAL_ACCEPTANCE",
+      "auto_alive_gameplay_seconds": 401.0873785018921,
+      "dead_seconds": 197.6509234905243,
+      "alive_samples": 383,
+      "dead_samples": 190,
+      "last_mode": "PAUSED",
+      "last_screen": "death"
+    }
+  },
+  "prompt_summary": {
+    "scope": "SAMPLED_BOUNDED_PROMPT_METRICS_NOT_BILLING_OR_RAW_PROMPTS",
+    "capacity": 12000,
+    "sampled_probes": 42,
+    "by_purpose": {
+      "speech": 24,
+      "vision": 1,
+      "game_plan": 17
+    },
+    "denied_count": 0,
+    "estimated_input_tokens_max": 9398,
+    "above_old_6000_admitted": 22,
+    "includes_startup_tail": true,
+    "admitted_estimated_input_tokens_max": 9398
+  },
+  "performance": {
+    "scope": "SOURCE_BOUND_RENDERER_DIAGNOSTICS_NOT_OFFICIAL_CAPTURE_OR_CDN_ACCEPTANCE",
+    "samples": 121,
+    "bound_segments": [
+      {
+        "binding": {
+          "receiver_epoch": "72342293-2348-4cc5-b815-f809dd2a3e36",
+          "consumer_id": "browser-d1dfd99d-e82b-45c8-93b8-55040e4b3a44",
+          "transport_id": "avatar-0fe927e2-6e6b-4a7c-9b69-360de6cda577",
+          "media_stream_id": "media-d18cc12a09d14af885cb0d2ee70fff25",
+          "media_protocol_version": 3,
+          "counter_segment": 1
+        },
+        "distinct_reports": 117,
+        "duration_seconds": 601.5203583240509,
+        "reported_canvas_fps_mean": 22.66647395675088,
+        "counter_delta": {
+          "frames": 13512,
+          "audio_underruns": 12,
+          "missing_packets": 1,
+          "skipped_video_frames": 0,
+          "decode_errors": 0
+        }
+      }
+    ],
+    "incomplete_or_unowned_fresh_samples": 1,
+    "stale_or_absent_samples": 3,
+    "fps_aggregate_withheld_without_complete_binding": false,
+    "gpu_samples": 21,
+    "gpu_memory_peak_mib": 8857.0,
+    "gpu_utilization_mean": 45.38095238095238,
+    "system_cpu_mean": 11.296694214876034,
+    "browser_contexts_opened": 0
+  },
+  "public_guest": {
+    "duration_seconds": 614.3533356189728,
+    "connected_observed": true,
+    "event_types": {},
+    "events": [],
+    "owned_collector_stopped": true
+  },
+  "application_ready": false,
+  "candidate_disabled": true,
+  "services_after": {
+    "dsh": false,
+    "avatar": false,
+    "tts": false,
+    "receiver": false,
+    "vision": false,
+    "minecraft": false
+  },
+  "official_clients_preserved": true,
+  "final_readonly_audit": {
+    "ok": true,
+    "host": "DESKTOP-2QQPN1H",
+    "at": 1793746630.2829225,
+    "workers_remaining": [],
+    "services_after": {
+      "dsh": false,
+      "avatar": false,
+      "tts": false,
+      "receiver": false,
+      "vision": false,
+      "minecraft": false
+    },
+    "source_snapshot_sha256": "ed1a6c4d3c9d99dc06db376a9a8650b982946a104304d73092db381484df2100",
+    "keepInventory": true,
+    "world_sha256": "5bf2a85ff19b2c8d2424d78e96cc1edc23dd6cd611ce1f382f21bcf32e84118b",
+    "private_policy_sha256": "1aba677cdf0e53fb7ade93c487a24ebfe3f64beef2b7aa01a44e32ee83ca792e",
+    "official_clients": [
+      {
+        "pid": 1204,
+        "created_at": 1792960780.2620182
+      },
+      {
+        "pid": 9556,
+        "created_at": 1792960780.3685114
+      }
+    ],
+    "started_or_stopped_processes": false
+  },
+  "world": {
+    "keepInventory": true,
+    "normal_engine_save": true,
+    "sha256": "5bf2a85ff19b2c8d2424d78e96cc1edc23dd6cd611ce1f382f21bcf32e84118b",
+    "backup089_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f"
+  },
+  "log_archive": {
+    "commit": "225464f02084cdea60149532ce2da8fd813db11e",
+    "windows_fixtures": {
+      "ok": true,
+      "host": "DESKTOP-2QQPN1H",
+      "at": 1793745574.0888646,
+      "source_files": {
+        "native_log_archive.py": "885386ddc4378066465da6b021e52035662dbba0d18ea214c77a2f50a8c411de",
+        "test_native_log_archive.py": "45681cccdc1461d5c4af821c9e59718d036bf76e04e0469374d37a5e770f9dec"
+      },
+      "scope": "ISOLATED_NATIVE_WINDOWS_LOG_ARCHIVE_FIXTURES_NOT_CURRENT_GAME_SERVICE_DEPLOYMENT",
+      "exit_code": 0,
+      "tests": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "ok": true
+      },
+      "log": "test_a_windows_reader_without_delete_sharing_blocks_rotation_without_losing_bytes (test_native_log_archive.NativeLogArchiveTests) ... ok\ntest_archive_keeps_the_original_file_and_opens_a_new_current_log (test_native_log_archive.NativeLogArchiveTests) ... ok\ntest_repeated_archives_do_not_replace_or_delete_earlier_sessions (test_native_log_archive.NativeLogArchiveTests) ... ok\ntest_small_or_absent_log_is_preserved_for_append (test_native_log_archive.NativeLogArchiveTests) ... ok\ntest_wrong_scope_and_nonregular_file_are_rejected (test_native_log_archive.NativeLogArchiveTests) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.124s\n\nOK\nLOG_FIXTURE_RESULT={\"tests\": 5, \"failures\": 0, \"errors\": 0, \"skipped\": 0, \"ok\": true}\n",
+      "actual_game_console_rotated": false,
+      "running_application_source_changed": false
+    },
+    "service_syntax": {
+      "at": 1793745670.4654202,
+      "python310_game_service_syntax_passed": true,
+      "sha256": "1dd6155cd65daaa3e79367198a23ca9ef11c8bb79bb06f9aa721420ae76bd919",
+      "running_application_source_changed": false,
+      "progress": {
+        "phase": "start101",
+        "at": 1793745024.079845
+      }
+    },
+    "stopped_game_maintenance": {
+      "ok": true,
+      "host": "DESKTOP-2QQPN1H",
+      "at": 1793746651.4027376,
+      "archive": {
+        "path": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/work/logs/application-console.log",
+        "maximum_bytes": 16777216,
+        "rotation_scope": "STARTUP_ONLY_NOT_A_CONTINUOUS_LOG_SIZE_GUARANTEE",
+        "rotated": true,
+        "previous_bytes": 4730618952,
+        "archive_path": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/work/logs/console-archive/54fa27617b734683bbdff890303e226a/application-console.log",
+        "existing_bytes_deleted_or_truncated": false,
+        "full_file_digest_computed": false,
+        "preserved_file_identity_and_size": true,
+        "preserved_mtime": true
+      },
+      "source_snapshot_sha256": "ed1a6c4d3c9d99dc06db376a9a8650b982946a104304d73092db381484df2100",
+      "services_after": {
+        "dsh": false,
+        "avatar": false,
+        "tts": false,
+        "receiver": false,
+        "vision": false,
+        "minecraft": false
+      },
+      "world_sha256_unchanged": "5bf2a85ff19b2c8d2424d78e96cc1edc23dd6cd611ce1f382f21bcf32e84118b",
+      "keepInventory": true,
+      "official_clients": [
+        {
+          "pid": 1204,
+          "created_at": 1792960780.2620182
+        },
+        {
+          "pid": 9556,
+          "created_at": 1792960780.3685114
+        }
+      ],
+      "service_or_game_processes_started_or_stopped": false,
+      "scope": "STOPPED_GAME_CONSOLE_PRESERVATION_NOT_NEW_SERVICE_STARTUP_OR_CONTINUOUS_LOG_BUDGET_ACCEPTANCE"
+    },
+    "new_service_entrypoint_runtime_accepted": false,
+    "continuous_growth_budget_accepted": false
+  },
+  "prior_observer_failure": {
+    "run": "101",
+    "reason": "OBSERVER_API_PAGE_LIMIT_101_EXCEEDS_100",
+    "game_keys": 0,
+    "auto_requests": 0,
+    "gameplay_tasks": 0
+  },
+  "round100_independent_final_followup": {
+    "ok": true,
+    "host": "DESKTOP-2QQPN1H",
+    "at": 1793743940.7743003,
+    "workers_remaining": [],
+    "services_after": {
+      "dsh": false,
+      "avatar": false,
+      "tts": false,
+      "receiver": false,
+      "vision": false,
+      "minecraft": false
+    },
+    "source_snapshot_sha256": "3749d7009df18637a25e67940079f13f08ad751c7167f03123c7bf969f1a8012",
+    "keepInventory": true,
+    "world_sha256": "e06947d18eb39ac00ea40a32d977dc5c07c21519b1f02263d4da1e2c54aba5ac",
+    "private_policy_sha256": "1aba677cdf0e53fb7ade93c487a24ebfe3f64beef2b7aa01a44e32ee83ca792e",
+    "official_clients": [
+      {
+        "pid": 1204,
+        "created_at": 1792960780.2620182
+      },
+      {
+        "pid": 9556,
+        "created_at": 1792960780.3685114
+      }
+    ],
+    "started_or_stopped_processes": false
+  },
+  "startup": {
+    "application_start_seconds": 690.1682844161987,
+    "readiness_checks": [
+      {
+        "name": "source_syntax",
+        "ok": true,
+        "details": {
+          "files": 127
+        },
+        "elapsed_seconds": 0.25
+      },
+      {
+        "name": "runtime_source_projection",
+        "ok": true,
+        "details": {
+          "files": {
+            ".setup/mc-runtime-projection.json": "13932339558463f3299e336503bb3cc7b2200492766aa7f57c1aa1eb9ceb1a26",
+            "src/LiveTalking/server/dsh_bridge.py": "184d627281e9da2c3e3d9d66335cc21e969da5aa9fe20f10fb596e2b7f887008",
+            "src/LiveTalking/server/motion_control.py": "9bfdf4e22f0dce109ad25a969fd5cd4c742e31940a1fa734aa40bdf8c33548ae"
+          },
+          "scope": "EXACT_BYTES_IMPORTED_BY_LIVETALKING_NOT_MODEL_INFERENCE"
+        },
+        "elapsed_seconds": 0.03200000000651926
+      },
+      {
+        "name": "pinned_model_bytes",
+        "ok": true,
+        "details": {
+          "files": 36,
+          "inventory_sha256": "601aef5d9873b78549e3e299fdd448b3cbc5d7ebe1c0422adbe2476652beefe3",
+          "archive_metadata_missing": [
+            "models/tts-benchmark/omnivoice/.gitattributes",
+            "models/tts-benchmark/omnivoice/benchmark-download.json",
+            "models/tts-benchmark/omnivoice/benchmark-manifest.json",
+            "models/tts-benchmark/omnivoice/configuration.json",
+            "models/tts-benchmark/omnivoice/README.md",
+            "models/tts-benchmark/f5/.gitattributes",
+            "models/tts-benchmark/f5/benchmark-download.json",
+            "models/tts-benchmark/f5/benchmark-manifest.json",
+            "models/tts-benchmark/f5/configuration.json",
+            "models/tts-benchmark/f5/README.md",
+            "models/tts-benchmark/vocos-mel24/.gitattributes",
+            "models/tts-benchmark/vocos-mel24/benchmark-download.json",
+            "models/tts-benchmark/vocos-mel24/benchmark-manifest.json",
+            "models/tts-benchmark/vocos-mel24/README.md"
+          ],
+          "historical_provenance_reconstructed": false
+        },
+        "elapsed_seconds": 51.125
+      },
+      {
+        "name": "approved_reference_and_avatar_index",
+        "ok": true,
+        "details": {
+          "avatar_id": "student_dorm_motion_bank_v3",
+          "frames": 10000,
+          "masks": 10000,
+          "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+          "scope": "INDEX_COUNTS_AND_BOUNDARY_PNG_HEADERS_NOT_RENDERED_MOTION_ACCEPTANCE"
+        },
+        "elapsed_seconds": 0.43700000003445894
+      },
+      {
+        "name": "avatar_cpu_imports",
+        "ok": true,
+        "details": {
+          "exit_code": 0,
+          "log": "logs/mc-readiness-livetalking.log",
+          "modules": [
+            "torch",
+            "cv2",
+            "diffusers",
+            "transformers",
+            "aiortc",
+            "soundfile",
+            "psutil"
+          ],
+          "cpu_only": true
+        },
+        "elapsed_seconds": 38.54700000002049
+      },
+      {
+        "name": "O07_cpu_imports",
+        "ok": true,
+        "details": {
+          "exit_code": 0,
+          "log": "logs/mc-readiness-tts-benchmark-omnivoice.log",
+          "modules": [
+            "torch",
+            "soundfile",
+            "omnivoice"
+          ],
+          "cpu_only": true
+        },
+        "elapsed_seconds": 68.04700000002049
+      },
+      {
+        "name": "F07_cpu_imports",
+        "ok": true,
+        "details": {
+          "exit_code": 0,
+          "log": "logs/mc-readiness-tts-benchmark-f5.log",
+          "modules": [
+            "torch",
+            "soundfile",
+            "f5_tts.api"
+          ],
+          "cpu_only": true
+        },
+        "elapsed_seconds": 63.76599999994505
+      },
+      {
+        "name": "public_collector_imports",
+        "ok": true,
+        "details": {
+          "exit_code": 0,
+          "log": "logs/mc-readiness-platforms.log",
+          "modules": [
+            "aiohttp",
+            "blivedm"
+          ],
+          "cpu_only": true
+        },
+        "elapsed_seconds": 1.0630000000819564
+      }
+    ],
+    "process_io_counters_are_not_physical_disk_throughput": true,
+    "full_startup_performance_accepted": false
+  },
+  "cleanup": {
+    "runtime_browser_contexts_opened": 0,
+    "byte_helper": {
+      "ok": true,
+      "purpose": "BYTE_TRANSFER_HELPER_CLOSED_AFTER_EVIDENCE_VERIFICATION",
+      "pid": 23000,
+      "creation_time_verified": true,
+      "command_path_verified": true,
+      "listener_owner_verified": true,
+      "port": 2533,
+      "listeners_after": 0,
+      "unrelated_processes_stopped": false,
+      "browser_contexts_opened": 0,
+      "at": "2026-11-03T22:58:09.6524262Z"
+    },
+    "workers_remaining": [],
+    "orchestration_child_workers_joined": 6,
+    "independent_final_process_census_pending": false,
+    "final_auditor_exit_checked_by_stopped_log_maintenance": true
+  },
+  "private_policy": {
+    "changed_this_round": false,
+    "sha256": "1aba677cdf0e53fb7ade93c487a24ebfe3f64beef2b7aa01a44e32ee83ca792e",
+    "current_round_hash_rechecked": true,
+    "contents_exported": false
+  },
+  "implemented_ids": [
+    "I1147",
+    "I1148",
+    "I1149",
+    "I1150",
+    "I1151",
+    "I1152",
+    "I1153",
+    "I1154",
+    "I1155",
+    "I1156",
+    "I1157"
+  ],
+  "formal_acceptance_passed": 0,
+  "formal_acceptance_advanced": 0,
+  "new_avatar_clips": 0,
+  "inherited_todos_open": 117,
+  "new_video_recorded": false,
+  "report": "docs/technical/mc-live-v1/畜牧补给与101自主游玩修复.md",
+  "github_publication": {
+    "branch": "mc",
+    "source_commit": "bafe253f0ec890fc12745f77504ce814c789b731",
+    "source_pushed_and_remote_verified": true,
+    "log_change_commit": "225464f02084cdea60149532ce2da8fd813db11e",
+    "documentation_published_with_this_revision": true,
+    "push_pending": false
+  },
+  "raw_evidence_policy": "Ignored originals retained locally and on3080; sanitized summaries and file hashes only.",
+  "raw_artifacts": [
+    {
+      "file": "ArrivalRadiusFixture101.log",
+      "bytes": 204,
+      "sha256": "0ead68e79a6d7d9bdf4210f3482e88f10e2bb1f314427f501711424b6ecd3e5e"
+    },
+    {
+      "file": "audit101b-expected-sha.json",
+      "bytes": 166,
+      "sha256": "d4a6ac45bca4366a4b70103f5e9223c3be953a0112f90592c9fd90ce109e2a36"
+    },
+    {
+      "file": "audit101b-result.json",
+      "bytes": 21665,
+      "sha256": "cfe6aacaf141075986b4d0031be8bc3c66a2d91feafbfea430daee752f324dd4"
+    },
+    {
+      "file": "audit101b-tasks-result.json",
+      "bytes": 42297,
+      "sha256": "9744cb5d4c96c41034b4d576deaab61626a525ed83ea74a63e08d46dd787f125"
+    },
+    {
+      "file": "build101.log",
+      "bytes": 14642,
+      "sha256": "a05af4913e668b9edaf86621ccff9e204a8c9a106dad335f2ed22e164e5bca9d"
+    },
+    {
+      "file": "console101-archive-result.json",
+      "bytes": 1414,
+      "sha256": "d67e4168c3c20400234d6b4ca7c825efa6bf4252ebfdf44b68fe5422c76ed542"
+    },
+    {
+      "file": "core101-report.json",
+      "bytes": 819,
+      "sha256": "9677914b3c1573f6588739f42795f5dc1022286f4488e89316f488cd4dbb6ee8"
+    },
+    {
+      "file": "core101.log",
+      "bytes": 819,
+      "sha256": "9677914b3c1573f6588739f42795f5dc1022286f4488e89316f488cd4dbb6ee8"
+    },
+    {
+      "file": "deploy101-bootstrap.json",
+      "bytes": 203,
+      "sha256": "ebe9d83defc274ab92c54f637b114b019a07656e296e8183efa4871f5072a57d"
+    },
+    {
+      "file": "deploy101-progress.json",
+      "bytes": 71,
+      "sha256": "52009bf694b306b742dbc6eeaebee20a3dc3211823ac85d90a910250630f4440"
+    },
+    {
+      "file": "deploy101-result.json",
+      "bytes": 7501,
+      "sha256": "3966da55ee09ec44ef9a9da0cbdd8ee1a80a55124d752211fa4348c796f8e7eb"
+    },
+    {
+      "file": "deploy101-transfer.json",
+      "bytes": 5375,
+      "sha256": "1a11960de81f60c26fcf1c0f89d2a99c2ab1decc3af061c1141839543bbb51d6"
+    },
+    {
+      "file": "deploy101-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "deploy101b-result.json",
+      "bytes": 7501,
+      "sha256": "3966da55ee09ec44ef9a9da0cbdd8ee1a80a55124d752211fa4348c796f8e7eb"
+    },
+    {
+      "file": "DiagonalRouteFixture101.log",
+      "bytes": 92,
+      "sha256": "7e75f57485e283ba84a760a40b4fc45fd77bdb3fde97c7355673e7e48d1b96a8"
+    },
+    {
+      "file": "DryDescentFixture101.log",
+      "bytes": 80,
+      "sha256": "3eea82aafda98d3efc020c6a6bff9ea1a6f4006584a7ca958e5c076906e3b368"
+    },
+    {
+      "file": "EscapeLandingFixture101.log",
+      "bytes": 63,
+      "sha256": "62c8cc1b85f3941cad2d8edf66da1ea2bdadd3441ab56e3c327a8222b2ecd872"
+    },
+    {
+      "file": "EscapeMotionFixture101.log",
+      "bytes": 62,
+      "sha256": "59e30bc89230aaa20d8373909fdb9c0272eafbf3623a50e75686263b22a0878c"
+    },
+    {
+      "file": "ExcavationStepFixture101.log",
+      "bytes": 58,
+      "sha256": "7af78cc5285243d6b063b712d829091bb3ab237069e3971dd8189f7564998975"
+    },
+    {
+      "file": "final101-bootstrap.json",
+      "bytes": 173,
+      "sha256": "36a1a8f473216438f50a7c498398121fb3bfea0a4be22b399e93c3a1b6520a77"
+    },
+    {
+      "file": "final101-worker.stdout.log",
+      "bytes": 984,
+      "sha256": "05947f3bd7551e24ffe154cf4740e178f7498f78863e97e234aba3dd54823319"
+    },
+    {
+      "file": "final101b-bootstrap.json",
+      "bytes": 175,
+      "sha256": "93382ad520c1af7323970ea13857891bbb913f523909ebfb860458a8ca8b07df"
+    },
+    {
+      "file": "final101b-readonly.json",
+      "bytes": 792,
+      "sha256": "9ea1ffec1a97682086ccb153ef842213109fa1d08a40d5a4441acb2feff9e87c"
+    },
+    {
+      "file": "finish101b-result.json",
+      "bytes": 129614,
+      "sha256": "a9400feddafde7f081b91d1400d2a389ef8e77178ad9ba7eb393aa9ddc77a6ec"
+    },
+    {
+      "file": "fixture-compile101.log",
+      "bytes": 492,
+      "sha256": "5ffb86de2772a00979b77e4d3bc992b7fc9ac65184884d63d8c34fb670165d1a"
+    },
+    {
+      "file": "focus101-receipt.json",
+      "bytes": 213,
+      "sha256": "ab5b67c4147f01aac584c6729cc0d1fc8d801fd27648d460e76511292356bcb6"
+    },
+    {
+      "file": "focus101b-receipt.json",
+      "bytes": 213,
+      "sha256": "2c9b95cabdf84d54ff5b00468b6e0cadfda0b8b24458020d993f8a279e72344e"
+    },
+    {
+      "file": "FrontierFixture101.log",
+      "bytes": 61,
+      "sha256": "84537d9e96e383c138dd76950882cd44549af2061c8d5383cb4a99883f17ee75"
+    },
+    {
+      "file": "log101-fixtures-result.json",
+      "bytes": 1423,
+      "sha256": "bd896124e1716874e33ce669ccf1c466b4961d836f77498df26961f74eac6d92"
+    },
+    {
+      "file": "log101-fixtures.log",
+      "bytes": 781,
+      "sha256": "d8127ff0294bb508eafcde1e2dd70f1c3b600982e66b7eef06fb7ecec8265582"
+    },
+    {
+      "file": "log101-service-syntax-result.json",
+      "bytes": 288,
+      "sha256": "516fb14eafc185e0116d75b89ae257ee056487eef6e6fb329ed0bfc67622eba8"
+    },
+    {
+      "file": "monitor101-result.json",
+      "bytes": 2908,
+      "sha256": "ba478cc0fdf58f85c75105256eb54708525827cf8082fd7749148c6db6056ecb"
+    },
+    {
+      "file": "monitor101b-result.json",
+      "bytes": 463271,
+      "sha256": "f290d8441fae79f0fc4b21e102b7b22a8842189bf57329af937fcd69e222b3ff"
+    },
+    {
+      "file": "native101-session-progress.json",
+      "bytes": 87,
+      "sha256": "fda166dd4cbe6369449c44ad085aed1b270d90c358701584187a75e23a86f319"
+    },
+    {
+      "file": "native101-session-result.json",
+      "bytes": 63134,
+      "sha256": "7aa07ca2ce5e73dc61ed92e329a3d4e55a8d6e1a4fdc50dda5ec234a7b448ec2"
+    },
+    {
+      "file": "native101b-session-progress.json",
+      "bytes": 85,
+      "sha256": "d7af46e739d5821a1e2fc2ac9e2581358fb42e8d4c2eed593606c863b06a0c6c"
+    },
+    {
+      "file": "native101b-session-result.json",
+      "bytes": 6407602,
+      "sha256": "da635b95ff8eec4662df9f3536fee5f1130106aaa859aba7df745760ca1a10ec"
+    },
+    {
+      "file": "native101b-vision-1.jpg",
+      "bytes": 151881,
+      "sha256": "8039111c9de86735f7dc47d123ee68bd13872904c2f22956c4a536d4dce6c79e"
+    },
+    {
+      "file": "native101b-vision-2.jpg",
+      "bytes": 169020,
+      "sha256": "17589891d5a8d7b437168419d849ede413bfddf9dd24a08b3c35c226a5885105"
+    },
+    {
+      "file": "native101b-vision-3.jpg",
+      "bytes": 213067,
+      "sha256": "6e9e0709d489232de9ccd7e9fa08301e9412849f85934ba9a7468934942a08f7"
+    },
+    {
+      "file": "native101b-vision-4.jpg",
+      "bytes": 261113,
+      "sha256": "77140b834b6a800521e997b04b31da0990a96ba5e20a45e813a50dd004fdcd10"
+    },
+    {
+      "file": "NativeFoodAimFixture101.log",
+      "bytes": 109,
+      "sha256": "d5949af93d0a71911bb7a955db2e8f06664cca5cf3031be3906ffb40db2fa18e"
+    },
+    {
+      "file": "NativeFoodPlanFixture101.log",
+      "bytes": 65,
+      "sha256": "021ba27f38b41b8e118d060e2d21627394bcc1520d64ad47013dd6c9af95677f"
+    },
+    {
+      "file": "NativeHuntPlanFixture101.log",
+      "bytes": 65,
+      "sha256": "992c022760e52d95f64c179952510d61d8a6a641befc9db9831a7b3176edbf44"
+    },
+    {
+      "file": "NativeWorldFramesFixture101.log",
+      "bytes": 71,
+      "sha256": "b502b9db318ef800421887d48eae442229a0009f238c87203a7377caf87d1f88"
+    },
+    {
+      "file": "orchestration101-bootstrap.json",
+      "bytes": 173,
+      "sha256": "58ee7da54f98c5d8ff9d88b639d1d587f60906d0249159eabe01c6a2b2429602"
+    },
+    {
+      "file": "orchestration101-result.json",
+      "bytes": 1104,
+      "sha256": "8b590d3931c3bccfb2916c4732324db8f06b3426b09b800f25c9ef2150b71a17"
+    },
+    {
+      "file": "orchestration101b-bootstrap.json",
+      "bytes": 172,
+      "sha256": "b5093bac192a263ffa36f3f0b772b877739d2f312a891d50210d6055dfce605c"
+    },
+    {
+      "file": "orchestration101b-result.json",
+      "bytes": 1620,
+      "sha256": "a15d31a6817a8f0d2b5894561d49993837a13dce297721b538225dc756ea9211"
+    },
+    {
+      "file": "PartialFootingFixture101.log",
+      "bytes": 69,
+      "sha256": "78be713b0b076fccf6547276cbeda2779420cde5a5eede44f572fd030fca8980"
+    },
+    {
+      "file": "platform101-result.json",
+      "bytes": 862,
+      "sha256": "58d26abb7a5eeb02a83db6714ec016bd314310dbc468e840489e06fa5ff3d2ec"
+    },
+    {
+      "file": "platform101b-result.json",
+      "bytes": 36837,
+      "sha256": "c56d384ec1aab5011b8c8854f588aa5d96d3ca2f0a5542eeddf09372a7538bcc"
+    },
+    {
+      "file": "preflight101.log",
+      "bytes": 805,
+      "sha256": "8dbb8fce6f06e7773c120a2f95c6b455de84066e9d4e06ae81c3ee57ce7d70bb"
+    },
+    {
+      "file": "prepare101.log",
+      "bytes": 376,
+      "sha256": "743dc36b2ae90644e4a42688265e9de8788d59d2597a63a0c62c0e2e0a84079f"
+    },
+    {
+      "file": "prompt101b-summary.json",
+      "bytes": 16016,
+      "sha256": "6739c34aa6ed2def53e2f66396bb4f4735e1ba032640f2f790493d2dd7d39455"
+    },
+    {
+      "file": "readiness101.log",
+      "bytes": 3372,
+      "sha256": "b96c623e2718beba5474035b25929d882d40122ff4c4783c02d5ae62bc533848"
+    },
+    {
+      "file": "RouteAlignmentFixture101.log",
+      "bytes": 97,
+      "sha256": "3c19fa7bedfb3a118591f7682d36c858bb3cb5071092f674f17893d4ad6af6a2"
+    },
+    {
+      "file": "RouteRecoveryBudgetFixture101.log",
+      "bytes": 80,
+      "sha256": "f6c52d7974a814f14caa21f1f5bcf7a0c51dc465a1e1a7725a75d5e5cbb0084d"
+    },
+    {
+      "file": "RouteRecoveryFixture101.log",
+      "bytes": 82,
+      "sha256": "a5c734ac4ee4ba7336d153a136437ce536b1122bee055f57e6dfd4c2dca275f4"
+    },
+    {
+      "file": "SoilDescentFixture101.log",
+      "bytes": 87,
+      "sha256": "49d164c3ae2b3fb92a2212dd7bc29f01f4c01cad00d1fd86410f8183de61279a"
+    },
+    {
+      "file": "start101.log",
+      "bytes": 1007,
+      "sha256": "51fa962bee221ef87861d4010d1232e360587364e41210faa54cbf9bfca8b3ca"
+    },
+    {
+      "file": "startup101-process-observation.json",
+      "bytes": 4128,
+      "sha256": "97f0f567accab715bdefe2097160bc9fffc29b6f973e93d97b99e668c3b38165"
+    },
+    {
+      "file": "startup101-readiness-observation.json",
+      "bytes": 5369,
+      "sha256": "512777ec0c35bd84491330835e7de942d4cd9a4de435b160c0bcf5444a428ca6"
+    },
+    {
+      "file": "startup101-service-diagnostic.json",
+      "bytes": 449,
+      "sha256": "20da87684c5935514e597c7dae157a1bd3bf0e74c582b45b5cc4c1425f931f43"
+    },
+    {
+      "file": "stop101b.log",
+      "bytes": 169,
+      "sha256": "0838675953289f276b84f2470da731166fdf705eeadc09044e730e6cb292e9a6"
+    },
+    {
+      "file": "target101.log",
+      "bytes": 608,
+      "sha256": "ae9fea545f4160894b1ba52fd09e8351abd2eb3e03e95cd9a5203c7204028f21"
+    },
+    {
+      "file": "TerrainStepFixture101.log",
+      "bytes": 36,
+      "sha256": "08de1db873bc605ddfd2e6a40143c95deb3b808037dab949e0faca19cdd0f135"
+    },
+    {
+      "file": "transfer101b-result.json",
+      "bytes": 2280,
+      "sha256": "e8f1798a81ac2894057bb0b063bcfbf367459929496e37d744eab71b469f9e5d"
+    },
+    {
+      "file": "TravelProgressFixture101.log",
+      "bytes": 102,
+      "sha256": "a528cd1e95827070f5e822dcd623da5e12d6e06e414debb982c49040d716f76a"
+    },
+    {
+      "file": "watch101-bootstrap.json",
+      "bytes": 174,
+      "sha256": "74a4e7a013e46394c8e61e8dc795b946b227a0ae0a8a3e8c1cc029a6218f1a58"
+    },
+    {
+      "file": "watch101-result.json",
+      "bytes": 314,
+      "sha256": "c1571b8de10649a9b9297e022b9a7707d3bb83dedf77620d066fe1b85804a31d"
+    },
+    {
+      "file": "watch101-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "watch101b-bootstrap.json",
+      "bytes": 380,
+      "sha256": "333fc791583fb8429ea021bf28a7ddde187afadd03d967ffa231aac1287a4336"
+    },
+    {
+      "file": "watch101b-result.json",
+      "bytes": 316,
+      "sha256": "b04424c5c230e7d4b7786c88e573f66c370f52db803403628a89b513f6ec3ebd"
+    },
+    {
+      "file": "WaterRouteFixture101.log",
+      "bytes": 78,
+      "sha256": "10154e63ef2b0becdb9992534ed0cd80985b1c3c8dce4f6b0c3edb6160d012fc"
+    }
+  ]
+}
