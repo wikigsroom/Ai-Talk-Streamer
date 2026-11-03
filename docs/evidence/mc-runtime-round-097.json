@@ -1,0 +1,481 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261103-097",
+  "round": "097",
+  "at": "2026-11-03T07:31:42.609487+00:00",
+  "branch": "mc",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "scope": "REMOTE_NATIVE_OBSERVATION_WITH_UNMET_FULL_DELIVERY_GATES",
+  "source_files": 1008,
+  "source_snapshot_sha256": "64625620c653965d960c3f3d9c1d36c95e8021b07c592ea5713cfd487d1b9b29",
+  "source_archive_sha256": "8840128108504991cc0bc06b0eb004f17b44ad38537e6890675a7cbdbcc91399",
+  "native_build": {
+    "sha256": "2ea3b899553f6f2cf7418887c2b62fcb94f0ede9eba13bc8e6eccd010564ef7f",
+    "bytes": 12540667,
+    "compiled_against": "actual_supplied_neoforge_21.1.248_mojmap_libraries",
+    "classes": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/build/classes-8ef7be1dee0f49b6b4a06bcd4b68f552"
+  },
+  "checks": {
+    "core": {
+      "tests": 378,
+      "pass": 378,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "targeted": {
+      "pass": 148,
+      "fail": 0
+    },
+    "java_fixtures": 14,
+    "suites_overlap_do_not_sum": true
+  },
+  "runtime": {
+    "window_seconds": 600.5972216129303,
+    "observations": 574,
+    "task_count": 39,
+    "task_states": {
+      "succeeded": 36,
+      "failed": 3
+    },
+    "task_reasons": {
+      "GAME_NAVIGATION_NO_ROUTE": 3
+    },
+    "verified_navigation": 30,
+    "productive_by_item": {
+      "minecraft:dirt": 2,
+      "minecraft:cobblestone": 4
+    },
+    "death_transitions": 0,
+    "formal_speech_completions": 20,
+    "vision_states": {
+      "succeeded": 26,
+      "failed": 4
+    },
+    "first_player": {
+      "health": 20,
+      "max_health": 20,
+      "food": 20,
+      "oxygen": 300,
+      "position": {
+        "dimension": "minecraft:overworld",
+        "x": 1260,
+        "y": 67,
+        "z": -97
+      }
+    },
+    "last_player": {
+      "health": 20,
+      "max_health": 20,
+      "food": 20,
+      "oxygen": 300,
+      "position": {
+        "dimension": "minecraft:overworld",
+        "x": 1262,
+        "y": 69,
+        "z": -96
+      }
+    },
+    "sampled_y_range": [
+      67,
+      72
+    ],
+    "seconds_after_last_non_navigation_completion": 198.4714527130127
+  },
+  "prompt_summary": {
+    "scope": "SAMPLED_BOUNDED_PROMPT_METRICS_NOT_BILLING_OR_RAW_PROMPTS",
+    "capacity": 12000,
+    "sampled_probes": 133,
+    "by_purpose": {
+      "speech": 23,
+      "vision": 1,
+      "game_plan": 109
+    },
+    "denied_count": 1,
+    "estimated_input_tokens_max": 13317,
+    "above_old_6000_admitted": 118,
+    "includes_startup_tail": true,
+    "admitted_estimated_input_tokens_max": 9878,
+    "denied_probe_rows": [
+      {
+        "sampled_at": 1793690816.4565146,
+        "session_id": "mc-plan-c448cbb9-8165-4cae-9593-f4418ab64a63",
+        "purpose": "game_plan",
+        "step": 3,
+        "estimated_input_tokens": 13317,
+        "budget_admitted": false,
+        "replay_transport_characters": 0,
+        "replay_transport_within_limit": true,
+        "completed_tool_calls": {
+          "game_check_action": 1,
+          "game_get_recent_events": 1
+        }
+      }
+    ]
+  },
+  "performance": {
+    "scope": "SOURCE_BOUND_RENDERER_DIAGNOSTICS_NOT_OFFICIAL_CAPTURE_OR_CDN_ACCEPTANCE",
+    "samples": 123,
+    "bound_segments": [],
+    "incomplete_or_unowned_fresh_samples": 119,
+    "stale_or_absent_samples": 4,
+    "fps_aggregate_withheld_without_complete_binding": true,
+    "gpu_samples": 21,
+    "gpu_memory_peak_mib": 8636.0,
+    "gpu_utilization_mean": 41.333333333333336,
+    "system_cpu_mean": 9.646341463414634,
+    "browser_contexts_opened": 0
+  },
+  "public_guest": {
+    "duration_seconds": 624.0979807376862,
+    "connected_observed": true,
+    "event_types": {},
+    "events": [],
+    "owned_collector_stopped": true
+  },
+  "native_images": [
+    {
+      "file": "native097-vision-1.jpg",
+      "frame_id": "frame-73668ff5-479d-49d7-9f67-eafa3a9b0157",
+      "sha256": "13ee6899f1e2831f7c614850d1118f4068c1cb1c95c77c39b6e57d59208efa14",
+      "bytes": 93017
+    },
+    {
+      "file": "native097-vision-2.jpg",
+      "frame_id": "frame-f2762cf8-ad6c-4a74-b269-03bd22df5da1",
+      "sha256": "28e1ae811b79cb9ef019a1ce3ac11e52caed23ed748c2d89ebc97b40c4cf3f26",
+      "bytes": 92523
+    },
+    {
+      "file": "native097-vision-3.jpg",
+      "frame_id": "frame-010c1f61-d955-478b-b11b-4ac3358549e4",
+      "sha256": "5c1928c3c2ba282d3f3a31bde33974a127c9c8057396d00f0f060337ef4ccf7d",
+      "bytes": 93317
+    },
+    {
+      "file": "native097-vision-4.jpg",
+      "frame_id": "frame-ccd37f54-df43-4205-80fe-227465095946",
+      "sha256": "4467139194ece3e03bea52c5cbcd6b0b7e447f23ff3c49a80a44acd6e02d9ae8",
+      "bytes": 98116
+    }
+  ],
+  "world": {
+    "before_sha256": "701b71e4e7ea31a301c4308c7c83b7093374ec787bc49874f8c1d7fd2305103a",
+    "after_sha256": "318b16ed19c15f9b8a2d548a5b7ac6ad1fdc44171707ffa5090c9aa403f10434",
+    "keepInventory": true,
+    "normal_engine_save": true,
+    "other_rules_or_difficulty_changed": false,
+    "inventory_injected": false,
+    "original_backup_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f"
+  },
+  "services_after": {
+    "dsh": false,
+    "avatar": false,
+    "tts": false,
+    "receiver": false,
+    "vision": false,
+    "minecraft": false
+  },
+  "candidate_disabled": true,
+  "official_clients_preserved": true,
+  "runtime_projection_matches_source": true,
+  "environment_prepared": true,
+  "application_ready": false,
+  "services_ready_at_start": true,
+  "remote_control_resolution": {
+    "state": "RESOLVED_WORKER_FINISHED_WHILE_CONTROL_CALL_PENDING",
+    "deploy_ok": true,
+    "worker_terminal_proven_by_result_and_no_matching_process": true,
+    "all_checks_passed": true,
+    "remote_control_ready": true,
+    "user_restart_no_longer_needed": true,
+    "start_not_repeated": true
+  },
+  "local_application_tests": 0,
+  "public_broadcast_started": false,
+  "remote4090_connected": false,
+  "virtualization_used": false,
+  "cleanup": {
+    "browser_contexts_opened": 0,
+    "byte_helper": {
+      "ok": true,
+      "purpose": "BYTE_TRANSFER_HELPER_CLOSED_AFTER_EVIDENCE_VERIFICATION",
+      "pid": 26244,
+      "creation_time_verified": true,
+      "command_path_verified": true,
+      "listener_owner_verified": true,
+      "port": 2530,
+      "listeners_after": 0,
+      "unrelated_processes_stopped": false,
+      "browser_contexts_opened": 0,
+      "at": "2026-11-03T07:30:54.3391279Z"
+    },
+    "workers_remaining": []
+  },
+  "private_policy": {
+    "changed_this_round": false,
+    "sha256": "1aba677cdf0e53fb7ade93c487a24ebfe3f64beef2b7aa01a44e32ee83ca792e",
+    "contents_exported": false
+  },
+  "implemented_ids": [
+    "I1114",
+    "I1115",
+    "I1116",
+    "I1117",
+    "I1118",
+    "I1119",
+    "I1120"
+  ],
+  "formal_acceptance_passed": 0,
+  "formal_acceptance_advanced": 0,
+  "new_avatar_clips": 0,
+  "inherited_todos_open": 117,
+  "new_video_recorded": false,
+  "report": "docs/technical/mc-live-v1/路径进展与097自主食物修复.md",
+  "github_publication": {
+    "branch": "mc",
+    "source_commit": "30fc445fa945b69b4e09f826aaf6843d6d9e8c34",
+    "source_pushed_and_remote_verified": true,
+    "documentation_published_with_this_revision": true
+  },
+  "raw_evidence_policy": "Ignored originals retained locally and on3080; only sanitized summaries, names, sizes and hashes are published.",
+  "raw_artifacts": [
+    {
+      "file": "ArrivalRadiusFixture097.log",
+      "bytes": 204,
+      "sha256": "0ead68e79a6d7d9bdf4210f3482e88f10e2bb1f314427f501711424b6ecd3e5e"
+    },
+    {
+      "file": "audit097-expected-sha.json",
+      "bytes": 166,
+      "sha256": "45ff82cb5e917c28c60ab8027baade4fe99832bc31386c0cc9f99bd3a11848e2"
+    },
+    {
+      "file": "audit097-result.json",
+      "bytes": 14868,
+      "sha256": "8771df297de7f42bfab739765546298a3945945cd1955e88d611a2120bc03006"
+    },
+    {
+      "file": "audit097-tasks-result.json",
+      "bytes": 35283,
+      "sha256": "1efad1c9632b63ddf67d7f118a4398ba3c3650f0812a65158d7388096b0a2e0a"
+    },
+    {
+      "file": "build097.log",
+      "bytes": 14118,
+      "sha256": "ed95b08b5675e824e68d816bdd74704f3238a72dd7f1ff26a4c5a8d8a3883576"
+    },
+    {
+      "file": "core097-inputs.json",
+      "bytes": 137824,
+      "sha256": "ea66e24ab08f5a203faf0e547238bacbbeb48b36f518ee47c3e11217aeb135d8"
+    },
+    {
+      "file": "core097-report.json",
+      "bytes": 819,
+      "sha256": "f759087cdaca4c93a7daba7f48f0882bafc727b401370857cd78e33c6f0cc81a"
+    },
+    {
+      "file": "core097.log",
+      "bytes": 819,
+      "sha256": "f759087cdaca4c93a7daba7f48f0882bafc727b401370857cd78e33c6f0cc81a"
+    },
+    {
+      "file": "deploy097-progress.json",
+      "bytes": 71,
+      "sha256": "f3d86972430f257025300650aae4a12983a0964f3dd5fd3f8b4db6cd5ef3ce3d"
+    },
+    {
+      "file": "deploy097-result.json",
+      "bytes": 5905,
+      "sha256": "7175216da0b9321843ae47f2d863f9412ecbf6ba12ba3388f20c129169608ca6"
+    },
+    {
+      "file": "deploy097-transfer.json",
+      "bytes": 4528,
+      "sha256": "1c05e45a7ffccb8b1361ecaeb1f24f19c639f92fba43c3cc88a142b016b0e7e1"
+    },
+    {
+      "file": "DiagonalRouteFixture097.log",
+      "bytes": 92,
+      "sha256": "7e75f57485e283ba84a760a40b4fc45fd77bdb3fde97c7355673e7e48d1b96a8"
+    },
+    {
+      "file": "DryDescentFixture097.log",
+      "bytes": 80,
+      "sha256": "3eea82aafda98d3efc020c6a6bff9ea1a6f4006584a7ca958e5c076906e3b368"
+    },
+    {
+      "file": "EscapeLandingFixture097.log",
+      "bytes": 63,
+      "sha256": "62c8cc1b85f3941cad2d8edf66da1ea2bdadd3441ab56e3c327a8222b2ecd872"
+    },
+    {
+      "file": "EscapeMotionFixture097.log",
+      "bytes": 62,
+      "sha256": "59e30bc89230aaa20d8373909fdb9c0272eafbf3623a50e75686263b22a0878c"
+    },
+    {
+      "file": "final097-readonly.json",
+      "bytes": 792,
+      "sha256": "a0e1bce108f45957f79d7602ab761bbde5ab1b8bafa6657cc3bfc2c488b5835f"
+    },
+    {
+      "file": "finish097-result.json",
+      "bytes": 122887,
+      "sha256": "78f02a1069929c26b3184a9d725d16773e53a7d07a11d8fd6b7a5b282a2b2948"
+    },
+    {
+      "file": "fixture-compile097.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "FrontierFixture097.log",
+      "bytes": 61,
+      "sha256": "84537d9e96e383c138dd76950882cd44549af2061c8d5383cb4a99883f17ee75"
+    },
+    {
+      "file": "monitor097-result.json",
+      "bytes": 461336,
+      "sha256": "64c1a30b23c6a95282bbbae5dd3443337d18da884113f8c0cdecb481b440ca5f"
+    },
+    {
+      "file": "native097-session-progress.json",
+      "bytes": 86,
+      "sha256": "18887da019648ecd626178ba713208fffa95ced5f3d79c355f51e6f2b7db9fcd"
+    },
+    {
+      "file": "native097-session-result.json",
+      "bytes": 5029831,
+      "sha256": "5cf107cb98e1d881dfc1b57c228bdc30ce536a14caf1d64fa4279308388a8990"
+    },
+    {
+      "file": "native097-vision-1.jpg",
+      "bytes": 93017,
+      "sha256": "13ee6899f1e2831f7c614850d1118f4068c1cb1c95c77c39b6e57d59208efa14"
+    },
+    {
+      "file": "native097-vision-2.jpg",
+      "bytes": 92523,
+      "sha256": "28e1ae811b79cb9ef019a1ce3ac11e52caed23ed748c2d89ebc97b40c4cf3f26"
+    },
+    {
+      "file": "native097-vision-3.jpg",
+      "bytes": 93317,
+      "sha256": "5c1928c3c2ba282d3f3a31bde33974a127c9c8057396d00f0f060337ef4ccf7d"
+    },
+    {
+      "file": "native097-vision-4.jpg",
+      "bytes": 98116,
+      "sha256": "4467139194ece3e03bea52c5cbcd6b0b7e447f23ff3c49a80a44acd6e02d9ae8"
+    },
+    {
+      "file": "NativeWorldFramesFixture097.log",
+      "bytes": 71,
+      "sha256": "b502b9db318ef800421887d48eae442229a0009f238c87203a7377caf87d1f88"
+    },
+    {
+      "file": "orchestration097-result.json",
+      "bytes": 1618,
+      "sha256": "260c6ba523e16d1aabf7dd4eb6e9a53f363b7c3de4393eabc314d9567b1c0ba9"
+    },
+    {
+      "file": "PartialFootingFixture097.log",
+      "bytes": 69,
+      "sha256": "78be713b0b076fccf6547276cbeda2779420cde5a5eede44f572fd030fca8980"
+    },
+    {
+      "file": "platform097-result.json",
+      "bytes": 37425,
+      "sha256": "c85b8286997f3e5e25672f70efbbb87a9646eb3261b476ec4141420013f50671"
+    },
+    {
+      "file": "preflight097.log",
+      "bytes": 805,
+      "sha256": "8dbb8fce6f06e7773c120a2f95c6b455de84066e9d4e06ae81c3ee57ce7d70bb"
+    },
+    {
+      "file": "prepare097.log",
+      "bytes": 376,
+      "sha256": "d565b753b0ffc6c7bfe2cf032f406c18fdc7cb81dc30b8449b4682e4e67153cc"
+    },
+    {
+      "file": "prompt097-summary.json",
+      "bytes": 51330,
+      "sha256": "917584b153452667a67d66a486067255c0fec7f3ddb779cb7a37be1863be6ef7"
+    },
+    {
+      "file": "readiness097.log",
+      "bytes": 3385,
+      "sha256": "0d719f52af1365390ea45bd1fd26c378d82e60be063408513a62cbd20b698c58"
+    },
+    {
+      "file": "RouteRecoveryBudgetFixture097.log",
+      "bytes": 80,
+      "sha256": "f6c52d7974a814f14caa21f1f5bcf7a0c51dc465a1e1a7725a75d5e5cbb0084d"
+    },
+    {
+      "file": "RouteRecoveryFixture097.log",
+      "bytes": 82,
+      "sha256": "a5c734ac4ee4ba7336d153a136437ce536b1122bee055f57e6dfd4c2dca275f4"
+    },
+    {
+      "file": "SoilDescentFixture097.log",
+      "bytes": 87,
+      "sha256": "49d164c3ae2b3fb92a2212dd7bc29f01f4c01cad00d1fd86410f8183de61279a"
+    },
+    {
+      "file": "start097.log",
+      "bytes": 1007,
+      "sha256": "51fa962bee221ef87861d4010d1232e360587364e41210faa54cbf9bfca8b3ca"
+    },
+    {
+      "file": "stop097.log",
+      "bytes": 169,
+      "sha256": "0838675953289f276b84f2470da731166fdf705eeadc09044e730e6cb292e9a6"
+    },
+    {
+      "file": "target097.log",
+      "bytes": 608,
+      "sha256": "3f8690390b8b06fa680c2e7f9b1e3da92615faf87b5ea17e4a3f8e75f6fc3197"
+    },
+    {
+      "file": "targeted097.log",
+      "bytes": 13784,
+      "sha256": "c35ded7c0653d3265be86592f237c20ea610138aee47e231236af07bcd4b1430"
+    },
+    {
+      "file": "TerrainStepFixture097.log",
+      "bytes": 36,
+      "sha256": "08de1db873bc605ddfd2e6a40143c95deb3b808037dab949e0faca19cdd0f135"
+    },
+    {
+      "file": "transfer097-result.json",
+      "bytes": 4361,
+      "sha256": "7f8bce284bd3c9e60540e5f65e8f2fe182f4f31318efedd16d248449c11b02ab"
+    },
+    {
+      "file": "TravelProgressFixture097.log",
+      "bytes": 102,
+      "sha256": "a528cd1e95827070f5e822dcd623da5e12d6e06e414debb982c49040d716f76a"
+    },
+    {
+      "file": "WaterRouteFixture097.log",
+      "bytes": 78,
+      "sha256": "10154e63ef2b0becdb9992534ed0cd80985b1c3c8dce4f6b0c3edb6160d012fc"
+    },
+    {
+      "file": "worker097.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "worker097.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}
