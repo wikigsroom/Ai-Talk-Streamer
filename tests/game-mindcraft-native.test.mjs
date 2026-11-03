@@ -948,6 +948,28 @@ test('expanded approach rejects absent, stale or foreign scan origins and source
   }
 });
 
+test('three verified local food searches yield to a fresh model strategy instead of endless native wandering',async()=>{
+  const f=fixture(suppliedTools());rejectDirectGather(f);f.planner.current(f.manager.stateView());
+  f.planner.foodSearchMoves=3;
+  assert.equal(await f.planner.bootstrap({}),false,'the outer planner must receive its model turn');
+  assert.equal(f.calls.some(row=>row.name==='game_start_task'),false);
+  assert.equal(f.planner.lastPlan.state,'food_strategy_required');assert.equal(f.planner.lastPlan.verified_food_search_moves,3);
+  assert.equal(f.planner.lastPlan.food_reserve_nutrition,0);assert.equal(f.planner.lastPlan.new_food_acquisition_verified,false);
+  assert.equal(f.planner.foodSearchMoves,0);
+});
+
+test('food-search budget counts verified terminal navigation after a new observation, never an accepted or failed task',async()=>{
+  for(const [state,effect,expected]of [['succeeded','verified',1],['succeeded','unknown',0],['failed','unknown',0]]){
+    const f=fixture(),p=f.state.player.position;f.planner.current(f.manager.stateView());
+    f.observe({player:{position:p,health:20,food:20}});
+    assert.equal(await f.planner.explore({},'no_food',{preferSurface:true}),true);
+    assert.equal(f.planner.pending.foodSearch,true);assert.equal(f.planner.foodSearchMoves,0);
+    Object.assign(f.tasks.get('task-0'),{state,effect_status:effect});
+    assert.equal(f.planner.settle(f.manager.stateView()),false);assert.equal(f.planner.foodSearchMoves,0);
+    f.observe({});assert.equal(f.planner.settle(f.manager.stateView()),true);assert.equal(f.planner.foodSearchMoves,expected);
+  }
+});
+
 test('stale, foreign, distant, hidden or unsupported food observations cannot authorize gathering',async()=>{
   for(const change of ['stale','future','source','dimension','distance','moved','hidden','unsupported']) {
     const f=fixture(suppliedTools()),sample=foodSample(f.state.player.position);

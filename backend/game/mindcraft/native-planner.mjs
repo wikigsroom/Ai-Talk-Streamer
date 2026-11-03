@@ -35,7 +35,7 @@ export class MindcraftNativePlanner {
   reset(scope) { this.scope = scope; this.completed = new Set(); this.pending = null; this.denied = new Map(); this.lastPlan = null;
     this.explored = new Set(); this.exploreIndex = 0; this.exploreOrigin = null; this.lastTable = null;
     this.exploreWindowCount=0;this.exploreWindows=new Set();
-    this.stationHistoryChecked = false; this.unconfirmedTables = new Set(); this.foodApproaches = new Map(); this.terrainPlacements = 0;
+    this.stationHistoryChecked = false; this.unconfirmedTables = new Set(); this.foodApproaches = new Map(); this.foodSearchMoves = 0; this.terrainPlacements = 0;
     this.terrainAnchors = new Map(); this.terrainGatherings = 0; this.exitStance = null; }
   report(value) {
     this.manager.publish('mindcraft',value);
@@ -197,6 +197,8 @@ export class MindcraftNativePlanner {
     }
     else if(this.pending.goal.skill==='use_item' && this.pending.goal.item_id==='minecraft:dirt' && this.pending.goal.target)
       this.exitStance={...this.pending.goal.target,y:this.pending.goal.target.y+1};
+    if(this.pending.foodSearch && this.pending.goal.skill==='navigate'
+        && task.state==='succeeded' && task.effect_status==='verified')this.foodSearchMoves++;
     const target=this.pending.goal.target,p=state.player?.position;
     if(this.pending.returningTable && task.state==='succeeded' && task.effect_status==='verified'
         && p?.dimension===target?.dimension && Math.hypot(p.x-target.x,p.y-target.y,p.z-target.z)<=this.pending.goal.radius
@@ -295,6 +297,16 @@ export class MindcraftNativePlanner {
         const target={...this.lastTable,y:this.lastTable.y+1};
         if (await this.submit({skill:'navigate',target,radius:2},context,
           {engine:'mindcraft_item_goal_native',stage:'return_to_observed_workstation'})) return true;
+      }
+      if(item==='bread' && this.foodSearchMoves>=3) {
+        // Native local searches must not indefinitely starve the model's
+        // planning turn. The model still uses the same fixed skill admissions;
+        // this is a request for a new strategy, never a movement or food claim.
+        const moves=this.foodSearchMoves;this.foodSearchMoves=0;
+        this.lastPlan={...this.lastPlan,state:'food_strategy_required',based_on_seq:state.seq,
+          food_reserve_nutrition:foodReserve(state),reserve_target_nutrition:15,
+          verified_food_search_moves:moves,new_food_acquisition_verified:false};
+        this.report(this.lastPlan);return false;
       }
       return this.explore(context,this.lastPlan?.reason || 'resource_or_route_unavailable',{preferSurface:item==='bread'});
     }
@@ -401,6 +413,7 @@ export class MindcraftNativePlanner {
     }
     const task=await m.tools.invoke('game_start_task',{goal},context);
     this.pending={task_id:task.task_id,goal,emergencyRetreat:plan.stage==='emergency_retreat',
+      foodSearch:plan.purpose==='seek_food',
       returningTable:goal.skill==='navigate' && ['return_to_known_workstation','return_to_observed_workstation'].includes(plan.stage)
         && this.lastTable ? structuredClone(this.lastTable) : null};
     this.lastPlan={...plan,state:'task_submitted',task_id:task.task_id,next_goal:goal};this.report(this.lastPlan);return true;
@@ -440,6 +453,7 @@ export class MindcraftNativePlanner {
       if(attempted++>=4)break;
       if(await this.submit({skill:'navigate',target,radius:0},context,
         {engine:'mindcraft_item_goal_native',stage:excavationKeys.has(key)?'excavate_observed_exit':'explore_observed_frontier',reason,
+          ...(preferSurface?{purpose:'seek_food'}:{}),
           ...(excavationKeys.has(key)?{requires_excavation:true,route_verified:false}:{})})) {
         remember(key);return true;
       }
@@ -455,6 +469,7 @@ export class MindcraftNativePlanner {
       if (this.explored.has(key) || Math.hypot(target.x-this.exploreOrigin.x,target.z-this.exploreOrigin.z)>24) continue;
       const goal={skill:'navigate',target,radius:1};
       if (await this.submit(goal,context,{engine:'mindcraft_item_goal_native',stage:'explore_for_dependency',reason,
+        ...(preferSurface?{purpose:'seek_food'}:{}),
         exploration_preference:preferSurface?'higher_ground_for_food':'resource_dependency',candidate_only:true})) {
         remember(key);return true;
       }
