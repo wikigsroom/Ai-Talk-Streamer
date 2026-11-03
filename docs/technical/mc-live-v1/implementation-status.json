@@ -4,24 +4,22 @@
   "branch": "mc",
   "goal_status": "active",
   "overall_status": "in_progress_full_application_not_accepted",
-  "current_round": "101",
-  "turn_classification": "native_livestock_food_chain_and_healing_admission_observed_full_acceptance_pending",
+  "current_round": "102",
+  "turn_classification": "recipe_dispatch_gameplay_observed_portable_table_followup_isolated_not_deployed",
   "delivery_mode": "single_integrated_release",
   "user_facing_release_count": 1,
   "progress_document": "docs/technical/mc-live-v1/实现进度.md",
-  "latest_evidence": "docs/evidence/mc-runtime-round-101.json",
+  "latest_evidence": "docs/evidence/mc-runtime-round-102.json",
   "current_round_implemented_ids": [
-    "I1147",
-    "I1148",
-    "I1149",
-    "I1150",
-    "I1151",
-    "I1152",
-    "I1153",
-    "I1154",
-    "I1155",
-    "I1156",
-    "I1157"
+    "I1158",
+    "I1159",
+    "I1160",
+    "I1161",
+    "I1162",
+    "I1163",
+    "I1164",
+    "I1165",
+    "I1166"
   ],
   "required_domains": [
     {
@@ -46,19 +44,19 @@
       "id": "D04",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "持续资源→工具→新食物；三种牲畜实际击杀拾取、炉具放置/燃料/烹饪/进食完整链仍需实证，并补齐其他动物/鱼/模组食物、种收吃、容器、耐久及建造。核验食物/材料采集1次、小麦制作1次（目标产出合计9个）、面包制作0次；生肉获取0次、熟肉制作0次、进食0次。"
+      "remaining": "持续工具/资源/食物；本场面包配方歧义14次需先解决，缺工作台补齐策略尚待部署后实际采木、制台、放台、制面包和进食验证。三类牲畜击杀拾取、炉具燃料烹饪及自然回血、其他动物/鱼/模组食物、种收吃、容器、耐久与建造仍待。核验非导航0条，其中面包制作0次、生肉获取0次、熟肉制作0次、进食0次。"
     },
     {
       "id": "D05",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "有效长期目标、食物失败后的可行改策、Luna视觉决策落实、完整Mindcraft依赖覆盖、跨场工作台/补给、真实互动并发、模型预算/取消/事实核验。原生食物扩展不等于完整上游执行器。"
+      "remaining": "有效长期目标、食品补给不空转、实际配方歧义选择及缺台策略的实机执行、Luna视觉建议落实、完整Mindcraft依赖/模组配方、跨场台站、观众互动并发、预算/取消/事实核验。"
     },
     {
       "id": "D06",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连及展示；本场公开采集614.4秒，新事件0条，不伪造或代发。"
+      "remaining": "595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连与显示；本场公开采集612.7秒、事件0条，不代发或伪造。"
     },
     {
       "id": "D07",
@@ -76,7 +74,7 @@
       "id": "D09",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "持续有效节目内容、及时自然解说、人物供帧/重缓冲、真实弹幕合成、手机与官方场景实录；第1段601.520秒，来源绑定的Canvas呈现均值22.67FPS，新增音频欠载12次、缺包1次。流畅性和直播效果尚未完整通过。"
+      "remaining": "持续有效节目、自然及时解说、供帧和重缓冲、真实弹幕、手机及官方场景实录；第1段602.954秒，来源绑定Canvas均值22.29FPS，新增音频欠载17次、缺包0次。"
     },
     {
       "id": "D10",
@@ -94,7 +92,7 @@
       "id": "D12",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "原生JPEG→Luna的模组物品/危险准确率、OCR/装备、帧/世界绑定、超时取消、公平性及联合负载；本场视觉终态{\"succeeded\": 16, \"failed\": 5}不代替准确率或实际控制验收。"
+      "remaining": "原生JPEG→Luna的语义准确率、模组物品/危险/OCR/装备、帧世界绑定、超时取消/公平及联合负载；本场终态{\"succeeded\": 28, \"failed\": 1}不等于准确率通过。"
     },
     {
       "id": "D13",
@@ -106,7 +104,7 @@
       "id": "D14",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "重复来源/模型校验及启动耗时、历史FTB推广HTTP等待、日志集成启动和单场增长预算；本场已保留归档旧日志。还需CPU/GPU/内存、来源绑定供帧、4小时含60分钟稳定段、断线及异常停止验收。"
+      "remaining": "重复校验和启动耗时、FTB历史HTTP等待、单场日志增长预算、CPU/GPU/内存/来源绑定供帧、4小时含60分钟稳定段及异常停止。日志服务入口已真实启动核验，启动阈值归档不代替连续大小上限。"
     },
     {
       "id": "D15",
@@ -393,48 +391,71 @@
   "remote_4090_control": "paused",
   "current_inherited_target": "rtx3080",
   "layout_unchanged": true,
-  "last_updated": "2026-11-03T22:58:49.944020+00:00",
+  "last_updated": "2026-11-03T23:47:10.613599+00:00",
   "known_incomplete_integration": [
     "D01 完整安装包及许可、干净Windows重建、来源与全部副本审计、缓存/回退、异常启动回收；当前安装受管准备及启动已过，完整application_ready仍false。",
     "D02 模组实体/容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物和联机差异；本场原世界观察不覆盖全部模组及协议场景。",
     "D03 持续地下脱困、昼夜多敌撤离、普通PvE、受伤回血/饥饿和重生补给、GUI/水/岩浆/窒息、租约及长期停止；新增补食判断仍需真实自然回血，重生恢复不能计作通过。",
-    "D04 持续资源→工具→新食物；三种牲畜实际击杀拾取、炉具放置/燃料/烹饪/进食完整链仍需实证，并补齐其他动物/鱼/模组食物、种收吃、容器、耐久及建造。核验食物/材料采集1次、小麦制作1次（目标产出合计9个）、面包制作0次；生肉获取0次、熟肉制作0次、进食0次。",
-    "D05 有效长期目标、食物失败后的可行改策、Luna视觉决策落实、完整Mindcraft依赖覆盖、跨场工作台/补给、真实互动并发、模型预算/取消/事实核验。原生食物扩展不等于完整上游执行器。",
-    "D06 595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连及展示；本场公开采集614.4秒，新事件0条，不伪造或代发。",
+    "D04 持续工具/资源/食物；本场面包配方歧义14次需先解决，缺工作台补齐策略尚待部署后实际采木、制台、放台、制面包和进食验证。三类牲畜击杀拾取、炉具燃料烹饪及自然回血、其他动物/鱼/模组食物、种收吃、容器、耐久与建造仍待。核验非导航0条，其中面包制作0次、生肉获取0次、熟肉制作0次、进食0次。",
+    "D05 有效长期目标、食品补给不空转、实际配方歧义选择及缺台策略的实机执行、Luna视觉建议落实、完整Mindcraft依赖/模组配方、跨场台站、观众互动并发、预算/取消/事实核验。",
+    "D06 595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连与显示；本场公开采集612.7秒、事件0条，不代发或伪造。",
     "D07 真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复和唯一写者隔离。",
     "D08 完整启停/任务/资源/音量/诊断/恢复与两方案切换；真实消息左右换边的队列保留、并发、手机及完整操作验收。",
-    "D09 持续有效节目内容、及时自然解说、人物供帧/重缓冲、真实弹幕合成、手机与官方场景实录；第1段601.520秒，来源绑定的Canvas呈现均值22.67FPS，新增音频欠载12次、缺包1次。流畅性和直播效果尚未完整通过。",
+    "D09 持续有效节目、自然及时解说、供帧和重缓冲、真实弹幕、手机及官方场景实录；第1段602.954秒，来源绑定Canvas均值22.29FPS，新增音频欠载17次、缺包0次。",
     "D10 两套各2闲置+48动作共100段新素材、索引、口型、圆形遮罩与接缝；仍0/100，原female-A素材保留。",
     "D11 原生游戏声/人声/BGM压低恢复、O07/F07故障切换、唯一音源与完整实录验收。",
-    "D12 原生JPEG→Luna的模组物品/危险准确率、OCR/装备、帧/世界绑定、超时取消、公平性及联合负载；本场视觉终态{\"succeeded\": 16, \"failed\": 5}不代替准确率或实际控制验收。",
+    "D12 原生JPEG→Luna的语义准确率、模组物品/危险/OCR/装备、帧世界绑定、超时取消/公平及联合负载；本场终态{\"succeeded\": 28, \"failed\": 1}不等于准确率通过。",
     "D13 公开状态核对、独立观众CDN音画及端到端时延；本轮没有公开开播。",
-    "D14 重复来源/模型校验及启动耗时、历史FTB推广HTTP等待、日志集成启动和单场增长预算；本场已保留归档旧日志。还需CPU/GPU/内存、来源绑定供帧、4小时含60分钟稳定段、断线及异常停止验收。",
+    "D14 重复校验和启动耗时、FTB历史HTTP等待、单场日志增长预算、CPU/GPU/内存/来源绑定供帧、4小时含60分钟稳定段及异常停止。日志服务入口已真实启动核验，启动阈值归档不代替连续大小上限。",
     "D15 正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/20项交接；继承117项冻结待办原编号保留。"
   ],
   "current_round_validation": {
-    "round": "101",
-    "evidence": "docs/evidence/mc-runtime-round-101.json",
-    "report": "docs/technical/mc-live-v1/畜牧补给与101自主游玩修复.md",
+    "round": "102",
+    "evidence": "docs/evidence/mc-runtime-round-102.json",
+    "report": "docs/technical/mc-live-v1/配方分流与102工作台补给修复.md",
     "checks": {
       "core": {
-        "tests": 413,
-        "pass": 413,
+        "tests": 414,
+        "pass": 414,
         "fail": 0,
         "cancelled": 0,
         "skipped": 0,
         "todo": 0
       },
-      "java_fixtures": 19,
+      "java_fixtures": 20,
       "suites_overlap_do_not_sum": true
     },
     "new_runtime_observation": true,
-    "last_real_runtime_round": "101b",
+    "last_real_runtime_round": "102b",
     "formal_acceptance_advanced": 0,
+    "staged_planner_followup": {
+      "ok": true,
+      "host": "DESKTOP-2QQPN1H",
+      "application_source_changed": false,
+      "game_keys": 0,
+      "gameplay_goals": 0,
+      "public_broadcast_started": false,
+      "source_commit": "af627c9596f55975dbefa6bbc308ae8dc9a744b5",
+      "source_snapshot_sha256": "89d066afaac6e960f7d5a93f82d8fb6a14d853d1450196b32422d912a13d8d03",
+      "exit_code": 0,
+      "elapsed_seconds": 5.141000000061467,
+      "tests": {
+        "tests": 117,
+        "pass": 117,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "installed_source_snapshot_sha256": "5aed65f4eeffb99be86991079f7c31d6ef2e7cdf9d4f9d70b77e933ffc0c065f",
+      "scope": "ISOLATED_PLANNER_FIXTURES_NOT_INSTALLED_GAME_OR_MODEL_ACCEPTANCE",
+      "at": 1793748295.0049322
+    },
     "github_publication": {
       "branch": "mc",
-      "source_commit": "bafe253f0ec890fc12745f77504ce814c789b731",
+      "game_source_commit": "53e7942298e62d1e6c5cacca95ada396b3ea832d",
+      "staged_planner_commit": "af627c9596f55975dbefa6bbc308ae8dc9a744b5",
       "source_pushed_and_remote_verified": true,
-      "log_change_commit": "225464f02084cdea60149532ce2da8fd813db11e",
       "documentation_published_with_this_revision": true,
       "push_pending": false
     }
@@ -1086,9 +1107,9 @@
     "evidence": "docs/evidence/mc-runtime-round-022.json"
   },
   "previous_round_summary": {
-    "round": "100",
-    "evidence": "docs/evidence/mc-runtime-round-100.json",
-    "report": "docs/technical/mc-live-v1/可见食物搜索与100自主规划修复.md"
+    "round": "101",
+    "evidence": "docs/evidence/mc-runtime-round-101.json",
+    "report": "docs/technical/mc-live-v1/畜牧补给与101自主游玩修复.md"
   },
   "round026_draft_follow_up": {
     "classification": "FINALIZED_LOCAL_ONLY_AFTER_PLANNING_R3",
@@ -2843,9 +2864,9 @@
     "continuous_survival_verified": false
   },
   "current_runtime_verification": {
-    "round": "101b",
+    "round": "102b",
     "remote_3080_tested": true,
-    "source_snapshot_sha256": "ed1a6c4d3c9d99dc06db376a9a8650b982946a104304d73092db381484df2100",
+    "source_snapshot_sha256": "5aed65f4eeffb99be86991079f7c31d6ef2e7cdf9d4f9d70b77e933ffc0c065f",
     "candidate_disabled": true,
     "keep_inventory_after_engine_save": true,
     "normal_save_stop_verified": true,
@@ -2855,17 +2876,15 @@
     "formal_survival_acceptance_passed": false
   },
   "latest_turn_implemented_ids": [
-    "I1147",
-    "I1148",
-    "I1149",
-    "I1150",
-    "I1151",
-    "I1152",
-    "I1153",
-    "I1154",
-    "I1155",
-    "I1156",
-    "I1157"
+    "I1158",
+    "I1159",
+    "I1160",
+    "I1161",
+    "I1162",
+    "I1163",
+    "I1164",
+    "I1165",
+    "I1166"
   ],
   "sample120_user_requested_recording": {
     "video": "outputs/mc-validation/round-088/remote-evidence/mc-live-dsh-mc-agent-088d-120s.mp4",
@@ -14193,21 +14212,43 @@
     }
   },
   "current_source_verification": {
-    "round": "101",
+    "round": "102",
     "device": "remote-3080",
-    "source_commit": "bafe253f0ec890fc12745f77504ce814c789b731",
-    "source_snapshot_sha256": "ed1a6c4d3c9d99dc06db376a9a8650b982946a104304d73092db381484df2100",
+    "source_commit": "53e7942298e62d1e6c5cacca95ada396b3ea832d",
+    "source_snapshot_sha256": "5aed65f4eeffb99be86991079f7c31d6ef2e7cdf9d4f9d70b77e933ffc0c065f",
     "checks_passed": true,
     "runtime_projection_matches_source": true,
     "environment_prepared": true,
     "application_ready": false,
     "new_game_or_model_run": true,
-    "last_real_runtime_round": "101b",
+    "last_real_runtime_round": "102b",
     "keep_inventory_preserved": true,
     "world_unchanged": false,
     "formal_acceptance_advanced": 0,
-    "separate_log_commit": "225464f02084cdea60149532ce2da8fd813db11e",
-    "log_service_entrypoint_deployed": false
+    "log_service_entrypoint_deployed": true,
+    "separate_undeployed_planner_followup": {
+      "ok": true,
+      "host": "DESKTOP-2QQPN1H",
+      "application_source_changed": false,
+      "game_keys": 0,
+      "gameplay_goals": 0,
+      "public_broadcast_started": false,
+      "source_commit": "af627c9596f55975dbefa6bbc308ae8dc9a744b5",
+      "source_snapshot_sha256": "89d066afaac6e960f7d5a93f82d8fb6a14d853d1450196b32422d912a13d8d03",
+      "exit_code": 0,
+      "elapsed_seconds": 5.141000000061467,
+      "tests": {
+        "tests": 117,
+        "pass": 117,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "installed_source_snapshot_sha256": "5aed65f4eeffb99be86991079f7c31d6ef2e7cdf9d4f9d70b77e933ffc0c065f",
+      "scope": "ISOLATED_PLANNER_FIXTURES_NOT_INSTALLED_GAME_OR_MODEL_ACCEPTANCE",
+      "at": 1793748295.0049322
+    }
   },
   "round096_follow_up": {
     "implemented_ids": [
@@ -14503,5 +14544,54 @@
     "documentation_published_with_this_revision": true,
     "independent_final_process_census_pending": false,
     "round100_final_census_followup_completed": true
+  },
+  "before_round102_current_round_validation": {
+    "round": "101",
+    "evidence": "docs/evidence/mc-runtime-round-101.json",
+    "report": "docs/technical/mc-live-v1/畜牧补给与101自主游玩修复.md",
+    "checks": {
+      "core": {
+        "tests": 413,
+        "pass": 413,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "java_fixtures": 19,
+      "suites_overlap_do_not_sum": true
+    },
+    "new_runtime_observation": true,
+    "last_real_runtime_round": "101b",
+    "formal_acceptance_advanced": 0,
+    "github_publication": {
+      "branch": "mc",
+      "source_commit": "bafe253f0ec890fc12745f77504ce814c789b731",
+      "source_pushed_and_remote_verified": true,
+      "log_change_commit": "225464f02084cdea60149532ce2da8fd813db11e",
+      "documentation_published_with_this_revision": true,
+      "push_pending": false
+    }
+  },
+  "round102_follow_up": {
+    "implemented_ids": [
+      "I1158",
+      "I1159",
+      "I1160",
+      "I1161",
+      "I1162",
+      "I1163",
+      "I1164",
+      "I1165",
+      "I1166"
+    ],
+    "evidence": "docs/evidence/mc-runtime-round-102.json",
+    "report": "docs/technical/mc-live-v1/配方分流与102工作台补给修复.md",
+    "full_acceptance_pending": true,
+    "github_push_pending": false,
+    "game_source_commit": "53e7942298e62d1e6c5cacca95ada396b3ea832d",
+    "staged_planner_commit": "af627c9596f55975dbefa6bbc308ae8dc9a744b5",
+    "portable_table_followup_deployed": false,
+    "independent_final_process_census_pending": false
   }
 }

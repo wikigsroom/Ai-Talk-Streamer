@@ -1,0 +1,4166 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261104-102",
+  "round": "102",
+  "at": "2026-11-03T23:47:10.613599+00:00",
+  "branch": "mc",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "scope": "NATIVE_RECIPE_DISPATCH_RUNTIME_WITH_SEPARATE_UNDEPLOYED_PORTABLE_TABLE_FOLLOWUP",
+  "observation_run": "102b",
+  "source_commit": "53e7942298e62d1e6c5cacca95ada396b3ea832d",
+  "source_files": 1019,
+  "source_snapshot_sha256": "5aed65f4eeffb99be86991079f7c31d6ef2e7cdf9d4f9d70b77e933ffc0c065f",
+  "source_archive_sha256": "c4d6de4a6e077951c22ed363244f24cd4c04179a931ace89d9a13c7c07d5a05c",
+  "native_build": {
+    "sha256": "bb55f81ea049712f79d30e3b39f372018e2f7b5b46f72fd4fd47b451fbf2254a",
+    "bytes": 12557519,
+    "compiled_against": "actual_supplied_neoforge_21.1.248_mojmap_libraries",
+    "classes": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/build/classes-69e004e2ac074d36adaaa965767f3e12"
+  },
+  "checks": {
+    "core": {
+      "tests": 414,
+      "pass": 414,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "java_fixtures": 20,
+    "suites_overlap_do_not_sum": true
+  },
+  "staged_planner_followup": {
+    "ok": true,
+    "host": "DESKTOP-2QQPN1H",
+    "application_source_changed": false,
+    "game_keys": 0,
+    "gameplay_goals": 0,
+    "public_broadcast_started": false,
+    "source_commit": "af627c9596f55975dbefa6bbc308ae8dc9a744b5",
+    "source_snapshot_sha256": "89d066afaac6e960f7d5a93f82d8fb6a14d853d1450196b32422d912a13d8d03",
+    "exit_code": 0,
+    "elapsed_seconds": 5.141000000061467,
+    "tests": {
+      "tests": 117,
+      "pass": 117,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "installed_source_snapshot_sha256": "5aed65f4eeffb99be86991079f7c31d6ef2e7cdf9d4f9d70b77e933ffc0c065f",
+    "scope": "ISOLATED_PLANNER_FIXTURES_NOT_INSTALLED_GAME_OR_MODEL_ACCEPTANCE",
+    "at": 1793748295.0049322
+  },
+  "runtime": {
+    "scope": "SAVED_REMOTE_OBSERVATION_NOT_COMPLETE_APPLICATION_ACCEPTANCE",
+    "window_seconds": 600.945957660675,
+    "observations": 565,
+    "task_count": 13,
+    "task_states": {
+      "succeeded": 12,
+      "cancelled": 1
+    },
+    "task_reasons": {
+      "AGENT_EMERGENCY_THREAT": 1
+    },
+    "verified_navigation": 12,
+    "productive_tasks": [],
+    "productive_by_item": {},
+    "death_transitions": 0,
+    "first_inventory": {
+      "cottonly:cotton_seeds": 2,
+      "gravestone:obituary": 1,
+      "minecraft:arrow": 2,
+      "minecraft:bone": 1,
+      "minecraft:cobbled_deepslate": 4,
+      "minecraft:cobblestone": 69,
+      "minecraft:dirt": 99,
+      "minecraft:furnace": 1,
+      "minecraft:oak_planks": 1,
+      "minecraft:oak_sapling": 6,
+      "minecraft:rotten_flesh": 5,
+      "minecraft:spider_eye": 1,
+      "minecraft:stick": 2,
+      "minecraft:stone_axe": 1,
+      "minecraft:stone_pickaxe": 1,
+      "minecraft:string": 2,
+      "minecraft:wheat": 9,
+      "minecraft:wheat_seeds": 2,
+      "minecraft:wooden_pickaxe": 1
+    },
+    "last_inventory": {
+      "cottonly:cotton_seeds": 2,
+      "gravestone:obituary": 1,
+      "minecraft:arrow": 4,
+      "minecraft:bone": 2,
+      "minecraft:cobbled_deepslate": 4,
+      "minecraft:cobblestone": 69,
+      "minecraft:dirt": 99,
+      "minecraft:furnace": 1,
+      "minecraft:oak_planks": 1,
+      "minecraft:oak_sapling": 6,
+      "minecraft:rotten_flesh": 5,
+      "minecraft:spider_eye": 1,
+      "minecraft:stick": 2,
+      "minecraft:stone_axe": 1,
+      "minecraft:stone_pickaxe": 1,
+      "minecraft:string": 2,
+      "minecraft:wheat": 9,
+      "minecraft:wheat_seeds": 2,
+      "minecraft:wooden_pickaxe": 1
+    },
+    "inventory_change": {
+      "minecraft:arrow": 2,
+      "minecraft:bone": 1
+    },
+    "first_player": {
+      "health": 20,
+      "max_health": 20,
+      "food": 20,
+      "oxygen": 300,
+      "position": {
+        "dimension": "minecraft:overworld",
+        "x": 1361,
+        "y": 75,
+        "z": -162
+      }
+    },
+    "last_player": {
+      "health": 10.166666,
+      "max_health": 20,
+      "food": 16,
+      "oxygen": 300,
+      "position": {
+        "dimension": "minecraft:overworld",
+        "x": 1421,
+        "y": 74,
+        "z": -176
+      }
+    },
+    "sampled_y_range": [
+      73,
+      77
+    ],
+    "formal_speech_completions": 15,
+    "narration_reasons": {
+      "INTERMEDIATE_NAVIGATION_SUPPRESSED": 12,
+      "GAME_NARRATION_EXPIRED": 3,
+      "STREAM_TOOL_ROUND_LIMIT": 1
+    },
+    "vision_states": {
+      "succeeded": 28,
+      "failed": 1
+    },
+    "visions": [
+      {
+        "frame_id": "frame-e1ccc7b9-7bb1-4d4d-bb6a-ac7694bbac71",
+        "source_seq": 239,
+        "captured_at": "2026-11-03T23:33:56.244396100Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:33:57.259Z",
+        "image_sha256": "1f8b310d234c179e1b3982c07702c61dab05a6adfdae8e055d69937b93482cc4",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 239,
+          "observed_at": "2026-11-03T23:33:56.112417300Z",
+          "sample_to_capture_ms": 132,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 6897,
+        "usage": {
+          "input_tokens": 2814,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 294,
+          "output_tokens_details": {
+            "reasoning_tokens": 172
+          },
+          "total_tokens": 3108,
+          "attribution": {
+            "items": {
+              "msg_05100c4a9307a686016aea6f66e84887d0927c4a105c16365f": {
+                "input_tokens": 2625,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 175,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_05100c4a9307a686016aea6f6ac31887d0beb4a4099bebca05": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 122,
+                "content": [
+                  {
+                    "input_tokens": 0,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 122
+                  }
+                ]
+              },
+              "rs_05100c4a9307a686016aea6f6aabf887d08bc3a8958690fad7": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 172
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "草地村落中有砖房、木屋、草径、树木和干草垛，中央有工作台，红色光柱直冲天空。画面右下手持未知模组物品。",
+        "visible_text": [
+          "小地图显示 Plains",
+          "状态条显示 4/100",
+          "墓碑上可见 NATHAN",
+          "右侧文字部分可见：[MEI…]"
+        ],
+        "unknowns": [
+          "红色光柱的来源和用途不明",
+          "右侧被遮挡的文字无法辨清"
+        ]
+      },
+      {
+        "frame_id": "frame-a414845a-13a4-4a9f-94c8-1d44fa7ae17c",
+        "source_seq": 641,
+        "captured_at": "2026-11-03T23:34:16.175252400Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:34:16.766Z",
+        "image_sha256": "68c04b8df3c49fbc1105ac63209b603f01f5579a85630ef7655821a981e5a646",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 4689,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 88,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2789,
+          "attribution": {
+            "items": {
+              "msg_03439a25f63b38e9016aea6f7ac29c87d0b139d0c9e265a4db": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_03439a25f63b38e9016aea6f7bf51487d0ae66799b72e2bd92": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 88,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 88
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "平原村庄内，草地与土路间有多栋木石房屋、篱栏和火把；画面未见明显敌对生物。",
+        "visible_text": [
+          "顶部提示：Short Grass；Project: Vibrant Journeys",
+          "小地图下方：1377 75 -166；Plains",
+          "状态条：45/100"
+        ],
+        "unknowns": []
+      },
+      {
+        "frame_id": "frame-4b4d3221-1a63-4674-99f5-8f2a564489f5",
+        "source_seq": 1042,
+        "captured_at": "2026-11-03T23:34:36.222228400Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:34:36.713Z",
+        "image_sha256": "5e0090537f27579ec3b0328ab585977daaffd76010326425d4ae24983057e3e6",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 7851,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 273,
+          "output_tokens_details": {
+            "reasoning_tokens": 147
+          },
+          "total_tokens": 2974,
+          "attribution": {
+            "items": {
+              "msg_08d3fd8155dd3367016aea6f8f803c87d095e1f8eeafae8a86": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_08d3fd8155dd3367016aea6f9319b087d09c112724c90f7211": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 126,
+                "content": [
+                  {
+                    "input_tokens": 0,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 126
+                  }
+                ]
+              },
+              "rs_08d3fd8155dd3367016aea6f92fe2487d09d0c2aa893ac6148": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 147
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "村庄石砌水井旁有水流与火把，土路穿过草原，旁边可见木屋、栅栏和树木；画面中未见明显敌对生物。",
+        "visible_text": [
+          "方块提示：Cobblestone / Minecraft",
+          "小地图显示：1361 75 -186，Plains",
+          "状态条显示：35/100",
+          "左侧名称标签模糊，无法辨认"
+        ],
+        "unknowns": [
+          "左下方露出的紫色头部被遮挡，无法确认身份"
+        ]
+      },
+      {
+        "frame_id": "frame-2f95fd02-13bd-4028-8e2d-b7d34f424868",
+        "source_seq": 1443,
+        "captured_at": "2026-11-03T23:34:56.281822200Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:34:56.810Z",
+        "image_sha256": "cc30d093b90dd5b1fbafa89b47c814e8b1b8e1771e330727829190bcc3007b94",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 1443,
+          "observed_at": "2026-11-03T23:34:56.216841700Z",
+          "sample_to_capture_ms": 65,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 6616,
+        "usage": {
+          "input_tokens": 2815,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 91,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2906,
+          "attribution": {
+            "items": {
+              "msg_0de341a442db5fc3016aea6fa4769087d0a0c323868e7a645c": {
+                "input_tokens": 2626,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 176,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0de341a442db5fc3016aea6fa683c487d095317151c1cf6ba0": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 91,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 91
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "平原草地村庄中有木石小屋、围栏与火把，周围是树木和高草；前方可见蘑菇及小水洼。生命和饥饿值充足，未见明显敌对危险。主手为未知物品。",
+        "visible_text": [
+          "Short Grass",
+          "Minecraft",
+          "Plain(s)"
+        ],
+        "unknowns": []
+      },
+      {
+        "frame_id": "frame-24931c9f-ff16-44d7-8d88-e9c28ca32ead",
+        "source_seq": 1849,
+        "captured_at": "2026-11-03T23:35:16.563556600Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:35:17.034Z",
+        "image_sha256": "33ea7716709c8d16f7b21a7a9d315c380551623907c6f04010de65a175f261ba",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 6262,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 194,
+          "output_tokens_details": {
+            "reasoning_tokens": 90
+          },
+          "total_tokens": 2895,
+          "attribution": {
+            "items": {
+              "msg_0c591a60a7ed4898016aea6fb6c23c87d09b7e4c71cf38a065": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0c591a60a7ed4898016aea6fb9224c87d0a0247c3776b6f4f4": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 104,
+                "content": [
+                  {
+                    "input_tokens": 0,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 104
+                  }
+                ]
+              },
+              "rs_0c591a60a7ed4898016aea6fb912e887d0bd65c17222660102": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 90
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "村庄小路旁可见木质与浅色墙面的房屋、门、花盆黄花和草地；近处木柱与圆石墙遮挡视线，未见明显危险生物。",
+        "visible_text": [
+          "方块提示：Cobblestone / Minecraft",
+          "小地图显示：Plains",
+          "坐标显示：1389 74 -160"
+        ],
+        "unknowns": [
+          "木柱和墙后方的区域不可见"
+        ]
+      },
+      {
+        "frame_id": "frame-12297b4d-fc3e-4f14-aeb6-03ab956a1b58",
+        "source_seq": 2253,
+        "captured_at": "2026-11-03T23:35:36.768417Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:35:37.244Z",
+        "image_sha256": "e28d4205f34012d259e8b495572d4015fe0683f182d81d0e6b96a00e2efc5a18",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 12734,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 281,
+          "output_tokens_details": {
+            "reasoning_tokens": 170
+          },
+          "total_tokens": 2982,
+          "attribution": {
+            "items": {
+              "msg_06c4b45feec89e8e016aea6fd0dd5087d0b7c5203c9d861357": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_06c4b45feec89e8e016aea6fd4b38c87d093310316a8913b4e": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 111,
+                "content": [
+                  {
+                    "input_tokens": 0,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 111
+                  }
+                ]
+              },
+              "rs_06c4b45feec89e8e016aea6fd497f087d0bb67db215eb546dd": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 170
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "草地平原上有高草、零散树木和一条土路，右侧紧邻木质建筑；远处可见森林和几只动物。未见明显敌对生物，生命值显示已损失较多。",
+        "visible_text": [
+          "小地图下方显示“1406 74 -168”",
+          "生物群系显示“Plains”",
+          "经验等级显示为2"
+        ],
+        "unknowns": [
+          "远处动物种类不完全确定"
+        ]
+      },
+      {
+        "frame_id": "frame-46b294db-b285-4991-bbc0-81ab6b0dad48",
+        "source_seq": 2655,
+        "captured_at": "2026-11-03T23:35:56.912706200Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:35:57.477Z",
+        "image_sha256": "db9f126275fd7d9d6982eb9ba707cc145e935cfbb481fbdfaf8925fda9ee73a0",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 2655,
+          "observed_at": "2026-11-03T23:35:56.796053500Z",
+          "sample_to_capture_ms": 116,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 4636,
+        "usage": {
+          "input_tokens": 2815,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 79,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2894,
+          "attribution": {
+            "items": {
+              "msg_0359041bffa75c92016aea6fdfc4ac87d09e82c0d11c95c431": {
+                "input_tokens": 2626,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 176,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0359041bffa75c92016aea6fe1131487d0b671de7d33bb906d": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 79,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 79
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "晴天下的平坦草地，遍布高草，远处有树林与零散树木；右侧是房屋、土路和火把。画面中未见明显敌对生物，主手为未知物品。",
+        "visible_text": [
+          "1406 74 -168",
+          "Plains"
+        ],
+        "unknowns": []
+      },
+      {
+        "frame_id": "frame-65a393c0-ab34-42d6-829d-e8971179b8af",
+        "source_seq": 3062,
+        "captured_at": "2026-11-03T23:36:17.223140500Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:36:17.909Z",
+        "image_sha256": "7316e1389a0ab61b135335ec8d7850c19c20e72a41dccae5b627e094a177088e",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 3062,
+          "observed_at": "2026-11-03T23:36:17.146136300Z",
+          "sample_to_capture_ms": 77,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 6168,
+        "usage": {
+          "input_tokens": 2815,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 196,
+          "output_tokens_details": {
+            "reasoning_tokens": 103
+          },
+          "total_tokens": 3011,
+          "attribution": {
+            "items": {
+              "msg_00ac0ca892647f02016aea6ff4923487d081038f7654d0f2af": {
+                "input_tokens": 2626,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 176,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_00ac0ca892647f02016aea6ff7377487d0911c34c00dcafafd": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 93,
+                "content": [
+                  {
+                    "input_tokens": 0,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 93
+                  }
+                ]
+              },
+              "rs_00ac0ca892647f02016aea6ff7209487d0a12ad4b1368ab5af": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 103
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "明亮的平原草地上有土路、右侧木屋和远处树林，草地间可见动物；画面未见明显敌对生物，生命值显示不满。",
+        "visible_text": [
+          "1406 74 -168",
+          "Plains"
+        ],
+        "unknowns": [
+          "主手物品为不认识的模组物品；外观不能确认其用途。"
+        ]
+      },
+      {
+        "frame_id": "frame-e40e2665-8120-402a-b81d-0019663f293d",
+        "source_seq": 3462,
+        "captured_at": "2026-11-03T23:36:37.232461300Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:36:37.737Z",
+        "image_sha256": "8ac48954073206ce2aded6a59b1b1b8a2661c9f0d77a74ddde6ca6d6cf62af45",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3056,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 88,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2789,
+          "attribution": {
+            "items": {
+              "msg_0bb89eea29bec481016aea70071af487d0bed18132fc9437a9": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0bb89eea29bec481016aea7008070887d0b5c13dfa65bf5889": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 88,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 88
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "晴朗天空下的草原平地，遍布高草与零散树木，右侧有土路通向林地；近处未见明显敌对生物。",
+        "visible_text": [
+          "顶部提示：Short Grass；Project: Vibrant Journeys",
+          "小地图标注：Plains",
+          "生命值约六颗心，经验等级8"
+        ],
+        "unknowns": []
+      },
+      {
+        "frame_id": "frame-eaf04eb4-3892-4b0e-859b-ba593f6c4295",
+        "source_seq": 3867,
+        "captured_at": "2026-11-03T23:36:57.522320400Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:36:58.046Z",
+        "image_sha256": "8e15a6e8e6b8abc377573564613eb0b7461a653c1d8b68956d4da3e8eff1247d",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 7879,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 97,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2798,
+          "attribution": {
+            "items": {
+              "msg_064947b2ce158464016aea702016c887d08ed4129802aef3f7": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_064947b2ce158464016aea7020ea5087d083b4adb25d202345": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 97,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 97
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "晴天下的草原平地，前方有草丛、零散树木与右侧树林，地面有土路；近处可见小型生物，未见明显敌对危险。",
+        "visible_text": [
+          "顶部：Short Grass；Project: Vibrant Journeys",
+          "右上地图标注：Plains",
+          "经验等级2；生命与饥饿条未满"
+        ],
+        "unknowns": []
+      },
+      {
+        "frame_id": "frame-d7900d0c-69a2-4af3-8f5c-15636f16c2fd",
+        "source_seq": 4269,
+        "captured_at": "2026-11-03T23:37:17.544140900Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:37:18.027Z",
+        "image_sha256": "976fff9c39b3ffadbe1cd634ed2a517480a48d8e8b381ec8e736546498d66477",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 4269,
+          "observed_at": "2026-11-03T23:37:17.496159600Z",
+          "sample_to_capture_ms": 48,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 6563,
+        "usage": {
+          "input_tokens": 2815,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 120,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2935,
+          "attribution": {
+            "items": {
+              "msg_0450a76761d1d4cc016aea7031adb887d0bd87f66da68cb448": {
+                "input_tokens": 2626,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 176,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0450a76761d1d4cc016aea70332c0887d089aa3ff5aaa98ffa": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 120,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 120
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "晴天下的草原平地，前方有草丛、零散花朵和小型木制物件，右侧是土路，远处有树林。手持未知物品；生命值较低，饥饿值部分损耗。",
+        "visible_text": [
+          "顶部：Short Grass",
+          "顶部：Project Vibrant Journeys",
+          "小地图标注：Plains"
+        ],
+        "unknowns": [
+          "左侧木制物件用途不明",
+          "画面中的小型生物或物件无法辨认"
+        ]
+      },
+      {
+        "frame_id": "frame-a6ec925c-8cf5-403d-baea-8159bf2feb18",
+        "source_seq": 4672,
+        "captured_at": "2026-11-03T23:37:37.693523300Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:37:38.506Z",
+        "image_sha256": "b5ee51259dcb3ca71aa3d960b79a6408e6f7caf540ba59566262f097067e2f5c",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5921,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 230,
+          "output_tokens_details": {
+            "reasoning_tokens": 141
+          },
+          "total_tokens": 2931,
+          "attribution": {
+            "items": {
+              "msg_01dd14087d5c19a6016aea70443a8c87d0a59a0c311d0cb103": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_01dd14087d5c19a6016aea7047a0b087d0a25c4f019a189964": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 89,
+                "content": [
+                  {
+                    "input_tokens": 0,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 89
+                  }
+                ]
+              },
+              "rs_01dd14087d5c19a6016aea7047899087d0b7429b536b212c63": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 141
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "晴朗天空下是平坦草地，右侧有土路，远处可见树林与零散树木；草丛间有小型木制方块，未见明显敌对生物。画面显示准星、地图和状态栏。",
+        "visible_text": [
+          "Short Grass",
+          "Project: Vibrant Journeys",
+          "Plains"
+        ],
+        "unknowns": []
+      },
+      {
+        "frame_id": "frame-e3fb9e8b-b124-43ef-bf52-ef8085794d36",
+        "source_seq": 5073,
+        "captured_at": "2026-11-03T23:37:57.787350500Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:37:58.303Z",
+        "image_sha256": "bd816eeaa59514f7a0ca65770d2cf088f9247106a755ba85c29f23f95282b1df",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 5073,
+          "observed_at": "2026-11-03T23:37:57.704363200Z",
+          "sample_to_capture_ms": 83,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3742,
+        "usage": {
+          "input_tokens": 2815,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 114,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2929,
+          "attribution": {
+            "items": {
+              "msg_0ada43898fea8935016aea7057d34087d09303598cbe4310e2": {
+                "input_tokens": 2626,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 176,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0ada43898fea8935016aea7058cb9087d09359d9a1bc153987": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 114,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 114
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "平坦草原遍布高草与野花，远处有几棵树，近处有木制方块和零散物品；未见明显敌对生物。主手为未知物品，生命值不足且饥饿值部分缺失。",
+        "visible_text": [
+          "小地图：1416 74 -171",
+          "生物群系：Plains",
+          "经验等级：8"
+        ],
+        "unknowns": [
+          "画面中的墓碑类模组物品具体用途未知"
+        ]
+      },
+      {
+        "frame_id": "frame-9b7ec42b-0c23-4824-9d22-53aa73bb565d",
+        "source_seq": 5473,
+        "captured_at": "2026-11-03T23:38:17.754234700Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:38:18.244Z",
+        "image_sha256": "52b32d19d7eae5b7862ccdc870184fffab302a34889b02d45a3426fdda13f36a",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 5473,
+          "observed_at": "2026-11-03T23:38:17.705250800Z",
+          "sample_to_capture_ms": 49,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "failed",
+        "elapsed_ms": 29476,
+        "code": "MODEL_TIMEOUT"
+      },
+      {
+        "frame_id": "frame-b182b69c-1888-45dc-aab5-0a6520535a7f",
+        "source_seq": 6081,
+        "captured_at": "2026-11-03T23:38:48.183126100Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:38:48.657Z",
+        "image_sha256": "8e200e4c357b25b51deaab4726a3f1a5804a59e26ef76fe7d5b083507cfed9da",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 7029,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 134,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2835,
+          "attribution": {
+            "items": {
+              "msg_066eecaf2d7d2f6b016aea708c58f487d088ac92830d29e70c": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_066eecaf2d7d2f6b016aea708e13a087d08548a92b26794ef5": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 134,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 134
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "平坦草原遍布高草与白黄小花，远处有几棵树和紫色植被；近处地面散落灰色物品，右侧有部分木质方块结构。画面未见明显敌对生物。",
+        "visible_text": [
+          "顶部提示：Short Grass；Project: Vibrant Journeys",
+          "小地图显示：Plains；坐标样式为1421 74 -176"
+        ],
+        "unknowns": [
+          "顶部提示所指方块的具体位置不明确",
+          "右侧结构及地面散落物的具体种类不明"
+        ]
+      },
+      {
+        "frame_id": "frame-5d986aa7-d39c-4c1f-bec3-a88bcf11b9b5",
+        "source_seq": 6482,
+        "captured_at": "2026-11-03T23:39:08.241937600Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:39:08.766Z",
+        "image_sha256": "67c95e5aece6a1bbc8c2dfdfa02dd21025721120d2550cf712458c25a42d2460",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 4504,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 122,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2823,
+          "attribution": {
+            "items": {
+              "msg_0206afdc1634dc52016aea709eef1487d0aa1836b88ef50175": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0206afdc1634dc52016aea709fdfc487d0a1d8ef9b9e899e05": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 122,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 122
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "开阔的草原长满高草与花朵，散布多种树木；近处有零散物品和方块轮廓，右侧可见一张桌状方块。未见明显敌对生物。",
+        "visible_text": [
+          "顶部提示：Short Grass / Project: Vibrant Journeys",
+          "小地图标注：Plains",
+          "生命值部分缺失，饥饿值较高，经验等级2"
+        ],
+        "unknowns": [
+          "顶部物品名称之外的提示细节不明"
+        ]
+      },
+      {
+        "frame_id": "frame-7fdca253-316c-48ea-8e4f-3d8acc8f74c6",
+        "source_seq": 6883,
+        "captured_at": "2026-11-03T23:39:28.273145800Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:39:28.750Z",
+        "image_sha256": "30c0052816fd1581b8d3309c2fac0c024caa06258534325b250b9bacb614077f",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 6883,
+          "observed_at": "2026-11-03T23:39:28.222162300Z",
+          "sample_to_capture_ms": 51,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 13079,
+        "usage": {
+          "input_tokens": 2815,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 143,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2958,
+          "attribution": {
+            "items": {
+              "msg_02261d0668009b5d016aea70bb11c087d0b604b13133eb1dcb": {
+                "input_tokens": 2626,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 176,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_02261d0668009b5d016aea70bc0a3887d0883dfe28184eb009": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 143,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 143
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "开阔的草原平地遍布高草与花朵，散布几棵树；右侧有工作台，地面有零散物品。画面未见明显敌对生物。",
+        "visible_text": [
+          "顶部提示：Short Grass；Project: Vibrant Journeys",
+          "右上小地图标注 Plains；下方坐标样式数字",
+          "经验等级2；生命值未满，饥饿值接近满"
+        ],
+        "unknowns": [
+          "手持物为不认识的模组物品，外观像纸状物",
+          "地面零散物品的具体种类不明"
+        ]
+      },
+      {
+        "frame_id": "frame-47eb6b94-d1cc-4ade-8669-2b5c36846e1f",
+        "source_seq": 7286,
+        "captured_at": "2026-11-03T23:39:48.402839Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:39:48.887Z",
+        "image_sha256": "cce746b80c021c4db801eadedc67056bf8b32f7044c5ce3447245d2fcafa21e2",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 7707,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 249,
+          "output_tokens_details": {
+            "reasoning_tokens": 148
+          },
+          "total_tokens": 2950,
+          "attribution": {
+            "items": {
+              "msg_0f6d39b926cceb12016aea70c7f4e087d0b5121cbc4ba820f3": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0f6d39b926cceb12016aea70cb974087d0a5e4f0dedec6c479": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 101,
+                "content": [
+                  {
+                    "input_tokens": 0,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 101
+                  }
+                ]
+              },
+              "rs_0f6d39b926cceb12016aea70cb803087d08f6da3084d6a4e5e": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 148
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "晴天地面为开阔草原，遍布高草和花朵，远处有几棵树；近处散落灰色物件，未见明显敌对生物。生命值显示不满。",
+        "visible_text": [
+          "Short Grass",
+          "Project: Vibrant Journeys",
+          "1421 74 -176；Plains"
+        ],
+        "unknowns": [
+          "地面散落物件的具体种类不明"
+        ]
+      },
+      {
+        "frame_id": "frame-b0425798-cbd7-49d2-84e9-48cc0ba5cc5f",
+        "source_seq": 7687,
+        "captured_at": "2026-11-03T23:40:08.476144600Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:40:09.020Z",
+        "image_sha256": "8a0eed103bca093157731924cf7a5cd2fa55edc6ed7b19a70d99760e8631c730",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 7687,
+          "observed_at": "2026-11-03T23:40:08.411164700Z",
+          "sample_to_capture_ms": 65,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 11300,
+        "usage": {
+          "input_tokens": 2815,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 231,
+          "output_tokens_details": {
+            "reasoning_tokens": 117
+          },
+          "total_tokens": 3046,
+          "attribution": {
+            "items": {
+              "msg_01f8e61a0489f72e016aea70dfbfd087d0b3e0f85389ceb20c": {
+                "input_tokens": 2626,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 176,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_01f8e61a0489f72e016aea70e3112887d09bc35c9b3c44692c": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 114,
+                "content": [
+                  {
+                    "input_tokens": 0,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 114
+                  }
+                ]
+              },
+              "rs_01f8e61a0489f72e016aea70e2f9ec87d094b760b35aa88e06": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 117
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "晴朗的平原草地上散布着花草和几棵树，右侧有桌状方块，地面可见零散物品；画面未见明显敌对生物。HUD显示生命值偏低，手持物为未知模组物品。",
+        "visible_text": [
+          "Short Grass",
+          "Project: Vibrant Journeys",
+          "1421 74 -176；Plains"
+        ],
+        "unknowns": [
+          "地面散落物品的具体种类不明"
+        ]
+      },
+      {
+        "frame_id": "frame-c605354f-4e8d-4706-87b3-137a153ee456",
+        "source_seq": 8089,
+        "captured_at": "2026-11-03T23:40:28.538067700Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:40:29.038Z",
+        "image_sha256": "9b1f3569798a71c238498004d129f38ecfe1243396544367dcaa2fc795723f45",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 6046,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 108,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2809,
+          "attribution": {
+            "items": {
+              "msg_0fa1857f37312319016aea70f0d77487d08ba16b619ba3a95a": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0fa1857f37312319016aea70f1d77487d0801b8852ceb97360": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 108,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 108
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "晴天下的平坦草原，遍布高草与花朵，远处有数棵树；右侧可见部分木质方块结构。草地上散落灰色物件，附近有鸡等动物。",
+        "visible_text": [
+          "顶部：Short Grass；Project: Vibrant Journeys",
+          "小地图显示：Plains"
+        ],
+        "unknowns": [
+          "地面散落的灰色物件用途不明",
+          "右侧结构未完整入镜"
+        ]
+      },
+      {
+        "frame_id": "frame-d7927ec7-cc31-4e92-897f-79c0d9f2176c",
+        "source_seq": 8490,
+        "captured_at": "2026-11-03T23:40:48.589625700Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:40:49.081Z",
+        "image_sha256": "370c8f3b8dfb9924f706cacdc584fac90622957ebfce7513ebc5c99c11c5d231",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 13213,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 267,
+          "output_tokens_details": {
+            "reasoning_tokens": 128
+          },
+          "total_tokens": 2968,
+          "attribution": {
+            "items": {
+              "msg_0dd1f2982678e957016aea7107e4a887d090621eca683a496f": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0dd1f2982678e957016aea710bfc5887d084100432a9a18f5f": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 139,
+                "content": [
+                  {
+                    "input_tokens": 0,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 139
+                  }
+                ]
+              },
+              "rs_0dd1f2982678e957016aea710be0c487d0ac1f0b83b6dcdcb0": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 128
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "开阔的草原长满高草和花朵，散布多棵树；右侧有一张工作台状方块，地面可见若干灰色散落物，未见明显敌对生物。",
+        "visible_text": [
+          "顶部提示：Short Grass / Project: Vibrant Journeys",
+          "小地图显示：Plains；坐标文字可见",
+          "底部显示生命、饥饿、经验等级2及快捷栏"
+        ],
+        "unknowns": [
+          "地面灰色散落物的具体种类不明",
+          "右侧方块的确切名称不明"
+        ]
+      },
+      {
+        "frame_id": "frame-311aa418-b52e-40a0-8168-d6a1b6ca782d",
+        "source_seq": 8890,
+        "captured_at": "2026-11-03T23:41:08.643760500Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:41:09.240Z",
+        "image_sha256": "691e8b9f7e51b518b061e76a8c97d148db499f91066777417a22847ad3d1140f",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 8890,
+          "observed_at": "2026-11-03T23:41:08.549789400Z",
+          "sample_to_capture_ms": 94,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 9984,
+        "usage": {
+          "input_tokens": 2815,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 218,
+          "output_tokens_details": {
+            "reasoning_tokens": 118
+          },
+          "total_tokens": 3033,
+          "attribution": {
+            "items": {
+              "msg_0a803a14cb0c5cc0016aea711b10a487d08f51c778ee403b68": {
+                "input_tokens": 2626,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 176,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0a803a14cb0c5cc0016aea711e25ec87d090ee199d828e3718": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 100,
+                "content": [
+                  {
+                    "input_tokens": 0,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 100
+                  }
+                ]
+              },
+              "rs_0a803a14cb0c5cc0016aea711e0ed487d08bf1fa21e7d15cfa": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 118
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "晴朗的平原草地上有野花、树木和散落的物品，准星对着草地；右侧有一张桌状方块。画面未见明显危险，手持未知模组物品。",
+        "visible_text": [
+          "顶部提示：Short Grass / Project: Vibrant Journeys",
+          "小地图下方显示：1421 74 -176、Plains"
+        ],
+        "unknowns": []
+      },
+      {
+        "frame_id": "frame-69c74054-6e5f-4c16-b11b-7f144fd311c4",
+        "source_seq": 9291,
+        "captured_at": "2026-11-03T23:41:28.689844Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:41:29.162Z",
+        "image_sha256": "34e7b4b9fe502e44943ff2e88b13e96e5a5f6432d43837d0c5fd4284a7244830",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 9291,
+          "observed_at": "2026-11-03T23:41:28.606844800Z",
+          "sample_to_capture_ms": 83,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3841,
+        "usage": {
+          "input_tokens": 2815,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 83,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2898,
+          "attribution": {
+            "items": {
+              "msg_0ea10fb493eab1d2016aea712af2ec87d0b3d7172ac77d2279": {
+                "input_tokens": 2626,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 176,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0ea10fb493eab1d2016aea712bd80887d0a04f9b9601842b55": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 83,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 83
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "平坦草原遍布高草、野花、散落物与几棵树，右侧有工作台；手持未知物品。生命值较低，附近未见明确敌对生物。",
+        "visible_text": [
+          "Short Grass",
+          "Project: Vibrant Journeys",
+          "1421 74 -176",
+          "Plains"
+        ],
+        "unknowns": []
+      },
+      {
+        "frame_id": "frame-eff6acb4-999e-438c-8bad-cf9330d78e3c",
+        "source_seq": 9693,
+        "captured_at": "2026-11-03T23:41:48.768815200Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:41:49.250Z",
+        "image_sha256": "fdb54de38493c20d4866dd2ac9b1d94a3b06526b0ba425a29a5dfc546191cea9",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 9693,
+          "observed_at": "2026-11-03T23:41:48.722796400Z",
+          "sample_to_capture_ms": 46,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5898,
+        "usage": {
+          "input_tokens": 2815,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 213,
+          "output_tokens_details": {
+            "reasoning_tokens": 94
+          },
+          "total_tokens": 3028,
+          "attribution": {
+            "items": {
+              "msg_04d10f099381e501016aea713f277887d09737b7ec61bbb521": {
+                "input_tokens": 2626,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 176,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_04d10f099381e501016aea7141cafc87d0b5950bc831c150ea": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 119,
+                "content": [
+                  {
+                    "input_tokens": 0,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 119
+                  }
+                ]
+              },
+              "rs_04d10f099381e501016aea7141b3d887d0b10110d84557a2cc": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 94
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "昏暗的平原草地上散布花草与几棵树，前方有鸡；地面可见零散紫色物件，右侧有部分方块结构。准星对着草地，手持物为未知模组物品。",
+        "visible_text": [
+          "Short Grass",
+          "Project: Vibrant Journeys",
+          "Chicken",
+          "1421 74 -176；Plains"
+        ],
+        "unknowns": [
+          "地面紫色物件的性质不明",
+          "画面中未见明显危险"
+        ]
+      },
+      {
+        "frame_id": "frame-b4715994-045e-4765-96a6-aed8825d444e",
+        "source_seq": 10095,
+        "captured_at": "2026-11-03T23:42:08.888376200Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:42:09.410Z",
+        "image_sha256": "9c7eec814659ce6f47de6f1a29f0c276e909f10711fd2ca81860807b5b1e24b8",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 10095,
+          "observed_at": "2026-11-03T23:42:08.796283700Z",
+          "sample_to_capture_ms": 92,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 6718,
+        "usage": {
+          "input_tokens": 2815,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 123,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2938,
+          "attribution": {
+            "items": {
+              "msg_0bfd41276a18829d016aea7155d7d087d0b72eee15f8d986ba": {
+                "input_tokens": 2626,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 176,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0bfd41276a18829d016aea7156b94c87d089cbcbb7c966f671": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 123,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 123
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "夜间的平原草地上散布着树木、花草和零散物品；远处有带状态条的生物，右侧可见部分方块结构。",
+        "visible_text": [
+          "顶部：Short Grass；Project: Vibrant Journeys",
+          "小地图：1421 74 -176；Plains",
+          "经验等级：2"
+        ],
+        "unknowns": [
+          "远处生物及地面零散物品的具体种类不明",
+          "手持物为模组物品 gravestone:obituary，具体用途未知"
+        ]
+      },
+      {
+        "frame_id": "frame-ec3ef34e-f654-46cd-9a19-6657a2e5137d",
+        "source_seq": 10496,
+        "captured_at": "2026-11-03T23:42:28.903903500Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:42:29.388Z",
+        "image_sha256": "0240b4d1c79c8072b52f221483b3f671c9093e55b74fb911935d229210c7915d",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 8798,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 122,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2823,
+          "attribution": {
+            "items": {
+              "msg_04e0c8be9043b098016aea716b0c7c87d09b145d526865e5b3": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_04e0c8be9043b098016aea716bee2c87d09ab52a1a4ab985fb": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 122,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 122
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "夜间的平原草地，散布花草、树木和蘑菇；远处可见带名称与生命条的生物，近处草丛和掉落物较暗，能见度低。",
+        "visible_text": [
+          "顶部提示：Short Dress；Project: Vibrant Journeys",
+          "小地图：1421 74 -176；Plains",
+          "经验等级2"
+        ],
+        "unknowns": [
+          "草丛中的生物及掉落物种类无法确认",
+          "右侧大型紫色物体无法确认"
+        ]
+      },
+      {
+        "frame_id": "frame-d20bbc27-2302-4b09-abc2-388570c77ea9",
+        "source_seq": 10897,
+        "captured_at": "2026-11-03T23:42:48.977245800Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:42:49.429Z",
+        "image_sha256": "b097caf38627499c3bd84354898e8bd641813168077714753e7e4df8b0bf8f4e",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5570,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 133,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2834,
+          "attribution": {
+            "items": {
+              "msg_0407acfd30191182016aea717c010887d091d01588c7133578": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0407acfd30191182016aea717cd9f887d08e8f0534522f6acf": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 133,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 133
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "夜间的平原草地，散布花草、树木与零星物件；远处可见生物及生命条，右侧有大型紫灰色界面遮挡。",
+        "visible_text": [
+          "顶部提示：Short Grass；Project: Vibrant Journeys",
+          "小地图显示 Plains；下方坐标 1421 74 -176",
+          "经验等级 2；生命与饥饿条可见"
+        ],
+        "unknowns": [
+          "远处生物种类不明，生命条文字模糊",
+          "右侧大型遮挡物的具体物品不明"
+        ]
+      },
+      {
+        "frame_id": "frame-dfbecda0-e7ba-40d1-8dbb-7f2b66b01c71",
+        "source_seq": 11298,
+        "captured_at": "2026-11-03T23:43:09.035155400Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:43:09.498Z",
+        "image_sha256": "9f46501e4a23621b7bae4ee452d1555be41355fb0986cd785394e6bdbe30a293",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5377,
+        "usage": {
+          "input_tokens": 2701,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 116,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2817,
+          "attribution": {
+            "items": {
+              "msg_073672a834b2f688016aea7190958087d0b8d15ca05193b106": {
+                "input_tokens": 2512,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 62,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_073672a834b2f688016aea719195f487d0bdfeac0c2dc84360": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 116,
+                "content": [
+                  {
+                    "input_tokens": 2,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 116
+                  }
+                ]
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "夜间的草原平地，草丛间散布鲜花与树木；远处可见数个带血条的生物，右侧近处有方块状生物或物体，存在遭遇危险的可能。",
+        "visible_text": [
+          "Short Grass",
+          "Project: Vibrant Journeys",
+          "1421 74 -176",
+          "Plains"
+        ],
+        "unknowns": [
+          "远处生物种类与是否敌对无法确认",
+          "右侧近处生物或物体身份不明"
+        ]
+      },
+      {
+        "frame_id": "frame-039a7d6f-cf7b-4388-8f0c-af0c154b5d44",
+        "source_seq": 11701,
+        "captured_at": "2026-11-03T23:43:29.164802600Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T23:43:29.701Z",
+        "image_sha256": "2346ca492480a0ba3a909ef08682e04715cd93fc824ffc8e653e0f764309195a",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 11701,
+          "observed_at": "2026-11-03T23:43:29.100822500Z",
+          "sample_to_capture_ms": 64,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 9499,
+        "usage": {
+          "input_tokens": 2815,
+          "input_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 265,
+          "output_tokens_details": {
+            "reasoning_tokens": 133
+          },
+          "total_tokens": 3080,
+          "attribution": {
+            "items": {
+              "msg_08b7d6afcda5a167016aea71a5c6d887d08da46712cebe6375": {
+                "input_tokens": 2626,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 176,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  },
+                  {
+                    "input_tokens": 2450,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_08b7d6afcda5a167016aea71a91bc887d0a5068da382226379": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 132,
+                "content": [
+                  {
+                    "input_tokens": 0,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 132
+                  }
+                ]
+              },
+              "rs_08b7d6afcda5a167016aea71a904b087d0beda7ab8cbb302e6": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 133
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 187,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "caption": "夜间的平原草地上有花草、几棵树和零散紫色物体，远处有带血条的生物；视野较暗。右侧可见桌状方块，手持未知模组物品。",
+        "visible_text": [
+          "Short Grass / Project: Vibrant Journeys",
+          "小地图显示 Plains；坐标 1421 74 -176",
+          "底部经验等级为 2"
+        ],
+        "unknowns": [
+          "远处生物名称及具体种类看不清",
+          "地面紫色物体的种类不明"
+        ]
+      }
+    ],
+    "successful_vision_mean_ms": 7199.178571428572,
+    "native_images": [
+      {
+        "file": "native102b-vision-1.jpg",
+        "frame_id": "frame-e1ccc7b9-7bb1-4d4d-bb6a-ac7694bbac71",
+        "sha256": "1f8b310d234c179e1b3982c07702c61dab05a6adfdae8e055d69937b93482cc4",
+        "bytes": 262470
+      },
+      {
+        "file": "native102b-vision-2.jpg",
+        "frame_id": "frame-a414845a-13a4-4a9f-94c8-1d44fa7ae17c",
+        "sha256": "68c04b8df3c49fbc1105ac63209b603f01f5579a85630ef7655821a981e5a646",
+        "bytes": 379667
+      },
+      {
+        "file": "native102b-vision-3.jpg",
+        "frame_id": "frame-4b4d3221-1a63-4674-99f5-8f2a564489f5",
+        "sha256": "5e0090537f27579ec3b0328ab585977daaffd76010326425d4ae24983057e3e6",
+        "bytes": 328269
+      },
+      {
+        "file": "native102b-vision-4.jpg",
+        "frame_id": "frame-2f95fd02-13bd-4028-8e2d-b7d34f424868",
+        "sha256": "cc30d093b90dd5b1fbafa89b47c814e8b1b8e1771e330727829190bcc3007b94",
+        "bytes": 418938
+      }
+    ],
+    "native_planner_audit": {
+      "rows": 38,
+      "truncated": false,
+      "states": {
+        "route_blocked": 14,
+        "task_submitted": 11,
+        "observed_result": 11,
+        "food_strategy_required": 2
+      },
+      "stages": {
+        "unspecified": 27,
+        "explore_observed_frontier": 9,
+        "emergency_retreat": 2
+      },
+      "blocked_items": {
+        "minecraft:bread": 14
+      },
+      "first_blocked_samples": [
+        {
+          "at": "2026-11-03T23:33:56.866Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 239
+        },
+        {
+          "at": "2026-11-03T23:34:06.060Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 433
+        },
+        {
+          "at": "2026-11-03T23:34:15.879Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 630
+        },
+        {
+          "at": "2026-11-03T23:34:46.151Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 1235
+        },
+        {
+          "at": "2026-11-03T23:35:07.858Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 1659
+        },
+        {
+          "at": "2026-11-03T23:35:27.996Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 2069
+        },
+        {
+          "at": "2026-11-03T23:36:28.628Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 3287
+        },
+        {
+          "at": "2026-11-03T23:36:39.738Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 3507
+        },
+        {
+          "at": "2026-11-03T23:37:48.592Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 4886
+        },
+        {
+          "at": "2026-11-03T23:38:48.816Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 6088
+        },
+        {
+          "at": "2026-11-03T23:39:51.063Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 7334
+        },
+        {
+          "at": "2026-11-03T23:40:54.525Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 8604
+        }
+      ],
+      "last_samples": [
+        {
+          "at": "2026-11-03T23:36:28.628Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 3287
+        },
+        {
+          "at": "2026-11-03T23:36:39.738Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 3507
+        },
+        {
+          "at": "2026-11-03T23:37:48.592Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 4886
+        },
+        {
+          "at": "2026-11-03T23:38:48.816Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 6088
+        },
+        {
+          "at": "2026-11-03T23:39:51.063Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 7334
+        },
+        {
+          "at": "2026-11-03T23:40:54.525Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 8604
+        },
+        {
+          "at": "2026-11-03T23:42:00.044Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 9912
+        },
+        {
+          "at": "2026-11-03T23:43:01.655Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "reason": "GAME_CRAFT_RECIPE_AMBIGUOUS",
+          "item_id": "minecraft:bread",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:bread",
+            "skill": "craft"
+          },
+          "based_on_seq": 11147
+        }
+      ]
+    },
+    "last_non_navigation_completion_at": null,
+    "seconds_after_last_non_navigation_completion": null,
+    "travel_progress": [
+      {
+        "task_id": "task-c948f3f8-adfe-4428-a752-0487dda524c1",
+        "samples": 5,
+        "span_seconds": 4.2069408893585205,
+        "max_ticks": 95,
+        "max_no_progress_elapsed_ms": 1,
+        "max_waypoints": 7,
+        "max_step_cuts_attempted": 0,
+        "max_step_confirmed_cuts": 0
+      },
+      {
+        "task_id": "task-cebdb064-f0a0-4efb-9dcc-f646064adc4f",
+        "samples": 6,
+        "span_seconds": 5.338542461395264,
+        "max_ticks": 98,
+        "max_no_progress_elapsed_ms": 68,
+        "max_waypoints": 8,
+        "max_step_cuts_attempted": 0,
+        "max_step_confirmed_cuts": 0
+      },
+      {
+        "task_id": "task-8aa6d191-7c1f-4638-862a-c8d0fde91ae0",
+        "samples": 4,
+        "span_seconds": 3.1611011028289795,
+        "max_ticks": 82,
+        "max_no_progress_elapsed_ms": 70,
+        "max_waypoints": 7,
+        "max_step_cuts_attempted": 0,
+        "max_step_confirmed_cuts": 0
+      },
+      {
+        "task_id": "task-00bcde0e-6963-4f76-b103-5a3c4c4eb3d2",
+        "samples": 4,
+        "span_seconds": 3.158388137817383,
+        "max_ticks": 59,
+        "max_no_progress_elapsed_ms": 67,
+        "max_waypoints": 6,
+        "max_step_cuts_attempted": 0,
+        "max_step_confirmed_cuts": 0
+      },
+      {
+        "task_id": "task-41125f0f-1608-429b-9eb2-28d6b256da1b",
+        "samples": 5,
+        "span_seconds": 4.140418291091919,
+        "max_ticks": 96,
+        "max_no_progress_elapsed_ms": 370,
+        "max_waypoints": 7,
+        "max_step_cuts_attempted": 0,
+        "max_step_confirmed_cuts": 0
+      },
+      {
+        "task_id": "task-21d7dac4-6392-47c5-9389-303b6a80b12c",
+        "samples": 5,
+        "span_seconds": 4.245794057846069,
+        "max_ticks": 76,
+        "max_no_progress_elapsed_ms": 67,
+        "max_waypoints": 6,
+        "max_step_cuts_attempted": 0,
+        "max_step_confirmed_cuts": 0
+      },
+      {
+        "task_id": "task-caf197c3-c4d8-4489-8f40-4767fa8f1839",
+        "samples": 4,
+        "span_seconds": 3.3468503952026367,
+        "max_ticks": 75,
+        "max_no_progress_elapsed_ms": 0,
+        "max_waypoints": 7,
+        "max_step_cuts_attempted": 0,
+        "max_step_confirmed_cuts": 0
+      },
+      {
+        "task_id": "task-30aeb087-dcc0-4442-813d-8d1efd138484",
+        "samples": 1,
+        "span_seconds": 0.0,
+        "max_ticks": 1,
+        "max_no_progress_elapsed_ms": 7,
+        "max_waypoints": 0,
+        "max_step_cuts_attempted": 0,
+        "max_step_confirmed_cuts": 0
+      },
+      {
+        "task_id": "task-18e1e41d-39c8-4877-b634-68eff567013b",
+        "samples": 4,
+        "span_seconds": 3.1244843006134033,
+        "max_ticks": 80,
+        "max_no_progress_elapsed_ms": 69,
+        "max_waypoints": 9,
+        "max_step_cuts_attempted": 0,
+        "max_step_confirmed_cuts": 0
+      },
+      {
+        "task_id": "task-7b74895f-3433-478f-8277-6db6078962ea",
+        "samples": 5,
+        "span_seconds": 4.3286237716674805,
+        "max_ticks": 84,
+        "max_no_progress_elapsed_ms": 168,
+        "max_waypoints": 8,
+        "max_step_cuts_attempted": 0,
+        "max_step_confirmed_cuts": 0
+      },
+      {
+        "task_id": "task-b1148942-85c2-4f03-941f-a15b66074499",
+        "samples": 3,
+        "span_seconds": 2.3002781867980957,
+        "max_ticks": 65,
+        "max_no_progress_elapsed_ms": 204,
+        "max_waypoints": 7,
+        "max_step_cuts_attempted": 0,
+        "max_step_confirmed_cuts": 0
+      },
+      {
+        "task_id": "task-68939090-36e2-4878-a17d-83615bdb8806",
+        "samples": 3,
+        "span_seconds": 2.079672336578369,
+        "max_ticks": 43,
+        "max_no_progress_elapsed_ms": 104,
+        "max_waypoints": 4,
+        "max_step_cuts_attempted": 0,
+        "max_step_confirmed_cuts": 0
+      },
+      {
+        "task_id": "task-f297f838-4b63-4be8-86a5-f323352c2d8c",
+        "samples": 5,
+        "span_seconds": 4.1789374351501465,
+        "max_ticks": 78,
+        "max_no_progress_elapsed_ms": 54,
+        "max_waypoints": 7,
+        "max_step_cuts_attempted": 0,
+        "max_step_confirmed_cuts": 0
+      }
+    ],
+    "sampled_food_observation_payloads": 565,
+    "public_guest": {
+      "duration_seconds": 612.6710975170135,
+      "connected_observed": true,
+      "event_types": {},
+      "events": [],
+      "owned_collector_stopped": true
+    },
+    "checks": {
+      "core": {
+        "tests": 414,
+        "pass": 414,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "java_fixtures": 20,
+      "suites_overlap_do_not_sum": true
+    },
+    "source_snapshot_sha256": "5aed65f4eeffb99be86991079f7c31d6ef2e7cdf9d4f9d70b77e933ffc0c065f",
+    "keep_inventory_after_engine_save": true,
+    "owned_services_stopped": true,
+    "normal_save_stop_verified": true,
+    "official_clients_preserved": true,
+    "application_ready": false,
+    "formal_acceptance_passed": 0,
+    "new_avatar_clips": 0,
+    "programme_browser_contexts_closed": 0,
+    "browser_checks_not_rerun": "Unchanged receiver/programme assets retain round098b coverage; actual receiver is observed in this runtime.",
+    "excavation_frontier_samples": 0,
+    "sampled_confirmed_step_cuts": 0,
+    "origin_alignment_tasks": {
+      "task-c948f3f8-adfe-4428-a752-0487dda524c1": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-cebdb064-f0a0-4efb-9dcc-f646064adc4f": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-8aa6d191-7c1f-4638-862a-c8d0fde91ae0": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-00bcde0e-6963-4f76-b103-5a3c4c4eb3d2": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-41125f0f-1608-429b-9eb2-28d6b256da1b": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-21d7dac4-6392-47c5-9389-303b6a80b12c": {
+        "episodes": 1,
+        "total_ticks": 5
+      },
+      "task-caf197c3-c4d8-4489-8f40-4767fa8f1839": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-30aeb087-dcc0-4442-813d-8d1efd138484": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-18e1e41d-39c8-4877-b634-68eff567013b": {
+        "episodes": 1,
+        "total_ticks": 7
+      },
+      "task-7b74895f-3433-478f-8277-6db6078962ea": {
+        "episodes": 1,
+        "total_ticks": 11
+      },
+      "task-b1148942-85c2-4f03-941f-a15b66074499": {
+        "episodes": 1,
+        "total_ticks": 12
+      },
+      "task-68939090-36e2-4878-a17d-83615bdb8806": {
+        "episodes": 1,
+        "total_ticks": 11
+      },
+      "task-f297f838-4b63-4be8-86a5-f323352c2d8c": {
+        "episodes": 0,
+        "total_ticks": 0
+      }
+    },
+    "pre_first_death_progress": {
+      "death_task_count": 0,
+      "first_death_at": null,
+      "samples": 565,
+      "max_y": 77,
+      "max_horizontal_distance_from_start": 61.61168720299745,
+      "verified_navigation_before_death": 12
+    },
+    "death_inventory_sample_brackets": [],
+    "food_observations": {
+      "samples": 565,
+      "nonempty_samples": 242,
+      "radius_values": [
+        16
+      ],
+      "vertical_radius_values": [
+        6
+      ],
+      "sources_by_item": {
+        "minecraft:hay_block": 263,
+        "minecraft:mutton": 178
+      },
+      "explicit_scan_origins": 565
+    },
+    "native_food_strategy_yields": 2,
+    "verified_food_gather_tasks": [],
+    "verified_food_crafts": [],
+    "productive_by_skill_item": {},
+    "verified_raw_food_gather_tasks": [],
+    "verified_cooked_food_tasks": [],
+    "verified_eating_tasks": [],
+    "verified_furnace_placements": [],
+    "native_hunting_tasks": {},
+    "pre_first_death_health_and_food": {
+      "first_health": 20,
+      "maximum_health": 20,
+      "first_food": 20,
+      "maximum_food": 20,
+      "regeneration_is_not_respawn": true,
+      "scope": "SAMPLED_VITALS_WITH_ORDINARY_EATING_TASK_RECEIPTS_NOT_DAMAGE_OR_REGENERATION_INJECTION"
+    },
+    "source_commit": "53e7942298e62d1e6c5cacca95ada396b3ea832d",
+    "native_craft_blockers": {
+      "all_blocked_rows_covered": true,
+      "rows": 14,
+      "reasons": {
+        "GAME_CRAFT_RECIPE_AMBIGUOUS": 14
+      },
+      "scope": "SAVED_NATIVE_DENIALS_NOT_A_FIXED_RECIPE_SELECTION_OR_FOOD_ACCEPTANCE"
+    },
+    "observation_run": "102b",
+    "build_and_deployment_run": "102b",
+    "final_readonly_audit_pending": false,
+    "sampled_activity": {
+      "scope": "APPROXIMATE_BOUNDED_SAMPLE_INTERVALS_NOT_TICK_ACCURATE_SURVIVAL_ACCEPTANCE",
+      "auto_alive_gameplay_seconds": 599.9127550125122,
+      "dead_seconds": 0,
+      "alive_samples": 565,
+      "dead_samples": 0,
+      "last_mode": "AUTO",
+      "last_screen": "gameplay"
+    }
+  },
+  "performance": {
+    "scope": "SOURCE_BOUND_RENDERER_DIAGNOSTICS_NOT_OFFICIAL_CAPTURE_OR_CDN_ACCEPTANCE",
+    "samples": 120,
+    "bound_segments": [
+      {
+        "binding": {
+          "receiver_epoch": "e7b7c5a1-0743-4a21-8a3d-2621956d77b6",
+          "consumer_id": "browser-1a28a156-9f90-4dfb-8bb4-41599ad4ace9",
+          "transport_id": "avatar-1eee5cd2-e681-41c2-984e-3fc361bd38e3",
+          "media_stream_id": "media-d64537aa7c11446db218e8dcce2d7dda",
+          "media_protocol_version": 3,
+          "counter_segment": 1
+        },
+        "distinct_reports": 116,
+        "duration_seconds": 602.9536910057068,
+        "reported_canvas_fps_mean": 22.28745105242932,
+        "counter_delta": {
+          "frames": 13218,
+          "audio_underruns": 17,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0
+        }
+      }
+    ],
+    "incomplete_or_unowned_fresh_samples": 0,
+    "stale_or_absent_samples": 4,
+    "fps_aggregate_withheld_without_complete_binding": false,
+    "gpu_samples": 20,
+    "gpu_memory_peak_mib": 8838.0,
+    "gpu_utilization_mean": 38.5,
+    "system_cpu_mean": 10.595,
+    "browser_contexts_opened": 0
+  },
+  "public_guest": {
+    "duration_seconds": 612.6710975170135,
+    "connected_observed": true,
+    "event_types": {},
+    "events": [],
+    "owned_collector_stopped": true
+  },
+  "prompt_summary": {
+    "scope": "SAMPLED_BOUNDED_PROMPT_METRICS_NOT_BILLING_OR_RAW_PROMPTS",
+    "capacity": 12000,
+    "sampled_probes": 160,
+    "by_purpose": {
+      "speech": 21,
+      "vision": 1,
+      "game_plan": 138
+    },
+    "denied_count": 0,
+    "estimated_input_tokens_max": 11356,
+    "above_old_6000_admitted": 151,
+    "includes_startup_tail": true,
+    "admitted_estimated_input_tokens_max": 11356
+  },
+  "world": {
+    "keepInventory": true,
+    "normal_engine_save": true,
+    "sha256": "fa2f20fdd9c7c9a25c63a8107276886716d89dd08c09ab06b59435dd2f763cf4",
+    "backup089_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f"
+  },
+  "console_log": {
+    "real_service_entrypoint_started": true,
+    "startup_receipt": {
+      "path": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/work/logs/application-console.log",
+      "maximum_bytes": 16777216,
+      "rotation_scope": "STARTUP_ONLY_NOT_A_CONTINUOUS_LOG_SIZE_GUARANTEE",
+      "rotated": false,
+      "previous_bytes": 0,
+      "archive_path": null,
+      "existing_bytes_deleted_or_truncated": false,
+      "full_file_digest_computed": false
+    },
+    "windows_checks_passed": 5,
+    "continuous_size_budget_accepted": false
+  },
+  "startup": {
+    "application_start_phase_seconds": 600.6271684169769,
+    "process_io_counters_are_not_physical_disk_throughput": true,
+    "performance_accepted": false
+  },
+  "final_readonly_audit": {
+    "ok": true,
+    "host": "DESKTOP-2QQPN1H",
+    "at": 1793749461.875967,
+    "workers_remaining": [],
+    "services_after": {
+      "dsh": false,
+      "avatar": false,
+      "tts": false,
+      "receiver": false,
+      "vision": false,
+      "minecraft": false
+    },
+    "source_snapshot_sha256": "5aed65f4eeffb99be86991079f7c31d6ef2e7cdf9d4f9d70b77e933ffc0c065f",
+    "keepInventory": true,
+    "world_sha256": "fa2f20fdd9c7c9a25c63a8107276886716d89dd08c09ab06b59435dd2f763cf4",
+    "private_policy_sha256": "1aba677cdf0e53fb7ade93c487a24ebfe3f64beef2b7aa01a44e32ee83ca792e",
+    "official_clients": [
+      {
+        "pid": 1204,
+        "created_at": 1792960780.2620182
+      },
+      {
+        "pid": 9556,
+        "created_at": 1792960780.3685114
+      }
+    ],
+    "started_or_stopped_processes": false
+  },
+  "additional_workers_final_audit": {
+    "ok": true,
+    "host": "DESKTOP-2QQPN1H",
+    "at": 1793749514.0757875,
+    "workers_checked": 14,
+    "workers_remaining": [],
+    "services_after": {
+      "dsh": false,
+      "avatar": false,
+      "tts": false,
+      "receiver": false,
+      "vision": false,
+      "minecraft": false
+    },
+    "source_snapshot_sha256": "5aed65f4eeffb99be86991079f7c31d6ef2e7cdf9d4f9d70b77e933ffc0c065f",
+    "keepInventory": true,
+    "world_sha256": "fa2f20fdd9c7c9a25c63a8107276886716d89dd08c09ab06b59435dd2f763cf4",
+    "private_policy_sha256": "1aba677cdf0e53fb7ade93c487a24ebfe3f64beef2b7aa01a44e32ee83ca792e",
+    "original_world_backup_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
+    "official_clients": [
+      {
+        "pid": 1204,
+        "created_at": 1792960780.2620182
+      },
+      {
+        "pid": 9556,
+        "created_at": 1792960780.3685114
+      }
+    ],
+    "prior_console_archive": {
+      "bytes": 4730618952,
+      "modified_at": 1793746606.4598107,
+      "full_file_digest_computed": false
+    },
+    "auditor": {
+      "pid": 2176,
+      "create_time": 1793749510.5775175
+    },
+    "started_or_stopped_processes": false,
+    "world_writes": 0,
+    "database_writes": 0
+  },
+  "cleanup": {
+    "ok": true,
+    "purpose": "BYTE_TRANSFER_HELPER_CLOSED_AFTER_EVIDENCE_VERIFICATION",
+    "pid": 32936,
+    "creation_time_verified": true,
+    "command_path_verified": true,
+    "listener_owner_verified": true,
+    "port": 2534,
+    "listeners_after": 0,
+    "unrelated_processes_stopped": false,
+    "browser_contexts_opened": 0,
+    "at": "2026-11-03T23:47:03.8127690Z"
+  },
+  "application_ready": false,
+  "candidate_disabled": true,
+  "private_policy": {
+    "changed": false,
+    "sha256": "1aba677cdf0e53fb7ade93c487a24ebfe3f64beef2b7aa01a44e32ee83ca792e",
+    "contents_exported": false
+  },
+  "implemented_ids": [
+    "I1158",
+    "I1159",
+    "I1160",
+    "I1161",
+    "I1162",
+    "I1163",
+    "I1164",
+    "I1165",
+    "I1166"
+  ],
+  "formal_acceptance_passed": 0,
+  "formal_acceptance_advanced": 0,
+  "new_avatar_clips": 0,
+  "inherited_todos_open": 117,
+  "new_video_recorded": false,
+  "report": "docs/technical/mc-live-v1/配方分流与102工作台补给修复.md",
+  "github_publication": {
+    "branch": "mc",
+    "game_source_commit": "53e7942298e62d1e6c5cacca95ada396b3ea832d",
+    "staged_planner_commit": "af627c9596f55975dbefa6bbc308ae8dc9a744b5",
+    "source_pushed_and_remote_verified": true,
+    "documentation_published_with_this_revision": true,
+    "push_pending": false
+  },
+  "raw_artifacts": [
+    {
+      "file": "ArrivalRadiusFixture102.log",
+      "bytes": 204,
+      "sha256": "0ead68e79a6d7d9bdf4210f3482e88f10e2bb1f314427f501711424b6ecd3e5e"
+    },
+    {
+      "file": "ArrivalRadiusFixture102b.log",
+      "bytes": 204,
+      "sha256": "0ead68e79a6d7d9bdf4210f3482e88f10e2bb1f314427f501711424b6ecd3e5e"
+    },
+    {
+      "file": "audit102b-expected-sha.json",
+      "bytes": 166,
+      "sha256": "04851d885c52e4f6a88227d9c80292dcdc5676885a6e9f4110a704a01fd80483"
+    },
+    {
+      "file": "audit102b-result.json",
+      "bytes": 9780,
+      "sha256": "d576761c9d5463c62d225f156268cc5f8528fe0d9946cf1be4ba09ec48cc73e6"
+    },
+    {
+      "file": "audit102b-tasks-result.json",
+      "bytes": 17983,
+      "sha256": "282c00d36b510efecd197871e3036d3d50ac4801a13a9d8b125787a9bcbce441"
+    },
+    {
+      "file": "build102.log",
+      "bytes": 14818,
+      "sha256": "47d3b06c0c7f247f3aba86e7b93378cd1c126265a337d873f41854ed839c68ba"
+    },
+    {
+      "file": "build102b.log",
+      "bytes": 14818,
+      "sha256": "330a943b98083a2c06b550e54605c47471b75d98f8d277b851931a437298f0ac"
+    },
+    {
+      "file": "core102-report.json",
+      "bytes": 844,
+      "sha256": "804cd997cae0a7e258361bde713892f35269017fe1c2eab938c5aab3f455726b"
+    },
+    {
+      "file": "core102.log",
+      "bytes": 844,
+      "sha256": "804cd997cae0a7e258361bde713892f35269017fe1c2eab938c5aab3f455726b"
+    },
+    {
+      "file": "core102b-inputs.json",
+      "bytes": 139638,
+      "sha256": "02868c72dbf5767bb3e867a21515ee439f8be63e826e3f83464ae7de525c8c69"
+    },
+    {
+      "file": "core102b-report.json",
+      "bytes": 820,
+      "sha256": "e18f7d60bae62d09e872ae60276222641c64057de8719b640db89e6116e82c55"
+    },
+    {
+      "file": "core102b.log",
+      "bytes": 820,
+      "sha256": "e18f7d60bae62d09e872ae60276222641c64057de8719b640db89e6116e82c55"
+    },
+    {
+      "file": "deploy102-bootstrap.json",
+      "bytes": 204,
+      "sha256": "52d1e857f4d31bd8e90ae0f04f5577419313ae0e1949edac09cf7f719fc47211"
+    },
+    {
+      "file": "deploy102-progress.json",
+      "bytes": 73,
+      "sha256": "7a3136e32f2111998b1ea533371e1a39e1ec64201a31804cd73313f7c83dafe6"
+    },
+    {
+      "file": "deploy102-result.json",
+      "bytes": 6759,
+      "sha256": "933493c4e62cf5fbf05c6394eee211fd9d48efd0bfbd2af6ac08e34b6b45f91c"
+    },
+    {
+      "file": "deploy102-transfer.json",
+      "bytes": 4617,
+      "sha256": "8257e23fa24f60e4d5796b04143f567fe0d54d74511c1af65c48ea0c9009a092"
+    },
+    {
+      "file": "deploy102-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "deploy102b-bootstrap.json",
+      "bytes": 205,
+      "sha256": "2ad8865aa7b271b6c598cc6ccd79c24475487ae0029b422d630469746418e1ae"
+    },
+    {
+      "file": "deploy102b-progress.json",
+      "bytes": 71,
+      "sha256": "27fb6821eef1bbd68a01ea01b98741d5ee033b1873ab2d4a7af2331519b9e459"
+    },
+    {
+      "file": "deploy102b-result.json",
+      "bytes": 6633,
+      "sha256": "7aba5f347af300e74ca5ac79c9a69d0893fde2eca13fedcf707f3da02b5d4e83"
+    },
+    {
+      "file": "deploy102b-transfer.json",
+      "bytes": 5577,
+      "sha256": "1aa179289b482b65120e43161676b3207ef38624b02d943cda42039d0eb6f1c3"
+    },
+    {
+      "file": "deploy102b-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "DiagonalRouteFixture102.log",
+      "bytes": 92,
+      "sha256": "7e75f57485e283ba84a760a40b4fc45fd77bdb3fde97c7355673e7e48d1b96a8"
+    },
+    {
+      "file": "DiagonalRouteFixture102b.log",
+      "bytes": 92,
+      "sha256": "7e75f57485e283ba84a760a40b4fc45fd77bdb3fde97c7355673e7e48d1b96a8"
+    },
+    {
+      "file": "DryDescentFixture102.log",
+      "bytes": 80,
+      "sha256": "3eea82aafda98d3efc020c6a6bff9ea1a6f4006584a7ca958e5c076906e3b368"
+    },
+    {
+      "file": "DryDescentFixture102b.log",
+      "bytes": 80,
+      "sha256": "3eea82aafda98d3efc020c6a6bff9ea1a6f4006584a7ca958e5c076906e3b368"
+    },
+    {
+      "file": "EscapeLandingFixture102.log",
+      "bytes": 63,
+      "sha256": "62c8cc1b85f3941cad2d8edf66da1ea2bdadd3441ab56e3c327a8222b2ecd872"
+    },
+    {
+      "file": "EscapeLandingFixture102b.log",
+      "bytes": 63,
+      "sha256": "62c8cc1b85f3941cad2d8edf66da1ea2bdadd3441ab56e3c327a8222b2ecd872"
+    },
+    {
+      "file": "EscapeMotionFixture102.log",
+      "bytes": 62,
+      "sha256": "59e30bc89230aaa20d8373909fdb9c0272eafbf3623a50e75686263b22a0878c"
+    },
+    {
+      "file": "EscapeMotionFixture102b.log",
+      "bytes": 62,
+      "sha256": "59e30bc89230aaa20d8373909fdb9c0272eafbf3623a50e75686263b22a0878c"
+    },
+    {
+      "file": "ExcavationStepFixture102.log",
+      "bytes": 58,
+      "sha256": "7af78cc5285243d6b063b712d829091bb3ab237069e3971dd8189f7564998975"
+    },
+    {
+      "file": "ExcavationStepFixture102b.log",
+      "bytes": 58,
+      "sha256": "7af78cc5285243d6b063b712d829091bb3ab237069e3971dd8189f7564998975"
+    },
+    {
+      "file": "final102b-bootstrap.json",
+      "bytes": 174,
+      "sha256": "52d393d217c18adba58e585f3b4ffafae43965e8661a6e4de21ffef855f8a3f7"
+    },
+    {
+      "file": "final102b-readonly.json",
+      "bytes": 791,
+      "sha256": "5eeb1435787f41f8888da464b5d4c7ac188674a829b8a771b240b96e0945b74e"
+    },
+    {
+      "file": "finish102b-result.json",
+      "bytes": 133729,
+      "sha256": "967462a96564758cf0f3e48259fbec21a4ae0798e1c0e40fc4c26a9f544e7eaf"
+    },
+    {
+      "file": "fixture-compile102.log",
+      "bytes": 492,
+      "sha256": "5ffb86de2772a00979b77e4d3bc992b7fc9ac65184884d63d8c34fb670165d1a"
+    },
+    {
+      "file": "fixture-compile102b.log",
+      "bytes": 492,
+      "sha256": "5ffb86de2772a00979b77e4d3bc992b7fc9ac65184884d63d8c34fb670165d1a"
+    },
+    {
+      "file": "focus102b-receipt.json",
+      "bytes": 214,
+      "sha256": "52c01eea1f7020b675bd3f6c657ad1219e416b614338b043dbdd83ef36c36ae2"
+    },
+    {
+      "file": "FrontierFixture102.log",
+      "bytes": 61,
+      "sha256": "84537d9e96e383c138dd76950882cd44549af2061c8d5383cb4a99883f17ee75"
+    },
+    {
+      "file": "FrontierFixture102b.log",
+      "bytes": 61,
+      "sha256": "84537d9e96e383c138dd76950882cd44549af2061c8d5383cb4a99883f17ee75"
+    },
+    {
+      "file": "log-fixtures102b.log",
+      "bytes": 108,
+      "sha256": "73f184750234ab08fa63fd64b74f47676928895c2006541208be1ecfa67a275e"
+    },
+    {
+      "file": "monitor102b-result.json",
+      "bytes": 457357,
+      "sha256": "e0fdaccb125f5a331dffea7b54baa27bd7bf2b2e094aee494fb3bcaefdcb60d2"
+    },
+    {
+      "file": "native102b-session-progress.json",
+      "bytes": 86,
+      "sha256": "6218cdee692039ee0a35167b024bbefe73e8bc33d6dcc973128d2ef2f03de1f4"
+    },
+    {
+      "file": "native102b-session-result.json",
+      "bytes": 6007179,
+      "sha256": "c1ff6b3d17758d557bbba199412ed1490ffbbb26c0e3b33e8f22add3c4a97789"
+    },
+    {
+      "file": "native102b-vision-1.jpg",
+      "bytes": 262470,
+      "sha256": "1f8b310d234c179e1b3982c07702c61dab05a6adfdae8e055d69937b93482cc4"
+    },
+    {
+      "file": "native102b-vision-2.jpg",
+      "bytes": 379667,
+      "sha256": "68c04b8df3c49fbc1105ac63209b603f01f5579a85630ef7655821a981e5a646"
+    },
+    {
+      "file": "native102b-vision-3.jpg",
+      "bytes": 328269,
+      "sha256": "5e0090537f27579ec3b0328ab585977daaffd76010326425d4ae24983057e3e6"
+    },
+    {
+      "file": "native102b-vision-4.jpg",
+      "bytes": 418938,
+      "sha256": "cc30d093b90dd5b1fbafa89b47c814e8b1b8e1771e330727829190bcc3007b94"
+    },
+    {
+      "file": "NativeCraftRouteFixture102.log",
+      "bytes": 66,
+      "sha256": "46c18494e5bafce4a5a5d48edba952b07241ec35f817c106385e8d1267a80278"
+    },
+    {
+      "file": "NativeCraftRouteFixture102b.log",
+      "bytes": 66,
+      "sha256": "46c18494e5bafce4a5a5d48edba952b07241ec35f817c106385e8d1267a80278"
+    },
+    {
+      "file": "NativeFoodAimFixture102.log",
+      "bytes": 109,
+      "sha256": "d5949af93d0a71911bb7a955db2e8f06664cca5cf3031be3906ffb40db2fa18e"
+    },
+    {
+      "file": "NativeFoodAimFixture102b.log",
+      "bytes": 109,
+      "sha256": "d5949af93d0a71911bb7a955db2e8f06664cca5cf3031be3906ffb40db2fa18e"
+    },
+    {
+      "file": "NativeFoodPlanFixture102.log",
+      "bytes": 65,
+      "sha256": "021ba27f38b41b8e118d060e2d21627394bcc1520d64ad47013dd6c9af95677f"
+    },
+    {
+      "file": "NativeFoodPlanFixture102b.log",
+      "bytes": 65,
+      "sha256": "021ba27f38b41b8e118d060e2d21627394bcc1520d64ad47013dd6c9af95677f"
+    },
+    {
+      "file": "NativeHuntPlanFixture102.log",
+      "bytes": 65,
+      "sha256": "992c022760e52d95f64c179952510d61d8a6a641befc9db9831a7b3176edbf44"
+    },
+    {
+      "file": "NativeHuntPlanFixture102b.log",
+      "bytes": 65,
+      "sha256": "992c022760e52d95f64c179952510d61d8a6a641befc9db9831a7b3176edbf44"
+    },
+    {
+      "file": "NativeWorldFramesFixture102.log",
+      "bytes": 71,
+      "sha256": "b502b9db318ef800421887d48eae442229a0009f238c87203a7377caf87d1f88"
+    },
+    {
+      "file": "NativeWorldFramesFixture102b.log",
+      "bytes": 71,
+      "sha256": "b502b9db318ef800421887d48eae442229a0009f238c87203a7377caf87d1f88"
+    },
+    {
+      "file": "orchestration102b-bootstrap.json",
+      "bytes": 175,
+      "sha256": "a6f55638a2567a8c00bb0095d0cf5ba8cdd044320f9ac977ef4811092041286b"
+    },
+    {
+      "file": "orchestration102b-result.json",
+      "bytes": 1625,
+      "sha256": "65b9dea79273f42bbd9a0e404c7512d087529c1c3cc3faf2f4b00d5e6178e71d"
+    },
+    {
+      "file": "PartialFootingFixture102.log",
+      "bytes": 69,
+      "sha256": "78be713b0b076fccf6547276cbeda2779420cde5a5eede44f572fd030fca8980"
+    },
+    {
+      "file": "PartialFootingFixture102b.log",
+      "bytes": 69,
+      "sha256": "78be713b0b076fccf6547276cbeda2779420cde5a5eede44f572fd030fca8980"
+    },
+    {
+      "file": "platform102b-result.json",
+      "bytes": 36604,
+      "sha256": "3f6a5f8f2d48c2b171ee194789ad067f93c1a50f4754ba2b191973decbb17739"
+    },
+    {
+      "file": "post102-all-workers-readonly.json",
+      "bytes": 1149,
+      "sha256": "b57b3cf8711ba4fa141903105e4fe63942a06555a7c925cdf9ecaa1fd97ee3ac"
+    },
+    {
+      "file": "preflight102b.log",
+      "bytes": 805,
+      "sha256": "8dbb8fce6f06e7773c120a2f95c6b455de84066e9d4e06ae81c3ee57ce7d70bb"
+    },
+    {
+      "file": "prepare102b.log",
+      "bytes": 376,
+      "sha256": "8935a089120291aa3bbacd18a97a15126f7818b01c5bb435069b1b8a99928500"
+    },
+    {
+      "file": "prompt102b-summary.json",
+      "bytes": 62088,
+      "sha256": "c476489c2273433fbcc0312deb3cc1daafba1c8c3b16ba12bc7a202991425b3b"
+    },
+    {
+      "file": "readiness102b.log",
+      "bytes": 3375,
+      "sha256": "59c65a6e0a997464fde635dacfb58d2a44e23cf0ab0454dfe22987048c5473ca"
+    },
+    {
+      "file": "RouteAlignmentFixture102.log",
+      "bytes": 97,
+      "sha256": "3c19fa7bedfb3a118591f7682d36c858bb3cb5071092f674f17893d4ad6af6a2"
+    },
+    {
+      "file": "RouteAlignmentFixture102b.log",
+      "bytes": 97,
+      "sha256": "3c19fa7bedfb3a118591f7682d36c858bb3cb5071092f674f17893d4ad6af6a2"
+    },
+    {
+      "file": "RouteRecoveryBudgetFixture102.log",
+      "bytes": 80,
+      "sha256": "f6c52d7974a814f14caa21f1f5bcf7a0c51dc465a1e1a7725a75d5e5cbb0084d"
+    },
+    {
+      "file": "RouteRecoveryBudgetFixture102b.log",
+      "bytes": 80,
+      "sha256": "f6c52d7974a814f14caa21f1f5bcf7a0c51dc465a1e1a7725a75d5e5cbb0084d"
+    },
+    {
+      "file": "RouteRecoveryFixture102.log",
+      "bytes": 82,
+      "sha256": "a5c734ac4ee4ba7336d153a136437ce536b1122bee055f57e6dfd4c2dca275f4"
+    },
+    {
+      "file": "RouteRecoveryFixture102b.log",
+      "bytes": 82,
+      "sha256": "a5c734ac4ee4ba7336d153a136437ce536b1122bee055f57e6dfd4c2dca275f4"
+    },
+    {
+      "file": "SoilDescentFixture102.log",
+      "bytes": 87,
+      "sha256": "49d164c3ae2b3fb92a2212dd7bc29f01f4c01cad00d1fd86410f8183de61279a"
+    },
+    {
+      "file": "SoilDescentFixture102b.log",
+      "bytes": 87,
+      "sha256": "49d164c3ae2b3fb92a2212dd7bc29f01f4c01cad00d1fd86410f8183de61279a"
+    },
+    {
+      "file": "start102b.log",
+      "bytes": 1007,
+      "sha256": "51fa962bee221ef87861d4010d1232e360587364e41210faa54cbf9bfca8b3ca"
+    },
+    {
+      "file": "stop102b.log",
+      "bytes": 169,
+      "sha256": "0838675953289f276b84f2470da731166fdf705eeadc09044e730e6cb292e9a6"
+    },
+    {
+      "file": "target102b.log",
+      "bytes": 608,
+      "sha256": "fa2234a4108b1f2526c6620954e62e4aa2bf993654bd6f169fa8b447c0a4ab05"
+    },
+    {
+      "file": "targeted102c-bootstrap.json",
+      "bytes": 174,
+      "sha256": "d82c133bfa3003de04216e7f8869c0a5fa5b49258a39ce7a47288e98f24e1e99"
+    },
+    {
+      "file": "targeted102c-result.json",
+      "bytes": 806,
+      "sha256": "9754068c67cdf4609566decc9cb0c27fbcaf65e0665be312be370864559a300d"
+    },
+    {
+      "file": "targeted102c-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "targeted102c.log",
+      "bytes": 1602,
+      "sha256": "e044b2ddf418fea166baf144401de1ed6da064538e1e9f9f22a328e58a2a6a5c"
+    },
+    {
+      "file": "targeted102d-result.json",
+      "bytes": 3559,
+      "sha256": "3936959a340f01b65cde17ecd5cd87f9e47662eefb95b795164962416c38aa20"
+    },
+    {
+      "file": "targeted102d.log",
+      "bytes": 29851,
+      "sha256": "26dd52fd005bf757fcb4c120b6ee0ad2b9700b7b49858262cbdfdef280dde5de"
+    },
+    {
+      "file": "targeted102e-bootstrap.json",
+      "bytes": 175,
+      "sha256": "db326b90c00f42d582ca1357990b9c37a109b9fb1c3f7d9eb11a9d8a692c723e"
+    },
+    {
+      "file": "targeted102e-result.json",
+      "bytes": 734,
+      "sha256": "9435fd95f58967520af75becaadbecb5d849f08a71bd0485ef1e295dcd9b1786"
+    },
+    {
+      "file": "targeted102e-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "targeted102e.log",
+      "bytes": 26160,
+      "sha256": "674f9ebb65314929bf07934e76415ac9f568fb469a1dbc1b8d6d0c640acaa28c"
+    },
+    {
+      "file": "TerrainStepFixture102.log",
+      "bytes": 36,
+      "sha256": "08de1db873bc605ddfd2e6a40143c95deb3b808037dab949e0faca19cdd0f135"
+    },
+    {
+      "file": "TerrainStepFixture102b.log",
+      "bytes": 36,
+      "sha256": "08de1db873bc605ddfd2e6a40143c95deb3b808037dab949e0faca19cdd0f135"
+    },
+    {
+      "file": "transfer102b-result.json",
+      "bytes": 4213,
+      "sha256": "09d825ed67101b54ccb4f5a8d98c082fe9b54fe5d470d9f363dc38e709b1633b"
+    },
+    {
+      "file": "TravelProgressFixture102.log",
+      "bytes": 102,
+      "sha256": "a528cd1e95827070f5e822dcd623da5e12d6e06e414debb982c49040d716f76a"
+    },
+    {
+      "file": "TravelProgressFixture102b.log",
+      "bytes": 102,
+      "sha256": "a528cd1e95827070f5e822dcd623da5e12d6e06e414debb982c49040d716f76a"
+    },
+    {
+      "file": "watch102-bootstrap.json",
+      "bytes": 205,
+      "sha256": "023e4913c4d385ae82302b5909518f593c44e5afc175c35a0c9168db41073907"
+    },
+    {
+      "file": "watch102-result.json",
+      "bytes": 445,
+      "sha256": "83ccc62d46306a92889a46aa8582a90511b33b050e33c44aeedda93f3015a000"
+    },
+    {
+      "file": "watch102-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "watch102b-bootstrap.json",
+      "bytes": 205,
+      "sha256": "efee85940ac144135c9e493e5d755f49b9dae07d8a73c920c78391203cb9d49c"
+    },
+    {
+      "file": "watch102b-result.json",
+      "bytes": 314,
+      "sha256": "7fe7a7d83b060a4f89268df9bb7177ac4e86b12217e5e5e0136ac6a1d9ebc262"
+    },
+    {
+      "file": "watch102b-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "WaterRouteFixture102.log",
+      "bytes": 78,
+      "sha256": "10154e63ef2b0becdb9992534ed0cd80985b1c3c8dce4f6b0c3edb6160d012fc"
+    },
+    {
+      "file": "WaterRouteFixture102b.log",
+      "bytes": 78,
+      "sha256": "10154e63ef2b0becdb9992534ed0cd80985b1c3c8dce4f6b0c3edb6160d012fc"
+    }
+  ]
+}
