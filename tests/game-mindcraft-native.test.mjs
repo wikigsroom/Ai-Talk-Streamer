@@ -859,10 +859,10 @@ test('held wheat reaches bread through a checked table placement and then a rece
     details:{construction:{placement_sites:[],workstations:[{block_id:'minecraft:crafting_table',position}]}}});
   await f.planner.bootstrap({});f.observe({});await f.planner.bootstrap({});
   assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,
-    {skill:'craft',item_id:'minecraft:bread',count:3});
+    {skill:'craft',item_id:'minecraft:bread',count:1});
   Object.assign(f.tasks.get('task-1'),{state:'succeeded',effect_status:'verified'});
   f.observe({inventory:[...suppliedTools().filter(row=>row.item_id!=='minecraft:crafting_table'),
-    {item_id:'minecraft:bread',count:3}]});
+    {item_id:'minecraft:wheat',count:6},{item_id:'minecraft:bread',count:1}]});
   await f.planner.bootstrap({});f.observe({});await f.planner.bootstrap({});
   assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,
     {skill:'use_item',item_id:'minecraft:bread',purpose:'eat'});
