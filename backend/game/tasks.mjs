@@ -19,6 +19,28 @@ export class TaskService {
     }
     const page = this.store.list('task', params); return { ...page, items: page.items.map(task => this.get(task.task_id)) };
   }
+  planningOutcomes(state) {
+    if (state.freshness !== 'fresh' || !state.world_session_id) return [];
+    const scope = ['game_instance_id', 'bridge_boot_id', 'world_id', 'world_session_id', 'control_epoch'];
+    const now = this.manager.wall();
+    const candidates = this.store.list('task', { world: state.world_session_id, limit: 32 }).items.filter(task => {
+      const age = now - Date.parse(task.updated_at);
+      if (!TERMINAL.has(task.state) || scope.some(key => task[key] !== state[key]) || !(age >= 0 && age < 300000)) return false;
+      const recovery = this.recovery(task.task_id);
+      if (recovery && recovery.status !== 'verified') return false;
+      // Host projections, dispositions and dispatches are not executed results.
+      const confirmed = this.store.get('SELECT value FROM task_transitions WHERE task_id=? AND transition_seq=?', task.task_id, task.version);
+      return confirmed?.value === canonical(task);
+    }).sort((a, b) => Date.parse(b.updated_at) - Date.parse(a.updated_at));
+    // Keep a recent failure and productive result visible despite many short
+    // navigation successes. These are historical facts, never current inventory.
+    const selected = [...new Set([candidates[0], candidates.find(task => task.state === 'failed'),
+      candidates.find(task => task.state === 'succeeded' && task.goal.skill !== 'navigate')].filter(Boolean))];
+    for (const task of candidates) if (selected.length < 3 && !selected.includes(task)) selected.push(task);
+    return [...new Set(selected)].slice(0, 3).map(task => ({ task_id: task.task_id, version: task.version,
+      goal: structuredClone(task.goal), state: task.state, reason: task.reason, effect_status: task.effect_status,
+      source: 'native_task_transition', history_only: true, updated_at: task.updated_at, age_ms: now - Date.parse(task.updated_at) }));
+  }
   setRecovery(id, status, reason, extra = {}) {
     const now = utc(this.manager.wall()), old = this.recovery(id);
     const value = { task_id: id, revision: (old?.revision || 0) + 1, status, reason: reason || old?.reason || 'LEDGER_RECONCILIATION', created_at: old?.created_at || now,

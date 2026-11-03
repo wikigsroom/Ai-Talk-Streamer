@@ -14,7 +14,7 @@ const swimmingDetails = () => ({source:'runtime_client',selected_hotbar:0,invent
 async function setup(t) {
   const f = await gameFixture({ fakeClock: true }); t.after(() => f.close());
   const game = await f.connect(); await game.auto();
-  const contexts = []; let action = null;
+  const contexts = []; let action = null, delivery = 0;
   f.bridge.health = () => ({ persona_injection_ready: true }); f.bridge.channel = { snapshot: () => ({}) };
   f.bridge.host = { generate: async value => {
     contexts.push(JSON.parse(value.context)); if (action) await action(value);
@@ -36,8 +36,68 @@ async function setup(t) {
         reason: allowed ? null : 'GAME_NAVIGATION_NO_ROUTE' } });
     await pending; action = null; return query.payload.operation_id;
   }
-  return { f, game, contexts, observe, check };
+  async function complete(nextGoal, state = 'failed', effect = 'unknown') {
+    const task = (await f.api('/tasks', game.request(nextGoal, 'feedback-' + (++delivery)))).value;
+    assert.ok(task.task_id);
+    await game.next('task_start', message => message.payload.task_id === task.task_id);
+    game.send('task_update', { delivery_seq: delivery, transition_seq: 2, task: { ...task, version: 2, state,
+      effect_status: effect, reason: state === 'failed' ? 'GAME_NAVIGATION_NO_ROUTE' : null,
+      updated_at: new Date(f.manager.wall()).toISOString() } });
+    await until(() => f.manager.tasks.get(task.task_id).state === state);
+    await observe(); return task.task_id;
+  }
+  return { f, game, contexts, observe, check, complete };
 }
+
+test('independent planning receives bounded native results and retains a failure among successful short moves', async t => {
+  const { f, game, contexts, complete } = await setup(t);
+  const route = { skill:'navigate', target:{...game.observation.player.position,x:10}, radius:0 };
+  const failed = await complete(route);
+  const productive = await complete(goal, 'succeeded', 'verified');
+  await complete(route, 'succeeded', 'verified');
+  const latest = await complete({...route,target:{...route.target,x:12}}, 'succeeded', 'verified');
+  await f.manager.planner.tick();
+  const facts = contexts.at(-1).recent_task_results;
+  assert.equal(facts.length,3);
+  assert.deepEqual(new Set(facts.map(row=>row.task_id)),new Set([failed,productive,latest]));
+  assert.equal(facts.find(row=>row.task_id===failed).effect_status,'unknown');
+  assert.equal(facts.find(row=>row.task_id===failed).reason,'GAME_NAVIGATION_NO_ROUTE');
+  assert.equal(facts.find(row=>row.task_id===productive).effect_status,'verified');
+  assert.ok(facts.every(row=>row.source==='native_task_transition'&&row.history_only&&row.age_ms>=0));
+  assert.equal(game.messages.filter(row=>row.type==='task_start').length,4,'feedback adds no action or replay');
+});
+
+test('planning results exclude unconfirmed host projections, conflicting recovery and expired results', async t => {
+  const { f, game, contexts, complete, observe } = await setup(t);
+  const accepted = (await f.api('/tasks',game.request(goal,'unconfirmed-projection'))).value;
+  const projection={...accepted,state:'succeeded',effect_status:'verified',version:2};
+  f.manager.store.put('task',projection);
+  await f.manager.planner.tick();
+  assert.equal(contexts.at(-1).recent_task_results,undefined);
+  f.manager.store.put('task',accepted);
+  // Restore this fixture's unexecuted task before sending the native result.
+  game.send('task_update',{delivery_seq:1,transition_seq:2,task:{...accepted,state:'failed',version:2,reason:'GAME_NAVIGATION_NO_ROUTE'}});
+  await until(()=>f.manager.tasks.get(accepted.task_id).state==='failed');
+  f.manager.tasks.setRecovery(accepted.task_id,'conflict','GAME_LEDGER_CONFLICT');
+  await observe();await f.manager.planner.tick();
+  assert.equal(contexts.at(-1).recent_task_results,undefined);
+  await observe({},300000);await f.manager.planner.tick();
+  assert.deepEqual(f.manager.tasks.planningOutcomes(f.manager.stateView()),[]);
+  assert.equal(contexts.at(-1).recent_task_results,undefined);
+});
+
+test('executed task history never crosses a world, bridge or control boundary and expires after five minutes', async t => {
+  const { f, contexts, complete, observe } = await setup(t);
+  await complete(goal,'cancelled','partial');
+  const state=f.manager.stateView();
+  assert.equal(f.manager.tasks.planningOutcomes(state)[0].effect_status,'partial');
+  for(const patch of [{freshness:'stale'},{world_id:'another-world'},{world_session_id:'another-session'},
+    {bridge_boot_id:'another-boot'},{game_instance_id:'another-instance'},{control_epoch:state.control_epoch+1}]) {
+    assert.deepEqual(f.manager.tasks.planningOutcomes({...state,...patch}),[]);
+  }
+  await observe({},300000);await f.manager.planner.tick();
+  assert.equal(contexts.at(-1).recent_task_results,undefined);
+});
 
 test('a later independent planning session sees an actual denied check, without inventing an action or permanent ban', async t => {
   const { f, contexts, observe, check } = await setup(t);

@@ -16,7 +16,7 @@ class ReceiverTests(unittest.IsolatedAsyncioTestCase):
         response=await self.client.get('/receiver/evidence/channel.env')
         self.assertEqual(response.status,404)
     async def asyncSetUp(self):
-        self.observed=[];self.broadcast=None
+        self.observed=[];self.broadcast=None;self.player_results={};self.player_status=200;self.player_waiters={};self.fragment_player=False
         async def endpoint(request):
             if request.path=='/api/dsh/status':return web.json_response({'broadcast':self.broadcast})
             if request.path=='/api/studio/stream':
@@ -35,7 +35,13 @@ class ReceiverTests(unittest.IsolatedAsyncioTestCase):
                 return ws
             body=await request.read()
             if request.path=='/api/dsh/platforms/output/player':
-                self.observed.append(json.loads(body));return web.json_response({'claim':False})
+                data=json.loads(body);self.observed.append(data);consumer=data.get('consumer_id')
+                if consumer in self.player_waiters:await self.player_waiters[consumer].wait()
+                result=self.player_results.get(consumer,{'accepted':True,'claim':False,'consumer_id':consumer,'playback_authority':False,'broadcast_id':None})
+                if self.fragment_player:
+                    response=web.StreamResponse(status=self.player_status,headers={'Content-Type':'application/json'});await response.prepare(request)
+                    payload=json.dumps(result).encode();await response.write(payload[:7]);await asyncio.sleep(.01);await response.write(payload[7:]);await response.write_eof();return response
+                return web.json_response(result,status=self.player_status)
             return web.Response(body=body or b'upstream-ok',headers={'Content-Type':'application/octet-stream'})
         app=web.Application();app.router.add_route('*','/{tail:.*}',endpoint)
         self.upstream=TestServer(app);await self.upstream.start_server()
@@ -79,6 +85,66 @@ class ReceiverTests(unittest.IsolatedAsyncioTestCase):
         result=await self.client.get('/api/studio/status')
         self.assertEqual(result.status,502);self.assertEqual((await result.json())['error'],'AVATAR_DEVICE_UNREACHABLE')
         self.assertEqual(self.gateway.metrics['upstream_errors'],1)
+    def player(self,consumer='official-player',transport='transport-first',stream='media-first',frames=100,underruns=2):
+        return {'consumer_id':consumer,'renderer':'livehime','frames':frames,'stream_metrics':{'transport_id':transport,
+            'media_stream_id':stream,'media_protocol_version':3,'frames':frames,'audio_underruns':underruns,'fps':25}}
+    async def test_ignored_failed_and_mismatched_admission_cannot_replace_diagnostics(self):
+        body=self.player();await self.client.post('/api/dsh/platforms/output/player',json=body)
+        previous=self.gateway.metrics['player_metrics'];binding=self.gateway.metrics['player_metrics_binding']
+        self.assertTrue(binding['complete']);self.assertFalse(binding['playback_authority'])
+        for result,status in [({'ignored':True,'accepted':True,'consumer_id':'standby'},200),
+                ({'accepted':True,'consumer_id':'someone-else'},200),({'claim':False},200),
+                ({'accepted':True,'consumer_id':'standby'},503)]:
+            self.player_results['standby']=result;self.player_status=status
+            await self.client.post('/api/dsh/platforms/output/player',json=self.player('standby',frames=0))
+            self.assertIs(self.gateway.metrics['player_metrics'],previous)
+            self.assertIs(self.gateway.metrics['player_metrics_binding'],binding)
+        self.assertEqual(self.gateway.metrics['player_reports_ignored'],4)
+    async def test_legacy_or_invalid_stream_identity_is_explicitly_unbound(self):
+        for patch_metrics in [{},{'transport_id':'../invalid','media_protocol_version':3,'media_stream_id':'media-first'},
+                {'transport_id':'transport','media_protocol_version':True,'media_stream_id':'media-first'}]:
+            body=self.player();body['stream_metrics']=patch_metrics
+            await self.client.post('/api/dsh/platforms/output/player',json=body)
+            self.assertFalse(self.gateway.metrics['player_metrics_binding']['complete'])
+            self.assertIsNone(self.gateway.metrics['player_fps'])
+    async def test_transport_stream_and_counter_resets_start_new_diagnostic_segments(self):
+        async def report(at,**values):
+            with patch.object(MODULE.time,'time',return_value=at):
+                await self.client.post('/api/dsh/platforms/output/player',json=self.player(**values))
+            return self.gateway.metrics['player_metrics_binding']['counter_segment']
+        first=await report(100,frames=100)
+        self.assertEqual(await report(102,frames=150),first);self.assertEqual(self.gateway.metrics['player_fps'],25)
+        second=await report(104,transport='replacement',frames=0,underruns=0)
+        self.assertGreater(second,first);self.assertIsNone(self.gateway.metrics['player_fps'])
+        third=await report(106,transport='replacement',stream='media-second',frames=20)
+        self.assertGreater(third,second);self.assertIsNone(self.gateway.metrics['player_fps'])
+        fourth=await report(108,transport='replacement',stream='media-second',frames=1,underruns=0)
+        self.assertGreater(fourth,third);self.assertIsNone(self.gateway.metrics['player_fps'])
+        self.assertTrue(self.gateway.metrics['player_metrics_binding']['counter_discontinuity'])
+        self.assertEqual(self.gateway.metrics['player_counter_discontinuities'],1)
+    async def test_out_of_order_admission_response_cannot_restore_previous_renderer_metrics(self):
+        self.player_waiters['older-player']=asyncio.Event()
+        older=asyncio.create_task(self.client.post('/api/dsh/platforms/output/player',json=self.player('older-player')))
+        try:
+            for _ in range(100):
+                if self.observed:break
+                await asyncio.sleep(.01)
+            self.assertTrue(self.observed)
+            await self.client.post('/api/dsh/platforms/output/player',json=self.player('newer-player',frames=200))
+            self.player_waiters['older-player'].set();await older
+            self.assertEqual(self.gateway.metrics['player_metrics_binding']['consumer_id'],'newer-player')
+            self.assertEqual(self.gateway.metrics['player_reports_reordered'],1)
+        finally:
+            self.player_waiters['older-player'].set();await older
+    async def test_fragmented_response_is_read_completely_before_binding_and_request_cannot_claim_authority(self):
+        self.fragment_player=True;body=self.player();body['playback_authority']=True
+        response=await self.client.post('/api/dsh/platforms/output/player',json=body)
+        self.assertEqual(response.status,200);self.assertTrue((await response.json())['accepted'])
+        self.assertTrue(self.gateway.metrics['player_metrics_binding']['complete'])
+        self.assertFalse(self.gateway.metrics['player_metrics_binding']['playback_authority'])
+        self.player_results['official-player']={'accepted':True,'consumer_id':'official-player','playback_authority':True,'broadcast_id':'fixture-broadcast'}
+        await self.client.post('/api/dsh/platforms/output/player',json=body)
+        self.assertTrue(self.gateway.metrics['player_metrics_binding']['playback_authority'])
     async def test_websocket_disconnect_closes_b_and_a_new_connection_recovers(self):
         ws=await self.client.ws_connect('/api/studio/stream')
         await ws.receive(timeout=2);await ws.receive(timeout=2)

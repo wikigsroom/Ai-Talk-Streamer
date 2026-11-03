@@ -301,6 +301,23 @@ test('native output refuses to take over an active OBS platform renderer', async
   } finally { output.stop(); await f.close(); }
 });
 
+test('a second renderer cannot replace an unexpired playback owner in player status or diagnostics', async () => {
+  const f=fixture();try{
+    const lease=f.start();
+    const owner={renderer:'livehime',consumer_id:'obs-test',frames:100,width:720,height:1280,audio_state:'running'};
+    const accepted=f.manager.outputPlayer(owner);
+    assert.equal(accepted.accepted,true);assert.equal(accepted.consumer_id,'obs-test');assert.equal(accepted.playback_authority,true);
+    const last=f.manager.player;
+    const ignored=f.manager.outputPlayer({...owner,consumer_id:'standby-renderer',frames:0});
+    assert.equal(ignored.ignored,true);assert.equal(ignored.playback_owner_required,true);
+    assert.equal(f.manager.player,last);assert.equal(f.state.lease(lease.broadcast_id).consumer_id,'obs-test');
+    f.advance(f.policy.playback.lease_timeout_ms+1);
+    const recovered=f.manager.outputPlayer({...owner,consumer_id:'standby-renderer',frames:1});
+    assert.equal(recovered.accepted,true);assert.equal(recovered.playback_authority,false);
+    assert.equal(f.manager.player.consumer_id,'standby-renderer');
+  }finally{await f.close()}
+});
+
 test('failed native preparation preserves an existing studio broadcast and closes its window', async () => {
   const f = fixture(), output = livehimeFixture(f);
   try {

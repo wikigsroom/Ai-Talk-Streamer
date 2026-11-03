@@ -7,7 +7,7 @@ function fixture(){
  const events=[],sources=[],decoders=[];
  class Decoder{static async isConfigSupported(){return{supported:true}}constructor(callbacks){this.callbacks=callbacks;this.state='unconfigured';this.decodeQueueSize=0;decoders.push(this)}configure(c){this.config=c;this.state='configured'}close(){this.state='closed'}decode(){}}
  const sandbox={window:{},location:{search:'',origin:'http://fixture'},document:{createElement:()=>({width:0,height:0,getContext:()=>({clearRect(){},drawImage(){}})})},performance:{now:()=>1000},URLSearchParams,VideoDecoder:Decoder,ArrayBuffer,DataView,Uint8Array,Int16Array,Blob,Math,Number,JSON,Map,Set,Promise,atob,clearTimeout,setTimeout,clearInterval(){},setInterval:()=>1,CustomEvent:class{constructor(type,{detail}={}){this.type=type;this.detail=detail}},WebSocket:{OPEN:1},EncodedVideoChunk:class{constructor(value){Object.assign(this,value)}}};
- sandbox.window.dispatchEvent=e=>events.push(e);sandbox.window.streamUUID=()=> 'fixture-uuid';const context=createContext(sandbox);runInContext(playback,context);sandbox.DSHPlayback=sandbox.window.DSHPlayback;runInContext(source,context);
+ let uuid=0;sandbox.window.dispatchEvent=e=>events.push(e);sandbox.window.streamUUID=()=> 'fixture-uuid-'+(++uuid);const context=createContext(sandbox);runInContext(playback,context);sandbox.DSHPlayback=sandbox.window.DSHPlayback;runInContext(source,context);
  const audio={currentTime:1,state:'running',createBuffer(_channels,n,rate){return{getChannelData:()=>new Float32Array(n)}},createBufferSource(){const s={connect(){},disconnect(){},addEventListener(){},start(){this.started=true},stop(){this.stopped=true}};sources.push(s);return s}};
  const transport=new sandbox.window.LocalAvatarStream(audio,()=>{},{protocolVersion:3,playbackAuthority:true});transport.codec='h264_nvenc';transport.destination={disconnect(){}};transport.outputGain={disconnect(){}};transport.ws={readyState:1,close(_code,reason){this.reason=reason},send(){}};
  const sps=Buffer.from([0x67,0x42,0xc0,0x1f]),pps=Buffer.from([0x68,0x12]);
@@ -17,6 +17,18 @@ function fixture(){
 }
 
 test('v3 waits for valid init before scheduling any PCM or map',async()=>{const f=fixture();await assert.rejects(f.transport.receive(f.packet()),/INIT_REQUIRED/);await assert.rejects(f.transport.control({type:'media.map'}),/INIT_REQUIRED/);assert.equal(f.sources.length,0);f.transport.close()});
+
+test('diagnostics distinguish transport replacement from a media reset without changing playback authority',async()=>{
+ const f=fixture(),id=f.transport.metrics().transport_id;
+ assert.equal(f.transport.metrics().media_stream_id,null);
+ await f.transport.control(f.init);assert.equal(f.transport.metrics().media_stream_id,f.init.stream_id);
+ await f.transport.control({type:'media.reset',protocol_version:3,old_stream_id:f.init.stream_id,new_stream_id:'fixture-next'});
+ await f.transport.control({...f.init,stream_id:'fixture-next'});
+ assert.equal(f.transport.metrics().transport_id,id);assert.equal(f.transport.metrics().media_stream_id,'fixture-next');
+ assert.equal(f.transport.metrics().media_protocol_version,3);assert.equal(f.transport.dsh.ready,false);
+ const next=new f.transport.constructor(f.transport.audioContext,()=>{},{playbackAuthority:false,protocolVersion:3});
+ assert.notEqual(next.metrics().transport_id,id);next.close();f.transport.close();
+});
 test('v3 validates actual AVC description, dimensions, IDs and reset prerequisites',async()=>{
  for(const patch of [{width:0},{height:9000},{codec:'avc1.bad'},{avc_description_base64:'AA=='},{avc_description_base64:'!!!!'},{fps_den:0},{audio:{format:'f32',sample_rate:16000,channels:1}},{stream_id:'../bad'}]){const f=fixture();await assert.rejects(f.transport.control({...f.init,...patch}));assert.equal(f.decoders.length,0);f.transport.close()}
  const f=fixture();await f.transport.control(f.init);await assert.rejects(f.transport.control({...f.init,width:960}),/REQUIRES_RESET/);await assert.rejects(f.transport.control({type:'media.reset',protocol_version:3,old_stream_id:'wrong',new_stream_id:'next'}),/RESET_INVALID/);f.transport.close();

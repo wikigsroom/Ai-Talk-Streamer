@@ -3,6 +3,7 @@ class LocalAvatarStream {
  constructor(audioContext,onClose,{directOutput=false,protocolVersion=2,playbackAuthority=true,audible=new URLSearchParams(location.search).get('renderer')!=='preview',receiptsRequired=false}={}){
   this.audioContext=audioContext;this.onClose=onClose;this.directOutput=directOutput;
   this.protocolVersion=protocolVersion;this.audible=audible;this.receiptsRequired=receiptsRequired;
+  this.metricsTransportId='avatar-'+window.streamUUID();
   this.mediaInit=null;this.pendingStream=null;this.retiredStreams=new Set();this.incoming=Promise.resolve();
   this.canvas=document.createElement('canvas');this.canvas.width=720;this.canvas.height=1280;
   this.context=this.canvas.getContext('2d',{alpha:false});
@@ -189,7 +190,7 @@ class LocalAvatarStream {
  metrics(){
   const now=performance.now(),usesPresentation=!!this.video?.requestVideoFrameCallback,count=usesPresentation?this.presentedFrames:this.frames;
   if(now-this.previousTime>=800){this.fps=(count-this.previousFrames)/(now-this.previousTime)*1000;this.previousFrames=count;this.previousTime=now}
-  return {codec:this.codec,output_mode:this.directOutput?'direct_canvas_audio':'media_stream',frames:this.frames,received_frames:this.receivedFrames,presented_frames:usesPresentation?this.presentedFrames:null,fps:this.fps,fps_source:usesPresentation?'video_presentation':'canvas_draw',width:this.canvas.width,height:this.canvas.height,audio_clock_seconds:this.audioContext.currentTime,decoder_queue:this.avcDecoder?.decodeQueueSize||0,pending_video_frames:this.avcFrames.size,audio_samples:this.samples,audio_energy:this.energy,audio_underruns:this.audioUnderruns,target_audio_buffer_ms:this.bufferSeconds*1000,audio_buffer_ms:Math.max(0,(this.next-this.audioContext.currentTime)*1000),missing_packets:this.missingPackets,server_skipped_video_frames:this.serverSkippedVideo,skipped_video_frames:this.skippedVideo,decode_errors:this.decodeErrors,max_arrival_gap_ms:this.maxArrivalGap,connected:this.ws?.readyState===WebSocket.OPEN};
+  return {transport_id:this.metricsTransportId,media_stream_id:this.mediaInit?.stream_id||null,media_protocol_version:this.protocolVersion,codec:this.codec,output_mode:this.directOutput?'direct_canvas_audio':'media_stream',frames:this.frames,received_frames:this.receivedFrames,presented_frames:usesPresentation?this.presentedFrames:null,fps:this.fps,fps_source:usesPresentation?'video_presentation':'canvas_draw',width:this.canvas.width,height:this.canvas.height,audio_clock_seconds:this.audioContext.currentTime,decoder_queue:this.avcDecoder?.decodeQueueSize||0,pending_video_frames:this.avcFrames.size,audio_samples:this.samples,audio_energy:this.energy,audio_underruns:this.audioUnderruns,target_audio_buffer_ms:this.bufferSeconds*1000,audio_buffer_ms:Math.max(0,(this.next-this.audioContext.currentTime)*1000),missing_packets:this.missingPackets,server_skipped_video_frames:this.serverSkippedVideo,skipped_video_frames:this.skippedVideo,decode_errors:this.decodeErrors,max_arrival_gap_ms:this.maxArrivalGap,connected:this.ws?.readyState===WebSocket.OPEN};
  }
  close(){
   this.running=false;this.dsh?.close();this.clearPlayback();

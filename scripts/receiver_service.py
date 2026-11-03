@@ -1,6 +1,6 @@
 """Native B-device gateway: same-origin browser audio/video from the A-device VPN address."""
 from pathlib import Path
-import argparse,asyncio,ipaddress,json,math,os,re,socket,subprocess,time
+import argparse,asyncio,ipaddress,json,math,os,re,socket,subprocess,time,uuid
 from urllib.parse import urlsplit
 
 from aiohttp import ClientError,ClientSession,ClientTimeout,WSMsgType,web
@@ -50,7 +50,9 @@ def running_client(executable):
 class ReceiverGateway:
     def __init__(self,config):
         self.config=validate_config(config);self.client=None;self.started=time.time();self.active_sockets=set()
-        self.metrics={'http_requests':0,'upstream_errors':0,'websocket_connections':0,'media_packets':0,'media_bytes':0,'last_media_at':None,'last_error':None,'last_http_ms':None,'player_metrics':None,'player_metrics_at':None,'media_codec':None,'player_fps':None}
+        self.metrics={'http_requests':0,'upstream_errors':0,'websocket_connections':0,'media_packets':0,'media_bytes':0,'last_media_at':None,'last_error':None,'last_http_ms':None,'player_metrics':None,'player_metrics_at':None,'media_codec':None,'player_fps':None,
+            'receiver_epoch':str(uuid.uuid4()),'player_metrics_binding':None,'player_reports_ignored':0,'player_reports_reordered':0,'player_counter_discontinuities':0}
+        self.player_report_sequence=0;self.accepted_player_sequence=0;self.player_counter_segment=0
         self.previous_player=None;self.frame_uploading=False
     async def startup(self,app):
         self.client=ClientSession(timeout=ClientTimeout(total=None,connect=5,sock_read=120),trust_env=False,auto_decompress=False)
@@ -111,6 +113,45 @@ class ReceiverGateway:
         else:raise web.HTTPNotFound()
         if not target.is_file():raise web.HTTPNotFound()
         return web.FileResponse(target)
+    def record_player_report(self,data,metrics,result,sequence,reported_at):
+        # Admission and playback ownership come from the upstream, never the
+        # posting browser. Diagnostics cannot establish official-client capture.
+        consumer=data.get('consumer_id')
+        if not isinstance(result,dict) or result.get('accepted') is not True or result.get('ignored') or result.get('consumer_id')!=consumer:
+            self.metrics['player_reports_ignored']+=1;return
+        if sequence<=self.accepted_player_sequence:
+            self.metrics['player_reports_reordered']+=1;return
+        self.accepted_player_sequence=sequence
+        if data.get('renderer')!='livehime' or not isinstance(metrics,dict):return
+        valid_id=lambda value:isinstance(value,str)and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.:-]{0,149}',value)is not None
+        transport=metrics.get('transport_id') if valid_id(metrics.get('transport_id'))else None
+        stream=metrics.get('media_stream_id') if valid_id(metrics.get('media_stream_id'))else None
+        protocol=metrics.get('media_protocol_version')
+        if type(protocol)is not int or protocol not in(2,3):protocol=None
+        complete=bool(valid_id(consumer)and transport and(protocol==2 or protocol==3 and stream))
+        binding={'consumer_id':consumer if valid_id(consumer)else None,'transport_id':transport,'media_stream_id':stream,
+            'media_protocol_version':protocol,'complete':complete,'upstream_accepted':True,
+            'playback_authority':result.get('playback_authority')is True,'broadcast_id':result.get('broadcast_id'),
+            'renderer':'livehime','report_sequence':sequence,'receiver_epoch':self.metrics['receiver_epoch']}
+        safe={key:metrics[key] for key in ('frames','received_frames','presented_frames','fps','audio_clock_seconds','decoder_queue','pending_video_frames','audio_underruns','audio_buffer_ms','missing_packets','skipped_video_frames','decode_errors','max_arrival_gap_ms')
+              if type(metrics.get(key))in(int,float)and 0<=metrics[key]<=1e12 and math.isfinite(metrics[key])}
+        if type(metrics.get('target_audio_buffer_ms'))in(int,float)and 800<=metrics['target_audio_buffer_ms']<=10000:safe['target_audio_buffer_ms']=metrics['target_audio_buffer_ms']
+        for key,allowed in [('codec',('jpeg','h264_nvenc')),('fps_source',('video_presentation','canvas_draw')),('output_mode',('direct_canvas_audio','media_stream'))]:
+            if metrics.get(key)in allowed:safe[key]=metrics[key]
+        frames=data.get('frames')
+        if type(frames)is not int or not 0<=frames<=1e12:frames=None
+        old=self.previous_player;group=(consumer,transport,stream,protocol)
+        same=complete and old and old['group']==group
+        regression=bool(same and any(type(old['metrics'].get(key))in(int,float)and type(safe.get(key))in(int,float)and safe[key]<old['metrics'][key]
+            for key in('frames','received_frames','presented_frames','audio_underruns','missing_packets','skipped_video_frames','decode_errors')))
+        self.metrics['player_fps']=None
+        if regression:self.metrics['player_counter_discontinuities']+=1
+        if not same or regression:self.player_counter_segment+=1
+        binding.update(counter_segment=self.player_counter_segment,counter_discontinuity=regression)
+        if same and not regression and type(frames)is int and type(old['frames'])is int and frames>=old['frames'] and reported_at-old['at']>=.5:
+            self.metrics['player_fps']=round((frames-old['frames'])/(reported_at-old['at']),3)
+        self.previous_player={'group':group,'frames':frames,'at':reported_at,'metrics':safe} if complete else None
+        self.metrics.update(player_metrics=safe,player_metrics_at=reported_at,player_metrics_binding=binding)
     async def proxy(self,request):
         # The upstream is a saved origin. Request paths never select another host.
         target=self.config['upstream']+request.rel_url.raw_path_qs
@@ -120,32 +161,32 @@ class ReceiverGateway:
         headers={key:value for key,value in request.headers.items() if key.lower() not in HOP_HEADERS|{'host','accept-encoding'}}
         upload=request.path=='/api/dsh/room/tracks/upload' and request.method=='POST'
         body=request.content.iter_chunked(256*1024) if upload else await request.read()
+        player_report=None
         if request.path=='/api/dsh/platforms/output/player' and request.method=='POST':
             try:data=json.loads(body)
             except ValueError:return web.json_response({'error':'OUTPUT_PLAYER_INVALID'},status=400)
             if not isinstance(data,dict):return web.json_response({'error':'OUTPUT_PLAYER_INVALID'},status=400)
-            now=time.time();frames=data.get('frames');consumer=data.get('consumer_id')
-            if data.get('renderer')=='livehime' and type(frames) is int and 0<=frames<=1e12 and isinstance(consumer,str):
-                old=self.previous_player
-                if old and old['consumer']==consumer and frames>=old['frames'] and now-old['at']>=.5:
-                    self.metrics['player_fps']=round((frames-old['frames'])/(now-old['at']),3)
-                elif not old or old['consumer']!=consumer:self.metrics['player_fps']=None
-                self.previous_player={'consumer':consumer,'frames':frames,'at':now}
             metrics=data.pop('stream_metrics',None)
-            if data.get('renderer')=='livehime' and isinstance(metrics,dict):
-                # Bounded browser diagnostics are observations, not proof of official-client capture.
-                safe={key:metrics[key] for key in ('frames','received_frames','presented_frames','fps','audio_clock_seconds','decoder_queue','pending_video_frames','audio_underruns','audio_buffer_ms','missing_packets','skipped_video_frames','decode_errors','max_arrival_gap_ms')
-                      if type(metrics.get(key)) in (int,float) and 0<=metrics[key]<=1e12 and math.isfinite(metrics[key])}
-                if type(metrics.get('target_audio_buffer_ms'))in(int,float)and 800<=metrics['target_audio_buffer_ms']<=10000:safe['target_audio_buffer_ms']=metrics['target_audio_buffer_ms']
-                if metrics.get('codec') in ('jpeg','h264_nvenc'):safe['codec']=metrics['codec']
-                if metrics.get('fps_source') in ('video_presentation','canvas_draw'):safe['fps_source']=metrics['fps_source']
-                if metrics.get('output_mode') in ('direct_canvas_audio','media_stream'):safe['output_mode']=metrics['output_mode']
-                self.metrics.update(player_metrics=safe,player_metrics_at=time.time())
+            self.player_report_sequence+=1
+            player_report=(dict(data),metrics,self.player_report_sequence,time.time())
             data.update(receiver_id=self.config['receiver_id'],receiver_client_ready=bool(official_client(self.config)))
             body=json.dumps(data).encode('utf-8')
         try:
             async with self.client.request(request.method,target,data=body,headers=headers,allow_redirects=False) as upstream:
                 response_headers={key:value for key,value in upstream.headers.items() if key.lower() not in HOP_HEADERS}
+                if player_report is not None:
+                    blocks=[];size=0
+                    async for block in upstream.content.iter_chunked(16384):
+                        size+=len(block)
+                        if size>65536:raise ClientError('OUTPUT_PLAYER_RESPONSE_TOO_LARGE')
+                        blocks.append(block)
+                    payload=b''.join(blocks)
+                    try:result=json.loads(payload)
+                    except (ValueError,UnicodeDecodeError):result=None
+                    data,metrics,sequence,reported_at=player_report
+                    self.record_player_report(data,metrics,result if upstream.status==200 else None,sequence,reported_at)
+                    self.metrics['last_http_ms']=round((time.perf_counter()-started)*1000)
+                    return web.Response(status=upstream.status,headers=response_headers,body=payload)
                 if upstream.headers.get('Content-Type','').startswith('text/event-stream'):
                     result=web.StreamResponse(status=upstream.status,headers=response_headers);await result.prepare(request)
                     async for block in upstream.content.iter_any():await result.write(block)

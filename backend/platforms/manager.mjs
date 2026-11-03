@@ -153,15 +153,18 @@ export class PlatformManager {
     if (mc && (body.programme !== 'mc' || body.layout_id !== 'mc-landscape-v1'
         || body.width !== 1920 || body.height !== 1080)) return { claim: false, ignored: true, mc_programme_required: true };
     if (!mc && body.programme === 'mc') return { claim: false, ignored: true, mc_programme_disabled: true };
+    const broadcast = this.bridge.state.current();
+    const lease = broadcast && this.bridge.db.get('SELECT * FROM playback_leases WHERE broadcast_id=?', broadcast.broadcast_id);
+    const held = !!broadcast && this.bridge.state.authorityHeld(broadcast.broadcast_id);
+    if (held && lease.consumer_id !== body.consumer_id) return { claim: false, ignored: true, playback_owner_required: true };
     this.player = { consumer_id: body.consumer_id, at: this.now(), renderer: body.renderer || 'obs', frames: Number(body.frames) || 0, width: Number(body.width) || 0, height: Number(body.height) || 0, audio_state: String(body.audio_state || '').slice(0, 30) };
     this.player.programme = mc ? 'mc' : 'avatar'; this.player.layout_id = mc ? body.layout_id : null;
     if (body.receiver_id !== undefined) {
       this.player.receiver_id = body.receiver_id;
       this.player.receiver_client_ready = body.receiver_client_ready === true;
     }
-    const broadcast = this.bridge.state.current();
-    const lease = broadcast && this.bridge.db.get('SELECT * FROM playback_leases WHERE broadcast_id=?', broadcast.broadcast_id);
-    return { claim: !!this.wantOutputAuthority && !!broadcast && broadcast.state !== 'DRAINING' && (!this.bridge.state.authorityReady(broadcast.broadcast_id) || lease?.consumer_id !== body.consumer_id), broadcast_id: broadcast?.broadcast_id || null };
+    return { accepted: true, consumer_id: body.consumer_id, playback_authority: held && lease.consumer_id === body.consumer_id,
+      claim: !!this.wantOutputAuthority && !!broadcast && broadcast.state !== 'DRAINING' && (!this.bridge.state.authorityReady(broadcast.broadcast_id) || lease?.consumer_id !== body.consumer_id), broadcast_id: broadcast?.broadcast_id || null };
   }
   async ensureSession(platform,{resume=false}={}) {
     if (this.config.value.interaction.mode === 'chat' && !this.bridge.health().persona_injection_ready) await this.bridge.probe();
