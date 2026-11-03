@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "mc-core-source-checks-v1",
+  "node": "24.22.1",
+  "suites": {
+    "core": {
+      "tests": [
+        "tests/channel-vision.test.mjs",
+        "tests/game-vision.test.mjs",
+        "tests/dsh-model-queue.test.mjs",
+        "tests/dsh-bridge-work.test.mjs",
+        "tests/dsh-lifecycle.test.mjs",
+        "tests/game-model-cancellation.test.mjs",
+        "tests/game-core.test.mjs",
+        "tests/game-continuity.test.mjs",
+        "tests/game-objective-runner.test.mjs",
+        "tests/game-world-context.test.mjs",
+        "tests/game-audience-intents.test.mjs",
+        "tests/game-audience-memory.test.mjs",
+        "tests/game-narration.test.mjs",
+        "tests/game-narration-scheduler.test.mjs",
+        "tests/game-host.test.mjs",
+        "tests/game-return-base.test.mjs",
+        "tests/game-mindcraft-native.test.mjs",
+        "tests/game-construction.test.mjs",
+        "tests/live-performance.test.mjs"
+      ],
+      "support": [
+        "tests/game-fixture.mjs",
+        "tests/game-narration-fixture.mjs"
+      ],
+      "scope": "NODE_BUSINESS_AND_PROTOCOL_FIXTURES_NOT_REAL_GAME_MODEL_OR_PROGRAMME"
+    }
+  }
+}

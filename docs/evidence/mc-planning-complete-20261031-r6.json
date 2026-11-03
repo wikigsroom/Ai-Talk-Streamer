@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "revision": "2026-10-31-r6",
+  "classification": "PLANNING_ONLY_SINGLE_INTEGRATED_RELEASE",
+  "result": "PASS",
+  "recorded_at": "2026-10-30T22:10:35.908620+00:00",
+  "plan_revision": "1.2",
+  "branch": "mc",
+  "delivery_mode": "single_integrated_release",
+  "user_facing_release_count": 1,
+  "source": "docs/technical/mc-live-v1/13-完整方案实施总纲.md",
+  "overview_sections": 18,
+  "planning_items": [
+    "P30",
+    "P31",
+    "P32",
+    "P33",
+    "P34",
+    "P35",
+    "P36",
+    "P37"
+  ],
+  "mandatory_domain_count": 15,
+  "work_packages": [
+    "W00",
+    "W01",
+    "W02",
+    "W03",
+    "W04",
+    "W05",
+    "W06",
+    "W07",
+    "W08",
+    "W09",
+    "W10",
+    "W11",
+    "W12",
+    "W13"
+  ],
+  "runtime_input_count": 8,
+  "joint_scenario_count": 12,
+  "completion_gate_count": 8,
+  "required_runtime_combinations": 24,
+  "required_actual_acceptance_count": 68,
+  "required_new_avatar_clips": 100,
+  "actual_acceptance_cases_run_by_this_planning_revision": 0,
+  "new_avatar_clips_generated_by_this_planning_revision": 0,
+  "formal_implementation_round_unchanged": "035",
+  "goal_status_unchanged": "active",
+  "functional_code_changed_by_this_planning_revision": false,
+  "functional_tests_started_by_this_planning_revision": 0,
+  "model_or_dependency_downloads": false,
+  "real_minecraft_or_models_started": false,
+  "virtualization_used": false,
+  "subagents_used": false,
+  "browser_used_by_this_planning_revision": false,
+  "remote4090_control_resumed": false,
+  "public_broadcast_started": false,
+  "prior_planning_record": {
+    "path": "docs/evidence/mc-planning-complete-20261030-r5.json",
+    "sha256": "b032771f0ac67fe80333d283d5558b56a585d8739cc527bb36d63d367b2bf2a4",
+    "bytes": 15721
+  },
+  "formal_implementation_record": {
+    "path": "docs/evidence/mc-runtime-round-035.json",
+    "sha256": "c8d955876a6dce355f282621470a4d814fcc58f4113bf3f0fbaff4e79b21eba9",
+    "bytes": 22151
+  },
+  "prior_formal_audit": {
+    "path": "outputs/mc-validation/round-035/independent-audit-final.json",
+    "sha256": "42ef3c58aa8191b7cec5c86a14da3584bedf2edf41cce079569d5e4e306d5044",
+    "bytes": 645
+  },
+  "existing_unfinalized_candidate": {
+    "round": "036",
+    "first_node_history_counts": {
+      "tests": 37,
+      "pass": 32,
+      "fail": 5,
+      "skipped": 0
+    },
+    "latest_node_history_counts": {
+      "tests": 37,
+      "pass": 37,
+      "fail": 0,
+      "skipped": 0
+    },
+    "native_build_result": {
+      "exit_code": 1,
+      "elapsed_seconds": 246.261,
+      "completed_at": "2026-10-30T22:01:30.732444+00:00"
+    },
+    "native_interop_counts": {
+      "tests": 33,
+      "pass": 32,
+      "fail": 1,
+      "skipped": 0
+    },
+    "failure": "GAME_HISTORY_MODE_BLOCKED_AFTER_BRIDGE_RESTART",
+    "exact_admission_field_at_failure_not_captured": true,
+    "survival_build_not_reached": true,
+    "old_survival_artifacts_not_counted_as_rerun": true,
+    "captured_native_artifact_count": 785,
+    "validation_restarted_by_this_planning_revision": false,
+    "candidate_added_to_formal_acceptance": false,
+    "original_files": [
+      {
+        "path": "outputs/mc-validation/round-036/source-before.json",
+        "sha256": "6645c8fb07ba3e2179c358389a455136775f8402794d52b4b3b229dca6273372",
+        "bytes": 2688
+      },
+      {
+        "path": "outputs/mc-validation/round-036/build-before.json",
+        "sha256": "21657bb0cc03e8ed3665fad33216058b84b1839f872dcce990e12e6c96a2950b",
+        "bytes": 333433
+      },
+      {
+        "path": "outputs/mc-validation/round-036/protected-before.json",
+        "sha256": "62dd1312a29a9fcbb54a06f381b49ece915efc30a2e0d4c81455e6415e6d8b4a",
+        "bytes": 2758132
+      },
+      {
+        "path": "outputs/mc-validation/round-036/node-history-001/inputs.json",
+        "sha256": "e94a4fd75d3fd78243bc8e01f0832c3eb8373fc23c4c5870796e1a6b7fe51655",
+        "bytes": 105347
+      },
+      {
+        "path": "outputs/mc-validation/round-036/node-history-001/output.tap",
+        "sha256": "044c34fb879c41d49634f750ec522c7f2de4b948bef7187ca19aeb34a4f34bdc",
+        "bytes": 12900
+      },
+      {
+        "path": "outputs/mc-validation/round-036/node-history-001/result.json",
+        "sha256": "7e799c0bd5e6db03ff88a5e85a60d89a2701dfda415cca0fa066703f6c14bc81",
+        "bytes": 108
+      },
+      {
+        "path": "outputs/mc-validation/round-036/node-history-002/inputs.json",
+        "sha256": "d2ddff54f14094ce0a5d084c79e9b60a150b21bc053689c1e1e88cf1f16a4d6a",
+        "bytes": 105347
+      },
+      {
+        "path": "outputs/mc-validation/round-036/node-history-002/output.tap",
+        "sha256": "79d1969cfd6e43cd2e510708dcc0407499990345189193be0dd2299dde43a953",
+        "bytes": 9429
+      },
+      {
+        "path": "outputs/mc-validation/round-036/node-history-002/result.json",
+        "sha256": "07e8b26b5e0a2ba0d7cba412bf871a17a6b9e850a8de4bd3c788b00f420f866a",
+        "bytes": 109
+      },
+      {
+        "path": "outputs/mc-validation/round-036/native-001/inputs.json",
+        "sha256": "7a75657fdbfe390b15fcf0445733cfd18c2f3a708bd77a558d68b7abd0be2bb0",
+        "bytes": 103441
+      },
+      {
+        "path": "outputs/mc-validation/round-036/native-001/output.tap",
+        "sha256": "a808fb0364b2a0eba8ae7dd8fbcba584e8c8a28118834f850d616c85b931dc17",
+        "bytes": 22190
+      },
+      {
+        "path": "outputs/mc-validation/round-036/native-001/result.json",
+        "sha256": "fda298b22f1ec657700d06a364b04d837daf0693eea2ca0dee4aad6f05b267a7",
+        "bytes": 110
+      },
+      {
+        "path": "outputs/mc-validation/round-036/native-001/build-manifest.json",
+        "sha256": "02a2c9a9343bd102823ccf26bb84e5ccab3b05d74846fa1d6137b639b8cb92f4",
+        "bytes": 338959
+      },
+      {
+        "path": "outputs/mc-validation/round-036/contracts-initial-001/inputs.json",
+        "sha256": "1ff1f7ab18a2cbcc613a7e8f2ca4d17e92e61c8a8e8283b19b0af0a2e0284a83",
+        "bytes": 106997
+      },
+      {
+        "path": "outputs/mc-validation/round-036/contracts-initial-001/output.tap",
+        "sha256": "58c6187b015962c1c3225ba81eaa48faee4ae821e208d9dfcca8fa49475dc4da",
+        "bytes": 157
+      },
+      {
+        "path": "outputs/mc-validation/round-036/contracts-initial-001/result.json",
+        "sha256": "932824241ade3f5c18bc849f3c41003f53d0e4b51d015100d1702e8775b152bd",
+        "bytes": 108
+      }
+    ]
+  },
+  "protected_before_manifest": "outputs/mc-planning/20261031-integrated-r6/protected-before.json",
+  "source_before_manifest": "outputs/mc-planning/20261031-integrated-r6/source-before.json",
+  "document_verification_report": "outputs/mc-planning/20261031-integrated-r6/contracts-verification.json",
+  "consistency_report": "outputs/mc-planning/20261031-integrated-r6/consistency.json",
+  "documentation_result": "PASS",
+  "consistency_result": "PASS",
+  "documentation_counts": {
+    "schema_definitions": 128,
+    "valid_examples": 132,
+    "negative_contract_cases": 144,
+    "http_operations": 52,
+    "markdown_files_checked": 56,
+    "local_markdown_links": 772
+  },
+  "protected_file_count": 3779,
+  "protected_files_all_unchanged": true,
+  "canonical_layout_sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+  "consistency_checks_passed": 25,
+  "completed_at": "2026-10-30T22:12:56.499570+00:00"
+}

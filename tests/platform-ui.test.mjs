@@ -23,7 +23,7 @@ test('platform page saves real redacted settings, renders comments safely, and f
         if (req.method === 'POST') accepted.push(url.pathname);
         await manager.handle(req, res, url, (v, status) => send(res, v, status)); return;
       }
-      if (url.pathname === '/api/studio/poster') { res.writeHead(200, { 'Content-Type': 'image/png' }); res.end(readFileSync(join(root, 'assets/vertical/student-dorm-720x1280.png'))); return; }
+      if (url.pathname === '/api/studio/poster') { const picture=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a7WYAAAAASUVORK5CYII=','base64'); res.writeHead(200, { 'Content-Type': 'image/png' }); res.end(picture); return; }
       const allowed = { '/platforms': 'platforms.html', '/platforms.js': 'platforms.js', '/platforms.css': 'platforms.css' };
       if (!allowed[url.pathname]) { res.writeHead(404); res.end(); return; }
       const file = allowed[url.pathname]; res.writeHead(200, { 'Content-Type': { '.html': 'text/html; charset=utf-8', '.js': 'application/javascript', '.css': 'text/css' }[extname(file)] }); res.end(readFileSync(join(root, 'web', file)));
@@ -56,7 +56,7 @@ test('platform page saves real redacted settings, renders comments safely, and f
     await page.getByRole('button', { name: '保存平台配置' }).click();
     await page.waitForFunction(() => document.querySelector('#saveFeedback').textContent === '平台配置已保存。');
     await page.getByRole('button', { name: '检查连接', exact: true }).click();
-    await page.waitForFunction(() => document.querySelector('#avatarState').textContent === '人物与 MOSS 声音就绪');
+    await page.waitForFunction(() => document.querySelector('#avatarState').textContent === '人物与当前语音就绪');
     manager.ingest('bilibili', { type: 'comment', event_id: 'fixture-xss', room_id: '595139', nickname: '选型观众', user_id: 'test-viewer', text: '<img src=x onerror="window.injected=true">这是一条测试评论' });
     await page.waitForFunction(() => document.querySelector('#receivedCount').textContent === '1');
     assert.ok((await page.locator('#eventRows').textContent()).includes('<img src=x'));

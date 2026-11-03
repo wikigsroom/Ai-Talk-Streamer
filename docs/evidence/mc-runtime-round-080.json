@@ -1,0 +1,1846 @@
+{
+  "schema_version": 1,
+  "round": "080",
+  "branch": "mc",
+  "goal_status": "active",
+  "turn_classification": "progress",
+  "delivery_mode": "single_integrated_release",
+  "user_facing_release_count": 1,
+  "implementation_ids": [
+    "I655",
+    "I656",
+    "I657",
+    "I658",
+    "I659",
+    "I660",
+    "I661",
+    "I662"
+  ],
+  "implementation": [
+    {
+      "id": "I655",
+      "change": "按实际方块与36格库存选择可采工具",
+      "verification": "读取实际掉落工具要求、挖掘速度和耐久；排除最后一点耐久、无效速度和不合等级工具；同速优先当前及快捷栏，减少换装"
+    },
+    {
+      "id": "I656",
+      "change": "采集任务接入背包至快捷栏换装",
+      "verification": "同一原生玩家及原采集输入租约，一次普通SWAP；完整服务器回包与46格/光标组件逐项一致后继续挖掘；不以本地预测库存确认"
+    },
+    {
+      "id": "I657",
+      "change": "补齐换装与采集移动时的安全收口",
+      "verification": "重查原玩家/世界/连接、代际及界面；单个待确认交换且次数/时限有界；身体与旧目标重叠时先停止再有界重选，其他不安全条件仍停止；撤权不追加反向点击"
+    },
+    {
+      "id": "I658",
+      "change": "3080核对本轮石镐合成与实际背包采石",
+      "verification": "此前正常合成另行核对原账本；当前副手装备准备、背包换装及采石有独立实际回执；不将此前合成写成当前运行新合成"
+    },
+    {
+      "id": "I659",
+      "change": "按当前已加载世界检查铁矿与煤矿",
+      "verification": "保留实际check_action和可用时的真实采集回执；不可达/不可采不写成已获得，完整铁资源图与供给仍待完成"
+    },
+    {
+      "id": "I660",
+      "change": "当前889份公开源码在3080通过653项检查",
+      "verification": "472项Java含新增12项工具选择边界，43互通、96Python、18视觉/帧、12配方、4证据、8失败目录；本机测试0，不重复计数"
+    },
+    {
+      "id": "I661",
+      "change": "核对当前源码/JAR、实际任务账本及正常退出",
+      "verification": "当前源码/嵌入schema/依赖/六类Mixin绑定，SQLite任务与实机回执逐项相同；游戏、宿主、驱动及18974监听正常回收"
+    },
+    {
+      "id": "I662",
+      "change": "更新进度并保留完整十五域交付范围",
+      "verification": "背包工具链工程实测不替代完整主播交付；正式0/68、新人物0/100，DSH仍惰性，原Fabric生存门禁与全部既有待办保留"
+    }
+  ],
+  "recorded_at": "2026-11-01T03:35:54.948455+00:00",
+  "runtime_host": "DESKTOP-2QQPN1H",
+  "source_package": {
+    "ok": true,
+    "classification": "PROJECT_SOURCE_PACKAGE_NOT_COMPLETE_APPLICATION_RELEASE",
+    "archive": "E:\\dev\\sandbox\\虚拟数字人直播\\Ai-Talk-Streamer\\outputs\\mc-validation\\round-080\\remote-delivery\\mc-source-080-v4.zip",
+    "sha256": "47b143706c36233bc4ce1028b5ef94b6c78aed8ba6a20700aff90e3e694f3c2e",
+    "source_snapshot_sha256": "c5682987592eafb8827b7c26ee2512268c02688660b05ada9e812d92d733e4f7",
+    "source_files": 889,
+    "environment_prepared": false,
+    "services_started": false,
+    "models_loaded": false,
+    "automatic_input_authorized": false,
+    "real_acceptance_passed": 0
+  },
+  "native_build": {
+    "ok": true,
+    "jar": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/work/mods/ai-talk-streamer-native-neoforge-0.1.0.jar",
+    "sha256": "15f447cdf9688e6a1f9e7de4bc33d30c080a502abf51c1741998a615e0d00776",
+    "bytes": 12458183,
+    "compiled_against": "actual_supplied_neoforge_21.1.248_mojmap_libraries",
+    "automatic_input_authorized": false,
+    "classes": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/build/classes-6903f3fb37aa40f9a2a5bfef524e5712",
+    "shared_authority": "BridgeCore/ControlArbiter/LocalJournal",
+    "dependencies": {
+      "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/dependencies/json-schema-1.9.1.jar": "9f448b1142e9805f91f926e709206f1402f11a75da4dee729d98c77194030285",
+      "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/dependencies/sqlite-jdbc-3.53.4.0.jar": "bcb1f51e36f940867e83342f9efbf5968ac44a6bef4d397bb4af7b17b45cd2fb"
+    },
+    "sources": {
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeBridge.java": "fcbdbc196ff1ad5f5cf22ab2baf26bd0184a22a437239b19ea5ed40c58fd8e99",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeCapabilities.java": "1fb90c483a586ab63d28896a33eef0c808827eb9102f2358d5198eb4b0a8294e",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeClient.java": "30ac949910e732ffa00fcdced11e6c01ead211188556f4e98286b45e3b5ec3e8",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeCraft.java": "cfc5b13b6122a6bf1f709ca33a69b279ecefb6787df4d80cf94d086bbbb3610e",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeCraftPlan.java": "0a77d1fc51057e9ce931b3ceaa5ee8fd5218f0b047b61b5adbaaa17041c532cd",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeGamePort.java": "d7fa4f3f98749319ac7f3bd2244c06eb12a7049b891dec8c58ce6948f63d270a",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeHooks.java": "ecc4c2206d17485f704b924824b4dd74da384f7b742ab6ddab3ead4b96404db4",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeInputOwner.java": "17107521d810fc3fc89ee3d454e4a83a92ebc2e097a2f271216a71faa14a81af",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeItemUse.java": "a5d05c661956a7f9eed7d5dd2b07a7ac8f7b97ecf9774a154590cf4a587e2b62",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeSmelt.java": "97babc6a2b020b604e1e46182093f47e4b6fbb551f862a5ffbe69f774836d72a",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeSmeltPlan.java": "f23791f09bd2c4135874dcdb1ef47a6926805dd7b3a5b3a02cf0ba988d7817ff",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeToolBelt.java": "9e7224ced5781bf6277928e68bd71a35c96e51721abecc1e312af0d2b37780aa",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeToolPlan.java": "cfc34f63b63e9a90ad1fb910f61dc84805a8f9a82777a79fe1c3c360235b58b0",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeTravel.java": "e8999bfc1a80f8ebaeb9a800a4912e15e4f09627fae2f51717df9e7a9ef6d1d1",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeWalkPlanner.java": "20bcff416699cf8bc20559b43eb239f5b074c2d01ac658e903273f511ab1f8ab",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/mixin/ClickMixin.java": "47d79ccd892080dc6cbef6dabb2f6e9758de6653aa564e818968c9f0ad04d3af",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/mixin/CursorWarpMixin.java": "3fbcc6d23ed55531e39a1d10ad02285d927305b3d8b515233b3d8482659750e7",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/mixin/InventoryMixin.java": "0636a92a886e350da89998ddc30bd1bec4496a60344d13e49eefee2e9ed4f950",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/mixin/ItemUseMixin.java": "83c488369b6261539cacd2662a418f87a1a9e6bc0ecdf244deb891de29014101",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/mixin/KeyboardMixin.java": "a22eba7e3856a35f0d97e3c5ac4cf012583e004699058d26938406cdddea1a1b",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/mixin/MouseMixin.java": "783dce7666bf20b0c0e5064758c501c0ea3b310cece83457d023c2fb2562af32",
+      "game-adapters/minecraft/neoforge/src/main/resources/ai-talk-streamer-native.mixins.json": "f1f5b21f5c16e03673600bb1cf9c6b4b502f14695dac98e76467f77df21ddd1b",
+      "game-adapters/minecraft/neoforge/src/main/resources/META-INF/neoforge.mods.toml": "7f5c4e58d73470541e965141d10b5593f344bf7debc114a558c6beb75c85c4cb",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/BaseTarget.java": "92bb5cef900594ca58bf164f35381f375d0023283b63213977b898ba09aac959",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/BridgeCore.java": "ded82a877d625f5465a6409a8142903f72b654d0b5c0c8f2c9d07803f438e803",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/ControlArbiter.java": "b9a7b86e5375b654bc156cb1d7b52819550e2a71ff0b0e408a7bacbbef4a553b",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/CookingExchange.java": "a7263ea4527320aab99e78fab92dc8b849ed3c7e4a66c4c5d85ae99790c99985",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/CraftExchange.java": "72b8a405a9fa4558a468eec7df6406abc01b71c29b5b8c60cd70f62587de9f26",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/CraftReceipt.java": "3889d46b2312a71bbeec5c1ce48459d7ed032c201cbca35d91c324084345bd63",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/CursorActivity.java": "a9e2d0908776b1d3d4168c9669ef3975e8012085a36fc46edc742ae071ea64fe",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/ExecutorTaskSession.java": "72bfdb9be14be3206fd03c6602d44c02b91ad3292e3ec578a5ebcac89354b305",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/FrameEncoder.java": "f5c7e02082f690e108ef34739c054a1569c30f1f7c08b4b778ed038565e19189",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/FrameUpload.java": "ec9b7481ab8e1e0bbc3c7a01df33d6ad902bfaa483b2e494cc5f8f5be4b370a8",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/GamePort.java": "931ce2ae437c92674588e9d472ec6e24989058741c5e542528432b1c5ca78834",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/HeldActionRouter.java": "879cbda07a6ce77e75bd1617bd063c8eabce9bc166baeb5414927d10e5996900",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/HotbarSelection.java": "d2915400f8759b4d251f432d7e91580d1d344e17e43f6e5bd1381c80f1bc25c0",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/InputLeaseFence.java": "92fc231b15c156e86701c060bb3c249fadd806196168eb6a5f7ec608f8383894",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/InputLedger.java": "6715990dae1c0370a7acf8ca3765d6db9edc897b29fa2d2e304789463fda44f7",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/InventoryExchange.java": "286c4323f4393ff75e0944a71f5e6d7295aa0f0ab831f509f70599551e02accc",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/InventoryTarget.java": "9c668ca82275d75f484953e01017065c1da37601c777796e02b2a60deee500c9",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/ItemUseReceipt.java": "fda70aca9b1f1a4e3e182a54c0130f57a101df4fb922ce6acea5eefbe003d25f",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/JournalHistory.java": "ce4b144b808fb6fdd4be49b5be5b41f21d596e5346cb49d7ed57d73f6a3e003f",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/JournalMaintenanceCli.java": "4b8e8df9646ee42605d032dfd739f0542f74e319201971d5c4986db8eab47bc5",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/JournalRetention.java": "ef127f945a2eae31ac076ff7e83ab979fc72c188e73288040fb9f14d65ea18cf",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/Json.java": "7e5b8336a54b52353602c7f9a736be52eef1bcb6cbe5504e09eae4cd613d0c2d",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/LocalJournal.java": "de91f19c8bd769d0b41b7f039c029fe5e3f5b3897b4be8e4d71bc36b36fcbea5",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/LocalTaskFailure.java": "06372d6ddebdeca63ddecb2d47bb7074406a20d8c90b2e652c1b712ce1e53a30",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/NativeContext.java": "f91acc1400cec54b2aee64a711812742cee0e2af997b52cf8ee980d7d82b80e8",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/OwnedFlag.java": "d937eaf43ff76c17c50c35bd32779c5ca6faa39b9751176ec3a78d2e00dc1196",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/OwnedValue.java": "416bdc8012cf0acfbf2586b90cbfe253f4f5fccf18bb957b06e238c8c601c1b9",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/PhysicalKeys.java": "3b549e5004529d7d58cdda89e2319034f46a84f58179a038fa727058e78ce051",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/RecipeCatalog.java": "7679a07492716f7691c70f75eea3ead7db626252d77ad09fd5b4d38fa7e6ca81",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/TaskGuiLease.java": "13d39fa50cb721327d69a5730a98097468bb960114ab41f5f17071fcae5f2310",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/Wire.java": "b542f6cb47a22618e87fde1476ff67f4d1b7db3bcb0f1eb9e5b29c7af3bc8f47",
+      "configs/mc-neoforge-bridge.lock.json": "bdb5df4adb9e28c9b26b6a5602b592a2b8882eb6b0e012b302e38296a1631bd3",
+      "docs/technical/mc-live-v1/contracts/game.schema.json": "c991ed6944fb63f3c7ab6c58a4dae64058f65bda7540c65773ef160f30174a05",
+      "scripts/mc_neoforge.py": "47278f5bb6e1b069582f1348b08fc27c526ad8dd23ba7bef5431d67baf6c91b0"
+    }
+  },
+  "validation": {
+    "distinct_passed": 653,
+    "new_java_cases": 12,
+    "java": 472,
+    "java_node_interop_distinct": 43,
+    "python": 96,
+    "vision_and_frames": 18,
+    "recipes": 12,
+    "physical_witness_cases": 4,
+    "fixed_failure_catalogue_cases": 8,
+    "fixed_failure_codes": 97,
+    "all_checks_executed_on_current_public_source": false,
+    "cached_suite_inputs_byte_verified": true,
+    "local_test_execution": 0,
+    "remote_3080_execution_only": true,
+    "formal_acceptance_passed": 0,
+    "formal_acceptance_not_run": 68,
+    "new_avatar_clips": 0
+  },
+  "verified_suite_reuse": {
+    "proof": "bootstrap-result-002.json",
+    "source_snapshot_sha256": "8f0095309dff091137e35a4f16558a44e73534abd71513a8baa3be16a26861c7",
+    "distinct_cases": 653,
+    "unchanged_public_files": 887,
+    "changed_files": [
+      "game-adapters/minecraft/neoforge/README.md",
+      "tests/mc-neoforge-live-probe.mjs"
+    ],
+    "native_build_sources_identical": true,
+    "byte_identical_main_classes": {
+      "dev/aitalkstreamer/mc/core/BaseTarget$Schema.class": "a7d8c04bac9df382dceacb36f342a423bdc79e919c144504e7247903b7fdedba",
+      "dev/aitalkstreamer/mc/core/BaseTarget.class": "a102b6373636afcdb348be245137f7c0ed08b04831a280013e21e7410a96dd52",
+      "dev/aitalkstreamer/mc/core/BridgeCore$1.class": "038ba0aa24788cdd1f2f2beaba4cdbbce7403a82aaca5e434db3b599b19d67ae",
+      "dev/aitalkstreamer/mc/core/BridgeCore.class": "d282d42b8eef4032c1f2025da31d754cb732030e1a82920172017d78005e2dfd",
+      "dev/aitalkstreamer/mc/core/ControlArbiter$Mode.class": "24ccea1f6319a6947d0a85b94277d33690774289a2440a8ee17483a418d28e27",
+      "dev/aitalkstreamer/mc/core/ControlArbiter$Permit.class": "ab3dac8a5cee72f35d29d2fb7cc1cb688d5ed91aed423f11d112b925aeacc1c8",
+      "dev/aitalkstreamer/mc/core/ControlArbiter$Stop.class": "05de9691dbe49feedb626a4a9c30852ce9d338bbdb77059da3726e13196afad5",
+      "dev/aitalkstreamer/mc/core/ControlArbiter.class": "21543277ce122cbbc04a6d372cc3de04bfd3c8c3f4f64ac0dd781e7cf87aca8d",
+      "dev/aitalkstreamer/mc/core/CookingExchange.class": "6b856b818d7b79818c556b8a629f25a655142bda79d412fc506f4b0158f77f56",
+      "dev/aitalkstreamer/mc/core/CraftExchange$Confirmation.class": "f9b0157ae4d2bec23eebcea99932507795c694e56a005d805763c80ef5a48b56",
+      "dev/aitalkstreamer/mc/core/CraftExchange$Stack.class": "823a6a7f025b3cb97e8bb4fed24c5272f5d34d816ab7013f677c22e54342c680",
+      "dev/aitalkstreamer/mc/core/CraftExchange$State.class": "4b06b76bda010de13b5e331d58e5448c5239fae56061c4c3b3de44f8f8027e0f",
+      "dev/aitalkstreamer/mc/core/CraftExchange$Step.class": "b30a41cd55e16ada5784eac67934a5cd100edde9b513808d2d5c76446db3d5a4",
+      "dev/aitalkstreamer/mc/core/CraftExchange.class": "a833bf7c5cfdffc7b4eb5d1c4fe5063dc683b677283c84584d2dc8c43ba3ed7a",
+      "dev/aitalkstreamer/mc/core/CraftReceipt.class": "a5cf2a0583628063e2f0006ed3eb0d6921a9ceaee62cd334a9b8f9a695858a1c",
+      "dev/aitalkstreamer/mc/core/CursorActivity.class": "165ec140425a1a8cf072e271106ba558569dde00f986dfc76743c15796650ab9",
+      "dev/aitalkstreamer/mc/core/ExecutorTaskSession$Run.class": "a34e51f8affa20c8968a5dfe50f228ddb39429556f67fcab7546fffcdb7cc431",
+      "dev/aitalkstreamer/mc/core/ExecutorTaskSession$Runtime.class": "5b07da03076b2595bcf4391191757b0405742d2ca4eaa68871bb8e524ed6bb44",
+      "dev/aitalkstreamer/mc/core/ExecutorTaskSession.class": "aed39d5ec86e1253b06878c2921f33497caef62c35204fbc52642338702dbd64",
+      "dev/aitalkstreamer/mc/core/FrameEncoder$1.class": "7deb47f29e5c963167f239b7200aa8474ff5e33d34da1e2b8ae1d99070247fca",
+      "dev/aitalkstreamer/mc/core/FrameEncoder$Capture.class": "439eaedc6eef10ecc652970ddc17e57b8e294cdd8fca8d281e5b36c01f3a2331",
+      "dev/aitalkstreamer/mc/core/FrameEncoder.class": "c9cde403dccb60f0298efdfd9aa62278bea3c282e43f1040ad35a75ec275c868",
+      "dev/aitalkstreamer/mc/core/FrameUpload$IOExceptionWrapper.class": "2af5a1abd94a96bec6cefc489ab15beff8ae622215d5c2d229a47db143569f7d",
+      "dev/aitalkstreamer/mc/core/FrameUpload$LimitedBody.class": "ef078b77a370b759f0aa5bff6098d96b3c8715eee55b751f091fa9dc825bb033",
+      "dev/aitalkstreamer/mc/core/FrameUpload.class": "f351ff73dad8f02fcbf4a708aee158c77d910245e8f5047e04846318f94d866d",
+      "dev/aitalkstreamer/mc/core/GamePort.class": "29df35e563bbe6a3d1a92e8aaa05f056529c22c5a9b6936d76d13de29b5fab59",
+      "dev/aitalkstreamer/mc/core/HeldActionRouter$Action.class": "4d47f562b422a61af24c57c43cb9c8f8bb8739dc34329aac8eef31753acb5e2b",
+      "dev/aitalkstreamer/mc/core/HeldActionRouter$Boundary.class": "7330437f4b3a8b0e2e3a4e6381b8029ae978256931937b83a3cfa8ba05e8d859",
+      "dev/aitalkstreamer/mc/core/HeldActionRouter.class": "5a7e4c8580fae3150053fb61082ce9b212d8cdefc4ff84de04dff4c28353e62a",
+      "dev/aitalkstreamer/mc/core/HotbarSelection.class": "ad7e9b2a2f398893f2578f79796c013e83c957f256c56892cb8768dd9eaa73e6",
+      "dev/aitalkstreamer/mc/core/InputLeaseFence$Ticket.class": "d210739f9ae0b6104fb8e93c2abdf15eb021e879d818d04035b89ec0d73c3845",
+      "dev/aitalkstreamer/mc/core/InputLeaseFence.class": "d5df7947193556119cc84b89e8b8df288d5e4243d893a510aedf1a35f6af5772",
+      "dev/aitalkstreamer/mc/core/InputLedger.class": "141742837ad289d19d563b37c467026dfe000e437a6846ed2144882551db8167",
+      "dev/aitalkstreamer/mc/core/InventoryExchange$Stack.class": "e142fad44c9045c8f1ca37baec7f672e74734b6962411bc83eade2b1fcba7807",
+      "dev/aitalkstreamer/mc/core/InventoryExchange$State.class": "529b5b5bf6ef5a9fd9188ebf2bb01392277cb69520f1ddfc875b63afeca3117e",
+      "dev/aitalkstreamer/mc/core/InventoryExchange.class": "ca12eeadeed121ecf11dfdbe3adb43296c89e06f43f5e4632e03bdeab9cf5919",
+      "dev/aitalkstreamer/mc/core/InventoryTarget.class": "1ed00292bf606ab6bff4d44550b825c7b3cfe8f0375427b21a49bf5a5003900f",
+      "dev/aitalkstreamer/mc/core/ItemUseReceipt.class": "2b9d7c13eceb05e44088c1f47e194424d18910777fff82a4342b566a37b82e6e",
+      "dev/aitalkstreamer/mc/core/JournalHistory.class": "7174a13507c48050d519d647d3e2b36e284d0681a4401e5269bf2b1e1c16c179",
+      "dev/aitalkstreamer/mc/core/JournalMaintenanceCli.class": "8839a67ea44214268b8f78dca21b8cf979d935ef182dbc365733e6d3c305bf2a",
+      "dev/aitalkstreamer/mc/core/JournalRetention.class": "ce20b662f92b4ae2b3220f513f127e51acf47fb4659d7feaca2ab5b0ee7cff5a",
+      "dev/aitalkstreamer/mc/core/Json$Rejected.class": "a26335ac3abdef144ef8fb5e6e3f57b75ab9076fbbec7a434646389ec0e24c61",
+      "dev/aitalkstreamer/mc/core/Json.class": "b36eb26c452873a5eb71ebe9fba01e5df63f21a5895e81a4115f89ad654b1228",
+      "dev/aitalkstreamer/mc/core/LocalJournal$Ownership.class": "b7e01f7355ba9032f8e0c3a6fade1eaab1e4ff200882fff4712edbc5f15af5e7",
+      "dev/aitalkstreamer/mc/core/LocalJournal$Work.class": "f26e468cb7260eb833405bbea13a8ff16f5d27ccbe774de33d1e17e96d8d5fd4",
+      "dev/aitalkstreamer/mc/core/LocalJournal.class": "e41cb2c37b8b439516542672e148cd400b0a8fcdfed60d1b844009004d3c56c8",
+      "dev/aitalkstreamer/mc/core/LocalTaskFailure$Reason.class": "0fd0ebc46d087365e4002bdc3633978225fbc7d3f681b4b8072e30735d28b19d",
+      "dev/aitalkstreamer/mc/core/LocalTaskFailure.class": "d38786a1ee8962ea0ce072c5da0e78242999410ea8d020f90c83c1bf06acb11b",
+      "dev/aitalkstreamer/mc/core/NativeContext.class": "cee2ac96c855604cffab820c5dd5d1999bd788372b0c4c4493eb2e866bc20bf9",
+      "dev/aitalkstreamer/mc/core/OwnedFlag.class": "16537616b8f922297fc6c57e1b2bef0cbf93ab061a6085346b23b5d89d333e4d",
+      "dev/aitalkstreamer/mc/core/OwnedValue.class": "75f9076d27e817b197bb701eed88ce9d7d9bba5bc9750f3152249fdb046fb0a0",
+      "dev/aitalkstreamer/mc/core/PhysicalKeys.class": "da3ecaacc6578eab13477dcfa618dfdc81b53ba7c7435957a468dc43cedbde03",
+      "dev/aitalkstreamer/mc/core/RecipeCatalog$Source.class": "ad8bc5b417ffcb95d042ecc3149b710e6e5d7b48890df1d9bed000c323ea2143",
+      "dev/aitalkstreamer/mc/core/RecipeCatalog.class": "3cb4371d2f68eecbd60c5e9d769be23b0af29cc4fea0c3838854f8eeb5fc4fcc",
+      "dev/aitalkstreamer/mc/core/TaskGuiLease.class": "c2e3b1c474e249153b6b90e583e93fb03c70c29f6e0fb546ffe7a51b093108ab",
+      "dev/aitalkstreamer/mc/core/Wire.class": "9a1e6904217afd27301001ea51419a761f8c1b1eee63917ae7350bcdc5ee2695",
+      "dev/aitalkstreamer/mc/neoforge/NativeBridge.class": "670182f2368fc784ec46cc4357be820fcb84283e1cdb7d18786050630c71b963",
+      "dev/aitalkstreamer/mc/neoforge/NativeCapabilities.class": "cb3655ab56369cb88b13d56c67aa976ee7983183ee4c6892286eb86d091f237f",
+      "dev/aitalkstreamer/mc/neoforge/NativeClient.class": "dfb6b6e6f9dde8992625c9ce079f55fe93cf8317e3113a4e690328e630d77083",
+      "dev/aitalkstreamer/mc/neoforge/NativeCraft$Spec.class": "751b49b3af49f2a23ac60c23802d2194cdf431b669e20d53a4b88cd81dcf245b",
+      "dev/aitalkstreamer/mc/neoforge/NativeCraft.class": "aeb901600bf40e1e4745ab1d4b81b1dd9fd98fc2acd90e2aee5e255b762d6bf2",
+      "dev/aitalkstreamer/mc/neoforge/NativeCraftPlan$Allocation.class": "41ca1a877ab44ea908f60abd4bd3a9ca17103514b06ffea1d0cb917cd3658fa4",
+      "dev/aitalkstreamer/mc/neoforge/NativeCraftPlan$Edge.class": "6ee0794ac1c52045281182305c34ca60e07b3c684847063e30b3ddc8758a24b0",
+      "dev/aitalkstreamer/mc/neoforge/NativeCraftPlan$Ingredient.class": "4ec8bb43c8344b3bb84f6d2b0f11e8f7a7a6d1ab495b6682a76871a12ec3545d",
+      "dev/aitalkstreamer/mc/neoforge/NativeCraftPlan$Plan.class": "4bc70c4927e1db6509465daea306c4f3980fd640b8163b591fd519a46134695a",
+      "dev/aitalkstreamer/mc/neoforge/NativeCraftPlan$Recipe.class": "186861f787ed30f015a9de1b58bf42cadb3f8dbbdd48b0e225950943070ff98b",
+      "dev/aitalkstreamer/mc/neoforge/NativeCraftPlan.class": "1e5db1be56fbf9097e52f1ea99b9115535cfc2bbe819d3bd552cb22e84ff3ab2",
+      "dev/aitalkstreamer/mc/neoforge/NativeGamePort$1.class": "e34e6fc7b503f33e12545821be94b824f479911316a16bb9d42db7f018d99095",
+      "dev/aitalkstreamer/mc/neoforge/NativeGamePort.class": "5a7b84618b3537c4da1d66b7b9c4696ab3126851592649bebb4874e1fd547bb1",
+      "dev/aitalkstreamer/mc/neoforge/NativeHooks.class": "101815df408b69a51862d962a6085171f43570f20f4b3ea947245ca0e098a02a",
+      "dev/aitalkstreamer/mc/neoforge/NativeInputOwner$Motion.class": "be6f7a3d4925e2eb97e3b61ceee27a5ecd967b1a2eb03a0ce2323cecd21c1d4a",
+      "dev/aitalkstreamer/mc/neoforge/NativeInputOwner$Scope.class": "0e903c9a8b32af0ba6539ba928876dc7a301de6bd93a14ff5c9785026d19a138",
+      "dev/aitalkstreamer/mc/neoforge/NativeInputOwner.class": "f7fd8502180ada6f9bd2a0fc94aaf77989171c5aeb301aa461927823007f148e",
+      "dev/aitalkstreamer/mc/neoforge/NativeItemUse$Phase.class": "08c1e63df9afc1542eb6466c8d9e18a2f2a0838063adbbfdf4574ce3dff5991f",
+      "dev/aitalkstreamer/mc/neoforge/NativeItemUse$Plan.class": "a331777410130f369ad5ce0874a92032dfcebcc83ca49a626cc8342523991448",
+      "dev/aitalkstreamer/mc/neoforge/NativeItemUse.class": "39ebde330a250a789c25c04addaa80a4fbc4a19c41d63ff799a0463a0abbfdfb",
+      "dev/aitalkstreamer/mc/neoforge/NativeSmelt$Spec.class": "4e1f2a652a68d7cf97d9706511ee787c558e284cec2ac2fcaad50c0d9d7669fd",
+      "dev/aitalkstreamer/mc/neoforge/NativeSmelt$Station.class": "1aa8872cbdad870ccf377b3396f62a0869d9fc4204d01c05c7921e0164ba82ad",
+      "dev/aitalkstreamer/mc/neoforge/NativeSmelt.class": "4f3d31a9edc01fedc01e3f7a919bfde043209c234d25f5e54327ec793382bb52",
+      "dev/aitalkstreamer/mc/neoforge/NativeSmeltPlan$Batch.class": "7b9390130adc1675a0d85cebd7bc4e65a00845f3d581cc59e0e4e0379511d03b",
+      "dev/aitalkstreamer/mc/neoforge/NativeSmeltPlan$Plan.class": "a986f3fd0d12ac9aa82a6537556fb25ae3fd44200548e5c317ab14e39c435e09",
+      "dev/aitalkstreamer/mc/neoforge/NativeSmeltPlan$Stock.class": "5b4a1d6c2f65dcfc04dcecf6e5673ff33042affa5770c8404c8f07d3d7f39fb3",
+      "dev/aitalkstreamer/mc/neoforge/NativeSmeltPlan.class": "b3d31fc3236ee2559617510fc2fc66b5d4c5a91caf3cf518039d86ddc7168a75",
+      "dev/aitalkstreamer/mc/neoforge/NativeToolBelt.class": "2a13ff5237541111267206e06ef4ef9392898a5c29fd2e314b29febe9509f5b1",
+      "dev/aitalkstreamer/mc/neoforge/NativeToolPlan$Candidate.class": "35674df229a4c3b3734647a9164a0736e353034d42343b8d6e6539a2d37e62fb",
+      "dev/aitalkstreamer/mc/neoforge/NativeToolPlan.class": "6f047360b31565c699c50b50b0c03f91807f427b041d2e6d228677f5845420a5",
+      "dev/aitalkstreamer/mc/neoforge/NativeTravel$1.class": "ccc68edf931123729d38a538c73fdbcf3542cbf662cf53a300316211769ff66b",
+      "dev/aitalkstreamer/mc/neoforge/NativeTravel.class": "02f63d0264501b9e239f89355d17c4d39f7566714f997e081ed88b8fc4bb9bd7",
+      "dev/aitalkstreamer/mc/neoforge/NativeWalkPlanner$Entry.class": "95458d20f062155d0625e5378b9a19c57873b8c3cce396ed4a450f1959903a1c",
+      "dev/aitalkstreamer/mc/neoforge/NativeWalkPlanner$Point.class": "22af48602977767dadd7e0f7a37b5d07911b0e2f6bac00fa0f6b2be9af9441c6",
+      "dev/aitalkstreamer/mc/neoforge/NativeWalkPlanner$Route.class": "7dd668267c4dc4ab5812f954f9174e2cd957eeb72fcfeda5c24df79a9f6cffff",
+      "dev/aitalkstreamer/mc/neoforge/NativeWalkPlanner$Terrain.class": "68bfe17d6b03a28245a8a98e6dafba5768bf8a81ea5c63f53a49ee3848ce8f8d",
+      "dev/aitalkstreamer/mc/neoforge/NativeWalkPlanner.class": "b7f5982a6cef9b87851c4ab2518e502aa33ddb6ba1b4295dfd4401da0ebab82d",
+      "dev/aitalkstreamer/mc/neoforge/mixin/ClickMixin.class": "103b7572b8fc354a6cc335772ff904cfdc912642b6f47f2031d1399298ebea10",
+      "dev/aitalkstreamer/mc/neoforge/mixin/CursorWarpMixin.class": "a57d578ee5d1a34252bd0892d2199460691f05757bc464a4458d0fde2b548a53",
+      "dev/aitalkstreamer/mc/neoforge/mixin/InventoryMixin.class": "1bfeeccdc5ebaa72cbe46125497428bdb5eb25935fe19bb807494adee3a9ab80",
+      "dev/aitalkstreamer/mc/neoforge/mixin/ItemUseMixin.class": "96335625f714d401523ee697603327f291c8f13f3a7881142aa472ba482df8ef",
+      "dev/aitalkstreamer/mc/neoforge/mixin/KeyboardMixin.class": "6daf7b42fa1571dce207f10b4391e0f96b8eaea69366543d1e2f886f04dbbd5b",
+      "dev/aitalkstreamer/mc/neoforge/mixin/MouseMixin.class": "f2f6461cd394bca9fc6e9dc599ad33af0b95dcb9903b8abae166a9b91e6aca25"
+    },
+    "test_sources_and_test_dependencies_identical": true,
+    "tests_reexecuted_in_this_installation": false,
+    "reason": "All Java execution classes, test sources, dependencies and all public files except the explicit changed_files are identical to v2. Current probe syntax and actual game run are fresh; task-owned engineering input options are recorded separately."
+  },
+  "craft_chain": [
+    {
+      "task_id": "task-68728841-dd7d-415a-8eab-e92e7a5717ff",
+      "item_id": "minecraft:stone_pickaxe",
+      "requested": 1,
+      "inventory_before": 1,
+      "inventory_after": 2,
+      "produced": 1,
+      "clicks": 17,
+      "server_full_packets": 18,
+      "clean_end": true,
+      "cursor_empty": true,
+      "recipe_id": "minecraft:stone_pickaxe",
+      "provenance": "PRIOR_FAILED_PROBE_SUCCESSFUL_CRAFT_TASK"
+    }
+  ],
+  "prior_confirmed_craft_tasks": [
+    {
+      "goal": {
+        "skill": "craft",
+        "item_id": "minecraft:stone_pickaxe",
+        "count": 1
+      },
+      "before": {
+        "player": {
+          "health": 20,
+          "max_health": 20,
+          "food": 20,
+          "oxygen": 300,
+          "position": {
+            "dimension": "minecraft:overworld",
+            "x": -685,
+            "y": 75,
+            "z": 999
+          }
+        },
+        "inventory": [
+          {
+            "item_id": "gravestone:obituary",
+            "count": 1
+          },
+          {
+            "item_id": "minecraft:birch_planks",
+            "count": 6
+          },
+          {
+            "item_id": "minecraft:charcoal",
+            "count": 3
+          },
+          {
+            "item_id": "minecraft:cobblestone",
+            "count": 4
+          },
+          {
+            "item_id": "minecraft:dirt",
+            "count": 25
+          },
+          {
+            "item_id": "minecraft:oak_sapling",
+            "count": 2
+          },
+          {
+            "item_id": "minecraft:stick",
+            "count": 8
+          },
+          {
+            "item_id": "minecraft:stone_pickaxe",
+            "count": 1
+          },
+          {
+            "item_id": "minecraft:wooden_axe",
+            "count": 1
+          },
+          {
+            "item_id": "minecraft:wooden_pickaxe",
+            "count": 1
+          },
+          {
+            "item_id": "minecraft:wooden_shovel",
+            "count": 1
+          }
+        ],
+        "screen": "gameplay",
+        "environment": {
+          "loaded_radius_chunks": null,
+          "nearby_threats": 0
+        },
+        "unknown_fields": [
+          "loaded_radius_chunks",
+          "unloaded_region",
+          "unopened_container_contents",
+          "hostile_entities_outside_16_blocks",
+          "server_rules"
+        ],
+        "schema_version": 1,
+        "game_instance_id": "mc-464da122-f23b-4478-91f8-ed686a56c4f3",
+        "bridge_boot_id": "boot-c1a6118d-812c-4ce4-99ef-66d7d368f691",
+        "world_id": "world-e5c9a5551eb2e4e7749bf8f5bd9579df",
+        "world_session_id": "world-session-83beb9b8-fc5b-4ca5-90d5-cdeb91098883",
+        "connection_generation": 3,
+        "seq": 1835,
+        "observed_at": "2026-11-01T03:19:13.636679500Z",
+        "rule_fingerprint": null,
+        "mode": "AUTO",
+        "control_epoch": 6,
+        "inputs_released": true,
+        "automation_ready": true,
+        "lease_remaining_ms": 2729,
+        "active_task_id": null,
+        "connected": true,
+        "age_ms": 202,
+        "freshness": "fresh",
+        "view_revision": 444
+      },
+      "checked": {
+        "created_at": "2026-11-01T03:19:13.872Z",
+        "error": null,
+        "kind": "query",
+        "operation_id": "operation-370b1c5d-9d24-4227-b6cf-c5849e143444",
+        "request_id": "native-check_action-6",
+        "result": {
+          "allowed": true,
+          "based_on_seq": 1840,
+          "kind": "check_action",
+          "reason": null,
+          "source": "runtime_client",
+          "unknown_fields": [
+            "server_crafting_restrictions",
+            "unsupported_dynamic_or_machine_recipes",
+            "unloaded_workstations"
+          ],
+          "world_session_id": "world-session-83beb9b8-fc5b-4ca5-90d5-cdeb91098883"
+        },
+        "state": "succeeded",
+        "updated_at": "2026-11-01T03:19:13.978Z"
+      },
+      "task": {
+        "bridge_boot_id": "boot-c1a6118d-812c-4ce4-99ef-66d7d368f691",
+        "control_epoch": 6,
+        "created_at": "2026-11-01T03:19:14.031573300Z",
+        "effect_status": "verified",
+        "evidence": [
+          {
+            "kind": "craft_result",
+            "seq": 1871,
+            "summary": "Recipe minecraft:stone_pickaxe: 1/1 batches, 1 produced units; server full-state revision 28; cursor/material/result checks after controlled clicks. Clean end: true. Later observed inventory total: 2; starting total: 1.",
+            "world_session_id": "world-session-83beb9b8-fc5b-4ca5-90d5-cdeb91098883"
+          }
+        ],
+        "game_instance_id": "mc-464da122-f23b-4478-91f8-ed686a56c4f3",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:stone_pickaxe",
+          "skill": "craft"
+        },
+        "reason": null,
+        "request_id": "native-tool-craft-1-7f060a40-cf45-4100-b072-459210048496",
+        "state": "succeeded",
+        "task_id": "task-68728841-dd7d-415a-8eab-e92e7a5717ff",
+        "updated_at": "2026-11-01T03:19:15.436933Z",
+        "version": 3,
+        "world_id": "world-e5c9a5551eb2e4e7749bf8f5bd9579df",
+        "world_session_id": "world-session-83beb9b8-fc5b-4ca5-90d5-cdeb91098883"
+      },
+      "after": {
+        "player": {
+          "health": 20,
+          "max_health": 20,
+          "food": 20,
+          "oxygen": 300,
+          "position": {
+            "dimension": "minecraft:overworld",
+            "x": -685,
+            "y": 75,
+            "z": 999
+          }
+        },
+        "inventory": [
+          {
+            "item_id": "gravestone:obituary",
+            "count": 1
+          },
+          {
+            "item_id": "minecraft:birch_planks",
+            "count": 6
+          },
+          {
+            "item_id": "minecraft:charcoal",
+            "count": 3
+          },
+          {
+            "item_id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "item_id": "minecraft:dirt",
+            "count": 25
+          },
+          {
+            "item_id": "minecraft:oak_sapling",
+            "count": 2
+          },
+          {
+            "item_id": "minecraft:stick",
+            "count": 6
+          },
+          {
+            "item_id": "minecraft:stone_pickaxe",
+            "count": 2
+          },
+          {
+            "item_id": "minecraft:wooden_axe",
+            "count": 1
+          },
+          {
+            "item_id": "minecraft:wooden_pickaxe",
+            "count": 1
+          },
+          {
+            "item_id": "minecraft:wooden_shovel",
+            "count": 1
+          }
+        ],
+        "screen": "gameplay",
+        "environment": {
+          "loaded_radius_chunks": null,
+          "nearby_threats": 0
+        },
+        "unknown_fields": [
+          "loaded_radius_chunks",
+          "unloaded_region",
+          "unopened_container_contents",
+          "hostile_entities_outside_16_blocks",
+          "server_rules"
+        ],
+        "schema_version": 1,
+        "game_instance_id": "mc-464da122-f23b-4478-91f8-ed686a56c4f3",
+        "bridge_boot_id": "boot-c1a6118d-812c-4ce4-99ef-66d7d368f691",
+        "world_id": "world-e5c9a5551eb2e4e7749bf8f5bd9579df",
+        "world_session_id": "world-session-83beb9b8-fc5b-4ca5-90d5-cdeb91098883",
+        "connection_generation": 3,
+        "seq": 1878,
+        "observed_at": "2026-11-01T03:19:15.796179400Z",
+        "rule_fingerprint": null,
+        "mode": "AUTO",
+        "control_epoch": 6,
+        "inputs_released": true,
+        "automation_ready": true,
+        "lease_remaining_ms": 2630,
+        "active_task_id": null,
+        "connected": true,
+        "age_ms": 70,
+        "freshness": "fresh",
+        "view_revision": 454
+      },
+      "client_proof": {
+        "schema_version": 1,
+        "classification": "ACTUAL_NEOFORGE_CLIENT_FACTS_NOT_AUTOMATIC_GAMEPLAY_ACCEPTANCE",
+        "observed_at": "2026-11-01T03:19:15.829142Z",
+        "adapter": "minecraft.neoforge",
+        "username": "NAIMEI",
+        "profile_id": "a77465cf-2de0-3278-bf48-d13b367e09ce",
+        "minecraft": "1.21.1",
+        "neoforge": "21.1.248",
+        "loaded_mods": 350,
+        "automatic_input_authorized": true,
+        "gameplay_executor_bound": true,
+        "missing_native_hooks": [],
+        "control_mode": "AUTO",
+        "control_proof": {
+          "bridge_boot_id": "boot-c1a6118d-812c-4ce4-99ef-66d7d368f691",
+          "world_session_id": "world-session-83beb9b8-fc5b-4ca5-90d5-cdeb91098883",
+          "control_epoch": 6,
+          "last_stop": {
+            "epoch": 1,
+            "reason": "GAME_CAPABILITIES_CHANGED"
+          },
+          "native_input": {
+            "movement_owned": false,
+            "synthetic_motion_attached": false,
+            "destroying": false,
+            "selected_slot_owned": false,
+            "all_owned_inputs_clear": true
+          },
+          "native_travel": {
+            "task_id": "task-63dc74cd-8547-4d40-89e1-e2d4abf83c56",
+            "active": false,
+            "gather": true,
+            "ticks": 24,
+            "arrival_ticks": 10,
+            "path_searches": 0,
+            "walked_waypoints": 0,
+            "block_attempts": 1,
+            "server_inventory_packets": 2,
+            "confirmed_inventory": 4,
+            "skipped_sources": 0,
+            "skipped_drops": 0,
+            "soil_cover_blocks_attempted": 0,
+            "tool_belt": {
+              "pending": false,
+              "source_slot": -1,
+              "hotbar_slot": -1,
+              "clicks": 0,
+              "server_full_packets": 0,
+              "confirmed_swaps": 0,
+              "server_revision": -1,
+              "closed": true
+            },
+            "nearby_resource_drops": [],
+            "feet_standable": true,
+            "support_block": "minecraft:stone"
+          },
+          "native_craft": {
+            "active": false,
+            "task_id": "task-68728841-dd7d-415a-8eab-e92e7a5717ff",
+            "recipe_id": "minecraft:stone_pickaxe",
+            "grid_size": 3,
+            "phase": 2,
+            "clicks": 17,
+            "server_full_packets": 18,
+            "confirmed_batches": 1,
+            "planned_batches": 1,
+            "produced": 1,
+            "server_revision": 28,
+            "clean_end": true,
+            "owned_menu_current": false,
+            "cursor_empty": true,
+            "cancelled_without_gui_writes": false
+          },
+          "native_cooking": {
+            "active": false
+          }
+        },
+        "in_world": true,
+        "screen": "gameplay",
+        "received_recipes": 27261,
+        "player_name": "NAIMEI",
+        "player_uuid": "a77465cf-2de0-3278-bf48-d13b367e09ce",
+        "dimension": "minecraft:overworld",
+        "health": 20,
+        "max_health": 20,
+        "food": 20,
+        "x": -684.5055132538683,
+        "y": 75,
+        "z": 999.488496116257,
+        "alive": true,
+        "selected_slot": 0,
+        "mainhand_item": "minecraft:stone_pickaxe",
+        "offhand_item": "gravestone:obituary",
+        "inventory": [
+          {
+            "item_id": "gravestone:obituary",
+            "count": 1
+          },
+          {
+            "item_id": "minecraft:birch_planks",
+            "count": 6
+          },
+          {
+            "item_id": "minecraft:charcoal",
+            "count": 3
+          },
+          {
+            "item_id": "minecraft:cobblestone",
+            "count": 1
+          },
+          {
+            "item_id": "minecraft:dirt",
+            "count": 25
+          },
+          {
+            "item_id": "minecraft:oak_sapling",
+            "count": 2
+          },
+          {
+            "item_id": "minecraft:stick",
+            "count": 6
+          },
+          {
+            "item_id": "minecraft:stone_pickaxe",
+            "count": 2
+          },
+          {
+            "item_id": "minecraft:wooden_axe",
+            "count": 1
+          },
+          {
+            "item_id": "minecraft:wooden_pickaxe",
+            "count": 1
+          },
+          {
+            "item_id": "minecraft:wooden_shovel",
+            "count": 1
+          }
+        ],
+        "world_samples": 94
+      }
+    }
+  ],
+  "prior_craft_proof": "game-result-002.json",
+  "gather_with_backpack_tool": {
+    "task_id": "task-00dda034-011d-4ac9-8ece-7df15c3d81bb",
+    "item_id": "minecraft:cobblestone",
+    "inventory_before": 4,
+    "inventory_after": 8,
+    "tool_belt": {
+      "pending": false,
+      "source_slot": 11,
+      "hotbar_slot": 0,
+      "clicks": 1,
+      "server_full_packets": 1,
+      "confirmed_swaps": 1,
+      "server_revision": 5,
+      "closed": true
+    }
+  },
+  "ore_checks": [
+    {
+      "goal": {
+        "skill": "gather",
+        "item_id": "minecraft:raw_iron",
+        "count": 1
+      },
+      "checked": {
+        "created_at": "2026-11-01T03:34:33.317Z",
+        "error": null,
+        "kind": "query",
+        "operation_id": "operation-a2109886-47c8-4d24-a685-da3666d088c9",
+        "request_id": "native-check_action-6",
+        "result": {
+          "allowed": false,
+          "based_on_seq": 234,
+          "kind": "check_action",
+          "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE",
+          "source": "runtime_client",
+          "unknown_fields": [
+            "unloaded_route",
+            "server_movement_restrictions",
+            "server_block_rules",
+            "future_drops_and_inventory_causality"
+          ],
+          "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b"
+        },
+        "state": "succeeded",
+        "updated_at": "2026-11-01T03:34:33.404Z"
+      },
+      "available": false
+    },
+    {
+      "goal": {
+        "skill": "gather",
+        "item_id": "minecraft:coal",
+        "count": 1
+      },
+      "checked": {
+        "created_at": "2026-11-01T03:34:33.429Z",
+        "error": null,
+        "kind": "query",
+        "operation_id": "operation-ec3818a6-8522-476b-816e-133b59cc72a7",
+        "request_id": "native-check_action-7",
+        "result": {
+          "allowed": false,
+          "based_on_seq": 236,
+          "kind": "check_action",
+          "reason": "GAME_GATHER_RESOURCE_UNAVAILABLE",
+          "source": "runtime_client",
+          "unknown_fields": [
+            "unloaded_route",
+            "server_movement_restrictions",
+            "server_block_rules",
+            "future_drops_and_inventory_causality"
+          ],
+          "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b"
+        },
+        "state": "succeeded",
+        "updated_at": "2026-11-01T03:34:33.509Z"
+      },
+      "available": false
+    }
+  ],
+  "actual_game": {
+    "proof": "outputs/mc-validation/round-080/remote-evidence/game-result-004.json",
+    "overall_probe_passed": true,
+    "facts": {
+      "schema_version": 1,
+      "classification": "ACTUAL_NEOFORGE_CLIENT_FACTS_NOT_AUTOMATIC_GAMEPLAY_ACCEPTANCE",
+      "observed_at": "2026-11-01T03:34:35.276423400Z",
+      "adapter": "minecraft.neoforge",
+      "username": "NAIMEI",
+      "profile_id": "a77465cf-2de0-3278-bf48-d13b367e09ce",
+      "minecraft": "1.21.1",
+      "neoforge": "21.1.248",
+      "loaded_mods": 350,
+      "automatic_input_authorized": false,
+      "gameplay_executor_bound": true,
+      "missing_native_hooks": [],
+      "control_mode": "PAUSED",
+      "control_proof": {
+        "bridge_boot_id": "boot-727568c8-8245-42af-9169-2cb76a923a67",
+        "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b",
+        "control_epoch": 12,
+        "last_stop": {
+          "epoch": 1,
+          "reason": "GAME_CAPABILITIES_CHANGED"
+        },
+        "native_input": {
+          "movement_owned": false,
+          "synthetic_motion_attached": false,
+          "destroying": false,
+          "selected_slot_owned": false,
+          "all_owned_inputs_clear": true
+        },
+        "native_travel": {
+          "task_id": "task-00dda034-011d-4ac9-8ece-7df15c3d81bb",
+          "active": false,
+          "gather": true,
+          "ticks": 119,
+          "arrival_ticks": 0,
+          "path_searches": 2,
+          "walked_waypoints": 0,
+          "block_attempts": 4,
+          "server_inventory_packets": 8,
+          "confirmed_inventory": 8,
+          "skipped_sources": 4,
+          "skipped_drops": 2,
+          "soil_cover_blocks_attempted": 0,
+          "tool_belt": {
+            "pending": false,
+            "source_slot": 11,
+            "hotbar_slot": 0,
+            "clicks": 1,
+            "server_full_packets": 1,
+            "confirmed_swaps": 1,
+            "server_revision": 5,
+            "closed": true
+          },
+          "nearby_resource_drops": [],
+          "feet_standable": true,
+          "support_block": "minecraft:stone"
+        },
+        "native_craft": {
+          "active": false
+        },
+        "native_cooking": {
+          "active": false
+        }
+      },
+      "in_world": true,
+      "screen": "gameplay",
+      "received_recipes": 27261,
+      "player_name": "NAIMEI",
+      "player_uuid": "a77465cf-2de0-3278-bf48-d13b367e09ce",
+      "dimension": "minecraft:overworld",
+      "health": 20.0,
+      "max_health": 20.0,
+      "food": 20,
+      "x": -686.4994916027364,
+      "y": 73.0,
+      "z": 999.4904453990302,
+      "alive": true,
+      "selected_slot": 0,
+      "mainhand_item": "minecraft:stone_pickaxe",
+      "offhand_item": "minecraft:stone_pickaxe",
+      "inventory": [
+        {
+          "item_id": "gravestone:obituary",
+          "count": 1
+        },
+        {
+          "item_id": "minecraft:birch_planks",
+          "count": 4
+        },
+        {
+          "item_id": "minecraft:charcoal",
+          "count": 3
+        },
+        {
+          "item_id": "minecraft:cobblestone",
+          "count": 8
+        },
+        {
+          "item_id": "minecraft:dirt",
+          "count": 25
+        },
+        {
+          "item_id": "minecraft:oak_sapling",
+          "count": 2
+        },
+        {
+          "item_id": "minecraft:stick",
+          "count": 10
+        },
+        {
+          "item_id": "minecraft:stone_pickaxe",
+          "count": 2
+        },
+        {
+          "item_id": "minecraft:wooden_axe",
+          "count": 1
+        },
+        {
+          "item_id": "minecraft:wooden_pickaxe",
+          "count": 1
+        },
+        {
+          "item_id": "minecraft:wooden_shovel",
+          "count": 1
+        }
+      ],
+      "world_samples": 14
+    },
+    "equipment_task": {
+      "bridge_boot_id": "boot-727568c8-8245-42af-9169-2cb76a923a67",
+      "control_epoch": 4,
+      "created_at": "2026-11-01T03:34:24.384620200Z",
+      "effect_status": "verified",
+      "evidence": [
+        {
+          "kind": "item_effect",
+          "seq": 59,
+          "summary": "Item gravestone:obituary, purpose equip, destination offhand; confirmed consumed units 0; server inventory revision 2; inventory confirmed true; item-specific effect confirmed true; clean end true. Later inventory total: 1.",
+          "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b"
+        }
+      ],
+      "game_instance_id": "mc-e036cd0c-d5c8-40a7-bfd0-9dce589edf61",
+      "goal": {
+        "item_id": "gravestone:obituary",
+        "purpose": "equip",
+        "skill": "use_item"
+      },
+      "reason": null,
+      "request_id": "native-real-offhand-equip-27e6ca8d-f9d5-448a-86e3-d0dbd35390b0",
+      "state": "succeeded",
+      "task_id": "task-28e55e43-c77e-4281-a193-df410b063e9d",
+      "updated_at": "2026-11-01T03:34:24.621324300Z",
+      "version": 3,
+      "world_id": "world-90e71741e6b3f2223d91a46027717e46",
+      "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b"
+    },
+    "idempotent_equipment_task": {
+      "bridge_boot_id": "boot-727568c8-8245-42af-9169-2cb76a923a67",
+      "control_epoch": 4,
+      "created_at": "2026-11-01T03:34:24.845929800Z",
+      "effect_status": "verified",
+      "evidence": [
+        {
+          "kind": "item_effect",
+          "seq": 68,
+          "summary": "Item gravestone:obituary, purpose equip, destination offhand; confirmed consumed units 0; server inventory revision 3; inventory confirmed true; item-specific effect confirmed true; clean end true. Later inventory total: 1.",
+          "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b"
+        }
+      ],
+      "game_instance_id": "mc-e036cd0c-d5c8-40a7-bfd0-9dce589edf61",
+      "goal": {
+        "item_id": "gravestone:obituary",
+        "purpose": "equip",
+        "skill": "use_item"
+      },
+      "reason": null,
+      "request_id": "native-real-offhand-already-equipped-27e6ca8d-f9d5-448a-86e3-d0dbd35390b0",
+      "state": "succeeded",
+      "task_id": "task-2d984b74-ab86-4354-926f-a216393f03f1",
+      "updated_at": "2026-11-01T03:34:25.068499100Z",
+      "version": 3,
+      "world_id": "world-90e71741e6b3f2223d91a46027717e46",
+      "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b"
+    },
+    "cancel_race_task": {
+      "bridge_boot_id": "boot-727568c8-8245-42af-9169-2cb76a923a67",
+      "control_epoch": 4,
+      "created_at": "2026-11-01T03:34:25.243476900Z",
+      "effect_status": "unknown",
+      "evidence": [],
+      "game_instance_id": "mc-e036cd0c-d5c8-40a7-bfd0-9dce589edf61",
+      "goal": {
+        "item_id": "gravestone:obituary",
+        "purpose": "equip",
+        "skill": "use_item"
+      },
+      "reason": "engineering_explicit_cancel",
+      "request_id": "native-real-immediate-cancel-27e6ca8d-f9d5-448a-86e3-d0dbd35390b0",
+      "state": "cancelled",
+      "task_id": "task-be3a3921-da7d-4ddc-88f8-d122f8eb0c4d",
+      "updated_at": "2026-11-01T03:34:25.310439700Z",
+      "version": 2,
+      "world_id": "world-90e71741e6b3f2223d91a46027717e46",
+      "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b"
+    },
+    "craft_tasks": [],
+    "supply_tasks": [
+      {
+        "available": true,
+        "goal": {
+          "skill": "gather",
+          "item_id": "minecraft:cobblestone",
+          "count": 3
+        },
+        "before": {
+          "player": {
+            "health": 20,
+            "max_health": 20,
+            "food": 20,
+            "oxygen": 300,
+            "position": {
+              "dimension": "minecraft:overworld",
+              "x": -686,
+              "y": 74,
+              "z": 999
+            }
+          },
+          "inventory": [
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:birch_planks",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:charcoal",
+              "count": 3
+            },
+            {
+              "item_id": "minecraft:cobblestone",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:dirt",
+              "count": 25
+            },
+            {
+              "item_id": "minecraft:oak_sapling",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:stick",
+              "count": 10
+            },
+            {
+              "item_id": "minecraft:stone_pickaxe",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:wooden_axe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:wooden_pickaxe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:wooden_shovel",
+              "count": 1
+            }
+          ],
+          "screen": "gameplay",
+          "environment": {
+            "loaded_radius_chunks": null,
+            "nearby_threats": 0
+          },
+          "unknown_fields": [
+            "loaded_radius_chunks",
+            "unloaded_region",
+            "unopened_container_contents",
+            "hostile_entities_outside_16_blocks",
+            "server_rules"
+          ],
+          "schema_version": 1,
+          "game_instance_id": "mc-e036cd0c-d5c8-40a7-bfd0-9dce589edf61",
+          "bridge_boot_id": "boot-727568c8-8245-42af-9169-2cb76a923a67",
+          "world_id": "world-90e71741e6b3f2223d91a46027717e46",
+          "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b",
+          "connection_generation": 3,
+          "seq": 91,
+          "observed_at": "2026-11-01T03:34:26.177371400Z",
+          "rule_fingerprint": null,
+          "mode": "AUTO",
+          "control_epoch": 6,
+          "inputs_released": true,
+          "automation_ready": true,
+          "lease_remaining_ms": 2288,
+          "active_task_id": null,
+          "connected": true,
+          "age_ms": 99,
+          "freshness": "fresh",
+          "view_revision": 27
+        },
+        "checked": {
+          "created_at": "2026-11-01T03:34:26.295Z",
+          "error": null,
+          "kind": "query",
+          "operation_id": "operation-b8bc2574-bb90-4e1c-ac75-dc45ea74432b",
+          "request_id": "native-check_action-5",
+          "result": {
+            "allowed": true,
+            "based_on_seq": 94,
+            "kind": "check_action",
+            "reason": null,
+            "source": "runtime_client",
+            "unknown_fields": [
+              "unloaded_route",
+              "server_movement_restrictions",
+              "server_block_rules",
+              "future_drops_and_inventory_causality"
+            ],
+            "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b"
+          },
+          "state": "succeeded",
+          "updated_at": "2026-11-01T03:34:26.452Z"
+        },
+        "task": {
+          "bridge_boot_id": "boot-727568c8-8245-42af-9169-2cb76a923a67",
+          "control_epoch": 6,
+          "created_at": "2026-11-01T03:34:26.504274100Z",
+          "effect_status": "verified",
+          "evidence": [
+            {
+              "kind": "inventory",
+              "seq": 218,
+              "summary": "Observed inventory total changed from 4 to 8; observed net increase is 4; requested increase is 3. Collection source is not established by inventory alone.",
+              "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b"
+            }
+          ],
+          "game_instance_id": "mc-e036cd0c-d5c8-40a7-bfd0-9dce589edf61",
+          "goal": {
+            "count": 3,
+            "item_id": "minecraft:cobblestone",
+            "skill": "gather"
+          },
+          "reason": null,
+          "request_id": "native-tool-gather-stone-pickaxe-0-27e6ca8d-f9d5-448a-86e3-d0dbd35390b0",
+          "state": "succeeded",
+          "task_id": "task-00dda034-011d-4ac9-8ece-7df15c3d81bb",
+          "updated_at": "2026-11-01T03:34:32.556817400Z",
+          "version": 3,
+          "world_id": "world-90e71741e6b3f2223d91a46027717e46",
+          "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b"
+        },
+        "after": {
+          "player": {
+            "health": 20,
+            "max_health": 20,
+            "food": 20,
+            "oxygen": 300,
+            "position": {
+              "dimension": "minecraft:overworld",
+              "x": -687,
+              "y": 73,
+              "z": 999
+            }
+          },
+          "inventory": [
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:birch_planks",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:charcoal",
+              "count": 3
+            },
+            {
+              "item_id": "minecraft:cobblestone",
+              "count": 8
+            },
+            {
+              "item_id": "minecraft:dirt",
+              "count": 25
+            },
+            {
+              "item_id": "minecraft:oak_sapling",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:stick",
+              "count": 10
+            },
+            {
+              "item_id": "minecraft:stone_pickaxe",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:wooden_axe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:wooden_pickaxe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:wooden_shovel",
+              "count": 1
+            }
+          ],
+          "screen": "gameplay",
+          "environment": {
+            "loaded_radius_chunks": null,
+            "nearby_threats": 0
+          },
+          "unknown_fields": [
+            "loaded_radius_chunks",
+            "unloaded_region",
+            "unopened_container_contents",
+            "hostile_entities_outside_16_blocks",
+            "server_rules"
+          ],
+          "schema_version": 1,
+          "game_instance_id": "mc-e036cd0c-d5c8-40a7-bfd0-9dce589edf61",
+          "bridge_boot_id": "boot-727568c8-8245-42af-9169-2cb76a923a67",
+          "world_id": "world-90e71741e6b3f2223d91a46027717e46",
+          "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b",
+          "connection_generation": 3,
+          "seq": 233,
+          "observed_at": "2026-11-01T03:34:33.298591900Z",
+          "rule_fingerprint": null,
+          "mode": "AUTO",
+          "control_epoch": 6,
+          "inputs_released": true,
+          "automation_ready": true,
+          "lease_remaining_ms": 2102,
+          "active_task_id": null,
+          "connected": true,
+          "age_ms": 10,
+          "freshness": "fresh",
+          "view_revision": 61
+        },
+        "client_proof": {
+          "schema_version": 1,
+          "classification": "ACTUAL_NEOFORGE_CLIENT_FACTS_NOT_AUTOMATIC_GAMEPLAY_ACCEPTANCE",
+          "observed_at": "2026-11-01T03:34:33.298591900Z",
+          "adapter": "minecraft.neoforge",
+          "username": "NAIMEI",
+          "profile_id": "a77465cf-2de0-3278-bf48-d13b367e09ce",
+          "minecraft": "1.21.1",
+          "neoforge": "21.1.248",
+          "loaded_mods": 350,
+          "automatic_input_authorized": true,
+          "gameplay_executor_bound": true,
+          "missing_native_hooks": [],
+          "control_mode": "AUTO",
+          "control_proof": {
+            "bridge_boot_id": "boot-727568c8-8245-42af-9169-2cb76a923a67",
+            "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b",
+            "control_epoch": 6,
+            "last_stop": {
+              "epoch": 1,
+              "reason": "GAME_CAPABILITIES_CHANGED"
+            },
+            "native_input": {
+              "movement_owned": false,
+              "synthetic_motion_attached": false,
+              "destroying": false,
+              "selected_slot_owned": false,
+              "all_owned_inputs_clear": true
+            },
+            "native_travel": {
+              "task_id": "task-00dda034-011d-4ac9-8ece-7df15c3d81bb",
+              "active": false,
+              "gather": true,
+              "ticks": 119,
+              "arrival_ticks": 0,
+              "path_searches": 2,
+              "walked_waypoints": 0,
+              "block_attempts": 4,
+              "server_inventory_packets": 8,
+              "confirmed_inventory": 8,
+              "skipped_sources": 4,
+              "skipped_drops": 2,
+              "soil_cover_blocks_attempted": 0,
+              "tool_belt": {
+                "pending": false,
+                "source_slot": 11,
+                "hotbar_slot": 0,
+                "clicks": 1,
+                "server_full_packets": 1,
+                "confirmed_swaps": 1,
+                "server_revision": 5,
+                "closed": true
+              },
+              "nearby_resource_drops": [],
+              "feet_standable": true,
+              "support_block": "minecraft:stone"
+            },
+            "native_craft": {
+              "active": false
+            },
+            "native_cooking": {
+              "active": false
+            }
+          },
+          "in_world": true,
+          "screen": "gameplay",
+          "received_recipes": 27261,
+          "player_name": "NAIMEI",
+          "player_uuid": "a77465cf-2de0-3278-bf48-d13b367e09ce",
+          "dimension": "minecraft:overworld",
+          "health": 20,
+          "max_health": 20,
+          "food": 20,
+          "x": -686.4994916027364,
+          "y": 73,
+          "z": 999.4904453990302,
+          "alive": true,
+          "selected_slot": 0,
+          "mainhand_item": "minecraft:stone_pickaxe",
+          "offhand_item": "minecraft:stone_pickaxe",
+          "inventory": [
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:birch_planks",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:charcoal",
+              "count": 3
+            },
+            {
+              "item_id": "minecraft:cobblestone",
+              "count": 8
+            },
+            {
+              "item_id": "minecraft:dirt",
+              "count": 25
+            },
+            {
+              "item_id": "minecraft:oak_sapling",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:stick",
+              "count": 10
+            },
+            {
+              "item_id": "minecraft:stone_pickaxe",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:wooden_axe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:wooden_pickaxe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:wooden_shovel",
+              "count": 1
+            }
+          ],
+          "world_samples": 12
+        }
+      }
+    ],
+    "equipment_preparation_tasks": [
+      {
+        "goal": {
+          "skill": "use_item",
+          "item_id": "minecraft:stone_pickaxe",
+          "purpose": "equip"
+        },
+        "before": {
+          "player": {
+            "health": 20,
+            "max_health": 20,
+            "food": 20,
+            "oxygen": 300,
+            "position": {
+              "dimension": "minecraft:overworld",
+              "x": -686,
+              "y": 74,
+              "z": 999
+            }
+          },
+          "inventory": [
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:birch_planks",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:charcoal",
+              "count": 3
+            },
+            {
+              "item_id": "minecraft:cobblestone",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:dirt",
+              "count": 25
+            },
+            {
+              "item_id": "minecraft:oak_sapling",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:stick",
+              "count": 10
+            },
+            {
+              "item_id": "minecraft:stone_pickaxe",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:wooden_axe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:wooden_pickaxe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:wooden_shovel",
+              "count": 1
+            }
+          ],
+          "screen": "gameplay",
+          "environment": {
+            "loaded_radius_chunks": null,
+            "nearby_threats": 0
+          },
+          "unknown_fields": [
+            "loaded_radius_chunks",
+            "unloaded_region",
+            "unopened_container_contents",
+            "hostile_entities_outside_16_blocks",
+            "server_rules"
+          ],
+          "schema_version": 1,
+          "game_instance_id": "mc-e036cd0c-d5c8-40a7-bfd0-9dce589edf61",
+          "bridge_boot_id": "boot-727568c8-8245-42af-9169-2cb76a923a67",
+          "world_id": "world-90e71741e6b3f2223d91a46027717e46",
+          "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b",
+          "connection_generation": 3,
+          "seq": 77,
+          "observed_at": "2026-11-01T03:34:25.473398600Z",
+          "rule_fingerprint": null,
+          "mode": "AUTO",
+          "control_epoch": 6,
+          "inputs_released": true,
+          "automation_ready": true,
+          "lease_remaining_ms": 3000,
+          "active_task_id": null,
+          "connected": true,
+          "age_ms": 72,
+          "freshness": "fresh",
+          "view_revision": 24
+        },
+        "checked": {
+          "created_at": "2026-11-01T03:34:25.558Z",
+          "error": null,
+          "kind": "query",
+          "operation_id": "operation-42d069e9-a9b1-4f6a-a9d0-9e57ce8a7d9a",
+          "request_id": "native-check_action-4",
+          "result": {
+            "allowed": true,
+            "based_on_seq": 79,
+            "kind": "check_action",
+            "reason": null,
+            "source": "runtime_client",
+            "unknown_fields": [
+              "server_side_use_restrictions",
+              "late_packet_causality",
+              "non_static_mod_activation"
+            ],
+            "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b"
+          },
+          "state": "succeeded",
+          "updated_at": "2026-11-01T03:34:25.641Z"
+        },
+        "task": {
+          "bridge_boot_id": "boot-727568c8-8245-42af-9169-2cb76a923a67",
+          "control_epoch": 6,
+          "created_at": "2026-11-01T03:34:25.693329700Z",
+          "effect_status": "verified",
+          "evidence": [
+            {
+              "kind": "item_effect",
+              "seq": 85,
+              "summary": "Item minecraft:stone_pickaxe, purpose equip, destination offhand; confirmed consumed units 0; server inventory revision 4; inventory confirmed true; item-specific effect confirmed true; clean end true. Later inventory total: 2.",
+              "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b"
+            }
+          ],
+          "game_instance_id": "mc-e036cd0c-d5c8-40a7-bfd0-9dce589edf61",
+          "goal": {
+            "item_id": "minecraft:stone_pickaxe",
+            "purpose": "equip",
+            "skill": "use_item"
+          },
+          "reason": null,
+          "request_id": "native-tool-equip-offhand-27e6ca8d-f9d5-448a-86e3-d0dbd35390b0",
+          "state": "succeeded",
+          "task_id": "task-a74c47b8-334b-43d3-8cb6-f79c5f49530a",
+          "updated_at": "2026-11-01T03:34:25.920246500Z",
+          "version": 3,
+          "world_id": "world-90e71741e6b3f2223d91a46027717e46",
+          "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b"
+        },
+        "after": {
+          "player": {
+            "health": 20,
+            "max_health": 20,
+            "food": 20,
+            "oxygen": 300,
+            "position": {
+              "dimension": "minecraft:overworld",
+              "x": -686,
+              "y": 74,
+              "z": 999
+            }
+          },
+          "inventory": [
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:birch_planks",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:charcoal",
+              "count": 3
+            },
+            {
+              "item_id": "minecraft:cobblestone",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:dirt",
+              "count": 25
+            },
+            {
+              "item_id": "minecraft:oak_sapling",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:stick",
+              "count": 10
+            },
+            {
+              "item_id": "minecraft:stone_pickaxe",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:wooden_axe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:wooden_pickaxe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:wooden_shovel",
+              "count": 1
+            }
+          ],
+          "screen": "gameplay",
+          "environment": {
+            "loaded_radius_chunks": null,
+            "nearby_threats": 0
+          },
+          "unknown_fields": [
+            "loaded_radius_chunks",
+            "unloaded_region",
+            "unopened_container_contents",
+            "hostile_entities_outside_16_blocks",
+            "server_rules"
+          ],
+          "schema_version": 1,
+          "game_instance_id": "mc-e036cd0c-d5c8-40a7-bfd0-9dce589edf61",
+          "bridge_boot_id": "boot-727568c8-8245-42af-9169-2cb76a923a67",
+          "world_id": "world-90e71741e6b3f2223d91a46027717e46",
+          "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b",
+          "connection_generation": 3,
+          "seq": 91,
+          "observed_at": "2026-11-01T03:34:26.177371400Z",
+          "rule_fingerprint": null,
+          "mode": "AUTO",
+          "control_epoch": 6,
+          "inputs_released": true,
+          "automation_ready": true,
+          "lease_remaining_ms": 2288,
+          "active_task_id": null,
+          "connected": true,
+          "age_ms": 97,
+          "freshness": "fresh",
+          "view_revision": 27
+        },
+        "client_proof": {
+          "schema_version": 1,
+          "classification": "ACTUAL_NEOFORGE_CLIENT_FACTS_NOT_AUTOMATIC_GAMEPLAY_ACCEPTANCE",
+          "observed_at": "2026-11-01T03:34:26.278318900Z",
+          "adapter": "minecraft.neoforge",
+          "username": "NAIMEI",
+          "profile_id": "a77465cf-2de0-3278-bf48-d13b367e09ce",
+          "minecraft": "1.21.1",
+          "neoforge": "21.1.248",
+          "loaded_mods": 350,
+          "automatic_input_authorized": true,
+          "gameplay_executor_bound": true,
+          "missing_native_hooks": [],
+          "control_mode": "AUTO",
+          "control_proof": {
+            "bridge_boot_id": "boot-727568c8-8245-42af-9169-2cb76a923a67",
+            "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b",
+            "control_epoch": 6,
+            "last_stop": {
+              "epoch": 1,
+              "reason": "GAME_CAPABILITIES_CHANGED"
+            },
+            "native_input": {
+              "movement_owned": false,
+              "synthetic_motion_attached": false,
+              "destroying": false,
+              "selected_slot_owned": false,
+              "all_owned_inputs_clear": true
+            },
+            "native_travel": {
+              "active": false,
+              "gather": false,
+              "ticks": 0,
+              "arrival_ticks": 0,
+              "path_searches": 0,
+              "walked_waypoints": 0,
+              "block_attempts": 0,
+              "server_inventory_packets": 0,
+              "confirmed_inventory": 0,
+              "skipped_sources": 0,
+              "skipped_drops": 0,
+              "soil_cover_blocks_attempted": 0,
+              "nearby_resource_drops": [],
+              "feet_standable": true,
+              "support_block": "minecraft:stone"
+            },
+            "native_craft": {
+              "active": false
+            },
+            "native_cooking": {
+              "active": false
+            }
+          },
+          "in_world": true,
+          "screen": "gameplay",
+          "received_recipes": 27261,
+          "player_name": "NAIMEI",
+          "player_uuid": "a77465cf-2de0-3278-bf48-d13b367e09ce",
+          "dimension": "minecraft:overworld",
+          "health": 20,
+          "max_health": 20,
+          "food": 20,
+          "x": -685.5254224026907,
+          "y": 74,
+          "z": 999.4992326284344,
+          "alive": true,
+          "selected_slot": 0,
+          "mainhand_item": "gravestone:obituary",
+          "offhand_item": "minecraft:stone_pickaxe",
+          "inventory": [
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:birch_planks",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:charcoal",
+              "count": 3
+            },
+            {
+              "item_id": "minecraft:cobblestone",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:dirt",
+              "count": 25
+            },
+            {
+              "item_id": "minecraft:oak_sapling",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:stick",
+              "count": 10
+            },
+            {
+              "item_id": "minecraft:stone_pickaxe",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:wooden_axe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:wooden_pickaxe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:wooden_shovel",
+              "count": 1
+            }
+          ],
+          "world_samples": 5
+        }
+      }
+    ],
+    "stone_pickaxe_crafted_in_current_game_run": false,
+    "backpack_tool_swap_verified": true,
+    "ore_gathers_verified": [],
+    "all_owned_processes_closed": true,
+    "frame_sha256": "a85889ac797ef7b6af42ee2961b441ecf5580c8b350b686a0c9947d06a94b0c9",
+    "recipe_available": true,
+    "same_world_reconnect_verified": true,
+    "dsh_context_inert": true,
+    "complete_survival_delivered": false,
+    "active_inventory_swap_hardware_takeover_verified": false
+  },
+  "foreground_engineering_preflight": {
+    "proof": "outputs/mc-validation/round-080/remote-evidence/input-result-004.json",
+    "task_owned_client_input_options": {
+      "classification": "TASK_OWNED_ENGINEERING_MOUSE_INPUT_SETTING_NOT_ORIGINAL_CLIENT",
+      "rawMouseInput": false,
+      "files": [
+        {
+          "path": "runtime\\minecraft\\mc-friends-s1-neoforge-21.1.248\\work\\options.txt",
+          "before_sha256": "fea037286bd9a618b7ed0a6fee9a4ea01fe457c015980f3079f754d44d4971fb",
+          "after_sha256": "2fa76f3b76e11ad20f29dd09804843a22b44c11f05849c255827b2da94dff226"
+        },
+        {
+          "path": "runtime\\minecraft\\mc-friends-s1-neoforge-21.1.248\\work\\configureddefaults\\options.txt",
+          "before_sha256": "fea037286bd9a618b7ed0a6fee9a4ea01fe457c015980f3079f754d44d4971fb",
+          "after_sha256": "2fa76f3b76e11ad20f29dd09804843a22b44c11f05849c255827b2da94dff226"
+        }
+      ]
+    },
+    "foreground_preflight": {
+      "probe_run_id": "27e6ca8d-f9d5-448a-86e3-d0dbd35390b0",
+      "observed_at": "2026-11-01T03:34:22.951443+00:00",
+      "game_pid": 25364,
+      "creation_ticks": "134379774815107265",
+      "window": 18352374,
+      "foreground_pid_verified": true,
+      "creation_ticks_verified": true,
+      "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b",
+      "control_epoch": 3
+    },
+    "driver": {
+      "ok": true,
+      "host": "DESKTOP-2QQPN1H",
+      "sent": [],
+      "models_loaded": false,
+      "gameplay_task_writer": false,
+      "classification": "REAL_OS_CURSOR_PREPARATION_WHILE_PAUSED_NOT_AUTONOMOUS_MODEL_OR_HARDWARE_ACCEPTANCE",
+      "helper_sha256": "ab3a2fc79f49131fb6e315a00435b0951055ba0e3ba9828cfcaff7c8efff0e09",
+      "foreground_preflight": {
+        "probe_run_id": "27e6ca8d-f9d5-448a-86e3-d0dbd35390b0",
+        "observed_at": "2026-11-01T03:34:22.951443+00:00",
+        "game_pid": 25364,
+        "creation_ticks": "134379774815107265",
+        "window": 18352374,
+        "foreground_pid_verified": true,
+        "creation_ticks_verified": true,
+        "world_session_id": "world-session-a1432243-2bf7-4e1a-a779-d63a4e310a5b",
+        "control_epoch": 3
+      },
+      "completed_at": "2026-11-01T03:34:33.690203+00:00"
+    },
+    "helper_sha256": "ab3a2fc79f49131fb6e315a00435b0951055ba0e3ba9828cfcaff7c8efff0e09",
+    "foreground_creation_ticks_exact_string_verified": true,
+    "windows_sendinput_events": 0,
+    "fake_minecraft_callbacks_used": false,
+    "autonomous_model_or_hardware_acceptance": false
+  },
+  "artifact_review": {
+    "proof": "outputs/mc-validation/round-080/remote-evidence/artifact-result-004.json",
+    "jar_sha256": "15f447cdf9688e6a1f9e7de4bc33d30c080a502abf51c1741998a615e0d00776",
+    "jar_bytes": 12458183,
+    "public_source_files": 889,
+    "native_mixin_classes": 6,
+    "required_native_hooks": 8,
+    "journal_table_counts": {
+      "metadata": 6,
+      "worlds": 0,
+      "tasks": 5,
+      "task_transitions": 14,
+      "contexts": 1,
+      "streams": 2,
+      "reliable": 16,
+      "journal_retired_tasks": 0,
+      "journal_summaries": 0,
+      "journal_retention_runs": 0
+    },
+    "journal_integrity": "ok",
+    "engineering_port_listeners": [],
+    "all_current_runtime_processes": [],
+    "full_application_preparation_exists": false
+  },
+  "prior_failed_attempts": [
+    {
+      "proof": "outputs/mc-validation/round-080/remote-evidence/game-result-001.json",
+      "reason": "AssertionError:NATIVE_BRIDGE_INTEGRATION_FAILED",
+      "integration_error": "AssertionError [ERR_ASSERTION]: {\"available\":true,\"goal\":{\"skill\":\"gather\",\"item_id\":\"minecraft:cobblestone\",\"count\":3},\"before\":{\"player\":{\"health\":20,\"max_health\":20,\"food\":20,\"oxygen\":300,\"position\":{\"dimension\":\"minecraft:overworld\",\"x\":-685,\"y\":75,\"z\":1001}},\"inventory\":[{\"item_id\":\"gravestone:obituary\",\"count\":1},{\"item_id\":\"minecraft:birch_planks\",\"count\":8},{\"item_id\":\"minecraft:charcoal\",\"count\":3},{\"item_id\":\"minecraft:cobblestone\",\"count\":1},{\"item_id\":\"minecraft:dirt\",\"count\":24},{\"item_id\":\"minecraft:oak_sapling\",\"count\":2},{\"item_id\":\"minecraft:stick\",\"count\":4},{\"item_id\":\"minecraft:stone_pickaxe\",\"count\":1},{\"item_id\":\"minecraft:wooden_axe\",\"count\":1},{\"item_id\":\"minecraft:wooden_pickaxe\",\"count\":1},{\"item_id\":\"minecraft:wooden_shovel\",\"count\":1}],\"screen\":\"gameplay\",\"environment\":{\"loaded_radius_chunks\":null,\"nearby_threats\":0},\"unknown_fields\":[\"loaded_radius_chunks\",\"unloaded_region\",\"unopened_container_contents\",\"hostile_entities_outside_16_blocks\",\"server_rules\"],\"schema_version\":1,\"game_instance_id\":\"mc-fe44f06e-3b89-47b8-a5c4-440dceb3e84c\",\"bridge_boot_id\":\"boot-fa97cff8-1237-4293-b86a-784936648b42\",\"world_id\":\"world-b2a35ff1289827a36bd606b6a115f11c\",\"world_session_id\":\"world-session-1769e531-d979-4d66-9010-27292460b83d\",\"connection_generation\":3,\"seq\":191,\"observed_at\":\"2026-11-01T03:04:42.566024300Z\",\"rule_fingerprint\":null,\"mode\":\"AUTO\",\"control_epoch\":6,\"inputs_released\":true,\"automation_ready\":true,\"lease_remaining_ms\":2167,\"active_task_id\":null,\"connected\":true,\"age_ms\":173,\"freshness\":\"fresh\",\"view_revision\":46},\"checked\":{\"created_at\":\"2026-11-01T03:04:42.779Z\",\"error\":null,\"kind\":\"query\",\"operation_id\":\"operation-3564afd9-1c11-49ae-b2e8-cbd6c899ef48\",\"request_id\":\"native-check_action-7\",\"result\":{\"allowed\":true,\"based_on_seq\":195,\"kind\":\"check_action\",\"reason\":null,\"source\":\"runtime_client\",\"unknown_fields\":[\"unloaded_route\",\"server_movement_restrictions\",\"server_block_rules\",\"future_drops_and_inventory_causality\"],\"world_session_id\":\"world-session-1769e531-d979-4d66-9010-27292460b83d\"},\"state\":\"succeeded\",\"updated_at\":\"2026-11-01T03:04:42.862Z\"},\"task\":{\"bridge_boot_id\":\"boot-fa97cff8-1237-4293-b86a-784936648b42\",\"control_epoch\":6,\"created_at\":\"2026-11-01T03:04:42.913918900Z\",\"effect_status\":\"unknown\",\"evidence\":[],\"game_instance_id\":\"mc-fe44f06e-3b89-47b8-a5c4-440dceb3e84c\",\"goal\":{\"count\":3,\"item_id\":\"minecraft:cobblestone\",\"skill\":\"gather\"},\"reason\":\"GAME_GATHER_BLOCK_FORBIDDEN\",\"request_id\":\"native-tool-gather-stone-pickaxe-0-2bab9df2-6882-455c-863e-da1d76556d19\",\"state\":\"failed\",\"task_id\":\"task-d9e085aa-9594-4933-b7a5-eaacdefe0915\",\"updated_at\":\"2026-11-01T03:04:44.842125400Z\",\"version\":3,\"world_id\":\"world-b2a35ff1289827a36bd606b6a115f11c\",\"world_session_id\":\"world-session-1769e531-d979-4d66-9010-27292460b83d\"},\"after\":{\"player\":{\"health\":20,\"max_health\":20,\"food\":20,\"oxygen\":300,\"position\":{\"dimension\":\"minecraft:overworld\",\"x\":-685,\"y\":75,\"z\":999}},\"inventory\":[{\"item_id\":\"gravestone:obituary\",\"count\":1},{\"item_id\":\"minecraft:birch_planks\",\"count\":8},{\"item_id\":\"minecraft:charcoal\",\"count\":3},{\"item_id\":\"minecraft:cobblestone\",\"count\":1},{\"item_id\":\"minecraft:dirt\",\"count\":24},{\"item_id\":\"minecraft:oak_sapling\",\"count\":2},{\"item_id\":\"minecraft:stick\",\"count\":4},{\"item_id\":\"minecraft:stone_pickaxe\",\"count\":1},{\"item_id\":\"minecraft:wooden_axe\",\"count\":1},{\"item_id\":\"minecraft:wooden_pickaxe\",\"count\":1},{\"item_id\":\"minecraft:wooden_shovel\",\"count\":1}],\"screen\":\"gameplay\",\"environment\":{\"loaded_radius_chunks\":null,\"nearby_threats\":0},\"unknown_fields\":[\"loaded_radius_chunks\",\"unloaded_region\",\"unopened_container_contents\",\"hostile_entities_outside_16_blocks\",\"server_rules\"],\"schema_version\":1,\"game_instance_id\":\"mc-fe44f06e-3b89-47b8-a5c4-440dceb3e84c\",\"bridge_boot_id\":\"boot-fa97cff8-1237-4293-b86a-784936648b42\",\"world_id\":\"world-b2a35ff1289827a36bd606b6a115f11c\",\"world_session_id\":\"world-session-1769e531-d979-4d66-9010-27292460b83d\",\"connection_generation\":3,\"seq\":232,\"observed_at\":\"2026-11-01T03:04:44.625158700Z\",\"rule_fingerprint\":null,\"mode\":\"PAUSED\",\"control_epoch\":7,\"inputs_released\":true,\"automation_ready\":false,\"lease_remaining_ms\":2124,\"active_task_id\":\"task-d9e085aa-9594-4933-b7a5-eaacdefe0915\",\"connected\":true,\"age_ms\":188,\"freshness\":\"fresh\",\"view_revision\":57},\"client_proof\":{\"schema_version\":1,\"classification\":\"ACTUAL_NEOFORGE_CLIENT_FACTS_NOT_AUTOMATIC_GAMEPLAY_ACCEPTANCE\",\"observed_at\":\"2026-11-01T03:04:44.726126600Z\",\"adapter\":\"minecraft.neoforge\",\"username\":\"NAIMEI\",\"profile_id\":\"a77465cf-2de0-3278-bf48-d13b367e09ce\",\"minecraft\":\"1.21.1\",\"neoforge\":\"21.1.248\",\"loaded_mods\":350,\"automatic_input_authorized\":true,\"gameplay_executor_bound\":true,\"missing_native_hooks\":[],\"control_mode\":\"AUTO\",\"control_proof\":{\"bridge_boot_id\":\"boot-fa97cff8-1237-4293-b86a-784936648b42\",\"world_session_id\":\"world-session-1769e531-d979-4d66-9010-27292460b83d\",\"control_epoch\":6,\"last_stop\":{\"epoch\":1,\"reason\":\"GAME_CAPABILITIES_CHANGED\"},\"native_input\":{\"movement_owned\":true,\"synthetic_motion_attached\":true,\"destroying\":false,\"selected_slot_owned\":false,\"all_owned_inputs_clear\":false},\"native_travel\":{\"task_id\":\"task-d9e085aa-9594-4933-b7a5-eaacdefe0915\",\"active\":true,\"gather\":true,\"ticks\":35,\"arrival_ticks\":0,\"path_searches\":2,\"walked_waypoints\":2,\"block_attempts\":0,\"server_inventory_packets\":0,\"confirmed_inventory\":-1,\"skipped_sources\":0,\"skipped_drops\":0,\"soil_cover_blocks_attempted\":0,\"tool_belt\":{\"pending\":false,\"source_slot\":-1,\"hotbar_slot\":-1,\"clicks\":0,\"server_full_packets\":0,\"confirmed_swaps\":0,\"server_revision\":-1,\"closed\":false},\"nearby_resource_drops\":[{\"x\":-684.780130797227,\"y\":75,\"z\":999.125,\"item_id\":\"minecraft:cobblestone\",\"count\":2}],\"feet_standable\":true,\"support_block\":\"minecraft:stone\"},\"native_craft\":{\"active\":false,\"task_id\":\"task-1444fd3d-8327-4531-9773-720807d93afa\",\"recipe_id\":\"minecraft:stone_pickaxe\",\"grid_size\":3,\"phase\":2,\"clicks\":17,\"server_full_packets\":18,\"confirmed_batches\":1,\"planned_batches\":1,\"produced\":1,\"server_revision\":28,\"clean_end\":true,\"owned_menu_current\":false,\"cursor_empty\":true,\"cancelled_without_gui_writes\":false},\"native_cooking\":{\"active\":false}},\"in_world\":true,\"screen\":\"gameplay\",\"received_recipes\":27261,\"player_name\":\"NAIMEI\",\"player_uuid\":\"a77465cf-2de0-3278-bf48-d13b367e09ce\",\"dimension\":\"minecraft:overworld\",\"health\":20,\"max_health\":20,\"food\":20,\"x\":-684.5057420014583,\"y\":75.53584062504456,\"z\":999.5980872690179,\"alive\":true,\"selected_slot\":0,\"mainhand_item\":\"minecraft:charcoal\",\"offhand_item\":\"gravestone:obituary\",\"inventory\":[{\"item_id\":\"gravestone:obituary\",\"count\":1},{\"item_id\":\"minecraft:birch_planks\",\"count\":8},{\"item_id\":\"minecraft:charcoal\",\"count\":3},{\"item_id\":\"minecraft:cobblestone\",\"count\":1},{\"item_id\":\"minecraft:dirt\",\"count\":24},{\"item_id\":\"minecraft:oak_sapling\",\"count\":2},{\"item_id\":\"minecraft:stick\",\"count\":4},{\"item_id\":\"minecraft:stone_pickaxe\",\"count\":1},{\"item_id\":\"minecraft:wooden_axe\",\"count\":1},{\"item_id\":\"minecraft:wooden_pickaxe\",\"count\":1},{\"item_id\":\"minecraft:wooden_shovel\",\"count\":1}],\"world_samples\":12}}\n+ actual - expected\n\n+ 'failed'\n- 'succeeded'\n\n    at toolsProbe (file:///C:/dev/%E8%99%9A%E6%8B%9F%E6%95%B0%E5%AD%97%E4%BA%BA%E7%9B%B4%E6%92%AD/mc-neoforge-NAIMEI-080-v1/tests/mc-neoforge-live-probe.mjs:393:10)\n    at async file:///C:/dev/%E8%99%9A%E6%8B%9F%E6%95%B0%E5%AD%97%E4%BA%BA%E7%9B%B4%E6%92%AD/mc-neoforge-NAIMEI-080-v1/tests/mc-neoforge-live-probe.mjs:492:23"
+    },
+    {
+      "proof": "outputs/mc-validation/round-080/remote-evidence/game-result-002.json",
+      "reason": "AssertionError:NATIVE_BRIDGE_INTEGRATION_FAILED",
+      "integration_error": "AssertionError [ERR_ASSERTION]: NO_SERVER_CONFIRMED_BACKPACK_TOOL_GATHER\n    at toolsProbe (file:///C:/dev/%E8%99%9A%E6%8B%9F%E6%95%B0%E5%AD%97%E4%BA%BA%E7%9B%B4%E6%92%AD/mc-neoforge-NAIMEI-080-v2/tests/mc-neoforge-live-probe.mjs:401:10)\n    at async file:///C:/dev/%E8%99%9A%E6%8B%9F%E6%95%B0%E5%AD%97%E4%BA%BA%E7%9B%B4%E6%92%AD/mc-neoforge-NAIMEI-080-v2/tests/mc-neoforge-live-probe.mjs:499:23"
+    },
+    {
+      "proof": "outputs/mc-validation/round-080/remote-evidence/game-result-003.json",
+      "reason": "AssertionError:NATIVE_BRIDGE_INTEGRATION_FAILED",
+      "integration_error": "AssertionError [ERR_ASSERTION]: {\"created_at\":\"2026-11-01T03:27:29.534Z\",\"error\":null,\"kind\":\"query\",\"operation_id\":\"operation-cda1b4f3-47e9-4ff8-89d1-0b5c4212f1f6\",\"request_id\":\"native-check_action-5\",\"result\":{\"allowed\":false,\"based_on_seq\":119,\"kind\":\"check_action\",\"reason\":\"GAME_CRAFT_WORKSTATION_UNAVAILABLE\",\"source\":\"runtime_client\",\"unknown_fields\":[\"server_crafting_restrictions\",\"unsupported_dynamic_or_machine_recipes\",\"unloaded_workstations\"],\"world_session_id\":\"world-session-bc2628f9-e945-4ebb-9b66-2bc22d6275b0\"},\"state\":\"succeeded\",\"updated_at\":\"2026-11-01T03:27:29.629Z\"}\n\nfalse !== true\n\n    at craft (file:///C:/dev/%E8%99%9A%E6%8B%9F%E6%95%B0%E5%AD%97%E4%BA%BA%E7%9B%B4%E6%92%AD/mc-neoforge-NAIMEI-080-v3/tests/mc-neoforge-live-probe.mjs:371:12)\n    at async toolsProbe (file:///C:/dev/%E8%99%9A%E6%8B%9F%E6%95%B0%E5%AD%97%E4%BA%BA%E7%9B%B4%E6%92%AD/mc-neoforge-NAIMEI-080-v3/tests/mc-neoforge-live-probe.mjs:393:3)\n    at async file:///C:/dev/%E8%99%9A%E6%8B%9F%E6%95%B0%E5%AD%97%E4%BA%BA%E7%9B%B4%E6%92%AD/mc-neoforge-NAIMEI-080-v3/tests/mc-neoforge-live-probe.mjs:509:23"
+    }
+  ],
+  "scope_limits": [
+    "FULL_APPLICATION_NOT_PREPARED",
+    "DSH_CONTEXT_INERT_NOT_PERSONA_OR_MODEL_ACCEPTANCE",
+    "BACKPACK_SWAP_AND_STONE_HARVEST_ONLY_NOT_COMPLETE_RESOURCE_GRAPH",
+    "ORE_CHECK_FAILURE_NOT_ORE_ACQUISITION",
+    "ACTIVE_INVENTORY_SWAP_HARDWARE_TAKEOVER_AND_RESIDUE_RECOVERY_NOT_REAL_GAME_VERIFIED",
+    "COMPLETE_RESOURCE_GRAPH_PVE_DEATH_AND_SUPPLY_PENDING",
+    "HARDWARE_STOP_LATENCY_NOT_ACCEPTED",
+    "VISION_INFERENCE_UNPREPARED",
+    "BILIBILI_AND_OFFICIAL_PROGRAMME_NOT_TESTED",
+    "FULL_FABRIC_SURVIVAL_PRELAUNCH_REMAINS_DENIED"
+  ],
+  "source_test_proofs": [
+    "outputs/mc-validation/round-080/remote-evidence/bootstrap-result-004.json",
+    "outputs/mc-validation/round-080/remote-evidence/bootstrap-result-002.json"
+  ],
+  "all_prior_remaining_text_preserved": true,
+  "public_broadcast_started": false,
+  "model_downloads": false,
+  "virtualization_used": false,
+  "remote_4090_used": false,
+  "browser_tabs_created": 0,
+  "frozen_sha256": {
+    "configs/layouts/mc-landscape-v1.json": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+    "docs/technical/mc-live-v1/13-完整方案实施总纲.md": "6642f3a63cbc82f86da5cc35e2ab7489214908f5f211ec0dc05b000950a3da34"
+  },
+  "documentation_validation": {
+    "result": "PASS",
+    "schema_definitions": 146,
+    "valid_examples": 157,
+    "negative_contract_cases": 166,
+    "http_operations": 67,
+    "markdown_files_checked": 92,
+    "local_markdown_links": 1186,
+    "host": "DESKTOP-2QQPN1H",
+    "final_proof": "outputs/mc-validation/round-080/remote-evidence/document-validation-result-002.json"
+  }
+}

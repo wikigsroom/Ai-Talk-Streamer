@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "ai_talk_streamer_bridge",
+  "version": "${version}",
+  "name": "AI Talk Streamer MC Bridge",
+  "description": "Same-player state, local input arbitration and bounded game protocol for Ai-Talk-Streamer.",
+  "environment": "client",
+  "entrypoints": {"client": ["dev.aitalkstreamer.mc.McBridgeClient"]},
+  "mixins": ["mc-bridge.mixins.json"],
+  "depends": {"fabricloader": ">=0.16.14", "minecraft": "1.21.1", "java": ">=21", "fabric-api": "*"}
+}

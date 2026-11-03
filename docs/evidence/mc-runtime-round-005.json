@@ -1,0 +1,207 @@
+{
+  "classification": "A_CONTINUITY_DISPOSITION_OPERATOR_UI_LOCAL_PROTOCOL_TESTS_ONLY",
+  "round": "005",
+  "recorded_at": "2026-10-29T21:26:31.314675+00:00",
+  "branch": "mc",
+  "turn_classification": "progress",
+  "goal_status": "active",
+  "result": "PASS_FOR_RECORDED_LOCAL_TESTS_NOT_FULL_SYSTEM_ACCEPTANCE",
+  "implemented_ids": [
+    "I039",
+    "I040",
+    "I041",
+    "I042",
+    "I043",
+    "I044",
+    "I045",
+    "I046"
+  ],
+  "environment": {
+    "os": "Windows native, no virtualization",
+    "java": "Temurin21.0.11+10",
+    "gradle": "8.14.3",
+    "node_tested": "24.19.0",
+    "production_dsh_node_required": "24.22.1",
+    "production_node_verified": false,
+    "python": "3.13",
+    "aiohttp_cors": "0.8.1, project runtime lock; test-only cache target"
+  },
+  "checks": [
+    {
+      "name": "native_java_core",
+      "passed": 36,
+      "failed": 0,
+      "report_local": "outputs/mc-validation/round-005/java-core-final"
+    },
+    {
+      "name": "java_node_interop",
+      "passed": 7,
+      "failed": 0,
+      "report_local": "outputs/mc-validation/round-005/interop-final.xml",
+      "real_game_port": false
+    },
+    {
+      "name": "node_final",
+      "passed": 47,
+      "failed": 0,
+      "skipped": 0,
+      "breakdown": {
+        "core": 21,
+        "world_recovery": 10,
+        "host": 1,
+        "mock_provider_world_context": 1,
+        "continuity": 13,
+        "operator_browser": 1
+      },
+      "report_local": "outputs/mc-validation/round-005/node-final.xml",
+      "browser_supplemental_final_report_local": "outputs/mc-validation/round-005/ui-final.xml"
+    },
+    {
+      "name": "python_proxy_and_operator_assets",
+      "passed": 5,
+      "failed": 0,
+      "report_local": "outputs/mc-validation/round-005/python-proxy-final.log"
+    },
+    {
+      "name": "native_cors_legacy_proxy_probe",
+      "result": "PASS",
+      "report_local": "outputs/mc-validation/round-005/python-route-probe-final.log",
+      "counted_as_unit_test_case": false
+    },
+    {
+      "name": "contract_document_check",
+      "result": "PASS",
+      "schema_definitions": 75,
+      "valid_examples": 57,
+      "negative_contract_cases": 28,
+      "http_operations": 39,
+      "ws_types": 17,
+      "markdown_files_checked": 20,
+      "local_markdown_links": 217,
+      "report_local": "outputs/mc-validation/round-005/document-contract-verification.json",
+      "counted_as_runtime_acceptance": false
+    }
+  ],
+  "distinct_local_test_cases_passed": 95,
+  "build_receipt_local": "outputs/mc-validation/round-005/fabric-build-receipt.json",
+  "artifact": {
+    "schema_version": 1,
+    "recorded_at": "2026-10-29T21:12:25.2423148+00:00",
+    "branch": "mc",
+    "classification": "NATIVE_BUILD_AND_CPU_PROTOCOL_CHECKS_ONLY",
+    "java": "openjdk 21.0.11 2026-04-21 LTS\r\nOpenJDK Runtime Environment Temurin-21.0.11+10 (build 21.0.11+10-LTS)\r\nOpenJDK 64-Bit Server VM Temurin-21.0.11+10 (build 21.0.11+10-LTS, mixed mode, sharing)",
+    "gradle": "8.14.3",
+    "wrapper_jar_sha256": "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172",
+    "node": "v24.19.0",
+    "unit_tests": {
+      "failures": 0,
+      "errors": 0,
+      "tests": 36,
+      "skipped": 0
+    },
+    "interop_tests": {
+      "failures": 0,
+      "errors": 0,
+      "tests": 7,
+      "skipped": 0
+    },
+    "interop_skipped_by_request": false,
+    "jar": "game-adapters/minecraft/fabric/build/libs/ai-talk-streamer-mc-bridge-0.1.0.jar",
+    "jar_sha256": "fa5dd98db19a3fd47b441cb34f0ee981b4e2f03f677615510c4739811d4bbf9b",
+    "embedded_schema_sha256": "c0fb591a355523453a83f1ebf1469f9f1800ae193b5bdf3e30d7c2354cccf6e3",
+    "sqlite_jdbc_version": "3.53.4.0",
+    "sqlite_windows_x64_dll_sha256": "f16882d2eded914edd1e1d313e7c8579e040b0da090a52ea99ad7b0c5d961c45",
+    "real_game_acceptance": "not_run"
+  },
+  "browser": {
+    "classification": "LOCAL_BROWSER_WITH_PROTOCOL_FIXTURE_ONLY",
+    "result": "PASS",
+    "browser_closed": true,
+    "page_errors": [],
+    "external_requests": [],
+    "real_minecraft": false,
+    "inference": false,
+    "checks": [
+      "actual HTTP goal create and CAS decision",
+      "goal approval never grants AUTO",
+      "unknown disposition retains B state and effect",
+      "explicit retry retains no replay",
+      "desktop 1440/mobile390 layouts",
+      "disconnect and reload preserve history while disabling writes",
+      "no media player",
+      "no external requests"
+    ],
+    "recorded_at": "2026-10-29T21:25:57.193Z"
+  },
+  "screenshots_local": [
+    "outputs/mc-validation/round-005/mc-control-desktop.png",
+    "outputs/mc-validation/round-005/mc-control-mobile.png"
+  ],
+  "failures_retained": [
+    {
+      "check": "contract count assertion",
+      "cause": "new route arithmetic initially expected40; actual39; assertion corrected",
+      "source": "tool output; generator reported39"
+    },
+    {
+      "check": "continuity-initial",
+      "cause": "test expected undefined lease while actual null; expectation corrected",
+      "report_local": "outputs/mc-validation/round-005/continuity-initial.xml"
+    },
+    {
+      "check": "continuity-ui-initial",
+      "cause": "test used nonexistent ACK stream field; corrected to actual ack_kind=task_transitions",
+      "report_local": "outputs/mc-validation/round-005/continuity-ui-initial.xml"
+    },
+    {
+      "check": "python proxy invocation",
+      "cause": "module namespace import failed; reran via unittest discover without altering production code",
+      "report_local": "outputs/mc-validation/round-005/python-proxy-initial.log"
+    },
+    {
+      "check": "native CORS probe initial",
+      "cause": "system Python lacked pinned aiohttp-cors; installed existing project pin0.8.1 only under project cache, then passed",
+      "report_local": "outputs/mc-validation/round-005/python-route-probe.log"
+    }
+  ],
+  "limits": [
+    "CPU/protocol fixtures and local browser only; no real Minecraft, inference, official Livehime or audience CDN",
+    "A session summary persists at15s intervals, flushes on ordinary disconnect; abrupt power loss can omit latest noncritical summary",
+    "B archived reliable history not fully projected to A; retention/Humanity deletion/joint runtime restore pending",
+    "all68 full-system cases not_run;4h and next-day tests not_run;100 new avatar clips not_generated",
+    "historical high I/O and generic ACK causes still require runtime fault/load investigation"
+  ],
+  "full_system_acceptance": {
+    "defined": 68,
+    "run": 0,
+    "passed": 0,
+    "not_run": 68,
+    "four_hour_run": "not_run",
+    "next_day_recovery": "not_run",
+    "avatar_clips_required": 100,
+    "new_avatar_clips_generated_this_round": 0
+  },
+  "constraints": {
+    "remote_4090": "paused",
+    "virtualization_started": false,
+    "new_model_downloads": false,
+    "public_broadcast_started": false,
+    "application_auth_added": false,
+    "new_humanity_writer": false,
+    "new_media_player": false,
+    "canonical_layout_unchanged": true,
+    "goal_complete": false
+  },
+  "file_hashes_sha256": {
+    "backend/game/continuity.mjs": "16d02f117b9b5bfb5fd895c596dbd6a07ddf4bd7fcb9ccdc2987d0b8789dc309",
+    "backend/game/tasks.mjs": "bb45091f67949f3d98c422fde4a1543f1403e8ea7f8d677cd4b7b3e4d6914124",
+    "backend/game/store.mjs": "9604b874f18959b0c8e12dad9277cfa85daed58e2ec64248a8e7f11bfbdff061",
+    "web/mc-control.html": "b23209273cccdc39e8d1169ed6b45bdd737b80b8fbafd38fd0c882303c068e0a",
+    "web/mc-control.js": "fdb2f553c6370cc5435bb7f4d3f3db5e0329bf1703c5388ed0164c2757c92550",
+    "web/mc-control.css": "9cca565d1b174dbea1ab976a2d228d5ee9cd10f6e1e1352c5b1fa4514a881fec",
+    "integration/dsh_bridge.py": "908a62450461f28e5814a8daaf3ae72c6ff617c4322810f4ab6faeab3931ee12",
+    "docs/technical/mc-live-v1/contracts/game.schema.json": "c0fb591a355523453a83f1ebf1469f9f1800ae193b5bdf3e30d7c2354cccf6e3",
+    "outputs/mc-validation/round-005/mc-control-desktop.png": "29f5823235a07e756c7f7604731fdca65f136a21d4a26dab1dd43ad9a4446657",
+    "outputs/mc-validation/round-005/mc-control-mobile.png": "abc9ae27ee0b8457c744e796e461eac5f949b1bfcf90392a0562db99a1e8e66c"
+  }
+}

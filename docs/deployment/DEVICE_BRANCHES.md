@@ -19,7 +19,7 @@
 - `configs/deployment-target.json`：当前分支目标、Git分支名和是否可部署。
 - `configs/deployment-targets.json`：两个设备的固定映射、发布指针、GPU、batch、状态目录及验收范围。
 - `configs/releases/current.json`：本分支发布指针；main只有分支目录。
-- Git检出目录以实际分支核对；复制运行目录还必须有`.setup/deployment-origin.json`，记录目标、来源分支和完整提交SHA。
+- Git检出目录以实际分支核对；传统复制运行目录必须有`.setup/deployment-origin.json`，记录目标、来源分支和完整提交SHA。MC源码安装另有下述独立来源证明，不能用手填记录替代。
 - `.setup`、私有配置、模型、运行环境、数据库和删除账本不属于Git分支。换分支不会迁移或隔离这些运行数据，必须继续使用独立安装目录与状态根。
 
 启动检查读取实际显卡名称与显存，不分配CUDA模型。3080要求该型号及至少9000MiB；4090
@@ -30,6 +30,10 @@
 激活入口。停止和状态查询继续可用，便于处理旧部署。它防止误操作，不替代操作系统权限。
 
 ## 获取与检查
+
+032新增[MC公共源码ZIP导出与无Git安装](../technical/mc-live-v1/MC源码包导出与原生安装.md)。安装校验已审查的整包摘要、完整文件和公开profile后，独立记录`.setup/mc-source-origin.json`；只有完整本机准备证明有效，既有启动检查才接受该来源。源码安装不生成或改写deployment-origin；若存在旧设备记录，仍核对3080及其设备来源分支。源码ZIP不包含模型/依赖/完整素材，完整应用安装与实机验收继续待完成。
+
+MC开发分支新增应用级[NeoForge原生3080 profile](../../configs/deployment-profiles/mc-native-3080-neoforge-v1.json)，设备目标、batch4和状态根沿用上述3080契约。由`scripts/mc_runtime.py preflight/prepare`核对真实mc检出、全运行源码清单、原生程序及锁定文件后生成独立的`.setup/mc-native-preparation.json`，不改写设备发布指针或deployment-origin。既有启动检查只有在完整准备证明与当前安装一致时接受mc来源；没有证明、源码/文件变化或复制到另一目录均拒绝。完整MC素材、执行器门禁、安装包和实机验收仍待完成，详见[MC准备说明](../technical/mc-live-v1/MC原生应用profile与准备.md)。
 
 3080源码：
 
@@ -86,3 +90,5 @@ remain available even for a mismatched installation.
 Keep private runtime configuration and persistent state outside Git and in separate
 installation/state roots. Selective common-code fixes may flow from main; never merge
 one device branch wholesale into the other or copy private state through Git.
+
+082起当前MC应用准备使用独立NeoForge21.1.248 / NAIMEI profile，旧Fabric profile及其生存preLaunch拒绝保留。游戏资源前提单独核对；正式DSH地址、原设备/状态与单所有者、完整推理资产和端口空闲条件共同成立后才允许生成本目录准备证明。资源检查不启动游戏或模型，也不迁移运行状态。

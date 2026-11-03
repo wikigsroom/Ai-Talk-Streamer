@@ -1,0 +1,1050 @@
+[
+  {
+    "id": "scoped-client-tick",
+    "path": "src/main/java/adris/altoclef/AltoClef.java",
+    "before": "    private void onClientTick() {",
+    "after": "    public void onClientTick() {\n        if (!dev.aitalkstreamer.mc.survival.SurvivalAuthority.inScope()) return;",
+    "count": 1
+  },
+  {
+    "id": "scoped-runner-tick",
+    "path": "src/main/java/adris/altoclef/tasksystem/TaskRunner.java",
+    "before": "    public void tick() {",
+    "after": "    public void tick() {\n        dev.aitalkstreamer.mc.survival.SurvivalAuthority.requireScope();",
+    "count": 1
+  },
+  {
+    "id": "scoped-runner-enable",
+    "path": "src/main/java/adris/altoclef/tasksystem/TaskRunner.java",
+    "before": "    public void enable() {",
+    "after": "    public void enable() {\n        dev.aitalkstreamer.mc.survival.SurvivalAuthority.requireScope();",
+    "count": 1
+  },
+  {
+    "id": "scoped-user-root",
+    "path": "src/main/java/adris/altoclef/chains/UserTaskChain.java",
+    "before": "    public void runTask(AltoClef mod, Task task, Runnable onFinish) {",
+    "after": "    public void runTask(AltoClef mod, Task task, Runnable onFinish) {\n        dev.aitalkstreamer.mc.survival.SurvivalAuthority.requireScope();",
+    "count": 1
+  },
+  {
+    "id": "no-idle-after-task",
+    "path": "src/main/java/adris/altoclef/chains/UserTaskChain.java",
+    "before": "boolean shouldIdle = mod.getModSettings().shouldRunIdleCommandWhenNotActive();",
+    "after": "boolean shouldIdle = false; // Controlled root never starts an independent idle command.",
+    "count": 1
+  },
+  {
+    "id": "reject-raw-commands",
+    "path": "src/main/java/adris/altoclef/commandsystem/CommandExecutor.java",
+    "before": "    public void execute(String line, Runnable onFinish, Consumer<CommandException> getException) {",
+    "after": "    public void execute(String line, Runnable onFinish, Consumer<CommandException> getException) {\n        if (!dev.aitalkstreamer.mc.survival.SurvivalAuthority.rawCommandsAllowed()) {\n            getException.accept(new RuntimeCommandException(\"GAME_SURVIVAL_RAW_COMMAND_DISABLED\"));\n            return;\n        }",
+    "count": 1
+  },
+  {
+    "id": "stop-tree-finally",
+    "path": "src/main/java/adris/altoclef/tasksystem/Task.java",
+    "before": "    public void stop(Task interruptTask) {\n        if (!active) return;\n        Debug.logInternal(\"Task STOP: \" + this + \", interrupted by \" + interruptTask);\n        if (!first) {\n            onStop(interruptTask);\n        }\n\n        if (sub != null && !sub.stopped()) {\n            sub.stop(interruptTask);\n        }\n\n        first = true;\n        active = false;\n        stopped = true;\n    }\n",
+    "after": "    public void stop(Task interruptTask) {\n        if (!active) return;\n        try {\n            if (!first) {\n                try { onStop(interruptTask); }\n                catch (dev.aitalkstreamer.mc.survival.SurvivalAuthority.Denied denied) { /* No effect after revoke. */ }\n            }\n        } finally {\n            try { if (sub != null && !sub.stopped()) sub.stop(interruptTask); }\n            finally { first = true; active = false; stopped = true; }\n        }\n    }\n",
+    "count": 1
+  },
+  {
+    "id": "stop-denial-not-swallowed",
+    "path": "src/main/java/adris/altoclef/control/SlotHandler.java",
+    "before": "        } catch (Exception e) {",
+    "after": "        } catch (dev.aitalkstreamer.mc.survival.SurvivalAuthority.Denied denied) { throw denied;\n        } catch (Exception e) {",
+    "count": 1
+  },
+  {
+    "id": "guard-slot-click",
+    "path": "src/main/java/adris/altoclef/control/SlotHandler.java",
+    "before": "            mod.getController().clickSlot(syncId, windowSlot, mouseButton, type, player);",
+    "after": "            dev.aitalkstreamer.mc.survival.SurvivalAuthority.write(() -> mod.getController().clickSlot(syncId, windowSlot, mouseButton, type, player));",
+    "count": 1
+  },
+  {
+    "id": "guard-hotbar-write",
+    "path": "src/main/java/adris/altoclef/control/SlotHandler.java",
+    "before": "        mod.getPlayer().getInventory().selectedSlot = 1;",
+    "after": "        dev.aitalkstreamer.mc.survival.SurvivalAuthority.write(() -> mod.getPlayer().getInventory().selectedSlot = 1);",
+    "count": 1
+  },
+  {
+    "id": "guard-close-screen",
+    "path": "src/main/java/adris/altoclef/util/helpers/StorageHelper.java",
+    "before": "            MinecraftClient.getInstance().player.closeHandledScreen();",
+    "after": "            dev.aitalkstreamer.mc.survival.SurvivalGui.close(MinecraftClient.getInstance().player);",
+    "count": 1
+  },
+  {
+    "id": "guard-attack",
+    "path": "src/main/java/adris/altoclef/control/PlayerExtraController.java",
+    "before": "            mod.getController().attackEntity(mod.getPlayer(), entity);\n            mod.getPlayer().swingHand(Hand.MAIN_HAND);",
+    "after": "            if (!dev.aitalkstreamer.mc.survival.SurvivalActions.readyToAttack(entity)) return;\n            dev.aitalkstreamer.mc.survival.SurvivalAuthority.write(() -> {\n                mod.getController().attackEntity(mod.getPlayer(), entity);\n                mod.getPlayer().swingHand(Hand.MAIN_HAND);\n            });",
+    "count": 1
+  },
+  {
+    "id": "guard-input-press",
+    "path": "src/main/java/adris/altoclef/control/InputControls.java",
+    "before": "        inputToKeyBinding(input).setPressed(true);\n        // Also necessary to ensure the game registers the input as \"pressed\"\n        KeyBinding.onKeyPressed(inputToKeyBinding(input).getDefaultKey());",
+    "after": "        dev.aitalkstreamer.mc.survival.SurvivalInputs.key(inputToKeyBinding(input), true);\n        dev.aitalkstreamer.mc.survival.SurvivalInputs.click(inputToKeyBinding(input));",
+    "count": 1
+  },
+  {
+    "id": "guard-input-hold",
+    "path": "src/main/java/adris/altoclef/control/InputControls.java",
+    "before": "        if (!inputToKeyBinding(input).isPressed()) {\n            KeyBinding.onKeyPressed(inputToKeyBinding(input).getDefaultKey());\n        }\n        inputToKeyBinding(input).setPressed(true);",
+    "after": "        boolean wasHeld = inputToKeyBinding(input).isPressed();\n        dev.aitalkstreamer.mc.survival.SurvivalInputs.key(inputToKeyBinding(input), true);\n        if (!wasHeld) dev.aitalkstreamer.mc.survival.SurvivalInputs.click(inputToKeyBinding(input));",
+    "count": 1
+  },
+  {
+    "id": "guard-input-release",
+    "path": "src/main/java/adris/altoclef/control/InputControls.java",
+    "before": "        inputToKeyBinding(input).setPressed(false);",
+    "after": "        dev.aitalkstreamer.mc.survival.SurvivalInputs.key(inputToKeyBinding(input), false);",
+    "count": 1
+  },
+  {
+    "id": "guard-input-queue-release",
+    "path": "src/main/java/adris/altoclef/control/InputControls.java",
+    "before": "            inputToKeyBinding(toUnpress.remove()).setPressed(false);",
+    "after": "            Input input = toUnpress.remove();\n            dev.aitalkstreamer.mc.survival.SurvivalInputs.key(inputToKeyBinding(input), false);",
+    "count": 1
+  },
+  {
+    "id": "guard-force-look",
+    "path": "src/main/java/adris/altoclef/control/InputControls.java",
+    "before": "            MinecraftClient.getInstance().player.setYaw(yaw);\n            MinecraftClient.getInstance().player.setPitch(pitch);",
+    "after": "            dev.aitalkstreamer.mc.survival.SurvivalAuthority.write(() -> {\n                MinecraftClient.getInstance().player.setYaw(yaw);\n                MinecraftClient.getInstance().player.setPitch(pitch);\n            });",
+    "count": 1
+  },
+  {
+    "id": "prelaunch-fail-closed",
+    "path": "src/main/resources/fabric.mod.json",
+    "before": "  \"entrypoints\": {",
+    "after": "  \"entrypoints\": {\n    \"preLaunch\": [\"dev.aitalkstreamer.mc.survival.SurvivalLaunchGuard\"],\n    \"ai_talk_streamer_executor\": [\"dev.aitalkstreamer.mc.survival.SurvivalGameExecutor\"],",
+    "count": 1
+  },
+  {
+    "id": "bridge-and-client-metadata",
+    "path": "src/main/resources/fabric.mod.json",
+    "before": "  \"environment\": \"*\",",
+    "after": "  \"environment\": \"client\",\n  \"depends\": {\"ai_talk_streamer_bridge\": \"0.1.0\", \"minecraft\": \"1.21.1\", \"java\": \">=21\", \"fabricloader\": \">=0.16.14\", \"fabric-api\": \"*\"},"
+  },
+  {
+    "id": "preserve-mixed-source-licenses",
+    "path": "src/main/resources/fabric.mod.json",
+    "before": "  \"license\": \"MIT\",",
+    "after": "  \"license\": [\"MIT\", \"Apache-2.0\"],"
+  },
+  {
+    "id": "clear-input-pulse-queue",
+    "path": "src/main/java/adris/altoclef/control/InputControls.java",
+    "before": "    // Before the user calls input commands for the frame\n",
+    "after": "    /** State-only reset at controlled start/close; held keys belong to the bridge. */\n    public void clearControlledQueue() {\n        dev.aitalkstreamer.mc.survival.SurvivalAuthority.requireOwnerScope();\n        toUnpress.clear();\n        _waitForRelease.clear();\n    }\n\n    // Before the user calls input commands for the frame\n",
+    "count": 1
+  },
+  {
+    "id": "task-scoped-event-subscriptions",
+    "path": "src/main/java/adris/altoclef/eventbus/Subscription.java",
+    "before": "        this.callback = callback;",
+    "after": "        this.callback = dev.aitalkstreamer.mc.survival.SurvivalAuthority.subscriber(callback, () -> EventBus.unsubscribe(this));",
+    "count": 1
+  },
+  {
+    "id": "volatile-subscription-delete",
+    "path": "src/main/java/adris/altoclef/eventbus/Subscription.java",
+    "before": "    private boolean shouldDelete;",
+    "after": "    private volatile boolean shouldDelete;",
+    "count": 1
+  },
+  {
+    "id": "eventbus-snapshot-dispatch",
+    "path": "src/main/java/adris/altoclef/eventbus/EventBus.java",
+    "before": "package adris.altoclef.eventbus;\n\nimport net.minecraft.util.Pair;\n\nimport java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.function.Consumer;\n\n/**\n * A static class to solve dependency issues. Lets us send and receive events globally, decoupling our codebase.\n * <p>\n * Technically `ConfigHelper` does something like this, but here is a more general case.\n */\n@SuppressWarnings({\"rawtypes\", \"unchecked\"})\npublic class EventBus {\n\n    private static final HashMap<Class, List<Subscription>> topics = new HashMap<>();\n    private static final List<Pair<Class, Subscription>> toAdd = new ArrayList<>();\n    private static boolean lock;\n\n    public static <T> void publish(T event) {\n        Class type = event.getClass();\n\n        // Add all subscriptions we need to add\n        for (Pair<Class, Subscription> toAdd : toAdd) {\n            subscribeInternal(toAdd.getLeft(), toAdd.getRight());\n        }\n        toAdd.clear();\n\n        if (topics.containsKey(type)) {\n            List<Subscription> subscribers = topics.get(type);\n\n            // Subscriptions can be deleted while they're called\n            List<Subscription> toDelete = new ArrayList<>();\n\n            // Go through our subscription list. We shouldn't modify the list while we're iterating it.\n            lock = true;\n            for (Subscription subRaw : subscribers) {\n                Subscription<T> sub;\n                try {\n                    sub = (Subscription<T>) subRaw;\n                    if (sub.shouldDelete()) {\n                        toDelete.add(sub);\n                    } else {\n                        sub.accept(event);\n                    }\n                } catch (ClassCastException e) {\n                    System.err.println(\"TRIED PUBLISHING MISMAPPED EVENT: \" + event);\n                    e.printStackTrace();\n                }\n            }\n            // Delete all subscriptions\n            lock = false;\n        }\n    }\n\n    private static <T> void subscribeInternal(Class<T> type, Subscription<T> sub) {\n        if (!topics.containsKey(type)) {\n            topics.put(type, new ArrayList<>());\n        }\n        topics.get(type).add(sub);\n    }\n\n    public static <T> Subscription<T> subscribe(Class<T> type, Consumer<T> consumeEvent) {\n        Subscription<T> sub = new Subscription<>(consumeEvent);\n        if (lock) {\n            toAdd.add(new Pair<>(type, sub));\n        } else {\n            subscribeInternal(type, sub);\n        }\n        return sub;\n    }\n\n    public static <T> void unsubscribe(Subscription<T> subscription) {\n        if (subscription != null)\n            subscription.delete();\n    }\n}\n",
+    "after": "package adris.altoclef.eventbus;\n\nimport java.util.*;\nimport java.util.function.Consumer;\n\n/** Snapshot dispatch: callbacks run outside the topic lock and scoped subscriptions retire at close. */\npublic class EventBus {\n    private static final Map<Class<?>, List<Subscription<?>>> topics = new HashMap<>();\n\n    public static <T> void publish(T event) {\n        Objects.requireNonNull(event);\n        Class<?> type = event.getClass();\n        List<Subscription<?>> snapshot;\n        synchronized (topics) {\n            prune(type);\n            snapshot = List.copyOf(topics.getOrDefault(type, List.of()));\n        }\n        try {\n            for (Subscription<?> subscription : snapshot) {\n                if (!subscription.shouldDelete()) deliver(subscription, event);\n            }\n        } finally {\n            synchronized (topics) { prune(type); }\n        }\n    }\n\n    @SuppressWarnings(\"unchecked\")\n    private static <T> void deliver(Subscription<?> subscription, T event) {\n        ((Subscription<T>) subscription).accept(event);\n    }\n\n    private static void prune(Class<?> type) {\n        List<Subscription<?>> listeners = topics.get(type);\n        if (listeners == null) return;\n        listeners.removeIf(Subscription::shouldDelete);\n        if (listeners.isEmpty()) topics.remove(type);\n    }\n\n    public static <T> Subscription<T> subscribe(Class<T> type, Consumer<T> consumeEvent) {\n        Objects.requireNonNull(type);\n        Subscription<T> subscription = new Subscription<>(consumeEvent);\n        synchronized (topics) { topics.computeIfAbsent(type, ignored -> new ArrayList<>()).add(subscription); }\n        return subscription;\n    }\n\n    public static <T> void unsubscribe(Subscription<T> subscription) {\n        if (subscription == null) return;\n        subscription.delete();\n        synchronized (topics) {\n            for (var iterator = topics.entrySet().iterator(); iterator.hasNext();) {\n                var listeners = iterator.next().getValue();\n                listeners.removeIf(item -> item == subscription || item.shouldDelete());\n                if (listeners.isEmpty()) iterator.remove();\n            }\n        }\n    }\n}\n",
+    "count": 1
+  },
+  {
+    "id": "defense-vanilla-reach",
+    "path": "src/main/java/adris/altoclef/control/PlayerExtraController.java",
+    "before": "        return mod.getPlayer().isInRange(entity, mod.getModSettings().getEntityReachRange());",
+    "after": "        return dev.aitalkstreamer.mc.survival.SurvivalActions.entityInReach(entity);",
+    "count": 1
+  },
+  {
+    "id": "defense-selected-entity",
+    "path": "src/main/java/adris/altoclef/chains/MobDefenseChain.java",
+    "before": "setTask(new KillEntitiesTask(toKill.getClass()));",
+    "after": "setTask(dev.aitalkstreamer.mc.survival.ControlledDefenseTask.select(toKill));",
+    "count": 1
+  },
+  {
+    "id": "defense-locked-entity",
+    "path": "src/main/java/adris/altoclef/chains/MobDefenseChain.java",
+    "before": "setTask(new KillEntitiesTask(lockedOnEntity.getClass()));",
+    "after": "setTask(dev.aitalkstreamer.mc.survival.ControlledDefenseTask.select(lockedOnEntity));",
+    "count": 1
+  },
+  {
+    "id": "defense-encounter-preserved",
+    "path": "src/main/java/adris/altoclef/chains/MobDefenseChain.java",
+    "before": "if (!(mainTask instanceof KillEntitiesTask)) {",
+    "after": "if (!(mainTask instanceof dev.aitalkstreamer.mc.survival.ControlledDefenseTask)) {",
+    "count": 1
+  },
+  {
+    "id": "defense-local-pursuit-radius",
+    "path": "src/main/java/adris/altoclef/chains/MobDefenseChain.java",
+    "before": "                for (LivingEntity hostile : hostiles) {",
+    "after": "                for (LivingEntity hostile : hostiles) {\n                    if (hostile.squaredDistanceTo(mod.getPlayer()) > 16 * 16) continue;",
+    "count": 1
+  },
+  {
+    "id": "defense-finished-yields-original-task",
+    "path": "src/main/java/adris/altoclef/chains/MobDefenseChain.java",
+    "before": "        // Run away if a weird mob is close by.",
+    "after": "        if (mainTask instanceof dev.aitalkstreamer.mc.survival.ControlledDefenseTask defense && defense.isFinished()) {\n            stopShielding(mod);\n            killAura.stopShielding(mod);\n            setTask(null);\n            needsChangeOnAttack = false;\n            lockedOnEntity = null;\n            targetEntity = null;\n            runAwayTask = null;\n            return 0;\n        }\n\n        // Run away if a weird mob is close by.",
+    "count": 1
+  },
+  {
+    "id": "supply-original-owner",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "setTask(new CollectFoodTask(settings.getFoodUnitsToCollect()));",
+    "after": "setTask(dev.aitalkstreamer.mc.survival.ControlledSupplyTask.select(settings.getFoodUnitsToCollect()));",
+    "count": 1
+  },
+  {
+    "id": "supply-actual-food-stack",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "if (ItemVer.isFood(stack)) {",
+    "after": "if (dev.aitalkstreamer.mc.survival.ControlledSupplyTask.allowedFood(stack)) {",
+    "count": 1
+  },
+  {
+    "id": "supply-actual-food-component",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "FoodComponentWrapper food = ItemVer.getFoodComponent(stack.getItem());",
+    "after": "FoodComponentWrapper food = FoodComponentWrapper.of(stack.get(net.minecraft.component.DataComponentTypes.FOOD));",
+    "count": 1
+  },
+  {
+    "id": "supply-actual-food-total",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "foodTotal += Objects.requireNonNull(ItemVer.getFoodComponent(stack.getItem())).getHunger() * stack.getCount();",
+    "after": "foodTotal = Math.addExact(foodTotal, Math.multiplyExact(food.getHunger(), stack.getCount()));",
+    "count": 1
+  },
+  {
+    "id": "supply-selected-stack-recheck",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "        mod.getInputControls().hold(Input.CLICK_RIGHT);",
+    "after": "        if (!dev.aitalkstreamer.mc.survival.ControlledSupplyTask.allowedFood(mod.getPlayer().getMainHandStack())) { stopEat(); return; }\n        mod.getInputControls().hold(Input.CLICK_RIGHT);",
+    "count": 1
+  },
+  {
+    "id": "supply-finished-yields-and-unprotects",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "        Pair<Integer, Optional<Item>> calculation = calculateFood(mod);",
+    "after": "        if (mainTask instanceof dev.aitalkstreamer.mc.survival.ControlledSupplyTask && mainTask.isFinished()) {\n            setTask(null); needsFood = false;\n        }\n        Pair<Integer, Optional<Item>> calculation = calculateFood(mod);",
+    "count": 1
+  },
+  {
+    "id": "supply-native-inventory-completion",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectFoodTask.java",
+    "before": "return StorageHelper.calculateInventoryFoodScore() >= unitsNeeded;",
+    "after": "return dev.aitalkstreamer.mc.survival.ControlledSupplyTask.inventoryNutrition() >= unitsNeeded;",
+    "count": 1
+  },
+  {
+    "id": "supply-finite-bread",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectFoodTask.java",
+    "before": "new RecipeTarget(Items.BREAD, 99999999,",
+    "after": "new RecipeTarget(Items.BREAD, dev.aitalkstreamer.mc.survival.SupplyPolicy.breadTarget(unitsNeeded),",
+    "count": 1
+  },
+  {
+    "id": "supply-finite-wheat",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectFoodTask.java",
+    "before": "new RecipeTarget(Items.WHEAT, 99999999,",
+    "after": "new RecipeTarget(Items.WHEAT, dev.aitalkstreamer.mc.survival.SupplyPolicy.wheatTarget(unitsNeeded),",
+    "count": 1
+  },
+  {
+    "id": "supply-default-minimum",
+    "path": "src/main/java/adris/altoclef/Settings.java",
+    "before": "private int minimumFoodAllowed = 0;",
+    "after": "private int minimumFoodAllowed = 12;",
+    "count": 1
+  },
+  {
+    "id": "supply-default-target",
+    "path": "src/main/java/adris/altoclef/Settings.java",
+    "before": "private int foodUnitsToCollect = 0;",
+    "after": "private int foodUnitsToCollect = 40;",
+    "count": 1
+  },
+  {
+    "id": "supply-settings-consistency",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "        Settings settings = mod.getModSettings();",
+    "after": "        Settings settings = mod.getModSettings();\n        dev.aitalkstreamer.mc.survival.SupplyPolicy.validateSettings(settings.getMinimumFoodAllowed(), settings.getFoodUnitsToCollect());",
+    "count": 1
+  },
+  {
+    "id": "supply-stock-admission-not-consumption-score",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "        if (needsFood || cachedFoodScore < settings.getMinimumFoodAllowed()) {\n            needsFood = cachedFoodScore < settings.getFoodUnitsToCollect();\n\n            // Only collect if we don't have enough food.\n            // If the user inputs invalid settings, the bot would get stuck here.\n            if (cachedFoodScore < settings.getFoodUnitsToCollect()) {\n                setTask(dev.aitalkstreamer.mc.survival.ControlledSupplyTask.select(settings.getFoodUnitsToCollect()));\n                return 55f;\n            }\n        }",
+    "after": "        int supplyStock = dev.aitalkstreamer.mc.survival.ControlledSupplyTask.inventoryNutrition();\n        if (dev.aitalkstreamer.mc.survival.SupplyPolicy.needsCollection(supplyStock,\n                settings.getMinimumFoodAllowed(), settings.getFoodUnitsToCollect(), needsFood)) {\n            needsFood = true;\n            setTask(dev.aitalkstreamer.mc.survival.ControlledSupplyTask.select(settings.getFoodUnitsToCollect()));\n            return 55f;\n        }\n        needsFood = false;",
+    "count": 1
+  },
+  {
+    "id": "cooking-task-retained",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectFoodTask.java",
+    "before": "private final SmeltInSmokerTask smeltTask = null;",
+    "after": "private Task smeltTask;",
+    "count": 1
+  },
+  {
+    "id": "actual-food-potential-without-double-count",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectFoodTask.java",
+    "before": "        double potentialFood = 0;\n        for (ItemStack food : mod.getItemStorage().getItemStacksPlayerInventory(true)) {\n            potentialFood += getFoodPotential(food);\n        }\n        int potentialBread = (int) (mod.getItemStorage().getItemCount(Items.WHEAT) / 3) + mod.getItemStorage().getItemCount(Items.HAY_BLOCK) * 3;\n        potentialFood += Objects.requireNonNull(ItemVer.getFoodComponent( Items.BREAD)).getHunger() * potentialBread;\n        // Check smelting\n        ScreenHandler screen = mod.getPlayer().currentScreenHandler;\n        if (screen instanceof SmokerScreenHandler) {\n            potentialFood += getFoodPotential(StorageHelper.getItemStackInSlot(SmokerSlot.INPUT_SLOT_MATERIALS));\n            potentialFood += getFoodPotential(StorageHelper.getItemStackInSlot(SmokerSlot.OUTPUT_SLOT));\n        }\n        return potentialFood;",
+    "after": "        return dev.aitalkstreamer.mc.survival.ControlledCookingTask.foodPotential(mod);",
+    "count": 1
+  },
+  {
+    "id": "server-confirmed-food-cooking",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectFoodTask.java",
+    "before": "            /*for (CookableFoodTarget cookable : COOKABLE_FOODS) {\n                int rawCount = mod.getItemStorage().getItemCount(cookable.getRaw());\n                if (rawCount > 0) {\n                    //Debug.logMessage(\"STARTING COOK OF \" + cookable.getRaw().getTranslationKey());\n                    int toSmelt = rawCount + mod.getItemStorage().getItemCount(cookable.getCooked());\n                    smeltTask = new SmeltInSmokerTask(new SmeltTarget(new ItemTarget(cookable.cookedFood, toSmelt), new ItemTarget(cookable.rawFood, rawCount)));\n                    smeltTask.ignoreMaterials();\n                    return smeltTask;\n                }\n            }*/",
+    "after": "            smeltTask = dev.aitalkstreamer.mc.survival.ControlledCookingTask.select(unitsNeeded);\n            if (smeltTask != null) return smeltTask;",
+    "count": 1
+  },
+  {
+    "id": "cooking-retains-food-chain-priority",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "        Pair<Integer, Optional<Item>> calculation = calculateFood(mod);",
+    "after": "        if (dev.aitalkstreamer.mc.survival.ControlledCookingTask.busy()) return 55f;\n        Pair<Integer, Optional<Item>> calculation = calculateFood(mod);",
+    "count": 1
+  },
+  {
+    "id": "cooking-cleanup-before-collection-completion",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectFoodTask.java",
+    "before": "return dev.aitalkstreamer.mc.survival.ControlledSupplyTask.inventoryNutrition() >= unitsNeeded;",
+    "after": "return !dev.aitalkstreamer.mc.survival.ControlledCookingTask.busy() && dev.aitalkstreamer.mc.survival.ControlledSupplyTask.inventoryNutrition() >= unitsNeeded;",
+    "count": 1
+  },
+  {
+    "id": "cooking-child-survives-interruption",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectFoodTask.java",
+    "before": "if (smeltTask != null && smeltTask.isActive() && !smeltTask.isFinished()) {",
+    "after": "if (smeltTask != null && !smeltTask.isFinished()) {",
+    "count": 1
+  },
+  {
+    "id": "confirmed-eating-child",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "    private void startEat(AltoClef mod, Item food) {\n        //Debug.logInternal(\"EATING \" + toUse.getTranslationKey() + \" : \" + test);\n        if (mod.getPlayer().isBlocking()) {\n            mod.log(\"want to eat, trying to stop shielding...\");\n            mod.getInputControls().release(Input.CLICK_RIGHT);\n            return;\n        }\n\n        isTryingToEat = true;\n        requestFillup = true;\n        mod.getSlotHandler().forceEquipItem(new Item[]{food}, true); //\"true\" because it's food\n        if (!dev.aitalkstreamer.mc.survival.ControlledSupplyTask.allowedFood(mod.getPlayer().getMainHandStack())) { stopEat(); return; }\n        mod.getInputControls().hold(Input.CLICK_RIGHT);\n        mod.getExtraBaritoneSettings().setInteractionPaused(true);\n    }\n\n",
+    "after": "    private void startEat(AltoClef mod, Item food) {\n        var task = dev.aitalkstreamer.mc.survival.ControlledEatingTask.select(food);\n        if (task == null) return;\n        isTryingToEat = true; requestFillup = true; setTask(task);\n    }\n\n",
+    "count": 1
+  },
+  {
+    "id": "confirmed-eating-interrupt",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "    private void stopEat() {\n        if (isTryingToEat) {\n            AltoClef altoClef = AltoClef.getInstance();\n\n            if (altoClef.getItemStorage().hasItem(Items.SHIELD) || altoClef.getItemStorage().hasItemInOffhand(Items.SHIELD)) {\n                if (StorageHelper.getItemStackInSlot(PlayerSlot.OFFHAND_SLOT).getItem() != Items.SHIELD) {\n                    altoClef.getSlotHandler().forceEquipItemToOffhand(Items.SHIELD);\n                } else {\n                    isTryingToEat = false;\n                    requestFillup = false;\n                }\n            } else {\n                isTryingToEat = false;\n                requestFillup = false;\n            }\n            altoClef.getInputControls().release(Input.CLICK_RIGHT);\n            altoClef.getExtraBaritoneSettings().setInteractionPaused(false);\n        }\n    }\n\n",
+    "after": "    private void stopEat() {\n        dev.aitalkstreamer.mc.survival.ControlledEatingTask.interrupt();\n        isTryingToEat = false; requestFillup = false;\n    }\n\n",
+    "count": 1
+  },
+  {
+    "id": "eating-child-priority-and-finished-cleanup",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "        if (dev.aitalkstreamer.mc.survival.ControlledCookingTask.busy()) return 55f;",
+    "after": "        if (dev.aitalkstreamer.mc.survival.ControlledCookingTask.busy()) return 55f;\n        if (mainTask instanceof dev.aitalkstreamer.mc.survival.ControlledEatingTask && mainTask.isFinished()) {\n            setTask(null); isTryingToEat = false;\n        }\n        if (dev.aitalkstreamer.mc.survival.ControlledEatingTask.busy()) {\n            setTask(dev.aitalkstreamer.mc.survival.ControlledEatingTask.currentTask()); return 60f;\n        }",
+    "count": 1
+  },
+  {
+    "id": "eating-start-retains-priority",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "            startEat(mod, toUse);",
+    "after": "            startEat(mod, toUse);\n            if (dev.aitalkstreamer.mc.survival.ControlledEatingTask.busy()) return 60f;",
+    "count": 1
+  },
+  {
+    "id": "eating-verified-food-selection",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "if (dev.aitalkstreamer.mc.survival.ControlledSupplyTask.allowedFood(stack)) {",
+    "after": "if (dev.aitalkstreamer.mc.survival.ControlledSupplyTask.allowedFood(stack) && dev.aitalkstreamer.mc.survival.ControlledEatingTask.canEat(stack)) {",
+    "count": 1
+  },
+  {
+    "id": "eating-cleanup-before-collection-completion",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectFoodTask.java",
+    "before": "return !dev.aitalkstreamer.mc.survival.ControlledCookingTask.busy() && dev.aitalkstreamer.mc.survival.ControlledSupplyTask.inventoryNutrition() >= unitsNeeded;",
+    "after": "return !dev.aitalkstreamer.mc.survival.ControlledCookingTask.busy() && !dev.aitalkstreamer.mc.survival.ControlledEatingTask.busy() && dev.aitalkstreamer.mc.survival.ControlledSupplyTask.inventoryNutrition() >= unitsNeeded;",
+    "count": 1
+  },
+  {
+    "id": "eating-mainhand-does-not-aim-at-world-block",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "            // Make sure we're not facing a container\n            if (!LookHelper.tryAvoidingInteractable(mod)) {\n                return Float.NEGATIVE_INFINITY;\n            }\n",
+    "after": "            // The owned eating child sends main-hand item use directly; it never clicks a world block.\n",
+    "count": 1
+  },
+  {
+    "id": "confirmed-equipment-offhand",
+    "path": "src/main/java/adris/altoclef/control/SlotHandler.java",
+    "before": "    public void forceEquipItemToOffhand(Item toEquip) {\n        if (StorageHelper.getItemStackInSlot(PlayerSlot.OFFHAND_SLOT).getItem() == toEquip) {\n            return;\n        }\n        List<Slot> currentItemSlot = mod.getItemStorage().getSlotsWithItemPlayerInventory(false,\n                toEquip);\n        for (Slot CurrentItemSlot : currentItemSlot) {\n            if (!Slot.isCursor(CurrentItemSlot)) {\n                mod.getSlotHandler().clickSlot(CurrentItemSlot, 0, SlotActionType.PICKUP);\n            } else {\n                mod.getSlotHandler().clickSlot(PlayerSlot.OFFHAND_SLOT, 0, SlotActionType.PICKUP);\n            }\n        }\n    }\n\n",
+    "after": "    public void forceEquipItemToOffhand(Item toEquip) {\n        dev.aitalkstreamer.mc.survival.ControlledEquipment.offhand(toEquip);\n    }\n\n",
+    "count": 1
+  },
+  {
+    "id": "confirmed-equipment-main",
+    "path": "src/main/java/adris/altoclef/control/SlotHandler.java",
+    "before": "    public boolean forceEquipItem(Item toEquip) {\n\n        // Already equipped\n        if (StorageHelper.getItemStackInSlot(PlayerSlot.getEquipSlot()).getItem() == toEquip) return true;\n\n        // Always equip to the second slot. First + last is occupied by baritone.\n        dev.aitalkstreamer.mc.survival.SurvivalAuthority.write(() -> mod.getPlayer().getInventory().selectedSlot = 1);\n\n        // If our item is in our cursor, simply move it to the hotbar.\n        boolean inCursor = StorageHelper.getItemStackInSlot(CursorSlot.SLOT).getItem() == toEquip;\n\n        List<Slot> itemSlots = mod.getItemStorage().getSlotsWithItemScreen(toEquip);\n        if (!itemSlots.isEmpty()) {\n            for (Slot ItemSlots : itemSlots) {\n                int hotbar = 1;\n                //_mod.getPlayer().getInventory().swapSlotWithHotbar();\n                clickSlotForce(Objects.requireNonNull(ItemSlots), inCursor ? 0 : hotbar, inCursor ? SlotActionType.PICKUP : SlotActionType.SWAP);\n                //registerSlotAction();\n            }\n            return true;\n        }\n        return false;\n    }\n\n",
+    "after": "    public boolean forceEquipItem(Item toEquip) {\n        return dev.aitalkstreamer.mc.survival.ControlledEquipment.main(toEquip);\n    }\n\n",
+    "count": 1
+  },
+  {
+    "id": "confirmed-equipment-deequip",
+    "path": "src/main/java/adris/altoclef/control/SlotHandler.java",
+    "before": "    public boolean forceDeequip(Predicate<ItemStack> isBad) {\n        ItemStack equip = StorageHelper.getItemStackInSlot(PlayerSlot.getEquipSlot());\n        ItemStack cursor = StorageHelper.getItemStackInSlot(CursorSlot.SLOT);\n        if (isBad.test(cursor)) {\n            // Throw away cursor slot OR move\n            Optional<Slot> fittableSlots = mod.getItemStorage().getSlotThatCanFitInPlayerInventory(equip, false);\n            if (fittableSlots.isEmpty()) {\n                // Try to swap items with the first non-bad slot.\n                for (Slot slot : Slot.getCurrentScreenSlots()) {\n                    if (!isBad.test(StorageHelper.getItemStackInSlot(slot))) {\n                        clickSlotForce(slot, 0, SlotActionType.PICKUP);\n                        return false;\n                    }\n                }\n                if (ItemHelper.canThrowAwayStack(mod, cursor)) {\n                    clickSlotForce(PlayerSlot.UNDEFINED, 0, SlotActionType.PICKUP);\n                    return true;\n                }\n                // Can't throw :(\n                return false;\n            } else {\n                // Put in the empty/available slot.\n                clickSlotForce(fittableSlots.get(), 0, SlotActionType.PICKUP);\n                return true;\n            }\n        } else if (isBad.test(equip)) {\n            // Pick up the item\n            clickSlotForce(PlayerSlot.getEquipSlot(), 0, SlotActionType.PICKUP);\n            return false;\n        } else if (equip.isEmpty() && !cursor.isEmpty()) {\n            // cursor is good and equip is empty, so finish filling it in.\n            clickSlotForce(PlayerSlot.getEquipSlot(), 0, SlotActionType.PICKUP);\n            return true;\n        }\n        // We're already de-equipped\n        return true;\n    }\n\n",
+    "after": "    public boolean forceDeequip(Predicate<ItemStack> isBad) {\n        return dev.aitalkstreamer.mc.survival.ControlledEquipment.deequip(isBad);\n    }\n\n",
+    "count": 1
+  },
+  {
+    "id": "confirmed-equipment-slot",
+    "path": "src/main/java/adris/altoclef/control/SlotHandler.java",
+    "before": "    public void forceEquipSlot(Slot slot) {\n        Slot target = PlayerSlot.getEquipSlot();\n        clickSlotForce(slot, target.getInventorySlot(), SlotActionType.SWAP);\n    }\n\n",
+    "after": "    public void forceEquipSlot(Slot slot) {\n        dev.aitalkstreamer.mc.survival.ControlledEquipment.mainSlot(slot);\n    }\n\n",
+    "count": 1
+  },
+  {
+    "id": "confirmed-equipment-item-target",
+    "path": "src/main/java/adris/altoclef/control/SlotHandler.java",
+    "before": "    public boolean forceEquipItem(ItemTarget toEquip, boolean unInterruptable) {\n        if (toEquip == null) return false;\n\n        //If the bot try to eat\n        if (mod.getFoodChain().needsToEat() && !unInterruptable) { //unless we really need to force equip the item\n            return false; //don't equip the item for now\n        }\n\n        Slot target = PlayerSlot.getEquipSlot();\n        // Already equipped\n        if (toEquip.matches(StorageHelper.getItemStackInSlot(target).getItem())) return true;\n\n        for (Item item : toEquip.getMatches()) {\n            if (mod.getItemStorage().hasItem(item)) {\n                if (forceEquipItem(item)) return true;\n            }\n        }\n        return false;\n    }\n\n",
+    "after": "    public boolean forceEquipItem(ItemTarget toEquip, boolean unInterruptable) {\n        if (toEquip == null || mod.getFoodChain().needsToEat() && !unInterruptable) return false;\n        return dev.aitalkstreamer.mc.survival.ControlledEquipment.main(toEquip.getMatches());\n    }\n\n",
+    "count": 1
+  },
+  {
+    "id": "confirmed-equipment-refresh-read-only",
+    "path": "src/main/java/adris/altoclef/control/SlotHandler.java",
+    "before": "    public void refreshInventory() {\n        if (MinecraftClient.getInstance().player == null)\n            return;\n        for (int i = 0; i < MinecraftClient.getInstance().player.getInventory().main.size(); ++i) {\n            Slot slot = Slot.getFromCurrentScreenInventory(i);\n            clickSlotForce(slot, 0, SlotActionType.PICKUP);\n            clickSlotForce(slot, 0, SlotActionType.PICKUP);\n        }\n    }",
+    "after": "    public void refreshInventory() {\n        dev.aitalkstreamer.mc.survival.ControlledEquipment.refresh();\n    }\n",
+    "count": 1
+  },
+  {
+    "id": "confirmed-equipment-armor-task",
+    "path": "src/main/java/adris/altoclef/tasks/misc/EquipArmorTask.java",
+    "before": "    @Override\n    protected Task onTick() {\n        ItemTarget[] armorsNotEquipped = Arrays.stream(toEquip).filter(target -> !StorageHelper.itemTargetsMetInventory(target) && !StorageHelper.isArmorEquipped(target.getMatches())).toArray(ItemTarget[]::new);\n        boolean armorMet = armorsNotEquipped.length == 0;\n        if (!armorMet) {\n            setDebugState(\"Obtaining armor\");\n            return new CataloguedResourceTask(armorsNotEquipped);\n        }\n\n        setDebugState(\"Equipping armor\");\n        AltoClef mod = AltoClef.getInstance();\n\n        // Now equip\n        for (ItemTarget targetArmor : toEquip) {\n            Item[] targetArmorMatches = targetArmor.getMatches();\n            if (Arrays.stream(targetArmorMatches).toList().contains(Items.SHIELD)) {\n                ShieldItem shield = (ShieldItem) Objects.requireNonNull(targetArmor.getMatches())[0];\n                if (shield == null) {\n                    Debug.logWarning(\"Item \" + targetArmor + \" is not armor! Will not equip.\");\n                } else {\n                    if (!StorageHelper.isArmorEquipped(shield)) {\n                        if (!(mod.getPlayer().currentScreenHandler instanceof PlayerScreenHandler)) {\n                            ItemStack cursorStack = StorageHelper.getItemStackInCursorSlot();\n                            if (!cursorStack.isEmpty()) {\n                                Optional<Slot> moveTo = mod.getItemStorage().getSlotThatCanFitInPlayerInventory(cursorStack, false);\n                                if (moveTo.isPresent()) {\n                                    mod.getSlotHandler().clickSlot(moveTo.get(), 0, SlotActionType.PICKUP);\n                                    return null;\n                                }\n                                if (ItemHelper.canThrowAwayStack(mod, cursorStack)) {\n                                    mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n                                    return null;\n                                }\n                                Optional<Slot> garbage = StorageHelper.getGarbageSlot(mod);\n                                // Try throwing away cursor slot if it's garbage\n                                if (garbage.isPresent()) {\n                                    mod.getSlotHandler().clickSlot(garbage.get(), 0, SlotActionType.PICKUP);\n                                    return null;\n                                }\n                                mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n                            } else {\n                                StorageHelper.closeScreen();\n                            }\n                        }\n                        Slot toMove = PlayerSlot.getEquipSlot(EquipmentSlot.OFFHAND);\n                        if (toMove == null) {\n                            Debug.logWarning(\"Invalid armor equip slot for item \" + shield.getTranslationKey());\n                        }\n                        return new MoveItemToSlotFromInventoryTask(targetArmor, toMove);\n                    }\n                }\n            } else {\n                ArmorItem item = (ArmorItem) Objects.requireNonNull(targetArmor.getMatches())[0];\n                if (item == null) {\n                    Debug.logWarning(\"Item \" + targetArmor + \" is not armor! Will not equip.\");\n                } else {\n                    if (!StorageHelper.isArmorEquipped(item)) {\n                        if (!(mod.getPlayer().currentScreenHandler instanceof PlayerScreenHandler)) {\n                            ItemStack cursorStack = StorageHelper.getItemStackInCursorSlot();\n                            if (!cursorStack.isEmpty()) {\n                                Optional<Slot> moveTo = mod.getItemStorage().getSlotThatCanFitInPlayerInventory(cursorStack, false);\n                                if (moveTo.isPresent()) {\n                                    mod.getSlotHandler().clickSlot(moveTo.get(), 0, SlotActionType.PICKUP);\n                                    return null;\n                                }\n                                if (ItemHelper.canThrowAwayStack(mod, cursorStack)) {\n                                    mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n                                    return null;\n                                }\n                                Optional<Slot> garbage = StorageHelper.getGarbageSlot(mod);\n                                // Try throwing away cursor slot if it's garbage\n                                if (garbage.isPresent()) {\n                                    mod.getSlotHandler().clickSlot(garbage.get(), 0, SlotActionType.PICKUP);\n                                    return null;\n                                }\n                                mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n                            } else {\n                                StorageHelper.closeScreen();\n                            }\n                        }\n                        Slot toMove = PlayerSlot.getEquipSlot(item.getSlotType());\n                        if (toMove == null) {\n                            Debug.logWarning(\"Invalid armor equip slot for item \" + item.getTranslationKey() + \": \" + item.getSlotType());\n                        }\n                        return new MoveItemToSlotFromInventoryTask(targetArmor, toMove);\n                    }\n                }\n            }\n        }\n\n        return null;\n    }\n\n",
+    "after": "    @Override\n    protected Task onTick() {\n        ItemTarget[] missing = Arrays.stream(toEquip).filter(target -> !StorageHelper.itemTargetsMetInventory(target)\n                && !StorageHelper.isArmorEquipped(target.getMatches())).toArray(ItemTarget[]::new);\n        if (missing.length > 0) return new CataloguedResourceTask(missing);\n        for (ItemTarget target : toEquip) {\n            if (!dev.aitalkstreamer.mc.survival.ControlledEquipment.armor(target.getMatches())) return null;\n        }\n        return null;\n    }\n\n",
+    "count": 1
+  },
+  {
+    "id": "confirmed-equipment-armor-completion",
+    "path": "src/main/java/adris/altoclef/tasks/misc/EquipArmorTask.java",
+    "before": "return armorTestAll(item -> StorageHelper.isArmorEquipped(item));",
+    "after": "return !dev.aitalkstreamer.mc.survival.ControlledEquipment.busy() && armorTestAll(item -> StorageHelper.isArmorEquipped(item));",
+    "count": 1
+  },
+  {
+    "id": "confirmed-equipment-defer-dependent-chains",
+    "path": "src/main/java/adris/altoclef/tasksystem/TaskRunner.java",
+    "before": "        if (cachedCurrentTaskChain != null && maxChain != cachedCurrentTaskChain) {",
+    "after": "        if (dev.aitalkstreamer.mc.survival.ControlledEquipment.defers(maxChain)) return;\n        if (cachedCurrentTaskChain != null && maxChain != cachedCurrentTaskChain) {",
+    "count": 1
+  },
+  {
+    "id": "confirmed-equipment-food-does-not-overlap",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "        AltoClef mod = AltoClef.getInstance();\n\n        if (WorldHelper.isInNetherPortal()) {",
+    "after": "        AltoClef mod = AltoClef.getInstance();\n        if (dev.aitalkstreamer.mc.survival.ControlledEquipment.busy()) return Float.NEGATIVE_INFINITY;\n\n        if (WorldHelper.isInNetherPortal()) {",
+    "count": 1
+  },
+  {
+    "id": "confirmed-equipment-food-stock-completion",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectFoodTask.java",
+    "before": "return !dev.aitalkstreamer.mc.survival.ControlledCookingTask.busy() && !dev.aitalkstreamer.mc.survival.ControlledEatingTask.busy() && dev.aitalkstreamer.mc.survival.ControlledSupplyTask.inventoryNutrition() >= unitsNeeded;",
+    "after": "return !dev.aitalkstreamer.mc.survival.ControlledEquipment.busy() && !dev.aitalkstreamer.mc.survival.ControlledCookingTask.busy() && !dev.aitalkstreamer.mc.survival.ControlledEatingTask.busy() && dev.aitalkstreamer.mc.survival.ControlledSupplyTask.inventoryNutrition() >= unitsNeeded;",
+    "count": 1
+  },
+  {
+    "id": "owned-threat-shield-start",
+    "path": "src/main/java/adris/altoclef/chains/MobDefenseChain.java",
+    "before": "    private static void startShielding(AltoClef mod) {\n        shielding = true;\n        mod.getClientBaritone().getPathingBehavior().requestPause();\n        mod.getExtraBaritoneSettings().setInteractionPaused(true);\n        if (!mod.getPlayer().isBlocking()) {\n            ItemStack handItem = StorageHelper.getItemStackInSlot(PlayerSlot.getEquipSlot());\n            if (ItemVer.isFood(handItem)) {\n                List<ItemStack> spaceSlots = mod.getItemStorage().getItemStacksPlayerInventory(false);\n                for (ItemStack spaceSlot : spaceSlots) {\n                    if (spaceSlot.isEmpty()) {\n                        mod.getSlotHandler().clickSlot(PlayerSlot.getEquipSlot(), 0, SlotActionType.QUICK_MOVE);\n                        return;\n                    }\n                }\n                Optional<Slot> garbage = StorageHelper.getGarbageSlot(mod);\n                garbage.ifPresent(slot -> mod.getSlotHandler().forceEquipItem(StorageHelper.getItemStackInSlot(slot).getItem()));\n            }\n        }\n        mod.getInputControls().hold(Input.SNEAK);\n        mod.getInputControls().hold(Input.CLICK_RIGHT);\n    }",
+    "after": "    private static void startShielding(AltoClef mod) {\n        dev.aitalkstreamer.mc.survival.ControlledShield.requestThreat();\n        mod.getClientBaritone().getPathingBehavior().requestPause();\n    }",
+    "count": 1
+  },
+  {
+    "id": "owned-threat-shield-stop",
+    "path": "src/main/java/adris/altoclef/chains/MobDefenseChain.java",
+    "before": "    private void stopShielding(AltoClef mod) {\n        if (shielding) {\n            ItemStack cursor = StorageHelper.getItemStackInCursorSlot();\n            if (ItemVer.isFood(cursor)) {\n                Optional<Slot> toMoveTo = mod.getItemStorage().getSlotThatCanFitInPlayerInventory(cursor, false).or(() -> StorageHelper.getGarbageSlot(mod));\n                if (toMoveTo.isPresent()) {\n                    Slot garbageSlot = toMoveTo.get();\n                    mod.getSlotHandler().clickSlot(garbageSlot, 0, SlotActionType.PICKUP);\n                }\n            }\n            mod.getInputControls().release(Input.SNEAK);\n            mod.getInputControls().release(Input.CLICK_RIGHT);\n            mod.getExtraBaritoneSettings().setInteractionPaused(false);\n            shielding = false;\n        }\n    }",
+    "after": "    private void stopShielding(AltoClef mod) {\n        dev.aitalkstreamer.mc.survival.ControlledShield.withdrawThreat();\n    }",
+    "count": 1
+  },
+  {
+    "id": "owned-threat-shield-state",
+    "path": "src/main/java/adris/altoclef/chains/MobDefenseChain.java",
+    "before": "    public boolean isShielding() {\n        return shielding || killAura.isShielding();\n    }",
+    "after": "    public boolean isShielding() {\n        return dev.aitalkstreamer.mc.survival.ControlledShield.threatDemanded() || killAura.isShielding();\n    }",
+    "count": 1
+  },
+  {
+    "id": "owned-threat-shield-before-equipment",
+    "path": "src/main/java/adris/altoclef/chains/MobDefenseChain.java",
+    "before": "mod.getSlotHandler().forceEquipItemToOffhand(Items.SHIELD);",
+    "after": "dev.aitalkstreamer.mc.survival.ControlledShield.requestThreat();\n                    mod.getSlotHandler().forceEquipItemToOffhand(Items.SHIELD);",
+    "count": 2
+  },
+  {
+    "id": "owned-melee-shield-start",
+    "path": "src/main/java/adris/altoclef/control/KillAura.java",
+    "before": "    public void startShielding(AltoClef mod) {\n        shielding = true;\n        mod.getClientBaritone().getPathingBehavior().requestPause();\n        mod.getExtraBaritoneSettings().setInteractionPaused(true);\n        if (!mod.getPlayer().isBlocking()) {\n            ItemStack handItem = StorageHelper.getItemStackInSlot(PlayerSlot.getEquipSlot());\n            if (ItemVer.isFood(handItem)) {\n                List<ItemStack> spaceSlots = mod.getItemStorage().getItemStacksPlayerInventory(false);\n                if (!spaceSlots.isEmpty()) {\n                    for (ItemStack spaceSlot : spaceSlots) {\n                        if (spaceSlot.isEmpty()) {\n                            mod.getSlotHandler().clickSlot(PlayerSlot.getEquipSlot(), 0, SlotActionType.QUICK_MOVE);\n                            return;\n                        }\n                    }\n                }\n                Optional<Slot> garbage = StorageHelper.getGarbageSlot(mod);\n                garbage.ifPresent(slot -> mod.getSlotHandler().forceEquipItem(StorageHelper.getItemStackInSlot(slot).getItem()));\n            }\n        }\n        mod.getInputControls().hold(Input.SNEAK);\n        mod.getInputControls().hold(Input.CLICK_RIGHT);\n    }",
+    "after": "    public void startShielding(AltoClef mod) {\n        dev.aitalkstreamer.mc.survival.ControlledShield.requestMelee();\n        mod.getClientBaritone().getPathingBehavior().requestPause();\n    }",
+    "count": 1
+  },
+  {
+    "id": "owned-melee-shield-stop",
+    "path": "src/main/java/adris/altoclef/control/KillAura.java",
+    "before": "    public void stopShielding(AltoClef mod) {\n        if (shielding) {\n            ItemStack cursor = StorageHelper.getItemStackInCursorSlot();\n            if (ItemVer.isFood(cursor)) {\n                Optional<Slot> toMoveTo = mod.getItemStorage().getSlotThatCanFitInPlayerInventory(cursor, false).or(() -> StorageHelper.getGarbageSlot(mod));\n                if (toMoveTo.isPresent()) {\n                    Slot garbageSlot = toMoveTo.get();\n                    mod.getSlotHandler().clickSlot(garbageSlot, 0, SlotActionType.PICKUP);\n                }\n            }\n            mod.getInputControls().release(Input.SNEAK);\n            mod.getInputControls().release(Input.CLICK_RIGHT);\n            mod.getInputControls().release(Input.JUMP);\n            mod.getExtraBaritoneSettings().setInteractionPaused(false);\n            shielding = false;\n        }\n    }",
+    "after": "    public void stopShielding(AltoClef mod) {\n        dev.aitalkstreamer.mc.survival.ControlledShield.withdrawMelee();\n    }",
+    "count": 1
+  },
+  {
+    "id": "owned-melee-shield-state",
+    "path": "src/main/java/adris/altoclef/control/KillAura.java",
+    "before": "    public boolean isShielding() {\n        return shielding;\n    }",
+    "after": "    public boolean isShielding() {\n        return dev.aitalkstreamer.mc.survival.ControlledShield.meleeDemanded();\n    }",
+    "count": 1
+  },
+  {
+    "id": "owned-melee-shield-before-equipment",
+    "path": "src/main/java/adris/altoclef/control/KillAura.java",
+    "before": "mod.getSlotHandler().forceEquipItemToOffhand(Items.SHIELD);",
+    "after": "dev.aitalkstreamer.mc.survival.ControlledShield.requestMelee();\n                    mod.getSlotHandler().forceEquipItemToOffhand(Items.SHIELD);",
+    "count": 1
+  },
+  {
+    "id": "owned-shield-defers-root-completion",
+    "path": "src/main/java/adris/altoclef/tasksystem/TaskRunner.java",
+    "before": "        if (dev.aitalkstreamer.mc.survival.ControlledEquipment.defers(maxChain)) return;",
+    "after": "        if (dev.aitalkstreamer.mc.survival.ControlledEquipment.defers(maxChain)) return;\n        if (dev.aitalkstreamer.mc.survival.ControlledShield.defers(maxChain)) return;",
+    "count": 1
+  },
+  {
+    "id": "resource-confirmed-inventory-child",
+    "path": "src/main/java/adris/altoclef/tasks/CraftInInventoryTask.java",
+    "before": "    private boolean _fullCheckFailed = false;",
+    "after": "    private boolean _fullCheckFailed = false;\n    private Task controlledResourceCraft;",
+    "count": 1
+  },
+  {
+    "id": "resource-inventory-no-cursor-cleanup-onResourceStart",
+    "path": "src/main/java/adris/altoclef/tasks/CraftInInventoryTask.java",
+    "before": "    protected void onResourceStart(AltoClef mod) {\n        _fullCheckFailed = false;\n        ItemStack cursorStack = StorageHelper.getItemStackInCursorSlot();\n        if (!cursorStack.isEmpty() && !StorageHelper.isBigCraftingOpen()) {\n            Optional<Slot> moveTo = mod.getItemStorage().getSlotThatCanFitInPlayerInventory(cursorStack, false);\n            moveTo.ifPresent(slot -> mod.getSlotHandler().clickSlot(slot, 0, SlotActionType.PICKUP));\n            if (ItemHelper.canThrowAwayStack(mod, cursorStack)) {\n                mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n            }\n            Optional<Slot> garbage = StorageHelper.getGarbageSlot(mod);\n            // Try throwing away cursor slot if it's garbage\n            garbage.ifPresent(slot -> mod.getSlotHandler().clickSlot(slot, 0, SlotActionType.PICKUP));\n            mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n        } else {\n            StorageHelper.closeScreen();\n        } // Just to be safe I guess\n    }",
+    "after": "    protected void onResourceStart(AltoClef mod) {\n        // Owned confirmed transactions retain their cursor; revoked cleanup never moves or discards it.\n    }",
+    "count": 1
+  },
+  {
+    "id": "resource-inventory-no-cursor-cleanup-onResourceStop",
+    "path": "src/main/java/adris/altoclef/tasks/CraftInInventoryTask.java",
+    "before": "    protected void onResourceStop(AltoClef mod, Task interruptTask) {\n        ItemStack cursorStack = StorageHelper.getItemStackInCursorSlot();\n        if (!cursorStack.isEmpty()) {\n            List<Slot> moveTo = mod.getItemStorage().getSlotsThatCanFitInPlayerInventory(cursorStack, false);\n            if (!moveTo.isEmpty()) {\n                for (Slot MoveTo : moveTo) {\n                    mod.getSlotHandler().clickSlot(MoveTo, 0, SlotActionType.PICKUP);\n                }\n            } else {\n                Optional<Slot> garbageSlot = StorageHelper.getGarbageSlot(mod);\n                if (garbageSlot.isPresent()) {\n                    mod.getSlotHandler().clickSlot(garbageSlot.get(), 0, SlotActionType.PICKUP);\n                } else {\n                    mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n                }\n            }\n        }\n    }",
+    "after": "    protected void onResourceStop(AltoClef mod, Task interruptTask) {\n        // Owned confirmed transactions retain their cursor; revoked cleanup never moves or discards it.\n    }",
+    "count": 1
+  },
+  {
+    "id": "resource-table-no-cursor-cleanup-onResourceStart",
+    "path": "src/main/java/adris/altoclef/tasks/container/CraftInTableTask.java",
+    "before": "    protected void onResourceStart(AltoClef mod) {\n\n    }",
+    "after": "    protected void onResourceStart(AltoClef mod) {\n        // Owned confirmed transactions retain their cursor; revoked cleanup never moves or discards it.\n    }",
+    "count": 1
+  },
+  {
+    "id": "resource-table-no-cursor-cleanup-onResourceStop",
+    "path": "src/main/java/adris/altoclef/tasks/container/CraftInTableTask.java",
+    "before": "    protected void onResourceStop(AltoClef mod, Task interruptTask) {\n        // Get the item stack in the cursor slot.\n        ItemStack cursorStack = StorageHelper.getItemStackInCursorSlot();\n\n        // If the cursor stack is not empty, handle it.\n        if (!cursorStack.isEmpty()) {\n            // Find a slot in the player inventory that can fit the cursor stack.\n            Optional<Slot> moveToSlot = mod.getItemStorage().getSlotThatCanFitInPlayerInventory(cursorStack, false);\n\n            // If a slot is found, pick up the item from the cursor slot and move it to the found slot.\n            moveToSlot.ifPresent(slot -> mod.getSlotHandler().clickSlot(slot, 0, SlotActionType.PICKUP));\n\n            // If the item can be thrown away, pick up the item from the cursor slot and throw it away.\n            if (ItemHelper.canThrowAwayStack(mod, cursorStack)) {\n                mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n            }\n\n            // Find the garbage slot and move the item from the cursor slot to the garbage slot.\n            Optional<Slot> garbageSlot = StorageHelper.getGarbageSlot(mod);\n            garbageSlot.ifPresent(slot -> mod.getSlotHandler().clickSlot(slot, 0, SlotActionType.PICKUP));\n        } else {\n            // If the cursor stack is empty, close the screen.\n            StorageHelper.closeScreen();\n        }\n\n        // Pick up an undefined slot.\n        mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n    }",
+    "after": "    protected void onResourceStop(AltoClef mod, Task interruptTask) {\n        // Owned confirmed transactions retain their cursor; revoked cleanup never moves or discards it.\n    }",
+    "count": 1
+  },
+  {
+    "id": "resource-confirmed-inventory-execution",
+    "path": "src/main/java/adris/altoclef/tasks/CraftInInventoryTask.java",
+    "before": "    protected Task onResourceTick(AltoClef mod) {\n        // Grab from output FIRST\n        if (StorageHelper.isPlayerInventoryOpen()) {\n            if (StorageHelper.getItemStackInCursorSlot().isEmpty()) {\n                Item outputItem = StorageHelper.getItemStackInSlot(PlayerSlot.CRAFT_OUTPUT_SLOT).getItem();\n                if (itemTargets != null) {\n                    for (ItemTarget target : itemTargets) {\n                        if (target.matches(outputItem)) {\n                            return new ReceiveCraftingOutputSlotTask(PlayerSlot.CRAFT_OUTPUT_SLOT, target.getTargetCount());\n                        }\n                    }\n                }\n            }\n        }\n\n        ItemTarget toGet = itemTargets[0];\n        Item toGetItem = toGet.getMatches()[0];\n        if (_collect && !StorageHelper.hasRecipeMaterialsOrTarget(mod, _target)) {\n            // Collect recipe materials\n            setDebugState(\"Collecting materials\");\n            return collectRecipeSubTask(mod);\n        }\n\n        // No need to free inventory, output gets picked up.\n\n        setDebugState(\"Crafting in inventory... for \" + toGet);\n        return mod.getModSettings().shouldUseCraftingBookToCraft()\n                ? new CraftGenericWithRecipeBooksTask(_target)\n                : new CraftGenericManuallyTask(_target);\n    }",
+    "after": "    protected Task onResourceTick(AltoClef mod) {\n        if (controlledResourceCraft == null) controlledResourceCraft = new dev.aitalkstreamer.mc.survival.ControlledResourceCraftTask(\n                new RecipeTarget[]{_target}, _collect, _ignoreUncataloguedSlots, () -> collectRecipeSubTask(mod));\n        return controlledResourceCraft;\n    }",
+    "count": 1
+  },
+  {
+    "id": "resource-confirmed-table-child-type",
+    "path": "src/main/java/adris/altoclef/tasks/container/CraftInTableTask.java",
+    "before": "    private final DoCraftInTableTask craftTask;",
+    "after": "    private final dev.aitalkstreamer.mc.survival.ControlledResourceCraftTask craftTask;",
+    "count": 1
+  },
+  {
+    "id": "resource-confirmed-table-default-targets",
+    "path": "src/main/java/adris/altoclef/tasks/container/CraftInTableTask.java",
+    "before": "new DoCraftInTableTask(this.targets)",
+    "after": "new dev.aitalkstreamer.mc.survival.ControlledResourceCraftTask(this.targets)",
+    "count": 1
+  },
+  {
+    "id": "resource-confirmed-table-collect-options",
+    "path": "src/main/java/adris/altoclef/tasks/container/CraftInTableTask.java",
+    "before": "new DoCraftInTableTask(targets, collect, ignoreUncataloguedSlots)",
+    "after": "new dev.aitalkstreamer.mc.survival.ControlledResourceCraftTask(targets, collect, ignoreUncataloguedSlots)",
+    "count": 1
+  },
+  {
+    "id": "resource-retain-confirmed-craft-path",
+    "path": "src/main/java/adris/altoclef/tasksystem/Task.java",
+    "before": "        Task newSub = onTick();",
+    "after": "        Task newSub = dev.aitalkstreamer.mc.survival.ConfirmedCraftTask.retains(this) ? sub : onTick();",
+    "count": 1
+  },
+  {
+    "id": "resource-preserve-forcing-descendant",
+    "path": "src/main/java/adris/altoclef/tasksystem/Task.java",
+    "before": "    private boolean canBeInterrupted(Task subTask, Task toInterruptWith) {\n        if (subTask == null) return true;\n        // Our task can declare that is FORCES itself to be active NOW.\n        return (subTask.thisOrChildSatisfies(task -> {\n            if (task instanceof ITaskCanForce canForce) {\n                return !canForce.shouldForce(toInterruptWith);\n            }\n            return true;\n        }));\n    }",
+    "after": "    private boolean canBeInterrupted(Task subTask, Task toInterruptWith) {\n        return subTask == null || !subTask.thisOrChildSatisfies(task ->\n                task instanceof ITaskCanForce canForce && canForce.shouldForce(toInterruptWith));\n    }",
+    "count": 1
+  },
+  {
+    "id": "resource-confirmed-craft-before-root-finish",
+    "path": "src/main/java/adris/altoclef/chains/SingleTaskChain.java",
+    "before": "            if ((mainTask.isFinished()) || mainTask.stopped()) {",
+    "after": "            if ((!dev.aitalkstreamer.mc.survival.ConfirmedCraftTask.retains(mainTask) && mainTask.isFinished()) || mainTask.stopped()) {",
+    "count": 1
+  },
+  {
+    "id": "resource-confirmed-craft-keeps-food-from-live-grid",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "        if (dev.aitalkstreamer.mc.survival.ControlledEquipment.busy()) return Float.NEGATIVE_INFINITY;",
+    "after": "        if (dev.aitalkstreamer.mc.survival.ControlledEquipment.busy()) return Float.NEGATIVE_INFINITY;\n        if (dev.aitalkstreamer.mc.survival.ConfirmedCraftTask.busy()) return Float.NEGATIVE_INFINITY;",
+    "count": 1
+  },
+  {
+    "id": "material-capacity-collector-child",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectRecipeCataloguedResourcesTask.java",
+    "before": "    private boolean _finished = false;",
+    "after": "    private boolean _finished = false;\n    private dev.aitalkstreamer.mc.survival.ControlledRecipeResourcesTask controlled;",
+    "count": 1
+  },
+  {
+    "id": "material-capacity-collector-start",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectRecipeCataloguedResourcesTask.java",
+    "before": "    protected void onStart() {\n        _finished = false;\n    }",
+    "after": "    protected void onStart() {\n        // Retain the same material child and original root selection budget.\n    }",
+    "count": 1
+  },
+  {
+    "id": "material-capacity-collector-tick",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectRecipeCataloguedResourcesTask.java",
+    "before": "    protected Task onTick() {\n        // TODO: Cache this once instead of doing it every frame.\n        AltoClef mod = AltoClef.getInstance();\n\n        // Stuff to get, both catalogued + individual items.\n        HashMap<String, Integer> catalogueCount = new HashMap<>();\n        HashMap<Item, Integer> itemCount = new HashMap<>();\n\n        for (RecipeTarget target : _targets) {\n            // Ignore this recipe if we have its item.\n            //if (mod.getItemStorage().targetMet(target.getItem())) continue;\n\n            // null = empty which is always met.\n            if (target == null) continue;\n\n            int weNeed = target.getTargetCount() - mod.getItemStorage().getItemCount(target.getOutputItem());\n\n            if (weNeed > 0) {\n                CraftingRecipe recipe = target.getRecipe();\n                // Default, just go through the recipe slots and collect the first one.\n                for (int i = 0; i < recipe.getSlotCount(); ++i) {\n                    ItemTarget slot = recipe.getSlot(i);\n                    if (slot == null || slot.isEmpty()) continue;\n                    int numberOfRepeats = (int) Math.floor(-0.1 + (double) weNeed / target.getRecipe().outputCount()) + 1;\n                    if (!slot.isCatalogueItem()) {\n                        if (slot.getMatches().length != 1) {\n                            if (!_ignoreUncataloguedSlots) {\n                                Debug.logWarning(\"Recipe collection for recipe \" + recipe + \" slot \" + i\n                                        + \" is not catalogued. Please define an explicit\"\n                                        + \" collectRecipeSubTask() function for this item target:\" + slot\n                                );\n                            }\n                        } else {\n                            Item item = slot.getMatches()[0];\n                            itemCount.put(item, itemCount.getOrDefault(item, 0) + numberOfRepeats);\n                        }\n                    } else {\n                        String targetName = slot.getCatalogueName();\n                        // How many \"repeats\" of a recipe we will need.\n                        catalogueCount.put(targetName, catalogueCount.getOrDefault(targetName, 0) + numberOfRepeats);\n                    }\n                }\n            }\n        }\n\n\n        // (Cache this with the above stuff!!)\n        // Grab materials\n        for (String catalogueMaterialName : catalogueCount.keySet()) {\n            int count = catalogueCount.get(catalogueMaterialName);\n            if (count > 0) {\n                ItemTarget itemTarget = new ItemTarget(catalogueMaterialName, count);\n                if (!StorageHelper.itemTargetsMet(mod, itemTarget)) {\n                    setDebugState(\"Getting \" + itemTarget);\n                    return TaskCatalogue.getItemTask(catalogueMaterialName, count);\n                }\n            }\n        }\n        for (Item item : itemCount.keySet()) {\n            int count = itemCount.get(item);\n            if (count > 0) {\n                if (mod.getItemStorage().getItemCount(item) < count) {\n                    setDebugState(\"Getting \" + item.getTranslationKey());\n                    return TaskCatalogue.getItemTask(item, count);\n                }\n            }\n        }\n        _finished = true;\n\n        return null;\n    }",
+    "after": "    protected Task onTick() {\n        if (controlled == null) controlled = new dev.aitalkstreamer.mc.survival.ControlledRecipeResourcesTask(_ignoreUncataloguedSlots, _targets);\n        return controlled;\n    }",
+    "count": 1
+  },
+  {
+    "id": "material-capacity-collector-finished",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectRecipeCataloguedResourcesTask.java",
+    "before": "    public boolean isFinished() {\n        if (_finished) {\n            if (!StorageHelper.hasRecipeMaterialsOrTarget(AltoClef.getInstance(), this._targets)) {\n                _finished = false;\n                Debug.logMessage(\"Invalid collect recipe \\\"finished\\\" state, resetting.\");\n            }\n        }\n        return _finished;\n    }",
+    "after": "    public boolean isFinished() {\n        return controlled != null && controlled.isFinished();\n    }",
+    "count": 1
+  },
+  {
+    "id": "material-capacity-collector-target-snapshot",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectRecipeCataloguedResourcesTask.java",
+    "before": "        _targets = targets;",
+    "after": "        _targets = targets.clone();",
+    "count": 1
+  },
+  {
+    "id": "confirmed-furnace-child-type",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInFurnaceTask.java",
+    "before": "private final DoSmeltInFurnaceTask _doTask;",
+    "after": "private final dev.aitalkstreamer.mc.survival.ControlledSmeltingTask _doTask;",
+    "count": 1
+  },
+  {
+    "id": "confirmed-furnace-child-constructor",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInFurnaceTask.java",
+    "before": "new DoSmeltInFurnaceTask(targets[0])",
+    "after": "new dev.aitalkstreamer.mc.survival.ControlledSmeltingTask(\"furnace\",targets)",
+    "count": 1
+  },
+  {
+    "id": "confirmed-furnace-onResourceStart",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInFurnaceTask.java",
+    "before": "protected void onResourceStart(AltoClef mod) {\n        mod.getBehaviour().push();\n        if (_targets.length != 1) {\n            Debug.logWarning(\"Tried smelting multiple targets, only one target is supported at a time!\");\n        }\n    }",
+    "after": "protected void onResourceStart(AltoClef mod) {\n        /* The confirmed child owns its workstation. */\n    }",
+    "count": 1
+  },
+  {
+    "id": "confirmed-furnace-onResourceTick",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInFurnaceTask.java",
+    "before": "protected Task onResourceTick(AltoClef mod) {\n        Optional<BlockPos> furnacePos = mod.getBlockScanner().getNearestBlock(Blocks.FURNACE);\n        furnacePos.ifPresent(blockPos -> mod.getBehaviour().avoidBlockBreaking(blockPos));\n        return _doTask;\n    }",
+    "after": "protected Task onResourceTick(AltoClef mod) {\n        return _doTask;\n    }",
+    "count": 1
+  },
+  {
+    "id": "confirmed-furnace-onResourceStop",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInFurnaceTask.java",
+    "before": "protected void onResourceStop(AltoClef mod, Task interruptTask) {\n        mod.getBehaviour().pop();\n        // Close furnace screen\n        ItemStack cursorStack = StorageHelper.getItemStackInCursorSlot();\n        if (!cursorStack.isEmpty()) {\n            Optional<Slot> moveTo = mod.getItemStorage().getSlotThatCanFitInPlayerInventory(cursorStack, false);\n            moveTo.ifPresent(slot -> mod.getSlotHandler().clickSlot(slot, 0, SlotActionType.PICKUP));\n            if (ItemHelper.canThrowAwayStack(mod, cursorStack)) {\n                mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n            }\n            Optional<Slot> garbage = StorageHelper.getGarbageSlot(mod);\n            // Try throwing away cursor slot if it's garbage\n            garbage.ifPresent(slot -> mod.getSlotHandler().clickSlot(slot, 0, SlotActionType.PICKUP));\n            mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n        } else {\n            StorageHelper.closeScreen();\n        }\n    }",
+    "after": "protected void onResourceStop(AltoClef mod, Task interruptTask) {\n        /* No cursor or inventory effects during interruption or revocation. */\n    }",
+    "count": 1
+  },
+  {
+    "id": "confirmed-furnace-isFinished",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInFurnaceTask.java",
+    "before": "public boolean isFinished() {\n        return super.isFinished() || _doTask.isFinished();\n    }",
+    "after": "public boolean isFinished() {\n        return _doTask.isFinished();\n    }",
+    "count": 1
+  },
+  {
+    "id": "confirmed-blast_furnace-child-type",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInBlastFurnaceTask.java",
+    "before": "private final DoSmeltInBlastFurnaceTask _doTask;",
+    "after": "private final dev.aitalkstreamer.mc.survival.ControlledSmeltingTask _doTask;",
+    "count": 1
+  },
+  {
+    "id": "confirmed-blast_furnace-child-constructor",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInBlastFurnaceTask.java",
+    "before": "new DoSmeltInBlastFurnaceTask(targets[0])",
+    "after": "new dev.aitalkstreamer.mc.survival.ControlledSmeltingTask(\"blast_furnace\",targets)",
+    "count": 1
+  },
+  {
+    "id": "confirmed-blast_furnace-onResourceStart",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInBlastFurnaceTask.java",
+    "before": "protected void onResourceStart(AltoClef mod) {\n        mod.getBehaviour().push();\n        if (_targets.length != 1) {\n            Debug.logWarning(\"Tried smelting multiple targets, only one target is supported at a time!\");\n        }\n    }",
+    "after": "protected void onResourceStart(AltoClef mod) {\n        /* The confirmed child owns its workstation. */\n    }",
+    "count": 1
+  },
+  {
+    "id": "confirmed-blast_furnace-onResourceTick",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInBlastFurnaceTask.java",
+    "before": "protected Task onResourceTick(AltoClef mod) {\n        Optional<BlockPos> blastFurnacePos = mod.getBlockScanner().getNearestBlock(Blocks.BLAST_FURNACE);\n        blastFurnacePos.ifPresent(blockPos -> mod.getBehaviour().avoidBlockBreaking(blockPos));\n        return _doTask;\n    }",
+    "after": "protected Task onResourceTick(AltoClef mod) {\n        return _doTask;\n    }",
+    "count": 1
+  },
+  {
+    "id": "confirmed-blast_furnace-onResourceStop",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInBlastFurnaceTask.java",
+    "before": "protected void onResourceStop(AltoClef mod, Task interruptTask) {\n        mod.getBehaviour().pop();\n        // Close blast furnace screen\n        ItemStack cursorStack = StorageHelper.getItemStackInCursorSlot();\n        if (!cursorStack.isEmpty()) {\n            Optional<Slot> moveTo = mod.getItemStorage().getSlotThatCanFitInPlayerInventory(cursorStack, false);\n            moveTo.ifPresent(slot -> mod.getSlotHandler().clickSlot(slot, 0, SlotActionType.PICKUP));\n            if (ItemHelper.canThrowAwayStack(mod, cursorStack)) {\n                mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n            }\n            Optional<Slot> garbage = StorageHelper.getGarbageSlot(mod);\n            // Try throwing away cursor slot if it's garbage\n            garbage.ifPresent(slot -> mod.getSlotHandler().clickSlot(slot, 0, SlotActionType.PICKUP));\n            mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n        } else {\n            StorageHelper.closeScreen();\n        }\n    }",
+    "after": "protected void onResourceStop(AltoClef mod, Task interruptTask) {\n        /* No cursor or inventory effects during interruption or revocation. */\n    }",
+    "count": 1
+  },
+  {
+    "id": "confirmed-blast_furnace-isFinished",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInBlastFurnaceTask.java",
+    "before": "public boolean isFinished() {\n        return super.isFinished() || _doTask.isFinished();\n    }",
+    "after": "public boolean isFinished() {\n        return _doTask.isFinished();\n    }",
+    "count": 1
+  },
+  {
+    "id": "confirmed-smoker-child-type",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInSmokerTask.java",
+    "before": "private final DoSmeltInSmokerTask doTask;",
+    "after": "private final dev.aitalkstreamer.mc.survival.ControlledSmeltingTask doTask;",
+    "count": 1
+  },
+  {
+    "id": "confirmed-smoker-child-constructor",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInSmokerTask.java",
+    "before": "new DoSmeltInSmokerTask(target, ignoreMaterials)",
+    "after": "new dev.aitalkstreamer.mc.survival.ControlledSmeltingTask(\"smoker\",new SmeltTarget[]{target})",
+    "count": 1
+  },
+  {
+    "id": "confirmed-smoker-onResourceStart",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInSmokerTask.java",
+    "before": "protected void onResourceStart(AltoClef mod) {\n        mod.getBehaviour().push();\n    }",
+    "after": "protected void onResourceStart(AltoClef mod) {\n        /* The confirmed child owns its workstation. */\n    }",
+    "count": 1
+  },
+  {
+    "id": "confirmed-smoker-onResourceTick",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInSmokerTask.java",
+    "before": "protected Task onResourceTick(AltoClef mod) {\n        Optional<BlockPos> smokerPos = mod.getBlockScanner().getNearestBlock(Blocks.SMOKER);\n        smokerPos.ifPresent(blockPos -> mod.getBehaviour().avoidBlockBreaking(blockPos));\n        return doTask;\n    }",
+    "after": "protected Task onResourceTick(AltoClef mod) {\n        return doTask;\n    }",
+    "count": 1
+  },
+  {
+    "id": "confirmed-smoker-onResourceStop",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInSmokerTask.java",
+    "before": "protected void onResourceStop(AltoClef mod, Task interruptTask) {\n        mod.getBehaviour().pop();\n        // Close smoker screen\n        ItemStack cursorStack = StorageHelper.getItemStackInCursorSlot();\n        if (!cursorStack.isEmpty()) {\n            Optional<Slot> moveTo = mod.getItemStorage().getSlotThatCanFitInPlayerInventory(cursorStack, false);\n            moveTo.ifPresent(slot -> mod.getSlotHandler().clickSlot(slot, 0, SlotActionType.PICKUP));\n            if (ItemHelper.canThrowAwayStack(mod, cursorStack)) {\n                mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n            }\n            Optional<Slot> garbage = StorageHelper.getGarbageSlot(mod);\n            // Try throwing away cursor slot if it's garbage\n            garbage.ifPresent(slot -> mod.getSlotHandler().clickSlot(slot, 0, SlotActionType.PICKUP));\n            mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n        } else {\n            StorageHelper.closeScreen();\n        }\n    }",
+    "after": "protected void onResourceStop(AltoClef mod, Task interruptTask) {\n        /* No cursor or inventory effects during interruption or revocation. */\n    }",
+    "count": 1
+  },
+  {
+    "id": "confirmed-smoker-isFinished",
+    "path": "src/main/java/adris/altoclef/tasks/container/SmeltInSmokerTask.java",
+    "before": "public boolean isFinished() {\n        return super.isFinished() || doTask.isFinished();\n    }",
+    "after": "public boolean isFinished() {\n        return doTask.isFinished();\n    }",
+    "count": 1
+  },
+  {
+    "id": "cooking-retains-actual-task-path",
+    "path": "src/main/java/adris/altoclef/tasksystem/Task.java",
+    "before": "dev.aitalkstreamer.mc.survival.ConfirmedCraftTask.retains(this)",
+    "after": "(dev.aitalkstreamer.mc.survival.ConfirmedCraftTask.retains(this) || dev.aitalkstreamer.mc.survival.ControlledCookingTask.retains(this))",
+    "count": 1
+  },
+  {
+    "id": "cooking-retains-chain-completion",
+    "path": "src/main/java/adris/altoclef/chains/SingleTaskChain.java",
+    "before": "!dev.aitalkstreamer.mc.survival.ConfirmedCraftTask.retains(mainTask)",
+    "after": "!(dev.aitalkstreamer.mc.survival.ConfirmedCraftTask.retains(mainTask) || dev.aitalkstreamer.mc.survival.ControlledCookingTask.retains(mainTask))",
+    "count": 1
+  },
+  {
+    "id": "food-does-not-steal-resource-furnace",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "if (dev.aitalkstreamer.mc.survival.ControlledCookingTask.busy()) return 55f;",
+    "after": "if (dev.aitalkstreamer.mc.survival.SurvivalGui.furnaceOpen() && !dev.aitalkstreamer.mc.survival.ControlledCookingTask.supplyBusy()) return Float.NEGATIVE_INFINITY;\n        if (dev.aitalkstreamer.mc.survival.ControlledCookingTask.busy() && (dev.aitalkstreamer.mc.survival.ControlledCookingTask.supplyBusy() || dev.aitalkstreamer.mc.survival.ControlledCookingTask.blocksInventory()))\n            return dev.aitalkstreamer.mc.survival.ControlledCookingTask.supplyBusy() ? 55f : Float.NEGATIVE_INFINITY;",
+    "count": 1
+  },
+  {
+    "id": "food-retains-own-confirmed-prerequisite",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "if (dev.aitalkstreamer.mc.survival.ConfirmedCraftTask.busy()) return Float.NEGATIVE_INFINITY;",
+    "after": "if (dev.aitalkstreamer.mc.survival.ConfirmedCraftTask.busy()) return dev.aitalkstreamer.mc.survival.ControlledSupplyTask.retainsCraft() ? 55f : Float.NEGATIVE_INFINITY;",
+    "count": 1
+  },
+  {
+    "id": "food-selection-shared-consumable-capacity",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "for (ItemStack stack : mod.getItemStorage().getItemStacksPlayerInventory(true)) {",
+    "after": "for (ItemStack stack : dev.aitalkstreamer.mc.survival.ControlledSupplyTask.consumableFoods(mod)) {",
+    "count": 1
+  },
+  {
+    "id": "food-preparation-original-supply-priority",
+    "path": "src/main/java/adris/altoclef/chains/FoodChain.java",
+    "before": "        if (mainTask instanceof dev.aitalkstreamer.mc.survival.ControlledEatingTask && mainTask.isFinished()) {",
+    "after": "        if (dev.aitalkstreamer.mc.survival.ControlledFoodCookingTask.busy()) return 55f;\n        if (mainTask instanceof dev.aitalkstreamer.mc.survival.ControlledEatingTask && mainTask.isFinished()) {",
+    "count": 1
+  },
+  {
+    "id": "food-preparation-cleanup-before-reserve-completion",
+    "path": "src/main/java/adris/altoclef/tasks/resources/CollectFoodTask.java",
+    "before": "return !dev.aitalkstreamer.mc.survival.ControlledEquipment.busy() && !dev.aitalkstreamer.mc.survival.ControlledCookingTask.busy() && !dev.aitalkstreamer.mc.survival.ControlledEatingTask.busy() && dev.aitalkstreamer.mc.survival.ControlledSupplyTask.inventoryNutrition() >= unitsNeeded;",
+    "after": "return !dev.aitalkstreamer.mc.survival.ControlledFoodCookingTask.busy() && !dev.aitalkstreamer.mc.survival.ControlledEquipment.busy() && !dev.aitalkstreamer.mc.survival.ControlledCookingTask.busy() && !dev.aitalkstreamer.mc.survival.ControlledEatingTask.busy() && dev.aitalkstreamer.mc.survival.ControlledSupplyTask.inventoryNutrition() >= unitsNeeded;",
+    "count": 1
+  },
+  {
+    "id": "reserved-material-garbage-selection",
+    "path": "src/main/java/adris/altoclef/util/helpers/StorageHelper.java",
+    "before": "    public static Optional<Slot> getGarbageSlot(AltoClef mod) {\n        // Throwaway items, but keep a few for building.\n        Slot throwawayStackSlot = null;\n        int throwawayStackBlockCount = Integer.MAX_VALUE;\n\n        int totalBlockCount = 0;\n        if (!mod.getItemStorage().getSlotsWithItemPlayerInventory(false, mod.getModSettings().getThrowawayItems(mod)).isEmpty()) {\n            for (Slot slot : mod.getItemStorage().getSlotsWithItemPlayerInventory(false, mod.getModSettings().getThrowawayItems(mod))) {\n                // Our cursor slot is NOT a garbage slot\n                if (Slot.isCursor(slot))\n                    continue;\n                ItemStack stack = StorageHelper.getItemStackInSlot(slot);\n                if (!ItemHelper.canThrowAwayStack(mod, stack))\n                    continue;\n                if (stack.getItem() instanceof BlockItem) {\n                    totalBlockCount += stack.getCount();\n\n                    if (stack.getCount() < throwawayStackBlockCount) {\n                        throwawayStackBlockCount = stack.getCount();\n                        throwawayStackSlot = slot;\n                    }\n                } else {\n                    // Throw away this non-block immediately.\n                    return Optional.of(slot);\n                }\n            }\n        }\n\n\n        if (throwawayStackSlot != null && totalBlockCount-throwawayStackBlockCount > mod.getModSettings().getReservedBuildingBlockCount()) {\n            return Optional.of(throwawayStackSlot);\n        }\n\n        // Try throwing away lower tier tools\n        final HashMap<Class, Integer> bestMaterials = new HashMap<>();\n        final HashMap<Class, Slot> bestToolSlot = new HashMap<>();\n\n        for (Slot slot : PlayerSlot.getCurrentScreenSlots()) {\n            ItemStack stack = StorageHelper.getItemStackInSlot(slot);\n            if (!ItemHelper.canThrowAwayStack(mod, stack))\n                continue;\n\n            Item item = stack.getItem();\n\n            if (!(item instanceof ToolItem tool)) continue;\n\n            Class clazz = tool.getClass();\n\n            int level = ToolMaterialVer.getMiningLevel(tool);\n            int prevBest = bestMaterials.getOrDefault(clazz, 0);\n\n            if (level > prevBest) {\n                // We had a WORSE tool before.\n                if (bestMaterials.containsKey(clazz)) {\n                    return Optional.of(bestToolSlot.get(clazz));\n                }\n\n                bestMaterials.put(clazz, level);\n                bestToolSlot.put(clazz, slot);\n            } else if (level < prevBest) {\n                // We found something WORSE!\n                return Optional.of(slot);\n            }\n        }\n\n        // Now we're getting desparate\n        if (mod.getModSettings().shouldThrowawayUnusedItems()) {\n\n            // Also uh calculate how much food we have.\n            int calcTotalFoodScore = 0;\n\n            // Get all non-important items. For now there is no measure of value.\n            final List<Slot> possibleSlots = new ArrayList<>();\n            for (Slot slot : PlayerSlot.getCurrentScreenSlots()) {\n                ItemStack stack = StorageHelper.getItemStackInSlot(slot);\n                // If we're an armor slot, don't count us.\n                if (slot instanceof PlayerSlot playerSlot) {\n                    if (ArrayUtils.contains(PlayerSlot.ARMOR_SLOTS, playerSlot) ||\n                            playerSlot.getWindowSlot() == PlayerSlot.OFFHAND_SLOT.getWindowSlot()) {\n                        continue;\n                    }\n                }\n                // Throw away-able slots are good!\n                if (ItemHelper.canThrowAwayStack(mod, stack)) {\n                    possibleSlots.add(slot);\n                }\n                if (ItemVer.isFood(stack)) {\n                    calcTotalFoodScore += Objects.requireNonNull(ItemVer.getFoodComponent(stack.getItem())).getHunger();\n                }\n            }\n\n            final int totalFoodScore = calcTotalFoodScore;\n\n            if (!possibleSlots.isEmpty()) {\n                return possibleSlots.stream().min((leftSlot, rightSlot) -> {\n                    ItemStack left = StorageHelper.getItemStackInSlot(leftSlot),\n                            right = StorageHelper.getItemStackInSlot(rightSlot);\n                    boolean leftIsTool = left.getItem() instanceof ToolItem;\n                    boolean rightIsTool = right.getItem() instanceof ToolItem;\n                    // Prioritize tools over materials.\n                    if (rightIsTool && !leftIsTool) {\n                        return -1;\n                    } else if (leftIsTool && !rightIsTool) {\n                        return 1;\n                    }\n                    if (rightIsTool) {\n                        // Prioritize material type, then durability.\n                        ToolItem leftTool = (ToolItem) left.getItem();\n                        ToolItem rightTool = (ToolItem) right.getItem();\n                        if (ToolMaterialVer.getMiningLevel(leftTool) != ToolMaterialVer.getMiningLevel(rightTool))\n                            return ToolMaterialVer.getMiningLevel(leftTool) - ToolMaterialVer.getMiningLevel(rightTool);\n                        // We want less damage.\n                        return left.getDamage() - right.getDamage();\n                    }\n\n                    // Prioritize food over other things if we lack food.\n                    boolean lacksFood = totalFoodScore < 8;\n                    boolean leftIsFood = ItemVer.isFood(left) && left.getItem() != Items.SPIDER_EYE;\n                    boolean rightIsFood = ItemVer.isFood(right) && right.getItem() != Items.SPIDER_EYE;\n                    if (lacksFood) {\n                        if (rightIsFood && !leftIsFood) {\n                            return -1;\n                        } else if (leftIsFood && !rightIsFood) {\n                            return 1;\n                        }\n                    }\n                    // If both are food, pick the better cost.\n                    if (leftIsFood && rightIsFood) {\n                        assert ItemVer.getFoodComponent(left.getItem()) != null;\n                        assert ItemVer.getFoodComponent(right.getItem()) != null;\n                        int leftCost = ItemVer.getFoodComponent(left.getItem()).getHunger() * left.getCount(),\n                                rightCost = ItemVer.getFoodComponent(right.getItem()).getHunger() * right.getCount();\n                        return -1 * (leftCost - rightCost);\n                    }\n\n                    // Just discard the one with the smallest quantity, but this doesn't really matter.\n                    return left.getCount() - right.getCount();\n                });\n            }\n        }\n        return Optional.empty();\n    }",
+    "after": "    public static Optional<Slot> getGarbageSlot(AltoClef mod) {\n        // Throwaway items, but keep a few for building.\n        Slot throwawayStackSlot = null;\n        int throwawayStackBlockCount = Integer.MAX_VALUE;\n\n        int totalBlockCount = 0;\n        if (!mod.getItemStorage().getSlotsWithItemPlayerInventory(false, mod.getModSettings().getThrowawayItems(mod)).isEmpty()) {\n            for (Slot slot : mod.getItemStorage().getSlotsWithItemPlayerInventory(false, mod.getModSettings().getThrowawayItems(mod))) {\n                // Our cursor slot is NOT a garbage slot\n                if (Slot.isCursor(slot))\n                    continue;\n                ItemStack stack = StorageHelper.getItemStackInSlot(slot);\n                if (!dev.aitalkstreamer.mc.survival.ControlledMaterialUse.disposable(slot)) continue;\n                if (!ItemHelper.canThrowAwayStack(mod, stack))\n                    continue;\n                if (stack.getItem() instanceof BlockItem) {\n                    totalBlockCount += stack.getCount();\n\n                    if (stack.getCount() < throwawayStackBlockCount) {\n                        throwawayStackBlockCount = stack.getCount();\n                        throwawayStackSlot = slot;\n                    }\n                } else {\n                    // Throw away this non-block immediately.\n                    return Optional.of(slot);\n                }\n            }\n        }\n\n\n        if (throwawayStackSlot != null && totalBlockCount-throwawayStackBlockCount > mod.getModSettings().getReservedBuildingBlockCount()) {\n            return Optional.of(throwawayStackSlot);\n        }\n\n        // Try throwing away lower tier tools\n        final HashMap<Class, Integer> bestMaterials = new HashMap<>();\n        final HashMap<Class, Slot> bestToolSlot = new HashMap<>();\n\n        for (Slot slot : PlayerSlot.getCurrentScreenSlots()) {\n            ItemStack stack = StorageHelper.getItemStackInSlot(slot);\n                if (!dev.aitalkstreamer.mc.survival.ControlledMaterialUse.disposable(slot)) continue;\n            if (!ItemHelper.canThrowAwayStack(mod, stack))\n                continue;\n\n            Item item = stack.getItem();\n\n            if (!(item instanceof ToolItem tool)) continue;\n\n            Class clazz = tool.getClass();\n\n            int level = ToolMaterialVer.getMiningLevel(tool);\n            int prevBest = bestMaterials.getOrDefault(clazz, 0);\n\n            if (level > prevBest) {\n                // We had a WORSE tool before.\n                if (bestMaterials.containsKey(clazz)) {\n                    return Optional.of(bestToolSlot.get(clazz));\n                }\n\n                bestMaterials.put(clazz, level);\n                bestToolSlot.put(clazz, slot);\n            } else if (level < prevBest) {\n                // We found something WORSE!\n                return Optional.of(slot);\n            }\n        }\n\n        // Now we're getting desparate\n        if (mod.getModSettings().shouldThrowawayUnusedItems()) {\n\n            // Also uh calculate how much food we have.\n            int calcTotalFoodScore = 0;\n\n            // Get all non-important items. For now there is no measure of value.\n            final List<Slot> possibleSlots = new ArrayList<>();\n            for (Slot slot : PlayerSlot.getCurrentScreenSlots()) {\n                ItemStack stack = StorageHelper.getItemStackInSlot(slot);\n                if (!dev.aitalkstreamer.mc.survival.ControlledMaterialUse.disposable(slot)) continue;\n                // If we're an armor slot, don't count us.\n                if (slot instanceof PlayerSlot playerSlot) {\n                    if (ArrayUtils.contains(PlayerSlot.ARMOR_SLOTS, playerSlot) ||\n                            playerSlot.getWindowSlot() == PlayerSlot.OFFHAND_SLOT.getWindowSlot()) {\n                        continue;\n                    }\n                }\n                // Throw away-able slots are good!\n                if (ItemHelper.canThrowAwayStack(mod, stack)) {\n                    possibleSlots.add(slot);\n                }\n                if (ItemVer.isFood(stack)) {\n                    calcTotalFoodScore += Objects.requireNonNull(ItemVer.getFoodComponent(stack.getItem())).getHunger();\n                }\n            }\n\n            final int totalFoodScore = calcTotalFoodScore;\n\n            if (!possibleSlots.isEmpty()) {\n                return possibleSlots.stream().min((leftSlot, rightSlot) -> {\n                    ItemStack left = StorageHelper.getItemStackInSlot(leftSlot),\n                            right = StorageHelper.getItemStackInSlot(rightSlot);\n                    boolean leftIsTool = left.getItem() instanceof ToolItem;\n                    boolean rightIsTool = right.getItem() instanceof ToolItem;\n                    // Prioritize tools over materials.\n                    if (rightIsTool && !leftIsTool) {\n                        return -1;\n                    } else if (leftIsTool && !rightIsTool) {\n                        return 1;\n                    }\n                    if (rightIsTool) {\n                        // Prioritize material type, then durability.\n                        ToolItem leftTool = (ToolItem) left.getItem();\n                        ToolItem rightTool = (ToolItem) right.getItem();\n                        if (ToolMaterialVer.getMiningLevel(leftTool) != ToolMaterialVer.getMiningLevel(rightTool))\n                            return ToolMaterialVer.getMiningLevel(leftTool) - ToolMaterialVer.getMiningLevel(rightTool);\n                        // We want less damage.\n                        return left.getDamage() - right.getDamage();\n                    }\n\n                    // Prioritize food over other things if we lack food.\n                    boolean lacksFood = totalFoodScore < 8;\n                    boolean leftIsFood = ItemVer.isFood(left) && left.getItem() != Items.SPIDER_EYE;\n                    boolean rightIsFood = ItemVer.isFood(right) && right.getItem() != Items.SPIDER_EYE;\n                    if (lacksFood) {\n                        if (rightIsFood && !leftIsFood) {\n                            return -1;\n                        } else if (leftIsFood && !rightIsFood) {\n                            return 1;\n                        }\n                    }\n                    // If both are food, pick the better cost.\n                    if (leftIsFood && rightIsFood) {\n                        assert ItemVer.getFoodComponent(left.getItem()) != null;\n                        assert ItemVer.getFoodComponent(right.getItem()) != null;\n                        int leftCost = ItemVer.getFoodComponent(left.getItem()).getHunger() * left.getCount(),\n                                rightCost = ItemVer.getFoodComponent(right.getItem()).getHunger() * right.getCount();\n                        return -1 * (leftCost - rightCost);\n                    }\n\n                    // Just discard the one with the smallest quantity, but this doesn't really matter.\n                    return left.getCount() - right.getCount();\n                });\n            }\n        }\n        return Optional.empty();\n    }",
+    "count": 1
+  },
+  {
+    "id": "reserved-material-throwaway-count",
+    "path": "src/main/java/adris/altoclef/util/helpers/StorageHelper.java",
+    "before": "    public static int getNumberOfThrowawayBlocks(AltoClef mod) {\n        int totalBlockThrowaways = 0;\n        if (!mod.getItemStorage().getSlotsWithItemPlayerInventory(false, mod.getModSettings().getThrowawayItems(mod)).isEmpty()) {\n            for (Slot slot : mod.getItemStorage().getSlotsWithItemPlayerInventory(false, mod.getModSettings().getThrowawayItems(mod))) {\n                // Our cursor slot is NOT a garbage slot\n                ItemStack stack = StorageHelper.getItemStackInSlot(slot);\n                if (!ItemHelper.canThrowAwayStack(mod, stack))\n                    continue;\n                if (stack.getItem() instanceof BlockItem) {\n                    totalBlockThrowaways += stack.getCount();\n                }\n            }\n        }\n        return totalBlockThrowaways;\n    }",
+    "after": "    public static int getNumberOfThrowawayBlocks(AltoClef mod) {\n        return dev.aitalkstreamer.mc.survival.ControlledMaterialUse.throwawayCount(mod, false);\n    }",
+    "count": 1
+  },
+  {
+    "id": "reserved-material-throwaway-slot",
+    "path": "src/main/java/adris/altoclef/util/helpers/StorageHelper.java",
+    "before": "    public static Optional<Slot> getSlotWithThrowawayBlock(AltoClef mod, boolean limitToHotbar) {\n        final List<Slot> throwawayBlockItems = new ArrayList<>();\n        int totalBlockThrowaways = 0;\n        if (!mod.getItemStorage().getSlotsWithItemPlayerInventory(false, mod.getModSettings().getThrowawayItems(mod)).isEmpty()) {\n            for (Slot slot : mod.getItemStorage().getSlotsWithItemPlayerInventory(false, mod.getModSettings().getThrowawayItems(mod))) {\n                // Our cursor slot is NOT a garbage slot\n                if (Slot.isCursor(slot))\n                    continue;\n                if(limitToHotbar && (slot.getInventorySlot() > 8 || slot.getInventorySlot() < 0))\n                    continue;\n                ItemStack stack = StorageHelper.getItemStackInSlot(slot);\n                if (!ItemHelper.canThrowAwayStack(mod, stack))\n                    continue;\n                if (stack.getItem() instanceof BlockItem) {\n                    totalBlockThrowaways += stack.getCount();\n                    throwawayBlockItems.add(slot);\n                }\n            }\n        }\n        if (!throwawayBlockItems.isEmpty()) {\n            for (Slot throwawayBlockItem : throwawayBlockItems) {\n                return Optional.ofNullable(throwawayBlockItem);\n            }\n        }\n        return Optional.empty();\n    }",
+    "after": "    public static Optional<Slot> getSlotWithThrowawayBlock(AltoClef mod, boolean limitToHotbar) {\n        return dev.aitalkstreamer.mc.survival.ControlledMaterialUse.throwawaySlot(mod, limitToHotbar);\n    }",
+    "count": 1
+  },
+  {
+    "id": "reserved-material-stable-building-count",
+    "path": "src/main/java/adris/altoclef/util/helpers/StorageHelper.java",
+    "before": "    public static int getBuildingMaterialCount() {\n        return AltoClef.getInstance().getItemStorage().getItemCount(\n                Arrays.stream(AltoClef.getInstance().getModSettings().getThrowawayItems(true))\n                .filter(item -> item instanceof BlockItem && !item.equals(Items.GRAVEL) && !item.equals(Items.SAND)).toArray(Item[]::new)\n        );\n    }",
+    "after": "    public static int getBuildingMaterialCount() {\n        return dev.aitalkstreamer.mc.survival.ControlledMaterialUse.throwawayCount(AltoClef.getInstance(), true);\n    }",
+    "count": 1
+  },
+  {
+    "id": "reserved-material-structure-count",
+    "path": "src/main/java/adris/altoclef/tasks/construction/PlaceBlockTask.java",
+    "before": "    public int getMaterialCount(AltoClef mod) {\n        int count = mod.getItemStorage().getItemCount(ItemHelper.blocksToItems(toPlace));\n\n        if (useThrowaways) {\n            count += mod.getItemStorage().getItemCount(mod.getClientBaritoneSettings().acceptableThrowawayItems.value.toArray(new Item[0]));\n        }\n        return count;\n    }",
+    "after": "    public int getMaterialCount(AltoClef mod) {\n        return dev.aitalkstreamer.mc.survival.ControlledMaterialUse.structureCount(toPlace, useThrowaways);\n    }",
+    "count": 1
+  },
+  {
+    "id": "resource-child-failure-boundary",
+    "path": "src/main/java/adris/altoclef/tasksystem/Task.java",
+    "before": "            sub.tick(parentChain);",
+    "after": "            Task running = sub;\n            try { running.tick(parentChain); }\n            catch (dev.aitalkstreamer.mc.core.Json.Rejected failure) {\n                try {\n                    if (!onChildFailure(running, failure)) throw failure;\n                    dev.aitalkstreamer.mc.core.Json.require(sub == running && running.stopped(), \"GAME_RESOURCE_MATERIAL_CONTEXT_CHANGED\");\n                    sub = null;\n                } catch (RuntimeException | Error cleanup) {\n                    if (cleanup != failure) cleanup.addSuppressed(failure);\n                    throw cleanup;\n                }\n            }",
+    "count": 1
+  },
+  {
+    "id": "resource-child-failure-default",
+    "path": "src/main/java/adris/altoclef/tasksystem/Task.java",
+    "before": "    public boolean isActive() {",
+    "after": "    protected boolean onChildFailure(Task child, dev.aitalkstreamer.mc.core.Json.Rejected failure) { return false; }\n\n    public boolean isActive() {",
+    "count": 1
+  },
+  {
+    "id": "storage-confirmed-pickup-navigation",
+    "path": "src/main/java/adris/altoclef/tasks/container/PickupFromContainerTask.java",
+    "before": "protected Task onTick() {\n        // Free inventory while we're doing it.\n        if (_freeInventoryTask.isActive() && !_freeInventoryTask.isFinished() && !AltoClef.getInstance().getItemStorage().hasEmptyInventorySlot()) {\n            setDebugState(\"Freeing inventory.\");\n            return _freeInventoryTask;\n        }\n        return super.onTick();\n    }",
+    "after": "protected Task onTick() {\n        dev.aitalkstreamer.mc.survival.ControlledStorage.prepare(this, _targetContainer, _targets, false, false);\n        return super.onTick();\n    }",
+    "count": 1
+  },
+  {
+    "id": "storage-confirmed-pickup-finish",
+    "path": "src/main/java/adris/altoclef/tasks/container/PickupFromContainerTask.java",
+    "before": "public boolean isFinished() {\n        return Arrays.stream(_targets).allMatch(target -> AltoClef.getInstance().getItemStorage().getItemCountInventoryOnly(target.getMatches()) >= target.getTargetCount());\n    }",
+    "after": "public boolean isFinished() {\n        return dev.aitalkstreamer.mc.survival.ControlledStorage.finished(this);\n    }",
+    "count": 1
+  },
+  {
+    "id": "storage-confirmed-pickup-transfer",
+    "path": "src/main/java/adris/altoclef/tasks/container/PickupFromContainerTask.java",
+    "before": "protected Task onContainerOpenSubtask(AltoClef mod, ContainerCache containerCache) {\n        for (ItemTarget target : _targets) {\n            // Go through each item\n            int count = mod.getItemStorage().getItemCountInventoryOnly(target.getMatches());\n            if (target.matches(StorageHelper.getItemStackInCursorSlot().getItem()))\n                count -= StorageHelper.getItemStackInCursorSlot().getCount();\n            if (count < target.getTargetCount()) {\n                setDebugState(\"Collecting \" + target);\n                // Grab the item from the current chest that most closely matches our requirements\n                List<Slot> potentials = mod.getItemStorage().getSlotsWithItemContainer(target.getMatches());\n\n                // Pick the best slot to grab from.\n                Optional<Slot> bestPotential = getBestSlotToTransfer(mod, target, count, potentials, stack -> mod.getItemStorage().getSlotThatCanFitInPlayerInventory(stack, false).isPresent());\n                ItemStack cursorStack = StorageHelper.getItemStackInCursorSlot();\n                if (!cursorStack.isEmpty()) {\n                    Optional<Slot> toPlace = mod.getItemStorage().getSlotThatCanFitInPlayerInventory(cursorStack, false).or(() -> StorageHelper.getGarbageSlot(mod));\n                    if (toPlace.isPresent() && target.matches(cursorStack.getItem())) {\n                        mod.getSlotHandler().clickSlot(toPlace.get(), 0, SlotActionType.PICKUP);\n                        return null;\n                    }\n                    if (ItemHelper.canThrowAwayStack(mod, cursorStack)) {\n                        mod.getSlotHandler().clickSlot(Slot.UNDEFINED, 0, SlotActionType.PICKUP);\n                        return null;\n                    }\n                    if (toPlace.isPresent()) {\n                        mod.getSlotHandler().clickSlot(toPlace.get(), 0, SlotActionType.PICKUP);\n                        return null;\n                    }\n                }\n                if (bestPotential.isPresent()) {\n                    // Just pick it up, it's now ours.\n                    mod.getSlotHandler().clickSlot(bestPotential.get(), 0, SlotActionType.PICKUP);\n                    return null;\n                }\n                setDebugState(\"SHOULD NOT HAPPEN! No valid items detected.\");\n            }\n        }\n\n        // We're done.\n        setDebugState(\"Done\");\n        if (mod.getPlayer().currentScreenHandler instanceof SmokerScreenHandler || mod.getPlayer().currentScreenHandler\n                instanceof FurnaceScreenHandler) {\n            mod.getSlotHandler().clickSlot(FurnaceSlot.INPUT_SLOT_MATERIALS, 0, SlotActionType.PICKUP);\n            return null;\n        }\n        return null;\n    }",
+    "after": "protected Task onContainerOpenSubtask(AltoClef mod, ContainerCache containerCache) {\n        return dev.aitalkstreamer.mc.survival.ControlledStorage.opened(this);\n    }",
+    "count": 1
+  },
+  {
+    "id": "storage-pickup-stop-binding",
+    "path": "src/main/java/adris/altoclef/tasks/container/PickupFromContainerTask.java",
+    "before": "    private final EnsureFreeInventorySlotTask _freeInventoryTask = new EnsureFreeInventorySlotTask();",
+    "after": "    @Override\n    protected void onStop(Task interruptTask) {\n        dev.aitalkstreamer.mc.survival.ControlledStorage.stop(this);\n        super.onStop(interruptTask);\n    }",
+    "count": 1
+  },
+  {
+    "id": "storage-confirmed-deposit-start",
+    "path": "src/main/java/adris/altoclef/tasks/container/StoreInContainerTask.java",
+    "before": "protected void onStart() {\n        super.onStart();\n        if (storedItems == null) {\n            // Only consider transfers to the container we wish\n            storedItems = new ContainerStoredTracker(slot -> {\n                Optional<BlockPos> openContainer = AltoClef.getInstance().getItemStorage().getLastBlockPosInteraction();\n                return openContainer.isPresent() && openContainer.get().equals(targetContainer);\n            });\n        }\n        storedItems.startTracking();\n    }",
+    "after": "protected void onStart() {\n        super.onStart();\n    }",
+    "count": 1
+  },
+  {
+    "id": "storage-confirmed-deposit-navigation",
+    "path": "src/main/java/adris/altoclef/tasks/container/StoreInContainerTask.java",
+    "before": "protected Task onTick() {\n        // Get more if we don't have & \"get if not present\" is true.\n        if (getIfNotPresent) {\n            for (ItemTarget target : toStore) {\n                int inventoryNeed = target.getTargetCount() - storedItems.getStoredCount(target.getMatches());\n                if (inventoryNeed > AltoClef.getInstance().getItemStorage().getItemCount(target)) {\n                    return TaskCatalogue.getItemTask(new ItemTarget(target, inventoryNeed));\n                }\n            }\n        }\n        return super.onTick();\n    }",
+    "after": "protected Task onTick() {\n        Task acquisition = dev.aitalkstreamer.mc.survival.ControlledStorage.prepare(this, targetContainer, toStore, true, getIfNotPresent);\n        return acquisition != null ? acquisition : super.onTick();\n    }",
+    "count": 1
+  },
+  {
+    "id": "storage-confirmed-deposit-stop",
+    "path": "src/main/java/adris/altoclef/tasks/container/StoreInContainerTask.java",
+    "before": "protected void onStop(Task interruptTask) {\n        super.onStop(interruptTask);\n        storedItems.stopTracking();\n    }",
+    "after": "protected void onStop(Task interruptTask) {\n        dev.aitalkstreamer.mc.survival.ControlledStorage.stop(this);\n        super.onStop(interruptTask);\n    }",
+    "count": 1
+  },
+  {
+    "id": "storage-confirmed-deposit-transfer",
+    "path": "src/main/java/adris/altoclef/tasks/container/StoreInContainerTask.java",
+    "before": "protected Task onContainerOpenSubtask(AltoClef mod, ContainerCache containerCache) {\n        // Move all items that aren't in the container\n        for (ItemTarget target : storedItems.getUnstoredItemTargetsYouCanStore(mod, toStore)) {\n            setDebugState(\"Dumping \" + target);\n            // Grab the item from the current chest that most closely matches our requirements\n            List<Slot> potentials = mod.getItemStorage().getSlotsWithItemPlayerInventory(false, target.getMatches());\n\n            // Pick the best slot to grab from.\n            Optional<Slot> bestPotential = PickupFromContainerTask.getBestSlotToTransfer(\n                    mod,\n                    target,\n                    mod.getItemStorage().getItemCountContainer(target.getMatches()),\n                    potentials,\n                    stack -> mod.getItemStorage().getSlotThatCanFitInOpenContainer(stack, false).isPresent());\n            if (bestPotential.isPresent()) {\n                ItemStack stackIn = StorageHelper.getItemStackInSlot(bestPotential.get());\n                Optional<Slot> toMoveTo = mod.getItemStorage().getSlotThatCanFitInOpenContainer(stackIn, false);\n                if (toMoveTo.isEmpty()) {\n                    setDebugState(\"CONTAINER FULL!\");\n                    return null;\n                }\n                setDebugState(\"Moving to slot...\");\n                return new MoveItemToSlotFromInventoryTask(target, toMoveTo.get());\n            }\n            setDebugState(\"SHOULD NOT HAPPEN! No valid items detected.\");\n        }\n        setDebugState(\"SHOULD NOT HAPPEN! All items stored but we're still trying.\");\n        return null;\n    }",
+    "after": "protected Task onContainerOpenSubtask(AltoClef mod, ContainerCache containerCache) {\n        return dev.aitalkstreamer.mc.survival.ControlledStorage.opened(this);\n    }",
+    "count": 1
+  },
+  {
+    "id": "storage-confirmed-deposit-finish",
+    "path": "src/main/java/adris/altoclef/tasks/container/StoreInContainerTask.java",
+    "before": "public boolean isFinished() {\n        // We've stored all items\n        return storedItems != null && storedItems.getUnstoredItemTargetsYouCanStore(AltoClef.getInstance(), toStore).length == 0;\n    }",
+    "after": "public boolean isFinished() {\n        return dev.aitalkstreamer.mc.survival.ControlledStorage.finished(this);\n    }",
+    "count": 1
+  },
+  {
+    "id": "storage-defer-dependent-chains",
+    "path": "src/main/java/adris/altoclef/tasksystem/TaskRunner.java",
+    "before": "        if (dev.aitalkstreamer.mc.survival.ControlledShield.defers(maxChain)) return;",
+    "after": "        if (dev.aitalkstreamer.mc.survival.ControlledShield.defers(maxChain)) return;\n        if (dev.aitalkstreamer.mc.survival.ControlledStorage.defers(maxChain)) return;",
+    "count": 1
+  },
+  {
+    "id": "storage-retains-task-path",
+    "path": "src/main/java/adris/altoclef/tasksystem/Task.java",
+    "before": "dev.aitalkstreamer.mc.survival.ControlledCookingTask.retains(this)",
+    "after": "dev.aitalkstreamer.mc.survival.ControlledCookingTask.retains(this) || dev.aitalkstreamer.mc.survival.ControlledStorage.retains(this)",
+    "count": 1
+  },
+  {
+    "id": "storage-retains-chain-completion",
+    "path": "src/main/java/adris/altoclef/chains/SingleTaskChain.java",
+    "before": "dev.aitalkstreamer.mc.survival.ControlledCookingTask.retains(mainTask)",
+    "after": "dev.aitalkstreamer.mc.survival.ControlledCookingTask.retains(mainTask) || dev.aitalkstreamer.mc.survival.ControlledStorage.retains(mainTask)",
+    "count": 1
+  },
+  {
+    "id": "storage-tracker-no-predicted-events",
+    "path": "src/main/java/adris/altoclef/tasks/container/ContainerStoredTracker.java",
+    "before": "public void startTracking() {\n        _slotClickChangedSubscription = EventBus.subscribe(SlotClickChangedEvent.class, evt -> {\n            Slot slot = evt.slot;\n            if (!slot.isSlotInPlayerInventory() && _acceptDeposit.test(slot)) {\n                ItemStack before = evt.before;\n                ItemStack after = evt.after;\n                if (before.getItem() != after.getItem()) {\n                    // Before has been replaced! We lost before and added all of after.\n                    if (!before.isEmpty())\n                        trackChange(before.getItem(), -1 * before.getCount());\n                    if (!after.isEmpty())\n                        trackChange(after.getItem(), after.getCount());\n                } else {\n                    // Before and after are the same, track the difference.\n                    trackChange(after.getItem(), after.getCount() - before.getCount());\n                }\n            }\n        });\n    }",
+    "after": "public void startTracking() {\n        dev.aitalkstreamer.mc.survival.SurvivalAuthority.requireScope();\n    }",
+    "count": 1
+  },
+  {
+    "id": "storage-tracker-no-event-unsubscribe",
+    "path": "src/main/java/adris/altoclef/tasks/container/ContainerStoredTracker.java",
+    "before": "public void stopTracking() {\n        EventBus.unsubscribe(_slotClickChangedSubscription);\n    }",
+    "after": "public void stopTracking() {\n        dev.aitalkstreamer.mc.survival.SurvivalAuthority.requireOwnerScope();\n    }",
+    "count": 1
+  },
+  {
+    "id": "storage-tracker-confirmed-entry",
+    "path": "src/main/java/adris/altoclef/tasks/container/ContainerStoredTracker.java",
+    "before": "    private void trackChange(Item item, int delta) {",
+    "after": "    public void confirmed(Item item, int delta) {\n        dev.aitalkstreamer.mc.survival.SurvivalAuthority.requireScope();\n        dev.aitalkstreamer.mc.core.Json.require(item != null && delta > 0 && delta <= 99, \"GAME_STORAGE_STATE_INVALID\");",
+    "count": 1
+  },
+  {
+    "id": "storage-tracker-exact-remaining-goals",
+    "path": "src/main/java/adris/altoclef/tasks/container/ContainerStoredTracker.java",
+    "before": "public ItemTarget[] getUnstoredItemTargetsYouCanStore(AltoClef mod, ItemTarget[] toStore) {\n        return Arrays.stream(toStore)\n                .filter(target -> !matches(target) && mod.getItemStorage().hasItem(target.getMatches()))\n                // If we don't have enough, reduce the count to what we CAN add\n                .map(target -> mod.getItemStorage().getItemCount(target) < target.getTargetCount() ? new ItemTarget(target, mod.getItemStorage().getItemCount(target)) : target)\n                .toArray(ItemTarget[]::new);\n    }",
+    "after": "public ItemTarget[] getUnstoredItemTargetsYouCanStore(AltoClef mod, ItemTarget[] toStore) {\n        return Arrays.stream(toStore)\n                .map(target -> new ItemTarget(target, Math.max(0, target.getTargetCount() - getStoredCount(target.getMatches()))))\n                .filter(target -> target.getTargetCount() > 0)\n                .toArray(ItemTarget[]::new);\n    }",
+    "count": 1
+  },
+  {
+    "id": "storage-tracker-unique-alternatives",
+    "path": "src/main/java/adris/altoclef/tasks/container/ContainerStoredTracker.java",
+    "before": "for (Item item : items) {",
+    "after": "for (Item item : new java.util.HashSet<>(java.util.Arrays.asList(items))) {",
+    "count": 1
+  },
+  {
+    "id": "storage-nearby-confirmed-watch",
+    "path": "src/main/java/adris/altoclef/tasks/container/StoreInAnyContainerTask.java",
+    "before": "        _storedItems.startTracking();",
+    "after": "        dev.aitalkstreamer.mc.survival.ControlledStorage.watch(this, pos -> true, _storedItems::confirmed);",
+    "count": 1
+  },
+  {
+    "id": "storage-nearby-confirmed-unwatch",
+    "path": "src/main/java/adris/altoclef/tasks/container/StoreInAnyContainerTask.java",
+    "before": "        _storedItems.stopTracking();",
+    "after": "        dev.aitalkstreamer.mc.survival.ControlledStorage.unwatch(this);",
+    "count": 1
+  },
+  {
+    "id": "storage-nearby-ordinary-types",
+    "path": "src/main/java/adris/altoclef/tasks/container/StoreInAnyContainerTask.java",
+    "before": "Stream.concat(Arrays.stream(new Block[]{Blocks.CHEST, Blocks.TRAPPED_CHEST, Blocks.BARREL}), Arrays.stream(ItemHelper.itemsToBlocks(ItemHelper.SHULKER_BOXES))).toArray(Block[]::new)",
+    "after": "new Block[]{Blocks.CHEST, Blocks.TRAPPED_CHEST, Blocks.BARREL}",
+    "count": 1
+  },
+  {
+    "id": "storage-stash-confirmed-watch",
+    "path": "src/main/java/adris/altoclef/tasks/container/StoreInStashTask.java",
+    "before": "protected void onStart() {\n        if (_storedItems == null) {\n            _storedItems = new ContainerStoredTracker(slot -> {\n                Optional<BlockPos> currentContainer = AltoClef.getInstance().getItemStorage().getLastBlockPosInteraction();\n                return currentContainer.isPresent() && _stashRange.contains(currentContainer.get());\n            });\n        }\n        _storedItems.startTracking();\n    }",
+    "after": "protected void onStart() {\n        if (_storedItems == null) _storedItems = new ContainerStoredTracker(slot -> false);\n        dev.aitalkstreamer.mc.survival.ControlledStorage.watch(this, pos -> _stashRange.contains(pos), _storedItems::confirmed);\n    }",
+    "count": 1
+  },
+  {
+    "id": "storage-stash-honors-acquisition-option",
+    "path": "src/main/java/adris/altoclef/tasks/container/StoreInStashTask.java",
+    "before": "new StoreInContainerTask(bpos, false,",
+    "after": "new StoreInContainerTask(bpos, _getIfNotPresent,",
+    "count": 1
+  },
+  {
+    "id": "storage-stash-confirmed-unwatch",
+    "path": "src/main/java/adris/altoclef/tasks/container/StoreInStashTask.java",
+    "before": "        _storedItems.stopTracking();",
+    "after": "        dev.aitalkstreamer.mc.survival.ControlledStorage.unwatch(this);",
+    "count": 1
+  },
+  {
+    "id": "storage-stash-ordinary-types",
+    "path": "src/main/java/adris/altoclef/tasks/container/StoreInStashTask.java",
+    "before": "Stream.concat(Arrays.stream(new Block[]{Blocks.CHEST, Blocks.TRAPPED_CHEST, Blocks.BARREL}), Arrays.stream(ItemHelper.itemsToBlocks(ItemHelper.SHULKER_BOXES))).toArray(Block[]::new)",
+    "after": "new Block[]{Blocks.CHEST, Blocks.TRAPPED_CHEST, Blocks.BARREL}",
+    "count": 1
+  }
+]

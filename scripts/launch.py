@@ -2,6 +2,8 @@
 from pathlib import Path
 import argparse,json,os,socket,subprocess,sys,time
 from runtime_environment import ROOT,environment
+from native_operation import operation,atomic_json
+from native_windows_process import identity_alive
 
 def port_open(port):
     with socket.socket() as sock:
@@ -31,6 +33,12 @@ def require_prepared():
             raise RuntimeError(f'Preparation checks have not passed; inspect .setup/{name}.result.json')
 
 def start_service(name,profile='v2',minimum=None):
+    if name not in ('tts','avatar'):
+        raise ValueError('Unknown native service')
+    with operation(ROOT,'start-'+name) as transaction:
+        return _start_service(name,profile,minimum,transaction)
+
+def _start_service(name,profile,minimum,transaction):
     from deployment_target import validate_target
     validate_target(ROOT)
     require_prepared()
@@ -65,15 +73,24 @@ def start_service(name,profile='v2',minimum=None):
         args=[str(python),'-X','utf8','-B',str(cwd/'app.py'),'--config',str(ROOT/'configs/livetalking.yaml')]
     if port_open(port):raise RuntimeError(f'Port {port} is already in use; no duplicate process was started.')
     log_name=('resident-tts' if config.get('tts')=='resident-local' else 'moss') if name=='tts' and config.get('tts') in ('moss-ttsd','resident-local') else name
-    stdout=(ROOT/'logs'/f'{log_name}.runtime.stdout.log').open('a',encoding='utf-8')
-    stderr=(ROOT/'logs'/f'{log_name}.runtime.stderr.log').open('a',encoding='utf-8')
-    process=subprocess.Popen(args,cwd=cwd,env=env,stdin=subprocess.DEVNULL,stdout=stdout,stderr=stderr,close_fds=True,creationflags=subprocess.CREATE_NEW_PROCESS_GROUP|subprocess.CREATE_NO_WINDOW)
-    path=ROOT/'.setup/services.json'
-    info=json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
-    info[name]={'pid':process.pid,'command':args,'started':time.time()};path.write_text(json.dumps(info,ensure_ascii=False,indent=2),encoding='utf-8')
+    (ROOT/'logs').mkdir(exist_ok=True)
+    with (ROOT/'logs'/f'{log_name}.runtime.stdout.log').open('a',encoding='utf-8') as stdout, \
+         (ROOT/'logs'/f'{log_name}.runtime.stderr.log').open('a',encoding='utf-8') as stderr:
+        process=transaction.spawn(args,cwd=cwd,env=env,stdout=stdout,stderr=stderr,
+                                  registry=ROOT/'.setup/services.json',key=name)
     print(json.dumps({'service':name,'pid':process.pid,'port':port,'logs':str(ROOT/'logs')},ensure_ascii=False))
+    return process
 
 def stop_services(only=None):
+    with operation(ROOT,'stop-'+(only or 'studio'),recovery=True):
+        from native_operation import read_json, safe_path
+        from native_supervision import expected_stops
+        path=safe_path(ROOT,ROOT/'.setup/services.json')
+        entries=[(path,name,entry) for name,entry in read_json(path).items() if not only or name==only]
+        with expected_stops(ROOT,entries):
+            return _stop_services(only)
+
+def _stop_services(only=None):
     import psutil
     path=ROOT/'.setup/services.json'
     info=json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
@@ -83,21 +100,34 @@ def stop_services(only=None):
         is_moss=Path(entry['command'][4]).resolve()==(ROOT/'integration/moss_service.py').resolve()
         registered_python=Path(entry['command'][0]).resolve()
         owned=[]
-        for process in psutil.process_iter(['pid','exe','cmdline']):
+        if 'creation_ticks' in entry:
             try:
-                executable=Path(process.info['exe'] or '').resolve()
-                if not executable.is_relative_to(ROOT) and not (is_moss and executable==registered_python):continue
-                if expected not in [arg.casefold() for arg in (process.info['cmdline'] or [])]:continue
-                if process.create_time()+15<entry['started']:continue
-                owned.append(process)
-            except (psutil.NoSuchProcess,psutil.AccessDenied):continue
+                process=psutil.Process(entry['pid'])
+                if identity_alive(entry) and abs(process.create_time()-entry['started'])<.002:
+                    # Capture this exact native owner's descendants, including
+                    # venv launchers and O07/F07 workers with different scripts.
+                    children=process.children(recursive=True)
+                    owned=list(reversed(children))+[process]
+            except psutil.NoSuchProcess:pass
+        else:
+            # Preserve old records without treating them as native identities.
+            for process in psutil.process_iter(['pid','exe','cmdline']):
+                try:
+                    executable=Path(process.info['exe'] or '').resolve()
+                    if not executable.is_relative_to(ROOT) and not (is_moss and executable==registered_python):continue
+                    if executable!=registered_python:continue
+                    if expected not in [arg.casefold() for arg in (process.info['cmdline'] or [])]:continue
+                    if process.create_time()+15<entry['started']:continue
+                    owned.append(process)
+                except (psutil.NoSuchProcess,psutil.AccessDenied):continue
         for process in owned:
             try:process.terminate()
             except psutil.NoSuchProcess:pass
-        psutil.wait_procs(owned,timeout=10)
+        _,alive=psutil.wait_procs(owned,timeout=10)
+        if alive:raise RuntimeError('Project service has not exited; its ownership record was retained')
         print('Stopped '+name+' ('+str(len(owned))+' project processes)')
         del info[name]
-    path.write_text(json.dumps(info),encoding='utf-8')
+    atomic_json(ROOT,path,info)
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)

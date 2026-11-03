@@ -5,10 +5,15 @@ import { requireValue } from '../dsh-bridge/state.mjs';
 import { inside } from '../dsh-bridge/policy.mjs';
 import { id, utc } from './store.mjs';
 
+const usesSources = (value, seqs) => value && typeof value === 'object' &&
+  (seqs.has(value.event_seq) || Object.values(value).some(item => usesSources(item, seqs)));
+
 export class MemoryAdministration {
-  constructor(root, db, state, memory, host, onHostRestart) {
+  constructor(root, db, state, memory, host, onHostRestart, { planProjection, applyProjection, onPrivacyState } = {}) {
     this.root = root; this.db = db; this.state = state; this.memory = memory; this.host = host; this.onHostRestart = onHostRestart;
     this.ledgerFile = join(root, 'state/deletion-ledger.jsonl'); this.ledgerHead = join(root, 'state/deletion-head.json'); this.locked = false;
+    this.planProjection = planProjection; this.applyProjection = applyProjection; this.onPrivacyState = onPrivacyState;
+    this.privacyPending = !!this.db.get("SELECT 1 FROM runtime_meta WHERE key='privacy_redaction_pending'"); this.locked = this.privacyPending;
     this.verifyLedger();
   }
   readLedger() {
@@ -177,7 +182,25 @@ export class MemoryAdministration {
     requireValue(replay || !selectedMemoryId || selected && selected.subject_key === subject, 'MEMORY_NOT_FOUND', 404);
     const allSources = selected ? this.db.all('SELECT DISTINCT event_seq FROM memory_sources WHERE memory_id=?', selectedMemoryId).map(row => row.event_seq) :
       this.db.all("SELECT e.event_seq FROM stream_events e JOIN event_payloads p USING(event_seq) WHERE json_extract(p.payload_json,'$.partition_key')=?", subject).map(row => row.event_seq);
-    const seqs = replay ? (replay.event_refs||[]).map(ref=>this.db.get('SELECT event_seq FROM stream_events WHERE event_id=? AND payload_sha256=?',ref.event_id,ref.payload_sha256)?.event_seq).filter(Number.isSafeInteger) : allSources, now = utc(this.db.now());
+    let seqs = replay ? (replay.event_refs||[]).map(ref=>this.db.get('SELECT event_seq FROM stream_events WHERE event_id=? AND payload_sha256=?',ref.event_id,ref.payload_sha256)?.event_seq).filter(Number.isSafeInteger) : allSources;
+    const now = utc(this.db.now()), seqSet = new Set(seqs), direct = new Set(seqs), requests = new Set();
+    const events = this.db.all('SELECT e.*,p.payload_json FROM stream_events e JOIN event_payloads p USING(event_seq)').map(event => ({ ...event, data: JSON.parse(event.payload_json || 'null') }));
+    // Plan from owned sources before expanding shared requests: another viewer's
+    // independent input is not this viewer's deletion target.
+    const projection = replay?.platform_projection || this.planProjection?.({ subject, selectedMemoryId, sources: events.filter(event => direct.has(event.event_seq)) }) || null;
+    const contexts = this.db.all('SELECT c.*,r.dsh_session_id,r.viewer_id FROM request_contexts c JOIN requests r USING(request_id)');
+    let changed = true;
+    while (changed) {
+      const size = seqSet.size + requests.size;
+      for (const event of events) {
+        if (seqSet.has(event.event_seq) && event.request_id) requests.add(event.request_id);
+        if (event.event_type === 'audience.bound' && usesSources(event.data?.sources, seqSet)) requests.add(event.request_id);
+      }
+      for (const context of contexts) if (context.viewer_id === subject || subject === 'public' || usesSources(JSON.parse(context.source_manifest_json || '[]'), seqSet)) requests.add(context.request_id);
+      for (const event of events) if (requests.has(event.request_id) && (!event.data?.audience_source || direct.has(event.event_seq))) seqSet.add(event.event_seq);
+      changed = size !== seqSet.size + requests.size;
+    }
+    seqs = [...seqSet].sort((a, b) => a - b);
     requireValue(!replay || Array.isArray(replay.event_refs),'RESTORE_LEDGER_SOURCE_IDENTITIES_REQUIRED');
     const eventSeq = this.db.event(this.state.scope({}, { actor_kind:'operator',actor_id:replay?'restore-redaction':'redaction' }), 'memory.deleted', { subject_key: subject, memory_id: selectedMemoryId, body_redacted: true, replay_generation:replay?.generation??null });
     const nextGeneration = replay?.generation ?? this.state.room().deletion_generation + 1;
@@ -200,16 +223,22 @@ export class MemoryAdministration {
     if (!selectedMemoryId) this.db.run('INSERT INTO deletion_fences VALUES (?,?,?,?,?,?) ON CONFLICT(character_id,room_id,subject_key) DO UPDATE SET generation=excluded.generation,event_seq=excluded.event_seq,created_at=excluded.created_at', ...this.state.characterRoom, subject, nextGeneration, eventSeq, now);
     // Summaries/context/chunk result bodies may contain paraphrases. Invalidate
     // their entire partition instead of attempting unsafe string replacement.
-    this.db.run("UPDATE summary_versions SET state='redacted',body_json='{}',source_manifest_json='{}' WHERE partition_key=?", subject);
+    for (const summary of this.db.all('SELECT * FROM summary_versions')) if (summary.partition_key === subject || usesSources(JSON.parse(summary.source_manifest_json), seqSet))
+      this.db.run("UPDATE summary_versions SET state='redacted',body_json='{}',source_manifest_json='{}' WHERE summary_id=?", summary.summary_id);
     const sessionIds = [];
-    for (const context of this.db.all('SELECT c.*,r.dsh_session_id,r.viewer_id FROM request_contexts c JOIN requests r USING(request_id)')) {
-      const manifest = JSON.parse(context.source_manifest_json || '[]');
-      if (context.viewer_id === subject || manifest.some(source => seqs.includes(source.event_seq)) || subject === 'public') {
+    for (const context of contexts) {
+      if (requests.has(context.request_id)) {
         this.db.run('UPDATE request_contexts SET context_json=NULL,source_manifest_json=NULL,redacted_at=? WHERE request_id=?', now, context.request_id);
         if (context.dsh_session_id) sessionIds.push(context.dsh_session_id);
       }
     }
-    for (const job of this.db.all('SELECT * FROM compaction_jobs WHERE partition_key=?', subject)) {
+    for (const requestId of requests) {
+      const request = this.state.request(requestId);
+      if (request?.status === 'QUEUED') this.state.terminalInTransaction(request, 'CANCELLED', 'redaction');
+      this.db.run("UPDATE memory_proposals SET body_json=NULL,state='DELETED' WHERE request_id=?", requestId);
+    }
+    for (const job of this.db.all('SELECT * FROM compaction_jobs')) {
+      if (job.partition_key !== subject && !usesSources(JSON.parse(job.source_manifest_json), seqSet) && !seqs.some(seq => seq >= job.source_start_seq && seq <= job.source_end_seq)) continue;
       this.db.run("UPDATE memory_candidates SET body_json='{}',decision='stale',reason='deleted_source' WHERE job_id=?", job.job_id);
       this.db.run("UPDATE job_chunks SET result_json=NULL,state=CASE WHEN state='COMMITTED' THEN state ELSE 'STALE' END WHERE job_id=?", job.job_id);
       this.db.run("UPDATE compaction_jobs SET source_manifest_json='{}',state=CASE WHEN state='COMPLETED' THEN state ELSE 'CANCELLED' END,reason='deleted_source',lease_generation=lease_generation+1 WHERE job_id=?", job.job_id);
@@ -217,13 +246,16 @@ export class MemoryAdministration {
     this.db.run("UPDATE memory_proposals SET body_json=NULL,state='DELETED' WHERE subject_key=?", subject);
     this.db.run('UPDATE rooms SET deletion_generation=MAX(deletion_generation,?),memory_revision=memory_revision+1,maintenance_barrier=maintenance_barrier+1 WHERE character_id=? AND room_id=?', nextGeneration, ...this.state.characterRoom);
     const eventRefs=seqs.map(seq=>this.db.get('SELECT event_id,event_seq,payload_sha256 FROM stream_events WHERE event_seq=?',seq));
-    const body = { subject_key:subject,memory_id:selectedMemoryId,event_seq:eventSeq,event_seqs:seqs,event_refs:eventRefs,memory_ids:[...affected],session_ids:sessionIds,created_at:now };
+    const body = { subject_key:subject,memory_id:selectedMemoryId,event_seq:eventSeq,event_seqs:seqs,event_refs:eventRefs,memory_ids:[...affected],session_ids:[...new Set(sessionIds)],created_at:now, ...(projection ? { platform_projection: projection } : {}) };
     if (!replay) this.db.run("INSERT INTO redaction_outbox VALUES (?,?,?,?,'PENDING',?)", operationId, nextGeneration, subject, canonical(body), now);
-    this.db.run("INSERT INTO runtime_meta VALUES ('privacy_redaction_pending',?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json", canonical({ operation_id:operationId,generation:nextGeneration }));
+    if (projection) this.db.run('INSERT INTO runtime_meta VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json', 'privacy-projection:' + operationId, canonical(projection));
+    this.db.run("INSERT INTO runtime_meta VALUES ('privacy_redaction_pending',?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json", canonical({ operation_id:operationId,generation:nextGeneration,session_ids:body.session_ids }));
     return { ...body, generation:nextGeneration,operation_id:operationId };
   }
   async delete(principal, input) {
-    requireValue(input.operation_id && typeof input.subject_key === 'string' && !this.locked, 'DELETION_INPUT_OR_LOCK');
+    const pending = this.db.get("SELECT value_json FROM runtime_meta WHERE key='privacy_redaction_pending'");
+    requireValue(typeof input.operation_id === 'string' && input.operation_id.length >= 8 && input.operation_id.length <= 120 && typeof input.subject_key === 'string' && input.subject_key.length > 0 && input.subject_key.length <= 300 &&
+      (!this.locked || this.privacyPending && !this.repairing && pending && JSON.parse(pending.value_json).operation_id === input.operation_id), 'DELETION_INPUT_OR_LOCK');
     this.locked = true;
     try {
       const previous = this.db.get('SELECT * FROM redaction_outbox WHERE operation_id=?', input.operation_id);
@@ -233,12 +265,28 @@ export class MemoryAdministration {
       }
       const active = this.state.active(); if (active) this.state.cancel(active.request_id, 'redaction');
       const result = previous ? { ...JSON.parse(previous.payload_json), operation_id:previous.operation_id,generation:previous.generation } : this.db.tx(() => this.redactInTransaction({ operationId:input.operation_id,subject:input.subject_key,selectedMemoryId:input.memory_id || null }));
-      this.flushLedger();
-      await this.onHostRestart(result.session_ids);
-      await this.memory.project();
-      this.db.tx(() => this.db.run("DELETE FROM runtime_meta WHERE key='privacy_redaction_pending'"));
+      this.privacyPending = true;
+      await this.resumePrivacy();
       return { operation_id:result.operation_id,generation:result.generation,deleted_count:result.memory_ids.length,sessions_purged:result.session_ids.length };
-    } finally { this.locked = false; }
+    } finally { this.privacyPending = !!this.db.get("SELECT 1 FROM runtime_meta WHERE key='privacy_redaction_pending'"); this.locked = this.privacyPending; }
+  }
+  async resumePrivacy({ all = false } = {}) {
+    const row = this.db.get("SELECT value_json FROM runtime_meta WHERE key='privacy_redaction_pending'");
+    if (!row && !all) return;
+    requireValue(!this.repairing, 'MEMORY_ADMINISTRATION_BUSY', 503);
+    this.repairing = true; this.locked = true; this.privacyPending = !!row;
+    try {
+      this.onPrivacyState?.();
+      this.flushLedger();
+      for (const plan of this.db.all("SELECT value_json FROM runtime_meta WHERE key LIKE 'privacy-projection:%' ORDER BY key")) await this.applyProjection?.(JSON.parse(plan.value_json));
+      if (row) await this.onHostRestart(JSON.parse(row.value_json).session_ids || []);
+      await this.memory.project();
+      requireValue(!this.db.get("SELECT COUNT(*) n FROM mirror_outbox WHERE action='REMOVE' AND state NOT IN ('APPLIED','SUPERSEDED')").n, 'MEMORY_PRIVACY_MIRROR_PENDING', 503);
+      this.privacyPending = false;
+      this.onPrivacyState?.();
+      this.db.tx(() => this.db.run("DELETE FROM runtime_meta WHERE key='privacy_redaction_pending'"));
+    } catch (error) { this.privacyPending = true; throw error; }
+    finally { this.repairing = false; this.locked = this.privacyPending; }
   }
   async backup() {
     requireValue(!this.state.current() && !this.locked && !this.host.active.size, 'BACKUP_REQUIRES_OFFAIR');

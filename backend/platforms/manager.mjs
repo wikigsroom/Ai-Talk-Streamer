@@ -3,7 +3,7 @@ import { PlatformConfig, PlatformError, PLATFORM_IDS, check } from './config.mjs
 import { PlatformStore } from './store.mjs';
 import { normalizeEvent, eventPrincipal } from './events.mjs';
 import { ObsClient } from './obs.mjs';
-import { LivehimeOutput } from './livehime.mjs';
+import { LivehimeOutput, programmePresentation } from './livehime.mjs';
 import { BilibiliOpenAdapter } from './bilibili.mjs';
 import { BrowserChatAdapter } from './browser.mjs';
 import { RelayAdapter } from './relay.mjs';
@@ -16,17 +16,26 @@ const ACTIVE_OUTPUTS = ['STARTING', 'STREAMING', 'COMPANION_READY', 'MANUAL_LIVE
 export class PlatformManager {
   constructor(root, bridge, { store, config, obs, livehime, now = () => Date.now() } = {}) {
     this.root = root; this.bridge = bridge; this.now = now; this.config = config || new PlatformConfig(root); this.store = store || new PlatformStore(join(root, 'state/platforms/control.sqlite3'), now); this.obs = obs || new ObsClient(root, this.config);
-    this.livehime = livehime || new LivehimeOutput(root, { receiverConfig: () => this.config.value.platforms.bilibili });
+    this.livehime = livehime || new LivehimeOutput(root, { receiverConfig: () => this.config.value.platforms.bilibili,
+      mcEnabled: () => this.mcEnabled() });
     this.collectors = new Map(); this.collectorStatus = {}; this.cooldowns = new Map(); this.lastReply = 0; this.controlChain = Promise.resolve(); this.wantOutputAuthority = false; this.closed = false;
   }
-  start() { this.timer = setInterval(() => { void this.dispatch().catch(() => this.store.count('dispatch_errors')); }, 1000); this.timer.unref(); this.pruneTimer = setInterval(() => this.store.prune(), 3600000); this.pruneTimer.unref(); return this; }
+  start() { this.timer = setInterval(() => { void this.dispatch().catch(() => this.store.count('dispatch_errors')); }, 1000); this.timer.unref(); this.pruneTimer = setInterval(() => { try { this.pruneHistory(); } catch { /* The persisted retention result reports the fault. */ } }, 3600000); this.pruneTimer.unref(); return this; }
+  pruneHistory() {
+    const result = this.bridge.privacy ? this.bridge.privacy.retention.run() : this.store.prune();
+    if (result.last_run?.more && !this.closed && !this.pruneContinuation) {
+      this.pruneContinuation = setTimeout(() => { this.pruneContinuation = null; if (!this.closed) try { this.pruneHistory(); } catch { /* Retry at the normal interval after a reported fault. */ } }, 1000); this.pruneContinuation.unref();
+    }
+    return result;
+  }
   exclusive(work) { const result = this.controlChain.then(work); this.controlChain = result.catch(() => {}); return result; }
-  async body(req) { let bytes=0;const chunks=[];for await(const chunk of req){bytes+=chunk.length;check(bytes<=1024*1024,'PLATFORM_BODY_TOO_LARGE',413);chunks.push(chunk);}try{return chunks.length?JSON.parse(Buffer.concat(chunks).toString('utf8')):{};}catch{throw new PlatformError('PLATFORM_JSON_INVALID',400);} }
+  async body(req) { let bytes=0;const chunks=[];for await(const chunk of req){bytes+=chunk.length;check(bytes<=1024*1024,'PLATFORM_BODY_TOO_LARGE',413);chunks.push(chunk);}check(!this.bridge.closed,'BRIDGE_STOPPING',503);try{return chunks.length?JSON.parse(Buffer.concat(chunks).toString('utf8')):{};}catch{throw new PlatformError('PLATFORM_JSON_INVALID',400);} }
+  mcEnabled() { return this.bridge.game?.config.enabled === true || this.bridge.candidate?.ready === true; }
   status() {
-    return { access_mode: 'open', authentication_required: false, config: this.config.public(), collectors: this.collectorStatus, outputs: this.store.all('SELECT * FROM outputs'), counters: Object.fromEntries(this.store.all('SELECT * FROM counters').map(row => [row.name, row.value])), pending: this.store.get("SELECT COUNT(*) n FROM events WHERE status='PENDING'").n, events: this.store.recent(), output_player: this.player ? { consumer_id: this.player.consumer_id, last_seen: this.player.at, connected: this.now() - this.player.at < 6000, renderer: this.player.renderer, frames: this.player.frames, width: this.player.width, height: this.player.height, audio_state: this.player.audio_state, receiver_id: this.player.receiver_id || null, receiver_client_ready: !!this.player.receiver_client_ready } : null, broadcast: this.bridge.state.current() || null };
+    return { programme: programmePresentation(this.mcEnabled()), access_mode: 'open', authentication_required: false, history_retention: this.bridge.privacy?.retention.status() || null, config: this.config.public(), collectors: this.collectorStatus, outputs: this.store.all('SELECT * FROM outputs'), counters: Object.fromEntries(this.store.all('SELECT * FROM counters').map(row => [row.name, row.value])), pending: this.store.get("SELECT COUNT(*) n FROM events WHERE status='PENDING'").n, events: this.bridge.administration?.privacyPending ? [] : this.store.recent(), output_player: this.player ? { consumer_id: this.player.consumer_id, last_seen: this.player.at, connected: this.now() - this.player.at < 6000, renderer: this.player.renderer, programme: this.player.programme, layout_id: this.player.layout_id, frames: this.player.frames, width: this.player.width, height: this.player.height, audio_state: this.player.audio_state, receiver_id: this.player.receiver_id || null, receiver_client_ready: !!this.player.receiver_client_ready } : null, broadcast: this.bridge.state.current() || null };
   }
   ingest(platform, payloads, options = {}) {
-    check(!this.closed, 'PLATFORM_SERVICE_STOPPED', 503); const rows = Array.isArray(payloads) ? payloads : [payloads]; check(rows.length <= 1000, 'PLATFORM_BATCH_LIMIT');
+    check(!this.closed, 'PLATFORM_SERVICE_STOPPED', 503); check(!this.bridge.administration?.privacyPending, 'MEMORY_PRIVACY_PENDING', 503); const rows = Array.isArray(payloads) ? payloads : [payloads]; check(rows.length <= 1000, 'PLATFORM_BATCH_LIMIT');
     const results = [], addedEvents = [];
     this.store.db.exec('BEGIN IMMEDIATE');
     try {
@@ -37,22 +46,60 @@ export class PlatformManager {
         if (event.type === 'comment' && !event.text) { status = 'IGNORED'; reason = 'empty_comment'; }
         if (!this.config.value.interaction.enabled) { status = 'IGNORED'; reason = 'interaction_disabled'; }
         if (this.now() - event.occurred_at > this.config.value.interaction.ttl_ms) { status = 'EXPIRED'; reason = 'event_ttl'; }
+        // Deletion is a platform control event, independent of reply enable/TTL.
+        if (event.type === 'delete') { status = 'OBSERVED'; reason = 'platform_deletion_pending'; }
+        else if (this.store.isDeleted(event)) { event.platform_deleted = true; status = 'DROPPED'; reason = 'platform_deleted'; }
         if (status === 'PENDING' && this.store.get("SELECT COUNT(*) n FROM events WHERE status='PENDING'").n >= this.config.value.interaction.max_pending) { status = 'DROPPED'; reason = 'event_queue_full'; this.store.count('overload_drops'); }
         const added = this.store.insert(event, status, reason); results.push({ event_key: event.event_key, duplicate: !added, status });
-        if (added) addedEvents.push(event);
+        if (added && !this.store.isPrivacyDeleted(event)) { if (event.type === 'delete') this.store.recordDeletion(event); addedEvents.push(event); }
       }
+      this.bridge.privacy?.ownership.record(addedEvents);
       this.store.db.exec('COMMIT');
     } catch (error) { this.store.db.exec('ROLLBACK'); throw error; }
     for (const event of addedEvents) {
-      try { this.bridge.room?.acceptPlatformEvent(event); }
+      try { this.deliverEvent(event); }
       catch (error) { if (this.bridge.room) this.bridge.room.lastError = error.code || 'ROOM_MESSAGE_STORAGE_ERROR'; this.store.count('room_display_errors'); }
     }
+    for (const result of results) result.status = this.store.get('SELECT status FROM events WHERE event_key=?', result.event_key).status;
     return { accepted: results.length, results };
+  }
+  deliverEvent(event) {
+    if (this.store.isPrivacyDeleted(event)) return;
+    const room = this.bridge.room; if (!room) return;
+    if (event.type !== 'delete') return room.acceptPlatformEvent({ ...event, platform_deleted: !!event.platform_deleted || this.store.isDeleted(event) });
+    const candidates = this.store.deletionCandidates(event), keys = room.applyPlatformDeletion(event, candidates.map(row => row.event_key));
+    this.store.markDeleted(keys);
+    for (const key of keys) {
+      const row = this.store.get('SELECT * FROM events WHERE event_key=?', key), request = row?.request_id && this.bridge.state?.request?.(row.request_id);
+      if (request && ['QUEUED', ...ACTIVE_REQUESTS].includes(request.status)) this.bridge.state.cancel(request.request_id, 'PLATFORM_SOURCE_REMOVED');
+    }
+    this.store.run("UPDATE events SET status='RECONCILED',reason='platform_deletion_applied' WHERE event_key=?", event.event_key);
   }
   async dispatch() {
     if (this.closed || this.dispatching) return; this.dispatching = true;
     try {
+      for (const row of this.store.all("SELECT * FROM events WHERE type='delete' AND status='OBSERVED' ORDER BY received_at,rowid LIMIT 100")) this.deliverEvent(this.store.expand(row));
       const policy = this.config.value.interaction;
+      const narration = this.bridge.game?.config.enabled ? this.bridge.game.narration : null;
+      if (narration && policy.enabled && this.bridge.ready && !this.bridge.administration.locked && this.bridge.state.current()?.state === 'LIVE') {
+        const sources = this.store.all("SELECT * FROM events WHERE (status='PENDING' OR type='gift' AND status='OBSERVED') AND platform='bilibili' ORDER BY received_at,rowid LIMIT 100");
+        for (const row of sources) {
+          const event = this.store.expand(row);
+          const item = narration.platform(event);
+          if (item) this.store.run("UPDATE events SET status='MC_NARRATION',reason=? WHERE event_key=?", item.narration_id, event.event_key);
+          else this.store.run("UPDATE events SET status='IGNORED',reason='mc_narration_unavailable' WHERE event_key=?", event.event_key);
+        }
+      }
+      if (narration) for (const event of this.store.all("SELECT * FROM events WHERE status='MC_NARRATION' LIMIT 512")) {
+        const item = narration.store.object('narration', event.reason);
+        if (!item) { this.store.run("UPDATE events SET status='DROPPED',reason='mc_narration_history_unavailable' WHERE event_key=?", event.event_key); continue; }
+        if (item?.request_id && item.request_id !== event.request_id) this.store.run('UPDATE events SET request_id=? WHERE event_key=?', item.request_id, event.event_key);
+        if (item && !['pending','submitting','queued','thinking','synthesizing','playing'].includes(item.state)) {
+          const visible = !!narration.roomMessage(event.event_key);
+          this.store.run('UPDATE events SET status=?,reason=? WHERE event_key=?', item.state === 'answered' && visible ? 'COMPLETED' : 'DROPPED',
+            visible ? item.reason : 'mc_narration_source_removed', event.event_key);
+        }
+      }
       this.store.run("UPDATE events SET status='EXPIRED',reason='event_ttl' WHERE status='PENDING' AND occurred_at<?", this.now() - policy.ttl_ms);
       const observedStates = ['QUEUED', ...ACTIVE_REQUESTS].map(value => "'"+value+"'").join(',');
       for (const event of this.store.all(`SELECT * FROM events WHERE request_id IS NOT NULL AND status IN (${observedStates}) LIMIT 100`)) {
@@ -102,7 +149,12 @@ export class PlatformManager {
     const anyActive = this.store.all('SELECT * FROM outputs').some(row => ACTIVE_OUTPUTS.includes(row.state) || row.owned_output);
     const nativeConfigured = this.config.value.platforms.bilibili.output_mode === 'livehime';
     if ((nativeActive || nativeConfigured && !anyActive ? 'livehime' : 'obs') !== (body.renderer || 'obs')) return { claim: false, ignored: true };
+    const mc = this.mcEnabled();
+    if (mc && (body.programme !== 'mc' || body.layout_id !== 'mc-landscape-v1'
+        || body.width !== 1920 || body.height !== 1080)) return { claim: false, ignored: true, mc_programme_required: true };
+    if (!mc && body.programme === 'mc') return { claim: false, ignored: true, mc_programme_disabled: true };
     this.player = { consumer_id: body.consumer_id, at: this.now(), renderer: body.renderer || 'obs', frames: Number(body.frames) || 0, width: Number(body.width) || 0, height: Number(body.height) || 0, audio_state: String(body.audio_state || '').slice(0, 30) };
+    this.player.programme = mc ? 'mc' : 'avatar'; this.player.layout_id = mc ? body.layout_id : null;
     if (body.receiver_id !== undefined) {
       this.player.receiver_id = body.receiver_id;
       this.player.receiver_client_ready = body.receiver_client_ready === true;
@@ -121,7 +173,9 @@ export class PlatformManager {
     for (let i = 0; i < 50; i++) {
       const current = this.bridge.state.current(); check(current?.broadcast_id === broadcast.broadcast_id, 'BROADCAST_CHANGED');
       const lease = this.bridge.db.get('SELECT * FROM playback_leases WHERE broadcast_id=?', broadcast.broadcast_id);
-      if (this.player && this.now() - this.player.at < 6000 && this.player.frames>0 && this.player.audio_state==='running' && lease?.consumer_id === this.player.consumer_id && this.bridge.state.authorityReady(broadcast.broadcast_id)) {
+      const expected = programmePresentation(this.mcEnabled());
+      if (this.player && this.player.programme === expected.programme && this.player.width === expected.width && this.player.height === expected.height
+          && this.now() - this.player.at < 6000 && this.player.frames>0 && this.player.audio_state==='running' && lease?.consumer_id === this.player.consumer_id && this.bridge.state.authorityReady(broadcast.broadcast_id)) {
         if (current.state !== 'LIVE') { const media = await this.bridge.refreshMedia(); this.bridge.state.readyBroadcast(current.broadcast_id, this.bridge.host.ready && media.tts_ready && media.avatar_ready && (this.config.value.interaction.mode === 'echo' || this.bridge.health().persona_injection_ready), { broadcast_id: current.broadcast_id, expected_revision: current.revision }); continue; }
         return broadcast.broadcast_id;
       }
@@ -136,6 +190,7 @@ export class PlatformManager {
   }
   checkRenderer(platform) {
     const native = this.config.value.platforms[platform].output_mode === 'livehime';
+    check(!this.mcEnabled() || native && platform === 'bilibili', 'MC_OFFICIAL_LIVEHIME_REQUIRED');
     const conflict = this.store.all('SELECT * FROM outputs').some(row => row.platform !== platform
       && (ACTIVE_OUTPUTS.includes(row.state) || row.owned_output)
       && (this.config.value.platforms[row.platform]?.output_mode === 'livehime') !== native);
@@ -201,14 +256,17 @@ export class PlatformManager {
       let native;
       try { native = await this.livehime.status(); } catch (error) { native = { client_installed: false, window_open: false, error: error.code || 'LIVEHIME_UNAVAILABLE' }; }
       const media = await this.bridge.refreshMedia();
-      const source = this.player?.renderer === 'livehime' && this.now() - this.player.at < 6000 ? this.player : null;
+      const expected = programmePresentation(this.mcEnabled());
+      const source = this.player?.renderer === 'livehime' && this.player.programme === expected.programme && this.now() - this.player.at < 6000 ? this.player : null;
       if (target.client_location === 'receiver') native = { ...native, client_installed: !!source?.receiver_client_ready, receiver_id: source?.receiver_id || null };
-      return { platform, renderer: 'livehime', obs_required: false, native,
+      return { platform, renderer: 'livehime', obs_required: false, native, programme: expected,
         checks: { tts_ready: !!media.tts_ready, avatar_ready: !!media.avatar_ready,
           channel_ready: this.config.value.interaction.mode === 'echo' || this.bridge.health().persona_injection_ready,
           client_installed: native.client_installed, preview_window: native.window_open,
           livehime_browser_connected: !!source,
-          vertical_video: source?.width === 720 && source?.height === 1280,
+          vertical_video: expected.programme === 'avatar' && source?.width === 720 && source?.height === 1280,
+          programme_dimensions: source?.width === expected.width && source?.height === expected.height,
+          landscape_mc: expected.programme === 'mc' && source?.width === 1920 && source?.height === 1080,
           output_audio: source?.audio_state === 'running', room_configured: !!target.room_url || !!target.room_id,
           official_application_required: ['open_live', 'official_callback'].includes(target.comment_mode),
           collector_running: !!this.collectors.get(platform), audience_delivery_verified: false } };
@@ -221,6 +279,15 @@ export class PlatformManager {
   async handle(req, res, url, send) {
     const path = url.pathname.slice('/api/dsh/platforms'.length), method = req.method;
     if (method === 'GET' && (!path || path === '/status')) return send(this.status());
+    if (path === '/retention' && ['GET','POST'].includes(method)) {
+      check(!!this.bridge.privacy, 'AUDIENCE_RETENTION_UNAVAILABLE', 503);
+      if (method === 'POST') {
+        const value = await this.body(req);
+        check(value && typeof value === 'object' && !Array.isArray(value) && !Object.keys(value).length, 'AUDIENCE_RETENTION_REQUEST_INVALID');
+        return send(this.pruneHistory());
+      }
+      return send(this.bridge.privacy.retention.status());
+    }
     if (method === 'GET' && path === '/config') return send(this.config.public());
     if (method === 'POST' && path === '/config') { const patch=await this.body(req); for(const platform of Object.keys(patch.platforms||{})){const row=this.store.get('SELECT state,owned_output FROM outputs WHERE platform=?',platform);check(!this.collectors.has(platform)&&!(row&&(ACTIVE_OUTPUTS.includes(row.state)||row.owned_output)),'STOP_PLATFORM_CONNECTIONS_BEFORE_CONFIG');} return send(this.config.update(patch)); }
     if (method === 'POST' && path === '/output/player') return send(this.outputPlayer(await this.body(req)));
@@ -256,5 +323,5 @@ export class PlatformManager {
     }
     throw new PlatformError('NOT_FOUND', 404);
   }
-  async close() { this.closed = true; clearInterval(this.timer); clearInterval(this.pruneTimer); await Promise.allSettled([...this.collectors.keys()].map(p => this.stopCollector(p))); await this.controlChain; await this.obs.close(); await this.livehime.close(); this.store.close(); }
+  async close() { this.closed = true; clearInterval(this.timer); clearInterval(this.pruneTimer); clearTimeout(this.pruneContinuation); await Promise.allSettled([...this.collectors.keys()].map(p => this.stopCollector(p))); await this.controlChain; await this.obs.close(); await this.livehime.close(); this.store.close(); }
 }

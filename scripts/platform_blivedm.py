@@ -19,6 +19,16 @@ def emit(value):
     print(json.dumps(value, ensure_ascii=False, separators=(',', ':')), flush=True)
 
 
+def emoji_options(message):
+    value = getattr(message, 'emoticon_options', None)
+    if isinstance(value, str):
+        try:
+            value = json.loads(value)
+        except (ValueError, TypeError):
+            return {}
+    return value if isinstance(value, dict) else {}
+
+
 class Handler(blivedm.BaseHandler):
     def _on_heartbeat(self, client, message):
         emit({'kind': 'state', 'state': 'CONNECTED'})
@@ -29,7 +39,10 @@ class Handler(blivedm.BaseHandler):
         emit({'kind': 'event', 'room_id': str(client.room_id), 'event': {
             'type': 'comment', 'event_id': key, 'room_id': str(client.room_id),
             'user_id': str(message.uid), 'nickname': message.uname,
-            'text': message.msg, 'timestamp': message.timestamp or int(time.time()*1000)}})
+            'text': message.msg, 'timestamp': message.timestamp or int(time.time()*1000),
+            'admin': getattr(message, 'admin', None), 'guard_level': getattr(message, 'privilege_type', None),
+            'dm_type': getattr(message, 'dm_type', None), 'emoji_text': message.msg,
+            'emoji_url': emoji_options(message).get('url')}})
         emit({'kind': 'state', 'state': 'RECEIVING'})
 
     def _on_gift(self, client, message):
@@ -39,14 +52,26 @@ class Handler(blivedm.BaseHandler):
         emit({'kind': 'event', 'room_id': str(client.room_id), 'event': {
             'type': 'gift', 'event_id': key, 'room_id': str(client.room_id),
             'user_id': str(message.uid), 'nickname': message.uname,
-            'gift_name': message.gift_name, 'gift_count': message.num,
+            'gift_name': getattr(message, 'gift_name', None), 'gift_count': getattr(message, 'num', None),
+            'guard_level': getattr(message, 'guard_level', None),
             'timestamp': getattr(message, 'timestamp', 0) or int(time.time()*1000)}})
 
     def _on_super_chat(self, client, message):
         emit({'kind': 'event', 'room_id': str(client.room_id), 'event': {
-            'type': 'comment', 'event_id': 'sc-'+str(message.id), 'room_id': str(client.room_id),
+            'type': 'comment', 'event_id': 'sc-'+str(message.id), 'message_id': str(message.id), 'room_id': str(client.room_id),
             'user_id': str(message.uid), 'nickname': message.uname,
-            'text': message.message, 'notice_kind': 'superchat', 'timestamp': int(time.time()*1000)}})
+            'text': message.message, 'notice_kind': 'superchat', 'timestamp': getattr(message, 'start_time', None),
+            'sc_amount_yuan': getattr(message, 'price', None), 'guard_level': getattr(message, 'guard_level', None)}})
+
+    def _on_super_chat_delete(self, client, message):
+        # Preserve 64-bit platform IDs as strings before JavaScript parses JSON.
+        ids = [str(value) for value in message.ids]
+        for offset in range(0, len(ids), 100):
+            group = ids[offset:offset + 100]
+            key = hashlib.sha256(json.dumps([str(client.room_id), sorted(group)]).encode()).hexdigest()
+            emit({'kind': 'event', 'room_id': str(client.room_id), 'event': {
+                'type': 'delete', 'event_id': 'sc-delete-'+key, 'room_id': str(client.room_id),
+                'deletion_target_ids': group, 'timestamp': int(time.time()*1000)}})
 
 
 async def main():

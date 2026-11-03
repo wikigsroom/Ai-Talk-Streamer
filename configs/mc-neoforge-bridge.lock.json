@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "shared_core": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core",
+  "schema": "docs/technical/mc-live-v1/contracts/game.schema.json",
+  "dependencies": [
+    {"group": "dev.harrel", "artifact": "json-schema", "version": "1.9.1", "file": "json-schema-1.9.1.jar", "bytes": 211006, "sha256": "9f448b1142e9805f91f926e709206f1402f11a75da4dee729d98c77194030285"},
+    {"group": "org.xerial", "artifact": "sqlite-jdbc", "version": "3.53.4.0", "file": "sqlite-jdbc-3.53.4.0.jar", "bytes": 12002370, "sha256": "bcb1f51e36f940867e83342f9efbf5968ac44a6bef4d397bb4af7b17b45cd2fb"}
+  ]
+}

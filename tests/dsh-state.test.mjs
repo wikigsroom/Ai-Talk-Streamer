@@ -107,6 +107,7 @@ test('A07: the Bridge TTS watchdog records FAILED and starts the next request at
     f.policy.conversation.tts_timeout_ms=1000;f.advance(1100);f.state.heartbeat(lease.lease_id,lease.consumer_id);
     const queued=accept(f.state,other),started=[],barriers=[];f.state.on('cancel',b=>barriers.push(b));
     const bridge={closed:false,ready:true,administration:{locked:false},db:f.db,state:f.state,policy:f.policy,processRequest:async request=>started.push(request)};
+    Object.setPrototypeOf(bridge,StreamBridge.prototype);
     await StreamBridge.prototype.tick.call(bridge);
     assert.equal(f.state.request(u.request_id).status,'FAILED');assert.equal(barriers.length,1);
     const event=f.db.get("SELECT event_seq FROM stream_events WHERE request_id=? AND event_type='request.failed'",u.request_id);
@@ -135,6 +136,7 @@ test('media HTTP commands are serialized; stale speech is never sent and a faile
   });
   await new Promise(done=>server.listen(0,'127.0.0.1',done));
   const bridge={mediaChain:Promise.resolve(),avatarUrl:'http://127.0.0.1:'+server.address().port,auth:{mediaKey:'fixture'},state:{matches:(_id,_epoch,generation)=>generation===10}};
+  Object.setPrototypeOf(bridge,StreamBridge.prototype);
   const send=(action,body)=>StreamBridge.prototype.mediaCommand.call(bridge,action,body);
   try{
     const cancel=send('cancel',{request_id:'old'});await started;

@@ -53,3 +53,12 @@ The character is a fictional **22-year-old adult** in a daylight dorm. Reference
 角色设定为虚构的 22 岁成年人。人物与动作照片通过图像渠道生成/编辑，身体视频由本地 H3 生成，网页及 OBS 实录包含示例合成声音。仓库保留提示词、选用版本、审核与哈希；上游或服务条款仍各自适用，不提供对所有素材用途的统一商业授权保证。
 
 Modified upstream behavior is documented in [Architecture](docs/ARCHITECTURE.md) and implemented explicitly by the deployment patch scripts. Preserve this notice and applicable upstream licenses when redistributing those components.
+
+Native Minecraft dependency preparation uses [PortableMC 4.4.1](https://pypi.org/project/portablemc/4.4.1/) as a version resolver, with its original upstream GPLv3 license retained inside the pinned wheel. The project wrapper installs dependencies without calling its game runner or creating an offline player identity. The exact wheel, metadata, Fabric libraries and Fabric API hashes are in [the client dependency lock](configs/mc-client.lock.json). Minecraft client/assets and the Mojang-provided Java runtime are retrieved from their upstream endpoints; the public source package contains the wrapper and lock, and does not redistribute those game/runtime binaries. Fabric Loader and Fabric API retain their respective upstream licenses. See [Fabric installation](https://fabricmc.net/use/installer/).
+
+原生MC依赖准备使用固定版PortableMC解析版本及平台依赖，并保留原轮子中的上游许可；不调用其游戏启动器或生成离线玩家身份。公开源码包不包含游戏、Java、音效或材质二进制。安装依赖、已能游玩和完整主播应用验收分别记录。
+
+
+## Mindcraft item-goal planner native port
+
+Mindcraft, MIT license, commit `e1c1fc3ffa481506c2445fc639e16dba504b5920`. The native port embeds the upstream item dependency solver with dependency-injected imports. Original files, source hashes and full MIT license are preserved in `backend/game/mindcraft/upstream/` and `upstream.lock.json`. Execution uses this application's same-player native adapter; it does not run the complete upstream Mineflayer client or upstream generated code.

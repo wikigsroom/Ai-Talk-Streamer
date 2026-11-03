@@ -1,0 +1,247 @@
+{
+  "freeze_id": "20261103MC-LUNA-R087-F01",
+  "revision": "F01",
+  "version": "1.0.0",
+  "recorded_at": "2026-11-03T05:21:35+08:00",
+  "timezone": "Asia/Taipei",
+  "runtime_round": "087",
+  "readme": "docs/freezes/20261103MC-LUNA-R087-F01/README.md",
+  "archive": "outputs/mc-freezes/20261103MC-LUNA-R087-F01/20261103MC-LUNA-R087-F01冻结留存包.zip",
+  "scope": "DOCUMENTATION_AND_REVIEWED_ARTIFACTS_ONLY",
+  "runtime_work_performed": false,
+  "formal_acceptance_advanced": false,
+  "new_avatar_assets_advanced": false,
+  "previous_freeze_retained": "20261103MC",
+  "branch": "mc",
+  "classification": "FROZEN_SCHEME_WITH_PARTIAL_REAL_EVIDENCE_NOT_RELEASE_ACCEPTED",
+  "selected_runtime": "native_agent_plus_mindcraft_item_goal_port_neoforge",
+  "vision_model": "gpt-6-luna",
+  "vision_provider": "studio_channel",
+  "protocol": "responses",
+  "observe_interval_ms": 20000,
+  "image_source": "actual_neo_forge_client_jpeg",
+  "model_inference_location": "external_private_channel_physical_gpu_or_datacenter_unknown",
+  "runtime_host": "DESKTOP-2QQPN1H",
+  "runtime_host_address": "192.168.196.176",
+  "last_runtime_proof": "outputs/mc-validation/round-087/remote-evidence/sample087b-normal-shutdown-result.json",
+  "runtime_last_verified_state": "owned_services_stopped_original_world_saved_after_death",
+  "current_remote_state_queried_this_turn": false,
+  "source_package": {
+    "path": "outputs/mc-validation/round-087/mc-source-087-v1.zip",
+    "bytes": 37483734,
+    "sha256": "3ff0a7b169608d56cffe64b14b92467c69a5d8c87c2723019e6920c8781a8fd5"
+  },
+  "runtime_snapshot_sha256": "74146c0f4974c3f735c2a3ea210c55cddaf103597549abee13eb5a7346629da9",
+  "source_files": 988,
+  "git_commit_alone_is_complete_baseline": false,
+  "formal_acceptance": {
+    "passed": 0,
+    "defined": 68
+  },
+  "new_avatar_clips": {
+    "generated": 0,
+    "accepted": 0,
+    "required": 100
+  },
+  "required_domains": 15,
+  "full_scope_open_items": 117,
+  "numbered_specific_findings": 10,
+  "latest_video": {
+    "video": "outputs/mc-validation/round-087/remote-evidence/mc-live-luna-087b-120s.mp4",
+    "duration_seconds": 120,
+    "resolution": "1920x1080",
+    "fps": 30,
+    "video_frames": 3600,
+    "bytes": 60679679,
+    "sha256": "595ff96c5929d0c4b8a7be5ba4f783640c1766e986e33dc96a0e64482f08c5f2",
+    "continuous_real_time": true,
+    "post_production_voice_added": false,
+    "gameplay_window_seconds": 132.061,
+    "task_states": {
+      "failed": 5,
+      "succeeded": 11
+    },
+    "effect_verified_productive_tasks": 6,
+    "failed_reasons": {
+      "GAME_DEFENSE_ESCAPE_TIMEOUT": 1,
+      "GAME_DEFENSE_RETREAT_COMPLETE": 1,
+      "GAME_NAVIGATION_NO_ROUTE": 3
+    },
+    "programme_speech_requests_first_played_within_video": 8,
+    "new_real_bilibili_events_verified": false,
+    "new_avatar_clips": 0,
+    "public_broadcast_started": false,
+    "worker_task_submissions": 0,
+    "worker_auto_requests": 1,
+    "game_keys_issued": 0,
+    "manual_takeover_used": false,
+    "world_or_inventory_injection": false,
+    "source_files_changed_during_gameplay": 0,
+    "normal_world_save_quit": true,
+    "six_owned_services_stopped": true,
+    "formal_acceptance_advanced": false,
+    "new_avatar_assets_advanced": false,
+    "local_tests_run": 0,
+    "full_survival_verified": false
+  },
+  "round087_review": {
+    "classification": "LOCAL_REVIEW_OF_REMOTE_EVIDENCE_ONLY_NO_RUNTIME_OR_MEDIA_PROCESSING",
+    "actual_window_seconds": 132.061,
+    "source_unchanged": true,
+    "tasks": {
+      "failed": 5,
+      "succeeded": 11
+    },
+    "failed_reasons": {
+      "GAME_DEFENSE_ESCAPE_TIMEOUT": 1,
+      "GAME_DEFENSE_RETREAT_COMPLETE": 1,
+      "GAME_NAVIGATION_NO_ROUTE": 3
+    },
+    "verified_productive_tasks": [
+      {
+        "skill": "craft",
+        "item_id": "minecraft:wooden_pickaxe",
+        "completed_offset_seconds": 99.866
+      },
+      {
+        "skill": "craft",
+        "item_id": "minecraft:oak_planks",
+        "completed_offset_seconds": 92.574
+      },
+      {
+        "skill": "gather",
+        "item_id": "minecraft:oak_log",
+        "completed_offset_seconds": 78.111
+      },
+      {
+        "skill": "craft",
+        "item_id": "minecraft:stick",
+        "completed_offset_seconds": 45.439
+      },
+      {
+        "skill": "craft",
+        "item_id": "minecraft:oak_planks",
+        "completed_offset_seconds": 39.41
+      },
+      {
+        "skill": "gather",
+        "item_id": "minecraft:oak_log",
+        "completed_offset_seconds": 28.426
+      }
+    ],
+    "verified_productive_tasks_completed_within_clip": 6,
+    "vision_fresh_requests": 7,
+    "vision_fresh_states": {
+      "succeeded": 5,
+      "failed": 2
+    },
+    "vision_in_clip_states": {
+      "succeeded": 5,
+      "failed": 1
+    },
+    "vision_failure_codes": {
+      "MODEL_PREEMPTED": 2
+    },
+    "vision_success_latency_ms": {
+      "min": 3578,
+      "median": 4374,
+      "mean": 4549.8,
+      "max": 5994
+    },
+    "vision_success_tokens": {
+      "input": 13060,
+      "output": 1012
+    },
+    "vision_captions": [
+      {
+        "capture_offset_seconds": 0.324,
+        "caption": "白天的平原村庄，土路穿过草地；前方有砖房、木屋、干草捆和火把路灯，周围是树林。画面未见明显敌对威胁。",
+        "elapsed_ms": 5994
+      },
+      {
+        "capture_offset_seconds": 20.472,
+        "caption": "村庄土路穿过草地，路旁有木屋、围栏、树木和花草；右下近处可见工作台与盾牌。画面无明显敌对生物。",
+        "elapsed_ms": 4607
+      },
+      {
+        "capture_offset_seconds": 40.477,
+        "caption": "平原村庄的土路旁有工作台、围栏和疑似牛只；中央是被水覆盖的钟楼结构，后方有木屋。草地开阔，远处可见红色光柱，未见明显危险。",
+        "elapsed_ms": 4374
+      },
+      {
+        "capture_offset_seconds": 60.619,
+        "caption": "视角仰望一栋浅粉色墙面的房屋，屋顶由木板和木楼梯构成；墙上有木门、窗户和火把，右侧可见树木与天空。画面右侧有盾牌状物体，未见明显危险。",
+        "elapsed_ms": 4196
+      },
+      {
+        "capture_offset_seconds": 100.785,
+        "caption": "夜间村庄，泥土小路穿过草地，旁有干草堆、火把灯柱、木屋和砖墙建筑。右侧可见工作台及紫色方块；远处有红色生物或物体。前景手持盾牌，周围草丛较高。",
+        "elapsed_ms": 3578
+      }
+    ],
+    "first_damage_offset_seconds": 111.804,
+    "last_observed_health_before_pause": 2.3333359,
+    "final_health_after_audio_drain": 0,
+    "within_clip_positive_played_requests": 8,
+    "completed_requests_full_programme": 10,
+    "avatar_generated_fps": {
+      "weighted_mean": 22.969565423107518,
+      "sample_min": 18.354865887882877,
+      "sample_max": 25.713589723043576,
+      "sample_intervals": 21,
+      "interpretation": "application-generated counter; not presented FPS or speaking-only FPS"
+    },
+    "avatar_contact_review": "48 remote-produced crops reviewed; visible blink, head tilt and mouth movements",
+    "audio_twenty_second_windows_non_silent": true,
+    "normal_shutdown": true,
+    "original_official_processes_preserved": true,
+    "hash_verification": [
+      {
+        "file": "mc-live-luna-087b-120s.mp4",
+        "bytes": 60679679,
+        "sha256": "595ff96c5929d0c4b8a7be5ba4f783640c1766e986e33dc96a0e64482f08c5f2",
+        "matches_remote": true
+      },
+      {
+        "file": "sample087b-vision-01.jpg",
+        "bytes": 366707,
+        "sha256": "efcc245d3679528651ff23d29b3b7774201fbcdb1cc8e89c87dab3052afb8090",
+        "matches_remote": true
+      },
+      {
+        "file": "sample087b-vision-02.jpg",
+        "bytes": 364456,
+        "sha256": "ff1e13a6b35e2c556dc14e70ada49058e7686830fc24a054c7a2b82b89998462",
+        "matches_remote": true
+      },
+      {
+        "file": "sample087b-vision-03.jpg",
+        "bytes": 316978,
+        "sha256": "2a56931e0eebd81cdf6eca0d2d501c52474075c5b7a2212adc90721e8ebf93bf",
+        "matches_remote": true
+      },
+      {
+        "file": "sample087b-vision-04.jpg",
+        "bytes": 229506,
+        "sha256": "b6c70e0d1b1369e5627856c8e2f0ae0737b29714349a90da8f797b7f9155c228",
+        "matches_remote": true
+      },
+      {
+        "file": "sample087b-vision-05.jpg",
+        "bytes": 270918,
+        "sha256": "c7996fc82c78e5d633a6af136daa0cbbe47c99c6c6a78e2180fcf655b41e460f",
+        "matches_remote": true
+      }
+    ]
+  },
+  "source_old_freeze_archive": {
+    "path": "outputs/mc-freezes/20261103MC/20261103MC冻结留存包.zip",
+    "bytes": 87811075,
+    "sha256": "2b32d034778ac269ccdca591a8ac461b4ebd77513f5f79a66b4fd74bf5137280"
+  },
+  "no_docker_wsl_vm": true,
+  "remote4090_untouched": true,
+  "public_broadcast_started_this_turn": false,
+  "local_runtime_or_media_processing_tests": 0,
+  "browser_tabs_opened_this_turn": 0
+}

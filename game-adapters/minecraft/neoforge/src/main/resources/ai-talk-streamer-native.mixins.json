@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.aitalkstreamer.mc.neoforge.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": ["KeyboardMixin", "MouseMixin", "CursorWarpMixin", "ItemUseMixin", "InventoryMixin", "ClickMixin"],
+  "injectors": {"defaultRequire": 1}
+}

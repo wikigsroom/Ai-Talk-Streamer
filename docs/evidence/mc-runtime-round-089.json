@@ -1,0 +1,420 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261103-089",
+  "round": "089",
+  "at": "2026-11-03T00:26:36.550110+00:00",
+  "branch": "mc",
+  "scope": "NATIVE_RESTORATION_KEEP_INVENTORY_AND_FAILED_AUTONOMOUS_SURVIVAL_NOT_RELEASE_ACCEPTANCE",
+  "host": "DESKTOP-2QQPN1H",
+  "device": "remote-3080",
+  "local_application_tests": 0,
+  "virtualization_used": false,
+  "remote4090_connected": false,
+  "single_dsh_humanity_writer": true,
+  "model": "gpt-6-luna",
+  "vision": "native Java client JPEG sent to existing external channel",
+  "candidate_enabled": false,
+  "candidate_source_packages_and_recordings_preserved": true,
+  "native_config_restored_sha256": "55df3e998eb847d50ee460947dd61d32a25195d4e2796f48e006f24bde917330",
+  "source_snapshot_sha256": "4e548629e38cc7dba076970a5c1be3d8217a14ad453e0febd782e3dd64ff0a22",
+  "source_files": 996,
+  "source_archive_sha256": "72d6ad1bcf35c2aff0d3d95200e53cc17b6080a5b7a59f7417e9e7c9662b0044",
+  "world_rule": {
+    "rule": "keepInventory",
+    "before": "false",
+    "after": "true",
+    "changed": true,
+    "only_requested_rule_changed": true,
+    "before_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
+    "after_sha256": "3b797d44e3568cb5a256c21d50b4ece37f74a4057f5770add768cc12569defd6",
+    "backup_verified": true,
+    "ok": true,
+    "device": "DESKTOP-2QQPN1H",
+    "world": "MC Live Offline 083",
+    "live_inventory_edited": false
+  },
+  "services_ready": true,
+  "application_ready": false,
+  "protocol_fixture_checks": {
+    "core_pass": 359,
+    "native_targeted_pass": 87,
+    "world_rule_pass": 3,
+    "application_pass": 27,
+    "suites_overlap_do_not_sum": true,
+    "not_real_game_acceptance": true
+  },
+  "runtime": {
+    "observation_window_seconds": 301.2294166088104,
+    "observations": 148,
+    "sampled_auto_alive_seconds_approx": 56.846,
+    "ordinary_respawns_confirmed": 3,
+    "observed_death_transitions": 3,
+    "deaths": [
+      {
+        "before_at": 1793664779.7136505,
+        "after_at": 1793664781.732563,
+        "before_inventory": [
+          {
+            "item_id": "gravestone:obituary",
+            "count": 1
+          }
+        ],
+        "after_inventory": [
+          {
+            "item_id": "gravestone:obituary",
+            "count": 1
+          }
+        ],
+        "previous_items_present_after_death": true
+      },
+      {
+        "before_at": 1793664800.1278195,
+        "after_at": 1793664802.1568573,
+        "before_inventory": [
+          {
+            "item_id": "gravestone:obituary",
+            "count": 1
+          }
+        ],
+        "after_inventory": [
+          {
+            "item_id": "gravestone:obituary",
+            "count": 1
+          }
+        ],
+        "previous_items_present_after_death": true
+      },
+      {
+        "before_at": 1793664818.353259,
+        "after_at": 1793664820.3796227,
+        "before_inventory": [
+          {
+            "item_id": "gravestone:obituary",
+            "count": 1
+          },
+          {
+            "item_id": "minecraft:rotten_flesh",
+            "count": 1
+          }
+        ],
+        "after_inventory": [
+          {
+            "item_id": "gravestone:obituary",
+            "count": 1
+          },
+          {
+            "item_id": "minecraft:rotten_flesh",
+            "count": 1
+          }
+        ],
+        "previous_items_present_after_death": true
+      }
+    ],
+    "tasks": 17,
+    "task_states": {
+      "failed": 12,
+      "succeeded": 2,
+      "cancelled": 3
+    },
+    "verified_navigate_tasks": 2,
+    "verified_productive_tasks": 0,
+    "actual_threat_cancellations": [
+      {
+        "task_id": "task-3fd29e59-e773-4f74-b54d-ccb4bd646445",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:oak_log",
+          "skill": "gather"
+        },
+        "state": "cancelled"
+      }
+    ],
+    "task_failure_reasons": {
+      "GAME_GUI_BLOCKED": 1,
+      "GAME_DEFENSE_ESCAPE_TIMEOUT": 3,
+      "GAME_NAVIGATION_NO_ROUTE": 8,
+      "PLAYER_DEATH": 2,
+      "AGENT_EMERGENCY_THREAT": 1
+    },
+    "vision_results": 4,
+    "vision_succeeded": 4,
+    "vision_failed": 0,
+    "vision_success_mean_ms": 4386.5,
+    "native_images": [
+      {
+        "file": "native089-vision-1.jpg",
+        "frame_id": "frame-49f5aad8-12cb-4b19-b8e5-08ebd11662c9",
+        "sha256": "457777967a40675b315fc6e6ecd5a755b0f71fcdd2ab2c2044b2651e6345141f",
+        "bytes": 201540
+      },
+      {
+        "file": "native089-vision-2.jpg",
+        "frame_id": "frame-11b7d412-418b-43d2-b09e-39c7cc61fa4e",
+        "sha256": "b3cd521e06f863efb69a8b7f12e8fcfc8dfde3e731a9136fd0dc4b6d17f1f374",
+        "bytes": 282001
+      },
+      {
+        "file": "native089-vision-3.jpg",
+        "frame_id": "frame-782c319a-f93b-4cd8-97a5-9332274e38d1",
+        "sha256": "78fb57925525d121035600e210f395c0fdfb173c451e6f6a60ba84b7617f42b2",
+        "bytes": 222239
+      },
+      {
+        "file": "native089-vision-4.jpg",
+        "frame_id": "frame-ea98de94-e803-4ffc-aa68-8830d56fbe5a",
+        "sha256": "50e5846d56e730cd60f134702dc984a3589cda05b62ef9ac9ecfadd3fb5419ac",
+        "bytes": 238078
+      }
+    ],
+    "native_world_pause_confirmed": false,
+    "normal_exit": {
+      "classification": "NATIVE_APPLICATION_PLAYER_LIFECYCLE_NOT_AUTOMATIC_AUTHORITY",
+      "automatic_input_authorized": false,
+      "public_broadcast_started": false,
+      "world_mode": "singleplayer",
+      "local_world": "MC Live Offline 083",
+      "owner": {
+        "pid": 26604,
+        "creation_ticks": 134381379715886995
+      },
+      "argv_sha256": "b68a4a1f97d94e2fb79c027d40ce320179c9d95a9b22be7dca4ef5b7762496bc",
+      "graceful_close_requested": true,
+      "display_keep_awake": {
+        "scope": "owned_minecraft_service_thread",
+        "active": false,
+        "requested_flags": 2147483650,
+        "previous_thread_flags": 2147483648,
+        "acquired_at": "2026-11-03T00:06:39.813021+00:00",
+        "released_at": "2026-11-03T00:17:40.602273+00:00",
+        "power_plan_changed": false,
+        "input_actions_issued": 0,
+        "refresh_interval_seconds": 5,
+        "refresh_count": 129,
+        "last_refresh_at": "2026-11-03T00:17:34.839585+00:00",
+        "refresh_failures": 0,
+        "last_refresh_error": null
+      },
+      "process": {
+        "pid": 20292,
+        "creation_ticks": 134381379998143939
+      },
+      "close_window_count": 8,
+      "exit_code": 0,
+      "all_owned_processes_closed": true
+    },
+    "keep_inventory_after_engine_save": true,
+    "internal_broadcast_closed": true,
+    "services_stopped": true,
+    "initial_cleanup_failed": true,
+    "offair_recovery": {
+      "ok": true,
+      "game_or_models_started": false,
+      "public_broadcast_started": false,
+      "database_direct_writes": 0,
+      "prior_supervision": [
+        {
+          "schema_version": 1,
+          "operation_id": "7d8b2da09d3648f688592a2df4a7d089",
+          "supervisor": {
+            "pid": 7008,
+            "creation_ticks": 134381382042624958
+          },
+          "members": [
+            {
+              "pid": 15476,
+              "creation_ticks": 134381377055552712
+            },
+            {
+              "pid": 2636,
+              "creation_ticks": 134381378068957871
+            },
+            {
+              "pid": 27668,
+              "creation_ticks": 134381379053212941
+            },
+            {
+              "pid": 27828,
+              "creation_ticks": 134381379706844589
+            },
+            {
+              "pid": 26604,
+              "creation_ticks": 134381379715886995
+            }
+          ],
+          "service_readiness_checked": false,
+          "family_empty_confirmed": true,
+          "phase": "FAULTED",
+          "updated_at": "2026-11-03T00:17:40.728257+00:00",
+          "reason": "UNEXPECTED_ROOT_EXIT",
+          "exited": [
+            {
+              "pid": 26604,
+              "creation_ticks": 134381379715886995,
+              "exit_code": 0
+            }
+          ],
+          "registry_cleanup_confirmed": true,
+          "supervisor_alive": false
+        }
+      ],
+      "recovered_broadcast": {
+        "broadcast_id": "bc-66297a13-507d-423c-9814-10352785d65c",
+        "character_id": "female-a",
+        "room_id": "room-main",
+        "state": "RECOVERING",
+        "runtime_epoch": 64,
+        "revision": 4,
+        "source_revision": 1,
+        "delivery_context_revision": 5,
+        "persona_version": "female-a-v1-a29201a1f275",
+        "started_at": "2026-11-03T00:12:33.344Z",
+        "ended_at": null,
+        "ended_event_seq": null,
+        "consolidation_not_before": null,
+        "created_at": "2026-11-03T00:12:32.459Z"
+      },
+      "internal_broadcast_closed": true,
+      "game_planner_enabled_after_recovery": false,
+      "stop": {
+        "ok": true,
+        "action": "stop",
+        "scope": "OWNED_MANAGED_SERVICES_ONLY",
+        "unmanaged_official_client_stopped": false,
+        "public_broadcast_started": false
+      },
+      "services_after": {
+        "dsh": false,
+        "avatar": false,
+        "tts": false,
+        "receiver": false,
+        "vision": false,
+        "minecraft": false
+      },
+      "new_supervision": [
+        {
+          "schema_version": 1,
+          "operation_id": "58524ac0d9ae4b978b2170d9f3b4b975",
+          "supervisor": {
+            "pid": 23592,
+            "creation_ticks": 134381389251186979
+          },
+          "members": [
+            {
+              "pid": 27024,
+              "creation_ticks": 134381389098700572
+            }
+          ],
+          "service_readiness_checked": false,
+          "family_empty_confirmed": true,
+          "phase": "STOPPED",
+          "updated_at": "2026-11-03T00:22:06.464156+00:00",
+          "reason": "EXPECTED_STOP",
+          "exited": [
+            {
+              "pid": 27024,
+              "creation_ticks": 134381389098700572,
+              "exit_code": 0
+            }
+          ],
+          "registry_cleanup_confirmed": true,
+          "supervisor_alive": false
+        }
+      ],
+      "finished_at": 1793665327.0809453
+    },
+    "session_ok": false,
+    "finish_ok": true,
+    "public_broadcast_started": false,
+    "worker_task_submissions": 0,
+    "game_keys_issued": 0,
+    "manual_takeover": false,
+    "continuous_productive_play_passed": false
+  },
+  "artifact_transport": {
+    "files": 26,
+    "all_sizes_sha256_verified": true
+  },
+  "formal_acceptance_passed": 0,
+  "formal_acceptance_total": 68,
+  "new_avatar_assets_done": 0,
+  "new_avatar_assets_total": 100,
+  "inherited_frozen_remaining": 117,
+  "goal_status": "active",
+  "remaining": [
+    {
+      "id": "D01",
+      "name": "工程运行",
+      "remaining": "完整安装包与许可、干净Windows重建、来源与全部副本审计、异常启动回收、缓存与回退自动化；六项服务ready不等于完整application_ready。"
+    },
+    {
+      "id": "D02",
+      "name": "游戏接入",
+      "remaining": "模组实体与容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物及后续联机差异。"
+    },
+    {
+      "id": "D03",
+      "name": "自主控制",
+      "remaining": "夜间多敌撤离、受击腾空/寻路失败改策、普通PvE、食物与重生后补给、GUI/水/岩浆/窒息、租约和长期停止；采集遇险取消已有实机回执，仍不能替代成功逃生。"
+    },
+    {
+      "id": "D04",
+      "name": "生存技能",
+      "remaining": "持续资源→工具→食物长链、熔炼、种收吃、容器往返、工具耐久与更换、模组资源、探索建造；历史木镐成果不等于本轮持续生存。"
+    },
+    {
+      "id": "D05",
+      "name": "DSH规划",
+      "remaining": "Mindcraft依赖覆盖、复杂路线与可达撤离、失败后改策、长期目标和跨场工作台补给、真实互动并发、模型预算/公平性/迟到取消与事实核验。"
+    },
+    {
+      "id": "D06",
+      "name": "真实互动",
+      "remaining": "595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连和节目展示；公开连接缺现场事件，不伪造样本，不重复要求用户发送。"
+    },
+    {
+      "id": "D07",
+      "name": "记忆数据",
+      "remaining": "真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复及唯一写者隔离。"
+    },
+    {
+      "id": "D08",
+      "name": "后台界面",
+      "remaining": "完整原生状态/启停/任务/资源/音量/诊断/故障恢复、手机、留言左右切换与两方案可追溯切换。"
+    },
+    {
+      "id": "D09",
+      "name": "横屏节目",
+      "remaining": "持续有效游玩、自然及时且符合事实的解说、人物持续供帧与4秒重缓冲、真实弹幕合成和手机观看；生成FPS不能替代实际呈现FPS。"
+    },
+    {
+      "id": "D10",
+      "name": "人物素材",
+      "remaining": "两套各2闲置+48动作共100段新素材、索引、口型、圆形遮罩与接缝；仍0/100，原female-A历史素材保留。"
+    },
+    {
+      "id": "D11",
+      "name": "声音混音",
+      "remaining": "原生游戏声/人声/BGM压低恢复、O07/F07故障切换、唯一音源与完整实录验收。"
+    },
+    {
+      "id": "D12",
+      "name": "视觉理解",
+      "remaining": "真实JPEG→Luna的模组物品/危险准确率、旧帧与世界绑定、误识别、超时取消、队列公平性及游戏/人物联合负载。"
+    },
+    {
+      "id": "D13",
+      "name": "平台输出",
+      "remaining": "公开状态核对、独立观众CDN音画和端到端时延；本轮内部验证未公开开播。"
+    },
+    {
+      "id": "D14",
+      "name": "运维稳定",
+      "remaining": "冷启动、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转、异常退出及实际暂停与正常保存。"
+    },
+    {
+      "id": "D15",
+      "name": "完整交付",
+      "remaining": "正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/交接；继承117项冻结待办原编号不变。"
+    }
+  ]
+}

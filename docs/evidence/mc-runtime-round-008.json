@@ -1,0 +1,281 @@
+{
+  "classification": "NATIVE_INPUT_PERMISSION_PROGRESS_FENCES_AND_EXECUTOR_SOURCE_REVIEW_CPU_ONLY",
+  "round": "008",
+  "recorded_at": "2026-10-29T22:55:58.876592+00:00",
+  "branch": "mc",
+  "turn_classification": "progress",
+  "goal_status": "active",
+  "result": "PASS_FOR_RECORDED_LOCAL_CHECKS_NOT_FULL_SYSTEM_ACCEPTANCE",
+  "implemented_ids": [
+    "I065",
+    "I066",
+    "I067",
+    "I068",
+    "I069",
+    "I070",
+    "I071",
+    "I072"
+  ],
+  "environment": {
+    "os": "Windows native; no virtualization",
+    "node_tested": "24.19.0",
+    "production_dsh_node_required": "24.22.1",
+    "production_node_verified": false,
+    "java": "Temurin21.0.11+10",
+    "gradle": "8.14.3",
+    "python": "3.13"
+  },
+  "checks": [
+    {
+      "name": "native_java_permission_cursor_physical_keys_journal_frames_and_contract",
+      "passed": 70,
+      "failed": 0,
+      "skipped": 0,
+      "groups": {
+        "TEST-dev.aitalkstreamer.mc.core.ControlArbiterTest": 22,
+        "TEST-dev.aitalkstreamer.mc.core.CursorActivityTest": 9,
+        "TEST-dev.aitalkstreamer.mc.core.FrameTest": 4,
+        "TEST-dev.aitalkstreamer.mc.core.InputLedgerTest": 5,
+        "TEST-dev.aitalkstreamer.mc.core.LocalJournalTest": 23,
+        "TEST-dev.aitalkstreamer.mc.core.PhysicalKeysTest": 4,
+        "TEST-dev.aitalkstreamer.mc.core.WireTest": 3
+      },
+      "same_source_unit_reports_reused_on_final_repeat": false,
+      "report_local": "outputs/mc-validation/round-008/java-core-final"
+    },
+    {
+      "name": "compiled_java_node_interop_with_game_thread_stall_and_pre_execution_timeout",
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "real_game_port": false,
+      "report_local": "outputs/mc-validation/round-008/interop-final.xml"
+    },
+    {
+      "name": "jar_input_resources_and_refmap",
+      "result": "PASS",
+      "report_local": "outputs/mc-validation/round-008/native-input-package-check.json",
+      "runtime_mixin_acceptance": "not_run"
+    },
+    {
+      "name": "pinned_executor_source_hashes",
+      "files_verified": 15,
+      "result": "PASS_FOR_SOURCE_OBSERVATION_ONLY",
+      "candidate_runtime_built": false,
+      "report_local": "outputs/mc-validation/round-008/executor-source-verification.json"
+    },
+    {
+      "name": "document_contract_and_full_scope",
+      "result": "PASS",
+      "schema_definitions": 85,
+      "valid_examples": 68,
+      "negative_contract_cases": 40,
+      "http_operations": 42,
+      "ws_types_with_examples": 17,
+      "markdown_files_checked": 24,
+      "local_markdown_links": 266,
+      "counted_as_runtime_acceptance": false,
+      "report_local": "outputs/mc-validation/round-008/document-contract-verification.json"
+    }
+  ],
+  "distinct_local_test_cases_passed": 81,
+  "distinct_cpu_test_cases_passed": 81,
+  "repeated_runs_not_double_counted": true,
+  "native_build": {
+    "result": "PASS",
+    "jar": "game-adapters/minecraft/fabric/build/libs/ai-talk-streamer-mc-bridge-0.1.0.jar",
+    "jar_sha256": "d350ebafe4bf5a6877a499af76af9207d686d7e4a59ba82670280a011ab27aef",
+    "embedded_schema_sha256": "f8d3d2da13a827df7100aeb634c8539f050b7aec8f485dbcb79bafc101ae58e7",
+    "sqlite_jdbc_version": "3.53.4.0",
+    "sqlite_windows_x64_dll_sha256": "f16882d2eded914edd1e1d313e7c8579e040b0da090a52ea99ad7b0c5d961c45",
+    "receipt_local": "outputs/mc-validation/round-008/fabric-build-receipt.json"
+  },
+  "executor_source_audit": {
+    "manifest": "configs/mc-executor-source-audit.json",
+    "commit": "1f8e038befeaed44b8a053402c69127866c46a4e",
+    "source_files": 15,
+    "runtime_binary": null,
+    "automatic_input_authorized": false
+  },
+  "browser": {
+    "interactive_browser_used": false,
+    "web_research_used": true,
+    "task_owned_tabs_opened": 0,
+    "all_task_owned_contexts_closed": true
+  },
+  "owned_processes_remaining": [],
+  "observed_failures_and_corrections": [
+    {
+      "failure": "Raw upstream source host reset the TLS connection",
+      "correction": "Read the fixed commit through the GitHub blob API; all15 public source-file SHA256 values were verified",
+      "runtime_failure": false
+    }
+  ],
+  "review_findings_fixed": [
+    "Final native start needed a second epoch/lease/world/precondition and task-duration check after running was persisted",
+    "An accepted/running task without a native executor object could remain running after timeout",
+    "An old queued release could touch a newer epoch or claim its inputs released",
+    "Network lease renewal was independent of stalled game-thread progress",
+    "Programmatic cursor warp and individually small movements needed separate bounded handling",
+    "Failed/nested release must not confirm a newer epoch or permit reentrant new input"
+  ],
+  "source_sha256": {
+    "configs/mc-executor-source-audit.json": "deddf6c0a850a6735320c058b02b40b3083922d62fe243ddba8a857964ba4ca6",
+    "docs/technical/mc-live-v1/AltoClef接入核对与输入约束.md": "23147b08388726d7304d638763a7e07e4fc2a79c8ac14fd7aceae288d88feb77",
+    "docs/technical/mc-live-v1/implementation-status.json": "c6d7fcd72ff1b44111ab45d8682481920b10ecd499cd62b146758cbbfaaf1187",
+    "docs/technical/mc-live-v1/README.md": "bb3f6fc2a1cc8e02974a872fd371adaeb23974890ac7f39b708d05bcc76b47e3",
+    "docs/technical/mc-live-v1/实现进度.md": "668c7fdbec8034213705fbb3cf2ee3e0cef4cde77370e1d6a3f8f1671607643e",
+    "docs/technical/mc-live-v1/本地输入许可与停顿处理.md": "1226cf5112f556bee73d19143450f469f80b04f10d33e47e5405a4dfc59a855f",
+    "game-adapters/minecraft/fabric/README.md": "d1d1dc7976a34eebf6591d1d80b32afcb4d1cbb6fbcf24308d3675c5702db69e",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/BridgeCore.java": "1551e0100b88b1c6a6f9b34e5341d451a32257452a2c280f449d15d55e1109ce",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/ControlArbiter.java": "ddb4af9f55cae61a88de622c48440e4cf0fcdfb76595adde54badc8c426480b7",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/CursorActivity.java": "a9e2d0908776b1d3d4168c9669ef3975e8012085a36fc46edc742ae071ea64fe",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/FrameEncoder.java": "f5c7e02082f690e108ef34739c054a1569c30f1f7c08b4b778ed038565e19189",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/FrameUpload.java": "ec9b7481ab8e1e0bbc3c7a01df33d6ad902bfaa483b2e494cc5f8f5be4b370a8",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/GamePort.java": "d8b73450d460f1d8bd58a943aa4211f7a4edcd78c0cbe02cc4d61da3180dab20",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/InputLedger.java": "e75f738ecdb7b4bdf8d1b210794521813b9d61d7388ba6351b1ff602957d184a",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/Json.java": "7e5b8336a54b52353602c7f9a736be52eef1bcb6cbe5504e09eae4cd613d0c2d",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/LocalJournal.java": "5bf9dbb8beeb065f1e9c81acc6f04bf2c54a995e3733a28454f9406fe6d4a42e",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/PhysicalKeys.java": "3b549e5004529d7d58cdda89e2319034f46a84f58179a038fa727058e78ce051",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/Wire.java": "4666febec05758ac134efac5b73a40251e3aae342413536f04f484fbdcd164e9",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/InputOwner.java": "75ccb0cc97d838c1bc212dfc506ff766ac96740df98014b235c03372ecf3cbfe",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/McBridgeClient.java": "8d7282d1dbfdfcad5a692fb0f26d1fceb6839fde7d87e0b3087f636f4dcc952b",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/MinecraftPort.java": "e6d10cd0a46331987f27db352db1c66cc62b70823cd4a5e598ce1855af780fcc",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/InputUtilMixin.java": "13da025ce488522e6b90d68731b7eaab26fc3045cc2fe37966082faafecc6c18",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/KeyBindingAccessor.java": "009c185610df161ff8c8522773fc60fc8ce9ed4b377d16d8b158b5be635e5846",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/KeyboardMixin.java": "5729ef81074b74e60a78b00f39c1432325ed2ea679d50ff65e8b2260ded7afc3",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/MouseMixin.java": "ac10a9208f2d8ae1dd5ef38fdd32b355c7d3ae04545d238b417928f73b069bd2",
+    "game-adapters/minecraft/fabric/src/main/resources/assets/ai_talk_streamer_mc_bridge/lang/en_us.json": "4b9e430457a76e1877684e8e45574f91ef3caafcdde117d99bc883099f3ef6c9",
+    "game-adapters/minecraft/fabric/src/main/resources/assets/ai_talk_streamer_mc_bridge/lang/zh_cn.json": "25249807eaef22a8e02f88245caedcfb844406b66e9da655092f42005064b7df",
+    "game-adapters/minecraft/fabric/src/main/resources/fabric.mod.json": "017f27570ff2a575a06758f559571851ac6d019cba1708f4a11ea5c90792bd11",
+    "game-adapters/minecraft/fabric/src/main/resources/mc-bridge.mixins.json": "18720f6d1907936aaf844f1dd2a1c2850c2d134b8496c8ccc26f504b97cdbbad",
+    "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/ControlArbiterTest.java": "9f3dfd39e20727ac28e81579bb8812749032a116f2eba1a2ebe16ea00ac50db8",
+    "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/CursorActivityTest.java": "e32d76ce69960babc330dc93ca0885fae8ca1c89e7d2f7c4282016a35795dbff",
+    "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/FrameTest.java": "b1437c7a264e5d045eeca7ab8e76b9cd96145be766fdcd09ae886cd34c74f353",
+    "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/HeadlessBridge.java": "a95088a2f5bdb7118c2e0e23a6d3c24b34e7f9202729c91ea9351c8787e48dcc",
+    "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/InputLedgerTest.java": "723ccaacc225b7eb66a84ef6d606fd8156489813b847ab2c9c02fd95e83fba12",
+    "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/LocalJournalTest.java": "857fd605b5351a6c69cbb26cf2e45ac19b6a45334e8bc8746fbff09079ea2000",
+    "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/PhysicalKeysTest.java": "60a5ccae4b4da1a78016c7fdbee3197da8e56bea48259f9e650d4b41e72a6595",
+    "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/WireTest.java": "43ab4fd79299bc065006b95a0fcd94de90611f52152be521170111cbde5e41f9",
+    "tests/game-java-interop.test.mjs": "094f83bd7877fbb5bfed002cb525187322685112ae7dd3e5eb419a0c5a5764d4"
+  },
+  "layout_sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+  "layout_unchanged": true,
+  "full_delivery_scope": {
+    "delivery_mode": "single_integrated_release",
+    "mandatory_domains": 15,
+    "runtime_acceptance_total": 68,
+    "runtime_acceptance_not_run": 68,
+    "four_hour_stability": "not_run",
+    "next_day_restore": "not_run",
+    "new_avatar_clips_required": 100,
+    "new_avatar_clips_produced": 0
+  },
+  "guardrails": {
+    "remote4090": "paused",
+    "gpu_control_performed": false,
+    "model_downloaded": false,
+    "native_inference_started": false,
+    "minecraft_started": false,
+    "official_livehime_started": false,
+    "public_broadcast_started": false,
+    "virtualization_used": false,
+    "application_auth_added": false,
+    "audible_player_added": false,
+    "humanity_writer_added": false,
+    "device_origin_or_deployment_contract_changed": false,
+    "original_avatar_and_voice_bank_changed": false
+  },
+  "required_domains_remaining": [
+    {
+      "id": "D01",
+      "required": true,
+      "status": "partial",
+      "remaining": "mc设备profile、原生预检/准备/启停、完整运行锁与发布包；正式Node24.22.1及干净环境复现"
+    },
+    {
+      "id": "D02",
+      "required": true,
+      "status": "partial_native_frames_sessions_history_runtime_not_accepted",
+      "remaining": "配方/完整GUI/规则、B归档向A完整历史投影和世界选择后台；原始帧、Fabric/Mixin/服务器联合实机验收"
+    },
+    {
+      "id": "D03",
+      "required": true,
+      "status": "partial_native_permit_progress_and_input_ownership_cpu_verified",
+      "remaining": "AltoClef/配套寻路全部写点与视角/GUI统一仲裁；真实改键、物理键鼠/扫描码、光标回中/焦点/分辨率、线程停顿及至少20次实机接管与时延"
+    },
+    {
+      "id": "D04",
+      "required": true,
+      "status": "partial_eat_cancel_source_only",
+      "remaining": "AltoClef整套构建/预期GUI及完整执行档接入；导航/采集/合成/回基地、完整物品使用、普通PvE/补给/危险处理、多步骤资源链及真实后置证据"
+    },
+    {
+      "id": "D05",
+      "required": true,
+      "status": "partial_world_context_and_tools",
+      "remaining": "真实DSH与模型渠道、完整生存目标和预算/取消/迟到结果；任务结果自动口播/回复编排、播出前事实复核、Neuro固定消息兼容及回放"
+    },
+    {
+      "id": "D06",
+      "required": true,
+      "status": "partial_audience_vote_task_protocol_and_operator_ui_locally_verified",
+      "remaining": "自由语言建议映射/消歧、任务结果公开回复；SC金额/角色/表情/删除及撤票、真实平台/MC任务联合验收；去身份化与删除联动"
+    },
+    {
+      "id": "D07",
+      "required": true,
+      "status": "partial_sessions_goals_dispositions_and_b_restore_core",
+      "remaining": "B归档向A完整历史投影、历史保留/摘要/清理、Humanity删除、后台维护、A/B/MC联合备份恢复及次日实机验收"
+    },
+    {
+      "id": "D08",
+      "required": true,
+      "status": "partial_world_tasks_audience_operator_ui_locally_verified",
+      "remaining": "世界选择、回复编排、人物包装、声音/节目、记忆/删除与完整诊断维护后台；已有世界/任务/互动页整链验收"
+    },
+    {
+      "id": "D09",
+      "required": true,
+      "status": "design_frozen_runtime_not_implemented",
+      "remaining": "正式横屏节目页、v3/v2媒体、关键帧、字幕/取消屏障及唯一正式播放器"
+    },
+    {
+      "id": "D10",
+      "required": true,
+      "status": "not_generated",
+      "remaining": "圆形与横窗各50段、共100段新人物素材，完整索引/脸框/动作语义/隔离及动态QA"
+    },
+    {
+      "id": "D11",
+      "required": true,
+      "status": "legacy_chain_available_mc_integration_pending",
+      "remaining": "MC人声/游戏/BGM混音、压低、取消与静音恢复；O07/F07主备及唯一可听链"
+    },
+    {
+      "id": "D12",
+      "required": true,
+      "status": "partial_native_frame_transport_and_pinned_vision_adapter_cpu_verified",
+      "remaining": "真实视觉服务/模型/投影与CUDA运行核对、真实帧/文字/建筑/未知及失败样例；跨机时钟、带宽、GPU取消和完整负载验收"
+    },
+    {
+      "id": "D13",
+      "required": true,
+      "status": "partial",
+      "remaining": "B端联合、官方直播姬实际捕获、真实平台公开状态与观众端音画；资格校验及公开验收"
+    },
+    {
+      "id": "D14",
+      "required": true,
+      "status": "partial_native_journal_build_and_control_fault_checks",
+      "remaining": "完整运行诊断、资源/时延/日志/磁盘预算、历史高I/O及通用ACK故障复查、故障注入、联合恢复及回滚"
+    },
+    {
+      "id": "D15",
+      "required": true,
+      "status": "not_accepted",
+      "remaining": "V01–V44+C01–C24全部68项、4小时完整负载、跨场/次日、干净原生环境复现与统一交付报告"
+    }
+  ]
+}

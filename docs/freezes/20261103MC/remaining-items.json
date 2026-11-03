@@ -1,0 +1,3707 @@
+{
+  "schema_version": 1,
+  "freeze_id": "20261103MC",
+  "recorded_at": "2026-11-03T02:36:33.922859+08:00",
+  "required_domains": [
+    {
+      "id": "D01",
+      "required": true,
+      "status": "actual_offline_reload_and_native_agent_start_verified_full_delivery_pending",
+      "remaining": "完整安装包、许可、其他运行副本审计、干净Windows复现与整机恢复；更多离线档异常路径及后续用户提供地址的明确联机切换。"
+    },
+    {
+      "id": "D02",
+      "required": true,
+      "status": "native_partial_surface_and_autonomous_resume_implemented_full_world_lifecycle_pending",
+      "remaining": "更多容器/断连/世界切换/死亡恢复；普通重生、暂停握手、楼梯/下落/挖阶、低平台起步及土径/耕地表面行走已实现，坟墓取物、更多异形地面与联机移动仍需实证。"
+    },
+    {
+      "id": "D03",
+      "required": true,
+      "status": "agent_known_pre_effect_placement_replanning_implemented_long_autonomy_pending",
+      "remaining": "完整PvE/食物/撤离、实际多敌追击逃生与持久补给、种植及其他目标变化的更多真实恢复、GUI/未知故障自动恢复、岩浆/窒息脱险、断线/租约/硬件停止/联机保护；日常不依赖人工接管，真实水域/屋顶/树丛和长期连续生存仍需验收。"
+    },
+    {
+      "id": "D04",
+      "required": true,
+      "status": "actual_wood_table_cobblestone_furnace_verified_full_supply_pending",
+      "remaining": "其他石工具、熔炼/食物完整长链、种收吃、危险撤退、重生后连续补给与坟墓取物；084i木料/工作台/圆石/熔炉制作有真实成果，石镐和石斧沿用原档，未重复冒充本场制作。"
+    },
+    {
+      "id": "D05",
+      "required": true,
+      "status": "actual_portable_workstation_and_furnace_chain_verified_long_autonomy_pending",
+      "remaining": "更多Mindcraft物品/熔炼/探索、复杂资源/路线阻塞、跨会话便携工作台与补给、长时自主及真实弹幕并发；084i便携工作台实际制作/放置及熔炉链已确认，不能替代所有地形和长期恢复。嵌入原生求解器仍非完整上游运行时。"
+    },
+    {
+      "id": "D06",
+      "required": true,
+      "status": "guest_room_connection_verified_real_event_chain_pending",
+      "remaining": "595139真实弹幕/礼物/SC、过滤去重、建议/投票、重连、回复与节目展示；公开连接已通但零事件，用户当前不能发送，不重复要求。"
+    },
+    {
+      "id": "D07",
+      "required": true,
+      "status": "community_recall_mood_soul_adapted_full_memory_lifecycle_pending",
+      "remaining": "更正/删除、跨场异常、次日恢复与社区完整遗忘流程；中文召回/情绪/SOUL接入不替代真实观众记忆和删除验收，死亡恢复需新鲜物资及任务复核。"
+    },
+    {
+      "id": "D08",
+      "required": true,
+      "status": "planting_desktop_mobile_editors_verified_complete_operator_flows_pending",
+      "remaining": "自主任务/诊断/资源/音量/启停完整界面与自动故障恢复；自动开始设置、普通暂停恢复及桌面/手机已有子项，完整现场流程仍待验。"
+    },
+    {
+      "id": "D09",
+      "required": true,
+      "status": "repaired_120s_productive_programme_delivered_full_live_quality_pending",
+      "remaining": "自然表达词频与句式多样性、任务高峰解说及时性、真实弹幕/礼物叠加、单正式音源串扰及完整节目；084i真实游戏成果/待机人物/字幕/声音/120秒录像已交付，仍有“总算”4/7（全场5/8）及熔炉解说在127.198秒开始的延迟。 085确认的人物供帧不足及约4秒欠载重缓冲尚未修复，实际连续音画需复测。"
+    },
+    {
+      "id": "D10",
+      "required": true,
+      "status": "not_generated",
+      "remaining": "两套各2闲置+48动作，共100段新人物素材、索引、口型/遮罩/接缝及手机观看；0/100。"
+    },
+    {
+      "id": "D11",
+      "required": true,
+      "status": "approved_voice_pair_integrated_audio_acceptance_pending",
+      "remaining": "人声/游戏/BGM压低与恢复、O07/F07故障切换、混音和唯一音源的真实录音验收。"
+    },
+    {
+      "id": "D12",
+      "required": true,
+      "status": "actual_offline_death_screen_vision_verified_gameplay_timeout_pending",
+      "remaining": "生存游玩帧CPU视觉30秒超时、冷启动和联合负载稳定性；文字/建筑/危险识别准确率与旧护甲误报。死亡帧21.148秒和同主播两条正式播完仅为成功子项，不能覆盖失败。"
+    },
+    {
+      "id": "D13",
+      "required": true,
+      "status": "official_local_output_verified_public_audience_pending",
+      "remaining": "公开状态核对与独立观众CDN音画验收；当前未获公开开播授权，保持未执行。"
+    },
+    {
+      "id": "D14",
+      "required": true,
+      "status": "actual_v8_native_start_save_shutdown_verified_long_stability_pending",
+      "remaining": "FPS/端到端时延、4小时含60分钟稳定段、完整冷启动优化、FTB推广网络阻塞的持久解决、外部广告抢焦点、断线及长时恢复、显示组合与授权范围内旧候选清理；约4.70GB原游戏日志须受控轮转和预算，原件未删除。一次正常启动/停机不代替稳定性验收。 085分阶段编码/映射/调度与CPU/GPU/磁盘归因及人物/游戏实际呈现性能仍需核对。"
+    },
+    {
+      "id": "D15",
+      "required": true,
+      "status": "not_accepted",
+      "remaining": "68项正式验收0/68，24组合/12场景/8发布门、跨场次日及干净完整交付；全域不降范围、不提前宣布完成。"
+    }
+  ],
+  "required_open_items": [
+    {
+      "id": "MCF-D01-01",
+      "domain": "D01",
+      "domain_name": "工程与运行契约",
+      "priority": "P1",
+      "status": "open",
+      "title": "完整应用安装包",
+      "completion_criterion": "将已安装依赖、模型/素材锁、许可、原生程序、入口和版本对应关系补齐；公共源码ZIP不抵扣完整包。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_reload_and_native_agent_start_verified_full_delivery_pending",
+      "source_remaining": "完整安装包、许可、其他运行副本审计、干净Windows复现与整机恢复；更多离线档异常路径及后续用户提供地址的明确联机切换。",
+      "source_anchors": [
+        "configs/releases",
+        "scripts",
+        "docs/deployment/DEVICE_BRANCHES.md"
+      ],
+      "formal_acceptance": [
+        "V38",
+        "V39",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D01-02",
+      "domain": "D01",
+      "domain_name": "工程与运行契约",
+      "priority": "P1",
+      "status": "open",
+      "title": "干净原生Windows复现",
+      "completion_criterion": "在3080授权原生环境按锁和手册重建，不借用未登记旧环境并保留实际证据。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_reload_and_native_agent_start_verified_full_delivery_pending",
+      "source_remaining": "完整安装包、许可、其他运行副本审计、干净Windows复现与整机恢复；更多离线档异常路径及后续用户提供地址的明确联机切换。",
+      "source_anchors": [
+        "configs/releases",
+        "scripts",
+        "docs/deployment/DEVICE_BRANCHES.md"
+      ],
+      "formal_acceptance": [
+        "V38",
+        "V39",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D01-03",
+      "domain": "D01",
+      "domain_name": "工程与运行契约",
+      "priority": "P1",
+      "status": "open",
+      "title": "第三方许可和完整归档",
+      "completion_criterion": "核对Mindcraft、社区代码、人物/TTS/视觉、原生依赖的许可、NOTICE和历史下载材料。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_reload_and_native_agent_start_verified_full_delivery_pending",
+      "source_remaining": "完整安装包、许可、其他运行副本审计、干净Windows复现与整机恢复；更多离线档异常路径及后续用户提供地址的明确联机切换。",
+      "source_anchors": [
+        "configs/releases",
+        "scripts",
+        "docs/deployment/DEVICE_BRANCHES.md"
+      ],
+      "formal_acceptance": [
+        "V38",
+        "V39",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D01-04",
+      "domain": "D01",
+      "domain_name": "工程与运行契约",
+      "priority": "P1",
+      "status": "open",
+      "title": "全部运行副本来源审计",
+      "completion_criterion": "实际导入副本、页面模块、Java构建物和源码hash一致；不热改运行代码。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_reload_and_native_agent_start_verified_full_delivery_pending",
+      "source_remaining": "完整安装包、许可、其他运行副本审计、干净Windows复现与整机恢复；更多离线档异常路径及后续用户提供地址的明确联机切换。",
+      "source_anchors": [
+        "configs/releases",
+        "scripts",
+        "docs/deployment/DEVICE_BRANCHES.md"
+      ],
+      "formal_acceptance": [
+        "V38",
+        "V39",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D01-05",
+      "domain": "D01",
+      "domain_name": "工程与运行契约",
+      "priority": "P1",
+      "status": "open",
+      "title": "启动事务与失败回收全路径",
+      "completion_criterion": "冷启动、重复启动、依赖失败、超时和外部端口占用均有正确资源归属与回收。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_reload_and_native_agent_start_verified_full_delivery_pending",
+      "source_remaining": "完整安装包、许可、其他运行副本审计、干净Windows复现与整机恢复；更多离线档异常路径及后续用户提供地址的明确联机切换。",
+      "source_anchors": [
+        "configs/releases",
+        "scripts",
+        "docs/deployment/DEVICE_BRANCHES.md"
+      ],
+      "formal_acceptance": [
+        "V38",
+        "V39",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D01-06",
+      "domain": "D01",
+      "domain_name": "工程与运行契约",
+      "priority": "P1",
+      "status": "open",
+      "title": "完整整机恢复",
+      "completion_criterion": "当前安装、旧安装、备份和唯一状态写者关系清晰，恢复不复制旧准备证明。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_reload_and_native_agent_start_verified_full_delivery_pending",
+      "source_remaining": "完整安装包、许可、其他运行副本审计、干净Windows复现与整机恢复；更多离线档异常路径及后续用户提供地址的明确联机切换。",
+      "source_anchors": [
+        "configs/releases",
+        "scripts",
+        "docs/deployment/DEVICE_BRANCHES.md"
+      ],
+      "formal_acceptance": [
+        "V38",
+        "V39",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D01-07",
+      "domain": "D01",
+      "domain_name": "工程与运行契约",
+      "priority": "P1",
+      "status": "open",
+      "title": "更多离线档异常路径",
+      "completion_criterion": "损坏/缺失文件、启动菜单、世界加载失败和存档异常均能准确退出并留证。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_reload_and_native_agent_start_verified_full_delivery_pending",
+      "source_remaining": "完整安装包、许可、其他运行副本审计、干净Windows复现与整机恢复；更多离线档异常路径及后续用户提供地址的明确联机切换。",
+      "source_anchors": [
+        "configs/releases",
+        "scripts",
+        "docs/deployment/DEVICE_BRANCHES.md"
+      ],
+      "formal_acceptance": [
+        "V38",
+        "V39",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D01-08",
+      "domain": "D01",
+      "domain_name": "工程与运行契约",
+      "priority": "P2",
+      "status": "open",
+      "title": "后续联机模式切换",
+      "completion_criterion": "取得用户服务器信息后明确profile、身份、模组和取景差异，不默认开LAN或迁档。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_reload_and_native_agent_start_verified_full_delivery_pending",
+      "source_remaining": "完整安装包、许可、其他运行副本审计、干净Windows复现与整机恢复；更多离线档异常路径及后续用户提供地址的明确联机切换。",
+      "source_anchors": [
+        "configs/releases",
+        "scripts",
+        "docs/deployment/DEVICE_BRANCHES.md"
+      ],
+      "formal_acceptance": [
+        "V38",
+        "V39",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D02-01",
+      "domain": "D02",
+      "domain_name": "MC桥",
+      "priority": "P1",
+      "status": "open",
+      "title": "完整状态与未知语义",
+      "completion_criterion": "GUI、光标、规则、环境、威胁和完整库存逐字段与原NAIMEI核对。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "native_partial_surface_and_autonomous_resume_implemented_full_world_lifecycle_pending",
+      "source_remaining": "更多容器/断连/世界切换/死亡恢复；普通重生、暂停握手、楼梯/下落/挖阶、低平台起步及土径/耕地表面行走已实现，坟墓取物、更多异形地面与联机移动仍需实证。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/state.mjs",
+        "backend/game/recipes.mjs",
+        "backend/game/worlds.mjs"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06"
+      ]
+    },
+    {
+      "id": "MCF-D02-02",
+      "domain": "D02",
+      "domain_name": "MC桥",
+      "priority": "P1",
+      "status": "open",
+      "title": "更多容器菜单",
+      "completion_criterion": "箱子、熔炉、烟熏炉和特殊容器的槽位、sync及关闭/切换实际验证。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "native_partial_surface_and_autonomous_resume_implemented_full_world_lifecycle_pending",
+      "source_remaining": "更多容器/断连/世界切换/死亡恢复；普通重生、暂停握手、楼梯/下落/挖阶、低平台起步及土径/耕地表面行走已实现，坟墓取物、更多异形地面与联机移动仍需实证。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/state.mjs",
+        "backend/game/recipes.mjs",
+        "backend/game/worlds.mjs"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06"
+      ]
+    },
+    {
+      "id": "MCF-D02-03",
+      "domain": "D02",
+      "domain_name": "MC桥",
+      "priority": "P1",
+      "status": "open",
+      "title": "世界/玩家/维度生命周期",
+      "completion_criterion": "换世界、相同显示名、断连、重生和迟到消息不串会话或库存。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "native_partial_surface_and_autonomous_resume_implemented_full_world_lifecycle_pending",
+      "source_remaining": "更多容器/断连/世界切换/死亡恢复；普通重生、暂停握手、楼梯/下落/挖阶、低平台起步及土径/耕地表面行走已实现，坟墓取物、更多异形地面与联机移动仍需实证。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/state.mjs",
+        "backend/game/recipes.mjs",
+        "backend/game/worlds.mjs"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06"
+      ]
+    },
+    {
+      "id": "MCF-D02-04",
+      "domain": "D02",
+      "domain_name": "MC桥",
+      "priority": "P1",
+      "status": "open",
+      "title": "原帧与状态关联",
+      "completion_criterion": "原始游戏帧和boot/世界/时间对应，旧帧不能用于新世界决策。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "native_partial_surface_and_autonomous_resume_implemented_full_world_lifecycle_pending",
+      "source_remaining": "更多容器/断连/世界切换/死亡恢复；普通重生、暂停握手、楼梯/下落/挖阶、低平台起步及土径/耕地表面行走已实现，坟墓取物、更多异形地面与联机移动仍需实证。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/state.mjs",
+        "backend/game/recipes.mjs",
+        "backend/game/worlds.mjs"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06"
+      ]
+    },
+    {
+      "id": "MCF-D02-05",
+      "domain": "D02",
+      "domain_name": "MC桥",
+      "priority": "P1",
+      "status": "open",
+      "title": "模组配方和重载",
+      "completion_criterion": "多候选/组件/特殊配方、解锁、数据包或模组重载以实际收到的信息为准。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "native_partial_surface_and_autonomous_resume_implemented_full_world_lifecycle_pending",
+      "source_remaining": "更多容器/断连/世界切换/死亡恢复；普通重生、暂停握手、楼梯/下落/挖阶、低平台起步及土径/耕地表面行走已实现，坟墓取物、更多异形地面与联机移动仍需实证。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/state.mjs",
+        "backend/game/recipes.mjs",
+        "backend/game/worlds.mjs"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06"
+      ]
+    },
+    {
+      "id": "MCF-D02-06",
+      "domain": "D02",
+      "domain_name": "MC桥",
+      "priority": "P1",
+      "status": "open",
+      "title": "异形表面与碰撞扩展",
+      "completion_criterion": "既有楼梯、低平台、土径/耕地之外的模组地面、树丛、屋顶和流体需要实证。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "native_partial_surface_and_autonomous_resume_implemented_full_world_lifecycle_pending",
+      "source_remaining": "更多容器/断连/世界切换/死亡恢复；普通重生、暂停握手、楼梯/下落/挖阶、低平台起步及土径/耕地表面行走已实现，坟墓取物、更多异形地面与联机移动仍需实证。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/state.mjs",
+        "backend/game/recipes.mjs",
+        "backend/game/worlds.mjs"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06"
+      ]
+    },
+    {
+      "id": "MCF-D02-07",
+      "domain": "D02",
+      "domain_name": "MC桥",
+      "priority": "P1",
+      "status": "open",
+      "title": "坟墓和死亡后物资",
+      "completion_criterion": "区分死亡前库存、墓碑存储、重生后库存，真实取回不能按旧记录推断。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "native_partial_surface_and_autonomous_resume_implemented_full_world_lifecycle_pending",
+      "source_remaining": "更多容器/断连/世界切换/死亡恢复；普通重生、暂停握手、楼梯/下落/挖阶、低平台起步及土径/耕地表面行走已实现，坟墓取物、更多异形地面与联机移动仍需实证。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/state.mjs",
+        "backend/game/recipes.mjs",
+        "backend/game/worlds.mjs"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06"
+      ]
+    },
+    {
+      "id": "MCF-D02-08",
+      "domain": "D02",
+      "domain_name": "MC桥",
+      "priority": "P2",
+      "status": "open",
+      "title": "联机状态与移动",
+      "completion_criterion": "未来实际服务器的同步、规则及延迟重新核验，不沿用离线通过结论。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "native_partial_surface_and_autonomous_resume_implemented_full_world_lifecycle_pending",
+      "source_remaining": "更多容器/断连/世界切换/死亡恢复；普通重生、暂停握手、楼梯/下落/挖阶、低平台起步及土径/耕地表面行走已实现，坟墓取物、更多异形地面与联机移动仍需实证。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/state.mjs",
+        "backend/game/recipes.mjs",
+        "backend/game/worlds.mjs"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06"
+      ]
+    },
+    {
+      "id": "MCF-D03-01",
+      "domain": "D03",
+      "domain_name": "控制权",
+      "priority": "P0",
+      "status": "open",
+      "title": "自主危险反应",
+      "completion_criterion": "实际遇敌、缺食、岩浆、窒息和多敌追击时自行决策并取得结果，不等待人工代打。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "agent_known_pre_effect_placement_replanning_implemented_long_autonomy_pending",
+      "source_remaining": "完整PvE/食物/撤离、实际多敌追击逃生与持久补给、种植及其他目标变化的更多真实恢复、GUI/未知故障自动恢复、岩浆/窒息脱险、断线/租约/硬件停止/联机保护；日常不依赖人工接管，真实水域/屋顶/树丛和长期连续生存仍需验收。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/manager.mjs"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V19",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D03-02",
+      "domain": "D03",
+      "domain_name": "控制权",
+      "priority": "P0",
+      "status": "open",
+      "title": "未知/GUI故障恢复",
+      "completion_criterion": "区分可恢复阻塞与明确停止；允许路径需自动恢复，未知错误不得盲目继续。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "agent_known_pre_effect_placement_replanning_implemented_long_autonomy_pending",
+      "source_remaining": "完整PvE/食物/撤离、实际多敌追击逃生与持久补给、种植及其他目标变化的更多真实恢复、GUI/未知故障自动恢复、岩浆/窒息脱险、断线/租约/硬件停止/联机保护；日常不依赖人工接管，真实水域/屋顶/树丛和长期连续生存仍需验收。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/manager.mjs"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V19",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D03-03",
+      "domain": "D03",
+      "domain_name": "控制权",
+      "priority": "P1",
+      "status": "open",
+      "title": "租约与迟到任务",
+      "completion_criterion": "断连、续租延迟、epoch变化和旧回调均不能恢复已停止输入。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "agent_known_pre_effect_placement_replanning_implemented_long_autonomy_pending",
+      "source_remaining": "完整PvE/食物/撤离、实际多敌追击逃生与持久补给、种植及其他目标变化的更多真实恢复、GUI/未知故障自动恢复、岩浆/窒息脱险、断线/租约/硬件停止/联机保护；日常不依赖人工接管，真实水域/屋顶/树丛和长期连续生存仍需验收。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/manager.mjs"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V19",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D03-04",
+      "domain": "D03",
+      "domain_name": "控制权",
+      "priority": "P1",
+      "status": "open",
+      "title": "全部写入及线程归属",
+      "completion_criterion": "当前NeoForge与历史Fabric审计分别核对；副作用、线程、回调、菜单和清理不能跨所有者。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "agent_known_pre_effect_placement_replanning_implemented_long_autonomy_pending",
+      "source_remaining": "完整PvE/食物/撤离、实际多敌追击逃生与持久补给、种植及其他目标变化的更多真实恢复、GUI/未知故障自动恢复、岩浆/窒息脱险、断线/租约/硬件停止/联机保护；日常不依赖人工接管，真实水域/屋顶/树丛和长期连续生存仍需验收。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/manager.mjs"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V19",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D03-05",
+      "domain": "D03",
+      "domain_name": "控制权",
+      "priority": "P1",
+      "status": "open",
+      "title": "独立停止与取消完整性",
+      "completion_criterion": "导航、采集、攻击、进食、放置、GUI子任务均释放自己的输入并保留partial/unknown。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "agent_known_pre_effect_placement_replanning_implemented_long_autonomy_pending",
+      "source_remaining": "完整PvE/食物/撤离、实际多敌追击逃生与持久补给、种植及其他目标变化的更多真实恢复、GUI/未知故障自动恢复、岩浆/窒息脱险、断线/租约/硬件停止/联机保护；日常不依赖人工接管，真实水域/屋顶/树丛和长期连续生存仍需验收。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/manager.mjs"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V19",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D03-06",
+      "domain": "D03",
+      "domain_name": "控制权",
+      "priority": "P0",
+      "status": "open",
+      "title": "死亡后自主恢复",
+      "completion_criterion": "普通重生后重新观察、规划补给并真实获得工具/食物，重生本身不算恢复完成。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "agent_known_pre_effect_placement_replanning_implemented_long_autonomy_pending",
+      "source_remaining": "完整PvE/食物/撤离、实际多敌追击逃生与持久补给、种植及其他目标变化的更多真实恢复、GUI/未知故障自动恢复、岩浆/窒息脱险、断线/租约/硬件停止/联机保护；日常不依赖人工接管，真实水域/屋顶/树丛和长期连续生存仍需验收。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/manager.mjs"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V19",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D03-07",
+      "domain": "D03",
+      "domain_name": "控制权",
+      "priority": "P1",
+      "status": "open",
+      "title": "水域和复杂地形恢复",
+      "completion_criterion": "真实水域、屋顶、树丛和矿坑中持续自主，保留退出失败和损失。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "agent_known_pre_effect_placement_replanning_implemented_long_autonomy_pending",
+      "source_remaining": "完整PvE/食物/撤离、实际多敌追击逃生与持久补给、种植及其他目标变化的更多真实恢复、GUI/未知故障自动恢复、岩浆/窒息脱险、断线/租约/硬件停止/联机保护；日常不依赖人工接管，真实水域/屋顶/树丛和长期连续生存仍需验收。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/manager.mjs"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V19",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D03-08",
+      "domain": "D03",
+      "domain_name": "控制权",
+      "priority": "P1",
+      "status": "open",
+      "title": "物理停止保护",
+      "completion_criterion": "实际热键/焦点/按键边界作为独立安全检查，不能被自动开始或配置保存绕过。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "agent_known_pre_effect_placement_replanning_implemented_long_autonomy_pending",
+      "source_remaining": "完整PvE/食物/撤离、实际多敌追击逃生与持久补给、种植及其他目标变化的更多真实恢复、GUI/未知故障自动恢复、岩浆/窒息脱险、断线/租约/硬件停止/联机保护；日常不依赖人工接管，真实水域/屋顶/树丛和长期连续生存仍需验收。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/manager.mjs"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V19",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D03-09",
+      "domain": "D03",
+      "domain_name": "控制权",
+      "priority": "P1",
+      "status": "open",
+      "title": "人工指标口径重整",
+      "completion_criterion": "历史20次接管与完全自主方向明确映射；保留安全检查但不以接管填补功能缺口。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "agent_known_pre_effect_placement_replanning_implemented_long_autonomy_pending",
+      "source_remaining": "完整PvE/食物/撤离、实际多敌追击逃生与持久补给、种植及其他目标变化的更多真实恢复、GUI/未知故障自动恢复、岩浆/窒息脱险、断线/租约/硬件停止/联机保护；日常不依赖人工接管，真实水域/屋顶/树丛和长期连续生存仍需验收。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/manager.mjs"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V19",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D04-01",
+      "domain": "D04",
+      "domain_name": "基础技能与普通生存PvE",
+      "priority": "P0",
+      "status": "open",
+      "title": "完整食物补给链",
+      "completion_criterion": "真实获得食物或原料、加工并吃下，库存/饥饿变化核验，缺食不持续空操作。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_wood_table_cobblestone_furnace_verified_full_supply_pending",
+      "source_remaining": "其他石工具、熔炼/食物完整长链、种收吃、危险撤退、重生后连续补给与坟墓取物；084i木料/工作台/圆石/熔炉制作有真实成果，石镐和石斧沿用原档，未重复冒充本场制作。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/tasks.mjs"
+      ],
+      "formal_acceptance": [
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D04-02",
+      "domain": "D04",
+      "domain_name": "基础技能与普通生存PvE",
+      "priority": "P0",
+      "status": "open",
+      "title": "普通近战PvE",
+      "completion_criterion": "选武器、攻击、防御、停手及受伤后策略在真实遭遇下完成，不以持有腐肉推断击杀。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_wood_table_cobblestone_furnace_verified_full_supply_pending",
+      "source_remaining": "其他石工具、熔炼/食物完整长链、种收吃、危险撤退、重生后连续补给与坟墓取物；084i木料/工作台/圆石/熔炉制作有真实成果，石镐和石斧沿用原档，未重复冒充本场制作。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/tasks.mjs"
+      ],
+      "formal_acceptance": [
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D04-03",
+      "domain": "D04",
+      "domain_name": "基础技能与普通生存PvE",
+      "priority": "P0",
+      "status": "open",
+      "title": "远程/引爆/多敌",
+      "completion_criterion": "骷髅、苦力怕和追击条件下有效应对或撤离，并保留生命与结果。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_wood_table_cobblestone_furnace_verified_full_supply_pending",
+      "source_remaining": "其他石工具、熔炼/食物完整长链、种收吃、危险撤退、重生后连续补给与坟墓取物；084i木料/工作台/圆石/熔炉制作有真实成果，石镐和石斧沿用原档，未重复冒充本场制作。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/tasks.mjs"
+      ],
+      "formal_acceptance": [
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D04-04",
+      "domain": "D04",
+      "domain_name": "基础技能与普通生存PvE",
+      "priority": "P1",
+      "status": "open",
+      "title": "熔炼完整长链",
+      "completion_criterion": "熔炉成品之外，燃料、投料、等待、取出、首包/剩余物与失败恢复均实际核验。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_wood_table_cobblestone_furnace_verified_full_supply_pending",
+      "source_remaining": "其他石工具、熔炼/食物完整长链、种收吃、危险撤退、重生后连续补给与坟墓取物；084i木料/工作台/圆石/熔炉制作有真实成果，石镐和石斧沿用原档，未重复冒充本场制作。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/tasks.mjs"
+      ],
+      "formal_acceptance": [
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D04-05",
+      "domain": "D04",
+      "domain_name": "基础技能与普通生存PvE",
+      "priority": "P1",
+      "status": "open",
+      "title": "种植收获与补种",
+      "completion_criterion": "成熟度、种子、目标改变、资源消耗和收获入包到进食闭环。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_wood_table_cobblestone_furnace_verified_full_supply_pending",
+      "source_remaining": "其他石工具、熔炼/食物完整长链、种收吃、危险撤退、重生后连续补给与坟墓取物；084i木料/工作台/圆石/熔炉制作有真实成果，石镐和石斧沿用原档，未重复冒充本场制作。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/tasks.mjs"
+      ],
+      "formal_acceptance": [
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D04-06",
+      "domain": "D04",
+      "domain_name": "基础技能与普通生存PvE",
+      "priority": "P1",
+      "status": "open",
+      "title": "容器取放与库存满",
+      "completion_criterion": "箱子/炉具资源往返、满背包、垃圾清理及耗材保留不丢关键物资。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_wood_table_cobblestone_furnace_verified_full_supply_pending",
+      "source_remaining": "其他石工具、熔炼/食物完整长链、种收吃、危险撤退、重生后连续补给与坟墓取物；084i木料/工作台/圆石/熔炉制作有真实成果，石镐和石斧沿用原档，未重复冒充本场制作。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/tasks.mjs"
+      ],
+      "formal_acceptance": [
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D04-07",
+      "domain": "D04",
+      "domain_name": "基础技能与普通生存PvE",
+      "priority": "P1",
+      "status": "open",
+      "title": "更多工具与损坏替换",
+      "completion_criterion": "工具耐久、装备、损坏、所需工作站和材料相互协调，真实补齐而非沿用旧持有。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_wood_table_cobblestone_furnace_verified_full_supply_pending",
+      "source_remaining": "其他石工具、熔炼/食物完整长链、种收吃、危险撤退、重生后连续补给与坟墓取物；084i木料/工作台/圆石/熔炉制作有真实成果，石镐和石斧沿用原档，未重复冒充本场制作。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/tasks.mjs"
+      ],
+      "formal_acceptance": [
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D04-08",
+      "domain": "D04",
+      "domain_name": "基础技能与普通生存PvE",
+      "priority": "P1",
+      "status": "open",
+      "title": "模组资源与特殊用途",
+      "completion_criterion": "仅开放已定义后置条件的物品/方块，未知机制明确拒绝或未知。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_wood_table_cobblestone_furnace_verified_full_supply_pending",
+      "source_remaining": "其他石工具、熔炼/食物完整长链、种收吃、危险撤退、重生后连续补给与坟墓取物；084i木料/工作台/圆石/熔炉制作有真实成果，石镐和石斧沿用原档，未重复冒充本场制作。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/tasks.mjs"
+      ],
+      "formal_acceptance": [
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D04-09",
+      "domain": "D04",
+      "domain_name": "基础技能与普通生存PvE",
+      "priority": "P1",
+      "status": "open",
+      "title": "基地/探索/建造目标",
+      "completion_criterion": "真实到达与合理探索、有限建造、跨资源目标取得可见成果，不以原地导航计进展。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_wood_table_cobblestone_furnace_verified_full_supply_pending",
+      "source_remaining": "其他石工具、熔炼/食物完整长链、种收吃、危险撤退、重生后连续补给与坟墓取物；084i木料/工作台/圆石/熔炉制作有真实成果，石镐和石斧沿用原档，未重复冒充本场制作。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/tasks.mjs"
+      ],
+      "formal_acceptance": [
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D04-10",
+      "domain": "D04",
+      "domain_name": "基础技能与普通生存PvE",
+      "priority": "P0",
+      "status": "open",
+      "title": "重生后持续补给",
+      "completion_criterion": "丢失工具和食物后自行再建可用补给，不回档或注入物资。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_wood_table_cobblestone_furnace_verified_full_supply_pending",
+      "source_remaining": "其他石工具、熔炼/食物完整长链、种收吃、危险撤退、重生后连续补给与坟墓取物；084i木料/工作台/圆石/熔炉制作有真实成果，石镐和石斧沿用原档，未重复冒充本场制作。",
+      "source_anchors": [
+        "game-adapters/minecraft/neoforge",
+        "backend/game/tasks.mjs"
+      ],
+      "formal_acceptance": [
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ]
+    },
+    {
+      "id": "MCF-D05-01",
+      "domain": "D05",
+      "domain_name": "DSH接入",
+      "priority": "P0",
+      "status": "open",
+      "title": "扩大Mindcraft可执行依赖",
+      "completion_criterion": "更多物品、熔炼与探索叶节点和当前原生技能对应，不能把规划当执行。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_portable_workstation_and_furnace_chain_verified_long_autonomy_pending",
+      "source_remaining": "更多Mindcraft物品/熔炼/探索、复杂资源/路线阻塞、跨会话便携工作台与补给、长时自主及真实弹幕并发；084i便携工作台实际制作/放置及熔炉链已确认，不能替代所有地形和长期恢复。嵌入原生求解器仍非完整上游运行时。",
+      "source_anchors": [
+        "backend/game/mindcraft",
+        "backend/dsh-bridge",
+        "backend/game/planner.mjs"
+      ],
+      "formal_acceptance": [
+        "V20",
+        "V22",
+        "V23",
+        "V24"
+      ]
+    },
+    {
+      "id": "MCF-D05-02",
+      "domain": "D05",
+      "domain_name": "DSH接入",
+      "priority": "P0",
+      "status": "open",
+      "title": "长期目标与持续内容",
+      "completion_criterion": "启动短链之后继续选择可行目标，按真实成果推进，不在少数失败目标间空转。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_portable_workstation_and_furnace_chain_verified_long_autonomy_pending",
+      "source_remaining": "更多Mindcraft物品/熔炼/探索、复杂资源/路线阻塞、跨会话便携工作台与补给、长时自主及真实弹幕并发；084i便携工作台实际制作/放置及熔炉链已确认，不能替代所有地形和长期恢复。嵌入原生求解器仍非完整上游运行时。",
+      "source_anchors": [
+        "backend/game/mindcraft",
+        "backend/dsh-bridge",
+        "backend/game/planner.mjs"
+      ],
+      "formal_acceptance": [
+        "V20",
+        "V22",
+        "V23",
+        "V24"
+      ]
+    },
+    {
+      "id": "MCF-D05-03",
+      "domain": "D05",
+      "domain_name": "DSH接入",
+      "priority": "P1",
+      "status": "open",
+      "title": "资源与工作台恢复",
+      "completion_criterion": "历史坐标重新观察、便携台、共享材料和跨会话补给在复杂现场稳定。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_portable_workstation_and_furnace_chain_verified_long_autonomy_pending",
+      "source_remaining": "更多Mindcraft物品/熔炼/探索、复杂资源/路线阻塞、跨会话便携工作台与补给、长时自主及真实弹幕并发；084i便携工作台实际制作/放置及熔炉链已确认，不能替代所有地形和长期恢复。嵌入原生求解器仍非完整上游运行时。",
+      "source_anchors": [
+        "backend/game/mindcraft",
+        "backend/dsh-bridge",
+        "backend/game/planner.mjs"
+      ],
+      "formal_acceptance": [
+        "V20",
+        "V22",
+        "V23",
+        "V24"
+      ]
+    },
+    {
+      "id": "MCF-D05-04",
+      "domain": "D05",
+      "domain_name": "DSH接入",
+      "priority": "P1",
+      "status": "open",
+      "title": "真实互动并发",
+      "completion_criterion": "采集/制作时模型问答、建议和结果解说均能公平推进并使用新鲜事实。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_portable_workstation_and_furnace_chain_verified_long_autonomy_pending",
+      "source_remaining": "更多Mindcraft物品/熔炼/探索、复杂资源/路线阻塞、跨会话便携工作台与补给、长时自主及真实弹幕并发；084i便携工作台实际制作/放置及熔炉链已确认，不能替代所有地形和长期恢复。嵌入原生求解器仍非完整上游运行时。",
+      "source_anchors": [
+        "backend/game/mindcraft",
+        "backend/dsh-bridge",
+        "backend/game/planner.mjs"
+      ],
+      "formal_acceptance": [
+        "V20",
+        "V22",
+        "V23",
+        "V24"
+      ]
+    },
+    {
+      "id": "MCF-D05-05",
+      "domain": "D05",
+      "domain_name": "DSH接入",
+      "priority": "P1",
+      "status": "open",
+      "title": "模型上下文与工具预算",
+      "completion_criterion": "保持现有6000等预算，在长回合和重复查询下稳定，不靠放宽门槛掩盖膨胀。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_portable_workstation_and_furnace_chain_verified_long_autonomy_pending",
+      "source_remaining": "更多Mindcraft物品/熔炼/探索、复杂资源/路线阻塞、跨会话便携工作台与补给、长时自主及真实弹幕并发；084i便携工作台实际制作/放置及熔炉链已确认，不能替代所有地形和长期恢复。嵌入原生求解器仍非完整上游运行时。",
+      "source_anchors": [
+        "backend/game/mindcraft",
+        "backend/dsh-bridge",
+        "backend/game/planner.mjs"
+      ],
+      "formal_acceptance": [
+        "V20",
+        "V22",
+        "V23",
+        "V24"
+      ]
+    },
+    {
+      "id": "MCF-D05-06",
+      "domain": "D05",
+      "domain_name": "DSH接入",
+      "priority": "P1",
+      "status": "open",
+      "title": "无效工具/取消/迟到",
+      "completion_criterion": "格式错误、模型超时、取消与过期重试有界，旧计划不执行。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_portable_workstation_and_furnace_chain_verified_long_autonomy_pending",
+      "source_remaining": "更多Mindcraft物品/熔炼/探索、复杂资源/路线阻塞、跨会话便携工作台与补给、长时自主及真实弹幕并发；084i便携工作台实际制作/放置及熔炉链已确认，不能替代所有地形和长期恢复。嵌入原生求解器仍非完整上游运行时。",
+      "source_anchors": [
+        "backend/game/mindcraft",
+        "backend/dsh-bridge",
+        "backend/game/planner.mjs"
+      ],
+      "formal_acceptance": [
+        "V20",
+        "V22",
+        "V23",
+        "V24"
+      ]
+    },
+    {
+      "id": "MCF-D05-07",
+      "domain": "D05",
+      "domain_name": "DSH接入",
+      "priority": "P1",
+      "status": "open",
+      "title": "口播前事实复核",
+      "completion_criterion": "库存/世界/生命变化、目标partial和unknown准确反映，取消影响正式媒体。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_portable_workstation_and_furnace_chain_verified_long_autonomy_pending",
+      "source_remaining": "更多Mindcraft物品/熔炼/探索、复杂资源/路线阻塞、跨会话便携工作台与补给、长时自主及真实弹幕并发；084i便携工作台实际制作/放置及熔炉链已确认，不能替代所有地形和长期恢复。嵌入原生求解器仍非完整上游运行时。",
+      "source_anchors": [
+        "backend/game/mindcraft",
+        "backend/dsh-bridge",
+        "backend/game/planner.mjs"
+      ],
+      "formal_acceptance": [
+        "V20",
+        "V22",
+        "V23",
+        "V24"
+      ]
+    },
+    {
+      "id": "MCF-D05-08",
+      "domain": "D05",
+      "domain_name": "DSH接入",
+      "priority": "P1",
+      "status": "open",
+      "title": "目标接续与跨场",
+      "completion_criterion": "目标完成账本、断点、基地和检查点重启后核对真实状态再建新任务。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_portable_workstation_and_furnace_chain_verified_long_autonomy_pending",
+      "source_remaining": "更多Mindcraft物品/熔炼/探索、复杂资源/路线阻塞、跨会话便携工作台与补给、长时自主及真实弹幕并发；084i便携工作台实际制作/放置及熔炉链已确认，不能替代所有地形和长期恢复。嵌入原生求解器仍非完整上游运行时。",
+      "source_anchors": [
+        "backend/game/mindcraft",
+        "backend/dsh-bridge",
+        "backend/game/planner.mjs"
+      ],
+      "formal_acceptance": [
+        "V20",
+        "V22",
+        "V23",
+        "V24"
+      ]
+    },
+    {
+      "id": "MCF-D05-09",
+      "domain": "D05",
+      "domain_name": "DSH接入",
+      "priority": "P1",
+      "status": "open",
+      "title": "决策可解释与调度诊断",
+      "completion_criterion": "记录候选、拒绝原因、队列耗时和效果来源，不泄露私人上下文或伪造成功。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_portable_workstation_and_furnace_chain_verified_long_autonomy_pending",
+      "source_remaining": "更多Mindcraft物品/熔炼/探索、复杂资源/路线阻塞、跨会话便携工作台与补给、长时自主及真实弹幕并发；084i便携工作台实际制作/放置及熔炉链已确认，不能替代所有地形和长期恢复。嵌入原生求解器仍非完整上游运行时。",
+      "source_anchors": [
+        "backend/game/mindcraft",
+        "backend/dsh-bridge",
+        "backend/game/planner.mjs"
+      ],
+      "formal_acceptance": [
+        "V20",
+        "V22",
+        "V23",
+        "V24"
+      ]
+    },
+    {
+      "id": "MCF-D06-01",
+      "domain": "D06",
+      "domain_name": "弹幕建议与投票",
+      "priority": "P0",
+      "status": "open",
+      "title": "595139真实事件闭环",
+      "completion_criterion": "实际弹幕/礼物/SC从原始事件到显示、模型回复和正式播放可追溯；当前外部样本缺失。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "guest_room_connection_verified_real_event_chain_pending",
+      "source_remaining": "595139真实弹幕/礼物/SC、过滤去重、建议/投票、重连、回复与节目展示；公开连接已通但零事件，用户当前不能发送，不重复要求。",
+      "source_anchors": [
+        "scripts/platform_blivedm.py",
+        "backend/room",
+        "backend/game/suggestions.mjs",
+        "backend/game/votes.mjs",
+        "backend/game/audience-sources.mjs"
+      ],
+      "formal_acceptance": [
+        "V21",
+        "V25",
+        "V42",
+        "C12",
+        "C13",
+        "C14",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D06-02",
+      "domain": "D06",
+      "domain_name": "弹幕建议与投票",
+      "priority": "P1",
+      "status": "open",
+      "title": "平台过滤去重重连",
+      "completion_criterion": "重复事件、断线恢复、缺失身份/金额和洪峰队列真实核验，不重复感谢。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "guest_room_connection_verified_real_event_chain_pending",
+      "source_remaining": "595139真实弹幕/礼物/SC、过滤去重、建议/投票、重连、回复与节目展示；公开连接已通但零事件，用户当前不能发送，不重复要求。",
+      "source_anchors": [
+        "scripts/platform_blivedm.py",
+        "backend/room",
+        "backend/game/suggestions.mjs",
+        "backend/game/votes.mjs",
+        "backend/game/audience-sources.mjs"
+      ],
+      "formal_acceptance": [
+        "V21",
+        "V25",
+        "V42",
+        "C12",
+        "C13",
+        "C14",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D06-03",
+      "domain": "D06",
+      "domain_name": "弹幕建议与投票",
+      "priority": "P1",
+      "status": "open",
+      "title": "自然语言建议与澄清",
+      "completion_criterion": "普通聊天/问句/指令分类、消歧、采纳/拒绝和过期完整闭环。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "guest_room_connection_verified_real_event_chain_pending",
+      "source_remaining": "595139真实弹幕/礼物/SC、过滤去重、建议/投票、重连、回复与节目展示；公开连接已通但零事件，用户当前不能发送，不重复要求。",
+      "source_anchors": [
+        "scripts/platform_blivedm.py",
+        "backend/room",
+        "backend/game/suggestions.mjs",
+        "backend/game/votes.mjs",
+        "backend/game/audience-sources.mjs"
+      ],
+      "formal_acceptance": [
+        "V21",
+        "V25",
+        "V42",
+        "C12",
+        "C13",
+        "C14",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D06-04",
+      "domain": "D06",
+      "domain_name": "弹幕建议与投票",
+      "priority": "P1",
+      "status": "open",
+      "title": "建议转任务与反馈",
+      "completion_criterion": "来源、revision、可行性、task_id、成果和回复对应，不把采纳当完成。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "guest_room_connection_verified_real_event_chain_pending",
+      "source_remaining": "595139真实弹幕/礼物/SC、过滤去重、建议/投票、重连、回复与节目展示；公开连接已通但零事件，用户当前不能发送，不重复要求。",
+      "source_anchors": [
+        "scripts/platform_blivedm.py",
+        "backend/room",
+        "backend/game/suggestions.mjs",
+        "backend/game/votes.mjs",
+        "backend/game/audience-sources.mjs"
+      ],
+      "formal_acceptance": [
+        "V21",
+        "V25",
+        "V42",
+        "C12",
+        "C13",
+        "C14",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D06-05",
+      "domain": "D06",
+      "domain_name": "弹幕建议与投票",
+      "priority": "P1",
+      "status": "open",
+      "title": "投票生命周期",
+      "completion_criterion": "创建、稳定身份、一人一票、截止、平票、不可行胜出、取消和结果可证。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "guest_room_connection_verified_real_event_chain_pending",
+      "source_remaining": "595139真实弹幕/礼物/SC、过滤去重、建议/投票、重连、回复与节目展示；公开连接已通但零事件，用户当前不能发送，不重复要求。",
+      "source_anchors": [
+        "scripts/platform_blivedm.py",
+        "backend/room",
+        "backend/game/suggestions.mjs",
+        "backend/game/votes.mjs",
+        "backend/game/audience-sources.mjs"
+      ],
+      "formal_acceptance": [
+        "V21",
+        "V25",
+        "V42",
+        "C12",
+        "C13",
+        "C14",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D06-06",
+      "domain": "D06",
+      "domain_name": "弹幕建议与投票",
+      "priority": "P1",
+      "status": "open",
+      "title": "来源删除撤回",
+      "completion_criterion": "等待/生成/排队/播放中撤回同时影响建议、投票、显示、声音和记忆。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "guest_room_connection_verified_real_event_chain_pending",
+      "source_remaining": "595139真实弹幕/礼物/SC、过滤去重、建议/投票、重连、回复与节目展示；公开连接已通但零事件，用户当前不能发送，不重复要求。",
+      "source_anchors": [
+        "scripts/platform_blivedm.py",
+        "backend/room",
+        "backend/game/suggestions.mjs",
+        "backend/game/votes.mjs",
+        "backend/game/audience-sources.mjs"
+      ],
+      "formal_acceptance": [
+        "V21",
+        "V25",
+        "V42",
+        "C12",
+        "C13",
+        "C14",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D06-07",
+      "domain": "D06",
+      "domain_name": "弹幕建议与投票",
+      "priority": "P1",
+      "status": "open",
+      "title": "礼物SC公平与未知",
+      "completion_criterion": "有界合并、优先级、公平性和缺失字段不造金额/角色/身份。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "guest_room_connection_verified_real_event_chain_pending",
+      "source_remaining": "595139真实弹幕/礼物/SC、过滤去重、建议/投票、重连、回复与节目展示；公开连接已通但零事件，用户当前不能发送，不重复要求。",
+      "source_anchors": [
+        "scripts/platform_blivedm.py",
+        "backend/room",
+        "backend/game/suggestions.mjs",
+        "backend/game/votes.mjs",
+        "backend/game/audience-sources.mjs"
+      ],
+      "formal_acceptance": [
+        "V21",
+        "V25",
+        "V42",
+        "C12",
+        "C13",
+        "C14",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D06-08",
+      "domain": "D06",
+      "domain_name": "弹幕建议与投票",
+      "priority": "P1",
+      "status": "open",
+      "title": "真实互动与节目叠加",
+      "completion_criterion": "游戏任务、留言/礼物、人物和字幕同时运行；不以本地联调留言冒充观众。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "guest_room_connection_verified_real_event_chain_pending",
+      "source_remaining": "595139真实弹幕/礼物/SC、过滤去重、建议/投票、重连、回复与节目展示；公开连接已通但零事件，用户当前不能发送，不重复要求。",
+      "source_anchors": [
+        "scripts/platform_blivedm.py",
+        "backend/room",
+        "backend/game/suggestions.mjs",
+        "backend/game/votes.mjs",
+        "backend/game/audience-sources.mjs"
+      ],
+      "formal_acceptance": [
+        "V21",
+        "V25",
+        "V42",
+        "C12",
+        "C13",
+        "C14",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D07-01",
+      "domain": "D07",
+      "domain_name": "记忆与数据",
+      "priority": "P1",
+      "status": "open",
+      "title": "真实观众长期记忆",
+      "completion_criterion": "用户分区、中文召回、来源和关系边界在真实事件下验证。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "community_recall_mood_soul_adapted_full_memory_lifecycle_pending",
+      "source_remaining": "更正/删除、跨场异常、次日恢复与社区完整遗忘流程；中文召回/情绪/SOUL接入不替代真实观众记忆和删除验收，死亡恢复需新鲜物资及任务复核。",
+      "source_anchors": [
+        "backend/game/store.mjs",
+        "backend/game/worlds.mjs",
+        "backend/game/continuity.mjs",
+        "backend/memory/service.mjs",
+        "backend/memory/administration.mjs",
+        "backend/memory/restore.mjs"
+      ],
+      "formal_acceptance": [
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V44",
+        "C22",
+        "C23"
+      ]
+    },
+    {
+      "id": "MCF-D07-02",
+      "domain": "D07",
+      "domain_name": "记忆与数据",
+      "priority": "P1",
+      "status": "open",
+      "title": "更正与完整遗忘",
+      "completion_criterion": "错误事实修正、删除、摘要依赖和社区遗忘流程实际闭环。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "community_recall_mood_soul_adapted_full_memory_lifecycle_pending",
+      "source_remaining": "更正/删除、跨场异常、次日恢复与社区完整遗忘流程；中文召回/情绪/SOUL接入不替代真实观众记忆和删除验收，死亡恢复需新鲜物资及任务复核。",
+      "source_anchors": [
+        "backend/game/store.mjs",
+        "backend/game/worlds.mjs",
+        "backend/game/continuity.mjs",
+        "backend/memory/service.mjs",
+        "backend/memory/administration.mjs",
+        "backend/memory/restore.mjs"
+      ],
+      "formal_acceptance": [
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V44",
+        "C22",
+        "C23"
+      ]
+    },
+    {
+      "id": "MCF-D07-03",
+      "domain": "D07",
+      "domain_name": "记忆与数据",
+      "priority": "P1",
+      "status": "open",
+      "title": "删除不复活",
+      "completion_criterion": "备份恢复、历史摘要、梗库和跨世界查询均不能绕过删除账本。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "community_recall_mood_soul_adapted_full_memory_lifecycle_pending",
+      "source_remaining": "更正/删除、跨场异常、次日恢复与社区完整遗忘流程；中文召回/情绪/SOUL接入不替代真实观众记忆和删除验收，死亡恢复需新鲜物资及任务复核。",
+      "source_anchors": [
+        "backend/game/store.mjs",
+        "backend/game/worlds.mjs",
+        "backend/game/continuity.mjs",
+        "backend/memory/service.mjs",
+        "backend/memory/administration.mjs",
+        "backend/memory/restore.mjs"
+      ],
+      "formal_acceptance": [
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V44",
+        "C22",
+        "C23"
+      ]
+    },
+    {
+      "id": "MCF-D07-04",
+      "domain": "D07",
+      "domain_name": "记忆与数据",
+      "priority": "P1",
+      "status": "open",
+      "title": "跨场次日连续性",
+      "completion_criterion": "世界/玩家/目标/基地和人物/观众记忆跨场一致，重生后库存重新核验。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "community_recall_mood_soul_adapted_full_memory_lifecycle_pending",
+      "source_remaining": "更正/删除、跨场异常、次日恢复与社区完整遗忘流程；中文召回/情绪/SOUL接入不替代真实观众记忆和删除验收，死亡恢复需新鲜物资及任务复核。",
+      "source_anchors": [
+        "backend/game/store.mjs",
+        "backend/game/worlds.mjs",
+        "backend/game/continuity.mjs",
+        "backend/memory/service.mjs",
+        "backend/memory/administration.mjs",
+        "backend/memory/restore.mjs"
+      ],
+      "formal_acceptance": [
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V44",
+        "C22",
+        "C23"
+      ]
+    },
+    {
+      "id": "MCF-D07-05",
+      "domain": "D07",
+      "domain_name": "记忆与数据",
+      "priority": "P1",
+      "status": "open",
+      "title": "A/B/MC/Humanity一致备份",
+      "completion_criterion": "schema、配置/版本、世界和删除链形成实际一致恢复点。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "community_recall_mood_soul_adapted_full_memory_lifecycle_pending",
+      "source_remaining": "更正/删除、跨场异常、次日恢复与社区完整遗忘流程；中文召回/情绪/SOUL接入不替代真实观众记忆和删除验收，死亡恢复需新鲜物资及任务复核。",
+      "source_anchors": [
+        "backend/game/store.mjs",
+        "backend/game/worlds.mjs",
+        "backend/game/continuity.mjs",
+        "backend/memory/service.mjs",
+        "backend/memory/administration.mjs",
+        "backend/memory/restore.mjs"
+      ],
+      "formal_acceptance": [
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V44",
+        "C22",
+        "C23"
+      ]
+    },
+    {
+      "id": "MCF-D07-06",
+      "domain": "D07",
+      "domain_name": "记忆与数据",
+      "priority": "P1",
+      "status": "open",
+      "title": "维护预览应用与失败恢复",
+      "completion_criterion": "审查hash、独占、备份、实际回收字节和摘要依赖的完整现场流程。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "community_recall_mood_soul_adapted_full_memory_lifecycle_pending",
+      "source_remaining": "更正/删除、跨场异常、次日恢复与社区完整遗忘流程；中文召回/情绪/SOUL接入不替代真实观众记忆和删除验收，死亡恢复需新鲜物资及任务复核。",
+      "source_anchors": [
+        "backend/game/store.mjs",
+        "backend/game/worlds.mjs",
+        "backend/game/continuity.mjs",
+        "backend/memory/service.mjs",
+        "backend/memory/administration.mjs",
+        "backend/memory/restore.mjs"
+      ],
+      "formal_acceptance": [
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V44",
+        "C22",
+        "C23"
+      ]
+    },
+    {
+      "id": "MCF-D07-07",
+      "domain": "D07",
+      "domain_name": "记忆与数据",
+      "priority": "P1",
+      "status": "open",
+      "title": "全历史与容量",
+      "completion_criterion": "归档、坏条目、分页/摘要、长期容量和原始证据保留实际联合验证。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "community_recall_mood_soul_adapted_full_memory_lifecycle_pending",
+      "source_remaining": "更正/删除、跨场异常、次日恢复与社区完整遗忘流程；中文召回/情绪/SOUL接入不替代真实观众记忆和删除验收，死亡恢复需新鲜物资及任务复核。",
+      "source_anchors": [
+        "backend/game/store.mjs",
+        "backend/game/worlds.mjs",
+        "backend/game/continuity.mjs",
+        "backend/memory/service.mjs",
+        "backend/memory/administration.mjs",
+        "backend/memory/restore.mjs"
+      ],
+      "formal_acceptance": [
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V44",
+        "C22",
+        "C23"
+      ]
+    },
+    {
+      "id": "MCF-D07-08",
+      "domain": "D07",
+      "domain_name": "记忆与数据",
+      "priority": "P1",
+      "status": "open",
+      "title": "单写者与私聊隔离",
+      "completion_criterion": "迁移、异常重启和管理输入下保持唯一写库、私聊不产生虚构观众记忆。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "community_recall_mood_soul_adapted_full_memory_lifecycle_pending",
+      "source_remaining": "更正/删除、跨场异常、次日恢复与社区完整遗忘流程；中文召回/情绪/SOUL接入不替代真实观众记忆和删除验收，死亡恢复需新鲜物资及任务复核。",
+      "source_anchors": [
+        "backend/game/store.mjs",
+        "backend/game/worlds.mjs",
+        "backend/game/continuity.mjs",
+        "backend/memory/service.mjs",
+        "backend/memory/administration.mjs",
+        "backend/memory/restore.mjs"
+      ],
+      "formal_acceptance": [
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V44",
+        "C22",
+        "C23"
+      ]
+    },
+    {
+      "id": "MCF-D08-01",
+      "domain": "D08",
+      "domain_name": "完整后台",
+      "priority": "P1",
+      "status": "open",
+      "title": "完整任务与自主诊断界面",
+      "completion_criterion": "目标、阻塞原因、效果、unknown、恢复和队列时延可读，旧状态明确。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "planting_desktop_mobile_editors_verified_complete_operator_flows_pending",
+      "source_remaining": "自主任务/诊断/资源/音量/启停完整界面与自动故障恢复；自动开始设置、普通暂停恢复及桌面/手机已有子项，完整现场流程仍待验。",
+      "source_anchors": [
+        "web/admin.html",
+        "web/admin.js",
+        "web/mc-control.html",
+        "web/mc-control.js",
+        "web/mc-programme.js"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V13",
+        "V24",
+        "V29",
+        "V30",
+        "V41",
+        "C12",
+        "C13",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D08-02",
+      "domain": "D08",
+      "domain_name": "完整后台",
+      "priority": "P1",
+      "status": "open",
+      "title": "资源模型音量与启停",
+      "completion_criterion": "安装/检查/启停、语音/人物/视觉资源和音量的完整现场操作闭环。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "planting_desktop_mobile_editors_verified_complete_operator_flows_pending",
+      "source_remaining": "自主任务/诊断/资源/音量/启停完整界面与自动故障恢复；自动开始设置、普通暂停恢复及桌面/手机已有子项，完整现场流程仍待验。",
+      "source_anchors": [
+        "web/admin.html",
+        "web/admin.js",
+        "web/mc-control.html",
+        "web/mc-control.js",
+        "web/mc-programme.js"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V13",
+        "V24",
+        "V29",
+        "V30",
+        "V41",
+        "C12",
+        "C13",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D08-03",
+      "domain": "D08",
+      "domain_name": "完整后台",
+      "priority": "P1",
+      "status": "open",
+      "title": "桌面手机完整流程",
+      "completion_criterion": "设置、任务、基地/检查点、历史、维护和故障在桌面/手机均可完成。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "planting_desktop_mobile_editors_verified_complete_operator_flows_pending",
+      "source_remaining": "自主任务/诊断/资源/音量/启停完整界面与自动故障恢复；自动开始设置、普通暂停恢复及桌面/手机已有子项，完整现场流程仍待验。",
+      "source_anchors": [
+        "web/admin.html",
+        "web/admin.js",
+        "web/mc-control.html",
+        "web/mc-control.js",
+        "web/mc-programme.js"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V13",
+        "V24",
+        "V29",
+        "V30",
+        "V41",
+        "C12",
+        "C13",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D08-04",
+      "domain": "D08",
+      "domain_name": "完整后台",
+      "priority": "P1",
+      "status": "open",
+      "title": "自动故障恢复可视化",
+      "completion_criterion": "恢复动作由Agent执行，界面显示当前事实、失败与停止边界，不假报在线。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "planting_desktop_mobile_editors_verified_complete_operator_flows_pending",
+      "source_remaining": "自主任务/诊断/资源/音量/启停完整界面与自动故障恢复；自动开始设置、普通暂停恢复及桌面/手机已有子项，完整现场流程仍待验。",
+      "source_anchors": [
+        "web/admin.html",
+        "web/admin.js",
+        "web/mc-control.html",
+        "web/mc-control.js",
+        "web/mc-programme.js"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V13",
+        "V24",
+        "V29",
+        "V30",
+        "V41",
+        "C12",
+        "C13",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D08-05",
+      "domain": "D08",
+      "domain_name": "完整后台",
+      "priority": "P1",
+      "status": "open",
+      "title": "形态留言换边并发",
+      "completion_criterion": "圆形/横窗、feed/fly、左/右在刷新/重连和洪峰下保留队列与计龄。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "planting_desktop_mobile_editors_verified_complete_operator_flows_pending",
+      "source_remaining": "自主任务/诊断/资源/音量/启停完整界面与自动故障恢复；自动开始设置、普通暂停恢复及桌面/手机已有子项，完整现场流程仍待验。",
+      "source_anchors": [
+        "web/admin.html",
+        "web/admin.js",
+        "web/mc-control.html",
+        "web/mc-control.js",
+        "web/mc-programme.js"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V13",
+        "V24",
+        "V29",
+        "V30",
+        "V41",
+        "C12",
+        "C13",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D08-06",
+      "domain": "D08",
+      "domain_name": "完整后台",
+      "priority": "P1",
+      "status": "open",
+      "title": "维护和回滚入口",
+      "completion_criterion": "维护预览/执行、完整安装状态及回滚现场结果可在统一后台准确查看。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "planting_desktop_mobile_editors_verified_complete_operator_flows_pending",
+      "source_remaining": "自主任务/诊断/资源/音量/启停完整界面与自动故障恢复；自动开始设置、普通暂停恢复及桌面/手机已有子项，完整现场流程仍待验。",
+      "source_anchors": [
+        "web/admin.html",
+        "web/admin.js",
+        "web/mc-control.html",
+        "web/mc-control.js",
+        "web/mc-programme.js"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V13",
+        "V24",
+        "V29",
+        "V30",
+        "V41",
+        "C12",
+        "C13",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D08-07",
+      "domain": "D08",
+      "domain_name": "完整后台",
+      "priority": "P1",
+      "status": "open",
+      "title": "部署页面副本完整性",
+      "completion_criterion": "实际HTTP模块、脚本类型和导入副本hash一致，关闭后台不误停正式服务。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "planting_desktop_mobile_editors_verified_complete_operator_flows_pending",
+      "source_remaining": "自主任务/诊断/资源/音量/启停完整界面与自动故障恢复；自动开始设置、普通暂停恢复及桌面/手机已有子项，完整现场流程仍待验。",
+      "source_anchors": [
+        "web/admin.html",
+        "web/admin.js",
+        "web/mc-control.html",
+        "web/mc-control.js",
+        "web/mc-programme.js"
+      ],
+      "formal_acceptance": [
+        "V07",
+        "V13",
+        "V24",
+        "V29",
+        "V30",
+        "V41",
+        "C12",
+        "C13",
+        "C15"
+      ]
+    },
+    {
+      "id": "MCF-D09-01",
+      "domain": "D09",
+      "domain_name": "正式横屏媒体",
+      "priority": "P0",
+      "status": "open",
+      "title": "人物持续供帧",
+      "completion_criterion": "定位并修复推理/读取/贴回/编码/映射瓶颈，真实25FPS供帧并留余量。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "repaired_120s_productive_programme_delivered_full_live_quality_pending",
+      "source_remaining": "自然表达词频与句式多样性、任务高峰解说及时性、真实弹幕/礼物叠加、单正式音源串扰及完整节目；084i真实游戏成果/待机人物/字幕/声音/120秒录像已交付，仍有“总算”4/7（全场5/8）及熔炉解说在127.198秒开始的延迟。 085确认的人物供帧不足及约4秒欠载重缓冲尚未修复，实际连续音画需复测。",
+      "source_anchors": [
+        "web/local-stream.js",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py",
+        "web/mc-programme.html",
+        "web/mc-programme.js",
+        "integration/media_protocol.py"
+      ],
+      "formal_acceptance": [
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D09-02",
+      "domain": "D09",
+      "domain_name": "正式横屏媒体",
+      "priority": "P0",
+      "status": "open",
+      "title": "播放器欠载恢复",
+      "completion_criterion": "修复同机4秒重缓冲，核对连续PCM、人物口型、字幕和正式回执。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "repaired_120s_productive_programme_delivered_full_live_quality_pending",
+      "source_remaining": "自然表达词频与句式多样性、任务高峰解说及时性、真实弹幕/礼物叠加、单正式音源串扰及完整节目；084i真实游戏成果/待机人物/字幕/声音/120秒录像已交付，仍有“总算”4/7（全场5/8）及熔炉解说在127.198秒开始的延迟。 085确认的人物供帧不足及约4秒欠载重缓冲尚未修复，实际连续音画需复测。",
+      "source_anchors": [
+        "web/local-stream.js",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py",
+        "web/mc-programme.html",
+        "web/mc-programme.js",
+        "integration/media_protocol.py"
+      ],
+      "formal_acceptance": [
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D09-03",
+      "domain": "D09",
+      "domain_name": "正式横屏媒体",
+      "priority": "P1",
+      "status": "open",
+      "title": "自然表达与词频",
+      "completion_criterion": "降低固定口头禅和重复句式，无观众时也围绕真实成果有变化地表达。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "repaired_120s_productive_programme_delivered_full_live_quality_pending",
+      "source_remaining": "自然表达词频与句式多样性、任务高峰解说及时性、真实弹幕/礼物叠加、单正式音源串扰及完整节目；084i真实游戏成果/待机人物/字幕/声音/120秒录像已交付，仍有“总算”4/7（全场5/8）及熔炉解说在127.198秒开始的延迟。 085确认的人物供帧不足及约4秒欠载重缓冲尚未修复，实际连续音画需复测。",
+      "source_anchors": [
+        "web/local-stream.js",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py",
+        "web/mc-programme.html",
+        "web/mc-programme.js",
+        "integration/media_protocol.py"
+      ],
+      "formal_acceptance": [
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D09-04",
+      "domain": "D09",
+      "domain_name": "正式横屏媒体",
+      "priority": "P1",
+      "status": "open",
+      "title": "解说时效与高峰",
+      "completion_criterion": "采集/制作成果及时解释，记录等待/生成/合成/起播，避免关键成果片外才说。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "repaired_120s_productive_programme_delivered_full_live_quality_pending",
+      "source_remaining": "自然表达词频与句式多样性、任务高峰解说及时性、真实弹幕/礼物叠加、单正式音源串扰及完整节目；084i真实游戏成果/待机人物/字幕/声音/120秒录像已交付，仍有“总算”4/7（全场5/8）及熔炉解说在127.198秒开始的延迟。 085确认的人物供帧不足及约4秒欠载重缓冲尚未修复，实际连续音画需复测。",
+      "source_anchors": [
+        "web/local-stream.js",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py",
+        "web/mc-programme.html",
+        "web/mc-programme.js",
+        "integration/media_protocol.py"
+      ],
+      "formal_acceptance": [
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D09-05",
+      "domain": "D09",
+      "domain_name": "正式横屏媒体",
+      "priority": "P1",
+      "status": "open",
+      "title": "完整节目互动呈现",
+      "completion_criterion": "真实弹幕/礼物/SC、游戏、人物、字幕、音轨同时验收。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "repaired_120s_productive_programme_delivered_full_live_quality_pending",
+      "source_remaining": "自然表达词频与句式多样性、任务高峰解说及时性、真实弹幕/礼物叠加、单正式音源串扰及完整节目；084i真实游戏成果/待机人物/字幕/声音/120秒录像已交付，仍有“总算”4/7（全场5/8）及熔炉解说在127.198秒开始的延迟。 085确认的人物供帧不足及约4秒欠载重缓冲尚未修复，实际连续音画需复测。",
+      "source_anchors": [
+        "web/local-stream.js",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py",
+        "web/mc-programme.html",
+        "web/mc-programme.js",
+        "integration/media_protocol.py"
+      ],
+      "formal_acceptance": [
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D09-06",
+      "domain": "D09",
+      "domain_name": "正式横屏媒体",
+      "priority": "P1",
+      "status": "open",
+      "title": "特殊游戏界面保护",
+      "completion_criterion": "准星/HUD/Boss/容器/死亡画面、720P和手机观看实际检查。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "repaired_120s_productive_programme_delivered_full_live_quality_pending",
+      "source_remaining": "自然表达词频与句式多样性、任务高峰解说及时性、真实弹幕/礼物叠加、单正式音源串扰及完整节目；084i真实游戏成果/待机人物/字幕/声音/120秒录像已交付，仍有“总算”4/7（全场5/8）及熔炉解说在127.198秒开始的延迟。 085确认的人物供帧不足及约4秒欠载重缓冲尚未修复，实际连续音画需复测。",
+      "source_anchors": [
+        "web/local-stream.js",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py",
+        "web/mc-programme.html",
+        "web/mc-programme.js",
+        "integration/media_protocol.py"
+      ],
+      "formal_acceptance": [
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D09-07",
+      "domain": "D09",
+      "domain_name": "正式横屏媒体",
+      "priority": "P1",
+      "status": "open",
+      "title": "唯一正式播放与取消",
+      "completion_criterion": "后台/预览竞争、静音、切形态、断流和取消无双声或旧字幕。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "repaired_120s_productive_programme_delivered_full_live_quality_pending",
+      "source_remaining": "自然表达词频与句式多样性、任务高峰解说及时性、真实弹幕/礼物叠加、单正式音源串扰及完整节目；084i真实游戏成果/待机人物/字幕/声音/120秒录像已交付，仍有“总算”4/7（全场5/8）及熔炉解说在127.198秒开始的延迟。 085确认的人物供帧不足及约4秒欠载重缓冲尚未修复，实际连续音画需复测。",
+      "source_anchors": [
+        "web/local-stream.js",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py",
+        "web/mc-programme.html",
+        "web/mc-programme.js",
+        "integration/media_protocol.py"
+      ],
+      "formal_acceptance": [
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D09-08",
+      "domain": "D09",
+      "domain_name": "正式横屏媒体",
+      "priority": "P1",
+      "status": "open",
+      "title": "连续复录与质量证据",
+      "completion_criterion": "实际画面变化、停顿、声音连续和成果对应，不以30FPS标签代替体验。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "repaired_120s_productive_programme_delivered_full_live_quality_pending",
+      "source_remaining": "自然表达词频与句式多样性、任务高峰解说及时性、真实弹幕/礼物叠加、单正式音源串扰及完整节目；084i真实游戏成果/待机人物/字幕/声音/120秒录像已交付，仍有“总算”4/7（全场5/8）及熔炉解说在127.198秒开始的延迟。 085确认的人物供帧不足及约4秒欠载重缓冲尚未修复，实际连续音画需复测。",
+      "source_anchors": [
+        "web/local-stream.js",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py",
+        "web/mc-programme.html",
+        "web/mc-programme.js",
+        "integration/media_protocol.py"
+      ],
+      "formal_acceptance": [
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D10-01",
+      "domain": "D10",
+      "domain_name": "人物素材",
+      "priority": "P1",
+      "status": "open",
+      "title": "圆形50段新素材",
+      "completion_criterion": "2待机＋48逐项改编动作全部生成并保留独立版本和身份一致性。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_generated",
+      "source_remaining": "两套各2闲置+48动作，共100段新人物素材、索引、口型/遮罩/接缝及手机观看；0/100。",
+      "source_anchors": [
+        "docs/design/mc-landscape-v1/人物素材重制规范.md"
+      ],
+      "formal_acceptance": [
+        "V27",
+        "C16",
+        "C17",
+        "C18"
+      ]
+    },
+    {
+      "id": "MCF-D10-02",
+      "domain": "D10",
+      "domain_name": "人物素材",
+      "priority": "P1",
+      "status": "open",
+      "title": "横窗50段新素材",
+      "completion_criterion": "2待机＋48横向构图动作全部生成，肩线和手势在320×180中可读。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_generated",
+      "source_remaining": "两套各2闲置+48动作，共100段新人物素材、索引、口型/遮罩/接缝及手机观看；0/100。",
+      "source_anchors": [
+        "docs/design/mc-landscape-v1/人物素材重制规范.md"
+      ],
+      "formal_acceptance": [
+        "V27",
+        "C16",
+        "C17",
+        "C18"
+      ]
+    },
+    {
+      "id": "MCF-D10-03",
+      "domain": "D10",
+      "domain_name": "人物素材",
+      "priority": "P1",
+      "status": "open",
+      "title": "素材索引和来源",
+      "completion_criterion": "100段文件、hash、帧数、语义映射、许可、源与旧ID关系完整。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_generated",
+      "source_remaining": "两套各2闲置+48动作，共100段新人物素材、索引、口型/遮罩/接缝及手机观看；0/100。",
+      "source_anchors": [
+        "docs/design/mc-landscape-v1/人物素材重制规范.md"
+      ],
+      "formal_acceptance": [
+        "V27",
+        "C16",
+        "C17",
+        "C18"
+      ]
+    },
+    {
+      "id": "MCF-D10-04",
+      "domain": "D10",
+      "domain_name": "人物素材",
+      "priority": "P1",
+      "status": "open",
+      "title": "独立脸框与预处理",
+      "completion_criterion": "新素材版本单独预处理/缓存/脸框，不能套用旧720×1280参数。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_generated",
+      "source_remaining": "两套各2闲置+48动作，共100段新人物素材、索引、口型/遮罩/接缝及手机观看；0/100。",
+      "source_anchors": [
+        "docs/design/mc-landscape-v1/人物素材重制规范.md"
+      ],
+      "formal_acceptance": [
+        "V27",
+        "C16",
+        "C17",
+        "C18"
+      ]
+    },
+    {
+      "id": "MCF-D10-05",
+      "domain": "D10",
+      "domain_name": "人物素材",
+      "priority": "P1",
+      "status": "open",
+      "title": "口型循环遮罩QA",
+      "completion_criterion": "张口、点头/倾斜/挥手极值、接缝、眼睛和遮挡动态检查。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_generated",
+      "source_remaining": "两套各2闲置+48动作，共100段新人物素材、索引、口型/遮罩/接缝及手机观看；0/100。",
+      "source_anchors": [
+        "docs/design/mc-landscape-v1/人物素材重制规范.md"
+      ],
+      "formal_acceptance": [
+        "V27",
+        "C16",
+        "C17",
+        "C18"
+      ]
+    },
+    {
+      "id": "MCF-D10-06",
+      "domain": "D10",
+      "domain_name": "人物素材",
+      "priority": "P1",
+      "status": "open",
+      "title": "手机与720P效果",
+      "completion_criterion": "圆形176px和横窗约213×120下身份/面部/口型可辨。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_generated",
+      "source_remaining": "两套各2闲置+48动作，共100段新人物素材、索引、口型/遮罩/接缝及手机观看；0/100。",
+      "source_anchors": [
+        "docs/design/mc-landscape-v1/人物素材重制规范.md"
+      ],
+      "formal_acceptance": [
+        "V27",
+        "C16",
+        "C17",
+        "C18"
+      ]
+    },
+    {
+      "id": "MCF-D10-07",
+      "domain": "D10",
+      "domain_name": "人物素材",
+      "priority": "P1",
+      "status": "open",
+      "title": "节目切换联合验收",
+      "completion_criterion": "两包与游戏/弹幕/语音负载同版验证，切换无重复人声或旧帧。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_generated",
+      "source_remaining": "两套各2闲置+48动作，共100段新人物素材、索引、口型/遮罩/接缝及手机观看；0/100。",
+      "source_anchors": [
+        "docs/design/mc-landscape-v1/人物素材重制规范.md"
+      ],
+      "formal_acceptance": [
+        "V27",
+        "C16",
+        "C17",
+        "C18"
+      ]
+    },
+    {
+      "id": "MCF-D11-01",
+      "domain": "D11",
+      "domain_name": "声音与混音",
+      "priority": "P1",
+      "status": "open",
+      "title": "主备语音实际切换",
+      "completion_criterion": "O07失败后F07及恢复路径的声音、终态、取消和唯一发声者一致。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "approved_voice_pair_integrated_audio_acceptance_pending",
+      "source_remaining": "人声/游戏/BGM压低与恢复、O07/F07故障切换、混音和唯一音源的真实录音验收。",
+      "source_anchors": [
+        "backend/room",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py"
+      ],
+      "formal_acceptance": [
+        "V22",
+        "V31",
+        "V32",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D11-02",
+      "domain": "D11",
+      "domain_name": "声音与混音",
+      "priority": "P1",
+      "status": "open",
+      "title": "三路混音与压低恢复",
+      "completion_criterion": "人物/游戏/BGM在讲话、静音、暂停和异常时实际录音核验。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "approved_voice_pair_integrated_audio_acceptance_pending",
+      "source_remaining": "人声/游戏/BGM压低与恢复、O07/F07故障切换、混音和唯一音源的真实录音验收。",
+      "source_anchors": [
+        "backend/room",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py"
+      ],
+      "formal_acceptance": [
+        "V22",
+        "V31",
+        "V32",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D11-03",
+      "domain": "D11",
+      "domain_name": "声音与混音",
+      "priority": "P0",
+      "status": "open",
+      "title": "音频连续性和重缓冲",
+      "completion_criterion": "正式PCM进度、欠载和最长停顿随媒体修复一起通过。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "approved_voice_pair_integrated_audio_acceptance_pending",
+      "source_remaining": "人声/游戏/BGM压低与恢复、O07/F07故障切换、混音和唯一音源的真实录音验收。",
+      "source_anchors": [
+        "backend/room",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py"
+      ],
+      "formal_acceptance": [
+        "V22",
+        "V31",
+        "V32",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D11-04",
+      "domain": "D11",
+      "domain_name": "声音与混音",
+      "priority": "P1",
+      "status": "open",
+      "title": "取消残留与串扰",
+      "completion_criterion": "部分播放取消、设备切换和多页面竞争保留独立音频测量。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "approved_voice_pair_integrated_audio_acceptance_pending",
+      "source_remaining": "人声/游戏/BGM压低与恢复、O07/F07故障切换、混音和唯一音源的真实录音验收。",
+      "source_anchors": [
+        "backend/room",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py"
+      ],
+      "formal_acceptance": [
+        "V22",
+        "V31",
+        "V32",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D11-05",
+      "domain": "D11",
+      "domain_name": "声音与混音",
+      "priority": "P1",
+      "status": "open",
+      "title": "字幕与口型同步",
+      "completion_criterion": "整段TTS生成、人物帧和字幕统一有效时钟，旧请求不能串入新流。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "approved_voice_pair_integrated_audio_acceptance_pending",
+      "source_remaining": "人声/游戏/BGM压低与恢复、O07/F07故障切换、混音和唯一音源的真实录音验收。",
+      "source_anchors": [
+        "backend/room",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py"
+      ],
+      "formal_acceptance": [
+        "V22",
+        "V31",
+        "V32",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D11-06",
+      "domain": "D11",
+      "domain_name": "声音与混音",
+      "priority": "P1",
+      "status": "open",
+      "title": "游戏实际音效采集",
+      "completion_criterion": "Java游戏源音效存在且不被桌面重复采集，替代取景若采用需另验。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "approved_voice_pair_integrated_audio_acceptance_pending",
+      "source_remaining": "人声/游戏/BGM压低与恢复、O07/F07故障切换、混音和唯一音源的真实录音验收。",
+      "source_anchors": [
+        "backend/room",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py"
+      ],
+      "formal_acceptance": [
+        "V22",
+        "V31",
+        "V32",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D11-07",
+      "domain": "D11",
+      "domain_name": "声音与混音",
+      "priority": "P1",
+      "status": "open",
+      "title": "音色自然度与长句表现",
+      "completion_criterion": "人声节奏、停顿、语气和长度在真实节目中验证，不以非静音当听感通过。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "approved_voice_pair_integrated_audio_acceptance_pending",
+      "source_remaining": "人声/游戏/BGM压低与恢复、O07/F07故障切换、混音和唯一音源的真实录音验收。",
+      "source_anchors": [
+        "backend/room",
+        "web/dsh-playback.js",
+        "scripts/receiver_service.py"
+      ],
+      "formal_acceptance": [
+        "V22",
+        "V31",
+        "V32",
+        "V33",
+        "C18",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D12-01",
+      "domain": "D12",
+      "domain_name": "视觉理解",
+      "priority": "P0",
+      "status": "open",
+      "title": "生存帧超时",
+      "completion_criterion": "同一CPU视觉模型在实际游玩负载下不再反复30秒超时，并记录失败隔离。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_death_screen_vision_verified_gameplay_timeout_pending",
+      "source_remaining": "生存游玩帧CPU视觉30秒超时、冷启动和联合负载稳定性；文字/建筑/危险识别准确率与旧护甲误报。死亡帧21.148秒和同主播两条正式播完仅为成功子项，不能覆盖失败。",
+      "source_anchors": [
+        "backend/game/frames.mjs",
+        "backend/game/frame-decode-worker.mjs",
+        "backend/game/vision.mjs"
+      ],
+      "formal_acceptance": [
+        "V06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11"
+      ]
+    },
+    {
+      "id": "MCF-D12-02",
+      "domain": "D12",
+      "domain_name": "视觉理解",
+      "priority": "P1",
+      "status": "open",
+      "title": "冷启动及联合资源",
+      "completion_criterion": "模型启动、CPU/内存/显存余量、人物和双语音并行稳定。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_death_screen_vision_verified_gameplay_timeout_pending",
+      "source_remaining": "生存游玩帧CPU视觉30秒超时、冷启动和联合负载稳定性；文字/建筑/危险识别准确率与旧护甲误报。死亡帧21.148秒和同主播两条正式播完仅为成功子项，不能覆盖失败。",
+      "source_anchors": [
+        "backend/game/frames.mjs",
+        "backend/game/frame-decode-worker.mjs",
+        "backend/game/vision.mjs"
+      ],
+      "formal_acceptance": [
+        "V06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11"
+      ]
+    },
+    {
+      "id": "MCF-D12-03",
+      "domain": "D12",
+      "domain_name": "视觉理解",
+      "priority": "P1",
+      "status": "open",
+      "title": "建筑场景描述",
+      "completion_criterion": "准确识别当前帧建筑/场景并保留错误案例，不把历史图成绩代入。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_death_screen_vision_verified_gameplay_timeout_pending",
+      "source_remaining": "生存游玩帧CPU视觉30秒超时、冷启动和联合负载稳定性；文字/建筑/危险识别准确率与旧护甲误报。死亡帧21.148秒和同主播两条正式播完仅为成功子项，不能覆盖失败。",
+      "source_anchors": [
+        "backend/game/frames.mjs",
+        "backend/game/frame-decode-worker.mjs",
+        "backend/game/vision.mjs"
+      ],
+      "formal_acceptance": [
+        "V06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11"
+      ]
+    },
+    {
+      "id": "MCF-D12-04",
+      "domain": "D12",
+      "domain_name": "视觉理解",
+      "priority": "P1",
+      "status": "open",
+      "title": "菜单文字与未知",
+      "completion_criterion": "小字不可辨时明确未知，文字/布局与实际帧核对。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_death_screen_vision_verified_gameplay_timeout_pending",
+      "source_remaining": "生存游玩帧CPU视觉30秒超时、冷启动和联合负载稳定性；文字/建筑/危险识别准确率与旧护甲误报。死亡帧21.148秒和同主播两条正式播完仅为成功子项，不能覆盖失败。",
+      "source_anchors": [
+        "backend/game/frames.mjs",
+        "backend/game/frame-decode-worker.mjs",
+        "backend/game/vision.mjs"
+      ],
+      "formal_acceptance": [
+        "V06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11"
+      ]
+    },
+    {
+      "id": "MCF-D12-05",
+      "domain": "D12",
+      "domain_name": "视觉理解",
+      "priority": "P1",
+      "status": "open",
+      "title": "危险与装备误报",
+      "completion_criterion": "处理旧护甲误报，危险/深度/实体不确定时不臆测。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_death_screen_vision_verified_gameplay_timeout_pending",
+      "source_remaining": "生存游玩帧CPU视觉30秒超时、冷启动和联合负载稳定性；文字/建筑/危险识别准确率与旧护甲误报。死亡帧21.148秒和同主播两条正式播完仅为成功子项，不能覆盖失败。",
+      "source_anchors": [
+        "backend/game/frames.mjs",
+        "backend/game/frame-decode-worker.mjs",
+        "backend/game/vision.mjs"
+      ],
+      "formal_acceptance": [
+        "V06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11"
+      ]
+    },
+    {
+      "id": "MCF-D12-06",
+      "domain": "D12",
+      "domain_name": "视觉理解",
+      "priority": "P1",
+      "status": "open",
+      "title": "旧帧换世界和取消",
+      "completion_criterion": "图像来源、观测年龄、世界和取消各自准确；结构化新事实优先。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_death_screen_vision_verified_gameplay_timeout_pending",
+      "source_remaining": "生存游玩帧CPU视觉30秒超时、冷启动和联合负载稳定性；文字/建筑/危险识别准确率与旧护甲误报。死亡帧21.148秒和同主播两条正式播完仅为成功子项，不能覆盖失败。",
+      "source_anchors": [
+        "backend/game/frames.mjs",
+        "backend/game/frame-decode-worker.mjs",
+        "backend/game/vision.mjs"
+      ],
+      "formal_acceptance": [
+        "V06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11"
+      ]
+    },
+    {
+      "id": "MCF-D12-07",
+      "domain": "D12",
+      "domain_name": "视觉理解",
+      "priority": "P1",
+      "status": "open",
+      "title": "模型投影运行锁交接",
+      "completion_criterion": "实际Q4模型/F16投影器/运行器/参数/hash与安装证明完整保存。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_offline_death_screen_vision_verified_gameplay_timeout_pending",
+      "source_remaining": "生存游玩帧CPU视觉30秒超时、冷启动和联合负载稳定性；文字/建筑/危险识别准确率与旧护甲误报。死亡帧21.148秒和同主播两条正式播完仅为成功子项，不能覆盖失败。",
+      "source_anchors": [
+        "backend/game/frames.mjs",
+        "backend/game/frame-decode-worker.mjs",
+        "backend/game/vision.mjs"
+      ],
+      "formal_acceptance": [
+        "V06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11"
+      ]
+    },
+    {
+      "id": "MCF-D13-01",
+      "domain": "D13",
+      "domain_name": "平台输出",
+      "priority": "P1",
+      "status": "open",
+      "title": "官方公开状态核对",
+      "completion_criterion": "本地就绪、官方客户端和公开房间状态分别真实可知。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "official_local_output_verified_public_audience_pending",
+      "source_remaining": "公开状态核对与独立观众CDN音画验收；当前未获公开开播授权，保持未执行。",
+      "source_anchors": [
+        "scripts/receiver_service.py",
+        "docs/live-room"
+      ],
+      "formal_acceptance": [
+        "V26",
+        "V32",
+        "V42",
+        "V43",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D13-02",
+      "domain": "D13",
+      "domain_name": "平台输出",
+      "priority": "P1",
+      "status": "open",
+      "title": "独立观众CDN验收",
+      "completion_criterion": "在取得实际开播授权后核对观众音画、时延、字幕和声音；冻结未授权开播。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "official_local_output_verified_public_audience_pending",
+      "source_remaining": "公开状态核对与独立观众CDN音画验收；当前未获公开开播授权，保持未执行。",
+      "source_anchors": [
+        "scripts/receiver_service.py",
+        "docs/live-room"
+      ],
+      "formal_acceptance": [
+        "V26",
+        "V32",
+        "V42",
+        "V43",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D13-03",
+      "domain": "D13",
+      "domain_name": "平台输出",
+      "priority": "P1",
+      "status": "open",
+      "title": "官方捕获和透明叠加",
+      "completion_criterion": "实际游戏/人物/留言和音轨配置同版核对，不仅检查网页预览。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "official_local_output_verified_public_audience_pending",
+      "source_remaining": "公开状态核对与独立观众CDN音画验收；当前未获公开开播授权，保持未执行。",
+      "source_anchors": [
+        "scripts/receiver_service.py",
+        "docs/live-room"
+      ],
+      "formal_acceptance": [
+        "V26",
+        "V32",
+        "V42",
+        "V43",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D13-04",
+      "domain": "D13",
+      "domain_name": "平台输出",
+      "priority": "P1",
+      "status": "open",
+      "title": "平台异常与恢复",
+      "completion_criterion": "断流、官方端异常、采集重连和状态失配不假报成功。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "official_local_output_verified_public_audience_pending",
+      "source_remaining": "公开状态核对与独立观众CDN音画验收；当前未获公开开播授权，保持未执行。",
+      "source_anchors": [
+        "scripts/receiver_service.py",
+        "docs/live-room"
+      ],
+      "formal_acceptance": [
+        "V26",
+        "V32",
+        "V42",
+        "V43",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D13-05",
+      "domain": "D13",
+      "domain_name": "平台输出",
+      "priority": "P1",
+      "status": "open",
+      "title": "真实平台端到端记录",
+      "completion_criterion": "保留事件和观众侧时间，不用本地录制冒充公开观看验收。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "official_local_output_verified_public_audience_pending",
+      "source_remaining": "公开状态核对与独立观众CDN音画验收；当前未获公开开播授权，保持未执行。",
+      "source_anchors": [
+        "scripts/receiver_service.py",
+        "docs/live-room"
+      ],
+      "formal_acceptance": [
+        "V26",
+        "V32",
+        "V42",
+        "V43",
+        "C19"
+      ]
+    },
+    {
+      "id": "MCF-D14-01",
+      "domain": "D14",
+      "domain_name": "运维诊断",
+      "priority": "P0",
+      "status": "open",
+      "title": "真实FPS和端到端时延",
+      "completion_criterion": "保留游戏呈现、人物生产/呈现、模型/TTS和正式起播的时间对齐指标。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_v8_native_start_save_shutdown_verified_long_stability_pending",
+      "source_remaining": "FPS/端到端时延、4小时含60分钟稳定段、完整冷启动优化、FTB推广网络阻塞的持久解决、外部广告抢焦点、断线及长时恢复、显示组合与授权范围内旧候选清理；约4.70GB原游戏日志须受控轮转和预算，原件未删除。一次正常启动/停机不代替稳定性验收。 085分阶段编码/映射/调度与CPU/GPU/磁盘归因及人物/游戏实际呈现性能仍需核对。",
+      "source_anchors": [
+        "scripts",
+        "docs/technical/mc-live-v1/06-部署与故障恢复.md"
+      ],
+      "formal_acceptance": [
+        "V05",
+        "V12",
+        "V35",
+        "V36",
+        "V38",
+        "V40",
+        "V41",
+        "C20",
+        "C21",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D14-02",
+      "domain": "D14",
+      "domain_name": "运维诊断",
+      "priority": "P1",
+      "status": "open",
+      "title": "4小时完整联合负载",
+      "completion_criterion": "包含60分钟稳定段、所有模块和故障条件，资源有界且没有未处理断流。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_v8_native_start_save_shutdown_verified_long_stability_pending",
+      "source_remaining": "FPS/端到端时延、4小时含60分钟稳定段、完整冷启动优化、FTB推广网络阻塞的持久解决、外部广告抢焦点、断线及长时恢复、显示组合与授权范围内旧候选清理；约4.70GB原游戏日志须受控轮转和预算，原件未删除。一次正常启动/停机不代替稳定性验收。 085分阶段编码/映射/调度与CPU/GPU/磁盘归因及人物/游戏实际呈现性能仍需核对。",
+      "source_anchors": [
+        "scripts",
+        "docs/technical/mc-live-v1/06-部署与故障恢复.md"
+      ],
+      "formal_acceptance": [
+        "V05",
+        "V12",
+        "V35",
+        "V36",
+        "V38",
+        "V40",
+        "V41",
+        "C20",
+        "C21",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D14-03",
+      "domain": "D14",
+      "domain_name": "运维诊断",
+      "priority": "P1",
+      "status": "open",
+      "title": "冷启动与长期恢复",
+      "completion_criterion": "完整启动耗时、断连、进程崩溃、显示组合和长时恢复真实验证。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_v8_native_start_save_shutdown_verified_long_stability_pending",
+      "source_remaining": "FPS/端到端时延、4小时含60分钟稳定段、完整冷启动优化、FTB推广网络阻塞的持久解决、外部广告抢焦点、断线及长时恢复、显示组合与授权范围内旧候选清理；约4.70GB原游戏日志须受控轮转和预算，原件未删除。一次正常启动/停机不代替稳定性验收。 085分阶段编码/映射/调度与CPU/GPU/磁盘归因及人物/游戏实际呈现性能仍需核对。",
+      "source_anchors": [
+        "scripts",
+        "docs/technical/mc-live-v1/06-部署与故障恢复.md"
+      ],
+      "formal_acceptance": [
+        "V05",
+        "V12",
+        "V35",
+        "V36",
+        "V38",
+        "V40",
+        "V41",
+        "C20",
+        "C21",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D14-04",
+      "domain": "D14",
+      "domain_name": "运维诊断",
+      "priority": "P1",
+      "status": "open",
+      "title": "FTB推广网络阻塞",
+      "completion_criterion": "持久解决启动联网推广阻塞，不通过无限等待或绕过完整性检查处理。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_v8_native_start_save_shutdown_verified_long_stability_pending",
+      "source_remaining": "FPS/端到端时延、4小时含60分钟稳定段、完整冷启动优化、FTB推广网络阻塞的持久解决、外部广告抢焦点、断线及长时恢复、显示组合与授权范围内旧候选清理；约4.70GB原游戏日志须受控轮转和预算，原件未删除。一次正常启动/停机不代替稳定性验收。 085分阶段编码/映射/调度与CPU/GPU/磁盘归因及人物/游戏实际呈现性能仍需核对。",
+      "source_anchors": [
+        "scripts",
+        "docs/technical/mc-live-v1/06-部署与故障恢复.md"
+      ],
+      "formal_acceptance": [
+        "V05",
+        "V12",
+        "V35",
+        "V36",
+        "V38",
+        "V40",
+        "V41",
+        "C20",
+        "C21",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D14-05",
+      "domain": "D14",
+      "domain_name": "运维诊断",
+      "priority": "P1",
+      "status": "open",
+      "title": "外部广告抢焦点",
+      "completion_criterion": "限定自有应用恢复和诊断，保留明确停止边界，不控制无关窗口。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_v8_native_start_save_shutdown_verified_long_stability_pending",
+      "source_remaining": "FPS/端到端时延、4小时含60分钟稳定段、完整冷启动优化、FTB推广网络阻塞的持久解决、外部广告抢焦点、断线及长时恢复、显示组合与授权范围内旧候选清理；约4.70GB原游戏日志须受控轮转和预算，原件未删除。一次正常启动/停机不代替稳定性验收。 085分阶段编码/映射/调度与CPU/GPU/磁盘归因及人物/游戏实际呈现性能仍需核对。",
+      "source_anchors": [
+        "scripts",
+        "docs/technical/mc-live-v1/06-部署与故障恢复.md"
+      ],
+      "formal_acceptance": [
+        "V05",
+        "V12",
+        "V35",
+        "V36",
+        "V38",
+        "V40",
+        "V41",
+        "C20",
+        "C21",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D14-06",
+      "domain": "D14",
+      "domain_name": "运维诊断",
+      "priority": "P1",
+      "status": "open",
+      "title": "日志轮转和磁盘预算",
+      "completion_criterion": "约4.70GB原日志保留原件，受控轮转/归档、告警和真实回收有证据。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_v8_native_start_save_shutdown_verified_long_stability_pending",
+      "source_remaining": "FPS/端到端时延、4小时含60分钟稳定段、完整冷启动优化、FTB推广网络阻塞的持久解决、外部广告抢焦点、断线及长时恢复、显示组合与授权范围内旧候选清理；约4.70GB原游戏日志须受控轮转和预算，原件未删除。一次正常启动/停机不代替稳定性验收。 085分阶段编码/映射/调度与CPU/GPU/磁盘归因及人物/游戏实际呈现性能仍需核对。",
+      "source_anchors": [
+        "scripts",
+        "docs/technical/mc-live-v1/06-部署与故障恢复.md"
+      ],
+      "formal_acceptance": [
+        "V05",
+        "V12",
+        "V35",
+        "V36",
+        "V38",
+        "V40",
+        "V41",
+        "C20",
+        "C21",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D14-07",
+      "domain": "D14",
+      "domain_name": "运维诊断",
+      "priority": "P1",
+      "status": "open",
+      "title": "模型与媒体阶段耗时",
+      "completion_criterion": "0.374秒包延迟拆分计时，资源曲线支持瓶颈归因。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_v8_native_start_save_shutdown_verified_long_stability_pending",
+      "source_remaining": "FPS/端到端时延、4小时含60分钟稳定段、完整冷启动优化、FTB推广网络阻塞的持久解决、外部广告抢焦点、断线及长时恢复、显示组合与授权范围内旧候选清理；约4.70GB原游戏日志须受控轮转和预算，原件未删除。一次正常启动/停机不代替稳定性验收。 085分阶段编码/映射/调度与CPU/GPU/磁盘归因及人物/游戏实际呈现性能仍需核对。",
+      "source_anchors": [
+        "scripts",
+        "docs/technical/mc-live-v1/06-部署与故障恢复.md"
+      ],
+      "formal_acceptance": [
+        "V05",
+        "V12",
+        "V35",
+        "V36",
+        "V38",
+        "V40",
+        "V41",
+        "C20",
+        "C21",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D14-08",
+      "domain": "D14",
+      "domain_name": "运维诊断",
+      "priority": "P2",
+      "status": "open",
+      "title": "旧候选与浏览器清理",
+      "completion_criterion": "只处理授权设备和归属确定的旧安装/临时页，4090暂停不解除。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "actual_v8_native_start_save_shutdown_verified_long_stability_pending",
+      "source_remaining": "FPS/端到端时延、4小时含60分钟稳定段、完整冷启动优化、FTB推广网络阻塞的持久解决、外部广告抢焦点、断线及长时恢复、显示组合与授权范围内旧候选清理；约4.70GB原游戏日志须受控轮转和预算，原件未删除。一次正常启动/停机不代替稳定性验收。 085分阶段编码/映射/调度与CPU/GPU/磁盘归因及人物/游戏实际呈现性能仍需核对。",
+      "source_anchors": [
+        "scripts",
+        "docs/technical/mc-live-v1/06-部署与故障恢复.md"
+      ],
+      "formal_acceptance": [
+        "V05",
+        "V12",
+        "V35",
+        "V36",
+        "V38",
+        "V40",
+        "V41",
+        "C20",
+        "C21",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D15-01",
+      "domain": "D15",
+      "domain_name": "完整验收与发布",
+      "priority": "P1",
+      "status": "open",
+      "title": "68项正式完整验收",
+      "completion_criterion": "同一候选实际完成V01–V44、C01–C24；局部/替身/历史通过不抵扣。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_accepted",
+      "source_remaining": "68项正式验收0/68，24组合/12场景/8发布门、跨场次日及干净完整交付；全域不降范围、不提前宣布完成。",
+      "source_anchors": [
+        "docs/technical/mc-live-v1/07-实施与验收.md",
+        "docs/technical/mc-live-v1/08-完整交付规划.md"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06",
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "V20",
+        "V21",
+        "V22",
+        "V23",
+        "V24",
+        "V25",
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V32",
+        "V33",
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V38",
+        "V39",
+        "V40",
+        "V41",
+        "V42",
+        "V43",
+        "V44",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11",
+        "C12",
+        "C13",
+        "C14",
+        "C15",
+        "C16",
+        "C17",
+        "C18",
+        "C19",
+        "C20",
+        "C21",
+        "C22",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D15-02",
+      "domain": "D15",
+      "domain_name": "完整验收与发布",
+      "priority": "P1",
+      "status": "open",
+      "title": "24组合和12联合场景",
+      "completion_criterion": "按原表留存并完成适用口径复核，全部覆盖有实际证据。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_accepted",
+      "source_remaining": "68项正式验收0/68，24组合/12场景/8发布门、跨场次日及干净完整交付；全域不降范围、不提前宣布完成。",
+      "source_anchors": [
+        "docs/technical/mc-live-v1/07-实施与验收.md",
+        "docs/technical/mc-live-v1/08-完整交付规划.md"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06",
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "V20",
+        "V21",
+        "V22",
+        "V23",
+        "V24",
+        "V25",
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V32",
+        "V33",
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V38",
+        "V39",
+        "V40",
+        "V41",
+        "V42",
+        "V43",
+        "V44",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11",
+        "C12",
+        "C13",
+        "C14",
+        "C15",
+        "C16",
+        "C17",
+        "C18",
+        "C19",
+        "C20",
+        "C21",
+        "C22",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D15-03",
+      "domain": "D15",
+      "domain_name": "完整验收与发布",
+      "priority": "P1",
+      "status": "open",
+      "title": "8个发布条件",
+      "completion_criterion": "Z01–Z08同时满足，不把少量工程检查当完整发布。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_accepted",
+      "source_remaining": "68项正式验收0/68，24组合/12场景/8发布门、跨场次日及干净完整交付；全域不降范围、不提前宣布完成。",
+      "source_anchors": [
+        "docs/technical/mc-live-v1/07-实施与验收.md",
+        "docs/technical/mc-live-v1/08-完整交付规划.md"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06",
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "V20",
+        "V21",
+        "V22",
+        "V23",
+        "V24",
+        "V25",
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V32",
+        "V33",
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V38",
+        "V39",
+        "V40",
+        "V41",
+        "V42",
+        "V43",
+        "V44",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11",
+        "C12",
+        "C13",
+        "C14",
+        "C15",
+        "C16",
+        "C17",
+        "C18",
+        "C19",
+        "C20",
+        "C21",
+        "C22",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D15-04",
+      "domain": "D15",
+      "domain_name": "完整验收与发布",
+      "priority": "P1",
+      "status": "open",
+      "title": "发布清单与版本一致",
+      "completion_criterion": "源码/依赖/游戏/模型/素材/数据库/设备/证据18类字段完整一致。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_accepted",
+      "source_remaining": "68项正式验收0/68，24组合/12场景/8发布门、跨场次日及干净完整交付；全域不降范围、不提前宣布完成。",
+      "source_anchors": [
+        "docs/technical/mc-live-v1/07-实施与验收.md",
+        "docs/technical/mc-live-v1/08-完整交付规划.md"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06",
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "V20",
+        "V21",
+        "V22",
+        "V23",
+        "V24",
+        "V25",
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V32",
+        "V33",
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V38",
+        "V39",
+        "V40",
+        "V41",
+        "V42",
+        "V43",
+        "V44",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11",
+        "C12",
+        "C13",
+        "C14",
+        "C15",
+        "C16",
+        "C17",
+        "C18",
+        "C19",
+        "C20",
+        "C21",
+        "C22",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D15-05",
+      "domain": "D15",
+      "domain_name": "完整验收与发布",
+      "priority": "P1",
+      "status": "open",
+      "title": "次日和回滚演练",
+      "completion_criterion": "完整状态/世界/删除链、跨场目标和旧版本恢复真实复现。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_accepted",
+      "source_remaining": "68项正式验收0/68，24组合/12场景/8发布门、跨场次日及干净完整交付；全域不降范围、不提前宣布完成。",
+      "source_anchors": [
+        "docs/technical/mc-live-v1/07-实施与验收.md",
+        "docs/technical/mc-live-v1/08-完整交付规划.md"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06",
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "V20",
+        "V21",
+        "V22",
+        "V23",
+        "V24",
+        "V25",
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V32",
+        "V33",
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V38",
+        "V39",
+        "V40",
+        "V41",
+        "V42",
+        "V43",
+        "V44",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11",
+        "C12",
+        "C13",
+        "C14",
+        "C15",
+        "C16",
+        "C17",
+        "C18",
+        "C19",
+        "C20",
+        "C21",
+        "C22",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D15-06",
+      "domain": "D15",
+      "domain_name": "完整验收与发布",
+      "priority": "P1",
+      "status": "open",
+      "title": "完整手册与交接入口",
+      "completion_criterion": "安装、启停、诊断、维护、恢复和失败处理可实际执行。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_accepted",
+      "source_remaining": "68项正式验收0/68，24组合/12场景/8发布门、跨场次日及干净完整交付；全域不降范围、不提前宣布完成。",
+      "source_anchors": [
+        "docs/technical/mc-live-v1/07-实施与验收.md",
+        "docs/technical/mc-live-v1/08-完整交付规划.md"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06",
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "V20",
+        "V21",
+        "V22",
+        "V23",
+        "V24",
+        "V25",
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V32",
+        "V33",
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V38",
+        "V39",
+        "V40",
+        "V41",
+        "V42",
+        "V43",
+        "V44",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11",
+        "C12",
+        "C13",
+        "C14",
+        "C15",
+        "C16",
+        "C17",
+        "C18",
+        "C19",
+        "C20",
+        "C21",
+        "C22",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D15-07",
+      "domain": "D15",
+      "domain_name": "完整验收与发布",
+      "priority": "P1",
+      "status": "open",
+      "title": "历史失败逐项审计",
+      "completion_criterion": "早期未证明根因、失败检查和实际损失保留；有关闭证据才关闭，不因冻结消失。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_accepted",
+      "source_remaining": "68项正式验收0/68，24组合/12场景/8发布门、跨场次日及干净完整交付；全域不降范围、不提前宣布完成。",
+      "source_anchors": [
+        "docs/technical/mc-live-v1/07-实施与验收.md",
+        "docs/technical/mc-live-v1/08-完整交付规划.md"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06",
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "V20",
+        "V21",
+        "V22",
+        "V23",
+        "V24",
+        "V25",
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V32",
+        "V33",
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V38",
+        "V39",
+        "V40",
+        "V41",
+        "V42",
+        "V43",
+        "V44",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11",
+        "C12",
+        "C13",
+        "C14",
+        "C15",
+        "C16",
+        "C17",
+        "C18",
+        "C19",
+        "C20",
+        "C21",
+        "C22",
+        "C23",
+        "C24"
+      ]
+    },
+    {
+      "id": "MCF-D15-08",
+      "domain": "D15",
+      "domain_name": "完整验收与发布",
+      "priority": "P1",
+      "status": "open",
+      "title": "规划与现行路线对齐",
+      "completion_criterion": "Fabric/NeoForge、人工/自主、双机/同机和零成果/新成果差异有新版本明确映射。",
+      "existing_implementation_may_be_partial": true,
+      "source_status": "not_accepted",
+      "source_remaining": "68项正式验收0/68，24组合/12场景/8发布门、跨场次日及干净完整交付；全域不降范围、不提前宣布完成。",
+      "source_anchors": [
+        "docs/technical/mc-live-v1/07-实施与验收.md",
+        "docs/technical/mc-live-v1/08-完整交付规划.md"
+      ],
+      "formal_acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06",
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "V20",
+        "V21",
+        "V22",
+        "V23",
+        "V24",
+        "V25",
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        "V30",
+        "V31",
+        "V32",
+        "V33",
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V38",
+        "V39",
+        "V40",
+        "V41",
+        "V42",
+        "V43",
+        "V44",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11",
+        "C12",
+        "C13",
+        "C14",
+        "C15",
+        "C16",
+        "C17",
+        "C18",
+        "C19",
+        "C20",
+        "C21",
+        "C22",
+        "C23",
+        "C24"
+      ]
+    }
+  ],
+  "priority_is_not_a_release_batch": true,
+  "no_items_closed_by_freeze": true,
+  "candidate_replacements": [
+    {
+      "id": "OPT01",
+      "name": "dsh-mc-agent",
+      "status": "researched_not_adopted",
+      "condition": "future_server_compatibility_and_capture_proven"
+    },
+    {
+      "id": "OPT02",
+      "name": "whale-craft",
+      "status": "researched_not_adopted"
+    },
+    {
+      "id": "OPT03",
+      "name": "AIRI_MC",
+      "status": "architecture_reference_existing_runtime_deprecation_noted"
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "id": "mc-three-scheme-model-visual-20261103",
+  "recorded_at": "2026-11-03T02:54:01.324726+08:00",
+  "branch": "mc",
+  "classification": "static_source_review_not_runtime_acceptance",
+  "comparison_scope": [
+    "current_native",
+    "whale_craft",
+    "dsh_mc_agent"
+  ],
+  "repositories": [
+    {
+      "repo": "yzi1b/whale-craft",
+      "directory": "yzi1b--whale-craft",
+      "head": "ddc21637dc48b0818f2159dc69e4f4b26f64cb83",
+      "version": "0.2.0-beta.3",
+      "stars": 52,
+      "observed_at": "2026-11-03T02:43:45.3202656+08:00",
+      "metadata_api": "https://api.github.com/repos/yzi1b/whale-craft",
+      "head_api": "https://api.github.com/repos/yzi1b/whale-craft/commits/main",
+      "matches_previous_fixed_research": true
+    },
+    {
+      "repo": "blueziii/dsh-mc-agent",
+      "directory": "blueziii--dsh-mc-agent",
+      "head": "a518f79e77e168aa5158dacc58e0c25d562a42b8",
+      "version": "0.6.75",
+      "stars": 31,
+      "observed_at": "2026-11-03T02:43:46.6652018+08:00",
+      "metadata_api": "https://api.github.com/repos/blueziii/dsh-mc-agent",
+      "head_api": "https://api.github.com/repos/blueziii/dsh-mc-agent/commits/main",
+      "matches_previous_fixed_research": true
+    }
+  ],
+  "findings": {
+    "current_host_declares_text_only": true,
+    "current_host_tool_outputs_text_only": true,
+    "current_vision": "native framebuffer -> local CPU Qwen -> caption/visible_text/unknowns -> text DSH",
+    "current_high_level_model_label": "gpt-6-luna",
+    "current_bootstrap": "rule and Mindcraft item dependency algorithm can progress before host.generate",
+    "whale_images": "state-derived map/heightmap; optional image attachment to selected DSH model",
+    "dsh_images": "state-reconstructed first-person image plus program sensing and uncertainty",
+    "dsh_default_image_size": [
+      192,
+      108
+    ],
+    "dsh_observe_gate_default_enabled": false,
+    "dsh_explicit_gate_defaults": {
+      "max_actions": 4,
+      "max_age_ms": 60000
+    },
+    "dsh_low_level": "Mineflayer plus pathfinder/collect/tool/combat program skills",
+    "dsh_default_auto_mode": "ai-led; most automatic actions disabled, autoFloat exception",
+    "dsh_scheduler_default": "observe-only",
+    "candidates_do_not_pin_llm_or_supply_vla_weights": true,
+    "candidate_image_channel_not_tested": true,
+    "no_candidate_installed_or_adopted": true
+  },
+  "updated_documents": [
+    "docs/technical/mc-live-v1/MC三方案模型视觉与控制详解.md",
+    "docs/technical/mc-live-v1/MC开源执行方案对比评估.md",
+    "docs/technical/mc-live-v1/README.md",
+    "docs/technical/mc-live-v1/实现进度.md",
+    "docs/technical/mc-live-v1/implementation-status.json"
+  ],
+  "source_receipt": "outputs/mc-validation/comparison-20261103/research/model-visual-source-receipt.json",
+  "previous_fixed_sources": "outputs/mc-validation/round-086/research",
+  "limitations": [
+    "GitHub blob pages and some raw requests had cache misses; fixed commit files were retrieved through Contents API",
+    "No actual candidate model image input, Minecraft server/mod compatibility or continuous broadcast comparison performed",
+    "No remote snapshot refresh; runtime facts remain prior verified evidence",
+    "No comparative speed multiplier or performance fix claimed"
+  ],
+  "runtime_source_changes": 0,
+  "remote_connections": 0,
+  "candidate_installs": 0,
+  "game_or_model_starts": 0,
+  "local_runtime_tests": 0,
+  "browser_tabs_opened": 0,
+  "formal_acceptance_passed": 0,
+  "new_avatar_materials_accepted": 0,
+  "remaining_scope": {
+    "domains": 15,
+    "open_items": 117
+  },
+  "checks": [
+    {
+      "name": "branch_mc",
+      "passed": true
+    },
+    {
+      "name": "downloaded_public_sources_match_git_tree_blobs",
+      "passed": true,
+      "files": 8
+    },
+    {
+      "name": "status_changes_only_add_research_record",
+      "passed": true
+    },
+    {
+      "name": "formal_and_full_domain_state_unchanged",
+      "passed": true
+    },
+    {
+      "name": "runtime_round_unchanged",
+      "passed": true
+    },
+    {
+      "name": "active_comparison_only_three_requested_schemes",
+      "passed": true
+    },
+    {
+      "name": "local_document_links_resolve",
+      "passed": true,
+      "links": 21,
+      "missing": []
+    },
+    {
+      "name": "reviewed_runtime_files_match_frozen_actual_source",
+      "passed": true,
+      "files": 8,
+      "changed": []
+    },
+    {
+      "name": "frozen_manifest_unchanged",
+      "passed": true
+    },
+    {
+      "name": "frozen_delivery_archive_unchanged",
+      "passed": true
+    },
+    {
+      "name": "actual_frame_capture_source_and_updated_links_verified",
+      "passed": true,
+      "source": "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeGamePort.java",
+      "capture_method_line": 310
+    }
+  ],
+  "result": "PASS",
+  "document_sha256": {
+    "docs/technical/mc-live-v1/MC三方案模型视觉与控制详解.md": "4543132bb847620593ddb944c269030e58cfd4202ebed5d7b208254acbbdc690",
+    "docs/technical/mc-live-v1/MC开源执行方案对比评估.md": "14605f52b7ffd6bfb5e5590ca46b78b859f637e8161f836412476f233ded27f3"
+  }
+}

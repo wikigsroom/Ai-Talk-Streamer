@@ -21,6 +21,13 @@ class ReceiverTests(unittest.IsolatedAsyncioTestCase):
             if request.path=='/api/dsh/status':return web.json_response({'broadcast':self.broadcast})
             if request.path=='/api/studio/stream':
                 ws=web.WebSocketResponse(compress=False);await ws.prepare(request)
+                if request.query.get('v')=='3':
+                    self.observed.append(dict(request.query))
+                    for message in [{'type':'media.init','stream_id':'first'},{'type':'media.reset','old_stream_id':'first','new_stream_id':'second'}, {'type':'media.init','stream_id':'second'}, {'type':'media.map','packet_seq':10}]:await ws.send_json(message)
+                    await ws.send_bytes(b'v3-exact-AVCC-and-PCM\x00\xff')
+                    async for message in ws:
+                        if message.type==WSMsgType.TEXT:await ws.send_str(message.data)
+                    return ws
                 await ws.send_json({'type':'media.map','sample_count':640})
                 await ws.send_bytes(b'\x00\x01portrait-pcm\x00\xff')
                 async for message in ws:
@@ -39,6 +46,19 @@ class ReceiverTests(unittest.IsolatedAsyncioTestCase):
     async def test_same_origin_http_preserves_post_body(self):
         response=await self.client.post('/api/dsh/requests?echo=1',data=b'\x00\x01request')
         self.assertEqual(response.status,200);self.assertEqual(await response.read(),b'\x00\x01request')
+    async def test_v3_query_reset_init_map_and_binary_are_transparent(self):
+        async with self.client.ws_connect('/api/studio/stream?v=3&codec=h264') as ws:
+            messages=[await ws.receive_json(timeout=2) for _ in range(4)]
+            self.assertEqual([m['type'] for m in messages],['media.init','media.reset','media.init','media.map'])
+            self.assertEqual((await ws.receive(timeout=2)).data,b'v3-exact-AVCC-and-PCM\x00\xff')
+            await ws.send_str('{"type":"video.keyframe"}');self.assertEqual((await ws.receive(timeout=2)).data,'{"type":"video.keyframe"}')
+        self.assertEqual(self.observed,[{'v':'3','codec':'h264'}])
+    async def test_mc_pages_and_layout_reach_fixed_upstream_and_status_lists_both_urls(self):
+        for path in ['/mc/programme?renderer=livehime','/mc/preview','/mc/layout.json','/mc-programme.js']:
+            response=await self.client.get(path);self.assertEqual(response.status,200);self.assertEqual(await response.read(),b'upstream-ok')
+        status=await(await self.client.get('/receiver/status')).json()
+        self.assertTrue(status['mc_programme_url'].endswith('/mc/programme?renderer=livehime'))
+        self.assertTrue(status['mc_preview_url'].endswith('/mc/preview'))
     async def test_websocket_preserves_control_before_exact_pcm_packet(self):
         async with self.client.ws_connect('/api/studio/stream') as ws:
             first=await ws.receive(timeout=2);second=await ws.receive(timeout=2)

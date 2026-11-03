@@ -13,10 +13,13 @@ def update(path,text):
     changes.append({'path':str(path.relative_to(ROOT)),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
 def main():
     target=ROOT/'src/GPT-SoVITS/GPT_SoVITS/text/LangSegmenter/langsegmenter.py'
-    text=target.read_text(encoding='utf-8')
-    if 'import os\n' not in text:text='import os\n'+text
-    text=text.replace('cache_dir=Path(__file__).parent.parent.parent / "pretrained_models" / "fast_langdetect"','cache_dir=Path(os.environ.get("FTLANG_CACHE", str(Path(__file__).parent.parent.parent / "pretrained_models" / "fast_langdetect")))')
-    update(target,text)
+    if target.is_file():
+        text=target.read_text(encoding='utf-8')
+        if 'import os\n' not in text:text='import os\n'+text
+        text=text.replace('cache_dir=Path(__file__).parent.parent.parent / "pretrained_models" / "fast_langdetect"','cache_dir=Path(os.environ.get("FTLANG_CACHE", str(Path(__file__).parent.parent.parent / "pretrained_models" / "fast_langdetect")))')
+        update(target,text)
+    elif json.loads((ROOT/'configs/livetalking.yaml').read_text(encoding='utf-8-sig')).get('tts')!='resident-local':
+        raise RuntimeError('The selected legacy speech engine requires its own prepared source')
     target=LIVE/'avatars/base_avatar.py';text=target.read_text(encoding='utf-8')
     if '        torch.set_num_threads(1) # studio render worker' not in text:
         text=text.replace('    def inference(self, quit_event):','    def inference(self, quit_event):\n        import torch\n        torch.set_num_threads(1) # studio render worker')
@@ -36,7 +39,7 @@ def main():
     if '_studio_silent_feature' not in text:
         text=text.replace('        input_feature = self.feature_extractor(', '        if not np.any(wav_data):\n            if not hasattr(self, "_studio_silent_feature"):\n                self._studio_silent_feature = np.zeros((1500, 5, 384), dtype=np.float16)\n            return self._studio_silent_feature\n        input_feature = self.feature_extractor(')
     update(target,text)
-    for name in ['studio_rtc.py','studio_routes.py','dsh_bridge.py','character_identity.py','isolated_inference.py','local_broadcast.py','stream_encoder.py','viewer_buffer.py','frame_store.py','motion_control.py','pose_gallery.py','scenario_gallery.py','fast_blending.py','lipsync_k02.py']:update(LIVE/'server'/name,(ROOT/'integration'/name).read_text(encoding='utf-8'))
+    for name in ['studio_rtc.py','studio_routes.py','dsh_bridge.py','character_identity.py','isolated_inference.py','local_broadcast.py','stream_encoder.py','media_protocol.py','viewer_buffer.py','frame_store.py','motion_control.py','pose_gallery.py','scenario_gallery.py','fast_blending.py','lipsync_k02.py']:update(LIVE/'server'/name,(ROOT/'integration'/name).read_text(encoding='utf-8'))
     for source in (ROOT/'web').glob('*'):
         if source.is_file():update(LIVE/'web'/source.name,source.read_text(encoding='utf-8'))
     update(LIVE/'web/obs.html',(ROOT/'integration/obs.html').read_text(encoding='utf-8'))

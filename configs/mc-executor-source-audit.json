@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "classification": "CANDIDATE_SOURCE_OBSERVATION_ONLY",
+  "recorded_at": "2026-10-29T22:50:20.064213+00:00",
+  "repository": "https://github.com/MiranCZ/altoclef",
+  "commit": "1f8e038befeaed44b8a053402c69127866c46a4e",
+  "commit_time": "2025-05-20T11:25:30Z",
+  "upstream_declares": {
+    "altoclef": "0.19",
+    "minecraft": "1.21.1",
+    "bundled_baritone": true
+  },
+  "reviewed_source_files": [
+    {
+      "path": "build.gradle",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/build.gradle",
+      "sha256": "c55791164874e3e6baf6122927d4ea0df3c6dbcc3a35a518cdb96ba4e8ef16cf",
+      "bytes": 6815
+    },
+    {
+      "path": "gradle.properties",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/gradle.properties",
+      "sha256": "7cb6faadbe04a4c90962576d00fd0b7a43e60415c1c27c4457a2c67adfc77cb4",
+      "bytes": 349
+    },
+    {
+      "path": "LICENSE",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/LICENSE",
+      "sha256": "5277ab58e28654dc3856284e8d9b082da4b6d3ae75949599a1c37f2ffaeb0965",
+      "bytes": 1071
+    },
+    {
+      "path": "README.md",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/README.md",
+      "sha256": "8f84e94754653f6d298315327a464c8effea2c8654ccf6544a70b2cf616e09e5",
+      "bytes": 6436
+    },
+    {
+      "path": "src/main/java/adris/altoclef/AltoClef.java",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/src/main/java/adris/altoclef/AltoClef.java",
+      "sha256": "ec84d9a252df827745aed5df535f4a16b581f10b3f4eb9c0abf657548cb3ddb7",
+      "bytes": 19074
+    },
+    {
+      "path": "src/main/java/adris/altoclef/chains/UserTaskChain.java",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/src/main/java/adris/altoclef/chains/UserTaskChain.java",
+      "sha256": "b4b207a0e420407fcafc71d2649ab4fb35b2e832907913911c053c94a3c49279",
+      "bytes": 4121
+    },
+    {
+      "path": "src/main/java/adris/altoclef/control/InputControls.java",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/src/main/java/adris/altoclef/control/InputControls.java",
+      "sha256": "66415066c27d1f2b241c7417547e4af1ab6698066feb8fb960683fc8556deb0c",
+      "bytes": 3014
+    },
+    {
+      "path": "src/main/java/adris/altoclef/control/PlayerExtraController.java",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/src/main/java/adris/altoclef/control/PlayerExtraController.java",
+      "sha256": "d96566a8339e7c1d37ec1cf65d3ed93f6f9bad1a8505e1cdaf5294bc029fe657",
+      "bytes": 1620
+    },
+    {
+      "path": "src/main/java/adris/altoclef/TaskCatalogue.java",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/src/main/java/adris/altoclef/TaskCatalogue.java",
+      "sha256": "11a010ea027c1e6d8dff0c913bf48b1c89dd6cf5409d81fd0e937e4856189e2f",
+      "bytes": 68065
+    },
+    {
+      "path": "src/main/java/adris/altoclef/tasks/movement/GetToBlockTask.java",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/src/main/java/adris/altoclef/tasks/movement/GetToBlockTask.java",
+      "sha256": "0bffe3d3d1182068fac0ddb8d568d90bc231fc8def12a89ee03bc79306e66b68",
+      "bytes": 3319
+    },
+    {
+      "path": "src/main/java/adris/altoclef/tasksystem/TaskChain.java",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/src/main/java/adris/altoclef/tasksystem/TaskChain.java",
+      "sha256": "82ce78259083254dbe172057c432069180e492768f9aba749a59d0a06d206936",
+      "bytes": 915
+    },
+    {
+      "path": "src/main/java/adris/altoclef/tasksystem/TaskRunner.java",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/src/main/java/adris/altoclef/tasksystem/TaskRunner.java",
+      "sha256": "2247e3959f902c014538371ef02aa1b858b473f62873831d7468b872e6d149a9",
+      "bytes": 2227
+    },
+    {
+      "path": "src/main/java/adris/altoclef/util/helpers/LookHelper.java",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/src/main/java/adris/altoclef/util/helpers/LookHelper.java",
+      "sha256": "b574370dfee17453c34512dd0a88bc22433ea0da7332832ee774760bde776efb",
+      "bytes": 29484
+    },
+    {
+      "path": "src/main/resources/altoclef.mixins.json",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/src/main/resources/altoclef.mixins.json",
+      "sha256": "ccf622da20e3168cf2e797407d86ffce7b7bab4965beb30f9d4e2239bc8f3508",
+      "bytes": 958
+    },
+    {
+      "path": "src/main/resources/fabric.mod.json",
+      "url": "https://github.com/MiranCZ/altoclef/blob/1f8e038befeaed44b8a053402c69127866c46a4e/src/main/resources/fabric.mod.json",
+      "sha256": "0368e42bba6849962d4c074a8ce12fea9b537d333cc9f1faf39c9aea6ec5a6e0",
+      "bytes": 557
+    }
+  ],
+  "binary_artifact": null,
+  "dependency_runtime_lock": null,
+  "native_candidate_build": "not_run",
+  "real_same_player_acceptance": "not_run",
+  "automatic_input_authorized": false,
+  "features_authorized": {
+    "basic_pve": false,
+    "survival_rules": false,
+    "resource_chains": false
+  },
+  "required_integration_document": "docs/technical/mc-live-v1/AltoClef接入核对与输入约束.md",
+  "local_input_contract_document": "docs/technical/mc-live-v1/本地输入许可与停顿处理.md"
+}

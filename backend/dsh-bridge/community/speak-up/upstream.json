@@ -1,0 +1,70 @@
+{
+  "repo": "Yuuyuko-uu/dsh-speak-up",
+  "commit": "438bb636b4c631218e1d0b18b2bf957e3cb17b6d",
+  "default_branch": "main",
+  "license": {
+    "key": "other",
+    "name": "Other",
+    "spdx_id": "NOASSERTION",
+    "url": null,
+    "node_id": "MDc6TGljZW5zZTA="
+  },
+  "archive_sha256": "348ca50b867e7572ef39bc34c591c1dae6b882d2428f705a61c7ec57de939d4b",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 164,
+      "sha256": "f74c397c7666473ec8b6874a60abb062e38ddf62162bbcc79d92c903ed56b61a"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 11675,
+      "sha256": "246af1e1edcfb099c132083066301f3ec33ef6be26c38de97a6d4b5003e2cc24"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 2555,
+      "sha256": "99f2936547f528cda00db26b3db26b65afc7d6118b920e45c066fa5bea3a9bce"
+    },
+    {
+      "path": "README.md",
+      "bytes": 18154,
+      "sha256": "f65275e28b514e21e9ea8aac0c293cea05891ae51967236fe1cbefb3f46e27e6"
+    },
+    {
+      "path": "cordis.patch.yml",
+      "bytes": 304,
+      "sha256": "bf0690efc63f0183e598f2934fb773335911925080b21fa73681ea5da5c89253"
+    },
+    {
+      "path": "lib/client.js",
+      "bytes": 32767,
+      "sha256": "272ef7bdc9e899a1abbbee994d10064e964cb1515c2c53fdf9033b7f628dc570"
+    },
+    {
+      "path": "lib/host.js",
+      "bytes": 65836,
+      "sha256": "87df06e0845e7d20bde26d48396ab13c9f24a102264fa1c70906adbb9fd0dc6f"
+    },
+    {
+      "path": "lib/selfupdate.mjs",
+      "bytes": 9616,
+      "sha256": "21001d4c229be1ec8ca1ec522250272d1f6234efea2196322cae70e7477f57ea"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1211,
+      "sha256": "fac64c3bc4d8a510f8b48462b52267486137ee34fe708e03284ed709eddc2a41"
+    },
+    {
+      "path": "tests/宿主半边.mjs",
+      "bytes": 39512,
+      "sha256": "16cf073734e64a26ab41f23b96bf94189cb1fdeb74ea1ba63f783c76d4e549aa"
+    },
+    {
+      "path": "tests/网页半边.mjs",
+      "bytes": 19212,
+      "sha256": "d659d1cef3a1a3368e6762f03a522d5ed6b3d4db7a0f03c597e1e8db0980b419"
+    }
+  ]
+}

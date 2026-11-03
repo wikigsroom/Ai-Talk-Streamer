@@ -1,0 +1,60 @@
+{
+  "repo": "jiji262/humanizer-chinese",
+  "commit": "1d6c08e10fbfe0e1b36ac784834451c6aae0a92c",
+  "default_branch": "main",
+  "license": {
+    "key": "mit",
+    "name": "MIT License",
+    "spdx_id": "MIT",
+    "url": "https://api.github.com/licenses/mit",
+    "node_id": "MDc6TGljZW5zZTEz"
+  },
+  "archive_sha256": "5d49c43fd3bb49d24d4159a8965224175e933cb241ac7758b79df5439c2c17a9",
+  "files": [
+    {
+      "path": ".claude-plugin/marketplace.json",
+      "bytes": 608,
+      "sha256": "a6c7a4c5f7044483ee12ed4bdfe3e174cd061cfa22a57351c350866ec618acd8"
+    },
+    {
+      "path": ".claude-plugin/plugin.json",
+      "bytes": 667,
+      "sha256": "62df09c1533958b36a37780c0e90280fe05d24168cf065992cc01db239b22f0b"
+    },
+    {
+      "path": ".github/workflows/validate.yml",
+      "bytes": 707,
+      "sha256": "4ee5852335371388b4a621e2a1e5d0115b3046d214ff2b43377a2422e77a4185"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 4123,
+      "sha256": "9761b19fc8cb7491fab3a4d628407604aff3cb77346ca547b7bbf99a94e680ae"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1116,
+      "sha256": "6e85ff980e3ecad4e609970f0d732785a5326086810ba11ed169208b65ca09c6"
+    },
+    {
+      "path": "README.md",
+      "bytes": 9493,
+      "sha256": "60c50c296bdba90e25aec0ce84635aa06644fb293cb5a19490fcebaeb14fc8aa"
+    },
+    {
+      "path": "SKILL.md",
+      "bytes": 32062,
+      "sha256": "d582f32dd18f5dfcba881a65b8718ab293761ec6ea0a5fad14d81e2fe0899c1a"
+    },
+    {
+      "path": "agents/openai.yaml",
+      "bytes": 204,
+      "sha256": "8eefad5bdbba71f368900ebe272469699596036dc12b5396aaf22d08e81cf382"
+    },
+    {
+      "path": "scripts/validate-package.py",
+      "bytes": 2045,
+      "sha256": "a101faba23f3ed6039c9139dafd0927b1f39c89ea91c09337e83c4c0bed114e2"
+    }
+  ]
+}

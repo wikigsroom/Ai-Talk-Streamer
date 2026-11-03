@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "round": "085",
+  "date": "2026-11-03",
+  "branch": "mc",
+  "classification": "READ_ONLY_STUTTER_DIAGNOSIS_NOT_PERFORMANCE_FIX_OR_ACCEPTANCE",
+  "host": "DESKTOP-2QQPN1H",
+  "media_analysis_on": "remote-3080",
+  "local_runtime_tests": 0,
+  "local_media_processing": 0,
+  "game_or_model_starts": 0,
+  "runtime_source_changes": 0,
+  "virtualization_used": false,
+  "browser_tabs_created": 0,
+  "public_broadcast_started": false,
+  "original_recording_unchanged": true,
+  "delivered_recording_unchanged": true,
+  "delivered_sha256": "144f7242860462453dec33958a9c81ff7b8721ce18880168dc62d4283fbff3c9",
+  "report": "docs/technical/mc-live-v1/120秒实况卡顿排查.md",
+  "findings": {
+    "inference_fps_timed_log_range": [
+      19.8145,
+      22.6775
+    ],
+    "target_avatar_fps": 25,
+    "action_index_production_fps": 22.2499464132251,
+    "production_counter_window_seconds": 128.004,
+    "minimum_six_second_counter_fps": 14.44899040910276,
+    "playout_buffer_default_seconds": 4,
+    "playback_counter_gaps": [
+      {
+        "from": 19.697592,
+        "to": 23.697592,
+        "wall_seconds": 4.0,
+        "pcm_progress_seconds": 0.010625,
+        "excess_wall_seconds": 3.989375
+      },
+      {
+        "from": 46.197592,
+        "to": 50.204592,
+        "wall_seconds": 4.007,
+        "pcm_progress_seconds": 0.178625,
+        "excess_wall_seconds": 3.828375
+      },
+      {
+        "from": 94.200592,
+        "to": 98.217592,
+        "wall_seconds": 4.017,
+        "pcm_progress_seconds": 0.210625,
+        "excess_wall_seconds": 3.806375
+      }
+    ],
+    "original_and_delivery_pts_regular": true,
+    "pts_gap_over_50ms": 0,
+    "nominal_output_fps": 30,
+    "game_state_message_rate_not_render_fps": 20.016756327328498,
+    "known_packet_processing_delay_seconds": 0.374
+  },
+  "limitations": [
+    "No time-aligned GPU/CPU/disk or historical browser underrun counters retained",
+    "ROI pixel change is not a render-FPS measurement and cannot alone prove an engine freeze",
+    "No exclusive GPU-versus-IO attribution",
+    "No performance fix deployed or new acceptance claimed"
+  ],
+  "preserved_diagnostic_failure": {
+    "file": "correlate-buffer085-result.json",
+    "reason": "Initial read-only SQL used nonexistent created_at; corrected to schema received_at in separate v2, original failure retained"
+  },
+  "formal_acceptance_passed": 0,
+  "new_avatar_clips_accepted": 0,
+  "files": {
+    "diagnose-recording085-result.json": {
+      "path": "outputs/mc-validation/round-085/remote-evidence/diagnose-recording085-result.json",
+      "bytes": 235403,
+      "sha256": "f2f303fcf77e981d70349cbaf418123277fe73b427a1c300dba62b860f5e0a91"
+    },
+    "inspect-performance085-result.json": {
+      "path": "outputs/mc-validation/round-085/remote-evidence/inspect-performance085-result.json",
+      "bytes": 31406,
+      "sha256": "7ba9f0176fde55b51ddbe26fd7cf8249f93348607ff132f1e2b64de18bc81239"
+    },
+    "correlate-buffer085-result.json": {
+      "path": "outputs/mc-validation/round-085/remote-evidence/correlate-buffer085-result.json",
+      "bytes": 2503,
+      "sha256": "e4d6a40118caa766ec9ca7b20c692620302acb52d45e77d94b00d75a204d7f4f"
+    },
+    "correlate-buffer085-v2-result.json": {
+      "path": "outputs/mc-validation/round-085/remote-evidence/correlate-buffer085-v2-result.json",
+      "bytes": 4771,
+      "sha256": "eea23b35be7d8862dcb4e221f1df8f29c9f6747d67dd7c38601974e15def358d"
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "classification": "PLANNING_AND_DOCUMENT_VALIDATION_ONLY",
+  "plan_revision": "1.2",
+  "execution_revision": "2026-10-30-r1",
+  "branch": "mc",
+  "source": "docs/technical/mc-live-v1/10-全量执行与资源计划.md",
+  "implementation_round_unchanged": "021",
+  "runtime_acceptance_cases_run": 0,
+  "runtime_acceptance_advanced": false,
+  "functional_code_changed_by_this_update": false,
+  "documentation_check": {
+    "status": "PASS",
+    "report": "outputs/mc-planning/20261030-execution-r1/contracts-verification.json",
+    "sha256": "ef7be7790eb38843ecb8399fdd99d4ac7117cd5dd3ead7e51caa42881c2a96db",
+    "schema_definitions": 92,
+    "valid_examples": 77,
+    "negative_contract_cases": 55,
+    "http_operations": 43,
+    "markdown_files_checked": 40,
+    "local_markdown_links": 500,
+    "runtime_acceptance_cases_run_by_this_check": 0
+  },
+  "status": "PLANNING_COMPLETE_AND_DOCUMENT_CHECKS_PASSED",
+  "recorded_at": "2026-10-30T07:18:48.438046+00:00",
+  "planning_items": [
+    "P05",
+    "P06",
+    "P07",
+    "P08"
+  ],
+  "source_snapshots": {
+    "directory": "outputs/mc-planning/20261030-execution-r1/sources",
+    "sha256": {
+      "docs/technical/mc-live-v1/10-全量执行与资源计划.md": "95cd3dbe2b50a8ef2339f4a6e236f85301a68c65fb83c66a9ca3e8b912260646",
+      "docs/technical/mc-live-v1/README.md": "374bb74396f641da7fed2bd10ca709af0ff7536d746f611e2dd5b6d58151d4bf",
+      "docs/technical/mc-live-v1/08-完整交付规划.md": "d5abc639ce7b7c9cf5d61cf089718c3a5925076afc81e0a053a138cc33c327a1",
+      "docs/technical/mc-live-v1/09-全端实现蓝图.md": "caa039d6a0016389f88f29fccc0a0eb887fd264bd1fa106bd17b3679771bc9c3",
+      "docs/technical/mc-live-v1/全量交付执行总表.md": "dcea9e9914d2c5a8aa857d9ae3f19dc9b56989265744b73c410c3dc417de5990",
+      "docs/technical/mc-live-v1/完整交付清单.json": "724c40e9261ac0c895c212f9f4f3c9b6df7aad0cf978c5ee1e84da36045ed58b",
+      "docs/technical/mc-live-v1/implementation-status.json": "baf0eb46ad3d7f7e7470f7396297f00a1da8e54489ebff4164f503c490355615",
+      "docs/technical/mc-live-v1/实现进度.md": "1e74c72e4b94341963e0d7d2ae86dc85f75a66bdf3639b42c62710815368c6a3",
+      "docs/MC直播总方案.md": "a06d4c1f0aadf8f0be845fa0fddb1110e96e8eb1c2302c1d5d97367b94a9b474",
+      "docs/README.md": "c858ce94928e2f50fbbfa9f053f5aad68b6f71752f04f66b770c405a2a8c407b"
+    }
+  },
+  "scope": {
+    "user_facing_release_count": 1,
+    "required_domains": 15,
+    "work_packages": 14,
+    "runtime_acceptance_cases_defined": 68,
+    "complete_avatar_clips_required": 100,
+    "minimum_physical_takeovers": 20,
+    "continuous_full_load_hours": 4,
+    "next_day_recovery_required": true
+  },
+  "planning_consistency_check": {
+    "status": "PASS",
+    "report": "outputs/mc-planning/20261030-execution-r1/planning-consistency.json",
+    "sha256": "f56c634b235f27fccff58ba27d50be409c94c7c93f84fba7e982f25ccc8de956",
+    "structural_decisions": 12,
+    "cross_end_connections": 12,
+    "risk_closure_items": 10,
+    "work_estimate_totals": {
+      "min": 124,
+      "max": 193
+    },
+    "budget_with_contingency": {
+      "min": 155,
+      "max": 261
+    },
+    "earlier_check_failures_and_corrections_recorded": 2
+  },
+  "preserved_files": {
+    "count": 24,
+    "manifest": "outputs/mc-planning/20261030-execution-r1/preserved-before.json",
+    "all_unchanged": true
+  },
+  "git_diff_check": "PASS",
+  "services_started": false,
+  "real_minecraft_started": false,
+  "model_inference_started": false,
+  "new_models_downloaded": false,
+  "official_client_started": false,
+  "public_broadcast_started": false,
+  "remote_devices_used": false,
+  "virtualization_used": false,
+  "subagents_dispatched": false,
+  "web_research_used": true,
+  "desktop_browser_tabs_created": 0,
+  "browser_cleanup_required": false,
+  "upstream_sources_reviewed": [
+    "https://github.com/mindcraft-bots/mindcraft",
+    "https://github.com/MiranCZ/altoclef",
+    "https://github.com/xfgryujk/blivedm",
+    "https://github.com/xfgryujk/blivechat"
+  ],
+  "runtime_tests_executed": false,
+  "historical_021_test_counts_unchanged": true,
+  "real_acceptance_passed": 0,
+  "real_acceptance_not_run": 68,
+  "new_avatar_clips_generated": 0
+}

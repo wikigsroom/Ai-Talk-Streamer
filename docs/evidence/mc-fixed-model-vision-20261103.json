@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "id": "mc-fixed-model-vision-20261103",
+  "recorded_at": "2026-11-03T03:06:04.042179+08:00",
+  "branch": "mc",
+  "classification": "conditional_architecture_assessment_not_runtime_benchmark",
+  "comparison_scope": [
+    "current_native",
+    "whale_craft",
+    "dsh_mc_agent"
+  ],
+  "assumption": {
+    "external_decision_model": "gpt-6-luna",
+    "same_external_channel_for_candidates": true
+  },
+  "sources": [
+    {
+      "url": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+      "supports": "official image input capability, not configured channel runtime verification"
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/images-vision",
+      "supports": "image preprocessing and small-text limitations"
+    },
+    {
+      "path": "backend/dsh-bridge/host.mjs",
+      "supports": "current text-only host binding"
+    },
+    {
+      "path": "backend/game/vision.mjs",
+      "supports": "Qwen observation JSON and short text transfer"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/3080原生整机迁移与启停联调.md",
+      "supports": "historical CPU visual latency; not comparative cloud benchmark"
+    },
+    {
+      "path": "outputs/mc-validation/comparison-20261103/research/model-visual-source-receipt.json",
+      "supports": "fixed candidate source provenance"
+    }
+  ],
+  "assessment": {
+    "same_model_and_service_do_not_imply_plugin_model_quality_difference": true,
+    "external_direct_vision_removes_local_qwen_intermediate_inference": true,
+    "actual_speedup_or_accuracy_advantage_not_measured": true,
+    "preferred_existing_candidate_for_first_person_observation": "dsh_mc_agent_subject_to_server_and_channel_validation",
+    "preferred_native_visual_improvement": "real_native_frame_plus_structured_state_to_external_gpt_6_luna",
+    "recommendation_implemented": false
+  },
+  "verification": {
+    "branch_mc": true,
+    "json_status_addition_only": true,
+    "acceptance_and_required_domains_unchanged": true,
+    "local_document_links_resolve": true,
+    "local_links": 27,
+    "frozen_manifest_unchanged": true
+  },
+  "document_sha256": {
+    "docs/technical/mc-live-v1/固定gpt-6-luna的视觉性能对比.md": "53268d8eb570dc9cd10cede21951f96518a2ddf9ff3541270becf3704a7d45e0",
+    "docs/technical/mc-live-v1/MC三方案模型视觉与控制详解.md": "7de5797a457b95d0c135f54f3f68d2ba2e09a99b53e28b230020a3628fb0144b",
+    "docs/technical/mc-live-v1/MC开源执行方案对比评估.md": "2c8a4aa31c72e8fe6d2f80bdda770e5afe34b81d5fcd021ec45badb4f3d4d194"
+  },
+  "previous_research_receipt_preserved": "docs/evidence/mc-three-scheme-model-visual-20261103.json",
+  "runtime_changes": 0,
+  "candidate_installs": 0,
+  "remote_connections": 0,
+  "model_or_game_starts": 0,
+  "model_requests_sent": 0,
+  "local_runtime_tests": 0,
+  "browser_tabs_opened": 0,
+  "formal_acceptance_passed": 0,
+  "new_avatar_materials_accepted": 0,
+  "full_scope_open_items": 117,
+  "result": "PASS"
+}

@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "package": "dev.aitalkstreamer.mc.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": ["KeyboardMixin", "MouseMixin", "InputUtilMixin", "KeyBindingAccessor", "MinecraftInputInvoker", "CraftClickMixin", "InventorySyncMixin", "ItemUseSyncMixin", "ItemUseRepeatMixin", "HeldInputMixin"],
+  "injectors": {"defaultRequire": 1}
+}

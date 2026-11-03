@@ -1,0 +1,165 @@
+{
+  "repo": "Scorp1o117/dsh-soul-md",
+  "commit": "649a96c256d563b93f5bb1d03ac60d49c46e063d",
+  "default_branch": "main",
+  "license": {
+    "key": "mit",
+    "name": "MIT License",
+    "spdx_id": "MIT",
+    "url": "https://api.github.com/licenses/mit",
+    "node_id": "MDc6TGljZW5zZTEz"
+  },
+  "archive_sha256": "a7da1267542488b73b88b7cdef3bebdf3b0ebbc8d9614634e12dba578fc78bd9",
+  "files": [
+    {
+      "path": ".editorconfig",
+      "bytes": 211,
+      "sha256": "691922c7e34ae069b5b956003a8ae41d9c66bd14f901432e255aca2d9e270b0c"
+    },
+    {
+      "path": ".github/workflows/bom-check.yml",
+      "bytes": 712,
+      "sha256": "1162a5b716c3e8493bca34bb1e3c5c44a87db46c7b2fb7f3eadeabc52a089c9b"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 21,
+      "sha256": "58b6edad612c45315d85f2eb7187ef556c0fa568c8f11c263c38b277d90267e3"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1067,
+      "sha256": "3144a5b7dd8fc1edcc49e809abbf4d09eb6449b18bd9cf69a805c01b68769637"
+    },
+    {
+      "path": "README.en.md",
+      "bytes": 5849,
+      "sha256": "1e3b06fee12c3943db8444426d17db85ea04e4b5882148d1790a374964e96d99"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5327,
+      "sha256": "7e13b540e0b0dd6166524d6c2bf743a61dd8957e9a8bdeb609970b469d0e1c69"
+    },
+    {
+      "path": "README.zh.md",
+      "bytes": 136,
+      "sha256": "3203bf196a5afdb2402d9852b09e8b2311af40e6e5922f7e5e994d3018db104c"
+    },
+    {
+      "path": "VERIFICATION.md",
+      "bytes": 5963,
+      "sha256": "77dce8f9a9e2fa4b4696609f244c32e305340ecb5b70596b743743f03d3e19ae"
+    },
+    {
+      "path": "client.js",
+      "bytes": 50453,
+      "sha256": "dc4be9365534d22a95f4fee030d5d90defb3e81babe5ba5798bdc83750d5a29b"
+    },
+    {
+      "path": "cordis.patch.yml",
+      "bytes": 296,
+      "sha256": "96e8249c8749d1bf44750276cfaebd434f1cc0ac01046e25faa7215e678dd81b"
+    },
+    {
+      "path": "examples/memory.example.md",
+      "bytes": 514,
+      "sha256": "5c2233100a92f264ee2243941b19f42fe4521a9e82346a7e139d7944b4701152"
+    },
+    {
+      "path": "examples/soul.example.md",
+      "bytes": 1091,
+      "sha256": "0a144a8e890f22fde7d268db9f99a542bc17d76947d103c7478b7439a78b672a"
+    },
+    {
+      "path": "index.js",
+      "bytes": 40265,
+      "sha256": "4ed76e3ebc6422b323cc3e9c016c541c7c5b0bd179fbae2153a92884f90b6fb6"
+    },
+    {
+      "path": "locale/en.json",
+      "bytes": 189,
+      "sha256": "37300d44e4a3e2cf04413d8aad5fcb50253e6b42928ef220845b412f26157e74"
+    },
+    {
+      "path": "locale/zh.json",
+      "bytes": 174,
+      "sha256": "a6a14f4194466462b1d33e324bee6533041d72587b0c45094b93b6fe68ffbc0c"
+    },
+    {
+      "path": "memory-layout.js",
+      "bytes": 6072,
+      "sha256": "d173208bc3e2a4a8b11ae71adce5efa04175d146ba9003c6b3abf8dec5943214"
+    },
+    {
+      "path": "memory-recall.js",
+      "bytes": 2088,
+      "sha256": "c676ecced8699e316b99e19290d1d832a780d55dcf9d464a5ac1b32c340882f5"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 494234,
+      "sha256": "3fd00c4a1e24a5570186d58ec99e4526736cd35e858aed13e328c8b031b7c271"
+    },
+    {
+      "path": "package.json",
+      "bytes": 3859,
+      "sha256": "c9d334901fec0ec8b9619223239805618227d67c2dd77509eb8378582300dded"
+    },
+    {
+      "path": "subagents.js",
+      "bytes": 1036,
+      "sha256": "a93cafddac2db7a3b332eb2facd01b8ea7e55cbd419bd68ff4396684c1b5321d"
+    },
+    {
+      "path": "tests/client-write-flow.test.mjs",
+      "bytes": 6908,
+      "sha256": "b00dcd8c96f4182aa79012fea4dec21679633083ffdff5d8594a0ece67eddf6d"
+    },
+    {
+      "path": "tests/latest-compat.test.mjs",
+      "bytes": 1648,
+      "sha256": "d7f91c8fd6e15f271896d60c4c86caf9edfaa98d79107ad1e50e925154855643"
+    },
+    {
+      "path": "tests/locale.test.mjs",
+      "bytes": 3368,
+      "sha256": "a8a48b00c01f75b2a52f429b52d602457754fa701897d5c8eec090af48c7e257"
+    },
+    {
+      "path": "tests/memory-layered.test.mjs",
+      "bytes": 5522,
+      "sha256": "feb81264831db8193b8659139700c80caf05df4c26a9edc17d90a809c868141c"
+    },
+    {
+      "path": "tests/persona-switcher.test.mjs",
+      "bytes": 14258,
+      "sha256": "a8b203ef97c4c1010cf478a632c46a7a453b7afac0b287db1759c95235757dfc"
+    },
+    {
+      "path": "tests/plugin-page.test.mjs",
+      "bytes": 1947,
+      "sha256": "29b11ac49f6bec1c77c00e0e81e959aaaaa46860a8bc2971a98a969e1f8a82c4"
+    },
+    {
+      "path": "tests/section-render.test.mjs",
+      "bytes": 27990,
+      "sha256": "c94a49dfc90ffc9c87a228f1f1ec5210c1dcf899cd742d0a7caa5230b9e98f0c"
+    },
+    {
+      "path": "tests/settings-atomic-write.test.mjs",
+      "bytes": 6530,
+      "sha256": "6a467d0123bee870ff9fc68b8bbecfaeba9baaad5e58dc39376f992e57956f22"
+    },
+    {
+      "path": "tests/settings-scope-compat.test.mjs",
+      "bytes": 2264,
+      "sha256": "4ae057f96b841d467cfbd9f1d86ec5afdd17b75d3a7eca17cf28de2f9c472f4b"
+    },
+    {
+      "path": "tests/subagent-skip.test.mjs",
+      "bytes": 1430,
+      "sha256": "31cf87f3b93b393692cdf8011eea6b12aeac447b8d80ad366683f4fbf9c9b141"
+    }
+  ]
+}

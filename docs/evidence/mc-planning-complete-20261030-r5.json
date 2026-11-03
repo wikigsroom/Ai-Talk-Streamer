@@ -1,0 +1,294 @@
+{
+  "schema_version": 1,
+  "revision": "2026-10-30-r5",
+  "classification": "PLANNING_ONLY",
+  "status": "DOCUMENTED_COMPLETE_SCOPE_NOT_RUNTIME_ACCEPTANCE",
+  "recorded_at": "2026-10-30T14:49:38.818934+00:00",
+  "branch": "mc",
+  "plan_revision": "1.2",
+  "item_ids": [
+    "P23",
+    "P24",
+    "P25",
+    "P26",
+    "P27",
+    "P28",
+    "P29"
+  ],
+  "overview": "docs/technical/mc-live-v1/12-一次完整交付总计划.md",
+  "source": "docs/technical/mc-live-v1/12-一次完整交付总计划.md",
+  "detail_source": "docs/technical/mc-live-v1/10-全量执行与资源计划.md",
+  "prior_record": "docs/evidence/mc-planning-complete-20261030-r4.json",
+  "implementation_round_unchanged": "027",
+  "latest_implementation_evidence": "docs/evidence/mc-runtime-round-027.json",
+  "functional_code_changed": false,
+  "runtime_acceptance_cases_run": 0,
+  "real_acceptance_passed": 0,
+  "real_acceptance_not_run": 68,
+  "new_avatar_clips": {
+    "generated": 0,
+    "required": 100
+  },
+  "existing_round028_draft": {
+    "classification": "EXISTING_UNFINALIZED_DRAFT_PRESERVED_NOT_COMPLETED_BY_THIS_PLANNING_UPDATE",
+    "candidate_round": "028",
+    "validation_executed_by_this_planning_update": false,
+    "runtime_acceptance_advanced": false,
+    "functional_sources_and_prior_evidence_preserved": true,
+    "source_hashes": {
+      "backend/dsh-bridge/server.mjs": "3abb5a3f3726acdbefe1820450090ca40e9170d0ffa59a1fa8e30d2e2d18a497",
+      "backend/dsh-bridge/state.mjs": "687f3c75c3a582a72486834b0b78e4e55064fb0300610aa6b9a3350b23d3f0ad",
+      "backend/game/manager.mjs": "20ba95469fadc6ecb4a7a150c57b4b7692196e8f5e524a233454cc5bc2d6477d",
+      "tests/dsh-auth.test.mjs": "237735a477ce52f14215026794165e198fb9482bc5b79a5c2402ceb4d3acb151",
+      "tests/dsh-playback-ready.test.mjs": "26b891b35be4fa54f0e2fd96e4e5855a62fd7ef250b592e6b70ed6cdd466eb01",
+      "tests/dsh-playback.test.mjs": "6f63492b06a3b315545346f8e1585a54d18137d1d46aa3111623466a816022bb",
+      "tests/dsh-state.test.mjs": "b41e5638eb46cc146f57bb5637034da8f06726a9145c2ea8689030ba021cb2ad",
+      "tests/game-core.test.mjs": "facbb0e6d515e26baa61cebf3561d58e465eb8eba505e58e45d46821eb0b5a9b",
+      "tests/game-diagnostics.test.mjs": "a23ff9f8a640482269f1cee8da59a256a1b418da480af86809f245d3810239ec",
+      "tests/game-fixture.mjs": "2d5e4427237b29e686ee958b8021d92a8404168a904de1588fdd7655a17fb254",
+      "tests/mc-audience-ui.test.mjs": "6220ba89ddb42a1a2a6dbbc8f304b90fe8d2950791ba0c129d4fa1d6acce267c",
+      "tests/mc-diagnostics-ui.test.mjs": "145df434abfed046f12a2d462d6d9446992492ca336f8f0e6818a91a1ae2ea1d",
+      "tests/mc-media-control.test.mjs": "4ab06f188ae54d26eb0f89870cd1093785c55f3c4a095ce02194e844ae7d7f87",
+      "tests/mc-programme-ui.test.mjs": "d378fd10ea0148f1257bae2be00f76fc1844e3b735779329aadb57af39bec9f9",
+      "web/dsh-playback.js": "947af2868218fbff8e9f01c1cb88069555f46fb134a3347e55ddcdd6562828d2",
+      "web/local-stream.js": "847d427ff9a3588255810e3f2f05622e3d663bd534bc3e8bc99d4a34cb7966f6",
+      "web/mc-control.css": "6ba19da87c0e892eefceb651d8095feae49789b4cc9deb6e9bd3d0f2f3b94c62",
+      "web/mc-control.html": "e99558a0d4629bf03057edba21ec27c6e9e95f81341c7623c9891e1c85904be5",
+      "web/mc-control.js": "b11166b7be62983feecbf27a5dd4815cde1cbaeb4fdf449bd5e1bcb8db0ecc9a",
+      "web/mc-programme.js": "8c296db608e17e433a323466ac0fc44dac59ef8b96de1b5895ddfdba722d7572"
+    },
+    "existing_results": [
+      {
+        "path": "outputs/mc-validation/round-028/browser-final-attempt1-result.json",
+        "sha256": "bfbc130ef30134a4b0d4a138969836ac94640530968ab11f83c04c5a63f14aea",
+        "counts": {
+          "tests": 8,
+          "pass": 7,
+          "fail": 1,
+          "cancelled": 0,
+          "skipped": 0
+        },
+        "exit_code": 1,
+        "browser_cleanup": {
+          "classification": "OBSERVED_DESCENDANTS_OF_THIS_OWNED_TEST_RUN_ONLY",
+          "root_pid": 43440,
+          "observed_browser_processes": 79,
+          "remaining": [],
+          "all_observed_browsers_closed": true
+        }
+      },
+      {
+        "path": "outputs/mc-validation/round-028/browser-final-attempt2-result.json",
+        "sha256": "8649e3418569adadd77ba8cd0f3ae0c9c209d8dcf2ede894462b5b730aebbfc5",
+        "counts": {
+          "tests": 10,
+          "pass": 10,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0
+        },
+        "exit_code": 0,
+        "browser_cleanup": {
+          "classification": "OBSERVED_DESCENDANTS_OF_THIS_OWNED_TEST_RUN_ONLY",
+          "root_pid": 40120,
+          "observed_browser_processes": 91,
+          "remaining": [],
+          "all_observed_browsers_closed": true
+        }
+      },
+      {
+        "path": "outputs/mc-validation/round-028/browser-final-attempt3-result.json",
+        "sha256": "52f6b86b4693949c3e10ca156b5d6f33c368838ede822db23ccb1a8ba1672ecc",
+        "counts": {
+          "tests": 1,
+          "pass": 1,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0
+        },
+        "exit_code": 0,
+        "browser_cleanup": {
+          "classification": "OBSERVED_DESCENDANTS_OF_THIS_OWNED_TEST_RUN_ONLY",
+          "root_pid": 5036,
+          "observed_browser_processes": 8,
+          "remaining": [],
+          "all_observed_browsers_closed": true
+        }
+      },
+      {
+        "path": "outputs/mc-validation/round-028/node-final-attempt1-result.json",
+        "sha256": "f741c2182f3779e34e332a85ee37bbddcbba9755c64b3e9a813fd9274a0f2c58",
+        "counts": {
+          "tests": 27,
+          "pass": 25,
+          "fail": 2,
+          "cancelled": 0,
+          "skipped": 0
+        },
+        "exit_code": 1,
+        "browser_cleanup": {
+          "classification": "OBSERVED_DESCENDANTS_OF_THIS_OWNED_TEST_RUN_ONLY",
+          "root_pid": 40880,
+          "observed_browser_processes": 0,
+          "remaining": [],
+          "all_observed_browsers_closed": true
+        }
+      },
+      {
+        "path": "outputs/mc-validation/round-028/node-final-attempt2-result.json",
+        "sha256": "0069a05b0e222b7da02f4dbb61c26a3b9f4c9fe2835555616fc24ef2ccaebcdb",
+        "counts": {
+          "tests": 43,
+          "pass": 43,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0
+        },
+        "exit_code": 0,
+        "browser_cleanup": {
+          "classification": "OBSERVED_DESCENDANTS_OF_THIS_OWNED_TEST_RUN_ONLY",
+          "root_pid": 42252,
+          "observed_browser_processes": 0,
+          "remaining": [],
+          "all_observed_browsers_closed": true
+        }
+      },
+      {
+        "path": "outputs/mc-validation/round-028/node-final-attempt3-result.json",
+        "sha256": "55b0bc95bdebe643c0b6e07461e3c3853f233895539d97aa5a87fdb0ee7b8b7d",
+        "counts": {
+          "tests": 25,
+          "pass": 25,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0
+        },
+        "exit_code": 0,
+        "browser_cleanup": {
+          "classification": "OBSERVED_DESCENDANTS_OF_THIS_OWNED_TEST_RUN_ONLY",
+          "root_pid": 43824,
+          "observed_browser_processes": 0,
+          "remaining": [],
+          "all_observed_browsers_closed": true
+        }
+      }
+    ],
+    "full_regression_and_formal_round_audit_complete": false,
+    "results_are_not_added_to_current_turn_implementation_or_acceptance": true
+  },
+  "single_complete_delivery": true,
+  "outcome": {
+    "overview_sections": 16,
+    "domains": 15,
+    "work_packages": 14,
+    "cross_end_connections": 12,
+    "runtime_inputs": 8,
+    "runtime_combinations": 24,
+    "joint_scenarios": 12,
+    "completion_gates": 8
+  },
+  "actions_performed": {
+    "documentation_and_metadata_only": true,
+    "real_minecraft_started": false,
+    "native_inference_started": false,
+    "official_client_started": false,
+    "public_broadcast_started": false,
+    "virtualization_used": false,
+    "remote_4090_control_used": false,
+    "subagents_dispatched": false,
+    "desktop_browser_tabs_created": 0,
+    "native_browser_processes_started": 0,
+    "web_primary_source_research_used": true
+  },
+  "upstream_sources_checked": [
+    "https://github.com/mindcraft-bots/mindcraft",
+    "https://github.com/deepseek-ai/deepseek-harness",
+    "https://github.com/MiranCZ/altoclef",
+    "https://github.com/xfgryujk/blivedm",
+    "https://github.com/xfgryujk/blivechat"
+  ],
+  "document_verification": {
+    "result": "PASS",
+    "report": "outputs/mc-planning/20261030-complete-r5/contracts-verification.json",
+    "markdown_files_checked": 48,
+    "local_markdown_links": 635,
+    "valid_schema_examples": 97,
+    "negative_contract_cases": 104,
+    "game_room_http_operations": 45,
+    "scope": "Documentation, existing contracts and examples; not functional regression or actual runtime."
+  },
+  "consistency": {
+    "result": "PASS",
+    "checks_passed": 51,
+    "report": "outputs/mc-planning/20261030-complete-r5/consistency.json"
+  },
+  "protected_files_verified": 1669,
+  "protected_file_differences": [],
+  "source_snapshots": {
+    "docs/README.md": {
+      "path": "outputs/mc-planning/20261030-complete-r5/source/docs/README.md",
+      "sha256": "88bdd753df913066b296d3ef61677f5ef57a8140629f34b71f593236fbc8f2a5"
+    },
+    "docs/technical/mc-live-v1/README.md": {
+      "path": "outputs/mc-planning/20261030-complete-r5/source/docs/technical/mc-live-v1/README.md",
+      "sha256": "ff81ff460e47c1380ec0f2432bbcb16fc131dca7cc1d658057df86af8ff247cc"
+    },
+    "docs/technical/mc-live-v1/实现进度.md": {
+      "path": "outputs/mc-planning/20261030-complete-r5/source/docs/technical/mc-live-v1/实现进度.md",
+      "sha256": "bea1b2b65408e51dbb3f000a24677c0b5d71eeebe132b2143521f4d395294612"
+    },
+    "docs/technical/mc-live-v1/implementation-status.json": {
+      "path": "outputs/mc-planning/20261030-complete-r5/source/docs/technical/mc-live-v1/implementation-status.json",
+      "sha256": "80834fe8d1b339372b0d54cca0d12fecb131ced1914734dd415bdc936dd44ecf"
+    },
+    "docs/technical/mc-live-v1/完整交付清单.json": {
+      "path": "outputs/mc-planning/20261030-complete-r5/source/docs/technical/mc-live-v1/完整交付清单.json",
+      "sha256": "e9e399d8bf5c50f12ab8efd8e45337274178bbc6a6fda9f007f9fcf97f597b97"
+    },
+    "docs/technical/mc-live-v1/contracts/verification.json": {
+      "path": "outputs/mc-planning/20261030-complete-r5/source/docs/technical/mc-live-v1/contracts/verification.json",
+      "sha256": "25ac0cfbb07087493dba742be19191ced389d868c8f9719ad33cc1d110ba4506"
+    },
+    "docs/technical/mc-live-v1/12-一次完整交付总计划.md": {
+      "path": "outputs/mc-planning/20261030-complete-r5/source/docs/technical/mc-live-v1/12-一次完整交付总计划.md",
+      "sha256": "865d4885f77f5ddb01e569743594e9c3f8fa878cbf6d70e30d4bbe592b683ae1"
+    }
+  },
+  "artifacts": {
+    "outputs/mc-planning/20261030-complete-r5/before/docs/README.md": "7ed8e251aea5a0ea186cbe52c65343c9dbe758d86cc64c3de840a4feddd55abd",
+    "outputs/mc-planning/20261030-complete-r5/before/docs/technical/mc-live-v1/contracts/verification.json": "6793ade46cbdb1221dca124d6b5b77cc44973aaf3ebc3519f42588a0118d6552",
+    "outputs/mc-planning/20261030-complete-r5/before/docs/technical/mc-live-v1/implementation-status.json": "903828ce5d732528a9de64b8e7e9d5d7ae725830da2a8f3f1d4ba9054a4391c0",
+    "outputs/mc-planning/20261030-complete-r5/before/docs/technical/mc-live-v1/README.md": "5e7ee634e656ac8a09aba2dc495fcff57d69a4f09302a7e2c759f99f9b38e44a",
+    "outputs/mc-planning/20261030-complete-r5/before/docs/technical/mc-live-v1/完整交付清单.json": "ff156d2968fd5df4922e6633aba99cc484054c5c51a92729dea22920c8bf88f5",
+    "outputs/mc-planning/20261030-complete-r5/before/docs/technical/mc-live-v1/实现进度.md": "1e3aac35ad4177acb683a800c2b709f7b1b6c0b26fcaee6156f43f4fdbdf4cfb",
+    "outputs/mc-planning/20261030-complete-r5/check-planning.py": "9ba6c1f1f31cf8d4b2817c7391dab597d2f0e6b2d7c6b5aefe31f281c16c0c50",
+    "outputs/mc-planning/20261030-complete-r5/consistency.json": "f186abb345ccb9869124e49f97aa8283ef579da4ceed1422d0839fdafcdf6819",
+    "outputs/mc-planning/20261030-complete-r5/contracts-check-result.json": "28facc25d31dcea1dcf6fd44004f7fac8e1040dbe3e8e8d77a66762597c437e1",
+    "outputs/mc-planning/20261030-complete-r5/contracts-check.log": "7042fb78d607beec4b62c665a69df8bc5e246d47766f6ca4fdede50317c77bd9",
+    "outputs/mc-planning/20261030-complete-r5/contracts-verification.json": "25ac0cfbb07087493dba742be19191ced389d868c8f9719ad33cc1d110ba4506",
+    "outputs/mc-planning/20261030-complete-r5/finalize-planning.py": "3ea7f64fac136dc03cf4c0d827109e1cae77681ed047b7b27cf6ab7092daf8bb",
+    "outputs/mc-planning/20261030-complete-r5/git-diff-check-result.json": "ba8e1280d9acdc40b39a7138036fd3ec1bbc0d38586a6f711a2be4b3954a58db",
+    "outputs/mc-planning/20261030-complete-r5/git-diff-check.log": "c171b93f0e4e33c1e4b416d8b558a63a2fc8402e25a7a1473e62120732322334",
+    "outputs/mc-planning/20261030-complete-r5/git-status-before.txt": "5df86ec819f182ccd4905ed6de4f5e493aa7feb4ef669713c6718cce13100d96",
+    "outputs/mc-planning/20261030-complete-r5/preflight-notes.json": "9b866b2609ad8bd9b66ed6eb18e5d34c2d1e1aaa2e77f3b93956a03554e2b2fe",
+    "outputs/mc-planning/20261030-complete-r5/protected-before.json": "047778f3738e5965355f2c65407247f413a942b3c0be2eaaf1f942e0930e138e",
+    "outputs/mc-planning/20261030-complete-r5/protected-file-review.json": "49b1654af1dd5ac4e23ed2aecf06d226968e4886be21550c43bc6a89944401e3",
+    "outputs/mc-planning/20261030-complete-r5/source/docs/README.md": "88bdd753df913066b296d3ef61677f5ef57a8140629f34b71f593236fbc8f2a5",
+    "outputs/mc-planning/20261030-complete-r5/source/docs/technical/mc-live-v1/12-一次完整交付总计划.md": "865d4885f77f5ddb01e569743594e9c3f8fa878cbf6d70e30d4bbe592b683ae1",
+    "outputs/mc-planning/20261030-complete-r5/source/docs/technical/mc-live-v1/contracts/verification.json": "25ac0cfbb07087493dba742be19191ced389d868c8f9719ad33cc1d110ba4506",
+    "outputs/mc-planning/20261030-complete-r5/source/docs/technical/mc-live-v1/implementation-status.json": "80834fe8d1b339372b0d54cca0d12fecb131ced1914734dd415bdc936dd44ecf",
+    "outputs/mc-planning/20261030-complete-r5/source/docs/technical/mc-live-v1/README.md": "ff81ff460e47c1380ec0f2432bbcb16fc131dca7cc1d658057df86af8ff247cc",
+    "outputs/mc-planning/20261030-complete-r5/source/docs/technical/mc-live-v1/完整交付清单.json": "e9e399d8bf5c50f12ab8efd8e45337274178bbc6a6fda9f007f9fcf97f597b97",
+    "outputs/mc-planning/20261030-complete-r5/source/docs/technical/mc-live-v1/实现进度.md": "bea1b2b65408e51dbb3f000a24677c0b5d71eeebe132b2143521f4d395294612",
+    "outputs/mc-planning/20261030-complete-r5/source-before.json": "19d6cb72f33e413a9bb6acf32e4b9353942fb3109bcf5a570c93507d7991ce42",
+    "outputs/mc-planning/20261030-complete-r5/source-snapshots.json": "3efa419d39c46c5eaec69a6f89abffeda903e904ac1a9ff3a23ccf9e0a775182",
+    "outputs/mc-planning/20261030-complete-r5/start.json": "eb57e51554c5e980eb5e635196bef0f84616c9f932b390f06956aebd00dd8022",
+    "outputs/mc-planning/20261030-complete-r5/update-planning.py": "7b1efab167ea4b17472ed544be1cef069f55bd144e37739064549d12807e756d"
+  },
+  "preflight_inventory_note": "outputs/mc-planning/20261030-complete-r5/preflight-notes.json",
+  "git_diff_check": {
+    "exit_code": 0,
+    "report": "outputs/mc-planning/20261030-complete-r5/git-diff-check-result.json"
+  },
+  "native_functional_regression_executed_by_this_planning_update": false
+}

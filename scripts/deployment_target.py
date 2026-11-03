@@ -1,6 +1,7 @@
 """Read-only deployment checks. No model loading, configuration writes or stops."""
 from pathlib import Path
 import argparse
+import importlib.util
 import json
 import os
 import re
@@ -42,18 +43,47 @@ def validate_target(root=ROOT, *, expected_target=None, check_hardware=True, che
     if expected_target is not None and target != expected_target:
         raise RuntimeError('This operation requires ' + expected_target + '; selected target is ' + target)
     spec = registry['targets'][target]
+    if (root/'.setup/mc-native-prepare.lock').exists():
+        raise RuntimeError('MC_PREPARATION_IN_PROGRESS')
+    profile = None
+    if (root/'.setup/mc-native-preparation.json').exists():
+        module_spec = importlib.util.spec_from_file_location('mc_application_profile', Path(__file__).with_name('mc_deployment.py'))
+        module = importlib.util.module_from_spec(module_spec)
+        module_spec.loader.exec_module(module)
+        profile = module.validate_prepared(root, selected)
+    source_branch = profile['source_branch'] if profile else selected['branch']
     flags = {'creationflags':0x08000000} if os.name == 'nt' else {}
     if (root/'.git').exists():
         branch = subprocess.check_output(['git','-C',str(root),'branch','--show-current'],text=True,timeout=10,**flags).strip()
-        if branch != selected['branch']:
-            raise RuntimeError('Git branch differs from deployment target: expected ' + selected['branch'])
+        if branch != source_branch:
+            raise RuntimeError('Git branch differs from deployment target: expected ' + source_branch)
+    elif profile and profile.get('source_kind') == 'installed_mc_source_package_with_file_manifest':
+        # validate_prepared has already checked the package's actual source files,
+        # installation path and native environment. A legacy device receipt, if
+        # present, still cannot belong to a different device or base branch.
+        origin_path = root/'.setup/deployment-origin.json'
+        if origin_path.exists():
+            origin = read(origin_path)
+            if ((origin.get('target'), origin.get('branch')) != (target, selected['branch'])
+                    or not re.fullmatch('[0-9a-f]{40}', str(origin.get('source_commit','')))):
+                raise RuntimeError('Runtime source receipt belongs to another deployment target')
     else:
         origin_path = root/'.setup/deployment-origin.json'
         if not origin_path.is_file():
             raise RuntimeError('Copied runtime has no deployment-origin receipt; synchronize from its device branch first')
         origin = read(origin_path)
-        if (origin.get('target'),origin.get('branch')) != (target,selected['branch']) or not re.fullmatch('[0-9a-f]{40}',str(origin.get('source_commit',''))):
+        if (origin.get('target'),origin.get('branch')) != (target,source_branch) or not re.fullmatch('[0-9a-f]{40}',str(origin.get('source_commit',''))):
             raise RuntimeError('Runtime source receipt belongs to another deployment target')
+    validate_device(root, spec, check_hardware, check_runtime)
+    return {'ok':True,'target':target,'branch':source_branch,'batch_size':spec['batch_size'],
+            'state_path':spec['state_path'],'hardware_checked':check_hardware,'runtime_checked':check_runtime,
+            **({'application_profile':profile} if profile else {})}
+
+
+def validate_device(root, spec, check_hardware, check_runtime):
+    """Shared device checks used by preparation before a profile record exists."""
+    target = spec['selection']['target']
+    flags = {'creationflags':0x08000000} if os.name == 'nt' else {}
     if check_hardware:
         raw = subprocess.check_output(['nvidia-smi','--query-gpu=name,memory.total','--format=csv,noheader,nounits'],text=True,timeout=10,**flags)
         devices = [line.rsplit(',',1) for line in raw.strip().splitlines()]
@@ -70,8 +100,7 @@ def validate_target(root=ROOT, *, expected_target=None, check_hardware=True, che
         state = read(policy_path)['deployment']['state_relative_path']
         if state.replace('\\','/').rstrip('/') != spec['state_path']:
             raise RuntimeError('DSH state directory belongs to another deployment target')
-    return {'ok':True,'target':target,'branch':selected['branch'],'batch_size':spec['batch_size'],
-            'state_path':spec['state_path'],'hardware_checked':check_hardware,'runtime_checked':check_runtime}
+    return {'target':target,'hardware_checked':check_hardware,'runtime_checked':check_runtime}
 
 
 if __name__ == '__main__':

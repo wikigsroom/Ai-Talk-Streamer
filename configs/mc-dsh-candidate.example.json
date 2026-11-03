@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "enabled": false,
+  "candidate": "dsh-mc-agent",
+  "commit": "a518f79e77e168aa5158dacc58e0c25d562a42b8",
+  "upstream_archive_sha256": "d48e439adf0dee521bd9ba60a7a82388af52a696ab4ea531ae80cca154dcd596",
+  "compat_archive_sha256": "5fb73990b63d4c350abda14729d388dbbd84b2327958dbd4cd0d302332b612e7",
+  "server": {"host": "192.168.196.204", "port": 25565, "version": "1.21.1", "username": "NAIMEI", "auth": "offline"},
+  "package_relative_path": "tools/mc-candidate-088",
+  "compat_relative_path": "tools/mc-compat-088",
+  "extras_relative_path": "tools/mc-extras-088",
+  "state_relative_path": "state/female-a-3080-k02/mc-agent-088",
+  "workspace_relative_path": "state/female-a-3080-k02/mc-agent-workspace-088",
+  "viewer_port": 8830,
+  "goal": "从出生地空背包开始自主普通生存，完成可见的采集、加工和工具发展。",
+  "automatic_start": false
+}

@@ -42,7 +42,7 @@ class RoomAudioMixer {
     if (this.closed) return; const now = this.context.currentTime, settings = this.room.state?.settings.audio;
     if (this.audible && this.audio.error && this.room.connected && performance.now() >= (this.retryAt || 0)) this.sync(true);
     this.slots = this.slots.filter(s => s.end >= now - 0.05 && !s.source._dshCancelled);
-    const slot = this.slots.find(s => s.start <= now + 0.035 && s.end >= now);
+    const slot = this.audible && !settings?.muted && settings?.speech_volume > 0 && this.context.state === 'running' ? this.slots.find(s => s.start <= now + 0.035 && s.end >= now) : null;
     const duck = !!slot && settings?.ducking === true, target = (settings?.music_volume || 0) * (duck ? settings.duck_level : 1);
     if (target !== this.targetGain) { this.musicGain.gain.setTargetAtTime(target, now, ((duck ? settings?.attack_ms : settings?.release_ms) || 150) / 3000); this.targetGain = target; }
     this.ducked = duck;

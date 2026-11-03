@@ -1,0 +1,17 @@
+{
+  "classification": "LOCAL_BACKEND_POSITION_CONTROL_ONLY",
+  "result": "PASS",
+  "real_platform_connected": false,
+  "inference_started": false,
+  "browser_closed": true,
+  "external_requests": [],
+  "page_errors": [],
+  "checks": [
+    "admin saves left/right strings through the actual config API",
+    "server SSE moves chat and gift together",
+    "nodes, queue and avatar position preserved",
+    "reload restores server value",
+    "no media player, model, speech or external service"
+  ],
+  "recorded_at": "2026-10-31T00:06:32.076Z"
+}

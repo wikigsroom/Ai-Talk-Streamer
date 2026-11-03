@@ -1,0 +1,26 @@
+{
+  "repository": "https://github.com/mindcraft-bots/mindcraft",
+  "commit": "e1c1fc3ffa481506c2445fc639e16dba504b5920",
+  "license": "MIT",
+  "files": [
+    {
+      "path": "src/agent/npc/item_goal.js",
+      "file": "upstream/item_goal.js.txt",
+      "sha256": "1a7bbb77a72e731e3acbc67abb68c5aadbf734fb8b523578ef17d3a622672c94",
+      "url": "https://api.github.com/repos/mindcraft-bots/mindcraft/contents/src/agent/npc/item_goal.js?ref=e1c1fc3ffa481506c2445fc639e16dba504b5920"
+    },
+    {
+      "path": "src/agent/npc/utils.js",
+      "file": "upstream/utils.js.txt",
+      "sha256": "e29c6a439b9bae26ea6d8c2099b752221209e81af1bbce0ef848e9a681d2d205",
+      "url": "https://api.github.com/repos/mindcraft-bots/mindcraft/contents/src/agent/npc/utils.js?ref=e1c1fc3ffa481506c2445fc639e16dba504b5920"
+    },
+    {
+      "path": "LICENSE",
+      "file": "upstream/LICENSE",
+      "sha256": "99339f9e44831c87361c7e191743e8196b5321fd59f5949f1c55e7844e2941eb",
+      "url": "https://api.github.com/repos/mindcraft-bots/mindcraft/contents/LICENSE?ref=e1c1fc3ffa481506c2445fc639e16dba504b5920"
+    }
+  ],
+  "patch": "item_goal imports replaced with dependency injection; classes returned from closure; algorithm unchanged"
+}

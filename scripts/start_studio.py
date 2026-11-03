@@ -7,11 +7,17 @@ import urllib.error
 import urllib.request
 import webbrowser
 from launch import port_open, start_service
+from native_operation import operation
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def start():
+    with operation(ROOT,'start-studio'):
+        return _start()
+
+
+def _start():
     from deployment_target import validate_target
     validate_target(ROOT)
     config = json.loads((ROOT / 'configs/livetalking.yaml').read_text(encoding='utf-8-sig'))
@@ -22,13 +28,20 @@ def start():
     # MuseTalk has a large FP32-to-FP16 conversion peak. Return its startup
     # allocator cache before loading MOSS alongside the final FP16 renderer.
     services = [('avatar', 8010), ('tts', 9880)] if moss or resident else [('tts', 9880), ('avatar', 8010)]
+    new_processes = []
+    def ensure_starting_alive():
+        if any(process.poll() is not None for process in new_processes):
+            raise RuntimeError('A newly started studio service exited; inspect project logs')
     for name, port in services:
+        process = None
         if not port_open(port):
-            start_service(name)
+            process = start_service(name)
+            new_processes.append(process)
         # Importing CUDA libraries and reading the full 10,000-frame bank from
         # a cold Windows filesystem can exceed three minutes. Keep startup
         # serialized; a timeout must never trigger a duplicate avatar process.
         for attempt in range(900 if name == 'avatar' else 180):
+            ensure_starting_alive()
             if port_open(port):
                 break
             time.sleep(1)
@@ -38,6 +51,7 @@ def start():
         http = urllib.request.build_opener(urllib.request.ProxyHandler({}))
         deadline = time.monotonic()+360
         while time.monotonic()<deadline:
+            ensure_starting_alive()
             try:
                 with http.open('http://127.0.0.1:9880/health',timeout=5) as response:
                     current = json.load(response)
@@ -56,6 +70,7 @@ def start():
         http = urllib.request.build_opener(urllib.request.ProxyHandler({}))
         deadline = time.monotonic() + 240
         while time.monotonic() < deadline:
+            ensure_starting_alive()
             try:
                 with http.open('http://127.0.0.1:9880/health', timeout=5) as response:
                     state = json.load(response)

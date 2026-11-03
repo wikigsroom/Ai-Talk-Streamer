@@ -1,0 +1,349 @@
+{
+  "schema_version": 1,
+  "freeze_id": "20261103MC-LUNA-R087-F01",
+  "recorded_at": "2026-11-03T05:21:35+08:00",
+  "documentation_payload": [
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/01-方案基线与决策冻结.md",
+      "bytes": 3755,
+      "sha256": "3c6beb8288e780c44bd4579c2bd198d7e8b8a5fb2774cada4f7860668aefa9a5"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/02-架构与模型职责.md",
+      "bytes": 3430,
+      "sha256": "b3e19a3ec977e5eac8b007c237ba467d26cca011ea4c820d789632084322529a"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/03-接口配置与控制约束.md",
+      "bytes": 3840,
+      "sha256": "a07eec9019da5ebab1ac4ae974a04d448fd87555fd727a1cb557feb340bd8704"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/04-人物声音与横屏布局.md",
+      "bytes": 2252,
+      "sha256": "75bb0771a4f1a4a4c00a04d69f4754d62a87b37fec83bdd96eff9c2f72365388"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/05-实测录像与失败记录.md",
+      "bytes": 3519,
+      "sha256": "f5ad2863f4f0bc39c4e8e7551f2ec6d3240469f7640de20c21d5a7b2da23966f"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/06-编号缺口与全范围待办.md",
+      "bytes": 27346,
+      "sha256": "cc8dd13eed4c369d62dc0c6841ef73877c84f8c6003c9467e07d2c127d606c1d"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/07-恢复回退与变更规则.md",
+      "bytes": 2655,
+      "sha256": "f00caefc5c1f94a34f0bd3f673c2377bd45c755971b3c65ce8d48dbeda0266e9"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/08-证据清单与归档校验.md",
+      "bytes": 7519,
+      "sha256": "4410c1a3ed17ba3a4651173de0e13a2e8c15f541ec77317e56986d83160afd19"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/acceptance-matrix.json",
+      "bytes": 45235,
+      "sha256": "d14c97b3ae357381701285a40a473e414fbb2cac767dcce46ca66ac931a83a59"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/deployed-source-manifest.json",
+      "bytes": 202462,
+      "sha256": "a41c277236532807461f87762c5495ffa3faeae72ef12817349db1f151606098"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/evidence-index.json",
+      "bytes": 8965,
+      "sha256": "3b947a4ee30bd19f17483a04075b6db23afbf1c89d7758c276253d75044bff26"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/freeze-state.json",
+      "bytes": 9146,
+      "sha256": "acf63f337f588fcadbee33a0f769e26073d1528cff34f12c07c1abbdb4519ade"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/issues.json",
+      "bytes": 5142,
+      "sha256": "4a6cd0bc21abab6071bd4cecfd3b117c564fb5bcf2d5b4f92cc8e4c3dfaa8b81"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/numbering-index.json",
+      "bytes": 16352,
+      "sha256": "e9827fb944ae4dc2be3fb886318fc7bde84499de1f0ca1bfb56ac37ebfc3dacb"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/README.md",
+      "bytes": 3376,
+      "sha256": "5611216561357c1f0b982a5a75019d00e8ec16eb6a1b8e4b8f4f2add3bd69a3d"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/remaining-items.json",
+      "bytes": 157379,
+      "sha256": "7009cae67e5572a9a20b0cef0337b8095dd5666a1b5a8049fcd061f3f0b35425"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/snapshots/configs/deployment-profiles/mc-native-3080-neoforge-v1.json",
+      "bytes": 1223,
+      "sha256": "2fa60f7c29f921dfcdecc800114291ef583097c740863af67d70f6b440e294a0"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/snapshots/configs/deployment-target.json",
+      "bytes": 109,
+      "sha256": "4603518f37a97b05c3c6eae51f86a7e70da15bf8977c969e965df873cad84936"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/snapshots/configs/deployment-targets.json",
+      "bytes": 2925,
+      "sha256": "b9969b492bef6e4d85f175c3195027004dddf84ce51f58d9bd667a9c2b42bc7a"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/snapshots/configs/layouts/mc-landscape-v1.json",
+      "bytes": 7583,
+      "sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/snapshots/configs/mc-vision.channel.example.json",
+      "bytes": 115,
+      "sha256": "9e2b3b75038f2ce99e997550bbb13b6881b8e12b39cf7f8438a538b840315396"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/snapshots/docs/deployment/DEVICE_BRANCHES.md",
+      "bytes": 7321,
+      "sha256": "417bda37cf8eda9610b0fd38d1b2bf07cbdbff6d689381e8b601e602ff9bd593"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/snapshots/docs/deployment/RTX3080_K02_RELEASE.md",
+      "bytes": 13202,
+      "sha256": "9de1582acdf803e4cfadb15e5b6833b6c4b7b0598eb54ce9ac7a61c5ff8a5cb9"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/snapshots/docs/evidence/mc-runtime-round-087.json",
+      "bytes": 23121,
+      "sha256": "ed33d7dd6f66315057a88dcce954d19b85b016acc67c50e7ba99f9a04a701e1a"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/snapshots/docs/freezes/20261103MC/acceptance-matrix.json",
+      "bytes": 45071,
+      "sha256": "b880e0462ce790553daaa417f48737dfa63b575045ea94ccdd8b69526529e9fb"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/snapshots/docs/freezes/20261103MC/remaining-items.json",
+      "bytes": 135903,
+      "sha256": "6f0b4da98db40593593f101a00c23aa65341b5acea51b1172ebdf6a7fc30373e"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/snapshots/docs/technical/mc-live-v1/implementation-status.json",
+      "bytes": 633316,
+      "sha256": "81c94ca2201062609738f26f6ee8bb7067c012b82c170a7d291b25569ce84897"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/snapshots/docs/technical/mc-live-v1/Luna视觉替换与120秒复验.md",
+      "bytes": 11597,
+      "sha256": "dacd3993fa77d683877c772b24e9bc343ba43ea52e393803721b4bf7db4e38d0"
+    },
+    {
+      "path": "docs/freezes/20261103MC-LUNA-R087-F01/snapshots/docs/technical/mc-live-v1/实现进度.md",
+      "bytes": 445247,
+      "sha256": "05988e3f461cb2ee63a7f6607ab18f55d0102b20788ff02ed032e841a8cc96f7"
+    }
+  ],
+  "archive_originals": [
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/deploy087-result.json",
+      "bytes": 4650,
+      "sha256": "408abe1f282554fcb706f5c068709c2b88a445258068abdc4ffb724611c06468"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/start087b-result.json",
+      "bytes": 1372,
+      "sha256": "3f76b93642d91e6f8cda510a1b748e84817626b8fdf764c1e51537192f4f1391"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087-probe-result.json",
+      "bytes": 4465,
+      "sha256": "ed6649c8b43953579c46b5b53f7234063f9f747924cc86c86bd2c1329bd13583"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087-probe-vision.jpg",
+      "bytes": 251775,
+      "sha256": "19f7887c08300fcc947169fa8d3238ef7ea8281729e5340af8f63df2fe17ca1b"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087-session-result.json",
+      "bytes": 480734,
+      "sha256": "868757e46ae070a03fbec734e0547dc8283b187ad9f780af3c13fc66439f9497"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087-export-result.json",
+      "bytes": 14795,
+      "sha256": "2da6a9e07bf933868cbac8251ad2931b615b138f35d4115c2579b9484e4c3286"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087-speech-receipts.json",
+      "bytes": 10872,
+      "sha256": "706689970a0ea3de06cb370993214c29114ee154795516d7c3ad8eb32aecc82a"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087-contact.jpg",
+      "bytes": 480272,
+      "sha256": "988dd6e26a224e2862f2de1a42df1ffb9500260f9160664d9b4106662c0cd9cb"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087-avatar-contact.jpg",
+      "bytes": 1301413,
+      "sha256": "342b883a1398005c2c971937e5613ed7cb612e870796e9f083526e55e6e8cc44"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/mc-live-luna-087-120s.mp4",
+      "bytes": 74197292,
+      "sha256": "1e6ed6c8400c072ea0833b7ac3d72dc3b71a2a88a1d5702ec7e5e315a9fefcdf"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087-vision-01.jpg",
+      "bytes": 231365,
+      "sha256": "290a92a63383bf54894ca3b1ad940f56db9fda52413e9dc06101ef511ae140d5"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087-vision-02.jpg",
+      "bytes": 232526,
+      "sha256": "28d4d5d731c9d613634c19a6b1a122f6d41a43ebdaac9b07c659c366256e084e"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087-vision-03.jpg",
+      "bytes": 307321,
+      "sha256": "d0c6747720928ce4521a31603ccf18bbbe6d4fbcbc5fcfe836a0e2538b53aa91"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087-vision-04.jpg",
+      "bytes": 295856,
+      "sha256": "6c2c4e1da54f5d9f327707e2eebc16a5d86347985a9aaac1707ee96786f4001a"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087-vision-05.jpg",
+      "bytes": 245616,
+      "sha256": "3d8fb3be3bad21d708b8b4c6550a7da42b99a6d1b5bdd17522ea96c63378af74"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087b-session-result.json",
+      "bytes": 494259,
+      "sha256": "15ffb19dec12456500d5f3b5df966479e92b5f8d56c2474f9dd2281d6bc3c99b"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087b-export-result.json",
+      "bytes": 14500,
+      "sha256": "2d584e899798a6f7733fbeed2f1f23eefdf3bf68dc91f01d18e8244fee16fb0b"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087b-speech-receipts.json",
+      "bytes": 13487,
+      "sha256": "9dfa300097c034317ff91e920b54fda2d0d2f4fa18a3a6a0222c457bfcd52e54"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087b-contact.jpg",
+      "bytes": 564266,
+      "sha256": "ac7f91fe78e73b9a1f2490dae572593ca26dd99ceb56564188b82e2504608359"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087b-avatar-contact.jpg",
+      "bytes": 1311474,
+      "sha256": "21c723d5203687fe2fc212867c9b93673b83a24ff4183d50bc291b4882bcb37f"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087b-normal-shutdown-result.json",
+      "bytes": 7644,
+      "sha256": "6b0393442b31c479aeb93772f4d048ebd46c22d65494843c28ba0ce8a6ecf029"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/mc-live-luna-087b-120s.mp4",
+      "bytes": 60679679,
+      "sha256": "595ff96c5929d0c4b8a7be5ba4f783640c1766e986e33dc96a0e64482f08c5f2"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087b-vision-01.jpg",
+      "bytes": 366707,
+      "sha256": "efcc245d3679528651ff23d29b3b7774201fbcdb1cc8e89c87dab3052afb8090"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087b-vision-02.jpg",
+      "bytes": 364456,
+      "sha256": "ff1e13a6b35e2c556dc14e70ada49058e7686830fc24a054c7a2b82b89998462"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087b-vision-03.jpg",
+      "bytes": 316978,
+      "sha256": "2a56931e0eebd81cdf6eca0d2d501c52474075c5b7a2212adc90721e8ebf93bf"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087b-vision-04.jpg",
+      "bytes": 229506,
+      "sha256": "b6c70e0d1b1369e5627856c8e2f0ae0737b29714349a90da8f797b7f9155c228"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087b-vision-05.jpg",
+      "bytes": 270918,
+      "sha256": "c7996fc82c78e5d633a6af136daa0cbbe47c99c6c6a78e2180fcf655b41e460f"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/mc-source-087-v1.zip",
+      "bytes": 37483734,
+      "sha256": "3ff0a7b169608d56cffe64b14b92467c69a5d8c87c2723019e6920c8781a8fd5"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/remote-evidence/sample087-transfer-result.json",
+      "bytes": 5074,
+      "sha256": "844effe1e2af439c53c19cb8e61018e6b63f5cb0b7870314cbfb97ae7cbef31b"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/sample087b-evidence-review.json",
+      "bytes": 5029,
+      "sha256": "d53383ff43918f8fb7c1348342e5e96b8dc37584463d251cacdaf1fd0941c3b1"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/sample087-transfer-verification.json",
+      "bytes": 5332,
+      "sha256": "86aac3c7b94737f4663f6513a22979efbe6fc169e09c57b7ead6ba1422e0e5e1"
+    },
+    {
+      "path": "outputs/mc-validation/round-087/sample087-transfer-cleanup.json",
+      "bytes": 377,
+      "sha256": "32732ee4ddb1b66d42bb75d1198864ffd1a2df66e99e7e926654b6c463db7b62"
+    }
+  ],
+  "previous_freeze_integrity": {
+    "directory_files_unchanged": {
+      "docs/freezes/20261103MC/01-版本基线与运行环境.md": "8e1465c458913f27d160aefddbcff7fdd9ff7bacee68d6d2223a526e1f5aa346",
+      "docs/freezes/20261103MC/02-架构接口与功能现状.md": "2b98de1db2f4ec63aa85fd8494db6b70b4543a702cc9fd899fbf5cc670181c52",
+      "docs/freezes/20261103MC/03-全范围剩余事项.md": "6207a34faa29d8d06e62c6aadf09d371d892d9fe852cba8d437cbba2cf9c0747",
+      "docs/freezes/20261103MC/04-人物声音直播与性能.md": "88bd377a695bd1f96e30f3c909e4f50b870286894bbe8b718b0da6ac44c97830",
+      "docs/freezes/20261103MC/05-验收矩阵与完成条件.md": "1b7ce664c050577500360f58ca91c3f96c153ec63af9cdcb699e90b522a46bcb",
+      "docs/freezes/20261103MC/06-问题风险与决策冻结.md": "cce191de610e580b0cdf2efccfc8686c62893d5780d3aa6ce8e4f91b22cdc0d0",
+      "docs/freezes/20261103MC/07-续接与交接说明.md": "5a5a93088e7fba4a1b0a8a1747f42c2a95b0689e0fbcb38ca5009f3c2e3e28fe",
+      "docs/freezes/20261103MC/08-证据索引与完整性.md": "561ad24852a9fe4cf6a34dcefb8e8e8ae700ef08da89d22c999723bc50138c86",
+      "docs/freezes/20261103MC/acceptance-matrix.json": "b880e0462ce790553daaa417f48737dfa63b575045ea94ccdd8b69526529e9fb",
+      "docs/freezes/20261103MC/checksums.sha256": "8bb5d6606740e7ae79f02784ac15b16bbc4bba9d8dd75718b32c5180fe915435",
+      "docs/freezes/20261103MC/evidence-index.json": "618c1ca436d0c1cd983fb95bb86ae2eb97e967f1ebdd1d6d33c256003eee6f5f",
+      "docs/freezes/20261103MC/freeze-manifest.json": "8cf4c9babbeb53180b450df19bb023e7b421dfc056024f7d179f14d2b36071c1",
+      "docs/freezes/20261103MC/freeze-state.json": "4657b17ca900ef5edd66d65dd8ba95446e97fe743882beafbc9275802f9c35d5",
+      "docs/freezes/20261103MC/public-source-manifest.json": "5a35b69f0e13fb5c7fb6a734b2c27523be1117f2d6f2d180c4fd756cdca9ea0c",
+      "docs/freezes/20261103MC/README.md": "8f919d9f42dbb596e47df2a62c56d236de6a9d1f7478885a4317ada63bf6335d",
+      "docs/freezes/20261103MC/reference-manifest.json": "7142e138d547d1c862b7964190e973e9ae27ba34f9c35369ede3b138f1971b9a",
+      "docs/freezes/20261103MC/remaining-items.json": "6f0b4da98db40593593f101a00c23aa65341b5acea51b1172ebdf6a7fc30373e",
+      "docs/freezes/20261103MC/snapshots/delivery-plan.before-freeze.json": "9ff711374c57b3d5e9be5b5e97f8b346571dc8954d558a003cf1b57e38c31964",
+      "docs/freezes/20261103MC/snapshots/implementation-status.before-freeze.json": "9091634d1d4981fc4af75ceaccb74c94131f5d03ecc0fd4fc166e219e064f1da",
+      "docs/freezes/20261103MC/verification-history/initial-link-check.json": "4c894bcf5020d7598ee2d13257762b5c4f4ad6c24b970a5c22986755b8c90201",
+      "docs/freezes/20261103MC/verification.json": "7adbda244939ca7995a5126e394c7374c15282f31fe026c275a0798272ce7254"
+    },
+    "archive": {
+      "path": "outputs/mc-freezes/20261103MC/20261103MC冻结留存包.zip",
+      "bytes": 87811075,
+      "sha256": "2b32d034778ac269ccdca591a8ac461b4ebd77513f5f79a66b4fd74bf5137280"
+    }
+  },
+  "excluded_from_self_hash": [
+    "freeze-manifest.json",
+    "verification.json",
+    "checksums.sha256"
+  ]
+}

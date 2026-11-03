@@ -6,6 +6,7 @@ import os
 import subprocess
 import time
 import urllib.request
+from native_operation import operation
 
 ROOT = Path(__file__).resolve().parents[1]
 RECORD = ROOT / '.setup/dsh-process.json'
@@ -41,7 +42,12 @@ def main():
     args = parser.parse_args()
     if args.action == 'status':
         print(json.dumps(status(), ensure_ascii=False)); return
-    if args.action == 'start':
+    with operation(ROOT,'dsh-'+args.action,recovery=args.action=='stop') as transaction:
+        return control(args.action,transaction)
+
+
+def control(action,transaction):
+    if action == 'start':
         if status()['process_alive']:
             raise RuntimeError('DSH is already running; no duplicate was started')
         if owned_processes():
@@ -60,10 +66,17 @@ def main():
         (ROOT / 'logs').mkdir(exist_ok=True)
         env = dict(os.environ, STREAM_PROJECT_ROOT=str(ROOT), STREAM_LIVE_MODE='1')
         with (ROOT / 'logs/dsh.stdout.log').open('a', encoding='utf-8') as stdout, (ROOT / 'logs/dsh.stderr.log').open('a', encoding='utf-8') as stderr:
-            process = subprocess.Popen(command, cwd=ROOT, env=env, stdin=subprocess.DEVNULL, stdout=stdout, stderr=stderr,
-                                       close_fds=True, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_NO_WINDOW)
-        RECORD.write_text(json.dumps({'pid': process.pid, 'command': command, 'started': time.time()}, ensure_ascii=False), encoding='utf-8')
+            process = transaction.spawn(command,cwd=ROOT,env=env,stdout=stdout,stderr=stderr,registry=RECORD)
         print(json.dumps({'started': True, 'pid': process.pid, 'port': 3092})); return
+    from native_operation import read_json, safe_path
+    from native_supervision import expected_stops
+    record_path = safe_path(ROOT, ROOT / '.setup/dsh-process.json')
+    record = read_json(record_path)
+    with expected_stops(ROOT, [(record_path, None, record)] if record else []):
+        return stop_owned()
+
+
+def stop_owned():
     owned = owned_processes()
     if not owned:
         print(json.dumps({'stopped': True, 'already_stopped': True})); return

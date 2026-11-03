@@ -1,0 +1,41 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { gameFixture } from './game-fixture.mjs';
+import { validate } from '../backend/game/protocol.mjs';
+
+test('world/base/checkpoint facts and recovery provenance reach the existing DSH read tool and planner', async t => {
+  const f = await gameFixture({ fakeClock: true }); t.after(() => f.close()); const game = await f.connect();
+  const state = f.manager.state.value, context = { bridge_boot_id: state.bridge_boot_id, world_session_id: state.world_session_id };
+  const base = (await f.api('/worlds/' + state.world_id + '/bases', { ...context, request_id: 'context-base',
+    expected_world_revision: 1, label: '世界事实测试基地', radius: 8 })).value;
+  const checkpoint = (await f.api('/worlds/' + state.world_id + '/checkpoints', { ...context, request_id: 'context-checkpoint', reason: 'fixture_only' })).value;
+  const facts = await f.manager.tools.invoke('game_get_state', {}, { purpose: 'speech' });
+  validate('GameState', f.manager.stateView());
+  assert.equal(facts.inventory, undefined);
+  assert.equal(facts.inventory_summary.query_tool, 'game_query_inventory');
+  assert.equal(facts.world_ledger.active_base.base_id, base.base_id);
+  assert.equal(facts.world_ledger.latest_checkpoint.checkpoint_id, checkpoint.checkpoint_id);
+  assert.deepEqual(facts.world_ledger.task_recovery, []);
+  await game.auto(); let modelContext, probe, repeatedRead;
+  f.manager.config.planner.enabled = true; f.bridge.health = () => ({ persona_injection_ready: true });
+  f.bridge.channel = { snapshot: () => ({}) };
+  f.bridge.recordProbe = value => { probe = value; };
+  f.bridge.host = { generate: async options => { modelContext = JSON.parse(options.context);
+    repeatedRead = await options.tools('game_get_state', {});
+    options.onProbe({ purpose: 'game_plan', step: 1, budget_admitted: true });
+    return { session_id: 'MODEL_FIXTURE_ONLY' }; } };
+  await f.manager.planner.tick();
+  assert.equal(modelContext.game.world_id, state.world_id);
+  assert.equal(modelContext.game.world_ledger.active_base.base_id, base.base_id);
+  assert.equal(modelContext.game.world_ledger.active_base.world_session_id, base.world_session_id);
+  assert.equal(modelContext.game.world_ledger.latest_checkpoint.checkpoint_id, checkpoint.checkpoint_id);
+  assert.equal(modelContext.game.world_ledger_summary, undefined);
+  assert.deepEqual(modelContext.game.inventory, f.manager.stateView().inventory);
+  assert.equal(repeatedRead.model_projection.kind, 'unchanged_planning_facts');
+  assert.equal(repeatedRead.world_ledger, undefined);
+  assert(repeatedRead.model_projection.omitted_fields.includes('world_ledger'));
+  assert.equal(probe.purpose, 'game_plan');
+  assert.equal(probe.budget_admitted, true);
+  assert.equal(f.manager.stateView().world_ledger.latest_checkpoint.seq, checkpoint.snapshot.seq);
+  assert.equal(f.manager.tasks.active(), null);
+});

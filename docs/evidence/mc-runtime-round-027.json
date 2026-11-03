@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "round": "027",
+  "classification": "LOCAL_IMPLEMENTATION_NOT_RUNTIME_ACCEPTANCE",
+  "status": "LOCAL_CHECKS_WITH_UNRESOLVED_FAILURE_GOAL_NOT_COMPLETE",
+  "goal_status": "active",
+  "branch": "mc",
+  "previous_evidence": "docs/evidence/mc-runtime-round-026.json",
+  "planning_evidence": "docs/evidence/mc-planning-complete-20261030-r4.json",
+  "runtime_acceptance_passed": 0,
+  "runtime_acceptance_not_run": 68,
+  "new_avatar_clips_generated": 0,
+  "new_avatar_clips_required": 100,
+  "recorded_at": "2026-10-30T13:59:19.751827+00:00",
+  "implemented": [
+    {
+      "id": "I239",
+      "title": "可信账号最小归属索引",
+      "detail": "按实际人物/房间隔离哈希归属；新事件与旧事件清理前持久保存，冲突或失败阻止原记录丢失。"
+    },
+    {
+      "id": "I240",
+      "title": "原事件清理后的记忆删除",
+      "detail": "全账号计划携带别名，指定普通平台记忆按权威来源定位；未来发生时间不能绕过已收到内容的删除。"
+    },
+    {
+      "id": "I241",
+      "title": "平台与Room协同保留",
+      "detail": "固定规则、每库1000条、自动续作，保护口播/置顶及执行中或效果待复核任务；未载入游戏账本则拒绝清理。"
+    },
+    {
+      "id": "I242",
+      "title": "持久撤回及启动前重放",
+      "detail": "Room删除与待撤回来源同事务；幂等撤票/支持/口播/快照后清除，失败重试及游戏延迟载入前恢复。"
+    },
+    {
+      "id": "I243",
+      "title": "维护API和有界诊断",
+      "detail": "公开GET/POST维护接口、严格空对象请求、按实际人物/房间保留20次结果，区分失败/中断及已确认数量。"
+    },
+    {
+      "id": "I244",
+      "title": "真实后台维护界面",
+      "detail": "按钮、归属/缺口、清理结果、失败重试和近期记录；窄屏浏览器验证，清除平台页遗留MOSS声音文案。"
+    },
+    {
+      "id": "I245",
+      "title": "新增生命周期与故障检查",
+      "detail": "新增25项Node/HTTP/SQLite协议检查和2项原生Chrome检查；含跨库失败、快照失败、重启重放与效果保护。"
+    },
+    {
+      "id": "I246",
+      "title": "完整本地回归及故障保留",
+      "detail": "400项Node通过；最终37项浏览器36过/1失败，原始失败保留；含28项既有Node→Java无头协议检查，未重跑JUnit/构建或真实MC。"
+    },
+    {
+      "id": "I247",
+      "title": "配套契约与审计",
+      "detail": "维护文档/API/实现进度和证据同步，保护历史及r4规划快照；全部真实验收和新人物计数不变。"
+    }
+  ],
+  "remaining": [
+    {
+      "id": "D01",
+      "required": true,
+      "status": "partial_native_builds_and_pinned_source_inputs",
+      "remaining": "mc设备profile、原生预检/准备/启停、完整运行锁与发布包；正式Node24.22.1、完整依赖源对应/许可及干净环境复现"
+    },
+    {
+      "id": "D02",
+      "required": true,
+      "status": "partial_native_frames_recipes_world_console_local_checked_runtime_not_accepted",
+      "remaining": "配方普通/数据包/模组/重载实机与组件/解锁/库存规则核对；完整GUI/规则、B归档向A完整历史投影；原始帧、世界/基地/检查点后台、Fabric/Mixin/服务器联合实机验收"
+    },
+    {
+      "id": "D03",
+      "required": true,
+      "status": "partial_bound_input_gui_craft_and_item_sync_cpu_verified",
+      "remaining": "剩余写点/包/反射/选项分类、其他线程/回调、网络事件真实线程与世界维护一致性、其他容器GUI仲裁和全部上游清理；背包/工作台及物品同步真实响应、handler/sync/位置复用后的迟到包归属；物理键鼠/改键/扫描码、选中热栏恢复、光标/焦点/分辨率、停顿及至少20次实机接管"
+    },
+    {
+      "id": "D04",
+      "required": true,
+      "status": "partial_craft_and_three_item_uses_native_paths_runtime_not_accepted",
+      "remaining": "MinecraftPort完整生存绑定、其他容器GUI/规则及副作用、实际任务树全部清理及启动阻挡关闭门槛；合成真实Mixin/服务器、组件/配方重载/解锁、特殊及变产量/多候选配方、工作台准备改变材料、迟到包和服务器不同步/库存不足；进食/穿戴/固定方块放置的真实剩余物/组件/诅咒/属性/插件限制；普通手持工具/武器、特殊方块及完整物品用途；实际基地路径/半径/规则变化、普通PvE/补给/危险/资源链及全部真实效果证据"
+    },
+    {
+      "id": "D05",
+      "required": true,
+      "status": "partial_deterministic_merge_aging_source_ttl_critical_cancellation_locally_verified",
+      "remaining": "真实DSH与模型渠道、完整生存目标和预算/取消/迟到结果；普通聊天/问句/点名语义分类与过期事件的独立历史回顾；确定性合并/等待权重/危险中断的真实负载、事实/效果/声音取消整链；Neuro固定消息兼容及回放"
+    },
+    {
+      "id": "D06",
+      "required": true,
+      "status": "partial_history_ownership_and_durable_source_withdrawal_locally_verified",
+      "remaining": "自由语言建议映射/消歧；真实平台SC金额/角色/表情及撤回样本、重连/延迟；来源/过滤跨进程故障及完整负载、多观众真实Humanity删除；真实渠道/平台/MC与任务公开回应联合验收；历史维护/可信归属及持久撤回的跨进程/真实平台负载验收"
+    },
+    {
+      "id": "D07",
+      "required": true,
+      "status": "partial_canonical_ownership_retention_and_privacy_recovery_locally_verified",
+      "remaining": "B归档向A完整历史投影、B事件/任务7天/30天保留与摘要；平台/Room保留、最小归属和待撤回重放已本地检查，旧账号覆盖仍需补齐；归属索引/删除计划长期容量及保留、真实Humanity召回/提议/写入/删除；A/B/MC一致备份恢复及次日实机验收"
+    },
+    {
+      "id": "D08",
+      "required": true,
+      "status": "partial_history_maintenance_and_privacy_console_locally_verified",
+      "remaining": "剩余完整节目/回复调度、人物素材/声音联控、记忆维护/删除诊断后台；世界目录/基地/检查点、任务/互动/调度/平台/撤回/支持与隐私恢复的真实MC整链验收；维护后台、近期失败/中断、恢复重放与实际运行负载整链"
+    },
+    {
+      "id": "D09",
+      "required": true,
+      "status": "partial_v3_v2_programme_and_overlay_locally_verified_not_deployed",
+      "remaining": "真实推理/NVENC与官方透明捕获；新人物profile接入、全部遗留入口排他迁移、字幕/取消/音画同步及断线/静音恢复整链；游戏界面/手机实录与长时资源验收；027同源码正式播放用例一次等待首个有效PCM回执超时，定向重跑通过不关闭根因"
+    },
+    {
+      "id": "D10",
+      "required": true,
+      "status": "not_generated",
+      "remaining": "圆形与横窗各50段、共100段新人物素材，完整索引/脸框/动作语义/隔离及动态QA"
+    },
+    {
+      "id": "D11",
+      "required": true,
+      "status": "partial_mc_pcm_caption_and_bgm_local_browser_verified",
+      "remaining": "真实游戏音频单路与人声/BGM联合混音；O07/F07主备、正式播放权/取消/音量零和静音恢复的真实验收"
+    },
+    {
+      "id": "D12",
+      "required": true,
+      "status": "partial_native_frame_transport_and_pinned_vision_adapter_cpu_verified",
+      "remaining": "真实视觉服务/模型/投影与CUDA运行核对、真实帧/文字/建筑/未知及失败样例；跨机时钟、带宽、GPU取消和完整负载验收"
+    },
+    {
+      "id": "D13",
+      "required": true,
+      "status": "partial_mc_a_b_routes_and_receiver_transparency_locally_verified",
+      "remaining": "B端与真实模型/MC联合、官方直播姬实际透明捕获和源内声音、真实平台公开状态与观众端音画；资格校验及公开验收"
+    },
+    {
+      "id": "D14",
+      "required": true,
+      "status": "partial_durable_retention_recovery_and_owned_browser_fault_checks",
+      "remaining": "完整运行诊断后台、资源/时延/日志/磁盘预算；排队启动撤权及020首次取消原因覆盖竞态已有修复/夹具检查；020账本提交2197ms后LEASE_EXPIRED/GAME_MODE_BLOCKED与变更基地重复消息等待超时仍未关闭；015其他GAME_MODE_BLOCKED、017连接freshness/复核弹窗、018冷启动I/O及此前首次连接/通用ACK仍须核对；合成/物品同步真实延迟/丢失/偏离/迟到、全部故障注入、联合恢复及回滚；021帧超限检查一次413预期收到502、旧布局后台一次连接等待30秒超时，追加诊断/重试不关闭根因；021同步解码异常漏计已修复，不据此关闭历史时延问题；025同步批量输入导致GameStore定时续约饥饿和故障关闭中断已有锁内有效续约/资源清理及本地检查，跨进程/真实磁盘负载仍待验收；025任务running状态既有4秒条件等待发生一次超时（用例总耗时22783ms），未改生产或期限的28项重跑通过，根因未关闭；不据此关闭既往015/017/018/020/021问题；观众历史维护的跨进程/真实磁盘容量、故障恢复与启动前重放实机验证；027正式播放首次PCM回执等待超时根因仍待查，最后完整浏览器1项失败按latest-browser-failures清单跟踪"
+    },
+    {
+      "id": "D15",
+      "required": true,
+      "status": "not_accepted",
+      "remaining": "V01–V44+C01–C24全部68项、24种运行组合/12类联合场景/8项同版发布判据、4小时完整负载、20次物理接管、跨场/次日、干净原生环境复现与统一交付报告"
+    }
+  ],
+  "validation": {
+    "distinct_local_test_cases_executed_this_round": 437,
+    "new_distinct_cases": 27,
+    "node_unit_and_room_http": 400,
+    "browser": {
+      "exit_code": 1,
+      "duration_seconds": 315.547,
+      "counts": {
+        "tests": 37,
+        "pass": 36,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "log": "outputs/mc-validation/round-027/browser-final-attempt5.tap",
+      "sha256": "3bb1c3e0d5965a51f355cea89879c3f4247925715e2d0d79f85279387df35404",
+      "browser_cleanup": {
+        "classification": "OBSERVED_DESCENDANTS_OF_THIS_OWNED_TEST_RUN_ONLY",
+        "root_pid": 41704,
+        "observed_browser_processes": 305,
+        "remaining": [],
+        "all_observed_browsers_closed": true
+      }
+    },
+    "python_unit_tests": 0,
+    "native_java_tests_rerun": 0,
+    "final_failed": 1,
+    "final_skipped": 0,
+    "failed_attempts_preserved": true,
+    "validation_mode": "ALL_ROOT_NODE_TEST_FILES_AND_ALL_BROWSER_TEST_FILES_NATIVE_LOCAL_ONLY",
+    "validation_sources": "outputs/mc-validation/round-027/validation-sources.json",
+    "test_node_version": "v24.19.0",
+    "formal_node_24_22_1_not_accepted": true,
+    "runtime_acceptance_not_run": 68,
+    "real_minecraft_started": false,
+    "native_model_inference_started": false,
+    "official_client_started": false,
+    "public_broadcast_started": false,
+    "remote_4090_used": false,
+    "virtualization_used": false,
+    "browser_used_this_round": true,
+    "web_research_used": false,
+    "desktop_browser_tabs_created": 0,
+    "all_task_owned_browsers_closed": true,
+    "full_system_stability_accepted": false,
+    "prior_native_401": "REFERENCE_ONLY_NOT_RERUN",
+    "installed_sdk_python_6": "REFERENCE_ONLY_NOT_RERUN",
+    "historical_stability_failures_not_closed_by_serial_pass": true,
+    "evidence": "docs/evidence/mc-runtime-round-027.json",
+    "node_to_java_headless_interop_cases": 28,
+    "native_java_test_scope": "Existing JUnit unit/build suites not rerun; 28 Node-to-Java headless protocol cases included in the complete Node run, without Minecraft.",
+    "final_passed": 436,
+    "additional_existing_cases_beyond_round026_selection": 0,
+    "transient_full_browser_failure_preserved": true,
+    "transient_failure_root_cause_closed": false,
+    "unresolved_local_failure_report": "outputs/mc-validation/round-027/latest-browser-failures.json",
+    "node": {
+      "exit_code": 0,
+      "duration_seconds": 333.315,
+      "counts": {
+        "tests": 400,
+        "pass": 400,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "log": "outputs/mc-validation/round-027/node-final-attempt4.tap",
+      "sha256": "2a173e213829b73e50032becb16dfe83184b17df0e7a8fccd08d330fba078c16",
+      "browser_cleanup": {
+        "classification": "OBSERVED_DESCENDANTS_OF_THIS_OWNED_TEST_RUN_ONLY",
+        "root_pid": 36324,
+        "observed_browser_processes": 0,
+        "remaining": [],
+        "all_observed_browsers_closed": true
+      }
+    },
+    "documentation": {
+      "result": "PASS",
+      "report": "outputs/mc-validation/round-027/contracts-verification.json",
+      "report_sha256": "6793ade46cbdb1221dca124d6b5b77cc44973aaf3ebc3519f42588a0118d6552",
+      "schema_definitions": 102,
+      "valid_examples": 97,
+      "negative_contract_cases": 104,
+      "http_operations": 45,
+      "markdown_files_checked": 47,
+      "local_markdown_links": 613,
+      "ws_types": 17,
+      "full_openapi_spec_validator_run": false,
+      "real_acceptance_advanced": false
+    }
+  },
+  "failed_attempts": [
+    "outputs/mc-validation/round-027/target-attempt1.tap",
+    "outputs/mc-validation/round-027/target-attempt1-result.json",
+    "outputs/mc-validation/round-027/ui-edit-attempt1.log",
+    "outputs/mc-validation/round-027/node-final-attempt3.tap",
+    "outputs/mc-validation/round-027/node-final-attempt3-result.json",
+    "outputs/mc-validation/round-027/browser-final-attempt2.tap",
+    "outputs/mc-validation/round-027/browser-final-attempt2-result.json",
+    "outputs/mc-validation/round-027/browser-final-attempt3.tap",
+    "outputs/mc-validation/round-027/browser-final-attempt3-result.json",
+    "outputs/mc-validation/round-027/browser-final-attempt5.tap",
+    "outputs/mc-validation/round-027/browser-final-attempt5-result.json"
+  ],
+  "failures_preserved": true,
+  "source_snapshot": {
+    "path": "outputs/mc-validation/round-027/source-manifest.json",
+    "sha256": "f5b9ca07a9ba85740a467b93d60ff53d9e134ea14189f94fdf74e067a5bb38e2"
+  },
+  "source_snapshot_files": 345,
+  "artifact_manifest": {
+    "path": "outputs/mc-validation/round-027/artifact-manifest.json",
+    "sha256": "c716e75451f07a65350da2a63b1fc4feb9f828f7eadf0d1476e4574eef19aed2"
+  },
+  "protected_files_verified": 348,
+  "before_files_verified": 16,
+  "intervening_planning_baselines_verified": 12,
+  "additional_before_files_verified": 2,
+  "original_planning_history_preserved": true,
+  "full_system_stability_accepted": false,
+  "new_platform_http_operations_documented_separately_from_mc_openapi": 2,
+  "unresolved_local_failure": {
+    "review": "outputs/mc-validation/round-027/programme-receipt-timeout-review.json",
+    "root_cause_closed": false,
+    "domains": [
+      "D09",
+      "D14"
+    ]
+  },
+  "latest_browser_failures": {
+    "classification": "TERMINAL_LOCAL_BROWSER_RESULTS_WITH_UNRESOLVED_FAILURES",
+    "recorded_at": "2026-10-30T13:58:58.026679+00:00",
+    "result": "outputs/mc-validation/round-027/browser-final-attempt5-result.json",
+    "counts": {
+      "tests": 37,
+      "pass": 36,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "unresolved_test_failures": [
+      "audience admin performs actual HTTP review, guarded dispatch, feedback and tied-vote promotion with responsive plain-text UI"
+    ],
+    "new_retention_ui_cases_passed": [
+      "platform history maintenance runs against the real public API and remains usable in a narrow viewport",
+      "platform maintenance displays failure and retries after a Room storage fault clears"
+    ],
+    "earlier_unresolved_playback_timeout": "outputs/mc-validation/round-027/programme-receipt-timeout-review.json",
+    "root_causes_closed": false,
+    "same_candidate_without_further_retry": true,
+    "real_acceptance_advanced": false
+  },
+  "runtime_node_version": "v24.19.0"
+}

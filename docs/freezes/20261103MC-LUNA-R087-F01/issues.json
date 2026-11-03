@@ -1,0 +1,137 @@
+{
+  "freeze_id": "20261103MC-LUNA-R087-F01",
+  "issues": [
+    {
+      "id": "L087-GAP-001",
+      "priority": "P0",
+      "status": "open",
+      "title": "危险反应与持续生存",
+      "finding": "后段逃离超时，首录重复死亡，重生和木镐成果不能证明持续生存。",
+      "maps_to": [
+        "MCF-D03-01",
+        "MCF-D03-06",
+        "MCF-D04-02",
+        "MCF-D04-03",
+        "MCF-D04-10"
+      ],
+      "completion_criterion": "真实普通生存中遭遇追击后自行撤离/补给并保留物资；结果由新鲜状态和效果证明。"
+    },
+    {
+      "id": "L087-GAP-002",
+      "priority": "P0",
+      "status": "open",
+      "title": "暂停到停机衔接",
+      "finding": "PAUSED仅停Agent输入；132秒结束后排空音频时世界继续运行并死亡，最后保存真实死亡状态。",
+      "maps_to": [
+        "MCF-D01-05",
+        "MCF-D03-02",
+        "MCF-D03-05"
+      ],
+      "completion_criterion": "离线退出与媒体排空正确协调；对游戏世界运行状态独立查证，不以PAUSED推断引擎暂停。"
+    },
+    {
+      "id": "L087-GAP-003",
+      "priority": "P0",
+      "status": "open",
+      "title": "人物供帧与欠载",
+      "finding": "本场生成计数均值22.970FPS，原4秒欠载恢复策略未修改。",
+      "maps_to": [
+        "MCF-D09-01",
+        "MCF-D09-02",
+        "MCF-D09-08"
+      ],
+      "completion_criterion": "联合负载下持续满足25FPS目标并留余量，实际呈现、PCM、字幕和停顿逐段核验。"
+    },
+    {
+      "id": "L087-GAP-004",
+      "priority": "P1",
+      "status": "open",
+      "title": "模组物品误识别",
+      "finding": "Luna多次把gravestone:obituary纸张描述为盾牌；图像推断不能覆盖原生库存。",
+      "maps_to": [
+        "MCF-D02-01",
+        "MCF-D12-01",
+        "MCF-D12-02"
+      ],
+      "completion_criterion": "覆盖模组物品、建筑、文字与危险的真实图像评估；冲突时采用新鲜原生事实并保留不确定性。"
+    },
+    {
+      "id": "L087-GAP-005",
+      "priority": "P1",
+      "status": "open",
+      "title": "视觉与口播调度",
+      "finding": "132秒7次新视觉请求5成功、2次MODEL_PREEMPTED；不以成功样本忽略取消。",
+      "maps_to": [
+        "MCF-D05-04",
+        "MCF-D05-06",
+        "MCF-D12-03"
+      ],
+      "completion_criterion": "真实弹幕和游戏高峰下，单队列可取消、不过度饥饿且不使用旧图；记录排队和重试结果。"
+    },
+    {
+      "id": "L087-GAP-006",
+      "priority": "P1",
+      "status": "open",
+      "title": "讲解事实与时效",
+      "finding": "存在“一块原木搓四根木棍”的依赖压缩表述，危险讲解延后。",
+      "maps_to": [
+        "MCF-D05-07",
+        "MCF-D09-03",
+        "MCF-D09-04"
+      ],
+      "completion_criterion": "库存/任务结果与正在播放的表述一致，成果和危险及时讲解，减少重复句式。"
+    },
+    {
+      "id": "L087-GAP-007",
+      "priority": "P0",
+      "status": "open",
+      "title": "真实弹幕端到端",
+      "finding": "595139公开连接历史已通，但当前没有新增真实事件样本，用户暂不能发送。",
+      "maps_to": [
+        "MCF-D06-01",
+        "MCF-D06-08"
+      ],
+      "completion_criterion": "真实弹幕/礼物/SC可追溯到显示、回复、正式播放与记忆；不要求用户重复提供当前无法发送的样本。"
+    },
+    {
+      "id": "L087-GAP-008",
+      "priority": "P1",
+      "status": "open",
+      "title": "启动与长期联合负载",
+      "finding": "恢复后一次启动626.683秒，短录不能代表4小时稳定性。",
+      "maps_to": [
+        "MCF-D01-05",
+        "MCF-D14-01",
+        "MCF-D14-02"
+      ],
+      "completion_criterion": "冷启动和异常回收可查证，完成4小时及其中60分钟稳定段，记录CPU/GPU/磁盘、各段时延与日志预算。"
+    },
+    {
+      "id": "L087-GAP-009",
+      "priority": "P1",
+      "status": "open",
+      "title": "新人物素材完整性",
+      "finding": "旧素材待机动作可见，两个新包仍0/100；裁圆不能代替重新制作和逐段验收。",
+      "maps_to": [
+        "MCF-D10-01"
+      ],
+      "completion_criterion": "圆形与横窗各2闲置+48动作，完整100段、索引、口型、遮罩、接缝与手机观看验收。"
+    },
+    {
+      "id": "L087-GAP-010",
+      "priority": "P1",
+      "status": "open",
+      "title": "完整产品与发布",
+      "finding": "application_ready仍false，正式0/68；完整安装/恢复、混音、观众CDN及全部领域尚未通过。",
+      "maps_to": [
+        "MCF-D01-01",
+        "MCF-D11-01",
+        "MCF-D13-01",
+        "MCF-D15-01"
+      ],
+      "completion_criterion": "15域全部完成，68项及24组合/12场景/8门完成；取得相应授权后执行公开端验证。"
+    }
+  ],
+  "extra_scope_items_added": 0,
+  "findings_map_existing117_items": true
+}

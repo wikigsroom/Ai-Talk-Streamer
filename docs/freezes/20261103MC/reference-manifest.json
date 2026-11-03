@@ -1,0 +1,1466 @@
+{
+  "schema_version": 1,
+  "freeze_id": "20261103MC",
+  "files": [
+    {
+      "archive_path": "AGENTS.md",
+      "sha256": "b6fdd8cc6fa8665f389ce43c59cbb708ded73703123ae02a584783405eccbea7",
+      "bytes": 8167
+    },
+    {
+      "archive_path": "docs/README.md",
+      "sha256": "3b48490a57c35ee2113b5bf79f85843244170769813445f4ff00207d4965392b",
+      "bytes": 20886
+    },
+    {
+      "archive_path": "docs/RTX4090.md",
+      "sha256": "72d4015bce6ee1b6ff831cfd433172222fc9bedec1e0f1b15825fe5171eacb55",
+      "bytes": 5036
+    },
+    {
+      "archive_path": "docs/deployment/BASELINE_K02.md",
+      "sha256": "2d26876d19b577c1ec9396ffb5ea77e74167508d7620ae0a59d8c6fbb5ddd3d8",
+      "bytes": 9987
+    },
+    {
+      "archive_path": "docs/deployment/DEVICE_BRANCHES.md",
+      "sha256": "417bda37cf8eda9610b0fd38d1b2bf07cbdbff6d689381e8b601e602ff9bd593",
+      "bytes": 7321
+    },
+    {
+      "archive_path": "docs/deployment/RTX3080_K02_RELEASE.md",
+      "sha256": "9de1582acdf803e4cfadb15e5b6833b6c4b7b0598eb54ce9ac7a61c5ff8a5cb9",
+      "bytes": 13202
+    },
+    {
+      "archive_path": "docs/deployment/SPLIT_DEVICE.md",
+      "sha256": "8f3ec8edb95914321d2fbfc648c6c102fcd69131962e377c7ba1c90cb650dc64",
+      "bytes": 24243
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/B站留言姬开源选型.md",
+      "sha256": "bfbe62a314f1f3b0d98a9959e75d7996842cf8c0db1b8b0fccd08d1da94710a4",
+      "bytes": 6748
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/README.md",
+      "sha256": "98279538312689b2d943f7d04b270613402d8fbd05f816c61644a9f83e2c7e72",
+      "bytes": 2777
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/assets/avatar-reference.png",
+      "sha256": "451647d9598a067de868af9113a719b965b55d6594202396a6c5a9b6f9bdbcab",
+      "bytes": 1353845
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/assets/game-illustration.svg",
+      "sha256": "3660240c2a403fabf39e1886e0d98897562d7ec799b4af0ab0768ad06f5251e3",
+      "bytes": 153987
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/assets/programme-backplate.svg",
+      "sha256": "3ccf4d8cf5ef30857430cbe4c19e1b5cf51ddd4af613ac15bdd3a0f06294e036",
+      "bytes": 182
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/avatar-comparison.png",
+      "sha256": "82cc269cfcdad74d1e093235efb0a1c6e734c9409e1d8d1f9d0fd23fe2fb8ff9",
+      "bytes": 262459
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/backend-position-verification.json",
+      "sha256": "c81317ad9c92d40690af80a78f747092b972adbd04f6c74e876eac0a39493640",
+      "bytes": 544
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/blivechat-zhixia.css",
+      "sha256": "9d0351d299332463458746882f9c8b530f60210454b9f91596f5101e682a5ce0",
+      "bytes": 3914
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/build_design.py",
+      "sha256": "15bda3ee1734401d986d0f0935c715ddab068bc190f9f8f80eb042003e3fffc0",
+      "bytes": 11116
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/capture-preview.cjs",
+      "sha256": "1452ec4184e687322d4d7872549e1e78638800dc245dfda7bc16a2d45497983f",
+      "bytes": 13267
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/comparison-metadata.json",
+      "sha256": "aa32e82a65efd4dbe20e64d6f2994ceb0dd5229c7debf7f1ff6fe0f0036978fa",
+      "bytes": 532
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/layout-spec.js",
+      "sha256": "a24db9be265f04a24f5d1dd6fef9419be02ef5302bea574d88d47870b46717ec",
+      "bytes": 7942
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/layout-spec.json",
+      "sha256": "4692bbb76f7510c0abf8e500cfa8dc1466ece5bbc6aaa6adfb64ebb2d9fccdd4",
+      "bytes": 7922
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/motion-reframe-plan.csv",
+      "sha256": "99eaffaf7011402003f3036b908e58720cd909762ca2887cc2ab06310003bedf",
+      "bytes": 10229
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview-backend-position-control.png",
+      "sha256": "9f610005ff8674592d227a9afc352e610b85f29e90795f720202927940f9f9e6",
+      "bytes": 47763
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview-break-1080.png",
+      "sha256": "6d5795ad090aded55dac2fc1ec7188b766007b1ec1310e2cef3b488f3168e267",
+      "bytes": 264775
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview-flying-1080.png",
+      "sha256": "6df26c3be03582e3e267ada1727d5f4a367baece7aa6e8db2a9005cf459ec3ce",
+      "bytes": 415841
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview-interact-1080.png",
+      "sha256": "48d0bef3ba2591925fc718e9ce05b1c9b16e140f628528e359a0b3c04b044436",
+      "bytes": 374381
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview-landscape-1080.png",
+      "sha256": "a75ecc370553a6b55b0ccf7b9efa992601325b8e486c8d446672339e82505d89",
+      "bytes": 370802
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview-left-1080.png",
+      "sha256": "ea56260660f76cc8cda3e161f34fd0c60e9177b3ac0ef5b8694d2c5028c791b4",
+      "bytes": 380240
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview-left-720.png",
+      "sha256": "4ca0dc82468eb748961315f12e74d6b85e6f3cc996824bc511a0ca9be71989f3",
+      "bytes": 226840
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview-play-1080.png",
+      "sha256": "4e644c1f2590075fa17893175fa6ecc80f03d62dd549f3b91176bb2fb9829106",
+      "bytes": 380694
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview-play-720.png",
+      "sha256": "a9809ed26a8b0d418064e8210a1061477e7513868761fa962a69bf918695ca8f",
+      "bytes": 226414
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview-protected-1080.png",
+      "sha256": "9820a690561028702a5f63c632eb87adb08ca2a5ab21413b1b009e5d41f35b24",
+      "bytes": 403728
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview-recover-1080.png",
+      "sha256": "890dca04a6dd9dbc1762cdc12df251b4d1ee5a89b500c5812415a216a7a3577d",
+      "bytes": 243490
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview-review-mobile.png",
+      "sha256": "8d4d74f3e7aba2f940905e9803611841875187f94793c3bea13a8a0445bcd679",
+      "bytes": 117795
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview-verification.json",
+      "sha256": "85cfaac8f42fd8f2222a6ca63c852b262392abbafa37c27db8ee29688ed1b4fa",
+      "bytes": 3784
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview.css",
+      "sha256": "858aada2c6e2a5096b6436845bc6bf566dcb0ad609da0b53c885e22b42ad5632",
+      "bytes": 11228
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview.html",
+      "sha256": "85fbbaa51d9dfc5212641174d1129bfe3daa0e60350ede4ad1261c498afe6554",
+      "bytes": 7520
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/preview.js",
+      "sha256": "6e5a0b32207fd96f4f2617f8d0b2c4f34f1c45a02df9f694de5457bbed6794b6",
+      "bytes": 16312
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/references/repository-research.json",
+      "sha256": "35444fb1a0a8581eece6341c7b7922f5ec9f0c9e64e753acec5fa9b2b0cf0321",
+      "bytes": 3890
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/source-audit.json",
+      "sha256": "c04bd79040467cac970021a12157d1b65ca8dc40672ea87b62c9f3d4c32b2a75",
+      "bytes": 5084
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/人物素材重制规范.md",
+      "sha256": "dfe8264f4eb0bd3ad49f8c19630367a0352b50a0de1f134de07f978a5dee5b8c",
+      "bytes": 6799
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/定稿说明.md",
+      "sha256": "aef430af09452805f6cec030be42d3fc93875490aff92d7221e3fd7c5cf0c63f",
+      "bytes": 6027
+    },
+    {
+      "archive_path": "docs/design/mc-landscape-v1/横屏直播间设计评估.md",
+      "sha256": "b3c94e160da049fd5a9fc212d835cf3de8ee72a2f22f31c17cdff6f996b7abf1",
+      "bytes": 17384
+    },
+    {
+      "archive_path": "docs/evidence/mc-planning-1.2.json",
+      "sha256": "ba8bd63bd4523c68f64ed4229985f8179d322740556084699d0718c6c98e293f",
+      "bytes": 8363
+    },
+    {
+      "archive_path": "docs/evidence/mc-planning-complete-20261030-r3.json",
+      "sha256": "c6a78f3b57975a4a8b802b437b97459545eb22b3ecba84948f73273211eddde7",
+      "bytes": 12292
+    },
+    {
+      "archive_path": "docs/evidence/mc-planning-complete-20261030-r4.json",
+      "sha256": "7e7f9a0af9877874ddc958f6be80d1692eabe142200e5faa858f4ed99ce02293",
+      "bytes": 17736
+    },
+    {
+      "archive_path": "docs/evidence/mc-planning-complete-20261030-r5.json",
+      "sha256": "b032771f0ac67fe80333d283d5558b56a585d8739cc527bb36d63d367b2bf2a4",
+      "bytes": 15721
+    },
+    {
+      "archive_path": "docs/evidence/mc-planning-complete-20261031-r6.json",
+      "sha256": "1ae6e8d79afb8bbd85d8c716462a014949467e116710cd20a5e1de9b1139848b",
+      "bytes": 7515
+    },
+    {
+      "archive_path": "docs/evidence/mc-planning-execution-20261030.json",
+      "sha256": "6a76b4afa8db4d89bbaa358a588da945fb1ea19d5ef88d378ecbb9c04157471e",
+      "bytes": 4317
+    },
+    {
+      "archive_path": "docs/evidence/mc-planning-integrated-20261030.json",
+      "sha256": "a18afb0bda2918590b395cb63ecacedfa2fcbf3d48e8d96bf3d7a5dba3bb4807",
+      "bytes": 7222
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-001.json",
+      "sha256": "be35efd7f221480b4a4a5faaf7860dcb7e541a77079957ab836fedd4b7587497",
+      "bytes": 5519
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-002.json",
+      "sha256": "bf881bc218ff8c5c42f4dde4c8c2416f150bcd1fcb4ed05990987aeec8b48674",
+      "bytes": 11701
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-003.json",
+      "sha256": "f2c8bc35652da6612d214d7150b093d35570cb1eb604b6bf30ff07d7189f45fe",
+      "bytes": 20975
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-004.json",
+      "sha256": "f35d4a24c7145be65a7525bb5c0c476485ddfe83e3be0b7dc8b96771a72154a2",
+      "bytes": 11270
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-005.json",
+      "sha256": "5516dd96ceb414992b77ef4d61a77b6c29042de28a9f356ab6ee0da3368e806a",
+      "bytes": 8318
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-006.json",
+      "sha256": "c5154eafee9c6b74295d189fc66ea0f58b01e30ab7df5d4bdfb958369ba0fa16",
+      "bytes": 11672
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-007.json",
+      "sha256": "54e1708740ef4296a01b511997adc00d138f8339b371d2dc9f45b2f566defdeb",
+      "bytes": 12134
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-008.json",
+      "sha256": "1da605307112b90c7f487896d43627bc6f7086ece17cadf160262fde87f100c4",
+      "bytes": 16030
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-009.json",
+      "sha256": "572b75aaefd4e7368b273b3297509852db54ebaf6f6e982fa3412ff1c203b8ce",
+      "bytes": 20676
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-010.json",
+      "sha256": "db74dd00f1d9d8cfb52cf06a114177f74a8321427a7922c108079997084a2197",
+      "bytes": 37047
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-011.json",
+      "sha256": "b7f2098667cbfac6c62f0f0d1d187a59005dbac8f0c4a761fa75189ada9ca30b",
+      "bytes": 42363
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-012.json",
+      "sha256": "d9dab3429d0d396438869c7d2b84a6604b4c36169dc0793f91f7a3777c0fc940",
+      "bytes": 62294
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-013.json",
+      "sha256": "136444732142301cabb94f9b6b6d509405a1e40bef93d18d980ab3f0c4efdc82",
+      "bytes": 85120
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-014.json",
+      "sha256": "1b410adcd294d899dc0f62d248210d97378e98cc0c4d6940ed2cd5889b0b9ac2",
+      "bytes": 83658
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-015.json",
+      "sha256": "4a920298e105d8e30248636433326f3715144d83e272d7797f593c67a810c5bd",
+      "bytes": 90159
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-016.json",
+      "sha256": "44b6b60a386afe8f33e2361a5f249f09f544e4848e49151ff35d032b0dd80e9e",
+      "bytes": 104131
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-017.json",
+      "sha256": "c6a8d921830096b1c2cd13d41252cd97e6a5622485a689c146ae25249fe75aa3",
+      "bytes": 115238
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-018.json",
+      "sha256": "da60134c75e41f3fa4712e55d8bfa488fe8515c7d26d6fad0182e257cd4ba1c9",
+      "bytes": 122538
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-019.json",
+      "sha256": "57909d132e86a026efe55b753fa7a39e8b189c8d72c735826727c182143b2e4e",
+      "bytes": 134093
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-020.json",
+      "sha256": "7bb27e665e079711964250644e135afc3a937ec7bf2fb7e48bcf360a7bdcc912",
+      "bytes": 155554
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-021.json",
+      "sha256": "5f0eafaf5f18669e351b9d9dac3de3e54281f20c6b89fd16976e2da068755be5",
+      "bytes": 80134
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-022.json",
+      "sha256": "fa2c47a12336f2ab058ac209d97486a60c19b098108ff531af7ca08288f29fc0",
+      "bytes": 19009
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-023.json",
+      "sha256": "be916ce6ccf1a90f34f57f651557c90b7fd01a07038b9381cd29c0e48fccc9ae",
+      "bytes": 18902
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-024.json",
+      "sha256": "15e2d4744221ff88ca91f166c00a6a1963f29666b7d85ea63128b10d4022ef16",
+      "bytes": 33641
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-025.json",
+      "sha256": "c2f149b7c65785b2ee2e77681d6613c284f0f84d622284a2ad11c2ee6b2b8efc",
+      "bytes": 32529
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-026.json",
+      "sha256": "ab900cbf32b80a30a042f71804f4f2dd7d161655c3b652491493f8f83a8a6d38",
+      "bytes": 21127
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-027.json",
+      "sha256": "1007eddc3ae712a35d4ac12644ac7feeaeec75c5a3ac9bad45e99dec7f8de31f",
+      "bytes": 16505
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-028.json",
+      "sha256": "a3416e8f7fea13a8e371e91aef39b036588d06b7e508babb583f4df5d5378294",
+      "bytes": 15444
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-029.json",
+      "sha256": "622806bf36d89f9817351ba667468ec071d0c147fe31fb8f25f5630e8cda37f8",
+      "bytes": 13613
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-030.json",
+      "sha256": "9a9ef4c492cf08145b8f0b81c6a8e666896257f3834e078bc921a1b03bfa75cc",
+      "bytes": 14129
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-031.json",
+      "sha256": "3091b24df47ce2afacb4321e60e25e3982f03deb3ecae25a9a6720426845f7c2",
+      "bytes": 18130
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-032.json",
+      "sha256": "7e1d030152ed9b13b8597ac2aad218bb70dbcda9a0f67b0a941c3416b535682a",
+      "bytes": 15618
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-033.json",
+      "sha256": "0426b29e04782b77ca5fafd70dcccc7fc4b46d272e67490444e6796f25ac4259",
+      "bytes": 21549
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-034.json",
+      "sha256": "de78b70cb1e5ab870c10a396e48acacc916aad8f56b86b5eed028a8b7bac799b",
+      "bytes": 22579
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-035.json",
+      "sha256": "c8d955876a6dce355f282621470a4d814fcc58f4113bf3f0fbaff4e79b21eba9",
+      "bytes": 22151
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-036.json",
+      "sha256": "e584265188d1461dd705ef5a7597758000aa5cc785211f3558052d31c28dd417",
+      "bytes": 26480
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-037.json",
+      "sha256": "6cfbae63946bb1ea4e184d4ebe15c44650fb010516849689910548db93152f5d",
+      "bytes": 29690
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-038.json",
+      "sha256": "a826e2ec76d0c68aa0c6fb6e76051ce2e380801d2c91803a392749dacadb9133",
+      "bytes": 31135
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-039.json",
+      "sha256": "d69572e490b6fba882e99cdd060da4abcdac7974257490b581b80c4c98f5458f",
+      "bytes": 28942
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-040.json",
+      "sha256": "e0a3b6d4de4d718ecf57644db469a6db12084ce697ea49c73680c81787c743c5",
+      "bytes": 29987
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-041.json",
+      "sha256": "e7f11823d0793805a9a1921eea8c14e6d40daadd79d55a65e0451ff9ac56145a",
+      "bytes": 32135
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-042.json",
+      "sha256": "d897e8084d007b508c0c040ac2eac225e31c521d69b4231886c360fe60d0c753",
+      "bytes": 33994
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-043.json",
+      "sha256": "e6bbaf95865d5f3f67adae5f076efd8c80c7fea7e61177ee14319b65c588d2d3",
+      "bytes": 35973
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-044.json",
+      "sha256": "b29576196b1be21bbfa7a7a0644b5f16e28240f70cd47ba79e089b28d25b1248",
+      "bytes": 37872
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-045.json",
+      "sha256": "310d7034c22b64b6060ea868416c2606b8e9a308fb332bd842268c5cd22fc4c4",
+      "bytes": 39656
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-046.json",
+      "sha256": "045c013507f62d36dd8a47fea982f4217bdbf4a7ad269023c050735a7e37d4ef",
+      "bytes": 41916
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-047.json",
+      "sha256": "6d6c500ae7b8821dac625280001429be2eda7a12eb5692502cb0a6078328d8e9",
+      "bytes": 44605
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-048.json",
+      "sha256": "0cf10524befe8fadb9f3de19bda775d2cb867f4a644c6d83401dca60f3da04ca",
+      "bytes": 46947
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-049.json",
+      "sha256": "86e349fcbcce539bdb13ad2736d90f50d427c87225219ccbe34ad1260576da01",
+      "bytes": 47776
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-050.json",
+      "sha256": "6bd99cf4e38aa3c5aa18da9f0b67ff55d03b13abd137786e2be32f2cb2d4bee1",
+      "bytes": 48833
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-051.json",
+      "sha256": "b42b18642b600a9247a364466a51051ff336006cae75a3e303a679a6e324c89a",
+      "bytes": 52000
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-052.json",
+      "sha256": "83c274cb33cae8c8e0e76d30040a5a0304f2a74bad24879c27f172e825a6a422",
+      "bytes": 53890
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-053.json",
+      "sha256": "3ff223f0299e03ddbdef53ec17dfe0f844adf56a6b8aa8270e2bf72b545ed04f",
+      "bytes": 56656
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-054.json",
+      "sha256": "0bcfe6724bf21f748c0bde3599ad04fd26829f72558c610ec8d79067544c0385",
+      "bytes": 58979
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-055.json",
+      "sha256": "b5f7fefbdabb0666eab945aae447626823d4eb6ede95f4a8fc5b1f3ccf81016c",
+      "bytes": 61201
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-056.json",
+      "sha256": "a75675a12299f493d3bf93e31f3fa477f5e3add4110b5be68fc9276adeb94d49",
+      "bytes": 63756
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-057.json",
+      "sha256": "09e5751d6d713f78ec71066375b81d9d9d62768fb2dcb9a025c619d92861dedf",
+      "bytes": 65777
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-058.json",
+      "sha256": "58102f69144807c1378a29e79ed226f23529f00a2e8283a49cdce3641e564418",
+      "bytes": 68008
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-059.json",
+      "sha256": "7360f017695fae2b7e158f736a803413248ab8d11fad1793c0c7222bf993eac9",
+      "bytes": 70002
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-060.json",
+      "sha256": "1357fb45889d54a6ccd62336b9e34a401538ab788d7c6589a3cdad4fb47104e9",
+      "bytes": 72662
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-061.json",
+      "sha256": "aedeea33f0f1677cc2cd72e6bc5a07242dbc6d1dfc3c59996edb22484c488049",
+      "bytes": 74792
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-062.json",
+      "sha256": "bfca8c010ce092f5fc681f45cd94c53ad8ff36203457b477279b1a96e9aa344e",
+      "bytes": 76236
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-063.json",
+      "sha256": "8fe6cb2ec052536a978ec7affd25c6a5b445186c52c2ee700dadb4ee7a925034",
+      "bytes": 80325
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-064.json",
+      "sha256": "cb2c4fe3b3e3debba4a9684a978dab67445a0e7f9e4dc146ace4fd8f3af33759",
+      "bytes": 83430
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-065.json",
+      "sha256": "9f23d6a2d1fd132a9a94cfae323309661b9621f9eb89d8971ece7a02cbab3511",
+      "bytes": 88229
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-066.json",
+      "sha256": "002228a15724b8a289e6f586b9a5d6000def382f064e6f057516b13166e58878",
+      "bytes": 71245
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-067.json",
+      "sha256": "574bbbf0a81e678c03afd6ed0236f20b3980c2d5ca2b8806896102e5cd20cfcc",
+      "bytes": 63543
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-068.json",
+      "sha256": "ecc0e89b8fb5c9af0d265cacf8c01988fd87b0c6b43c2e3f3d0704b5f7b9ed23",
+      "bytes": 62668
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-069.json",
+      "sha256": "204171d191031ff795e151228e1dde8970570f388453aa4be8b74ed18a577dfc",
+      "bytes": 74533
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-070.json",
+      "sha256": "73c090b18a57708d0b8e96a0847622a4600382ce2dcecd857b17dc5568bcbabe",
+      "bytes": 75158
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-071.json",
+      "sha256": "b73f25307f282153e299a044a436b61d07578cf9a4eb0cbccf18a17759bac8e7",
+      "bytes": 76125
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-072.json",
+      "sha256": "9f251c10e3fb02f89b3c4fe80b1f6a94ce86e91080eff1933f622f0ee6bf61dd",
+      "bytes": 78196
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-073.json",
+      "sha256": "105cb1bbb2009b675dfc2419a404ea1012e823f6855d655d447049bc51efaf99",
+      "bytes": 33362
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-074.json",
+      "sha256": "f5b36af9585de70e3be5bcf799c8f9ddb5a6e9fef5cd62de33945cc949461a28",
+      "bytes": 34262
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-075.json",
+      "sha256": "02db3ef38798241a0e1d85d3627f5dd45c5c5c05afc20c4d39e47d2a2462e6df",
+      "bytes": 42482
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-076.json",
+      "sha256": "8ece4738177767e37f0b7ab5d7dbb9400b79dd13363b99b9ca35933d53bc1173",
+      "bytes": 49058
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-077.json",
+      "sha256": "391563f1a68206317ed262737888fc354993f38968b6c649bf07ee3f5cdf2e24",
+      "bytes": 52029
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-078.json",
+      "sha256": "fe3a43d5910b5e7a682ed7e8ad961b8db14350e2c61dd08e364f93acf2e2b28d",
+      "bytes": 107447
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-079.json",
+      "sha256": "ecdc6a4dbb236e22a39c3dee00ddecac197a2960c4110c9d99b893a9b2d7d148",
+      "bytes": 77777
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-080.json",
+      "sha256": "213088284d145b8d48402c2c24c685d03400965706d1bddafba7a12a8a8be6be",
+      "bytes": 90766
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-081.json",
+      "sha256": "c0ed2516796d72c842f8e1d98df9e4b82560bd18965bdfa8dc6f22b845c15b15",
+      "bytes": 114110
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-082.json",
+      "sha256": "a383083bc27d532309479b37e4e49aa0a6b52e18df0747f9f2d3580d8a5c43b8",
+      "bytes": 14460
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-083.json",
+      "sha256": "13294f28d64f587c803e03c4f2af14d7ee373172821f43c9fbdd9d5c5c965186",
+      "bytes": 683250
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-084.json",
+      "sha256": "2991cd5ca4132f19037d1d0e3a3689971d9832023cda6776bcf7bfa52c7cf167",
+      "bytes": 15244
+    },
+    {
+      "archive_path": "docs/evidence/mc-runtime-round-085.json",
+      "sha256": "cc6ec51471e3430d6a583eefa88e2a0b3238b4d3de19274db8d8e4e6116d8c87",
+      "bytes": 3556
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/01-系统架构与模块.md",
+      "sha256": "8984ee5f64dcb75fb896fc0175a6933fc4b21c2e21653ee3951d871f1a163827",
+      "bytes": 8225
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/02-游戏桥与控制协议.md",
+      "sha256": "f0170a5e5478c93757b92eda9821b07f905dfa91c691cf96cfd65e6623f9a56e",
+      "bytes": 14545
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/03-DSH弹幕与记忆.md",
+      "sha256": "73fbecbeb94ebd381767689279c6e436ebb0618bc1660faa9a07a4566c35e8ec",
+      "bytes": 13958
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/04-接口与数据.md",
+      "sha256": "9058dee116bdcefc09b99a4de140dabdb9459dd679163ee04f2a4e70ed2c8c3a",
+      "bytes": 30745
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/05-横屏媒体与素材.md",
+      "sha256": "189102177e626769d3a89eef848d6ddf88ed06a00c9909b8acec4e5d10913efe",
+      "bytes": 10016
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/06-部署与故障恢复.md",
+      "sha256": "9e41e2a157a87d4d7a23202c0346f828b2cef0caa3ccf8cbbc6cf9155b77c2df",
+      "bytes": 11057
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "sha256": "ed13758e3b43e06e998842a787f678c50f6355471f943692f1ebb208647ac572",
+      "bytes": 10513
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "sha256": "e3a929d4881fa775f67afcb224f17b44ee5fba6d65c5ce7dc859f92c0d72c8ea",
+      "bytes": 33654
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/09-全端实现蓝图.md",
+      "sha256": "9a483f5fb1e60c9aaf7c415d66ffdf34787a57dd114f89ddb8d9d5cf6a235b81",
+      "bytes": 44132
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/10-全量执行与资源计划.md",
+      "sha256": "67b2d49288b597aafebff8c09bb2f183c99dde481dbd51494425dc0d426deb25",
+      "bytes": 57885
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/11-完整总规划与交付约束.md",
+      "sha256": "d14d4592b078bd53fff5cb8aabc57286908a6f8bad6193a002dbd01f6ab6fe73",
+      "bytes": 26032
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/12-一次完整交付总计划.md",
+      "sha256": "865d4885f77f5ddb01e569743594e9c3f8fa878cbf6d70e30d4bbe592b683ae1",
+      "bytes": 36678
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/120秒实况卡顿排查.md",
+      "sha256": "3b043813c28c318bd41da1f78d5b8ec1a9e7af1b5cdce311b7551dd0913f6a5e",
+      "bytes": 5060
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/13-完整方案实施总纲.md",
+      "sha256": "6642f3a63cbc82f86da5cc35e2ab7489214908f5f211ec0dc05b000950a3da34",
+      "bytes": 42804
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/14-NeoForge整合包与NAIMEI接入约束.md",
+      "sha256": "1ed0c6e90aad5adbd48418250fa2ed3e5869bf2e3b980151c9a6594fdc44b0e0",
+      "bytes": 36843
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/14-核心落地与实机联调.md",
+      "sha256": "da2a1445a23231ea904ce1235daf0e0b84312ff2c6a07ed4c7d6d3a51af5bac0",
+      "bytes": 1168
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/20261103MC冻结文档.md",
+      "sha256": "d161f4319270577aeccfa75c8e2d387ee64f0f11191b5151a8e3242114f9b796",
+      "bytes": 663
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/3080原生整机迁移与启停联调.md",
+      "sha256": "13966c75155a0af52503ba40ad681325ce6d23f463f7ad38fc0e6c5f9c854784",
+      "bytes": 32753
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/A-B历史维护协调.md",
+      "sha256": "5ef83c76c36afb5b300983ae03d7f537985abdc7a957fae4bfd7988071f675a6",
+      "bytes": 10976
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/Agent与Mindcraft自主游玩.md",
+      "sha256": "5bb1d31ad21cede2c202b39ab6fb5d5bcde876c8e9a12a02ab9244cf4ff900cc",
+      "bytes": 46501
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/AltoClef接入核对与输入约束.md",
+      "sha256": "84c5cd0213e6244471b1dc39b62a7309837521270ba365529c2270df933cfa08",
+      "bytes": 5990
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/Baritone事件与寻路结果归属.md",
+      "sha256": "fd93ac89c8d96225c7d4bb614c692f85b4738be2d6d0675b2fc1523555575147",
+      "bytes": 6983
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/B端历史保留与离线维护.md",
+      "sha256": "e967883877fa5f3576b1aa921966d1d5f7d6b9186d0740ad88d3f4149a3b5ca6",
+      "bytes": 10511
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/B端账本与恢复.md",
+      "sha256": "0cb7f406f1a6adc5d856c06ea8035f8663302551c2bdccd03678bd5ed7cfb3db",
+      "bytes": 10115
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/DSH关闭与隐私重建屏障.md",
+      "sha256": "e1aaed49c9da34506eccf8e01897442212bf05b358d5951af3df6a9b4685e134",
+      "bytes": 10370
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/DSH模型公平调度与弹幕理解重试.md",
+      "sha256": "01f651011204016ffff825090a32b8ca905ef3aabf80e85af40896cdbb92949c",
+      "bytes": 5629
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/MC临时潜行与物理输入恢复.md",
+      "sha256": "3e4ce51fe33ec088318623b5a217dec5bffdca9f22ee94c9034b0aa7364792ec",
+      "bytes": 5001
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/MC主播目标接续与弹幕同游.md",
+      "sha256": "4a9a4f714f9892c3df21b94396606550c27ef7c94abb41fee2a9898fa7a38043",
+      "bytes": 4679
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/MC原生客户端依赖安装.md",
+      "sha256": "dfc07da1d86309bf8db570d6b9c5b1eecea45a940808dbe73d8e11f785ecd2c8",
+      "bytes": 4405
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/MC原生应用profile与准备.md",
+      "sha256": "6b44018146f27a32c1970fbd2e255f3e0aed97b131c5e8e7ce50b1e585e72de7",
+      "bytes": 13440
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/MC原生运行管理页面.md",
+      "sha256": "9983b4557efe634a505ae7ffffb9862b8cb882f60f38d19f1edca76aac783bca",
+      "bytes": 3515
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/MC导航设置的任务归属与退出恢复.md",
+      "sha256": "05012d8f8b748af29c3d80844e97bf38cd260f03ca7bfaf1bf1e2c1d4b338e67",
+      "bytes": 6006
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/MC开源执行方案对比评估.md",
+      "sha256": "9fe34168f00db50688ce306da786b826dec9e41396b6b041dd58d8890bf1bc85",
+      "bytes": 20176
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/MC整套服务启动、就绪与停止.md",
+      "sha256": "f9a06cf68d7671db7bf4af3e0db0c1977978ee256e2395a037fd4e730296a265",
+      "bytes": 8884
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/MC源码包导出与原生安装.md",
+      "sha256": "4c03603214b78bf129cf7d39086dd7565120802b1d68b568d5d793d5bf571631",
+      "bytes": 7390
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/MC箱子取放与资源确认.md",
+      "sha256": "5256b1da516e3304ded08cde335009270406250597243c20e8965d6bb2baea4c",
+      "bytes": 6269
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/MC页面运行副本更新约束.md",
+      "sha256": "3e3d14cdfab6ca9bc3ec75494ee261acc26138b9306ee1e1f55400a08ae54367",
+      "bytes": 3173
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/README.md",
+      "sha256": "702ee7a2fefe65b34b1ab27360fec9335ee0a40df35d6ce3f2d4fabdabf4dbc9",
+      "bytes": 29238
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/contracts/README.md",
+      "sha256": "b85eb80a89d3dd0f21074cdcd9318b297a836eba675239366bd380afe72ada30",
+      "bytes": 4618
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/contracts/build_contracts.py",
+      "sha256": "c10de892f1c4de203f83891243b3c4ec5f735c3fbb3d7cb3631103fa55a0e1f8",
+      "bytes": 75214
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/contracts/examples.json",
+      "sha256": "e9fbcb315e76b557aba343943830cc29ad7a14668fbb9cc048d7c8ad6ac760b0",
+      "bytes": 141411
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/contracts/game.schema.json",
+      "sha256": "eb4e96f6aca3b9bdbab794dcec127211a23b23dcf9999b4cf28edaac5c06d78e",
+      "bytes": 338890
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/contracts/openapi.json",
+      "sha256": "9423cd7cec585fa2f4c42ef5bc0df065a7fa27f1b9482893168f52bea62e962d",
+      "bytes": 231524
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/contracts/verification.json",
+      "sha256": "31740028b1e2805d646a81360089c6f6d7cb8eaa327b50868e49b85e073e27bf",
+      "bytes": 8473
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/implementation-status.json",
+      "sha256": "9091634d1d4981fc4af75ceaccb74c94131f5d03ecc0fd4fc166e219e064f1da",
+      "bytes": 622367
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/世界会话与后台复核.md",
+      "sha256": "2ac38280e24b56cc852749e62d47bfe561ab17e97c8f8965a6671f0a1ffe4a03",
+      "bytes": 7508
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/世界目录与基地检查点后台.md",
+      "sha256": "520ec966f86523d07444ab7378919c7c5d1d4d7e7f78c038d3a9b9fdf4b19459",
+      "bytes": 7476
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/任务失败原因、后台解释与主播事实.md",
+      "sha256": "e268d300caf872e26c233276abd74eba99155c17e61b1a5b80da44f6120d9804",
+      "bytes": 7781
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/任务收尾与事件订阅.md",
+      "sha256": "847814aeae4d00abf397e997e26736d394fe2b88471d997823c0d4ed5f8739b6",
+      "bytes": 5984
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/任务界面归属与合成操作约束.md",
+      "sha256": "41f6cf8678f663a2a87e5b4bbe70e17d4fda3e999510fa227c480ea50c475972",
+      "bytes": 6748
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/任务结果与公开口播.md",
+      "sha256": "bc5f34a9f9dc91743e7bff02a002e4293f2eaddded2b305a95917d9cf7075750",
+      "bytes": 8375
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/修复结果与120秒实况.md",
+      "sha256": "d3159302f394fdefb2cbef10483b440146ff58eafa38dcf3e85e1a7551e8f00e",
+      "bytes": 6708
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/全量交付执行总表.md",
+      "sha256": "5ddd595768b8a547bd6500038cbda0f606eb27f67bffec6e2eaad44ba9b39a90",
+      "bytes": 13002
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/单人世界首帧与暂停保护.md",
+      "sha256": "9b4b7dff82c2e1f53bb42c5c3e7f7f276ca0f44b53f7d3c6b79571bffde0491f",
+      "bytes": 9794
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/原始帧与视觉适配.md",
+      "sha256": "72c300491f0aed0eaf9afe51469781b0e8a9af2a8d8a112f234903df4c2760fe",
+      "bytes": 9674
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/原生历史维护台.md",
+      "sha256": "8e25e31ea3f5c220ca300e28eb38560a6a658902c7330612370224cc7ad0256c",
+      "bytes": 7763
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/原生启动事务与失败回收.md",
+      "sha256": "793666e6a71dfd180c3bf421c5734a599f1a3fde3dc9e33dd36d074aab8b226b",
+      "bytes": 7813
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/原生运行持续监督与故障回收.md",
+      "sha256": "7e97240877e08e850e239cd57b644b82d626330399cf4469c25108db08df2acb",
+      "bytes": 7362
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/合成事务与服务器同步核验.md",
+      "sha256": "553bca53c750ebece3aa0fabd309ab5d5d8f953693669b06eea92b3f44ba0365",
+      "bytes": 8091
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/同玩家直接交互绑定.md",
+      "sha256": "8fdc1acc8ab755a8531a192ac2a2c38f6bac458e4d80f63df09f5be3b277a7a7",
+      "bytes": 6747
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/回基地目标绑定与到达核验.md",
+      "sha256": "91ad1dc993bb5e1024706300e426425d594310ee8752d433575e1826e79629ad",
+      "bytes": 8766
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/回应调度与严重事件打断.md",
+      "sha256": "c995f6680a4c9334a1e0e65a708d6eb7f3becc1aa08edc1de05225a1ce98e4f1",
+      "bytes": 8649
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/多人回应记忆与删除恢复.md",
+      "sha256": "015fcf9ac8647d635e949dded1acb0f96e33b472042ffdc7f01f1919362f7c0e",
+      "bytes": 8759
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/多配方材料预算与目标成品预留.md",
+      "sha256": "610a868ad52573b250cf981308aecb4f5a24710e0a9e891556fd03449ec96d41",
+      "bytes": 8760
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/完整交付清单.json",
+      "sha256": "9ff711374c57b3d5e9be5b5e97f8b346571dc8954d558a003cf1b57e38c31964",
+      "bytes": 230953
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/完整生存执行档构建与任务入口.md",
+      "sha256": "6fed0581ca0dccdbc72d177cd296efe48d82c82c19d85bbbaf964367db976f07",
+      "bytes": 16424
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/定点补种与食物闭环.md",
+      "sha256": "b85f1a6ae099b646a38a37512ae80e28e19f2e6254c0b305230129f91dc01d42",
+      "bytes": 5021
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/实现进度.md",
+      "sha256": "0d4d43607d2ac03cb2092bc7921ffa777af8301ef61dd0cd77382130a6b7e583",
+      "bytes": 433399
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/工具期限策略与原生DSH联动验收.md",
+      "sha256": "b9be5d55e1a11d73ff7ff068515ebe72591815751ddf66a2b579cca7fc277e5c",
+      "bytes": 5096
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/平台事件来源与撤回.md",
+      "sha256": "d4e457edd916ea2444fd764a7e47fa4e20d7852f623b872a605e06a687aca051",
+      "bytes": 8801
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/建议支持与过滤联动.md",
+      "sha256": "f1b184bd4b27f1a82642522db72da347ec31ff41b53dede841e097fde8c02160",
+      "bytes": 6556
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/建造耗材与库存清理预留.md",
+      "sha256": "06286d47c935578ef7c4ccc155a5fe859df1a3ad3a5ac8856bac98a3f7032e01",
+      "bytes": 6228
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/当前实现评估与120秒实况.md",
+      "sha256": "6ff40c3ff664f2aae4f717b9cea0e801887b9da8e3a21669aa2978be6e01ba38",
+      "bytes": 12301
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/成熟作物与离线补给.md",
+      "sha256": "942182ea96b7fab6a933a8845f0c9217b5ffc1a42c2437cf2596c4281f71344a",
+      "bytes": 3449
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/普通PvE防御与有限撤离.md",
+      "sha256": "292cfa08fb4193b0b13a3959e0798c3c9ecbed48cdce92c265d8801cc3d80501",
+      "bytes": 6772
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/替代目标与共享库存预留.md",
+      "sha256": "10568fe7853027beac8040c685a8b4912c5e1bec44f5bf5156f4761d6a88c836",
+      "bytes": 5328
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/本地输入许可与停顿处理.md",
+      "sha256": "1226cf5112f556bee73d19143450f469f80b04f10d33e47e5405a4dfc59a855f",
+      "bytes": 5813
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/材料来源切换与任务依赖循环.md",
+      "sha256": "1bd59da3a51345575c838206fb6d124cdcbf2b5206fe94c3d1380f67e4385363",
+      "bytes": 7703
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/材料来源完成收尾与补给子树归属.md",
+      "sha256": "4b03ac7cb287d2cf55bbd6705de51c4ad00b0f001bfe7292b92447576228ca4f",
+      "bytes": 5540
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/模型发送边界与故障恢复.md",
+      "sha256": "00784cc45d8a8b284c685ec260130ddfb8b951b9ac04bd47bf45ebb004f03c62",
+      "bytes": 4015
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/模型工具取消与边玩边聊联动.md",
+      "sha256": "a113d4beb01fcfbde4c801e61582cf09363c5143bcacf97fcc427024490b84d4",
+      "bytes": 5537
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/横屏节目与媒体接入.md",
+      "sha256": "bf53cc01194b5915cbeedfc020f303e9e25fcbd5211e536616a20e39b67d5b67",
+      "bytes": 6791
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/正式播放就绪握手与故障诊断.md",
+      "sha256": "f6554f2d59ce35812da39743a8e1178c2e3691d51776fd4d162963154971b69b",
+      "bytes": 8662
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/死亡观测与暂停期间的生存提示.md",
+      "sha256": "33313a135b0f81dbed45430a5218bc08aa5c1e488be136a62f971fe9bb3cbdf6",
+      "bytes": 8900
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/游戏完整历史查询与后台.md",
+      "sha256": "0da0525e5634d0ff57693140917db365768d858f369b7167b72727023485e673",
+      "bytes": 12337
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/源码包自检与核心测试复现.md",
+      "sha256": "c452531d8be328be2c3d5d0c2d3ec40c4b78ad5b3966fa4346cb4d4f3d2bd0ef",
+      "bytes": 5671
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/烟熏烹饪与容器确认.md",
+      "sha256": "2f3ce20d9e8b406838941c0a200b0aefb5c74063f59298c9579a06089cdf61b8",
+      "bytes": 6712
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/热栏输入归属与恢复.md",
+      "sha256": "ed19906db0154579eee2823a9eddb68ec36558549441259d1e5a3b489228a750",
+      "bytes": 5355
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/物品使用与服务器效果核验.md",
+      "sha256": "999d881bee8d8add8305118c3d88b8fac4bc8db69a87bfb3c805edda8b80bd4b",
+      "bytes": 8619
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/直播表现与社区插件接入.md",
+      "sha256": "8917507aa896443c65dcda97b5927535a508ab92f6f5255f823a14da2355cfc5",
+      "bytes": 9530
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/盾牌防御与紧急使用协调.md",
+      "sha256": "799e6e0ddef298d831fa3a644c7f99289c35e23ad421a639167d3982619e7023",
+      "bytes": 8132
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/真实玩家执行器接入与效果核验.md",
+      "sha256": "1cb63684421d0c8d96cf0810dd910caf225d70b68f607d3015d78126ddf2039e",
+      "bytes": 8502
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/离线本地世界联调.md",
+      "sha256": "3824a897f20960c8cf54309ddd14532edd67fac7361455af4a3433c9526f209b",
+      "bytes": 14297
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/自动进食与装备确认.md",
+      "sha256": "c4edb5ae9a3a78d19df874479b6d093528dc80a1639bff4838f33430e22fa065",
+      "bytes": 7871
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/补给任务与有限食物资源链.md",
+      "sha256": "1e42af9d57218f8302e786a38779f92650d3310f87d28d8a0b39199142817ee8",
+      "bytes": 7309
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/装备事务与防御采集衔接.md",
+      "sha256": "9e7591c4c0523ed8953ec09f3cdc4b1849538ed3597dfce587f612bc0cb09dc7",
+      "bytes": 5903
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/观众历史维护与账号归属.md",
+      "sha256": "3c4a8142cbeaac32cc4eaa6d4e41bb5f756a9b1bcd40bceb2f409e001cefe3e5",
+      "bytes": 6421
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/观众建议投票与任务闭环.md",
+      "sha256": "05a5e6edd83fa18a3edaa2b9caa6f48460a6acce4890aa67afa78e378843cac5",
+      "bytes": 11101
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/观众自然语言建议与澄清.md",
+      "sha256": "2d3f6de080b01029d64b9b2ff541c24fb8ce4d5e754ddfd9e09e664b6cae7ffe",
+      "bytes": 11005
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/规划反馈与异步视觉.md",
+      "sha256": "0aa7e10df72b3a465b8622ad017c747120d2d469572d802df9e4c4c7ee68fe0d",
+      "bytes": 4437
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/资源子树失败回溯与计算代次.md",
+      "sha256": "9ca5bc14b791139034ae7ee8e56755d79e41fd6dd8a7809379dd40215399cd81",
+      "bytes": 7307
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/资源批次熔炼与首包等待.md",
+      "sha256": "712e07eecd6fc5dbebfbd1b285aaca69e33e3d436d1a0056aed607676b52dd2b",
+      "bytes": 6464
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/资源消耗联合分配与补给炉具准备.md",
+      "sha256": "c51cb0ff009c1b16587546520ead7df9e0b99beecb6334a24dcd75a02b862a11",
+      "bytes": 8459
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/资源熔炼与炉具库存确认.md",
+      "sha256": "cbe2341fa45b3cfce3a71568e5356d3373e528801a85c6ecc6c6c7c54047549f",
+      "bytes": 8938
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/资源链内部合成与库存确认.md",
+      "sha256": "b4cc9cbb0cdd8cd5d413cb4593937d4aab6e9be9d9de03605ba315d9519179d1",
+      "bytes": 7844
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/选定副作用编译与输入所有权.md",
+      "sha256": "784452583e6da0f198f126ffc13c8f063ac6af27c4a6dc708d6c32ba3da4c889",
+      "bytes": 6168
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/配方查询与DSH对接.md",
+      "sha256": "0af2356c3f768f14bb684289f826b26a2a7f731d8d941776873f498402795d3d",
+      "bytes": 4923
+    },
+    {
+      "archive_path": "docs/technical/mc-live-v1/采集合成数量与材料分配.md",
+      "sha256": "ba7de71efd89f9dfb5d48bd99f8461a8b631a6cb411091574c72a0c59c94afc9",
+      "bytes": 6517
+    },
+    {
+      "archive_path": "public-repository-research/additional-source-receipt.json",
+      "sha256": "8c7a8c29eb88905bec3066c81557499f06c46b3e0f6dc7137d251f8c316a5e27",
+      "bytes": 2939
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/commit.json",
+      "sha256": "f1a00f28795c7efbfe86abd23957c1744babac0bef5bd55cc99561f926ad9547",
+      "bytes": 139090
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/receipt.json",
+      "sha256": "27e6e6a834d2c7c413525d15c049e56902a9e68d60003b403c4f068c07f53222",
+      "bytes": 4466
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/repository.json",
+      "sha256": "7182c11e6eba79b47d2286e5238713e1711f62f40922266fe7df2009446c9057",
+      "bytes": 6153
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source-observer-api.json",
+      "sha256": "50b160523462df267739ab270a4f144eb249784942f77cb66a15347c67b60c7d",
+      "bytes": 7105
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/README.md",
+      "sha256": "572ce391b72fa861bc485ae6f0d86df3b0178f473dc4360826dd3ea45ae5b43b",
+      "bytes": 4466
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/extensions/mc_auto.mjs",
+      "sha256": "80793bbe10ce54b1cde25944b995ba66d44e49f68f5f5a02d311a61eeb5d7416",
+      "bytes": 153902
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/extensions/mc_observe.mjs",
+      "sha256": "b7b0729addcd96722d091d0034d588bd3146d3add5f1c75ed136db1189275607",
+      "bytes": 55843
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/extensions/mc_view-render.mjs",
+      "sha256": "2c2edc9d8220071b14a0a9628bec013740e6fd8efc93da3f066166ca788d326f",
+      "bytes": 65005
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/package.json",
+      "sha256": "9b01ca9cb67fb9aa7bd7b5f160d2052c69b555bf50cbf076a147b7f2aa1b7790",
+      "bytes": 2711
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/src/action-scheduler.mjs",
+      "sha256": "44feb42cdeb1488b6b435d72db134e3fccd553c70953e312f6bc70b50117cf77",
+      "bytes": 38500
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/src/ballistics.mjs",
+      "sha256": "34ed357e3a04f182b476081a5515088fa2fe0302980932d5121af8d622dc1b33",
+      "bytes": 7671
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/src/budget.mjs",
+      "sha256": "a05f87b47ed563c819ea3ab2b27102dcaac1d2286b3ddb7efefdf99ee14c6315",
+      "bytes": 5186
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/src/camera.mjs",
+      "sha256": "9021ce3f441f0e15a4d510121822cb79e14f5bf0487bbe3b88d24cea93121df6",
+      "bytes": 8007
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/src/combat-strategy.mjs",
+      "sha256": "e86466f583f65c1a6e1700b9790615b7a1c65918e17c03104557bfa927c73348",
+      "bytes": 30863
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/src/observer.mjs",
+      "sha256": "fdfced1f75714f5369130c155754d4253ee2255179a5c66420a8740deb4e8a1b",
+      "bytes": 4467
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/src/plugins.mjs",
+      "sha256": "99e9b2c778a647ea18ffcb56d819e8d1893f42f953d8f25ec1f764290e4fe4e4",
+      "bytes": 68971
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/src/runtime.mjs",
+      "sha256": "3fbd0dc0d9f5074c59753f32196ed12f7b6b21ce71f0efcbd52ac7958150715c",
+      "bytes": 18899
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/src/task-exec.mjs",
+      "sha256": "ab6f8931974d5eba40dfa301fc82bebe32292abc1e057f64d8c15e488ba32c3e",
+      "bytes": 29210
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/src/task-runner.mjs",
+      "sha256": "66fd7b9b0e1d3241aa5e262e61e01dd8cd009726fccb59f9dbc590c7222c44e2",
+      "bytes": 53006
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/source/src/watchdog.mjs",
+      "sha256": "0250997dfad5d8e88c88fd2286f641128f4ddccf44b70777c7a97805caffb0a0",
+      "bytes": 38010
+    },
+    {
+      "archive_path": "public-repository-research/blueziii--dsh-mc-agent/tree.json",
+      "sha256": "45754430bfe8054503f3ae3b6b571da7c839a7bcacab53d20308ffc1df5fb2a4",
+      "bytes": 95525
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/commit.json",
+      "sha256": "65bbb49a03de70f5e9658aa961d64b174418a9f641f553211e08f9774e504e3f",
+      "bytes": 6919
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/receipt.json",
+      "sha256": "ad06e7b93bf3f1c98df4001f30cd7adadd916d50aecf80b30367ebff36b8c709",
+      "bytes": 11993
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/repository.json",
+      "sha256": "d3483deab0a58985fef9f998f895ae6081a59fb9aa9fb85059e701ea3f4b52b0",
+      "bytes": 7149
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/source/integrations/minecraft/README.md",
+      "sha256": "fd77cf5d8bb9cda78b618f9cd4faeb560b27c53f4b83fb8ecfeb95f8b8526ade",
+      "bytes": 9417
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/source/integrations/minecraft/package.json",
+      "sha256": "ff26156ed76d3be3959ec76ddb8e52c3aeb9dfac66916594faf086b21866608b",
+      "bytes": 1904
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/source/integrations/minecraft/src/airi/airi-bridge.ts",
+      "sha256": "374303549f94c9b17b45c71ddf3500fe21f68e9cd1dfdd231b0f85113362ad89",
+      "bytes": 9285
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/source/integrations/minecraft/src/cognitive/action/task-executor.ts",
+      "sha256": "21b6c51251fab4d32ca291d7762ea8a41b7aed96c934b920c5dd2c04cf3d6142",
+      "bytes": 2628
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/source/integrations/minecraft/src/cognitive/conscious/js-planner.ts",
+      "sha256": "aa5f68caa77fe2203ac48dd99972f36fbff0421f97cd8af4b1133bec04c31f6a",
+      "bytes": 53600
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/source/integrations/minecraft/src/cognitive/reflex/behaviors/auto-eat.ts",
+      "sha256": "da64d5cf0a9667f1187b0f91588bb9c64553c4fef2669ca2a474615cb847ebdd",
+      "bytes": 2795
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/source/integrations/minecraft/src/cognitive/reflex/reflex-manager.ts",
+      "sha256": "00e4252dc44b246ba04c945075f0bb05e46bae755f4865a1bad7f65cc935ef4d",
+      "bytes": 7440
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/source/integrations/minecraft/src/cognitive/reflex/runtime.ts",
+      "sha256": "91ee49c76eb8f942362f1692d814e04916017214f8f670c82430ef215ef5d072",
+      "bytes": 13075
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/source/integrations/minecraft/src/composables/config.ts",
+      "sha256": "7721fa463c4865f8c4d2dca04306e086618963924419a1167a38e63d5a2f36b0",
+      "bytes": 5071
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/source/integrations/minecraft/src/debug/mineflayer-viewer.ts",
+      "sha256": "6f4481b1151b642411410fdf36b316f31f98b2a64651aca2fd1639f79b0a9f57",
+      "bytes": 1328
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/source/integrations/minecraft/src/libs/mineflayer/core.ts",
+      "sha256": "4b77c91c4fec348104f784035f5cc7deca791a3fa94c49d142b75c93d5fa3c88",
+      "bytes": 11723
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/source/integrations/minecraft/src/main.ts",
+      "sha256": "149927dc3c5739ea4e03136b0532428009cb07ff07b5161b2d2fe51305c49981",
+      "bytes": 7106
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/source/integrations/minecraft/src/minecraft-bot-runtime.ts",
+      "sha256": "6770dcd683d9897641233cf6b36f2351ac8d2de1add38af60e86cdf4c3600c41",
+      "bytes": 2307
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/source/packages/stage-ui/src/stores/modules/gaming-minecraft.ts",
+      "sha256": "7ba5b72e07bb29d60dfc8c912f7173e2914981b53fe1d57d5dccc6294047ef83",
+      "bytes": 7833
+    },
+    {
+      "archive_path": "public-repository-research/moeru-ai--airi/tree.json",
+      "sha256": "0356fd8dcd0cfc3aebfcd13ee8974248a13e1cdcdb9fa5314a50d1d5725f772c",
+      "bytes": 2525788
+    },
+    {
+      "archive_path": "public-repository-research/selected-source-receipt.json",
+      "sha256": "01fefbe81c9df65c5b20dc8d0f86db8fb4e5068b9cd5a3a6f6399b0992fe33e7",
+      "bytes": 11038
+    },
+    {
+      "archive_path": "public-repository-research/yzi1b--whale-craft/commit.json",
+      "sha256": "828543fd81d0714237ecf8cfe736f3f4645fa84bfc135e4ed80356c6aed0ee2a",
+      "bytes": 18456
+    },
+    {
+      "archive_path": "public-repository-research/yzi1b--whale-craft/receipt.json",
+      "sha256": "990af0e950ae5e0564c19e0f1b4633af7612c07daf4f01cceebf5b270d88cc1d",
+      "bytes": 904
+    },
+    {
+      "archive_path": "public-repository-research/yzi1b--whale-craft/repository.json",
+      "sha256": "e54dfff7bbc7f0ed3a5912aff13f9dd0c0b7038a487c399f03cf99215999307f",
+      "bytes": 5751
+    },
+    {
+      "archive_path": "public-repository-research/yzi1b--whale-craft/source/README.md",
+      "sha256": "bb0895c9f8f0766c3901e2269d3a83e8545d6dea270bd94494cf1d6b24c27ff7",
+      "bytes": 24252
+    },
+    {
+      "archive_path": "public-repository-research/yzi1b--whale-craft/source/package.json",
+      "sha256": "6304cf36f906e894e868cddc34ba64bf9ce2d65cb4036dc45b02a1dfda0848f3",
+      "bytes": 2576
+    },
+    {
+      "archive_path": "public-repository-research/yzi1b--whale-craft/source/src/core.mjs",
+      "sha256": "86225e192c2a9a65597ca40bed2914f8eee69dca5188974f3763f30397c94586",
+      "bytes": 106188
+    },
+    {
+      "archive_path": "public-repository-research/yzi1b--whale-craft/source/src/image.mjs",
+      "sha256": "a772d8d7229b25303879e79e405ba56fdb1acb3f58360c7b45836f2b477b0843",
+      "bytes": 9929
+    },
+    {
+      "archive_path": "public-repository-research/yzi1b--whale-craft/source/src/watchdog.mjs",
+      "sha256": "8c319e4104dbecc41963f75b55251f929c9255890387ca7c6581ebb3becf72db",
+      "bytes": 32401
+    },
+    {
+      "archive_path": "public-repository-research/yzi1b--whale-craft/tree.json",
+      "sha256": "8b581b774ed06adefbfa2116af29da69878f19755baff8f025957e415d980e01",
+      "bytes": 24870
+    }
+  ]
+}

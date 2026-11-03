@@ -1,0 +1,150 @@
+{
+  "repo": "Yuuyuko-uu/dsh-feiyu-mood",
+  "commit": "1881cef1ae348a991c634647e8a0561d7452f9fd",
+  "default_branch": "main",
+  "license": {
+    "key": "other",
+    "name": "Other",
+    "spdx_id": "NOASSERTION",
+    "url": null,
+    "node_id": "MDc6TGljZW5zZTA="
+  },
+  "archive_sha256": "a469a899e19d1631e50f363df71472f07d331324d69b62cf03449801bfcd1a08",
+  "files": [
+    {
+      "path": ".github/workflows/regression.yml",
+      "bytes": 1343,
+      "sha256": "661bcac8ecee3e42488311bb8cfb645d79bf167f2403f310071c6697f67e6f89"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 46,
+      "sha256": "42f3ec53bde139848b604317bde52742deecf5785e29a6ecd8a46f5b4e44b22a"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 43349,
+      "sha256": "862c8a0c912825b8fd6ba1b2712053e006ea1aa93980fef89e6502accebf628c"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 2555,
+      "sha256": "99f2936547f528cda00db26b3db26b65afc7d6118b920e45c066fa5bea3a9bce"
+    },
+    {
+      "path": "README.md",
+      "bytes": 17156,
+      "sha256": "32c4695c0b273a676e42a29f62356ab6bb3df08fadded5731016311cfd7f0b54"
+    },
+    {
+      "path": "assets/face-good.png",
+      "bytes": 177960,
+      "sha256": "392b150d6355e4874dab5a3455511747b474ead085dbe2b154399115012cc440"
+    },
+    {
+      "path": "assets/face-great.png",
+      "bytes": 178372,
+      "sha256": "071b6b805c37b0c1cf4639643bef49ad0536cc09338c468415ae826e66a8c449"
+    },
+    {
+      "path": "assets/face-ok.png",
+      "bytes": 173391,
+      "sha256": "6682c5fee046e01fe7f6087f389485d845bd79c3ecd7caf1371d21a56b1c2b98"
+    },
+    {
+      "path": "assets/face-sad.png",
+      "bytes": 163202,
+      "sha256": "0f1a0ef313964940e1f5d7e261dabe5f0bb262b3e7b2c6edcd261b2ff493e354"
+    },
+    {
+      "path": "assets/face-worry.png",
+      "bytes": 182592,
+      "sha256": "5277a28ba837578fdd9178672d35b574878c58b246d30d601fe2eb6bbc8b9be0"
+    },
+    {
+      "path": "assets/feiyu-good.png",
+      "bytes": 1159786,
+      "sha256": "438a3ea52a5781112d2d0c8b82b6a5fdf1e7fbdb0b2a4fa6eede97bedbdb729a"
+    },
+    {
+      "path": "assets/feiyu-great.png",
+      "bytes": 1190534,
+      "sha256": "1c08ff29cc21271cc9981b3b4a1ff1f694e18dff7d13eef42bfe335e00f61326"
+    },
+    {
+      "path": "assets/feiyu-sad.png",
+      "bytes": 1131427,
+      "sha256": "33b911d2600613ccc4ae78ac9e6320345ec13b122df8f049dac4b46557a14b3d"
+    },
+    {
+      "path": "assets/feiyu-worry.png",
+      "bytes": 1150615,
+      "sha256": "ef51fb443b70f2083b921b5a8d0d880328dc1e7db3f45658be9528fc7e0d5609"
+    },
+    {
+      "path": "assets/feiyu.png",
+      "bytes": 1218502,
+      "sha256": "8b55954b5ee8594174b83b85faeb287a7fca1e9a326ff2f9748eff12322cbeba"
+    },
+    {
+      "path": "assets/widget.js",
+      "bytes": 21396,
+      "sha256": "fb927f8cb4161244090971c2d5ae6fea491ec9b51aae00bc3c4dcb7db6a28d16"
+    },
+    {
+      "path": "client.js",
+      "bytes": 39140,
+      "sha256": "45f83adb4e98e9ad098b423d9243166d9cadd172cf1e84999ad64aaffa23f310"
+    },
+    {
+      "path": "cordis.patch.yml",
+      "bytes": 51,
+      "sha256": "de4a8bf9cf2af05f019c9c2f6edd7b99efb87ff32499cf893f82e8f4cc73eb1f"
+    },
+    {
+      "path": "lib/index.js",
+      "bytes": 103696,
+      "sha256": "ecc81833a8441df34abe839aa424b8db8d32a4718b9244012df7aa11ca0c3d5d"
+    },
+    {
+      "path": "lib/selfupdate.mjs",
+      "bytes": 9616,
+      "sha256": "21001d4c229be1ec8ca1ec522250272d1f6234efea2196322cae70e7477f57ea"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1635,
+      "sha256": "aa9c03e9b041e1fbf365fd167c7e45057e445ac82233c1a45dec866afbb1e0e3"
+    },
+    {
+      "path": "test/stale-judgments.test.mjs",
+      "bytes": 9359,
+      "sha256": "76062f3398036ee6a541e9323fdc44b3f78a6b7ca680bca48c6d569e24001b59"
+    },
+    {
+      "path": "tests/decay.test.mjs",
+      "bytes": 2926,
+      "sha256": "67737f03b8b69deaad798db9fbc9230bb6d9e4cb7e11b5c9777c4a26196c513f"
+    },
+    {
+      "path": "tests/qq-batch.test.mjs",
+      "bytes": 3189,
+      "sha256": "762725d5f9d9aaf04647132c02ebee83574bc68cff3718130f81193bb7490401"
+    },
+    {
+      "path": "tests/saturation.test.mjs",
+      "bytes": 2611,
+      "sha256": "c9ec931b0aca243489893d84de25b1eb2c569f8aa089f18cbd64d9869dfd1b9a"
+    },
+    {
+      "path": "tests/sessions-list.test.mjs",
+      "bytes": 3654,
+      "sha256": "68ea17c8849121eb4fe0a609c6250265b8adc66c385dada82299e8053333f530"
+    },
+    {
+      "path": "tests/workspace-key.test.mjs",
+      "bytes": 3805,
+      "sha256": "f3c7bc87f6db8ac704c40de695518196171d6e5e8c1ce0de8e59e4ce62d778e1"
+    }
+  ]
+}

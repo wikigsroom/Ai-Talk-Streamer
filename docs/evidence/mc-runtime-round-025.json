@@ -1,0 +1,602 @@
+{
+  "schema_version": 1,
+  "round": "025",
+  "recorded_at": "2026-10-30T11:16:39.762648+00:00",
+  "branch": "mc",
+  "classification": "IMPLEMENTATION_LOCAL_VALIDATION_ONLY",
+  "status": "PASS_LOCAL_CHECKS_NOT_RUNTIME_ACCEPTED",
+  "goal_status": "active",
+  "turn_classification": "progress",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "reason": "024证据SHA已核对；上轮276个不同本地用例及平台元信息/SC撤回已有记录，本轮接通全部过滤变化与当前支持归属。",
+    "evidence": "docs/evidence/mc-runtime-round-024.json",
+    "evidence_sha256": "15e2d4744221ff88ca91f166c00a6a1963f29666b7d85ea63128b10d4022ef16"
+  },
+  "delivery_mode": "single_complete_integrated_release",
+  "user_facing_release_count": 1,
+  "implemented": [
+    {
+      "id": "I217",
+      "change": "完整建议支持来源独立入账，不受公开32条摘要截断；重启后继续从实际Room核对",
+      "boundary": "只存事件/建议/世界关联，不复制正文、昵称或原UID"
+    },
+    {
+      "id": "I218",
+      "change": "分开历史累计、当前事件、可识别账号与未知身份；旧来源不全和Room不可用均明确呈现",
+      "boundary": "账号数不是自然人数；不可用为null，不误报0"
+    },
+    {
+      "id": "I219",
+      "change": "屏蔽词/昵称/账号保存立即重算；缺失来源由主机定期复核，最后来源失效取消建议",
+      "boundary": "解除过滤不重开已取消建议、不自动重投或创建任务"
+    },
+    {
+      "id": "I220",
+      "change": "活动选票按当前真实来源撤回，受影响关闭结果作废并撤销待审建议",
+      "boundary": "不自动改选目标；已经导播转为任务的效果和关联保留"
+    },
+    {
+      "id": "I221",
+      "change": "当前支持变化推进建议修订，审批和实际前置查询完成后继续检查CAS与来源",
+      "boundary": "旧审批得到真实409，来源失效阻止任务提交"
+    },
+    {
+      "id": "I222",
+      "change": "建议/关联任务口播从完整账本选剩余有效来源，投票反馈使用实际投票记录",
+      "boundary": "保留32条引用/16Ki预算、原TTL/尝试数、取消屏障和真实PCM完成"
+    },
+    {
+      "id": "I223",
+      "change": "每建议4096/全库32768明细及旧累计上限拒绝虚增，终态明细按24小时窗口清理",
+      "boundary": "保留历史与任务关联；不等同Humanity删除和全库保留已完成"
+    },
+    {
+      "id": "I224",
+      "change": "后台显示当前支持、未知身份/覆盖、不可用和容量提示，覆盖真实SSE、过期审批与手机宽度",
+      "boundary": "新增3项页面检查，冻结节目布局不变"
+    },
+    {
+      "id": "I225",
+      "change": "持续同步写入由仍有效账本所有者在锁内复核后续原30秒租约",
+      "boundary": "过期/异主拒绝；外层回滚保留；控制和声音租约未放宽"
+    },
+    {
+      "id": "I226",
+      "change": "失去账本时关闭仍取消待播、释放监听/连接/SQLite，删除所有权报错也关闭数据库",
+      "boundary": "关闭错误保留；未知历史不补造，不自动重播"
+    },
+    {
+      "id": "I227",
+      "change": "专项文档、后台API及1.9.0结构同步为102定义/97示例/104反例、45项HTTP核对",
+      "boundary": "本地结构检查不等于完整OpenAPI规范及真实平台验证"
+    },
+    {
+      "id": "I228",
+      "change": "本轮307个不同本地用例最终通过，其中37项新增；保留早期失败与中断原因",
+      "boundary": "277项Node＋30项浏览器；未重跑Python/native或推进真实验收"
+    },
+    {
+      "id": "I229",
+      "change": "保存本轮源码/验证hash并核对30份受保护文件、全部D01–D15与单一完整交付范围",
+      "boundary": "真实系统仍0/68、新人物0/100，目标继续active"
+    }
+  ],
+  "remaining": [
+    {
+      "id": "D01",
+      "required": true,
+      "status": "partial_native_builds_and_pinned_source_inputs",
+      "remaining": "mc设备profile、原生预检/准备/启停、完整运行锁与发布包；正式Node24.22.1、完整依赖源对应/许可及干净环境复现"
+    },
+    {
+      "id": "D02",
+      "required": true,
+      "status": "partial_native_frames_recipes_world_console_local_checked_runtime_not_accepted",
+      "remaining": "配方普通/数据包/模组/重载实机与组件/解锁/库存规则核对；完整GUI/规则、B归档向A完整历史投影；原始帧、世界/基地/检查点后台、Fabric/Mixin/服务器联合实机验收"
+    },
+    {
+      "id": "D03",
+      "required": true,
+      "status": "partial_bound_input_gui_craft_and_item_sync_cpu_verified",
+      "remaining": "剩余写点/包/反射/选项分类、其他线程/回调、网络事件真实线程与世界维护一致性、其他容器GUI仲裁和全部上游清理；背包/工作台及物品同步真实响应、handler/sync/位置复用后的迟到包归属；物理键鼠/改键/扫描码、选中热栏恢复、光标/焦点/分辨率、停顿及至少20次实机接管"
+    },
+    {
+      "id": "D04",
+      "required": true,
+      "status": "partial_craft_and_three_item_uses_native_paths_runtime_not_accepted",
+      "remaining": "MinecraftPort完整生存绑定、其他容器GUI/规则及副作用、实际任务树全部清理及启动阻挡关闭门槛；合成真实Mixin/服务器、组件/配方重载/解锁、特殊及变产量/多候选配方、工作台准备改变材料、迟到包和服务器不同步/库存不足；进食/穿戴/固定方块放置的真实剩余物/组件/诅咒/属性/插件限制；普通手持工具/武器、特殊方块及完整物品用途；实际基地路径/半径/规则变化、普通PvE/补给/危险/资源链及全部真实效果证据"
+    },
+    {
+      "id": "D05",
+      "required": true,
+      "status": "partial_deterministic_merge_aging_source_ttl_critical_cancellation_locally_verified",
+      "remaining": "真实DSH与模型渠道、完整生存目标和预算/取消/迟到结果；普通聊天/问句/点名语义分类与过期事件的独立历史回顾；确定性合并/等待权重/危险中断的真实负载、事实/效果/声音取消整链；Neuro固定消息兼容及回放"
+    },
+    {
+      "id": "D06",
+      "required": true,
+      "status": "partial_current_support_all_filters_cas_and_public_source_feedback_locally_verified",
+      "remaining": "自由语言建议映射/消歧；真实平台SC金额/角色/表情及撤回样本、重连/延迟验收；当前支持/过滤的跨进程故障与完整负载、多观众Humanity删除联动；真实渠道/平台/MC与任务结果公开回应联合验收"
+    },
+    {
+      "id": "D07",
+      "required": true,
+      "status": "partial_sessions_goals_dispositions_and_b_restore_core",
+      "remaining": "B归档向A完整历史投影、历史保留/摘要/清理、合并回应的多观众独立记忆与Humanity删除、后台维护、A/B/MC联合备份恢复及次日实机验收"
+    },
+    {
+      "id": "D08",
+      "required": true,
+      "status": "partial_current_support_source_availability_stale_approval_admin_locally_verified",
+      "remaining": "剩余完整节目/回复调度后台、人物完整素材/节目与声音联控、记忆/删除和完整诊断维护；现有世界目录/基地/检查点、任务/互动及回应/调度/平台字段/撤回/当前支持控制的真实MC整链验收"
+    },
+    {
+      "id": "D09",
+      "required": true,
+      "status": "partial_v3_v2_programme_and_overlay_locally_verified_not_deployed",
+      "remaining": "真实推理/NVENC与官方透明捕获；新人物profile接入、全部遗留入口排他迁移、字幕/取消/音画同步及断线/静音恢复整链；游戏界面/手机实录与长时资源验收"
+    },
+    {
+      "id": "D10",
+      "required": true,
+      "status": "not_generated",
+      "remaining": "圆形与横窗各50段、共100段新人物素材，完整索引/脸框/动作语义/隔离及动态QA"
+    },
+    {
+      "id": "D11",
+      "required": true,
+      "status": "partial_mc_pcm_caption_and_bgm_local_browser_verified",
+      "remaining": "真实游戏音频单路与人声/BGM联合混音；O07/F07主备、正式播放权/取消/音量零和静音恢复的真实验收"
+    },
+    {
+      "id": "D12",
+      "required": true,
+      "status": "partial_native_frame_transport_and_pinned_vision_adapter_cpu_verified",
+      "remaining": "真实视觉服务/模型/投影与CUDA运行核对、真实帧/文字/建筑/未知及失败样例；跨机时钟、带宽、GPU取消和完整负载验收"
+    },
+    {
+      "id": "D13",
+      "required": true,
+      "status": "partial_mc_a_b_routes_and_receiver_transparency_locally_verified",
+      "remaining": "B端与真实模型/MC联合、官方直播姬实际透明捕获和源内声音、真实平台公开状态与观众端音画；资格校验及公开验收"
+    },
+    {
+      "id": "D14",
+      "required": true,
+      "status": "partial_native_journal_control_and_owned_write_shutdown_fault_checks",
+      "remaining": "完整运行诊断后台、资源/时延/日志/磁盘预算；排队启动撤权及020首次取消原因覆盖竞态已有修复/夹具检查；020账本提交2197ms后LEASE_EXPIRED/GAME_MODE_BLOCKED与变更基地重复消息等待超时仍未关闭；015其他GAME_MODE_BLOCKED、017连接freshness/复核弹窗、018冷启动I/O及此前首次连接/通用ACK仍须核对；合成/物品同步真实延迟/丢失/偏离/迟到、全部故障注入、联合恢复及回滚；021帧超限检查一次413预期收到502、旧布局后台一次连接等待30秒超时，追加诊断/重试不关闭根因；021同步解码异常漏计已修复，不据此关闭历史时延问题；025同步批量输入导致GameStore定时续约饥饿和故障关闭中断已有锁内有效续约/资源清理及本地检查，跨进程/真实磁盘负载仍待验收；025任务running状态既有4秒条件等待发生一次超时（用例总耗时22783ms），未改生产或期限的28项重跑通过，根因未关闭；不据此关闭既往015/017/018/020/021问题"
+    },
+    {
+      "id": "D15",
+      "required": true,
+      "status": "not_accepted",
+      "remaining": "V01–V44+C01–C24全部68项、24种运行组合/12类联合场景/8项同版发布判据、4小时完整负载、20次物理接管、跨场/次日、干净原生环境复现与统一交付报告"
+    }
+  ],
+  "validation": {
+    "distinct_local_test_cases_executed_this_round": 307,
+    "new_distinct_cases": 37,
+    "node_unit_and_room_http": 277,
+    "browser": 30,
+    "python_unit_tests": 0,
+    "native_java_tests_rerun": 0,
+    "final_failed": 0,
+    "final_skipped": 0,
+    "failed_attempts_preserved": true,
+    "validation_mode": "SCOPED_LOCAL_NODE_ROOM_HTTP_SQLITE_AND_BROWSER_CHECKS_ONLY",
+    "validation_sources": "outputs/mc-validation/round-025/validation-sources.json",
+    "test_node_version": "v24.19.0",
+    "formal_node_24_22_1_not_accepted": true,
+    "runtime_acceptance_not_run": 68,
+    "real_minecraft_started": false,
+    "native_model_inference_started": false,
+    "official_client_started": false,
+    "public_broadcast_started": false,
+    "remote_4090_used": false,
+    "virtualization_used": false,
+    "browser_used_this_round": true,
+    "web_research_used": false,
+    "desktop_browser_tabs_created": 0,
+    "all_task_owned_browsers_closed": true,
+    "full_system_stability_accepted": false,
+    "prior_native_401": "REFERENCE_ONLY_NOT_RERUN",
+    "installed_sdk_python_6": "REFERENCE_ONLY_NOT_RERUN",
+    "historical_stability_failures_not_closed_by_serial_pass": true,
+    "evidence": "docs/evidence/mc-runtime-round-025.json",
+    "final_test_sources": [
+      {
+        "classification": "DISTINCT_CASE_AGGREGATE_FINAL_OUTCOMES",
+        "tests": 277,
+        "pass": 277,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "sources": [
+          {
+            "path": "outputs/mc-validation/round-025/node-final-attempt2.tap",
+            "sha256": "2ef26ca3ba9bf9e1b42a2af00c625e93bec91c08397655a2b5d399a88c36d444",
+            "bytes": 73448,
+            "tests": 277,
+            "pass": 275,
+            "fail": 2,
+            "skipped": 0,
+            "cancelled": 0,
+            "duration_ms": 415659.7864
+          },
+          {
+            "path": "outputs/mc-validation/round-025/audience-final-attempt2.tap",
+            "sha256": "26f44dc216dd7d7d477a13eefaa90567fae93bf5dd27d4e7bfd4d15d12b67427",
+            "bytes": 7807,
+            "tests": 27,
+            "pass": 27,
+            "fail": 0,
+            "skipped": 0,
+            "cancelled": 0,
+            "duration_ms": 15608.473
+          },
+          {
+            "path": "outputs/mc-validation/round-025/narration-final-attempt3.tap",
+            "sha256": "13c578c32e9e9e912d7094d44b9391d2d805149f602e987d7538a45f0ede463c",
+            "bytes": 7285,
+            "tests": 28,
+            "pass": 28,
+            "fail": 0,
+            "skipped": 0,
+            "cancelled": 0,
+            "duration_ms": 7727.2057
+          }
+        ],
+        "superseded_cases": [
+          "current support separates repeated events, distinct stable accounts and unknown identities without nickname deduplication",
+          "support beyond the32 public source preview remains usable when every previewed source is filtered",
+          "changing words filters immediately retracts the final source and cancels its pending suggestion",
+          "changing names filters immediately retracts the final source and cancels its pending suggestion",
+          "changing accounts filters immediately retracts the final source and cancels its pending suggestion",
+          "partial filtering recomputes support and removing the filter restores counts without replaying a ballot or task",
+          "restoring the last hidden message does not reopen a previously cancelled suggestion",
+          "filtering an active ballot retracts exactly that source and unblocking never recasts the old event",
+          "filter changes invalidate a closed promoted winner instead of selecting another goal",
+          "current support changes advance the actual suggestion revision and reject a stale approval",
+          "filtering the final source while a real preflight query is pending prevents task submission",
+          "missing Room rows are reconciled through the existing host tick rather than remaining counted indefinitely",
+          "temporary Room unavailability preserves ballot ownership and reports support as unknown rather than zero",
+          "actual GameStore reopen retains all support beyond the public preview and submits no automatic task",
+          "legacy truncated records explicitly expose incomplete coverage without inventing missing supporters",
+          "repeated platform dispatch and unchanged source reconciliation do not increment support or revision",
+          "unrelated layout edits preserve the support revision and do not call the audience reconciler",
+          "terminal support details expire after the bounded retention window without erasing suggestion history",
+          "a full per-suggestion ledger rejects extra merging without fabricating historical support or losing the existing proposal",
+          "the global support budget is bounded in the real store and unavailable capacity leaves input as ordinary chat",
+          "a legacy saturated historical counter refuses additional support rather than accepting an event without counting it",
+          "counts and source lookup stay scoped to the selected platform room even when another room uses the same account and text",
+          "source storage failure refuses continued game control while retaining the saved moderation settings for recovery",
+          "approval feedback beyond the32-item preview uses surviving real sources and completes only their actual speech links",
+          "filtering all bounded speech links during generation rechecks surviving support and never emits the old response",
+          "filtering a source after task conversion preserves the approved task and does not send a game cancellation",
+          "approved vote feedback uses the real vote record rather than requiring a synthetic vote ID to exist as a Room comment",
+          "MC platform events enter one persistent queue, retain viewer identity and cannot reach legacy dispatch twice",
+          "only the completed formal PCM receipt marks both the candidate and the message answered",
+          "a preview consumer cannot manufacture a completed response",
+          "changed inventory during generation discards the old text and regenerates using fresh facts",
+          "continuously changing facts do not retry forever or extend the original expiry",
+          "hiding a source during generation cancels the real request and fences a late model result",
+          "the pre-media check repeats read-only recipe queries and rejects changed server facts",
+          "transport sequence and observation age changes alone do not invalidate identical inventory facts",
+          "world changes while a reply is generated cannot leak old-world speech",
+          "speech-purpose tools cannot turn an audience message into a game write",
+          "pending candidates expire at their original deadline and remain visibly expired",
+          "the queue stays bounded and source replay cannot resurrect an evicted candidate",
+          "CAS cancellation rejects stale revisions and unknown body fields without cancelling another response",
+          "important game events get an eight-second deadline and cancellation has a distinct reason",
+          "room manual handling and moving to the next message never claim that speech completed",
+          "manual public speech links to its message but waits for actual playback, including hidden-source cancellation",
+          "the media command rechecks provenance after waiting behind an earlier command",
+          "real bridge task terminal messages narrate verified success, partial failure and cancellation once each",
+          "suggestion feedback follows the task response through real formal completion and preserves partial effects",
+          "gift responses use the original room facts and one source reaches formal completion once",
+          "accepted suggestions and closed votes enter the same response queue without pretending a task completed",
+          "a full question queue still admits a task result and a gift while protecting submitted media",
+          "two urgent responses yield to an ordinary question even with more urgent events waiting",
+          "a fact-refresh retry is not discarded by its own viewer cooldown and keeps the original deadline",
+          "a stream request committed without its narration link cannot call the model or media",
+          "a link removed during generation is rejected before publishing text or submitting media",
+          "reopening persisted candidates after an abrupt host stop cancels old stream work without resubmitting it",
+          "legacy manual answered flags migrate to handled once and version-two rows survive later reopen"
+        ],
+        "reason": "One new assertion preceded the existing Room completion microtask: await it and rerun all27 source cases. One existing task-running condition timed out: unchanged28 narration cases rerun successfully, timeout retained in D14. Other222 cases retain full-run outcomes. No production changes after the full run."
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser-final-attempt1.tap",
+        "sha256": "dcd35c1c03db747f3ed9d655914e23d4b1adb937fd05eb128f7459dde75f07ee",
+        "bytes": 8601,
+        "tests": 30,
+        "pass": 30,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "duration_ms": 130637.9458
+      }
+    ],
+    "browser_reports": [
+      {
+        "path": "outputs/mc-validation/round-025/browser/regression-final/mc-audience-browser.json",
+        "sha256": "6fd1927653cd49f6dc3846099c78e50247399e32888fa4082365ad10ddc6bbe1",
+        "bytes": 740,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/regression-final/world-control-regression/mc-control-browser.json",
+        "sha256": "2b36508eb74837c427cc56d52d3d0aa7ed93e3546c6154bf85154714af53b931",
+        "bytes": 612,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/regression-final/world-directory-browser/browser-report.json",
+        "sha256": "560b6bb06fc43e92cf08feedfe79010ad88d406a47d9bf53a0db95c4ca4cd04f",
+        "bytes": 771,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/regression-final/world-history-race-browser/browser-report.json",
+        "sha256": "b06c813a3316ef377121454f683d882981e97279213feb14865815427d9d18e1",
+        "bytes": 780,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/narration-final/audience-current-support.json",
+        "sha256": "266c50b0a1aa9c9d31cce9f50510a4cf0cb0b99a684836ad138b10399ecbcb1b",
+        "bytes": 401,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/narration-final/audience-legacy-support.json",
+        "sha256": "08b31f75edab11ee3114ff75552261551c8bf30d34e8086e3d579949cba691b3",
+        "bytes": 399,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/narration-final/audience-source-unavailable.json",
+        "sha256": "7d4c2bb0e4cd090f9d7101867b91d03d665d5bf5889e95c4cc10595302b7b375",
+        "bytes": 361,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/narration-final/response-conflict.json",
+        "sha256": "87327bfaab547a4666732b5161f1ff6ac7e299a312f02105c08de07575d4a002",
+        "bytes": 335,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/narration-final/response-pagination.json",
+        "sha256": "b11bd01bd41e192322b6fc3ca14affa3940acbdc6658329af9b3e636887fa496",
+        "bytes": 350,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/narration-final/response-task-feedback.json",
+        "sha256": "8c11d073daa234ca378de2982414bde3dc393f7b83f6a8cc1ce3ddc54a509704",
+        "bytes": 386,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/narration-final/response-ui.json",
+        "sha256": "45ba87e60f2f83367fc566797bd39f9cbbe2f2654a24c1b27d1629ac087d3669",
+        "bytes": 366,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/narration-final/scheduler-critical-status.json",
+        "sha256": "69e44466067638a145409461c0f98c8a9797f844f1929c3c6302071581ba2048",
+        "bytes": 371,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/narration-final/scheduler-disable.json",
+        "sha256": "cf91831f37930615ee015d61f7f0a129d84c68f91a5f07b16bdd75d64fddf771",
+        "bytes": 368,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/narration-final/scheduler-merged-sources.json",
+        "sha256": "4b728c4af698f698c7396ccbbb2a6d96d1baf9fff8a47692792e81b1060efead",
+        "bytes": 369,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/narration-final/scheduler-settings-conflict.json",
+        "sha256": "19ba0430633fca7748529e31e9b29523ab3e5b75f65ae58c68cd9cab2d038dd3",
+        "bytes": 373,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/narration-final/scheduler-settings.json",
+        "sha256": "7a9f40ab0ac91dea20f6883469c8fbcce1f38c57db5ad2cce20763eab3380cd5",
+        "bytes": 374,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/platform-final/admin-platform-delete.json",
+        "sha256": "8b1d486ca55dda9c7456c524553d2b980aefce68f3512ae555954a9aea32fc13",
+        "bytes": 441,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/platform-final/legacy-gift-source-visibility.json",
+        "sha256": "532930ecc8889f63d0eb093b6061ef1f5a4af980893fe5a10ce1e94f5cab6f83",
+        "bytes": 433,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/platform-final/mc-gift-fields.json",
+        "sha256": "9a2fb54471c251708da377b11734823b36a5d3fd6eb30b289ee9173d8465cd83",
+        "bytes": 409,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/platform-final/mc-sc-emote-delete.json",
+        "sha256": "c0a8a3b1c0285f73fa444afdec7f611943782de5470fb56e6767773733921f23",
+        "bytes": 419,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/programme-final/programme-cleanup-1.json",
+        "sha256": "9e0ed62fea4ff6ea79e64dcb01e301c5d4b3f43fd0e42ce477b43722d088c7fa",
+        "bytes": 704,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/programme-final/programme-cleanup-2.json",
+        "sha256": "b5ecc40a2aa1fb108882c96b2c9017e81df3e9a64a1b7290c941dcffdad75584",
+        "bytes": 289,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/programme-final/programme-cleanup-3.json",
+        "sha256": "b5ecc40a2aa1fb108882c96b2c9017e81df3e9a64a1b7290c941dcffdad75584",
+        "bytes": 289,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/programme-final/programme-cleanup-4.json",
+        "sha256": "b5ecc40a2aa1fb108882c96b2c9017e81df3e9a64a1b7290c941dcffdad75584",
+        "bytes": 289,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/programme-final/programme-cleanup-5.json",
+        "sha256": "200bb68c0bb67d90b1e127cc3ab5993d0dca984738e0b74b16245f45780021b8",
+        "bytes": 705,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/programme-final/programme-cleanup-6.json",
+        "sha256": "b5ecc40a2aa1fb108882c96b2c9017e81df3e9a64a1b7290c941dcffdad75584",
+        "bytes": 289,
+        "browser_closed": true
+      },
+      {
+        "path": "outputs/mc-validation/round-025/browser/programme-final/programme-cleanup-7.json",
+        "sha256": "b5ecc40a2aa1fb108882c96b2c9017e81df3e9a64a1b7290c941dcffdad75584",
+        "bytes": 289,
+        "browser_closed": true
+      }
+    ],
+    "documentation": {
+      "result": "PASS",
+      "report": "outputs/mc-validation/round-025/contracts-verification.json",
+      "report_sha256": "64580750bb689662d14e9245c00bbd0f6ec52e9b95ded98b82fba8ef353565dc",
+      "schema_definitions": 102,
+      "valid_examples": 97,
+      "negative_contract_cases": 104,
+      "http_operations": 45,
+      "markdown_files_checked": 44,
+      "local_markdown_links": 557,
+      "ws_types": 17,
+      "full_openapi_spec_validator_run": false,
+      "real_acceptance_advanced": false
+    }
+  },
+  "failed_attempts": [
+    {
+      "path": "outputs/mc-validation/round-025/audience-attempt1.tap",
+      "sha256": "43927c29e9671c8781ecc2b48d6eadae73b19a54f00fcbb46f08ec8ccddb7ec1",
+      "bytes": 18873,
+      "tests": 63,
+      "pass": 62,
+      "fail": 1,
+      "skipped": 0,
+      "cancelled": 0,
+      "duration_ms": 129839.0057,
+      "resolution": "Correct existing test to check changed-source revision conflict before source-unavailable at the current revision."
+    },
+    {
+      "path": "outputs/mc-validation/round-025/node-final-attempt1.tap",
+      "sha256": "41ef6e38078599e9e3108f47bc199b9a0ff2667e0d0b8a89855ca02a8e87a840",
+      "bytes": 15417,
+      "classification": "INTERRUPTED_NO_TERMINAL_SUMMARY",
+      "partial_case_outcomes": 52,
+      "partial_pass": 50,
+      "partial_fail": 2,
+      "process_exit_code_after_task_owned_stop": -1,
+      "interruption": {
+        "path": "outputs/mc-validation/round-025/node-final-attempt1-interruption.json",
+        "sha256": "d47c9e358c5bab0a5ec2627d488a54fb4999f6eb9c949c8b2b2e983006e1c02d",
+        "bytes": 923
+      },
+      "resolution": "Fix active write renewal within unchanged30s lease and cleanup after failed shutdown persistence; preserve expired/foreign rejection and all older stability issues."
+    },
+    {
+      "path": "outputs/mc-validation/round-025/owner-attempt1.tap",
+      "sha256": "9620585c367d561f11ac65eb7c0182d24bc8952fbb960e24e261feabcdf44267",
+      "bytes": 5018,
+      "tests": 7,
+      "pass": 5,
+      "fail": 2,
+      "skipped": 0,
+      "cancelled": 0,
+      "duration_ms": 12656.155,
+      "resolution": "Two closure assertions corrected to the actual SQLite database-is-not-open message; production unchanged afterward."
+    },
+    {
+      "path": "outputs/mc-validation/round-025/node-final-attempt2.tap",
+      "sha256": "2ef26ca3ba9bf9e1b42a2af00c625e93bec91c08397655a2b5d399a88c36d444",
+      "bytes": 73448,
+      "tests": 277,
+      "pass": 275,
+      "fail": 2,
+      "skipped": 0,
+      "cancelled": 0,
+      "duration_ms": 415659.7864,
+      "resolution": "Await existing Room call-completion microtask before checking answered flags after an accepted PCM receipt; rerun all27 source cases. Existing task-running wait timed out; unchanged28 narration cases rerun, root cause retained in D14. No production or timeout changes after this full run."
+    }
+  ],
+  "performance_observations": {
+    "formal_latency_acceptance": false,
+    "historical_015_017_018_020_021_failures_closed": false,
+    "round025_sustained_input_lease_starvation_and_shutdown_cleanup_locally_reproduced_and_fixed": true,
+    "round025_task_running_wait_timeout_root_cause_closed": false,
+    "suite_duration_includes_fixture_and_browser_startup": true
+  },
+  "source_snapshot": {
+    "path": "outputs/mc-validation/round-025/source-manifest.json",
+    "sha256": "2c214a8ca2d7f451bc9af891cf2f945c3ebfe54abc154d5c919bcf21c17a48ab",
+    "bytes": 47022,
+    "files": 170
+  },
+  "artifact_manifest": {
+    "path": "outputs/mc-validation/round-025/artifact-manifest.json",
+    "sha256": "f9a2db79ae165b1606f52bd5389e76269dfe0fc747beaebd62ca96239c1e4f1d",
+    "bytes": 15683
+  },
+  "protected": {
+    "manifest": "outputs/mc-validation/round-025/protected-after.json",
+    "files": 30,
+    "canonical_layout_sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+    "historical_001_to_024_and_planning_evidence_preserved": true
+  },
+  "constraints": {
+    "models_started": false,
+    "real_minecraft_started": false,
+    "official_client_started": false,
+    "public_broadcast_started": false,
+    "remote_4090_control": "paused",
+    "virtualization_used": false,
+    "subagents_used": false,
+    "web_research_used": false,
+    "application_authentication_added": false,
+    "desktop_browser_tabs_created": 0,
+    "all_task_owned_browsers_closed": true,
+    "full_openapi_spec_validator_run": false,
+    "formal_node_24_22_1_accepted": false
+  },
+  "completion": {
+    "real_acceptance_passed": 0,
+    "real_acceptance_not_run": 68,
+    "new_avatar_clips_accepted": 0,
+    "new_avatar_clips_required": 100,
+    "mandatory_domains": 15,
+    "goal_remains_active": true,
+    "requirements_retained": "V01–V44+C01–C24；24组合、12联合场景、8同版判据、4小时、20物理接管、跨场/次日和干净原生环境。"
+  }
+}

@@ -1,0 +1,2212 @@
+{
+  "schema_version": 1,
+  "classification": "USER_SUPPLIED_NEOFORGE_PACK_PINNED_OFFLINE_IDENTITY_NOT_APPLICATION_PREPARATION",
+  "minecraft": "1.21.1",
+  "neoforge": "21.1.248",
+  "pack": "FTB Presents Direwolf20 1.21",
+  "pack_version": "1.22.0",
+  "version_id": "MC-Friends-S1-r001",
+  "mod_count": 319,
+  "username": "NAIMEI",
+  "authentication": "offline",
+  "offline_uuid": "a77465cf-2de0-3278-bf48-d13b367e09ce",
+  "premium_verification_required": false,
+  "server_whitelist_required": true,
+  "files": [
+    {
+      "path": ".minecraft/assets/indexes/17.json",
+      "bytes": 449557,
+      "sha256": "9edfa2ad3a1850ce1c152052c5f17a8772d9b4f8f5a478b0ca4f66556816347f"
+    },
+    {
+      "path": ".minecraft/libraries/com/electronwill/night-config/core/3.8.3/core-3.8.3.jar",
+      "bytes": 382911,
+      "sha256": "971dc88c1c22085611ee1c300f5bbf8595938178e819befbb5e98c3cbd272b79"
+    },
+    {
+      "path": ".minecraft/libraries/com/electronwill/night-config/toml/3.8.3/toml-3.8.3.jar",
+      "bytes": 39516,
+      "sha256": "ccb92882264bf071e3916ab122fe5ea3e211b8ebf199201698a1324f151f928f"
+    },
+    {
+      "path": ".minecraft/libraries/com/github/oshi/oshi-core/6.4.10/oshi-core-6.4.10.jar",
+      "bytes": 979212,
+      "sha256": "fef001a7a13515c273f30915915580782afbc45273cc07aa15994e51563ef310"
+    },
+    {
+      "path": ".minecraft/libraries/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar",
+      "bytes": 19936,
+      "sha256": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7"
+    },
+    {
+      "path": ".minecraft/libraries/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar",
+      "bytes": 283367,
+      "sha256": "4241c14a7727c34feea6507ec801318a3d4a90f070e4525681079fb94ee4c593"
+    },
+    {
+      "path": ".minecraft/libraries/com/google/errorprone/error_prone_annotations/2.18.0/error_prone_annotations-2.18.0.jar",
+      "bytes": 16017,
+      "sha256": "9e6814cb71816988a4fd1b07a993a8f21bb7058d522c162b1de849e19bea54ae"
+    },
+    {
+      "path": ".minecraft/libraries/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar",
+      "bytes": 4617,
+      "sha256": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26"
+    },
+    {
+      "path": ".minecraft/libraries/com/google/guava/guava/32.1.2-jre/guava-32.1.2-jre.jar",
+      "bytes": 3041591,
+      "sha256": "bc65dea7cfd9e4dacf8419d8af0e741655857d27885bb35d943d7187fc3a8fce"
+    },
+    {
+      "path": ".minecraft/libraries/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+      "bytes": 2199,
+      "sha256": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99"
+    },
+    {
+      "path": ".minecraft/libraries/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar",
+      "bytes": 9301,
+      "sha256": "f02a95fa1a5e95edb3ed859fd0fb7df709d121a35290eff8b74dce2ab7f4d6ed"
+    },
+    {
+      "path": ".minecraft/libraries/com/ibm/icu/icu4j/73.2/icu4j-73.2.jar",
+      "bytes": 14567819,
+      "sha256": "29280822f4b0796acef1f79b90b1d0c1edd86c10e876a848e04b8a6298a16bf9"
+    },
+    {
+      "path": ".minecraft/libraries/com/machinezoo/noexception/noexception/1.7.1/noexception-1.7.1.jar",
+      "bytes": 250861,
+      "sha256": "3d70aaea3904918587a21bdf99ab6ade9ab1dd0eaf6119344ba513f60f575816"
+    },
+    {
+      "path": ".minecraft/libraries/com/mojang/authlib/6.0.54/authlib-6.0.54.jar",
+      "bytes": 115242,
+      "sha256": "319ea7b53b5e52f62ad3e2b81e9db7f0751240edac548bd74f5f19e35dc21a3b"
+    },
+    {
+      "path": ".minecraft/libraries/com/mojang/blocklist/1.0.10/blocklist-1.0.10.jar",
+      "bytes": 964,
+      "sha256": "830bfd639c8db49236bbd8e45d3a2b8c96c56ff654a10118654958a6235d4c44"
+    },
+    {
+      "path": ".minecraft/libraries/com/mojang/brigadier/1.3.10/brigadier-1.3.10.jar",
+      "bytes": 80082,
+      "sha256": "c8ee4136e474ac7723ca2b432ec8d1a2bc88ef7d1ec57c314ba9e33cdc83dd75"
+    },
+    {
+      "path": ".minecraft/libraries/com/mojang/datafixerupper/8.0.16/datafixerupper-8.0.16.jar",
+      "bytes": 724313,
+      "sha256": "ffc138bc2596c291781b0d5e211ccac51f0f2345f27fc2742f335cedf7e2870d"
+    },
+    {
+      "path": ".minecraft/libraries/com/mojang/logging/1.2.7/logging-1.2.7.jar",
+      "bytes": 15343,
+      "sha256": "3dc3190204bac5f4184d8405bfe1f724f73a6a15a0d3f36ec7f69e6872c1a76c"
+    },
+    {
+      "path": ".minecraft/libraries/com/mojang/patchy/2.2.10/patchy-2.2.10.jar",
+      "bytes": 4439,
+      "sha256": "16d70e7968b45caffc81576268eb000f473fb60bf257182d3447dea8ec919d5a"
+    },
+    {
+      "path": ".minecraft/libraries/com/mojang/text2speech/1.17.9/text2speech-1.17.9.jar",
+      "bytes": 12243,
+      "sha256": "c2a95b499e76fada7dd63e9b0ec797b678d411c2b0ee6f37f4dc674662bfb0af"
+    },
+    {
+      "path": ".minecraft/libraries/commons-codec/commons-codec/1.16.0/commons-codec-1.16.0.jar",
+      "bytes": 360738,
+      "sha256": "56595fb20b0b85bc91d0d503dad50bb7f1b9afc0eed5dffa6cbb25929000484d"
+    },
+    {
+      "path": ".minecraft/libraries/commons-io/commons-io/2.15.1/commons-io-2.15.1.jar",
+      "bytes": 501218,
+      "sha256": "a58af12ee1b68cfd2ebb0c27caef164f084381a00ec81a48cc275fd7ea54e154"
+    },
+    {
+      "path": ".minecraft/libraries/commons-logging/commons-logging/1.2/commons-logging-1.2.jar",
+      "bytes": 61829,
+      "sha256": "daddea1ea0be0f56978ab3006b8ac92834afeefbd9b7e4e6316fca57df0fa636"
+    },
+    {
+      "path": ".minecraft/libraries/cpw/mods/bootstraplauncher/2.0.2/bootstraplauncher-2.0.2.jar",
+      "bytes": 11116,
+      "sha256": "d3f29309140540570fd6c709509706aa8fb133c1c8aef24491688f1a3f4e1d49"
+    },
+    {
+      "path": ".minecraft/libraries/cpw/mods/modlauncher/11.0.5/modlauncher-11.0.5.jar",
+      "bytes": 116486,
+      "sha256": "fd9b9fc7cf043d2264ea0113eac6b258f0a71fece5b00e831bfbdf9726c78a24"
+    },
+    {
+      "path": ".minecraft/libraries/cpw/mods/securejarhandler/3.0.8/securejarhandler-3.0.8.jar",
+      "bytes": 103765,
+      "sha256": "945c63d6deafc821616b0380c23867d9b8c2852438f8a6df72732ab933fc587d"
+    },
+    {
+      "path": ".minecraft/libraries/io/netty/netty-buffer/4.1.97.Final/netty-buffer-4.1.97.Final.jar",
+      "bytes": 306590,
+      "sha256": "a4393f5b395486cc74d0325c9b41311abb9513ba0fd7ef8cf46e9345c3bffbea"
+    },
+    {
+      "path": ".minecraft/libraries/io/netty/netty-codec/4.1.97.Final/netty-codec-4.1.97.Final.jar",
+      "bytes": 345274,
+      "sha256": "bcc96737a0f912fcf031cf8c45ebda352a90a40437db0832caad3d5a63618b38"
+    },
+    {
+      "path": ".minecraft/libraries/io/netty/netty-common/4.1.97.Final/netty-common-4.1.97.Final.jar",
+      "bytes": 659930,
+      "sha256": "a8aca0c8e9347acc75c885ecc749195d9775369aa520b9276f2d1128210a6c17"
+    },
+    {
+      "path": ".minecraft/libraries/io/netty/netty-handler/4.1.97.Final/netty-handler-4.1.97.Final.jar",
+      "bytes": 560040,
+      "sha256": "bd4771d19149cbc9c7464ed2d58035d79cdfed7adb59d38718b0d8e7a3dcc2de"
+    },
+    {
+      "path": ".minecraft/libraries/io/netty/netty-resolver/4.1.97.Final/netty-resolver-4.1.97.Final.jar",
+      "bytes": 37792,
+      "sha256": "38a018c6d9fb2cb11b72881354782b45080bbd20b9a0ad6cde28b80d431ed0b1"
+    },
+    {
+      "path": ".minecraft/libraries/io/netty/netty-transport/4.1.97.Final/netty-transport-4.1.97.Final.jar",
+      "bytes": 489624,
+      "sha256": "197fd2d6c6b4afe677d9e95bf2e36b49a0bcabdfce0583683fb73f29a3f5a407"
+    },
+    {
+      "path": ".minecraft/libraries/io/netty/netty-transport-classes-epoll/4.1.97.Final/netty-transport-classes-epoll-4.1.97.Final.jar",
+      "bytes": 147139,
+      "sha256": "ee65fa17fe65f18fd22269f92bddad85bfb3a263cf65eba01e116a2f30b86ff5"
+    },
+    {
+      "path": ".minecraft/libraries/io/netty/netty-transport-native-unix-common/4.1.97.Final/netty-transport-native-unix-common-4.1.97.Final.jar",
+      "bytes": 43897,
+      "sha256": "412fe140257c2dda5a5e15bee911298bd61928d03ee6be4db588e82c196c5dc6"
+    },
+    {
+      "path": ".minecraft/libraries/it/unimi/dsi/fastutil/8.5.12/fastutil-8.5.12.jar",
+      "bytes": 23326598,
+      "sha256": "b5543ee08d062d551cf0a5c9bc0fb70588b0382079029ba48941fa9c9be8a5d4"
+    },
+    {
+      "path": ".minecraft/libraries/net/fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/sponge-mixin-0.15.2+mixin.0.8.7.jar",
+      "bytes": 1494751,
+      "sha256": "1d45cfe3ae4a2eab38dc74276803748cf799088986260d6d912e50ddb35d15c5"
+    },
+    {
+      "path": ".minecraft/libraries/net/java/dev/jna/jna/5.14.0/jna-5.14.0.jar",
+      "bytes": 1878533,
+      "sha256": "34ed1e1f27fa896bca50dbc4e99cf3732967cec387a7a0d5e3486c09673fe8c6"
+    },
+    {
+      "path": ".minecraft/libraries/net/java/dev/jna/jna-platform/5.14.0/jna-platform-5.14.0.jar",
+      "bytes": 1369287,
+      "sha256": "ae4caceb3840730c2537f9b7fb55a01baba580286b4122951488bcee558c2449"
+    },
+    {
+      "path": ".minecraft/libraries/net/jodah/typetools/0.6.3/typetools-0.6.3.jar",
+      "bytes": 18281,
+      "sha256": "408300867804be05d1083cc0287dd3a21295a9e76090e288013ba5a4182dc96d"
+    },
+    {
+      "path": ".minecraft/libraries/net/minecraftforge/srgutils/0.4.15/srgutils-0.4.15.jar",
+      "bytes": 69393,
+      "sha256": "f6bdebb7fae108329acddfc812f237c7f6328a98e3f282a105edfc161d0215e3"
+    },
+    {
+      "path": ".minecraft/libraries/net/minecrell/terminalconsoleappender/1.3.0/terminalconsoleappender-1.3.0.jar",
+      "bytes": 16949,
+      "sha256": "1afea1bca095068f7f4483f061feed94753be34233ddb0df9ec380fc14d5a985"
+    },
+    {
+      "path": ".minecraft/libraries/net/neoforged/accesstransformers/10.0.1/accesstransformers-10.0.1.jar",
+      "bytes": 67234,
+      "sha256": "89fb0dc3d68f8a5961f309ee110dad7d2c1094ba204595602b71e02e104838a1"
+    },
+    {
+      "path": ".minecraft/libraries/net/neoforged/accesstransformers/at-modlauncher/10.0.1/at-modlauncher-10.0.1.jar",
+      "bytes": 2347,
+      "sha256": "2a4b447c6944a2b89e383c1eed9a26bb5cc60330a5bb26ef0a912a38d52df935"
+    },
+    {
+      "path": ".minecraft/libraries/net/neoforged/bus/8.0.5/bus-8.0.5.jar",
+      "bytes": 30340,
+      "sha256": "705e24f37752809499a5cd0c7dd31eaabf3d933c5d3b2060168e94e9ef62593a"
+    },
+    {
+      "path": ".minecraft/libraries/net/neoforged/coremods/7.0.3/coremods-7.0.3.jar",
+      "bytes": 22659,
+      "sha256": "d24c0d3e31af23cac36a0f9f98654b875f678b27ddccd8b28d331c1878a6de4a"
+    },
+    {
+      "path": ".minecraft/libraries/net/neoforged/fancymodloader/earlydisplay/4.0.43/earlydisplay-4.0.43.jar",
+      "bytes": 261719,
+      "sha256": "76461588a12fd0d1f2a4b8d570676f919fc57eba0f82066da0ac0e884fc93242"
+    },
+    {
+      "path": ".minecraft/libraries/net/neoforged/fancymodloader/loader/4.0.43/loader-4.0.43.jar",
+      "bytes": 505633,
+      "sha256": "ba406038d0ce8242391bb23b9974648748d217b67332c0db620fcabf50edbc37"
+    },
+    {
+      "path": ".minecraft/libraries/net/neoforged/JarJarFileSystems/0.4.1/JarJarFileSystems-0.4.1.jar",
+      "bytes": 31807,
+      "sha256": "d9f88af1223ff23395c64ff0b0fe367563288a37bd38709bf667b6b39944bfab"
+    },
+    {
+      "path": ".minecraft/libraries/net/neoforged/JarJarMetadata/0.4.1/JarJarMetadata-0.4.1.jar",
+      "bytes": 15648,
+      "sha256": "05d7b89f09c6de1a9b61d0e786c8fd808aed044babf321653e14abd6740d5546"
+    },
+    {
+      "path": ".minecraft/libraries/net/neoforged/JarJarSelector/0.4.1/JarJarSelector-0.4.1.jar",
+      "bytes": 17168,
+      "sha256": "f34bab02a5e967650dc52b7cb37a200051a7078f7d1868597699d78697da2400"
+    },
+    {
+      "path": ".minecraft/libraries/net/neoforged/mergetool/2.0.0/mergetool-2.0.0-api.jar",
+      "bytes": 2550,
+      "sha256": "0260881294d8b218afe3d673f084d3745a55c28b35205d07d5e62d7f22202a00"
+    },
+    {
+      "path": ".minecraft/libraries/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar",
+      "bytes": 78146,
+      "sha256": "df26cc58f235f477db07f753ba5a3ab243ebe5789d9f89ecf68dd62ea9a66c28"
+    },
+    {
+      "path": ".minecraft/libraries/org/antlr/antlr4-runtime/4.13.1/antlr4-runtime-4.13.1.jar",
+      "bytes": 326305,
+      "sha256": "54665d2838cc66458343468efc539e454fc95b46a8a04b13c6ac43fc9be63505"
+    },
+    {
+      "path": ".minecraft/libraries/org/apache/commons/commons-compress/1.26.0/commons-compress-1.26.0.jar",
+      "bytes": 1078328,
+      "sha256": "051aceb8bbcc62d0f5b2b8ac72c53767f9c59bfbd050151e65bef6f51c8ed9c9"
+    },
+    {
+      "path": ".minecraft/libraries/org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar",
+      "bytes": 657952,
+      "sha256": "7b96bf3ee68949abb5bc465559ac270e0551596fa34523fddf890ec418dde13c"
+    },
+    {
+      "path": ".minecraft/libraries/org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13.jar",
+      "bytes": 780321,
+      "sha256": "6fe9026a566c6a5001608cf3fc32196641f6c1e5e1986d1037ccdbd5f31ef743"
+    },
+    {
+      "path": ".minecraft/libraries/org/apache/httpcomponents/httpcore/4.4.16/httpcore-4.4.16.jar",
+      "bytes": 327891,
+      "sha256": "6c9b3dd142a09dc468e23ad39aad6f75a0f2b85125104469f026e52a474e464f"
+    },
+    {
+      "path": ".minecraft/libraries/org/apache/logging/log4j/log4j-api/2.22.1/log4j-api-2.22.1.jar",
+      "bytes": 335001,
+      "sha256": "5d7beae7ff15d8516d6517121d7f12a79a6ac180df64b5fcec55d5be21056e53"
+    },
+    {
+      "path": ".minecraft/libraries/org/apache/logging/log4j/log4j-core/2.22.1/log4j-core-2.22.1.jar",
+      "bytes": 1900022,
+      "sha256": "46dccecac556623d8e2ce8648496824a82951d139062a4e61148aff1a25ed18d"
+    },
+    {
+      "path": ".minecraft/libraries/org/apache/logging/log4j/log4j-slf4j2-impl/2.22.1/log4j-slf4j2-impl-2.22.1.jar",
+      "bytes": 27364,
+      "sha256": "1920cd69d8682c7ef249bb407a3d0685723aa1785867cf4c53258da6bf14da97"
+    },
+    {
+      "path": ".minecraft/libraries/org/apache/maven/maven-artifact/3.8.5/maven-artifact-3.8.5.jar",
+      "bytes": 58077,
+      "sha256": "91172bc294d6eab02fc9f45f4ea01fd0e418962d128cf489abea7b6957d988ee"
+    },
+    {
+      "path": ".minecraft/libraries/org/checkerframework/checker-qual/3.33.0/checker-qual-3.33.0.jar",
+      "bytes": 223979,
+      "sha256": "e316255bbfcd9fe50d165314b85abb2b33cb2a66a93c491db648e498a82c2de1"
+    },
+    {
+      "path": ".minecraft/libraries/org/codehaus/plexus/plexus-utils/3.3.0/plexus-utils-3.3.0.jar",
+      "bytes": 263253,
+      "sha256": "76d174792540e2775af94d03d10fb2d3c776e2cd0ac0ebf427d3e570072bb9ce"
+    },
+    {
+      "path": ".minecraft/libraries/org/jcraft/jorbis/0.0.17/jorbis-0.0.17.jar",
+      "bytes": 99701,
+      "sha256": "e067f29a3701426b67ed973036949c6e58ca5bb53eef7240b2e71e286d252a9e"
+    },
+    {
+      "path": ".minecraft/libraries/org/jline/jline-reader/3.20.0/jline-reader-3.20.0.jar",
+      "bytes": 171052,
+      "sha256": "acd1c94d1e228aa7b7962f69b21ed3a9fd828eb3a63e4baf9086954e626af1f0"
+    },
+    {
+      "path": ".minecraft/libraries/org/jline/jline-terminal/3.20.0/jline-terminal-3.20.0.jar",
+      "bytes": 228481,
+      "sha256": "12125170e795519ba6dc8010c070b53c76aae92b485c1e37530e54ab5dd08d43"
+    },
+    {
+      "path": ".minecraft/libraries/org/joml/joml/1.10.5/joml-1.10.5.jar",
+      "bytes": 712082,
+      "sha256": "cac9f22f83a7aa33eebda73c16ff5261e3cb4911b6bafcf4c79ea486099d0c9a"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl/3.3.3/lwjgl-3.3.3-natives-windows-arm64.jar",
+      "bytes": 133378,
+      "sha256": "d35582ca7edff59d4a5c8f4a0edec779caea4ca8e26c9aff8244710049bb4350"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl/3.3.3/lwjgl-3.3.3-natives-windows-x86.jar",
+      "bytes": 139653,
+      "sha256": "22a22338262554eb5e133c8441deeedac84da082eb3bac84d032da4faf369749"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl/3.3.3/lwjgl-3.3.3-natives-windows.jar",
+      "bytes": 165442,
+      "sha256": "5ee63a19187efe5bb8747fd24f7b13257db348df5ad641113a3695e43f213959"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl/3.3.3/lwjgl-3.3.3.jar",
+      "bytes": 785029,
+      "sha256": "dc9c7b2d48e8396d68895f8902ffa01e46253de44dfe927533ff09457ebfeec4"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-freetype/3.3.3/lwjgl-freetype-3.3.3-natives-windows-arm64.jar",
+      "bytes": 886068,
+      "sha256": "b589983ec143ff09acd8d9a215b4ef3f80750855646c1b96279066ea5e44f40c"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-freetype/3.3.3/lwjgl-freetype-3.3.3-natives-windows-x86.jar",
+      "bytes": 877480,
+      "sha256": "75a798a5f492e1376d05dc637a9105198e71d06f38a11e9bce1c5072e0d60b3a"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-freetype/3.3.3/lwjgl-freetype-3.3.3-natives-windows.jar",
+      "bytes": 1035586,
+      "sha256": "022e59514b1ecb45249413ae62ad094971d7ac88c0dce9a32c627d06a3c01a1f"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-freetype/3.3.3/lwjgl-freetype-3.3.3.jar",
+      "bytes": 450896,
+      "sha256": "e1a7ab07106349d9a8a68f6860b7b73b353c502b81e662aca77f931c6fdd3de8"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-glfw/3.3.3/lwjgl-glfw-3.3.3-natives-windows-arm64.jar",
+      "bytes": 141970,
+      "sha256": "70ca9db0d2764cb9dbc8fb5fd425318c5af597173b134d03259e2030652e94b5"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-glfw/3.3.3/lwjgl-glfw-3.3.3-natives-windows-x86.jar",
+      "bytes": 157123,
+      "sha256": "9646555d405f0d2a3a9576b506f57c1632af64f69a8ae58cb0448ae04a9c7824"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-glfw/3.3.3/lwjgl-glfw-3.3.3-natives-windows.jar",
+      "bytes": 166368,
+      "sha256": "98155b451dfc6f585089dec77a12f9c05789c4dceb8da472f9d308160101a70d"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-glfw/3.3.3/lwjgl-glfw-3.3.3.jar",
+      "bytes": 135546,
+      "sha256": "bedc757fd2b1b255146db26b74b9cbd1fcf5644b89b47b104fa721c741604259"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-jemalloc/3.3.3/lwjgl-jemalloc-3.3.3-natives-windows-arm64.jar",
+      "bytes": 154415,
+      "sha256": "1f204ace18e3512765003d83b9a853856f65dda70b63b9722638483f2d5d34c2"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-jemalloc/3.3.3/lwjgl-jemalloc-3.3.3-natives-windows-x86.jar",
+      "bytes": 148612,
+      "sha256": "d9b4e06e2a84205583fb05440d2238385a91cb01a060ddb1d376223ae225f14a"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-jemalloc/3.3.3/lwjgl-jemalloc-3.3.3-natives-windows.jar",
+      "bytes": 180344,
+      "sha256": "9949c8e49998bd0c878d842884011f1383e2851005091e0b2bcf7b7671b848eb"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-jemalloc/3.3.3/lwjgl-jemalloc-3.3.3.jar",
+      "bytes": 43896,
+      "sha256": "e99e31269e6678a4bfc62ef24c50a481c01cbdd004861ece9a59ba12768c6516"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-openal/3.3.3/lwjgl-openal-3.3.3-natives-windows-arm64.jar",
+      "bytes": 630410,
+      "sha256": "875f81451731df2cac48bbe3c4559834a94d36fc15f461c933e4d4acdd2f1f26"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-openal/3.3.3/lwjgl-openal-3.3.3-natives-windows-x86.jar",
+      "bytes": 638424,
+      "sha256": "852ca4e36b1fdfdd3efb6ce42f08b7d0f957b04c4bcfbd78057b0c799f399231"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-openal/3.3.3/lwjgl-openal-3.3.3-natives-windows.jar",
+      "bytes": 698720,
+      "sha256": "e3da7c3db25c81db8d425ef1e3dbfa15000b040d669f008b0813c94333ac96c8"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-openal/3.3.3/lwjgl-openal-3.3.3.jar",
+      "bytes": 110586,
+      "sha256": "ae0e82767cacf08921f578fba9d84753ddeb00ceada0510a2b4a882be28fbf95"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-opengl/3.3.3/lwjgl-opengl-3.3.3-natives-windows-arm64.jar",
+      "bytes": 83095,
+      "sha256": "68c8dbc41436e421ff0b3927e62d2aa533552d8f02d73de3fd928d7a51fd797a"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-opengl/3.3.3/lwjgl-opengl-3.3.3-natives-windows-x86.jar",
+      "bytes": 88612,
+      "sha256": "9d99d203de4e31286cae753a1dfb981367c93734f1944644ba71be521b3af2cc"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-opengl/3.3.3/lwjgl-opengl-3.3.3-natives-windows.jar",
+      "bytes": 101535,
+      "sha256": "f45e5f60596b03b2e3d8b98a123c855ebd0b5154c8155dc2a56b890ccc907477"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-opengl/3.3.3/lwjgl-opengl-3.3.3.jar",
+      "bytes": 929192,
+      "sha256": "5062da750e5f7ec89e27e8b67b7d40fa8c4b16890159e35f828116ce6c8eca1e"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-stb/3.3.3/lwjgl-stb-3.3.3-natives-windows-arm64.jar",
+      "bytes": 219511,
+      "sha256": "3d1454dfbad9e1b8a7da25e2928c16a4a63a14050b27da1912c3be0c60b02e7c"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-stb/3.3.3/lwjgl-stb-3.3.3-natives-windows-x86.jar",
+      "bytes": 227800,
+      "sha256": "46424e45459733b26c4a7b0dd2695209cb6938dafa3a9012c6a5682c94a2c40e"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-stb/3.3.3/lwjgl-stb-3.3.3-natives-windows.jar",
+      "bytes": 261297,
+      "sha256": "d12ab866fe1169e924ac5b4d6bb7767ae7842a9fc8652798682c0069bb73fcf2"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-stb/3.3.3/lwjgl-stb-3.3.3.jar",
+      "bytes": 120283,
+      "sha256": "0cff7aa46ea9d70fcc20857015293ea80fbf21adcac34600c84da9b81a44ca93"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-tinyfd/3.3.3/lwjgl-tinyfd-3.3.3-natives-windows-arm64.jar",
+      "bytes": 110867,
+      "sha256": "71076fc5c01788577719f4b1983473026b2eb8cbb02d3dc736f8b5724a49fd8c"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-tinyfd/3.3.3/lwjgl-tinyfd-3.3.3-natives-windows-x86.jar",
+      "bytes": 111797,
+      "sha256": "43c9264f0661087b06ae29d78aab98121dfad69efe3202424e3419738d5e9994"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-tinyfd/3.3.3/lwjgl-tinyfd-3.3.3-natives-windows.jar",
+      "bytes": 130253,
+      "sha256": "02285911f1c881735fa4d0eb141ffeaafd9a2bb9349d98f7c1fb8a9cb49c0f58"
+    },
+    {
+      "path": ".minecraft/libraries/org/lwjgl/lwjgl-tinyfd/3.3.3/lwjgl-tinyfd-3.3.3.jar",
+      "bytes": 13400,
+      "sha256": "ee0515054ee19a3f4088426fee9d879eb2ee657b07e5064e4e2c851f6adcf14b"
+    },
+    {
+      "path": ".minecraft/libraries/org/lz4/lz4-java/1.8.0/lz4-java-1.8.0.jar",
+      "bytes": 682804,
+      "sha256": "d74a3334fb35195009b338a951f918203d6bbca3d1d359033dc33edd1cadc9ef"
+    },
+    {
+      "path": ".minecraft/libraries/org/openjdk/nashorn/nashorn-core/15.4/nashorn-core-15.4.jar",
+      "bytes": 2167292,
+      "sha256": "6f816e84dfd63a81d4eaa7829c08337bbaff3ec683ff3bf6bbd90d017a00dc6f"
+    },
+    {
+      "path": ".minecraft/libraries/org/ow2/asm/asm/9.10.1/asm-9.10.1.jar",
+      "bytes": 126151,
+      "sha256": "ed825d10ab1399c8c0cb669e688cf0c8c82629b4c8399b58352b68e92ca10fcb"
+    },
+    {
+      "path": ".minecraft/libraries/org/ow2/asm/asm-analysis/9.10.1/asm-analysis-9.10.1.jar",
+      "bytes": 35140,
+      "sha256": "dede75a21306b65974ecd8f87114ff6970f09fb794157a4ca09ab25c888c2bfc"
+    },
+    {
+      "path": ".minecraft/libraries/org/ow2/asm/asm-commons/9.10.1/asm-commons-9.10.1.jar",
+      "bytes": 74840,
+      "sha256": "6d0abefb7cbf972ea16edb37ec14835372505063a45f976ab7ea889ed9497895"
+    },
+    {
+      "path": ".minecraft/libraries/org/ow2/asm/asm-tree/9.10.1/asm-tree-9.10.1.jar",
+      "bytes": 51958,
+      "sha256": "3dfb0d5b6a106cd40b5b250e39935fbf2f927f4477546a5369a3ac609cf0506b"
+    },
+    {
+      "path": ".minecraft/libraries/org/ow2/asm/asm-util/9.10.1/asm-util-9.10.1.jar",
+      "bytes": 95628,
+      "sha256": "1bb99d091fba2597dc6d51193e9bbcf0d8447e7ed96bd8f0198b18152f09655c"
+    },
+    {
+      "path": ".minecraft/libraries/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar",
+      "bytes": 64579,
+      "sha256": "0818930dc8d7debb403204611691da58e49d42c50b6ffcfdce02dadb7c3c2b6c"
+    },
+    {
+      "path": ".minecraft/versions/1.21.1/1.21.1.json",
+      "bytes": 54183,
+      "sha256": "3901cd4776539468703f9238b76496b995d3cda9958b22af60a2322cb92c17e4"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/MC-Friends-S1-r001-natives/freetype.dll",
+      "bytes": 2091008,
+      "sha256": "c0b73302f4d4f7ea372be946011daa77521304c00d96936742fd65fb18c34fc4"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/MC-Friends-S1-r001-natives/glfw.dll",
+      "bytes": 496128,
+      "sha256": "affa7e54eb0dedce4a5721c327c1a16035edbbd039cd402e08107d6d2d55eb1a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/MC-Friends-S1-r001-natives/jemalloc.dll",
+      "bytes": 398336,
+      "sha256": "9abf0095066ebab37b78968e11370a8078313e48cb5be8eda01f67623c6a6248"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/MC-Friends-S1-r001-natives/jna11779887834596487311.dll",
+      "bytes": 254464,
+      "sha256": "69c45175ecfd25af023f96ac0bb2c45e6a95e3ba8a5a50ee7969ccab14825c44"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/MC-Friends-S1-r001-natives/jna11779887834596487311.dll.x",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/MC-Friends-S1-r001-natives/lwjgl.dll",
+      "bytes": 479232,
+      "sha256": "a39adf52947fafd954c2a86ce031abb8c59825f7ee50337ac8c41e4280abe82d"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/MC-Friends-S1-r001-natives/lwjgl_opengl.dll",
+      "bytes": 364032,
+      "sha256": "fe200dc96ab31237a52facd6345d31f9740ef16dd411e5f9be014eaa30f89fb6"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/MC-Friends-S1-r001-natives/lwjgl_stb.dll",
+      "bytes": 510464,
+      "sha256": "de03f38f8c7471b4924aa8bdf8724c181d1a7c20428dbce2ed301877e1d387e4"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/MC-Friends-S1-r001-natives/OpenAL.dll",
+      "bytes": 1338368,
+      "sha256": "0630aa42492f78126da1c4d99769632e03c55b2e63b050efe7e3005e07e3e6fc"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/MC-Friends-S1-r001.jar",
+      "bytes": 26836906,
+      "sha256": "499f6897d1837516680f3114072d8106e11c9adcd933fe5cf051b551089b0c99"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/MC-Friends-S1-r001.json",
+      "bytes": 21843,
+      "sha256": "e53624b017331debf507a068d8227c0678e7e00100323a3efae1bb8cfd34b2f8"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/accelerated-decay-neoforge-21.0.0.jar",
+      "bytes": 10478,
+      "sha256": "808cd7c554ca5953aa7b3ee54da15cabe9bbad7cdb8b2d9133929269cf8a00ac"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/actuallyharvest-1.21.1-neoforge-1.1.7.6-NEOFORGE.jar",
+      "bytes": 389477,
+      "sha256": "fb7d7e4b92992e264fa1515e978297ff5c54dc9d20d94f0616d839c7e1aee837"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/AdvancedAE-1.6.12-1.21.1.jar",
+      "bytes": 4791255,
+      "sha256": "a01d9718667ac13899013e91c5b0b7708b9b9db1da9b8e380772dde54bbe8f41"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/AdvancedCoreInfo-neoforge-1.21.1-1.2.0.jar",
+      "bytes": 105784,
+      "sha256": "4e27be97c7eca0c17b759cf4cd0a83ff79ae0cc5356b28b9039b9e4eda1d460b"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/AdvancedLootInfo-neoforge-1.21.1-2.2.0.jar",
+      "bytes": 673724,
+      "sha256": "385e3dff6f1ca89f655dc2806280c33e8497d2f1062e738a730abedf3355d971"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/AE2-Things-1.4.2-beta.jar",
+      "bytes": 66034,
+      "sha256": "9725dd363cc874601737b417ddfe675e4a5ae4a6428bdeb67ac408f775eb4241"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ae2ct-1.21.1-1.1.1.jar",
+      "bytes": 437906,
+      "sha256": "70a704742cf8bc13778a201a2338d0f4108dc0700bca47ed265aba02180f6777"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ae2jeiintegration-1.2.1.jar",
+      "bytes": 91710,
+      "sha256": "2989c5d762d3f14a58b4db6519daaff81e719dff3445a2b39328948ac23e548b"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/AE2NetworkAnalyzer-1.21-2.1.5-neoforge.jar",
+      "bytes": 1686091,
+      "sha256": "74b68e9ec57dbf21a0417ce099d61b834f88efb0de3cccba4413e5dcf9d69f3c"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ae2wtlib-19.5.1.jar",
+      "bytes": 252091,
+      "sha256": "407e7300351353cb4cb7698286e180aef2bd6e7a97ec7efc6493f9daa4dbffe5"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/almostunified-neoforge-1.21.1-1.4.2.jar",
+      "bytes": 295093,
+      "sha256": "65202adf4dccf7b3033537e539e23eccc541c6a15ad88d87fa1c5a09ceb3359f"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/apothic_tooltip_cleanup-1.3.0.jar",
+      "bytes": 42652,
+      "sha256": "7b4079211780441c86999fa556a932782494ba0dc7cfd4ea13118c37dfc09bab"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ApothicAttributes-1.21.1-2.10.1.jar",
+      "bytes": 323264,
+      "sha256": "484d52a58ba351d8e41775b351dad80f39a5bb4ed415bca67537a7f27de901ba"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ApothicEnchanting-1.21.1-1.6.2.jar",
+      "bytes": 5415666,
+      "sha256": "652406bc2e4c2d8488c93d35d38202390897e0ec6b4bc60b4813ce2fb6ad69f6"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ApothicSpawners-1.21.1-1.4.0.jar",
+      "bytes": 129784,
+      "sha256": "f0cbc52ad606997789c36fac94ae651ab7e2e21c841e26a952c64041cad9cdbe"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/appleskin-neoforge-mc1.21-3.0.9.jar",
+      "bytes": 75804,
+      "sha256": "38b48dd6231341c9f964ce6e42c57ec866c6cc8f72bec938390a59bafb3922df"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Applied-Mekanistics-1.6.3.jar",
+      "bytes": 149709,
+      "sha256": "8946fea39451dbce8e709dedbef40a52ba337bdf7a25ac0c4b503800b1bf0773"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/appliedenergistics2-19.2.17.jar",
+      "bytes": 8230896,
+      "sha256": "460d779a0609b81409907d9956de8f6f70a1b0912257e3e5c3c7e75ac9630e95"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/AppliedFlux-1.21-2.1.5-neoforge.jar",
+      "bytes": 345117,
+      "sha256": "57e6a2c0f38e660c9e8416f9081d8c515f5ad096d6793d7b7f039e8e210d245b"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/architectury-13.0.11-neoforge.jar",
+      "bytes": 584734,
+      "sha256": "9cc92f2c09533fc5482c60f993bd891c655a0e32b637037cdcb7c2b23adedeeb"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ArmorPoser-neoforge-1.21.1-6.2.4.jar",
+      "bytes": 126563,
+      "sha256": "6d0f55641bda1a38c7907cd85f3300e4414d3d5373a5a449845f42a9736bd1d6"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ars_elemental-1.21.1-0.7.10.1.jar",
+      "bytes": 2260550,
+      "sha256": "7a3aea48d7210ce0f150cace1c1c30fca78c7ede50f80ae70e7a692328dfa548"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ars_nouveau-1.21.1-5.13.1.jar",
+      "bytes": 20107711,
+      "sha256": "99dff85e8778f7ae21dfd51cdedadf20f555a834fc757c0afe5f03c10eea96f2"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/arsdelight-2.2.2.jar",
+      "bytes": 1250237,
+      "sha256": "52b9b2372e77bf61f6e24cdcd894cc7f8a99c18b928093f27a022caff5f42d61"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/athena-neoforge-1.21.1-4.0.6.jar",
+      "bytes": 99944,
+      "sha256": "43699885bbce3343916d4c5c4940cf0e3f9f6f02fdeb46e8655e121b42282ec5"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/auroral-1.21.1-1.1.2.jar",
+      "bytes": 2209947,
+      "sha256": "b38e4637447df8be3f9093023febb840aac0b6eccf9d29729d637093438b4250"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/bagofyurting-1.21-5.0.0.0.jar",
+      "bytes": 59327,
+      "sha256": "3c18edfc678de7fd5a9f57babc170bbc597ad6b1924da11ff41c3b4b8dad567a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/bagus_lib-1.21.1-13.27.0.jar",
+      "bytes": 224815,
+      "sha256": "0aab93450060fdd6fe2f9da8fae60b5b9ceb72b70bd071528b7afc3e547bd4c8"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/balm-neoforge-1.21.1-21.0.65.jar",
+      "bytes": 783793,
+      "sha256": "490fa5fcb7ca83a9b5a84e33c2832298db99d189131001b9277a1de7fdc0bf91"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/bankstorage-1.6.1+1.21.jar",
+      "bytes": 253092,
+      "sha256": "cc1ad808cbbaf845c9712318668d6960b39b60647b0aeb169d549a79e4b02649"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/better-advanced-tooltips-2101.1.0-build.5.jar",
+      "bytes": 37653,
+      "sha256": "0f76d46f2f18eb67e67c7974170d7b27deb66473396461c8dc50d6949de1449b"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/BetterAdvancements-NeoForge-1.21.1-0.4.3.21.jar",
+      "bytes": 98641,
+      "sha256": "60b548bef04a2f0e1da686ee9035c2e3d4ed0459a17d7a4836fc26af6de6b60e"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/BetterF3-11.0.3-NeoForge-1.21.1.jar",
+      "bytes": 481646,
+      "sha256": "1a97b6ca5c81b3b18d653f403929908e3b48bb1bdb6e8bd8559f89cf0294dc26"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/BHMenu-NeoForge-1.21-2.4.4.jar",
+      "bytes": 163914,
+      "sha256": "96be3f854d120b5c7d1046509b1a904092a687416848e7e5b713e59e1368efa1"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/blockui-1.0.209-1.21.1.jar",
+      "bytes": 468001,
+      "sha256": "eec023231b21a606306cac6c588b5b07f51741f5e5bc831dba709d52332b82ab"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/bookshelf-neoforge-1.21.1-21.1.81.jar",
+      "bytes": 328813,
+      "sha256": "19e88d40da2b6a114c2b808f7fb469d96e66a5379df0a8a43fcb7834498b3e76"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/buildinggadgets2-1.3.9.jar",
+      "bytes": 3858597,
+      "sha256": "acae3b628fa60ae8d34059b40c696ea282c01d20b14d32a506c4f85dd357b114"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/cable_facades-1.21.1-NeoForge-2.1.4.jar",
+      "bytes": 285434,
+      "sha256": "50c839b7c615af02bf7af62aceea2e31683b19819bcf0f239853b384834bd40e"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/caelus-neoforge-7.0.1+1.21.1.jar",
+      "bytes": 50235,
+      "sha256": "432a645557f29de159d9edde2fd109f8e3b32ff30895b4fede04ee5f1a1a682f"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/CarbonConfig-Neoforge-1.21.1-2.0.2.1.jar",
+      "bytes": 1273384,
+      "sha256": "78990104c08a2f14f1ec18e0ddab47a682398401894954331b5f91213b4ca767"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/cc-tweaked-1.21.1-forge-1.119.0.jar",
+      "bytes": 3125991,
+      "sha256": "169e2fe0445e320562c0568baa4c796a69a3464a0a5e902c484be1be3e326a0b"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/chalk-1.6.12.jar",
+      "bytes": 338917,
+      "sha256": "d95b6616dd3e50b9dfba9a05b3a09c5bf5d463aa50980eda40f4e3d997e1b0fb"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/charginggadgets-1.14.1.jar",
+      "bytes": 67206,
+      "sha256": "411bae6c95c1c4ab19e0431785341dabe39b6eaf5f132abd00514264243ba2ac"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/chipped-neoforge-1.21.1-4.0.2.jar",
+      "bytes": 15020578,
+      "sha256": "18ac6fd6b30db4922ccc6ee8bea5b113f69587505b7529834f37ace506427291"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/classicperipherals-0.5.1-neoforge-1.21.1.jar",
+      "bytes": 7810196,
+      "sha256": "e3ca5355f51f2d101ec09efce4660f3642f14f4049815443a1573ea60a903239"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/cleanswing-1.10-1.21.jar",
+      "bytes": 9477,
+      "sha256": "2e4120e52ccd8a920f8dce5361ec98c21ebd4a1dc49f2501bc97c877800813aa"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/cleanview-1.21.1-v1-neoforge.jar",
+      "bytes": 11488,
+      "sha256": "18d8c3ee29daec387bc366b1c29542dcf23cc6b8e5479a6d9704ecd7a55ed06f"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/cloth-config-15.0.140-neoforge.jar",
+      "bytes": 1163890,
+      "sha256": "65e722e0d98431a07c45f8bdd8d529a217cc8c175fde1740248bd5c1b4f3c0d4"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Clumps-neoforge-1.21.1-19.0.0.1.jar",
+      "bytes": 18382,
+      "sha256": "b524ccdace2ef8fd19f5b2074f7de1103ac5065c52553f064c00e098346c293e"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/CodeChickenLib-1.21.1-4.6.1.529.jar",
+      "bytes": 1538382,
+      "sha256": "8c453d5c49092860e9d7a692eb858ea54c15d0f9598daae524f9590f8edf276f"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/collapsible_groups-neoforge-1.21.1-1.4.4.jar",
+      "bytes": 905619,
+      "sha256": "b254de9c5257d261d7d4225c019816dfbb57f8a0c0746212cf61ee962b407fca"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/collective-1.21.1-8.40.jar",
+      "bytes": 1061918,
+      "sha256": "c466e9a8319e12d8fae912aeb9d9453efed43246f64edc48c4aa7ca14238a834"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/colorfulhearts-neoforge-1.21.1-10.5.9.jar",
+      "bytes": 156588,
+      "sha256": "332a7f3df1274cabeae05e9361c41561c42a670787adc7e4b6795961b4721401"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/comforts-neoforge-9.0.5+1.21.1.jar",
+      "bytes": 422658,
+      "sha256": "6b0fd35a1349107e08a45539adbde9683bb203febc43a3305f6fc4ac73e59615"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/common-networking-neoforge-1.0.21-1.21.1.jar",
+      "bytes": 26016,
+      "sha256": "df39b3747e7571a6b4782fb8c618bb1fc5544662aba515ae4f67b56361448ec8"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/commoncapabilities-1.21.1-neoforge-2.11.6.jar",
+      "bytes": 283980,
+      "sha256": "05f8237f6ae7e5acf1a8c0756c714da1d6b3151fea4ad60941b57de788315abf"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ConfiguredDefaults-v21.1.3-1.21.1-NeoForge.jar",
+      "bytes": 43521,
+      "sha256": "48b97dada951826b4abf9b2dcab79c0e701bb2980c5bca4977bac7ca0c264ea7"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ConstructionSticks-1.21.1-1.5.0.jar",
+      "bytes": 264738,
+      "sha256": "26520f830b243840f8ce6faf2ba0ec4abe9ea8ef1afd1086ca9d6f56bfb7dde2"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Controlling-neoforge-1.21.1-19.0.5.jar",
+      "bytes": 77555,
+      "sha256": "cc525fb6b030d9e4d33176983f278919e17b33935e2ca568929bdfa98f2b44a0"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/cookingforblockheads-neoforge-1.21.1-21.1.24.jar",
+      "bytes": 1266042,
+      "sha256": "ccf2e9de8130dec5642f841e76c2a684822d867b7eb26855b0f1c6d4f31e8419"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/coroutil-neoforge-1.21.0-1.3.9.jar",
+      "bytes": 65716,
+      "sha256": "097434e256a428335cc4e9b718ad7bb9c6804c2c775aa3dd7149a6904adca2bc"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/cosmeticarmorreworked-1.21.1-v1-neoforge.jar",
+      "bytes": 92722,
+      "sha256": "6328049755735159c55f5918ac301cff53a8d8790c3fe63e32e7d8a0e37f123f"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/cottonly-neo-0.16.6.jar",
+      "bytes": 87717,
+      "sha256": "0302ca849f1f1cf1960ff572cca34f5635a0d4eeb8e377d7071355ee82c52f9a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/craftingtweaks-neoforge-1.21.1-21.1.11.jar",
+      "bytes": 256086,
+      "sha256": "0964fefc4a07120a53232b2d934fac4baf15fdaa99b69add30a18a642bc1cf98"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/CrashAssistant-neoforge-1.20.6-1.21.4-1.11.12.jar",
+      "bytes": 3481341,
+      "sha256": "42f582333ffe61366e68a9320d3c205153f2fdc5b53ad715b01543f85828e6b0"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/create-1.21.1-6.0.10.jar",
+      "bytes": 19123767,
+      "sha256": "ef87fe5709f1ba1f5b8bb20a2925b5afb4669e178fd6d8bf10c167759eefe37a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/CreativeCore_NEOFORGE_v2.13.46_mc1.21.1.jar",
+      "bytes": 1235813,
+      "sha256": "3fe2144fc608978203681f5c787dd75034879baf135372cc2302d6218ea75932"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Cucumber-1.21.1-8.0.16.jar",
+      "bytes": 275588,
+      "sha256": "371f9551c676b76a39d5580be28f5cfeff364e131ad138fbf7108aeb2712f43f"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/cupboard-1.21.1-4.2.jar",
+      "bytes": 30517,
+      "sha256": "5162922647fe07c7b9f446870915b57ddd0ae9dcf56b243611130fea30f2f77a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/curios-neoforge-9.5.1+1.21.1.jar",
+      "bytes": 410690,
+      "sha256": "a45df2125c26219974aba7507ffc9afe7b83acc941a386af3faacb1cc0056fde"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/cyclopscore-1.21.1-neoforge-1.30.0.jar",
+      "bytes": 1163177,
+      "sha256": "6328e41c0e26979a9c56ec42c02321b139914c4711424ab53727a109a312f6a1"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/deimos-1.21.1-neoforge-2.7.jar",
+      "bytes": 49576,
+      "sha256": "ee35d4e8967ccb23dee3c1a05b55c8d4ac0e0045bf8d324e215b397869af0573"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/domum-ornamentum-1.0.231-main.jar",
+      "bytes": 1143596,
+      "sha256": "04c0c902bdbcbd48e38bee5a323907ae0b7b7db4ff4a3e4da7c45334b65610a1"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/DungeonCrawl-NeoForge-1.21-2.3.17.jar",
+      "bytes": 738480,
+      "sha256": "853cd59208f17c25188a419b48d1a9fed3acebf676bb1ddd026fa4e7fb56dad4"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/DungeonsArise-1.21.1-2.1.68-release.jar",
+      "bytes": 11842679,
+      "sha256": "7eee1eca7e3b2c6c1bede055934f391ae2e8349ffe33e106f451176d2cfcf0e4"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/DungeonsAriseSevenSeas-1.21.x-1.0.4-neoforge.jar",
+      "bytes": 244981,
+      "sha256": "549040fbd81d1b33aea38681109685e86d63985785246a831112c4ba5740d2df"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/easy-piglins-neoforge-1.21.1-1.0.14.jar",
+      "bytes": 226157,
+      "sha256": "64c300833a046bfecdb54e98206e807579cefa12fa247f92dfbeb55e94d30c6d"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/easy-villagers-neoforge-1.21.1-1.1.42.jar",
+      "bytes": 456700,
+      "sha256": "e093c86ce419fc1fab1533bed5fa95b509b1f7240760c5ab628de228b55c9d50"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/EdivadLib-1.21-3.0.0.jar",
+      "bytes": 14133,
+      "sha256": "daf3201364c5e9dbc7c0d99a9617cd82c40f203e489a4701b228daa765038d92"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/elevatorid-neoforge-1.21.1-1.11.4.jar",
+      "bytes": 191190,
+      "sha256": "c3908b14549addaa18951c473d2d1f67a3df61bcf5599c6031e71ca5685bf14c"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/embeddium-1.0.15+mc1.21.1.jar",
+      "bytes": 1048745,
+      "sha256": "3aac4c4c6e82d78d8dda4c611d68c672d1061b42bb6954331e3c2e7f14c451e1"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Emojiful-Neoforge-1.21-5.2.4-all.jar",
+      "bytes": 259509,
+      "sha256": "5a09713874ceccc50f433c26a50b6a44af8a4d01dd93ee1616f3d6fc32e7bf37"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/EnchantableBlocks-1.21.1-0.1.7.jar",
+      "bytes": 288760,
+      "sha256": "d45bbfbfffe43144f4a29916c342837a6672135283f44ea1aacd2aaacdf04b4f"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/enderio-8.2.12-beta.jar",
+      "bytes": 6598496,
+      "sha256": "5fe098153dddc2e7ccd9d38b0341dbc61f3072150958c916e5ef63f395e4eab1"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/enderio_conduit_opt-1.1.6-1.21.1.jar",
+      "bytes": 92636,
+      "sha256": "57ff2fb51e222b91465fa68ea5ea12c5438b615e6d08080e0023bb3caca4a454"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/enderrf-1.21.1-1.1.3.jar",
+      "bytes": 67577,
+      "sha256": "81074fad9cd2e2dca97063856448785aaed83f78d811af86c5f2fb25434ec49a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/EnderStorage-1.21.1-2.13.0.191.jar",
+      "bytes": 264089,
+      "sha256": "f52f23f9df8925c7aec26154c2f1816cc76422c67a4fa4e30fa8b80b7a854202"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/energymeter-neoforge-1.21.1-0.5.2.jar",
+      "bytes": 397310,
+      "sha256": "18b32ea67f4b53de52f6724dbd74a8517b10a20271a3d2bd3de75493d7b08433"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/entangled-1.3.21-neoforge-mc1.21.jar",
+      "bytes": 130872,
+      "sha256": "ed3d17b890029613da36146fd558d5d614595eefc6a9b9e6447ae95b0970d9c4"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/eventslib-1.0.57.jar",
+      "bytes": 14441,
+      "sha256": "dcead0a2c48702e37ad49fd88efbf63ebd3c23a4dea1e5364a44089e6cb81dd4"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/evilcraft-1.21.1-neoforge-1.2.96.jar",
+      "bytes": 2848712,
+      "sha256": "85060b76a5339e09538067fc4cdb8f8395ff54a2379bbc626150b75738d5e50e"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ExtendedAE-1.21-2.2.38-neoforge.jar",
+      "bytes": 5915105,
+      "sha256": "8731067860498913550e4300d9bc0449e66a558a7f0b1663ed155a2fd29af8ae"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ExtraStorage-1.21.1-5.0.10.jar",
+      "bytes": 409193,
+      "sha256": "5cec2b492e42ff740f54a73b47e07ea797e5eea5e7b4048225e034e43f81ed51"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ExtremeReactors2-1.21.1-2.4.28.jar",
+      "bytes": 2554779,
+      "sha256": "74fdfdfc91c3c8e5a439d411e6f081d12193635fffe2c55142f2f28f75b9d621"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ExtremeSoundMuffler-3.56_NeoForge-1.21.jar",
+      "bytes": 270115,
+      "sha256": "3c4152461540e3cce8fe25c3e1a1fa8ce6982bbad44dca6d3b7e30a05ab2d531"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/fancymenu_neoforge_3.9.12_MC_1.21.1.jar",
+      "bytes": 25912346,
+      "sha256": "fd0f446c22bb42a0a3ac5cbdcb614abcba5a70f99e2a0cda6556a8efad2859a5"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/fargostalismans-1.21.1-2.3.1.jar",
+      "bytes": 3616043,
+      "sha256": "a4273185372c73d57c37b74ef2a6b06d121d0a443fa14fd19d46d73d69d025e2"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/FarmersDelight-1.21.1-1.3.4.jar",
+      "bytes": 3160490,
+      "sha256": "139ad7696462c89c03eea463f805abffa552526c5dadaadae221dd9624cb197c"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/farmingforblockheads-neoforge-1.21.1-21.1.13.jar",
+      "bytes": 830933,
+      "sha256": "12d8a9d3e93bfda0fc2cc74df1d56dcb01046fa309ae4610c1dcf722aba48fd2"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/FastSuite-1.21.1-6.0.7.jar",
+      "bytes": 28193,
+      "sha256": "3e274cd01bdc27dff8e2514213f1c45306c86fe38e4271a4209bc1471de6c70d"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Feature-Recycler-neoforge-2.0.0.jar",
+      "bytes": 144306,
+      "sha256": "edf55b1da56b8d72522912b51ee5fe59ec64bed4b67a48cafe8c9473907867cd"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ferritecore-7.0.3-neoforge.jar",
+      "bytes": 121559,
+      "sha256": "d87ea28262715ebff45b8a82d493e6b468e7a4521bc021df5d88302196d030a8"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/findme-3.3.3-neoforge.jar",
+      "bytes": 40862,
+      "sha256": "9b19a74cfa1ff011a10d55108e58b48700e8121fa0785d261a8d645ac10ec2ff"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/FlowerPatch-neoforge-1.21.1-7.1.0.jar",
+      "bytes": 269398,
+      "sha256": "10f676af6ef6b14bc9186e4b21a8f4852e0a1023a496794c78a08a5ce4e8701c"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ForgeConfigAPIPort-v21.1.6-1.21.1-NeoForge.jar",
+      "bytes": 104654,
+      "sha256": "1fffe12e3e8343ef52d306ee29f7d6f6724d47a185a375c4a3c75aab3894c68d"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/formations-1.0.4-neoforge-mc1.21.jar",
+      "bytes": 287525,
+      "sha256": "2d9b50575fdf42e59d5dacda23ce5d01fc5cb19db02a1278329e3ad40893848e"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/formationsnether-1.0.5b-mc1.21+.jar",
+      "bytes": 330916,
+      "sha256": "b903e98fdeacb5b70b10baafe224c512a6efa843c53f0386d50cc48ce4ad19c9"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/FramedBlocks-10.6.2.jar",
+      "bytes": 4305605,
+      "sha256": "3cc56f93deb36685eea437bfe35baca204769623bae626ac2b29522a086aece1"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ftb-auxilium-neoforge-21.1.6.jar",
+      "bytes": 43005,
+      "sha256": "2bf0c13f9e9a9f80b8f3d95f90f6e1c9b2e2e2f2d50deb58444bdedd7d2cbd72"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ftb-chunks-neoforge-2101.1.22.jar",
+      "bytes": 655807,
+      "sha256": "4ba1b3352184fa7f6e2aa4bca76edd074867697d62344dfa50dcccdb4dab5217"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ftb-essentials-neoforge-2101.1.10.jar",
+      "bytes": 217288,
+      "sha256": "a61de1b883ec9d6d652276f453e8e60b18bd315fef8c62f21d6545260d526587"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ftb-jei-extras-21.1.7.jar",
+      "bytes": 69759,
+      "sha256": "141b02587d71a6591e71c1ed50de5ddd5b297bb580e26aabf1273bb6fbdbe6dd"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ftb-library-neoforge-2101.1.36.jar",
+      "bytes": 1439427,
+      "sha256": "5122579e4d55d77057e98a1403b6006dde95d397976fc3c2ee7dd066747c696f"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ftb-pack-companion-21.1.22.jar",
+      "bytes": 268279,
+      "sha256": "809b9e0a9d9ba2b97fdb0607542cd3f8ee978aa1fe93f3a84b21d5b82400bfad"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ftb-promoter-21.1.63.jar",
+      "bytes": 44228,
+      "sha256": "b559c1ab5510009b167832a279ec81c9714576f86a552fddfc000bd0ea175115"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ftb-teams-neoforge-2101.1.11.jar",
+      "bytes": 308236,
+      "sha256": "e6bcd670493624e6906df872a9c6af4a33fe6405cac57a32c59cd4cd5838c655"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ftb-xmod-compat-neoforge-21.1.12.jar",
+      "bytes": 148575,
+      "sha256": "f587e13131101bac33d4cc7a04d13d06c00f8f88a892be90d6ffc8ad96119ae8"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ftbbackups2-neoforge-1.21-1.0.28.jar",
+      "bytes": 1936882,
+      "sha256": "03f8e0c2f2a7b5140e3cfd362fca1613f311d7b5175096a41b030a6389796630"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/functionalstorage-1.21.1-1.5.8.jar",
+      "bytes": 810628,
+      "sha256": "e3e7368c28a24e7de5b877988aa92cc94ca7417c8f60b7d28e7f584a94a51147"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/fusion-1.3.15b-neoforge-mc1.21.1.jar",
+      "bytes": 947338,
+      "sha256": "a926fdeaf74829a923c37ba1be8d188e40d8537d217c1642643d3ae1bcb25866"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/fzzy_config-0.7.7+1.21+neoforge.jar",
+      "bytes": 2392693,
+      "sha256": "26af871cacd134ce52610384bbdd362a018707444eb2d498e4833063f378cf85"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/gag-neoforge-1.21.1-5.2.0.jar",
+      "bytes": 540286,
+      "sha256": "e8e2b042fa2a69232006687d3733c5e0964a7d450b9d01fbe76f2c920c199f95"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/GatewaysToEternity-1.21.1-5.1.0.jar",
+      "bytes": 646451,
+      "sha256": "5e4f87781e045e67492c0589b1062504df76ca33215ab0358fc8e4a1be5efac5"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/geckolib-neoforge-1.21.1-4.9.3.jar",
+      "bytes": 634531,
+      "sha256": "20a1995e4074f387ff549e2c57ea79dd7d41ee83c6afb9dd6a6e840e592d1c47"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/GeOre-1.21.1-6.2.2.jar",
+      "bytes": 825916,
+      "sha256": "f5dc2ab36a92460f14eebcc4551779553631b2a10c3162a8456d0bef326920aa"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/GeOre_Nouveau-1.21.1-0.5.9.jar",
+      "bytes": 196070,
+      "sha256": "dda643c30556ebf1b0c0ca7a2f2ed586a6731176f3c7bccb9911f84ab5496722"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Glassential-renewed-1.21.1-3.4.7.jar",
+      "bytes": 721350,
+      "sha256": "fbdbb6ab7e1cff95bf00444d5b3a1b4276d1f0d1b82e22dfcecb3cf5f0421b7d"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Glodium-1.21-2.2-neoforge.jar",
+      "bytes": 61377,
+      "sha256": "369e99753df0bdc90a38a8c52df4abb37baf6b18c6ca130af4c7bc75fb160a85"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/gpumemleakfix-1.21-1.8.jar",
+      "bytes": 6574,
+      "sha256": "4bd0682e26b8d4ba78442ce8d969fc7fa3cac2c21fc600de34a54b2ff7814931"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/gravestone-neoforge-1.21.1-1.0.40.jar",
+      "bytes": 322082,
+      "sha256": "204be9ccb8632a56a87aee9aab4c7874d0f6749f566c07f5dd420d24e24dc8b0"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/guideme-21.1.19.jar",
+      "bytes": 9311992,
+      "sha256": "2ce254edb931c3c3cf81d69abaf8f4ce5b871bf85e64984f366bf044173bd66a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/handcrafted-neoforge-1.21.1-4.0.3.jar",
+      "bytes": 7132842,
+      "sha256": "6f2a776fb28ed07d370899814e5e711fbeebe31396097d78a3b550439b364948"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/HostileNeuralNetworks-1.21.1-6.5.1.jar",
+      "bytes": 490546,
+      "sha256": "dd56c109a76cdd2c2bf73a1e62aed7218d087fa1401a539b0d5576386f9ff545"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/hyperbox-1.21-6.0.0.1.jar",
+      "bytes": 262385,
+      "sha256": "b55543002b185d79cb2b3d9001616bcf6f743d2ed4aa39a9280456dc4f60db8c"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/industrial-foregoing-souls-1.21.1-1.10.4.jar",
+      "bytes": 135458,
+      "sha256": "57955ba464903be4c61de4b44018d6fd2f482ba0eadf9fed85383ae8e05d5ab0"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/industrialforegoing-1.21-3.6.38.jar",
+      "bytes": 4630924,
+      "sha256": "e242dc05af2bc1e1316e1a8f7807ccc037b13e2594ce3967b77639a21deaf0a4"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/integratedcrafting-1.21.1-neoforge-1.7.2.jar",
+      "bytes": 500280,
+      "sha256": "4bd113838e18483aa59359fa29ca9df74940f720648ec94cf784f1f4a24d1732"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/integrateddynamics-1.21.1-neoforge-1.37.1.jar",
+      "bytes": 4468582,
+      "sha256": "55b00484736d01e82bdfae20c0e24dfd8ca74cc98af6a161285960da4440feaa"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/integratedterminals-1.21.1-neoforge-1.10.0.jar",
+      "bytes": 821796,
+      "sha256": "302226a8e7c10ada5636c76ab38852dda66da2417e03d541e7a83ead94ff2c2a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/integratedtunnels-1.21.1-neoforge-1.12.0.jar",
+      "bytes": 733867,
+      "sha256": "03ffff995429ff382c447e441c01dbdac2ec5317ed1adc5a25da924246d432aa"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/inventorysorter-1.21.1-24.0.24.jar",
+      "bytes": 53363,
+      "sha256": "6fde143f12b608aec80f590f16ff91787043796dee6642f46f82e4df029c6544"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/iris-neoforge-1.8.12+mc1.21.1.jar",
+      "bytes": 2438548,
+      "sha256": "3e3f94d2d5cdcb8145c4385d521974aa2d8669b2cc212351f70cf06488182e83"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ironfurnaces-neoforge-1.21.1-4.3.2.jar",
+      "bytes": 576866,
+      "sha256": "97c0d7c323fda4aa852fdce69bf1250a40323bb9d34ef6c87790e07334d1c2de"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/IronJetpacks-1.21.1-8.0.11.jar",
+      "bytes": 154859,
+      "sha256": "aa589c0a9cec53f554cacef95dd4af45c1bbd351aab4c12104240f8a8d79b909"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/irons_lib-1.21.1-2.1.0.jar",
+      "bytes": 406284,
+      "sha256": "3d0ad1003d6edeaad2500b9922267b4192d2c603cdd846fda339b168f4deff72"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/irons_spellbooks-1.21.1-3.16.2.jar",
+      "bytes": 13874139,
+      "sha256": "82b650aff7636c8fa88da0e4cfea008c229bb62843274678ee932f6b4ec74430"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Jade-1.21.1-NeoForge-15.10.6.jar",
+      "bytes": 726853,
+      "sha256": "276f1f65a20d04f536989c4f311949d770b52c440c23c2b904a08860f3c93810"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/jamd-neo-21.1.1+mc1.21.1.jar",
+      "bytes": 76922,
+      "sha256": "740bc6d99eeb34286bdb64af4842c08dfd7358501b03923491a128a2b3ad089b"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/JAOPCA-1.21.1-5.0.14.23.jar",
+      "bytes": 1052862,
+      "sha256": "fc7460176d2eefd1a1605c585a076611bd5e9dbb0a5e1822d92268493eb36e27"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/javd-neo-9.0.0+mc1.21.1.jar",
+      "bytes": 54632,
+      "sha256": "fd2afc69a6745321bee1a358f583cc33dd029a1b0370ccff281be1a866dcba3f"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/jei-1.21.1-neoforge-19.53.0.425.jar",
+      "bytes": 1847925,
+      "sha256": "3683c743c1b6192913abc2a969486344eee98aa2924e8deb5087109645c3abc6"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/jumbofurnace-5.0.0.9.jar",
+      "bytes": 192825,
+      "sha256": "7880268f4ec6a9e905c7e86b8a0c3ee5c2fe4888c8663ae8c609a21748f06fcf"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/jumpoverfences-neoforge-1.21.1-1.6.1.jar",
+      "bytes": 24784,
+      "sha256": "a3d840a5bbc5dc117d991b929962d78ae1ad0ac427cf4c7f5ca9de33bea854cf"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/justdirefuels-1.1.0.jar",
+      "bytes": 24811,
+      "sha256": "a08c0c9a5298b66bc75781b0541192e5ae233c1dd716e9462b5ab154197c74d8"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/justdirethings-1.5.7.jar",
+      "bytes": 2853190,
+      "sha256": "6e5f7dd7091cc271fee66b0df62bde2250e8b52397b51dd911f79c088eb22d2f"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/justdynathings-1.20.6-hotfix1.jar",
+      "bytes": 955558,
+      "sha256": "3b4c171ebf55d9452ddab7b45b8d289473a2109fa0652ec347ef1179491f5bef"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/justenoughbreeding-neoforge-1.21.1-3.2.1.jar",
+      "bytes": 593705,
+      "sha256": "0c79081af07c4f556feda06047a8ca801af6e979b468d14c74ec88a5d2529f19"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/JustEnoughMekanismMultiblocks-1.21.1-7.21.jar",
+      "bytes": 213205,
+      "sha256": "b4e4aaabb6262bb327e4f20ea5e1ef8af6763bf1015ed710294731a6e4a6f0f7"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/JustEnoughProfessions-neoforge-1.21.1-4.0.5.jar",
+      "bytes": 24879,
+      "sha256": "b34d6bb434d507874a6ebe49d40169c26f7cad8f51c9ffea615eedb153746696"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/justzoom_neoforge_2.1.0_MC_1.21.1.jar",
+      "bytes": 43798,
+      "sha256": "83f1701f7802d4355e57f73c2751b29e4b760a4e2a18427504bbd9ce7090a0c1"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/konkrete_neoforge_1.9.9_MC_1.21.jar",
+      "bytes": 618842,
+      "sha256": "791c5538751dd3015ef3a2ce92d98719e1a28a48ebbd817b78506771256654cd"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/kotlinforforge-5.12.0-all.jar",
+      "bytes": 7279276,
+      "sha256": "095aed94f21b4e55895b21ea957750ae3ab829fbcfc6d3c66a3489f5f1128d46"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/kubejs-neoforge-2101.7.2-build.377.jar",
+      "bytes": 2294111,
+      "sha256": "43b656bc2d4ce867141abb828c9481f080a38585b99bcfa07e54732a4976a601"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/laserbridges-1.21.1-neoforge-6.jar",
+      "bytes": 211267,
+      "sha256": "4b84ec10011537b158108d010d81f1f1b9232b8c5b3113690f500b1e68cb8b89"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/laserio-1.9.11.jar",
+      "bytes": 1305285,
+      "sha256": "03e8537d75bc2f4ced2fc214d3409753e684d1056ee63b26db7a2b9e199ef4df"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/light-overlay-12.0.0-neoforge.jar",
+      "bytes": 62920,
+      "sha256": "f3de5dfa84ca732878f5eeafab3ee32c89b654e031b8f814a01bf4312ee42d4d"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/lithosphere 1.6 17.06.2025 (1.20.5 - 1.21.5).jar",
+      "bytes": 582938,
+      "sha256": "f66d1c35bd9f36f861c5bd607050d6906413f8ef003941520e96434537b70394"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/lithostitched-1.8.0+beta6-neoforge-21.1.jar",
+      "bytes": 978169,
+      "sha256": "df6ad6f061435fd1795bfe3af627e4cebb25b977b7cbbc088bbad0174109d571"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/LittleTiles_BETA_v1.6.0-pre228_mc1.21.1.jar",
+      "bytes": 2842162,
+      "sha256": "71a2d490a6083dc5345c4c133dc22a34a765b86a93830d1c5c6e169e9ad30374"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/logbegone-neoforge-1.21.1-1.0.3.jar",
+      "bytes": 73237,
+      "sha256": "0ee3005ffa553aed37a313ad43dd5947080c45bcbaa8ed8cd4e00342321ff6a9"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/lootintegrations-1.21.1-4.7.jar",
+      "bytes": 36966,
+      "sha256": "1de9e6352f643f2850dce3e6b7aa8274902798a2243ea9e494fe13aabaa90d2c"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/lootintegrations_yungs-1.6.jar",
+      "bytes": 5991,
+      "sha256": "15e0b2b1a6e538e2e4f14c1fa9fd272e3ea45d74b0e95d50d3f707a7cef9b9be"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/lootr-neoforge-1.21.1-1.11.38.126.jar",
+      "bytes": 1034358,
+      "sha256": "ebcfd1238c323f21d022102270fbc1d172eb6f055936b345bc08b1ca2c9ef8c3"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/MagicDoorknob-1.21.1-2.0.1.2607.jar",
+      "bytes": 114608,
+      "sha256": "43af6d9c9169294718f4e191a83f7c70a1dad139ef25e1a95a667279e71d5b1d"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/mcjtylib-1.21-9.0.21.jar",
+      "bytes": 699982,
+      "sha256": "b8eca900d4fe77a495c74137bd6be79c67281e5d7ae67ca55f59980c64960a0e"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Measurements-neoforge-1.21.1-3.0.3.jar",
+      "bytes": 47632,
+      "sha256": "3ee0f9888139687128ff07651202a188ac459ff22e26c47468f122307c1c0a75"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/megacells-4.11.0.jar",
+      "bytes": 1137276,
+      "sha256": "a386bbf12afb11729b0dcf77f64221893d250f22e6185a4d728b9799b230bc55"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Mekanism-1.21.1-10.7.19.85.jar",
+      "bytes": 11976009,
+      "sha256": "004dbc9f3106f4d192aeaa1ee1190dd16ec9ca8059ed3d093b80034f4c574f43"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/mekanism_lasers-1.1.10.3-a.jar",
+      "bytes": 174626,
+      "sha256": "34f126573ee15a6621af6351e25a5a2249fbdbff378e1c68ce19210e1b9d2645"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/mekanism_turrets-2.2.3.jar",
+      "bytes": 152127,
+      "sha256": "e1fc6c426bab8daad6756dc044cc71a3be08e0c30e0c6194ca8e9439fc091e03"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/mekanism_unleashed-0.3.4.jar",
+      "bytes": 20647,
+      "sha256": "e9186a3b8029abbe4447ba056e2f8d1bd09df65488c47c3d6cdce19aa5ff2886"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/MekanismAdditions-1.21.1-10.7.19.85.jar",
+      "bytes": 1162551,
+      "sha256": "3d8a6ed67f5ccf3797ad9d5236ec4e22b74481aa9cd45636feb16f89e1d56311"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/MekanismGenerators-1.21.1-10.7.19.85.jar",
+      "bytes": 1114598,
+      "sha256": "0e5783b111e756f27b48c62b2f0e02fff750c77f7985ff809bfadc5f444ba4ac"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/MekanismTools-1.21.1-10.7.19.85.jar",
+      "bytes": 526620,
+      "sha256": "e1dbca7d70df150101da535f6ab4b165a2e402fde830d34df75b58d9aad24dd8"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/melody_neoforge_1.0.10_MC_1.21.jar",
+      "bytes": 36096,
+      "sha256": "6b973a4564703c531fc0eae09db08b07a38091e0a743c687b8d2049457e84871"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/merequester-neoforge-1.21.1-1.5.0.jar",
+      "bytes": 186826,
+      "sha256": "8ac35e46e0a6102fd17eaa7aeda94eaf4755e448c703b6130f3ff1731bee03e5"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/minecolonies-1.1.1396-1.21.1-snapshot.jar",
+      "bytes": 78290532,
+      "sha256": "368b29148a598704bc2652405c72b7151f2d2a0fb58ac32e7bb24936643cf2c5"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/mininggadgets-1.18.8.jar",
+      "bytes": 664111,
+      "sha256": "01e1b6064959074388485e03828cffaec3f9a702436efe66c0faa296dde54f91"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/mob_grinding_utils-1.1.10+mc1.21.1.jar",
+      "bytes": 1370085,
+      "sha256": "9781e7a5cffc53a9b2879160aef0d39a7e416d7f4b5805240ca03eaff5f4ed06"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/mob_tag_fixes-1.0.0.jar",
+      "bytes": 13047,
+      "sha256": "a6a48b5d6a0b35c3746dd4841f400666fcbba34ae68e3b3823b162cc3a3fe488"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Modern-Dynamics-0.9.6.jar",
+      "bytes": 707745,
+      "sha256": "4357833f16a8f890e4399de3c606a27644add1384d5d1e7246648a818e9cbdab"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/modernfix-neoforge-5.27.24+mc1.21.1.jar",
+      "bytes": 604333,
+      "sha256": "e6e9446890f0feb3aab3f6e73ae18cb17575c370f232179fef7baa30e61538fe"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/modonomicon-1.21.1-neoforge-1.120.4.jar",
+      "bytes": 2399838,
+      "sha256": "35d055e524c3491126ebe874984e8d77cb18460de4479d03a36d9f00404cc726"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/modular-routers-13.2.7+mc1.21.1.jar",
+      "bytes": 1285765,
+      "sha256": "10f84e7f2d1bc7b655d8398d8c2e7146c4929c3ad2c97408f940ca86c1bf898c"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/monocle-0.2.3.ms.jar",
+      "bytes": 567855,
+      "sha256": "a64e5a560ca28c894c8575f920a74eedf387f6dd10f1842823820d04270429ec"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/morered-1.21.1-6.0.0.3.jar",
+      "bytes": 535669,
+      "sha256": "8075126184f540c6b35b92127088f6cc4c9544627acac9f2287c62a0dfbde74e"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/MoreRed-CCT-Compat-1.21.1-1.3.0.jar",
+      "bytes": 7312,
+      "sha256": "25a0c4fd36033719cc08750fcff509e215f49c8009c28c5c4b5ee61181b7901c"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/MouseTweaks-neoforge-mc1.21-2.26.1.jar",
+      "bytes": 73938,
+      "sha256": "68e6f4201c5de97b77929a7215c9552495696ca6a3bf3ae4eacc34e135f6cc8b"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/multipiston-1.2.58-1.21.1.jar",
+      "bytes": 34139,
+      "sha256": "7ca26db4648589b7f76694c249d5096c0c0afb7615fe6adf9f638c6c825c15e7"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/NaNny-1.21.1-1.0.1.jar",
+      "bytes": 4729,
+      "sha256": "e9667ea0a7f43bf79b166dfd741ba35365056befc6663d9f21000216c101fd90"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/NaturesCompass-1.21.1-3.4.0-neoforge.jar",
+      "bytes": 224657,
+      "sha256": "0e249ac11b2f916c5570d9679e188da652fa5664ba9cdb7be5dc9ff69497539c"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Neat-1.21-47-NEOFORGE.jar",
+      "bytes": 110834,
+      "sha256": "6116e6ee7202c95335fcb008f4df1c7ef6a315269555b1422353f8796a58ca2c"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/nep-1.21.1-0.5.1.jar",
+      "bytes": 1207249,
+      "sha256": "9fa1b1d13018e0be0df7d7c010e966ef37f0226e2ef586184e8d0a4d735263fc"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/netherportalfix-neoforge-1.21.1-21.1.1.jar",
+      "bytes": 211972,
+      "sha256": "c1077de0c7f1ff5289d1852e0674d9c477247d4318c9809b21c60e56a31ae31a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Not Enough Recipe Book-NEOFORGE-0.4.3+1.21.jar",
+      "bytes": 23830,
+      "sha256": "ad4abc829b00061d4e162dee0dfa74219b3474d7f21385388aca8d5f27bf23d0"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/not_enough_glyphs-1.21.1-4.6.2.jar",
+      "bytes": 637382,
+      "sha256": "efd90f8ed292fd1b6b08fc33330f4344b70ed1661ffbe3684a64b1b485856c12"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/NotableBubbleText-1.21.1-4.0.2.jar",
+      "bytes": 33878,
+      "sha256": "9279fae7a400a6ae64cf259a75afe4c12ce4bd1e65ce07f628a03dfefed291c9"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/occultism-1.21.1-neoforge-1.224.4.jar",
+      "bytes": 6951660,
+      "sha256": "b82a5ed9468d64beac21139aff5f15db287104668d8e98db7eafc042c9a79178"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/OctoLib-NEOFORGE-0.6.2+1.21.jar",
+      "bytes": 544378,
+      "sha256": "92ba07d9d9e55a65421f3c3f203c72fe5149cb024d5277267e81d812e11a7f38"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/OpenBlocksTrophies-1.21-5.1.6.jar",
+      "bytes": 893274,
+      "sha256": "630cb916a555200dd98bbbbe6ccb02a146dce0895bfa0ac9a72712102a73dee2"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/oracle_index-neoforge-1.4.0.jar",
+      "bytes": 29675090,
+      "sha256": "6e2b5ebb726ae942ee767722e5057c9c4f9f2a9ac045ce605b29033b6e2bb15b"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/oritech-neoforge-1.21.1-1.2.12.jar",
+      "bytes": 10995480,
+      "sha256": "317cf2166c0890bb7b207dc0ad1436940a607678c7050e2456be5d2667dc9041"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/oritechthings-0.0.46.jar",
+      "bytes": 401179,
+      "sha256": "49d4b16b3324c0cde9b183bc5b83113a80e8b5737e0a07d0b6b9b9ca7a659d52"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/overloadedarmorbar-neoforge-1.21-2.jar",
+      "bytes": 22307,
+      "sha256": "d9c809d62e4dac5e2dabfd6c672bbe47e89e41f680d0937aa59e49f7f65ff405"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/particle_core-0.3.3+1.21+neoforge.jar",
+      "bytes": 138375,
+      "sha256": "38c05981d1dc8428c7ab1130b9ec7f05bca1b70f909aba9c454c9611702a8dda"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Patchouli-1.21.1-93-NEOFORGE.jar",
+      "bytes": 646777,
+      "sha256": "959af52ed6640c316c3a8469203420be4aeea11ad6603890ba83bf48f5d9f993"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/pipe_connector-neoforge-0.5.28.jar",
+      "bytes": 221260,
+      "sha256": "45e3a03ccbf6cdb5a1c9298602e43dd16b1410ac551c91b4b8b6a691f0b6ad08"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/pipez-neoforge-1.21.1-1.2.31.jar",
+      "bytes": 456599,
+      "sha256": "9b37e922443ea3452daeacbfba4bcf69de07692183c4ee09f1d1e82c9fc5cc5f"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Placebo-1.21.1-9.9.2.jar",
+      "bytes": 324058,
+      "sha256": "1a844a5b081813b1edb82656329e54d38389ed470f6a6516a5887f5303d7daad"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/player-animation-lib-forge-2.0.4+1.21.1.jar",
+      "bytes": 203149,
+      "sha256": "dbe5de45f5cd60c0e5e47af14e6d564534a98456e973cf670cb881f6938eee92"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/pneumaticcraft-repressurized-8.2.23+mc1.21.1.jar",
+      "bytes": 11884697,
+      "sha256": "647ce20d52cf139f3b693b9b4c4753966a95a6dafc82d9e538ae4ae5b0249f9c"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/pocketstorage-1.2.5+1.21.1-b3.jar",
+      "bytes": 264788,
+      "sha256": "4c6e052210d74cf6a7b50ad556233d86e4af5e52f0c5f50b19d96d82c70c8303"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/polylib-2100.1.0-build.183-neoforge.jar",
+      "bytes": 1299974,
+      "sha256": "6861974b2300c899627374470b81cf4922378cd042363c383c36d758fb3808cb"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/potentials-neoforge-1.21-0.7.1.jar",
+      "bytes": 90809,
+      "sha256": "b09ac57b03593b62e044b5e73536c369598f5181180050942f973210bfdf4cc7"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Powah-6.2.10.jar",
+      "bytes": 2737991,
+      "sha256": "0e604a7356111c1dd44a00ea42fc1aa960d9faeb978261349df1138fcee4d0b4"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/prickle-neoforge-1.21.1-21.1.11.jar",
+      "bytes": 84812,
+      "sha256": "ccf46c442ed3c7fe41ad056f0940560829ec4dd88360985dfacd78f4614eb167"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/productivetrees-1.21.1-1.1.1.jar",
+      "bytes": 14095830,
+      "sha256": "ee33ae3aabc8ff592509662f2f5a84d8f39d3cde80904949130c0354f6619b1b"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/projectvibrantjourneys-1.21.1-7.0.9.jar",
+      "bytes": 762997,
+      "sha256": "fcc49a99409848caa67c5a8d7385ea3d0104c8d6d4616896d4fedab6730070c9"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/quickpaths-1.21.1-3.9.jar",
+      "bytes": 42901,
+      "sha256": "8b3aa8f553251a09efb0864b3afd652fc8946c97cab0c5065d632cb81d844efd"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/railcraft-reborn-1.21.1-1.2.10.jar",
+      "bytes": 5290986,
+      "sha256": "7de3dfeac277da57f9897822824332c99e53b9d36956143b38c0966f39144328"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/RainShield-1.21.1-2.0.1.jar",
+      "bytes": 46071,
+      "sha256": "8d29dad9406845f88d717c169bc0440ce1a7868014be600295febc3ad899bc9b"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/rechiseled-1.2.6-neoforge-mc1.21.jar",
+      "bytes": 11526036,
+      "sha256": "cd638bb122d7e1afce4f38b1c7da3af99be7b9f523869cfbc15e5347db5f8d9a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/rechiseled_chipped-2.0-1.21.1.jar",
+      "bytes": 177517,
+      "sha256": "07d5f74f0734aa171b1001e6570f53fa0469d8b81e9bfb4032e5697ba008f869"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/redstonepen-1.21-neoforge-1.11.42.jar",
+      "bytes": 513816,
+      "sha256": "c5da28a85a77fb0c12e6c71a15f5007eccedbf901f825b21b5366250a73f0915"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/refinedstorage-curios-integration-1.0.0.jar",
+      "bytes": 11177,
+      "sha256": "5f5132f7d5c08791d6111b14bbce94c5e221ab83300b1aa10565279c09938890"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/refinedstorage-jei-integration-neoforge-1.0.0.jar",
+      "bytes": 58343,
+      "sha256": "e1721529412de7be9087702c46acbe1c4d1d594418df73a2bbebe3780396fb79"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/refinedstorage-mekanism-integration-1.1.1.jar",
+      "bytes": 160633,
+      "sha256": "bf02761ac0ec1508f1551a448d1409946c6873280d19ce03cc4aeee8cc8aab76"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/refinedstorage-neoforge-2.0.9.jar",
+      "bytes": 4360871,
+      "sha256": "a1947e315ee8e4f1d4c552aecc14cb977272bee1895340558f222fa5596fe9f8"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/refinedstorage-quartz-arsenal-neoforge-1.0.8.jar",
+      "bytes": 67115,
+      "sha256": "4b2fdd989a21fa341a90297f2b492ce79df7f5515a2d2f9ae2c73f5275a9e986"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/relics-1.21.1-0.10.7.8.jar",
+      "bytes": 2753166,
+      "sha256": "024f63a0706a94fbb4dff5fb6534500817f72751a0e16577fe117e510b056e5c"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/repeatable_trial_vaults-neoforge-1.21-1.0.2.jar",
+      "bytes": 12734,
+      "sha256": "06d924f590016bd1cdd2244f943a0dca96b246ad353aded3cacb3d6a1a1bf2f4"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/repurposed_structures-7.5.22+1.21.1-neoforge.jar",
+      "bytes": 8246760,
+      "sha256": "64e64109acf7673b969aca9b3cca0bb555777cd7038aa16aa32a1548d753f257"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/repurposed_structures_pneumaticcraft_repressurized_compat_v6.jar",
+      "bytes": 108278,
+      "sha256": "50d86653e9dab236459f91a622e655df504b7d2db0b98110d8d9d4d7d1bf27b3"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/resourcefullib-neoforge-1.21-3.0.12.jar",
+      "bytes": 484332,
+      "sha256": "5e36f2c69de008dc5795f730c84ab767688f15c810944b585485349a0c911261"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/retrofactorymanager-1.21.1-1.0.3.jar",
+      "bytes": 330147,
+      "sha256": "abec7f4e6afbd048ffaf86a02390097c43bc78a536c4f632aa684d8d99eb069a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/rftoolsbase-1.21-6.0.11.jar",
+      "bytes": 463973,
+      "sha256": "5195ba530e6cf9ba61c9954a3297679e6d29aa1b6182e27ae14ea43463dd4b00"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/rftoolspower-1.21-7.0.6.jar",
+      "bytes": 579975,
+      "sha256": "259ebd617cc48e82bf0f1384ab661584829c6bcf0296273e338ceaa38a11f5d8"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/rftoolsutility-1.21-7.0.12.jar",
+      "bytes": 1434987,
+      "sha256": "1fdbf7505c6d6f4ef93b8b15961c9c1a6a4d35a5d676297f8f647916238f4d2a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/rgp-client-2.0.9+mc21.1-neoforge.jar",
+      "bytes": 7285799,
+      "sha256": "1a0e27154286f5fed911670959549c9d09365f3f2fa561a59b4a40bd7c28dce1"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/rhino-2101.2.7-build.85.jar",
+      "bytes": 882075,
+      "sha256": "95df92ce578b2504cb16d8c9fc285303bf062eb15452246a18e57b7cf091c19a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/scholar-neoforge-1.21.1-1.2.5.jar",
+      "bytes": 927258,
+      "sha256": "2e8dfa2883ad4e1d3abfd03a38c73a303ad53dac32e06e206d067bb5ead8f27a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Searchables-neoforge-1.21.1-1.0.2.jar",
+      "bytes": 77326,
+      "sha256": "ca193f0c69033d8f709f9e073a7c1ef4ea46714e5c2f94eb23ace12781c6aa68"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/servercore-neoforge-1.5.19+1.21.1.jar",
+      "bytes": 1462674,
+      "sha256": "a5706aa0bb3a47c5f1adab44306685736688ec03414f60beb4fcbe05b99f5a82"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/shrink-2.0.1.47-neoforge.jar",
+      "bytes": 46062,
+      "sha256": "5c1769dcb772f194a835cba3731ad2ad26155d9144124fc5b27c9a366cf1ad25"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/simple_weather-1.0.13-hotfix.jar",
+      "bytes": 82792,
+      "sha256": "bb8f5a73ad7e32d82149a1ba7bd1cb494cdfabe346fe196f1a2c30eae4216325"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/SimpleDiscordRichPresence-neoforge-88.0.1-build.54+mc1.21.1.jar",
+      "bytes": 79869,
+      "sha256": "735cfa183d7779ac843198720e29519bf9f92993a57aea1d6bebe2d0a26a970c"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/simplemagnets-1.1.12c-neoforge-mc1.21.jar",
+      "bytes": 146262,
+      "sha256": "c9236a8bfadb519b820be1d28e73876f034463ca8bcb4e8dce8a1897cf8446c1"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/SimpleTeleportersReforged-1.21.1-2.2.0.jar",
+      "bytes": 331448,
+      "sha256": "43f277a51413539f67dcc9691cc577acffcc19fcdb90ce3577383aa13c270ae0"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/simplylight-1.5.3+1.21.1-b4.jar",
+      "bytes": 1103352,
+      "sha256": "6d791f98671c1a5facc8f240c28944d0c7a2a6a635a5d0c5bf4d97a9f3b7a3a0"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/SmartBrainLib-neoforge-1.21.1-1.16.11.jar",
+      "bytes": 391053,
+      "sha256": "68036561cc5511766d54cc0deabc3fc3a5e68f9e3db2478f2574ec82b494374b"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/SolarGeneration-1.21.1-7.0.3.jar",
+      "bytes": 164556,
+      "sha256": "db4c4be032063e124969edcfac3eff03896bc6eaca773304c817da2e25968524"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/sophisticatedbackpacks-1.21.1-3.26.3.2158.jar",
+      "bytes": 1251706,
+      "sha256": "8656ae953d67d1d21e42ed3f103d2be07cdf23bab445c8fc3af468cfd8852514"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/sophisticatedbackpackscreateintegration-1.21.1-0.2.0.168.jar",
+      "bytes": 94487,
+      "sha256": "a04f8f50f86587f609122628056415be031574fe4a0fcc7ef0dc7d1db0b425e5"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/sophisticatedcore-1.21.1-1.5.1.2341.jar",
+      "bytes": 1785221,
+      "sha256": "48d9b3703fedb455fc0aef1f57089f90cc0d2a2400979cef3bc37763fa125c41"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/sophisticatedstorage-1.21.1-1.5.91.2127.jar",
+      "bytes": 1869204,
+      "sha256": "1594df1f45874825d22995457b8b664df8fcc83130bc86013c162740f0d12c47"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/sophisticatedstoragecreateintegration-1.21.1-0.1.21.209.jar",
+      "bytes": 134163,
+      "sha256": "0b8b13cd120d45525c4df8b465adf5d381b1ed4518b72a005a3b426c6c980d9b"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/spark-1.10.124-neoforge.jar",
+      "bytes": 3642581,
+      "sha256": "647e8a81afbe414dba1df4ba15fd06c5d32d4cb544e68828405e8e074c2e16db"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Statues-1.21.1-0.4.17.jar",
+      "bytes": 2234663,
+      "sha256": "c4f622b705fb86b994f830bade516d36c436741f3210021bd64dd9d9fbf045bd"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/stellaris-1.21-neoforge-1.4.25.jar",
+      "bytes": 9307248,
+      "sha256": "ef858a5718f1e1011944e830601b6049d4d66d87f6aa7ee66ba2d4981692efdd"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/stevescarts-1.21-1.2.18-neoforge.jar",
+      "bytes": 2133617,
+      "sha256": "43f3a051fcb6d3a51aa84ec506bdd2599c7760f7b3e3333e3c9e07a474ad250d"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/structure-expansion-neoforge-88.0.1.jar",
+      "bytes": 27040,
+      "sha256": "b42e0cb391f7ce6506c77854ea589d44539c7fbdf4289ab1ac9a3fe7a29f915f"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/StructureCompass-1.21.1-4.2.1.jar",
+      "bytes": 77540,
+      "sha256": "599b0330a2daa26892f2c9db8240911a06359f735a441a75f1dd6976957f6001"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/structureessentials-1.21.1-5.0.jar",
+      "bytes": 60833,
+      "sha256": "7ecb6c9d04e20a6803ba6e51dd226eaa289ba2c2c095248f3645222a8bfc1c8d"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/structurize-1.0.832-1.21.1.jar",
+      "bytes": 1063849,
+      "sha256": "b6ede7635c63a80bd3d034c1ad3e74c648b8478f341f883d7d29c3dcf90b79ce"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/Super Factory Manager (SFM)-MC1.21.1-4.34.0.jar",
+      "bytes": 1597623,
+      "sha256": "4b589e0b310133998f26f0c12c3ee8d367360be1771e0e96c951322cea6c7ad0"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/supermartijn642configlib-1.1.8-neoforge-mc1.21.jar",
+      "bytes": 207514,
+      "sha256": "d2ba7b839a2268e4e223457e813d11aa2476c3bf708a7bba691d8fc851778a4b"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/supermartijn642corelib-1.1.24a-neoforge-mc1.21.jar",
+      "bytes": 562383,
+      "sha256": "65d29b4d6a529beeb605f825093cb4f56f37efe092a8172bd0629b421e2c5d58"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/sushigocrafting-1.21-0.6.4.jar",
+      "bytes": 724908,
+      "sha256": "f8b72328f33a7175a4832879633ad7383ba283e7af8b42bab9cfd80f15507c4a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/theurgy-1.21.1-neoforge-1.76.1.jar",
+      "bytes": 5324579,
+      "sha256": "73edc994f5b95152b4bcb46a593837d797fe96b40be24b88ec90f1dbab228f17"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/theurgy_kubejs-1.21.1-neoforge-1.6.0.jar",
+      "bytes": 25206,
+      "sha256": "f98982fe4e23ca3a446843383b9d96b084691c3dea266921cd38a4b3a6626c22"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/titanium-1.21-4.0.43.jar",
+      "bytes": 605765,
+      "sha256": "34c58645cc1e624ec976f6fd711b7d69ddea76de495354a19a594c1bc92da6b0"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ToastControl-1.21.1-9.0.1.jar",
+      "bytes": 21079,
+      "sha256": "f80bc1be4375faaac73971e6d51cc1500935f7144fa33108ee4f2fdbd8f70f66"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/toms-peripherals-1.21-1.3.1.jar",
+      "bytes": 1339642,
+      "sha256": "c7a493b70177a4fb55f97a805b67d71ca781cedc2df11d2d421e223be382c76a"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ToolKit-neoforge-87.0.3.jar",
+      "bytes": 92615,
+      "sha256": "00d88de77bce864af6d27d5cdc1a452ca784da8d52c87b28f67fffc94065f1fb"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/torchmaster-neoforge-1.21.1-21.1.12.jar",
+      "bytes": 160657,
+      "sha256": "c159b8315be4b5ba98cf38255765c57ee95dc384d664ab6ea6d8c3a7701779d9"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/towntalk-1.2.0.jar",
+      "bytes": 52301863,
+      "sha256": "98139f54cc0f6f4be6d7fa8927cd170df8b14545ae04643436dbd48517589eb4"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/transfer_labels-0.1.8.jar",
+      "bytes": 154939,
+      "sha256": "352f4a7c061442b04d56918e48fb3c52eff505de2d5b3a17cf098d0116cb62c3"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/trashcans-1.1.0-neoforge-mc1.21.jar",
+      "bytes": 167687,
+      "sha256": "6b6bf375c71d97fd8d76036e0e4829c477626e3cc5f44612fd5adf5d5d9f9dd7"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/treetap-1.21.1-0.4.6.jar",
+      "bytes": 83361,
+      "sha256": "ae83aa53b3a737bb356776f53f76a5f085cfd158496d6fb6c3dfdde72b6f8716"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/trenzalore-neo-6.1.1+mc1.21.1.jar",
+      "bytes": 25146,
+      "sha256": "ea7212433480a2bb125091a15afa1617761787c09028032ebad436322f340e18"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/twilightforest-1.21.1-4.8.3345-universal.jar",
+      "bytes": 27154121,
+      "sha256": "493da16d10210f9f53a3c33b3d8fcb4ae9b14016ee420d753c894562bd9aba35"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/UsefulSlime-neoforge-1.21-1.12.1.jar",
+      "bytes": 609239,
+      "sha256": "c853d3372c4a6a9f3cfb79940efb63c833b1bdd087f56530a82824bd6b01ad06"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/utilitarian-1.21.1-0.19.2.jar",
+      "bytes": 623325,
+      "sha256": "c7090ef1e7259339a22d49a97125e1514c186f4e0174834da39df6987720db78"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/variantsandventures-neoforge-1.0.26+mc1.21.1.jar",
+      "bytes": 1082397,
+      "sha256": "7cdbd2a4503142c5900066bbbf4c06a813b06322fbb3088e41d059e22d8dfc19"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/villagespawnpoint-1.21.1-4.6.jar",
+      "bytes": 46583,
+      "sha256": "796fdec0718b59f316291999173650ebb5cdcee123161adb85c03c18c4304675"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/watut-neoforge-1.21.0-1.2.7.jar",
+      "bytes": 432269,
+      "sha256": "b1aac4b9832e16439ee86f27814f7b6a42f2f6bea0ea6949dfffffcd0599d88c"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/waystones-neoforge-1.21.1-21.1.45.jar",
+      "bytes": 1219809,
+      "sha256": "02c78df4a5e774cdc741d2fec8a19dac5c918ca8bd18da47444a4270322ee937"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/whatthebucket-neoforge-1.21.1-21.1.1.jar",
+      "bytes": 15935,
+      "sha256": "f9452d1dc43675723b9eb898557ac285dd238cc7cd4a78e75f0d5ca8fa02f9ff"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/WitherSkeletonTweaks-1.21.1-10.1.1.jar",
+      "bytes": 21929,
+      "sha256": "c8dd24ee672fd1e620ab20ae1d34d5e85b203d653258914d7e2b8c74498940d0"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/wits-neoforge-1.3.1.jar",
+      "bytes": 11148,
+      "sha256": "1ac1297df094f4019589093f5a4a5e1ddbef2bdaf494a7c83aa049ed225e0698"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/xnet-1.21-7.0.7.jar",
+      "bytes": 611577,
+      "sha256": "0f393a4bff91a90e0665ec6d66ff649e45f9c33311dc038e4a5df0b154ea9d80"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/xnetgases-1.21.1-6.0.2.jar",
+      "bytes": 210042,
+      "sha256": "9722e7bd07bb67d67b857452a7e7312e29f709d677dead8093a813c9b9d2e91b"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/xptome-1.21.1-2.4.jar",
+      "bytes": 28123,
+      "sha256": "9cc3fb2352f7024faacd081f4efe437bdb3e3af09ea4f2c0b2f8ca845de1125e"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/xycraft_core-0.7.53-all.jar",
+      "bytes": 2327963,
+      "sha256": "0ae977880a244157c79fea6fad10b6cef788cf65f8fefa62809665a155aed256"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/xycraft_machines-0.7.53.jar",
+      "bytes": 3056398,
+      "sha256": "51e82887cf9b09654e3e34b230e8ff5532db624a9dd1f5c7dfa01c4841b7ffef"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/xycraft_override-0.7.53.jar",
+      "bytes": 905075,
+      "sha256": "e14989bbb0ebcbfd45e248f5b301607688d22bf164ca1f60a3d721e71c6feae1"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/xycraft_world-0.7.53.jar",
+      "bytes": 1224337,
+      "sha256": "b62397bb7d8cadf5bf34b4b57b45ac1fab055f5cf4e3f13559746508fc856606"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/yeetusexperimentus-neoforge-87.0.0.jar",
+      "bytes": 570057,
+      "sha256": "9117db8b5905abf18f64fdf8f8d8ca5a91c23abd0a7fa2c9986c21aa17d74e75"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/yet_another_config_lib_v3-3.8.2+1.21.1-neoforge.jar",
+      "bytes": 1118651,
+      "sha256": "b5c30321b46cfaa521645a04aff89d2804d8167a25bb23ad4b1ae8da73093a2f"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/YungsApi-1.21.1-NeoForge-5.1.9.jar",
+      "bytes": 413763,
+      "sha256": "375e0b2f988ab4f5bde182166c0f0b102377adc8f823660c24ade08b0b3cde56"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/YungsBetterDesertTemples-1.21.1-NeoForge-4.1.5.jar",
+      "bytes": 905839,
+      "sha256": "2c3191ad447092cc7873a06e92f16bd3e2ff9dc31e93268b8893d06dd89e1fd6"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/YungsBetterDungeons-1.21.1-NeoForge-5.1.4.jar",
+      "bytes": 782160,
+      "sha256": "61816c3b7c9d92c6b44f93dce87ceb0a22827f20285d5d9c4d10d519d734de04"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/YungsBetterEndIsland-1.21.1-NeoForge-3.1.2.jar",
+      "bytes": 398130,
+      "sha256": "8005f1ea798d09fc05dad07a21ed1f393a523a718197cdbd37b1ce6d9a17e4a4"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/YungsBetterJungleTemples-1.21.1-NeoForge-3.1.2.jar",
+      "bytes": 795839,
+      "sha256": "a0d57b78c7a1891796f342b1f09c214bc27bedf0a3a894f029dfdb2db9f813d0"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/YungsBetterMineshafts-1.21.1-NeoForge-5.1.1.jar",
+      "bytes": 493967,
+      "sha256": "5625930dfb3240820d6e4ecf55fff0c39f70ce782fad117a4d418251184c7be0"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/YungsBetterStrongholds-1.21.1-NeoForge-5.1.3.jar",
+      "bytes": 461244,
+      "sha256": "a9cab2fc01538368862365691f7d215309801aed0b390351681b6b60a1db7b58"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/YungsBetterWitchHuts-1.21.1-NeoForge-4.1.1.jar",
+      "bytes": 174789,
+      "sha256": "888b1e6d1ada21982a75abfb4afb040c9bc2cc68777ec5fcd1199b978e3d4f8d"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/YungsBridges-1.21.1-NeoForge-5.1.1.jar",
+      "bytes": 136820,
+      "sha256": "bf93a85422a6b457358c3b56352641a97ec09cc37dec18b2cedcac2bd1ff9bec"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/mods/ZeroCore2-1.21.1-2.4.21.jar",
+      "bytes": 1551013,
+      "sha256": "54ac755031b05c3a5b6ddfa22dabc45fb3775481041503dcecd75e5e86627779"
+    },
+    {
+      "path": ".minecraft/versions/MC-Friends-S1-r001/runtime/java21/bin/java.exe",
+      "bytes": 50296,
+      "sha256": "f8dc082a7dedbfd2924c3562405a5a1fd12efd2641808c92e2de819c76a58b7e"
+    }
+  ]
+}

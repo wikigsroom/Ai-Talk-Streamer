@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "freeze_id": "20261103MC",
+  "recorded_at": "2026-11-03T02:36:33.922859+08:00",
+  "classification": "frozen_source_documentation_evidence_not_complete_runtime_delivery",
+  "files": [
+    {
+      "path": "docs/freezes/20261103MC/01-版本基线与运行环境.md",
+      "bytes": 6109,
+      "sha256": "8e1465c458913f27d160aefddbcff7fdd9ff7bacee68d6d2223a526e1f5aa346"
+    },
+    {
+      "path": "docs/freezes/20261103MC/02-架构接口与功能现状.md",
+      "bytes": 4859,
+      "sha256": "2b98de1db2f4ec63aa85fd8494db6b70b4543a702cc9fd899fbf5cc670181c52"
+    },
+    {
+      "path": "docs/freezes/20261103MC/03-全范围剩余事项.md",
+      "bytes": 25747,
+      "sha256": "6207a34faa29d8d06e62c6aadf09d371d892d9fe852cba8d437cbba2cf9c0747"
+    },
+    {
+      "path": "docs/freezes/20261103MC/04-人物声音直播与性能.md",
+      "bytes": 5295,
+      "sha256": "88bd377a695bd1f96e30f3c909e4f50b870286894bbe8b718b0da6ac44c97830"
+    },
+    {
+      "path": "docs/freezes/20261103MC/05-验收矩阵与完成条件.md",
+      "bytes": 13934,
+      "sha256": "1b7ce664c050577500360f58ca91c3f96c153ec63af9cdcb699e90b522a46bcb"
+    },
+    {
+      "path": "docs/freezes/20261103MC/06-问题风险与决策冻结.md",
+      "bytes": 5391,
+      "sha256": "cce191de610e580b0cdf2efccfc8686c62893d5780d3aa6ce8e4f91b22cdc0d0"
+    },
+    {
+      "path": "docs/freezes/20261103MC/07-续接与交接说明.md",
+      "bytes": 3296,
+      "sha256": "5a5a93088e7fba4a1b0a8a1747f42c2a95b0689e0fbcb38ca5009f3c2e3e28fe"
+    },
+    {
+      "path": "docs/freezes/20261103MC/08-证据索引与完整性.md",
+      "bytes": 16919,
+      "sha256": "561ad24852a9fe4cf6a34dcefb8e8e8ae700ef08da89d22c999723bc50138c86"
+    },
+    {
+      "path": "docs/freezes/20261103MC/acceptance-matrix.json",
+      "bytes": 45071,
+      "sha256": "b880e0462ce790553daaa417f48737dfa63b575045ea94ccdd8b69526529e9fb"
+    },
+    {
+      "path": "docs/freezes/20261103MC/evidence-index.json",
+      "bytes": 32928,
+      "sha256": "618c1ca436d0c1cd983fb95bb86ae2eb97e967f1ebdd1d6d33c256003eee6f5f"
+    },
+    {
+      "path": "docs/freezes/20261103MC/freeze-state.json",
+      "bytes": 18194,
+      "sha256": "4657b17ca900ef5edd66d65dd8ba95446e97fe743882beafbc9275802f9c35d5"
+    },
+    {
+      "path": "docs/freezes/20261103MC/public-source-manifest.json",
+      "bytes": 199977,
+      "sha256": "5a35b69f0e13fb5c7fb6a734b2c27523be1117f2d6f2d180c4fd756cdca9ea0c"
+    },
+    {
+      "path": "docs/freezes/20261103MC/README.md",
+      "bytes": 4541,
+      "sha256": "8f919d9f42dbb596e47df2a62c56d236de6a9d1f7478885a4317ada63bf6335d"
+    },
+    {
+      "path": "docs/freezes/20261103MC/reference-manifest.json",
+      "bytes": 59292,
+      "sha256": "7142e138d547d1c862b7964190e973e9ae27ba34f9c35369ede3b138f1971b9a"
+    },
+    {
+      "path": "docs/freezes/20261103MC/remaining-items.json",
+      "bytes": 135903,
+      "sha256": "6f0b4da98db40593593f101a00c23aa65341b5acea51b1172ebdf6a7fc30373e"
+    },
+    {
+      "path": "docs/freezes/20261103MC/snapshots/delivery-plan.before-freeze.json",
+      "bytes": 230953,
+      "sha256": "9ff711374c57b3d5e9be5b5e97f8b346571dc8954d558a003cf1b57e38c31964"
+    },
+    {
+      "path": "docs/freezes/20261103MC/snapshots/implementation-status.before-freeze.json",
+      "bytes": 622367,
+      "sha256": "9091634d1d4981fc4af75ceaccb74c94131f5d03ecc0fd4fc166e219e064f1da"
+    },
+    {
+      "path": "docs/freezes/20261103MC/verification-history/initial-link-check.json",
+      "bytes": 1443,
+      "sha256": "4c894bcf5020d7598ee2d13257762b5c4f4ad6c24b970a5c22986755b8c90201"
+    },
+    {
+      "path": "docs/freezes/20261103MC/verification.json",
+      "bytes": 1633,
+      "sha256": "7adbda244939ca7995a5126e394c7374c15282f31fe026c275a0798272ce7254"
+    },
+    {
+      "path": "outputs/mc-freezes/20261103MC/public-source.zip",
+      "bytes": 16561795,
+      "sha256": "03f136495be5bb4c24b3edc99676c7ac6d68056cf012a2355be8422aa4ff7f98"
+    },
+    {
+      "path": "outputs/mc-freezes/20261103MC/reference-snapshot.zip",
+      "bytes": 8377812,
+      "sha256": "e321d6bf8b6e74c4074118ab589e9491b348d239da596f46a4f564155c92f0c7"
+    },
+    {
+      "path": "outputs/mc-freezes/20261103MC/media/mc-live-repaired-084i-120s.mp4",
+      "bytes": 28728268,
+      "sha256": "144f7242860462453dec33958a9c81ff7b8721ce18880168dc62d4283fbff3c9"
+    },
+    {
+      "path": "outputs/mc-freezes/20261103MC/media/mc-live-120s-20261102.mp4",
+      "bytes": 34232513,
+      "sha256": "fa5e44afd94c39a2d730b555425d81fda30e7cc2645bbde75d3055c08b8930dd"
+    }
+  ],
+  "manifest_and_checksum_file_are_excluded_from_self_hash": true
+}

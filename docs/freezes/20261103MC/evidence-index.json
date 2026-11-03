@@ -1,0 +1,793 @@
+{
+  "freeze_id": "20261103MC",
+  "documented_evidence": [
+    {
+      "path": "docs/evidence/mc-planning-1.2.json",
+      "sha256": "ba8bd63bd4523c68f64ed4229985f8179d322740556084699d0718c6c98e293f",
+      "bytes": 8363,
+      "round": null,
+      "classification": "PLANNING_AND_DOCUMENT_VALIDATION_ONLY",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-planning-complete-20261030-r3.json",
+      "sha256": "c6a78f3b57975a4a8b802b437b97459545eb22b3ecba84948f73273211eddde7",
+      "bytes": 12292,
+      "round": null,
+      "classification": "PLANNING_ONLY_DOCUMENT_AND_METADATA_UPDATE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-planning-complete-20261030-r4.json",
+      "sha256": "7e7f9a0af9877874ddc958f6be80d1692eabe142200e5faa858f4ed99ce02293",
+      "bytes": 17736,
+      "round": null,
+      "classification": "PLANNING_ONLY",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-planning-complete-20261030-r5.json",
+      "sha256": "b032771f0ac67fe80333d283d5558b56a585d8739cc527bb36d63d367b2bf2a4",
+      "bytes": 15721,
+      "round": null,
+      "classification": "PLANNING_ONLY",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-planning-complete-20261031-r6.json",
+      "sha256": "1ae6e8d79afb8bbd85d8c716462a014949467e116710cd20a5e1de9b1139848b",
+      "bytes": 7515,
+      "round": null,
+      "classification": "PLANNING_ONLY_SINGLE_INTEGRATED_RELEASE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-planning-execution-20261030.json",
+      "sha256": "6a76b4afa8db4d89bbaa358a588da945fb1ea19d5ef88d378ecbb9c04157471e",
+      "bytes": 4317,
+      "round": null,
+      "classification": "PLANNING_AND_DOCUMENT_VALIDATION_ONLY",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-planning-integrated-20261030.json",
+      "sha256": "a18afb0bda2918590b395cb63ecacedfa2fcbf3d48e8d96bf3d7a5dba3bb4807",
+      "bytes": 7222,
+      "round": null,
+      "classification": "PLANNING_ONLY_DOCUMENT_AND_METADATA_UPDATE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-001.json",
+      "sha256": "be35efd7f221480b4a4a5faaf7860dcb7e541a77079957ab836fedd4b7587497",
+      "bytes": 5519,
+      "round": "001",
+      "classification": "NATIVE_CPU_PROTOCOL_AND_REGRESSION_TESTS_ONLY",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-002.json",
+      "sha256": "bf881bc218ff8c5c42f4dde4c8c2416f150bcd1fcb4ed05990987aeec8b48674",
+      "bytes": 11701,
+      "round": "002",
+      "classification": "NATIVE_FABRIC_BUILD_AND_CPU_PROTOCOL_TESTS_ONLY",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-003.json",
+      "sha256": "f2c8bc35652da6612d214d7150b093d35570cb1eb604b6bf30ff07d7189f45fe",
+      "bytes": 20975,
+      "round": "003",
+      "classification": "WORLD_LEDGER_AND_RESTART_RECOVERY_CPU_PROTOCOL_TESTS_ONLY",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-004.json",
+      "sha256": "f35d4a24c7145be65a7525bb5c0c476485ddfe83e3be0b7dc8b96771a72154a2",
+      "bytes": 11270,
+      "round": "004",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-005.json",
+      "sha256": "5516dd96ceb414992b77ef4d61a77b6c29042de28a9f356ab6ee0da3368e806a",
+      "bytes": 8318,
+      "round": "005",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-006.json",
+      "sha256": "c5154eafee9c6b74295d189fc66ea0f58b01e30ab7df5d4bdfb958369ba0fa16",
+      "bytes": 11672,
+      "round": "006",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-007.json",
+      "sha256": "54e1708740ef4296a01b511997adc00d138f8339b371d2dc9f45b2f566defdeb",
+      "bytes": 12134,
+      "round": "007",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-008.json",
+      "sha256": "1da605307112b90c7f487896d43627bc6f7086ece17cadf160262fde87f100c4",
+      "bytes": 16030,
+      "round": "008",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-009.json",
+      "sha256": "572b75aaefd4e7368b273b3297509852db54ebaf6f6e982fa3412ff1c203b8ce",
+      "bytes": 20676,
+      "round": "009",
+      "classification": "PROGRESS_BUILD_AND_CPU_ONLY_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-010.json",
+      "sha256": "db74dd00f1d9d8cfb52cf06a114177f74a8321427a7922c108079997084a2197",
+      "bytes": 37047,
+      "round": "010",
+      "classification": "PROGRESS_BUILD_AND_CPU_ONLY_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-011.json",
+      "sha256": "b7f2098667cbfac6c62f0f0d1d187a59005dbac8f0c4a761fa75189ada9ca30b",
+      "bytes": 42363,
+      "round": "011",
+      "classification": "PROGRESS_BUILD_AND_CPU_ONLY_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-012.json",
+      "sha256": "d9dab3429d0d396438869c7d2b84a6604b4c36169dc0793f91f7a3777c0fc940",
+      "bytes": 62294,
+      "round": "012",
+      "classification": "PROGRESS_BUILD_AND_CPU_ONLY_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-013.json",
+      "sha256": "136444732142301cabb94f9b6b6d509405a1e40bef93d18d980ab3f0c4efdc82",
+      "bytes": 85120,
+      "round": "013",
+      "classification": "PROGRESS_BUILD_AND_CPU_ONLY_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-014.json",
+      "sha256": "1b410adcd294d899dc0f62d248210d97378e98cc0c4d6940ed2cd5889b0b9ac2",
+      "bytes": 83658,
+      "round": "014",
+      "classification": "PROGRESS_BUILD_CPU_AND_LOCAL_BROWSER_ONLY_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-015.json",
+      "sha256": "4a920298e105d8e30248636433326f3715144d83e272d7797f593c67a810c5bd",
+      "bytes": 90159,
+      "round": "015",
+      "classification": "PROGRESS_NATIVE_BINDING_AND_CPU_ONLY_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-016.json",
+      "sha256": "44b6b60a386afe8f33e2361a5f249f09f544e4848e49151ff35d032b0dd80e9e",
+      "bytes": 104131,
+      "round": "016",
+      "classification": "PROGRESS_INCREMENT_SEMANTICS_AND_MATERIAL_PREPARATION_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-017.json",
+      "sha256": "c6a8d921830096b1c2cd13d41252cd97e6a5622485a689c146ae25249fe75aa3",
+      "bytes": 115238,
+      "round": "017",
+      "classification": "PROGRESS_REGISTERED_BASE_BINDING_AND_LATER_ARRIVAL_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-018.json",
+      "sha256": "da60134c75e41f3fa4712e55d8bfa488fe8515c7d26d6fad0182e257cd4ba1c9",
+      "bytes": 122538,
+      "round": "018",
+      "classification": "PROGRESS_TASK_OWNED_INVENTORY_TABLE_GUI_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-019.json",
+      "sha256": "57909d132e86a026efe55b753fa7a39e8b189c8d72c735826727c182143b2e4e",
+      "bytes": 134093,
+      "round": "019",
+      "classification": "PROGRESS_CRAFT_TRANSACTIONS_AND_COMPLETE_EXECUTION_PLAN_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-020.json",
+      "sha256": "7bb27e665e079711964250644e135afc3a937ec7bf2fb7e48bcf360a7bdcc912",
+      "bytes": 155554,
+      "round": "020",
+      "classification": "PROGRESS_NATIVE_ITEM_USE_AND_FIRST_REVOCATION_CAUSE_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-021.json",
+      "sha256": "5f0eafaf5f18669e351b9d9dac3de3e54281f20c6b89fd16976e2da068755be5",
+      "bytes": 80134,
+      "round": "021",
+      "classification": "PROGRESS_MC_PROGRAMME_AND_V3_MEDIA_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-022.json",
+      "sha256": "fa2c47a12336f2ab058ac209d97486a60c19b098108ff531af7ca08288f29fc0",
+      "bytes": 19009,
+      "round": "022",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-023.json",
+      "sha256": "be916ce6ccf1a90f34f57f651557c90b7fd01a07038b9381cd29c0e48fccc9ae",
+      "bytes": 18902,
+      "round": "023",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-024.json",
+      "sha256": "15e2d4744221ff88ca91f166c00a6a1963f29666b7d85ea63128b10d4022ef16",
+      "bytes": 33641,
+      "round": "024",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-025.json",
+      "sha256": "c2f149b7c65785b2ee2e77681d6613c284f0f84d622284a2ad11c2ee6b2b8efc",
+      "bytes": 32529,
+      "round": "025",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-026.json",
+      "sha256": "ab900cbf32b80a30a042f71804f4f2dd7d161655c3b652491493f8f83a8a6d38",
+      "bytes": 21127,
+      "round": "026",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-027.json",
+      "sha256": "1007eddc3ae712a35d4ac12644ac7feeaeec75c5a3ac9bad45e99dec7f8de31f",
+      "bytes": 16505,
+      "round": "027",
+      "classification": "LOCAL_IMPLEMENTATION_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-028.json",
+      "sha256": "a3416e8f7fea13a8e371e91aef39b036588d06b7e508babb583f4df5d5378294",
+      "bytes": 15444,
+      "round": "028",
+      "classification": "LOCAL_IMPLEMENTATION_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-029.json",
+      "sha256": "622806bf36d89f9817351ba667468ec071d0c147fe31fb8f25f5630e8cda37f8",
+      "bytes": 13613,
+      "round": "029",
+      "classification": "LOCAL_IMPLEMENTATION_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-030.json",
+      "sha256": "9a9ef4c492cf08145b8f0b81c6a8e666896257f3834e078bc921a1b03bfa75cc",
+      "bytes": 14129,
+      "round": "030",
+      "classification": "LOCAL_COMPATIBILITY_IMPLEMENTATION_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-031.json",
+      "sha256": "3091b24df47ce2afacb4321e60e25e3982f03deb3ecae25a9a6720426845f7c2",
+      "bytes": 18130,
+      "round": "031",
+      "classification": "LOCAL_INPUT_OWNERSHIP_IMPLEMENTATION_NOT_RUNTIME_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-032.json",
+      "sha256": "7e1d030152ed9b13b8597ac2aad218bb70dbcda9a0f67b0a941c3416b535682a",
+      "bytes": 15618,
+      "round": "032",
+      "classification": "VERIFIED_NATIVE_SOURCE_PACKAGE_NOT_COMPLETE_APPLICATION_RELEASE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-033.json",
+      "sha256": "0426b29e04782b77ca5fafd70dcccc7fc4b46d272e67490444e6796f25ac4259",
+      "bytes": 21549,
+      "round": "033",
+      "classification": "FULL_GAME_JOURNAL_HISTORY_QUERY_PROJECTION_AND_OPERATOR_VIEW",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-034.json",
+      "sha256": "de78b70cb1e5ab870c10a396e48acacc916aad8f56b86b5eed028a8b7bac799b",
+      "bytes": 22579,
+      "round": "034",
+      "classification": "NATURAL_LANGUAGE_AUDIENCE_INTENT_CLARIFICATION_REVIEW_AND_EXISTING_DISPATCH",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-035.json",
+      "sha256": "c8d955876a6dce355f282621470a4d814fcc58f4113bf3f0fbaff4e79b21eba9",
+      "bytes": 22151,
+      "round": "035",
+      "classification": "NATIVE_B_JOURNAL_RETENTION_BACKUP_SUMMARIES_AND_REPLAY_PROTECTION",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-036.json",
+      "sha256": "e584265188d1461dd705ef5a7597758000aa5cc785211f3558052d31c28dd417",
+      "bytes": 26480,
+      "round": "036",
+      "classification": "B_MAINTENANCE_HISTORY_A_PROJECTION_AND_OPERATOR_CONSOLE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-037.json",
+      "sha256": "6cfbae63946bb1ea4e184d4ebe15c44650fb010516849689910548db93152f5d",
+      "bytes": 29690,
+      "round": "037",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-038.json",
+      "sha256": "a826e2ec76d0c68aa0c6fb6e76051ce2e380801d2c91803a392749dacadb9133",
+      "bytes": 31135,
+      "round": "038",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-039.json",
+      "sha256": "d69572e490b6fba882e99cdd060da4abcdac7974257490b581b80c4c98f5458f",
+      "bytes": 28942,
+      "round": "039",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-040.json",
+      "sha256": "e0a3b6d4de4d718ecf57644db469a6db12084ce697ea49c73680c81787c743c5",
+      "bytes": 29987,
+      "round": "040",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-041.json",
+      "sha256": "e7f11823d0793805a9a1921eea8c14e6d40daadd79d55a65e0451ff9ac56145a",
+      "bytes": 32135,
+      "round": "041",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-042.json",
+      "sha256": "d897e8084d007b508c0c040ac2eac225e31c521d69b4231886c360fe60d0c753",
+      "bytes": 33994,
+      "round": "042",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-043.json",
+      "sha256": "e6bbaf95865d5f3f67adae5f076efd8c80c7fea7e61177ee14319b65c588d2d3",
+      "bytes": 35973,
+      "round": "043",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-044.json",
+      "sha256": "b29576196b1be21bbfa7a7a0644b5f16e28240f70cd47ba79e089b28d25b1248",
+      "bytes": 37872,
+      "round": "044",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-045.json",
+      "sha256": "310d7034c22b64b6060ea868416c2606b8e9a308fb332bd842268c5cd22fc4c4",
+      "bytes": 39656,
+      "round": "045",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-046.json",
+      "sha256": "045c013507f62d36dd8a47fea982f4217bdbf4a7ad269023c050735a7e37d4ef",
+      "bytes": 41916,
+      "round": "046",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-047.json",
+      "sha256": "6d6c500ae7b8821dac625280001429be2eda7a12eb5692502cb0a6078328d8e9",
+      "bytes": 44605,
+      "round": "047",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-048.json",
+      "sha256": "0cf10524befe8fadb9f3de19bda775d2cb867f4a644c6d83401dca60f3da04ca",
+      "bytes": 46947,
+      "round": "048",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-049.json",
+      "sha256": "86e349fcbcce539bdb13ad2736d90f50d427c87225219ccbe34ad1260576da01",
+      "bytes": 47776,
+      "round": "049",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-050.json",
+      "sha256": "6bd99cf4e38aa3c5aa18da9f0b67ff55d03b13abd137786e2be32f2cb2d4bee1",
+      "bytes": 48833,
+      "round": "050",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-051.json",
+      "sha256": "b42b18642b600a9247a364466a51051ff336006cae75a3e303a679a6e324c89a",
+      "bytes": 52000,
+      "round": "051",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-052.json",
+      "sha256": "83c274cb33cae8c8e0e76d30040a5a0304f2a74bad24879c27f172e825a6a422",
+      "bytes": 53890,
+      "round": "052",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-053.json",
+      "sha256": "3ff223f0299e03ddbdef53ec17dfe0f844adf56a6b8aa8270e2bf72b545ed04f",
+      "bytes": 56656,
+      "round": "053",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-054.json",
+      "sha256": "0bcfe6724bf21f748c0bde3599ad04fd26829f72558c610ec8d79067544c0385",
+      "bytes": 58979,
+      "round": "054",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-055.json",
+      "sha256": "b5f7fefbdabb0666eab945aae447626823d4eb6ede95f4a8fc5b1f3ccf81016c",
+      "bytes": 61201,
+      "round": "055",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-056.json",
+      "sha256": "a75675a12299f493d3bf93e31f3fa477f5e3add4110b5be68fc9276adeb94d49",
+      "bytes": 63756,
+      "round": "056",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-057.json",
+      "sha256": "09e5751d6d713f78ec71066375b81d9d9d62768fb2dcb9a025c619d92861dedf",
+      "bytes": 65777,
+      "round": "057",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-058.json",
+      "sha256": "58102f69144807c1378a29e79ed226f23529f00a2e8283a49cdce3641e564418",
+      "bytes": 68008,
+      "round": "058",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-059.json",
+      "sha256": "7360f017695fae2b7e158f736a803413248ab8d11fad1793c0c7222bf993eac9",
+      "bytes": 70002,
+      "round": "059",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-060.json",
+      "sha256": "1357fb45889d54a6ccd62336b9e34a401538ab788d7c6589a3cdad4fb47104e9",
+      "bytes": 72662,
+      "round": "060",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-061.json",
+      "sha256": "aedeea33f0f1677cc2cd72e6bc5a07242dbc6d1dfc3c59996edb22484c488049",
+      "bytes": 74792,
+      "round": "061",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-062.json",
+      "sha256": "bfca8c010ce092f5fc681f45cd94c53ad8ff36203457b477279b1a96e9aa344e",
+      "bytes": 76236,
+      "round": "062",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-063.json",
+      "sha256": "8fe6cb2ec052536a978ec7affd25c6a5b445186c52c2ee700dadb4ee7a925034",
+      "bytes": 80325,
+      "round": "063",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-064.json",
+      "sha256": "cb2c4fe3b3e3debba4a9684a978dab67445a0e7f9e4dc146ace4fd8f3af33759",
+      "bytes": 83430,
+      "round": "064",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-065.json",
+      "sha256": "9f23d6a2d1fd132a9a94cfae323309661b9621f9eb89d8971ece7a02cbab3511",
+      "bytes": 88229,
+      "round": "065",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-066.json",
+      "sha256": "002228a15724b8a289e6f586b9a5d6000def382f064e6f057516b13166e58878",
+      "bytes": 71245,
+      "round": "066",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-067.json",
+      "sha256": "574bbbf0a81e678c03afd6ed0236f20b3980c2d5ca2b8806896102e5cd20cfcc",
+      "bytes": 63543,
+      "round": "067",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-068.json",
+      "sha256": "ecc0e89b8fb5c9af0d265cacf8c01988fd87b0c6b43c2e3f3d0704b5f7b9ed23",
+      "bytes": 62668,
+      "round": "068",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-069.json",
+      "sha256": "204171d191031ff795e151228e1dde8970570f388453aa4be8b74ed18a577dfc",
+      "bytes": 74533,
+      "round": "069",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-070.json",
+      "sha256": "73c090b18a57708d0b8e96a0847622a4600382ce2dcecd857b17dc5568bcbabe",
+      "bytes": 75158,
+      "round": "070",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-071.json",
+      "sha256": "b73f25307f282153e299a044a436b61d07578cf9a4eb0cbccf18a17759bac8e7",
+      "bytes": 76125,
+      "round": "071",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-072.json",
+      "sha256": "9f251c10e3fb02f89b3c4fe80b1f6a94ce86e91080eff1933f622f0ee6bf61dd",
+      "bytes": 78196,
+      "round": "072",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-073.json",
+      "sha256": "105cb1bbb2009b675dfc2419a404ea1012e823f6855d655d447049bc51efaf99",
+      "bytes": 33362,
+      "round": "073",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-074.json",
+      "sha256": "f5b36af9585de70e3be5bcf799c8f9ddb5a6e9fef5cd62de33945cc949461a28",
+      "bytes": 34262,
+      "round": "074",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-075.json",
+      "sha256": "02db3ef38798241a0e1d85d3627f5dd45c5c5c05afc20c4d39e47d2a2462e6df",
+      "bytes": 42482,
+      "round": "075",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-076.json",
+      "sha256": "8ece4738177767e37f0b7ab5d7dbb9400b79dd13363b99b9ca35933d53bc1173",
+      "bytes": 49058,
+      "round": "076",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-077.json",
+      "sha256": "391563f1a68206317ed262737888fc354993f38968b6c649bf07ee3f5cdf2e24",
+      "bytes": 52029,
+      "round": "077",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-078.json",
+      "sha256": "fe3a43d5910b5e7a682ed7e8ad961b8db14350e2c61dd08e364f93acf2e2b28d",
+      "bytes": 107447,
+      "round": "078",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-079.json",
+      "sha256": "ecdc6a4dbb236e22a39c3dee00ddecac197a2960c4110c9d99b893a9b2d7d148",
+      "bytes": 77777,
+      "round": "079",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-080.json",
+      "sha256": "213088284d145b8d48402c2c24c685d03400965706d1bddafba7a12a8a8be6be",
+      "bytes": 90766,
+      "round": "080",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-081.json",
+      "sha256": "c0ed2516796d72c842f8e1d98df9e4b82560bd18965bdfa8dc6f22b845c15b15",
+      "bytes": 114110,
+      "round": "081",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-082.json",
+      "sha256": "a383083bc27d532309479b37e4e49aa0a6b52e18df0747f9f2d3580d8a5c43b8",
+      "bytes": 14460,
+      "round": "082",
+      "classification": "progress",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-083.json",
+      "sha256": "13294f28d64f587c803e03c4f2af14d7ee373172821f43c9fbdd9d5c5c965186",
+      "bytes": 683250,
+      "round": "083",
+      "classification": "paused_evaluation_and_explicit_120s_recording_only",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-084.json",
+      "sha256": "2991cd5ca4132f19037d1d0e3a3689971d9832023cda6776bcf7bfa52c7cf167",
+      "bytes": 15244,
+      "round": "084",
+      "classification": "requested_repairs_and_new_sample_verified_full_release_pending",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    },
+    {
+      "path": "docs/evidence/mc-runtime-round-085.json",
+      "sha256": "cc6ec51471e3430d6a583eefa88e2a0b3238b4d3de19274db8d8e4e6116d8c87",
+      "bytes": 3556,
+      "round": "085",
+      "classification": "READ_ONLY_STUTTER_DIAGNOSIS_NOT_PERFORMANCE_FIX_OR_ACCEPTANCE",
+      "runtime_acceptance_not_inferred_from_engineering_checks": true
+    }
+  ],
+  "media": [
+    {
+      "role": "current_repaired_sample_not_full_acceptance",
+      "original": "outputs/mc-validation/round-084/remote-evidence/mc-live-repaired-084i-120s.mp4",
+      "preserved": "outputs/mc-freezes/20261103MC/media/mc-live-repaired-084i-120s.mp4",
+      "bytes": 28728268,
+      "sha256": "144f7242860462453dec33958a9c81ff7b8721ce18880168dc62d4283fbff3c9"
+    },
+    {
+      "role": "preserved_previous_failed_gameplay_sample",
+      "original": "outputs/mc-validation/round-083/remote-evidence/mc-live-120s-20261102.mp4",
+      "preserved": "outputs/mc-freezes/20261103MC/media/mc-live-120s-20261102.mp4",
+      "bytes": 34232513,
+      "sha256": "fa5e44afd94c39a2d730b555425d81fda30e7cc2645bbde75d3055c08b8930dd"
+    }
+  ],
+  "retained_historical_failures": [
+    {
+      "sample": "084a",
+      "reason": "Recording preparation timeout before gameplay; never delivered"
+    },
+    {
+      "sample": "084b",
+      "reason": "NON_JSON_UNDEFINED in navigation failure narration topic caused native protection to pause; fixed in v6 and real task_update regression passed",
+      "evidence": "outputs/mc-validation/round-083/remote-evidence/sample084b-session-result.json"
+    },
+    {
+      "deploy": "084-v6",
+      "reason": "Core output directory already existed; installation passed, check refused before running; new unique v6b output completed 328 checks"
+    },
+    {
+      "sample": "084d",
+      "reason": "Real wood gathering and planks production achieved; repeated historical-workstation navigation and repetitive speech found, retained but not final delivery"
+    },
+    {
+      "deploy": "084-v7",
+      "reason": "Intentionally stopped own pre-start validation before models to incorporate actual speech review; exit15 retained"
+    },
+    {
+      "deploy": "084-v8",
+      "reason": "Reused check-output directory refused before testing; unique v8b checks passed"
+    },
+    {
+      "sample": "084g",
+      "reason": "One verified crafting-table craft, then unrelated remote-utility ad stole focus and GUI_BLOCKED correctly stopped input; not delivered as effective programme"
+    },
+    {
+      "sample": "084h",
+      "reason": "No gameplay: existing explicit/physical stop fence prevented config-only restart. New user-requested programme084i uses one explicit initial AUTO grant, with zero script gameplay tasks or keys"
+    }
+  ],
+  "raw_private_or_large_runtime_logs_not_bulk_copied": true
+}

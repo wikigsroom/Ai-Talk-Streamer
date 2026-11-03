@@ -5,6 +5,7 @@ import { existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fixture } from './room-fixture.mjs';
 import { patchSettings, DEFAULTS } from '../backend/room/defaults.mjs';
+import { RoomStore } from '../backend/room/store.mjs';
 import { normalizeEvent } from '../backend/platforms/events.mjs';
 import { uploadAudio } from '../backend/room/media.mjs';
 
@@ -17,6 +18,28 @@ test('room config validates keys, numeric bounds and compare-and-swap revisions 
     r = await f.post('config', { expected_revision: 2, patch: { audio: { muted: true, music_volume: 2 } } }); assert.equal(r.status, 400); assert.equal(f.manager.store.settings.audio.muted, false);
   } finally { await f.close(); }
 });
+test('MC chat side persists through a fresh store, rejects invalid sides and stale revisions, and upgrades legacy settings', async () => {
+  const f = await fixture(); let restored, legacy;
+  try {
+    assert.equal(f.manager.snapshot().settings.overlay.mc_chat_side, 'right');
+    const revision = f.manager.store.revision;
+    const changed = await f.post('config', { expected_revision: revision, patch: { overlay: { mc_chat_side: 'left' } } });
+    assert.equal(changed.status, 200); assert.equal(changed.value.settings.overlay.mc_chat_side, 'left');
+    for (const side of ['middle', null, 0]) {
+      const invalid = await f.post('config', { expected_revision: f.manager.store.revision, patch: { overlay: { mc_chat_side: side } } });
+      assert.equal(invalid.status, 400); assert.equal(f.manager.store.settings.overlay.mc_chat_side, 'left');
+    }
+    assert.equal((await f.post('config', { expected_revision: revision, patch: { overlay: { mc_chat_side: 'right' } } })).status, 409);
+    restored = new RoomStore(join(f.folder, 'state/live-room/control.sqlite3'));
+    assert.equal(restored.settings.overlay.mc_chat_side, 'left'); restored.close(); restored = null;
+    legacy = new RoomStore(join(f.folder, 'legacy.sqlite3'));
+    const oldSettings = structuredClone(DEFAULTS); delete oldSettings.overlay.mc_chat_side;
+    legacy.put('settings', oldSettings); legacy.close();
+    legacy = new RoomStore(join(f.folder, 'legacy.sqlite3'));
+    assert.equal(legacy.settings.overlay.mc_chat_side, 'right');
+  } finally { restored?.close(); legacy?.close(); await f.close(); }
+});
+
 test('playlist play/pause/seek, ordering, repeat and invalid inputs preserve state', async () => {
   const f = await fixture(); try {
     let r = await f.post('music', { action: 'play', track_id: 'window-breeze' }); assert.equal(r.value.music.playing, true); assert.equal(r.value.music.track_id, 'window-breeze');
@@ -27,6 +50,17 @@ test('playlist play/pause/seek, ordering, repeat and invalid inputs preserve sta
     assert.equal((await f.post('tracks/delete', { id: ids[0] })).status, 400); assert.equal((await f.post('music', { action: 'repeat', value: 'forever' })).status, 400);
   } finally { await f.close(); }
 });
+
+test('MC avatar and scene settings persist atomically and never change the game control mode',async()=>{
+ const f=await fixture();let restored;try{
+  f.bridge.game={configure(){assert.fail('scene must not configure the game')},control(){assert.fail('scene must not control the game')}};
+  const revision=f.manager.store.revision;
+  const changed=await f.post('config',{expected_revision:revision,patch:{overlay:{mc_avatar_variant:'landscape',mc_scene:'break'}}});assert.equal(changed.status,200);
+  assert.equal((await f.post('config',{expected_revision:revision,patch:{overlay:{mc_scene:'play'}}})).status,409);
+  for(const patch of [{mc_avatar_variant:'portrait'},{mc_scene:'AUTO'},{mc_scene:null}])assert.equal((await f.post('config',{expected_revision:f.manager.store.revision,patch:{overlay:patch}})).status,400);
+  restored=new RoomStore(join(f.folder,'state/live-room/control.sqlite3'));assert.equal(restored.settings.overlay.mc_avatar_variant,'landscape');assert.equal(restored.settings.overlay.mc_scene,'break');
+ }finally{restored?.close();await f.close()}
+});
 test('new platform comments and gifts deduplicate, retain metadata, and moderation removes active board', async () => {
   const f = await fixture(); try {
     const e = normalizeEvent('bilibili', { type: 'gift', event_id: 'gift-1', uid: 7, nickname: '测试昵称', room_id: '1', gift_name: '鲜花', gift_count: 6 });
@@ -35,17 +69,18 @@ test('new platform comments and gifts deduplicate, retain metadata, and moderati
     await f.post('config', { expected_revision: 1, patch: { moderation: { blocked_names: ['测试昵称'] } } }); assert.equal(f.manager.snapshot().board.featured, null); assert.equal(f.manager.blocked(e), true);
     const sc = normalizeEvent('bilibili', { cmd: 'SUPER_CHAT_MESSAGE', data: { id: 'sc1', uid: 8, room_id: '1', message: '支持知夏', user_info: { uname: 'SC观众' } } });
     assert.equal(sc.type, 'comment'); assert.equal(sc.notice_kind, 'superchat'); assert.equal(sc.nickname, 'SC观众');
-    assert.equal(normalizeEvent('bilibili', { type: 'gift', room_id: '1', gift_count: 'oops' }).gift_count, 1);
+    const invalidGift=normalizeEvent('bilibili', { type: 'gift', room_id: '1', gift_count: 'oops' });
+    assert.equal(invalidGift.gift_count, null); assert.equal(invalidGift.platform_fields.field_status['gift.count'],'invalid');
     assert.equal(normalizeEvent('bilibili', { type: 'comment', room_id: '1', test: true }).test, true);
     assert.equal(normalizeEvent('bilibili', { type: 'comment', room_id: '1', test: true }, { source: 'blivedm' }).test, false);
   } finally { await f.close(); }
 });
-test('message board can create, pin, hide, mark answered and clear test data without changing real messages', async () => {
+test('message board marks operator handling separately from actual playback completion', async () => {
   const f = await fixture(); try {
     await f.post('messages', { action: 'create', text: '<script>not HTML</script>', feature: true }); const m = f.manager.store.recent()[0];
     await f.post('messages', { action: 'pin', id: m.id }); assert.equal(f.manager.snapshot().board.pinned.text, '<script>not HTML</script>');
     await f.post('messages', { action: 'hide', id: m.id }); assert.equal(f.manager.snapshot().board.featured, null);
-    await f.post('messages', { action: 'restore', id: m.id }); await f.post('messages', { action: 'answered', id: m.id }); assert.equal(f.manager.store.message(m.id).answered, true);
+    await f.post('messages', { action: 'restore', id: m.id }); await f.post('messages', { action: 'answered', id: m.id }); assert.equal(f.manager.store.message(m.id).handled, true); assert.equal(f.manager.store.message(m.id).answered, false);
     await f.post('test-event', { type: 'gift' }); await f.post('messages', { action: 'clear_tests' }); assert.equal(f.manager.store.recent().length, 1);
   } finally { await f.close(); }
 });

@@ -14,13 +14,13 @@ class RoomOverlay {
     if (this.room.blocked(message)) return;
     const s = this.room.state?.settings.overlay; if (!s || !this.standalone && !s.embedded) return;
     if (s.gifts && this.allows('gifts') && (['gift', 'follow', 'fansclub'].includes(message.type) || message.notice_kind === 'superchat')) {
-      const merge = this.giftQueue.find(m => m.nickname === message.nickname && m.gift_name === message.gift_name && m.type === message.type);
-      if (merge && message.type === 'gift') merge.gift_count += message.gift_count;
-      else this.giftQueue.push({ ...message }); if (this.giftQueue.length > 12) this.giftQueue.shift();
+      const merge = message.type === 'gift' && message.user_key && message.gift_name && this.giftQueue.find(m => m.user_key === message.user_key && m.gift_name === message.gift_name && (m.platform_fields?.quality || 'unverified') === (message.platform_fields?.quality || 'unverified') && m.type === 'gift' && (m.sources || [m]).length < 32 && message.received_at - m.received_at <= 3000);
+      if (merge) merge.sources = [...(merge.sources || [merge]), message];
+      else this.giftQueue.push({ ...message, sources: [message] }); if (this.giftQueue.length > 12) this.giftQueue.shift();
     }
     if (s.danmaku && message.type === 'comment' && this.allows('chat')) {
       const lane = this.find('.room-lane'); if (lane.childElementCount >= 8 || performance.now() - (this.lastFly || 0) < 1800) return;
-      this.lastFly = performance.now(); const span = document.createElement('span'); span.className = 'room-fly'; span.textContent = (message.test ? '[测试] ' : '') + message.nickname + '：' + message.text.slice(0, 60); span.style.setProperty('--duration', s.danmaku_speed + 's'); lane.append(span); setTimeout(() => span.remove(), s.danmaku_speed * 1000 + 200);
+      this.lastFly = performance.now(); const span = document.createElement('span'); span.className = 'room-fly'; span.dataset.messageId = message.id; span.textContent = (message.test ? '[测试] ' : '') + RoomClient.displayName(message) + '：' + RoomClient.content(message).slice(0, 60); span.style.setProperty('--duration', s.danmaku_speed + 's'); lane.append(span); setTimeout(() => span.remove(), s.danmaku_speed * 1000 + 200);
     }
     this.render();
   }
@@ -40,13 +40,16 @@ class RoomOverlay {
     const chat = this.find('.room-chat'); chat.hidden = !s.chat || !this.allows('chat');
     const rows = this.room.messages.filter(m => m.type === 'comment' && !this.room.blocked(m) && this.room.now() - m.received_at < s.comment_lifetime * 1000).slice(-s.max_comments);
     const signature = rows.map(m => m.id).join('|');
-    if (signature !== this.chatSignature) { this.chatSignature = signature; chat.replaceChildren(...rows.map(m => { const node = document.createElement('div'); node.className = 'room-comment'; const who = document.createElement('div'); who.className = 'who'; who.textContent = m.nickname + (m.test ? ' · 测试' : ''); const body = document.createElement('div'); body.className = 'body'; body.textContent = m.text; node.append(who, body); return node; })); }
+    if (signature !== this.chatSignature) { this.chatSignature = signature; chat.replaceChildren(...rows.map(m => { const node = document.createElement('div'); node.className = 'room-comment'; const who = document.createElement('div'); who.className = 'who'; who.textContent = RoomClient.displayName(m) + (m.test ? ' · 测试' : ''); const body = document.createElement('div'); body.className = 'body'; RoomClient.renderText(body, m); node.append(who, body); return node; })); }
     this.find('.room-lane').hidden = !s.danmaku || !this.allows('chat');
+    for (const el of this.find('.room-lane').children) { const m = this.room.messages.find(value => value.id === el.dataset.messageId); if (!m || this.room.blocked(m)) el.remove(); }
     if (!s.gifts || !this.allows('gifts')) { this.giftQueue = []; this.activeGift = null; }
-    if (this.activeGift && (this.room.now() >= this.giftUntil || this.room.blocked(this.activeGift))) this.activeGift = null;
+    this.giftQueue = this.giftQueue.map(value => RoomClient.visibleGift(value, this.room)).filter(Boolean);
+    if (this.activeGift) this.activeGift = RoomClient.visibleGift(this.activeGift, this.room);
+    if (this.activeGift && this.room.now() >= this.giftUntil) this.activeGift = null;
     if (!this.activeGift) { this.activeGift = this.giftQueue.shift() || null; this.giftUntil = this.room.now() + s.gift_seconds * 1000; }
     const gift = this.activeGift; this.find('.room-gift').hidden = !gift;
-    if (gift) { this.find('.room-gift strong').textContent = (gift.test ? '[本地测试] ' : '') + gift.nickname; this.find('.room-gift small').textContent = gift.type === 'gift' ? '送来 ' + gift.gift_name + ' × ' + gift.gift_count : gift.notice_kind === 'superchat' ? '醒目留言 · ' + gift.text.slice(0, 32) : '谢谢你的关注与陪伴'; }
+    if (gift) { this.find('.room-gift strong').textContent = (gift.test ? '[本地测试] ' : '') + RoomClient.displayName(gift); this.find('.room-gift small').textContent = gift.type === 'gift' ? '送来 ' + RoomClient.giftText(gift) : gift.notice_kind === 'superchat' ? RoomClient.content(gift).slice(0, 60) : '谢谢你的关注与陪伴'; }
     if (this.visual) {
       const f = settings.filters; this.visual.style.filter = `brightness(${f.brightness}) contrast(${f.contrast}) saturate(${f.saturation}) sepia(${Math.max(0, f.warmth)}) hue-rotate(${Math.min(0, f.warmth) * 35}deg) blur(${f.softness}px)`;
       this.visual.style.setProperty('--vignette', f.vignette);

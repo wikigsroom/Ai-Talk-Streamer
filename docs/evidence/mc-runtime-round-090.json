@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261103-090",
+  "round": "090",
+  "at": "2026-11-03T00:55:23.619494+00:00",
+  "branch": "mc",
+  "scope": "NATIVE_AIRBORNE_ESCAPE_BUILD_AND_REGRESSION_RUNTIME_PENDING_NOT_RELEASE_ACCEPTANCE",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "local_application_tests": 0,
+  "virtualization_used": false,
+  "remote4090_connected": false,
+  "source_snapshot_sha256": "40652bc070662e26831f530b21b0ae569ba5855ae8c41d0296d6108319c31457",
+  "source_files": 998,
+  "source_archive_sha256": "b68567b921174964e42d6e290cc1acc97a96062e87af0b8c4ffdfb12ef488057",
+  "native_jar_sha256": "afee5b69b0916386f2971d5cbac48583b3d8d1e8eb0d6e43041c3884b8b252de",
+  "checks": {
+    "core": {
+      "tests": 359,
+      "pass": 359,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "native_targeted_pass": 87,
+    "java_fixtures": [
+      {
+        "name": "EscapeLandingFixture090",
+        "result": "PASS 13 escape landing observations; no world or input writes"
+      },
+      {
+        "name": "EscapeMotionFixture090",
+        "result": "PASS 17 escape input boundaries; no world or movement writes"
+      },
+      {
+        "name": "PartialFootingFixture090",
+        "result": "PASS 32 actual partial-footing boundaries; no world writes or input"
+      },
+      {
+        "name": "TerrainStepFixture090",
+        "result": "terrain step boundaries passed: 21"
+      },
+      {
+        "name": "FrontierFixture090",
+        "result": "PASS 9 frontier regression checks; no world writes or input"
+      },
+      {
+        "name": "DryDescentFixture090",
+        "result": "PASS 19 roof-route and dry-descent regression checks; no world writes or input"
+      },
+      {
+        "name": "ArrivalRadiusFixture090c",
+        "result": "PASS arrival radius around an obstructed center, exact stance, already arrived, vertical gap and blocked edges\nPASS bounded reachable observations and leaf-clearance server/world/context receipt fences"
+      },
+      {
+        "name": "WaterRouteFixture090c",
+        "result": "PASS 8 water route admission boundaries; fixture terrain, no actual swimming"
+      },
+      {
+        "name": "NativeWorldFramesFixture090c",
+        "result": "PASS: 15 frame lifecycle checks; JVM_FIXTURE_NOT_DESKTOP_PRESENTATION"
+      }
+    ],
+    "suites_overlap_do_not_sum": true,
+    "not_real_game_acceptance": true
+  },
+  "retained_harness_failures": [
+    "missing_Gson_in_fixture_runtime",
+    "multiple_Gson_versions_require_actual_game_artifact"
+  ],
+  "keep_inventory": "true_verified_in_original_world_round089_and_before_round090_start",
+  "world_rule_or_inventory_edits_this_round": 0,
+  "runtime": {
+    "state": "starting",
+    "actual_autonomous_play_validation": "pending"
+  },
+  "public_broadcast_started": false,
+  "formal_acceptance_passed": 0,
+  "new_avatar_assets": 0,
+  "github_publication": "reviewed_source_and_sanitized_documents_staged_push_pending"
+}

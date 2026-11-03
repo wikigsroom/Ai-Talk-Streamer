@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "enabled": false,
+  "planner": {
+    "enabled": false,
+    "min_interval_ms": 3000,
+    "max_call_ms": 30000,
+    "candidate_limit": 16
+  },
+  "control": {
+    "state_stale_ms": 2000,
+    "heartbeat_ms": 1000,
+    "lease_ttl_ms": 3000,
+    "accept_within_ms": 1500,
+    "max_task_duration_ms": 120000,
+    "enabled_skills": []
+  },
+  "programme": {
+    "layout_id": "mc-landscape-v1",
+    "avatar_variant": "circle",
+    "comment_mode": "feed",
+    "scene": "play"
+  },
+  "vision": {
+    "enabled": false,
+    "max_concurrency": 1,
+    "min_interval_ms": 1000,
+    "timeout_ms": 8000
+  },
+  "audience_intents": {
+    "enabled": false,
+    "min_interval_ms": 1000,
+    "max_call_ms": 8000
+  }
+}

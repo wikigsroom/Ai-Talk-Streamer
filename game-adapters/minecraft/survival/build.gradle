@@ -1,0 +1,126 @@
+plugins { id 'fabric-loom' version '1.10.5' }
+if (gradle.gradleVersion != '8.14.3') throw new GradleException('Use Gradle 8.14.3.')
+version = '1.21.1-0.19+ats.1'
+group = 'dev.aitalkstreamer'
+base { archivesName = 'altoclef-controlled' }
+def inputRoot = file('../../../.setup/mc-survival')
+if (!new File(inputRoot, 'preparation.json').isFile()) throw new GradleException('Run scripts/mc_prepare_survival.py first.')
+def preparation = new groovy.json.JsonSlurper().parse(new File(inputRoot, 'preparation.json'))
+def generatedRoot = new File(inputRoot, preparation.generated_directory)
+def bridgeApi = file('../fabric/build/devlibs/ai-talk-streamer-mc-bridge-0.1.0-dev.jar')
+def gateMapping = file('../../../.setup/mc-gradle/caches/fabric-loom/1.21.1/net.fabricmc.yarn.1_21_1.1.21.1+build.3-v2/mappings-base.tiny')
+def controlledRepo = layout.buildDirectory.dir('controlled/maven')
+def controlledBaritone = layout.buildDirectory.file('controlled/maven/dev/aitalkstreamer/pinned/baritone-controlled/1.21.1-ats.2/baritone-controlled-1.21.1-ats.2.jar')
+if (!bridgeApi.isFile()) throw new GradleException('Build the native bridge first using scripts/mc_build_fabric.ps1.')
+repositories {
+    maven { url = controlledRepo; content { includeModule 'dev.aitalkstreamer.pinned', 'baritone-controlled' } }
+    maven { url = new File(inputRoot, 'maven'); content { includeGroup 'dev.aitalkstreamer.pinned' } }
+    mavenCentral()
+}
+sourceSets { audit }
+dependencies {
+    minecraft 'com.mojang:minecraft:1.21.1'
+    mappings 'net.fabricmc:yarn:1.21.1+build.3:v2'
+    modImplementation 'net.fabricmc:fabric-loader:0.16.14'
+    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.116.6+1.21.1'
+    modImplementation files(new File(inputRoot, 'baritone-unoptimized-fabric-1.21.1.jar'))
+    include 'dev.aitalkstreamer.pinned:baritone-controlled:1.21.1-ats.2'
+    compileOnly files(new File(inputRoot, 'mixinextras-fabric-0.3.5.jar'))
+    compileOnly files(bridgeApi)
+    testImplementation files(bridgeApi)
+    include implementation('com.fasterxml.jackson.core:jackson-core:2.16.0')
+    include implementation('com.fasterxml.jackson.core:jackson-annotations:2.16.0')
+    include implementation('com.fasterxml.jackson.core:jackson-databind:2.16.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.11.4'
+    // The native dev API JAR has no nested libraries on a plain JVM test classpath.
+    testRuntimeOnly 'dev.harrel:json-schema:1.9.1'
+    auditImplementation 'org.ow2.asm:asm:9.8'
+    auditImplementation 'org.ow2.asm:asm-commons:9.8'
+    auditImplementation 'org.ow2.asm:asm-tree:9.8'
+    auditImplementation 'com.google.code.gson:gson:2.10.1'
+    testImplementation sourceSets.audit.output
+    testImplementation 'org.ow2.asm:asm-commons:9.8'
+}
+sourceSets.main.java.srcDir new File(generatedRoot, 'src/main/java')
+sourceSets.main.resources.srcDir new File(generatedRoot, 'src/main/resources')
+tasks.register('verifyPreparedInputs', Exec) {
+    workingDir file('../../..')
+    commandLine System.getenv('MC_BUILD_PYTHON') ?: 'python', '-X', 'utf8', '-B', 'scripts/mc_prepare_survival.py', '--verify'
+}
+compileJava.dependsOn 'verifyPreparedInputs'
+processResources.dependsOn 'verifyPreparedInputs'
+java { toolchain.languageVersion = JavaLanguageVersion.of(21); withSourcesJar() }
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 21 }
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') { expand version: project.version, mcVersion: '1.21.1' }
+    from(new File(generatedRoot, 'LICENSE')) { rename { 'LICENSE-AltoClef' } }
+    from('../../../LICENSE') { rename { 'LICENSE-Ai-Talk-Streamer' } }
+}
+compileTestJava.dependsOn auditClasses
+test {
+    useJUnitPlatform(); maxParallelForks = 1
+    systemProperty 'java.io.tmpdir', layout.buildDirectory.dir('test-temp').get().asFile.absolutePath
+    doFirst { layout.buildDirectory.dir('test-temp').get().asFile.mkdirs() }
+}
+tasks.register('auditWriteSites', JavaExec) {
+    dependsOn compileJava, auditClasses
+    classpath = sourceSets.audit.runtimeClasspath
+    mainClass = 'dev.aitalkstreamer.mc.survival.audit.WriteSiteInventory'
+    def inventory = layout.buildDirectory.file('reports/control/write-sites.tsv')
+    outputs.file inventory
+    inputs.files sourceSets.main.output.classesDirs, sourceSets.main.compileClasspath
+    doFirst {
+        def baritone = sourceSets.main.compileClasspath.files.find { it.name.startsWith('baritone-unoptimized-fabric-1.21.1') }
+        if (baritone == null) throw new GradleException('Named pinned Baritone is required for the inventory.')
+        args = [inventory.get().asFile.absolutePath, sourceSets.main.output.classesDirs.singleFile.absolutePath, baritone.absolutePath]
+    }
+}
+check.dependsOn 'auditWriteSites'
+tasks.register('compileControlledBaritone', JavaExec) {
+    dependsOn auditClasses, verifyPreparedInputs
+    classpath = sourceSets.audit.runtimeClasspath
+    mainClass = 'dev.aitalkstreamer.mc.survival.audit.BytecodeGate'
+    inputs.files file('gate-policy.json'), gateMapping, new File(inputRoot, 'baritone-unoptimized-fabric-1.21.1.jar')
+    outputs.files controlledBaritone, layout.buildDirectory.file('reports/control/baritone-gates.json'),
+            layout.buildDirectory.file('controlled/maven/dev/aitalkstreamer/pinned/baritone-controlled/1.21.1-ats.2/baritone-controlled-1.21.1-ats.2.pom')
+    doFirst {
+        args = ['jar', file('gate-policy.json').absolutePath, gateMapping.absolutePath,
+                new File(inputRoot, 'baritone-unoptimized-fabric-1.21.1.jar').absolutePath,
+                controlledBaritone.get().asFile.absolutePath,
+                layout.buildDirectory.file('reports/control/baritone-gates.json').get().asFile.absolutePath]
+    }
+    doLast {
+        def pom = new File(controlledBaritone.get().asFile.parentFile, 'baritone-controlled-1.21.1-ats.2.pom')
+        pom.setText('<project><modelVersion>4.0.0</modelVersion><groupId>dev.aitalkstreamer.pinned</groupId><artifactId>baritone-controlled</artifactId><version>1.21.1-ats.2</version><packaging>jar</packaging></project>', 'UTF-8')
+    }
+}
+tasks.register('gateMainClasses', JavaExec) {
+    dependsOn compileJava, auditClasses
+    classpath = sourceSets.audit.runtimeClasspath
+    mainClass = 'dev.aitalkstreamer.mc.survival.audit.BytecodeGate'
+    inputs.files sourceSets.main.output.classesDirs, file('gate-policy.json'), gateMapping
+    outputs.dir layout.buildDirectory.dir('controlled/main')
+    outputs.file layout.buildDirectory.file('reports/control/main-gates.json')
+    doFirst {
+        args = ['dir', file('gate-policy.json').absolutePath, gateMapping.absolutePath,
+                sourceSets.main.output.classesDirs.singleFile.absolutePath,
+                layout.buildDirectory.dir('controlled/main').get().asFile.absolutePath,
+                layout.buildDirectory.file('reports/control/main-gates.json').get().asFile.absolutePath]
+    }
+}
+tasks.register('controlledJar', Jar) {
+    dependsOn gateMainClasses, processResources
+    archiveClassifier = 'controlled-dev'
+    destinationDirectory = layout.buildDirectory.dir('controlled/devlibs')
+    from layout.buildDirectory.dir('controlled/main')
+    from sourceSets.main.output.resourcesDir
+    from('gate-policy.json') { into 'META-INF/mc-control' }
+}
+tasks.named('processIncludeJars') { dependsOn compileControlledBaritone }
+tasks.named('remapJar') {
+    dependsOn controlledJar
+    inputFile = tasks.named('controlledJar', Jar).flatMap { it.archiveFile }
+}
+dependencyLocking { lockAllConfigurations() }

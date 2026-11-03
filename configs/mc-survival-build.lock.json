@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "classification": "CONTROLLED_SURVIVAL_BUILD_INPUTS_NOT_RUNTIME_ACCEPTANCE",
+  "minecraft": "1.21.1",
+  "source_commit": "1f8e038befeaed44b8a053402c69127866c46a4e",
+  "source": {
+    "url": "https://api.github.com/repos/MiranCZ/altoclef/zipball/1f8e038befeaed44b8a053402c69127866c46a4e",
+    "file": "altoclef-source.zip",
+    "sha256": "a146d25fe571cffc84efd87d945eebaabeba627aa2ba54e60c21a5e8aee0d200",
+    "max_bytes": 2097152
+  },
+  "compile_artifact": {
+    "url": "https://github.com/MiranCZ/altoclef/releases/download/0.19/altoclef-1.21.1-0.19.jar",
+    "file": "altoclef-1.21.1-0.19.jar",
+    "sha256": "8e1e3a4c7897097eff633023086827183ba792b7c3f72d26f4a42d68718254da",
+    "max_bytes": 8388608
+  },
+  "nested": [
+    {
+      "entry": "META-INF/jars/baritone-unoptimized-fabric-1.21.1.jar",
+      "file": "baritone-unoptimized-fabric-1.21.1.jar",
+      "sha256": "2fa4a78e5224920840d98ef20156f9fb05812394f1ba95b78e45d628da2a0aae",
+      "max_bytes": 2097152
+    },
+    {
+      "entry": "META-INF/jars/jvmdowngrader-java-api-0.9.0-downgraded-8.jar",
+      "file": "jvmdowngrader-java-api-0.9.0-downgraded-8.jar",
+      "sha256": "942c4252db5c9fc8b56367781ca8653872d904c26b6744e8494aed2de9390666",
+      "max_bytes": 2097152
+    },
+    {
+      "entry": "META-INF/jars/mixinextras-fabric-0.3.5.jar",
+      "file": "mixinextras-fabric-0.3.5.jar",
+      "sha256": "743bf47e4fa24642f843b9f85a5f1ba5125fb4b7e656e96b9c010a5043396047",
+      "max_bytes": 262144
+    }
+  ],
+  "automatic_input_authorized": false,
+  "runtime_acceptance": "not_run"
+}

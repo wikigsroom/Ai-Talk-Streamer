@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "classification": "EXPLICIT_EFFECT_GATES_NOT_COMPLETE_RUNTIME_COVERAGE",
+  "minecraft": "1.21.1",
+  "rules": [
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/option/SimpleOption",
+      "name": "setValue",
+      "descriptor": "(Ljava/lang/Object;)V",
+      "relay": "option_value"
+    },
+    {
+      "kind": "FIELD",
+      "owner": "net/minecraft/client/option/GameOptions",
+      "name": "pauseOnLostFocus",
+      "descriptor": "Z",
+      "relay": "option_pauseOnLostFocus"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/MinecraftClient",
+      "name": "setScreen",
+      "descriptor": "(Lnet/minecraft/client/gui/screen/Screen;)V",
+      "relay": "gui_screen"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayNetworkHandler",
+      "name": "sendChatCommand",
+      "descriptor": "(Ljava/lang/String;)V",
+      "relay": "policy_chatCommand"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayNetworkHandler",
+      "name": "sendChatMessage",
+      "descriptor": "(Ljava/lang/String;)V",
+      "relay": "policy_chatMessage"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerEntity",
+      "name": "checkFallFlying",
+      "declaration": "net/minecraft/entity/player/PlayerEntity",
+      "descriptor": "()Z",
+      "relay": "policy_fallFlying"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerEntity",
+      "name": "closeHandledScreen",
+      "declaration": "net/minecraft/entity/player/PlayerEntity",
+      "descriptor": "()V",
+      "relay": "gui_close"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerEntity",
+      "name": "requestRespawn",
+      "declaration": "net/minecraft/entity/player/PlayerEntity",
+      "descriptor": "()V",
+      "relay": "policy_respawn"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerEntity",
+      "name": "setPitch",
+      "declaration": "net/minecraft/entity/Entity",
+      "descriptor": "(F)V",
+      "relay": "action_pitch"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerEntity",
+      "name": "setSprinting",
+      "declaration": "net/minecraft/entity/Entity",
+      "descriptor": "(Z)V",
+      "relay": "action_sprint"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerEntity",
+      "name": "setYaw",
+      "declaration": "net/minecraft/entity/Entity",
+      "descriptor": "(F)V",
+      "relay": "action_yaw"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerEntity",
+      "name": "swingHand",
+      "declaration": "net/minecraft/entity/LivingEntity",
+      "descriptor": "(Lnet/minecraft/util/Hand;)V",
+      "relay": "action_swing"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerInteractionManager",
+      "name": "attackBlock",
+      "descriptor": "(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction;)Z",
+      "relay": "action_attackBlock"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerInteractionManager",
+      "name": "attackEntity",
+      "descriptor": "(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/entity/Entity;)V",
+      "relay": "action_attackEntity"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerInteractionManager",
+      "name": "cancelBlockBreaking",
+      "descriptor": "()V",
+      "relay": "action_cancelBreaking"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerInteractionManager",
+      "name": "clickRecipe",
+      "descriptor": "(ILnet/minecraft/recipe/RecipeEntry;Z)V",
+      "relay": "gui_recipe"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerInteractionManager",
+      "name": "clickSlot",
+      "descriptor": "(IIILnet/minecraft/screen/slot/SlotActionType;Lnet/minecraft/entity/player/PlayerEntity;)V",
+      "relay": "gui_slot"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerInteractionManager",
+      "name": "interactBlock",
+      "descriptor": "(Lnet/minecraft/client/network/ClientPlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/hit/BlockHitResult;)Lnet/minecraft/util/ActionResult;",
+      "relay": "gui_block"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerInteractionManager",
+      "name": "interactEntity",
+      "descriptor": "(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/entity/Entity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;",
+      "relay": "action_interactEntity"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerInteractionManager",
+      "name": "interactItem",
+      "descriptor": "(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;",
+      "relay": "action_interactItem"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerInteractionManager",
+      "name": "stopUsingItem",
+      "descriptor": "(Lnet/minecraft/entity/player/PlayerEntity;)V",
+      "relay": "action_stopUsing"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/network/ClientPlayerInteractionManager",
+      "name": "updateBlockBreakingProgress",
+      "descriptor": "(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction;)Z",
+      "relay": "action_breakProgress"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/entity/Entity",
+      "name": "setPitch",
+      "descriptor": "(F)V",
+      "relay": "action_pitch"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/entity/Entity",
+      "name": "setYaw",
+      "descriptor": "(F)V",
+      "relay": "action_yaw"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/world/World",
+      "name": "disconnect",
+      "descriptor": "()V",
+      "relay": "policy_disconnect"
+    },
+    {
+      "kind": "FIELD",
+      "owner": "baritone/utils/PlayerMovementInput",
+      "name": "jumping",
+      "descriptor": "Z",
+      "declaration": "net/minecraft/client/input/Input",
+      "relay": "motion_jumping"
+    },
+    {
+      "kind": "FIELD",
+      "owner": "baritone/utils/PlayerMovementInput",
+      "name": "movementForward",
+      "descriptor": "F",
+      "declaration": "net/minecraft/client/input/Input",
+      "relay": "motion_movementForward"
+    },
+    {
+      "kind": "FIELD",
+      "owner": "baritone/utils/PlayerMovementInput",
+      "name": "movementSideways",
+      "descriptor": "F",
+      "declaration": "net/minecraft/client/input/Input",
+      "relay": "motion_movementSideways"
+    },
+    {
+      "kind": "FIELD",
+      "owner": "baritone/utils/PlayerMovementInput",
+      "name": "pressingBack",
+      "descriptor": "Z",
+      "declaration": "net/minecraft/client/input/Input",
+      "relay": "motion_pressingBack"
+    },
+    {
+      "kind": "FIELD",
+      "owner": "baritone/utils/PlayerMovementInput",
+      "name": "pressingForward",
+      "descriptor": "Z",
+      "declaration": "net/minecraft/client/input/Input",
+      "relay": "motion_pressingForward"
+    },
+    {
+      "kind": "FIELD",
+      "owner": "baritone/utils/PlayerMovementInput",
+      "name": "pressingLeft",
+      "descriptor": "Z",
+      "declaration": "net/minecraft/client/input/Input",
+      "relay": "motion_pressingLeft"
+    },
+    {
+      "kind": "FIELD",
+      "owner": "baritone/utils/PlayerMovementInput",
+      "name": "pressingRight",
+      "descriptor": "Z",
+      "declaration": "net/minecraft/client/input/Input",
+      "relay": "motion_pressingRight"
+    },
+    {
+      "kind": "FIELD",
+      "owner": "baritone/utils/PlayerMovementInput",
+      "name": "sneaking",
+      "descriptor": "Z",
+      "declaration": "net/minecraft/client/input/Input",
+      "relay": "motion_sneaking"
+    },
+    {
+      "kind": "FIELD",
+      "owner": "net/minecraft/client/input/Input",
+      "name": "sneaking",
+      "descriptor": "Z",
+      "relay": "sneaking"
+    },
+    {
+      "kind": "FIELD",
+      "owner": "net/minecraft/client/network/ClientPlayerEntity",
+      "name": "input",
+      "descriptor": "Lnet/minecraft/client/input/Input;",
+      "relay": "movement"
+    },
+    {
+      "kind": "FIELD",
+      "owner": "net/minecraft/entity/player/PlayerAbilities",
+      "name": "flying",
+      "descriptor": "Z",
+      "relay": "policy_grounded"
+    },
+    {
+      "kind": "FIELD",
+      "owner": "net/minecraft/entity/player/PlayerInventory",
+      "name": "selectedSlot",
+      "descriptor": "I",
+      "relay": "select"
+    },
+    {
+      "kind": "CALL",
+      "owner": "net/minecraft/client/option/KeyBinding",
+      "name": "setPressed",
+      "descriptor": "(Z)V",
+      "relay": "key"
+    }
+  ],
+  "remaining": [
+    "Baritone event scopes and root provenance",
+    "real inventory/crafting GUI ownership acceptance and remaining container types",
+    "remaining world/options/packet/reflection review",
+    "actual-client acceptance",
+    "vanilla held synthetic-input effects and all indirect packet/interaction routes",
+    "revoked mining/use cleanup under real client/server and physical takeover"
+  ]
+}

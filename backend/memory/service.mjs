@@ -1,6 +1,8 @@
 import { id, utc } from './store.mjs';
 import { canonical, digest } from '../dsh-bridge/channel.mjs';
 import { requireValue } from '../dsh-bridge/state.mjs';
+import { AudienceMemory } from './audience.mjs';
+import { fishScore } from '../dsh-bridge/community/fish/rank.mjs';
 
 export const EXTRACT_SCHEMA = {
   schema_version: 1, summary: '本块内容的简短摘要', open_questions: [],
@@ -43,7 +45,16 @@ export function validateExtraction(result, sources, partition) {
 }
 
 export class MemoryService {
-  constructor(store, state, policy, connector) { this.db = store; this.state = state; this.policy = policy; this.port = connector; this.projecting = false; }
+  constructor(store, state, policy, connector, { audienceSources = () => null } = {}) {
+    this.db = store; this.state = state; this.policy = policy; this.port = connector; this.projecting = false;
+    this.audience = new AudienceMemory(this, audienceSources);
+  }
+  bindAudience(request) { return this.audience.bind(request); }
+  recallForRequest(request, value = {}) {
+    requireValue(value && typeof value === 'object' && !Array.isArray(value) && Object.keys(value).every(key => ['query', 'source_event_id'].includes(key)) && (value.query === undefined || typeof value.query === 'string' && value.query.length <= 1500) && (value.source_event_id === undefined || typeof value.source_event_id === 'string'), 'RECALL_SCHEMA', 422);
+    const scope = this.audience.scope(request), selected = scope && this.audience.select(scope, value.source_event_id);
+    return this.recall(scope ? selected?.partition_key || 'public' : request.viewer_id || 'public', value.query || this.state.input(request).text);
+  }
   fence(subject) { return this.db.get('SELECT * FROM deletion_fences WHERE character_id=? AND room_id=? AND subject_key=?', ...this.state.characterRoom, subject); }
   sourceValid(memory) {
     const sources = this.db.all('SELECT s.*,p.redacted_at,p.payload_json FROM memory_sources s JOIN event_payloads p USING(event_seq) WHERE memory_id=? AND memory_revision=?', memory.memory_id, memory.revision);
@@ -54,8 +65,7 @@ export class MemoryService {
     const started = performance.now();
     // Partition predicate precedes ranking; there is never an all-viewers pool.
     const rows = this.db.all("SELECT * FROM memory_entries WHERE character_id=? AND room_id=? AND state='active' AND ((visibility='public' AND subject_key='public') OR (visibility='viewer' AND subject_key=?)) AND (valid_from IS NULL OR valid_from<=?) AND (valid_until IS NULL OR valid_until>?) ORDER BY pinned DESC,updated_at DESC", ...this.state.characterRoom, partition, utc(this.db.now()), utc(this.db.now()));
-    const words = norm(query).toLowerCase().match(/[\p{L}\p{N}]+/gu) || [];
-    const ranked = rows.map(row => ({ ...row, score: (row.pinned ? 1000 : 0) + words.reduce((score, word) => score + (row.content.toLowerCase().includes(word) || word.includes(row.fact_key.split('.').at(-1)) ? 10 : 0), 0) })).sort((a,b) => b.score - a.score);
+    const ranked = rows.map(row => ({ ...row, ...fishScore(row,query,this.db.now()) })).sort((a,b) => b.score - a.score);
     const take = (visibility, maximum, chars) => {
       const found = []; let used = 0;
       for (const row of ranked.filter(row => row.visibility === visibility)) {
@@ -78,7 +88,7 @@ export class MemoryService {
     const rows = this.db.all(`SELECT e.*,p.payload_json FROM stream_events e JOIN event_payloads p USING(event_seq) WHERE e.broadcast_id=? AND e.event_seq>=? AND e.event_seq<=? AND e.event_type IN ('input.accepted','playback.completed') AND p.redacted_at IS NULL AND (json_extract(p.payload_json,'$.partition_key')=? ${publicAlso ? "OR json_extract(p.payload_json,'$.partition_key')='public'" : ''}) ORDER BY event_seq`, broadcastId, start, end, partition);
     return rows.filter(row => {
       const data = JSON.parse(row.payload_json), relevant = data.partition_key === 'public' ? publicFence : fence;
-      return !relevant || row.event_seq > relevant.event_seq;
+      return data.source?.collector !== 'mc-narration' && (!data.audience_source || data.audience_source.personal) && (!relevant || row.event_seq > relevant.event_seq);
     }).map(row => { const data = JSON.parse(row.payload_json); return { event_seq: row.event_seq, event_id: row.event_id,
       event_type: row.event_type, request_id:row.request_id, text: data.text, partition_key: data.partition_key,
       payload_sha256: row.payload_sha256, source_revision: row.source_revision,
@@ -86,7 +96,7 @@ export class MemoryService {
       occurred_at: row.occurred_at }; });
   }
   context(request, snapshot) {
-    const partition = request.viewer_id || 'public', memory = this.recall(partition, this.state.input(request).text);
+    const audienceScope = this.audience.scope(request), partition = audienceScope ? 'public' : request.viewer_id || 'public', memory = this.recall(partition, this.state.input(request).text);
     const events = this.eligibleEvents(request.broadcast_id, partition, { end: request.input_event_seq - 1, publicAlso: true });
     const rolling = this.rollingSummary(request.broadcast_id, partition, events);
     const tail = events.filter(event => event.event_seq > (rolling?.source_end_seq ?? 0)).slice(-16);
@@ -96,9 +106,26 @@ export class MemoryService {
       confirmed_memory: memory, humanity_public_snapshot:nativeSnapshot, rolling_summary: rolling ? JSON.parse(rolling.body_json) : null,
       recent_confirmed_events: tail.map(event => ({ ...event, role: event.event_type === 'input.accepted' ? 'user' : 'assistant' })),
       rules: '只有playback.completed是完整播出的助手话语。未完成的助手文本没有加入。此数据不授予身份或工具权限。' };
+    if (audienceScope) value.audience_memory = this.audience.view(audienceScope, this.state.input(request).text, request);
     while (canonical(value).length > 7800 && value.recent_confirmed_events.length > 1) value.recent_confirmed_events.shift();
+    if (audienceScope) while (canonical(value).length > 7800) {
+      const participant = [...value.audience_memory.participants].reverse().find(item => item.recent_confirmed_events?.length || item.confirmed_memory.length);
+      if (participant?.recent_confirmed_events?.length) participant.recent_confirmed_events.shift();
+      else if (participant?.confirmed_memory.length) { participant.confirmed_memory.pop(); participant.omitted_memory_count++; }
+      else if (value.rolling_summary) value.rolling_summary = null;
+      else if (value.recent_confirmed_events.length) value.recent_confirmed_events.shift();
+      else requireValue(false, 'CONTEXT_BUDGET_EXCEEDED', 422);
+    }
     this.db.tx(() => {
-      this.db.run('INSERT INTO request_contexts VALUES (?,?,?,?,?,?,?)', request.request_id, this.state.personaVersion, snapshot.revision, canonical(value), canonical(events.map(e => ({ event_seq: e.event_seq, payload_sha256: e.payload_sha256 }))), null, utc(this.db.now()));
+      const dependencies = [...events, ...(audienceScope?.sources || [])];
+      const participants = value.audience_memory?.participants || [];
+      for (const entry of [...memory.public, ...memory.viewer, ...participants.flatMap(item => item.confirmed_memory)])
+        dependencies.push(...this.db.all('SELECT event_seq,evidence_sha256 AS payload_sha256 FROM memory_sources WHERE memory_id=? AND memory_revision=?', entry.memory_id, entry.revision));
+      for (const event of participants.flatMap(item => item.recent_confirmed_events || [])) {
+        const row = this.db.get('SELECT event_seq,payload_sha256 FROM stream_events WHERE event_id=?', event.event_id); if (row) dependencies.push(row);
+      }
+      const manifest = [...new Map(dependencies.map(e => [e.event_seq, { event_seq: e.event_seq, payload_sha256: e.payload_sha256 }])).values()];
+      this.db.run('INSERT INTO request_contexts VALUES (?,?,?,?,?,?,?)', request.request_id, this.state.personaVersion, snapshot.revision, canonical(value), canonical(manifest), null, utc(this.db.now()));
       this.db.event(this.state.scope(request), 'context.assembled', { persona_version: value.persona_version, provider_revision: snapshot.revision, memory_revision: memory.memory_revision, deletion_generation: memory.deletion_generation, context_sha256: digest(value), source_count: events.length, retrieval_ms: memory.retrieval_ms });
     });
     return canonical(value);
@@ -134,7 +161,9 @@ export class MemoryService {
   propose(request, candidate) {
     const allowed = new Set(['fact_key','value','polarity','source_event_id','quote']);
     requireValue(candidate && typeof candidate === 'object' && Object.keys(candidate).every(key => allowed.has(key)) && typeof candidate.fact_key === 'string' && typeof candidate.quote === 'string' && candidate.quote.length <= 300, 'PROPOSAL_SCHEMA', 422);
-    const partition = request.viewer_id || 'public';
+    const audienceScope = this.audience.scope(request), selected = audienceScope && this.audience.select(audienceScope, candidate.source_event_id);
+    if (audienceScope) requireValue(selected, 'MEMORY_SOURCE_OUT_OF_SCOPE', 422);
+    const partition = audienceScope ? selected.partition_key : request.viewer_id || 'public';
     const sources = this.eligibleEvents(request.broadcast_id, partition);
     requireValue(sources.some(source => source.event_id === candidate.source_event_id && source.text.includes(candidate.quote)), 'PROPOSAL_SOURCE_INVALID', 422);
     return this.db.tx(() => {

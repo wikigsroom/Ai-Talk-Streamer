@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+
+[[mixins]]
+config="ai-talk-streamer-native.mixins.json"
+
+[[mods]]
+modId="ai_talk_streamer_native"
+version="0.1.0"
+displayName="AI Talk Streamer Native MC"
+description='''Native client integration for the operator's existing NeoForge world.'''
+
+[[dependencies.ai_talk_streamer_native]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.248,21.1.249)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.ai_talk_streamer_native]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1,1.21.2)"
+ordering="NONE"
+side="CLIENT"

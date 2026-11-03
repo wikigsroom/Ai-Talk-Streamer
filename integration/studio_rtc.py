@@ -4,6 +4,7 @@ from aiohttp import web
 from server.rtc_manager import RTCManager
 from server.session_manager import session_manager
 from server.local_broadcast import LocalBroadcast
+from server.media_protocol import stream_request_error
 
 class StudioRTCManager(RTCManager):
     def __init__(self,opt):
@@ -15,6 +16,8 @@ class StudioRTCManager(RTCManager):
                 self.broadcast=LocalBroadcast(session_manager.get_session(self.sessionid))
         return self.sessionid
     async def handle_local_stream(self,request):
+        error=stream_request_error(request.query)
+        if error:return web.json_response({'error':error},status=400)
         if self.broadcast and len(self.broadcast.viewers)>=self.max_viewers:return web.json_response({'error':'观看连接已满。'},status=409)
         await self.ensure_session();return await self.broadcast.handle(request)
     async def handle_offer(self,request):

@@ -1,0 +1,140 @@
+{
+  "repo": "Yuuyuko-uu/dsh-fish-memory",
+  "commit": "003716b0f682177c9237214dac19a7a052a39812",
+  "default_branch": "main",
+  "license": {
+    "key": "other",
+    "name": "Other",
+    "spdx_id": "NOASSERTION",
+    "url": null,
+    "node_id": "MDc6TGljZW5zZTA="
+  },
+  "archive_sha256": "07633cb4529ab0e4133c2e5b672147eac940c5e623a1c569c3e5316ce0a456b6",
+  "files": [
+    {
+      "path": ".github/workflows/atomic-write.yml",
+      "bytes": 1373,
+      "sha256": "72744189174f2d300bd12ccbb3393b3518c5cdb95ffa2d65b71bcf4570c944d7"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 206,
+      "sha256": "eb406248db0be2d8a71416b193cdd57b8edbb03d47f50f8e583f588c840d6398"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 75428,
+      "sha256": "947fea3ccd47917d578e01a4be03576e47f7b7f4486cb782f6618446f2e190f2"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 2555,
+      "sha256": "99f2936547f528cda00db26b3db26b65afc7d6118b920e45c066fa5bea3a9bce"
+    },
+    {
+      "path": "README.md",
+      "bytes": 12812,
+      "sha256": "b7595af8b42559cb95f10fe7efd8059a82f9873963e6b5e77605a331fe6038e4"
+    },
+    {
+      "path": "cordis.patch.yml",
+      "bytes": 55,
+      "sha256": "4d9826cd5d491f7569bf26becef1708d10c88afd38b25ae1f5c3ad4f5fa99228"
+    },
+    {
+      "path": "lib/atomic-file.mjs",
+      "bytes": 1148,
+      "sha256": "fc7d69d8db384e7203ef2763dca1bc3824d85b1f1fdf5d27a4233532ae71ad9d"
+    },
+    {
+      "path": "lib/client.js",
+      "bytes": 235489,
+      "sha256": "3023ecb6434d4b372fc232dbf4d98295eb1cf900ea7fbcbf539f0daf019e4d55"
+    },
+    {
+      "path": "lib/hostdeps.mjs",
+      "bytes": 8013,
+      "sha256": "4cfeef43cc6a0965c2e2d9bbfb2757577222a06f370275fb231304bc9960566b"
+    },
+    {
+      "path": "lib/index.js",
+      "bytes": 368267,
+      "sha256": "02c0971c34e58826e5a565e318c0b1be55c693850d3e08064c2c4ca6df4ccf8e"
+    },
+    {
+      "path": "lib/selfupdate.mjs",
+      "bytes": 9616,
+      "sha256": "21001d4c229be1ec8ca1ec522250272d1f6234efea2196322cae70e7477f57ea"
+    },
+    {
+      "path": "lib/store-merge.mjs",
+      "bytes": 1692,
+      "sha256": "c1256b144fc88cb204b0698f7489cee0b6adb03059b3b03fa92d3e4c8baef3e6"
+    },
+    {
+      "path": "lib/生成档案.js",
+      "bytes": 25307,
+      "sha256": "22d7accd0f0220471e94e96c1149caa141f4938b14fc9d01dd213c03c794dfc7"
+    },
+    {
+      "path": "lib/词典-来源.txt",
+      "bytes": 2678,
+      "sha256": "2e0adbdca8138191c8dc413c79d78c28cd496972f078f5bec05e41171b3432c8"
+    },
+    {
+      "path": "lib/词典.txt",
+      "bytes": 919833,
+      "sha256": "89e875519503467385217f46fa016adc7f09e0c787b7cdcdc48fa77019fccc65"
+    },
+    {
+      "path": "lib/词频.txt",
+      "bytes": 199541,
+      "sha256": "ade46a10049e0005a716a7db90de7184a9803fd00f4f49cb6b739540d0f542fe"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1226,
+      "sha256": "87f3e6ce65cf92b011c705bc81c3602ff980413a1cf5bb16000701693bc7276d"
+    },
+    {
+      "path": "tests/ATOMIC-WRITE.md",
+      "bytes": 1633,
+      "sha256": "4f2d2c128e263f95af39291ad308defd83f8f36cb921db4371cc00152cad5015"
+    },
+    {
+      "path": "tests/atomic-file.test.mjs",
+      "bytes": 4349,
+      "sha256": "c2fb7059135e64c182a25e078b0a38679da78ab14c32e690ad5addb7c86c19ce"
+    },
+    {
+      "path": "tests/atomic-write.test.mjs",
+      "bytes": 7933,
+      "sha256": "8e57f0e5f42c786fabedb7a4bc3fd9b698d43b9297f0ad5856afcd66029a5352"
+    },
+    {
+      "path": "tests/purge-generation.test.mjs",
+      "bytes": 32941,
+      "sha256": "e2f5681f953227e16f7874ceb846c9ed18f2f6d5340d7a42071d4b8c1b55741f"
+    },
+    {
+      "path": "tests/query-pick.test.mjs",
+      "bytes": 11039,
+      "sha256": "51a74e4e52ff3f8b34fbddd2500938208557c3c198fab1b7be1f886883b3b9fc"
+    },
+    {
+      "path": "tests/store-merge.test.mjs",
+      "bytes": 2909,
+      "sha256": "be5344196b4d19ed92fed4d013888f32a6af73d5aafa0284beb8980b8c34a603"
+    },
+    {
+      "path": "tests/workspace-mode.test.mjs",
+      "bytes": 4863,
+      "sha256": "ccb1c0f521b54b82ac7dc7694dfd487140ad6a0c4a1be9766703f1c1e86c7953"
+    },
+    {
+      "path": "tests/生成档案-会话文件.test.mjs",
+      "bytes": 3069,
+      "sha256": "f0b5e3370e55e5500086079f7f9a46d2e80407ccb3693fa16cb60e2e3406e227"
+    }
+  ]
+}

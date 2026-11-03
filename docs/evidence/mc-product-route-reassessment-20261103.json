@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "id": "mc-product-route-reassessment-20261103",
+  "recorded_at": "2026-11-03T03:13:53.793686+08:00",
+  "branch": "mc",
+  "classification": "product_strategy_documentation_not_migration_or_runtime_validation",
+  "reassessment": {
+    "recorded_at": "2026-11-03T03:13:53.793686+08:00",
+    "classification": "product_outcome_route_reassessment_only",
+    "document": "docs/technical/mc-live-v1/成品视角选型复评与路线取舍.md",
+    "evidence": "docs/evidence/mc-product-route-reassessment-20261103.json",
+    "native_product_superiority_proven": false,
+    "priority_execution_candidate": "dsh_mc_agent_subject_to_compatibility_and_product_validation",
+    "native_role": "verified_baseline_and_specific_mod_compatibility_fallback",
+    "whale_role": "foundational_alternative",
+    "reassessment_reason": "previous recommendations overweighted existing environment access and coupled real frame capture with the native executor",
+    "shared_streamer_stack_preserved": true,
+    "mindcraft_requirement_preserved_for_explicit_reassessment": true,
+    "actual_executor_changed": false,
+    "runtime_changes": 0,
+    "formal_acceptance_advanced": false,
+    "open_scope_items_unchanged": 117
+  },
+  "fixed_source_commits": {
+    "whale_craft": "ddc21637dc48b0818f2159dc69e4f4b26f64cb83",
+    "dsh_mc_agent": "a518f79e77e168aa5158dacc58e0c25d562a42b8"
+  },
+  "public_sources_revisited": [
+    "https://github.com/yzi1b/whale-craft",
+    "https://github.com/blueziii/dsh-mc-agent"
+  ],
+  "baseline": "docs/freezes/20261103MC/README.md",
+  "documents": {
+    "docs/technical/mc-live-v1/成品视角选型复评与路线取舍.md": "19561200ef286598afac7ddb4761cd0996ed2ea7a9e5875f61df868ef28b792e",
+    "docs/technical/mc-live-v1/MC三方案模型视觉与控制详解.md": "22320e4dfc9a1c9d995ac5ea8012e3200625a143284b2e85229ae791d5b22b9d",
+    "docs/technical/mc-live-v1/固定gpt-6-luna的视觉性能对比.md": "0595f0298bde9fbdf7610bdc16315fb17cab7761857a50a6f5ef2ae67b81781a",
+    "docs/technical/mc-live-v1/MC开源执行方案对比评估.md": "854ab3b5ae976e5287f3eefeaaeefc122e229732ae3142bf42be391eb9257be0"
+  },
+  "checks": {
+    "branch_mc": true,
+    "local_links_resolve": true,
+    "local_links": 32,
+    "status_addition_only": true,
+    "all_domains_and_acceptance_unchanged": true,
+    "frozen_manifest_unchanged": true
+  },
+  "limits": [
+    "Candidate priority is an engineering recommendation, not a measured product winner",
+    "Real framebuffer capture is an observation source, not proof that its executor must be retained",
+    "No immediate installation, LAN opening, player migration or model request performed",
+    "The existing Agent and Mindcraft autonomy requirement remains visible; dsh is not itself a Mindcraft runtime"
+  ],
+  "runtime_source_changes": 0,
+  "candidate_installs": 0,
+  "remote_connections": 0,
+  "game_or_model_starts": 0,
+  "local_runtime_tests": 0,
+  "browser_tabs_opened": 0,
+  "formal_acceptance_passed": 0,
+  "new_avatar_materials_accepted": 0,
+  "full_scope_open_items": 117,
+  "result": "PASS"
+}

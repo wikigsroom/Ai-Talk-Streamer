@@ -1,0 +1,740 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261103-088",
+  "round": "088",
+  "branch": "mc",
+  "at": "2026-11-02T23:27:22.781486+00:00",
+  "scope": "ACTUAL_DSH_MC_AGENT_COMPATIBLE_SERVER_COMPARISON_NOT_FULL_RELEASE_ACCEPTANCE",
+  "host": "DESKTOP-2QQPN1H",
+  "device": "remote-3080",
+  "local_application_tests": 0,
+  "virtualization_used": false,
+  "remote4090_connected": false,
+  "upstream_commit": "a518f79e77e168aa5158dacc58e0c25d562a42b8",
+  "model": "gpt-6-luna",
+  "avatar": "female-A/K02",
+  "speech": "O07 with F07 retained",
+  "graphics": "live Prismarine server reconstruction; not a native client screenshot",
+  "game_sound_present": false,
+  "strict_same_world_AB": false,
+  "single_dsh_humanity_writer": true,
+  "manual_takeover": false,
+  "public_broadcast_started": false,
+  "pilot088c": {
+    "video": {
+      "path": "outputs/mc-validation/round-088/remote-evidence/mc-live-dsh-mc-agent-088-120s.mp4",
+      "bytes": 4375710,
+      "sha256": "adbf573f8f413a690e792551f1b97cccc7e126f33ab50084c40c4616032c314f",
+      "seconds": 120.0,
+      "frames": 3600,
+      "width": 1920,
+      "height": 1080,
+      "encoded_fps": 30,
+      "continuous_real_time": true,
+      "speed": 1,
+      "native_game_audio": false,
+      "raw_recording": "C:\\dev\\虚拟数字人直播\\outputs\\platforms\\recordings\\20261103-065020.mp4",
+      "raw_sha256": "013a1d1ed63a665b33b21d367ea3b6224df57dc45b56a69cf5420b2e7504aca4",
+      "trim_start_seconds": 10.979914
+    },
+    "source_snapshot": "8ab16ed0827f779b571bf9f0184803744dd461785b8d383e1b7bd06f4e1bae55",
+    "world_session": "f9123b20-e638-4492-a395-199bd0cd87c6",
+    "observation_seconds": 132.51423001289368,
+    "observations": 65,
+    "start_position": {
+      "x": -680.5,
+      "y": 75,
+      "z": 1002.4961374238385
+    },
+    "end_position": {
+      "x": -682.5,
+      "y": 75,
+      "z": 1002.5
+    },
+    "start_inventory": [],
+    "end_inventory": [],
+    "minimum_health": 20,
+    "minimum_food": 20,
+    "action_calls_full": 10,
+    "action_types_full": {
+      "mc_dig": 2,
+      "mc_move": 5,
+      "mc_act": 3
+    },
+    "action_calls_clip": 9,
+    "action_types_clip": {
+      "mc_dig": 2,
+      "mc_move": 4,
+      "mc_act": 3
+    },
+    "semantic_failed_actions_full": 8,
+    "inventory_changing_actions_full": 0,
+    "actions": [
+      {
+        "offset": 12.131,
+        "name": "mc_dig",
+        "args": {
+          "name": "oak_log",
+          "count": 3,
+          "maxDistance": 12
+        },
+        "failed": true,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "够不着 oak_log @ (-679, 81, 1000)（眼睛到方块中心 6.1 格，走过去也没走到：path-reset（未识别的重置原因：noPath）；我站在 -682 75 1002，它在我上方 6 格、水平 3.5 格外）—— 先 `mc_move` 到它旁边（或换个近一点的目标）再叫我挖：站远了挖服务端不认，方块会\"复原\"。（这趟是\"不挖\"模式 —— **我没有挖墙**；挡路的方块确实要挖开才过得去，就再叫一次 `mc_dig {digThrough:true}`）\n够不着 oak_log @ (-676, 81, 1002)（眼睛到方块中心 7.9 格，走过去也没走到：path-reset（未识别的重置原因：noPath）；我站在 -682 75 1002，它在我上方 6 格、水平 5.7 格外）—— 先 `mc_move` 到它旁边（或换个近一点的目标）再叫我挖：站远了挖服务端不认，方块会\"复原\"。（这趟是\"不挖\"模式 —— **我没有挖墙**；挡路的方块确实要挖开才过得去，就再叫一次 `mc_dig {digThrough:true}`）\n够不着 oak_log @ (-679, 82, 1000)（眼睛到方块中心 7.4 格，走过去也没走到：path-reset（未识别的重置原因：noPath）；我站在 -683 75 1002，它在我上方 7 格、水平 4.3 格外）—— 先 `mc_move` 到它旁边（或换个近一点的目标）再叫我挖：站远了挖服务端不认，方块会\"复原\"。（这趟是\"不挖\"模式 —— **我没有挖墙**；挡路的方块确实要挖开才过得去，就再叫一次 `mc_dig {digThrough:true}`）\n❌ 动作失败（挖到 0/3 个）"
+      },
+      {
+        "offset": 37.313,
+        "name": "mc_move",
+        "args": {
+          "x": -683,
+          "z": 997,
+          "mode": "walk",
+          "xz": true,
+          "budgetMs": 10000
+        },
+        "failed": true,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "⛔ 走不动：前方 -683,76,1001 的头顶是 stone（挖开它，踩上下面的台阶就能上去）。眼前挡路的是 **stone**（头顶那格 -683,76,1001）：这块**你现在挖不动**（要需要镐，手上这套挖下去要几十秒，必超时）—— **别硬挖、别重复发同一个目标**：先换个方向绕（或 `mc_move {allowDig:true}` 另找一条能挖开的路），实在绕不过去就先弄一把需要镐。"
+      },
+      {
+        "offset": 43.789,
+        "name": "mc_move",
+        "args": {
+          "mode": "walk",
+          "x": -683,
+          "y": 86,
+          "z": 997,
+          "budgetMs": 10000,
+          "allowDig": true,
+          "intent": "near"
+        },
+        "failed": true,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "⛔ 走不动：前方 -683,76,1001 的头顶是 stone（挖开它，踩上下面的台阶就能上去）。眼前挡路的是 **stone**（头顶那格 -683,76,1001）：这块**你现在挖不动**（要需要镐，手上这套挖下去要几十秒，必超时）—— **别硬挖、别重复发同一个目标**：先换个方向绕（或 `mc_move {allowDig:true}` 另找一条能挖开的路），实在绕不过去就先弄一把需要镐。"
+      },
+      {
+        "offset": 60.051,
+        "name": "mc_act",
+        "args": {
+          "mode": "look",
+          "track": 0
+        },
+        "failed": true,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "Error: 要么给 who（玩家名/怪物名），要么给 x/y/z"
+      },
+      {
+        "offset": 69.965,
+        "name": "mc_move",
+        "args": {
+          "mode": "walk",
+          "x": -680,
+          "z": 1002,
+          "xz": true,
+          "budgetMs": 10000
+        },
+        "failed": true,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "⛔ 走不动：前方 -682,76,1001 的头顶是 stone（挖开它，踩上下面的台阶就能上去）。眼前挡路的是 **stone**（头顶那格 -682,76,1001）：这块**你现在挖不动**（要需要镐，手上这套挖下去要几十秒，必超时）—— **别硬挖、别重复发同一个目标**：先换个方向绕（或 `mc_move {allowDig:true}` 另找一条能挖开的路），实在绕不过去就先弄一把需要镐。"
+      },
+      {
+        "offset": 83.655,
+        "name": "mc_dig",
+        "args": {
+          "name": "oak_log",
+          "maxDistance": 12,
+          "count": 1
+        },
+        "failed": true,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "够不着 oak_log @ (-679, 81, 1000)（眼睛到方块中心 6.7 格，走过去也没走到：path-reset（未识别的重置原因：noPath）；我站在 -683 75 1002，它在我上方 6 格、水平 4.3 格外）—— 先 `mc_move` 到它旁边（或换个近一点的目标）再叫我挖：站远了挖服务端不认，方块会\"复原\"。（这趟是\"不挖\"模式 —— **我没有挖墙**；挡路的方块确实要挖开才过得去，就再叫一次 `mc_dig {digThrough:true}`）\n❌ 动作失败（挖到 0/1 个）"
+      },
+      {
+        "offset": 87.559,
+        "name": "mc_act",
+        "args": {
+          "mode": "look",
+          "x": -680,
+          "y": 75,
+          "z": 1002
+        },
+        "failed": false,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "{\"mode\":\"look\",\"lookingAt\":{\"x\":-680,\"y\":75,\"z\":1002},\"myEye\":{\"x\":-682.639328770363,\"y\":76.62,\"z\":1002.3606808950002},\"yaw\":-1.435,\"pitch\":-0.546,\"note\":\"已经转头了（包由物理循环发出，服务端不回执；没转过去就再叫一次或先 mc_diag 看控制位）\",\"outcome\":\"confirmed\",\"outcomeText\":\"✅ 已确认成功\"}"
+      },
+      {
+        "offset": 111.723,
+        "name": "mc_act",
+        "args": {
+          "mode": "look",
+          "x": -684,
+          "y": 81,
+          "z": 1002
+        },
+        "failed": false,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "{\"mode\":\"look\",\"lookingAt\":{\"x\":-684,\"y\":81,\"z\":1002},\"myEye\":{\"x\":-682.639328770363,\"y\":76.62,\"z\":1002.3606808950002},\"yaw\":1.312,\"pitch\":1.26,\"note\":\"已经转头了（包由物理循环发出，服务端不回执；没转过去就再叫一次或先 mc_diag 看控制位）\",\"outcome\":\"confirmed\",\"outcomeText\":\"✅ 已确认成功\"}"
+      },
+      {
+        "offset": 117.134,
+        "name": "mc_move",
+        "args": {
+          "mode": "walk",
+          "x": -680,
+          "y": 86,
+          "z": 1002,
+          "budgetMs": 10000
+        },
+        "failed": true,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "⛔ 走不动：前方 -682,76,1001 的头顶是 stone（挖开它，踩上下面的台阶就能上去）。眼前挡路的是 **stone**（头顶那格 -682,76,1001）：这块**你现在挖不动**（要需要镐，手上这套挖下去要几十秒，必超时）—— **别硬挖、别重复发同一个目标**：先换个方向绕（或 `mc_move {allowDig:true}` 另找一条能挖开的路），实在绕不过去就先弄一把需要镐。"
+      },
+      {
+        "offset": 129.52,
+        "name": "mc_move",
+        "args": {
+          "mode": "walk",
+          "x": -680,
+          "y": 75,
+          "z": 1002,
+          "budgetMs": 6000,
+          "allowDig": true
+        },
+        "failed": true,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "⛔ 走不动：前方 -682,76,1001 的头顶是 stone（挖开它，踩上下面的台阶就能上去）。眼前挡路的是 **stone**（头顶那格 -682,76,1001）：这块**你现在挖不动**（要需要镐，手上这套挖下去要几十秒，必超时）—— **别硬挖、别重复发同一个目标**：先换个方向绕（或 `mc_move {allowDig:true}` 另找一条能挖开的路），实在绕不过去就先弄一把需要镐。"
+      }
+    ],
+    "iteration_errors": {
+      "STREAM_CONTEXT_BUDGET": 12
+    },
+    "tool_calls_including_readonly": {
+      "mc_observe": 12,
+      "mc_status": 17,
+      "mc_map": 14,
+      "mc_scan": 5,
+      "mc_dig": 2,
+      "mc_move": 5,
+      "mc_act": 3
+    },
+    "fresh_vision_successes": 6,
+    "vision_elapsed_ms": [
+      2927,
+      2903,
+      2847,
+      3139,
+      3568,
+      2473
+    ],
+    "vision_success_mean_ms": 2976.1666666666665,
+    "positive_official_speech_requests_clip": 5,
+    "completed_speech_requests": 5,
+    "failed_speech_requests": 2,
+    "speech_texts": [
+      "这几根橡木原木都在头顶，离得太远，没挖下来。我得先找路靠近树干。",
+      "前面那条路被石头顶住了，徒手挖肯定来不及。我先找旁边能绕过去的路。",
+      "这边的石墙还是挡着路，橡木也没够到。我换个方向找出口，先不跟这块石头较劲了。",
+      "石墙还是把近路堵住了，我这位置没法徒手开；先看看通道另一侧有没有能走的出口。",
+      "刚才往橡木那边还是没走通，树干够不着，石头也挖不动。我得再找条能绕开的路。"
+    ],
+    "audio_qa": {
+      "rms_dbfs": -26.524308179417858,
+      "peak": 0.90899658203125,
+      "non_silent": true,
+      "twenty_second_windows": [
+        {
+          "start": 0,
+          "rms_dbfs": -300.0,
+          "non_silent": false
+        },
+        {
+          "start": 20,
+          "rms_dbfs": -26.610577984941898,
+          "non_silent": true
+        },
+        {
+          "start": 40,
+          "rms_dbfs": -26.28493154630555,
+          "non_silent": true
+        },
+        {
+          "start": 60,
+          "rms_dbfs": -26.009618922328354,
+          "non_silent": true
+        },
+        {
+          "start": 80,
+          "rms_dbfs": -24.6585713945251,
+          "non_silent": true
+        },
+        {
+          "start": 100,
+          "rms_dbfs": -25.38308054130573,
+          "non_silent": true
+        }
+      ]
+    },
+    "avatar_motion_sampled": true,
+    "game_motion_sampled": true,
+    "avatar_generated_counter_fps": 23.885531440714356,
+    "avatar_presented_fps_verified": false,
+    "normal_shutdown": true,
+    "original_official_processes_preserved": true,
+    "source_unchanged": true,
+    "human_game_tasks": 0,
+    "human_game_keys": 0,
+    "world_or_inventory_injection": false,
+    "viewer_comments_injected": 0,
+    "public_broadcast_started": false
+  },
+  "final088d": {
+    "video": {
+      "path": "outputs/mc-validation/round-088/remote-evidence/mc-live-dsh-mc-agent-088d-120s.mp4",
+      "bytes": 4805538,
+      "sha256": "305d4716c3079823e0fdf4a12f25eda4c605ad63b44a790b99ed7c5cecdaaf3f",
+      "seconds": 120.0,
+      "frames": 3600,
+      "width": 1920,
+      "height": 1080,
+      "encoded_fps": 30,
+      "continuous_real_time": true,
+      "speed": 1,
+      "native_game_audio": false,
+      "raw_recording": "C:\\dev\\虚拟数字人直播\\outputs\\platforms\\recordings\\20261103-071922.mp4",
+      "raw_sha256": "8662fe43e8f23de42c89c910d3981c76d0e7f6d26398a80815f5bfc24f5ca64f",
+      "trim_start_seconds": 14.835568
+    },
+    "source_snapshot": "6606468b15a5155aef0d93625210f33494e5bc04671c3093575b232638991cd0",
+    "world_session": "a3b1b26f-3599-4ce1-a039-504fcd3e4557",
+    "observation_seconds": 133.8955421447754,
+    "observations": 66,
+    "start_position": {
+      "x": -682.5,
+      "y": 75,
+      "z": 1002.5
+    },
+    "end_position": {
+      "x": -681.5,
+      "y": 75,
+      "z": 1002.4914260442146
+    },
+    "start_inventory": [],
+    "end_inventory": [],
+    "minimum_health": 20,
+    "minimum_food": 20,
+    "action_calls_full": 11,
+    "action_types_full": {
+      "mc_act": 6,
+      "mc_dig": 1,
+      "mc_move": 4
+    },
+    "action_calls_clip": 10,
+    "action_types_clip": {
+      "mc_act": 5,
+      "mc_dig": 1,
+      "mc_move": 4
+    },
+    "semantic_failed_actions_full": 5,
+    "inventory_changing_actions_full": 0,
+    "actions": [
+      {
+        "offset": 12.815,
+        "name": "mc_act",
+        "args": {
+          "mode": "look",
+          "x": -683,
+          "y": 83,
+          "z": 997
+        },
+        "failed": false,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "{\"mode\":\"look\",\"lookingAt\":{\"x\":-683,\"y\":83,\"z\":997},\"myEye\":{\"x\":-682.5,\"y\":76.62,\"z\":1002.5},\"yaw\":0.091,\"pitch\":0.857,\"note\":\"已经转头了（包由物理循环发出，服务端不回执；没转过去就再叫一次或先 mc_diag 看控制位）\",\"outcome\":\"confirmed\",\"outcomeText\":\"✅ 已确认成功\"}"
+      },
+      {
+        "offset": 21.978,
+        "name": "mc_act",
+        "args": {
+          "mode": "look",
+          "x": -683,
+          "y": 83,
+          "z": 997
+        },
+        "failed": false,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "{\"mode\":\"look\",\"lookingAt\":{\"x\":-683,\"y\":83,\"z\":997},\"myEye\":{\"x\":-682.5,\"y\":76.62,\"z\":1002.5},\"yaw\":0.091,\"pitch\":0.857,\"note\":\"已经转头了（包由物理循环发出，服务端不回执；没转过去就再叫一次或先 mc_diag 看控制位）\",\"outcome\":\"confirmed\",\"outcomeText\":\"✅ 已确认成功\"}"
+      },
+      {
+        "offset": 49.791,
+        "name": "mc_dig",
+        "args": {
+          "name": "oak_log",
+          "x": -683,
+          "y": 83,
+          "z": 997
+        },
+        "failed": true,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "够不着 oak_log @ (-683, 83, 997)（眼睛到方块中心 8.5 格，走过去也没走到：path-reset（未识别的重置原因：noPath）；我站在 -683 75 1002，它在我上方 8 格、水平 5.5 格外）—— 先 `mc_move` 到它旁边（或换个近一点的目标）再叫我挖：站远了挖服务端不认，方块会\"复原\"。（这趟是\"不挖\"模式 —— **我没有挖墙**；挡路的方块确实要挖开才过得去，就再叫一次 `mc_dig {digThrough:true}`）\n❌ 动作失败（挖到 0/1 个）"
+      },
+      {
+        "offset": 63.951,
+        "name": "mc_act",
+        "args": {
+          "mode": "toward",
+          "x": -679,
+          "y": 81,
+          "z": 996,
+          "approach": true,
+          "budgetMs": 10000
+        },
+        "failed": true,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "Error: toward 需要 who（玩家名）"
+      },
+      {
+        "offset": 73.125,
+        "name": "mc_move",
+        "args": {
+          "x": -679,
+          "z": 996,
+          "xz": true,
+          "mode": "walk",
+          "budgetMs": 10000,
+          "intent": "near"
+        },
+        "failed": true,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "⛔ 走不动：前方 -683,76,1001 的头顶是 stone（挖开它，踩上下面的台阶就能上去）。眼前挡路的是 **stone**（头顶那格 -683,76,1001）：这块**你现在挖不动**（要需要镐，手上这套挖下去要几十秒，必超时）—— **别硬挖、别重复发同一个目标**：先换个方向绕（或 `mc_move {allowDig:true}` 另找一条能挖开的路），实在绕不过去就先弄一把需要镐。"
+      },
+      {
+        "offset": 83.158,
+        "name": "mc_move",
+        "args": {
+          "mode": "walk",
+          "x": -681,
+          "y": 75,
+          "z": 1003,
+          "budgetMs": 10000,
+          "allowDig": false,
+          "intent": "same-level"
+        },
+        "failed": false,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "✅ 到了 -682,75,1002"
+      },
+      {
+        "offset": 90.567,
+        "name": "mc_act",
+        "args": {
+          "mode": "look",
+          "x": -679,
+          "y": 81,
+          "z": 996
+        },
+        "failed": false,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "{\"mode\":\"look\",\"lookingAt\":{\"x\":-679,\"y\":81,\"z\":996},\"myEye\":{\"x\":-681.5948839303167,\"y\":76.62,\"z\":1002.4868717068065},\"yaw\":-0.381,\"pitch\":0.56,\"note\":\"已经转头了（包由物理循环发出，服务端不回执；没转过去就再叫一次或先 mc_diag 看控制位）\",\"outcome\":\"confirmed\",\"outcomeText\":\"✅ 已确认成功\"}"
+      },
+      {
+        "offset": 99.643,
+        "name": "mc_move",
+        "args": {
+          "mode": "walk",
+          "x": -679,
+          "xz": true,
+          "z": 996,
+          "budgetMs": 10000
+        },
+        "failed": true,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "⛔ 走不动：前方 -682,76,1001 的头顶是 stone（挖开它，踩上下面的台阶就能上去）。眼前挡路的是 **stone**（头顶那格 -682,76,1001）：这块**你现在挖不动**（要需要镐，手上这套挖下去要几十秒，必超时）—— **别硬挖、别重复发同一个目标**：先换个方向绕（或 `mc_move {allowDig:true}` 另找一条能挖开的路），实在绕不过去就先弄一把需要镐。"
+      },
+      {
+        "offset": 110.402,
+        "name": "mc_act",
+        "args": {
+          "mode": "look",
+          "x": -685,
+          "y": 76,
+          "z": 1002
+        },
+        "failed": false,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "{\"mode\":\"look\",\"lookingAt\":{\"x\":-685,\"y\":76,\"z\":1002},\"myEye\":{\"x\":-681.5,\"y\":76.62,\"z\":1002.4887562319735},\"yaw\":1.432,\"pitch\":-0.174,\"note\":\"已经转头了（包由物理循环发出，服务端不回执；没转过去就再叫一次或先 mc_diag 看控制位）\",\"outcome\":\"confirmed\",\"outcomeText\":\"✅ 已确认成功\"}"
+      },
+      {
+        "offset": 119.861,
+        "name": "mc_move",
+        "args": {
+          "mode": "walk",
+          "x": -683,
+          "z": 997,
+          "xz": true,
+          "intent": "near",
+          "budgetMs": 10000
+        },
+        "failed": true,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "⛔ 走不动：前方 -682,76,1001 的头顶是 stone（挖开它，踩上下面的台阶就能上去）。眼前挡路的是 **stone**（头顶那格 -682,76,1001）：这块**你现在挖不动**（要需要镐，手上这套挖下去要几十秒，必超时）—— **别硬挖、别重复发同一个目标**：先换个方向绕（或 `mc_move {allowDig:true}` 另找一条能挖开的路），实在绕不过去就先弄一把需要镐。"
+      },
+      {
+        "offset": 124.344,
+        "name": "mc_act",
+        "args": {
+          "mode": "look",
+          "x": -682,
+          "y": 75,
+          "z": 999
+        },
+        "failed": false,
+        "inventory_changed": false,
+        "inventory_after": [],
+        "text": "{\"mode\":\"look\",\"lookingAt\":{\"x\":-682,\"y\":75,\"z\":999},\"myEye\":{\"x\":-681.5,\"y\":76.62,\"z\":1002.4914260442146},\"yaw\":0.142,\"pitch\":-0.431,\"note\":\"已经转头了（包由物理循环发出，服务端不回执；没转过去就再叫一次或先 mc_diag 看控制位）\",\"outcome\":\"confirmed\",\"outcomeText\":\"✅ 已确认成功\"}"
+      }
+    ],
+    "iteration_errors": {},
+    "tool_calls_including_readonly": {
+      "mc_observe": 12,
+      "mc_status": 8,
+      "mc_scan": 8,
+      "mc_act": 6,
+      "mc_map": 5,
+      "mc_dig": 1,
+      "mc_move": 4
+    },
+    "fresh_vision_successes": 6,
+    "vision_elapsed_ms": [
+      3141,
+      4349,
+      5628,
+      3900,
+      3659,
+      2782
+    ],
+    "vision_success_mean_ms": 3909.8333333333335,
+    "positive_official_speech_requests_clip": 5,
+    "completed_speech_requests": 5,
+    "failed_speech_requests": 0,
+    "speech_texts": [
+      "视线转过去了，不过这儿空间挺窄，旁边还有木头。先看看能不能从这条缝里出去。",
+      "这根橡木在上方八格多，我现在够不着，刚才没挖下来。先从这条窄缝里挪到树旁边再试。",
+      "前面那块石头挡住了路，我空手挖它太慢，先绕开这段石阶，别再往木头上硬够了。",
+      "绕开那块挖不动的石头后，我已经挪到旁边的石阶上了。这里还是挺窄，先沿着能走的路找出口。",
+      "石阶前又被石头卡住了，空手挖不动。我刚转向旁边看看，得找条能绕出去的路。"
+    ],
+    "audio_qa": {
+      "rms_dbfs": -26.439143282212395,
+      "peak": 0.917205810546875,
+      "non_silent": true,
+      "twenty_second_windows": [
+        {
+          "start": 0,
+          "rms_dbfs": -300.0,
+          "non_silent": false
+        },
+        {
+          "start": 20,
+          "rms_dbfs": -25.16553353137145,
+          "non_silent": true
+        },
+        {
+          "start": 40,
+          "rms_dbfs": -29.29279562619996,
+          "non_silent": true
+        },
+        {
+          "start": 60,
+          "rms_dbfs": -26.44572506488087,
+          "non_silent": true
+        },
+        {
+          "start": 80,
+          "rms_dbfs": -25.10866508446721,
+          "non_silent": true
+        },
+        {
+          "start": 100,
+          "rms_dbfs": -23.925446093765316,
+          "non_silent": true
+        }
+      ]
+    },
+    "avatar_motion_sampled": true,
+    "game_motion_sampled": true,
+    "avatar_generated_counter_fps": 22.81757317553066,
+    "avatar_presented_fps_verified": false,
+    "normal_shutdown": true,
+    "original_official_processes_preserved": true,
+    "source_unchanged": true,
+    "human_game_tasks": 0,
+    "human_game_keys": 0,
+    "world_or_inventory_injection": false,
+    "viewer_comments_injected": 0,
+    "public_broadcast_started": false,
+    "narration_quality_gap": "4th line claims stepping onto adjacent stairs; recorded Y unchanged at75. Initial0-20s audio window silent; failure commentary repetitive.",
+    "contact_sheets_visually_reviewed": true
+  },
+  "transfers_verified": [
+    {
+      "attempt": "c",
+      "verified_files": 37,
+      "receipt": "outputs/mc-validation/round-088/remote-evidence/sample088c-transfer-result.json"
+    },
+    {
+      "attempt": "d",
+      "verified_files": 41,
+      "receipt": "outputs/mc-validation/round-088/remote-evidence/sample088d-transfer-result.json"
+    }
+  ],
+  "preserved_baselines_and_inputs": {
+    "ok": true,
+    "scope": "LOCAL_FILE_HASH_REVIEW_ONLY",
+    "application_tests": 0,
+    "files": [
+      {
+        "name": "native_freeze",
+        "path": "outputs/mc-freezes/20261103MC/20261103MC冻结留存包.zip",
+        "bytes": 87811075,
+        "sha256": "2b32d034778ac269ccdca591a8ac461b4ebd77513f5f79a66b4fd74bf5137280",
+        "matches_preserved_pin": true
+      },
+      {
+        "name": "luna_freeze",
+        "path": "outputs/mc-freezes/20261103MC-LUNA-R087-F01/20261103MC-LUNA-R087-F01冻结留存包.zip",
+        "bytes": 179715961,
+        "sha256": "86427d5d8c3de8d76e749a6dca645d6d69a825eada52c1c77e46f487f2a07a2a",
+        "matches_preserved_pin": true
+      },
+      {
+        "name": "baseline_video",
+        "path": "outputs/mc-validation/round-087/remote-evidence/mc-live-luna-087b-120s.mp4",
+        "bytes": 60679679,
+        "sha256": "595ff96c5929d0c4b8a7be5ba4f783640c1766e986e33dc96a0e64482f08c5f2",
+        "matches_preserved_pin": true
+      },
+      {
+        "name": "user_compat",
+        "path": "outputs/mc-validation/round-088/MC-Friends-Mineflayer-r001-Windows-x64.zip",
+        "bytes": 92650910,
+        "sha256": "5fb73990b63d4c350abda14729d388dbbd84b2327958dbd4cd0d302332b612e7",
+        "matches_preserved_pin": true
+      },
+      {
+        "name": "upstream",
+        "path": "outputs/mc-validation/round-088/dsh-mc-agent-a518f79e77e168aa5158dacc58e0c25d562a42b8.zip",
+        "bytes": 3035055,
+        "sha256": "d48e439adf0dee521bd9ba60a7a82388af52a696ab4ea531ae80cca154dcd596",
+        "matches_preserved_pin": true
+      }
+    ]
+  },
+  "core_regression": {
+    "ok": true,
+    "scope": "NODE_BUSINESS_AND_PROTOCOL_FIXTURES_NOT_REAL_GAME_MODEL_OR_PROGRAMME",
+    "suite": "core",
+    "output": "outputs/mc-validation/round-088-core-v6",
+    "tests": {
+      "tests": 359,
+      "pass": 359,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "services_started": false,
+    "models_loaded": false,
+    "real_minecraft": false,
+    "official_client_started": false,
+    "public_broadcast_started": false,
+    "native_dsh_booted": false,
+    "native_environment_prepared": false,
+    "source_snapshot_sha256": "6606468b15a5155aef0d93625210f33494e5bc04671c3093575b232638991cd0",
+    "source_files": 994,
+    "node_exit_code": 0,
+    "source_unchanged": true,
+    "code": "PASS",
+    "elapsed_seconds": 80.984,
+    "completed_at": "2026-11-02T23:06:09.765372+00:00"
+  },
+  "managed_start": {
+    "ok": true,
+    "services_ready": true,
+    "application_ready": false
+  },
+  "formal_acceptance_passed": 0,
+  "formal_acceptance_total": 68,
+  "new_avatar_assets_accepted": 0,
+  "new_avatar_assets_total": 100,
+  "inherited_open_freeze_items": 117,
+  "goal_status": "active",
+  "release_accepted": false,
+  "remaining_domains": [
+    "D01",
+    "D02",
+    "D03",
+    "D04",
+    "D05",
+    "D06",
+    "D07",
+    "D08",
+    "D09",
+    "D10",
+    "D11",
+    "D12",
+    "D13",
+    "D14",
+    "D15"
+  ],
+  "report": "docs/technical/mc-live-v1/DSH-MC-Agent兼容接入与120秒对比.md",
+  "cleanup": {
+    "remote": {
+      "at": "2026-11-02T23:33:09.4334292Z",
+      "device": "DESKTOP-2QQPN1H",
+      "managed_ports_checked": [
+        3092,
+        8010,
+        9880,
+        9881,
+        9882,
+        8020,
+        8019,
+        8830
+      ],
+      "managed_ports_listening": [],
+      "normal_shutdown_ok": true,
+      "transfer_ok": true,
+      "no_restart_performed": true
+    },
+    "local_byte_transfer": {
+      "at": "2026-11-02T23:34:32.1508311Z",
+      "pid": 26024,
+      "port": 2522,
+      "owned_command_verified": true,
+      "stopped": true,
+      "listening": false,
+      "scope": "BYTE_TRANSFER_ONLY_NO_LOCAL_APPLICATION_TEST"
+    },
+    "remote_receipt_source": "MCP PowerShell read of remote cleanup088-result.json",
+    "supplemental_transport_note": "First long port query timed out; supplemental worker wrote complete receipt but its WebClient upload failed; successful read via MCP confirmed ports closed. Main37+41 artifact transfers were already verified."
+  }
+}

@@ -1,0 +1,468 @@
+{
+  "schema_version": 1,
+  "freeze_id": "20261103MC",
+  "freeze_status": "frozen_baseline_not_accepted_release",
+  "recorded_at": "2026-11-03T02:36:33.922859+08:00",
+  "branch": "mc",
+  "head": "cf0d45426b37a53cb17c3a5157ae06f38453b786",
+  "working_tree_has_uncommitted_implementation": true,
+  "last_runtime_evidence_round": "085",
+  "latest_source_research_round": "086",
+  "installed_source_snapshot_sha256": "50a1d9827ae95f858b6bcb4de66be4fc7d4872361cbe0a533c1d94ea255417d1",
+  "frozen_public_source_snapshot_sha256": "50a1d9827ae95f858b6bcb4de66be4fc7d4872361cbe0a533c1d94ea255417d1",
+  "public_source_matches_installed_source": true,
+  "runtime_remote_reprobed_by_freeze": false,
+  "runtime_or_game_or_model_started_by_freeze": false,
+  "runtime_source_changed_by_freeze": false,
+  "local_runtime_tests": 0,
+  "virtualization_used": false,
+  "remote4090_used": false,
+  "remote4090_status": "paused",
+  "public_broadcast_started": false,
+  "required_domains": [
+    {
+      "id": "D01",
+      "required": true,
+      "status": "actual_offline_reload_and_native_agent_start_verified_full_delivery_pending",
+      "remaining": "完整安装包、许可、其他运行副本审计、干净Windows复现与整机恢复；更多离线档异常路径及后续用户提供地址的明确联机切换。"
+    },
+    {
+      "id": "D02",
+      "required": true,
+      "status": "native_partial_surface_and_autonomous_resume_implemented_full_world_lifecycle_pending",
+      "remaining": "更多容器/断连/世界切换/死亡恢复；普通重生、暂停握手、楼梯/下落/挖阶、低平台起步及土径/耕地表面行走已实现，坟墓取物、更多异形地面与联机移动仍需实证。"
+    },
+    {
+      "id": "D03",
+      "required": true,
+      "status": "agent_known_pre_effect_placement_replanning_implemented_long_autonomy_pending",
+      "remaining": "完整PvE/食物/撤离、实际多敌追击逃生与持久补给、种植及其他目标变化的更多真实恢复、GUI/未知故障自动恢复、岩浆/窒息脱险、断线/租约/硬件停止/联机保护；日常不依赖人工接管，真实水域/屋顶/树丛和长期连续生存仍需验收。"
+    },
+    {
+      "id": "D04",
+      "required": true,
+      "status": "actual_wood_table_cobblestone_furnace_verified_full_supply_pending",
+      "remaining": "其他石工具、熔炼/食物完整长链、种收吃、危险撤退、重生后连续补给与坟墓取物；084i木料/工作台/圆石/熔炉制作有真实成果，石镐和石斧沿用原档，未重复冒充本场制作。"
+    },
+    {
+      "id": "D05",
+      "required": true,
+      "status": "actual_portable_workstation_and_furnace_chain_verified_long_autonomy_pending",
+      "remaining": "更多Mindcraft物品/熔炼/探索、复杂资源/路线阻塞、跨会话便携工作台与补给、长时自主及真实弹幕并发；084i便携工作台实际制作/放置及熔炉链已确认，不能替代所有地形和长期恢复。嵌入原生求解器仍非完整上游运行时。"
+    },
+    {
+      "id": "D06",
+      "required": true,
+      "status": "guest_room_connection_verified_real_event_chain_pending",
+      "remaining": "595139真实弹幕/礼物/SC、过滤去重、建议/投票、重连、回复与节目展示；公开连接已通但零事件，用户当前不能发送，不重复要求。"
+    },
+    {
+      "id": "D07",
+      "required": true,
+      "status": "community_recall_mood_soul_adapted_full_memory_lifecycle_pending",
+      "remaining": "更正/删除、跨场异常、次日恢复与社区完整遗忘流程；中文召回/情绪/SOUL接入不替代真实观众记忆和删除验收，死亡恢复需新鲜物资及任务复核。"
+    },
+    {
+      "id": "D08",
+      "required": true,
+      "status": "planting_desktop_mobile_editors_verified_complete_operator_flows_pending",
+      "remaining": "自主任务/诊断/资源/音量/启停完整界面与自动故障恢复；自动开始设置、普通暂停恢复及桌面/手机已有子项，完整现场流程仍待验。"
+    },
+    {
+      "id": "D09",
+      "required": true,
+      "status": "repaired_120s_productive_programme_delivered_full_live_quality_pending",
+      "remaining": "自然表达词频与句式多样性、任务高峰解说及时性、真实弹幕/礼物叠加、单正式音源串扰及完整节目；084i真实游戏成果/待机人物/字幕/声音/120秒录像已交付，仍有“总算”4/7（全场5/8）及熔炉解说在127.198秒开始的延迟。 085确认的人物供帧不足及约4秒欠载重缓冲尚未修复，实际连续音画需复测。"
+    },
+    {
+      "id": "D10",
+      "required": true,
+      "status": "not_generated",
+      "remaining": "两套各2闲置+48动作，共100段新人物素材、索引、口型/遮罩/接缝及手机观看；0/100。"
+    },
+    {
+      "id": "D11",
+      "required": true,
+      "status": "approved_voice_pair_integrated_audio_acceptance_pending",
+      "remaining": "人声/游戏/BGM压低与恢复、O07/F07故障切换、混音和唯一音源的真实录音验收。"
+    },
+    {
+      "id": "D12",
+      "required": true,
+      "status": "actual_offline_death_screen_vision_verified_gameplay_timeout_pending",
+      "remaining": "生存游玩帧CPU视觉30秒超时、冷启动和联合负载稳定性；文字/建筑/危险识别准确率与旧护甲误报。死亡帧21.148秒和同主播两条正式播完仅为成功子项，不能覆盖失败。"
+    },
+    {
+      "id": "D13",
+      "required": true,
+      "status": "official_local_output_verified_public_audience_pending",
+      "remaining": "公开状态核对与独立观众CDN音画验收；当前未获公开开播授权，保持未执行。"
+    },
+    {
+      "id": "D14",
+      "required": true,
+      "status": "actual_v8_native_start_save_shutdown_verified_long_stability_pending",
+      "remaining": "FPS/端到端时延、4小时含60分钟稳定段、完整冷启动优化、FTB推广网络阻塞的持久解决、外部广告抢焦点、断线及长时恢复、显示组合与授权范围内旧候选清理；约4.70GB原游戏日志须受控轮转和预算，原件未删除。一次正常启动/停机不代替稳定性验收。 085分阶段编码/映射/调度与CPU/GPU/磁盘归因及人物/游戏实际呈现性能仍需核对。"
+    },
+    {
+      "id": "D15",
+      "required": true,
+      "status": "not_accepted",
+      "remaining": "68项正式验收0/68，24组合/12场景/8发布门、跨场次日及干净完整交付；全域不降范围、不提前宣布完成。"
+    }
+  ],
+  "open_required_item_count": 117,
+  "open_item_counts_by_domain": {
+    "D01": 8,
+    "D02": 8,
+    "D03": 9,
+    "D04": 10,
+    "D05": 9,
+    "D06": 8,
+    "D07": 8,
+    "D08": 7,
+    "D09": 8,
+    "D10": 7,
+    "D11": 7,
+    "D12": 7,
+    "D13": 5,
+    "D14": 8,
+    "D15": 8
+  },
+  "formal_acceptance": {
+    "passed": 0,
+    "defined": 68
+  },
+  "new_avatar_materials": {
+    "generated": 0,
+    "accepted": 0,
+    "required": 100
+  },
+  "runtime_combinations_required": 24,
+  "joint_scenarios_required": 12,
+  "release_gates_required": 8,
+  "actual_programme": {
+    "sample": "084i",
+    "actual_window_seconds": 132.058,
+    "task_states": {
+      "succeeded": 15,
+      "failed": 4
+    },
+    "verified_productive_tasks": [
+      {
+        "task_id": "task-5c96eb83-2e81-4faa-b778-3a0698b4a29a",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:furnace",
+          "skill": "craft"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-8d1e198d-91f9-4e55-a056-7c1528147c3a",
+        "goal": {
+          "count": 2,
+          "item_id": "minecraft:cobblestone",
+          "skill": "gather"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-4f2d5dda-b7a5-425e-b65f-ac534d5b4d7d",
+        "goal": {
+          "count": 4,
+          "item_id": "minecraft:cobblestone",
+          "skill": "gather"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-cbc66e23-ead1-4d89-8f80-b0c56db8ceac",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:crafting_table",
+          "skill": "craft"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-06bfb73b-a9c3-448f-9983-aae8d7e2ba04",
+        "goal": {
+          "count": 3,
+          "item_id": "minecraft:oak_planks",
+          "skill": "craft"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-3eb05114-4ece-41c6-a37b-7e9daff54ec8",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:oak_log",
+          "skill": "gather"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-db8b7a02-11f5-4f5c-8900-ed0e802478ba",
+        "goal": {
+          "item_id": "minecraft:crafting_table",
+          "purpose": "activate",
+          "skill": "use_item",
+          "target": {
+            "dimension": "minecraft:overworld",
+            "x": 1353,
+            "y": 75,
+            "z": -159
+          }
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-7a20834c-caf4-4e50-8352-d283728ee539",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:crafting_table",
+          "skill": "craft"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-6a70b1b0-766d-45cd-939c-fa58d2554878",
+        "goal": {
+          "count": 3,
+          "item_id": "minecraft:oak_planks",
+          "skill": "craft"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-1fdeb7d1-4c21-4957-9cdc-fb892fe991f8",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:oak_log",
+          "skill": "gather"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-aa8c8302-6050-45a8-bc45-ca60fe9afa5b",
+        "goal": {
+          "item_id": "minecraft:crafting_table",
+          "purpose": "activate",
+          "skill": "use_item",
+          "target": {
+            "dimension": "minecraft:overworld",
+            "x": 1359,
+            "y": 72,
+            "z": -159
+          }
+        },
+        "effect_status": "verified"
+      }
+    ],
+    "inventory_changes": {
+      "minecraft:cobblestone": {
+        "before": 2,
+        "after": 0
+      },
+      "minecraft:furnace": {
+        "before": 0,
+        "after": 1
+      },
+      "projectvibrantjourneys:orange_bark_mushroom": {
+        "before": 0,
+        "after": 1
+      }
+    },
+    "final_health": 18.999998,
+    "final_food": 17,
+    "initial_auto_session_grants": 1,
+    "script_game_task_submissions": 0,
+    "script_game_keys": 0,
+    "manual_takeover": false,
+    "world_or_inventory_injection": false,
+    "speech_positive_requests_within_clip": 7,
+    "completed_speech_requests": 8,
+    "source_sha256": "50a1d9827ae95f858b6bcb4de66be4fc7d4872361cbe0a533c1d94ea255417d1",
+    "video": "outputs/mc-validation/round-084/remote-evidence/mc-live-repaired-084i-120s.mp4",
+    "video_sha256": "144f7242860462453dec33958a9c81ff7b8721ce18880168dc62d4283fbff3c9",
+    "video_bytes": 28728268,
+    "video_seconds": 120,
+    "video_frames": 3600,
+    "audio": {
+      "rms_dbfs": -26.68550225577455,
+      "peak": 0.793792724609375,
+      "non_silent": true,
+      "twenty_second_windows": [
+        {
+          "start": 0,
+          "rms_dbfs": -24.652579701091977,
+          "non_silent": true
+        },
+        {
+          "start": 20,
+          "rms_dbfs": -27.375563905436522,
+          "non_silent": true
+        },
+        {
+          "start": 40,
+          "rms_dbfs": -27.438677996417837,
+          "non_silent": true
+        },
+        {
+          "start": 60,
+          "rms_dbfs": -25.335585064137973,
+          "non_silent": true
+        },
+        {
+          "start": 80,
+          "rms_dbfs": -26.812811592692004,
+          "non_silent": true
+        },
+        {
+          "start": 100,
+          "rms_dbfs": -30.96248109560062,
+          "non_silent": true
+        }
+      ]
+    },
+    "avatar_motion_sampled": true,
+    "qualitative_review": "See repair report: actual game frames, dense idle blink frames and spoken text reviewed; not long-term or public audience acceptance"
+  },
+  "last_runtime_verification": {
+    "controller_recovered": true,
+    "v38_terminal_failure": "MC_APPLICATION_START_TIMEOUT",
+    "v38_actual_all_six_owned_families_stopped": true,
+    "v38_rollback_proof": "after-v38-rollback-inspect-result.json",
+    "latest_remote_runtime_confirmed": true,
+    "last_verified_saved_exit": "sample084i-offline-final-result.json",
+    "timeout_does_not_prove_remote_state": true,
+    "latest_verified_start": "deploy084-v8b-result.json",
+    "current_control_mode": null,
+    "test_only_entry_menu_pause": false,
+    "current_in_world": false,
+    "current_screen": null,
+    "retained_five_other_services_ready": false,
+    "production_singleplayer_menu_protection": true,
+    "production_pause_on_entry_verified": true,
+    "current_owned_services_stopped": true,
+    "production_display_requirement_active": false,
+    "latest_verified_stop": "sample084i-normal-shutdown-result.json",
+    "current_automation_authorized": false,
+    "world_save_retained": true,
+    "installed_source_snapshot": "50a1d9827ae95f858b6bcb4de66be4fc7d4872361cbe0a533c1d94ea255417d1",
+    "latest_actual_gameplay": "sample084i-session-result.json",
+    "latest_start_status": "six native services actually ready; programme completed; normal saved exit and shutdown verified"
+  },
+  "last_verified_shutdown": {
+    "all_six_owned_services_stopped": true,
+    "display_requirement_released": true,
+    "original_official_processes_preserved": true,
+    "saved_world_unchanged_during_title_shutdown": true,
+    "last_save": {
+      "folder": "MC Live Offline 083",
+      "level_dat_bytes": 10292,
+      "level_dat_sha256_after_save_quit": "a450fa4cd66590a4c925b8c3abdb45bc90a6a6648189c59cef8f0c2460d9a15e",
+      "mtime": 1793640421.970337
+    },
+    "source_unchanged": true,
+    "new_browser_tabs_opened": 0
+  },
+  "remaining_quality": {
+    "speech_repetition": {
+      "word": "总算",
+      "within_120s": 4,
+      "completed_requests_within_120s": 7,
+      "full_observation": 5,
+      "full_observation_completed_requests": 8,
+      "status": "not_fully_resolved"
+    },
+    "late_commentary": {
+      "topic": "furnace_crafted",
+      "first_positive_playout_offset_seconds": 127.198,
+      "inside_120s_clip": false,
+      "gameplay_result_inside_clip": true
+    },
+    "real_navigation_failures_preserved": 4,
+    "real_viewer_event_chain": "pending_no_new_usable_public_events",
+    "long_unattended_survival": "not_accepted",
+    "new_avatar_clips_accepted": 0,
+    "formal_system_acceptance_passed": 0
+  },
+  "stutter_diagnosis": {
+    "status": "completed_causes_identified_performance_repair_pending",
+    "report": "docs/technical/mc-live-v1/120秒实况卡顿排查.md",
+    "evidence": "docs/evidence/mc-runtime-round-085.json",
+    "runtime_source_changes": 0,
+    "game_or_model_starts": 0,
+    "local_tests": 0,
+    "formal_acceptance_passed": 0,
+    "findings": {
+      "inference_fps_timed_log_range": [
+        19.8145,
+        22.6775
+      ],
+      "target_avatar_fps": 25,
+      "action_index_production_fps": 22.2499464132251,
+      "production_counter_window_seconds": 128.004,
+      "minimum_six_second_counter_fps": 14.44899040910276,
+      "playout_buffer_default_seconds": 4,
+      "playback_counter_gaps": [
+        {
+          "from": 19.697592,
+          "to": 23.697592,
+          "wall_seconds": 4.0,
+          "pcm_progress_seconds": 0.010625,
+          "excess_wall_seconds": 3.989375
+        },
+        {
+          "from": 46.197592,
+          "to": 50.204592,
+          "wall_seconds": 4.007,
+          "pcm_progress_seconds": 0.178625,
+          "excess_wall_seconds": 3.828375
+        },
+        {
+          "from": 94.200592,
+          "to": 98.217592,
+          "wall_seconds": 4.017,
+          "pcm_progress_seconds": 0.210625,
+          "excess_wall_seconds": 3.806375
+        }
+      ],
+      "original_and_delivery_pts_regular": true,
+      "pts_gap_over_50ms": 0,
+      "nominal_output_fps": 30,
+      "game_state_message_rate_not_render_fps": 20.016756327328498,
+      "known_packet_processing_delay_seconds": 0.374
+    },
+    "limitations": [
+      "No time-aligned GPU/CPU/disk or historical browser underrun counters retained",
+      "ROI pixel change is not a render-FPS measurement and cannot alone prove an engine freeze",
+      "No exclusive GPU-versus-IO attribution",
+      "No performance fix deployed or new acceptance claimed"
+    ]
+  },
+  "private_runtime_backup_created_by_freeze": false,
+  "last_observed_runtime_state_is_not_a_current_live_probe": true,
+  "source_file_count": 985,
+  "reference_file_count": 292,
+  "historical_evidence_count": 92,
+  "media": [
+    {
+      "role": "current_repaired_sample_not_full_acceptance",
+      "original": "outputs/mc-validation/round-084/remote-evidence/mc-live-repaired-084i-120s.mp4",
+      "preserved": "outputs/mc-freezes/20261103MC/media/mc-live-repaired-084i-120s.mp4",
+      "bytes": 28728268,
+      "sha256": "144f7242860462453dec33958a9c81ff7b8721ce18880168dc62d4283fbff3c9"
+    },
+    {
+      "role": "preserved_previous_failed_gameplay_sample",
+      "original": "outputs/mc-validation/round-083/remote-evidence/mc-live-120s-20261102.mp4",
+      "preserved": "outputs/mc-freezes/20261103MC/media/mc-live-120s-20261102.mp4",
+      "bytes": 34232513,
+      "sha256": "fa5e44afd94c39a2d730b555425d81fda30e7cc2645bbde75d3055c08b8930dd"
+    }
+  ]
+}

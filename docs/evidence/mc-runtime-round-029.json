@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "round": "029",
+  "classification": "LOCAL_IMPLEMENTATION_NOT_RUNTIME_ACCEPTANCE",
+  "status": "PASS_LOCAL_CHECKS_RUNTIME_UNPREPARED_GOAL_NOT_COMPLETE",
+  "branch": "mc",
+  "goal_status": "active",
+  "recorded_at": "2026-10-30T15:47:01.474357+00:00",
+  "previous_evidence": "docs/evidence/mc-runtime-round-028.json",
+  "implemented": [
+    {
+      "id": "I257",
+      "title": "MC原生应用配置",
+      "detail": "新增mc-native-3080-v1；绑定mc源码、3080/batch4/原状态根、冻结布局与MC/Fabric及既有模型锁。"
+    },
+    {
+      "id": "I258",
+      "title": "只读原生预检",
+      "detail": "核对源码、设备/配置、Node/Python/Java、模型/DSH补丁/工程JAR及空闲；固定探测，不下载或加载模型。"
+    },
+    {
+      "id": "I259",
+      "title": "实际源码和本机文件证明",
+      "detail": "真实Git分支/HEAD、全部运行源文件及新增资源、原生程序、配置/模型和依赖补丁hash；修改或复制安装后拒绝旧证明。"
+    },
+    {
+      "id": "I260",
+      "title": "准备、刷新与互斥",
+      "detail": "空闲检查、准备锁、复核后原子写入、显式刷新保留旧证明；失败不改旧来源/证明，不终止其他应用。"
+    },
+    {
+      "id": "I261",
+      "title": "既有启动检查接入",
+      "detail": "人物/TTS/studio/DSH沿用同一检查；只有完整应用证明才接受mc，原设备/状态/显存和停止路径继续保留。"
+    },
+    {
+      "id": "I262",
+      "title": "本地路径验证",
+      "detail": "53项部署＋3项DSH生命周期通过，含33项新增；真实目录describe通过、preflight/status如实未准备，无成功记录。"
+    },
+    {
+      "id": "I263",
+      "title": "配套文档与完整待办",
+      "detail": "更新运行说明、设备规则、入口与状态；保护既有证据，保留D01–D15、真实验收0/68及人物0/100。"
+    }
+  ],
+  "remaining": [
+    {
+      "id": "D01",
+      "required": true,
+      "status": "partial_native_mc_profile_source_bound_preparation_locally_verified_runtime_unprepared",
+      "remaining": "MC原生应用profile、只读预检、实际源码/文件证明及准备刷新已本地检查，当前目录未真正准备；完整原生依赖安装、运行锁/许可/第三方源码对应、无Git发布包来源导出/安装/准备与干净环境复现；MC客户端/视觉/接收器/官方端统一启停、跨入口启动事务和失败回收；首次运行一致备份、真实设备/模型兼容及完整负载验收"
+    },
+    {
+      "id": "D02",
+      "required": true,
+      "status": "partial_native_frames_recipes_world_console_local_checked_runtime_not_accepted",
+      "remaining": "配方普通/数据包/模组/重载实机与组件/解锁/库存规则核对；完整GUI/规则、B归档向A完整历史投影；原始帧、世界/基地/检查点后台、Fabric/Mixin/服务器联合实机验收"
+    },
+    {
+      "id": "D03",
+      "required": true,
+      "status": "partial_bound_input_gui_craft_and_item_sync_cpu_verified",
+      "remaining": "剩余写点/包/反射/选项分类、其他线程/回调、网络事件真实线程与世界维护一致性、其他容器GUI仲裁和全部上游清理；背包/工作台及物品同步真实响应、handler/sync/位置复用后的迟到包归属；物理键鼠/改键/扫描码、选中热栏恢复、光标/焦点/分辨率、停顿及至少20次实机接管"
+    },
+    {
+      "id": "D04",
+      "required": true,
+      "status": "partial_craft_and_three_item_uses_native_paths_runtime_not_accepted",
+      "remaining": "MinecraftPort完整生存绑定、其他容器GUI/规则及副作用、实际任务树全部清理及启动阻挡关闭门槛；合成真实Mixin/服务器、组件/配方重载/解锁、特殊及变产量/多候选配方、工作台准备改变材料、迟到包和服务器不同步/库存不足；进食/穿戴/固定方块放置的真实剩余物/组件/诅咒/属性/插件限制；普通手持工具/武器、特殊方块及完整物品用途；实际基地路径/半径/规则变化、普通PvE/补给/危险/资源链及全部真实效果证据"
+    },
+    {
+      "id": "D05",
+      "required": true,
+      "status": "partial_ready_gated_public_speech_locally_checked",
+      "remaining": "真实DSH与模型渠道、完整生存目标和预算/取消/迟到结果；普通聊天/问句/点名语义分类与过期事件的独立历史回顾；确定性合并/等待权重/危险中断的真实负载、事实/效果/声音取消整链；Neuro固定消息兼容及回放；正式输出就绪握手与真实DSH/声音/取消整链验收"
+    },
+    {
+      "id": "D06",
+      "required": true,
+      "status": "partial_history_ownership_and_durable_source_withdrawal_locally_verified",
+      "remaining": "自由语言建议映射/消歧；真实平台SC金额/角色/表情及撤回样本、重连/延迟；来源/过滤跨进程故障及完整负载、多观众真实Humanity删除；真实渠道/平台/MC与任务公开回应联合验收；历史维护/可信归属及持久撤回的跨进程/真实平台负载验收"
+    },
+    {
+      "id": "D07",
+      "required": true,
+      "status": "partial_canonical_ownership_retention_and_privacy_recovery_locally_verified",
+      "remaining": "B归档向A完整历史投影、B事件/任务7天/30天保留与摘要；平台/Room保留、最小归属和待撤回重放已本地检查，旧账号覆盖仍需补齐；归属索引/删除计划长期容量及保留、真实Humanity召回/提议/写入/删除；A/B/MC一致备份恢复及次日实机验收"
+    },
+    {
+      "id": "D08",
+      "required": true,
+      "status": "partial_fault_diagnostics_reload_and_narrow_console_checked",
+      "remaining": "剩余完整节目/回复调度、人物素材/声音联控、记忆维护/删除诊断后台；世界目录/基地/检查点、任务/互动/调度/平台/撤回/支持与隐私恢复的真实MC整链验收；维护后台、近期失败/中断、恢复重放与实际运行负载整链；故障诊断后台的真实MC故障/释放/恢复与完整资源联动；MC原生准备/预检及完整启停结果的后台投影"
+    },
+    {
+      "id": "D09",
+      "required": true,
+      "status": "partial_deferred_playback_ready_and_first_pcm_race_locally_verified",
+      "remaining": "真实推理/NVENC与官方透明捕获；新人物profile接入、全部遗留入口排他迁移、字幕/取消/音画同步及断线/静音恢复整链；游戏界面/手机实录与长时资源验收；027同源码正式播放用例一次等待首个有效PCM回执超时，定向重跑通过不关闭根因；028已修复可复现的申请响应延迟丢首段PCM竞态，027原失败是否同因未证明；完整真实播放/捕获/静音恢复待验收"
+    },
+    {
+      "id": "D10",
+      "required": true,
+      "status": "not_generated",
+      "remaining": "圆形与横窗各50段、共100段新人物素材，完整索引/脸框/动作语义/隔离及动态QA"
+    },
+    {
+      "id": "D11",
+      "required": true,
+      "status": "partial_mc_pcm_caption_and_bgm_local_browser_verified",
+      "remaining": "真实游戏音频单路与人声/BGM联合混音；O07/F07主备、正式播放权/取消/音量零和静音恢复的真实验收"
+    },
+    {
+      "id": "D12",
+      "required": true,
+      "status": "partial_native_frame_transport_and_pinned_vision_adapter_cpu_verified",
+      "remaining": "真实视觉服务/模型/投影与CUDA运行核对、真实帧/文字/建筑/未知及失败样例；跨机时钟、带宽、GPU取消和完整负载验收"
+    },
+    {
+      "id": "D13",
+      "required": true,
+      "status": "partial_mc_a_b_routes_and_receiver_transparency_locally_verified",
+      "remaining": "B端与真实模型/MC联合、官方直播姬实际透明捕获和源内声音、真实平台公开状态与观众端音画；资格校验及公开验收"
+    },
+    {
+      "id": "D14",
+      "required": true,
+      "status": "partial_sanitized_fault_phases_bridge_timing_and_failure_evidence",
+      "remaining": "完整运行诊断后台、资源/时延/日志/磁盘预算；排队启动撤权及020首次取消原因覆盖竞态已有修复/夹具检查；020账本提交2197ms后LEASE_EXPIRED/GAME_MODE_BLOCKED与变更基地重复消息等待超时仍未关闭；015其他GAME_MODE_BLOCKED、017连接freshness/复核弹窗、018冷启动I/O及此前首次连接/通用ACK仍须核对；合成/物品同步真实延迟/丢失/偏离/迟到、全部故障注入、联合恢复及回滚；021帧超限检查一次413预期收到502、旧布局后台一次连接等待30秒超时，追加诊断/重试不关闭根因；021同步解码异常漏计已修复，不据此关闭历史时延问题；025同步批量输入导致GameStore定时续约饥饿和故障关闭中断已有锁内有效续约/资源清理及本地检查，跨进程/真实磁盘负载仍待验收；025任务running状态既有4秒条件等待发生一次超时（用例总耗时22783ms），未改生产或期限的28项重跑通过，根因未关闭；不据此关闭既往015/017/018/020/021问题；观众历史维护的跨进程/真实磁盘容量、故障恢复与启动前重放实机验证；027正式播放首次PCM回执等待超时根因仍待查，最后完整浏览器1项失败按latest-browser-failures清单跟踪；028第一原因/桥耗时/故障SSE与连接失败留证已本地验证，完整持久日志/容量/跨进程与真实负载仍待完成"
+    },
+    {
+      "id": "D15",
+      "required": true,
+      "status": "not_accepted",
+      "remaining": "V01–V44+C01–C24全部68项、24种运行组合/12类联合场景/8项同版发布判据、4小时完整负载、20次物理接管、跨场/次日、干净原生环境复现与统一交付报告"
+    }
+  ],
+  "validation": {
+    "distinct_local_test_cases_executed_this_round": 56,
+    "new_distinct_cases": 33,
+    "python_unit_tests": 56,
+    "node_unit_and_room_http": 0,
+    "browser": 0,
+    "native_java_tests_rerun": 0,
+    "node_to_java_headless_interop_cases": 0,
+    "final_passed": 56,
+    "final_failed": 0,
+    "final_skipped": 0,
+    "test_python_version": "3.13.1 (tags/v3.13.1:0671451, Dec  3 2024, 19:06:28) [MSC v.1942 64 bit (AMD64)]",
+    "validation_mode": "NATIVE_PYTHON_GIT_FILE_LIFECYCLE_CHECKS_WITH_DEVICE_AND_NATIVE_PROBE_DOUBLES",
+    "production_python_required": "3.10.22",
+    "fixture_native_executable_probes_are_not_production_acceptance": true,
+    "real_local_read_only_cli_commands": 3,
+    "local_runtime_prepared": false,
+    "failed_attempts_preserved": true,
+    "initial_failed_test_methods": 13,
+    "initial_error_records_including_subtests": 15,
+    "node_browser_regression_rerun": false,
+    "previous_node_browser_inputs_unchanged": "outputs/mc-validation/round-029/unchanged-core-inputs.json",
+    "real_minecraft_started": false,
+    "native_model_inference_started": false,
+    "official_client_started": false,
+    "public_broadcast_started": false,
+    "remote_4090_used": false,
+    "virtualization_used": false,
+    "subagents_dispatched": false,
+    "browser_used_this_round": false,
+    "desktop_browser_tabs_created": 0,
+    "runtime_acceptance_not_run": 68,
+    "full_system_stability_accepted": false,
+    "historical_failure_roots_closed": false,
+    "evidence": "docs/evidence/mc-runtime-round-029.json",
+    "validation_sources": "outputs/mc-validation/round-029/validation-sources.json",
+    "documentation": {
+      "result": "PASS",
+      "report": "outputs/mc-validation/round-029/contracts-verification.json",
+      "report_sha256": "a3033aebe8a8c5feb6f3ccbbd1dbaeb53a6b08b3e60567bde7f9fab8afab8012",
+      "schema_definitions": 102,
+      "valid_examples": 97,
+      "negative_contract_cases": 104,
+      "http_operations": 45,
+      "markdown_files_checked": 50,
+      "local_markdown_links": 666,
+      "full_openapi_spec_validator_run": false,
+      "real_acceptance_advanced": false
+    }
+  },
+  "runtime_acceptance_passed": 0,
+  "runtime_acceptance_not_run": 68,
+  "new_avatar_clips_generated": 0,
+  "new_avatar_clips_required": 100,
+  "local_runtime_prepared": false,
+  "production_native_probes_accepted": false,
+  "full_system_stability_accepted": false,
+  "historical_failure_roots_closed": false,
+  "failed_attempts": [
+    "outputs/mc-validation/round-029/python-attempt1-result.json",
+    "outputs/mc-validation/round-029/python-attempt1.log"
+  ],
+  "first_failure_cause": "Test assertions used a module-specific exception class despite dynamic import; actual guard rejection occurred. Tests now assert the public RuntimeError and code contract.",
+  "attempt1_recovered_inputs": "outputs/mc-validation/round-029/attempt1-source-recovery.json",
+  "read_only_local_inspection": "outputs/mc-validation/round-029/native-inspection.json",
+  "source_snapshot": {
+    "path": "outputs/mc-validation/round-029/source-manifest.json",
+    "sha256": "b8f69642c0e62fd7bf85f6317dd751b666b08368c5b65c012c5f9e12362a9252"
+  },
+  "source_snapshot_files": 240,
+  "artifact_manifest": {
+    "path": "outputs/mc-validation/round-029/artifact-manifest.json",
+    "sha256": "d5df36ba6ab5366be8c3c43e6ebae156ea2f78378668fc4cebc7503adfc40ddb"
+  },
+  "protected_files_verified": 1531,
+  "original_planning_and_prior_evidence_preserved": true
+}

@@ -7,13 +7,20 @@ import { check, PlatformError } from './config.mjs';
 export const LIVEHIME_WINDOW_TITLE = '女A · 林知夏 · 直播姬画面';
 export const LIVEHIME_SOURCE_URL = 'http://127.0.0.1:8010/output.html?output=platform&renderer=livehime';
 export const LIVEHIME_OUTPUT_URL = 'http://127.0.0.1:8010/output.html?renderer=preview';
+export function programmePresentation(mc = false, origin = 'http://127.0.0.1:8010') {
+  return mc ? { programme: 'mc', layout_id: 'mc-landscape-v1', width: 1920, height: 1080,
+    source_url: origin + '/mc/programme?renderer=livehime', preview_url: origin + '/mc/preview?renderer=livehime' }
+    : { programme: 'avatar', layout_id: null, width: 720, height: 1280,
+      source_url: origin + '/output.html?output=platform&renderer=livehime', preview_url: origin + '/output.html?renderer=preview' };
+}
 
 // Owns one local Chromium application window. Livehime owns its account,
 // capture settings and actual public broadcast; no OBS client is called here.
 export class LivehimeOutput {
-  constructor(root, { playwright, spawnChild = spawn, receiverConfig = () => null } = {}) {
+  constructor(root, { playwright, spawnChild = spawn, receiverConfig = () => null, mcEnabled = () => false } = {}) {
     this.root = resolve(root); this.playwright = playwright; this.spawnChild = spawnChild;
     this.receiverConfig = receiverConfig;
+    this.mcEnabled = mcEnabled;
     this.context = null; this.page = null; this.clientRequested = false;
   }
   receipt() {
@@ -28,12 +35,15 @@ export class LivehimeOutput {
     } catch { throw new PlatformError('LIVEHIME_RECEIPT_INVALID', 503); }
   }
   async status() {
+    const presentation = programmePresentation(this.mcEnabled());
     if (this.receiverConfig()?.client_location === 'receiver') {
       const base = this.receiverConfig().receiver_url || 'http://127.0.0.1:8020';
+      const receiver = programmePresentation(this.mcEnabled(), base);
       return { renderer: 'livehime', deployment: 'split_device', client_location: 'receiver', obs_required: false,
         client_installed: false, client_required_on: 'receiver', client_launch_requested: false, window_open: false,
-        source_url: base + '/output.html?output=platform&renderer=livehime', receiver_page: base + '/receiver/',
-        source_width: 720, source_height: 1280, account_login_verified: false, audience_delivery_verified: false };
+        source_url: receiver.source_url, preview_url: receiver.preview_url, receiver_page: base + '/receiver/',
+        programme: receiver.programme, layout_id: receiver.layout_id,
+        source_width: receiver.width, source_height: receiver.height, account_login_verified: false, audience_delivery_verified: false };
     }
     const receipt = this.receipt();
     let player = null;
@@ -43,8 +53,8 @@ export class LivehimeOutput {
           title: document.title, width: innerWidth, height: innerHeight,
           video_width: document.querySelector('video')?.videoWidth || 0,
           video_height: document.querySelector('video')?.videoHeight || 0,
-          frames: document.querySelector('video')?.getVideoPlaybackQuality?.().totalVideoFrames || 0,
-          audio_state: window.avatarAudioContext?.state || 'unknown',
+          frames: window.avatarTransport?.frames || document.querySelector('video')?.getVideoPlaybackQuality?.().totalVideoFrames || 0,
+          audio_state: (window.avatarTransport?.audioContext || window.avatarAudioContext)?.state || 'unknown',
           consumer_id: window.avatarTransport?.dsh?.consumerId || null,
         }));
       } catch {}
@@ -52,7 +62,9 @@ export class LivehimeOutput {
     return { renderer: 'livehime', obs_required: false, client_installed: !!receipt,
       client_version: receipt?.version || null, client_launch_requested: this.clientRequested,
       window_open: !!this.page && !this.page.isClosed(), window_title: LIVEHIME_WINDOW_TITLE,
-      player, source_url: LIVEHIME_SOURCE_URL, source_width: 720, source_height: 1280,
+      player, source_url: presentation.source_url, preview_url: presentation.preview_url,
+      programme: presentation.programme, layout_id: presentation.layout_id,
+      source_width: presentation.width, source_height: presentation.height,
       capture_method: 'livehime_browser_source', account_login_verified: false, audience_delivery_verified: false };
   }
   async launchClient(force = false) {
@@ -85,7 +97,11 @@ export class LivehimeOutput {
   async prepareWindow() {
     // A missing client cannot be reported as a ready Livehime workflow.
     await this.launchClient();
-    if (this.page && !this.page.isClosed()) return { prepared: true, status: await this.status() };
+    const presentation = programmePresentation(this.mcEnabled());
+    if (this.page && !this.page.isClosed()) {
+      if (this.windowPresentation === presentation.programme) return { prepared: true, status: await this.status() };
+      await this.close();
+    }
     const { chromium } = this.playwright || playwrightFor(this.root);
     const executablePath = [
       'C:/Program Files/Google/Chrome/Application/chrome.exe',
@@ -95,25 +111,30 @@ export class LivehimeOutput {
     check(executablePath || this.playwright, 'OUTPUT_BROWSER_NOT_INSTALLED', 503);
     try {
       const context = this.context = await chromium.launchPersistentContext(join(this.root, 'cache/platforms/livehime-output'), {
-        executablePath, headless: false, chromiumSandbox: true, viewport: { width: 720, height: 1280 }, deviceScaleFactor: 1,
+        executablePath, headless: false, chromiumSandbox: true, viewport: { width: presentation.width, height: presentation.height }, deviceScaleFactor: 1,
         ignoreDefaultArgs: ['--enable-automation'],
-        args: ['--app=' + LIVEHIME_OUTPUT_URL, '--window-size=720,1310', '--window-position=20,30',
+        args: ['--app=' + presentation.preview_url, `--window-size=${presentation.width},${presentation.height + 30}`, '--window-position=20,30',
           '--autoplay-policy=no-user-gesture-required', '--disable-extensions', '--no-first-run',
           '--disable-background-timer-throttling', '--disable-renderer-backgrounding',
           '--disable-backgrounding-occluded-windows', '--disable-features=CalculateNativeWinOcclusion'],
       });
       let pages = context.pages();
-      this.page = pages.find(page => page.url().startsWith(LIVEHIME_OUTPUT_URL)) || pages[0] || await context.newPage();
-      if (!this.page.url().startsWith(LIVEHIME_OUTPUT_URL)) await this.page.goto(LIVEHIME_OUTPUT_URL, { waitUntil: 'domcontentloaded', timeout: 15000 });
+      this.page = pages.find(page => page.url().startsWith(presentation.preview_url)) || pages[0] || await context.newPage();
+      if (!this.page.url().startsWith(presentation.preview_url)) await this.page.goto(presentation.preview_url, { waitUntil: 'domcontentloaded', timeout: 15000 });
       for (const other of context.pages()) if (other !== this.page) await other.close();
       this.page.on('close', () => { void context.close().catch(() => {}); if (this.context === context) this.context = null; });
       context.on('close', () => { if (this.context === context) { this.context = null; this.page = null; } });
-      await this.page.waitForFunction(() => {
+      await this.page.waitForFunction(expected => {
+        if (expected.programme === 'mc') return innerWidth === expected.width && innerHeight === expected.height
+          && window.mcProgramme?.preview === true && window.avatarTransport?.running === true
+          && window.avatarTransport?.frames > 0 && window.avatarTransport?.audible === false
+          && window.avatarTransport?.audioContext?.state === 'running';
         const video = document.querySelector('video');
         return video?.videoWidth === 720 && video.videoHeight === 1280
           && window.avatarAudioContext?.state === 'running'
           && (video.getVideoPlaybackQuality?.().totalVideoFrames || 0) > 0;
-      }, null, { timeout: 30000 });
+      }, presentation, { timeout: 30000 });
+      this.windowPresentation = presentation.programme;
       return { prepared: true, public_broadcast_started: false, status: await this.status() };
     } catch (error) {
       await this.close();
@@ -121,7 +142,7 @@ export class LivehimeOutput {
     }
   }
   async close() {
-    const context = this.context; this.context = null; this.page = null;
+    const context = this.context; this.context = null; this.page = null; this.windowPresentation = null;
     await context?.close();
     // The official client may have user activity; closing our output never
     // terminates Livehime or claims its external broadcast has ended.

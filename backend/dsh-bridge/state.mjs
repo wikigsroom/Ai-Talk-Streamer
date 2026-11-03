@@ -17,12 +17,14 @@ export class StreamState extends EventEmitter {
     super(); this.db = store; this.policy = policy; this.personaVersion = personaVersion;
     this.character = policy.identity.character_id; this.roomId = policy.identity.room_id;
     this.characterRoom = [this.character, this.roomId];
+    this.readinessKey = 'playback-readiness:' + digest(this.characterRoom);
     this.db.tx(() => {
       this.db.run('INSERT OR IGNORE INTO rooms(character_id,room_id) VALUES (?,?)', ...this.characterRoom);
       this.db.run('UPDATE rooms SET runtime_epoch=runtime_epoch+1,generation=generation+1,maintenance_barrier=maintenance_barrier+1 WHERE character_id=? AND room_id=?', ...this.characterRoom);
       const room = this.room();
       this.db.run('UPDATE playback_leases SET revoked_at=?', utc(this.db.now()));
       this.db.run('UPDATE playback_history SET revoked_at=? WHERE revoked_at IS NULL', utc(this.db.now()));
+      this.db.run('DELETE FROM runtime_meta WHERE key=?', this.readinessKey);
       const pending = this.db.all(`SELECT * FROM requests WHERE status IN ${activeSQL} OR status='QUEUED'`);
       for (const request of pending) {
         this.db.run("UPDATE requests SET status='UNKNOWN',revision=revision+1 WHERE request_id=?", request.request_id);
@@ -46,11 +48,24 @@ export class StreamState extends EventEmitter {
       request_id: row.request_id ?? null, utterance_id: row.utterance_id ?? null, ...actor };
   }
   lease(broadcastId) { return this.db.get('SELECT * FROM playback_leases WHERE broadcast_id=?', broadcastId); }
-  leaseResponse(lease) { return {...lease, playback_timing: {heartbeat_interval_ms:this.policy.playback.heartbeat_interval_ms,progress_interval_ms:this.policy.playback.progress_interval_ms}}; }
-  authorityReady(broadcastId) {
+  playbackReadiness(lease) {
+    const row = this.db.get('SELECT value_json FROM runtime_meta WHERE key=?', this.readinessKey);
+    if (!row) return false; // Every new claim persists its proof; restart revokes older leases.
+    let marker; try { marker = JSON.parse(row.value_json); } catch { throw new StreamError('PLAYBACK_READINESS_INVALID', 503); }
+    requireValue(marker?.schema_version === 1 && typeof marker.ready === 'boolean' &&
+      ['lease_id','broadcast_id','consumer_id','runtime_epoch','authority_epoch'].every(key => marker[key] === lease[key]), 'PLAYBACK_READINESS_INVALID', 503);
+    return marker.ready;
+  }
+  savePlaybackReadiness(lease, ready) {
+    const marker = { schema_version: 1, ready, ...Object.fromEntries(['lease_id','broadcast_id','consumer_id','runtime_epoch','authority_epoch'].map(key => [key, lease[key]])) };
+    this.db.run('INSERT INTO runtime_meta VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json', this.readinessKey, canonical(marker));
+  }
+  leaseResponse(lease) { return {...lease, ready: this.playbackReadiness(lease), playback_timing: {heartbeat_interval_ms:this.policy.playback.heartbeat_interval_ms,progress_interval_ms:this.policy.playback.progress_interval_ms}}; }
+  authorityHeld(broadcastId) {
     const lease = this.lease(broadcastId);
     return !!lease && !lease.revoked_at && lease.runtime_epoch === this.room().runtime_epoch && Date.parse(lease.expires_at) > this.db.now();
   }
+  authorityReady(broadcastId) { return this.authorityHeld(broadcastId) && this.playbackReadiness(this.lease(broadcastId)); }
   createBroadcast(principal) {
     return this.db.tx(() => {
       requireValue(!this.current(), 'BROADCAST_ALREADY_OPEN');
@@ -199,17 +214,20 @@ export class StreamState extends EventEmitter {
       return { accepted: true };
     });
   }
-  claimAuthority(principal, broadcastId, consumerId, replace = false) {
+  claimAuthority(principal, broadcastId, consumerId, replace = false, deferReady = false) {
+    requireValue(typeof broadcastId === 'string' && broadcastId.length >= 8 && broadcastId.length <= 100, 'BROADCAST_INVALID', 400);
     requireValue(typeof consumerId === 'string' && consumerId.length >= 8 && consumerId.length <= 100, 'CONSUMER_INVALID', 400);
+    requireValue(typeof replace === 'boolean', 'PLAYBACK_REPLACEMENT_INVALID', 400);
+    requireValue(typeof deferReady === 'boolean', 'PLAYBACK_READINESS_INVALID', 400);
     const oldLease=this.lease(broadcastId),oldRequest=this.active();let cancelled=null;
-    if(this.current()?.broadcast_id===broadcastId&&oldLease&&!oldLease.revoked_at&&oldRequest&&(replace||!this.authorityReady(broadcastId))) {
+    if(this.current()?.broadcast_id===broadcastId&&oldLease&&!oldLease.revoked_at&&oldRequest&&(replace||!this.authorityHeld(broadcastId))) {
       cancelled=oldRequest;this.cancel(oldRequest.request_id,'authority_changed');
     }
     return this.db.tx(() => {
       const broadcast = this.current(); requireValue(broadcast?.broadcast_id === broadcastId, 'BROADCAST_NOT_OPEN');
       const previous = this.lease(broadcastId), now = utc(this.db.now());
-      if (this.authorityReady(broadcastId) && previous.consumer_id === consumerId && !replace) return this.leaseResponse(previous);
-      requireValue(!this.authorityReady(broadcastId) || replace, 'AUTHORITY_ALREADY_HELD');
+      if (this.authorityHeld(broadcastId) && previous.consumer_id === consumerId && !replace) return this.leaseResponse(previous);
+      requireValue(!this.authorityHeld(broadcastId) || replace, 'AUTHORITY_ALREADY_HELD');
       if (previous && !previous.revoked_at) {
         if(cancelled){this.db.run("UPDATE requests SET status='UNKNOWN',revision=revision+1 WHERE request_id=?",cancelled.request_id);this.db.run("UPDATE utterances SET status='UNKNOWN' WHERE request_id=?",cancelled.request_id);}
         const active = this.active(); if (active) this.terminalInTransaction(active, 'UNKNOWN', 'authority_changed');
@@ -220,8 +238,24 @@ export class StreamState extends EventEmitter {
       const leaseId = id('lease'), epoch = this.room().runtime_epoch, authorityEpoch = (previous?.authority_epoch || 0) + 1, expires = utc(this.db.now() + this.policy.playback.lease_timeout_ms);
       this.db.run('INSERT INTO playback_leases(broadcast_id,consumer_id,lease_id,authority_epoch,runtime_epoch,expires_at) VALUES (?,?,?,?,?,?) ON CONFLICT(broadcast_id) DO UPDATE SET consumer_id=excluded.consumer_id,lease_id=excluded.lease_id,authority_epoch=excluded.authority_epoch,runtime_epoch=excluded.runtime_epoch,expires_at=excluded.expires_at,revoked_at=NULL', broadcastId, consumerId, leaseId, authorityEpoch, epoch, expires);
       this.db.run('INSERT INTO playback_history VALUES (?,?,?,?,?,?,NULL)', leaseId, broadcastId, consumerId, authorityEpoch, epoch, expires);
-      this.db.event(this.scope({ broadcast_id: broadcastId }), 'playback.authority_acquired', { consumer_id: consumerId, lease_id: leaseId, authority_epoch: authorityEpoch });
-      return this.leaseResponse(this.lease(broadcastId));
+      const lease = this.lease(broadcastId); this.savePlaybackReadiness(lease, !deferReady);
+      this.db.event(this.scope({ broadcast_id: broadcastId }), 'playback.authority_acquired', { consumer_id: consumerId, lease_id: leaseId, authority_epoch: authorityEpoch, ready: !deferReady });
+      return this.leaseResponse(lease);
+    });
+  }
+  readyAuthority(leaseId, consumerId) {
+    requireValue(typeof leaseId === 'string' && leaseId.length >= 8 && leaseId.length <= 100 && typeof consumerId === 'string' && consumerId.length >= 8 && consumerId.length <= 100, 'PLAYBACK_READY_INVALID', 400);
+    return this.db.tx(() => {
+      const lease = this.db.get('SELECT * FROM playback_leases WHERE lease_id=?', leaseId);
+      requireValue(lease && lease.consumer_id === consumerId && this.current()?.broadcast_id === lease.broadcast_id && this.authorityHeld(lease.broadcast_id), 'PLAYBACK_LEASE_EXPIRED');
+      if (!this.playbackReadiness(lease)) {
+        this.savePlaybackReadiness(lease, true);
+        const until = utc(this.db.now() + this.policy.playback.lease_timeout_ms);
+        this.db.run('UPDATE playback_leases SET expires_at=? WHERE lease_id=?', until, leaseId);
+        this.db.run('UPDATE playback_history SET expires_at=? WHERE lease_id=?', until, leaseId);
+        this.db.event(this.scope({ broadcast_id: lease.broadcast_id }, { actor_kind: 'playback', actor_id: consumerId }), 'playback.authority_ready', { consumer_id: consumerId, lease_id: leaseId, authority_epoch: lease.authority_epoch });
+      }
+      return this.leaseResponse(this.lease(lease.broadcast_id));
     });
   }
   heartbeat(leaseId, consumerId) {

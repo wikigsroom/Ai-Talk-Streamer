@@ -1,0 +1,161 @@
+{
+  "classification": "FROZEN_DESIGN_PREVIEW_ONLY",
+  "design_version": "1.0.0",
+  "application_runtime_tested": false,
+  "new_avatar_materials_generated": false,
+  "upstream_plugin_installed": false,
+  "public_broadcast_started": false,
+  "remote_devices_accessed": false,
+  "virtualization_used": false,
+  "screenshots": [
+    "preview-play-1080.png",
+    "preview-interact-1080.png",
+    "preview-break-1080.png",
+    "preview-recover-1080.png",
+    "preview-landscape-1080.png",
+    "preview-left-1080.png",
+    "preview-protected-1080.png",
+    "preview-flying-1080.png",
+    "preview-play-720.png",
+    "preview-left-720.png",
+    "preview-review-mobile.png"
+  ],
+  "page_errors": [],
+  "external_requests": [],
+  "checks": [
+    "full-canvas game; four chronological chat rows; no selected-comment card, nested player or media consumer",
+    "incoming chat produces actual upward movement and evicts oldest row",
+    "manual and reduced-motion pause suspend queue consumption and active animations",
+    "plain-text rendering; local SC and gift previews; bounded 24-item queue and repeated-ID rejection",
+    "left/right switch moves only chat and gift; preserves message nodes, queue and protected game regions",
+    "circle mask and 16:9 landscape crop switch; both preserve full game; four scenes and recovery caption clearing",
+    "alternative flying mode moves right to left, preserves spacing and replaces feed instead of duplicating it",
+    "720P and mobile review preserve canvas ratio without page overflow; clean view and Escape return work"
+  ],
+  "browser_closed": true,
+  "geometry": {
+    "canvas": {
+      "width": 1920,
+      "height": 1080
+    },
+    "regions": {
+      "game": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      },
+      "header": {
+        "x": 32,
+        "y": 24,
+        "width": 1856,
+        "height": 56
+      },
+      "chat": {
+        "x": 1480,
+        "y": 136,
+        "width": 408,
+        "height": 480
+      },
+      "gift": {
+        "x": 1480,
+        "y": 632,
+        "width": 408,
+        "height": 56
+      },
+      "danmaku": {
+        "hidden": true
+      },
+      "avatar": {
+        "x": 1624,
+        "y": 732,
+        "width": 264,
+        "height": 264
+      },
+      "caption": {
+        "x": 320,
+        "y": 840,
+        "width": 1120,
+        "height": 84
+      },
+      "status": {
+        "x": 1624,
+        "y": 1032,
+        "width": 264,
+        "height": 24
+      }
+    },
+    "mediaElements": 0
+  },
+  "chat": {
+    "state": {
+      "mode": "feed",
+      "visible": 4,
+      "pending": 0,
+      "paused": true,
+      "stats": {
+        "shown": 11,
+        "dropped": 17,
+        "duplicates": 1,
+        "maxVisible": 4
+      }
+    },
+    "rows_fit_viewport": true,
+    "row_height": 100
+  },
+  "avatar_variants": {
+    "circle": {
+      "x": 1656,
+      "y": 939,
+      "width": 264,
+      "height": 264
+    },
+    "landscape": {
+      "x": 1600,
+      "y": 1023,
+      "width": 320,
+      "height": 180
+    }
+  },
+  "chat_positions": {
+    "left": {
+      "chat": {
+        "x": 32,
+        "y": 136,
+        "width": 408,
+        "height": 480
+      },
+      "gift": {
+        "x": 32,
+        "y": 632,
+        "width": 408,
+        "height": 56
+      }
+    },
+    "right": {
+      "chat": {
+        "x": 1480,
+        "y": 136,
+        "width": 408,
+        "height": 480
+      },
+      "gift": {
+        "x": 1480,
+        "y": 632,
+        "width": 408,
+        "height": 56
+      }
+    },
+    "nodes_and_queue_preserved": true,
+    "protected_regions_clear": true
+  },
+  "flying": {
+    "movement_observed": true,
+    "minimum_measured_gaps": [
+      447.0001220703125,
+      584
+    ]
+  },
+  "result": "PASS",
+  "captured_at": "2026-10-29T15:43:50.967Z"
+}

@@ -1,0 +1,239 @@
+{
+  "branch": "mc",
+  "base_commit": "cf0d45426b37a53cb17c3a5157ae06f38453b786",
+  "files": [
+    {
+      "path": "web/studio.html",
+      "sha256": "aa64039256e67d3fc5a05a667f3f6b703b1a07721f750ef6994792670abb450f",
+      "line_evidence": {
+        "9:16 / 720": [
+          10
+        ],
+        "vertical.css": [
+          2
+        ]
+      }
+    },
+    {
+      "path": "web/vertical.css",
+      "sha256": "4cde225aaa8bf4f5534a88cdf55557ce616825f46b16df861ea9af6b6836f3f8",
+      "line_evidence": {
+        "aspect-ratio:9/16": [
+          5
+        ]
+      }
+    },
+    {
+      "path": "web/room-overlay.js",
+      "sha256": "8ba1e2797b7cc577389a6014981b32718312b0cf7cd37cf958a9845f171c27f9",
+      "line_evidence": {
+        "w / 720": [
+          11
+        ],
+        "room-speech": [
+          8,
+          69
+        ],
+        "renderCaption": [
+          7,
+          54,
+          56
+        ]
+      }
+    },
+    {
+      "path": "web/room-overlay.css",
+      "sha256": "2f052df955420d21be1158b8fe7512d92b0067de90080d448ed09e0142f53f6d",
+      "line_evidence": {
+        "width:720px;height:1280px": [
+          2
+        ]
+      }
+    },
+    {
+      "path": "integration/obs.html",
+      "sha256": "f369a031869552471cddb83ea23f9c0d0a9772f6dae2946b54fd9111801b2017",
+      "line_evidence": {
+        "RoomOverlay": [
+          7
+        ],
+        "output/player": [
+          13
+        ],
+        "avatarVisual": [
+          2,
+          3,
+          7,
+          28
+        ],
+        "renderer": [
+          6,
+          13,
+          17,
+          27
+        ]
+      }
+    },
+    {
+      "path": "web/dsh-playback.js",
+      "sha256": "f68cda1e093c2f2fa8952d3e5099c04aad7fb6dbd8c22343cdc5218bea4c4173",
+      "line_evidence": {
+        "runtime_epoch": [
+          7,
+          21,
+          55,
+          61,
+          65,
+          73
+        ],
+        "progress": [
+          10,
+          35,
+          54,
+          79
+        ],
+        "request_id": [
+          67,
+          71
+        ]
+      }
+    },
+    {
+      "path": "web/local-stream.js",
+      "sha256": "3a8d824c4a4c1b887972d55000cf87ac9e039cf85f59755c15c5153beec87a50",
+      "line_evidence": {
+        "720": [
+          5,
+          38,
+          81
+        ],
+        "1280": [
+          5,
+          38,
+          81
+        ],
+        "directOutput": [
+          3,
+          4,
+          25,
+          27,
+          38,
+          148,
+          158
+        ]
+      }
+    },
+    {
+      "path": "backend/room/defaults.mjs",
+      "sha256": "dff5a518c1c33f6dd061898921ecd1421451f3358e730c57c59c0988004d9bfa",
+      "line_evidence": {
+        "mc_chat_side": [
+          10,
+          21
+        ],
+        "max_comments": [
+          10,
+          21
+        ],
+        "embedded": [
+          10,
+          21
+        ],
+        "captions": [
+          10,
+          21
+        ]
+      }
+    },
+    {
+      "path": "web/admin.html",
+      "sha256": "786934f67a5bc4d2a557cec655b60548e221059c3e96d4786f3012205801cc63",
+      "line_evidence": {
+        "overlay.mc_chat_side": [
+          20
+        ]
+      }
+    },
+    {
+      "path": "web/mc-chat-position.js",
+      "sha256": "383707c7b7e38c492f4e37240ee50881eff6a55abe453de1beae7ad49f787045",
+      "line_evidence": {
+        "mc_chat_side": [
+          4
+        ],
+        "side_presets": [
+          6
+        ]
+      }
+    },
+    {
+      "path": "configs/layouts/mc-landscape-v1.json",
+      "sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+      "line_evidence": {
+        "DESIGN_FROZEN": [
+          301
+        ],
+        "side_presets": [
+          200
+        ]
+      }
+    },
+    {
+      "path": "scripts/receiver_service.py",
+      "sha256": "2258b1fa23af2127b3404b48aeec7480299cd12ae65087a51df567714210622e",
+      "line_evidence": {
+        "output.html": [
+          61
+        ],
+        "output/player": [
+          118
+        ],
+        "player_metrics": [
+          51,
+          138
+        ]
+      }
+    },
+    {
+      "path": "configs/characters/female-a.json",
+      "sha256": "ea771c380add42de89626e447329ea366e7e17f5d8492893d2abff0626c2db9d",
+      "line_evidence": {
+        "daylight": [
+          11,
+          15
+        ],
+        "width": [
+          23
+        ],
+        "林知夏": [
+          5,
+          24,
+          29
+        ]
+      }
+    },
+    {
+      "path": "docs/deployment/RTX3080_K02_RELEASE.md",
+      "sha256": "9de1582acdf803e4cfadb15e5b6833b6c4b7b0598eb54ce9ac7a61c5ff8a5cb9",
+      "line_evidence": {
+        "720×1280": [
+          21,
+          75
+        ],
+        "batch4": [
+          53,
+          82,
+          148,
+          150,
+          219,
+          232
+        ],
+        "唯一播放": [
+          76
+        ]
+      }
+    }
+  ],
+  "runtime_started": false,
+  "source_output_profile_changed": false
+}

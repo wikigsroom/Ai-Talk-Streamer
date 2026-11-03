@@ -1,7 +1,7 @@
 'use strict';
 (() => {
   const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)], room = window.adminRoom = new RoomClient();
-  let state, studio, platforms, dsh, currentPage = 'overview', previousAgentJob = '', agentHistory = [], messageMap = new Map(), chatMap = new Map(), closed = false;
+  let state, studio, platforms, dsh, currentPage = 'overview', previousAgentJob = '', agentHistory = [], messageMap = new Map(), chatMap = new Map(), closed = false, speechMessageId = null;
   const titles = { overview: '让每一次相遇，都有温度。', music: '声音，刚刚好的距离。', visual: '把日光，留在小房间。', messages: '认真听，也认真回应。', agent: '镜头之外，聊聊心里话。', logs: '让直播，安心地继续。' };
   const time = at => new Date(at).toLocaleTimeString('zh-CN', { hour12: false });
   const duration = s => Math.floor(Math.max(0, s) / 60) + ':' + Math.floor(Math.max(0, s) % 60).toString().padStart(2, '0');
@@ -11,6 +11,7 @@
   function feedback(text, error = false) { const el = $('#feedback'); el.textContent = text; el.classList.toggle('error', error); el.hidden = false; clearTimeout(feedback.timer); feedback.timer = setTimeout(() => { el.hidden = true; }, error ? 14000 : 4500); }
   function friendly(error) {
     const code = error.message || String(error);
+    if (code === 'MESSAGE_PLATFORM_DELETED') return '平台已撤回这条留言，无法恢复显示。';
     return ({ BROADCAST_NOT_LIVE: '本地会话尚未开始。请先点击“开始本地会话”，等正式播放端就绪后再播报。', ROOM_CONFIG_CONFLICT_REFRESH: '另一页面已修改设置，已刷新最新值，请重新操作。', AGENT_BUSY: '知夏正在回复上一条私聊，请等待或取消。', CHANNEL_COMPATIBILITY_REQUIRED: 'LLM 渠道尚未就绪，请到平台连接页检查渠道。', BGM_AUTOPLAY_BLOCKED: '播放端的浏览器阻止了自动播放，请刷新直播姬素材并启用素材音频。' })[code] || '操作未完成：' + code;
   }
   async function run(work, text) { try { const value = await work(); if (text) feedback(text); return value; } catch (error) { feedback(friendly(error), true); return null; } }
@@ -31,7 +32,7 @@
   function configure(patch) { const next = configChain.then(() => room.configure(patch)); configChain = next.catch(() => {}); return run(() => next); }
   $$('[data-setting]').forEach(el => {
     if (el.type === 'range') el.addEventListener('input', () => displayRange(el));
-    el.addEventListener('change', () => { const [group, key] = el.dataset.setting.split('.'), value = el.type === 'checkbox' ? el.checked : Number(el.value), patch = { [group]: { [key]: value } }; if (group === 'filters') patch.filters.preset = 'custom'; void configure(patch); });
+    el.addEventListener('change', () => { const [group, key] = el.dataset.setting.split('.'), value = el.type === 'checkbox' ? el.checked : el.tagName === 'SELECT' ? el.value : Number(el.value), patch = { [group]: { [key]: value } }; if (group === 'filters') patch.filters.preset = 'custom'; void configure(patch); });
   });
   $$('[data-value]').forEach(el => el.addEventListener('input', () => { el.dataset.dirty = '1'; }));
   $('#identityForm').addEventListener('submit', e => { e.preventDefault(); void run(async () => { const patch = Object.fromEntries([...new FormData(e.currentTarget)]); await room.configure({ identity: patch }); $$('[data-value]').forEach(el => delete el.dataset.dirty); }, '房间标题、话题与公告已更新。'); });
@@ -50,7 +51,7 @@
     const p = state.player;
     $('#mixerHealth').textContent = !p?.connected ? '等待正式播放端回报。若已打开直播姬，请刷新浏览器素材。' : '正式播放端：' + (p.muted ? '总静音' : p.audio_state === 'running' ? '音频运行中' : p.audio_state) + ' · BGM ' + (p.music_playing ? '正在播放' : '暂停') + ' · 人声避让 ' + (p.ducked ? '已压低音乐' : '待机') + (p.error ? ' · 错误：' + p.error : '');
   }
-  function content(m) { return m.type === 'gift' ? '送来 ' + m.gift_name + ' × ' + m.gift_count : m.type === 'follow' ? '关注了直播间' : m.text || '来到直播间'; }
+  function content(m) { return RoomClient.content(m); }
   function renderMessages() {
     messageMap = new Map(state.messages.map(m => [m.id, m]));
     const recent = state.messages.filter(m => !room.blocked(m)).slice(-4).reverse(); $('#recentMessages').replaceChildren(...(recent.length ? recent.map(m => { const el = node('div', 'recent-item'); el.append(node('strong', '', m.nickname), node('span', '', (m.test ? '[测试] ' : '') + content(m)), node('time', '', time(m.received_at))); return el; }) : [empty('暂时还没有消息。开播后，观众的评论与礼物会出现在这里。')]));
@@ -58,10 +59,10 @@
     const query = $('#messageSearch').value.toLocaleLowerCase(), type = $('#messageType').value;
     const messages = state.messages.filter(m => (!query || (m.nickname + m.text + m.gift_name).toLocaleLowerCase().includes(query)) && (type === 'hidden' ? room.blocked(m) : type === 'all' || m.type === type)).reverse(); $('#inboxCount').textContent = state.messages.length + ' 条';
     const signature = JSON.stringify([messages, state.board.pinned_id, state.board.featured_id]); if (renderMessages.signature === signature) return; renderMessages.signature = signature;
-    $('#inbox').replaceChildren(...(messages.length ? messages.map(m => { const el = node('article', 'message-item' + (room.blocked(m) ? ' is-hidden' : '')); const heading = node('div', 'message-heading'); heading.append(node('strong', '', m.nickname), node('span', 'badge', m.test ? '本地测试' : m.notice_kind === 'superchat' ? '醒目留言' : ({ comment: '评论', gift: '礼物', note: '导播留言', follow: '关注' }[m.type] || m.type)), node('time', '', time(m.received_at))); if (m.answered) heading.append(node('span', 'badge', '已答'));
-      el.append(heading, node('div', 'message-content', content(m))); const actions = node('div', 'message-actions');
+    $('#inbox').replaceChildren(...(messages.length ? messages.map(m => { const el = node('article', 'message-item' + (room.blocked(m) ? ' is-hidden' : '')); const heading = node('div', 'message-heading'); heading.append(node('strong', '', RoomClient.displayName(m)), node('span', 'badge', m.test ? '本地测试' : m.notice_kind === 'superchat' ? RoomClient.noticeLabel(m) : ({ comment: '评论', gift: '礼物', note: '导播留言', follow: '关注' }[m.type] || m.type)), node('time', '', time(m.received_at))); if (m.answered) heading.append(node('span', 'badge', '已播完')); else if (m.handled) heading.append(node('span', 'badge', '已处理'));
+      const body = node('div', 'message-content'); RoomClient.renderText(body, m, content(m)); el.append(heading, body); const actions = node('div', 'message-actions');
       if (!room.blocked(m)) actions.append(button(state.board.featured_id === m.id ? '正在上墙' : '留言上墙', 'message-feature', m.id), button(state.board.pinned_id === m.id ? '已置顶' : '置顶', 'message-pin', m.id));
-      if (m.text) actions.append(button('填入回复', 'message-reply', m.id)); if (!m.answered) actions.append(button('标记已答', 'message-answered', m.id)); actions.append(button(m.hidden ? '恢复显示' : '隐藏', m.hidden ? 'message-restore' : 'message-hide', m.id), button('屏蔽昵称', 'message-block', m.id)); el.append(actions); return el; }) : [empty('没有符合条件的消息。')]));
+      if (m.text && !m.platform_deleted) actions.append(button('填入回复', 'message-reply', m.id)); if (!m.answered && !m.handled && !m.platform_deleted) actions.append(button('标记已处理', 'message-handled', m.id)); if (m.platform_deleted) heading.append(node('span', 'badge', '平台已撤回')); else actions.append(button(m.hidden ? '恢复显示' : '隐藏', m.hidden ? 'message-restore' : 'message-hide', m.id)); actions.append(button('屏蔽昵称', 'message-block', m.id)); el.append(actions); return el; }) : [empty('没有符合条件的消息。')]));
   }
   async function loadAgent() {
     return run(async () => { const v = await api('room/agent'); agentHistory = v.history; renderAgent(); });
@@ -86,12 +87,12 @@
     else if (action === 'track-audition') { const t = state.tracks.find(t => t.id === id); $('#audition').src = t.url; $('#audition').hidden = false; void run(() => $('#audition').play()); }
     else if (action === 'track-delete') { if (confirm('删除这首上传的音乐及原文件？')) void run(() => room.post('tracks/delete', { id })); }
     else if (['track-up', 'track-down'].includes(action)) { const ids = state.tracks.map(t => t.id), at = ids.indexOf(id), next = at + (action === 'track-up' ? -1 : 1); if (next >= 0 && next < ids.length) { [ids[at], ids[next]] = [ids[next], ids[at]]; void music('order', { ids }); } }
-    else if (action === 'message-reply') { const m = messageMap.get(id); page('overview'); $('#speechText').value = '回复' + m.nickname + '：' + m.text; $('#speechMode').value = 'chat'; $('#speechText').focus(); }
+    else if (action === 'message-reply') { speechMessageId = id; const m = messageMap.get(id); page('overview'); $('#speechText').value = '回复' + m.nickname + '：' + m.text; $('#speechMode').value = 'chat'; $('#speechText').focus(); }
     else if (action === 'message-block') { const m = messageMap.get(id); void configure({ moderation: { blocked_names: [...new Set([...state.settings.moderation.blocked_names, m.nickname])] } }); }
     else if (action.startsWith('message-')) void run(() => room.post('messages', { action: action.slice(8), id }));
-    else if (action === 'agent-speak') { const text = chatMap.get(id); page('overview'); $('#speechText').value = text; $('#speechMode').value = 'echo'; $('#speechText').focus(); feedback('已填入播报框；请检查后点击“送到直播播报”。'); }
+    else if (action === 'agent-speak') { speechMessageId = null; const text = chatMap.get(id); page('overview'); $('#speechText').value = text; $('#speechMode').value = 'echo'; $('#speechText').focus(); feedback('已填入播报框；请检查后点击“送到直播播报”。'); }
   });
-  $('#speechForm').addEventListener('submit', e => { e.preventDefault(); const text = $('#speechText').value.trim(), mode = $('#speechMode').value; void run(async () => { const r = await room.post('speak', { text, mode, idempotency_key: crypto.randomUUID() }); $('#speechText').value = ''; feedback('已进入角色回复队列：' + r.request_id); }); });
+  $('#speechForm').addEventListener('submit', e => { e.preventDefault(); const text = $('#speechText').value.trim(), mode = $('#speechMode').value; void run(async () => { const r = await room.post('speak', { text, mode, idempotency_key: crypto.randomUUID(), ...(speechMessageId ? { message_id: speechMessageId } : {}) }); speechMessageId = null; $('#speechText').value = ''; feedback('已进入角色回复队列：' + r.request_id); }); });
   $('#cancelSpeech').addEventListener('click', () => void run(() => api('cancel', {}), '已停止当前回复。'));
   $('#panic').addEventListener('click', () => void run(() => room.post('panic', {}), '已取消当前及待播回复、暂停音乐并将节目总静音。可在“音乐与声音”取消总静音。'));
   $('#startSession').addEventListener('click', async e => { e.target.disabled = true; await run(() => api('platforms/bilibili/' + (['PAUSED', 'RECOVERING'].includes(state.broadcast?.state) ? 'resume' : 'start'), {}), '本地交互会话已就绪。公开开播请在官方直播姬操作。'); await room.refresh().catch(() => {}); });

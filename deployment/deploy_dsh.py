@@ -15,7 +15,7 @@ def main():
         raise RuntimeError('An existing prepared LiveTalking installation is required')
     backup = ROOT / '.setup/dsh-media-backups' / datetime.datetime.now().strftime('%Y%m%d-%H%M%S')
     mappings = [(ROOT / 'integration' / name, live / 'server' / name) for name in
-                ('studio_routes.py', 'dsh_bridge.py', 'local_broadcast.py', 'stream_encoder.py', 'viewer_buffer.py')]
+                ('studio_rtc.py', 'studio_routes.py', 'dsh_bridge.py', 'local_broadcast.py', 'stream_encoder.py', 'media_protocol.py', 'viewer_buffer.py')]
     mappings += [(ROOT / 'integration/moss_tts.py', live / 'tts/moss.py'),
                  (ROOT / 'integration/obs.html', live / 'web/obs.html')]
     if (ROOT / 'integration/resident_tts.py').is_file():

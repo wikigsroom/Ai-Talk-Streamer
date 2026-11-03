@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>运行管理 · 知夏导播台</title><link rel="stylesheet" href="/mc-control.css"><link rel="stylesheet" href="/mc-runtime.css"></head>
+<body>
+<aside class="rail"><a class="brand" href="/mc-runtime"><b>夏</b><span>知夏导播台<small>ZHIXIA / STUDIO</small></span></a><div class="rail-label">开台与收尾</div><a class="nav active" href="/mc-runtime" aria-current="page">运行管理</a><a class="nav" href="/mc-maintenance">历史维护</a><div class="rail-foot">林知夏 · Minecraft<br><span>逐项核对，再开始直播</span></div></aside>
+<main>
+<header><div><p class="eyebrow">STUDIO / OPERATIONS</p><h1>运行管理</h1><p class="muted intro">准备主播中枢、数字人、语音和画面接收，查看游戏与正式画面的核对结果。</p></div><span id="connection" class="badge" role="status">正在连接管理台</span></header>
+<div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+<section class="panel" aria-labelledby="services-title"><div class="section-head"><div><p class="eyebrow">PREPARE THE STUDIO</p><h2 id="services-title">服务与直播就绪</h2></div><span id="readiness" class="badge">等待核对</span></div>
+<p id="readiness-copy" class="muted">启动服务后，仍需逐项核对游戏、视觉、正式画面和人物素材。自动游玩和公开直播由各自的控制入口开启。</p>
+<ol class="service-sequence" aria-label="受管服务"><li data-check="dsh"><span class="service-kind">主播中枢</span><strong>尚未核对</strong><span class="muted service-help"></span></li><li data-check="studio"><span class="service-kind">数字人画面</span><strong>尚未核对</strong><span class="muted service-help"></span></li><li data-check="speech"><span class="service-kind">语音</span><strong>尚未核对</strong><span class="muted service-help"></span></li><li data-check="receiver"><span class="service-kind">画面接收</span><strong>尚未核对</strong><span class="muted service-help"></span></li></ol>
+<div class="buttons toolbar"><button id="start-services" disabled>启动直播服务</button><button id="stop-services" class="secondary" disabled>停止直播服务</button><button id="check-status" class="secondary" disabled>检查当前状态</button><button id="preflight" class="text-button" disabled>检查运行环境</button></div>
+<p id="observation-time" class="muted fine">核对结果会记录时间；页面刷新不会重新启动服务。</p>
+<div id="pending-request" class="pending-request" hidden><p id="pending-copy"></p><button id="find-request" class="secondary">查询原请求</button></div>
+</section>
+<section class="panel" aria-labelledby="integration-title"><div class="section-head"><h2 id="integration-title">直播内容与正式画面</h2><span class="muted fine">与后台服务分别核对</span></div><dl class="integration-list"><div data-check="minecraft"><dt>Minecraft</dt><dd><strong>尚未核对</strong><span class="muted service-help"></span></dd></div><div data-check="vision"><dt>游戏视觉</dt><dd><strong>尚未核对</strong><span class="muted service-help"></span></dd></div><div data-check="official_playback"><dt>官方直播姬画面</dt><dd><strong>尚未核对</strong><span class="muted service-help"></span></dd></div><div data-check="avatar_packs"><dt>圆形与横屏人物</dt><dd><strong>尚未核对</strong><span class="muted service-help"></span></dd></div></dl><div id="environment" class="environment" hidden><h3>运行环境核对</h3><ul id="environment-checks"></ul></div></section>
+<section class="panel" aria-labelledby="jobs-title"><div class="section-head"><div><p class="eyebrow">OPERATIONS & RECEIPTS</p><h2 id="jobs-title">操作记录</h2></div><button id="refresh" class="text-button">刷新记录</button></div><p class="muted fine">关闭页面后，已受理的操作继续执行。排队操作可以取消；结果不确定时，先检查当前状态。</p><ol id="jobs" class="jobs-list"><li class="empty">尚未读取操作记录</li></ol><button id="more-jobs" class="text-button" hidden>加载更早记录</button></section>
+<footer class="console-footer"><p id="maintenance-hint" class="muted fine">停播后的历史整理可在历史维护中进行。</p><button id="close-console" class="secondary">关闭管理台</button><p class="muted fine">关闭管理台会等待当前作业完成，直播服务继续运行。</p></footer>
+</main><script type="module" src="/mc-runtime.js"></script>
+</body></html>

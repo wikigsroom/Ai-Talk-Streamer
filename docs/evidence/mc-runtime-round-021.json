@@ -1,0 +1,1318 @@
+{
+  "schema_version": 1,
+  "round": "021",
+  "classification": "PROGRESS_MC_PROGRAMME_AND_V3_MEDIA_NOT_RUNTIME_ACCEPTANCE",
+  "recorded_at": "2026-10-30T07:00:00.936781+00:00",
+  "branch": "mc",
+  "goal_status": "active",
+  "delivery": {
+    "mode": "single_integrated_release",
+    "required_domains": 15,
+    "required_runtime_cases": 68,
+    "runtime_cases_passed": 0,
+    "four_hour_run": "not_run",
+    "next_day": "not_run",
+    "circle_clips_required": 50,
+    "landscape_clips_required": 50,
+    "new_clips_accepted": 0
+  },
+  "implemented": [
+    {
+      "id": "I175",
+      "change": "从实际SPS/PPS生成v3 avcC、codec、尺寸和PCM配置；v2保留Annex-B",
+      "boundary": "CPU真实H264字节检查，未运行NVENC/PyAV或人物推理"
+    },
+    {
+      "id": "I176",
+      "change": "广播按实际帧尺寸配置编码器，逐观看端发送reset/init/map/PCM；修复加入/取消时的在途竞争",
+      "boundary": "真实loopback WS和精确PCM检查，编码器为CPU夹具"
+    },
+    {
+      "id": "I177",
+      "change": "浏览器先init后播放、串行控制，重置旧PCM/图片/帧映射/解码器并等待新关键帧",
+      "boundary": "真实WebCodecs及非法媒体检查；异常路径漏计解码错误已补齐"
+    },
+    {
+      "id": "I178",
+      "change": "实现1920×1080透明正式节目和静音预览，读取冻结布局；游戏只读状态和小人物遮罩",
+      "boundary": "页面实际解码，未捕获真实游戏或官方客户端"
+    },
+    {
+      "id": "I179",
+      "change": "四条连续留言、两行飘屏互斥、限流/寿命/队列、屏蔽清理与不重放历史礼物",
+      "boundary": "真实Room SSE/浏览器检查，SC金额/角色/表情仍待完成"
+    },
+    {
+      "id": "I180",
+      "change": "后台持久保存左右位置、圆形/横窗和节目场景；换边保留节点，场景不改变游戏控制",
+      "boundary": "实际Room CAS/持久化与浏览器检查；真实游戏尚未验收"
+    },
+    {
+      "id": "I181",
+      "change": "新正式页等待已占用的播放权、不自动replace；租约本地到期静音，预览无消费者/回执",
+      "boundary": "新页排他及本地失效检查；所有遗留入口迁移仍待完成"
+    },
+    {
+      "id": "I182",
+      "change": "人物/BGM复用同一混音链，字幕跟随有效PCM和已提交文本；失权/取消/静音清空",
+      "boundary": "WebAudio与旧混音回归；实际游戏音频和O07/F07尚待联合验收"
+    },
+    {
+      "id": "I183",
+      "change": "A路由、B透明代理/地址发现和原生部署源清单包含新网页及媒体模块",
+      "boundary": "真实本地HTTP/WS与静态部署检查；未运行部署/模型/官方客户端"
+    },
+    {
+      "id": "I184",
+      "change": "增加媒体/页面/后台检查及接入文档，保存失败记录、源快照和全系统待办",
+      "boundary": "本轮70个不同本地用例、28个新增；真实验收0/68"
+    }
+  ],
+  "remaining": [
+    {
+      "id": "D01",
+      "required": true,
+      "status": "partial_native_builds_and_pinned_source_inputs",
+      "remaining": "mc设备profile、原生预检/准备/启停、完整运行锁与发布包；正式Node24.22.1、完整依赖源对应/许可及干净环境复现"
+    },
+    {
+      "id": "D02",
+      "required": true,
+      "status": "partial_native_frames_recipes_world_console_local_checked_runtime_not_accepted",
+      "remaining": "配方普通/数据包/模组/重载实机与组件/解锁/库存规则核对；完整GUI/规则、B归档向A完整历史投影；原始帧、世界/基地/检查点后台、Fabric/Mixin/服务器联合实机验收"
+    },
+    {
+      "id": "D03",
+      "required": true,
+      "status": "partial_bound_input_gui_craft_and_item_sync_cpu_verified",
+      "remaining": "剩余写点/包/反射/选项分类、其他线程/回调、网络事件真实线程与世界维护一致性、其他容器GUI仲裁和全部上游清理；背包/工作台及物品同步真实响应、handler/sync/位置复用后的迟到包归属；物理键鼠/改键/扫描码、选中热栏恢复、光标/焦点/分辨率、停顿及至少20次实机接管"
+    },
+    {
+      "id": "D04",
+      "required": true,
+      "status": "partial_craft_and_three_item_uses_native_paths_runtime_not_accepted",
+      "remaining": "MinecraftPort完整生存绑定、其他容器GUI/规则及副作用、实际任务树全部清理及启动阻挡关闭门槛；合成真实Mixin/服务器、组件/配方重载/解锁、特殊及变产量/多候选配方、工作台准备改变材料、迟到包和服务器不同步/库存不足；进食/穿戴/固定方块放置的真实剩余物/组件/诅咒/属性/插件限制；普通手持工具/武器、特殊方块及完整物品用途；实际基地路径/半径/规则变化、普通PvE/补给/危险/资源链及全部真实效果证据"
+    },
+    {
+      "id": "D05",
+      "required": true,
+      "status": "partial_world_context_and_tools",
+      "remaining": "真实DSH与模型渠道、完整生存目标和预算/取消/迟到结果；任务结果自动口播/回复编排、播出前事实复核、Neuro固定消息兼容及回放"
+    },
+    {
+      "id": "D06",
+      "required": true,
+      "status": "partial_audience_vote_task_protocol_and_operator_ui_locally_verified",
+      "remaining": "自由语言建议映射/消歧、任务结果公开回复；SC金额/角色/表情/删除及撤票、真实平台/MC任务联合验收；去身份化与删除联动"
+    },
+    {
+      "id": "D07",
+      "required": true,
+      "status": "partial_sessions_goals_dispositions_and_b_restore_core",
+      "remaining": "B归档向A完整历史投影、历史保留/摘要/清理、Humanity删除、后台维护、A/B/MC联合备份恢复及次日实机验收"
+    },
+    {
+      "id": "D08",
+      "required": true,
+      "status": "partial_mc_programme_settings_and_operator_ui_locally_verified",
+      "remaining": "回复编排、人物完整素材/节目与声音联控、记忆/删除和完整诊断维护后台；现有世界目录/基地/检查点、任务/互动及节目控制的真实MC整链验收"
+    },
+    {
+      "id": "D09",
+      "required": true,
+      "status": "partial_v3_v2_programme_and_overlay_locally_verified_not_deployed",
+      "remaining": "真实推理/NVENC与官方透明捕获；新人物profile接入、全部遗留入口排他迁移、字幕/取消/音画同步及断线/静音恢复整链；游戏界面/手机实录与长时资源验收"
+    },
+    {
+      "id": "D10",
+      "required": true,
+      "status": "not_generated",
+      "remaining": "圆形与横窗各50段、共100段新人物素材，完整索引/脸框/动作语义/隔离及动态QA"
+    },
+    {
+      "id": "D11",
+      "required": true,
+      "status": "partial_mc_pcm_caption_and_bgm_local_browser_verified",
+      "remaining": "真实游戏音频单路与人声/BGM联合混音；O07/F07主备、正式播放权/取消/音量零和静音恢复的真实验收"
+    },
+    {
+      "id": "D12",
+      "required": true,
+      "status": "partial_native_frame_transport_and_pinned_vision_adapter_cpu_verified",
+      "remaining": "真实视觉服务/模型/投影与CUDA运行核对、真实帧/文字/建筑/未知及失败样例；跨机时钟、带宽、GPU取消和完整负载验收"
+    },
+    {
+      "id": "D13",
+      "required": true,
+      "status": "partial_mc_a_b_routes_and_receiver_transparency_locally_verified",
+      "remaining": "B端与真实模型/MC联合、官方直播姬实际透明捕获和源内声音、真实平台公开状态与观众端音画；资格校验及公开验收"
+    },
+    {
+      "id": "D14",
+      "required": true,
+      "status": "partial_native_journal_build_and_control_fault_checks",
+      "remaining": "完整运行诊断后台、资源/时延/日志/磁盘预算；排队启动撤权及020首次取消原因覆盖竞态已有修复/夹具检查；020账本提交2197ms后LEASE_EXPIRED/GAME_MODE_BLOCKED与变更基地重复消息等待超时仍未关闭；015其他GAME_MODE_BLOCKED、017连接freshness/复核弹窗、018冷启动I/O及此前首次连接/通用ACK仍须核对；合成/物品同步真实延迟/丢失/偏离/迟到、全部故障注入、联合恢复及回滚；021帧超限检查一次413预期收到502、旧布局后台一次连接等待30秒超时，追加诊断/重试不关闭根因；021同步解码异常漏计已修复，不据此关闭历史时延问题"
+    },
+    {
+      "id": "D15",
+      "required": true,
+      "status": "not_accepted",
+      "remaining": "V01–V44+C01–C24全部68项、4小时完整负载、跨场/次日、干净原生环境复现与统一交付报告"
+    }
+  ],
+  "checks": {
+    "distinct_local_test_cases_executed_this_round": 70,
+    "new_distinct_cases": 28,
+    "python": 38,
+    "node_unit_and_room_http": 20,
+    "browser": 12,
+    "failed": 0,
+    "skipped": 0,
+    "runtime_acceptance_not_run": 68,
+    "real_minecraft_started": false,
+    "native_model_inference_started": false,
+    "official_client_started": false,
+    "public_broadcast_started": false,
+    "remote_4090_used": false,
+    "virtualization_used": false,
+    "browser_used_this_round": true,
+    "web_research_used": false,
+    "desktop_browser_tabs_created": 0,
+    "all_task_owned_browsers_closed": true,
+    "full_system_stability_accepted": false,
+    "documentation_validation": {
+      "result": "PASS",
+      "report": "outputs/mc-validation/round-021/contracts-verification.json",
+      "report_sha256": "3cc3e9e1db2e128603d829f95c0aeb24a4870e9ad969fb324063b0851bc2308c",
+      "schema_definitions": 92,
+      "valid_examples": 77,
+      "negative_contract_cases": 55,
+      "http_operations": 43,
+      "markdown_files_checked": 39,
+      "local_markdown_links": 469,
+      "ws_types": 17,
+      "real_acceptance_advanced": false
+    },
+    "git_diff_check": "PASS"
+  },
+  "test_groups": {
+    "python": {
+      "names": [
+        "test_mc_media_protocol.BroadcastTests.test_bad_request_never_creates_a_model_session",
+        "test_mc_media_protocol.BroadcastTests.test_cancel_before_sender_retains_configuration_for_next_keyframe",
+        "test_mc_media_protocol.BroadcastTests.test_cancel_during_mapping_drops_inflight_pcm_before_the_new_generation",
+        "test_mc_media_protocol.BroadcastTests.test_v2_still_carries_annex_b_without_new_control_header",
+        "test_mc_media_protocol.BroadcastTests.test_v3_init_map_binary_and_resize_reset_are_ordered_and_pcm_exact",
+        "test_mc_media_protocol.BroadcastTests.test_viewer_joining_during_mapping_waits_for_its_own_complete_packet",
+        "test_mc_media_protocol.ProgrammeRouteTests.test_formal_preview_layout_and_assets_are_served_by_real_a_routes",
+        "test_mc_media_protocol.ProtocolTests.test_delta_keeps_stream_id_and_reconfiguration_changes_it",
+        "test_mc_media_protocol.ProtocolTests.test_missing_headers_empty_units_bad_dimensions_and_non_idr_fail_closed",
+        "test_mc_media_protocol.ProtocolTests.test_real_parameter_sets_produce_exact_avcc_and_length_prefixed_units",
+        "test_mc_media_protocol.ProtocolTests.test_unsupported_version_and_v3_jpeg_are_rejected",
+        "test_receiver.ReceiverConfigTests.test_private_vpn_origin_and_ipv6_supported",
+        "test_receiver.ReceiverConfigTests.test_rejects_remote_bind_and_self_proxy",
+        "test_receiver.ReceiverTests.test_local_dashboard_is_available_without_a",
+        "test_receiver.ReceiverTests.test_mc_pages_and_layout_reach_fixed_upstream_and_status_lists_both_urls",
+        "test_receiver.ReceiverTests.test_offair_source_reload_reaches_existing_websocket",
+        "test_receiver.ReceiverTests.test_receiver_id_overrides_remote_player_input",
+        "test_receiver.ReceiverTests.test_recording_download_cannot_select_a_private_config",
+        "test_receiver.ReceiverTests.test_recording_gallery_is_local_and_does_not_open_a_media_connection",
+        "test_receiver.ReceiverTests.test_same_origin_http_preserves_post_body",
+        "test_receiver.ReceiverTests.test_source_reload_preserves_active_session",
+        "test_receiver.ReceiverTests.test_upstream_disconnect_returns_actionable_error",
+        "test_receiver.ReceiverTests.test_v3_query_reset_init_map_and_binary_are_transparent",
+        "test_receiver.ReceiverTests.test_websocket_disconnect_closes_b_and_a_new_connection_recovers",
+        "test_receiver.ReceiverTests.test_websocket_preserves_control_before_exact_pcm_packet",
+        "test_dsh_viewer_buffer.BufferTests.test_cancel_is_an_explicit_barrier_and_removes_all_old_pcm",
+        "test_dsh_viewer_buffer.BufferTests.test_h264_retains_all_reference_frames_and_pcm_until_disconnect_limit",
+        "test_dsh_viewer_buffer.BufferTests.test_shedding_keeps_map_and_pcm_together",
+        "test_dsh_viewer_buffer.BufferTests.test_slow_consumer_is_rejected_without_silently_cutting_pcm",
+        "test_game_proxy.GameProxyTests.test_arbitrary_websocket_paths_are_not_forwarded",
+        "test_game_proxy.GameProxyTests.test_game_binary_payload_is_rejected",
+        "test_game_proxy.GameProxyTests.test_game_protocol_is_forwarded_to_fixed_upstream",
+        "test_game_proxy.GameProxyTests.test_game_sse_is_streamed_without_buffering_the_whole_response",
+        "test_game_proxy.GameProxyTests.test_mc_operator_page_and_fixed_assets_are_served_from_the_project",
+        "test_game_frame_proxy.FrameProxyTests.test_downloads_are_also_bounded_and_frame_route_does_not_enlarge_generic_json_limit",
+        "test_game_frame_proxy.FrameProxyTests.test_each_proxy_has_one_stream_and_clears_its_slot_after_completion",
+        "test_game_frame_proxy.FrameProxyTests.test_each_proxy_rejects_declared_and_chunked_overflow_and_wrong_media_type",
+        "test_game_frame_proxy.FrameProxyTests.test_three_megabytes_cross_both_json_limits_and_preserve_exact_bytes_and_metadata"
+      ],
+      "executed": 38,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "result": "PASS"
+    },
+    "node": {
+      "passed": 32,
+      "failed": 0,
+      "skipped": 0,
+      "names": [
+        "native browser source outputs canvas/audio directly, recovers from decoder overload, and preserves preview playback",
+        "backend admin moves the frozen MC chat left/right through SSE without resetting messages or media",
+        "v3 waits for valid init before scheduling any PCM or map",
+        "v3 validates actual AVC description, dimensions, IDs and reset prerequisites",
+        "v3 packet bounds, sample rate and non-increasing sequences reject before audio creation",
+        "media reset cancels old PCM/maps, fences stale decoder callbacks and requires the named next init",
+        "unauthorized formal PCM cannot schedule receipts and a reset cannot turn cancellation into natural completion",
+        "decoded display dimensions must agree with init; no silent stretching of a mislabeled profile",
+        "formal lease expires locally during a stalled network and rejects missing expiry metadata",
+        "formal MC programme uses actual v3 H264, sole PCM authority and safe transparent geometry",
+        "preview ignores renderer authority hints and keeps real PCM output and captions silent",
+        "four-row comments preserve nodes and queue across persisted left/right changes; hide removes active and pending text",
+        "snapshot reconnect does not replay gifts; stale/duplicate/overflow messages and real elapsed TTL are bounded",
+        "media reset resizes the real decoder, clears old PCM and captions; flying mode and scenes never post game control",
+        "reduced motion keeps two flying messages stationary and bounds the wait queue",
+        "a second formal window stays silent and cannot replace an occupied programme lease",
+        "room config validates keys, numeric bounds and compare-and-swap revisions atomically",
+        "MC chat side persists through a fresh store, rejects invalid sides and stale revisions, and upgrades legacy settings",
+        "playlist play/pause/seek, ordering, repeat and invalid inputs preserve state",
+        "MC avatar and scene settings persist atomically and never change the game control mode",
+        "new platform comments and gifts deduplicate, retain metadata, and moderation removes active board",
+        "message board can create, pin, hide, mark answered and clear test data without changing real messages",
+        "SSE reconnect begins with snapshot; old gift messages are data, never replay events",
+        "audio endpoint serves exact bounded byte ranges and rejects invalid ranges",
+        "upload streams validate names/size and remove partials when audio probing fails",
+        "private agent uses persona host and budget, does not speak or mutate viewer memory",
+        "agent cancellation fences late model replies",
+        "broadcast speech is explicit and requires live state; panic cancels and mutes without playing later",
+        "only official program consumer may report bounded mixer observations",
+        "admin operates real room APIs, private agent, music and safe inbox at desktop and mobile widths",
+        "portrait overlay keeps face safe, reacts to board/moderation, and reconnect does not replay old gifts",
+        "Web Audio mixer ducks only during scheduled valid speech, clears on cancel, and preview stays silent"
+      ],
+      "by_file": {
+        "tests/local-stream-browser.test.mjs": [
+          "native browser source outputs canvas/audio directly, recovers from decoder overload, and preserves preview playback"
+        ],
+        "tests/mc-layout-ui.test.mjs": [
+          "backend admin moves the frozen MC chat left/right through SSE without resetting messages or media"
+        ],
+        "tests/mc-media-control.test.mjs": [
+          "v3 waits for valid init before scheduling any PCM or map",
+          "v3 validates actual AVC description, dimensions, IDs and reset prerequisites",
+          "v3 packet bounds, sample rate and non-increasing sequences reject before audio creation",
+          "media reset cancels old PCM/maps, fences stale decoder callbacks and requires the named next init",
+          "unauthorized formal PCM cannot schedule receipts and a reset cannot turn cancellation into natural completion",
+          "decoded display dimensions must agree with init; no silent stretching of a mislabeled profile",
+          "formal lease expires locally during a stalled network and rejects missing expiry metadata"
+        ],
+        "tests/mc-programme-ui.test.mjs": [
+          "formal MC programme uses actual v3 H264, sole PCM authority and safe transparent geometry",
+          "preview ignores renderer authority hints and keeps real PCM output and captions silent",
+          "four-row comments preserve nodes and queue across persisted left/right changes; hide removes active and pending text",
+          "snapshot reconnect does not replay gifts; stale/duplicate/overflow messages and real elapsed TTL are bounded",
+          "media reset resizes the real decoder, clears old PCM and captions; flying mode and scenes never post game control",
+          "reduced motion keeps two flying messages stationary and bounds the wait queue",
+          "a second formal window stays silent and cannot replace an occupied programme lease"
+        ],
+        "tests/room-control.test.mjs": [
+          "room config validates keys, numeric bounds and compare-and-swap revisions atomically",
+          "MC chat side persists through a fresh store, rejects invalid sides and stale revisions, and upgrades legacy settings",
+          "playlist play/pause/seek, ordering, repeat and invalid inputs preserve state",
+          "MC avatar and scene settings persist atomically and never change the game control mode",
+          "new platform comments and gifts deduplicate, retain metadata, and moderation removes active board",
+          "message board can create, pin, hide, mark answered and clear test data without changing real messages",
+          "SSE reconnect begins with snapshot; old gift messages are data, never replay events",
+          "audio endpoint serves exact bounded byte ranges and rejects invalid ranges",
+          "upload streams validate names/size and remove partials when audio probing fails",
+          "private agent uses persona host and budget, does not speak or mutate viewer memory",
+          "agent cancellation fences late model replies",
+          "broadcast speech is explicit and requires live state; panic cancels and mutes without playing later",
+          "only official program consumer may report bounded mixer observations"
+        ],
+        "tests/room-ui.test.mjs": [
+          "admin operates real room APIs, private agent, music and safe inbox at desktop and mobile widths",
+          "portrait overlay keeps face safe, reacts to board/moderation, and reconnect does not replay old gifts",
+          "Web Audio mixer ducks only during scheduled valid speech, clears on cancel, and preview stays silent"
+        ]
+      },
+      "execution_composition": "25 passing cases from full attempt2 plus seven targeted programme cases after ResizeObserver fixture correction; no retry accumulation"
+    }
+  },
+  "new_test_names": {
+    "python": [
+      "test_mc_media_protocol.BroadcastTests.test_bad_request_never_creates_a_model_session",
+      "test_mc_media_protocol.BroadcastTests.test_cancel_before_sender_retains_configuration_for_next_keyframe",
+      "test_mc_media_protocol.BroadcastTests.test_cancel_during_mapping_drops_inflight_pcm_before_the_new_generation",
+      "test_mc_media_protocol.BroadcastTests.test_v2_still_carries_annex_b_without_new_control_header",
+      "test_mc_media_protocol.BroadcastTests.test_v3_init_map_binary_and_resize_reset_are_ordered_and_pcm_exact",
+      "test_mc_media_protocol.BroadcastTests.test_viewer_joining_during_mapping_waits_for_its_own_complete_packet",
+      "test_mc_media_protocol.ProgrammeRouteTests.test_formal_preview_layout_and_assets_are_served_by_real_a_routes",
+      "test_mc_media_protocol.ProtocolTests.test_delta_keeps_stream_id_and_reconfiguration_changes_it",
+      "test_mc_media_protocol.ProtocolTests.test_missing_headers_empty_units_bad_dimensions_and_non_idr_fail_closed",
+      "test_mc_media_protocol.ProtocolTests.test_real_parameter_sets_produce_exact_avcc_and_length_prefixed_units",
+      "test_mc_media_protocol.ProtocolTests.test_unsupported_version_and_v3_jpeg_are_rejected",
+      "test_receiver.ReceiverTests.test_mc_pages_and_layout_reach_fixed_upstream_and_status_lists_both_urls",
+      "test_receiver.ReceiverTests.test_v3_query_reset_init_map_and_binary_are_transparent"
+    ],
+    "node": [
+      "v3 waits for valid init before scheduling any PCM or map",
+      "v3 validates actual AVC description, dimensions, IDs and reset prerequisites",
+      "v3 packet bounds, sample rate and non-increasing sequences reject before audio creation",
+      "media reset cancels old PCM/maps, fences stale decoder callbacks and requires the named next init",
+      "unauthorized formal PCM cannot schedule receipts and a reset cannot turn cancellation into natural completion",
+      "decoded display dimensions must agree with init; no silent stretching of a mislabeled profile",
+      "formal lease expires locally during a stalled network and rejects missing expiry metadata",
+      "formal MC programme uses actual v3 H264, sole PCM authority and safe transparent geometry",
+      "preview ignores renderer authority hints and keeps real PCM output and captions silent",
+      "four-row comments preserve nodes and queue across persisted left/right changes; hide removes active and pending text",
+      "snapshot reconnect does not replay gifts; stale/duplicate/overflow messages and real elapsed TTL are bounded",
+      "media reset resizes the real decoder, clears old PCM and captions; flying mode and scenes never post game control",
+      "reduced motion keeps two flying messages stationary and bounds the wait queue",
+      "a second formal window stays silent and cannot replace an occupied programme lease",
+      "MC avatar and scene settings persist atomically and never change the game control mode"
+    ]
+  },
+  "references_only": {
+    "round_020": {
+      "evidence": "docs/evidence/mc-runtime-round-020.json",
+      "executed_this_round": false,
+      "cases": 401,
+      "unchanged_core_source_files": 125,
+      "unchanged_historical_artifacts": 98,
+      "native_build": {
+        "schema_version": 1,
+        "recorded_at": "2026-10-30T06:08:06.0162162+00:00",
+        "branch": "mc",
+        "classification": "NATIVE_BUILD_AND_CPU_PROTOCOL_CHECKS_ONLY",
+        "java": "openjdk 21.0.11 2026-04-21 LTS\r\nOpenJDK Runtime Environment Temurin-21.0.11+10 (build 21.0.11+10-LTS)\r\nOpenJDK 64-Bit Server VM Temurin-21.0.11+10 (build 21.0.11+10-LTS, mixed mode, sharing)",
+        "gradle": "8.14.3",
+        "wrapper_jar_sha256": "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172",
+        "node": "v24.19.0",
+        "unit_tests": {
+          "tests": 209,
+          "errors": 0,
+          "skipped": 0,
+          "failures": 0
+        },
+        "interop_tests": {
+          "tests": 28,
+          "errors": 0,
+          "skipped": 0,
+          "failures": 0
+        },
+        "interop_skipped_by_request": false,
+        "jar": "game-adapters/minecraft/fabric/build/libs/ai-talk-streamer-mc-bridge-0.1.0.jar",
+        "jar_sha256": "4757413570c7f3223441b2b60ec4dd62c5f40558e7bb7e8a13c5762da2d5c8f0",
+        "embedded_schema_sha256": "a96dbb2ea047650bd5c73b4671608c4dc049dd58143b20b5bd1191ddc480d55c",
+        "sqlite_jdbc_version": "3.53.4.0",
+        "sqlite_windows_x64_dll_sha256": "f16882d2eded914edd1e1d313e7c8579e040b0da090a52ea99ad7b0c5d961c45",
+        "real_game_acceptance": "not_run"
+      },
+      "survival_build": {
+        "classification": "NON_INSTALLABLE_ENGINEERING_BUILD_AND_CPU_CHECKS_ONLY",
+        "result": "PASS",
+        "branch": "mc",
+        "minecraft": "1.21.1",
+        "source_commit": "1f8e038befeaed44b8a053402c69127866c46a4e",
+        "source_files_verified": 433,
+        "patches_applied": 24,
+        "lock_sha256": "b93bdb6af4259eadc79ce32a6b1bace98d94c74184d280b155dbdc4d5261f882",
+        "patches_sha256": "a0dc9a172bf7aab77b812150d19c80ff95e764bbc30ef11e7fef6f929970e1f1",
+        "gradle_lock_sha256": "8d4b9d6172af0dd283a0b50ccc19e6432bf01b2e84af2271dc5ea8ef7e2fbd69",
+        "jar": "game-adapters/minecraft/survival/build/libs/altoclef-controlled-1.21.1-0.19+ats.1.jar",
+        "jar_sha256": "ba71ab672ecbdde99a8cbd05c3b64898a0dbe514d20af618cd698605f57d4a44",
+        "bridge_api_jar_sha256": "d0c9c7e7a16e56942ed8ad5864dc081ca90b7396737f6b78299caf5000aeb4ec",
+        "java_class_major": 65,
+        "required_control_classes": [
+          "SurvivalAuthority",
+          "SurvivalAuthority$Session",
+          "ArbiterBoundary",
+          "ControlledTaskFactory",
+          "ControlledAltoClefDriver",
+          "ControlledTaskRunner",
+          "SurvivalInputs",
+          "SurvivalLaunchGuard",
+          "SurvivalCallbacks",
+          "SurvivalCallbacks$Binding",
+          "SurvivalCallbacks$RootResettable",
+          "SurvivalAsync",
+          "SurvivalAsync$State",
+          "SurvivalGameExecutor",
+          "CraftPlan",
+          "CraftPlan$Plan",
+          "SurvivalGui",
+          "SurvivalGui$Binding",
+          "CraftSpec",
+          "CraftClicks",
+          "CraftClicks$Confirmation",
+          "ConfirmedCraftTask"
+        ],
+        "tests": {
+          "passed": 164,
+          "failed": 0,
+          "skipped": 0,
+          "names": [
+            "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:localTaskRevocationIsCheckedInsideTheRealAtomicWrite()",
+            "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:mismatchedRootContextCannotUseBoundary()",
+            "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:stopAndScopedCleanupCanRunInsideNativeReleaseWithoutLockInversion()",
+            "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:directOldActuationAlsoFailsAfterRegrant()",
+            "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:newAutoGrantCannotMakeTheOldSurvivalRootCurrent()",
+            "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:releaseCriticalSectionCannotBeUsedToRestartAutomation()",
+            "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:boundedEffectUsesTheRealPermitAndMarksInputUnreleased()",
+            "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:stalledClientCannotActuateEvenWithLongNetworkLease()",
+            "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:changedWorldRefusesTheOriginalSurvivalRoot()",
+            "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:taskCloseDiscardsTheCompiledWorkerResultWithoutApplyingIt()",
+            "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:neutralizationFieldOrderDoesNotDependOnMapInsertionOrder()",
+            "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:actualTransformedClassesPassJvmVerificationWithoutInitializingTheGame()",
+            "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:sameRootReplanRejectsTheOldSearchAndDoesNotClearTheReplacement()",
+            "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:executableSplitCalculatesOnWorkerAndAppliesOnceOnClient()",
+            "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:workerHasNoPathStateWritesAndCommitChecksTheIdenticalSearch()",
+            "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:compiledPathEventQueueCanOnlyBeClearedInItsOwnerScope()",
+            "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:transformingAnAlreadyCompiledClassIsRejected()",
+            "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:changedResultLocalFailsClosedRatherThanGuessingANewShape()",
+            "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:actualPinnedClassesHaveSeventeenEventThreeInputAndThreePathTransforms()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:staticFieldStoreUsesTheSameGate()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:voidActionsDoNotLeaveAValueOnTheStack()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:staticPrimitiveCallCannotRunWithoutScope()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:instanceReceiverAndReferenceResultArePreserved()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:ambiguousOrUnexpectedMappingsStopTheBuild()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:directMutationMethodReferenceRequiresExplicitAdaptation()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:alreadyTransformedClassesAreRefusedRatherThanNestedAgain()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:fieldStoreIsRefusedBeforeMutationAndWorksInOriginalScope()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:widePrimitiveCapturesKeepTheirStackSlotsAndTypes()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:realEffectExceptionIsNotConvertedIntoSuccess()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:pinnedTinyMappingResolvesDeclaredAndInheritedNames()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:authorizedCallPreservesArgumentsReturnAndSingleEffect()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:javaEightInterfaceCanContainAControlledStaticAction()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:revocationBetweenTwoCallsRefusesTheSecondEffect()",
+            "dev.aitalkstreamer.mc.survival.BytecodeGateTest:unselectedReadIsNotTreatedAsAnInputMutation()",
+            "dev.aitalkstreamer.mc.survival.ControlledPulseQueueTest:revokedOwnerClearsPendingPulsesWithoutAuthorizingAnotherKeyWrite()",
+            "dev.aitalkstreamer.mc.survival.ControlledPulseQueueTest:queueResetRequiresTheOwnerAndWorksBeforeTheFirstTaskTick()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:workerFailureIsReportedAndCleanedEvenAfterItRevokesTheRoot()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:manualCancellationDoesNotCloseAGuiForTheOperator()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:completionRestoresAllInputsBeforeRequestingEffectVerification()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:offThreadCompletionDoesNotAcquireTheClientScope()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:completionCallbackCanStartANewRootAndItsExceptionDoesNotCancelIt()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:tickFailurePreservesTheOriginalErrorAndCleanupFailure()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:expiredLeaseCancelsBeforeAnotherTickAndDoesNotClaimAnEffect()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:naturalGuiRestorationRunsInTheOriginalScopeBeforeRevokedCleanup()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:preparationFailureReleasesTheRootAndDoesNotStartATask()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:nativeInputRestorationFailureRetainsTheRootForRetry()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:queuedWorkerResultIsAppliedBeforeTheNextActualRuntimeTick()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:stopFailureStillRunsEveryCleanupAndPreventsANewRootUntilRetry()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:reentrantCancellationDoesNotRecursivelyRunCleanupOrStartANewRoot()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:guiRestorationFailureStillReleasesInputsAndDoesNotRequestSuccessVerification()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:pathFailureStillClearsOverridesPulsesAndTheNativeLedger()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:cancellationNeverPublishesASuccessOrCompletionRequest()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:oldCompletionCannotFinishTheNextRootEvenWhenCalledInItsScope()",
+            "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:actualDriverRejectsAnUnboundInputBoundaryBeforeTouchingTheGame()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:singleUnitSourceDoesNotProduceAnUnnecessaryReturnClick()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:wrongThreadCannotUseOrCompleteTheTransaction()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:sameRevisionIsNotAnAcknowledgementAndCorrectSnapshotEndsPending()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:outputStepConsumesExactUnitsAndPreservesRemainderComponents()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:differentComponentsNeverSwapOrMerge()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:authoritativeFullSnapshotMustMatchAllMaterialsCursorAndOtherSlots()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:aMissingActualMixinHookStopsTheTransaction()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:snapshotsAndStepsDoNotRetainMutableLists()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:originalOwnerRevocationRejectsTheNextStepAndLatePackets()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:onlyAnActualOutputStepWithMatchingConsumptionAndCursorCountsAsACraft()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:clientPredictionAloneCannotConfirmTheStep()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:oneOutstandingClickPreventsDuplicatesAndUnsolicitedRevisionChanges()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:timeoutAtTheExactDeadlineDoesNotResendOrAcceptALateSnapshot()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:oneUnitTransferReturnsTheOriginalComponentStackAndLeavesTheCursorEmpty()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:resultDisplayRecomputationIsNotConfusedWithMaterialOrCursorDivergence()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:outputCannotConsumeAnUnplannedExtraUnitOrDifferentResult()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:aPacketArrivingDuringTheClickCannotConfirmBeforeTheHookReturns()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:insufficientSpaceFailsWhileOnlyPlanningAndNeverDropsItems()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:storageUsesOnlyProvidedInventoryAndSplitsAtStackCapacity()",
+            "dev.aitalkstreamer.mc.survival.CraftClicksTest:lateOrCancelledConfirmationCannotReviveOrCountACraft()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:outputIsRoundedUpWithoutSubtractingAlreadyOwnedProducts()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:duplicateInventoryIdentifiersCannotDuplicateCapacity()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:aSingleUnitCannotFillTwoIngredientSlots()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:allBatchesNeedDistinctMaterialUnits()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:nonemptyIngredientWithoutAMatchingStackIsNotAnEmptyRecipeCell()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:fourShapelessIngredientsFitThePlayerGrid()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:oneIngredientCanUseSeveralActualInventoryStacks()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:multipleRecipesNeverSelectByOrderOrAvailableMaterials()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:fiveShapelessIngredientsRequireTheTableGrid()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:noReceivedRecipeIsReportedAsUnavailable()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:recordsDoNotRetainMutableIngredientOrOutputLists()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:inventoryTotalOverflowCannotBeHiddenBySmallRequestedOutput()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:malformedShapeOrAllEmptyInputsCannotBePrepared()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:shapedHolesAndTallNarrowRecipesPreserveTheirGridCoordinates()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:everySmallMatchingGraphAgreesWithAnIndependentExhaustiveAssignment()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:flexibleIngredientLeavesScarceMaterialForTheRestrictedSlot()",
+            "dev.aitalkstreamer.mc.survival.CraftPlanTest:maximumRequestedBatchesUseCapacitiesWithoutExpandingPerItemNodes()",
+            "dev.aitalkstreamer.mc.survival.GuiGateTest:aMislabelledGuiRouteStopsBeforeBytecodeIsEmitted()",
+            "dev.aitalkstreamer.mc.survival.GuiGateTest:actualTransformPreservesGuiArgumentsAndResultsAndRemovesTheUnguardedCall()",
+            "dev.aitalkstreamer.mc.survival.GuiGateTest:eachNamedRouteMatchesAnActualCompiledSinkSignature()",
+            "dev.aitalkstreamer.mc.survival.PortTaskIntegrationTest:revokedOldCallbackCannotReleaseTheReplacementInput()",
+            "dev.aitalkstreamer.mc.survival.PortTaskIntegrationTest:existingStockAboveTheIncrementStillRequiresFourNewLogsWithTheRealRunner()",
+            "dev.aitalkstreamer.mc.survival.PortTaskIntegrationTest:worldChangeReleasesOriginalInputsAndCannotYieldVerifiedArrival()",
+            "dev.aitalkstreamer.mc.survival.PortTaskIntegrationTest:upstreamStopFailureRetainsBothRootsUntilCleanupIsRetried()",
+            "dev.aitalkstreamer.mc.survival.PortTaskIntegrationTest:actualRunnerReleasesOriginalInputBeforeALaterRegisteredBaseArrival()",
+            "dev.aitalkstreamer.mc.survival.PortTaskIntegrationTest:aCancelledDriverWhichInvokesCompletionStillCannotReportSuccess()",
+            "dev.aitalkstreamer.mc.survival.PortTaskIntegrationTest:endedActualRunnerDoesNotProveReturnToAnUnreachedBase()",
+            "dev.aitalkstreamer.mc.survival.PortTaskIntegrationTest:actualRunnerReceivesTheIncrementTargetAndDoesNotAcceptOnlyOneNewLog()",
+            "dev.aitalkstreamer.mc.survival.PortTaskIntegrationTest:originalPermitReachesRealInputAndCleanupPrecedesLaterEffectVerification()",
+            "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:subscribingDuringDispatchStartsWithTheNextEvent()",
+            "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:nestedDispatchAndUnsubscribeDoNotModifyTheActiveSnapshot()",
+            "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:aThrowingListenerDoesNotLeaveTheBusLockedOrRetainDeletedListeners()",
+            "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:aWorkerEventDoesNotAcquireTheGameThreadPermission()",
+            "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:processObserversRemainAfterTaskCloseAndRunWithoutHoldingTheTopicLock()",
+            "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:taskSubscriptionRunsInItsOriginalScopeWhenAnEventArrives()",
+            "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:repeatedTaskCloseRemovesItsSubscriptionsWithoutWaitingForAnotherEvent()",
+            "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:closedTaskIsUnsubscribedAndItsDirectLateCallbackCannotBorrowTheNextRoot()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:resultWithoutItsCapturedWorkerOriginIsRejected()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:computeHasNoGamePermissionAndOnlyClientDrainAppliesTheResult()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:aJobRevokedBeforeWorkerStartDoesNotEvenCompute()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:inFlightBudgetRejectsTheNinthJobAndCloseDropsAllEight()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:rejectedSubmissionsReleaseTheirBudgetAndAValidRetryCanComplete()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:resultFinishingAfterCloseCannotAdoptTheNextRoot()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:submissionRequiresAnAcceptedRoot()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:duplicateExecutorDeliveryComputesAndCommitsOnlyOnce()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:closingRootsRemovesTheAsyncRegistryWithoutWaitingForAnotherEvent()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:leaseExpiryBeforeCommitDropsTheResult()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:queuedOldResultCannotApplyInTheNextRoot()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:inlineExecutorCannotRunCalculationOnTheClientThread()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:workerFailureIsRetainedForClientFailureHandling()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:workerDoesNotHoldTheResultMonitorWhileWaitingForNativeControl()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:resultOverflowRevokesTheRootAndNeverAppliesItsPartialQueue()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:inputWithoutAcceptedScopeIsRefused()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:cleanupInsideOldScopeCannotAdoptANewRoot()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:oldCloseDoesNotReleaseTheNewRoot()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:revokeBetweenScopeAndActuationRefusesTheEffect()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:scopeIsRestoredEvenIfPlanningThrows()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:noSecondRootWhileFirstIsActive()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:nestedSameRootReturnsToItsOuterScope()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:revocationAloneDoesNotConfirmCleanup()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:delayedCallbackCannotAcquireANewRoot()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:worldOrLeaseChangeBetweenScopeAndActuationRefusesTheEffect()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:pathWorkerCannotUseClientThreadScopeOrCloseIt()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:rawCommandsRemainDisabledInsideAValidScope()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:originalContextReachesEveryAtomicWrite()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:failedInputReleaseRetainsOwnershipUntilRetry()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:cleanupRevokesBeforeTaskStopAndStillReleasesAfterFailure()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:staleContextCannotOpenEvenWhenThereIsNoOwner()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:bothCleanupFailuresRemainVisible()",
+            "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:engineeringCandidateFailsBeforeModInitialization()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:inputBindingCannotBeUsedForAnotherObject()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:expiredLeaseSkipsEventsAndNeutralizesTheOldInput()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:eventQueueResetRequiresTheOriginalOwnerScopeIncludingRevokedClose()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:eventFailureRevokesTheRootAndIsAvailableToTheTaskRunner()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:boundEventEntersTheOriginalScopeAndRestoresItsCaller()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:workerEventCannotAcquireClientThreadPermission()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:wrongThreadCannotEvenNeutralizeTheInputObject()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:closedEventBindingsDoNotAccumulateAcrossOneHundredRoots()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:processListenerRemainsRegisteredAfterTaskClose()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:processObservationDoesNotBorrowThePublisherScopeEvenOnFailure()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:taskOwnedCleanupOrWorkerCannotCreatePersistentProcessListeners()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:oldInputNeutralizesItsOwnObjectAndCannotBorrowTheNextTask()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:failedInputTickAlsoNeutralizesItsPreviousValues()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:taskListenerRetiresAtCloseAndItsRetainedProxyCannotBorrowTheNextRoot()",
+            "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:unboundEventCannotAcquireTheActiveRoot()",
+            "dev.aitalkstreamer.mc.survival.VanillaCraftProtocolTest:actualHandlerRevisionIsNonnegativeAndInventoryPacketHasCompleteCursorAndSlotAccessors()",
+            "dev.aitalkstreamer.mc.survival.VanillaCraftProtocolTest:actualVanillaClickPreservesThePacketConstructorHookAndFullSyncOnRevisionMismatch()",
+            "dev.aitalkstreamer.mc.survival.VanillaItemUseProtocolTest:nativePortAndDriverCarryTheNewReceiptAndPacketPathsInTheBuiltApi()",
+            "dev.aitalkstreamer.mc.survival.VanillaItemUseProtocolTest:actualHandlerHasAllItemEffectPacketHooksAndTheSingleUseEntry()",
+            "dev.aitalkstreamer.mc.survival.VanillaItemUseProtocolTest:actualPacketsExposeAuthoritativeFoodAndBothBlockUpdateForms()"
+          ]
+        },
+        "explicit_effect_gates": {
+          "main": {
+            "report": "game-adapters/minecraft/survival/build/reports/control/main-gates.json",
+            "sha256": "973c01e2195b232292e5ba709261bd5e4a88331908e8fb4b177fe1d0163d22a0",
+            "namespace": "named",
+            "policy_sha256": "8586ae96ff034fdf45717936f70fe2a2c125bd08a760300124c6ea7361f57ad1",
+            "mapping_sha256": "afcab02d68c1f4ec1af0c06a56e43bb7f9e7e95fe648c0bf276649f9277f871b",
+            "classes": 559,
+            "transformed_classes": 17,
+            "sites": 36,
+            "routes": {
+              "PER_WRITE_EFFECT": 29,
+              "gui_screen": 2,
+              "gui_slot": 1,
+              "gui_block": 3,
+              "gui_recipe": 1
+            },
+            "output_sha256": null,
+            "input_sha256": null,
+            "coverage": "EXPLICIT_SELECTED_SITES_NOT_COMPLETE_RUNTIME_COVERAGE"
+          },
+          "baritone": {
+            "report": "game-adapters/minecraft/survival/build/reports/control/baritone-gates.json",
+            "sha256": "ca1d5d3012c6d409d6eb2ac12a5678d1fe0779ad176cf515340bd617f823e7da",
+            "namespace": "intermediary",
+            "policy_sha256": "8586ae96ff034fdf45717936f70fe2a2c125bd08a760300124c6ea7361f57ad1",
+            "mapping_sha256": "afcab02d68c1f4ec1af0c06a56e43bb7f9e7e95fe648c0bf276649f9277f871b",
+            "classes": 464,
+            "transformed_classes": 17,
+            "sites": 50,
+            "routes": {
+              "gui_screen": 1,
+              "PER_WRITE_EFFECT": 45,
+              "movement": 2,
+              "gui_slot": 1,
+              "gui_block": 1
+            },
+            "output_sha256": "43fe491d4e72c71402201d3b4a7921cefa1f29b63ed8de55f73b6d6ee45567fc",
+            "input_sha256": "2fa4a78e5224920840d98ef20156f9fb05812394f1ba95b78e45d628da2a0aae",
+            "coverage": "EXPLICIT_SELECTED_SITES_NOT_COMPLETE_RUNTIME_COVERAGE"
+          }
+        },
+        "native_input_artifact": {
+          "jar_sha256": "4757413570c7f3223441b2b60ec4dd62c5f40558e7bb7e8a13c5762da2d5c8f0",
+          "mixin_refmap_verified": true,
+          "real_mixin_application_tested": false
+        },
+        "embedded_artifacts": [
+          {
+            "entry": "altoclef-controlled-1.21.1-0.19+ats.1.jar!/META-INF/jars/baritone-controlled-1.21.1-ats.2.jar",
+            "sha256": "43fe491d4e72c71402201d3b4a7921cefa1f29b63ed8de55f73b6d6ee45567fc",
+            "bytes": 1809891
+          },
+          {
+            "entry": "altoclef-controlled-1.21.1-0.19+ats.1.jar!/META-INF/jars/baritone-controlled-1.21.1-ats.2.jar!/META-INF/jars/nether-pathfinder-1.4.1.jar",
+            "sha256": "be690c892d4962fec42862441ef470d6556c4913b5467e3b1dec20a5590d88d4",
+            "bytes": 984161
+          },
+          {
+            "entry": "altoclef-controlled-1.21.1-0.19+ats.1.jar!/META-INF/jars/jackson-annotations-2.16.0.jar",
+            "sha256": "6af0ae59447fce2d5c09c3d5dd33e12dd436ae32ec86dde005f7454884078819",
+            "bytes": 80759
+          },
+          {
+            "entry": "altoclef-controlled-1.21.1-0.19+ats.1.jar!/META-INF/jars/jackson-core-2.16.0.jar",
+            "sha256": "49bb2c4057a162595a4a33dd81c140181316f2a756c7e49da4080600420712d4",
+            "bytes": 579376
+          },
+          {
+            "entry": "altoclef-controlled-1.21.1-0.19+ats.1.jar!/META-INF/jars/jackson-databind-2.16.0.jar",
+            "sha256": "1d45a06c5f904a6e2fa71c7529fa66a7f7c2457da98dd235606e6bd2febbcdc3",
+            "bytes": 1656826
+          }
+        ],
+        "duplicate_native_arbiter_absent": true,
+        "static_inventory": {
+          "path": "game-adapters/minecraft/survival/build/reports/control/write-sites.tsv",
+          "sha256": "d18360bdf1d2cbc32b0ed1456dcf791cec6354a28bb172b2090cd6af654715e3",
+          "sites": 13879,
+          "by_artifact": {
+            "controlled-altoclef": 5828,
+            "pinned-baritone": 8051
+          },
+          "by_instruction_kind": {
+            "WRITE_179": 601,
+            "WRITE_181": 3236,
+            "CALL_184": 935,
+            "CALL_185": 2025,
+            "CALL_182": 5634,
+            "CALL_183": 1307,
+            "DYNAMIC_HANDLE_5": 48,
+            "DYNAMIC_HANDLE_6": 68,
+            "DYNAMIC_HANDLE_9": 20,
+            "DYNAMIC_HANDLE_8": 5
+          },
+          "review_status": "UNREVIEWED_NOT_A_MUTATION_COVERAGE_ASSERTION"
+        },
+        "launch_guard": "UNCONDITIONAL_PRELAUNCH_REJECTION",
+        "expected_gui_binding": {
+          "supported_types": [
+            "inventory",
+            "crafting_table"
+          ],
+          "opening_deadline_ms": 1500,
+          "idle_ms": 3000,
+          "absolute_max_ms": 15000,
+          "same_player_real_client_accepted": false,
+          "other_containers_bound": false,
+          "manual_takeover_closes_gui": false
+        },
+        "automatic_input_authorized": false,
+        "runtime_started": false,
+        "real_game_acceptance": "not_run",
+        "native_item_uses": {
+          "purposes": [
+            "eat",
+            "equip",
+            "activate"
+          ],
+          "one_effect_request": true,
+          "server_inventory_and_effect_checks": true,
+          "later_observation_required": true,
+          "real_client_server_accepted": false,
+          "real_mixin_application_tested": false,
+          "remaining": [
+            "physical input and selected-slot restoration",
+            "real food/equipment/block effects and server restrictions",
+            "late packet correlation across task reuse",
+            "hand-held equipment and non-full-cube/special/mod items"
+          ]
+        },
+        "craft_transactions": {
+          "transport": "vanilla_full_inventory_resync_after_controlled_click",
+          "one_pending_click": true,
+          "timeout_ms": 1500,
+          "automatic_retry": false,
+          "exact_component_and_material_checks": true,
+          "real_client_server_accepted": false,
+          "recipe_scope": "unambiguous_received_shaped_or_shapeless",
+          "full_sync_contains_task_nonce": false,
+          "remaining": [
+            "special and variable-output recipes",
+            "ambiguous recipe selection",
+            "worktable preparation material changes",
+            "late packet correlation across reused handler/sync identities",
+            "real vanilla/modded server and Mixin acceptance"
+          ]
+        },
+        "distribution_gates": [
+          "all native input/view/GUI/Baritone writes bound to the sole arbiter",
+          "physical ownership restoration and expected GUI",
+          "binary/source correspondence and LGPL/native dependency notices",
+          "same-player real-client acceptance"
+        ]
+      }
+    }
+  },
+  "failures_preserved": [
+    {
+      "kind": "log_directory_preflight",
+      "tests_started": false,
+      "detail": "first redirection failed before Node execution; directory created; not counted as passing or failing test"
+    },
+    {
+      "kind": "programme_ui_attempt1",
+      "passed": 3,
+      "failed": 2,
+      "log": "programme-ui-attempt1.log",
+      "cause": "assertions did not account for normal queue eviction or naturally ended sources; assertions corrected; production TTL unchanged"
+    },
+    {
+      "kind": "control_attempt1",
+      "passed": 13,
+      "failed": 6,
+      "log": "control-attempt1.log",
+      "cause": "simulated WebAudio destination lacked disconnect; fixture corrected"
+    },
+    {
+      "kind": "complete_node_attempt1",
+      "passed": 30,
+      "failed": 2,
+      "log": "node-attempt1.log",
+      "cause": "immediate decode/control error omitted decode_errors, now fixed; legacy layout admin connection waited30s and timed out; no page errors/external requests; diagnostic added, timeout root cause remains unresolved",
+      "stability_root_cause_closed": false
+    },
+    {
+      "kind": "complete_node_attempt2",
+      "passed": 31,
+      "failed": 1,
+      "log": "node-attempt2.log",
+      "cause": "viewport was measured before ResizeObserver callback; wait for actual width132 then rerun seven programme cases; production layout unchanged"
+    },
+    {
+      "kind": "complete_python_attempt1",
+      "passed": 37,
+      "failed": 1,
+      "log": "python-attempt1.log",
+      "cause": "chunked overflow expected413 received502; original response body not captured; diagnostic assertion added; root cause remains unresolved",
+      "stability_root_cause_closed": false
+    }
+  ],
+  "layout_sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+  "browser_scope": "native headless Chrome, loopback fixtures only; every case closes its own context/browser",
+  "media_scope": "CPU-generated H264 color frames and encoder stubs, real browser decoding/audio; no avatar or NVENC/model startup",
+  "source_snapshot": [
+    {
+      "path": "integration/media_protocol.py",
+      "sha256": "974ceb94ce3c34c87c4b8345bab34a21c2d0613649b7571f581153e79ea50434",
+      "snapshot": "outputs/mc-validation/round-021/sources/integration/media_protocol.py"
+    },
+    {
+      "path": "integration/local_broadcast.py",
+      "sha256": "75fc19dd9f7afd59cc04e532e30d1e04e6b62a95e39e33b6b50572e5da83c577",
+      "snapshot": "outputs/mc-validation/round-021/sources/integration/local_broadcast.py"
+    },
+    {
+      "path": "integration/studio_rtc.py",
+      "sha256": "edfef74ad1c80e0b0907342068cec720aecb6986ad3ba9651da2efcb57bd5a07",
+      "snapshot": "outputs/mc-validation/round-021/sources/integration/studio_rtc.py"
+    },
+    {
+      "path": "integration/dsh_bridge.py",
+      "sha256": "64e0dec1d2958ad6935538f07ce65cdef0c2e58c6ab294b24ccb9e0944af97c8",
+      "snapshot": "outputs/mc-validation/round-021/sources/integration/dsh_bridge.py"
+    },
+    {
+      "path": "web/mc-programme.html",
+      "sha256": "cf7a29a8eff40c82782102a0c7359b6bebe51f2c73baeeb4fee870890bc99f96",
+      "snapshot": "outputs/mc-validation/round-021/sources/web/mc-programme.html"
+    },
+    {
+      "path": "web/mc-programme.css",
+      "sha256": "a2e1cb02ee466d30208d5f64d7dfdb38724aa99b1bc5326e95a342bd6caa5c9c",
+      "snapshot": "outputs/mc-validation/round-021/sources/web/mc-programme.css"
+    },
+    {
+      "path": "web/mc-programme.js",
+      "sha256": "44989b48813b7266526bd5278ae07491cfc77a6c84290cc8b0acbf311b0b6846",
+      "snapshot": "outputs/mc-validation/round-021/sources/web/mc-programme.js"
+    },
+    {
+      "path": "web/mc-programme-overlay.js",
+      "sha256": "55e79b889b343c0c74c18426e1c8d5c7f9c12a9d28e6fc7c9863d5cdac3f1f95",
+      "snapshot": "outputs/mc-validation/round-021/sources/web/mc-programme-overlay.js"
+    },
+    {
+      "path": "web/mc-game-client.js",
+      "sha256": "63ae59d169e095c8102e82e10967be03952c85db64f53c981b709c0bfa149c97",
+      "snapshot": "outputs/mc-validation/round-021/sources/web/mc-game-client.js"
+    },
+    {
+      "path": "web/mc-chat-position.js",
+      "sha256": "383707c7b7e38c492f4e37240ee50881eff6a55abe453de1beae7ad49f787045",
+      "snapshot": "outputs/mc-validation/round-021/sources/web/mc-chat-position.js"
+    },
+    {
+      "path": "web/local-stream.js",
+      "sha256": "847d427ff9a3588255810e3f2f05622e3d663bd534bc3e8bc99d4a34cb7966f6",
+      "snapshot": "outputs/mc-validation/round-021/sources/web/local-stream.js"
+    },
+    {
+      "path": "web/dsh-playback.js",
+      "sha256": "d795d84907d38db652383856ed70211a199267b6496bf796977b62c5739db5f4",
+      "snapshot": "outputs/mc-validation/round-021/sources/web/dsh-playback.js"
+    },
+    {
+      "path": "web/room-audio.js",
+      "sha256": "3816043ffd356be1844056d3ce995a410c3ac0e26b97906e23f5159a22048d20",
+      "snapshot": "outputs/mc-validation/round-021/sources/web/room-audio.js"
+    },
+    {
+      "path": "web/admin.html",
+      "sha256": "4bd79ce18e84809f58d1333cdd169a40701efd290f6a1f36e54431d7a915441e",
+      "snapshot": "outputs/mc-validation/round-021/sources/web/admin.html"
+    },
+    {
+      "path": "web/admin.js",
+      "sha256": "bf7f1d0d8aefc2dd8339ebd060bdf91c3cc1f1f28340f682291264bf1e85b0a6",
+      "snapshot": "outputs/mc-validation/round-021/sources/web/admin.js"
+    },
+    {
+      "path": "backend/room/defaults.mjs",
+      "sha256": "0ea3be4b0e678868da12b598f8625c3efb670ccb383f7ac0305796463aab4089",
+      "snapshot": "outputs/mc-validation/round-021/sources/backend/room/defaults.mjs"
+    },
+    {
+      "path": "deployment/deploy_dsh.py",
+      "sha256": "ac6a2f15cfe94cd7210185918cf3ea7fc23c4e5092165602ca88ed69941a0294",
+      "snapshot": "outputs/mc-validation/round-021/sources/deployment/deploy_dsh.py"
+    },
+    {
+      "path": "deployment/activate_studio.py",
+      "sha256": "9b0a3e033f32ad0b13a26278c021829d4b43dbaa3ff882f331811130c83c8383",
+      "snapshot": "outputs/mc-validation/round-021/sources/deployment/activate_studio.py"
+    },
+    {
+      "path": "scripts/receiver_service.py",
+      "sha256": "adffa9839693946353a8a36a19a9d4a46a508793a47c5bf2e2b03f463366aaf4",
+      "snapshot": "outputs/mc-validation/round-021/sources/scripts/receiver_service.py"
+    },
+    {
+      "path": "tests/test_mc_media_protocol.py",
+      "sha256": "3cbb75236aaa3e02c2d36be7403853f85615e27a7ddb3517a9b5d038c00d0480",
+      "snapshot": "outputs/mc-validation/round-021/sources/tests/test_mc_media_protocol.py"
+    },
+    {
+      "path": "tests/mc-media-control.test.mjs",
+      "sha256": "4ab06f188ae54d26eb0f89870cd1093785c55f3c4a095ce02194e844ae7d7f87",
+      "snapshot": "outputs/mc-validation/round-021/sources/tests/mc-media-control.test.mjs"
+    },
+    {
+      "path": "tests/mc-programme-ui.test.mjs",
+      "sha256": "afece8129afdc19453a66bd97c4536ce2f75939edbc2921223d1d3b875302848",
+      "snapshot": "outputs/mc-validation/round-021/sources/tests/mc-programme-ui.test.mjs"
+    },
+    {
+      "path": "tests/room-fixture.mjs",
+      "sha256": "564da61191dbe17996bbe36d586b12f0940fa40d2d69978f67b8924ad2febdfe",
+      "snapshot": "outputs/mc-validation/round-021/sources/tests/room-fixture.mjs"
+    },
+    {
+      "path": "tests/room-control.test.mjs",
+      "sha256": "9560cf3016a49a39e77752c81839735daf517da33a665edb2d0304b8cb6505f5",
+      "snapshot": "outputs/mc-validation/round-021/sources/tests/room-control.test.mjs"
+    },
+    {
+      "path": "tests/test_receiver.py",
+      "sha256": "d99d8986809983aa53b6cc949411d8c8994885d807525a5b1675d98047c59e09",
+      "snapshot": "outputs/mc-validation/round-021/sources/tests/test_receiver.py"
+    },
+    {
+      "path": "tests/test_game_frame_proxy.py",
+      "sha256": "50be303c0f3ade6fe65df431cbe3b5800d4645a269293f427bf7993aec9ce76e",
+      "snapshot": "outputs/mc-validation/round-021/sources/tests/test_game_frame_proxy.py"
+    },
+    {
+      "path": "tests/mc-layout-ui.test.mjs",
+      "sha256": "826dff791f28e2a5f1214b37d5279805030aed94cfba49d8f917e1b66a2ef06b",
+      "snapshot": "outputs/mc-validation/round-021/sources/tests/mc-layout-ui.test.mjs"
+    },
+    {
+      "path": "tests/local-stream-browser.test.mjs",
+      "sha256": "515170ac9886c7d7c6c5b6d778818135f7e3e886e68f1eb530a1e9c34f618991",
+      "snapshot": "outputs/mc-validation/round-021/sources/tests/local-stream-browser.test.mjs"
+    },
+    {
+      "path": "tests/room-ui.test.mjs",
+      "sha256": "006162b5b86be66d856181c5f6889f3526673eecaccaf7a2cb5a46cd1cdf26ca",
+      "snapshot": "outputs/mc-validation/round-021/sources/tests/room-ui.test.mjs"
+    },
+    {
+      "path": "tests/fixtures/stream-green-640x640.h264",
+      "sha256": "306865b86fb0a48e46e088971acdb5664a35b5b29262fb55b904cac8ff72e2e3",
+      "snapshot": "outputs/mc-validation/round-021/sources/tests/fixtures/stream-green-640x640.h264"
+    },
+    {
+      "path": "tests/fixtures/stream-blue-960x540.h264",
+      "sha256": "768cea23ab2b72ec8210df7dd827530acacf99020f285bad02976ddacf814e67",
+      "snapshot": "outputs/mc-validation/round-021/sources/tests/fixtures/stream-blue-960x540.h264"
+    },
+    {
+      "path": "configs/layouts/mc-landscape-v1.json",
+      "sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+      "snapshot": "outputs/mc-validation/round-021/sources/configs/layouts/mc-landscape-v1.json"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/05-横屏媒体与素材.md",
+      "sha256": "189102177e626769d3a89eef848d6ddf88ed06a00c9909b8acec4e5d10913efe",
+      "snapshot": "outputs/mc-validation/round-021/sources/docs/technical/mc-live-v1/05-横屏媒体与素材.md"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/README.md",
+      "sha256": "52231fb0624e75ae6d10f2804042dd83219afc91b2aa987fc6d576a13c0aca1b",
+      "snapshot": "outputs/mc-validation/round-021/sources/docs/technical/mc-live-v1/README.md"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/横屏节目与媒体接入.md",
+      "sha256": "11af86d7c98138e1ecf372e5b7f9a0a1bfa7cac12cad955959272978265d5bec",
+      "snapshot": "outputs/mc-validation/round-021/sources/docs/technical/mc-live-v1/横屏节目与媒体接入.md"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/全量交付执行总表.md",
+      "sha256": "c266437597ba95e44ab0362e62129936b491f8fb3a9cbac4327d7f6a5c92ee2b",
+      "snapshot": "outputs/mc-validation/round-021/sources/docs/technical/mc-live-v1/全量交付执行总表.md"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/实现进度.md",
+      "sha256": "1953579990a6cf1524849992c64013e439526b763515978fecd12219c203e7a9",
+      "snapshot": "outputs/mc-validation/round-021/sources/docs/technical/mc-live-v1/实现进度.md"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/implementation-status.json",
+      "sha256": "c8dfaeda9c1bef9e69bed427b57cecfe5e74dc44f3cf1aead7d9407e686a4a85",
+      "snapshot": "outputs/mc-validation/round-021/sources/docs/technical/mc-live-v1/implementation-status.json"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "outputs/mc-validation/round-021/attempt1-programme-left-transparent.png",
+      "sha256": "705ea294738f32773cb0ff172416cd03cd5b05b3c97c248ca260c15d3d9bc1bd"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/contracts-check.log",
+      "sha256": "4fc828d6cd1a0291a4c5b74d71de3691ba0adff12b5c7729dfc4b9c9ac3bf46e"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/contracts-verification.json",
+      "sha256": "3cc3e9e1db2e128603d829f95c0aeb24a4870e9ad969fb324063b0851bc2308c"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/control-attempt1.log",
+      "sha256": "5370e1653fdadb28014bdd1a9a9a2915f5edcb067210bea794067007789af479"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/control-tests.log",
+      "sha256": "5568c5b7fc0c5902c042dc3efcdd12b86fbf9bcaf9b359477384c64587d27918"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/final-audit.json",
+      "sha256": "2a7d98e0f66086fb6141ead7c5b5db7803c2a83b8210ee97f57c263bf9b777d2"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/finalize.py",
+      "sha256": "d8b3d1298ad90e1b86ea7ff7cad2ca72db4ba16c3f5c3da13f45029a73d018c3"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/frame-proxy-diagnostic.log",
+      "sha256": "09bacc870c7e347c81c1b5b03f4c42b0fc909a88f490d225b85b0003d5eb3ad4"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/git-diff-check.log",
+      "sha256": "92ea6a92296bc43fc8753251da144295bc0a0da17158d36af44bf588c706e6f5"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/layout-ui-attempt1.json",
+      "sha256": "b00f45584dda27491aee67a9a586fe85bd4fb876ae2bcb9bfa831babf32f72be"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/layout-ui-final.json",
+      "sha256": "6bd2a584c615f216b241d8c49dfd5356974c09f31680219c773a17535eab2d09"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/media-python.log",
+      "sha256": "9229211418a0e24599a3448f1d8539dcc0d1f545ed40164fd59b02404bb2eb5b"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/node-attempt1.log",
+      "sha256": "94b1f9e037330cb448115d286e53ab899ef599d6bf6f05232e19426aedf5ca30"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/node-attempt2-programme-source.mjs",
+      "sha256": "15760555f5b050739dc70f671d7e36109329a322e0d50a83df1e8492f1c647e5"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/node-attempt2.log",
+      "sha256": "cb0603069d0b76f7137313e40b0f65b1c357ac5adff7f64ec493eaadecbe9b06"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/node-final.log",
+      "sha256": "cb0603069d0b76f7137313e40b0f65b1c357ac5adff7f64ec493eaadecbe9b06"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/node-results.json",
+      "sha256": "426cfff48517fadb9bb309943aa5aa9a3ad513630819571e16110da0f7a73e0b"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/owned-fixture-processes-final.json",
+      "sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/programme-game-control-final.log",
+      "sha256": "8c8415ce93479946c2c38d9e8f40e3aaf639408c1a4421c83ebd5ec33afa8798"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/programme-landscape-fly.png",
+      "sha256": "adde6d3a4ca030593e69bbbecd6a4a881d807be637cedfb3e47eb45c3ab60de8"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/programme-left-transparent.png",
+      "sha256": "5d2437f75e2c2b4588be2de4721c8445e15f787684ed62bc0c6e0081e5d8a6e3"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/programme-right-transparent.png",
+      "sha256": "22c1cdca0f997806ebfafbe20b7fc7c5abef55c874cdf99ad52c254ab49b499c"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/programme-ui-attempt1.log",
+      "sha256": "1498830d27122ff0f3613fbd606f3a8aee8892ca8ea3a258c85c4b84a325dd0c"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/programme-ui-attempt2.log",
+      "sha256": "bf94f7dd413f79d593527478f152ea4788ee9b589e890c692b89072d3c9f2dff"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/programme-ui-final.log",
+      "sha256": "91a92bdcd7a471064b17833bffcc620cbd77053a2523b346e7c62dac46a19add"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/programme-ui-seven-source.mjs",
+      "sha256": "7649ebd9ac09285ceecc44bc872b820da722681deae3b7a57f42b4373cff1a90"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/python-attempt1-results.json",
+      "sha256": "3fc0080bc11951778752069af20a785d804b8fad1cba8d1f2e585cba329eae0a"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/python-attempt1.log",
+      "sha256": "9c8e49402e5dc420c7cfa7a27233b35f3dbe89882ad84819e43872234195dd6a"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/python-final.log",
+      "sha256": "7aac5f11607b11b3eac20bf89d454044fbc6968af40633badc789fe20df21fb7"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/python-results.json",
+      "sha256": "d1c93719a12d7a5d53a10643f382715cd182431640b1d631226fc65779cedc58"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/python-syntax.json",
+      "sha256": "7ad3ca8795ec44ea3447bd49ea50fa7693902fcd55fbaf41af070e2a77cbf552"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/record.py",
+      "sha256": "d4d84f7b2d7b6d404f8e06a76df567ce988658cfc5c049410a5ba0fa2410467b"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/reference-core-source-hashes.json",
+      "sha256": "5fe1e539e0f3749eba331b6e3d786153291c02715bcd6182d431f58de9eb964d"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/run-python-tests.py",
+      "sha256": "926370746fcaa534e73e4cb5874249dece109f78a3b6e3272acf584ce898573b"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/backend/room/defaults.mjs",
+      "sha256": "0ea3be4b0e678868da12b598f8625c3efb670ccb383f7ac0305796463aab4089"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/configs/layouts/mc-landscape-v1.json",
+      "sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/deployment/activate_studio.py",
+      "sha256": "9b0a3e033f32ad0b13a26278c021829d4b43dbaa3ff882f331811130c83c8383"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/deployment/deploy_dsh.py",
+      "sha256": "ac6a2f15cfe94cd7210185918cf3ea7fc23c4e5092165602ca88ed69941a0294"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/docs/technical/mc-live-v1/05-横屏媒体与素材.md",
+      "sha256": "189102177e626769d3a89eef848d6ddf88ed06a00c9909b8acec4e5d10913efe"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/docs/technical/mc-live-v1/implementation-status.json",
+      "sha256": "c8dfaeda9c1bef9e69bed427b57cecfe5e74dc44f3cf1aead7d9407e686a4a85"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/docs/technical/mc-live-v1/README.md",
+      "sha256": "52231fb0624e75ae6d10f2804042dd83219afc91b2aa987fc6d576a13c0aca1b"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/docs/technical/mc-live-v1/全量交付执行总表.md",
+      "sha256": "c266437597ba95e44ab0362e62129936b491f8fb3a9cbac4327d7f6a5c92ee2b"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/docs/technical/mc-live-v1/实现进度.md",
+      "sha256": "1953579990a6cf1524849992c64013e439526b763515978fecd12219c203e7a9"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/docs/technical/mc-live-v1/横屏节目与媒体接入.md",
+      "sha256": "11af86d7c98138e1ecf372e5b7f9a0a1bfa7cac12cad955959272978265d5bec"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/integration/dsh_bridge.py",
+      "sha256": "64e0dec1d2958ad6935538f07ce65cdef0c2e58c6ab294b24ccb9e0944af97c8"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/integration/local_broadcast.py",
+      "sha256": "75fc19dd9f7afd59cc04e532e30d1e04e6b62a95e39e33b6b50572e5da83c577"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/integration/media_protocol.py",
+      "sha256": "974ceb94ce3c34c87c4b8345bab34a21c2d0613649b7571f581153e79ea50434"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/integration/studio_rtc.py",
+      "sha256": "edfef74ad1c80e0b0907342068cec720aecb6986ad3ba9651da2efcb57bd5a07"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/scripts/receiver_service.py",
+      "sha256": "adffa9839693946353a8a36a19a9d4a46a508793a47c5bf2e2b03f463366aaf4"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/tests/fixtures/stream-blue-960x540.h264",
+      "sha256": "768cea23ab2b72ec8210df7dd827530acacf99020f285bad02976ddacf814e67"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/tests/fixtures/stream-green-640x640.h264",
+      "sha256": "306865b86fb0a48e46e088971acdb5664a35b5b29262fb55b904cac8ff72e2e3"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/tests/local-stream-browser.test.mjs",
+      "sha256": "515170ac9886c7d7c6c5b6d778818135f7e3e886e68f1eb530a1e9c34f618991"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/tests/mc-layout-ui.test.mjs",
+      "sha256": "826dff791f28e2a5f1214b37d5279805030aed94cfba49d8f917e1b66a2ef06b"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/tests/mc-media-control.test.mjs",
+      "sha256": "4ab06f188ae54d26eb0f89870cd1093785c55f3c4a095ce02194e844ae7d7f87"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/tests/mc-programme-ui.test.mjs",
+      "sha256": "afece8129afdc19453a66bd97c4536ce2f75939edbc2921223d1d3b875302848"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/tests/room-control.test.mjs",
+      "sha256": "9560cf3016a49a39e77752c81839735daf517da33a665edb2d0304b8cb6505f5"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/tests/room-fixture.mjs",
+      "sha256": "564da61191dbe17996bbe36d586b12f0940fa40d2d69978f67b8924ad2febdfe"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/tests/room-ui.test.mjs",
+      "sha256": "006162b5b86be66d856181c5f6889f3526673eecaccaf7a2cb5a46cd1cdf26ca"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/tests/test_game_frame_proxy.py",
+      "sha256": "50be303c0f3ade6fe65df431cbe3b5800d4645a269293f427bf7993aec9ce76e"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/tests/test_mc_media_protocol.py",
+      "sha256": "3cbb75236aaa3e02c2d36be7403853f85615e27a7ddb3517a9b5d038c00d0480"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/tests/test_receiver.py",
+      "sha256": "d99d8986809983aa53b6cc949411d8c8994885d807525a5b1675d98047c59e09"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/web/admin.html",
+      "sha256": "4bd79ce18e84809f58d1333cdd169a40701efd290f6a1f36e54431d7a915441e"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/web/admin.js",
+      "sha256": "bf7f1d0d8aefc2dd8339ebd060bdf91c3cc1f1f28340f682291264bf1e85b0a6"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/web/dsh-playback.js",
+      "sha256": "d795d84907d38db652383856ed70211a199267b6496bf796977b62c5739db5f4"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/web/local-stream.js",
+      "sha256": "847d427ff9a3588255810e3f2f05622e3d663bd534bc3e8bc99d4a34cb7966f6"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/web/mc-chat-position.js",
+      "sha256": "383707c7b7e38c492f4e37240ee50881eff6a55abe453de1beae7ad49f787045"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/web/mc-game-client.js",
+      "sha256": "63ae59d169e095c8102e82e10967be03952c85db64f53c981b709c0bfa149c97"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/web/mc-programme-overlay.js",
+      "sha256": "55e79b889b343c0c74c18426e1c8d5c7f9c12a9d28e6fc7c9863d5cdac3f1f95"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/web/mc-programme.css",
+      "sha256": "a2e1cb02ee466d30208d5f64d7dfdb38724aa99b1bc5326e95a342bd6caa5c9c"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/web/mc-programme.html",
+      "sha256": "cf7a29a8eff40c82782102a0c7359b6bebe51f2c73baeeb4fee870890bc99f96"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/web/mc-programme.js",
+      "sha256": "44989b48813b7266526bd5278ae07491cfc77a6c84290cc8b0acbf311b0b6846"
+    },
+    {
+      "path": "outputs/mc-validation/round-021/sources/web/room-audio.js",
+      "sha256": "3816043ffd356be1844056d3ce995a410c3ac0e26b97906e23f5159a22048d20"
+    }
+  ],
+  "documentation_validation": {
+    "result": "PASS",
+    "report": "outputs/mc-validation/round-021/contracts-verification.json",
+    "report_sha256": "3cc3e9e1db2e128603d829f95c0aeb24a4870e9ad969fb324063b0851bc2308c",
+    "schema_definitions": 92,
+    "valid_examples": 77,
+    "negative_contract_cases": 55,
+    "http_operations": 43,
+    "markdown_files_checked": 39,
+    "local_markdown_links": 469,
+    "ws_types": 17,
+    "real_acceptance_advanced": false
+  },
+  "reference_integrity": {
+    "round020_artifacts": 98,
+    "unchanged": true,
+    "current_native_jars_match": true,
+    "tests_rerun": false
+  }
+}

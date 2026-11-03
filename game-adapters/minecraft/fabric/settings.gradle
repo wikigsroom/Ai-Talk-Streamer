@@ -1,0 +1,11 @@
+pluginManagement {
+    repositories {
+        exclusiveContent {
+            forRepository { maven { url = 'https://maven.fabricmc.net/' } }
+            filter { includeGroup 'fabric-loom'; includeGroupByRegex 'net\\.fabricmc.*' }
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+rootProject.name = 'ai-talk-streamer-mc-bridge'

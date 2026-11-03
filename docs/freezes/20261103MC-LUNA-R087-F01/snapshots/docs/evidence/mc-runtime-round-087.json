@@ -1,0 +1,567 @@
+{
+  "schema_version": 1,
+  "round": "087",
+  "date": "2026-11-03",
+  "branch": "mc",
+  "classification": "LUNA_REAL_IMAGE_VISION_AND_120S_DELIVERED_FULL_RELEASE_NOT_ACCEPTED",
+  "host": "DESKTOP-2QQPN1H",
+  "runtime_and_media_processing_on": "remote-3080",
+  "local_runtime_tests": 0,
+  "virtualization_used": false,
+  "remote4090_controlled": false,
+  "public_broadcast_started": false,
+  "report": "docs/technical/mc-live-v1/Luna视觉替换与120秒复验.md",
+  "source_snapshot_sha256": "74146c0f4974c3f735c2a3ea210c55cddaf103597549abee13eb5a7346629da9",
+  "source_package_sha256": "3ff0a7b169608d56cffe64b14b92467c69a5d8c87c2723019e6920c8781a8fd5",
+  "source_files": 988,
+  "verified": {
+    "core_fixture_tests": {
+      "pass": 359,
+      "fail": 0,
+      "seconds": 80.75
+    },
+    "application_fixture_tests": {
+      "pass": 27,
+      "fail": 0,
+      "seconds": 8.42
+    },
+    "native_readiness_preflight_prepare_device_check": "passed",
+    "deployed_vision_provider": "studio_channel",
+    "deployed_vision_model": "gpt-6-luna",
+    "deployed_vision_protocol": "responses",
+    "deployed_vision_interval_ms": 20000,
+    "local_vision_process_required": false,
+    "old_vision_weights_deleted": false,
+    "dsh_and_vision_provider_ready": true,
+    "application_services_ready": true,
+    "application_ready": false,
+    "actual_native_start_seconds": 626.683,
+    "normal_saved_shutdown": true
+  },
+  "preserved_failures": [
+    "First application startup was interrupted during MCP service recovery; no ready claim or duplicate launch was made. Restart uses an independent hidden native worker, with result review before further action.",
+    "First recording087 produced no gather/craft progress and repeated zombie deaths; original ok only evaluated vision success. Kept as a failed gameplay sample.",
+    "Second recording087b completed six productive tasks but late escape timed out; after132s agent PAUSED, the world continued and the player died during final audio drain. The actual lost inventory and death save were retained.",
+    "Five successful visual results do not establish accuracy: obituary paper was repeatedly misidentified as a shield. Native inventory remains authoritative.",
+    "Seven new visual requests include two MODEL_PREEMPTED cancellations under speech priority; no concurrent bypass was added.",
+    "Avatar generated-counter average22.970FPS is below25FPS and is not presented FPS. The existing4s rebuffer policy was not changed.",
+    "An early file transfer copied a still-encoding first-sample MP4. Isolated as partial-before-export-complete; final27 artifacts subsequently verified, and final-export/hash guards added to transfer worker."
+  ],
+  "actual_image_inference": {
+    "probe": "outputs/mc-validation/round-087/remote-evidence/sample087-probe-result.json",
+    "probe_elapsed_ms": 4848,
+    "model": "gpt-6-luna",
+    "new_session_fresh_requests": 7,
+    "new_session_states": {
+      "succeeded": 5,
+      "failed": 2
+    },
+    "within_120s_states": {
+      "succeeded": 5,
+      "failed": 1
+    },
+    "failure_codes": {
+      "MODEL_PREEMPTED": 2
+    },
+    "success_latency_ms": {
+      "min": 3578,
+      "median": 4374,
+      "mean": 4549.8,
+      "max": 5994
+    },
+    "success_tokens": {
+      "input": 13060,
+      "output": 1012
+    },
+    "old_cached_receipt_excluded": true,
+    "physical_channel_gpu_location_not_verified": true,
+    "all_new_successful_picture_hashes_verified": true,
+    "known_error": "modded gravestone obituary repeatedly described as a shield"
+  },
+  "new_120s_recording": {
+    "video": "outputs/mc-validation/round-087/remote-evidence/mc-live-luna-087b-120s.mp4",
+    "duration_seconds": 120,
+    "resolution": "1920x1080",
+    "fps": 30,
+    "video_frames": 3600,
+    "bytes": 60679679,
+    "sha256": "595ff96c5929d0c4b8a7be5ba4f783640c1766e986e33dc96a0e64482f08c5f2",
+    "continuous_real_time": true,
+    "post_production_voice_added": false,
+    "gameplay_window_seconds": 132.061,
+    "task_states": {
+      "failed": 5,
+      "succeeded": 11
+    },
+    "effect_verified_productive_tasks": 6,
+    "failed_reasons": {
+      "GAME_DEFENSE_ESCAPE_TIMEOUT": 1,
+      "GAME_DEFENSE_RETREAT_COMPLETE": 1,
+      "GAME_NAVIGATION_NO_ROUTE": 3
+    },
+    "programme_speech_requests_first_played_within_video": 8,
+    "new_real_bilibili_events_verified": false,
+    "new_avatar_clips": 0,
+    "public_broadcast_started": false,
+    "worker_task_submissions": 0,
+    "worker_auto_requests": 1,
+    "game_keys_issued": 0,
+    "manual_takeover_used": false,
+    "world_or_inventory_injection": false,
+    "source_files_changed_during_gameplay": 0,
+    "normal_world_save_quit": true,
+    "six_owned_services_stopped": true,
+    "formal_acceptance_advanced": false,
+    "new_avatar_assets_advanced": false,
+    "local_tests_run": 0,
+    "full_survival_verified": false
+  },
+  "formal_acceptance_passed": 0,
+  "new_avatar_clips_accepted": 0,
+  "full_frozen_open_items": 117,
+  "runtime_review": {
+    "classification": "LOCAL_REVIEW_OF_REMOTE_EVIDENCE_ONLY_NO_RUNTIME_OR_MEDIA_PROCESSING",
+    "actual_window_seconds": 132.061,
+    "source_unchanged": true,
+    "tasks": {
+      "failed": 5,
+      "succeeded": 11
+    },
+    "failed_reasons": {
+      "GAME_DEFENSE_ESCAPE_TIMEOUT": 1,
+      "GAME_DEFENSE_RETREAT_COMPLETE": 1,
+      "GAME_NAVIGATION_NO_ROUTE": 3
+    },
+    "verified_productive_tasks": [
+      {
+        "skill": "craft",
+        "item_id": "minecraft:wooden_pickaxe",
+        "completed_offset_seconds": 99.866
+      },
+      {
+        "skill": "craft",
+        "item_id": "minecraft:oak_planks",
+        "completed_offset_seconds": 92.574
+      },
+      {
+        "skill": "gather",
+        "item_id": "minecraft:oak_log",
+        "completed_offset_seconds": 78.111
+      },
+      {
+        "skill": "craft",
+        "item_id": "minecraft:stick",
+        "completed_offset_seconds": 45.439
+      },
+      {
+        "skill": "craft",
+        "item_id": "minecraft:oak_planks",
+        "completed_offset_seconds": 39.41
+      },
+      {
+        "skill": "gather",
+        "item_id": "minecraft:oak_log",
+        "completed_offset_seconds": 28.426
+      }
+    ],
+    "verified_productive_tasks_completed_within_clip": 6,
+    "vision_fresh_requests": 7,
+    "vision_fresh_states": {
+      "succeeded": 5,
+      "failed": 2
+    },
+    "vision_in_clip_states": {
+      "succeeded": 5,
+      "failed": 1
+    },
+    "vision_failure_codes": {
+      "MODEL_PREEMPTED": 2
+    },
+    "vision_success_latency_ms": {
+      "min": 3578,
+      "median": 4374,
+      "mean": 4549.8,
+      "max": 5994
+    },
+    "vision_success_tokens": {
+      "input": 13060,
+      "output": 1012
+    },
+    "vision_captions": [
+      {
+        "capture_offset_seconds": 0.324,
+        "caption": "白天的平原村庄，土路穿过草地；前方有砖房、木屋、干草捆和火把路灯，周围是树林。画面未见明显敌对威胁。",
+        "elapsed_ms": 5994
+      },
+      {
+        "capture_offset_seconds": 20.472,
+        "caption": "村庄土路穿过草地，路旁有木屋、围栏、树木和花草；右下近处可见工作台与盾牌。画面无明显敌对生物。",
+        "elapsed_ms": 4607
+      },
+      {
+        "capture_offset_seconds": 40.477,
+        "caption": "平原村庄的土路旁有工作台、围栏和疑似牛只；中央是被水覆盖的钟楼结构，后方有木屋。草地开阔，远处可见红色光柱，未见明显危险。",
+        "elapsed_ms": 4374
+      },
+      {
+        "capture_offset_seconds": 60.619,
+        "caption": "视角仰望一栋浅粉色墙面的房屋，屋顶由木板和木楼梯构成；墙上有木门、窗户和火把，右侧可见树木与天空。画面右侧有盾牌状物体，未见明显危险。",
+        "elapsed_ms": 4196
+      },
+      {
+        "capture_offset_seconds": 100.785,
+        "caption": "夜间村庄，泥土小路穿过草地，旁有干草堆、火把灯柱、木屋和砖墙建筑。右侧可见工作台及紫色方块；远处有红色生物或物体。前景手持盾牌，周围草丛较高。",
+        "elapsed_ms": 3578
+      }
+    ],
+    "first_damage_offset_seconds": 111.804,
+    "last_observed_health_before_pause": 2.3333359,
+    "final_health_after_audio_drain": 0,
+    "within_clip_positive_played_requests": 8,
+    "completed_requests_full_programme": 10,
+    "avatar_generated_fps": {
+      "weighted_mean": 22.969565423107518,
+      "sample_min": 18.354865887882877,
+      "sample_max": 25.713589723043576,
+      "sample_intervals": 21,
+      "interpretation": "application-generated counter; not presented FPS or speaking-only FPS"
+    },
+    "avatar_contact_review": "48 remote-produced crops reviewed; visible blink, head tilt and mouth movements",
+    "audio_twenty_second_windows_non_silent": true,
+    "normal_shutdown": true,
+    "original_official_processes_preserved": true,
+    "hash_verification": [
+      {
+        "file": "mc-live-luna-087b-120s.mp4",
+        "bytes": 60679679,
+        "sha256": "595ff96c5929d0c4b8a7be5ba4f783640c1766e986e33dc96a0e64482f08c5f2",
+        "matches_remote": true
+      },
+      {
+        "file": "sample087b-vision-01.jpg",
+        "bytes": 366707,
+        "sha256": "efcc245d3679528651ff23d29b3b7774201fbcdb1cc8e89c87dab3052afb8090",
+        "matches_remote": true
+      },
+      {
+        "file": "sample087b-vision-02.jpg",
+        "bytes": 364456,
+        "sha256": "ff1e13a6b35e2c556dc14e70ada49058e7686830fc24a054c7a2b82b89998462",
+        "matches_remote": true
+      },
+      {
+        "file": "sample087b-vision-03.jpg",
+        "bytes": 316978,
+        "sha256": "2a56931e0eebd81cdf6eca0d2d501c52474075c5b7a2212adc90721e8ebf93bf",
+        "matches_remote": true
+      },
+      {
+        "file": "sample087b-vision-04.jpg",
+        "bytes": 229506,
+        "sha256": "b6c70e0d1b1369e5627856c8e2f0ae0737b29714349a90da8f797b7f9155c228",
+        "matches_remote": true
+      },
+      {
+        "file": "sample087b-vision-05.jpg",
+        "bytes": 270918,
+        "sha256": "c7996fc82c78e5d633a6af136daa0cbbe47c99c6c6a78e2180fcf655b41e460f",
+        "matches_remote": true
+      }
+    ]
+  },
+  "final_state": {
+    "all_owned_services_stopped": true,
+    "display_keep_awake_released": true,
+    "normal_game_save_close": true,
+    "original_livehime_processes_preserved": true,
+    "saved_world": {
+      "folder": "MC Live Offline 083",
+      "bytes": 10104,
+      "mtime": 1793652931.793866,
+      "sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f"
+    },
+    "saved_world_screen": "death",
+    "source_unchanged": true,
+    "unused_task_browser_tabs": 0,
+    "transfer_cleanup": {
+      "closed": [
+        {
+          "pid": 13196,
+          "purpose": "OWN_FILE_TRANSFER_ONLY",
+          "stopped": true
+        },
+        {
+          "pid": 20976,
+          "purpose": "OWN_FILE_TRANSFER_ONLY",
+          "stopped": true
+        }
+      ],
+      "unused_task_browser_tabs": 0,
+      "local_runtime_tests": 0,
+      "at": "2026-11-03T05:00:23.9685446+08:00",
+      "ports_2522_2523_listening": false
+    }
+  },
+  "artifact_manifest": {
+    "verification": "LOCAL_BYTE_HASH_REVIEW_OF_REMOTE_ARTIFACTS_ONLY",
+    "files": [
+      {
+        "name": "deploy087-result.json",
+        "bytes": 4650,
+        "verified": true,
+        "sha256": "408abe1f282554fcb706f5c068709c2b88a445258068abdc4ffb724611c06468"
+      },
+      {
+        "name": "start087b-result.json",
+        "bytes": 1372,
+        "verified": true,
+        "sha256": "3f76b93642d91e6f8cda510a1b748e84817626b8fdf764c1e51537192f4f1391"
+      },
+      {
+        "name": "sample087-probe-result.json",
+        "bytes": 4465,
+        "verified": true,
+        "sha256": "ed6649c8b43953579c46b5b53f7234063f9f747924cc86c86bd2c1329bd13583"
+      },
+      {
+        "name": "sample087-probe-vision.jpg",
+        "bytes": 251775,
+        "verified": true,
+        "sha256": "19f7887c08300fcc947169fa8d3238ef7ea8281729e5340af8f63df2fe17ca1b"
+      },
+      {
+        "name": "sample087-session-result.json",
+        "bytes": 480734,
+        "verified": true,
+        "sha256": "868757e46ae070a03fbec734e0547dc8283b187ad9f780af3c13fc66439f9497"
+      },
+      {
+        "name": "sample087-export-result.json",
+        "bytes": 14795,
+        "verified": true,
+        "sha256": "2da6a9e07bf933868cbac8251ad2931b615b138f35d4115c2579b9484e4c3286"
+      },
+      {
+        "name": "sample087-speech-receipts.json",
+        "bytes": 10872,
+        "verified": true,
+        "sha256": "706689970a0ea3de06cb370993214c29114ee154795516d7c3ad8eb32aecc82a"
+      },
+      {
+        "name": "sample087-contact.jpg",
+        "bytes": 480272,
+        "verified": true,
+        "sha256": "988dd6e26a224e2862f2de1a42df1ffb9500260f9160664d9b4106662c0cd9cb"
+      },
+      {
+        "name": "sample087-avatar-contact.jpg",
+        "bytes": 1301413,
+        "verified": true,
+        "sha256": "342b883a1398005c2c971937e5613ed7cb612e870796e9f083526e55e6e8cc44"
+      },
+      {
+        "name": "mc-live-luna-087-120s.mp4",
+        "bytes": 74197292,
+        "verified": true,
+        "sha256": "1e6ed6c8400c072ea0833b7ac3d72dc3b71a2a88a1d5702ec7e5e315a9fefcdf"
+      },
+      {
+        "name": "sample087-vision-01.jpg",
+        "bytes": 231365,
+        "verified": true,
+        "sha256": "290a92a63383bf54894ca3b1ad940f56db9fda52413e9dc06101ef511ae140d5"
+      },
+      {
+        "name": "sample087-vision-02.jpg",
+        "bytes": 232526,
+        "verified": true,
+        "sha256": "28d4d5d731c9d613634c19a6b1a122f6d41a43ebdaac9b07c659c366256e084e"
+      },
+      {
+        "name": "sample087-vision-03.jpg",
+        "bytes": 307321,
+        "verified": true,
+        "sha256": "d0c6747720928ce4521a31603ccf18bbbe6d4fbcbc5fcfe836a0e2538b53aa91"
+      },
+      {
+        "name": "sample087-vision-04.jpg",
+        "bytes": 295856,
+        "verified": true,
+        "sha256": "6c2c4e1da54f5d9f327707e2eebc16a5d86347985a9aaac1707ee96786f4001a"
+      },
+      {
+        "name": "sample087-vision-05.jpg",
+        "bytes": 245616,
+        "verified": true,
+        "sha256": "3d8fb3be3bad21d708b8b4c6550a7da42b99a6d1b5bdd17522ea96c63378af74"
+      },
+      {
+        "name": "sample087b-session-result.json",
+        "bytes": 494259,
+        "verified": true,
+        "sha256": "15ffb19dec12456500d5f3b5df966479e92b5f8d56c2474f9dd2281d6bc3c99b"
+      },
+      {
+        "name": "sample087b-export-result.json",
+        "bytes": 14500,
+        "verified": true,
+        "sha256": "2d584e899798a6f7733fbeed2f1f23eefdf3bf68dc91f01d18e8244fee16fb0b"
+      },
+      {
+        "name": "sample087b-speech-receipts.json",
+        "bytes": 13487,
+        "verified": true,
+        "sha256": "9dfa300097c034317ff91e920b54fda2d0d2f4fa18a3a6a0222c457bfcd52e54"
+      },
+      {
+        "name": "sample087b-contact.jpg",
+        "bytes": 564266,
+        "verified": true,
+        "sha256": "ac7f91fe78e73b9a1f2490dae572593ca26dd99ceb56564188b82e2504608359"
+      },
+      {
+        "name": "sample087b-avatar-contact.jpg",
+        "bytes": 1311474,
+        "verified": true,
+        "sha256": "21c723d5203687fe2fc212867c9b93673b83a24ff4183d50bc291b4882bcb37f"
+      },
+      {
+        "name": "sample087b-normal-shutdown-result.json",
+        "bytes": 7644,
+        "verified": true,
+        "sha256": "6b0393442b31c479aeb93772f4d048ebd46c22d65494843c28ba0ce8a6ecf029"
+      },
+      {
+        "name": "mc-live-luna-087b-120s.mp4",
+        "bytes": 60679679,
+        "verified": true,
+        "sha256": "595ff96c5929d0c4b8a7be5ba4f783640c1766e986e33dc96a0e64482f08c5f2"
+      },
+      {
+        "name": "sample087b-vision-01.jpg",
+        "bytes": 366707,
+        "verified": true,
+        "sha256": "efcc245d3679528651ff23d29b3b7774201fbcdb1cc8e89c87dab3052afb8090"
+      },
+      {
+        "name": "sample087b-vision-02.jpg",
+        "bytes": 364456,
+        "verified": true,
+        "sha256": "ff1e13a6b35e2c556dc14e70ada49058e7686830fc24a054c7a2b82b89998462"
+      },
+      {
+        "name": "sample087b-vision-03.jpg",
+        "bytes": 316978,
+        "verified": true,
+        "sha256": "2a56931e0eebd81cdf6eca0d2d501c52474075c5b7a2212adc90721e8ebf93bf"
+      },
+      {
+        "name": "sample087b-vision-04.jpg",
+        "bytes": 229506,
+        "verified": true,
+        "sha256": "b6c70e0d1b1369e5627856c8e2f0ae0737b29714349a90da8f797b7f9155c228"
+      },
+      {
+        "name": "sample087b-vision-05.jpg",
+        "bytes": 270918,
+        "verified": true,
+        "sha256": "c7996fc82c78e5d633a6af136daa0cbbe47c99c6c6a78e2180fcf655b41e460f"
+      }
+    ],
+    "count": 27,
+    "all_verified": true
+  },
+  "full_scope_remaining": [
+    {
+      "id": "D01",
+      "required": true,
+      "status": "external_vision_application_services_verified_complete_install_pending",
+      "remaining": "087外部Luna模式六项受管检查ready并正常保存停机，完整application_ready仍为false；完整安装包、许可、全部副本审计、干净Windows复现、整机恢复、异常存档及后续联机切换仍待完成。"
+    },
+    {
+      "id": "D02",
+      "required": true,
+      "status": "native_partial_surface_and_autonomous_resume_implemented_full_world_lifecycle_pending",
+      "remaining": "更多容器/断连/世界切换/死亡恢复；普通重生、暂停握手、楼梯/下落/挖阶、低平台起步及土径/耕地表面行走已实现，坟墓取物、更多异形地面与联机移动仍需实证。"
+    },
+    {
+      "id": "D03",
+      "required": true,
+      "status": "autonomous_item_progress_verified_pve_escape_and_pause_handover_failed",
+      "remaining": "完整PvE、食物、撤退、死亡后持久补给、未知GUI/水域/树丛/岩浆/窒息恢复、断线/租约/硬件停止/联机保护及长期自主待验。087b后段逃离超时；PAUSED仅停输入、世界继续运行，排空音频期间死亡，停机衔接需修复。日常不依赖人工代打。"
+    },
+    {
+      "id": "D04",
+      "required": true,
+      "status": "actual_respawn_wood_planks_sticks_pickaxe_verified_full_survival_pending",
+      "remaining": "087b六条真实采集/合成包括木镐，但其后死亡导致本场物资损失，不能当作持续生存。食物/熔炼长链、种收吃、容器往返、工具损坏更换、模组资源、探索建造、危险撤退、重生后连续补给与坟墓取物仍待实现或实证。"
+    },
+    {
+      "id": "D05",
+      "required": true,
+      "status": "actual_luna_visual_context_and_mindcraft_item_progress_verified_long_autonomy_pending",
+      "remaining": "原生Mindcraft物品依赖求解器已与Luna图像上下文及正式口播共存；更多物品/熔炼/探索、长期目标、复杂路线和资源恢复、跨场工作台/补给、真实弹幕并发、模型预算与迟到取消、口播事实核验及诊断仍待完成。嵌入求解器不是完整上游Mineflayer运行时。"
+    },
+    {
+      "id": "D06",
+      "required": true,
+      "status": "guest_room_connection_verified_real_event_chain_pending",
+      "remaining": "595139真实弹幕/礼物/SC、过滤去重、建议/投票、重连、回复与节目展示；公开连接已通但零事件，用户当前不能发送，不重复要求。"
+    },
+    {
+      "id": "D07",
+      "required": true,
+      "status": "community_recall_mood_soul_adapted_full_memory_lifecycle_pending",
+      "remaining": "更正/删除、跨场异常、次日恢复与社区完整遗忘流程；中文召回/情绪/SOUL接入不替代真实观众记忆和删除验收，死亡恢复需新鲜物资及任务复核。"
+    },
+    {
+      "id": "D08",
+      "required": true,
+      "status": "planting_desktop_mobile_editors_verified_complete_operator_flows_pending",
+      "remaining": "自主任务/诊断/资源/音量/启停完整界面与自动故障恢复；自动开始设置、普通暂停恢复及桌面/手机已有子项，完整现场流程仍待验。"
+    },
+    {
+      "id": "D09",
+      "required": true,
+      "status": "luna_120s_programme_delivered_avatar_supply_and_quality_pending",
+      "remaining": "087b120秒内8条正式播放及可见人物动作已确认；人物生成计数平均22.970FPS、包含待机和说话，未达到25FPS目标，也不是实际呈现FPS。085约4秒欠载策略本轮未改；供帧、重缓冲、自然表达/事实性、解说及时性、真实弹幕礼物叠加、唯一音源和完整节目仍待验。"
+    },
+    {
+      "id": "D10",
+      "required": true,
+      "status": "not_generated",
+      "remaining": "两套各2闲置+48动作，共100段新人物素材、索引、口型/遮罩/接缝及手机观看；0/100。"
+    },
+    {
+      "id": "D11",
+      "required": true,
+      "status": "approved_voice_pair_integrated_audio_acceptance_pending",
+      "remaining": "人声/游戏/BGM压低与恢复、O07/F07故障切换、混音和唯一音源的真实录音验收。"
+    },
+    {
+      "id": "D12",
+      "required": true,
+      "status": "gpt6_luna_real_game_image_verified_accuracy_preemption_and_long_load_pending",
+      "remaining": "087直接真实JPEG链路已替换旧CPU视觉，132秒7次新请求5成功2被口播抢占，成功均值4549.8ms；墓志铭被误认盾牌，正确率、危险识别、旧帧隔离、超时取消/渠道变化、观察公平性、冷启动和长时联合负载仍待验。旧Qwen23.84秒成功和30秒超时保留为历史，不继续冒充现配置。"
+    },
+    {
+      "id": "D13",
+      "required": true,
+      "status": "official_local_output_verified_public_audience_pending",
+      "remaining": "公开状态核对与独立观众CDN音画验收；当前未获公开开播授权，保持未执行。"
+    },
+    {
+      "id": "D14",
+      "required": true,
+      "status": "luna_start_save_shutdown_verified_performance_and_long_stability_pending",
+      "remaining": "087正常启动626.683秒、原世界正常保存与自有服务停止已确认；产帧/呈现FPS与各段时延、4小时含60分钟稳定段、冷启动优化、FTB推广/外部广告抢焦点、断线恢复、显示组合、原4.70GB日志受控轮转及授权旧候选清理仍待完成。单次短录不替代稳定性验收。"
+    },
+    {
+      "id": "D15",
+      "required": true,
+      "status": "not_accepted",
+      "remaining": "68项正式验收0/68，24组合/12场景/8发布门、跨场次日及干净完整交付；全域不降范围、不提前宣布完成。"
+    }
+  ],
+  "freeze_remaining_reference": "docs/freezes/20261103MC/03-全范围剩余事项.md"
+}

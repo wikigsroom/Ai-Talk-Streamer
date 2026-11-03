@@ -4,7 +4,7 @@ import { join, resolve, extname } from 'node:path';
 import { createServer } from 'node:http';
 import { RoomManager } from '../backend/room/manager.mjs';
 export const root = resolve(process.cwd());
-export async function fixture({ generate } = {}) {
+export async function fixture({ generate, handle } = {}) {
   const output = join(root, 'outputs/room-admin/tests'); mkdirSync(output, { recursive: true }); const folder = mkdtempSync(join(output, 'room-'));
   const accepted = [], cancelled = [], db = new EventEmitter(); let broadcast = null;
   const bridge = { db, ready: true, administration: { locked: false }, state: {
@@ -21,6 +21,7 @@ export async function fixture({ generate } = {}) {
   const server = createServer(async (req, res) => {
     try {
       const url = new URL(req.url, 'http://localhost'), path = url.pathname;
+      if (handle && await handle(req, res, url, bridge, send)) return;
       if (path.startsWith('/api/dsh/room/')) return await manager.handle(req, res, url, (v, s) => send(res, v, s));
       if (path === '/api/studio/status') return send(res, { ready: true, avatar_ready: true, voice: { voice_id: 'O07', engine: 'OmniVoice', workers: { F07: { ready: true } } } });
       if (path === '/api/dsh/status') return send(res, { health: { persona_injection_ready: true, memory_ready: true }, queued: [] });
@@ -28,14 +29,15 @@ export async function fixture({ generate } = {}) {
       if (path === '/api/dsh/platforms/bilibili/start' || path.endsWith('/resume')) { broadcast = { broadcast_id: 'fixture-broadcast', state: 'LIVE', revision: 1 }; manager.emit(); return send(res, { started: true, public_broadcast_started: false }); }
       if (path === '/api/dsh/platforms/bilibili/stop') { broadcast = null; manager.emit(); return send(res, { stopped: true }); }
       if (path === '/character/reference.png') { res.writeHead(200, { 'Content-Type': 'image/png' }); res.end(readFileSync(join(root, 'assets/vertical/student-dorm-720x1280.png'))); return; }
-      const file = path === '/admin' ? 'web/admin.html' : path === '/overlay' ? 'web/room-overlay.html' : path === '/output.html' ? 'integration/obs.html' : 'web' + path;
+      const designFile = path.startsWith('/docs/design/mc-landscape-v1/') || ['/web/room-client.js', '/web/mc-chat-position.js'].includes(path);
+      const file = path === '/mc/layout.json' ? 'configs/layouts/mc-landscape-v1.json' : ['/mc/programme','/mc/preview'].includes(path) ? 'web/mc-programme.html' : designFile ? path.slice(1) : path === '/admin' ? 'web/admin.html' : path === '/overlay' ? 'web/room-overlay.html' : path === '/output.html' ? 'integration/obs.html' : 'web' + path;
       const target = resolve(root, file);
       if (!target.startsWith(root) || !existsSync(target) || path.includes('..')) { res.writeHead(404); res.end(); return; }
-      res.writeHead(200, { 'Content-Type': { '.html': 'text/html; charset=utf-8', '.js': 'application/javascript', '.css': 'text/css' }[extname(target)] || 'application/octet-stream' }); res.end(readFileSync(target));
+      res.writeHead(200, { 'Content-Type': { '.html': 'text/html; charset=utf-8', '.js': 'application/javascript', '.css': 'text/css', '.png': 'image/png', '.svg': 'image/svg+xml' }[extname(target)] || 'application/octet-stream' }); res.end(readFileSync(target));
     } catch (error) { send(res, { error: error.code || error.message }, error.status || 500); }
   });
   await new Promise(r => server.listen(0, '127.0.0.1', r));
   const base = 'http://127.0.0.1:' + server.address().port;
   const post = async (path, body) => { const r = await fetch(base + '/api/dsh/room/' + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }); return { status: r.status, value: await r.json() }; };
-  return { manager, bridge, base, post, accepted, cancelled, folder, async close() { await manager.close(); server.closeAllConnections(); await new Promise(r => server.close(r)); rmSync(folder, { recursive: true, force: true }); } };
+  return { manager, bridge, base, post, accepted, cancelled, folder, server, async close() { await manager.close(); server.closeAllConnections(); await new Promise(r => server.close(r)); rmSync(folder, { recursive: true, force: true }); } };
 }

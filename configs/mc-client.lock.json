@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "classification": "PINNED_NATIVE_CLIENT_DEPENDENCIES_NOT_GAMEPLAY_OR_APPLICATION_ACCEPTANCE",
+  "minecraft": "1.21.1",
+  "fabric_loader": "0.16.14",
+  "fabric_api": "0.116.6+1.21.1",
+  "platform": "win32",
+  "architecture": "AMD64",
+  "home": "runtime/minecraft/mc-1.21.1-fabric-0.16.14",
+  "work": "runtime/minecraft/mc-1.21.1-fabric-0.16.14/work",
+  "resolver": {
+    "version": "4.4.1",
+    "filename": "portablemc-4.4.1-py3-none-any.whl",
+    "bytes": 88564,
+    "sha256": "82435214f4745fb0b5a6dbbb065b1b22723f5805d2468a74c896b33733eb2de6",
+    "url": "https://files.pythonhosted.org/packages/68/92/3ffda059f75068caf1de17c78c29d3a0746835d598e82abf77180092d124/portablemc-4.4.1-py3-none-any.whl",
+    "license": "GPL-3.0-or-later",
+    "source": "https://github.com/mindstorm38/portablemc/tree/v4.4.1"
+  },
+  "documents": {
+    "minecraft": {
+      "url": "https://piston-meta.mojang.com/v1/packages/018296bcb207bea6fd25b05f08eee3942dcec406/1.21.1.json",
+      "bytes": 38408,
+      "sha256": "5603a965deddb519da59866f3df784ed11c4fef81953d22781e76cebefeac8c3"
+    },
+    "assets": {
+      "url": "https://piston-meta.mojang.com/v1/packages/cd09c6948871a888359b45607a1dfac4e97f2561/17.json",
+      "bytes": 449557,
+      "sha256": "9edfa2ad3a1850ce1c152052c5f17a8772d9b4f8f5a478b0ca4f66556816347f"
+    },
+    "fabric": {
+      "url": "https://meta.fabricmc.net/v2/versions/loader/1.21.1/0.16.14/profile/json",
+      "bytes": 2849,
+      "sha256": "83f908815537d2052c4919c67ea01ee9169e88e3dab314d0955b5c3bf384d691"
+    },
+    "java": {
+      "url": "https://piston-meta.mojang.com/v1/packages/cb4394a27089d19f65d5baa6cf0482c27c3c7865/manifest.json",
+      "bytes": 148529,
+      "sha256": "d2810cd0a87baf3980bbe256758de3ac4358801cc7b42fc3e74b7155ab5a67ff"
+    }
+  },
+  "java": {
+    "component": "java-runtime-delta",
+    "major": 21,
+    "version": "21.0.7"
+  },
+  "fabric_libraries": {
+    "https://maven.fabricmc.net/org/ow2/asm/asm/9.8/asm-9.8.jar": {
+      "url": "https://maven2.fabricmc.net/org/ow2/asm/asm/9.8/asm-9.8.jar",
+      "bytes": 126113,
+      "sha1": "dc19ecb3f7889b7860697215cae99c0f9b6f6b4b",
+      "sha256": "876eab6a83daecad5ca67eb9fcabb063c97b5aeb8cf1fca7a989ecde17522051"
+    },
+    "https://maven.fabricmc.net/org/ow2/asm/asm-analysis/9.8/asm-analysis-9.8.jar": {
+      "url": "https://maven2.fabricmc.net/org/ow2/asm/asm-analysis/9.8/asm-analysis-9.8.jar",
+      "bytes": 35151,
+      "sha1": "b9747a320844b6cb1eacd90d8ecfd260a16c01d3",
+      "sha256": "e640732fbcd3c6271925a504f125e38384688f4dfbbf92c8622dfcee0d09edb9"
+    },
+    "https://maven.fabricmc.net/org/ow2/asm/asm-commons/9.8/asm-commons-9.8.jar": {
+      "url": "https://maven2.fabricmc.net/org/ow2/asm/asm-commons/9.8/asm-commons-9.8.jar",
+      "bytes": 73498,
+      "sha1": "36e4d212970388e5bd2c5180292012502df461bb",
+      "sha256": "3301a1c1cb4c59fcc5292648dac1d7c5aed4c0f067dfbe88873b8cdfe77404f4"
+    },
+    "https://maven.fabricmc.net/org/ow2/asm/asm-tree/9.8/asm-tree-9.8.jar": {
+      "url": "https://maven2.fabricmc.net/org/ow2/asm/asm-tree/9.8/asm-tree-9.8.jar",
+      "bytes": 51934,
+      "sha1": "018419ca5b77a2f81097c741e7872e6ab8d2f40d",
+      "sha256": "14b7880cb7c85eed101e2710432fc3ffb83275532a6a894dc4c4095d49ad59f1"
+    },
+    "https://maven.fabricmc.net/org/ow2/asm/asm-util/9.8/asm-util-9.8.jar": {
+      "url": "https://maven2.fabricmc.net/org/ow2/asm/asm-util/9.8/asm-util-9.8.jar",
+      "bytes": 94559,
+      "sha1": "395f1c1f035258511f27bc9b2583d76e4b143f59",
+      "sha256": "8ba0460ecb28fd0e2980e5f3ef3433a513a457bc077f81a53bdc75b587a08d15"
+    },
+    "https://maven.fabricmc.net/net/fabricmc/sponge-mixin/0.15.5+mixin.0.8.7/sponge-mixin-0.15.5+mixin.0.8.7.jar": {
+      "url": "https://maven2.fabricmc.net/net/fabricmc/sponge-mixin/0.15.5+mixin.0.8.7/sponge-mixin-0.15.5+mixin.0.8.7.jar",
+      "bytes": 1499194,
+      "sha1": "22f9eb729e216a091673a574a5906dc1b9027fb3",
+      "sha256": "01dd2b778ed5283bce6b6b07d9690d86d956b17a7103efafad47073db1599584"
+    },
+    "https://maven.fabricmc.net/net/fabricmc/intermediary/1.21.1/intermediary-1.21.1.jar": {
+      "url": "https://maven2.fabricmc.net/net/fabricmc/intermediary/1.21.1/intermediary-1.21.1.jar",
+      "bytes": 657725,
+      "sha1": "4b96f58657aa282efa6bb8ae9369c2d42cf96e8c",
+      "sha256": "6059157dfb4a536ec151697004f74f6004b7d346b289c2f89849e0e585aa36fa"
+    },
+    "https://maven.fabricmc.net/net/fabricmc/fabric-loader/0.16.14/fabric-loader-0.16.14.jar": {
+      "url": "https://maven2.fabricmc.net/net/fabricmc/fabric-loader/0.16.14/fabric-loader-0.16.14.jar",
+      "bytes": 1416842,
+      "sha1": "05778d47f536bf2c63ed2abc1a56f5a1c129e34a",
+      "sha256": "9ed7b7f4197153ad97d71b4b9cd9148989e8f0c600934b035ce45f3ef003efc0"
+    }
+  },
+  "api_mod": {
+    "url": "https://maven2.fabricmc.net/net/fabricmc/fabric-api/fabric-api/0.116.6+1.21.1/fabric-api-0.116.6+1.21.1.jar",
+    "bytes": 2424827,
+    "sha1": "10d5c7cf5fb309513b4f68b85b1e0d9dccbec9ac",
+    "sha256": "cc531256ecce945b65b179bcedc45ca40b69d7364b95448d255270bb6fccaac8"
+  },
+  "services_started": false,
+  "models_loaded": false,
+  "automatic_input_authorized": false
+}

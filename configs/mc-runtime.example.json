@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "profile": "configs/deployment-profiles/mc-native-3080-neoforge-v1.json",
+  "executables": {
+    "node": "tools/node/node-v24.22.1-win-x64/node.exe",
+    "python": "runtime/livetalking/Scripts/python.exe",
+    "java": "REPLACE_WITH_ACTUAL_NATIVE_JDK21/bin/java.exe"
+  }
+}

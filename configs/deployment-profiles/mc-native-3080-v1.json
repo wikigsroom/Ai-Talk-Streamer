@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "mc-native-3080-v1",
+  "application": "mc",
+  "source_branch": "mc",
+  "device_target": "rtx3080",
+  "base_deployment_branch": "deploy/rtx3080",
+  "topology": "native_3080_cohost",
+  "inference": {"batch_size": 4, "precision": "FP16", "fps": 25, "state_path": "state/female-a-3080-k02"},
+  "layout": {"id": "mc-landscape-v1", "revision": 4, "path": "configs/layouts/mc-landscape-v1.json", "sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76"},
+  "native": {"node": "24.22.1", "python": "3.10.22", "java_major": 21, "platform": "win32", "architecture": "x64"},
+  "game": {"minecraft": "1.21.1", "loader": "0.16.14", "fabric_api": "0.116.6+1.21.1", "build_lock": "configs/mc-survival-build.lock.json"},
+  "base_runtime_lock": "configs/releases/rtx3080-k02-runtime-lock.json",
+  "ports": {"studio": 8010, "tts": 9880, "primary_voice": 9881, "backup_voice": 9882, "dsh_management": 3091, "dsh": 3092, "receiver": 8020},
+  "initial_mode": "PAUSED",
+  "automatic_input_authorized_by_preparation": false,
+  "runtime_acceptance": "not_run"
+}

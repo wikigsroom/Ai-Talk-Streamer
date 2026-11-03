@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "classification": "PLANNING_ONLY_DOCUMENT_AND_METADATA_UPDATE",
+  "plan_revision": "1.2",
+  "execution_revision": "2026-10-30-r2",
+  "branch": "mc",
+  "source": "docs/technical/mc-live-v1/10-全量执行与资源计划.md",
+  "status": "PASS_PLANNING_CHECKS_ONLY",
+  "planning_items": [
+    "P09",
+    "P10",
+    "P11",
+    "P12"
+  ],
+  "implementation_round_unchanged": "021",
+  "existing_unregistered_draft": {
+    "classification": "UNREGISTERED_IMPLEMENTATION_DRAFT_NOT_ACCEPTED",
+    "candidate_round": "022",
+    "source": "outputs/mc-validation/round-022/narration-attempt1.tap",
+    "tests": 17,
+    "pass": 16,
+    "fail": 1,
+    "runtime_acceptance_advanced": false,
+    "note": "Existing working-tree draft preserved by this planning update; formal implementation record remains round021.",
+    "source_sha256": "5d7683f28c11812601c33627f4e14c8c91beb28fd4b4b1e8d4911c86f77660c1",
+    "not_rerun_or_fixed_by_this_planning_update": true
+  },
+  "functional_code_changed_by_this_planning_update": false,
+  "runtime_acceptance_cases_run_by_this_planning_update": 0,
+  "runtime_acceptance_advanced": false,
+  "real_acceptance_passed": 0,
+  "real_acceptance_not_run": 68,
+  "new_avatar_clips_generated": 0,
+  "new_avatar_clips_required": 100,
+  "required_runtime_combinations": 24,
+  "required_joint_scenarios": 12,
+  "required_completion_gates": 8,
+  "same_candidate_required": true,
+  "primary_sources_reviewed": [
+    "https://github.com/mindcraft-bots/mindcraft",
+    "https://github.com/MiranCZ/altoclef",
+    "https://github.com/xfgryujk/blivedm",
+    "https://github.com/xfgryujk/blivechat"
+  ],
+  "web_research_used": true,
+  "desktop_browser_tabs_created": 0,
+  "browser_cleanup_required": false,
+  "services_started_by_this_update": false,
+  "model_inference_started": false,
+  "new_models_downloaded": false,
+  "real_minecraft_started": false,
+  "official_client_started": false,
+  "public_broadcast_started": false,
+  "remote_devices_used": false,
+  "virtualization_used": false,
+  "subagents_dispatched": false,
+  "recorded_at": "2026-10-30T07:56:13.458611+00:00",
+  "source_snapshots": [
+    {
+      "path": "docs/technical/mc-live-v1/10-全量执行与资源计划.md",
+      "snapshot": "outputs/mc-planning/20261030-integrated-r2/source/docs/technical/mc-live-v1/10-全量执行与资源计划.md",
+      "sha256": "a72e061cade2d1693d0ce5b0b023ac0280b9d7fdc2f6a64c02b67efd8bd76a35"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/完整交付清单.json",
+      "snapshot": "outputs/mc-planning/20261030-integrated-r2/source/docs/technical/mc-live-v1/完整交付清单.json",
+      "sha256": "a23f57406ae5ea27f3fe534b87377191fe490f9320743e7d8dca1b2297667837"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/implementation-status.json",
+      "snapshot": "outputs/mc-planning/20261030-integrated-r2/source/docs/technical/mc-live-v1/implementation-status.json",
+      "sha256": "a8f6150c4f00890ca90ba5688c085b9767b1ef6bfb5311472127b584c42fa704"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/实现进度.md",
+      "snapshot": "outputs/mc-planning/20261030-integrated-r2/source/docs/technical/mc-live-v1/实现进度.md",
+      "sha256": "4a0f0257ea4bd4141e6a3727a2ef3c70eb5c14210c1405c62da50d3898b2a5c0"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/README.md",
+      "snapshot": "outputs/mc-planning/20261030-integrated-r2/source/docs/technical/mc-live-v1/README.md",
+      "sha256": "0a24b17c73265fba22c1a3c23cc464484cb8451a89e67783965aa70d5d731783"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/全量交付执行总表.md",
+      "snapshot": "outputs/mc-planning/20261030-integrated-r2/source/docs/technical/mc-live-v1/全量交付执行总表.md",
+      "sha256": "c3f2fd02f9d3007c6872e09a3f630091bae10000b72933cb762f6f75ee7cb38a"
+    },
+    {
+      "path": "docs/MC直播总方案.md",
+      "snapshot": "outputs/mc-planning/20261030-integrated-r2/source/docs/MC直播总方案.md",
+      "sha256": "2a9222a7022669dd2da8484b46d18c1207dfcfafee340eed8291688b4a65a9fa"
+    },
+    {
+      "path": "docs/README.md",
+      "snapshot": "outputs/mc-planning/20261030-integrated-r2/source/docs/README.md",
+      "sha256": "129f2b64c6c322139e174c344a0abd7de57d2ae65df3710f5cff1c1dceec8f98"
+    },
+    {
+      "path": "scripts/mc_check_contracts.py",
+      "snapshot": "outputs/mc-planning/20261030-integrated-r2/source/scripts/mc_check_contracts.py",
+      "sha256": "fc20bde157adcf8d066890fd825f9f016e31befc292fd95ccc476b88b4665301"
+    }
+  ],
+  "guard_results": {
+    "code_and_contract": {
+      "result": "PASS",
+      "files": 15,
+      "changes": []
+    },
+    "historical_and_frozen": {
+      "result": "PASS",
+      "files": 26,
+      "changes": []
+    }
+  },
+  "scope": {
+    "mandatory_domains": 15,
+    "work_packages": 14,
+    "cross_end_connections": 12,
+    "runtime_combinations": 24,
+    "joint_scenarios": 12,
+    "completion_gates": 8,
+    "runtime_acceptance_cases": 68,
+    "new_avatar_clips_required": 100,
+    "single_user_facing_release": true
+  },
+  "documentation_check": {
+    "result": "PASS",
+    "report": "outputs/mc-planning/20261030-integrated-r2/contracts-verification.json",
+    "sha256": "86c75e40bd615e918eee2621a6054279b9f0ba262631bc1917a30c05ceac0418",
+    "markdown_files_checked": 40,
+    "local_markdown_links": 504,
+    "schema_definitions": 95,
+    "valid_examples": 81,
+    "negative_contract_cases": 55,
+    "http_operations": 45,
+    "attempts": [
+      {
+        "log": "outputs/mc-planning/20261030-integrated-r2/document-check-attempt1.log",
+        "result": "FAIL",
+        "reason": "Existing checker expected43 operations; working-tree contract has45 including unaccepted narration draft routes."
+      },
+      {
+        "log": "outputs/mc-planning/20261030-integrated-r2/document-check-attempt2.log",
+        "result": "PASS"
+      },
+      {
+        "log": "outputs/mc-planning/20261030-integrated-r2/document-check-final.log",
+        "result": "PASS"
+      }
+    ],
+    "full_openapi_spec_validator_run": false,
+    "runtime_tests_executed_by_this_update": 0
+  },
+  "planning_consistency_check": {
+    "result": "PASS",
+    "report": "outputs/mc-planning/20261030-integrated-r2/planning-consistency.json",
+    "sha256": "df1929323a1be6cf4eebb23a999bd7ba3735daed6ae99e54bc5f71448834bd0b"
+  },
+  "verification_script_change": {
+    "path": "scripts/mc_check_contracts.py",
+    "scope": "DOCUMENT_CONTRACT_VERIFICATION_ONLY",
+    "change": "Count43 to45 with comment distinguishing unfinished implementation; no runtime acceptance change.",
+    "before_snapshot": "outputs/mc-planning/20261030-integrated-r2/before/scripts/mc_check_contracts.py",
+    "before_sha256": "802afeb467defe8c6048f5c92fc3d2d8b787dcf2dc68a72d9e8741b42f1f1e00",
+    "after_sha256": "fc20bde157adcf8d066890fd825f9f016e31befc292fd95ccc476b88b4665301"
+  },
+  "git_diff_check": {
+    "result": "PASS",
+    "log": "outputs/mc-planning/20261030-integrated-r2/git-diff-check.log",
+    "exit_code": 0,
+    "line_ending_warning_noted": true
+  }
+}

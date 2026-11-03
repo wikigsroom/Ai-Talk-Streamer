@@ -1,11 +1,17 @@
 """Configure and control only the project-local native B-device receiver."""
 from pathlib import Path
 import argparse,json,os,socket,subprocess,sys,time,urllib.request
-from receiver_service import validate_config
+from native_operation import operation,atomic_json
+from native_windows_process import identity_alive
 
 ROOT=Path(__file__).resolve().parents[1]
 CONFIG=ROOT/'configs/receiver.private.json'
 RECORD=ROOT/'outputs/receiver/process.json'
+
+def validate_config(value):
+    # The operation gate must run before loading the receiver's web runtime.
+    from receiver_service import validate_config as validate
+    return validate(value)
 
 def status(config):
     try:
@@ -17,13 +23,24 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('action',choices=['configure','start','stop','status'])
     parser.add_argument('--upstream');parser.add_argument('--client');parser.add_argument('--receiver-id',default='receiver-b');parser.add_argument('--port',type=int,default=8020)
     args=parser.parse_args()
+    if args.action=='status':return control(args,None)
+    with operation(ROOT,'receiver-'+args.action,recovery=args.action=='stop') as transaction:
+        if args.action=='stop':
+            from native_operation import read_json,safe_path
+            from native_supervision import expected_stops
+            path=safe_path(ROOT,RECORD);record=read_json(path)
+            with expected_stops(ROOT,[(path,None,record)] if record else []):
+                return control(args,transaction)
+        return control(args,transaction)
+
+def control(args,transaction):
     config=json.loads(CONFIG.read_text(encoding='utf-8-sig')) if CONFIG.exists() else {'upstream':args.upstream or 'http://A_DEVICE_VPN_HOST:8010','port':args.port,'bind':'127.0.0.1','receiver_id':args.receiver_id}
     if args.action=='configure':
         if status(config).get('role')=='receiver':raise RuntimeError('Stop the receiver before changing its upstream')
         if args.upstream:config['upstream']=args.upstream
         if args.client:config['client_executable']=args.client
         config.update(port=args.port,receiver_id=args.receiver_id);config=validate_config(config)
-        CONFIG.parent.mkdir(exist_ok=True);CONFIG.write_text(json.dumps(config,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+        atomic_json(ROOT,CONFIG,config)
         print(json.dumps({'configured':True,'upstream':config['upstream'],'port':config['port']}));return
     if not CONFIG.exists():raise RuntimeError('Configure the A-device VPN origin first')
     config=validate_config(config)
@@ -35,17 +52,16 @@ def main():
             if probe.connect_ex(('127.0.0.1',config['port']))==0:raise RuntimeError('Receiver port belongs to another service')
         RECORD.parent.mkdir(parents=True,exist_ok=True)
         command=[sys.executable,'-X','utf8','-B',str(ROOT/'scripts/receiver_service.py'),'--config',str(CONFIG)]
-        kwargs={'cwd':ROOT,'stdin':subprocess.DEVNULL,'close_fds':True}
-        if os.name=='nt':kwargs['creationflags']=subprocess.CREATE_NEW_PROCESS_GROUP|subprocess.CREATE_NO_WINDOW
         with (RECORD.parent/'stdout.log').open('ab') as out,(RECORD.parent/'stderr.log').open('ab') as err:
-            process=subprocess.Popen(command,stdout=out,stderr=err,**kwargs)
-        RECORD.write_text(json.dumps({'pid':process.pid,'command':command,'started_at':time.time()},ensure_ascii=False,indent=2),encoding='utf-8')
+            process=transaction.spawn(command,cwd=ROOT,stdout=out,stderr=err,registry=RECORD)
         print(json.dumps({'started':True,'pid':process.pid,'url':'http://127.0.0.1:'+str(config['port'])+'/receiver/'}));return
     import psutil
     if not RECORD.exists():raise RuntimeError('No owned receiver process record')
     record=json.loads(RECORD.read_text(encoding='utf-8'))
     try:
         process=psutil.Process(record['pid'])
+        if 'creation_ticks' in record and not identity_alive(record):
+            raise RuntimeError('Receiver process ownership mismatch')
         if Path(process.exe()).resolve()!=Path(record['command'][0]).resolve() or record['command'][4] not in process.cmdline() or process.create_time()<record['started_at']-10:
             raise RuntimeError('Receiver process ownership mismatch')
         # A native Windows venv launcher has a second Python process. Stop only

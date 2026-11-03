@@ -1,0 +1,65 @@
+{
+  "repo": "thawline/dsh-memewiki",
+  "commit": "ffbc4ceae61bbb117994c0c9271b6452c96c2455",
+  "default_branch": "main",
+  "license": {
+    "key": "mit",
+    "name": "MIT License",
+    "spdx_id": "MIT",
+    "url": "https://api.github.com/licenses/mit",
+    "node_id": "MDc6TGljZW5zZTEz"
+  },
+  "archive_sha256": "5d8dae323c34f14c32be622b20b0641567d94f6a31d5211fa7ce49936f9327ef",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 34,
+      "sha256": "0a0868880473a3adc44aea87cb5faa2110200a842fef86119f6eb0bb046f3669"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 2581,
+      "sha256": "a1bb00b301680f269ee4f711bee3cf18e2322a08e1a9974ebf12b26c1082cac6"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1082,
+      "sha256": "4769abdc93544fe5de3969d17e02c81682c2c56b74b061ee0cba7a2aed708142"
+    },
+    {
+      "path": "NOTICE",
+      "bytes": 1430,
+      "sha256": "085c8f6c66c4c74e5f810dc8f3644735a6196b6680883d6e982b07d1d504dfce"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7588,
+      "sha256": "cd9d4a069ccf851ce84c7bb0100311a171d7b18bbd4f9b441417071f7326a19a"
+    },
+    {
+      "path": "cordis.patch.yml",
+      "bytes": 152,
+      "sha256": "3f939da2b423910b295b418c6e10bca2414ca6e2ecc142b5a73f011b2e39ae5b"
+    },
+    {
+      "path": "data/memes.db",
+      "bytes": 16732160,
+      "sha256": "f536e40f3d340fd73460598c6adbb5889f715015968d51e6e3b26bf2562b33f7"
+    },
+    {
+      "path": "lib/client.js",
+      "bytes": 20690,
+      "sha256": "57cc666976f2a1bb36214c4317103a21ac3d1214dc6d9d780c4641e5e4f53a15"
+    },
+    {
+      "path": "lib/index.js",
+      "bytes": 23908,
+      "sha256": "05a82be19e940d0dce7d9445c303e17533ee7abd49f2734cfb4ba331cf74dbb1"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1184,
+      "sha256": "a5dcd2e0f1668997dbbf91423d4a80b8d5fdf8cab1e74b219abd8b7a6c7861c4"
+    }
+  ]
+}

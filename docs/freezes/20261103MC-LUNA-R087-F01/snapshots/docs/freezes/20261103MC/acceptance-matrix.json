@@ -1,0 +1,1542 @@
+{
+  "schema_version": 1,
+  "freeze_id": "20261103MC",
+  "formal_passed": 0,
+  "formal_defined": 68,
+  "cases": [
+    {
+      "id": "V01",
+      "status": "not_run",
+      "name": "状态与库存固定用例",
+      "criterion": "与实际同一玩家逐字段核对；未知字段不是伪0",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D02",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V02",
+      "status": "not_run",
+      "name": "真实配方/材料不足/特殊物品",
+      "criterion": "正确返回实际条件；未知Mod不套原版配方",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D02",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V03",
+      "status": "not_run",
+      "name": "观测重复、乱序与序号缺口",
+      "criterion": "重复不回退；缺口补全后再应用增量",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D02",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V04",
+      "status": "not_run",
+      "name": "换世界与相同显示名存档",
+      "criterion": "新会话清旧状态，基地/任务不串世界",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D02",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V05",
+      "status": "not_run",
+      "name": "心跳健康但状态停止",
+      "criterion": "达阈值显示stale并拒绝新任务",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D02",
+        "D14",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V06",
+      "status": "not_run",
+      "name": "未加载区块、未打开容器",
+      "criterion": "不把未知内容当已知，不凭语言补全",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D02",
+        "D12",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V07",
+      "status": "not_run",
+      "name": "开启AUTO前置不足",
+      "criterion": "无租约/无新快照/阻塞GUI时拒绝",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D03",
+        "D08",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V08",
+      "status": "not_run",
+      "name": "采集中人工接管",
+      "criterion": "本地释放合成输入，模式与epoch正确",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D03",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": true
+    },
+    {
+      "id": "V09",
+      "status": "not_run",
+      "name": "攻击/进食/菜单中接管",
+      "criterion": "所有自动模块停止，不清除真实人工持键",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D03",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": true
+    },
+    {
+      "id": "V10",
+      "status": "not_run",
+      "name": "至少20次AUTO/人工往返",
+      "criterion": "零残留输入、零旧任务自动恢复",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D03",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": true
+    },
+    {
+      "id": "V11",
+      "status": "not_run",
+      "name": "迟到规划与旧epoch",
+      "criterion": "被拒绝，不重新移动或攻击",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D03",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V12",
+      "status": "not_run",
+      "name": "A/B断线及续租延迟",
+      "criterion": "本地租约到期退出；重连保持PAUSED",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D03",
+        "D14",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V13",
+      "status": "not_run",
+      "name": "停控按钮、热键与panic",
+      "criterion": "网络异常仍可本地停控；部分确认不显示全成功",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D03",
+        "D08",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V14",
+      "status": "not_run",
+      "name": "导航已知坐标/不可达",
+      "criterion": "到达才成功；不可达有明确失败证据",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D04",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V15",
+      "status": "not_run",
+      "name": "采集4原木及重复提交",
+      "criterion": "按起始增量核验；同key不执行第二遍",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D04",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V16",
+      "status": "not_run",
+      "name": "合成足料/缺料/库存满",
+      "criterion": "真实配方与产物数；失败不说完成",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D04",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V17",
+      "status": "not_run",
+      "name": "使用支持/不支持物品",
+      "criterion": "专用后置条件核验；未开放物品拒绝",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D04",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V18",
+      "status": "not_run",
+      "name": "返回登记基地",
+      "criterion": "世界/维度正确；未登记或不可达明确失败",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D04",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V19",
+      "status": "not_run",
+      "name": "取消与执行器崩溃",
+      "criterion": "停后续输入，部分效果记录；重启不重放",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D03",
+        "D04",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V20",
+      "status": "not_run",
+      "name": "游戏任务与观众提问并发",
+      "criterion": "本地动作不等口播；问答使用最新事实",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D05",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V21",
+      "status": "not_run",
+      "name": "弹幕洪峰、重复礼物与重连",
+      "criterion": "有界队列、合并/丢弃可解释，不重复感谢",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D06",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V22",
+      "status": "not_run",
+      "name": "生成中事实改变/旧问题过期",
+      "criterion": "改写或丢弃，已入媒体走取消屏障",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D05",
+        "D11",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V23",
+      "status": "not_run",
+      "name": "模型工具格式错误/超时",
+      "criterion": "拒绝无效动作，有限重试，无旧计划执行",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D05",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V24",
+      "status": "not_run",
+      "name": "导播私聊与记忆",
+      "criterion": "不自动播音、不污染观众长期记忆",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D05",
+        "D08",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V25",
+      "status": "not_run",
+      "name": "缺失头像/角色/金额/删除字段",
+      "criterion": "不造身份或金额，明示能力缺口",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D06",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V26",
+      "status": "not_run",
+      "name": "官方1920×1080游戏＋透明素材",
+      "criterion": "实际录像全画布，游戏可见，无黑底遮挡",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D09",
+        "D13",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V27",
+      "status": "not_run",
+      "name": "圆形/横窗、720P与手机",
+      "criterion": "面部/口型可辨、动态不出界、不拉伸",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D09",
+        "D10",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V28",
+      "status": "not_run",
+      "name": "准星/HUD/Boss/容器/死亡界面",
+      "criterion": "保护区与特殊界面检查有证据",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D09",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V29",
+      "status": "not_run",
+      "name": "后台左右切换、刷新/重连",
+      "criterion": "留言/礼物同步、队列/计时保留、人物不动、设置保存",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D08",
+        "D09",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V30",
+      "status": "not_run",
+      "name": "feed/fly互斥、休息与恢复场景",
+      "criterion": "不重复显示、方向正确，显示状态不冒充游戏停控",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D08",
+        "D09",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V31",
+      "status": "not_run",
+      "name": "两页面争抢正式播放源",
+      "criterion": "只有一位权威，无双重人声或回执",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D09",
+        "D11",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V32",
+      "status": "not_run",
+      "name": "人声/游戏/BGM/取消/静音",
+      "criterion": "实际录制音轨正确，无重复采集和旧字幕",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D11",
+        "D13",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V33",
+      "status": "not_run",
+      "name": "新媒体尺寸、关键帧与旧流回归",
+      "criterion": "解码配置一致，旧epoch帧不进入新流",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D09",
+        "D11",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V34",
+      "status": "not_run",
+      "name": "下播检查点再开播",
+      "criterion": "先核对真实状态，不恢复持续输入",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D07",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V35",
+      "status": "not_run",
+      "name": "A重启/B重启与中途副作用",
+      "criterion": "不确定结果标partial/unknown，不重复合成",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D07",
+        "D14",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V36",
+      "status": "not_run",
+      "name": "SQLite不可写/迁移失败/恢复备份",
+      "criterion": "拒绝新动作、停控、可一致恢复",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D07",
+        "D14",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V37",
+      "status": "not_run",
+      "name": "跨世界记忆、更正与删除",
+      "criterion": "事实分区明确；删除不被游戏摘要绕过",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D07",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V38",
+      "status": "not_run",
+      "name": "部署target/branch/source不匹配",
+      "criterion": "预检拒绝；不加载模型、不伪造来源",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D01",
+        "D14",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V39",
+      "status": "not_run",
+      "name": "执行档依赖/重复Baritone",
+      "criterion": "冲突被发现；只有一位输入仲裁者",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D01",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": true
+    },
+    {
+      "id": "V40",
+      "status": "not_run",
+      "name": "首轮60分钟联合负载",
+      "criterion": "达到本章候选性能门槛；资源与时序完整",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D14",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V41",
+      "status": "not_run",
+      "name": "恢复、回滚与浏览器资源清理",
+      "criterion": "无旧任务/重复口播；只关闭本任务资源",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D08",
+        "D14",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V42",
+      "status": "not_run",
+      "name": "真实弹幕/礼物/SC",
+      "criterion": "平台原始事件到显示/回复可追溯",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D06",
+        "D13",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V43",
+      "status": "not_run",
+      "name": "官方公开状态与观众端",
+      "criterion": "本地准备态不冒充开播；观众音画实录",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D13",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "V44",
+      "status": "not_run",
+      "name": "跨场运行与长期任务",
+      "criterion": "上次事实核对、世界目标续接、记忆维护单独验收",
+      "definition_source": "docs/technical/mc-live-v1/07-实施与验收.md",
+      "domains": [
+        "D07",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C01",
+      "status": "not_run",
+      "name": "普通近战PvE",
+      "criterion": "固定条件可执行防御/攻击/停手，保留掉血及失败证据",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D04",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C02",
+      "status": "not_run",
+      "name": "远程敌人与引爆危险",
+      "criterion": "已声明条件下能识别/应对或退出，未覆盖条件明确暴露",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D04",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C03",
+      "status": "not_run",
+      "name": "有/无食物补给",
+      "criterion": "补给与移动/战斗协调，缺少资源时不会持续空操作",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D04",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C04",
+      "status": "not_run",
+      "name": "水下/着火/危险路径",
+      "criterion": "本地危险处理与退出可核对，不等待口播",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D04",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C05",
+      "status": "not_run",
+      "name": "多步骤资源链",
+      "criterion": "材料依赖、合成、工具与库存条件真实，阶段失败不冒充整体成功",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D04",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C06",
+      "status": "not_run",
+      "name": "生存子任务中接管",
+      "criterion": "本地所有自动子任务释放输入，迟到目标不复活",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D03",
+        "D04",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": true
+    },
+    {
+      "id": "C07",
+      "status": "not_run",
+      "name": "视觉建筑描述",
+      "criterion": "原始帧关联正确，描述保留准确/错误案例",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D12",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C08",
+      "status": "not_run",
+      "name": "菜单与可辨文字",
+      "criterion": "核对原帧，不能将不可辨小字补成已知事实",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D12",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C09",
+      "status": "not_run",
+      "name": "视觉未知与来源冲突",
+      "criterion": "明确未知；更新的结构化信息优先",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D12",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C10",
+      "status": "not_run",
+      "name": "视觉超时与负载",
+      "criterion": "查询超时不拖住声音/控制，完整联合负载通过",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D12",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C11",
+      "status": "not_run",
+      "name": "旧帧/换世界",
+      "criterion": "旧观察不能作为当前世界口播或决策依据",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D12",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C12",
+      "status": "not_run",
+      "name": "建议采纳/拒绝/转任务",
+      "criterion": "revision、来源、状态及task_id对应正确",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D06",
+        "D08",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C13",
+      "status": "not_run",
+      "name": "投票完整生命周期",
+      "criterion": "创建、计票、截止、结果、关闭与取消可核对",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D06",
+        "D08",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C14",
+      "status": "not_run",
+      "name": "重复与缺失身份投票",
+      "criterion": "一人一票、重复不计、无稳定身份不造选票",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D06",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C15",
+      "status": "not_run",
+      "name": "平票/不可行胜出/人工模式",
+      "criterion": "明确决策与原因，不绕过AUTO与前置条件",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D06",
+        "D08",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": true
+    },
+    {
+      "id": "C16",
+      "status": "not_run",
+      "name": "圆形完整50段",
+      "criterion": "文件/帧数/索引/语义映射齐全，动态遮罩与口型合格",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D10",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C17",
+      "status": "not_run",
+      "name": "横窗完整50段",
+      "criterion": "横构图、手势、循环与实际显示尺寸通过",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D10",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C18",
+      "status": "not_run",
+      "name": "新媒体全链与旧流兼容",
+      "criterion": "尺寸/codec/关键帧/采样回执正确，换形状无重复音频",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D09",
+        "D10",
+        "D11",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C19",
+      "status": "not_run",
+      "name": "官方音画与互动同时运行",
+      "criterion": "真实游戏、人物、留言、字幕与三路声音在录像中一致",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D09",
+        "D11",
+        "D13",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C20",
+      "status": "not_run",
+      "name": "连续4小时完整负载",
+      "criterion": "包含原60分钟稳定段；无未处理断流/欠载/解码问题，资源有界",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D14",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C21",
+      "status": "not_run",
+      "name": "多模块同时异常",
+      "criterion": "模型/视觉/平台/播放器异常分别隔离，停控与实际状态可确认",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D14",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C22",
+      "status": "not_run",
+      "name": "跨场/次日核对",
+      "criterion": "世界、目标、人物与观众记忆连续，启动不重放旧动作",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D07",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C23",
+      "status": "not_run",
+      "name": "发布/数据库/素材回滚",
+      "criterion": "一致备份、迁移与旧版本恢复可复现",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D01",
+        "D07",
+        "D14",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    },
+    {
+      "id": "C24",
+      "status": "not_run",
+      "name": "干净原生环境复现",
+      "criterion": "按运行锁与手册重建，在正确设备不借用未登记环境",
+      "definition_source": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "domains": [
+        "D01",
+        "D14",
+        "D15"
+      ],
+      "partial_real_evidence_does_not_close_case": true,
+      "legacy_manual_or_adapter_wording_requires_mapping": false
+    }
+  ],
+  "runtime_combinations": [
+    {
+      "control_mode": "AUTO",
+      "avatar_mode": "circle",
+      "chat_mode": "feed",
+      "chat_side": "left"
+    },
+    {
+      "control_mode": "AUTO",
+      "avatar_mode": "circle",
+      "chat_mode": "feed",
+      "chat_side": "right"
+    },
+    {
+      "control_mode": "AUTO",
+      "avatar_mode": "circle",
+      "chat_mode": "fly",
+      "chat_side": "left"
+    },
+    {
+      "control_mode": "AUTO",
+      "avatar_mode": "circle",
+      "chat_mode": "fly",
+      "chat_side": "right"
+    },
+    {
+      "control_mode": "AUTO",
+      "avatar_mode": "landscape",
+      "chat_mode": "feed",
+      "chat_side": "left"
+    },
+    {
+      "control_mode": "AUTO",
+      "avatar_mode": "landscape",
+      "chat_mode": "feed",
+      "chat_side": "right"
+    },
+    {
+      "control_mode": "AUTO",
+      "avatar_mode": "landscape",
+      "chat_mode": "fly",
+      "chat_side": "left"
+    },
+    {
+      "control_mode": "AUTO",
+      "avatar_mode": "landscape",
+      "chat_mode": "fly",
+      "chat_side": "right"
+    },
+    {
+      "control_mode": "MANUAL_COMMENTARY",
+      "avatar_mode": "circle",
+      "chat_mode": "feed",
+      "chat_side": "left"
+    },
+    {
+      "control_mode": "MANUAL_COMMENTARY",
+      "avatar_mode": "circle",
+      "chat_mode": "feed",
+      "chat_side": "right"
+    },
+    {
+      "control_mode": "MANUAL_COMMENTARY",
+      "avatar_mode": "circle",
+      "chat_mode": "fly",
+      "chat_side": "left"
+    },
+    {
+      "control_mode": "MANUAL_COMMENTARY",
+      "avatar_mode": "circle",
+      "chat_mode": "fly",
+      "chat_side": "right"
+    },
+    {
+      "control_mode": "MANUAL_COMMENTARY",
+      "avatar_mode": "landscape",
+      "chat_mode": "feed",
+      "chat_side": "left"
+    },
+    {
+      "control_mode": "MANUAL_COMMENTARY",
+      "avatar_mode": "landscape",
+      "chat_mode": "feed",
+      "chat_side": "right"
+    },
+    {
+      "control_mode": "MANUAL_COMMENTARY",
+      "avatar_mode": "landscape",
+      "chat_mode": "fly",
+      "chat_side": "left"
+    },
+    {
+      "control_mode": "MANUAL_COMMENTARY",
+      "avatar_mode": "landscape",
+      "chat_mode": "fly",
+      "chat_side": "right"
+    },
+    {
+      "control_mode": "PAUSED",
+      "avatar_mode": "circle",
+      "chat_mode": "feed",
+      "chat_side": "left"
+    },
+    {
+      "control_mode": "PAUSED",
+      "avatar_mode": "circle",
+      "chat_mode": "feed",
+      "chat_side": "right"
+    },
+    {
+      "control_mode": "PAUSED",
+      "avatar_mode": "circle",
+      "chat_mode": "fly",
+      "chat_side": "left"
+    },
+    {
+      "control_mode": "PAUSED",
+      "avatar_mode": "circle",
+      "chat_mode": "fly",
+      "chat_side": "right"
+    },
+    {
+      "control_mode": "PAUSED",
+      "avatar_mode": "landscape",
+      "chat_mode": "feed",
+      "chat_side": "left"
+    },
+    {
+      "control_mode": "PAUSED",
+      "avatar_mode": "landscape",
+      "chat_mode": "feed",
+      "chat_side": "right"
+    },
+    {
+      "control_mode": "PAUSED",
+      "avatar_mode": "landscape",
+      "chat_mode": "fly",
+      "chat_side": "left"
+    },
+    {
+      "control_mode": "PAUSED",
+      "avatar_mode": "landscape",
+      "chat_mode": "fly",
+      "chat_side": "right"
+    }
+  ],
+  "joint_scenarios": [
+    {
+      "id": "H01",
+      "name": "游戏/正式/后台/预览同时进入与播放权竞争",
+      "required": true,
+      "operation_flows": [
+        "F01",
+        "F09",
+        "F10"
+      ],
+      "domains": [
+        "D01",
+        "D08",
+        "D09",
+        "D10",
+        "D11",
+        "D12",
+        "D13",
+        "D14"
+      ],
+      "acceptance": [
+        "V26",
+        "V31",
+        "V32",
+        "V42",
+        "V43",
+        "C19"
+      ],
+      "status": "not_run_real_integrated_system",
+      "evidence_class": "REAL_INTEGRATED_CANDIDATE_REQUIRED"
+    },
+    {
+      "id": "H02",
+      "name": "AUTO任务与问答/礼物/SC公平调度",
+      "required": true,
+      "operation_flows": [
+        "F03",
+        "F04"
+      ],
+      "domains": [
+        "D03",
+        "D04",
+        "D05",
+        "D06",
+        "D11"
+      ],
+      "acceptance": [
+        "V20",
+        "V21",
+        "V22",
+        "V23",
+        "V24",
+        "V25",
+        "C12",
+        "C15"
+      ],
+      "status": "not_run_real_integrated_system",
+      "evidence_class": "REAL_INTEGRATED_CANDIDATE_REQUIRED"
+    },
+    {
+      "id": "H03",
+      "name": "任务执行与自然语言建议/消歧/投票",
+      "required": true,
+      "operation_flows": [
+        "F03",
+        "F05",
+        "F06"
+      ],
+      "domains": [
+        "D03",
+        "D04",
+        "D05",
+        "D06",
+        "D07",
+        "D08"
+      ],
+      "acceptance": [
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "C12",
+        "C13",
+        "C14",
+        "C15"
+      ],
+      "status": "not_run_real_integrated_system",
+      "evidence_class": "REAL_INTEGRATED_CANDIDATE_REQUIRED"
+    },
+    {
+      "id": "H04",
+      "name": "普通生存遇敌/缺食与模型/TTS等待",
+      "required": true,
+      "operation_flows": [
+        "F03",
+        "F04",
+        "F08"
+      ],
+      "domains": [
+        "D03",
+        "D04",
+        "D05",
+        "D06",
+        "D11"
+      ],
+      "acceptance": [
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "status": "not_run_real_integrated_system",
+      "evidence_class": "REAL_INTEGRATED_CANDIDATE_REQUIRED"
+    },
+    {
+      "id": "H05",
+      "name": "物理接管与模式变化/重复旧命令",
+      "required": true,
+      "operation_flows": [
+        "F03",
+        "F08",
+        "F10"
+      ],
+      "domains": [
+        "D03",
+        "D04",
+        "D05",
+        "D08",
+        "D09",
+        "D10",
+        "D11"
+      ],
+      "acceptance": [
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V19",
+        "C06"
+      ],
+      "status": "not_run_real_integrated_system",
+      "evidence_class": "REAL_INTEGRATED_CANDIDATE_REQUIRED"
+    },
+    {
+      "id": "H06",
+      "name": "生成期间事实变化/换世界/模型迟到",
+      "required": true,
+      "operation_flows": [
+        "F04",
+        "F11"
+      ],
+      "domains": [
+        "D03",
+        "D05",
+        "D06",
+        "D07",
+        "D11",
+        "D14"
+      ],
+      "acceptance": [
+        "V05",
+        "V20",
+        "V23",
+        "V24",
+        "C15"
+      ],
+      "status": "not_run_real_integrated_system",
+      "evidence_class": "REAL_INTEGRATED_CANDIDATE_REQUIRED"
+    },
+    {
+      "id": "H07",
+      "name": "等待/生成/媒体排队/播放阶段删除来源",
+      "required": true,
+      "operation_flows": [
+        "F04",
+        "F05",
+        "F10",
+        "F12"
+      ],
+      "domains": [
+        "D04",
+        "D05",
+        "D06",
+        "D07",
+        "D08",
+        "D09",
+        "D10",
+        "D11",
+        "D13",
+        "D14",
+        "D15"
+      ],
+      "acceptance": [
+        "V21",
+        "V22",
+        "V25",
+        "V37",
+        "C15"
+      ],
+      "status": "not_run_real_integrated_system",
+      "evidence_class": "REAL_INTEGRATED_CANDIDATE_REQUIRED"
+    },
+    {
+      "id": "H08",
+      "name": "平台洪峰/重连与显示形态/位置切换",
+      "required": true,
+      "operation_flows": [
+        "F04",
+        "F06",
+        "F09",
+        "F10"
+      ],
+      "domains": [
+        "D04",
+        "D05",
+        "D06",
+        "D07",
+        "D08",
+        "D09",
+        "D10",
+        "D11",
+        "D12",
+        "D13"
+      ],
+      "acceptance": [
+        "V21",
+        "V25",
+        "V28",
+        "V29",
+        "V30",
+        "V42",
+        "C14"
+      ],
+      "status": "not_run_real_integrated_system",
+      "evidence_class": "REAL_INTEGRATED_CANDIDATE_REQUIRED"
+    },
+    {
+      "id": "H09",
+      "name": "桥或服务重启/重复终态/存档与玩家切换",
+      "required": true,
+      "operation_flows": [
+        "F02",
+        "F03",
+        "F11",
+        "F12"
+      ],
+      "domains": [
+        "D02",
+        "D03",
+        "D04",
+        "D05",
+        "D07",
+        "D13",
+        "D14",
+        "D15"
+      ],
+      "acceptance": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V12",
+        "V19",
+        "V34",
+        "V35",
+        "V36",
+        "V44"
+      ],
+      "status": "not_run_real_integrated_system",
+      "evidence_class": "REAL_INTEGRATED_CANDIDATE_REQUIRED"
+    },
+    {
+      "id": "H10",
+      "name": "视觉新帧/换世界/超时与人物口播",
+      "required": true,
+      "operation_flows": [
+        "F04",
+        "F07",
+        "F09"
+      ],
+      "domains": [
+        "D02",
+        "D05",
+        "D06",
+        "D09",
+        "D10",
+        "D11",
+        "D12",
+        "D13"
+      ],
+      "acceptance": [
+        "V06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11",
+        "C18"
+      ],
+      "status": "not_run_real_integrated_system",
+      "evidence_class": "REAL_INTEGRATED_CANDIDATE_REQUIRED"
+    },
+    {
+      "id": "H11",
+      "name": "全功能负载与网络/线程/模型/媒体/存储故障",
+      "required": true,
+      "operation_flows": [
+        "F01",
+        "F09",
+        "F11"
+      ],
+      "domains": [
+        "D01",
+        "D03",
+        "D07",
+        "D09",
+        "D10",
+        "D11",
+        "D12",
+        "D13",
+        "D14"
+      ],
+      "acceptance": [
+        "V12",
+        "V22",
+        "V31",
+        "V32",
+        "V33",
+        "V34",
+        "V35",
+        "V36",
+        "V40",
+        "V41",
+        "C20",
+        "C21",
+        "C23"
+      ],
+      "status": "not_run_real_integrated_system",
+      "evidence_class": "REAL_INTEGRATED_CANDIDATE_REQUIRED"
+    },
+    {
+      "id": "H12",
+      "name": "下播/次日/一致备份恢复与删除核对",
+      "required": true,
+      "operation_flows": [
+        "F11",
+        "F12"
+      ],
+      "domains": [
+        "D03",
+        "D07",
+        "D13",
+        "D14",
+        "D15"
+      ],
+      "acceptance": [
+        "V34",
+        "V35",
+        "V36",
+        "V37",
+        "V38",
+        "V39",
+        "V44",
+        "C22",
+        "C23",
+        "C24"
+      ],
+      "status": "not_run_real_integrated_system",
+      "evidence_class": "REAL_INTEGRATED_CANDIDATE_REQUIRED"
+    }
+  ],
+  "completion_gates": [
+    {
+      "id": "Z01",
+      "name": "源码/依赖/许可/构建物/设备运行锁和来源一致",
+      "required": true,
+      "status": "not_accepted",
+      "requires_same_candidate_evidence": true
+    },
+    {
+      "id": "Z02",
+      "name": "15域完整产物和100段新人物可核验",
+      "required": true,
+      "status": "not_accepted",
+      "requires_same_candidate_evidence": true
+    },
+    {
+      "id": "Z03",
+      "name": "68项适用真实验收全部通过",
+      "required": true,
+      "status": "not_accepted",
+      "requires_same_candidate_evidence": true
+    },
+    {
+      "id": "Z04",
+      "name": "24种运行组合和12类联合场景覆盖完整",
+      "required": true,
+      "status": "not_accepted",
+      "requires_same_candidate_evidence": true
+    },
+    {
+      "id": "Z05",
+      "name": "4小时/20次接管/次日/干净原生复现达标",
+      "required": true,
+      "status": "not_accepted",
+      "requires_same_candidate_evidence": true
+    },
+    {
+      "id": "Z06",
+      "name": "控制/音画/官方/公开状态/观众一致且关键故障关闭",
+      "required": true,
+      "status": "not_accepted",
+      "requires_same_candidate_evidence": true
+    },
+    {
+      "id": "Z07",
+      "name": "一致备份/迁移/回滚和删除不复活通过",
+      "required": true,
+      "status": "not_accepted",
+      "requires_same_candidate_evidence": true
+    },
+    {
+      "id": "Z08",
+      "name": "完整发布清单与可实际使用的手册和入口",
+      "required": true,
+      "status": "not_accepted",
+      "requires_same_candidate_evidence": true
+    }
+  ],
+  "new_avatar_clips": {
+    "required": 100,
+    "generated": 0,
+    "accepted": 0
+  },
+  "continuous_hours_required": 4,
+  "first_stable_minutes_required": 60,
+  "legacy_takeover_cycles": 20,
+  "manual_takeover_cannot_substitute_for_autonomous_completion": true,
+  "legacy_matrix_reconciliation_pending": true,
+  "release_manifest_required_fields": [
+    "release_id",
+    "source_commit",
+    "source_branch",
+    "artifact_hashes",
+    "game_runtime_lock",
+    "host_runtime_lock",
+    "device_profile",
+    "deployment_origin",
+    "model_lock",
+    "avatar_manifest",
+    "media_profile",
+    "database_schema",
+    "migrations",
+    "native_entrypoints",
+    "acceptance_68",
+    "four_hour_evidence",
+    "next_day_evidence",
+    "rollback_evidence"
+  ]
+}

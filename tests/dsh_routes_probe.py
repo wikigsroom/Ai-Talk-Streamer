@@ -181,7 +181,19 @@ async def check_platform_callback_proxy():
         await server.close()
 
 
+async def check_maintenance_redirect():
+    forwarded = web.Application()
+    module.configure(forwarded)
+    port = json.loads((root / 'configs/mc-maintenance-console.json').read_text(encoding='utf-8'))['port']
+    async with TestClient(TestServer(forwarded)) as client:
+        response = await client.get('/mc-maintenance', headers={'Host': 'localhost:8010'}, allow_redirects=False)
+        assert response.status == 307
+        assert response.headers['Location'] == f'http://localhost:{port}/mc-maintenance'
+        assert response.headers['Cache-Control'] == 'no-store'
+
+
 async def main():
+    await check_maintenance_redirect()
     await check_legacy_guard()
     await check_streaming_proxy()
     await check_media_fences()

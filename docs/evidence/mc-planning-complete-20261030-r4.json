@@ -1,0 +1,391 @@
+{
+  "schema_version": 1,
+  "revision": "2026-10-30-r4",
+  "classification": "PLANNING_ONLY",
+  "status": "PASS_PLANNING_CHECKS_ONLY",
+  "recorded_at": "2026-10-30T13:07:33.834658+00:00",
+  "branch": "mc",
+  "plan_revision": "1.2",
+  "item_ids": [
+    "P17",
+    "P18",
+    "P19",
+    "P20",
+    "P21",
+    "P22"
+  ],
+  "overview": "docs/technical/mc-live-v1/11-完整总规划与交付约束.md",
+  "source": "docs/technical/mc-live-v1/10-全量执行与资源计划.md",
+  "prior_record": "docs/evidence/mc-planning-complete-20261030-r3.json",
+  "implementation_round_unchanged": "026",
+  "latest_implementation_evidence": "docs/evidence/mc-runtime-round-026.json",
+  "functional_code_changed": false,
+  "runtime_acceptance_cases_run": 0,
+  "real_acceptance_passed": 0,
+  "real_acceptance_not_run": 68,
+  "new_avatar_clips": "0/100",
+  "existing_round027_draft": {
+    "classification": "EXISTING_UNREGISTERED_DRAFT_NOT_COMPLETED_BY_THIS_PLANNING_UPDATE",
+    "candidate_round": "027",
+    "validation_executed_by_this_planning_update": false,
+    "runtime_acceptance_advanced": false,
+    "functional_sources_and_prior_evidence_preserved": true,
+    "source_hashes": {
+      "backend/platforms/ownership.mjs": "8cc041c4c955011544ee37cb99f2d1e45a7ff4322fd48eb3e06a0f35b947ea46",
+      "backend/platforms/retention.mjs": "4b50d389a8a995d8c714b522995bbf21007ffa8b6df4048508e43cb8ba6c696f",
+      "backend/platforms/privacy.mjs": "e17a337a3697325ea5384bc0d55d73bc9ba8ed25177932cdace7f08d10bc0ca1",
+      "backend/platforms/manager.mjs": "f30cca3d30d67b090ad8aeb1b97c914ef060ea975ec8feabecb95ab11815cc77",
+      "backend/platforms/store.mjs": "7739abc3c834e0c734905a666578d05edd5838424e1202e834680fccab9a4b42",
+      "backend/room/manager.mjs": "8ab65678b9c4c1f7bf6c0a5ac6db29e61b867ced48143b72c287ce60b8edbd6e",
+      "backend/room/store.mjs": "00b7df2af8d9c0845f2725697759844dd388f88fdb3ceda8def17ce993b7e831"
+    },
+    "remaining": "Ownership/retention draft remains unverified and unregistered; complete implementation, fault handling and regression are still required."
+  },
+  "single_complete_delivery": true,
+  "outcome": "Full planning and no runtime completion assertion.",
+  "document_verification": {
+    "classification": "DOCUMENT_AND_CONTRACT_VALIDATION_ONLY",
+    "result": "PASS",
+    "recorded_at": "2026-10-30T13:07:40.589046+00:00",
+    "branch": "mc",
+    "jsonschema_version": "4.26.0",
+    "schema_definitions": 102,
+    "valid_examples": 97,
+    "negative_contract_cases": 104,
+    "negative_case_names": [
+      "auto_requires_epoch",
+      "gather_positive_count",
+      "unknown_goal_field_rejected",
+      "success_requires_evidence",
+      "success_requires_verified_effect",
+      "room_side_enum",
+      "automation_requires_auto_and_lease",
+      "fresh_requires_connected",
+      "vision_single_concurrency",
+      "query_kind_payload_match",
+      "ws_known_message_types_only",
+      "wire_control_operation_correlation",
+      "lease_requires_b_heartbeat_reference",
+      "vote_requires_two_options",
+      "vote_duration_bounded",
+      "converted_suggestion_requires_task",
+      "unconverted_suggestion_has_no_task",
+      "active_vote_has_no_winner",
+      "cancel_vote_has_no_selection",
+      "ledger_query_one_task_bound",
+      "base_position_must_come_from_observation",
+      "checkpoint_requires_released_inputs",
+      "ledger_found_requires_task",
+      "disposition_acknowledges_unknown",
+      "disposition_requires_released_inputs",
+      "world_goal_bounded_steps",
+      "completed_step_requires_proof",
+      "observation_proof_has_no_task",
+      "frame_dimensions_bounded",
+      "vision_requires_unknowns",
+      "vision_source_is_explicit",
+      "vision_age_nonnegative",
+      "vision_lock_hash_is_sha256",
+      "vision_purpose_is_allowlisted",
+      "audience_dispatch_requires_revision",
+      "audience_origin_requires_vote_reference",
+      "audience_source_count_has_origin",
+      "audience_feedback_cannot_claim_spoken",
+      "audience_success_requires_evidence",
+      "audience_summary_is_bounded",
+      "recipe_is_not_inventory_verification",
+      "recipe_unknowns_required",
+      "recipe_choices_are_bounded",
+      "recipe_alternatives_are_unique",
+      "base_selection_requires_world_revision",
+      "base_selection_does_not_take_coordinates",
+      "public_task_cannot_supply_base_coordinates",
+      "public_query_cannot_supply_base_coordinates",
+      "return_base_task_requires_bound_target",
+      "return_base_wire_requires_bound_target",
+      "return_base_query_wire_requires_bound_target",
+      "base_reference_has_no_coordinates",
+      "non_base_task_has_no_base_reference",
+      "non_base_task_has_no_base_target",
+      "base_target_source_is_operator_observed",
+      "narration_answer_requires_completion_proof",
+      "narration_queue_requires_request",
+      "narration_kind_matches_group",
+      "narration_retry_is_bounded",
+      "narration_cancel_has_no_prompt",
+      "narration_active_queue_is_bounded",
+      "feedback_answer_requires_completion_proof",
+      "feedback_speech_state_is_explicit",
+      "narration_merge_sources_bounded",
+      "narration_merge_sources_unique",
+      "narration_topic_key_has_no_raw_text",
+      "narration_wait_nonnegative",
+      "narration_cooldown_bounded",
+      "narration_scheduler_page_required",
+      "scheduler_merge_window_bounded",
+      "scheduler_aging_step_positive",
+      "scheduler_topic_interval_minimum",
+      "scheduler_critical_age_bounded",
+      "scheduler_interrupt_cooldown_minimum",
+      "scheduler_has_no_prompt",
+      "scheduler_interrupt_is_not_completion",
+      "scheduler_next_has_no_text",
+      "unknown_gift_cannot_claim_count_one",
+      "gift_count_not_boolean",
+      "gift_known_count_not_null",
+      "sc_fen_is_integral",
+      "sc_currency_is_explicit",
+      "unverified_source_has_no_paid_role_claims",
+      "guard_level_is_platform_enum",
+      "emoji_image_is_https_bilibili_host",
+      "public_message_has_no_raw_user_id",
+      "deleted_message_cannot_be_visible",
+      "platform_delete_targets_not_empty",
+      "platform_delete_targets_bounded",
+      "platform_delete_ids_preserve_strings",
+      "platform_delete_source_is_selected_collector",
+      "platform_delete_has_no_shell",
+      "support_count_is_not_negative",
+      "support_count_is_not_boolean",
+      "support_ledger_is_bounded",
+      "unavailable_support_must_be_unknown",
+      "available_support_requires_counts",
+      "support_coverage_is_explicit",
+      "support_has_no_platform_uid",
+      "support_requires_evaluation_time",
+      "support_is_for_audience_origin",
+      "support_requires_historical_count",
+      "support_global_budget_is_bounded",
+      "support_budget_is_server_owned"
+    ],
+    "ws_types_with_examples": 17,
+    "http_operations": 45,
+    "implementation_labels": {
+      "implemented_protocol_tests_only": 44,
+      "implemented_local_validation_only": 1
+    },
+    "local_json_refs": 530,
+    "markdown_files_checked": 46,
+    "local_markdown_links": 602,
+    "acceptance_cases_defined": 68,
+    "runtime_acceptance_cases_run_by_this_check": 0,
+    "operation_flows_mapped": 12,
+    "runtime_binding_items_defined": 8,
+    "single_release_execution_constraints_defined": 8,
+    "plan_revision": "1.2",
+    "blueprint_domains_mapped": 15,
+    "blueprint_document_sections": 16,
+    "blueprint_source_anchors_checked": 51,
+    "blueprint_non_audit_acceptance_coverage": 68,
+    "config_cross_field_example_checks": 2,
+    "mandatory_delivery_domains": 15,
+    "canonical_layout_unchanged": true,
+    "canonical_layout_sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+    "openapi_check_scope": "structure, operation identifiers, path parameters, labels, local JSON pointers",
+    "full_openapi_spec_validator_run": false,
+    "application_services_started_by_this_check": false
+  },
+  "consistency": {
+    "result": "PASS_PLANNING_CONSISTENCY_AND_PROTECTION",
+    "recorded_at": "2026-10-30T13:09:37.707756+00:00",
+    "branch": "mc",
+    "required_domains": 15,
+    "complete_work_packages": 14,
+    "runtime_inputs": 8,
+    "overview_sections": 13,
+    "runtime_combinations": 24,
+    "joint_scenarios": 12,
+    "completion_gates": 8,
+    "protected_files_verified": 956,
+    "protected_file_differences": [],
+    "implementation_round_unchanged": "026",
+    "real_acceptance_passed": 0,
+    "real_acceptance_not_run": 68,
+    "new_avatar_clips_generated": 0,
+    "new_avatar_clips_required": 100,
+    "domain_remaining_text_preserved_exactly": true,
+    "functional_code_changed": false,
+    "round027_draft_unchanged_and_not_validated": true,
+    "planning_history_preserved": true,
+    "canonical_layout_sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+    "git_diff_check": "PASS"
+  },
+  "source_snapshots": [
+    {
+      "path": "docs/README.md",
+      "snapshot": "outputs/mc-planning/20261030-complete-r4/source/docs/README.md",
+      "sha256": "7ed8e251aea5a0ea186cbe52c65343c9dbe758d86cc64c3de840a4feddd55abd"
+    },
+    {
+      "path": "docs/MC直播总方案.md",
+      "snapshot": "outputs/mc-planning/20261030-complete-r4/source/docs/MC直播总方案.md",
+      "sha256": "4b992420ff3cea2e52cd1fa06107787887b7f42fa535fe2d2d7af361137ee6fc"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/README.md",
+      "snapshot": "outputs/mc-planning/20261030-complete-r4/source/docs/technical/mc-live-v1/README.md",
+      "sha256": "223cebd1a90c56b9d2a95408bc82039670317aac8e9f8e5d78e84380dd0f96a9"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "snapshot": "outputs/mc-planning/20261030-complete-r4/source/docs/technical/mc-live-v1/08-完整交付规划.md",
+      "sha256": "ead16002e4ef8c24886040a2bced3919695f3e3a7ac56b59e1d5592c6ae1a133"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/10-全量执行与资源计划.md",
+      "snapshot": "outputs/mc-planning/20261030-complete-r4/source/docs/technical/mc-live-v1/10-全量执行与资源计划.md",
+      "sha256": "67b2d49288b597aafebff8c09bb2f183c99dde481dbd51494425dc0d426deb25"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/全量交付执行总表.md",
+      "snapshot": "outputs/mc-planning/20261030-complete-r4/source/docs/technical/mc-live-v1/全量交付执行总表.md",
+      "sha256": "5ddd595768b8a547bd6500038cbda0f606eb27f67bffec6e2eaad44ba9b39a90"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/完整交付清单.json",
+      "snapshot": "outputs/mc-planning/20261030-complete-r4/source/docs/technical/mc-live-v1/完整交付清单.json",
+      "sha256": "ff156d2968fd5df4922e6633aba99cc484054c5c51a92729dea22920c8bf88f5"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/implementation-status.json",
+      "snapshot": "outputs/mc-planning/20261030-complete-r4/source/docs/technical/mc-live-v1/implementation-status.json",
+      "sha256": "9584c8ece9066facd9243449e890c929649cc33b4d7cdba2bc80f71ac2e99cae"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/实现进度.md",
+      "snapshot": "outputs/mc-planning/20261030-complete-r4/source/docs/technical/mc-live-v1/实现进度.md",
+      "sha256": "2f473ac6ae5de22518496184fdeb9dd1cc39d3bbbcd3ead32546a48afb78f4a0"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/contracts/verification.json",
+      "snapshot": "outputs/mc-planning/20261030-complete-r4/source/docs/technical/mc-live-v1/contracts/verification.json",
+      "sha256": "e3cb66171f45ea2ca2b8011b5c00a529c39159f32b4a86233ae9671e6c0bd6cc"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/11-完整总规划与交付约束.md",
+      "snapshot": "outputs/mc-planning/20261030-complete-r4/source/docs/technical/mc-live-v1/11-完整总规划与交付约束.md",
+      "sha256": "d14d4592b078bd53fff5cb8aabc57286908a6f8bad6193a002dbd01f6ab6fe73"
+    }
+  ],
+  "protected_files_verified": 956,
+  "protected_file_differences": [],
+  "actions_performed": {
+    "documentation_and_contract_checks": true,
+    "game_started": false,
+    "inference_started": false,
+    "official_client_started": false,
+    "public_broadcast_started": false,
+    "remote_device_controlled": false,
+    "models_downloaded": false,
+    "virtualization_used": false,
+    "subagents_spawned": 0,
+    "desktop_browser_contexts_created": 0
+  },
+  "preflight_replacement_failure": {
+    "original": "preflight-attempt1.log",
+    "cause": "Expected README paragraph omitted its actual final sentence; preflight stopped before mutation.",
+    "resolution": "Matched the existing complete paragraph; second preflight and update passed."
+  },
+  "artifacts": [
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/baseline.json",
+      "sha256": "085dcb9c1ec2080f2d3336277c3e6fb878eb8c34cca2892cbd9feb22e92745ee"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/before/docs/MC直播总方案.md",
+      "sha256": "81c157df6651f6e3c1f8fd87725a08cea18b9ae6b23b21e7955b8b830cb21995"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/before/docs/README.md",
+      "sha256": "129f2b64c6c322139e174c344a0abd7de57d2ae65df3710f5cff1c1dceec8f98"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/before/docs/technical/mc-live-v1/08-完整交付规划.md",
+      "sha256": "d5abc639ce7b7c9cf5d61cf089718c3a5925076afc81e0a053a138cc33c327a1"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/before/docs/technical/mc-live-v1/10-全量执行与资源计划.md",
+      "sha256": "f115276d69e477b74b5621aa9f0614b3eb5bc5dba074ed83be3d173142e22c47"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/before/docs/technical/mc-live-v1/contracts/verification.json",
+      "sha256": "bd7d3fe358676ab357ccfce72282487de9ffb73e46a6a2e97e4070b1f71c3173"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/before/docs/technical/mc-live-v1/implementation-status.json",
+      "sha256": "3fa0d6c1ed08a868bb62730b7179768044b61e621e5c821d47f6207fb3a47384"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/before/docs/technical/mc-live-v1/README.md",
+      "sha256": "2cf181511d0a6bcf2f181f4022bcd50627bad241894b0dddd06ae483112aeb4a"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/before/docs/technical/mc-live-v1/全量交付执行总表.md",
+      "sha256": "061c493289bc6d4ebd11d00f5f42b66dbd85218fd160ccaf3dedc3180974e7e7"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/before/docs/technical/mc-live-v1/完整交付清单.json",
+      "sha256": "42178e5352eed178081f131cdc8a8790bb257098b04f7ffff712b6853c008b5d"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/before/docs/technical/mc-live-v1/实现进度.md",
+      "sha256": "1740c49f348c8b2e4bd3ebea32474d49ab83bfa565dad937d3b133b27bd3b365"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/contracts-verification.json",
+      "sha256": "e3cb66171f45ea2ca2b8011b5c00a529c39159f32b4a86233ae9671e6c0bd6cc"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/document-before.json",
+      "sha256": "f04179bdfba4a151d487bc556b372b2a43ded92b1bebbc7e6338d81890b14580"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/document-check-attempt1.log",
+      "sha256": "b259abac6a99044419826e3971f5ea8662f3950977a7fc90370f86e3c05922d4"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/git-diff-check.log",
+      "sha256": "9075b13a8bd398f50c4493c1f7c9912f729aaa5c8356bae3b8c716fb2c16dc70"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/planning-consistency.json",
+      "sha256": "00c369871defc33d3e9cc75be129e719ece3bd3c881d45e9d0610f852bc00c99"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/preflight-attempt1.log",
+      "sha256": "91019a50ed007594404160b0cf7fc26ae9979f93c5225034727bff0ee1d0cefe"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/preflight-attempt2.log",
+      "sha256": "2e3d9e244572514d17e6e9ad47ce3afc7efcbfe9561aff4bc123a24d977e9f76"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/protected-after.json",
+      "sha256": "86432774c97064c4d0c1f6f140feb399a11c6febbcea2ca25327ad12c6d73428"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/protected-before.json",
+      "sha256": "6c71828b04c25b423fc9c6c544ed8c4789734dd39f8279ff27e88322d676f7c1"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/update.log",
+      "sha256": "74d6d8a715bc7d0d6247ae714309320cc6f97d2b14c92464bcc37b91f3613f7d"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/update_planning-attempt1.py",
+      "sha256": "81f3c8804762189f3a20a6adb14f207d3c861f82663ade46671abad11e8f73de"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/update_planning.py",
+      "sha256": "8f5c1d0169eb0041a4af6ca93e9e1a49e7cd97548f6c6bde12189c37d7fc3917"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/verify_planning.py",
+      "sha256": "9e55cbb720a7ed6556f357ebf630abed5945799ece008c2a7bfa4f6c24936842"
+    },
+    {
+      "path": "outputs/mc-planning/20261030-complete-r4/planning-check-attempt1.log",
+      "sha256": "78d5e2faf18834cc00aed86f3677c498c8ca5f7ea5ad2b7f72a93a001fecf9ed"
+    }
+  ]
+}

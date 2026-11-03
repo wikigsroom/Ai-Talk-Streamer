@@ -8,6 +8,8 @@ from aiohttp import ClientError,ClientSession,ClientTimeout,WSMsgType,web
 ROOT=Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG=ROOT/'configs/receiver.private.json'
 HOP_HEADERS={'connection','keep-alive','proxy-authenticate','proxy-authorization','te','trailer','transfer-encoding','upgrade','content-length'}
+FRAME_MAX_BYTES=4*1024*1024
+FRAME_PATH=re.compile(r'/api/dsh/game/frames/[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}\Z')
 
 def validate_config(value):
     config=dict(value)
@@ -49,7 +51,7 @@ class ReceiverGateway:
     def __init__(self,config):
         self.config=validate_config(config);self.client=None;self.started=time.time();self.active_sockets=set()
         self.metrics={'http_requests':0,'upstream_errors':0,'websocket_connections':0,'media_packets':0,'media_bytes':0,'last_media_at':None,'last_error':None,'last_http_ms':None,'player_metrics':None,'player_metrics_at':None,'media_codec':None,'player_fps':None}
-        self.previous_player=None
+        self.previous_player=None;self.frame_uploading=False
     async def startup(self,app):
         self.client=ClientSession(timeout=ClientTimeout(total=None,connect=5,sock_read=120),trust_env=False,auto_decompress=False)
     async def cleanup(self,app):
@@ -59,6 +61,8 @@ class ReceiverGateway:
         media=self.metrics['last_media_at']
         return web.json_response({'role':'receiver','authentication_required':False,'receiver_id':self.config['receiver_id'],'upstream':self.config['upstream'],
             'client_installed':bool(official_client(self.config)),'source_url':f'http://127.0.0.1:{self.config["port"]}/output.html?output=platform&renderer=livehime',
+            'mc_programme_url':f'http://127.0.0.1:{self.config["port"]}/mc/programme?renderer=livehime',
+            'mc_preview_url':f'http://127.0.0.1:{self.config["port"]}/mc/preview',
             'media_connected':bool(media and time.time()-media<8),'active_connections':len(self.active_sockets),'uptime_seconds':round(time.time()-self.started),**self.metrics},headers={'Cache-Control':'no-store'})
     async def check(self,request):
         started=time.perf_counter();result={}
@@ -111,6 +115,7 @@ class ReceiverGateway:
         # The upstream is a saved origin. Request paths never select another host.
         target=self.config['upstream']+request.rel_url.raw_path_qs
         if request.headers.get('Upgrade','').lower()=='websocket':return await self.websocket(request,target)
+        if FRAME_PATH.fullmatch(request.path):return await self.game_frame_proxy(request,target)
         self.metrics['http_requests']+=1;started=time.perf_counter()
         headers={key:value for key,value in request.headers.items() if key.lower() not in HOP_HEADERS|{'host','accept-encoding'}}
         upload=request.path=='/api/dsh/room/tracks/upload' and request.method=='POST'
@@ -151,6 +156,47 @@ class ReceiverGateway:
         except (ClientError,asyncio.TimeoutError,ConnectionError) as error:
             self.metrics['upstream_errors']+=1;self.metrics['last_error']=type(error).__name__
             return web.json_response({'error':'AVATAR_DEVICE_UNREACHABLE','message':'A设备暂不可达，正在等待恢复。'},status=502)
+    async def game_frame_proxy(self,request,target):
+        # Same 4MiB boundary as 8010/3092, independent of the 2MiB generic JSON limit.
+        upload=request.method=='POST'
+        if request.method not in ('GET','POST'):raise web.HTTPMethodNotAllowed(request.method,['GET','POST'])
+        if upload:
+            if request.headers.get('Content-Type')!='image/jpeg' or 'Content-Encoding' in request.headers:
+                return web.json_response({'error':'GAME_FRAME_CONTENT_TYPE'},status=415)
+            if request.content_length is not None and not 0<request.content_length<=FRAME_MAX_BYTES:
+                result=web.json_response({'error':'GAME_FRAME_TOO_LARGE'},status=413);result.force_close();return result
+            if self.frame_uploading:
+                result=web.json_response({'error':'GAME_FRAME_UPLOAD_BUSY'},status=429);result.force_close();return result
+            self.frame_uploading=True
+        failure=None
+        async def bounded_body():
+            nonlocal failure
+            size=0
+            async for chunk in request.content.iter_chunked(65536):
+                size+=len(chunk)
+                if size>FRAME_MAX_BYTES:
+                    failure='GAME_FRAME_TOO_LARGE';raise ValueError(failure)
+                yield chunk
+        headers={key:value for key,value in request.headers.items() if key.lower() not in HOP_HEADERS|{'host','accept-encoding'}}
+        if request.content_length is not None:headers['Content-Length']=str(request.content_length)
+        try:
+            async with asyncio.timeout(6):
+                async with self.client.request(request.method,target,data=bounded_body() if upload else None,headers=headers,allow_redirects=False) as upstream:
+                    chunks=[];size=0
+                    async for chunk in upstream.content.iter_chunked(65536):
+                        size+=len(chunk)
+                        if size>FRAME_MAX_BYTES:
+                            failure='GAME_FRAME_RESPONSE_TOO_LARGE';raise ValueError(failure)
+                        chunks.append(chunk)
+                    result=web.Response(body=b''.join(chunks),status=upstream.status,headers={
+                        'Content-Type':upstream.headers.get('Content-Type','application/json'),'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'})
+                    if upload:result.force_close()
+                    return result
+        except (ClientError,asyncio.TimeoutError,ConnectionError,ValueError):
+            result=web.json_response({'error':failure or 'GAME_FRAME_UPSTREAM_UNAVAILABLE'},status=413 if failure=='GAME_FRAME_TOO_LARGE' else 502)
+            result.force_close();return result
+        finally:
+            if upload:self.frame_uploading=False
     async def websocket(self,request,target):
         try:upstream=await asyncio.wait_for(self.client.ws_connect(target,heartbeat=15,compress=0,max_msg_size=8*1024*1024),10)
         except (ClientError,asyncio.TimeoutError):

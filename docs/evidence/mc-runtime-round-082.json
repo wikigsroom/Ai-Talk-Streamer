@@ -1,0 +1,412 @@
+{
+  "schema_version": 1,
+  "round": "082",
+  "branch": "mc",
+  "goal_status": "active",
+  "turn_classification": "progress",
+  "delivery_mode": "single_integrated_release",
+  "user_facing_release_count": 1,
+  "implementation_ids": [
+    "I671",
+    "I672",
+    "I673",
+    "I674",
+    "I675",
+    "I676",
+    "I677",
+    "I678"
+  ],
+  "implementation": [
+    {
+      "id": "I671",
+      "change": "建立独立NeoForge3080应用配置",
+      "verification": "固定MC1.21.1 / NeoForge21.1.248、NAIMEI离线身份及原batch4/O07/F07/DSH状态根；旧Fabric配置和无条件生存preLaunch拒绝保留"
+    },
+    {
+      "id": "I672",
+      "change": "核对实际游戏依赖与资源清单",
+      "verification": "3080核对5034份实际文件，含439供包锁定文件、原319模组、复制原生库、实际JRE和3911条资产索引、3888份不同资源文件；不导入账号或存档"
+    },
+    {
+      "id": "I673",
+      "change": "把当前控制器源码与实际JAR绑定",
+      "verification": "完整源码集合、构建脚本/schema及两份依赖须一致，检查JAR内控制类、资源和嵌入依赖；当前原生重新编译，Java类与081最终版本逐项一致"
+    },
+    {
+      "id": "I674",
+      "change": "约束正式游戏连接目的地",
+      "verification": "应用准备仅接受明确的3092回环DSH地址；18974被拒，资源检查与准备均不能授予AUTO或启动游戏"
+    },
+    {
+      "id": "I675",
+      "change": "补齐只读资源状态与独立准备诊断",
+      "verification": "增加neoforge-status和preflight的game_files；人物/模型配置缺失或旧服务占端口时总准备仍失败，不生成或复制准备证明"
+    },
+    {
+      "id": "I676",
+      "change": "在3080使用Python3.10验证相关安装链",
+      "verification": "核对142项不同工程用例、28项新增；最终包重跑37项安装检查，其余本轮105项逐文件/类核对沿用，不重复计数，本机测试0"
+    },
+    {
+      "id": "I677",
+      "change": "核对现有3080服务及原归属",
+      "verification": "原DSH/人物/语音健康及注册进程身份相同；接收器实际监听进程保留，但预期登记未找到、归属仍待核准；未重启/迁移或新增DSH"
+    },
+    {
+      "id": "I678",
+      "change": "同步文档和全系统交付约束",
+      "verification": "本轮验证资源/安装接线，没有新游戏任务或模型生成；正式0/68、新人物0/100，完整D01–D15待办保留"
+    }
+  ],
+  "recorded_at": "2026-11-01T05:22:45.545310+00:00",
+  "runtime_host": "DESKTOP-2QQPN1H",
+  "source_package": {
+    "ok": true,
+    "classification": "PROJECT_SOURCE_PACKAGE_NOT_COMPLETE_APPLICATION_RELEASE",
+    "archive": "E:\\dev\\sandbox\\虚拟数字人直播\\Ai-Talk-Streamer\\outputs\\mc-validation\\round-082\\remote-delivery\\mc-source-082-v3.zip",
+    "sha256": "bc1176f74993cebdefbe2b7b3e1f02e4a8d26565a0f64dd1d8339d1ee5238ee4",
+    "source_snapshot_sha256": "42996b2ab0f34a64412a13cb8920ee924ab7e9a1b08e5ad0cc9c1287642de044",
+    "source_files": 896,
+    "environment_prepared": false,
+    "services_started": false,
+    "models_loaded": false,
+    "automatic_input_authorized": false,
+    "real_acceptance_passed": 0
+  },
+  "profile": {
+    "id": "mc-native-3080-neoforge-v1",
+    "game": {
+      "minecraft": "1.21.1",
+      "loader": "neoforge",
+      "loader_version": "21.1.248",
+      "client_lock": "configs/mc-neoforge-client.lock.json",
+      "bridge_lock": "configs/mc-neoforge-bridge.lock.json",
+      "username": "NAIMEI",
+      "authentication": "offline"
+    },
+    "sha256": "55ce27ae3e97e813401cb19a4351fd10d6381fd88870fe3648115438bd8b56d9"
+  },
+  "native_runtime": {
+    "ok": true,
+    "verified_files": 5034,
+    "inventory_sha256": "a536d5a6bb8a670f13a85600e52e2785f04589b26835f415408eb6782cdc077d",
+    "supplied_pin_count": 439,
+    "original_mod_count": 319,
+    "asset_index_objects": 3911,
+    "unique_asset_files": 3888
+  },
+  "native_controller": {
+    "jar_sha256": "84887583396a0fcabfaba68152df6d461a831fa291ec37d01c06de613be7608e",
+    "jar_bytes": 12466923,
+    "compiled_against": "actual_supplied_neoforge_21.1.248_mojmap_libraries",
+    "java_classes_identical_to_round081": true,
+    "new_game_tasks_run": 0
+  },
+  "native_executable_versions": {
+    "node": {
+      "version": "24.22.1",
+      "sha256": "d702daa815eabbff763c7d3808e235cf031cf2ca70211b56847bc72f51e240e5",
+      "bytes": 93915464
+    },
+    "python": {
+      "version": "3.10.22",
+      "sha256": "70828b6d096591657106905dcddb47e0f00067cc7c7503f55ffba7793c049e3e",
+      "bytes": 260608
+    },
+    "java": {
+      "version": "21.0.13",
+      "sha256": "f8dc082a7dedbfd2924c3562405a5a1fd12efd2641808c92e2de819c76a58b7e",
+      "bytes": 50296
+    }
+  },
+  "application_preflight": {
+    "schema_version": 1,
+    "classification": "NATIVE_ENVIRONMENT_PREPARATION_NOT_GAME_OR_RELEASE_ACCEPTANCE",
+    "ok": false,
+    "checks": [
+      {
+        "name": "profile",
+        "ok": true
+      },
+      {
+        "name": "source",
+        "ok": true
+      },
+      {
+        "name": "game_files",
+        "ok": true
+      },
+      {
+        "name": "device",
+        "ok": false,
+        "code": "MC_DEVICE_UNAVAILABLE"
+      },
+      {
+        "name": "native",
+        "ok": true
+      },
+      {
+        "name": "runtime_files",
+        "ok": false,
+        "code": "MC_RUNTIME_FILES_UNAVAILABLE"
+      },
+      {
+        "name": "idle",
+        "ok": false,
+        "code": "MC_PREPARATION_SERVICE_PORT_BUSY"
+      }
+    ],
+    "profile": "configs/deployment-profiles/mc-native-3080-neoforge-v1.json",
+    "automatic_input_authorized": false,
+    "real_acceptance_passed": 0,
+    "services_started": false,
+    "models_loaded": false,
+    "downloads_performed": false
+  },
+  "preparation_record_created": false,
+  "existing_services": {
+    "same_listener_processes": true,
+    "same_service_process_identities": [
+      {
+        "service": "dsh",
+        "legacy_registry_available": true,
+        "same_process_identity": true,
+        "identity_basis": "registered_pid_executable_and_recorded_process_creation_time"
+      },
+      {
+        "service": "avatar",
+        "legacy_registry_available": true,
+        "same_process_identity": true,
+        "identity_basis": "registered_pid_executable_and_recorded_process_creation_time"
+      },
+      {
+        "service": "tts",
+        "legacy_registry_available": true,
+        "same_process_identity": true,
+        "identity_basis": "registered_pid_executable_and_recorded_process_creation_time"
+      },
+      {
+        "service": "receiver",
+        "legacy_registry_available": false,
+        "registered_ownership_verified": false,
+        "registry_review_pending": true,
+        "entry_paths": [
+          "C:\\dev\\虚拟数字人直播\\receiver-b\\scripts\\receiver_service.py"
+        ],
+        "same_process_identity": true,
+        "identity_basis": "original_listener_pid_and_executable_with_current_process_created_before_baseline"
+      }
+    ],
+    "existing_deployment_files_unchanged": true,
+    "health": {
+      "dsh": {
+        "process_alive": true,
+        "state_store_ready": true,
+        "dsh_ready": true,
+        "persona_injection_ready": true,
+        "memory_ready": true,
+        "projection_synced": true,
+        "tts_ready": true,
+        "avatar_ready": true,
+        "authority_ready": false
+      },
+      "avatar": {
+        "tts_ready": true,
+        "avatar_ready": true
+      }
+    },
+    "new_dsh_started": false,
+    "source_synchronized": false,
+    "live_state_copied": false,
+    "models_restarted": false,
+    "not_new_mc_integration_acceptance": true
+  },
+  "original_deployment_guard_passed": true,
+  "validation": {
+    "distinct_passed": 142,
+    "new_python_cases": 28,
+    "suites": [
+      {
+        "name": "test_mc_source_package.py-004",
+        "cases": 37,
+        "exit_code": 0,
+        "skipped": 0
+      },
+      {
+        "name": "test_mc_neoforge_runtime.py-003",
+        "cases": 25,
+        "exit_code": 0,
+        "skipped": 0
+      },
+      {
+        "name": "test_mc_neoforge.py-003",
+        "cases": 21,
+        "exit_code": 0,
+        "skipped": 0
+      },
+      {
+        "name": "test_mc_deployment.py-003",
+        "cases": 41,
+        "exit_code": 0,
+        "skipped": 0
+      },
+      {
+        "name": "test_mc_maintenance_native.py-003",
+        "cases": 18,
+        "exit_code": 0,
+        "skipped": 0
+      }
+    ],
+    "engineering_cases_only": true,
+    "cases_not_double_counted": true,
+    "all_final_cases_executed_on_current_source": false,
+    "fresh_on_final_installation": 37,
+    "reused_with_unchanged_inputs": 105,
+    "local_test_execution": 0,
+    "remote_3080_execution_only": true,
+    "test_python": "3.10.22",
+    "native_controller_rebuilt": true,
+    "java_classes_identical_to_round081": true,
+    "java_cases_reexecuted_this_round": 0,
+    "actual_minecraft_started_this_round": false,
+    "actual_model_generation_this_round": false,
+    "formal_acceptance_passed": 0,
+    "formal_acceptance_not_run": 68,
+    "new_avatar_clips": 0,
+    "full_application_preparation": false,
+    "public_broadcast_started": false
+  },
+  "suite_reuse": {
+    "proof": "bootstrap-result-003.json",
+    "proof_sha256": "5335249132a54b180ff3bf8c31ec442520fd0a3d0f48249f5330878da464f8c5",
+    "source_snapshot_sha256": "5df2f485fe4455944bf563e8dcd7f1d18a1759eff066710f75de2560fe9820f8",
+    "changed_public_files": [
+      "tests/test_mc_source_package.py"
+    ],
+    "unchanged_public_files": 895,
+    "native_build_sources_identical": true,
+    "native_dependencies_identical": true,
+    "java_classes_identical": true,
+    "tests_reexecuted_in_final_installation": false,
+    "reused_cases": 105,
+    "fresh_cases": 37,
+    "reason": "The only changed public file is the source-package fixture, which is freshly reexecuted. The four other passing suites have unchanged production modules, their own test/support files, dependencies and Java classes. No failed case is reused."
+  },
+  "prior_attempts": [
+    {
+      "proof": "outputs/mc-validation/round-082/remote-evidence/bootstrap-result-001.json",
+      "ok": false,
+      "error": "AssertionError:test_mc_deployment.py-001_FAILED",
+      "suites": [
+        {
+          "name": "test_mc_neoforge_runtime.py-001",
+          "exit_code": 0,
+          "log": "test_mc_neoforge_runtime.py-001.log",
+          "cases": 25,
+          "skipped": 0
+        },
+        {
+          "name": "test_mc_deployment.py-001",
+          "exit_code": 1,
+          "log": "test_mc_deployment.py-001.log",
+          "cases": 40,
+          "skipped": 0
+        }
+      ]
+    },
+    {
+      "proof": "outputs/mc-validation/round-082/remote-evidence/bootstrap-result-002.json",
+      "ok": false,
+      "error": "FileExistsError:[WinError 183] 当文件已存在时，无法创建该文件。: 'C:\\\\dev\\\\虚拟数字人直播\\\\downloads\\\\mc-082\\\\source-bootstrap'",
+      "suites": []
+    },
+    {
+      "proof": "outputs/mc-validation/round-082/remote-evidence/bootstrap-result-003.json",
+      "ok": false,
+      "error": "AssertionError:ONE_OR_MORE_NATIVE_SUITES_FAILED",
+      "suites": [
+        {
+          "name": "test_mc_neoforge_runtime.py-003",
+          "exit_code": 0,
+          "log": "test_mc_neoforge_runtime.py-003.log",
+          "cases": 25,
+          "skipped": 0
+        },
+        {
+          "name": "test_mc_source_package.py-003",
+          "exit_code": 1,
+          "log": "test_mc_source_package.py-003.log",
+          "cases": 37,
+          "skipped": 0
+        },
+        {
+          "name": "test_mc_neoforge.py-003",
+          "exit_code": 0,
+          "log": "test_mc_neoforge.py-003.log",
+          "cases": 21,
+          "skipped": 0
+        },
+        {
+          "name": "test_mc_deployment.py-003",
+          "exit_code": 0,
+          "log": "test_mc_deployment.py-003.log",
+          "cases": 41,
+          "skipped": 0
+        },
+        {
+          "name": "test_mc_maintenance_native.py-003",
+          "exit_code": 0,
+          "log": "test_mc_maintenance_native.py-003.log",
+          "cases": 18,
+          "skipped": 0
+        }
+      ]
+    }
+  ],
+  "artifact_review": {
+    "proof": "outputs/mc-validation/round-082/remote-evidence/artifact-result-005.json",
+    "source_files_verified": 896,
+    "current_source_snapshot_sha256": "42996b2ab0f34a64412a13cb8920ee924ab7e9a1b08e5ad0cc9c1287642de044",
+    "preparation_record_absent": true,
+    "owned_game_or_host_processes": 0,
+    "engineering_port_absent": true,
+    "prior_read_only_failure": "outputs/mc-validation/round-082/remote-evidence/artifact-result-004.json",
+    "receiver_registry_review_pending": true
+  },
+  "prior_actual_game_evidence": "docs/evidence/mc-runtime-round-081.json",
+  "current_game_run_not_claimed": true,
+  "frozen": {
+    "configs/layouts/mc-landscape-v1.json": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+    "docs/technical/mc-live-v1/13-完整方案实施总纲.md": "6642f3a63cbc82f86da5cc35e2ab7489214908f5f211ec0dc05b000950a3da34"
+  },
+  "constraints": {
+    "remote_4090_control": "paused",
+    "local_test_execution": 0,
+    "virtualization_used": false,
+    "new_model_downloads": false,
+    "models_restarted": false,
+    "second_dsh_writer_started": false,
+    "live_state_copied": false,
+    "task_browser_tabs_opened": 0,
+    "public_broadcast_started": false,
+    "original_accounts_or_saves_imported": false
+  },
+  "documentation_validation": {
+    "result": "PASS",
+    "schema_definitions": 146,
+    "valid_examples": 157,
+    "negative_contract_cases": 166,
+    "http_operations": 67,
+    "markdown_files_checked": 93,
+    "local_markdown_links": 1194,
+    "host": "DESKTOP-2QQPN1H",
+    "final_proof": "outputs/mc-validation/round-082/remote-evidence/document-validation-result-002.json"
+  },
+  "formal_acceptance": {
+    "passed": 0,
+    "not_run": 68,
+    "new_avatar_clips": 0,
+    "required_avatar_clips": 100
+  },
+  "full_delivery_not_complete": true
+}

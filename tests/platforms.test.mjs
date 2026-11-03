@@ -158,7 +158,7 @@ function nativeOutputFixture(f, { loseStartReply = false } = {}) {
   // new epoch required when readyBroadcast resumes a paused broadcast.
   const timer = setInterval(() => {
     const broadcast = f.state.current(); if (!broadcast || broadcast.state === 'DRAINING') return;
-    const { claim } = f.manager.outputPlayer({ consumer_id: 'obs-fixture', frames: 25, audio_state: 'running' });
+    const { claim } = f.manager.outputPlayer({ consumer_id: 'obs-fixture', frames: 25, width: 720, height: 1280, audio_state: 'running' });
     if (claim) f.state.claimAuthority(operator, broadcast.broadcast_id, 'obs-fixture', true);
   }, 10);
   return { calls, allowStatus() { statusAvailable = true; }, stop() { clearInterval(timer); } };
@@ -228,6 +228,34 @@ function livehimeFixture(f) {
   }, 10);
   return { calls, stop() { clearInterval(timer); } };
 }
+
+test('MC output rejects a legacy portrait heartbeat and requires the canonical programme identity', async () => {
+  const f = fixture(); try {
+    f.bridge.game = { config: { enabled: true } };
+    const legacy = { renderer: 'livehime', consumer_id: 'portrait-fixture', frames: 25, width: 720, height: 1280, audio_state: 'running' };
+    assert.equal(f.manager.outputPlayer(legacy).mc_programme_required, true);
+    assert.equal(f.manager.status().output_player, null);
+    assert.equal(f.manager.outputPlayer({ ...legacy, programme: 'mc', layout_id: 'wrong', width: 1920, height: 1080 }).ignored, true);
+    f.manager.outputPlayer({ ...legacy, programme: 'mc', layout_id: 'mc-landscape-v1', width: 1920, height: 1080 });
+    assert.equal(f.manager.status().output_player.programme, 'mc');
+    assert.equal(f.manager.status().output_player.layout_id, 'mc-landscape-v1');
+    const output = livehimeFixture(f); try {
+      const flight = await f.manager.preflight('bilibili');
+      assert.equal(flight.checks.landscape_mc, true); assert.equal(flight.checks.programme_dimensions, true);
+      assert.equal(flight.checks.vertical_video, false); assert.equal(flight.programme.width, 1920);
+      f.advance(6001); assert.equal((await f.manager.preflight('bilibili')).checks.livehime_browser_connected, false);
+    } finally { output.stop(); }
+  } finally { delete f.bridge.game; await f.close(); }
+});
+
+test('MC mode requires official Bilibili output and cannot reuse an OBS scene', async () => {
+  const f = fixture(); try {
+    f.bridge.game = { config: { enabled: true } };
+    assert.throws(() => f.manager.checkRenderer('douyin'), { code: 'MC_OFFICIAL_LIVEHIME_REQUIRED' });
+    f.manager.config.update({ platforms: { bilibili: { output_mode: 'obs' } } });
+    assert.throws(() => f.manager.checkRenderer('bilibili'), { code: 'MC_OFFICIAL_LIVEHIME_REQUIRED' });
+  } finally { delete f.bridge.game; await f.close(); }
+});
 
 test('Bilibili defaults to native Livehime while other destinations reject its mode', async () => {
   const f = fixture();

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "freeze_id": "20261103MC-LUNA-R087-F01",
+  "revision": "F01",
+  "recorded_at": "2026-11-03T05:21:35+08:00",
+  "result": "PASS",
+  "archive": {
+    "path": "outputs/mc-freezes/20261103MC-LUNA-R087-F01/20261103MC-LUNA-R087-F01冻结留存包.zip",
+    "bytes": 179715961,
+    "sha256": "86427d5d8c3de8d76e749a6dca645d6d69a825eada52c1c77e46f487f2a07a2a"
+  },
+  "archive_entries": 64,
+  "archive_crc_and_each_entry_sha256_verified": true,
+  "verification": "docs/freezes/20261103MC-LUNA-R087-F01/verification.json",
+  "manifest_sha256": "339da5b27a31c260725aee24f6af336b60529ac9eee00a02ad3e5bf3ba676d70",
+  "readme": "docs/freezes/20261103MC-LUNA-R087-F01/README.md",
+  "runtime_work_performed": false,
+  "numbered_definitions": 104,
+  "full_scope_open_items": 117,
+  "formal_acceptance_passed": 0,
+  "new_avatar_clips_accepted": 0,
+  "previous_freeze_unchanged": true,
+  "source_files": 988,
+  "video_sha256": "595ff96c5929d0c4b8a7be5ba4f783640c1766e986e33dc96a0e64482f08c5f2"
+}

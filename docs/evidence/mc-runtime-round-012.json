@@ -1,0 +1,1181 @@
+{
+  "schema_version": 1,
+  "round": "012",
+  "classification": "PROGRESS_BUILD_AND_CPU_ONLY_NOT_RUNTIME_ACCEPTANCE",
+  "recorded_at": "2026-10-30T01:19:19.385052+00:00",
+  "branch": "mc",
+  "goal_status": "active",
+  "delivery": {
+    "mode": "single_integrated_release",
+    "required_domains": 15,
+    "required_runtime_cases": 68,
+    "runtime_cases_passed": 0,
+    "four_hour_run": "not_run",
+    "next_day": "not_run",
+    "circle_clips_required": 50,
+    "landscape_clips_required": 50,
+    "new_clips_accepted": 0
+  },
+  "implemented": [
+    {
+      "id": "I097",
+      "change": "固定Baritone三类新增23项生命周期转换，检查精确形状并保留逐类hash",
+      "boundary": "17项事件、3项输入、3项路径转换；真实类JVM校验不是实际游戏运行"
+    },
+    {
+      "id": "I098",
+      "change": "PlayerMovementInput构造时绑定原任务与对象，失效时只清零原对象8项字段",
+      "boundary": "原线程、旧输入/新根及身份检查；物理按键和Minecraft消费时序仍待验"
+    },
+    {
+      "id": "I099",
+      "change": "原任务路径计算与客户端应用分离，并核对同一计算对象",
+      "boundary": "工作线程无游戏权限；可执行伪API夹具验证只应用一次、同根重算与任务关闭丢弃"
+    },
+    {
+      "id": "I100",
+      "change": "主事件对象显式绑定、任务监听器注销、旧路径事件清空与原生命令禁用",
+      "boundary": "10项原任务事件、4项无任务权限观察、2项原生命令入口关闭；拒绝撤权清理/后台计算注册永久监听器；真实网络/世界维护待验"
+    },
+    {
+      "id": "I101",
+      "change": "实际驱动与运行器接通事件绑定、结果消费和撤权后异步错误收尾",
+      "boundary": "每根8项在途/64项结果；失败、重复交付、超限、拒绝返还预算及原收尾检查"
+    },
+    {
+      "id": "I102",
+      "change": "消除结果队列与原生仲裁器的反向锁顺序",
+      "boundary": "实际线程阻塞于ControlArbiter时不持有结果监视器；未据此宣布真实接管完成"
+    },
+    {
+      "id": "I103",
+      "change": "受控模块升为ats.2，生存构建及包/依赖核验通过",
+      "boundary": "本轮107项生存JVM+14项Python共121项执行；86项原生/11项联调沿用011同源结果"
+    },
+    {
+      "id": "I104",
+      "change": "专项说明、编号进度、包与源hash及全15域剩余事项同步",
+      "boundary": "启动拒绝保留；完整发布、68项、4小时、次日和100段素材范围不变"
+    }
+  ],
+  "checks": {
+    "native_build": "REUSED_UNCHANGED_ROUND_011_ARTIFACT_SHA_VERIFIED",
+    "survival_build": "PASS_NON_INSTALLABLE_ENGINEERING_CANDIDATE",
+    "distinct_local_test_cases_verified": 121,
+    "distinct_cpu_test_cases_passed": 121,
+    "cases_executed_this_round": 121,
+    "breakdown": {
+      "survival_java": 107,
+      "preparation_python": 14
+    },
+    "unchanged_previous_round_checks": {
+      "round": "011",
+      "native_java": 86,
+      "java_node_interop": 11,
+      "rerun_this_round": false,
+      "native_source_hashes_verified": 46
+    },
+    "survival_java_executed_in": "outputs/mc-validation/round-012/survival-build-final.log",
+    "survival_java_final_build_executed_cases": 107,
+    "selected_effect_rules": 36,
+    "selected_effect_sites": {
+      "main": 37,
+      "baritone": 50
+    },
+    "callback_conversion_sites": 23,
+    "callback_classes": 3,
+    "selected_effects_are_complete_coverage": false,
+    "static_sites_unreviewed": 13589,
+    "browser_used_this_round": false,
+    "web_research_used": false,
+    "all_task_owned_browsers_closed": true,
+    "real_minecraft_started": false,
+    "native_model_inference_started": false,
+    "runtime_acceptance_not_run": 68,
+    "full_system_stability_accepted": false,
+    "evidence": "docs/evidence/mc-runtime-round-012.json"
+  },
+  "native_build_reused": {
+    "from_round": "011",
+    "receipt": {
+      "schema_version": 1,
+      "recorded_at": "2026-10-30T00:34:47.5826265+00:00",
+      "branch": "mc",
+      "classification": "NATIVE_BUILD_AND_CPU_PROTOCOL_CHECKS_ONLY",
+      "java": "openjdk 21.0.11 2026-04-21 LTS\r\nOpenJDK Runtime Environment Temurin-21.0.11+10 (build 21.0.11+10-LTS)\r\nOpenJDK 64-Bit Server VM Temurin-21.0.11+10 (build 21.0.11+10-LTS, mixed mode, sharing)",
+      "gradle": "8.14.3",
+      "wrapper_jar_sha256": "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172",
+      "node": "v24.19.0",
+      "unit_tests": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 86
+      },
+      "interop_tests": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 11
+      },
+      "interop_skipped_by_request": false,
+      "jar": "game-adapters/minecraft/fabric/build/libs/ai-talk-streamer-mc-bridge-0.1.0.jar",
+      "jar_sha256": "08ebbe83109210a89560a2981c53a1d40edeaaf3fe6915eb2a69ea7bc28d31d8",
+      "embedded_schema_sha256": "f8d3d2da13a827df7100aeb634c8539f050b7aec8f485dbcb79bafc101ae58e7",
+      "sqlite_jdbc_version": "3.53.4.0",
+      "sqlite_windows_x64_dll_sha256": "f16882d2eded914edd1e1d313e7c8579e040b0da090a52ea99ad7b0c5d961c45",
+      "real_game_acceptance": "not_run"
+    },
+    "unchanged_source_hashes": [
+      {
+        "path": "game-adapters/minecraft/fabric/build.gradle",
+        "sha256": "128835615e1db7f2f49291da0b8044c96801fab7d3c72c2366ee749d58e0ee73"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/gradle/wrapper/gradle-wrapper.jar",
+        "sha256": "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/gradle/wrapper/gradle-wrapper.properties",
+        "sha256": "f2cb19698ac606e7b367d8b93631a489ad19b783bd7ee48b38d57a06edff079a"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/gradle.lockfile",
+        "sha256": "6dc453dc05bd35ebad4352dca7e6a327a023d4c9ea90fbb68dbb5c0ecfc4b514"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/gradle.properties",
+        "sha256": "227193cdfb49bd1e7eafb5e615f8024cd8f603a68e5d4e457c9256889b4e357f"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/gradlew",
+        "sha256": "b187b4c52e749f5760afdd6fadc31b2a98ad35fb249bf0dff03b72650f320409"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/gradlew.bat",
+        "sha256": "1d297e00bd21de3ace22b4d7f2de1f9dfa858883d66bbf7c1ccbecccec8f4f3b"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/logs/latest.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/README.md",
+        "sha256": "3de2dbe0f74534d03c0704930658c55d3943c2283bbab86c9f197cb8dec04f7b"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/settings.gradle",
+        "sha256": "dcf61b31535309424a65a7179e4ff2a9e15304b6b3250fffe3b449f03ce2d714"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/BridgeCore.java",
+        "sha256": "1551e0100b88b1c6a6f9b34e5341d451a32257452a2c280f449d15d55e1109ce"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/ControlArbiter.java",
+        "sha256": "ddb4af9f55cae61a88de622c48440e4cf0fcdfb76595adde54badc8c426480b7"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/CursorActivity.java",
+        "sha256": "a9e2d0908776b1d3d4168c9669ef3975e8012085a36fc46edc742ae071ea64fe"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/FrameEncoder.java",
+        "sha256": "f5c7e02082f690e108ef34739c054a1569c30f1f7c08b4b778ed038565e19189"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/FrameUpload.java",
+        "sha256": "ec9b7481ab8e1e0bbc3c7a01df33d6ad902bfaa483b2e494cc5f8f5be4b370a8"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/GamePort.java",
+        "sha256": "d8b73450d460f1d8bd58a943aa4211f7a4edcd78c0cbe02cc4d61da3180dab20"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/InputLeaseFence.java",
+        "sha256": "92fc231b15c156e86701c060bb3c249fadd806196168eb6a5f7ec608f8383894"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/InputLedger.java",
+        "sha256": "6715990dae1c0370a7acf8ca3765d6db9edc897b29fa2d2e304789463fda44f7"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/Json.java",
+        "sha256": "7e5b8336a54b52353602c7f9a736be52eef1bcb6cbe5504e09eae4cd613d0c2d"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/LocalJournal.java",
+        "sha256": "5bf9dbb8beeb065f1e9c81acc6f04bf2c54a995e3733a28454f9406fe6d4a42e"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/OwnedValue.java",
+        "sha256": "b4b1cce8de6aa2ec6254fdde2ffd1309e3fc35f515b09aaae3103567f654f9bc"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/PhysicalKeys.java",
+        "sha256": "3b549e5004529d7d58cdda89e2319034f46a84f58179a038fa727058e78ce051"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/Wire.java",
+        "sha256": "4666febec05758ac134efac5b73a40251e3aae342413536f04f484fbdcd164e9"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/InputOwner.java",
+        "sha256": "c72e4dcc59319be98751302a4b4fe2da222209ddc5d9f7207031bfca798a1084"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/McBridgeClient.java",
+        "sha256": "8d7282d1dbfdfcad5a692fb0f26d1fceb6839fde7d87e0b3087f636f4dcc952b"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/MinecraftPort.java",
+        "sha256": "e6d10cd0a46331987f27db352db1c66cc62b70823cd4a5e598ce1855af780fcc"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/InputUtilMixin.java",
+        "sha256": "13da025ce488522e6b90d68731b7eaab26fc3045cc2fe37966082faafecc6c18"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/KeyBindingAccessor.java",
+        "sha256": "009c185610df161ff8c8522773fc60fc8ce9ed4b377d16d8b158b5be635e5846"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/KeyboardMixin.java",
+        "sha256": "5729ef81074b74e60a78b00f39c1432325ed2ea679d50ff65e8b2260ded7afc3"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/MinecraftInputInvoker.java",
+        "sha256": "99576926ae792a15206af1f56dca67cacc66ab7bfc8753c411e505bb7d2fdba7"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/MouseMixin.java",
+        "sha256": "ac10a9208f2d8ae1dd5ef38fdd32b355c7d3ae04545d238b417928f73b069bd2"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/resources/assets/ai_talk_streamer_mc_bridge/lang/en_us.json",
+        "sha256": "4b9e430457a76e1877684e8e45574f91ef3caafcdde117d99bc883099f3ef6c9"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/resources/assets/ai_talk_streamer_mc_bridge/lang/zh_cn.json",
+        "sha256": "25249807eaef22a8e02f88245caedcfb844406b66e9da655092f42005064b7df"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/resources/fabric.mod.json",
+        "sha256": "017f27570ff2a575a06758f559571851ac6d019cba1708f4a11ea5c90792bd11"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/main/resources/mc-bridge.mixins.json",
+        "sha256": "ff80eb31b0ae080f64f28d6ea9eccf55d514cc1b5c5e73dbc5985169c924fee9"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/ControlArbiterTest.java",
+        "sha256": "9f3dfd39e20727ac28e81579bb8812749032a116f2eba1a2ebe16ea00ac50db8"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/CursorActivityTest.java",
+        "sha256": "e32d76ce69960babc330dc93ca0885fae8ca1c89e7d2f7c4282016a35795dbff"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/FrameTest.java",
+        "sha256": "b1437c7a264e5d045eeca7ab8e76b9cd96145be766fdcd09ae886cd34c74f353"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/HeadlessBridge.java",
+        "sha256": "bb86b178c82b6a9409dbd4fad3df0df8ff00803391a67c70b5cd95394c3a4f5c"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/InputLeaseFenceTest.java",
+        "sha256": "f714ac52f87cb1f6d20dfc857815e777122711973f2814b80a7e6af91f7c984f"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/InputLedgerTest.java",
+        "sha256": "83abcae01fed8575cd2693083500010d26ff59d3007a30302ff89528752e5e46"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/LocalJournalTest.java",
+        "sha256": "857fd605b5351a6c69cbb26cf2e45ac19b6a45334e8bc8746fbff09079ea2000"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/OwnedValueTest.java",
+        "sha256": "552aaabd68751b8033f9ae0517065647a91ab5040c3f6285f620af73e845e6ca"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/PhysicalKeysTest.java",
+        "sha256": "60a5ccae4b4da1a78016c7fdbee3197da8e56bea48259f9e650d4b41e72a6595"
+      },
+      {
+        "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/WireTest.java",
+        "sha256": "43ab4fd79299bc065006b95a0fcd94de90611f52152be521170111cbde5e41f9"
+      },
+      {
+        "path": "scripts/mc_build_fabric.ps1",
+        "sha256": "e9aa4268831b1da7889966c0781ad80036c42f89c826a2c64743d1c3c4fb0c5f"
+      }
+    ]
+  },
+  "survival_build": {
+    "classification": "NON_INSTALLABLE_ENGINEERING_BUILD_AND_CPU_CHECKS_ONLY",
+    "result": "PASS",
+    "branch": "mc",
+    "minecraft": "1.21.1",
+    "source_commit": "1f8e038befeaed44b8a053402c69127866c46a4e",
+    "source_files_verified": 433,
+    "patches_applied": 24,
+    "lock_sha256": "b93bdb6af4259eadc79ce32a6b1bace98d94c74184d280b155dbdc4d5261f882",
+    "patches_sha256": "428d0eeeedb608b796fdb87abf4e04aba41b50aabd6e1cd4a9854929fe88d76f",
+    "gradle_lock_sha256": "75160c8b41754c75eafec1aca038a02e15c32f54c4e178114708386df9612edf",
+    "jar": "game-adapters/minecraft/survival/build/libs/altoclef-controlled-1.21.1-0.19+ats.1.jar",
+    "jar_sha256": "7141221ff2465fdad445960ec17e3646d0c79b982ba09f858c6c542d36e3f3b8",
+    "bridge_api_jar_sha256": "df7368cc5ccf112d501c131e44bcedeb7827d716b0e8a77952eeb87c0f9da897",
+    "java_class_major": 65,
+    "required_control_classes": [
+      "SurvivalAuthority",
+      "SurvivalAuthority$Session",
+      "ArbiterBoundary",
+      "ControlledTaskFactory",
+      "ControlledAltoClefDriver",
+      "ControlledTaskRunner",
+      "SurvivalInputs",
+      "SurvivalLaunchGuard",
+      "SurvivalCallbacks",
+      "SurvivalCallbacks$Binding",
+      "SurvivalCallbacks$RootResettable",
+      "SurvivalAsync",
+      "SurvivalAsync$State"
+    ],
+    "tests": {
+      "passed": 107,
+      "failed": 0,
+      "skipped": 0,
+      "names": [
+        "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:localTaskRevocationIsCheckedInsideTheRealAtomicWrite()",
+        "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:mismatchedRootContextCannotUseBoundary()",
+        "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:stopAndScopedCleanupCanRunInsideNativeReleaseWithoutLockInversion()",
+        "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:directOldActuationAlsoFailsAfterRegrant()",
+        "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:newAutoGrantCannotMakeTheOldSurvivalRootCurrent()",
+        "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:releaseCriticalSectionCannotBeUsedToRestartAutomation()",
+        "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:boundedEffectUsesTheRealPermitAndMarksInputUnreleased()",
+        "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:stalledClientCannotActuateEvenWithLongNetworkLease()",
+        "dev.aitalkstreamer.mc.survival.ArbiterBoundaryTest:changedWorldRefusesTheOriginalSurvivalRoot()",
+        "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:taskCloseDiscardsTheCompiledWorkerResultWithoutApplyingIt()",
+        "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:neutralizationFieldOrderDoesNotDependOnMapInsertionOrder()",
+        "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:actualTransformedClassesPassJvmVerificationWithoutInitializingTheGame()",
+        "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:sameRootReplanRejectsTheOldSearchAndDoesNotClearTheReplacement()",
+        "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:executableSplitCalculatesOnWorkerAndAppliesOnceOnClient()",
+        "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:workerHasNoPathStateWritesAndCommitChecksTheIdenticalSearch()",
+        "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:compiledPathEventQueueCanOnlyBeClearedInItsOwnerScope()",
+        "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:transformingAnAlreadyCompiledClassIsRejected()",
+        "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:changedResultLocalFailsClosedRatherThanGuessingANewShape()",
+        "dev.aitalkstreamer.mc.survival.BaritoneCallbacksCompilerTest:actualPinnedClassesHaveSeventeenEventThreeInputAndThreePathTransforms()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:staticFieldStoreUsesTheSameGate()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:voidActionsDoNotLeaveAValueOnTheStack()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:staticPrimitiveCallCannotRunWithoutScope()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:instanceReceiverAndReferenceResultArePreserved()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:ambiguousOrUnexpectedMappingsStopTheBuild()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:directMutationMethodReferenceRequiresExplicitAdaptation()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:alreadyTransformedClassesAreRefusedRatherThanNestedAgain()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:fieldStoreIsRefusedBeforeMutationAndWorksInOriginalScope()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:widePrimitiveCapturesKeepTheirStackSlotsAndTypes()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:realEffectExceptionIsNotConvertedIntoSuccess()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:pinnedTinyMappingResolvesDeclaredAndInheritedNames()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:authorizedCallPreservesArgumentsReturnAndSingleEffect()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:javaEightInterfaceCanContainAControlledStaticAction()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:revocationBetweenTwoCallsRefusesTheSecondEffect()",
+        "dev.aitalkstreamer.mc.survival.BytecodeGateTest:unselectedReadIsNotTreatedAsAnInputMutation()",
+        "dev.aitalkstreamer.mc.survival.ControlledPulseQueueTest:revokedOwnerClearsPendingPulsesWithoutAuthorizingAnotherKeyWrite()",
+        "dev.aitalkstreamer.mc.survival.ControlledPulseQueueTest:queueResetRequiresTheOwnerAndWorksBeforeTheFirstTaskTick()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:workerFailureIsReportedAndCleanedEvenAfterItRevokesTheRoot()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:completionRestoresAllInputsBeforeRequestingEffectVerification()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:offThreadCompletionDoesNotAcquireTheClientScope()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:completionCallbackCanStartANewRootAndItsExceptionDoesNotCancelIt()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:tickFailurePreservesTheOriginalErrorAndCleanupFailure()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:expiredLeaseCancelsBeforeAnotherTickAndDoesNotClaimAnEffect()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:preparationFailureReleasesTheRootAndDoesNotStartATask()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:nativeInputRestorationFailureRetainsTheRootForRetry()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:queuedWorkerResultIsAppliedBeforeTheNextActualRuntimeTick()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:stopFailureStillRunsEveryCleanupAndPreventsANewRootUntilRetry()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:reentrantCancellationDoesNotRecursivelyRunCleanupOrStartANewRoot()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:pathFailureStillClearsOverridesPulsesAndTheNativeLedger()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:cancellationNeverPublishesASuccessOrCompletionRequest()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:oldCompletionCannotFinishTheNextRootEvenWhenCalledInItsScope()",
+        "dev.aitalkstreamer.mc.survival.ControlledTaskRunnerTest:actualDriverRejectsAnUnboundInputBoundaryBeforeTouchingTheGame()",
+        "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:subscribingDuringDispatchStartsWithTheNextEvent()",
+        "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:nestedDispatchAndUnsubscribeDoNotModifyTheActiveSnapshot()",
+        "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:aThrowingListenerDoesNotLeaveTheBusLockedOrRetainDeletedListeners()",
+        "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:aWorkerEventDoesNotAcquireTheGameThreadPermission()",
+        "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:processObserversRemainAfterTaskCloseAndRunWithoutHoldingTheTopicLock()",
+        "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:taskSubscriptionRunsInItsOriginalScopeWhenAnEventArrives()",
+        "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:repeatedTaskCloseRemovesItsSubscriptionsWithoutWaitingForAnotherEvent()",
+        "dev.aitalkstreamer.mc.survival.ScopedEventBusTest:closedTaskIsUnsubscribedAndItsDirectLateCallbackCannotBorrowTheNextRoot()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:resultWithoutItsCapturedWorkerOriginIsRejected()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:computeHasNoGamePermissionAndOnlyClientDrainAppliesTheResult()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:aJobRevokedBeforeWorkerStartDoesNotEvenCompute()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:inFlightBudgetRejectsTheNinthJobAndCloseDropsAllEight()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:rejectedSubmissionsReleaseTheirBudgetAndAValidRetryCanComplete()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:resultFinishingAfterCloseCannotAdoptTheNextRoot()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:submissionRequiresAnAcceptedRoot()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:duplicateExecutorDeliveryComputesAndCommitsOnlyOnce()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:closingRootsRemovesTheAsyncRegistryWithoutWaitingForAnotherEvent()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:leaseExpiryBeforeCommitDropsTheResult()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:queuedOldResultCannotApplyInTheNextRoot()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:inlineExecutorCannotRunCalculationOnTheClientThread()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:workerFailureIsRetainedForClientFailureHandling()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:workerDoesNotHoldTheResultMonitorWhileWaitingForNativeControl()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAsyncTest:resultOverflowRevokesTheRootAndNeverAppliesItsPartialQueue()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:inputWithoutAcceptedScopeIsRefused()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:cleanupInsideOldScopeCannotAdoptANewRoot()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:oldCloseDoesNotReleaseTheNewRoot()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:revokeBetweenScopeAndActuationRefusesTheEffect()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:scopeIsRestoredEvenIfPlanningThrows()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:noSecondRootWhileFirstIsActive()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:nestedSameRootReturnsToItsOuterScope()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:revocationAloneDoesNotConfirmCleanup()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:delayedCallbackCannotAcquireANewRoot()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:worldOrLeaseChangeBetweenScopeAndActuationRefusesTheEffect()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:pathWorkerCannotUseClientThreadScopeOrCloseIt()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:rawCommandsRemainDisabledInsideAValidScope()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:originalContextReachesEveryAtomicWrite()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:failedInputReleaseRetainsOwnershipUntilRetry()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:cleanupRevokesBeforeTaskStopAndStillReleasesAfterFailure()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:staleContextCannotOpenEvenWhenThereIsNoOwner()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:bothCleanupFailuresRemainVisible()",
+        "dev.aitalkstreamer.mc.survival.SurvivalAuthorityTest:engineeringCandidateFailsBeforeModInitialization()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:inputBindingCannotBeUsedForAnotherObject()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:expiredLeaseSkipsEventsAndNeutralizesTheOldInput()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:eventQueueResetRequiresTheOriginalOwnerScopeIncludingRevokedClose()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:eventFailureRevokesTheRootAndIsAvailableToTheTaskRunner()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:boundEventEntersTheOriginalScopeAndRestoresItsCaller()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:workerEventCannotAcquireClientThreadPermission()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:wrongThreadCannotEvenNeutralizeTheInputObject()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:closedEventBindingsDoNotAccumulateAcrossOneHundredRoots()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:processListenerRemainsRegisteredAfterTaskClose()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:processObservationDoesNotBorrowThePublisherScopeEvenOnFailure()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:taskOwnedCleanupOrWorkerCannotCreatePersistentProcessListeners()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:oldInputNeutralizesItsOwnObjectAndCannotBorrowTheNextTask()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:failedInputTickAlsoNeutralizesItsPreviousValues()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:taskListenerRetiresAtCloseAndItsRetainedProxyCannotBorrowTheNextRoot()",
+        "dev.aitalkstreamer.mc.survival.SurvivalCallbacksTest:unboundEventCannotAcquireTheActiveRoot()"
+      ]
+    },
+    "explicit_effect_gates": {
+      "main": {
+        "report": "game-adapters/minecraft/survival/build/reports/control/main-gates.json",
+        "sha256": "313c92ca867214972c19c6a93280f35bc6d31893981bc4bbcd3370c53b6f97ed",
+        "namespace": "named",
+        "policy_sha256": "df9105eef8f4ed5189bba5367ff76f8fc086d9f8999307f6576ea8320e048afe",
+        "mapping_sha256": "afcab02d68c1f4ec1af0c06a56e43bb7f9e7e95fe648c0bf276649f9277f871b",
+        "classes": 540,
+        "transformed_classes": 18,
+        "sites": 37,
+        "routes": {
+          "PER_WRITE_EFFECT": 37
+        },
+        "output_sha256": null,
+        "input_sha256": null,
+        "coverage": "EXPLICIT_SELECTED_SITES_NOT_COMPLETE_RUNTIME_COVERAGE"
+      },
+      "baritone": {
+        "report": "game-adapters/minecraft/survival/build/reports/control/baritone-gates.json",
+        "sha256": "675d7e9283477447ee6b9bc3b8b98373d65c70405871c821d0784892b4e1a72d",
+        "namespace": "intermediary",
+        "policy_sha256": "df9105eef8f4ed5189bba5367ff76f8fc086d9f8999307f6576ea8320e048afe",
+        "mapping_sha256": "afcab02d68c1f4ec1af0c06a56e43bb7f9e7e95fe648c0bf276649f9277f871b",
+        "classes": 464,
+        "transformed_classes": 17,
+        "sites": 50,
+        "routes": {
+          "PER_WRITE_EFFECT": 48,
+          "movement": 2
+        },
+        "output_sha256": "f1a3872a0bd7134f5aa4bf2b6dbe477253d59dd7a05874c1c7ec935993c108b7",
+        "input_sha256": "2fa4a78e5224920840d98ef20156f9fb05812394f1ba95b78e45d628da2a0aae",
+        "coverage": "EXPLICIT_SELECTED_SITES_NOT_COMPLETE_RUNTIME_COVERAGE"
+      }
+    },
+    "native_input_artifact": {
+      "jar_sha256": "08ebbe83109210a89560a2981c53a1d40edeaaf3fe6915eb2a69ea7bc28d31d8",
+      "mixin_refmap_verified": true,
+      "real_mixin_application_tested": false
+    },
+    "embedded_artifacts": [
+      {
+        "entry": "altoclef-controlled-1.21.1-0.19+ats.1.jar!/META-INF/jars/baritone-controlled-1.21.1-ats.2.jar",
+        "sha256": "f1a3872a0bd7134f5aa4bf2b6dbe477253d59dd7a05874c1c7ec935993c108b7",
+        "bytes": 1810117
+      },
+      {
+        "entry": "altoclef-controlled-1.21.1-0.19+ats.1.jar!/META-INF/jars/baritone-controlled-1.21.1-ats.2.jar!/META-INF/jars/nether-pathfinder-1.4.1.jar",
+        "sha256": "be690c892d4962fec42862441ef470d6556c4913b5467e3b1dec20a5590d88d4",
+        "bytes": 984161
+      },
+      {
+        "entry": "altoclef-controlled-1.21.1-0.19+ats.1.jar!/META-INF/jars/jackson-annotations-2.16.0.jar",
+        "sha256": "6af0ae59447fce2d5c09c3d5dd33e12dd436ae32ec86dde005f7454884078819",
+        "bytes": 80759
+      },
+      {
+        "entry": "altoclef-controlled-1.21.1-0.19+ats.1.jar!/META-INF/jars/jackson-core-2.16.0.jar",
+        "sha256": "49bb2c4057a162595a4a33dd81c140181316f2a756c7e49da4080600420712d4",
+        "bytes": 579376
+      },
+      {
+        "entry": "altoclef-controlled-1.21.1-0.19+ats.1.jar!/META-INF/jars/jackson-databind-2.16.0.jar",
+        "sha256": "1d45a06c5f904a6e2fa71c7529fa66a7f7c2457da98dd235606e6bd2febbcdc3",
+        "bytes": 1656826
+      }
+    ],
+    "duplicate_native_arbiter_absent": true,
+    "static_inventory": {
+      "path": "game-adapters/minecraft/survival/build/reports/control/write-sites.tsv",
+      "sha256": "e85dd42a9fa65f73ee955cb91336105b10c844741a7bfd4decad23e95df75326",
+      "sites": 13589,
+      "by_artifact": {
+        "controlled-altoclef": 5538,
+        "pinned-baritone": 8051
+      },
+      "by_instruction_kind": {
+        "WRITE_179": 594,
+        "WRITE_181": 3140,
+        "CALL_184": 916,
+        "CALL_185": 2013,
+        "CALL_182": 5484,
+        "CALL_183": 1305,
+        "DYNAMIC_HANDLE_5": 44,
+        "DYNAMIC_HANDLE_6": 68,
+        "DYNAMIC_HANDLE_9": 20,
+        "DYNAMIC_HANDLE_8": 5
+      },
+      "review_status": "UNREVIEWED_NOT_A_MUTATION_COVERAGE_ASSERTION"
+    },
+    "launch_guard": "UNCONDITIONAL_PRELAUNCH_REJECTION",
+    "automatic_input_authorized": false,
+    "runtime_started": false,
+    "real_game_acceptance": "not_run",
+    "distribution_gates": [
+      "all native input/view/GUI/Baritone writes bound to the sole arbiter",
+      "physical ownership restoration and expected GUI",
+      "binary/source correspondence and LGPL/native dependency notices",
+      "same-player real-client acceptance"
+    ]
+  },
+  "callback_transform": {
+    "report": "game-adapters/minecraft/survival/build/reports/control/baritone-gates.json",
+    "sha256": "675d7e9283477447ee6b9bc3b8b98373d65c70405871c821d0784892b4e1a72d",
+    "revision": 2,
+    "sites": [
+      {
+        "origin": "baritone/behavior/PathingBehavior",
+        "method": "findPathInNewThread(Lnet/minecraft/class_2338;ZLbaritone/pathing/movement/CalculationContext;)V",
+        "route": "CAPTURE_CALCULATION_ROOT"
+      },
+      {
+        "origin": "baritone/behavior/PathingBehavior",
+        "method": "lambda$findPathInNewThread$2(ZLnet/minecraft/class_2338;Lbaritone/api/pathing/goals/Goal;Lbaritone/pathing/calc/AbstractNodeCostSearch;JJ)V",
+        "route": "WORKER_CALCULATE_CLIENT_COMMIT_SAME_SEARCH"
+      },
+      {
+        "origin": "baritone/behavior/PathingBehavior",
+        "method": "atsClearRootEvents()V",
+        "route": "ORIGINAL_ROOT_EVENT_QUEUE_RESET"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onTick(Lbaritone/api/event/events/TickEvent;)V",
+        "route": "BOUND_CLIENT_EVENT"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onPostTick(Lbaritone/api/event/events/TickEvent;)V",
+        "route": "BOUND_CLIENT_EVENT"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onPlayerUpdate(Lbaritone/api/event/events/PlayerUpdateEvent;)V",
+        "route": "BOUND_CLIENT_EVENT"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onSendChatMessage(Lbaritone/api/event/events/ChatEvent;)V",
+        "route": "DISABLED_RAW_COMMAND"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onPreTabComplete(Lbaritone/api/event/events/TabCompleteEvent;)V",
+        "route": "DISABLED_RAW_COMMAND"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onChunkEvent(Lbaritone/api/event/events/ChunkEvent;)V",
+        "route": "OBSERVATION_WITHOUT_TASK_SCOPE"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onBlockChange(Lbaritone/api/event/events/BlockChangeEvent;)V",
+        "route": "OBSERVATION_WITHOUT_TASK_SCOPE"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onRenderPass(Lbaritone/api/event/events/RenderEvent;)V",
+        "route": "OBSERVATION_WITHOUT_TASK_SCOPE"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onWorldEvent(Lbaritone/api/event/events/WorldEvent;)V",
+        "route": "OBSERVATION_WITHOUT_TASK_SCOPE"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onSendPacket(Lbaritone/api/event/events/PacketEvent;)V",
+        "route": "BOUND_CLIENT_EVENT"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onReceivePacket(Lbaritone/api/event/events/PacketEvent;)V",
+        "route": "BOUND_CLIENT_EVENT"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onPlayerRotationMove(Lbaritone/api/event/events/RotationMoveEvent;)V",
+        "route": "BOUND_CLIENT_EVENT"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onPlayerSprintState(Lbaritone/api/event/events/SprintStateEvent;)V",
+        "route": "BOUND_CLIENT_EVENT"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onBlockInteract(Lbaritone/api/event/events/BlockInteractEvent;)V",
+        "route": "BOUND_CLIENT_EVENT"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onPlayerDeath()V",
+        "route": "BOUND_CLIENT_EVENT"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "onPathEvent(Lbaritone/api/event/events/PathEvent;)V",
+        "route": "BOUND_CLIENT_EVENT"
+      },
+      {
+        "origin": "baritone/event/GameEventHandler",
+        "method": "registerEventListener(Lbaritone/api/event/listener/IGameEventListener;)V",
+        "route": "TASK_LISTENER_RETIREMENT"
+      },
+      {
+        "origin": "baritone/utils/PlayerMovementInput",
+        "method": "<init>(Lbaritone/utils/InputOverrideHandler;)V",
+        "route": "IMMUTABLE_INPUT_BINDING"
+      },
+      {
+        "origin": "baritone/utils/PlayerMovementInput",
+        "method": "method_3129(ZF)V",
+        "route": "ORIGINAL_INPUT_TICK"
+      },
+      {
+        "origin": "baritone/utils/PlayerMovementInput",
+        "method": "$ats$callback$zero()V",
+        "route": "ORIGINAL_OBJECT_NEUTRALIZATION_8_FIELDS"
+      }
+    ],
+    "class_hashes": [
+      {
+        "after": "da6d67b38f83f483136c7e2fc380b2cb19b44c6cfc37902af69e1e935240bd8f",
+        "path": "baritone/behavior/PathingBehavior.class",
+        "before": "d18108b7e0816628b36d4e05d90c7ce5a96aa72ef92eaae7b47617e516df6e5d"
+      },
+      {
+        "after": "d2df53d6a49216ffa448f5c87f8f2113002c70abdc2fc9ca801f6248130a93fb",
+        "path": "baritone/event/GameEventHandler.class",
+        "before": "7940f9264132c5811836f8660b75563c53b884773258d04da2b3648425ea3129"
+      },
+      {
+        "after": "b99f30b6a15a670eeb1e5f20ada6bb36e44078bdabe86d496b69129c5c22203c",
+        "path": "baritone/utils/PlayerMovementInput.class",
+        "before": "0ea0f846216c4c14adb7a93161b12cd8fbbc6255b3047a273e302d432fb43865"
+      }
+    ]
+  },
+  "source_snapshot": [
+    {
+      "path": "configs/mc-survival-build.lock.json",
+      "sha256": "b93bdb6af4259eadc79ce32a6b1bace98d94c74184d280b155dbdc4d5261f882"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/08-完整交付规划.md",
+      "sha256": "4f8be4ac8edd1fb3bd03eca9922e7291fa564628b59b0438e56250c06af376fd"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/Baritone事件与寻路结果归属.md",
+      "sha256": "fd93ac89c8d96225c7d4bb614c692f85b4738be2d6d0675b2fc1523555575147"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/README.md",
+      "sha256": "9de2364fd5b0200467224f4119a16c93af912172c7d91ddd18aa31f67e037f19"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/任务收尾与事件订阅.md",
+      "sha256": "847814aeae4d00abf397e997e26736d394fe2b88471d997823c0d4ed5f8739b6"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/完整交付清单.json",
+      "sha256": "1eaa3beb51f1d0b38d02233e8f40e709b0b3f74d1a4bbcf286d507eb8fba8b64"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/build.gradle",
+      "sha256": "128835615e1db7f2f49291da0b8044c96801fab7d3c72c2366ee749d58e0ee73"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/gradle/wrapper/gradle-wrapper.jar",
+      "sha256": "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/gradle/wrapper/gradle-wrapper.properties",
+      "sha256": "f2cb19698ac606e7b367d8b93631a489ad19b783bd7ee48b38d57a06edff079a"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/gradle.lockfile",
+      "sha256": "6dc453dc05bd35ebad4352dca7e6a327a023d4c9ea90fbb68dbb5c0ecfc4b514"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/gradle.properties",
+      "sha256": "227193cdfb49bd1e7eafb5e615f8024cd8f603a68e5d4e457c9256889b4e357f"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/gradlew",
+      "sha256": "b187b4c52e749f5760afdd6fadc31b2a98ad35fb249bf0dff03b72650f320409"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/gradlew.bat",
+      "sha256": "1d297e00bd21de3ace22b4d7f2de1f9dfa858883d66bbf7c1ccbecccec8f4f3b"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/logs/latest.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/README.md",
+      "sha256": "3de2dbe0f74534d03c0704930658c55d3943c2283bbab86c9f197cb8dec04f7b"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/settings.gradle",
+      "sha256": "dcf61b31535309424a65a7179e4ff2a9e15304b6b3250fffe3b449f03ce2d714"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/BridgeCore.java",
+      "sha256": "1551e0100b88b1c6a6f9b34e5341d451a32257452a2c280f449d15d55e1109ce"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/ControlArbiter.java",
+      "sha256": "ddb4af9f55cae61a88de622c48440e4cf0fcdfb76595adde54badc8c426480b7"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/CursorActivity.java",
+      "sha256": "a9e2d0908776b1d3d4168c9669ef3975e8012085a36fc46edc742ae071ea64fe"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/FrameEncoder.java",
+      "sha256": "f5c7e02082f690e108ef34739c054a1569c30f1f7c08b4b778ed038565e19189"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/FrameUpload.java",
+      "sha256": "ec9b7481ab8e1e0bbc3c7a01df33d6ad902bfaa483b2e494cc5f8f5be4b370a8"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/GamePort.java",
+      "sha256": "d8b73450d460f1d8bd58a943aa4211f7a4edcd78c0cbe02cc4d61da3180dab20"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/InputLeaseFence.java",
+      "sha256": "92fc231b15c156e86701c060bb3c249fadd806196168eb6a5f7ec608f8383894"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/InputLedger.java",
+      "sha256": "6715990dae1c0370a7acf8ca3765d6db9edc897b29fa2d2e304789463fda44f7"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/Json.java",
+      "sha256": "7e5b8336a54b52353602c7f9a736be52eef1bcb6cbe5504e09eae4cd613d0c2d"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/LocalJournal.java",
+      "sha256": "5bf9dbb8beeb065f1e9c81acc6f04bf2c54a995e3733a28454f9406fe6d4a42e"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/OwnedValue.java",
+      "sha256": "b4b1cce8de6aa2ec6254fdde2ffd1309e3fc35f515b09aaae3103567f654f9bc"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/PhysicalKeys.java",
+      "sha256": "3b549e5004529d7d58cdda89e2319034f46a84f58179a038fa727058e78ce051"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/Wire.java",
+      "sha256": "4666febec05758ac134efac5b73a40251e3aae342413536f04f484fbdcd164e9"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/InputOwner.java",
+      "sha256": "c72e4dcc59319be98751302a4b4fe2da222209ddc5d9f7207031bfca798a1084"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/McBridgeClient.java",
+      "sha256": "8d7282d1dbfdfcad5a692fb0f26d1fceb6839fde7d87e0b3087f636f4dcc952b"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/MinecraftPort.java",
+      "sha256": "e6d10cd0a46331987f27db352db1c66cc62b70823cd4a5e598ce1855af780fcc"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/InputUtilMixin.java",
+      "sha256": "13da025ce488522e6b90d68731b7eaab26fc3045cc2fe37966082faafecc6c18"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/KeyBindingAccessor.java",
+      "sha256": "009c185610df161ff8c8522773fc60fc8ce9ed4b377d16d8b158b5be635e5846"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/KeyboardMixin.java",
+      "sha256": "5729ef81074b74e60a78b00f39c1432325ed2ea679d50ff65e8b2260ded7afc3"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/MinecraftInputInvoker.java",
+      "sha256": "99576926ae792a15206af1f56dca67cacc66ab7bfc8753c411e505bb7d2fdba7"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/MouseMixin.java",
+      "sha256": "ac10a9208f2d8ae1dd5ef38fdd32b355c7d3ae04545d238b417928f73b069bd2"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/resources/assets/ai_talk_streamer_mc_bridge/lang/en_us.json",
+      "sha256": "4b9e430457a76e1877684e8e45574f91ef3caafcdde117d99bc883099f3ef6c9"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/resources/assets/ai_talk_streamer_mc_bridge/lang/zh_cn.json",
+      "sha256": "25249807eaef22a8e02f88245caedcfb844406b66e9da655092f42005064b7df"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/resources/fabric.mod.json",
+      "sha256": "017f27570ff2a575a06758f559571851ac6d019cba1708f4a11ea5c90792bd11"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/main/resources/mc-bridge.mixins.json",
+      "sha256": "ff80eb31b0ae080f64f28d6ea9eccf55d514cc1b5c5e73dbc5985169c924fee9"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/ControlArbiterTest.java",
+      "sha256": "9f3dfd39e20727ac28e81579bb8812749032a116f2eba1a2ebe16ea00ac50db8"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/CursorActivityTest.java",
+      "sha256": "e32d76ce69960babc330dc93ca0885fae8ca1c89e7d2f7c4282016a35795dbff"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/FrameTest.java",
+      "sha256": "b1437c7a264e5d045eeca7ab8e76b9cd96145be766fdcd09ae886cd34c74f353"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/HeadlessBridge.java",
+      "sha256": "bb86b178c82b6a9409dbd4fad3df0df8ff00803391a67c70b5cd95394c3a4f5c"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/InputLeaseFenceTest.java",
+      "sha256": "f714ac52f87cb1f6d20dfc857815e777122711973f2814b80a7e6af91f7c984f"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/InputLedgerTest.java",
+      "sha256": "83abcae01fed8575cd2693083500010d26ff59d3007a30302ff89528752e5e46"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/LocalJournalTest.java",
+      "sha256": "857fd605b5351a6c69cbb26cf2e45ac19b6a45334e8bc8746fbff09079ea2000"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/OwnedValueTest.java",
+      "sha256": "552aaabd68751b8033f9ae0517065647a91ab5040c3f6285f620af73e845e6ca"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/PhysicalKeysTest.java",
+      "sha256": "60a5ccae4b4da1a78016c7fdbee3197da8e56bea48259f9e650d4b41e72a6595"
+    },
+    {
+      "path": "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/WireTest.java",
+      "sha256": "43ab4fd79299bc065006b95a0fcd94de90611f52152be521170111cbde5e41f9"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/build.gradle",
+      "sha256": "68600170c1157d8bc3b5900f332695660e3f522ee322e94a8f2b00f019d915d6"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/controlled-patches.json",
+      "sha256": "428d0eeeedb608b796fdb87abf4e04aba41b50aabd6e1cd4a9854929fe88d76f"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/gate-policy.json",
+      "sha256": "df9105eef8f4ed5189bba5367ff76f8fc086d9f8999307f6576ea8320e048afe"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/gradle.lockfile",
+      "sha256": "75160c8b41754c75eafec1aca038a02e15c32f54c4e178114708386df9612edf"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/gradle.properties",
+      "sha256": "21c992e2bba320f2cf1a008a4c247a8412b79faa27060e8cb7ed1754c5b77a1e"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/settings.gradle",
+      "sha256": "546a2fd5f39956a02b107bf34ab05f4a54e1eb0d92e2c2ced1a91659b5aba783"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/audit/java/dev/aitalkstreamer/mc/survival/audit/BaritoneCallbacksCompiler.java",
+      "sha256": "8d16d4e535ea02ce53fa238b16cf91c5999b8daf499d825a49de4d643159b1e8"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/audit/java/dev/aitalkstreamer/mc/survival/audit/BytecodeGate.java",
+      "sha256": "84345ef061d4bf795f1f44db9c075f0fc42884a9d691a5dbc26a0d0be005c655"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/audit/java/dev/aitalkstreamer/mc/survival/audit/GatePolicy.java",
+      "sha256": "7fdb625197cab76e7a91abef6d2b6abb1c1c6bc9ad9a210389fa2bf380633ffc"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/audit/java/dev/aitalkstreamer/mc/survival/audit/WriteSiteInventory.java",
+      "sha256": "d9d62d92b2fa97279203a43efbfcc418c0562f356fb789d1762cac5158338a28"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/main/java/dev/aitalkstreamer/mc/survival/ArbiterBoundary.java",
+      "sha256": "9160b6e1a54faa3687e1daa00e44d59e2638035a713a33b57d81c946c2063965"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/main/java/dev/aitalkstreamer/mc/survival/ControlledAltoClefDriver.java",
+      "sha256": "fd70c3302ea6eb3be0dd131bd15d96ce4f72369fd3802019ed23ac2fd3604f81"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/main/java/dev/aitalkstreamer/mc/survival/ControlledTaskFactory.java",
+      "sha256": "f74354377fd708728bade69a9c071caad79933f89df620293bfbadf0defa389c"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/main/java/dev/aitalkstreamer/mc/survival/ControlledTaskRunner.java",
+      "sha256": "6479f0844fb5c6021fc45f9f0499cff16c47497389ab341f96371b66e56d4d53"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/main/java/dev/aitalkstreamer/mc/survival/SurvivalAsync.java",
+      "sha256": "75b7fd7adefd2816b967ff296493c40de6ea624a5fa9396d4858f3773106d301"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/main/java/dev/aitalkstreamer/mc/survival/SurvivalAuthority.java",
+      "sha256": "b4ab554d043df316fc96ca4998ccfe07d2a2580f770d24ef472c402b3746b030"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/main/java/dev/aitalkstreamer/mc/survival/SurvivalCallbacks.java",
+      "sha256": "7be793c14816abb296e68e5544d6e461dbf17adc87178b52f65d86bef4085581"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/main/java/dev/aitalkstreamer/mc/survival/SurvivalInputs.java",
+      "sha256": "dd3b776f4409ab05c6aaf019c6c02f671108b09762c520b0113d064cee18460e"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/main/java/dev/aitalkstreamer/mc/survival/SurvivalLaunchGuard.java",
+      "sha256": "ccb4af0260d13b7bb8c930c71317448ea4ae9ec6931598d90ac78228e7017fc0"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/test/java/dev/aitalkstreamer/mc/survival/ArbiterBoundaryTest.java",
+      "sha256": "229e569d5e4e24ec577ce24b39e5e93fc76d65c6ddd83995a728543f283a13dc"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/test/java/dev/aitalkstreamer/mc/survival/BaritoneCallbacksCompilerTest.java",
+      "sha256": "866f0d9c24ee17bda3fa42c67ef2a6072314faf2d07e14e6d8e3879475e6e1c6"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/test/java/dev/aitalkstreamer/mc/survival/BytecodeGateTest.java",
+      "sha256": "528194f461031a2de69056108b6ecbb4cab6303d77fd64d3ed6b0ab825a9ad52"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/test/java/dev/aitalkstreamer/mc/survival/ControlledPulseQueueTest.java",
+      "sha256": "e9c4e9292c635ac41376f6f6701c37dfcfe1c828c084aa291571edc787d141c0"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/test/java/dev/aitalkstreamer/mc/survival/ControlledTaskRunnerTest.java",
+      "sha256": "cc6f43a72a38dd4f3f5d72909d2bd8dbaf2f84c28f87a9ba567259e27eb26c34"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/test/java/dev/aitalkstreamer/mc/survival/ScopedEventBusTest.java",
+      "sha256": "5ae5c4495405aee1bcbf38a08484dde4dd0c04ad3f18e21e5fe4cd608def17e5"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/test/java/dev/aitalkstreamer/mc/survival/SurvivalAsyncTest.java",
+      "sha256": "188acb2babc7143e30a88a82cd57de0465319fabb8f4fd0bbdc4727418d7a1ff"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/test/java/dev/aitalkstreamer/mc/survival/SurvivalAuthorityTest.java",
+      "sha256": "32fa5e2f85918b0d78c4cb78ab0025d60489ace7e5032872a6f25b6263ac3426"
+    },
+    {
+      "path": "game-adapters/minecraft/survival/src/test/java/dev/aitalkstreamer/mc/survival/SurvivalCallbacksTest.java",
+      "sha256": "216f29d88897934774b62b839c286070ae48aa7da5754fdf71ed3218cb681dda"
+    },
+    {
+      "path": "scripts/mc_build_fabric.ps1",
+      "sha256": "e9aa4268831b1da7889966c0781ad80036c42f89c826a2c64743d1c3c4fb0c5f"
+    },
+    {
+      "path": "scripts/mc_build_survival.ps1",
+      "sha256": "3efbaa7075863e677f7f18ef82578e7c6590644448be3e3313fd17ad40b0d9f2"
+    },
+    {
+      "path": "scripts/mc_check_contracts.py",
+      "sha256": "545063cfaa77b5c6551c35e1eb0d1b91fb53b02d963aba2602251bf65dd15873"
+    },
+    {
+      "path": "scripts/mc_check_survival_build.py",
+      "sha256": "c4694c554e2651f780f78564f87f6b9d0c6236bd0509c945978558834a60ce58"
+    },
+    {
+      "path": "scripts/mc_prepare_survival.py",
+      "sha256": "31a0608f549d8d1234b6953ca15777b0aa5bec86c754b57b460d67a57d9970d1"
+    }
+  ],
+  "failures_preserved": [
+    {
+      "path": "outputs/mc-validation/round-012/survival-build-initial.log",
+      "cause": "Test listener implemented abstract interface instead of supplied empty base class.",
+      "resolved": true
+    },
+    {
+      "path": "outputs/mc-validation/round-012/survival-build-second.log",
+      "cause": "106 tests passed; new module POM filename still used ats.1 while dependency requested ats.2. Filename corrected and complete build/package passed.",
+      "resolved": true
+    },
+    {
+      "kind": "code_review_lock_order",
+      "cause": "Result monitor could be held while entering native arbiter, opposing client cancellation order.",
+      "resolved": true,
+      "regression": "workerDoesNotHoldTheResultMonitorWhileWaitingForNativeControl"
+    },
+    {
+      "kind": "code_review_listener_origin",
+      "cause": "Revoked task cleanup and task-owned calculation without a game scope could be confused with process-startup listener registration. Both Baritone registration and actual AltoClef EventBus now reject these origins.",
+      "resolved": true,
+      "regression": "taskOwnedCleanupOrWorkerCannotCreatePersistentProcessListeners"
+    }
+  ],
+  "constraints": {
+    "no_virtualization": true,
+    "remote_4090": "paused",
+    "current_target": "rtx3080",
+    "no_new_model_downloads": true,
+    "no_inference_or_mc_or_broadcast_start": true,
+    "owned_processes_after_checks": [],
+    "interactive_browser_created": false,
+    "layout_sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76"
+  },
+  "remaining": [
+    {
+      "id": "D01",
+      "required": true,
+      "status": "partial_native_builds_and_pinned_source_inputs",
+      "remaining": "mc设备profile、原生预检/准备/启停、完整运行锁与发布包；正式Node24.22.1、完整依赖源对应/许可及干净环境复现"
+    },
+    {
+      "id": "D02",
+      "required": true,
+      "status": "partial_native_frames_sessions_history_runtime_not_accepted",
+      "remaining": "配方/完整GUI/规则、B归档向A完整历史投影和世界选择后台；原始帧、Fabric/Mixin/服务器联合实机验收"
+    },
+    {
+      "id": "D03",
+      "required": true,
+      "status": "partial_bound_events_input_ticks_and_path_commits_cpu_verified",
+      "remaining": "剩余写点/包/反射/选项分类、其他线程/回调、网络事件真实线程与世界维护一致性、GUI仲裁和全部上游清理；真实改键/物理键鼠/扫描码、光标/焦点/分辨率、停顿与至少20次实机接管"
+    },
+    {
+      "id": "D04",
+      "required": true,
+      "status": "partial_selected_effect_candidate_compiled_guarded_not_bound",
+      "remaining": "完整GUI/规则、其他副作用、MinecraftPort能力、实际任务树各分支清理及去除启动阻挡所需门槛；导航/采集/真实配方合成/基地世界修订/完整物品使用、普通PvE/补给/危险处理/资源链及真实效果证据"
+    },
+    {
+      "id": "D05",
+      "required": true,
+      "status": "partial_world_context_and_tools",
+      "remaining": "真实DSH与模型渠道、完整生存目标和预算/取消/迟到结果；任务结果自动口播/回复编排、播出前事实复核、Neuro固定消息兼容及回放"
+    },
+    {
+      "id": "D06",
+      "required": true,
+      "status": "partial_audience_vote_task_protocol_and_operator_ui_locally_verified",
+      "remaining": "自由语言建议映射/消歧、任务结果公开回复；SC金额/角色/表情/删除及撤票、真实平台/MC任务联合验收；去身份化与删除联动"
+    },
+    {
+      "id": "D07",
+      "required": true,
+      "status": "partial_sessions_goals_dispositions_and_b_restore_core",
+      "remaining": "B归档向A完整历史投影、历史保留/摘要/清理、Humanity删除、后台维护、A/B/MC联合备份恢复及次日实机验收"
+    },
+    {
+      "id": "D08",
+      "required": true,
+      "status": "partial_world_tasks_audience_operator_ui_locally_verified",
+      "remaining": "世界选择、回复编排、人物包装、声音/节目、记忆/删除与完整诊断维护后台；已有世界/任务/互动页整链验收"
+    },
+    {
+      "id": "D09",
+      "required": true,
+      "status": "design_frozen_runtime_not_implemented",
+      "remaining": "正式横屏节目页、v3/v2媒体、关键帧、字幕/取消屏障及唯一正式播放器"
+    },
+    {
+      "id": "D10",
+      "required": true,
+      "status": "not_generated",
+      "remaining": "圆形与横窗各50段、共100段新人物素材，完整索引/脸框/动作语义/隔离及动态QA"
+    },
+    {
+      "id": "D11",
+      "required": true,
+      "status": "legacy_chain_available_mc_integration_pending",
+      "remaining": "MC人声/游戏/BGM混音、压低、取消与静音恢复；O07/F07主备及唯一可听链"
+    },
+    {
+      "id": "D12",
+      "required": true,
+      "status": "partial_native_frame_transport_and_pinned_vision_adapter_cpu_verified",
+      "remaining": "真实视觉服务/模型/投影与CUDA运行核对、真实帧/文字/建筑/未知及失败样例；跨机时钟、带宽、GPU取消和完整负载验收"
+    },
+    {
+      "id": "D13",
+      "required": true,
+      "status": "partial",
+      "remaining": "B端联合、官方直播姬实际捕获、真实平台公开状态与观众端音画；资格校验及公开验收"
+    },
+    {
+      "id": "D14",
+      "required": true,
+      "status": "partial_native_journal_build_and_control_fault_checks",
+      "remaining": "完整运行诊断、资源/时延/日志/磁盘预算、测试桥首次连接超时与历史高I/O/通用ACK故障成因复查、故障注入、联合恢复及回滚"
+    },
+    {
+      "id": "D15",
+      "required": true,
+      "status": "not_accepted",
+      "remaining": "V01–V44+C01–C24全部68项、4小时完整负载、跨场/次日、干净原生环境复现与统一交付报告"
+    }
+  ],
+  "dependency_lock_review": {
+    "only_change": "baritone-controlled:1.21.1-ats.1 -> baritone-controlled:1.21.1-ats.2",
+    "other_lock_entries_unchanged": true
+  },
+  "documentation_validation": {
+    "result": "PASS",
+    "classification": "DOCUMENT_AND_CONTRACT_VALIDATION_ONLY",
+    "schema_definitions": 85,
+    "valid_examples": 68,
+    "negative_contract_cases": 40,
+    "http_operations": 42,
+    "markdown_files_checked": 28,
+    "local_markdown_links": 303,
+    "runtime_acceptance_cases_run_by_this_check": 0,
+    "evidence": "outputs/mc-validation/round-012/contracts-verification.json",
+    "sha256": "4011c2be47d141df8ec4c179ab9c9bed93756fc53b0ff61041267a28029446b7"
+  }
+}

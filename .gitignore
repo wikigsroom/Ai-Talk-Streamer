@@ -13,6 +13,21 @@
 /downloads/
 /models/
 /node_modules/
+**/node_modules/
+/outputs/mc-validation/
+/outputs/mc-tests/
+/configs/mc-game.json
+/configs/mc-vision.json
+/configs/mc-runtime.private.json
+/configs/mc-player.private.json
+/configs/mc-dsh-candidate.private.json
+/configs/mc-maintenance.private.json
+/game-adapters/minecraft/fabric/.gradle/
+/game-adapters/minecraft/fabric/build/
+/game-adapters/minecraft/fabric/run/
+/game-adapters/minecraft/survival/.gradle/
+/game-adapters/minecraft/survival/build/
+/game-adapters/minecraft/survival/run/
 /configs/channel.env
 /configs/platforms.private.json
 /configs/platforms.private.json.tmp
@@ -64,6 +79,10 @@ __pycache__/
 
 # Generated categorized character snapshots and archive bundles
 /outputs/archives/
+
+# Native Minecraft generates these alongside the Fabric/survival project sources.
+/game-adapters/minecraft/*/logs/
+/game-adapters/minecraft/*/crash-reports/
 
 # Superseded casting drafts and private generation logs
 /output/imagegen/character-selection-20261024/

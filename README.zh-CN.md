@@ -3,8 +3,16 @@
 [English](README.md) · [简体中文](README.zh-CN.md) · [完整文档](docs/README.md)
 
 <!-- deployment-branch:start -->
-**当前分支：deploy/rtx3080，3080原生同机部署。** K02 / FP16 batch4；O07主用、F07备用；人物、TTS、DSH及官方直播姬运行在3080，DSH使用`state/female-a-3080-k02`。[本分支操作手册](docs/deployment/RTX3080_K02_RELEASE.md) · [设备与分支规范](docs/deployment/DEVICE_BRANCHES.md)。五段本地验收已通过，公开推流未复测。
+**当前开发分支：`mc`，继承 `deploy/rtx3080` 的设备契约。** K02 / FP16 batch4；O07主用、F07备用；MC、人物、语音、唯一DSH/Humanity及官方直播姬均运行在3080。状态目录为`state/female-a-3080-k02`，建分支不改变部署来源。[3080操作手册](docs/deployment/RTX3080_K02_RELEASE.md) · [设备与分支规范](docs/deployment/DEVICE_BRANCHES.md)。
 <!-- deployment-branch:end -->
+
+**当前MC方案：原生 Agent＋实际 Mindcraft 物品目标求解器的原生移植＋外接 `gpt-6-luna`。** 视觉直接提交原生游戏JPEG，人物与O07/F07语音仍在3080本地推理。该移植不等于完整上游Mineflayer运行时。`dsh-mc-agent`对照方案已停用，源码、整合包和录像保留。游戏使用离线名`NAIMEI`及原世界，**死亡不掉落已开启，正常保存后复核仍为true**。[回退与规则证据](docs/technical/mc-live-v1/原生方案回退与死亡不掉落.md) · [完整实现进度和剩余事项](docs/technical/mc-live-v1/实现进度.md)。
+
+MC直播间采用 **16:9横屏**：游戏铺满画布、右下264px圆形人物、字幕及B站滚动弹幕；后台支持弹幕左右切换。[布局定稿](docs/design/mc-landscape-v1/定稿说明.md) · [完整技术方案](docs/technical/mc-live-v1/README.md)。下方竖屏及双机内容保留为历史版本记录。
+
+**当前仍在开发，尚未完整验收。** 历史实录已有采集、合成、口播和待机动作；最新089轮夜间多敌生存仍失败，不能当作有效游玩达标。正式验收 **0/68**、新人物素材 **0/100**，观众端公开音画及4小时稳定性待完成。595139公开游客采集已连通，尚缺新的真实观众事件；验证过程不自动公开开播。全部成功和失败范围均见实现进度。
+
+已有经审查的原生安装应使用其Python环境，先执行 `scripts/mc_runtime.py preflight`、`prepare` 和 `scripts/deployment_target.py`，通过后再 `application-start`。仓库不包含私有模型渠道、平台凭据、模型权重、用户提供的整合包、账号及运行状态；源码检出不能替代完整安装。[原生准备与来源核验](docs/technical/mc-live-v1/MC原生应用profile与准备.md)。所有游戏、模型及集成测试仅在远端3080的原生Windows上进行。
 
 **已验收的3080分支：K02 / O07主用＋F07备用。** 人物、TTS、DSH/Humanity及官方直播姬均在10 GB显卡主机运行。原batch8实际连续性不达标后，定稿batch4；五段最终实测平均 **24.989 Canvas FPS**，新增音频欠载、缺包和解码错误均为0。[部署与操作手册](docs/deployment/RTX3080_K02_RELEASE.md) · [可视化测试报告](docs/analysis/native-rtx3080-k02-20261029/report.html) · [发布清单](configs/releases/native-rtx3080-k02-v1.2.2.json)。本轮为本地播放，未重复公开开播、未迁移4090历史记忆；以下旧版记录保留原范围。
 
@@ -18,9 +26,9 @@
 
 [六区巡览 GIF（无声）](docs/media/room/admin-tour.gif) · [弹幕与留言管理截图](docs/media/room/admin-messages.png)
 
-**当前语音定型：O07 / OmniVoice 主用，F07 / F5-TTS v1 备用。** 保持A4090推理＋B3080官方直播姬、女A日光宿舍、MuseTalk FP16 batch 8。[新版完整操作手册](docs/deployment/BASELINE_O07_F07.md) · [发布清单](configs/releases/split-a4090-b3080-o07-f07-v1.json) · [独立新增验收](docs/evidence/voice-o07-f07.json)。`/voice-settings` 提供试听和下一句切换。下文旧录像与测评数字保留原引擎和日期，不作为新版性能数据。
+**历史双机语音定型：O07 / OmniVoice 主用，F07 / F5-TTS v1 备用。** 保持A4090推理＋B3080官方直播姬、女A日光宿舍、MuseTalk FP16 batch 8。[新版完整操作手册](docs/deployment/BASELINE_O07_F07.md) · [发布清单](configs/releases/split-a4090-b3080-o07-f07-v1.json) · [独立新增验收](docs/evidence/voice-o07-f07.json)。`/voice-settings` 提供试听和下一句切换。下文旧录像与测评数字保留原引擎和日期，不作为新版性能数据。
 
-一套运行在 **原生 Windows** 上的 **9:16 写实数字人演播台**：输入播报稿，或通过你自己的云端 LLM 渠道提问，由本机生成语音、实时口型和融合画面，并将人物送到网页与哔哩哔哩官方直播姬。
+原始版本是一套运行在 **原生 Windows** 上的 **9:16 写实数字人演播台**；本分支增加上述16:9横屏MC节目。原始版本中：输入播报稿，或通过你自己的云端 LLM 渠道提问，由本机生成语音、实时口型和融合画面，并将人物送到网页与哔哩哔哩官方直播姬。
 
 [O07/F07 新版验收](docs/deployment/O07_F07_ACCEPTANCE.md)：六个真实语音/故障/恢复用例、46项Python、82项Node及官方B客户端五段本地播放复测通过。刷新4秒缓冲素材后214次观测平均25.000FPS，无新增音频欠载、缺包或解码错误；首轮失败保留。未重复公开开播与观众CDN验证。
 
@@ -28,7 +36,7 @@
 
 **Historical baseline / 历史定型版本：** `split-a4090-b3080-v1.0.0` · [Online 4090 case / 4090 在线测评](https://4090.sid.mom/cases/ai-talk-streamer/2026-10-27/report.html) · [Runbook / 配置与操作手册](docs/deployment/BASELINE_A4090_B3080.md) · [Machine-readable release / 发布清单](configs/releases/split-a4090-b3080-v1.json)
 
-当前角色档案编号为 **女A**，正式姓名 **林知夏**，配套场景为 **知夏的日光宿舍**。她是**虚构的 22 岁中国女大学生**，沿用白天宿舍、长发、浅蓝卫衣的形象。[角色与素材归档](docs/CHARACTERS.md)提供分类目录、可校验清单和归档包。后续主运行目标为 **4090 工作站：48 GB 显存＋64 GB 内存**。详见 [4090 目标](docs/RTX4090.md)、[原生迁移与切换手册](docs/deployment/RTX4090_MIGRATION.md)及[完整方案归档](docs/archives/2026-10-26-LIVEHIME-HANDOFF.md)。仓库同步与新机器运行验收分别记录。
+当前角色档案编号为 **女A**，正式姓名 **林知夏**，配套场景为 **知夏的日光宿舍**。她是**虚构的 22 岁中国女大学生**，沿用白天宿舍、长发、浅蓝卫衣的形象。[角色与素材归档](docs/CHARACTERS.md)提供分类目录、可校验清单和归档包。历史双机主运行目标为 **4090 工作站：48 GB 显存＋64 GB 内存**。详见 [4090 目标](docs/RTX4090.md)、[原生迁移与切换手册](docs/deployment/RTX4090_MIGRATION.md)及[完整方案归档](docs/archives/2026-10-26-LIVEHIME-HANDOFF.md)。仓库同步与新机器运行验收分别记录。
 
 已增加 **RTX 3080 10 GB／64 GB 内存**实测版本。原 GPT-SoVITS 版本保留 batch 8；当前 MOSS 版本在 batch 8 播放验收失败后改用 batch 4，沿用 FP16 人物模型、完整动作库和 720×1280 输出。网页统计视频实际呈现的帧率，慢连接积压时保留排队的音频。参见 [3080 实测](docs/RTX3080.md)、[播放修正](docs/PLAYBACK.md) 和 [MOSS 验收](docs/MOSS_LIVE.md)。
 

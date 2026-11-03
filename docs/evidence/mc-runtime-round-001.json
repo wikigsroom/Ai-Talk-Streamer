@@ -1,0 +1,122 @@
+{
+  "classification": "NATIVE_CPU_PROTOCOL_AND_REGRESSION_TESTS_ONLY",
+  "round": "001",
+  "recorded_at": "2026-10-29T18:23:35.511010+00:00",
+  "branch": "mc",
+  "result": "PASS_FOR_RECORDED_CHECKS_NOT_FULL_SYSTEM_ACCEPTANCE",
+  "environment": {
+    "os": "Windows",
+    "python": "3.13.1",
+    "node_tested": "24.19.0",
+    "production_dsh_node_required": "24.22.1",
+    "production_node_verified": false
+  },
+  "checks": [
+    {
+      "id": "T001",
+      "name": "game-core",
+      "passed": 21,
+      "failed": 0,
+      "source": "tests/game-core.test.mjs",
+      "junit_local": "outputs/mc-validation/round-001/game-core.xml"
+    },
+    {
+      "id": "T002",
+      "name": "game-proxy",
+      "passed": 4,
+      "failed": 0,
+      "source": "tests/test_game_proxy.py",
+      "command": "python -X utf8 -B -m unittest discover -s tests -p test_game_proxy.py -v"
+    },
+    {
+      "id": "T003",
+      "name": "room-control-regression",
+      "passed": 12,
+      "failed": 0,
+      "source": "tests/room-control.test.mjs",
+      "junit_local": "outputs/mc-validation/round-001/room-control.xml"
+    },
+    {
+      "id": "T004",
+      "name": "existing-host-game-route-integration",
+      "passed": 1,
+      "failed": 0,
+      "source": "tests/game-host.test.mjs",
+      "junit_local": "outputs/mc-validation/round-001/game-host.xml"
+    }
+  ],
+  "test_cases_passed": 38,
+  "test_cases_failed": 0,
+  "schema_examples_checked_by_runtime": 40,
+  "resolved_initial_failure": {
+    "cause": "test cleanup attempted directory removal before its reopened SQLite connection closed",
+    "fixed": true
+  },
+  "canonical_layout_sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+  "canonical_layout_unchanged": true,
+  "protocol_fixture_servers_started": true,
+  "production_dsh_started": false,
+  "real_minecraft_started": false,
+  "inference_started": false,
+  "browser_created": false,
+  "public_broadcast_started": false,
+  "virtualization_used": false,
+  "full_system_acceptance": {
+    "required": 68,
+    "passed": 0,
+    "not_run": 68
+  },
+  "source_notes": [
+    "Game services and protocol clients are local loopback tests, not a running Minecraft game.",
+    "DSH model queue is tested with an isolated adapter; a real DSH provider compatibility run has not occurred.",
+    "No new avatar material, local vision model, GPU runtime or official-client output is claimed."
+  ],
+  "module_clean_dependency_install": {
+    "passed": true,
+    "scripts_enabled": false,
+    "network_required": false,
+    "schema_examples_rechecked": 40
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "ws": "8.22.0"
+  },
+  "remote_gpu_accessed": false,
+  "planning_completion_check": {
+    "result": "PASS_DOCUMENT_AND_CONTRACT_CHECKS_ONLY",
+    "recorded_at": "2026-10-29T18:30:28.417743+00:00",
+    "operation_flows": 12,
+    "runtime_binding_items": 8,
+    "required_domains_covered": 15,
+    "runtime_acceptance_ids_mapped": 68,
+    "valid_examples": 40,
+    "negative_contract_cases": 19,
+    "report": "docs/technical/mc-live-v1/contracts/verification.json",
+    "runtime_test_count_unchanged": true
+  },
+  "source_sha256": {
+    "backend/dsh-bridge/game-tools.mjs": "297e92a2781b803acbc04d5a60809801757c6ad9b5d587ce11524dd782a2e738",
+    "backend/dsh-bridge/host.mjs": "ec6a11a962d57fabc45980b7cf6c2909261181e4638d45e8a1a01f829865fe62",
+    "backend/dsh-bridge/server.mjs": "b1984a9c47e0a7b3d3afb6f50ad7e08a16e16b4938441232c645ddabf8584632",
+    "backend/game/config.mjs": "fc5f3db7917d6fe2942252f61ab4b936046809ba24367df1d5b3ce6d82f05f65",
+    "backend/game/errors.mjs": "a07b36c478e04cb83036239602390b434331f13da58a6c53fe69a04fd87bcfbb",
+    "backend/game/manager.mjs": "ae7057362a1e4fa9389cbc35a45bc2eab623e296dd0f6f7477235bdcbfad0105",
+    "backend/game/package-lock.json": "62a63cb7838434bef4d0a7dc7775c145ec7767e1a3f74cc4094b3e0a9cb62ff1",
+    "backend/game/package.json": "9b17690fb04d299f938dadb26ce11bbda64bb632cf973215ebcbf083f2df92d0",
+    "backend/game/planner.mjs": "19106024a8e68d0b3ae4757c595670445b95aa48c7448a9ae06a34b2aa636c39",
+    "backend/game/protocol.mjs": "417cd4704560d2b4a83e3027ae3d6f3f1078a44fcf5fe07a524985f292635dcc",
+    "backend/game/state.mjs": "b7d634fc543b5396cf0c3ad569253e353ab7dd7689f26e9c4075979db98dba3d",
+    "backend/game/store.mjs": "8249dbc74ba78eb65d2a8e6e99f656316524e29de763731d622ecf3716b6f522",
+    "backend/game/suggestions.mjs": "3bcb754aba58197da21146d662bc8a73144a19251d78c6bfe28480c61e4dc641",
+    "backend/game/tasks.mjs": "6f8d203ab8ebc1c9b9d2d83944a843c13995b23371b5f8b141aba23ae1ba3127",
+    "backend/game/votes.mjs": "4e8cb032c4cde481b92694f41bee367b0ff053407b2b0e7bb3cdbfbd5f4f1994",
+    "backend/room/manager.mjs": "156b5f814ed8eeafc9e2dc368b5bc6cd0da7d19220cf1384b831b021fa43b1ad",
+    "integration/dsh_bridge.py": "c1cfe9e8d92a52e8d41058a83313acac38d0bfb651e691b80dda5af4bba4dd0d",
+    "scripts/mc_check_contracts.py": "95a2ac74fc7e47f9eb7b25e91c956fdb26820276649f93d8ddce5febb236bce7",
+    "tests/game-core.test.mjs": "52f0a48c220630677e413659557c3029a32842b3f4ca05f381394bee05385eae",
+    "tests/game-fixture.mjs": "8ea8194230da5ff7138d91d3ccf1294786f66f1251f4b90455ebf93d667bcacf",
+    "tests/game-host.test.mjs": "5855c862c46cecd0545e2a6de50adf3557192253ac6d45579ace1c8d96bad835",
+    "tests/test_game_proxy.py": "68ee5c2e9581f297d2541d3466fa487df7114fea5deaef59e048bcbe79888b60"
+  }
+}

@@ -1,0 +1,347 @@
+{
+  "classification": "WORLD_LEDGER_AND_RESTART_RECOVERY_CPU_PROTOCOL_TESTS_ONLY",
+  "round": "003",
+  "recorded_at": "2026-10-29T20:33:05.635073+00:00",
+  "branch": "mc",
+  "result": "PASS_FOR_RECORDED_CPU_CHECKS_NOT_FULL_SYSTEM_ACCEPTANCE",
+  "environment": {
+    "os": "Windows",
+    "java": "Temurin 21.0.11+10",
+    "gradle": "8.14.3",
+    "node_tested": "24.19.0",
+    "production_dsh_node_required": "24.22.1",
+    "production_node_verified": false
+  },
+  "checks": [
+    {
+      "id": "T008",
+      "name": "game-core-world-recovery-and-existing-host",
+      "passed": 32,
+      "failed": 0,
+      "breakdown": {
+        "game_core": 21,
+        "world_recovery": 10,
+        "game_host": 1
+      },
+      "junit_local": "outputs/mc-validation/round-003/game-world-recovery.xml"
+    },
+    {
+      "id": "T009",
+      "name": "existing-dsh-tools-and-planner-world-facts",
+      "passed": 1,
+      "failed": 0,
+      "junit_local": "outputs/mc-validation/round-003/world-context.xml",
+      "model": "MOCK_PROVIDER_ONLY_NO_INFERENCE"
+    },
+    {
+      "id": "T010",
+      "name": "fabric-java-core",
+      "passed": 21,
+      "failed": 0,
+      "breakdown": {
+        "control_arbiter": 10,
+        "local_journal": 8,
+        "wire_schema": 3
+      },
+      "junit_local": "outputs/mc-validation/round-003/java-core-final"
+    },
+    {
+      "id": "T011",
+      "name": "compiled-java-to-existing-node-host-and-restart-recovery",
+      "passed": 6,
+      "failed": 0,
+      "junit_local": "outputs/mc-validation/round-003/interop-final.xml",
+      "cases": [
+        "two_stage_auto_one_effect_and_durable_ack_barrier",
+        "a_host_restart_without_replay_or_auto",
+        "accepted_task_delayed1_8s_uses_current_facts",
+        "b_process_crash_original_boot_terminal_without_replay",
+        "manual_takeover_delayed_grant_no_effect",
+        "cancel_preflight_no_effect"
+      ]
+    }
+  ],
+  "distinct_test_cases_passed_this_round": 60,
+  "native_build_status": "PASS",
+  "schema_valid_examples_checked_by_node": 50,
+  "world_ledger": {
+    "a_database_schema": 2,
+    "new_tables": [
+      "world_registry",
+      "world_bases",
+      "world_checkpoints",
+      "task_recovery"
+    ],
+    "v1_migration_backup": "SQLite VACUUM INTO consistent committed WAL snapshot before transactional migration",
+    "future_schema_refused_before_owner_mutation": true,
+    "base_source": "operator_observed_current_fresh_position_only",
+    "checkpoint": "immutable_observation_and_refs_not_minecraft_save_backup",
+    "b_current_storage": "single_owner_atomic_JSON_NOT_FORMAL_SQLITE"
+  },
+  "recovery": {
+    "b_canonical_versions_preserved": true,
+    "a_recovery_metadata_separate": true,
+    "legacy_host_projection_repair_audited": true,
+    "one_task_per_readonly_query": true,
+    "automatic_interval_ms_min": 2000,
+    "missing_conflict_remain_unknown": true,
+    "task_actions_replayed_by_reconciliation": false,
+    "automatic_auto_after_restart": false,
+    "unknown_effect_manual_disposition_implemented": false,
+    "old_boot_world_reliable_archive_implemented": false,
+    "automatic_attempts_max_per_host_recovery": 3
+  },
+  "intermediate_failures": [
+    {
+      "name": "world-context-real-clock-wait",
+      "observed": "initial context-only test timed out awaiting AUTO control result during a slow native build",
+      "change": "context/provenance test now uses the existing controlled monotonic fixture clock, since it does not test real-time freshness deadlines; production deadlines unchanged",
+      "final_status": "targeted_context_check_passed",
+      "historical_root_cause": "not_proven; real-time and production performance still unaccepted"
+    },
+    {
+      "name": "initial-native-protocol-run",
+      "observed": {
+        "passed": 1,
+        "code_failed": 3,
+        "cancelled": 1,
+        "outer_timeout_ms": 25000
+      },
+      "reports_local": [
+        "outputs/mc-validation/round-003/initial-fabric-build-failed.log",
+        "outputs/mc-validation/round-003/initial-interop-failed.xml"
+      ],
+      "followup": "preserved failure reports; added per-phase timing and task/host/B-ledger diagnostics; outer case budget90s covers preparation and cleanup without changing production deadlines"
+    },
+    {
+      "name": "accepted-task-reused-admission-observation",
+      "diagnostic_run": {
+        "passed": 1,
+        "failed": 4
+      },
+      "observed": "GAME_OBSERVATION_EXPIRED after durable acceptance while current game snapshots were fresh",
+      "cause": "execution preflight reused the original admission observation after disk/queue delay",
+      "fix": "keep original observation admission guard; on game thread recheck current fresh observation and gameplay with original controller/lease/world/epoch, then actual goal preconditions",
+      "new_regression": "test-only1.8s delayed game-thread start; no production lease/freshness values increased",
+      "reports_local": [
+        "outputs/mc-validation/round-003/diagnostic-fabric-build-failed.log",
+        "outputs/mc-validation/round-003/diagnostic-interop-failed.xml"
+      ],
+      "final_status": "fixed_and_verified_by_final_native_suite_including_controlled_delayed_start"
+    },
+    {
+      "name": "post-freshness-ack-drain",
+      "observed": {
+        "passed": 5,
+        "failed": 1
+      },
+      "confirmed": "host-restart, bridge-crash,1.8s delayed execution, takeover and cancellation checks passed; effect-once case reached verified success and A receipt3 but B faulted before outbox drained",
+      "reports_local": [
+        "outputs/mc-validation/round-003/post-freshness-fabric-build-failed.log",
+        "outputs/mc-validation/round-003/post-freshness-interop-failed.xml"
+      ],
+      "followup": "bridge now retains a bounded fault class/source location without exception messages or filesystem paths; full check is running",
+      "final_status": "final_suite_passed_after_fixture_changes_historical_io_or_generic_ack_fault_root_not_fully_proven"
+    },
+    {
+      "name": "fault-diagnostic-functional-run",
+      "observed": {
+        "passed": 5,
+        "failed": 1
+      },
+      "confirmed": "host restart, bridge crash, delayed start, takeover and cancellation passed; effect-once case timed out observing running after4s while B durable ledger already held running and A state had become stale",
+      "reports_local": [
+        "outputs/mc-validation/round-003/fault-diagnostic-fabric-build-failed.log",
+        "outputs/mc-validation/round-003/fault-diagnostic-interop-failed.xml"
+      ],
+      "historical_ack_fault_root_cause": "not_proven",
+      "changes": [
+        "capacity fixture seeded at255 closed-ledger entries; real256th append,257th refusal and reopen retained",
+        "ACK check uses explicit PAUSED plus ordered readonly task-ledger result as receive barrier, then reads durable outbox once",
+        "task observation wait8s remains inside fixture task max_duration10s; admission/freshness/lease limits unchanged"
+      ],
+      "final_status": "final_suite_passed_after_fixture_changes_historical_io_or_generic_ack_fault_root_not_fully_proven"
+    }
+  ],
+  "fixture_scope": {
+    "existing_node_manager_http_ws_sqlite_used": true,
+    "model_context_provider_mocked": true,
+    "protocol_fixture_only": true,
+    "real_minecraft_game_runtime_used": false,
+    "capacity_check_is_not_fsync_performance_benchmark": true,
+    "task_observation_wait_ms": 8000,
+    "task_max_duration_ms": 10000,
+    "ack_uses_ordered_protocol_barrier_before_disk_read": true,
+    "real_bridge_core_used": true,
+    "jvm_has_no_minecraft_game_runtime": true,
+    "effect_counter_test_only": true,
+    "controlled_process_crash_only_own_fixture": true,
+    "durable_fixture_counter_not_minecraft_save_proof": true,
+    "production_freshness_admission_lease_limits_increased": false
+  },
+  "canonical_layout_sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+  "canonical_layout_unchanged": true,
+  "protocol_fixture_servers_started": true,
+  "production_dsh_started": false,
+  "real_minecraft_started": false,
+  "inference_started": false,
+  "browser_created": false,
+  "public_broadcast_started": false,
+  "virtualization_used": false,
+  "remote_gpu_accessed": false,
+  "model_downloaded": false,
+  "full_system_acceptance": {
+    "required": 68,
+    "passed": 0,
+    "not_run": 68
+  },
+  "known_remaining": [
+    "Fabric工程与B端仲裁/账本已实现部分源码，真实游戏、物理输入、Mixin和完整技能尚未验收。",
+    "世界/基地/检查点与B权威任务核对已接入；B正式SQLite、旧boot/世界事件归档、未知效果人工处置和完整保留/恢复仍待实现。",
+    "未经仲裁绑定的Baritone/AltoClef使AUTO能力撤回；完整生存执行档仍须全部接入。",
+    "世界事实进入现有DSH工具与规划上下文；真实DSH模型渠道、建议归并及投票胜出到真实任务仍待验证/联通。",
+    "frames、视觉、正式横屏媒体、完整游戏后台与两套共100段新人物仍待实现。",
+    "全部68项实机/完整系统验收及4小时负载仍未执行。",
+    "历史高I/O等待与通用确认故障的成因未完全证明；最终CPU检查通过不替代真实负载、存储故障及4小时整链验收。"
+  ],
+  "test_cases_failed_in_final_runs": 0,
+  "schema_valid_examples_checked_by_java": 50,
+  "build": {
+    "status": "PASS",
+    "command": "scripts/mc_build_fabric.ps1 -JavaHome <JDK21> -NodePath <Node24> -GradlePath <existing Gradle8.14.3>",
+    "tasks": [
+      "test",
+      "build",
+      "interopTest"
+    ],
+    "gradle_process_exit_code": 0,
+    "receipt_local": "outputs/mc-validation/round-003/fabric-build-receipt.json",
+    "log_local": "outputs/mc-validation/round-003/fabric-build-final.log",
+    "existing_gradle_reused": true,
+    "wrapper_execution_download_not_tested": true,
+    "clean_environment_reproduction": false,
+    "wrapper_jar_matches_upstream_sha256": true,
+    "build_dependencies_previously_resolved_no_new_model": true
+  },
+  "artifact": {
+    "path_local": "game-adapters/minecraft/fabric/build/libs/ai-talk-streamer-mc-bridge-0.1.0.jar",
+    "preserved_local": "outputs/mc-validation/round-003/fabric-bridge-0.1.0.jar",
+    "size_bytes": 250428,
+    "sha256": "0ecbaa84ec654a793d702fd95cc8dc83cde574d21784ee3476b639c288aec9e4",
+    "embedded_schema_sha256": "041bb9641d2f74c80667c2dbc9c6c3102fd888dcd3fe7d68a1e6ac3952462d17",
+    "refmap_present": true,
+    "required_mixins": 3,
+    "nested_json_schema_library_present": true,
+    "test_classes_excluded": true,
+    "real_minecraft_load_tested": false
+  },
+  "execution_profile": {
+    "name": "native_core",
+    "source_skills": [
+      "use_item:eat_hotbar",
+      "cancel"
+    ],
+    "not_full_survival_profile": true,
+    "real_food_effect_verified": false,
+    "formal_runtime_profile_accepted": false
+  },
+  "execution_preflight_correction": {
+    "initial_admission_uses_original_observation": true,
+    "after_acceptance_uses_latest_fresh_game_thread_observation": true,
+    "original_controller_lease_world_epoch_rechecked": true,
+    "actual_goal_preconditions_rechecked": true,
+    "delayed_start_ms": 1800,
+    "effect_counter_after_delayed_completion": 1
+  },
+  "document_contract_validation": {
+    "result": "PASS",
+    "recorded_at": "2026-10-29T20:31:33.530073+00:00",
+    "valid_examples": 50,
+    "negative_contract_cases": 23,
+    "http_operations": 32,
+    "schema_definitions": 61,
+    "ws_types_with_examples": 17,
+    "markdown_files_checked": 18,
+    "local_markdown_links": 196,
+    "full_openapi_spec_validator_run": false,
+    "runtime_acceptance_cases_run_by_this_check": 0,
+    "report": "docs/technical/mc-live-v1/contracts/verification.json",
+    "report_sha256": "1bda869ff94943fc167bd1283d60b7c54576ff810166a6cbf584fe3fc0991693",
+    "preserved_local": "outputs/mc-validation/round-003/contracts-final.json"
+  },
+  "source_sha256": {
+    "backend/dsh-bridge/game-tools.mjs": "7a3fa4c9e515a154c81d7bfb6a74a244885573fa5a254271679fc460d0111fc0",
+    "backend/game/config.mjs": "fc5f3db7917d6fe2942252f61ab4b936046809ba24367df1d5b3ce6d82f05f65",
+    "backend/game/errors.mjs": "a07b36c478e04cb83036239602390b434331f13da58a6c53fe69a04fd87bcfbb",
+    "backend/game/manager.mjs": "a0ab12d6741a935cb24ebe8069a9e9017b796ca3038f7a8bca5a74bc2ed9c828",
+    "backend/game/package-lock.json": "62a63cb7838434bef4d0a7dc7775c145ec7767e1a3f74cc4094b3e0a9cb62ff1",
+    "backend/game/package.json": "9b17690fb04d299f938dadb26ce11bbda64bb632cf973215ebcbf083f2df92d0",
+    "backend/game/planner.mjs": "00d10befe897e5b927b8ac2faaf9c9c9400a5aed8698817569b2854f2d0d495a",
+    "backend/game/protocol.mjs": "417cd4704560d2b4a83e3027ae3d6f3f1078a44fcf5fe07a524985f292635dcc",
+    "backend/game/README.md": "ead7caa504fdb0f55a787a935374e271e418ee8bd51d1776f4aac43d94d712a0",
+    "backend/game/state.mjs": "b7d634fc543b5396cf0c3ad569253e353ab7dd7689f26e9c4075979db98dba3d",
+    "backend/game/store.mjs": "5f4a48853f9756c01eeec1bd89b5a92bb7c7584ed886c2c3a1d30bba63278742",
+    "backend/game/suggestions.mjs": "3bcb754aba58197da21146d662bc8a73144a19251d78c6bfe28480c61e4dc641",
+    "backend/game/tasks.mjs": "3b4fd68bc10bacca6c40ca2e1d04e5d4009f20b525eb2a53972071214d157be3",
+    "backend/game/votes.mjs": "4e8cb032c4cde481b92694f41bee367b0ff053407b2b0e7bb3cdbfbd5f4f1994",
+    "backend/game/worlds.mjs": "2a9f59694b441bfcd2b869b7a74f7588f3bf2a3ac7c1af2f4c80f7722d82ba6a",
+    "configs/layouts/mc-landscape-v1.json": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+    "docs/technical/mc-live-v1/01-系统架构与模块.md": "8984ee5f64dcb75fb896fc0175a6933fc4b21c2e21653ee3951d871f1a163827",
+    "docs/technical/mc-live-v1/02-游戏桥与控制协议.md": "5beffc782bfb227dc40d53241eaacbfb378cde699cd0dc3de44da344c8656d12",
+    "docs/technical/mc-live-v1/03-DSH弹幕与记忆.md": "6ed318be258a4c21c417b9d566c889bad5e6cfa509997ccfa5c1694fd1b65487",
+    "docs/technical/mc-live-v1/04-接口与数据.md": "5c8680e47d18e89909cf6113d3b74b73f9184a43db581561e18ff497d3e60068",
+    "docs/technical/mc-live-v1/05-横屏媒体与素材.md": "442e53b06ad13886b64a82526fe4f80623fdfb70fc85313c01ca69af915d6025",
+    "docs/technical/mc-live-v1/06-部署与故障恢复.md": "7bc6231cb61648b215ae425fd22d534f815d2a0237f50ac0e2cb8dce742b6487",
+    "docs/technical/mc-live-v1/07-实施与验收.md": "dc0eb95cab29ac4c2fc4c3693ab5e1c26f73fc834b548e626db69018243a0a44",
+    "docs/technical/mc-live-v1/08-完整交付规划.md": "e730c5d4c369a72cb35a46fedcaebd4302d519b367225111aaaf85ed9b0ce2ca",
+    "docs/technical/mc-live-v1/contracts/build_contracts.py": "7fcea15ff5446721ca6dc8bb683c7b319dc981d1f537214268cc1a913b6cb720",
+    "docs/technical/mc-live-v1/contracts/examples.json": "8040c0dd397fc1d53977aaedf62faf775413a44797424509ace14fab8d930b17",
+    "docs/technical/mc-live-v1/contracts/game.schema.json": "041bb9641d2f74c80667c2dbc9c6c3102fd888dcd3fe7d68a1e6ac3952462d17",
+    "docs/technical/mc-live-v1/contracts/openapi.json": "991fe2abde4a25cf106009edd2b3ca98507e31f49420e96235f22ceeb402af09",
+    "docs/technical/mc-live-v1/contracts/README.md": "e88f74457f961072c92fff74741e42fde406bf4a2c571b1b8a34702986f343f5",
+    "docs/technical/mc-live-v1/contracts/verification.json": "1bda869ff94943fc167bd1283d60b7c54576ff810166a6cbf584fe3fc0991693",
+    "docs/technical/mc-live-v1/implementation-status.json": "59ec0340e9a6f11c51f4c1c68b242e7c984b15ab6b76ae3859224c974fe358f4",
+    "docs/technical/mc-live-v1/README.md": "ba0062b2b026aaf422c5d03db90ecff42db9fe2dc389f4f5447a34bc783d5ef5",
+    "docs/technical/mc-live-v1/实现进度.md": "834fb4d0d9dfe7ebc60d5248f41acdf8dee8760beefacfeba33f670627458752",
+    "game-adapters/minecraft/fabric/build.gradle": "4e140a991c4fddc77125ff3e28a426bca23fbec58b3669c203a97b7e479614b9",
+    "game-adapters/minecraft/fabric/gradle/wrapper/gradle-wrapper.jar": "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172",
+    "game-adapters/minecraft/fabric/gradle/wrapper/gradle-wrapper.properties": "f2cb19698ac606e7b367d8b93631a489ad19b783bd7ee48b38d57a06edff079a",
+    "game-adapters/minecraft/fabric/gradle.lockfile": "1eb3149e2ef2b9bc82073790e54b550d49748cc963c7e7e413be35f75b177327",
+    "game-adapters/minecraft/fabric/gradle.properties": "227193cdfb49bd1e7eafb5e615f8024cd8f603a68e5d4e457c9256889b4e357f",
+    "game-adapters/minecraft/fabric/README.md": "5d5adbe4c0810b8af325ec417ef9ebf6d62c066e0989867cdb4a814104a39585",
+    "game-adapters/minecraft/fabric/settings.gradle": "dcf61b31535309424a65a7179e4ff2a9e15304b6b3250fffe3b449f03ce2d714",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/BridgeCore.java": "8a8b35ae88f6ec9119f21a7bbd2e1607cb85e7269de6f01f00f498bf6bcd1f4e",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/ControlArbiter.java": "bd835aea4468b99d2c4e4dc7f33e636bc7dd759e6e06d8c86666de8b021d6b6c",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/GamePort.java": "23ccbd0455f7189fac668f860c6c0768f31fe0934d55264b1f655667ea5eb8b9",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/Json.java": "7e5b8336a54b52353602c7f9a736be52eef1bcb6cbe5504e09eae4cd613d0c2d",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/LocalJournal.java": "cadafea59f5c117ab7ce3ad50da75cc7c5f04b8b854c2cb61039921a2d783464",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/Wire.java": "4666febec05758ac134efac5b73a40251e3aae342413536f04f484fbdcd164e9",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/InputOwner.java": "8244694de17ca1c05f6987e8ee2a55b475f74ce978f39300c7e9c2b4b9cc8456",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/McBridgeClient.java": "be2dee3e6614adfec581e7a0360e4a80a1f58283f205478986c3edd67b15e1be",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/MinecraftPort.java": "1b0e58700ba2435cea0afddf6b63ea073b42cf916ec0580bd5a42a1392e60706",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/KeyBindingAccessor.java": "009c185610df161ff8c8522773fc60fc8ce9ed4b377d16d8b158b5be635e5846",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/KeyboardMixin.java": "e8ebf168974165502ec3770b71f1791dd7a441a3e2dd7b8623e9fc29d244d81c",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/mixin/MouseMixin.java": "9e4b100420d53f80f0c0d7261e235c71cea7579c06a838be509f93c4a35167f4",
+    "game-adapters/minecraft/fabric/src/main/resources/fabric.mod.json": "017f27570ff2a575a06758f559571851ac6d019cba1708f4a11ea5c90792bd11",
+    "game-adapters/minecraft/fabric/src/main/resources/mc-bridge.mixins.json": "8416316bb5a815b27ecf494766de553e1ae42a75eac4c183f513faf29ec22fe2",
+    "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/ControlArbiterTest.java": "b0a5759ba833e234162ad6d344edd8be614de6c9018e514d56aaea8a90a48490",
+    "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/HeadlessBridge.java": "0ec66b36a449ff33dc63178fc33a8839ab692469e90f3080b41e4983da05f34f",
+    "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/LocalJournalTest.java": "2828a253f12799f6cda21d79950b0f70dadf3ca21dfd6ffcdf51b8cfbd743c39",
+    "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/WireTest.java": "43ab4fd79299bc065006b95a0fcd94de90611f52152be521170111cbde5e41f9",
+    "scripts/mc_build_fabric.ps1": "657404a9f6ba27c6d96d50a7202acb454db9b32e972a7bdffa1011de27655e7c",
+    "scripts/mc_check_contracts.py": "fe5d51fde67b11115c47cdff44e4105287beafc7ec59104aabf4b04817b66988",
+    "tests/game-core.test.mjs": "2521f67a2e11415ab09751ade66ca265b3f37a5259d9a8128bbcc1c4746ff54f",
+    "tests/game-fixture.mjs": "d59ab7c5aa56057c1b547a27c3269a4caae914dc7cecec3731edf6c92ec2ea24",
+    "tests/game-host.test.mjs": "5855c862c46cecd0545e2a6de50adf3557192253ac6d45579ace1c8d96bad835",
+    "tests/game-java-interop.test.mjs": "4c09ddc80f3022d53c94d09bc2c681a421c5e7271465bee52e380d16d11e9a76",
+    "tests/game-world-context.test.mjs": "b94f3f88dafc608414c5c83ed4e05b1cd0692495c6b325c960cd27fa68cc3ab0",
+    "tests/game-world-recovery.test.mjs": "9e66ba14ba73a42494912da75df8a0c13efca70b9df79fe329e8efa247e95256"
+  },
+  "source_is_uncommitted_working_tree": true,
+  "previous_round_002_outputs_preserved_local": "outputs/mc-validation/round-002",
+  "whitespace_checks": {
+    "git_diff_check": "PASS_WITH_LINE_ENDING_NOTICES_ONLY",
+    "new_mc_source_files_checked": 34,
+    "new_mc_source_check": "PASS"
+  }
+}

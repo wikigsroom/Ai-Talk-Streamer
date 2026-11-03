@@ -1,0 +1,1096 @@
+{
+  "schema_version": 1,
+  "round": "077",
+  "branch": "mc",
+  "goal_status": "active",
+  "turn_classification": "progress",
+  "delivery_mode": "single_integrated_release",
+  "user_facing_release_count": 1,
+  "implementation_ids": [
+    "I628",
+    "I629",
+    "I630",
+    "I631",
+    "I632",
+    "I633",
+    "I634",
+    "I635"
+  ],
+  "implementation": [
+    {
+      "id": "I628",
+      "change": "NeoForge接入同玩家导航、返程和有限采集",
+      "verification": "复用原任务会话、仲裁器和租约；不新建玩家、输入权威或生存JAR，不解除Fabric门禁"
+    },
+    {
+      "id": "I629",
+      "change": "新增有界地形寻路与树冠支撑处理",
+      "verification": "只使用加载区碰撞/支撑，分段规划并逐次重查；实际行走及返回起点由后续位置验证，复杂台阶/游泳等仍未覆盖"
+    },
+    {
+      "id": "I630",
+      "change": "移动、视角与挖掘绑定任务输入归属",
+      "verification": "原版Input继续执行时重新核对原作用域和Permit；持续挖掘抑制、单槽库存回包接回原桥，旧任务不能恢复新玩家输入"
+    },
+    {
+      "id": "I631",
+      "change": "采集增加可达站位、视线及服务端库存净增确认",
+      "verification": "限制资源和工具，避开当前/候选站位支撑、流体和方块实体；实机采集效果verified，净增本身不独立证明来源"
+    },
+    {
+      "id": "I632",
+      "change": "3080完成20次运行中行走任务的系统输入接管",
+      "verification": "循环F10、Shift与相对鼠标；每次实际位置变化、准确原因、同启动/世界/代际、取消和输入释放均核对；不充当硬件/停止延迟验收"
+    },
+    {
+      "id": "I633",
+      "change": "875份当前公开源码在3080安装构建，537项不同工程用例通过",
+      "verification": "新增8项寻路用例；最终364项Java重跑，173项未改相关检查保留同轮已过结果且逐文件绑定；本机执行0"
+    },
+    {
+      "id": "I634",
+      "change": "只读复核当前JAR、任务账本和进程回收",
+      "verification": "六类Mixin包含七项必要钩子；源码/schema/依赖一致，26项任务和实际转换记录核对、SQLite完整；所属游戏/宿主与18974监听关闭"
+    },
+    {
+      "id": "I635",
+      "change": "同步实机失败、NeoForge范围及完整15域待办",
+      "verification": "保留类名编译失败、树冠路线拒绝及采集站位失败；0/68正式验收、0/100新人物，完整主播交付继续推进"
+    }
+  ],
+  "recorded_at": "2026-11-01T00:03:02.015418+00:00",
+  "runtime_host": "DESKTOP-2QQPN1H",
+  "source_package": {
+    "ok": true,
+    "classification": "PROJECT_SOURCE_PACKAGE_NOT_COMPLETE_APPLICATION_RELEASE",
+    "archive": "E:\\dev\\sandbox\\虚拟数字人直播\\Ai-Talk-Streamer\\outputs\\mc-validation\\round-077\\remote-delivery\\mc-source-077-v8.zip",
+    "sha256": "bc1b6dc6add84c9eadb691e05c85a48099b0251c0405a53bdb969d784b3f8fa9",
+    "source_snapshot_sha256": "4dcb48d4ee86832ffbe8288effac4b666ac999f11ba82bcbe84f65820712809b",
+    "source_files": 875,
+    "environment_prepared": false,
+    "services_started": false,
+    "models_loaded": false,
+    "automatic_input_authorized": false,
+    "real_acceptance_passed": 0
+  },
+  "native_build": {
+    "ok": true,
+    "jar": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/work/mods/ai-talk-streamer-native-neoforge-0.1.0.jar",
+    "sha256": "19192a28892b255e63dba17ce1a5a78be35161d4c190f860c1b84538974b677d",
+    "bytes": 12388675,
+    "compiled_against": "actual_supplied_neoforge_21.1.248_mojmap_libraries",
+    "automatic_input_authorized": false,
+    "classes": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/build/classes-bedaec1dec934d699975f60f8316f92c",
+    "shared_authority": "BridgeCore/ControlArbiter/LocalJournal",
+    "dependencies": {
+      "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/dependencies/json-schema-1.9.1.jar": "9f448b1142e9805f91f926e709206f1402f11a75da4dee729d98c77194030285",
+      "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/dependencies/sqlite-jdbc-3.53.4.0.jar": "bcb1f51e36f940867e83342f9efbf5968ac44a6bef4d397bb4af7b17b45cd2fb"
+    },
+    "sources": {
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeBridge.java": "d5e0d237b9bf0d12e40de673a1661410d9eff2b3db9124cd8aa510b91c6d4fca",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeCapabilities.java": "c640d13797891e2caf8c2458b2e539df52f4e1d4fcd2313dcd03444f35813e46",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeClient.java": "30ac949910e732ffa00fcdced11e6c01ead211188556f4e98286b45e3b5ec3e8",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeGamePort.java": "14204c2173e5657a9bc5a20ac27a8ba5769744238362068315990625ab561da1",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeHooks.java": "6e0bbe2410c3c27b9638f3e1c939737f8d82a61ee163c8aa2574377c46667d38",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeInputOwner.java": "59f8c354affe89b83460747f97e2bd0d1dc1b01951edf3ba5ecf57c2359f2b2c",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeItemUse.java": "71c4c8b3bc7ca6d8bbe373ed344275fdc34531d6ba093556c21117e99aa85558",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeTravel.java": "b29bf8d6ca9311c6861618771d4418a23e8380586ba161d511541b3938a5e557",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeWalkPlanner.java": "20bcff416699cf8bc20559b43eb239f5b074c2d01ac658e903273f511ab1f8ab",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/mixin/ClickMixin.java": "47d79ccd892080dc6cbef6dabb2f6e9758de6653aa564e818968c9f0ad04d3af",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/mixin/CursorWarpMixin.java": "3fbcc6d23ed55531e39a1d10ad02285d927305b3d8b515233b3d8482659750e7",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/mixin/InventoryMixin.java": "e3713b10e72ec639accbc74e53526ff04c4d74e6c2ee7d9825d10fcdeac38cd5",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/mixin/ItemUseMixin.java": "83c488369b6261539cacd2662a418f87a1a9e6bc0ecdf244deb891de29014101",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/mixin/KeyboardMixin.java": "a22eba7e3856a35f0d97e3c5ac4cf012583e004699058d26938406cdddea1a1b",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/mixin/MouseMixin.java": "783dce7666bf20b0c0e5064758c501c0ea3b310cece83457d023c2fb2562af32",
+      "game-adapters/minecraft/neoforge/src/main/resources/ai-talk-streamer-native.mixins.json": "f1f5b21f5c16e03673600bb1cf9c6b4b502f14695dac98e76467f77df21ddd1b",
+      "game-adapters/minecraft/neoforge/src/main/resources/META-INF/neoforge.mods.toml": "7f5c4e58d73470541e965141d10b5593f344bf7debc114a558c6beb75c85c4cb",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/BaseTarget.java": "92bb5cef900594ca58bf164f35381f375d0023283b63213977b898ba09aac959",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/BridgeCore.java": "ded82a877d625f5465a6409a8142903f72b654d0b5c0c8f2c9d07803f438e803",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/ControlArbiter.java": "b9a7b86e5375b654bc156cb1d7b52819550e2a71ff0b0e408a7bacbbef4a553b",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/CraftReceipt.java": "3889d46b2312a71bbeec5c1ce48459d7ed032c201cbca35d91c324084345bd63",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/CursorActivity.java": "a9e2d0908776b1d3d4168c9669ef3975e8012085a36fc46edc742ae071ea64fe",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/ExecutorTaskSession.java": "72bfdb9be14be3206fd03c6602d44c02b91ad3292e3ec578a5ebcac89354b305",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/FrameEncoder.java": "f5c7e02082f690e108ef34739c054a1569c30f1f7c08b4b778ed038565e19189",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/FrameUpload.java": "ec9b7481ab8e1e0bbc3c7a01df33d6ad902bfaa483b2e494cc5f8f5be4b370a8",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/GamePort.java": "931ce2ae437c92674588e9d472ec6e24989058741c5e542528432b1c5ca78834",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/HeldActionRouter.java": "879cbda07a6ce77e75bd1617bd063c8eabce9bc166baeb5414927d10e5996900",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/HotbarSelection.java": "d2915400f8759b4d251f432d7e91580d1d344e17e43f6e5bd1381c80f1bc25c0",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/InputLeaseFence.java": "92fc231b15c156e86701c060bb3c249fadd806196168eb6a5f7ec608f8383894",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/InputLedger.java": "6715990dae1c0370a7acf8ca3765d6db9edc897b29fa2d2e304789463fda44f7",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/InventoryExchange.java": "286c4323f4393ff75e0944a71f5e6d7295aa0f0ab831f509f70599551e02accc",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/InventoryTarget.java": "9c668ca82275d75f484953e01017065c1da37601c777796e02b2a60deee500c9",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/ItemUseReceipt.java": "fda70aca9b1f1a4e3e182a54c0130f57a101df4fb922ce6acea5eefbe003d25f",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/JournalHistory.java": "ce4b144b808fb6fdd4be49b5be5b41f21d596e5346cb49d7ed57d73f6a3e003f",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/JournalMaintenanceCli.java": "4b8e8df9646ee42605d032dfd739f0542f74e319201971d5c4986db8eab47bc5",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/JournalRetention.java": "ef127f945a2eae31ac076ff7e83ab979fc72c188e73288040fb9f14d65ea18cf",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/Json.java": "7e5b8336a54b52353602c7f9a736be52eef1bcb6cbe5504e09eae4cd613d0c2d",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/LocalJournal.java": "de91f19c8bd769d0b41b7f039c029fe5e3f5b3897b4be8e4d71bc36b36fcbea5",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/LocalTaskFailure.java": "b4b6e73726b2f1157d3b5be84cd57704bbf4e8ff554ae746c5d9e7c45a2c8808",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/NativeContext.java": "f91acc1400cec54b2aee64a711812742cee0e2af997b52cf8ee980d7d82b80e8",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/OwnedFlag.java": "d937eaf43ff76c17c50c35bd32779c5ca6faa39b9751176ec3a78d2e00dc1196",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/OwnedValue.java": "416bdc8012cf0acfbf2586b90cbfe253f4f5fccf18bb957b06e238c8c601c1b9",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/PhysicalKeys.java": "3b549e5004529d7d58cdda89e2319034f46a84f58179a038fa727058e78ce051",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/RecipeCatalog.java": "7679a07492716f7691c70f75eea3ead7db626252d77ad09fd5b4d38fa7e6ca81",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/TaskGuiLease.java": "13d39fa50cb721327d69a5730a98097468bb960114ab41f5f17071fcae5f2310",
+      "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/Wire.java": "b542f6cb47a22618e87fde1476ff67f4d1b7db3bcb0f1eb9e5b29c7af3bc8f47",
+      "configs/mc-neoforge-bridge.lock.json": "bdb5df4adb9e28c9b26b6a5602b592a2b8882eb6b0e012b302e38296a1631bd3",
+      "docs/technical/mc-live-v1/contracts/game.schema.json": "c991ed6944fb63f3c7ab6c58a4dae64058f65bda7540c65773ef160f30174a05",
+      "scripts/mc_neoforge.py": "47278f5bb6e1b069582f1348b08fc27c526ad8dd23ba7bef5431d67baf6c91b0"
+    }
+  },
+  "validation": {
+    "distinct_passed": 537,
+    "new_cases": 8,
+    "java_core": 354,
+    "native_capability_contracts": 2,
+    "native_walk_planner_cases": 8,
+    "java_node_interop_distinct": 43,
+    "python": 96,
+    "vision_and_frames": 18,
+    "recipes": 12,
+    "physical_witness_cases": 4,
+    "final_current_java_cases_rerun": 364,
+    "same_round_unchanged_cases_retained": 173,
+    "local_test_execution": 0,
+    "remote_3080_execution_only": true,
+    "formal_acceptance_passed": 0,
+    "formal_acceptance_not_run": 68,
+    "new_avatar_clips": 0
+  },
+  "same_round_retained_cases": {
+    "count": 173,
+    "proof": "outputs/mc-validation/round-077/remote-evidence/bootstrap-result-002.json",
+    "current_source_proof": "outputs/mc-validation/round-077/remote-evidence/bootstrap-result-008.json",
+    "allowed_changed_sources": [
+      "game-adapters/minecraft/neoforge/README.md",
+      "game-adapters/minecraft/neoforge/src/main/java/dev/aitalkstreamer/mc/neoforge/NativeTravel.java",
+      "tests/mc-neoforge-live-probe.mjs"
+    ],
+    "all_remaining_public_files_byte_identical": true,
+    "current_source_recompiled_on_remote_3080": true,
+    "current_java_cases_rerun": 364
+  },
+  "actual_game": {
+    "proof": "outputs/mc-validation/round-077/remote-evidence/game-result-008.json",
+    "overall_probe_passed": true,
+    "facts": {
+      "schema_version": 1,
+      "classification": "ACTUAL_NEOFORGE_CLIENT_FACTS_NOT_AUTOMATIC_GAMEPLAY_ACCEPTANCE",
+      "observed_at": "2026-11-01T00:00:01.215702Z",
+      "adapter": "minecraft.neoforge",
+      "username": "NAIMEI",
+      "profile_id": "a77465cf-2de0-3278-bf48-d13b367e09ce",
+      "minecraft": "1.21.1",
+      "neoforge": "21.1.248",
+      "loaded_mods": 350,
+      "automatic_input_authorized": false,
+      "gameplay_executor_bound": true,
+      "missing_native_hooks": [],
+      "control_mode": "PAUSED",
+      "control_proof": {
+        "bridge_boot_id": "boot-5a2ddd73-9daf-488b-995f-be73d2b5c80c",
+        "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a",
+        "control_epoch": 50,
+        "last_stop": {
+          "epoch": 47,
+          "reason": "PHYSICAL_KEYBOARD_INPUT"
+        },
+        "probe_input": {
+          "kind": "keyboard",
+          "key": 340,
+          "scancode": 42,
+          "action": 1,
+          "epoch_before": 46,
+          "expected_f10_scancode": 68
+        },
+        "native_input": {
+          "movement_owned": false,
+          "synthetic_motion_attached": false,
+          "destroying": false,
+          "selected_slot_owned": false,
+          "all_owned_inputs_clear": true
+        },
+        "native_travel": {
+          "task_id": "task-885c8d10-b898-4320-a824-b9843162cb49",
+          "active": false,
+          "gather": false,
+          "ticks": 9,
+          "arrival_ticks": 0,
+          "path_searches": 1,
+          "walked_waypoints": 2,
+          "block_attempts": 0,
+          "server_inventory_packets": 0,
+          "confirmed_inventory": -1,
+          "skipped_sources": 0,
+          "skipped_drops": 0,
+          "nearby_resource_drops": [],
+          "feet_standable": true,
+          "support_block": "minecraft:grass_block"
+        }
+      },
+      "in_world": true,
+      "screen": "gameplay",
+      "received_recipes": 27261,
+      "player_name": "NAIMEI",
+      "player_uuid": "a77465cf-2de0-3278-bf48-d13b367e09ce",
+      "dimension": "minecraft:overworld",
+      "health": 20.0,
+      "max_health": 20.0,
+      "food": 20,
+      "x": -672.3725727853256,
+      "y": 81.0,
+      "z": 994.4999760691957,
+      "alive": true,
+      "selected_slot": 0,
+      "mainhand_item": "minecraft:birch_log",
+      "offhand_item": "gravestone:obituary",
+      "inventory": [
+        {
+          "item_id": "gravestone:obituary",
+          "count": 1
+        },
+        {
+          "item_id": "minecraft:birch_log",
+          "count": 5
+        },
+        {
+          "item_id": "minecraft:oak_sapling",
+          "count": 1
+        }
+      ],
+      "world_samples": 58
+    },
+    "equipment_task": {
+      "bridge_boot_id": "boot-5a2ddd73-9daf-488b-995f-be73d2b5c80c",
+      "control_epoch": 4,
+      "created_at": "2026-10-31T23:59:06.995795300Z",
+      "effect_status": "verified",
+      "evidence": [
+        {
+          "kind": "item_effect",
+          "seq": 67,
+          "summary": "Item gravestone:obituary, purpose equip, destination offhand; confirmed consumed units 0; server inventory revision 2; inventory confirmed true; item-specific effect confirmed true; clean end true. Later inventory total: 1.",
+          "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a"
+        }
+      ],
+      "game_instance_id": "mc-11a05b2a-1e66-46f4-90e2-6c28838cb901",
+      "goal": {
+        "item_id": "gravestone:obituary",
+        "purpose": "equip",
+        "skill": "use_item"
+      },
+      "reason": null,
+      "request_id": "native-real-offhand-equip-d4261a9e-152a-43d7-a060-001d94ccce3c",
+      "state": "succeeded",
+      "task_id": "task-1c25599e-4f81-4832-8155-9ee9a2c14904",
+      "updated_at": "2026-10-31T23:59:07.238717800Z",
+      "version": 3,
+      "world_id": "world-1d60aefcf64503f5e688dd5172934a62",
+      "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a"
+    },
+    "idempotent_equipment_task": {
+      "bridge_boot_id": "boot-5a2ddd73-9daf-488b-995f-be73d2b5c80c",
+      "control_epoch": 4,
+      "created_at": "2026-10-31T23:59:07.306698500Z",
+      "effect_status": "verified",
+      "evidence": [
+        {
+          "kind": "item_effect",
+          "seq": 73,
+          "summary": "Item gravestone:obituary, purpose equip, destination offhand; confirmed consumed units 0; server inventory revision 3; inventory confirmed true; item-specific effect confirmed true; clean end true. Later inventory total: 1.",
+          "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a"
+        }
+      ],
+      "game_instance_id": "mc-11a05b2a-1e66-46f4-90e2-6c28838cb901",
+      "goal": {
+        "item_id": "gravestone:obituary",
+        "purpose": "equip",
+        "skill": "use_item"
+      },
+      "reason": null,
+      "request_id": "native-real-offhand-already-equipped-d4261a9e-152a-43d7-a060-001d94ccce3c",
+      "state": "succeeded",
+      "task_id": "task-ca0e55e6-ce76-42f9-aa34-ecd937fc1af5",
+      "updated_at": "2026-10-31T23:59:07.575695600Z",
+      "version": 3,
+      "world_id": "world-1d60aefcf64503f5e688dd5172934a62",
+      "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a"
+    },
+    "cancel_race_task": {
+      "bridge_boot_id": "boot-5a2ddd73-9daf-488b-995f-be73d2b5c80c",
+      "control_epoch": 4,
+      "created_at": "2026-10-31T23:59:07.637693200Z",
+      "effect_status": "unknown",
+      "evidence": [],
+      "game_instance_id": "mc-11a05b2a-1e66-46f4-90e2-6c28838cb901",
+      "goal": {
+        "item_id": "gravestone:obituary",
+        "purpose": "equip",
+        "skill": "use_item"
+      },
+      "reason": "engineering_explicit_cancel",
+      "request_id": "native-real-immediate-cancel-d4261a9e-152a-43d7-a060-001d94ccce3c",
+      "state": "cancelled",
+      "task_id": "task-86b8a011-549a-45ce-a178-3dd92fe338e3",
+      "updated_at": "2026-10-31T23:59:07.702568200Z",
+      "version": 2,
+      "world_id": "world-1d60aefcf64503f5e688dd5172934a62",
+      "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a"
+    },
+    "observed_base": {
+      "base_id": "base-6a5de2a3-4f7a-4b36-b354-bc622b202aca",
+      "world_id": "world-1d60aefcf64503f5e688dd5172934a62",
+      "revision": 1,
+      "label": "实际工程测试起点",
+      "position": {
+        "dimension": "minecraft:overworld",
+        "x": -706,
+        "y": 81,
+        "z": 992
+      },
+      "radius": 1,
+      "source": "operator_observed",
+      "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a",
+      "based_on_seq": 79,
+      "observed_at": "2026-10-31T23:59:07.803537200Z",
+      "created_at": "2026-10-31T23:59:07.847Z",
+      "archived": false
+    },
+    "navigation_task": {
+      "bridge_boot_id": "boot-5a2ddd73-9daf-488b-995f-be73d2b5c80c",
+      "control_epoch": 6,
+      "created_at": "2026-10-31T23:59:08.085685900Z",
+      "effect_status": "verified",
+      "evidence": [
+        {
+          "kind": "position",
+          "seq": 118,
+          "summary": "Observed player position is inside the requested dimension and radius.",
+          "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a"
+        }
+      ],
+      "game_instance_id": "mc-11a05b2a-1e66-46f4-90e2-6c28838cb901",
+      "goal": {
+        "radius": 0.75,
+        "skill": "navigate",
+        "target": {
+          "dimension": "minecraft:overworld",
+          "x": -701,
+          "y": 81,
+          "z": 992
+        }
+      },
+      "reason": null,
+      "request_id": "native-real-walk-d4261a9e-152a-43d7-a060-001d94ccce3c",
+      "state": "succeeded",
+      "task_id": "task-9e0581d3-4c16-41e5-862e-4a5cd92b4565",
+      "updated_at": "2026-10-31T23:59:09.814498200Z",
+      "version": 3,
+      "world_id": "world-1d60aefcf64503f5e688dd5172934a62",
+      "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a"
+    },
+    "return_base_task": {
+      "base_target": {
+        "base_id": "base-6a5de2a3-4f7a-4b36-b354-bc622b202aca",
+        "base_revision": 1,
+        "game_instance_id": "mc-11a05b2a-1e66-46f4-90e2-6c28838cb901",
+        "position": {
+          "dimension": "minecraft:overworld",
+          "x": -706,
+          "y": 81,
+          "z": 992
+        },
+        "radius": 1,
+        "registered_seq": 79,
+        "registered_world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a",
+        "source": "operator_observed",
+        "world_id": "world-1d60aefcf64503f5e688dd5172934a62",
+        "world_revision": 2
+      },
+      "bridge_boot_id": "boot-5a2ddd73-9daf-488b-995f-be73d2b5c80c",
+      "control_epoch": 6,
+      "created_at": "2026-10-31T23:59:09.964639300Z",
+      "effect_status": "verified",
+      "evidence": [
+        {
+          "kind": "position",
+          "seq": 159,
+          "summary": "Base base-6a5de2a3-4f7a-4b36-b354-bc622b202aca revision 1, world revision 2: observed player position is inside the registered dimension and radius 1.",
+          "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a"
+        }
+      ],
+      "game_instance_id": "mc-11a05b2a-1e66-46f4-90e2-6c28838cb901",
+      "goal": {
+        "base_id": "base-6a5de2a3-4f7a-4b36-b354-bc622b202aca",
+        "skill": "return_base"
+      },
+      "reason": null,
+      "request_id": "native-real-return-d4261a9e-152a-43d7-a060-001d94ccce3c",
+      "state": "succeeded",
+      "task_id": "task-ee98bb96-aabd-45d0-9886-f038a122eebd",
+      "updated_at": "2026-10-31T23:59:11.840271700Z",
+      "version": 3,
+      "world_id": "world-1d60aefcf64503f5e688dd5172934a62",
+      "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a"
+    },
+    "gather_task": {
+      "bridge_boot_id": "boot-5a2ddd73-9daf-488b-995f-be73d2b5c80c",
+      "control_epoch": 6,
+      "created_at": "2026-10-31T23:59:12.011745500Z",
+      "effect_status": "verified",
+      "evidence": [
+        {
+          "kind": "inventory",
+          "seq": 316,
+          "summary": "Observed inventory total changed from 4 to 5; observed net increase is 1; requested increase is 1. Collection source is not established by inventory alone.",
+          "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a"
+        }
+      ],
+      "game_instance_id": "mc-11a05b2a-1e66-46f4-90e2-6c28838cb901",
+      "goal": {
+        "count": 1,
+        "item_id": "minecraft:birch_log",
+        "skill": "gather"
+      },
+      "reason": null,
+      "request_id": "native-real-collect-d4261a9e-152a-43d7-a060-001d94ccce3c",
+      "state": "succeeded",
+      "task_id": "task-d46f4353-2845-4711-8003-5fba7842488f",
+      "updated_at": "2026-10-31T23:59:19.695297300Z",
+      "version": 3,
+      "world_id": "world-1d60aefcf64503f5e688dd5172934a62",
+      "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a"
+    },
+    "gather_client_proof": {
+      "schema_version": 1,
+      "classification": "ACTUAL_NEOFORGE_CLIENT_FACTS_NOT_AUTOMATIC_GAMEPLAY_ACCEPTANCE",
+      "observed_at": "2026-10-31T23:59:20.207796400Z",
+      "adapter": "minecraft.neoforge",
+      "username": "NAIMEI",
+      "profile_id": "a77465cf-2de0-3278-bf48-d13b367e09ce",
+      "minecraft": "1.21.1",
+      "neoforge": "21.1.248",
+      "loaded_mods": 350,
+      "automatic_input_authorized": true,
+      "gameplay_executor_bound": true,
+      "missing_native_hooks": [],
+      "control_mode": "AUTO",
+      "control_proof": {
+        "bridge_boot_id": "boot-5a2ddd73-9daf-488b-995f-be73d2b5c80c",
+        "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a",
+        "control_epoch": 6,
+        "last_stop": {
+          "epoch": 1,
+          "reason": "GAME_CAPABILITIES_CHANGED"
+        },
+        "native_input": {
+          "movement_owned": false,
+          "synthetic_motion_attached": false,
+          "destroying": false,
+          "selected_slot_owned": false,
+          "all_owned_inputs_clear": true
+        },
+        "native_travel": {
+          "task_id": "task-d46f4353-2845-4711-8003-5fba7842488f",
+          "active": false,
+          "gather": true,
+          "ticks": 151,
+          "arrival_ticks": 0,
+          "path_searches": 3,
+          "walked_waypoints": 13,
+          "block_attempts": 1,
+          "server_inventory_packets": 1,
+          "confirmed_inventory": 5,
+          "skipped_sources": 0,
+          "skipped_drops": 0,
+          "nearby_resource_drops": [],
+          "feet_standable": true,
+          "support_block": "minecraft:grass_block"
+        }
+      },
+      "in_world": true,
+      "screen": "gameplay",
+      "received_recipes": 27261,
+      "player_name": "NAIMEI",
+      "player_uuid": "a77465cf-2de0-3278-bf48-d13b367e09ce",
+      "dimension": "minecraft:overworld",
+      "health": 20,
+      "max_health": 20,
+      "food": 20,
+      "x": -696.4675599188729,
+      "y": 81,
+      "z": 996.287001363537,
+      "alive": true,
+      "selected_slot": 0,
+      "mainhand_item": "minecraft:birch_log",
+      "offhand_item": "gravestone:obituary",
+      "inventory": [
+        {
+          "item_id": "gravestone:obituary",
+          "count": 1
+        },
+        {
+          "item_id": "minecraft:birch_log",
+          "count": 5
+        },
+        {
+          "item_id": "minecraft:oak_sapling",
+          "count": 1
+        }
+      ],
+      "world_samples": 17
+    },
+    "all_owned_processes_closed": true,
+    "frame_sha256": "a1b3309809f48ff58b391c894732d017213546bff904b18a94590bc93c6400f1",
+    "recipe_available": true,
+    "same_world_reconnect_verified": true,
+    "dsh_context_inert": true,
+    "complete_survival_delivered": false
+  },
+  "running_task_takeovers": {
+    "verified": 20,
+    "proofs": [
+      {
+        "phase": "RUNNING_TASK_01",
+        "task_id": "task-084048cc-887d-4cb6-ac21-62787b35dff0",
+        "reason": "LOCAL_PANIC_KEY",
+        "actual_position_change": 0.6387455852290844,
+        "mode": "PAUSED",
+        "control_epoch": 9,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_01.json",
+        "sha256": "cb3cb0e87243f096f61b7d40693306faf14e5f45c94b7ae738009ae6bd3a2595"
+      },
+      {
+        "phase": "RUNNING_TASK_02",
+        "task_id": "task-e9725db3-f9f4-438f-8e05-79e138dbe341",
+        "reason": "PHYSICAL_KEYBOARD_INPUT",
+        "actual_position_change": 1.0718707136929166,
+        "mode": "MANUAL_COMMENTARY",
+        "control_epoch": 11,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_02.json",
+        "sha256": "3bcfd1e3560de93dc882e61897e29c69197734f01df77c021049b88ebf2a69e4"
+      },
+      {
+        "phase": "RUNNING_TASK_03",
+        "task_id": "task-8ae34708-d41c-45fe-b911-15aa69d0e61c",
+        "reason": "PHYSICAL_MOUSE_INPUT",
+        "actual_position_change": 1.5067620295813116,
+        "mode": "MANUAL_COMMENTARY",
+        "control_epoch": 13,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_03.json",
+        "sha256": "82c6d3cf8fae7ab8bd17e5ddc9f00bfaf0b13a5ce21db22e196d9646125c2b5f"
+      },
+      {
+        "phase": "RUNNING_TASK_04",
+        "task_id": "task-528352dd-3ece-4989-9fcf-b322edd2b20d",
+        "reason": "LOCAL_PANIC_KEY",
+        "actual_position_change": 1.5071532156740641,
+        "mode": "PAUSED",
+        "control_epoch": 15,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_04.json",
+        "sha256": "efaa8bca511ed7b6da7e17d4a7ca77557e6b8fa5656d47531d66c34280db96e6"
+      },
+      {
+        "phase": "RUNNING_TASK_05",
+        "task_id": "task-220d9c83-9c34-4682-ab7d-bc27ceb8a018",
+        "reason": "PHYSICAL_KEYBOARD_INPUT",
+        "actual_position_change": 1.291489358629041,
+        "mode": "MANUAL_COMMENTARY",
+        "control_epoch": 17,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_05.json",
+        "sha256": "2ec8568c188c7ed251631790847fb8ff598a13f174fe116a77c494d5757b3a5d"
+      },
+      {
+        "phase": "RUNNING_TASK_06",
+        "task_id": "task-9ca9abb8-1a44-48fe-93a9-5094dedb4718",
+        "reason": "PHYSICAL_MOUSE_INPUT",
+        "actual_position_change": 1.0727485742306104,
+        "mode": "MANUAL_COMMENTARY",
+        "control_epoch": 19,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_06.json",
+        "sha256": "fb490798e9e23fc7cd561cf2adfb358fca92d6d2806b0d811250395478335790"
+      },
+      {
+        "phase": "RUNNING_TASK_07",
+        "task_id": "task-284dc3b1-6cf9-4cc0-9adc-b53d0a5a27f8",
+        "reason": "LOCAL_PANIC_KEY",
+        "actual_position_change": 1.29149812285977,
+        "mode": "PAUSED",
+        "control_epoch": 21,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_07.json",
+        "sha256": "581b47284bab090117015cdc844c7ba7eb4412934bfdef279fecfbb64042f60b"
+      },
+      {
+        "phase": "RUNNING_TASK_08",
+        "task_id": "task-b6613d30-ff69-4b20-a913-a6a911c07935",
+        "reason": "PHYSICAL_KEYBOARD_INPUT",
+        "actual_position_change": 1.507312231346894,
+        "mode": "MANUAL_COMMENTARY",
+        "control_epoch": 23,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_08.json",
+        "sha256": "a8f17d156b10804e5343e1baa7a3d66b840d0d5257940f27b07ffc7f5cdec549"
+      },
+      {
+        "phase": "RUNNING_TASK_09",
+        "task_id": "task-bf380367-1d6f-43ce-942a-bc9109099e4a",
+        "reason": "PHYSICAL_MOUSE_INPUT",
+        "actual_position_change": 1.0727510663113127,
+        "mode": "MANUAL_COMMENTARY",
+        "control_epoch": 25,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_09.json",
+        "sha256": "5737cffc17fdd2f5512f37a01077b08052d8a1513c6446514944679646b7a505"
+      },
+      {
+        "phase": "RUNNING_TASK_10",
+        "task_id": "task-3efa3d4a-f6f9-40cc-b587-3dd6e858652c",
+        "reason": "LOCAL_PANIC_KEY",
+        "actual_position_change": 1.2830589496341507,
+        "mode": "PAUSED",
+        "control_epoch": 27,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_10.json",
+        "sha256": "ba65086f7b39cf3aa9acf2bf749ad5a6c906ad55aa905f4bea8fc54c7ae7e5b2"
+      },
+      {
+        "phase": "RUNNING_TASK_11",
+        "task_id": "task-cb35f90e-49a0-4ddc-819b-0dc6384b525e",
+        "reason": "PHYSICAL_KEYBOARD_INPUT",
+        "actual_position_change": 0.6417100359191417,
+        "mode": "MANUAL_COMMENTARY",
+        "control_epoch": 29,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_11.json",
+        "sha256": "1bf33f967df7f6220f4ef4dadc743fc0adcf489f0de22a06a930b983f38cf57b"
+      },
+      {
+        "phase": "RUNNING_TASK_12",
+        "task_id": "task-d76fc988-e04a-4cdc-b8d0-14c0efc9b316",
+        "reason": "PHYSICAL_MOUSE_INPUT",
+        "actual_position_change": 1.0668037657649352,
+        "mode": "MANUAL_COMMENTARY",
+        "control_epoch": 31,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_12.json",
+        "sha256": "c0442fd83ffe95e27a661e379e407956e533f9d5403b835996e0a81ef7babec7"
+      },
+      {
+        "phase": "RUNNING_TASK_13",
+        "task_id": "task-396af061-455d-49ca-b14f-1fe728ed3b96",
+        "reason": "LOCAL_PANIC_KEY",
+        "actual_position_change": 1.5072856664833034,
+        "mode": "PAUSED",
+        "control_epoch": 33,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_13.json",
+        "sha256": "0fde3b4896993443e016a78e3d0c6815a8743112c636e0a3a4ff2e34cf53cd41"
+      },
+      {
+        "phase": "RUNNING_TASK_14",
+        "task_id": "task-3829076f-2432-462a-a019-bc94e17046ff",
+        "reason": "PHYSICAL_KEYBOARD_INPUT",
+        "actual_position_change": 1.5073079931995543,
+        "mode": "MANUAL_COMMENTARY",
+        "control_epoch": 35,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_14.json",
+        "sha256": "ae7f7485a983a6766fa54849b4f8b24e3d3075c6f0e4ee71c8f991121c808878"
+      },
+      {
+        "phase": "RUNNING_TASK_15",
+        "task_id": "task-ceada032-e8e6-4cf2-bed0-1c85027e9c65",
+        "reason": "PHYSICAL_MOUSE_INPUT",
+        "actual_position_change": 1.2914977672447425,
+        "mode": "MANUAL_COMMENTARY",
+        "control_epoch": 37,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_15.json",
+        "sha256": "d93c17b8a4089243ec5d4cb05a201e7da6c707f993764d8a5fd45bcc178f2d87"
+      },
+      {
+        "phase": "RUNNING_TASK_16",
+        "task_id": "task-2fe28b8d-ca19-478f-b474-53b9afaf1de0",
+        "reason": "LOCAL_PANIC_KEY",
+        "actual_position_change": 1.0727507965246337,
+        "mode": "PAUSED",
+        "control_epoch": 39,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_16.json",
+        "sha256": "4f567bb117815f54ecdbdd6deabe95cdb8a5561c280abc168984b8595b593fbf"
+      },
+      {
+        "phase": "RUNNING_TASK_17",
+        "task_id": "task-71b0f1c8-42f7-4e0c-abb4-4492750795b0",
+        "reason": "PHYSICAL_KEYBOARD_INPUT",
+        "actual_position_change": 1.5073123473306702,
+        "mode": "MANUAL_COMMENTARY",
+        "control_epoch": 41,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_17.json",
+        "sha256": "13a5ac01bc34cdade28c454dd71c1964540194f4f1c95584de6790bd06e6370b"
+      },
+      {
+        "phase": "RUNNING_TASK_18",
+        "task_id": "task-717477ec-55bb-42e8-9ce4-f99ef7c6860d",
+        "reason": "PHYSICAL_MOUSE_INPUT",
+        "actual_position_change": 1.9389924131426586,
+        "mode": "MANUAL_COMMENTARY",
+        "control_epoch": 43,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_18.json",
+        "sha256": "51fa0ce7d1c1bd449c494406eb98691f528714a554816328eea7f4bc72fe2e52"
+      },
+      {
+        "phase": "RUNNING_TASK_19",
+        "task_id": "task-f28b2a5a-1820-4bc2-8d3d-d2b43681ebc8",
+        "reason": "LOCAL_PANIC_KEY",
+        "actual_position_change": 1.5073124058344065,
+        "mode": "PAUSED",
+        "control_epoch": 45,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_19.json",
+        "sha256": "cd8dba2315211a45a089bb9573dbef5f7ff90a69fa0bd515d2257d33dab048fa"
+      },
+      {
+        "phase": "RUNNING_TASK_20",
+        "task_id": "task-885c8d10-b898-4320-a824-b9843162cb49",
+        "reason": "PHYSICAL_KEYBOARD_INPUT",
+        "actual_position_change": 1.7231468104758119,
+        "mode": "MANUAL_COMMENTARY",
+        "control_epoch": 47,
+        "inputs_released": true,
+        "all_owned_inputs_clear": true,
+        "proof": "outputs/mc-validation/round-077/remote-evidence/physical-input-confirmed-RUNNING_TASK_20.json",
+        "sha256": "116356a48da515525e133920012902147b1b66631580e2ae85dc28aacf7aecad"
+      }
+    ],
+    "real_windows_sendinput": true,
+    "fake_minecraft_callbacks_used": false,
+    "foreground_preflight": {
+      "probe_run_id": "d4261a9e-152a-43d7-a060-001d94ccce3c",
+      "observed_at": "2026-10-31T23:59:05.521235+00:00",
+      "game_pid": 25884,
+      "creation_ticks": 134379645650347660,
+      "window": 11077832,
+      "foreground_pid_verified": true,
+      "creation_ticks_verified": true,
+      "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a",
+      "control_epoch": 3
+    },
+    "remote_input_driver": {
+      "ok": true,
+      "host": "DESKTOP-2QQPN1H",
+      "sent": [
+        {
+          "phase": "RUNNING_TASK_01",
+          "key": "F10",
+          "task_id": "task-084048cc-887d-4cb6-ac21-62787b35dff0",
+          "sent_at": "2026-10-31T23:59:21.338074+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_02",
+          "key": "LSHIFT",
+          "task_id": "task-e9725db3-f9f4-438f-8e05-79e138dbe341",
+          "sent_at": "2026-10-31T23:59:23.285180+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_03",
+          "key": "MOUSE_MOVE",
+          "task_id": "task-8ae34708-d41c-45fe-b911-15aa69d0e61c",
+          "sent_at": "2026-10-31T23:59:25.327018+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_04",
+          "key": "F10",
+          "task_id": "task-528352dd-3ece-4989-9fcf-b322edd2b20d",
+          "sent_at": "2026-10-31T23:59:27.369197+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_05",
+          "key": "LSHIFT",
+          "task_id": "task-220d9c83-9c34-4682-ab7d-bc27ceb8a018",
+          "sent_at": "2026-10-31T23:59:29.312478+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_06",
+          "key": "MOUSE_MOVE",
+          "task_id": "task-9ca9abb8-1a44-48fe-93a9-5094dedb4718",
+          "sent_at": "2026-10-31T23:59:31.255302+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_07",
+          "key": "F10",
+          "task_id": "task-284dc3b1-6cf9-4cc0-9adc-b53d0a5a27f8",
+          "sent_at": "2026-10-31T23:59:33.297989+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_08",
+          "key": "LSHIFT",
+          "task_id": "task-b6613d30-ff69-4b20-a913-a6a911c07935",
+          "sent_at": "2026-10-31T23:59:35.353943+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_09",
+          "key": "MOUSE_MOVE",
+          "task_id": "task-bf380367-1d6f-43ce-942a-bc9109099e4a",
+          "sent_at": "2026-10-31T23:59:37.297522+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_10",
+          "key": "F10",
+          "task_id": "task-3efa3d4a-f6f9-40cc-b587-3dd6e858652c",
+          "sent_at": "2026-10-31T23:59:39.338841+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_11",
+          "key": "LSHIFT",
+          "task_id": "task-cb35f90e-49a0-4ddc-819b-0dc6384b525e",
+          "sent_at": "2026-10-31T23:59:41.282185+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_12",
+          "key": "MOUSE_MOVE",
+          "task_id": "task-d76fc988-e04a-4cdc-b8d0-14c0efc9b316",
+          "sent_at": "2026-10-31T23:59:43.328192+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_13",
+          "key": "F10",
+          "task_id": "task-396af061-455d-49ca-b14f-1fe728ed3b96",
+          "sent_at": "2026-10-31T23:59:45.371520+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_14",
+          "key": "LSHIFT",
+          "task_id": "task-3829076f-2432-462a-a019-bc94e17046ff",
+          "sent_at": "2026-10-31T23:59:47.313534+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_15",
+          "key": "MOUSE_MOVE",
+          "task_id": "task-ceada032-e8e6-4cf2-bed0-1c85027e9c65",
+          "sent_at": "2026-10-31T23:59:49.353576+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_16",
+          "key": "F10",
+          "task_id": "task-2fe28b8d-ca19-478f-b474-53b9afaf1de0",
+          "sent_at": "2026-10-31T23:59:51.296747+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_17",
+          "key": "LSHIFT",
+          "task_id": "task-71b0f1c8-42f7-4e0c-abb4-4492750795b0",
+          "sent_at": "2026-10-31T23:59:53.338696+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_18",
+          "key": "MOUSE_MOVE",
+          "task_id": "task-717477ec-55bb-42e8-9ce4-f99ef7c6860d",
+          "sent_at": "2026-10-31T23:59:55.378865+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_19",
+          "key": "F10",
+          "task_id": "task-f28b2a5a-1820-4bc2-8d3d-d2b43681ebc8",
+          "sent_at": "2026-10-31T23:59:57.322299+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        },
+        {
+          "phase": "RUNNING_TASK_20",
+          "key": "LSHIFT",
+          "task_id": "task-885c8d10-b898-4320-a824-b9843162cb49",
+          "sent_at": "2026-10-31T23:59:59.363279+00:00",
+          "helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3"
+        }
+      ],
+      "models_loaded": false,
+      "classification": "ACTUAL_REMOTE_WINDOWS_INPUT_NOT_HARDWARE_OR_LATENCY_ACCEPTANCE",
+      "foreground_preflight": {
+        "probe_run_id": "d4261a9e-152a-43d7-a060-001d94ccce3c",
+        "observed_at": "2026-10-31T23:59:05.521235+00:00",
+        "game_pid": 25884,
+        "creation_ticks": 134379645650347667,
+        "window": 11077832,
+        "foreground_pid_verified": true,
+        "creation_ticks_verified": true,
+        "world_session_id": "world-session-275f829e-7878-4df4-8920-ed9d136c709a",
+        "control_epoch": 3
+      },
+      "completed_at": "2026-11-01T00:00:00.282193+00:00"
+    },
+    "remote_input_helper_sha256": "49466d27fabe93029e7d1db6f3c66e513a18a8717fc16bbb271e076710401cc3",
+    "remote_input_driver_sha256": "0801e26b6abb855935d00a2bfe159a50db426c529d6821cd8bf989b8e4ba32ea",
+    "creation_ticks_projection": {
+      "exact_windows_ticks": "134379645650347667",
+      "javascript_json_number": 134379645650347660,
+      "exact_identity_verified_by_remote_python_helper": true,
+      "host_number_is_lossy_and_not_used_as_identity_authority": true
+    },
+    "classification": "ACTUAL_RUNNING_TASK_OS_INPUT_TAKEOVER_NOT_REAL_HARDWARE_OR_LATENCY_ACCEPTANCE",
+    "hardware_acceptance_passed": false,
+    "stop_latency_acceptance_passed": false
+  },
+  "artifact_review": {
+    "proof": "outputs/mc-validation/round-077/remote-evidence/artifact-result-008.json",
+    "source_and_jar_verified": true,
+    "journal_integrity": "ok",
+    "journal_tasks": 26,
+    "journal_transitions": 77,
+    "journal_task_states": [
+      "cancelled",
+      "succeeded",
+      "cancelled",
+      "cancelled",
+      "cancelled",
+      "cancelled",
+      "cancelled",
+      "cancelled",
+      "cancelled",
+      "cancelled",
+      "cancelled",
+      "cancelled",
+      "cancelled",
+      "cancelled",
+      "cancelled",
+      "succeeded",
+      "cancelled",
+      "cancelled",
+      "succeeded",
+      "cancelled",
+      "cancelled",
+      "succeeded",
+      "cancelled",
+      "cancelled",
+      "succeeded",
+      "cancelled"
+    ],
+    "engineering_listener_closed": true,
+    "full_application_preparation_exists": false,
+    "initial_review_failures_preserved": [
+      {
+        "proof": "outputs/mc-validation/round-077/remote-evidence/artifact-review-008-attempt-001.json",
+        "reason": "EXACT_RAW_TICKS_DIFFER_FROM_JAVASCRIPT_JSON_NUMBER"
+      },
+      {
+        "proof": "outputs/mc-validation/round-077/remote-evidence/artifact-review-008-attempt-002.json",
+        "reason": "JSON_SHORTEST_DECIMAL_IS_NOT_EXACT_BINARY_FLOAT_INTEGER"
+      }
+    ],
+    "creation_ticks_precision_note": "Windows身份由3080 Python按原始整数精确核对；宿主JSON中的大整数副本有JavaScript精度损失，只作为可追溯的有损投影，不能充当身份权威。"
+  },
+  "preserved_failures": [
+    {
+      "proof": "outputs/mc-validation/round-077/remote-evidence/bootstrap-result-001.json",
+      "reason": "NATIVE_COMPILE_WRONG_FIRE_BLOCK_CLASS_FIXED_BASE_FIRE_BLOCK"
+    },
+    {
+      "proof": "outputs/mc-validation/round-077/remote-evidence/game-result-002.json",
+      "reason": "TREE_CANOPY_STURDY_FACE_REJECTED_ALL_ROUTES_NO_MOVEMENT_STARTED"
+    },
+    {
+      "proof": "outputs/mc-validation/round-077/remote-evidence/game-result-003.json",
+      "reason": "WALK_AND_RETURN_VERIFIED_GATHER_FAILED_NO_ROUTE_STANCE_SELECTION_ADDED"
+    },
+    {
+      "proof": "outputs/mc-validation/round-077/remote-evidence/game-result-004.json",
+      "reason": "GATHER_LOOSE_DROP_ROUTE_FAILED_PICKUP_STANCES_ADDED"
+    },
+    {
+      "proof": "outputs/mc-validation/round-077/remote-evidence/game-result-005.json",
+      "reason": "WALK_ENTERED_TARGET_BUT_LATER_POSITION_NOT_VERIFIED_BRAKING_AND_SETTLING_ADDED"
+    },
+    {
+      "proof": "outputs/mc-validation/round-077/remote-evidence/game-result-006.json",
+      "reason": "SERVER_CONFIRMED_BLOCK_DROPS_WITHOUT_INVENTORY_GAIN_LEAF_CORRIDOR_CLEARING_ADDED"
+    },
+    {
+      "proof": "outputs/mc-validation/round-077/remote-evidence/game-result-007.json",
+      "reason": "WALK_RETURN_GATHER_VERIFIED_OS_INPUT_REFUSED_WRONG_FOREGROUND_NO_KEYS_SENT_BACKGROUND_DRIVER_AND_PAUSED_PREFLIGHT_ADDED"
+    },
+    {
+      "proof": "outputs/mc-validation/round-077/remote-controls/focus-actual-game-003/deadline.json",
+      "reason": "REMOTE_WINDOW_SWITCH_TIMED_OUT_NOT_REPORTED_AS_GAME_FAILURE"
+    }
+  ],
+  "scope_limits": [
+    "FULL_APPLICATION_NOT_PREPARED",
+    "DSH_CONTEXT_INERT_NOT_PERSONA_OR_MODEL_ACCEPTANCE",
+    "FULL_SURVIVAL_PVE_CRAFT_SMELT_SUPPLY_RESOURCE_GRAPH_PENDING",
+    "REAL_EAT_AND_PLACE_NOT_VERIFIED",
+    "HARDWARE_AND_STOP_LATENCY_ACCEPTANCE_PENDING",
+    "VISION_INFERENCE_UNPREPARED",
+    "BILIBILI_AND_OFFICIAL_PROGRAMME_NOT_TESTED",
+    "FULL_FABRIC_SURVIVAL_PRELAUNCH_REMAINS_DENIED"
+  ],
+  "source_test_proofs": [
+    "outputs/mc-validation/round-077/remote-evidence/bootstrap-result-002.json",
+    "outputs/mc-validation/round-077/remote-evidence/bootstrap-result-008.json"
+  ],
+  "all_prior_remaining_text_preserved": true,
+  "public_broadcast_started": false,
+  "model_downloads": false,
+  "virtualization_used": false,
+  "remote_4090_used": false,
+  "browser_tabs_created": 0,
+  "frozen_sha256": {
+    "configs/layouts/mc-landscape-v1.json": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+    "docs/technical/mc-live-v1/13-完整方案实施总纲.md": "6642f3a63cbc82f86da5cc35e2ab7489214908f5f211ec0dc05b000950a3da34"
+  },
+  "documentation_validation": {
+    "result": "PASS",
+    "schema_definitions": 146,
+    "valid_examples": 157,
+    "negative_contract_cases": 166,
+    "http_operations": 67,
+    "markdown_files_checked": 92,
+    "local_markdown_links": 1180,
+    "host": "DESKTOP-2QQPN1H",
+    "final_proof": "outputs/mc-validation/round-077/remote-evidence/document-validation-result-002.json"
+  }
+}

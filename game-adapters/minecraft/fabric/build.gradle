@@ -1,0 +1,86 @@
+plugins {
+    id 'fabric-loom' version '1.10.5'
+    id 'maven-publish'
+}
+
+if (gradle.gradleVersion != '8.14.3') throw new GradleException('Use the pinned Gradle 8.14.3 wrapper.')
+
+version = project.mod_version
+group = project.maven_group
+base { archivesName = 'ai-talk-streamer-mc-bridge' }
+repositories { mavenCentral() }
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    include implementation('dev.harrel:json-schema:1.9.1')
+    include implementation('org.xerial:sqlite-jdbc:3.53.4.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.11.4'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    withSourcesJar()
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 21 }
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') { expand version: project.version }
+    from('../../../docs/technical/mc-live-v1/contracts') {
+        include 'game.schema.json'
+        into 'mc-contracts'
+    }
+}
+processTestResources {
+    from('../../../docs/technical/mc-live-v1/contracts') {
+        include 'examples.json'
+        into 'mc-contracts'
+    }
+}
+test {
+    useJUnitPlatform(); maxParallelForks = 1
+    systemProperty 'java.io.tmpdir', layout.buildDirectory.dir('test-temp').get().asFile.absolutePath
+    systemProperty 'org.sqlite.tmpdir', layout.buildDirectory.dir('sqlite-native').get().asFile.absolutePath
+    doFirst {
+        layout.buildDirectory.dir('test-temp').get().asFile.mkdirs()
+        layout.buildDirectory.dir('sqlite-native').get().asFile.mkdirs()
+    }
+}
+dependencyLocking { lockAllConfigurations() }
+
+// Runs the offline journal utility on the existing native JVM; never starts Minecraft.
+tasks.register('journalMaintenance', JavaExec) {
+    dependsOn tasks.named('classes')
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'dev.aitalkstreamer.mc.core.JournalMaintenanceCli'
+    maxHeapSize = '512m'
+    doFirst {
+        if (!project.hasProperty('journalDir') || !project.hasProperty('maintenanceAction'))
+            throw new GradleException('Provide -PjournalDir=<absolute existing ledger directory> and -PmaintenanceAction=preview|apply|status|result|restore.')
+        args '--directory', project.property('journalDir'), '--action', project.property('maintenanceAction')
+        for (entry in ['protectedTasks': '--protect', 'maintenancePlan': '--plan', 'maintenanceSha256': '--sha256', 'maintenanceBackup': '--backup'])
+            if (project.hasProperty(entry.key)) args entry.value, project.property(entry.key)
+    }
+}
+
+// This fixture exercises the real protocol core without loading Minecraft or a model.
+tasks.register('interopTest', Exec) {
+    // Loom's remapping work must finish before the real-clock protocol fixtures.
+    // A command-line list of build + interopTest does not establish that dependency.
+    dependsOn tasks.named('build')
+    workingDir rootProject.file('../../..')
+    def reportDir = layout.buildDirectory.dir('test-results/interop')
+    doFirst {
+        reportDir.get().asFile.mkdirs()
+        environment 'MC_JAVA_TEST_CLASSPATH', files(sourceSets.main.output, sourceSets.test.output,
+                configurations.testRuntimeClasspath.filter { it.name.startsWith('gson-') || it.name.startsWith('json-schema-')
+                    || it.name.startsWith('sqlite-jdbc-') || it.name.startsWith('slf4j-api-') }).asPath
+        environment 'MC_TEST_JAVA', javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }.get().executablePath.asFile.absolutePath
+        commandLine System.getenv('MC_TEST_NODE') ?: 'node', '--test', '--test-reporter', 'junit',
+                '--test-reporter-destination', new File(reportDir.get().asFile, 'interop.xml').absolutePath,
+                '--test-reporter', 'tap', '--test-reporter-destination', 'stdout', 'tests/game-java-interop.test.mjs'
+    }
+}

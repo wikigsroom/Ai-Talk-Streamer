@@ -1,0 +1,244 @@
+{
+  "classification": "B_SQLITE_MIGRATION_CONTEXT_ARCHIVE_RESTORE_CPU_PROTOCOL_TESTS_ONLY",
+  "round": "004",
+  "recorded_at": "2026-10-29T20:52:28.364414+00:00",
+  "branch": "mc",
+  "turn_classification": "progress",
+  "goal_status": "active",
+  "result": "PASS_FOR_RECORDED_CPU_CHECKS_NOT_FULL_SYSTEM_ACCEPTANCE",
+  "implemented_ids": [
+    "I031",
+    "I032",
+    "I033",
+    "I034",
+    "I035",
+    "I036",
+    "I037",
+    "I038"
+  ],
+  "environment": {
+    "os": "Windows native, no virtualization",
+    "java": "Temurin21.0.11+10",
+    "gradle": "8.14.3",
+    "node_tested": "24.19.0",
+    "production_dsh_node_required": "24.22.1",
+    "production_node_verified": false
+  },
+  "checks": [
+    {
+      "id": "T012",
+      "name": "fabric-java-core-and-sqlite-durability",
+      "passed": 36,
+      "failed": 0,
+      "breakdown": {
+        "control_arbiter": 10,
+        "local_sqlite_journal": 23,
+        "wire_schema": 3
+      },
+      "junit_local": "outputs/mc-validation/round-004/java-core-final"
+    },
+    {
+      "id": "T013",
+      "name": "compiled-java-to-node-restart-world-change",
+      "passed": 7,
+      "failed": 0,
+      "junit_local": "outputs/mc-validation/round-004/interop-final.xml",
+      "real_game_port": false
+    },
+    {
+      "id": "T014",
+      "name": "existing-core-world-host-and-mock-context-regression",
+      "passed": 33,
+      "failed": 0,
+      "breakdown": {
+        "core": 21,
+        "world_recovery": 10,
+        "host": 1,
+        "mock_provider_world_context": 1
+      },
+      "junit_local": "outputs/mc-validation/round-004/node-regression.xml",
+      "model": "MOCK_PROVIDER_ONLY_NO_INFERENCE"
+    },
+    {
+      "id": "T015",
+      "name": "document-contract-scope-check",
+      "result": "PASS",
+      "schema_definitions": 61,
+      "valid_examples": 50,
+      "negative_contract_cases": 23,
+      "http_operations": 32,
+      "ws_types": 17,
+      "markdown_files_checked": 19,
+      "local_markdown_links": 207,
+      "counted_as_runtime_acceptance": false
+    }
+  ],
+  "distinct_test_cases_passed_this_round": 76,
+  "native_build_status": "PASS",
+  "build_receipt": {
+    "schema_version": 1,
+    "recorded_at": "2026-10-29T20:50:03.3052976+00:00",
+    "branch": "mc",
+    "classification": "NATIVE_BUILD_AND_CPU_PROTOCOL_CHECKS_ONLY",
+    "java": "openjdk 21.0.11 2026-04-21 LTS\r\nOpenJDK Runtime Environment Temurin-21.0.11+10 (build 21.0.11+10-LTS)\r\nOpenJDK 64-Bit Server VM Temurin-21.0.11+10 (build 21.0.11+10-LTS, mixed mode, sharing)",
+    "gradle": "8.14.3",
+    "wrapper_jar_sha256": "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172",
+    "node": "v24.19.0",
+    "unit_tests": {
+      "tests": 36,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    "interop_tests": {
+      "tests": 7,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    "interop_skipped_by_request": false,
+    "jar": "game-adapters/minecraft/fabric/build/libs/ai-talk-streamer-mc-bridge-0.1.0.jar",
+    "jar_sha256": "713366d9309254bbed5f63b670e7de4afdf1394cb93c9b3dc7c1a91354f81c73",
+    "embedded_schema_sha256": "041bb9641d2f74c80667c2dbc9c6c3102fd888dcd3fe7d68a1e6ac3952462d17",
+    "sqlite_jdbc_version": "3.53.4.0",
+    "sqlite_windows_x64_dll_sha256": "f16882d2eded914edd1e1d313e7c8579e040b0da090a52ea99ad7b0c5d961c45",
+    "real_game_acceptance": "not_run"
+  },
+  "sqlite_journal": {
+    "schema": 2,
+    "engine": "3.53.4",
+    "jdbc": "3.53.4.0",
+    "tables": [
+      "metadata",
+      "worlds",
+      "tasks",
+      "task_transitions",
+      "contexts",
+      "streams",
+      "reliable"
+    ],
+    "single_owner": true,
+    "journal_mode": "WAL",
+    "synchronous": "FULL",
+    "game_thread_disk_io": false,
+    "atomic_task_transition_and_reliable_commit": true,
+    "legacy_json_import": "Exact durable backup before transaction; original file untouched; SQLite authoritative after commit",
+    "future_schema": "Rejected before WAL or task recovery mutation",
+    "active_pending_limit": 256,
+    "reliable_history_limit": 50000,
+    "task_limit": 20000,
+    "max_sqlite_pages": 65536,
+    "max_sqlite_backup_files": 8,
+    "automatic_retention_cleanup_implemented": false
+  },
+  "archives": {
+    "local_old_boot_world_context_archive": true,
+    "late_historical_result_archived": true,
+    "original_context_preserved": true,
+    "old_context_resent_as_current": false,
+    "local_page_limit": 100,
+    "archive_received_by_a_proven": false,
+    "a_history_ingestion_implemented": false,
+    "local_archive_export_admin_implemented": false
+  },
+  "backup_restore": {
+    "implemented": "Native SQLite backup/restore core only, not a complete operations workflow",
+    "committed_wal_included": true,
+    "sha256_receipts": true,
+    "active_owner_refused": true,
+    "same_installation_required": true,
+    "pre_restore_snapshot": true,
+    "tampered_backup_refused": true,
+    "automatic_auto_after_restore": false,
+    "joint_a_b_mc_media_restore_implemented": false,
+    "admin_maintenance_implemented": false
+  },
+  "intermediate_failures": [
+    {
+      "name": "world-change-stop-reason-normalization",
+      "observed": {
+        "java_passed": 36,
+        "interop_passed": 6,
+        "interop_failed": 1
+      },
+      "detail": "New world-change check expected WORLD_CHANGED; stale old-context ACK guard can stop with GAME_WORLD_CHANGED. Local world-change cancellation now uses the same GAME_WORLD_CHANGED code; full suite rerun passed.",
+      "reports_local": [
+        "outputs/mc-validation/round-004/world-context-build-failed.log",
+        "outputs/mc-validation/round-004/world-context-interop-failed.xml"
+      ],
+      "final_status": "PASS_IN_FULL_FINAL_BUILD"
+    }
+  ],
+  "known_build_notice": "Loom reports the upstream four-component SQLite JDBC version as non-semver when generating nested-library metadata; native compile/package/protocol checks pass, actual Fabric loading remains untested.",
+  "public_acceptance": {
+    "required_domains": 15,
+    "required_cases": 68,
+    "passed": 0,
+    "not_run": 68,
+    "real_minecraft_started": false,
+    "real_dsh_model_called": false,
+    "gpu_inference_started": false,
+    "official_livehime_started": false,
+    "public_broadcast_started": false,
+    "four_hour_full_load": "not_run",
+    "new_avatar_clips_required": 100,
+    "new_avatar_clips_generated_this_round": 0
+  },
+  "preserved_constraints": {
+    "branch": "mc",
+    "changes_within_project": true,
+    "docker_wsl_virtualization_used": false,
+    "remote_4090_control": "paused",
+    "deployment_target_origin_modified": false,
+    "inherited_target": "rtx3080_FP16_batch4",
+    "humanity_writers_added": 0,
+    "audible_consumers_added": 0,
+    "original_female_a_48_gestures_preserved": true,
+    "browser_tabs_opened": 0
+  },
+  "primary_references": [
+    "https://github.com/xerial/sqlite-jdbc/releases/tag/3.53.4.0",
+    "https://github.com/xerial/sqlite-jdbc/blob/3.53.4.0/USAGE.md",
+    "https://sqlite.org/pragma.html#pragma_synchronous",
+    "https://sqlite.org/wal.html#the_wal_reset_bug",
+    "https://sqlite.org/backup.html"
+  ],
+  "source_is_uncommitted_working_tree": true,
+  "whitespace_checks": {
+    "git_diff_check": "PASS_WITH_LINE_ENDING_NOTICES_ONLY",
+    "mc_files_checked": 21,
+    "result": "PASS"
+  },
+  "source_sha256": {
+    "game-adapters/minecraft/fabric/build.gradle": "bbf214a8fbc390b233a71cafce5807bbca33e6e502a70460cf7e2438592c0f2c",
+    "game-adapters/minecraft/fabric/gradle.lockfile": "6dc453dc05bd35ebad4352dca7e6a327a023d4c9ea90fbb68dbb5c0ecfc4b514",
+    "game-adapters/minecraft/fabric/gradle.properties": "227193cdfb49bd1e7eafb5e615f8024cd8f603a68e5d4e457c9256889b4e357f",
+    "game-adapters/minecraft/fabric/README.md": "99392ce49994df57c082aa5fba4b5b2fa59b71c4e6aa79774e690a5708689a62",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/LocalJournal.java": "5bf9dbb8beeb065f1e9c81acc6f04bf2c54a995e3733a28454f9406fe6d4a42e",
+    "game-adapters/minecraft/fabric/src/main/java/dev/aitalkstreamer/mc/core/BridgeCore.java": "cf624bf25da4cfcd71987388f9a7f41284c6370c0bcfec889ffa12d5da066f6e",
+    "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/LocalJournalTest.java": "857fd605b5351a6c69cbb26cf2e45ac19b6a45334e8bc8746fbff09079ea2000",
+    "game-adapters/minecraft/fabric/src/test/java/dev/aitalkstreamer/mc/core/HeadlessBridge.java": "675f8b74b80b8286edba7ab85bb72497f78acb85a086e9196150ab5a626f91f6",
+    "tests/game-java-interop.test.mjs": "b269acc2059618817d73ccca7d4f846c1a6afc2f3c099f7a9c2e357002e1c0d4",
+    "tests/game-core.test.mjs": "2521f67a2e11415ab09751ade66ca265b3f37a5259d9a8128bbcc1c4746ff54f",
+    "tests/game-world-recovery.test.mjs": "9e66ba14ba73a42494912da75df8a0c13efca70b9df79fe329e8efa247e95256",
+    "tests/game-host.test.mjs": "5855c862c46cecd0545e2a6de50adf3557192253ac6d45579ace1c8d96bad835",
+    "tests/game-world-context.test.mjs": "b94f3f88dafc608414c5c83ed4e05b1cd0692495c6b325c960cd27fa68cc3ab0",
+    "scripts/mc_build_fabric.ps1": "e9aa4268831b1da7889966c0781ad80036c42f89c826a2c64743d1c3c4fb0c5f",
+    "scripts/mc_check_contracts.py": "fe5d51fde67b11115c47cdff44e4105287beafc7ec59104aabf4b04817b66988",
+    "backend/game/README.md": "762c5560bbb550b7181f66bc8c6d2cb01aaffa3295ff582320d408173cdf01e0",
+    "configs/layouts/mc-landscape-v1.json": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+    "docs/technical/mc-live-v1/01-系统架构与模块.md": "8984ee5f64dcb75fb896fc0175a6933fc4b21c2e21653ee3951d871f1a163827",
+    "docs/technical/mc-live-v1/02-游戏桥与控制协议.md": "5beffc782bfb227dc40d53241eaacbfb378cde699cd0dc3de44da344c8656d12",
+    "docs/technical/mc-live-v1/03-DSH弹幕与记忆.md": "6ed318be258a4c21c417b9d566c889bad5e6cfa509997ccfa5c1694fd1b65487",
+    "docs/technical/mc-live-v1/04-接口与数据.md": "d65b75f65fe9faf04f94c3a65c99267083bfcbeacd6a7350061b3e362fa25e13",
+    "docs/technical/mc-live-v1/05-横屏媒体与素材.md": "442e53b06ad13886b64a82526fe4f80623fdfb70fc85313c01ca69af915d6025",
+    "docs/technical/mc-live-v1/06-部署与故障恢复.md": "1f5fb3f52352a334f85a61dd0e43a1a1ccad379c60c27d9d6b73b29f7ae40d15",
+    "docs/technical/mc-live-v1/07-实施与验收.md": "dc0eb95cab29ac4c2fc4c3693ab5e1c26f73fc834b548e626db69018243a0a44",
+    "docs/technical/mc-live-v1/08-完整交付规划.md": "e730c5d4c369a72cb35a46fedcaebd4302d519b367225111aaaf85ed9b0ce2ca",
+    "docs/technical/mc-live-v1/B端账本与恢复.md": "fbbf5d89f26954db8979bb210e8aa214684099e15e43cf62f9b064fc18c879d0",
+    "docs/technical/mc-live-v1/README.md": "98ee6d714e214753604fac81d77f3626f94cbfa43f2bb91a4c05a342dafff528",
+    "docs/technical/mc-live-v1/实现进度.md": "7b16079e3b9abc391eb5a3e91eb27fae70f4d6816be037b54e24845461367caa",
+    "docs/technical/mc-live-v1/implementation-status.json": "90ae110ec9a5e2a0efe45ea91d795963fb90706da7297d196dff267d47ee4b52",
+    "docs/technical/mc-live-v1/contracts/verification.json": "0d0509dc7ade1534fc87bfbce1f982404c4e4c67c09c6a8a260e4a50d49dfe8c"
+  }
+}

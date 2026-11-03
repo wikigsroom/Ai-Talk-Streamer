@@ -1,0 +1,38 @@
+{
+  "status": "FAIL",
+  "recorded_at": "2026-11-03T02:36:33.922859+08:00",
+  "freeze_id": "20261103MC",
+  "scope": "DOCUMENTATION_SOURCE_AND_ARCHIVE_INTEGRITY_ONLY_NOT_RUNTIME_ACCEPTANCE",
+  "checks": {
+    "branch_mc": true,
+    "all_15_required_domains_retained": true,
+    "all_remaining_ids_unique": true,
+    "all_68_definitions_and_statuses_retained": true,
+    "24_combinations_12_scenarios_8_gates": true,
+    "formal_acceptance_and_assets_unchanged": true,
+    "public_runtime_sources_unchanged": true,
+    "source_matches_last_installed_snapshot": true,
+    "original_status_and_plan_bytes_preserved": true,
+    "all_local_document_links_resolve": false,
+    "all_frozen_json_parse": true,
+    "all_content_manifest_hashes_match": true,
+    "both_preserved_video_hashes_match": true,
+    "source_archive_exact_members_and_hashes": true,
+    "reference_archive_exact_members_and_hashes": true,
+    "delivery_archive_exact_members_and_hashes": true
+  },
+  "local_links_checked": 251,
+  "missing_links": [
+    "docs/freezes/20261103MC/README.md: ../../../outputs/mc-freezes/20261103MC/delivery-receipt.json"
+  ],
+  "frozen_json_parsed": 10,
+  "required_open_items": 117,
+  "source_files": 985,
+  "reference_files": 292,
+  "formal_acceptance_passed": 0,
+  "new_avatar_clips_accepted": 0,
+  "runtime_tests_run": 0,
+  "browser_tabs_opened": 0,
+  "remote_connections": 0,
+  "model_or_game_starts": 0
+}

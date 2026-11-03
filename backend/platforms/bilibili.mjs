@@ -11,6 +11,13 @@ export function encodePacket(operation, value = '') {
   const body = Buffer.from(typeof value === 'string' ? value : JSON.stringify(value));
   const packet = Buffer.alloc(16 + body.length); packet.writeUInt32BE(packet.length, 0); packet.writeUInt16BE(16, 4); packet.writeUInt16BE(1, 6); packet.writeUInt32BE(operation, 8); packet.writeUInt32BE(1, 12); body.copy(packet, 16); return packet;
 }
+export function parsePlatformJson(text) {
+  // JSON.parse rounds 64-bit IDs before normalization can inspect them. Match
+  // complete strings first, and preserve only unsafe integer tokens as strings.
+  // Normal JSON syntax validation still belongs to JSON.parse below.
+  return JSON.parse(text.replace(/"(?:\\.|[^"\\])*"|(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/gu, (token, numeric) =>
+    numeric && /^-?\d+$/u.test(numeric) && !Number.isSafeInteger(Number(numeric)) ? JSON.stringify(numeric) : token));
+}
 export function decodePackets(value, depth = 0) {
   const bytes = Buffer.from(value); check(bytes.length <= 8 * 1024 * 1024 && depth <= 4, 'BILIBILI_PACKET_LIMIT');
   const result = []; let offset = 0;
@@ -20,7 +27,7 @@ export function decodePackets(value, depth = 0) {
     check(length >= header && header >= 16 && length <= bytes.length - offset, 'BILIBILI_PACKET_LENGTH');
     const body = bytes.subarray(offset + header, offset + length); offset += length;
     if (version === 2 || version === 3) { const decode = version === 2 ? inflateSync : brotliDecompressSync; result.push(...decodePackets(decode(body, { maxOutputLength: 8 * 1024 * 1024 }), depth + 1)); }
-    else if (operation === 5 || operation === 8) { try { result.push({ operation, data: JSON.parse(body.toString('utf8')) }); } catch { throw new PlatformError('BILIBILI_PACKET_JSON'); } }
+    else if (operation === 5 || operation === 8) { try { result.push({ operation, data: parsePlatformJson(body.toString('utf8')) }); } catch { throw new PlatformError('BILIBILI_PACKET_JSON'); } }
     else result.push({ operation, data: null });
   }
   return result;

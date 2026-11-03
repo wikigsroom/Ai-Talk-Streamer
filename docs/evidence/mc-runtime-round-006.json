@@ -1,0 +1,287 @@
+{
+  "classification": "NATIVE_FRAME_TRANSPORT_AND_VISION_ADAPTER_CPU_PROTOCOL_TESTS_ONLY",
+  "round": "006",
+  "recorded_at": "2026-10-29T22:01:33.690972+00:00",
+  "branch": "mc",
+  "turn_classification": "progress",
+  "goal_status": "active",
+  "result": "PASS_FOR_RECORDED_LOCAL_CHECKS_NOT_FULL_SYSTEM_ACCEPTANCE",
+  "implemented_ids": [
+    "I047",
+    "I048",
+    "I049",
+    "I050",
+    "I051",
+    "I052",
+    "I053",
+    "I054",
+    "I055"
+  ],
+  "environment": {
+    "os": "Windows native; no virtualization",
+    "java": "Temurin21.0.11+10",
+    "gradle": "8.14.3",
+    "node_tested": "24.19.0",
+    "production_dsh_node_required": "24.22.1",
+    "production_node_verified": false,
+    "python": "3.13",
+    "jpeg_js": "0.4.4"
+  },
+  "checks": [
+    {
+      "name": "native_java_core_and_frame",
+      "passed": 40,
+      "failed": 0,
+      "report_local": "outputs/mc-validation/round-006/java-core-final"
+    },
+    {
+      "name": "java_node_interop",
+      "passed": 8,
+      "failed": 0,
+      "report_local": "outputs/mc-validation/round-006/interop-final.xml",
+      "real_game_port": false
+    },
+    {
+      "name": "node_protocol_and_mock_vision",
+      "passed": 59,
+      "failed": 0,
+      "skipped": 0,
+      "vision_tests": 13,
+      "report_local": "outputs/mc-validation/round-006/node-final.xml",
+      "file_concurrency": 1
+    },
+    {
+      "name": "python_game_proxy_and_operator_assets",
+      "passed": 5,
+      "failed": 0,
+      "report_local": "outputs/mc-validation/round-006/python-game-proxy.log"
+    },
+    {
+      "name": "python_frame_proxy_chain",
+      "passed": 4,
+      "failed": 0,
+      "report_local": "outputs/mc-validation/round-006/python-frame-proxy.log"
+    },
+    {
+      "name": "python_receiver_regression",
+      "passed": 12,
+      "failed": 0,
+      "report_local": "outputs/mc-validation/round-006/python-receiver.log"
+    },
+    {
+      "name": "native_cors_legacy_compatibility_probe",
+      "result": "PASS",
+      "report_local": "outputs/mc-validation/round-006/python-route-probe.log",
+      "counted_as_unit_case": false
+    },
+    {
+      "name": "contract_and_document_check",
+      "result": "PASS",
+      "schema_definitions": 79,
+      "valid_examples": 62,
+      "negative_contract_cases": 34,
+      "http_operations": 39,
+      "ws_types": 17,
+      "markdown_files_checked": 21,
+      "local_markdown_links": 237,
+      "counted_as_runtime_acceptance": false,
+      "report_local": "outputs/mc-validation/round-006/document-contract-verification.json"
+    }
+  ],
+  "distinct_local_test_cases_passed": 128,
+  "build_receipt_local": "outputs/mc-validation/round-006/fabric-build-receipt.json",
+  "artifact": {
+    "schema_version": 1,
+    "recorded_at": "2026-10-29T21:58:05.5750295+00:00",
+    "branch": "mc",
+    "classification": "NATIVE_BUILD_AND_CPU_PROTOCOL_CHECKS_ONLY",
+    "java": "openjdk 21.0.11 2026-04-21 LTS\r\nOpenJDK Runtime Environment Temurin-21.0.11+10 (build 21.0.11+10-LTS)\r\nOpenJDK 64-Bit Server VM Temurin-21.0.11+10 (build 21.0.11+10-LTS, mixed mode, sharing)",
+    "gradle": "8.14.3",
+    "wrapper_jar_sha256": "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172",
+    "node": "v24.19.0",
+    "unit_tests": {
+      "failures": 0,
+      "skipped": 0,
+      "errors": 0,
+      "tests": 40
+    },
+    "interop_tests": {
+      "failures": 0,
+      "skipped": 0,
+      "errors": 0,
+      "tests": 8
+    },
+    "interop_skipped_by_request": false,
+    "jar": "game-adapters/minecraft/fabric/build/libs/ai-talk-streamer-mc-bridge-0.1.0.jar",
+    "jar_sha256": "5adb08d0407a01bd000e6ea22325153df1639bbe0f230f0457de09ebb425c182",
+    "embedded_schema_sha256": "a386d47d05eb80c6ca34759e746b92ff74e33148f1e13eeaf037cdaf209a3063",
+    "sqlite_jdbc_version": "3.53.4.0",
+    "sqlite_windows_x64_dll_sha256": "f16882d2eded914edd1e1d313e7c8579e040b0da090a52ea99ad7b0c5d961c45",
+    "real_game_acceptance": "not_run"
+  },
+  "frame_limits": {
+    "upload_bytes": 4194304,
+    "width": 1920,
+    "height": 1080,
+    "cache_entries": 2,
+    "cache_bytes": 8388608,
+    "cache_ttl_ms": 30000,
+    "admission_age_ms": 2000,
+    "future_clock_tolerance_ms": 250,
+    "max_concurrency": 1,
+    "min_interval_ms": 1000
+  },
+  "failures_retained": [
+    {
+      "check": "initial vision upload limit test",
+      "result": "9/10 passed; oversized request ECONNRESET",
+      "cause_and_fix": "Rejected large bytes raced connection close; use non-destroying bounded input iterator and verify declared-size rejection before pixels are sent. Chunked overflow also independently returns413.",
+      "source": "tool output retained as this summary"
+    },
+    {
+      "check": "initial native interop stalled cleanup",
+      "cause_and_fix": "HTTP upgrade socket was outside ordinary closeAllConnections; fixture now closes its listener then all tracked own sockets. Interrupted only this run.",
+      "report_local": "outputs/mc-validation/round-006/fabric-initial-full.log",
+      "partial_report_local": "outputs/mc-validation/round-006/interop-initial-stalled.xml"
+    },
+    {
+      "check": "native vision targeted upload",
+      "cause_and_fix": "Java default h2c reached the WS upgrade handler; explicitly use HTTP/1.1.",
+      "report_local": "outputs/mc-validation/round-006/interop-vision-fixed.log"
+    },
+    {
+      "check": "native build before integer timeout fix",
+      "result": "Java40 pass; interop7/8 pass",
+      "cause_and_fix": "performance.now remaining duration was fractional; AbortSignal.timeout requires integer milliseconds. Floor remaining duration and still recheck deadline.",
+      "report_local": "outputs/mc-validation/round-006/fabric-before-timeout-fix.log",
+      "xml_local": "outputs/mc-validation/round-006/interop-before-timeout-fix.xml"
+    },
+    {
+      "check": "real-clock Node fixture before periodic sampling",
+      "result": "58/59 pass",
+      "cause_and_fix": "Only one snapshot was sent, correctly triggering stale state. Real-clock fixture now samples at5Hz; production freshness/vision limits unchanged. Final file suites run sequentially, separate from native startup.",
+      "report_local": "outputs/mc-validation/round-006/node-real-clock-without-periodic-sampling.log"
+    }
+  ],
+  "limits": [
+    "Actual JPEG/files/HTTP with synthetic GamePort and explicitly mocked model responses; no real MC or native llama.cpp/CUDA inference.",
+    "File pins and /props do not prove the loaded projector or CUDA backend; managed process arguments and actual runtime cases still required.",
+    "Real source frames, text/building/unknown correctness, clock alignment, bandwidth, physical GPU cancellation and joint load remain unaccepted.",
+    "128 local tests do not replace any of the68 integrated runtime cases; historical I/O and generic ACK investigation remains open."
+  ],
+  "full_system_acceptance": {
+    "defined": 68,
+    "run": 0,
+    "passed": 0,
+    "not_run": 68,
+    "four_hour_run": "not_run",
+    "next_day_recovery": "not_run",
+    "avatar_clips_required": 100,
+    "new_avatar_clips_generated_this_round": 0
+  },
+  "constraints": {
+    "remote_4090": "paused",
+    "remote_gpu_control_used": false,
+    "virtualization_started": false,
+    "new_model_downloads": false,
+    "public_broadcast_started": false,
+    "application_auth_added": false,
+    "new_humanity_writer": false,
+    "new_audible_output_consumer": false,
+    "browser_opened_this_round": false,
+    "browser_tabs_created": 0,
+    "layout_sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76"
+  },
+  "remaining_domains": [
+    {
+      "id": "D01",
+      "required": true,
+      "status": "partial",
+      "remaining": "mc设备profile、原生预检/准备/启停、完整运行锁与发布包；正式Node24.22.1及干净环境复现"
+    },
+    {
+      "id": "D02",
+      "required": true,
+      "status": "partial_native_frames_sessions_history_runtime_not_accepted",
+      "remaining": "配方/完整GUI/规则、B归档向A完整历史投影和世界选择后台；原始帧、Fabric/Mixin/服务器联合实机验收"
+    },
+    {
+      "id": "D03",
+      "required": true,
+      "status": "partial_both_sides_source_available",
+      "remaining": "全部执行器/视角统一仲裁、热键配置、光标回中与人工输入区分、线程停顿及至少20次实机接管"
+    },
+    {
+      "id": "D04",
+      "required": true,
+      "status": "partial_eat_cancel_source_only",
+      "remaining": "导航/采集/合成/回基地、完整物品使用、普通PvE/补给/危险处理、多步骤资源链及真实后置证据"
+    },
+    {
+      "id": "D05",
+      "required": true,
+      "status": "partial_world_context_and_tools",
+      "remaining": "真实DSH与模型渠道、完整生存目标执行和预算/取消/迟到结果、播出前事实复核；Neuro固定消息兼容及回放"
+    },
+    {
+      "id": "D06",
+      "required": true,
+      "status": "partial",
+      "remaining": "建议归并、建议/投票转实际任务、平台SC/角色/删除字段及真实弹幕联合验收"
+    },
+    {
+      "id": "D07",
+      "required": true,
+      "status": "partial_sessions_goals_dispositions_and_b_restore_core",
+      "remaining": "B归档向A完整历史投影、历史保留/摘要/清理、Humanity删除、后台维护、A/B/MC联合备份恢复及次日实机验收"
+    },
+    {
+      "id": "D08",
+      "required": true,
+      "status": "partial_world_tasks_operator_ui_locally_verified",
+      "remaining": "世界选择、建议/投票、人物包装、声音/节目、记忆与完整诊断维护后台；已有世界目标/任务复核页仍需整链验收"
+    },
+    {
+      "id": "D09",
+      "required": true,
+      "status": "design_frozen_runtime_not_implemented",
+      "remaining": "正式横屏节目页、v3/v2媒体、关键帧、字幕/取消屏障及唯一正式播放器"
+    },
+    {
+      "id": "D10",
+      "required": true,
+      "status": "not_generated",
+      "remaining": "圆形与横窗各50段、共100段新人物素材，完整索引/脸框/动作语义/隔离及动态QA"
+    },
+    {
+      "id": "D11",
+      "required": true,
+      "status": "legacy_chain_available_mc_integration_pending",
+      "remaining": "MC人声/游戏/BGM混音、压低、取消与静音恢复；O07/F07主备及唯一可听链"
+    },
+    {
+      "id": "D12",
+      "required": true,
+      "status": "partial_native_frame_transport_and_pinned_vision_adapter_cpu_verified",
+      "remaining": "真实视觉服务/模型/投影与CUDA运行核对、真实帧/文字/建筑/未知及失败样例；跨机时钟、带宽、GPU取消和完整负载验收"
+    },
+    {
+      "id": "D13",
+      "required": true,
+      "status": "partial",
+      "remaining": "B端联合、官方直播姬实际捕获、真实平台公开状态与观众端音画；资格校验及公开验收"
+    },
+    {
+      "id": "D14",
+      "required": true,
+      "status": "partial_native_journal_backup_restore_and_build_receipts",
+      "remaining": "完整运行诊断、资源/时延/日志/磁盘预算、历史高I/O及通用ACK故障复查、故障注入、联合恢复及回滚"
+    },
+    {
+      "id": "D15",
+      "required": true,
+      "status": "not_accepted",
+      "remaining": "V01–V44+C01–C24全部68项、4小时完整负载、跨场/次日、干净原生环境复现与统一交付报告"
+    }
+  ]
+}

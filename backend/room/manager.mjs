@@ -5,6 +5,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { RoomStore } from './store.mjs';
 import { DEFAULTS, FILTERS, patchSettings, check, isBlocked } from './defaults.mjs';
 import { sendAudio, uploadAudio } from './media.mjs';
+import { platformDetails } from '../platforms/details.mjs';
 
 const keyFor = e => e.user_id ? createHash('sha256').update(JSON.stringify([e.platform, e.room_id, e.user_id])).digest('hex') : null;
 const cleanTrack = ({ path: _path, ...track }) => ({ ...track, url: '/api/dsh/room/audio/' + track.id });
@@ -17,10 +18,19 @@ export class RoomManager {
     this.music.playing = false; this.music.anchor_at = now(); this.music.version++;
     this.board = this.store.get('board', { pinned_id: null, featured_id: null });
     this.agentSession = this.store.get('agent_session', 'operator-' + randomUUID()); this.agentJob = null;
+    this.speechLinks = this.store.get('speech_links', {});
+    if (this.store.get('answered_semantics_version', 1) < 2) this.store.transaction(() => {
+      for (const row of this.store.all('SELECT id,value FROM messages WHERE answered=1')) {
+        const value = { ...JSON.parse(row.value), handled: true, handled_reason: 'legacy_answered_unverified' };
+        this.store.run('UPDATE messages SET answered=0,value=? WHERE id=?', JSON.stringify(value), row.id);
+      }
+      this.store.put('answered_semantics_version', 2);
+    });
     this.seedTracks(); if (!this.track(this.music.track_id)) this.music.track_id = this.tracks()[0]?.id || null;
     this.persistMusic(); this.store.put('agent_session', this.agentSession);
     this.stateChanged = event => {
       if (this.closed) return;
+      if (event.event_type === 'playback.completed') this.completeSpeech(event.request_id);
       if (event.event_type === 'utterance.text_ready') {
         const payload = this.bridge.db.payload(event.event_seq);
         this.caption = { request_id: event.request_id, text: String(payload.text || '').slice(0, 1000) };
@@ -34,7 +44,8 @@ export class RoomManager {
   start() {
     this.timer = setInterval(() => this.tick(), 1000); this.timer.unref();
     this.heartbeat = setInterval(() => { for (const res of this.clients) if (!res.write(': heartbeat\n\n')) this.drop(res); }, 15000); this.heartbeat.unref();
-    this.pruneTimer = setInterval(() => this.store.prune(this.now()), 3600000); this.pruneTimer.unref(); return this;
+    if (!this.bridge.privacy) { this.pruneTimer = setInterval(() => this.pruneHistory(), 3600000); this.pruneTimer.unref(); }
+    return this;
   }
   seedTracks() {
     const manifest = join(this.root, 'assets/room/bgm/manifest.json'); if (!existsSync(manifest)) return;
@@ -49,27 +60,83 @@ export class RoomManager {
   position() { const duration = this.track(this.music.track_id)?.duration || 0; let p = this.music.position + (this.music.playing ? (this.now() - this.music.anchor_at) / 1000 : 0); if (this.music.repeat === 'one' && duration) p %= duration; return Math.min(duration, Math.max(0, p)); }
   persistMusic() { this.store.put('music', this.music); }
   audit(action, value) { this.store.log(action, value, this.now()); }
-  publicMessage(e) { return { id: e.event_key || randomUUID(), event_key: e.event_key || null, platform: e.platform || 'operator', room_id: e.room_id || '', type: e.type || 'note', notice_kind: e.notice_kind || '', nickname: String(e.nickname || '导播').slice(0, 80), text: String(e.text || '').slice(0, 1500), user_key: e.user_key || keyFor(e), gift_name: String(e.gift_name || '礼物').slice(0, 80), gift_count: Number.isFinite(e.gift_count) ? e.gift_count : 1, received_at: this.now(), occurred_at: e.occurred_at || this.now(), test: !!e.test, hidden: false, answered: false }; }
-  blocked(e) { return isBlocked(this.store.settings, { ...e, user_key: e.user_key || keyFor(e) }); }
+  publicMessage(e) {
+    const fields = e.platform_fields || platformDetails(e.platform, e, { source: e.source || 'unknown', type: e.type, noticeKind: e.notice_kind, messageId: e.platform_message_id || null });
+    return { id: e.event_key || randomUUID(), event_key: e.event_key || null, platform: e.platform || 'operator', room_id: e.room_id || '', type: e.type || 'note', notice_kind: e.notice_kind || '', nickname: String(e.nickname || '导播').slice(0, 80), text: String(e.text || '').slice(0, 1500), user_key: e.user_key || keyFor(e), gift_name: fields.gift.name, gift_count: fields.gift.count,
+      platform_message_id: e.platform_message_id || null, platform_fields: fields, platform_deleted: !!e.platform_deleted,
+      received_at: this.now(), occurred_at: e.occurred_at || this.now(), test: !!e.test, hidden: !!e.platform_deleted, answered: false };
+  }
+  blocked(e) { return !!e.platform_deleted || isBlocked(this.store.settings, { ...e, user_key: e.user_key || keyFor(e) }); }
   acceptPlatformEvent(event) {
+    if (this.bridge.administration?.privacyPending) return;
+    if (this.bridge.platforms?.store?.isPrivacyDeleted?.(event)) return;
     if (this.closed || !['comment', 'gift', 'follow', 'fansclub', 'enter', 'note'].includes(event.type)) return;
     const message = this.publicMessage(event), hidden = this.blocked(message);
     const result = this.store.run('INSERT OR IGNORE INTO messages(id,event_key,received_at,value,hidden) VALUES (?,?,?,?,?)', message.id, message.event_key, message.received_at, JSON.stringify(message), hidden ? 1 : 0);
     if (!result.changes) return;
     if (!hidden && this.store.settings.overlay.auto_board && message.type === 'comment' && !this.board.featured_id) this.setBoard({ featured_id: message.id });
     this.emit('message', { ...message, hidden });
+    this.bridge.game?.acceptPlatformEvent({ ...message, hidden });
+  }
+  withdrawSources(ids) {
+    if (!ids.length) return;
+    this.bridge.game?.votes?.withdrawSources(ids);
+    this.bridge.game?.suggestions?.withdrawSources(ids);
+    this.sweepSpeech(); this.bridge.game?.narration?.sweep();
+  }
+  pruneHistory({ protectedKeys = [] } = {}) {
+    const recovered = this.replayRetention();
+    const result = this.store.prune(this.now(), { protectedKeys: [...protectedKeys, this.board.pinned_id, this.board.featured_id].filter(Boolean) });
+    try { this.replayRetention(); }
+    catch (error) { error.retentionRoomRemoved = result.removed_ids.length; throw error; }
+    return { ...result, recovered_sources: recovered };
+  }
+  replayRetention() {
+    const ids = this.store.get('retention_withdrawal', []);
+    if (!Array.isArray(ids) || !ids.every(id => typeof id === 'string')) throw Object.assign(new Error('ROOM_RETENTION_STATE_INVALID'), { code: 'ROOM_RETENTION_STATE_INVALID', status: 503 });
+    if (!ids.length) return 0;
+    for (let offset = 0; offset < ids.length; offset += 200) this.withdrawSources(ids.slice(offset, offset + 200));
+    this.emit('snapshot', this.snapshot()); this.store.put('retention_withdrawal', []);
+    return ids.length;
+  }
+  eraseSources(keys) {
+    const ids = [...new Set(keys)];
+    this.store.transaction(() => {
+      for (const id of ids) {
+        this.store.run('DELETE FROM messages WHERE id=? OR event_key=?', id, id);
+        for (const key of ['pinned_id', 'featured_id']) if (this.board[key] === id) this.board[key] = null;
+      }
+      this.store.put('board', this.board);
+    });
+    this.withdrawSources(ids); this.caption = null;
+    this.emit('snapshot', this.snapshot());
+  }
+  applyPlatformDeletion(event, candidateKeys = []) {
+    const targets = event.deletion_target_ids, marks = values => values.map(() => '?').join(',');
+    const rows = this.store.all(`SELECT * FROM messages WHERE json_extract(value,'$.platform')=? AND json_extract(value,'$.room_id')=? AND json_extract(value,'$.notice_kind')='superchat' AND (json_extract(value,'$.platform_message_id') IN (${marks(targets)})${candidateKeys.length ? ` OR event_key IN (${marks(candidateKeys)})` : ''})`, event.platform, event.room_id, ...targets, ...candidateKeys);
+    this.store.transaction(() => {
+      for (const row of rows) {
+        const value = { ...JSON.parse(row.value), platform_deleted: true, deleted_at: this.now(), deletion_event_key: event.event_key };
+        this.store.run('UPDATE messages SET hidden=1,value=? WHERE id=?', JSON.stringify(value), row.id);
+        for (const key of ['pinned_id', 'featured_id']) if (this.board[key] === row.id) this.board[key] = null;
+      }
+      this.store.put('board', this.board);
+    });
+    const ids = rows.map(row => row.id); this.withdrawSources(ids);
+    if (ids.length) { this.audit('platform.superchat_deleted', { count: ids.length, source_event_key: event.event_key }); this.emit('snapshot', this.snapshot()); }
+    return ids;
   }
   setBoard(patch) { this.board = { ...this.board, ...patch }; this.store.put('board', this.board); }
-  boardMessage(id) { const m = this.store.message(id); return m && !m.hidden && !this.blocked(m) ? m : null; }
+  boardMessage(id) { if (this.bridge.administration?.privacyPending) return null; const m = this.store.message(id); return m && !m.hidden && !this.blocked(m) ? m : null; }
   snapshot({ messages = true } = {}) {
     const current = this.bridge.state?.current?.();
-    return { schema_version: 1, version: 'room-v1.2', epoch: this.epoch, sequence: this.sequence, server_time: this.now(), revision: this.store.revision, settings: this.store.settings, presets: FILTERS,
+    return { schema_version: 1, version: 'room-v1.3', epoch: this.epoch, sequence: this.sequence, server_time: this.now(), revision: this.store.revision, settings: this.store.settings, presets: FILTERS,
       music: { ...this.music, position: this.position() }, tracks: this.tracks(), board: { ...this.board, pinned: this.boardMessage(this.board.pinned_id), featured: this.boardMessage(this.board.featured_id) },
-      ...(messages ? { messages: this.store.recent(100).map(m => ({ ...m, blocked: this.blocked(m) })) } : {}),
+      ...(messages ? { messages: this.bridge.administration?.privacyPending ? [] : this.store.recent(100).map(m => ({ ...m, blocked: this.blocked(m) })) } : {}),
       agent: { session: this.agentSession, job: this.agentJob ? { ...this.agentJob, controller: undefined } : null },
       player: this.player ? { ...this.player, connected: this.now() - this.player.at < 7000 } : null,
       broadcast: current ? { broadcast_id: current.broadcast_id, state: current.state, revision: current.revision } : null,
-      active: this.bridge.state?.active?.() ? { request_id: this.bridge.state.active().request_id, status: this.bridge.state.active().status } : null, caption: this.caption || null,
+      active: this.bridge.state?.active?.() ? { request_id: this.bridge.state.active().request_id, status: this.bridge.state.active().status } : null, caption: this.bridge.administration?.privacyPending ? null : this.caption || null,
       storage_error: this.lastError || null, authentication_required: false, public_broadcast_control: 'official_client_only' };
   }
   emit(type = 'state', value) {
@@ -87,12 +154,16 @@ export class RoomManager {
   }
   async body(req) {
     const chunks = []; let bytes = 0; for await (const chunk of req) { bytes += chunk.length; check(bytes <= 128 * 1024, 'ROOM_BODY_TOO_LARGE', 413); chunks.push(chunk); }
+    check(!this.bridge.closed, 'BRIDGE_STOPPING', 503);
     try { const body = chunks.length ? JSON.parse(Buffer.concat(chunks).toString('utf8')) : {}; check(body && typeof body === 'object' && !Array.isArray(body), 'ROOM_BODY_INVALID'); return body; } catch (e) { if (e.code) throw e; check(false, 'ROOM_JSON_INVALID'); }
   }
   configure(body) {
     check(body.expected_revision === this.store.revision, 'ROOM_CONFIG_CONFLICT_REFRESH', 409);
     const settings = patchSettings(this.store.settings, body.patch);
-    this.store.saveSettings(settings); this.audit('config', { groups: Object.keys(body.patch), revision: this.store.revision }); this.emit(); return this.snapshot();
+    this.store.saveSettings(settings); this.audit('config', { groups: Object.keys(body.patch), revision: this.store.revision });
+    if (body.patch.moderation) this.bridge.game?.reconcileAudienceSources?.();
+    for (const key of ['pinned_id', 'featured_id']) if (this.board[key] && !this.boardMessage(this.board[key])) this.setBoard({ [key]: null });
+    this.sweepSpeech(); this.bridge.game?.narration?.sweep(); this.emit(); return this.snapshot();
   }
   musicControl(body) {
     check(['play', 'pause', 'seek', 'next', 'previous', 'repeat', 'shuffle', 'order'].includes(body.action), 'MUSIC_ACTION_INVALID');
@@ -116,6 +187,7 @@ export class RoomManager {
   }
   tick() {
     try {
+      this.sweepSpeech();
       const track = this.track(this.music.track_id);
       if (this.music.playing && track && this.music.repeat !== 'one' && this.music.position + (this.now() - this.music.anchor_at) / 1000 >= track.duration) {
         const tracks = this.tracks(), last = tracks.at(-1)?.id === track.id;
@@ -124,7 +196,8 @@ export class RoomManager {
     } catch (error) { this.lastError = error.code || 'ROOM_STORAGE_ERROR'; }
   }
   messageControl(body) {
-    check(['create', 'pin', 'unpin', 'feature', 'unfeature', 'hide', 'restore', 'answered', 'next', 'clear_tests'].includes(body.action), 'MESSAGE_ACTION_INVALID');
+    check(['create', 'pin', 'unpin', 'feature', 'unfeature', 'hide', 'restore', 'handled', 'answered', 'next', 'clear_tests'].includes(body.action), 'MESSAGE_ACTION_INVALID');
+    const withdrawn = [];
     if (body.action === 'create') {
       check(typeof body.text === 'string' && body.text.trim() && body.text.length <= 300 && (!body.nickname || typeof body.nickname === 'string' && body.nickname.length <= 60), 'MESSAGE_TEXT_INVALID');
       const message = this.publicMessage({ text: body.text.trim(), nickname: body.nickname || '导播留言', type: 'note', test: !!body.test });
@@ -133,27 +206,64 @@ export class RoomManager {
     } else if (body.action === 'unpin') this.setBoard({ pinned_id: null });
     else if (body.action === 'unfeature') this.setBoard({ featured_id: null });
     else if (body.action === 'clear_tests') {
-      for (const m of this.store.recent(5000).filter(m => m.test)) this.store.run('DELETE FROM messages WHERE id=?', m.id);
+      for (const m of this.store.recent(5000).filter(m => m.test)) { this.store.run('DELETE FROM messages WHERE id=?', m.id); withdrawn.push(m.id); }
       for (const k of ['pinned_id', 'featured_id']) if (!this.store.message(this.board[k])) this.setBoard({ [k]: null });
     } else if (body.action === 'next') {
-      const messages = this.store.recent(200).filter(m => !m.hidden && !m.answered && !this.blocked(m) && ['note', 'comment'].includes(m.type));
-      const old = this.board.featured_id; if (old) this.store.run('UPDATE messages SET answered=1 WHERE id=?', old);
+      const messages = this.store.recent(200).filter(m => !m.hidden && !m.answered && !m.handled && !this.blocked(m) && ['note', 'comment'].includes(m.type));
+      const old = this.board.featured_id; if (old && this.store.message(old)) this.markHandled(old);
       this.setBoard({ featured_id: messages.find(m => m.id !== old)?.id || null });
     } else {
       const m = this.store.message(body.id); check(m, 'MESSAGE_NOT_FOUND', 404);
       if (body.action === 'pin' || body.action === 'feature') { check(!m.hidden && !this.blocked(m), 'MESSAGE_HIDDEN'); this.setBoard({ [body.action === 'pin' ? 'pinned_id' : 'featured_id']: m.id }); }
-      else if (body.action === 'answered') this.store.run('UPDATE messages SET answered=1 WHERE id=?', m.id);
-      else this.store.run('UPDATE messages SET hidden=? WHERE id=?', body.action === 'hide' ? 1 : 0, m.id);
+      else if (['answered', 'handled'].includes(body.action)) this.markHandled(m.id);
+      else {
+        check(body.action !== 'restore' || !m.platform_deleted, 'MESSAGE_PLATFORM_DELETED');
+        this.store.run('UPDATE messages SET hidden=? WHERE id=?', body.action === 'hide' ? 1 : 0, m.id);
+        if (body.action === 'hide') withdrawn.push(m.id);
+      }
     }
+    this.withdrawSources(withdrawn); this.sweepSpeech(); this.bridge.game?.narration?.sweep();
     this.audit('message.' + body.action, { id: body.id || null }); this.emit('snapshot', this.snapshot()); return this.snapshot();
+  }
+  markHandled(id) {
+    const value = this.store.message(id); check(value, 'MESSAGE_NOT_FOUND', 404);
+    this.store.run('UPDATE messages SET value=? WHERE id=?', JSON.stringify({ ...value, handled: true, handled_reason: 'operator' }), id);
+  }
+  trackSpeech(requestId, messageId) {
+    check(typeof requestId === 'string' && typeof messageId === 'string' && !!this.store.message(messageId), 'SPEECH_MESSAGE_INVALID');
+    const ids = this.speechLinks[requestId] || [];
+    this.speechLinks[requestId] = [...new Set([...ids, messageId])].slice(-32);
+    const keys = Object.keys(this.speechLinks);
+    if (keys.length > 512) delete this.speechLinks[keys[0]];
+    this.store.put('speech_links', this.speechLinks);
+  }
+  completeSpeech(requestId) {
+    if (this.bridge.state?.request?.(requestId)?.status !== 'COMPLETED') return false;
+    const proof = this.bridge.db?.get?.("SELECT completion_event_seq FROM utterances WHERE request_id=? AND status='COMPLETED'", requestId);
+    if (!proof?.completion_event_seq) return false;
+    const ids = this.speechLinks[requestId] || [];
+    for (const id of ids) { const message = this.store.message(id); if (message && !message.hidden && !this.blocked(message)) this.store.run('UPDATE messages SET answered=1 WHERE id=?', id); }
+    delete this.speechLinks[requestId]; this.store.put('speech_links', this.speechLinks); if (ids.length) this.emit(); return true;
+  }
+  sweepSpeech() {
+    let changed = false;
+    for (const [requestId, ids] of Object.entries(this.speechLinks)) {
+      const request = this.bridge.state?.request?.(requestId);
+      if (request?.status === 'COMPLETED') { this.completeSpeech(requestId); continue; }
+      if (!ids.some(id => { const m = this.store.message(id); return m && !m.hidden && !this.blocked(m); }) && !this.bridge.game?.narration?.hasVisibleSources?.(requestId)) {
+        this.bridge.state?.cancel?.(requestId, 'ROOM_SOURCE_REMOVED'); delete this.speechLinks[requestId]; changed = true;
+      } else if (request && ['CANCELLED','INTERRUPTED','UNKNOWN','FAILED','EXPIRED','REJECTED'].includes(request.status)) { delete this.speechLinks[requestId]; changed = true; }
+    }
+    if (changed) this.store.put('speech_links', this.speechLinks);
   }
   speak(body) {
     check(typeof body.text === 'string' && body.text.trim() && body.text.length <= 1000, 'SPEECH_TEXT_INVALID');
     check(['echo', 'chat'].includes(body.mode || 'echo'), 'SPEECH_MODE_INVALID');
     check(this.bridge.ready && !this.bridge.administration?.locked, 'BRIDGE_NOT_READY', 503);
     if (body.mode === 'chat') check(this.bridge.health().persona_injection_ready, 'CHANNEL_COMPATIBILITY_REQUIRED', 503);
+    if (body.message_id !== undefined) { check(typeof body.message_id === 'string' && body.message_id.length <= 240, 'SPEECH_MESSAGE_INVALID'); const m = this.store.message(body.message_id); check(m && !m.hidden && !this.blocked(m), 'SPEECH_MESSAGE_INVALID'); }
     const request = this.bridge.state.accept(this.bridge.auth.resolve(), { text: body.text.trim(), mode: body.mode || 'echo', idempotency_key: 'room-' + (typeof body.idempotency_key === 'string' && body.idempotency_key.length <= 100 ? body.idempotency_key : randomUUID()), public_input: true });
-    if (body.message_id && this.store.message(body.message_id)) this.store.run('UPDATE messages SET answered=1 WHERE id=?', body.message_id);
+    if (body.message_id) this.trackSpeech(request.request_id, body.message_id);
     this.audit('speech.queued', { request_id: request.request_id, mode: body.mode || 'echo' }); void this.bridge.tick(); this.emit(); return request;
   }
   agentHistory() { return this.store.all('SELECT at,role,text FROM agent WHERE session=? ORDER BY seq DESC LIMIT 40', this.agentSession).reverse(); }
@@ -177,7 +287,7 @@ export class RoomManager {
       const timeout = this.bridge.policy?.conversation?.model_timeout_ms || 90000;
       // Chat history belongs to the stable operator session; the pinned DSH
       // per-request host needs a fresh native agent/session for every turn.
-      const result = await this.bridge.host.generate({ sessionId: session + '-turn-' + job.id, snapshot: this.bridge.channel.snapshot(), input: text, context, signal: AbortSignal.any([job.controller.signal, AbortSignal.timeout(timeout)]), maxTokens: 384,
+      const result = await this.bridge.host.generate({ sessionId: session + '-turn-' + job.id, snapshot: this.bridge.channel.snapshot(), input: text, context, purpose: 'operator_private', signal: AbortSignal.any([job.controller.signal, AbortSignal.timeout(timeout)]), maxTokens: 384,
         tools: async () => ({ public: [], viewer: [], private_operator_conversation: true, memory_write_enabled: false }), onCall: this.bridge.onCall({ maxTokens: 384 }) });
       if (this.closed || job.controller.signal.aborted || this.agentJob !== job || session !== this.agentSession) return;
       check(typeof result.text === 'string' && result.text.trim(), 'AGENT_EMPTY_REPLY', 502);
@@ -198,6 +308,7 @@ export class RoomManager {
   }
   async handle(req, res, url, send) {
     const path = url.pathname.slice('/api/dsh/room'.length);
+    check(!this.bridge.administration?.privacyPending || req.method === 'GET' && ['/state', '/events'].includes(path), 'MEMORY_PRIVACY_PENDING', 503);
     if (path.startsWith('/audio/') && ['GET', 'HEAD'].includes(req.method)) return sendAudio(req, res, this.track(path.slice(7)));
     if (path === '/events' && req.method === 'GET') return this.subscribe(req, res);
     if (path === '/state' && req.method === 'GET') return send(this.snapshot());
@@ -227,17 +338,23 @@ export class RoomManager {
       check(['comment', 'gift', 'follow'].includes(body.type), 'TEST_EVENT_TYPE_INVALID');
       const event = { event_key: 'test-' + randomUUID(), platform: 'custom', room_id: 'local-preview', nickname: '本地测试', type: body.type, text: typeof body.text === 'string' ? body.text.slice(0, 300) : '知夏，今天有什么开心的小事？', gift_name: '小星星', gift_count: 3, test: true }; this.acceptPlatformEvent(event); this.audit('test.' + body.type, {}); return send({ created: true, test: true });
     }
-    if (path === '/panic') {
-      const queued = this.bridge.state.status?.().queued || [];
-      for (const request of queued) this.bridge.state.cancel(request.request_id, 'operator_room_panic');
-      const active = this.bridge.state.active?.(); if (active) this.bridge.state.cancel(active.request_id, 'operator_room_panic');
-      this.musicControl({ action: 'pause' }); this.store.saveSettings(patchSettings(this.store.settings, { audio: { muted: true } })); this.audit('panic', { cancelled: active?.request_id || null, cancelled_queue: queued.map(r => r.request_id) }); this.emit(); return send(this.snapshot());
-    }
+    if (path === '/panic') return send(this.panic());
     check(false, 'ROOM_ROUTE_NOT_FOUND', 404);
+  }
+  panic() {
+    const queued = this.bridge.state.status?.().queued || [];
+    for (const request of queued) this.bridge.state.cancel(request.request_id, 'operator_room_panic');
+    const active = this.bridge.state.active?.(); if (active) this.bridge.state.cancel(active.request_id, 'operator_room_panic');
+    this.musicControl({ action: 'pause' });
+    this.store.saveSettings(patchSettings(this.store.settings, { audio: { muted: true } }));
+    this.audit('panic', { cancelled: active?.request_id || null, cancelled_queue: queued.map(r => r.request_id) });
+    this.emit(); return this.snapshot();
   }
   async close() {
     if (this.closed) return; this.closed = true; clearInterval(this.timer); clearInterval(this.heartbeat); clearInterval(this.pruneTimer); clearTimeout(this.stateTimer); this.bridge.db?.off('event', this.stateChanged);
     this.agentJob?.controller?.abort(); for (const res of this.clients) this.drop(res);
-    this.music.position = this.position(); this.music.playing = false; this.persistMusic(); this.store.prune(this.now()); this.store.close();
+    this.music.position = this.position(); this.music.playing = false; this.persistMusic();
+    if (!this.bridge.privacy) this.store.prune(this.now());
+    this.store.close();
   }
 }

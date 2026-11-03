@@ -1,0 +1,448 @@
+{
+  "schema_version": 1,
+  "round": "084",
+  "branch": "mc",
+  "status": "requested_repairs_and_new_sample_verified_full_release_pending",
+  "objective": "Repair autonomous MC progress, visible idle performance, persona and natural speech, then record a new real continuous 120-second official programme",
+  "host": "DESKTOP-2QQPN1H",
+  "local_tests_run": 0,
+  "remote_4090_used": false,
+  "virtualization_used": false,
+  "public_broadcast_started": false,
+  "world_or_inventory_injection": false,
+  "manual_takeover_used": false,
+  "review_document": "docs/technical/mc-live-v1/直播表现与社区插件接入.md",
+  "provisional_remote_checks": {
+    "business084-v3b": {
+      "passed": 188,
+      "failed": 0,
+      "skipped": 0
+    },
+    "motion084-v3b": {
+      "passed": 8,
+      "failed": 0
+    },
+    "projection084-v3b": {
+      "passed": 8,
+      "failed": 0
+    },
+    "core-v3": {
+      "passed": 326,
+      "failed": 1,
+      "status": "original failure retained; base/checkpoint projection and manager ledger input corrected"
+    },
+    "core-v4": {
+      "passed": 326,
+      "failed": 1,
+      "status": "original failure retained; manager ledger input corrected in v5"
+    },
+    "core-v5": {
+      "passed": 327,
+      "failed": 0,
+      "skipped": 0,
+      "file": "outputs/mc-validation/round-083/remote-evidence/full-core084-v5.log"
+    },
+    "model-state-v5": {
+      "passed": 9,
+      "failed": 0,
+      "file": "outputs/mc-validation/round-083/remote-evidence/model-state084-v5.log"
+    },
+    "core-v6b": {
+      "passed": 328,
+      "failed": 0,
+      "skipped": 0,
+      "file": "outputs/mc-validation/round-083/remote-evidence/full-core084-v6b.log"
+    },
+    "model-state-v6b": {
+      "passed": 9,
+      "failed": 0,
+      "file": "outputs/mc-validation/round-083/remote-evidence/model-state084-v6b.log"
+    },
+    "core-v8b": {
+      "passed": 331,
+      "failed": 0,
+      "skipped": 0,
+      "file": "outputs/mc-validation/round-083/remote-evidence/full-core084-v8b.log"
+    },
+    "model-state-v8b": {
+      "passed": 9,
+      "failed": 0,
+      "file": "outputs/mc-validation/round-083/remote-evidence/model-state084-v8b.log"
+    }
+  },
+  "current_reviewed_source_snapshot": "50a1d9827ae95f858b6bcb4de66be4fc7d4872361cbe0a533c1d94ea255417d1",
+  "real_gameplay_repair_verified": true,
+  "new_recording_delivered": true,
+  "formal_acceptance": {
+    "passed": 0,
+    "defined": 68
+  },
+  "new_avatar_clips": {
+    "accepted": 0,
+    "required": 100
+  },
+  "all_domains_remain_required": [
+    "D01",
+    "D02",
+    "D03",
+    "D04",
+    "D05",
+    "D06",
+    "D07",
+    "D08",
+    "D09",
+    "D10",
+    "D11",
+    "D12",
+    "D13",
+    "D14",
+    "D15"
+  ],
+  "preserved_real_failures": [
+    {
+      "sample": "084a",
+      "reason": "Recording preparation timeout before gameplay; never delivered"
+    },
+    {
+      "sample": "084b",
+      "reason": "NON_JSON_UNDEFINED in navigation failure narration topic caused native protection to pause; fixed in v6 and real task_update regression passed",
+      "evidence": "outputs/mc-validation/round-083/remote-evidence/sample084b-session-result.json"
+    },
+    {
+      "deploy": "084-v6",
+      "reason": "Core output directory already existed; installation passed, check refused before running; new unique v6b output completed 328 checks"
+    },
+    {
+      "sample": "084d",
+      "reason": "Real wood gathering and planks production achieved; repeated historical-workstation navigation and repetitive speech found, retained but not final delivery"
+    },
+    {
+      "deploy": "084-v7",
+      "reason": "Intentionally stopped own pre-start validation before models to incorporate actual speech review; exit15 retained"
+    },
+    {
+      "deploy": "084-v8",
+      "reason": "Reused check-output directory refused before testing; unique v8b checks passed"
+    },
+    {
+      "sample": "084g",
+      "reason": "One verified crafting-table craft, then unrelated remote-utility ad stole focus and GUI_BLOCKED correctly stopped input; not delivered as effective programme"
+    },
+    {
+      "sample": "084h",
+      "reason": "No gameplay: existing explicit/physical stop fence prevented config-only restart. New user-requested programme084i uses one explicit initial AUTO grant, with zero script gameplay tasks or keys"
+    }
+  ],
+  "partial_real_speech_verified": {
+    "sample": "084b",
+    "opening_status": "COMPLETED",
+    "positive_official_receipts": 37,
+    "played_samples": 145600,
+    "context_budget_error": false,
+    "full_new_video_delivered": false
+  },
+  "intermediate_sample_084d": {
+    "verified_productive_tasks": 2,
+    "oak_planks_before": 1,
+    "oak_planks_after": 5,
+    "idle_blink_head_shoulder_observed": true,
+    "delivered_as_final": false,
+    "reason": "Historical workstation navigation and generic repeated route narration found in real output; v8 repairs pending new programme review"
+  },
+  "actual_programme": {
+    "sample": "084i",
+    "actual_window_seconds": 132.058,
+    "task_states": {
+      "succeeded": 15,
+      "failed": 4
+    },
+    "verified_productive_tasks": [
+      {
+        "task_id": "task-5c96eb83-2e81-4faa-b778-3a0698b4a29a",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:furnace",
+          "skill": "craft"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-8d1e198d-91f9-4e55-a056-7c1528147c3a",
+        "goal": {
+          "count": 2,
+          "item_id": "minecraft:cobblestone",
+          "skill": "gather"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-4f2d5dda-b7a5-425e-b65f-ac534d5b4d7d",
+        "goal": {
+          "count": 4,
+          "item_id": "minecraft:cobblestone",
+          "skill": "gather"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-cbc66e23-ead1-4d89-8f80-b0c56db8ceac",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:crafting_table",
+          "skill": "craft"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-06bfb73b-a9c3-448f-9983-aae8d7e2ba04",
+        "goal": {
+          "count": 3,
+          "item_id": "minecraft:oak_planks",
+          "skill": "craft"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-3eb05114-4ece-41c6-a37b-7e9daff54ec8",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:oak_log",
+          "skill": "gather"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-db8b7a02-11f5-4f5c-8900-ed0e802478ba",
+        "goal": {
+          "item_id": "minecraft:crafting_table",
+          "purpose": "activate",
+          "skill": "use_item",
+          "target": {
+            "dimension": "minecraft:overworld",
+            "x": 1353,
+            "y": 75,
+            "z": -159
+          }
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-7a20834c-caf4-4e50-8352-d283728ee539",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:crafting_table",
+          "skill": "craft"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-6a70b1b0-766d-45cd-939c-fa58d2554878",
+        "goal": {
+          "count": 3,
+          "item_id": "minecraft:oak_planks",
+          "skill": "craft"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-1fdeb7d1-4c21-4957-9cdc-fb892fe991f8",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:oak_log",
+          "skill": "gather"
+        },
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-aa8c8302-6050-45a8-bc45-ca60fe9afa5b",
+        "goal": {
+          "item_id": "minecraft:crafting_table",
+          "purpose": "activate",
+          "skill": "use_item",
+          "target": {
+            "dimension": "minecraft:overworld",
+            "x": 1359,
+            "y": 72,
+            "z": -159
+          }
+        },
+        "effect_status": "verified"
+      }
+    ],
+    "inventory_changes": {
+      "minecraft:cobblestone": {
+        "before": 2,
+        "after": 0
+      },
+      "minecraft:furnace": {
+        "before": 0,
+        "after": 1
+      },
+      "projectvibrantjourneys:orange_bark_mushroom": {
+        "before": 0,
+        "after": 1
+      }
+    },
+    "final_health": 18.999998,
+    "final_food": 17,
+    "initial_auto_session_grants": 1,
+    "script_game_task_submissions": 0,
+    "script_game_keys": 0,
+    "manual_takeover": false,
+    "world_or_inventory_injection": false,
+    "speech_positive_requests_within_clip": 7,
+    "completed_speech_requests": 8,
+    "source_sha256": "50a1d9827ae95f858b6bcb4de66be4fc7d4872361cbe0a533c1d94ea255417d1",
+    "video": "outputs/mc-validation/round-084/remote-evidence/mc-live-repaired-084i-120s.mp4",
+    "video_sha256": "144f7242860462453dec33958a9c81ff7b8721ce18880168dc62d4283fbff3c9",
+    "video_bytes": 28728268,
+    "video_seconds": 120,
+    "video_frames": 3600,
+    "audio": {
+      "rms_dbfs": -26.68550225577455,
+      "peak": 0.793792724609375,
+      "non_silent": true,
+      "twenty_second_windows": [
+        {
+          "start": 0,
+          "rms_dbfs": -24.652579701091977,
+          "non_silent": true
+        },
+        {
+          "start": 20,
+          "rms_dbfs": -27.375563905436522,
+          "non_silent": true
+        },
+        {
+          "start": 40,
+          "rms_dbfs": -27.438677996417837,
+          "non_silent": true
+        },
+        {
+          "start": 60,
+          "rms_dbfs": -25.335585064137973,
+          "non_silent": true
+        },
+        {
+          "start": 80,
+          "rms_dbfs": -26.812811592692004,
+          "non_silent": true
+        },
+        {
+          "start": 100,
+          "rms_dbfs": -30.96248109560062,
+          "non_silent": true
+        }
+      ]
+    },
+    "avatar_motion_sampled": true,
+    "qualitative_review": "See repair report: actual game frames, dense idle blink frames and spoken text reviewed; not long-term or public audience acceptance"
+  },
+  "final_evidence": {
+    "deploy084-v8b-result.json": {
+      "path": "outputs/mc-validation/round-083/remote-evidence/deploy084-v8b-result.json",
+      "bytes": 2746,
+      "sha256": "e05e3f2e01b5e1bddde7cfb9048f100112462c0afe3e48f1867cc50e6deb72c4"
+    },
+    "full-core084-v8b.log": {
+      "path": "outputs/mc-validation/round-083/remote-evidence/full-core084-v8b.log",
+      "bytes": 819,
+      "sha256": "f6328581844a68a85d6efaf28531d09cb00ddb14a7c8b0ab7c6d0e6058ba43a6"
+    },
+    "model-state084-v8b.log": {
+      "path": "outputs/mc-validation/round-083/remote-evidence/model-state084-v8b.log",
+      "bytes": 1068,
+      "sha256": "09f89d330bc6f1d9cf32a3c87b1bf3640ebd5486cd26aec8d28b0abd79bec4fd"
+    },
+    "native-build084-v8b.log": {
+      "path": "outputs/mc-validation/round-083/remote-evidence/native-build084-v8b.log",
+      "bytes": 13403,
+      "sha256": "eb7121e09b0541e0d9fcf7b4967bc7217ad5cab1559c200c3507a56014d6b66c"
+    },
+    "guard084v8b-promoter-result.json": {
+      "path": "outputs/mc-validation/round-083/remote-evidence/guard084v8b-promoter-result.json",
+      "bytes": 185,
+      "sha256": "be506c3e0bf9f16f4fab5b564e922cfd003c30960837c133e8c44ba7e31813f4"
+    },
+    "sample084g-session-result.json": {
+      "path": "outputs/mc-validation/round-083/remote-evidence/sample084g-session-result.json",
+      "bytes": 589693,
+      "sha256": "17cce9557c8eaec73b0ffcb0eab2daf2a0240e88f28a76f556cb6950b6905c2b"
+    },
+    "sample084h-session-result.json": {
+      "path": "outputs/mc-validation/round-083/remote-evidence/sample084h-session-result.json",
+      "bytes": 38216,
+      "sha256": "935777edf833f5f24fbecdb7ed199f0ef6f0fa6d45b335425ac2e2ad3e22075d"
+    },
+    "sample084i-session-result.json": {
+      "path": "outputs/mc-validation/round-083/remote-evidence/sample084i-session-result.json",
+      "bytes": 655095,
+      "sha256": "f5cda12e161d17b676627e889128d25ce1dc3373b72bb1b0e764df2ffd374a86"
+    },
+    "sample084i-export-result.json": {
+      "path": "outputs/mc-validation/round-083/remote-evidence/sample084i-export-result.json",
+      "bytes": 13676,
+      "sha256": "357bc01ef6cda83c641ae923847a83d37ca19163ccf162203896bdb18730077e"
+    },
+    "sample084i-speech-receipts.json": {
+      "path": "outputs/mc-validation/round-083/remote-evidence/sample084i-speech-receipts.json",
+      "bytes": 10673,
+      "sha256": "83a1f4abccb6fbda2ced8ae340b5b41bdf72c2563130c48618f95c4313db08a8"
+    },
+    "review084i-blink-result.json": {
+      "path": "outputs/mc-validation/round-083/remote-evidence/review084i-blink-result.json",
+      "bytes": 101,
+      "sha256": "ca04867e1afd69684189bec3ab6361c2207fd537622b812c3c34f363e47d5db5"
+    },
+    "sample084i-finalize-result.json": {
+      "path": "outputs/mc-validation/round-083/remote-evidence/sample084i-finalize-result.json",
+      "bytes": 19067,
+      "sha256": "1642752a4d2b78282e9ab4878e94b1a49043a76a57264377c8b9fba227675fd8"
+    },
+    "sample084i-offline-final-result.json": {
+      "path": "outputs/mc-validation/round-083/remote-evidence/sample084i-offline-final-result.json",
+      "bytes": 2516,
+      "sha256": "2eb728768d325321a0b4005b9395289918eebb78af6a327fff9cb4d02be3213a"
+    },
+    "sample084i-normal-shutdown-result.json": {
+      "path": "outputs/mc-validation/round-083/remote-evidence/sample084i-normal-shutdown-result.json",
+      "bytes": 3587,
+      "sha256": "f9e218e8b0997459a00fd97726ff4851e0e34482de1733a232fbdf82be19de06"
+    }
+  },
+  "normal_shutdown": {
+    "all_six_owned_services_stopped": true,
+    "display_requirement_released": true,
+    "original_official_processes_preserved": true,
+    "saved_world_unchanged_during_title_shutdown": true,
+    "last_save": {
+      "folder": "MC Live Offline 083",
+      "level_dat_bytes": 10292,
+      "level_dat_sha256_after_save_quit": "a450fa4cd66590a4c925b8c3abdb45bc90a6a6648189c59cef8f0c2460d9a15e",
+      "mtime": 1793640421.970337
+    },
+    "source_unchanged": true,
+    "new_browser_tabs_opened": 0
+  },
+  "remaining_quality": {
+    "speech_repetition": {
+      "word": "总算",
+      "within_120s": 4,
+      "completed_requests_within_120s": 7,
+      "full_observation": 5,
+      "full_observation_completed_requests": 8,
+      "status": "not_fully_resolved"
+    },
+    "late_commentary": {
+      "topic": "furnace_crafted",
+      "first_positive_playout_offset_seconds": 127.198,
+      "inside_120s_clip": false,
+      "gameplay_result_inside_clip": true
+    },
+    "real_navigation_failures_preserved": 4,
+    "real_viewer_event_chain": "pending_no_new_usable_public_events",
+    "long_unattended_survival": "not_accepted",
+    "new_avatar_clips_accepted": 0,
+    "formal_system_acceptance_passed": 0
+  }
+}

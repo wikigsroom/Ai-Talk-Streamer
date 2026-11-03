@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>知夏的方块日记 · 留言姬与人物构图</title>
+  <link rel="stylesheet" href="blivechat-zhixia.css">
+  <link rel="stylesheet" href="preview.css">
+</head>
+<body>
+  <header class="review-header">
+    <div><p class="review-kicker">MC 分支 · 横屏布局 v1.0 定稿</p><h1>一起冒险，也一起聊天。</h1></div>
+    <p class="review-note">参考 B 站开源留言姬结构，重新设计节目叠层。<br>人物为旧图裁切演示，游戏和留言均为本地示例。</p>
+  </header>
+  <nav class="review-toolbar" aria-label="预览场景">
+    <div class="scene-tabs" role="group" aria-label="节目状态">
+      <button type="button" data-scene="play" aria-pressed="true">日常游玩</button>
+      <button type="button" data-scene="interact" aria-pressed="false">弹幕互动</button>
+      <button type="button" data-scene="break" aria-pressed="false">暂离休息</button>
+      <button type="button" data-scene="recover" aria-pressed="false">画面恢复</button>
+    </div>
+    <div class="view-tools">
+      <label for="avatar-mode">人物<select id="avatar-mode"><option value="circle">圆形头像</option><option value="landscape">横向小窗</option></select></label>
+      <label for="chat-mode">留言<select id="chat-mode"><option value="feed">向上滚动</option><option value="fly">横向飘屏</option></select></label>
+      <label for="chat-side">弹幕位置<select id="chat-side"><option value="right">右侧</option><option value="left">左侧</option></select></label>
+      <span id="chat-position-source" aria-live="polite">本地位置预览</span>
+      <button type="button" id="motion-toggle" aria-pressed="false">暂停滚动</button>
+      <label><input type="checkbox" id="safe-toggle">保护区域</label>
+      <label><input type="checkbox" id="resolution-toggle">720P</label>
+      <button type="button" id="clean-toggle" aria-pressed="false">只看画面</button>
+    </div>
+  </nav>
+  <form class="demo-form" id="demo-form">
+    <label for="demo-text">试一条留言</label>
+    <select id="demo-kind" aria-label="示例类型"><option value="comment">普通弹幕</option><option value="gift">礼物通知</option><option value="superchat">醒目留言</option></select>
+    <input id="demo-text" type="text" maxlength="56" value="知夏，记得带木头回营地呀" autocomplete="off">
+    <button type="submit">发送示例</button><output id="demo-feedback" aria-live="polite">仅本地预览</output>
+  </form>
+  <main class="review-main">
+    <div class="frame-holder" id="frame-holder">
+      <section class="programme" id="programme" data-scene="play" data-avatar-mode="circle" data-chat-mode="feed" data-chat-side="right" aria-label="横屏游戏、圆形人物与可左右放置的B站留言层示意">
+        <div class="game region" data-region="game">
+          <img src="assets/game-illustration.svg" alt="原创方块场景占位图，非实际游戏画面" width="1472" height="828">
+          <div class="game-cover" id="game-cover" hidden>
+            <span class="cover-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+            <p class="cover-eyebrow" id="cover-eyebrow"></p><h2 id="cover-title"></h2><p id="cover-description"></p>
+            <div class="cover-rule"></div><p class="cover-foot" id="cover-foot"></p>
+          </div>
+        </div>
+        <header class="masthead region" data-region="header">
+          <div class="programme-brand"><span class="brand-block" aria-hidden="true"><i></i></span><div><strong>知夏的方块日记</strong><small>林知夏 · 虚拟主播</small></div></div>
+          <div class="task-bookmark"><span class="task-label">今天的小目标</span><div class="task-line"><span id="task-title"></span><span class="task-count" id="task-count"></span></div><div class="bookmark-steps" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="done"></i><i></i></div></div>
+        </header>
+        <aside class="chat-shell region" data-region="chat" aria-label="连续滚动的观众留言">
+          <div class="chat-heading"><span class="chat-leaf" aria-hidden="true"></span><span>和大家聊聊</span><small>弹幕留言</small></div>
+          <div class="chat-viewport"><div class="chat-list" id="chat-list"></div></div>
+        </aside>
+        <div class="gift-notice region" data-region="gift" id="gift-notice" hidden><span class="gift-flower" aria-hidden="true">✿</span><p id="gift-text"></p></div>
+        <div class="danmaku region" id="danmaku" data-region="danmaku" aria-label="两行横向滚动弹幕"><div class="danmaku-lane" data-lane="0"></div><div class="danmaku-lane" data-lane="1"></div></div>
+        <figure class="avatar region" data-region="avatar">
+          <div class="avatar-window"><img id="avatar-image" src="assets/avatar-reference.png" alt="林知夏现有静态参考的圆形裁切示意，未生成新素材" width="720" height="1280"></div>
+          <figcaption><span class="identity-dot"></span><span id="avatar-label">林知夏 · 虚拟主播</span></figcaption>
+        </figure>
+        <div class="caption region" data-region="caption" id="caption" aria-label="当前播放字幕"><span class="caption-label">知夏</span><p id="caption-text"></p></div>
+        <div class="programme-status region" data-region="status"><span class="status-leaf" aria-hidden="true"></span><p id="status-text"></p></div>
+        <div class="guides" aria-hidden="true">
+          <div class="protected" data-protected="crosshair"><span>准星保护区</span></div>
+          <div class="protected" data-protected="native_bottom_hud"><span>原生血量／快捷栏保护区</span></div>
+          <div class="protected" data-protected="native_top_bossbar"><span>原生顶部状态条保护区</span></div>
+          <div class="avatar-safe" id="avatar-safe"><span id="avatar-safe-label"></span></div>
+          <div class="chat-safe" data-guide="chat"><span>连续留言 · 无精选提问卡</span></div>
+        </div>
+      </section>
+    </div>
+    <div class="frame-caption"><p id="scene-description"></p><span id="size-label">1920 × 1080 · 16:9设计画布</span></div>
+    <div class="material-note"><span id="avatar-description"></span> 新横屏或方形人物视频需另行制作与动态验收；这里展示旧图取景效果。</div>
+    <section class="design-notes" aria-label="设计要点">
+      <p><span>游戏仍铺满横屏</span>准星、快捷栏与顶部原生状态条留出保护范围。</p>
+      <p><span>留言支持左右切换</span>连续评论向上滚动；留言与礼物一起换边，人物保持右下角。</p>
+      <p><span>圆形或横窗可切换</span>圆形重表情，横窗留构图空间；都浮在游戏右下角。</p>
+    </section>
+    <p class="reference-note">结构依据：<a href="https://github.com/xfgryujk/blivechat" target="_blank" rel="noopener noreferrer">blivechat</a>、<a href="https://github.com/Tsuk1ko/bilibili-live-chat" target="_blank" rel="noopener noreferrer">Bilibili Live Chat</a> 的公开文档。本站样式为本项目原创；当前不连接 B 站，不收取礼物，不播放声音。</p>
+  </main>
+  <script src="layout-spec.js"></script>
+  <script src="../../../web/room-client.js"></script>
+  <script src="../../../web/mc-chat-position.js"></script>
+  <script src="preview.js"></script>
+</body>
+</html>
