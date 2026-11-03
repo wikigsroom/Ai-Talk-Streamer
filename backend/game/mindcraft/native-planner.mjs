@@ -218,14 +218,16 @@ export class MindcraftNativePlanner {
     // reconnect. Consuming materials is not a reason to restock early milestones.
     if (count(state,'crafting_table') || station(state,'crafting_table') || count(state,'wooden_pickaxe') || count(state,'stone_pickaxe')) this.completed.add('crafting_table');
     if (count(state,'stone_pickaxe')) this.completed.add('wooden_pickaxe');
-    if (!station(state,'crafting_table') && count(state,'crafting_table')>0 && m.capabilities?.features?.targeted_block_placement) {
-      for (const site of state.details?.construction?.placement_sites || []) {
-        const goal={skill:'use_item',item_id:'minecraft:crafting_table',purpose:'activate',target:site.position};
-        if (await this.submit(goal,context,{engine:'mindcraft_item_goal_native',stage:'place_workstation',item_id:goal.item_id})) return true;
-      }
+    const hasMiningTool=['wooden_pickaxe','stone_pickaxe','iron_pickaxe','golden_pickaxe','diamond_pickaxe','netherite_pickaxe']
+      .some(item=>count(state,item)>0);
+    // The first table enables tools. A later portable table must stay carried
+    // through resource gathering; placing it on every move restarts the same
+    // restock/place loop before mining can ever run.
+    if (!hasMiningTool && !station(state,'crafting_table') && count(state,'crafting_table')>0 && m.capabilities?.features?.targeted_block_placement) {
+      if(await this.placeWorkstation(context,state))return true;
       return this.explore(context,'workstation_site_unavailable');
     }
-    if(!station(state,'crafting_table') && this.lastTable) {
+    if(!station(state,'crafting_table') && count(state,'crafting_table')<1 && this.lastTable) {
       const target={...this.lastTable,y:this.lastTable.y+1},p=state.player.position;
       if(Math.hypot(target.x-p.x,target.y-p.y,target.z-p.z)>2) {
         if(await this.submit({skill:'navigate',target,radius:2},context,
@@ -250,6 +252,11 @@ export class MindcraftNativePlanner {
         return this.explore(context,this.lastPlan?.reason || 'portable_workstation_not_ready');
       }
       if (await this.submit(goal,context,plan)) return true;
+      // Place the real carried table only when a received native craft check
+      // says a workstation is missing. Route candidates are still checked and
+      // placement needs its own actual server receipt before crafting resumes.
+      if(this.lastPlan?.reason==='GAME_CRAFT_WORKSTATION_UNAVAILABLE' &&
+          await this.placeWorkstation(context,state,'minecraft:'+item))return true;
       if (this.lastPlan?.reason==='GAME_CRAFT_WORKSTATION_UNAVAILABLE' && this.lastTable &&
           this.lastTable.dimension===state.player.position.dimension &&
           Math.hypot(this.lastTable.x-state.player.position.x,this.lastTable.z-state.player.position.z)<=24) {
@@ -258,6 +265,16 @@ export class MindcraftNativePlanner {
           {engine:'mindcraft_item_goal_native',stage:'return_to_observed_workstation'})) return true;
       }
       return this.explore(context,this.lastPlan?.reason || 'resource_or_route_unavailable');
+    }
+    return false;
+  }
+  async placeWorkstation(context,state,forItem=null) {
+    if(station(state,'crafting_table') || count(state,'crafting_table')<1 ||
+        !this.manager.capabilities?.features?.targeted_block_placement)return false;
+    for(const site of (state.details?.construction?.placement_sites || []).slice(0,8)) {
+      const goal={skill:'use_item',item_id:'minecraft:crafting_table',purpose:'activate',target:site.position};
+      if(await this.submit(goal,context,{engine:'mindcraft_item_goal_native',stage:'place_workstation',
+          item_id:goal.item_id,...(forItem?{for_item:forItem}:{})}))return true;
     }
     return false;
   }

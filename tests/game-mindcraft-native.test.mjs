@@ -326,6 +326,46 @@ test('denied portable-table preparation cannot fall through to unprepared mining
   assert.equal(f.calls.some(row=>row.name==='game_check_action' && row.args.goal.item_id==='minecraft:cobblestone'),false);
 });
 
+test('a carried portable table stays in inventory while mining away from a workstation',async()=>{
+  const f=fixture([{item_id:'minecraft:wooden_pickaxe',count:1},{item_id:'minecraft:crafting_table',count:1},
+    {item_id:'minecraft:oak_planks',count:4},{item_id:'minecraft:stick',count:2}]);
+  f.manager.capabilities={features:{targeted_block_placement:true}};
+  f.observe({details:{construction:{placement_sites:[{position:{...f.state.player.position,x:1}}],workstations:[]}}});
+  f.planner.current(f.manager.stateView());f.planner.lastTable={...f.state.player.position,x:6};
+  await f.planner.bootstrap({});
+  assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').map(row=>row.args.goal),
+    [{skill:'gather',item_id:'minecraft:cobblestone',count:3}]);
+  assert.equal(f.manager.stateView().inventory.find(row=>row.item_id==='minecraft:crafting_table').count,1);
+});
+
+test('portable placement follows a missing-workstation craft check and its receipt before stone tools',async()=>{
+  const stock=[{item_id:'minecraft:wooden_pickaxe',count:1},{item_id:'minecraft:crafting_table',count:1},
+    {item_id:'minecraft:cobblestone',count:3},{item_id:'minecraft:stick',count:2}];
+  const f=fixture(stock),position={...f.state.player.position,x:1};
+  f.manager.capabilities={features:{targeted_block_placement:true}};
+  f.observe({details:{construction:{placement_sites:[{position}],workstations:[]}}});
+  const invoke=f.manager.tools.invoke;
+  f.manager.tools.invoke=async(name,args,...rest)=>{
+    if(name==='game_check_action' && args.goal.skill==='craft' &&
+        !f.manager.stateView().details.construction.workstations.length) {
+      f.calls.push({name,args});return {state:'succeeded',result:{allowed:false,reason:'GAME_CRAFT_WORKSTATION_UNAVAILABLE'}};
+    }
+    return invoke(name,args,...rest);
+  };
+  await f.planner.bootstrap({});
+  assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,
+    {skill:'use_item',item_id:'minecraft:crafting_table',purpose:'activate',target:position});
+  assert.equal(f.planner.lastPlan.for_item,'minecraft:stone_pickaxe');
+  assert.equal(f.calls.some(row=>row.name==='game_start_task' && row.args.goal.skill==='craft'),false);
+  Object.assign(f.tasks.get('task-0'),{state:'succeeded',effect_status:'verified'});
+  f.observe({inventory:stock.filter(row=>row.item_id!=='minecraft:crafting_table'),
+    details:{construction:{placement_sites:[],workstations:[{block_id:'minecraft:crafting_table',position}]}}});
+  await f.planner.bootstrap({});assert.equal(f.calls.filter(row=>row.name==='game_start_task').length,1);
+  f.observe({});await f.planner.bootstrap({});
+  assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,
+    {skill:'craft',item_id:'minecraft:stone_pickaxe',count:1});
+});
+
 test('multi-output targets request only a ready recipe batch and replan remaining material needs',async()=>{
   const f=fixture([{item_id:'minecraft:wheat',count:3}]);
   assert.deepEqual((await f.planner.plan('minecraft:bread',3,{})).next_goal,
