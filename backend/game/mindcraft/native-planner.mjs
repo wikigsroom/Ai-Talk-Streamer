@@ -293,17 +293,25 @@ export class MindcraftNativePlanner {
         return this.explore(context,this.lastPlan?.reason || 'portable_workstation_not_ready');
       }
       if (await this.submit(goal,context,plan)) return true;
+      const workstationMissing=this.lastPlan?.reason==='GAME_CRAFT_WORKSTATION_UNAVAILABLE';
       // Place the real carried table only when a received native craft check
       // says a workstation is missing. Route candidates are still checked and
       // placement needs its own actual server receipt before crafting resumes.
-      if(this.lastPlan?.reason==='GAME_CRAFT_WORKSTATION_UNAVAILABLE' &&
+      if(workstationMissing &&
           await this.placeWorkstation(context,state,'minecraft:'+item))return true;
-      if (this.lastPlan?.reason==='GAME_CRAFT_WORKSTATION_UNAVAILABLE' && this.lastTable &&
+      if (workstationMissing && this.lastTable &&
           this.lastTable.dimension===state.player.position.dimension &&
           Math.hypot(this.lastTable.x-state.player.position.x,this.lastTable.z-state.player.position.z)<=24) {
         const target={...this.lastTable,y:this.lastTable.y+1};
         if (await this.submit({skill:'navigate',target,radius:2},context,
           {engine:'mindcraft_item_goal_native',stage:'return_to_observed_workstation'})) return true;
+      }
+      if(workstationMissing && goal.skill==='craft' && goal.item_id!=='minecraft:crafting_table'
+          && count(state,'crafting_table')<1 && !station(state,'crafting_table')) {
+        const portable=await this.plan('minecraft:crafting_table',1,context);
+        if(portable.next_goal && await this.submit(portable.next_goal,context,
+          {...portable,stage:'prepare_missing_workstation',for_item:'minecraft:'+item}))return true;
+        return this.explore(context,this.lastPlan?.reason || 'portable_workstation_not_ready',{preferSurface:item==='bread'});
       }
       if(item==='bread' && this.foodSearchMoves>=3) {
         // Native local searches must not indefinitely starve the model's
