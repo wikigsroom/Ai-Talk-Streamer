@@ -1,0 +1,2723 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261103-094",
+  "round": "094",
+  "at": "2026-11-03T04:58:02.355361+00:00",
+  "branch": "mc",
+  "scope": "BOUNDED_SOIL_DESCENT_OBSERVATION_NOT_COMPLETE_APPLICATION_ACCEPTANCE",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "local_application_tests": 0,
+  "virtualization_used": false,
+  "remote4090_connected": false,
+  "source_files": 1006,
+  "source_snapshot_sha256": "a2c68081a1afd01a7a430495b8b9f575cfdc9a7ce919bebf46a3106902674303",
+  "source_archive_sha256": "f276b7896ae684b2187e556a4bd43ed5b72200002af6c8a38a42ada17dd95d0f",
+  "native_build": {
+    "sha256": "24c52dce56d607a8ce2aa3fa952ad03e9eb4869407ad6b60ce9979037e6f07ce",
+    "bytes": 12539286,
+    "compiled_against": "actual_supplied_neoforge_21.1.248_mojmap_libraries",
+    "classes": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/build/classes-5a5ecb84d5534d9cb4c68e8d9b0acbc1"
+  },
+  "checks": {
+    "core": {
+      "tests": 366,
+      "pass": 366,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "targeted_pass": 98,
+    "java_fixtures": [
+      {
+        "name": "EscapeLandingFixture",
+        "result": "PASS 13 escape landing observations; no world or input writes"
+      },
+      {
+        "name": "EscapeMotionFixture",
+        "result": "PASS 17 escape input boundaries; no world or movement writes"
+      },
+      {
+        "name": "PartialFootingFixture",
+        "result": "PASS 44 actual partial-footing boundaries; no world writes or input"
+      },
+      {
+        "name": "TerrainStepFixture",
+        "result": "terrain step boundaries passed: 21"
+      },
+      {
+        "name": "FrontierFixture",
+        "result": "PASS 9 frontier regression checks; no world writes or input"
+      },
+      {
+        "name": "DryDescentFixture",
+        "result": "PASS 19 roof-route and dry-descent regression checks; no world writes or input"
+      },
+      {
+        "name": "ArrivalRadiusFixture",
+        "result": "PASS arrival radius around an obstructed center, exact stance, already arrived, vertical gap and blocked edges\nPASS bounded reachable observations and leaf-clearance server/world/context receipt fences"
+      },
+      {
+        "name": "WaterRouteFixture",
+        "result": "PASS 8 water route admission boundaries; fixture terrain, no actual swimming"
+      },
+      {
+        "name": "NativeWorldFramesFixture",
+        "result": "PASS: 15 frame lifecycle checks; JVM_FIXTURE_NOT_DESKTOP_PRESENTATION"
+      },
+      {
+        "name": "RouteRecoveryFixture",
+        "result": "PASS 21 changed-corridor route checks; no actual movement or survival acceptance"
+      },
+      {
+        "name": "RouteRecoveryBudgetFixture",
+        "result": "PASS 87 original-task recovery and landing boundary checks; no game acceptance"
+      },
+      {
+        "name": "DiagonalRouteFixture",
+        "result": "PASS 57 diagonal support/corner/live-edge/search boundaries; no game input or world writes"
+      },
+      {
+        "name": "SoilDescentFixture",
+        "result": "PASS 217 soil descent support/target/clearance/receipt boundaries; no game acceptance"
+      }
+    ],
+    "suites_overlap_do_not_sum": true,
+    "not_real_game_acceptance": true
+  },
+  "runtime": {
+    "observation_ok": true,
+    "window_seconds": 600.8115448951721,
+    "observations": 573,
+    "sampled_auto_alive_seconds_approx": 599.7950296401978,
+    "death_transitions": 0,
+    "normal_save_stop_ok": true,
+    "keep_inventory_after_engine_save": true,
+    "task_count": 9,
+    "task_states": {
+      "failed": 2,
+      "succeeded": 7
+    },
+    "task_reasons": {
+      "GAME_GATHER_NO_PROGRESS": 1,
+      "GAME_NAVIGATION_NO_ROUTE": 1
+    },
+    "verified_navigation": 4,
+    "productive_tasks": [
+      {
+        "task_id": "task-f08c6149-6d8c-4e16-b8be-73a2a29d1b55",
+        "goal": {
+          "count": 3,
+          "item_id": "minecraft:cobblestone",
+          "skill": "gather"
+        }
+      },
+      {
+        "task_id": "task-48843d6e-ec84-40c3-bcb7-3a4d0c097941",
+        "goal": {
+          "item_id": "minecraft:crafting_table",
+          "purpose": "activate",
+          "skill": "use_item",
+          "target": {
+            "dimension": "minecraft:overworld",
+            "x": 1262,
+            "y": 71,
+            "z": -97
+          }
+        }
+      },
+      {
+        "task_id": "task-8ac37912-225f-4bc3-a3f7-2cc24e0f35cf",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:stone_pickaxe",
+          "skill": "craft"
+        }
+      }
+    ],
+    "sampled_route_failures": [
+      {
+        "observed_at": "2026-11-03T04:43:44.468596200Z",
+        "stage": "next_step_changed",
+        "task_id": "task-24b67a24-9d14-409e-825e-80673d512889",
+        "on_ground": true,
+        "position": {
+          "x": 1262.4243192178337,
+          "y": 73.0,
+          "z": -97.26954087589921
+        },
+        "goal": {
+          "x": 1261,
+          "y": 74,
+          "z": -98
+        },
+        "next": {
+          "x": 1261,
+          "y": 74,
+          "z": -98
+        },
+        "feet_standable": true,
+        "horizontal_collision": false,
+        "path_points_remaining": 1,
+        "searches": 2,
+        "step_diagnostics": {
+          "next_standable": true,
+          "next_standable_with_leaves": true,
+          "next_block": "minecraft:air",
+          "next_support": "minecraft:dirt",
+          "edge_loaded_dry": true,
+          "edge_body_clear": false,
+          "actual_body_clear": true,
+          "actual_support_below": true,
+          "actual_feet_y": 73.0,
+          "next_surface_y": 74.0
+        },
+        "route_recoveries": 1
+      }
+    ],
+    "route_recovery_events": [
+      {
+        "observed_at": "2026-11-03T04:43:44.468596200Z",
+        "task_id": "task-24b67a24-9d14-409e-825e-80673d512889",
+        "attempts": 1,
+        "limit": 4,
+        "outcome": "no_safe_alternative",
+        "rejected_step": {
+          "x": 1261,
+          "y": 74,
+          "z": -98
+        },
+        "step_diagnostics": {
+          "next_standable": true,
+          "next_standable_with_leaves": true,
+          "next_block": "minecraft:air",
+          "next_support": "minecraft:dirt",
+          "edge_loaded_dry": true,
+          "edge_body_clear": false,
+          "actual_body_clear": true,
+          "actual_support_below": true,
+          "actual_feet_y": 73.0,
+          "next_surface_y": 74.0
+        },
+        "original_deadline_retained": true,
+        "progress_clock_reset": false
+      }
+    ],
+    "diagnostic_sampling_complete": false,
+    "narration_count": 31,
+    "narration_states": {
+      "failed": 20,
+      "discarded": 4,
+      "answered": 7
+    },
+    "visions": [
+      {
+        "frame_id": "frame-a7f8aef9-0f8c-46bb-8c57-d8c919914812",
+        "source_seq": 2452,
+        "captured_at": "2026-11-03T04:43:24.965307300Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:43:25.557Z",
+        "image_sha256": "ed9dfe9daa3f22fe3db5fab251469d9805663383df3a70b4dc5861c0ec866d0d",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 2452,
+          "observed_at": "2026-11-03T04:43:24.901328300Z",
+          "sample_to_capture_ms": 64,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3402,
+        "caption": "昏暗森林中有草地、橡树和白桦树，右侧近处有羊，地面散落物品；前方林间视线受树木遮挡。手持物为未知模组物品。",
+        "visible_text": [
+          "Obituary",
+          "Sheep 8 100%",
+          "1261 76 -98",
+          "Forest"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 90,
+          "total_tokens": 2905
+        }
+      },
+      {
+        "frame_id": "frame-63e261da-8f4d-44f7-baa5-abec6dddaee8",
+        "source_seq": 2855,
+        "captured_at": "2026-11-03T04:43:45.135286400Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:43:45.571Z",
+        "image_sha256": "abd978359aa5362e9bd0c594c8758e01aff0b95a1605427d6433744d3bcb7558",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 2662,
+        "caption": "视角紧贴昏暗的泥土方块，准星对着泥土；右侧有红色叉号标记，未见明显生物或其他危险。",
+        "visible_text": [
+          "方块提示：Dirt / Minecraft",
+          "小地图：Forest",
+          "小地图坐标：1262 73 -98"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 81,
+          "total_tokens": 2782
+        }
+      },
+      {
+        "frame_id": "frame-de898cb2-82d2-4709-b62e-aaab3b919be2",
+        "source_seq": 3257,
+        "captured_at": "2026-11-03T04:44:05.203498800Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:44:05.647Z",
+        "image_sha256": "d1f94fcdcd39ff2a5c0d2907ffbf68dd456deaf5c140cb32a9af6193e0dbed53",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 8923,
+        "caption": "视角紧贴昏暗的泥土方块墙，左下可见地面；周围光线很暗，未见明显生物或其他危险。",
+        "visible_text": [
+          "顶部方块提示：Dirt、Minecraft",
+          "右上小地图标注 Forest 和坐标 1262 73 -98"
+        ],
+        "unknowns": [
+          "视野被近处墙面遮挡，无法判断周边地形和是否有未显露的危险"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 173,
+          "total_tokens": 2874
+        }
+      },
+      {
+        "frame_id": "frame-0c1f3624-8dab-4760-9f84-99b15a7edd2b",
+        "source_seq": 3657,
+        "captured_at": "2026-11-03T04:44:25.210335100Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:44:25.662Z",
+        "image_sha256": "9734dc030a72873c7a13ac8abbb4f71cb7490c3b04edfcff71e81f34dfa550ce",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 6294,
+        "caption": "视角紧贴一面昏暗的泥土方块墙，周围环境大多被遮挡；画面未见生物或其他明确危险。底部显示生命值与饥饿值，右上有小地图。",
+        "visible_text": [
+          "顶部方块提示：Dirt / Minecraft",
+          "小地图标签：Forest",
+          "小地图坐标：1262 73 -98"
+        ],
+        "unknowns": [
+          "墙外地形与周围是否有危险不可见",
+          "未判断玩家手持物"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 250,
+          "total_tokens": 2951
+        }
+      },
+      {
+        "frame_id": "frame-d19cc198-b0e5-4905-acaf-38935a71006e",
+        "source_seq": 4060,
+        "captured_at": "2026-11-03T04:44:45.358017700Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:44:45.798Z",
+        "image_sha256": "2453c8c9e3cfe01af07591fbbdd8987088f5b6323aa78a2090b78d1dc323230f",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 4060,
+          "observed_at": "2026-11-03T04:44:45.307010Z",
+          "sample_to_capture_ms": 51,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 2636,
+        "caption": "视角近距离对着一张工作台，画面大部分被方块遮挡；准星指向工作台。右下显示手持的未知物品，未见明显危险。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "Obituary",
+          "Forest"
+        ],
+        "unknowns": [
+          "画面被遮挡，周围地形与环境不清楚"
+        ],
+        "usage": {
+          "input_tokens": 2814,
+          "output_tokens": 86,
+          "total_tokens": 2900
+        }
+      },
+      {
+        "frame_id": "frame-03122069-e0b1-4c36-8a95-b6414c26e58b",
+        "source_seq": 4462,
+        "captured_at": "2026-11-03T04:45:05.499193800Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:45:05.969Z",
+        "image_sha256": "f98997d89b46c2e2e435f5a2a41be43ca620ecc42f524d584231c9fe1bb6c316",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 4462,
+          "observed_at": "2026-11-03T04:45:05.392251700Z",
+          "sample_to_capture_ms": 107,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3461,
+        "caption": "视角贴近黑暗中的方块，准星指向工作台；环境细节难辨。右下手持未知模组物品，生命与饥饿值看似满格。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "1261 70 -97",
+          "Forest"
+        ],
+        "unknowns": [
+          "周围地形与潜在危险因黑暗无法辨认"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 91,
+          "total_tokens": 2906
+        }
+      },
+      {
+        "frame_id": "frame-66d63c4f-642d-4bdf-a3c6-07f602a575ba",
+        "source_seq": 4863,
+        "captured_at": "2026-11-03T04:45:25.531803400Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:45:25.955Z",
+        "image_sha256": "27a7d73169a8eb2d4acbdbc62cbe0d85cb073e2a217b5ec181852a7d2824fecf",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3566,
+        "caption": "视野几乎被近处的暗色方块遮挡，准星指向工作台；画面较暗，未见明显生物或其他危险。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "Forest"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 60,
+          "total_tokens": 2761
+        }
+      },
+      {
+        "frame_id": "frame-bbaf9f89-ff45-4d0f-aa25-823b8f1a076b",
+        "source_seq": 5265,
+        "captured_at": "2026-11-03T04:45:45.621129500Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:45:46.086Z",
+        "image_sha256": "2a3f44850e85a103817bed2ad0c55689969ef4bd88dc8fe53524d863a999ec39",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 7249,
+        "caption": "画面几乎被近距离的深色方块表面遮满，准星指向工作台；周围环境难以辨认，未见明确敌对生物。",
+        "visible_text": [
+          "提示框：Crafting Table / Minecraft",
+          "小地图标注：Forest",
+          "小地图下方显示 1261 70 -97"
+        ],
+        "unknowns": [
+          "方块周围的地形与光照情况不清楚",
+          "画面中是否存在危险生物无法确认"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 206,
+          "total_tokens": 2907
+        }
+      },
+      {
+        "frame_id": "frame-f84830d4-23bb-425e-b35c-36b63e4b2380",
+        "source_seq": 5666,
+        "captured_at": "2026-11-03T04:46:05.708433600Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:46:06.214Z",
+        "image_sha256": "924c16d1fb32ab0ff2a54a7866f24807240eb732fe518c133600f4b5bf56af68",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 5666,
+          "observed_at": "2026-11-03T04:46:05.601468200Z",
+          "sample_to_capture_ms": 107,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 4350,
+        "caption": "视角紧贴昏暗方块表面，准星对着工作台；周围地形难以辨认。生命与饥饿条可见，未见明显危险。手持物为未知模组物品。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "Forest"
+        ],
+        "unknowns": [
+          "近处暗色方块及周围地形细节不清"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 93,
+          "total_tokens": 2908
+        }
+      },
+      {
+        "frame_id": "frame-80c82da9-7e76-417d-82b3-0e44ecfdea44",
+        "source_seq": 6067,
+        "captured_at": "2026-11-03T04:46:25.686517300Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:46:26.122Z",
+        "image_sha256": "e7fe26eb74db5db966f35f004c79a192cfdcbe61085fbcc846e40eff6c9e2163",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "failed",
+        "elapsed_ms": 3120,
+        "code": "MODEL_PREEMPTED",
+        "usage": {
+          "input_tokens": null,
+          "output_tokens": null,
+          "total_tokens": null
+        }
+      },
+      {
+        "frame_id": "frame-9776813b-7e0c-44dd-8754-dcd0986acc27",
+        "source_seq": 6471,
+        "captured_at": "2026-11-03T04:46:45.893132200Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:46:46.312Z",
+        "image_sha256": "6a509797d91a72c425a7c1f66f4d6c5010d1ace574b802179567c93a22f7fff1",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 4060,
+        "caption": "视角紧贴昏暗的方块表面，几乎看不到周围地形。准星对着工作台；画面较暗，未见明确敌对生物或其他危险。",
+        "visible_text": [
+          "顶部提示：Crafting Table / Minecraft",
+          "小地图显示：Forest"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 76,
+          "total_tokens": 2777
+        }
+      },
+      {
+        "frame_id": "frame-c113ee40-ae20-417e-ad5c-3edfbbbf914f",
+        "source_seq": 6871,
+        "captured_at": "2026-11-03T04:47:05.984237800Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:47:06.451Z",
+        "image_sha256": "569bfa43fa71f64ca48f3bd089467eaffb94cabf8463253c5414b2906c7aee50",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 6871,
+          "observed_at": "2026-11-03T04:47:05.851300500Z",
+          "sample_to_capture_ms": 133,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 2538,
+        "caption": "视野被极近的深色方块遮挡，准星对着方块；画面几乎全暗，无法看清周围地形。",
+        "visible_text": [
+          "Crafting Table / Minecraft",
+          "1261 70 -97",
+          "Forest"
+        ],
+        "unknowns": [
+          "近处方块遮挡下的环境与危险不可见",
+          "手持物为未知模组物品"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 90,
+          "total_tokens": 2905
+        }
+      },
+      {
+        "frame_id": "frame-df7d36ca-e000-434b-a1c6-c522355c4481",
+        "source_seq": 7274,
+        "captured_at": "2026-11-03T04:47:26.065189600Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:47:26.521Z",
+        "image_sha256": "6a67debbec0d976c46c0055b360c856b5e441dd07dea81ad9dcab6c940f9ebbe",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 7274,
+          "observed_at": "2026-11-03T04:47:26.020183Z",
+          "sample_to_capture_ms": 45,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5876,
+        "caption": "画面极暗，视角贴近方块；准星指向工作台，未见明确危险或其他目标。",
+        "visible_text": [
+          "提示框：Crafting Table / Minecraft",
+          "小地图标注：Forest；另显示坐标数字",
+          "快捷栏选中首格"
+        ],
+        "unknowns": [
+          "手持物是模组物品，具体用途未知",
+          "周围地形因昏暗与近距离遮挡而不清楚"
+        ],
+        "usage": {
+          "input_tokens": 2814,
+          "output_tokens": 215,
+          "total_tokens": 3029
+        }
+      },
+      {
+        "frame_id": "frame-24d3f698-6e13-4760-b209-e8e4ad7ad20e",
+        "source_seq": 7676,
+        "captured_at": "2026-11-03T04:47:46.144474700Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:47:46.536Z",
+        "image_sha256": "bef88e555824320f74be47182f0de0dce72e8d945c1872c7548ff9912012e23b",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 7676,
+          "observed_at": "2026-11-03T04:47:46.100470500Z",
+          "sample_to_capture_ms": 44,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 4156,
+        "caption": "视野几乎被黑暗中的方块遮挡，准星对着工作台；右上小地图标示森林。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "1261 70 -97",
+          "Forest"
+        ],
+        "unknowns": [
+          "主手为未知模组物品；画面细节难辨",
+          "周围地形与目标大多被遮挡"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 87,
+          "total_tokens": 2902
+        }
+      },
+      {
+        "frame_id": "frame-928af851-1b5c-4518-93f9-ae5dcf0c8a22",
+        "source_seq": 8080,
+        "captured_at": "2026-11-03T04:48:06.375421400Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:48:06.811Z",
+        "image_sha256": "d6365f4295f2c7c7ada5ad3c621bec042352361e3eea250ea5ebce10e5542209",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 8080,
+          "observed_at": "2026-11-03T04:48:06.311463500Z",
+          "sample_to_capture_ms": 64,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3671,
+        "caption": "画面昏暗，视角紧贴一张工作台；准星指向工作台。右下可见手持的未知模组物品，周围地形不清。",
+        "visible_text": [
+          "顶部提示：Crafting Table / Minecraft",
+          "小地图：Forest；坐标显示为 1261 70 -97"
+        ],
+        "unknowns": [
+          "周围环境与潜在危险因昏暗难以辨认",
+          "手持物品具体用途未知"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 224,
+          "total_tokens": 3039
+        }
+      },
+      {
+        "frame_id": "frame-2a6e78fa-08f0-4135-9baa-b06b8a386a69",
+        "source_seq": 8481,
+        "captured_at": "2026-11-03T04:48:26.386699400Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:48:26.859Z",
+        "image_sha256": "945bdee8b6d22fb1a9c33fe34f2b37631106590df2cd1f65486be01a819bb390",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5594,
+        "caption": "视角紧贴昏暗的方块表面，中央准星对准工作台；画面大部分被近处方块遮挡，未见明确生物或其他危险。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "1261 70 -97",
+          "Forest"
+        ],
+        "unknowns": [
+          "周围地形被遮挡，无法辨认更多环境细节。"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 90,
+          "total_tokens": 2791
+        }
+      },
+      {
+        "frame_id": "frame-44ba19b9-3ef0-4156-a07c-ca3907333336",
+        "source_seq": 8883,
+        "captured_at": "2026-11-03T04:48:46.480853500Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:48:46.923Z",
+        "image_sha256": "0f5cc26a47ceafe7eee175c32b4ccde6ab89e839faadef8cdd86b2e4e673c171",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 8883,
+          "observed_at": "2026-11-03T04:48:46.436840900Z",
+          "sample_to_capture_ms": 44,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3781,
+        "caption": "画面大部分被近处的暗色方块遮挡，准星指向工作台。视野内地形不可见；生命与饥饿条接近满格，未见明显危险。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "Forest"
+        ],
+        "unknowns": [
+          "遮挡物及周围地形不明",
+          "手持物为未知模组物品"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 92,
+          "total_tokens": 2907
+        }
+      },
+      {
+        "frame_id": "frame-c74de8b7-85de-4962-9311-5f917e7d27ec",
+        "source_seq": 9284,
+        "captured_at": "2026-11-03T04:49:06.604162300Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:49:07.043Z",
+        "image_sha256": "ad2b9be32c38b5c2704ba267433a0e850ac345fe3dda193e6a0ef303cb0691af",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 9284,
+          "observed_at": "2026-11-03T04:49:06.504215300Z",
+          "sample_to_capture_ms": 100,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5639,
+        "caption": "视线紧贴一片昏暗方块表面，准星对准工作台；右下手持物为未知模组物品。生命与饥饿图标可见。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "1261 70 -97",
+          "Forest"
+        ],
+        "unknowns": [
+          "近处遮挡物及周围地形难以辨认",
+          "手持物具体用途未知"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 97,
+          "total_tokens": 2912
+        }
+      },
+      {
+        "frame_id": "frame-5c2235ea-6e29-4af8-820a-1a2bb5f73a88",
+        "source_seq": 9688,
+        "captured_at": "2026-11-03T04:49:26.762252Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:49:27.150Z",
+        "image_sha256": "dfaf0e9f335e53407ff9815eccdfad40a5cba3909bb1e57ce5a3cb74c9b488ea",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 2300,
+        "caption": "画面几乎被极近处的暗色方块遮挡，准星对着方块；顶部方块提示为工作台。视野昏暗，未见明显生物或其他危险。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "1261 70 -97",
+          "Forest"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 77,
+          "total_tokens": 2778
+        }
+      },
+      {
+        "frame_id": "frame-e7e1e6c5-6323-484a-bd10-0bcb42e84fc3",
+        "source_seq": 10091,
+        "captured_at": "2026-11-03T04:49:46.908655Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:49:47.345Z",
+        "image_sha256": "f37ef9944011d5397d39838d7763e095168e42523289b06e65463def84df24ad",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 6163,
+        "caption": "视野被近处的深色方块表面遮挡，准星对着方块；画面昏暗，周围地形与危险难以看清。底部显示生命值和饥饿值界面。",
+        "visible_text": [
+          "方块提示：Crafting Table / Minecraft",
+          "小地图：Forest",
+          "小地图坐标：1261 70 -97"
+        ],
+        "unknowns": [
+          "近处方块周围的环境和是否有危险无法辨认"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 290,
+          "total_tokens": 2991
+        }
+      },
+      {
+        "frame_id": "frame-3113d50e-c456-4feb-af1b-1c3ef3759be4",
+        "source_seq": 10493,
+        "captured_at": "2026-11-03T04:50:07.007249900Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:50:07.468Z",
+        "image_sha256": "7bb3b6291508fa7e18cb8026e6cbc1057294723354bd55f015458175f2c8f85b",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 2220,
+        "caption": "视野几乎被近处的暗色方块遮住，准星对着方块；未见明显生物或其他危险。底部显示生命、饥饿值和快捷栏。",
+        "visible_text": [
+          "顶部方块提示：Crafting Table / Minecraft",
+          "小地图显示：Forest"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 78,
+          "total_tokens": 2779
+        }
+      },
+      {
+        "frame_id": "frame-ad7ef78f-25c5-4ebf-a27d-3b4b448615a8",
+        "source_seq": 10894,
+        "captured_at": "2026-11-03T04:50:27.071038300Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:50:27.465Z",
+        "image_sha256": "1a7fa9c2c1b2a91fb65644331a2cefe9f35fc769014cb3dc11a097c0473f7761",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 10894,
+          "observed_at": "2026-11-03T04:50:26.992061200Z",
+          "sample_to_capture_ms": 79,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5072,
+        "caption": "视角贴近一片昏暗的方块表面，中央准星对着工作台；周围地形几乎看不清。",
+        "visible_text": [
+          "顶部提示：Crafting Table / Minecraft",
+          "右上小地图标注 Forest",
+          "右上显示 1261 70 -97"
+        ],
+        "unknowns": [
+          "画面过暗，无法辨认周围环境或危险。",
+          "原生采样显示手持物为未知模组物品。"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 108,
+          "total_tokens": 2923
+        }
+      },
+      {
+        "frame_id": "frame-b593a5bb-1d02-4618-aebc-1ab789c62c5f",
+        "source_seq": 11295,
+        "captured_at": "2026-11-03T04:50:47.123763100Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:50:47.516Z",
+        "image_sha256": "35877f7c4d44be86dd7ed91d3140a77f3b8547f710bcb648e0cff27c5c47568f",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 11295,
+          "observed_at": "2026-11-03T04:50:47.042785800Z",
+          "sample_to_capture_ms": 81,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 2539,
+        "caption": "视野被极近的暗色方块遮挡，准星指向工作台；画面很暗，未见清晰目标或危险。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "1261 70 -97",
+          "Forest"
+        ],
+        "unknowns": [
+          "手持物为未知模组物品",
+          "近处遮挡物及周边地形细节不清晰"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 90,
+          "total_tokens": 2905
+        }
+      },
+      {
+        "frame_id": "frame-51f4243a-a4fb-4a2d-a0c4-d603f3dd999d",
+        "source_seq": 11697,
+        "captured_at": "2026-11-03T04:51:07.224744300Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:51:07.680Z",
+        "image_sha256": "701a4495683b5d300c799b7b08d3c6cb701bed4e43844597d4df75233c4760a9",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3543,
+        "caption": "画面大部分被近处的深色方块遮挡，准星对着标示为工作台的方块；周围环境很暗，未见明确敌对生物。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "1261 70 -97",
+          "Forest"
+        ],
+        "unknowns": [],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 198,
+          "total_tokens": 2899
+        }
+      },
+      {
+        "frame_id": "frame-8cc33d02-f038-463d-8a86-2970f9fbaa70",
+        "source_seq": 12098,
+        "captured_at": "2026-11-03T04:51:27.274749700Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:51:27.720Z",
+        "image_sha256": "9cd553e64bb058ee33bf24fc08da689b3b1ad74c119d26bb30e1874a68fd7b58",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 5710,
+        "caption": "视角被深色方块近距离遮挡，准星指向工作台；画面昏暗，未见明确生物或其他危险。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "1261 70 -97",
+          "Forest"
+        ],
+        "unknowns": [
+          "周围地形被遮挡，无法辨认更多环境细节"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 81,
+          "total_tokens": 2782
+        }
+      },
+      {
+        "frame_id": "frame-f5b468e9-2ee6-4a84-b5d0-910a4bb2a666",
+        "source_seq": 12499,
+        "captured_at": "2026-11-03T04:51:47.319615200Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:51:47.701Z",
+        "image_sha256": "384046a906c0db0b8c96000890d9861765168d2e6339d511705cb367bdd9be58",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 6135,
+        "caption": "视线紧贴一片昏暗的方块表面，中央准星对着工作台；画面几乎被方块遮挡，周围环境难以辨认。",
+        "visible_text": [
+          "顶部提示：Crafting Table / Minecraft",
+          "小地图显示 Forest；坐标文字为 1261 70 -97",
+          "底部显示生命值、饥饿值与快捷栏"
+        ],
+        "unknowns": [
+          "方块遮挡下的周围地形与潜在危险不可见"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 115,
+          "total_tokens": 2816
+        }
+      },
+      {
+        "frame_id": "frame-53242f81-6b04-4b07-933e-bae6813693e3",
+        "source_seq": 12901,
+        "captured_at": "2026-11-03T04:52:07.404068500Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:52:07.848Z",
+        "image_sha256": "93aec14b31217a7ba7964fc71e88734fedbba6b2fdb7e8f64e6b4e917794f125",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3400,
+        "caption": "视野被近距离深色方块遮挡，准星对着方块；画面未见明显生物或地形危险。下方状态栏显示生命与饥饿图标。",
+        "visible_text": [
+          "顶部：Crafting Table / Minecraft",
+          "小地图：Forest"
+        ],
+        "unknowns": [
+          "遮挡处及周围环境不清楚",
+          "方块具体位置与危险情况无法判断"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 95,
+          "total_tokens": 2796
+        }
+      },
+      {
+        "frame_id": "frame-f0075378-a45c-4a6a-89c7-6de65187ebf1",
+        "source_seq": 13302,
+        "captured_at": "2026-11-03T04:52:27.466959500Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:52:27.889Z",
+        "image_sha256": "43f15e6d324e3cae14caba5841568e8eb94823fe303d5ef52ef3f3c2b75f07d1",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "succeeded",
+        "elapsed_ms": 6537,
+        "caption": "视野被近处的深色方块大面积遮挡，准星对着方块；顶部提示该方块为工作台。右上角小地图显示森林区域，画面未见明确敌对生物。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "1261 70 -97",
+          "Forest"
+        ],
+        "unknowns": [
+          "近处遮挡物后的地形与环境不可见"
+        ],
+        "usage": {
+          "input_tokens": 2701,
+          "output_tokens": 180,
+          "total_tokens": 2881
+        }
+      },
+      {
+        "frame_id": "frame-a83453a7-0cea-4041-a64d-5955d8c12e60",
+        "source_seq": 13703,
+        "captured_at": "2026-11-03T04:52:47.527114900Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:52:47.919Z",
+        "image_sha256": "315da7e1c041c195a473a5e8062b64a9cb4b73c7af842ae4343dbf47c7d8502f",
+        "held_item_grounding": {
+          "binding": "unavailable"
+        },
+        "state": "failed",
+        "elapsed_ms": 1839,
+        "code": "MODEL_PREEMPTED",
+        "usage": {
+          "input_tokens": null,
+          "output_tokens": null,
+          "total_tokens": null
+        }
+      },
+      {
+        "frame_id": "frame-342c8b26-17c3-4d6b-964c-c4a24d6f5459",
+        "source_seq": 14106,
+        "captured_at": "2026-11-03T04:53:07.655955800Z",
+        "width": 1920,
+        "height": 1080,
+        "purpose": "screen",
+        "model_id": "gpt-6-luna",
+        "runtime_id": "studio-channel-d45de74bb2238638745f8ea7",
+        "provider_revision": "d45de74bb2238638745f8ea7b8bfbe8bc9e240aaf5b42debd4eb84ee65e2ae0c",
+        "protocol": "responses",
+        "started_at": "2026-11-03T04:53:08.105Z",
+        "image_sha256": "c940bd0dfd96ba400b589f16bdb1163e94b7f958d2cf70aa171c6b0f6342eca7",
+        "held_item_grounding": {
+          "binding": "frame_source_seq",
+          "source_seq": 14106,
+          "observed_at": "2026-11-03T04:53:07.599975100Z",
+          "sample_to_capture_ms": 56,
+          "hands": {
+            "source": "runtime_client",
+            "selected_hotbar": 0,
+            "mainhand": {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            "offhand": {
+              "item_id": "minecraft:air",
+              "count": 0
+            }
+          }
+        },
+        "state": "succeeded",
+        "elapsed_ms": 3433,
+        "caption": "视角紧贴昏暗的方块结构，准星指向工作台；周围地形与潜在危险不可见。手持物为未知物品。",
+        "visible_text": [
+          "Crafting Table",
+          "Minecraft",
+          "1261 70 -97",
+          "Forest"
+        ],
+        "unknowns": [
+          "近距离结构遮挡环境，无法判断周边地形或危险"
+        ],
+        "usage": {
+          "input_tokens": 2815,
+          "output_tokens": 85,
+          "total_tokens": 2900
+        }
+      }
+    ],
+    "ordinary_respawns_confirmed": 0,
+    "transferred_files": 34,
+    "narration_reasons": {
+      "STREAM_CONTEXT_BUDGET": 20,
+      "INTERMEDIATE_NAVIGATION_SUPPRESSED": 4
+    },
+    "landing_recovery_events": [
+      {
+        "observed_at": "2026-11-03T04:43:44.403619100Z",
+        "task_id": "task-24b67a24-9d14-409e-825e-80673d512889",
+        "stage": "observing_landing",
+        "state": "READY",
+        "episode_ticks": 2,
+        "total_ticks": 2,
+        "episodes": 1,
+        "episode_limit": 20,
+        "task_limit": 40,
+        "position": {
+          "x": 1262.4104109384925,
+          "y": 73.0,
+          "z": -97.09371211786375
+        },
+        "on_ground": true,
+        "in_water": false,
+        "original_deadline_retained": true,
+        "progress_clock_reset": false,
+        "velocity_or_position_written": false
+      },
+      {
+        "observed_at": "2026-11-03T04:43:56.695665800Z",
+        "task_id": "task-23857a2d-cae7-42a8-8b3e-4d7123c0ffca",
+        "stage": "observing_landing",
+        "state": "READY",
+        "episode_ticks": 6,
+        "total_ticks": 6,
+        "episodes": 1,
+        "episode_limit": 20,
+        "task_limit": 40,
+        "position": {
+          "x": 1262.4897192643555,
+          "y": 72.0,
+          "z": -96.48331773413014
+        },
+        "on_ground": true,
+        "in_water": false,
+        "original_deadline_retained": true,
+        "progress_clock_reset": false,
+        "velocity_or_position_written": false
+      },
+      {
+        "observed_at": "2026-11-03T04:43:57.063841800Z",
+        "task_id": "task-23857a2d-cae7-42a8-8b3e-4d7123c0ffca",
+        "stage": "observing_landing",
+        "state": "READY",
+        "episode_ticks": 2,
+        "total_ticks": 8,
+        "episodes": 2,
+        "episode_limit": 20,
+        "task_limit": 40,
+        "position": {
+          "x": 1262.5564102591554,
+          "y": 73.0,
+          "z": -96.79525725879138
+        },
+        "on_ground": true,
+        "in_water": false,
+        "original_deadline_retained": true,
+        "progress_clock_reset": false,
+        "velocity_or_position_written": false
+      }
+    ],
+    "sampled_ready_landings": 3,
+    "landing_task_outcomes": [
+      {
+        "task_id": "task-24b67a24-9d14-409e-825e-80673d512889",
+        "episode": 1,
+        "state": "failed",
+        "effect_status": "unknown"
+      },
+      {
+        "task_id": "task-23857a2d-cae7-42a8-8b3e-4d7123c0ffca",
+        "episode": 1,
+        "state": "succeeded",
+        "effect_status": "verified"
+      },
+      {
+        "task_id": "task-23857a2d-cae7-42a8-8b3e-4d7123c0ffca",
+        "episode": 2,
+        "state": "succeeded",
+        "effect_status": "verified"
+      }
+    ],
+    "route_recovery_task_max": 1,
+    "landing_wait_task_max": 8,
+    "vision_states": {
+      "succeeded": 28,
+      "failed": 2
+    },
+    "vision_grounding_bindings": {
+      "frame_source_seq": 13,
+      "unavailable": 17
+    },
+    "vision_grounding_exact_source_verified": true,
+    "successful_vision_latency_ms": [
+      3402,
+      2662,
+      8923,
+      6294,
+      2636,
+      3461,
+      3566,
+      7249,
+      4350,
+      4060,
+      2538,
+      5876,
+      4156,
+      3671,
+      5594,
+      3781,
+      5639,
+      2300,
+      6163,
+      2220,
+      5072,
+      2539,
+      3543,
+      5710,
+      6135,
+      3400,
+      6537,
+      3433
+    ],
+    "successful_vision_mean_ms": 4461.071428571428,
+    "successful_captions_mentioning_shield": [],
+    "death_inventory_checks": [],
+    "first_inventory": {
+      "cottonly:cotton_seeds": 2,
+      "gravestone:obituary": 1,
+      "minecraft:crafting_table": 1,
+      "minecraft:dirt": 23,
+      "minecraft:oak_planks": 3,
+      "minecraft:oak_sapling": 5,
+      "minecraft:rotten_flesh": 8,
+      "minecraft:stick": 2,
+      "minecraft:wheat_seeds": 2,
+      "minecraft:wooden_pickaxe": 1
+    },
+    "last_inventory": {
+      "cottonly:cotton_seeds": 2,
+      "gravestone:obituary": 1,
+      "minecraft:dirt": 32,
+      "minecraft:oak_planks": 3,
+      "minecraft:oak_sapling": 5,
+      "minecraft:rotten_flesh": 8,
+      "minecraft:stone_pickaxe": 1,
+      "minecraft:wheat_seeds": 2,
+      "minecraft:wooden_pickaxe": 1
+    },
+    "final_playback_audit": {
+      "scope": "READ_ONLY_SAME_BROADCAST_AFTER_NORMAL_STOP",
+      "broadcast_id": "bc-68bf07ea-5f94-4c14-a4dc-014b4a136143",
+      "states": {
+        "answered": 7,
+        "discarded": 4,
+        "failed": 20
+      },
+      "completed_formal_utterances": 7,
+      "items": [
+        {
+          "narration_id": "narr-4db851e774b2a534f77fd3da9a5a846c3f035757",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-088cd523-f940-44c4-829a-00299d0a5feb",
+          "completion_event_seq": 2743,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2743
+          }
+        },
+        {
+          "narration_id": "narr-e48fe457f394669072e19ca88de855d581a8add9",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-0e49ba93-9cc6-4424-a5f9-1ddc578d939a",
+          "completion_event_seq": 2750,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2750
+          }
+        },
+        {
+          "narration_id": "narr-e2c87e62af5536a361c3e149ea70637c3730f2d1",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-d0a508d4998f8dd053a10a584c55fb3dc8fd67c7",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-011c41702065378b92a271a508438d0e65b32206",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-b55ac915-74d6-4ba9-bbc6-625d70a279b0",
+          "completion_event_seq": 2757,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2757
+          }
+        },
+        {
+          "narration_id": "narr-d98dbeb2e4e2d1c2d5853191bb545f768e33ee96",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-e286b92d-e11b-46e9-ba32-b2ee762a9bb3",
+          "completion_event_seq": 2764,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2764
+          }
+        },
+        {
+          "narration_id": "narr-d40f4e4d8613d346d9db7e6dbc01d50950cfe984",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-e5f55cb4-e00d-4813-a6d7-a43e35df083c",
+          "completion_event_seq": 2771,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2771
+          }
+        },
+        {
+          "narration_id": "narr-a62eab18b78e3ace025d2d8678df973956a1d883",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-24585281-d556-4eb9-9c1e-804d7ef71df2",
+          "completion_event_seq": 2778,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2778
+          }
+        },
+        {
+          "narration_id": "narr-fc33e6e96eaff92ee5d0a3f531b4dd0a9e4a284d",
+          "state": "answered",
+          "reason": null,
+          "request_id": "req-f89f0dc3-e70c-4cf9-b294-e8c2274676c2",
+          "completion_event_seq": 2785,
+          "request_status": "COMPLETED",
+          "utterance": {
+            "status": "COMPLETED",
+            "completion_event_seq": 2785
+          }
+        },
+        {
+          "narration_id": "narr-ec61b01c97d5d63c664be381779c4e449683f042",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-45ca6b6e-0505-49fa-8ea1-a8362ee96633",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-6a81fcaab1a2e54c9042327aba70e539712e8089",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-73d74f28-60d7-40b2-960f-4371bab0edb7",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-612f3061f65dea488f3b272de07b674b075eee72",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-93cf7421-d010-4ebe-8a14-5ba20ffcfc3d",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-5dd24db2f2206ebb4628fbb7c916ca375babab26",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-d224f72a-fd19-49bf-963c-5dfe381d6cbe",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-5c506bfb4605ea1f95fdb6514a1d80179f90fa9d",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-a6bbf569-7a19-4d3a-890a-f8bc38249fd1",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-67a35cce0270e2dda009cf8a6d9a6927c3e8614e",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-703943e4-48e9-434f-9ba0-89e9eca1026b",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-88582900814dc2c96a39b8fcc35590aa31af5cfa",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-4399318c-0137-4182-bd2e-2421bdf5c800",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-8bc553e2f5c04eb3f6fe1d3f9fad06f23628e7e1",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-4349d8f0-da81-4e25-bee0-577a57aff88c",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-4f0d86998565ccb532eec1a4c4617a936cc0c4cd",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-2d64da9f-6240-4143-9b5f-a36fd72553a0",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-6ae6707e61ea2b998423b2e33385d1f95a909ac6",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-531e4df4-48d8-4116-9f99-5f10c1971b05",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-61e1229900a7215db7650fab19a8cc7a80fed3ba",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-e7f4167d-6218-451d-b754-92b9ce0fd413",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-af8ab1d419d0a8911436452e8e6de12018110acb",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-dd636da8-b77b-471f-b42e-513718e576df",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-06702e31258391c17ad07cf646cde37b0ebeb07c",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-320361e6a34c2b1abbc8ac4a5fb5c4a9827a2db8",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-7fa264e5-a15d-4dd4-ac86-c0f85e7e0d11",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-814081244323a1a94cb5e32430f1421c9c1f8b0c",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-5adef526-ea34-470b-9f4b-e8bc43d003d7",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-6ed36f4507c59498a83fe1238273dae3e8e41547",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-482cb90a-3d5b-4521-ae2b-8e09dc05ed3e",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-0c3b53e5f06f66123fbe7155c3519f3113949ecd",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-2264dfc5-e865-47f3-b858-edf2e24b7f99",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-ff0a4feaaaac703e7315623d512b6fb913099ef2",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-77cc64c5-ec56-423e-b3b0-4ad1a639aed8",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-2dd17b95dcebecca1dffe781c907f36d28153463",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-23b6b132-6759-4322-919d-ae3f4e5822a7",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-cf36fe6de4d8cdba6be1548825365ca0d32fbcc3",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-648f18a5-2a81-4c02-9b4b-62b294e05db3",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        },
+        {
+          "narration_id": "narr-268542d54535fd7b7e415caf0979f0fac71e80d9",
+          "state": "discarded",
+          "reason": "INTERMEDIATE_NAVIGATION_SUPPRESSED",
+          "request_id": null,
+          "completion_event_seq": null
+        },
+        {
+          "narration_id": "narr-901ce2f3a20a5bf66c5e2f0983a691cc95bb18d2",
+          "state": "failed",
+          "reason": "STREAM_CONTEXT_BUDGET",
+          "request_id": "req-3bab3c31-e83d-4db8-ba62-1df92ac3e1d6",
+          "completion_event_seq": null,
+          "request_status": "CANCELLED",
+          "utterance": null
+        }
+      ],
+      "database_writes": 0
+    },
+    "formal_speech_completions": 7,
+    "final_task_audit": {
+      "scope": "READ_ONLY_ALL_WORLD_SESSION_TASKS_AFTER_NORMAL_STOP",
+      "database_writes": 0,
+      "items": [
+        {
+          "task_id": "task-e4fa9dc6-8a2e-449c-9cc4-d9cbd5e93f2e",
+          "goal": {
+            "count": 3,
+            "item_id": "minecraft:cobblestone",
+            "skill": "gather"
+          },
+          "state": "failed",
+          "effect_status": "unknown",
+          "reason": "GAME_GATHER_NO_PROGRESS",
+          "version": 3,
+          "updated_at": "2026-11-03T04:43:39.556616400Z",
+          "before_pause_snapshot_state": "failed",
+          "last_native_transition": {
+            "state": "failed",
+            "reason": "GAME_GATHER_NO_PROGRESS",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-24b67a24-9d14-409e-825e-80673d512889",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1261,
+              "y": 74,
+              "z": -98
+            }
+          },
+          "state": "failed",
+          "effect_status": "unknown",
+          "reason": "GAME_NAVIGATION_NO_ROUTE",
+          "version": 3,
+          "updated_at": "2026-11-03T04:43:44.507583700Z",
+          "before_pause_snapshot_state": "failed",
+          "last_native_transition": {
+            "state": "failed",
+            "reason": "GAME_NAVIGATION_NO_ROUTE",
+            "version": 3,
+            "effect_status": "unknown"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-8c59c46b-3de2-4487-a9e9-6567d181beb0",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1262,
+              "y": 72,
+              "z": -97
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:43:51.347704600Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-23857a2d-cae7-42a8-8b3e-4d7123c0ffca",
+          "goal": {
+            "radius": 0,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1262,
+              "y": 73,
+              "z": -98
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:43:57.531692400Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-f08c6149-6d8c-4e16-b8be-73a2a29d1b55",
+          "goal": {
+            "count": 3,
+            "item_id": "minecraft:cobblestone",
+            "skill": "gather"
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:44:43.184998700Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-48843d6e-ec84-40c3-bcb7-3a4d0c097941",
+          "goal": {
+            "item_id": "minecraft:crafting_table",
+            "purpose": "activate",
+            "skill": "use_item",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1262,
+              "y": 71,
+              "z": -97
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:44:44.983896700Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-8ac37912-225f-4bc3-a3f7-2cc24e0f35cf",
+          "goal": {
+            "count": 1,
+            "item_id": "minecraft:stone_pickaxe",
+            "skill": "craft"
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:44:52.067188100Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-bc1b4aa6-f648-428c-9eb2-d73102b3bbdc",
+          "goal": {
+            "radius": 8,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1261,
+              "y": 70,
+              "z": -97
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:50:37.083603300Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        },
+        {
+          "task_id": "task-2235eb28-ea53-48b9-aca2-a34c96f1626f",
+          "goal": {
+            "radius": 2,
+            "skill": "navigate",
+            "target": {
+              "dimension": "minecraft:overworld",
+              "x": 1261,
+              "y": 70,
+              "z": -97
+            }
+          },
+          "state": "succeeded",
+          "effect_status": "verified",
+          "reason": null,
+          "version": 3,
+          "updated_at": "2026-11-03T04:53:00.840720600Z",
+          "before_pause_snapshot_state": "succeeded",
+          "last_native_transition": {
+            "state": "succeeded",
+            "reason": null,
+            "version": 3,
+            "effect_status": "verified"
+          },
+          "disposition_status": null
+        }
+      ],
+      "native_planner_audit": {
+        "rows": 169,
+        "truncated": false,
+        "states": {
+          "task_submitted": 6,
+          "observed_result": 6,
+          "route_blocked": 118,
+          "emergency_route_blocked": 39
+        },
+        "stages": {
+          "unspecified": 48,
+          "explore_observed_frontier": 3,
+          "explore_for_dependency": 108,
+          "place_workstation": 1,
+          "prepare_portable_workstation": 9
+        },
+        "blocked_items": {
+          "unspecified": 108,
+          "minecraft:stone_pickaxe": 1,
+          "minecraft:oak_log": 9
+        },
+        "first_blocked_samples": [
+          {
+            "at": "2026-11-03T04:44:01.807Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:44:01.929Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:44:02.017Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:44:02.116Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:44:04.947Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:44:05.061Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:44:05.194Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:44:05.283Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:44:12.059Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:44:12.390Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:44:12.619Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:44:12.899Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          }
+        ],
+        "last_samples": [
+          {
+            "at": "2026-11-03T04:52:55.813Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:52:55.920Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:52:56.031Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:53:02.039Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:53:02.143Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:53:02.246Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:53:02.350Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "explore_for_dependency",
+            "reason": "GAME_NAVIGATION_NO_ROUTE"
+          },
+          {
+            "at": "2026-11-03T04:53:24.808Z",
+            "state": "route_blocked",
+            "engine": "mindcraft_item_goal_native",
+            "stage": "prepare_portable_workstation",
+            "reason": "GAME_NAVIGATION_NO_ROUTE",
+            "item_id": "minecraft:crafting_table",
+            "for_item": "minecraft:stone_axe",
+            "next_goal": {
+              "count": 1,
+              "item_id": "minecraft:oak_log",
+              "skill": "gather"
+            },
+            "based_on_seq": 14446
+          }
+        ]
+      },
+      "recorded_before_pause": 9,
+      "all_world_session_task_count": 9,
+      "additional_task_ids_after_snapshot": [],
+      "final_task_states": {
+        "failed": 2,
+        "succeeded": 7
+      },
+      "final_task_reasons": {
+        "GAME_GATHER_NO_PROGRESS": 1,
+        "GAME_NAVIGATION_NO_ROUTE": 1
+      },
+      "nonterminal_count": 0
+    },
+    "task_states_before_pause": {
+      "succeeded": 7,
+      "failed": 2
+    },
+    "task_reasons_before_pause": {
+      "GAME_NAVIGATION_NO_ROUTE": 1,
+      "GAME_GATHER_NO_PROGRESS": 1
+    },
+    "task_count_before_pause": 9,
+    "workstation_observation": {
+      "crafted_table_tasks": 0,
+      "placed_table_tasks": 1,
+      "tables_before": 1,
+      "tables_after": 0,
+      "on_demand_native_crafting_stage_covered": true
+    },
+    "cobblestone_gather_observation": [
+      {
+        "task_id": "task-e4fa9dc6-8a2e-449c-9cc4-d9cbd5e93f2e",
+        "state": "failed",
+        "effect_status": "unknown",
+        "reason": "GAME_GATHER_NO_PROGRESS"
+      },
+      {
+        "task_id": "task-f08c6149-6d8c-4e16-b8be-73a2a29d1b55",
+        "state": "succeeded",
+        "effect_status": "verified",
+        "reason": null
+      }
+    ],
+    "inventory_change": {
+      "minecraft:crafting_table": -1,
+      "minecraft:dirt": 9,
+      "minecraft:stick": -2,
+      "minecraft:stone_pickaxe": 1
+    },
+    "native_world_pause_confirmed": true,
+    "audio_drain_vitals": {
+      "health_before": 20,
+      "health_after": 20,
+      "world_time_before": 216477,
+      "world_time_after": 216477
+    },
+    "diagonal_route_task_count": 0,
+    "sampled_max_diagonal_route_edges": 0,
+    "sampled_max_sprint_input_ticks": 0,
+    "sampled_max_observed_sprint_ticks": 0,
+    "task_history_became_stable_after_stop": true,
+    "no_manual_gameplay": true,
+    "not_performance_or_long_survival_acceptance": true,
+    "soil_descent_steps_by_task": {
+      "task-e4fa9dc6-8a2e-449c-9cc4-d9cbd5e93f2e": 4,
+      "task-24b67a24-9d14-409e-825e-80673d512889": 0,
+      "task-8c59c46b-3de2-4487-a9e9-6567d181beb0": 0,
+      "task-23857a2d-cae7-42a8-8b3e-4d7123c0ffca": 0,
+      "task-f08c6149-6d8c-4e16-b8be-73a2a29d1b55": 0,
+      "task-bc1b4aa6-f648-428c-9eb2-d73102b3bbdc": 0,
+      "task-2235eb28-ea53-48b9-aca2-a34c96f1626f": 0
+    },
+    "soil_cut_attempts_by_task": {
+      "task-e4fa9dc6-8a2e-449c-9cc4-d9cbd5e93f2e": 9,
+      "task-24b67a24-9d14-409e-825e-80673d512889": 0,
+      "task-8c59c46b-3de2-4487-a9e9-6567d181beb0": 0,
+      "task-23857a2d-cae7-42a8-8b3e-4d7123c0ffca": 0,
+      "task-f08c6149-6d8c-4e16-b8be-73a2a29d1b55": 1,
+      "task-bc1b4aa6-f648-428c-9eb2-d73102b3bbdc": 0,
+      "task-2235eb28-ea53-48b9-aca2-a34c96f1626f": 0
+    },
+    "soil_server_cuts_by_task": {
+      "task-e4fa9dc6-8a2e-449c-9cc4-d9cbd5e93f2e": [
+        {
+          "x": 1262,
+          "y": 75,
+          "z": -98,
+          "server_packets": 1,
+          "server_confirmed_clear": true
+        },
+        {
+          "x": 1261,
+          "y": 75,
+          "z": -98,
+          "server_packets": 1,
+          "server_confirmed_clear": true
+        },
+        {
+          "x": 1261,
+          "y": 74,
+          "z": -98,
+          "server_packets": 1,
+          "server_confirmed_clear": true
+        },
+        {
+          "x": 1262,
+          "y": 74,
+          "z": -98,
+          "server_packets": 1,
+          "server_confirmed_clear": true
+        },
+        {
+          "x": 1262,
+          "y": 73,
+          "z": -98,
+          "server_packets": 1,
+          "server_confirmed_clear": true
+        },
+        {
+          "x": 1262,
+          "y": 74,
+          "z": -97,
+          "server_packets": 1,
+          "server_confirmed_clear": true
+        },
+        {
+          "x": 1262,
+          "y": 73,
+          "z": -97,
+          "server_packets": 1,
+          "server_confirmed_clear": true
+        },
+        {
+          "x": 1262,
+          "y": 72,
+          "z": -97,
+          "server_packets": 1,
+          "server_confirmed_clear": true
+        }
+      ],
+      "task-f08c6149-6d8c-4e16-b8be-73a2a29d1b55": [
+        {
+          "x": 1261,
+          "y": 72,
+          "z": -97,
+          "server_packets": 1,
+          "server_confirmed_clear": true
+        }
+      ]
+    },
+    "soil_descent_transition_observed": true,
+    "sampled_idle_auto_seconds_approx": 573.5265936851501,
+    "no_active_task_id_metric_is_not_verified_idle": true,
+    "last_non_navigation_completion_at": "2026-11-03T04:44:52.067188100Z",
+    "seconds_after_last_non_navigation_completion": 513.4687180519104,
+    "navigation_already_within_radius_at_admission_sample": [
+      {
+        "task_id": "task-2235eb28-ea53-48b9-aca2-a34c96f1626f",
+        "distance": 0.0,
+        "radius": 2,
+        "sample_age_ms": 67
+      },
+      {
+        "task_id": "task-bc1b4aa6-f648-428c-9eb2-d73102b3bbdc",
+        "distance": 0.0,
+        "radius": 8,
+        "sample_age_ms": 677
+      }
+    ],
+    "native_planner_audit": {
+      "rows": 169,
+      "truncated": false,
+      "states": {
+        "task_submitted": 6,
+        "observed_result": 6,
+        "route_blocked": 118,
+        "emergency_route_blocked": 39
+      },
+      "stages": {
+        "unspecified": 48,
+        "explore_observed_frontier": 3,
+        "explore_for_dependency": 108,
+        "place_workstation": 1,
+        "prepare_portable_workstation": 9
+      },
+      "blocked_items": {
+        "unspecified": 108,
+        "minecraft:stone_pickaxe": 1,
+        "minecraft:oak_log": 9
+      },
+      "first_blocked_samples": [
+        {
+          "at": "2026-11-03T04:44:01.807Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:44:01.929Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:44:02.017Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:44:02.116Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:44:04.947Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:44:05.061Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:44:05.194Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:44:05.283Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:44:12.059Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:44:12.390Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:44:12.619Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:44:12.899Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        }
+      ],
+      "last_samples": [
+        {
+          "at": "2026-11-03T04:52:55.813Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:52:55.920Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:52:56.031Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:53:02.039Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:53:02.143Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:53:02.246Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:53:02.350Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "explore_for_dependency",
+          "reason": "GAME_NAVIGATION_NO_ROUTE"
+        },
+        {
+          "at": "2026-11-03T04:53:24.808Z",
+          "state": "route_blocked",
+          "engine": "mindcraft_item_goal_native",
+          "stage": "prepare_portable_workstation",
+          "reason": "GAME_NAVIGATION_NO_ROUTE",
+          "item_id": "minecraft:crafting_table",
+          "for_item": "minecraft:stone_axe",
+          "next_goal": {
+            "count": 1,
+            "item_id": "minecraft:oak_log",
+            "skill": "gather"
+          },
+          "based_on_seq": 14446
+        }
+      ]
+    },
+    "gather_tasks": [
+      {
+        "task_id": "task-e4fa9dc6-8a2e-449c-9cc4-d9cbd5e93f2e",
+        "goal": {
+          "count": 3,
+          "item_id": "minecraft:cobblestone",
+          "skill": "gather"
+        },
+        "state": "failed",
+        "effect_status": "unknown",
+        "reason": "GAME_GATHER_NO_PROGRESS"
+      },
+      {
+        "task_id": "task-f08c6149-6d8c-4e16-b8be-73a2a29d1b55",
+        "goal": {
+          "count": 3,
+          "item_id": "minecraft:cobblestone",
+          "skill": "gather"
+        },
+        "state": "succeeded",
+        "effect_status": "verified",
+        "reason": null
+      }
+    ],
+    "craft_tasks": [
+      {
+        "task_id": "task-8ac37912-225f-4bc3-a3f7-2cc24e0f35cf",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:stone_pickaxe",
+          "skill": "craft"
+        },
+        "state": "succeeded",
+        "effect_status": "verified",
+        "reason": null
+      }
+    ],
+    "verified_non_navigation_by_skill": {
+      "gather": 1,
+      "use_item": 1,
+      "craft": 1
+    },
+    "verified_non_navigation_by_item": {
+      "minecraft:cobblestone": 1,
+      "minecraft:crafting_table": 1,
+      "minecraft:stone_pickaxe": 1
+    },
+    "public_collector_observation": {
+      "ok": true,
+      "room_id": "595139",
+      "guest_mode_verified": true,
+      "duration_seconds": 609.1542763710022,
+      "connected_observed": true,
+      "collector_started_by_worker": true,
+      "owned_collector_stopped": true,
+      "event_types": {},
+      "messages_posted": 0,
+      "synthetic_events_submitted": 0,
+      "scope": "PUBLIC_GUEST_COLLECTION_NOT_PUBLIC_BROADCAST_OR_VIEWER_ACCEPTANCE",
+      "real_new_events": 0,
+      "sampled_states": {
+        "CONNECTING": 1,
+        "CONNECTED": 302
+      },
+      "sampled_errors": {},
+      "full_viewer_reply_acceptance": false
+    }
+  },
+  "services_ready": true,
+  "application_ready": false,
+  "keep_inventory_after_engine_save": true,
+  "saved_world_sha256": "8ad09142ef5278e8179779286f4c0475fde4dae93d79c2484e268ebea881a62e",
+  "original_world_backup_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
+  "normal_game_exit": {
+    "exit_code": 0,
+    "graceful_close_requested": true,
+    "all_owned_processes_closed": true,
+    "bounded_job_cleanup_required": null
+  },
+  "owned_services_after_stop": {
+    "dsh": false,
+    "avatar": false,
+    "tts": false,
+    "receiver": false,
+    "vision": false,
+    "minecraft": false
+  },
+  "official_clients_preserved": true,
+  "candidate_disabled": true,
+  "internal_broadcast_closed": true,
+  "worker_task_submissions": 0,
+  "game_keys_issued": 0,
+  "manual_takeover": false,
+  "world_reset": false,
+  "inventory_injection": false,
+  "public_broadcast_started": false,
+  "formal_acceptance_advanced": 0,
+  "formal_acceptance_passed": 0,
+  "new_avatar_clips": 0,
+  "inherited_todos_open": 117,
+  "new_video_recorded": false,
+  "report": "docs/technical/mc-live-v1/定向下挖与094自主观察.md",
+  "github_publication": {
+    "branch": "mc",
+    "source_commit": "310eda9548cc5659c07e45cd3b876c908c4b9d6c",
+    "source_pushed_and_remote_verified": true,
+    "documentation_published_with_this_revision": true
+  },
+  "read_only_audit_sha256": {
+    "playback": "bfd3a24082d921c99b7a5370cdaf3382f979cd23f958143adbd2e78c6afea3e0",
+    "tasks": "abe3ddc58b1e49381c19a2bd8f4875fee19b43e5a5026c0e7c0dccbf050f2fc6",
+    "platform": "2adc895775ad272952eebf8fefccb606cd72f67b81893aee3b7a5fd45d0dcd72"
+  },
+  "transport_cleanup": {
+    "ok": true,
+    "purpose": "BYTE_TRANSFER_HELPER_CLOSED_AFTER_EVIDENCE_VERIFICATION",
+    "pid": 19828,
+    "creation_time_verified": true,
+    "command_path_verified": true,
+    "listener_owner_verified": true,
+    "port": 2527,
+    "listeners_after": 0,
+    "unrelated_processes_stopped": false,
+    "browser_contexts_opened": 0,
+    "at": "2026-11-03T04:57:28.0137446Z"
+  },
+  "browser_contexts_opened_this_round": 0
+}
