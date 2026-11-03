@@ -77,6 +77,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
     private boolean waterRoute;
     private boolean navigationSwimming;
     private int escapeSprintTicks;
+    private int sprintObservedTicks, diagonalRouteEdges;
     private final NativeRouteRecovery routeRecovery = new NativeRouteRecovery();
     private JsonObject lastRouteRecovery;
     private JsonObject lastLandingRecovery;
@@ -161,6 +162,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         leafCut=null;leafReceipt=null;leafCuts.clear();
         stalledApproaches=0;
         ticks = searches = walked = attemptedBlocks = inventoryPackets = arrivalTicks = escapeSprintTicks = 0; confirmedInventory = -1;
+        sprintObservedTicks=diagonalRouteEdges=0;
         waterTicks=0;waterRoute=false;
         routeFailure=null;
         routeRecovery.bind(str(accepted,"task_id"),world,player,connection);
@@ -342,11 +344,22 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         var cache = new HashMap<Point, Boolean>();
         return new NativeWalkPlanner.Terrain() {
             public boolean stand(Point p) { return cache.computeIfAbsent(p, value -> NativeTravel.this.stand(value, leaves)); }
+            public boolean diagonals() { return true; }
             public boolean step(Point a, Point b) {
                 // Swept head/body space prevents corner clipping, ceiling jumps and hidden liquids.
+                if(a.x()!=b.x() && a.z()!=b.z() && Math.abs(footY(a)-footY(b))>.125)return false;
                 return walkEdge(a,b,leaves);
             }
         };
+    }
+    private boolean walkStep(Point from,Point to,boolean leaves) {
+        return NativeWalkPlanner.allowedStep(terrain(leaves),from,to);
+    }
+    private void observeRoute(NativeWalkPlanner.Route route) {
+        for(int i=1;i<route.points().size();i++) {
+            Point a=route.points().get(i-1),b=route.points().get(i);
+            if(a.x()!=b.x() && a.z()!=b.z())diagonalRouteEdges++;
+        }
     }
     private boolean dryDescent(Point from, Point to) {
         double fromY=from.equals(feet()) ? client.player.getY() : from.y();
@@ -489,7 +502,8 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
                 outcome="no_safe_alternative";
                 if (route.points().size()>1 && (route.reachesGoal() || feet().distanceSquared(goal)>24*24)) {
                     Point candidate=route.points().get(1);
-                    if (stand(candidate) && walkEdge(feet(),candidate,false)) {
+                    if (stand(candidate) && walkStep(feet(),candidate,false)) {
+                        observeRoute(route);
                         path.clear();path.addAll(route.points());path.remove();
                         pathGoal=goal;pathRadius=distance;next=path.peek();outcome="new_route_admitted";
                     }
@@ -569,6 +583,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
             if(waterRoute && !NativeWaterRoute.admissible(feet(),goal,stand(goal),route))throw new LocalTaskFailure(NAVIGATION_NO_ROUTE);
             if (!waterRoute && !route.reachesGoal() && goal.y()>feet().y() && beginStair(goal)) return false;
             if (route.points().isEmpty()) throw routeFailure("search_empty", goal, null);
+            observeRoute(route);
             path.clear(); path.addAll(route.points()); if (!path.isEmpty()) path.remove();
             pathGoal = goal; pathRadius = distance; next = path.peek();
             if (next == null && feet().equals(goal)) next = goal;
@@ -576,7 +591,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         }
         // Terrain changes between search and action are checked before each bounded input write.
         if (!(waterRoute ? (stand(next) || waterCell(next)) && waterEdge(feet(),next)
-                : stand(next) && walkEdge(feet(),next,false))) {
+                : stand(next) && walkStep(feet(),next,false))) {
             if (!swimming && !client.player.onGround() && awaitLanding("changed_next_step",goal,next)) return false;
             if (!waterRoute && clearRouteLeaves(next)) return false;
             Point rejected=next;
@@ -596,6 +611,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         boolean sprint = NativeEscapeMotion.sprint(threatened, client.player.onGround(), swimming, client.player.isInLava(),
                 client.player.isUsingItem(), client.player.horizontalCollision, client.player.getFoodData().getFoodLevel(),
                 forward, error, footY(next) - client.player.getY());
+        if(client.player.isSprinting())sprintObservedTicks++;
         scope.move(forward, swimming || footY(next) > client.player.getY() + .35 && client.player.onGround(),
                 sprint, control, permit);
         if (sprint) escapeSprintTicks++;
@@ -974,6 +990,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         return obj("task_id", task == null ? null : task.get("task_id"), "active", !closed, "gather", gather,
                 "ticks", ticks, "arrival_ticks", arrivalTicks, "path_searches", searches, "walked_waypoints", walked, "block_attempts", attemptedBlocks,
                 "escape_sprint_input_ticks", escapeSprintTicks, "ordinary_sprint_key", true,
+                "sprint_observed_ticks",sprintObservedTicks,"diagonal_route_edges",diagonalRouteEdges,
                 "route_recoveries",routeRecovery.attempts(),"route_recovery_limit",NativeRouteRecovery.MAX_ATTEMPTS,
                 "route_recovery_scope","original_task_and_native_context",
                 "last_route_recovery",lastRouteRecovery,
