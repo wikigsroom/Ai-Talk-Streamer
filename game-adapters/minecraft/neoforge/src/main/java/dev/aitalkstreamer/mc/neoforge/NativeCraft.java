@@ -22,7 +22,8 @@ import static dev.aitalkstreamer.mc.core.Json.*;
 
 /** This player's vanilla crafting menus, one leased click and authoritative full-state reply at a time. */
 final class NativeCraft implements ExecutorTaskSession.Runtime {
-    private record Spec(RecipeHolder<CraftingRecipe> entry, NativeCraftPlan.Plan plan, List<ItemStack> stock, BlockHitResult table) { }
+    private record Spec(RecipeHolder<CraftingRecipe> entry, NativeCraftPlan.Plan plan, List<ItemStack> stock, BlockHitResult table,
+                        int alternatives) { }
     private final Minecraft client;
     private final NativeInputOwner inputs;
     private final Supplier<JsonObject> observation;
@@ -100,10 +101,10 @@ final class NativeCraft implements ExecutorTaskSession.Runtime {
             var allocated=NativeCraftPlan.allocate(candidate,counts,item,baseline,requested);
             if(allocated!=null){candidates.add(allocated);entries.put(candidate.id(),entry);}
         }
-        require(known>0,"GAME_CRAFT_RECIPE_UNAVAILABLE");var plan=NativeCraftPlan.unique(candidates);
+        require(known>0,"GAME_CRAFT_RECIPE_UNAVAILABLE");var plan=NativeCraftPlan.select(candidates);
         var table=plan.recipe().gridSize()==3?table():null;
         require(plan.recipe().gridSize()==2 || table!=null,"GAME_CRAFT_WORKSTATION_UNAVAILABLE");
-        return new Spec(entries.get(plan.recipe().id()),plan,stock,table);
+        return new Spec(entries.get(plan.recipe().id()),plan,stock,table,candidates.size());
     }
     JsonObject check(JsonObject goal) {
         String reason=null;try{capture(goal);}catch(Rejected denied){reason=denied.code;}
@@ -261,6 +262,7 @@ final class NativeCraft implements ExecutorTaskSession.Runtime {
     JsonObject proof() {
         if(task==null)return obj("active",false);
         var receipt=craftReceipt();return obj("active",!closed && !done,"task_id",str(task,"task_id"),"recipe_id",spec.plan.recipe().id(),
+                "craftable_recipe_count",spec.alternatives,"selection_policy","backpack_materials_surplus_recipe_id_v1",
                 "grid_size",spec.plan.recipe().gridSize(),"phase",phase,"clicks",clicks,"server_full_packets",packets,
                 "confirmed_batches",receipt.confirmedBatches(),"planned_batches",receipt.batches(),"produced",receipt.produced(),
                 "server_revision",receipt.lastServerRevision(),"clean_end",receipt.cleanEnd(),"owned_menu_current",current(),

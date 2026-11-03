@@ -83,9 +83,25 @@ public final class NativeCraftPlan {
         }
         return new Plan(recipe, target, positions, allocations);
     }
-    public static Plan unique(List<Plan> candidates) {
+    /** Choose an executable item recipe from the received catalog, independent of catalog order. */
+    public static Plan select(List<Plan> candidates) {
         require(!candidates.isEmpty(), "GAME_CRAFT_MATERIALS_MISSING");
-        require(candidates.size() == 1, "GAME_CRAFT_RECIPE_AMBIGUOUS"); return candidates.getFirst();
+        var first = candidates.getFirst().target();
+        var ids = new HashSet<String>();
+        for (var candidate : candidates) {
+            // A catalog ID must name exactly one plan. Distinct ordinary recipes
+            // for the same item are alternatives, rather than an admission error.
+            require(ids.add(candidate.recipe().id()), "GAME_CRAFT_RECIPE_AMBIGUOUS");
+            var target = candidate.target();
+            require(target.itemId().equals(first.itemId()) && target.baseline() == first.baseline()
+                    && target.requestedIncrement() == first.requestedIncrement()
+                    && target.outputPerBatch() == candidate.recipe().perBatch(), "GAME_CRAFT_ALLOCATION_INVALID");
+        }
+        return candidates.stream().min(Comparator
+                .comparingInt((Plan p) -> p.recipe().gridSize())
+                .thenComparingInt(p -> p.allocations().stream().mapToInt(Allocation::count).sum())
+                .thenComparingInt(p -> p.target().plannedIncrement() - p.target().requestedIncrement())
+                .thenComparing(p -> p.recipe().id())).orElseThrow();
     }
     public static int[] remaining(Plan plan, int[] amounts) {
         require(amounts.length == plan.allocations().size(), "GAME_CRAFT_ALLOCATION_INVALID"); int[] counts = new int[36];

@@ -31,9 +31,9 @@ class NativeCraftPlanTest {
         assertEquals(2,r.gridSize());assertEquals(List.of(0,1,2,3),allocate(r,stock(4),"minecraft:crafting_table",0,1).positions());
     }
     @Test void fiveShapelessIngredientsRequireAWorkstation() { assertEquals(3,recipe(1,Collections.nCopies(5,ingredient(0)).toArray(Ingredient[]::new)).gridSize()); }
-    @Test void ambiguousCraftableRecipesAreRejectedBeforeAnyClicks() {
+    @Test void duplicateCatalogIdsAreRejectedBeforeAnyClicks() {
         var p=allocate(recipe(1,ingredient(0)),stock(1),"minecraft:stick",0,1);
-        assertThrows(RuntimeException.class,()->unique(List.of(p,p)));assertSame(p,unique(List.of(p)));
+        assertThrows(RuntimeException.class,()->select(List.of(p,p)));assertSame(p,select(List.of(p)));
     }
     @Test void plannedAllocationsRemainImmutableAndBounded() {
         var p=allocate(recipe(1,ingredient(0)),stock(1),"minecraft:stick",0,1);
