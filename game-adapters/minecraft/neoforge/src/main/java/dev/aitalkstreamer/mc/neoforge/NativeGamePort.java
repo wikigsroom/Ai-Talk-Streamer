@@ -74,7 +74,11 @@ public final class NativeGamePort implements GamePort {
         });
     }
     private ExecutorTaskSession.Runtime craftRuntime(JsonObject goal) {
-        return craft.check(goal).get("allowed").getAsBoolean() || !cooking.hasRecipe(goal) ? craft : cooking;
+        var admission = craft.check(goal);
+        if (admission.get("allowed").getAsBoolean()) return craft;
+        String reason = str(admission, "reason");
+        if (!NativeCraftRoute.mayTryCooking(reason) || !cooking.hasRecipe(goal)) return craft;
+        return NativeCraftRoute.cooking(reason, cooking.check(goal).get("allowed").getAsBoolean()) ? cooking : craft;
     }
     private ExecutorTaskSession.Runtime gatherRuntime(JsonObject goal) {
         return !NativeHuntPlan.material(str(goal, "item_id")) || travel.check(goal, null).get("allowed").getAsBoolean()

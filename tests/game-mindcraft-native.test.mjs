@@ -835,6 +835,41 @@ test('dependency exploration preserves the observed descent first and requires i
 
 const suppliedTools=()=>['crafting_table','wooden_pickaxe','stone_pickaxe','stone_axe','furnace']
   .map(item=>({item_id:'minecraft:'+item,count:1}));
+test('held wheat reaches bread through a checked table placement and then a received meal',async()=>{
+  const stock=[...suppliedTools(),{item_id:'minecraft:wheat',count:9}],f=fixture(stock);
+  const position={...f.state.player.position,x:1};
+  f.manager.capabilities={features:{targeted_block_placement:true}};
+  f.observe({player:{...f.state.player,health:12,max_health:20,food:17},
+    details:{construction:{placement_sites:[{position}],workstations:[]}}});
+  const invoke=f.manager.tools.invoke;
+  f.manager.tools.invoke=async(name,args,...rest)=>{
+    if(name==='game_check_action' && args.goal.item_id==='minecraft:bread'
+        && !f.manager.stateView().details.construction.workstations.length){
+      f.calls.push({name,args});return {state:'succeeded',result:{allowed:false,reason:'GAME_CRAFT_WORKSTATION_UNAVAILABLE'}};
+    }
+    return invoke(name,args,...rest);
+  };
+  assert.equal(await f.planner.bootstrap({}),true);
+  assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').map(row=>row.args.goal),[
+    {skill:'use_item',item_id:'minecraft:crafting_table',purpose:'activate',target:position}]);
+  assert.equal(f.planner.lastPlan.for_item,'minecraft:bread');
+  assert.deepEqual(f.manager.stateView().inventory,stock,'placement admission cannot consume stock');
+  Object.assign(f.tasks.get('task-0'),{state:'succeeded',effect_status:'verified'});
+  f.observe({inventory:stock.filter(row=>row.item_id!=='minecraft:crafting_table'),
+    details:{construction:{placement_sites:[],workstations:[{block_id:'minecraft:crafting_table',position}]}}});
+  await f.planner.bootstrap({});f.observe({});await f.planner.bootstrap({});
+  assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,
+    {skill:'craft',item_id:'minecraft:bread',count:3});
+  Object.assign(f.tasks.get('task-1'),{state:'succeeded',effect_status:'verified'});
+  f.observe({inventory:[...suppliedTools().filter(row=>row.item_id!=='minecraft:crafting_table'),
+    {item_id:'minecraft:bread',count:3}]});
+  await f.planner.bootstrap({});f.observe({});await f.planner.bootstrap({});
+  assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,
+    {skill:'use_item',item_id:'minecraft:bread',purpose:'eat'});
+  assert.equal(f.planner.lastPlan.health_recovery_verified,false);
+  assert.equal(f.manager.stateView().player.health,12,'only the actual game can confirm healing');
+});
+
 test('a wounded player at seventeen food admits one held meal before more exploration',async()=>{
   const f=fixture([...suppliedTools(),{item_id:'minecraft:bread',count:4}]);
   f.observe({player:{...f.state.player,health:12.033335,max_health:20,food:17}});
