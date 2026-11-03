@@ -307,6 +307,7 @@ test('a second renderer cannot replace an unexpired playback owner in player sta
     const owner={renderer:'livehime',consumer_id:'obs-test',frames:100,width:720,height:1280,audio_state:'running'};
     const accepted=f.manager.outputPlayer(owner);
     assert.equal(accepted.accepted,true);assert.equal(accepted.consumer_id,'obs-test');assert.equal(accepted.playback_authority,true);
+    f.manager.wantOutputAuthority=true;
     const last=f.manager.player;
     const ignored=f.manager.outputPlayer({...owner,consumer_id:'standby-renderer',frames:0});
     assert.equal(ignored.ignored,true);assert.equal(ignored.playback_owner_required,true);

@@ -156,7 +156,7 @@ export class PlatformManager {
     const broadcast = this.bridge.state.current();
     const lease = broadcast && this.bridge.db.get('SELECT * FROM playback_leases WHERE broadcast_id=?', broadcast.broadcast_id);
     const held = !!broadcast && this.bridge.state.authorityHeld(broadcast.broadcast_id);
-    if (held && lease.consumer_id !== body.consumer_id) return { claim: false, ignored: true, playback_owner_required: true };
+    if (held && lease.consumer_id !== body.consumer_id && !this.outputClaimPending) return { claim: false, ignored: true, playback_owner_required: true };
     this.player = { consumer_id: body.consumer_id, at: this.now(), renderer: body.renderer || 'obs', frames: Number(body.frames) || 0, width: Number(body.width) || 0, height: Number(body.height) || 0, audio_state: String(body.audio_state || '').slice(0, 30) };
     this.player.programme = mc ? 'mc' : 'avatar'; this.player.layout_id = mc ? body.layout_id : null;
     if (body.receiver_id !== undefined) {
@@ -173,7 +173,10 @@ export class PlatformManager {
     const saved=this.store.get('SELECT * FROM outputs WHERE platform=?',platform);
     this.store.setOutput(platform, { state: 'STARTING', broadcast_id: broadcast.broadcast_id, owned_broadcast: saved?.broadcast_id===broadcast.broadcast_id?saved.owned_broadcast:!old, error: null });
     this.wantOutputAuthority = true;
-    for (let i = 0; i < 50; i++) {
+    // Only an explicit output start/resume may prepare a replacement. Standby
+    // heartbeats during ordinary playback cannot replace its status/metrics.
+    this.outputClaimPending = true;
+    try { for (let i = 0; i < 50; i++) {
       const current = this.bridge.state.current(); check(current?.broadcast_id === broadcast.broadcast_id, 'BROADCAST_CHANGED');
       const lease = this.bridge.db.get('SELECT * FROM playback_leases WHERE broadcast_id=?', broadcast.broadcast_id);
       const expected = programmePresentation(this.mcEnabled());
@@ -185,6 +188,7 @@ export class PlatformManager {
       await wait(500);
     }
     throw new PlatformError(this.config.value.platforms[platform].output_mode === 'livehime' ? 'LIVEHIME_PLAYER_NOT_READY' : 'OBS_PLAYER_NOT_READY', 503);
+    } finally { this.outputClaimPending = false; }
   }
   async prepareOutput(platform) {
     check(PLATFORM_IDS.includes(platform), 'PLATFORM_INVALID');

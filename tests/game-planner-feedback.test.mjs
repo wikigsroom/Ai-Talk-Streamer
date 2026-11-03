@@ -42,6 +42,8 @@ async function setup(t) {
     await game.next('task_start', message => message.payload.task_id === task.task_id);
     game.send('task_update', { delivery_seq: delivery, transition_seq: 2, task: { ...task, version: 2, state,
       effect_status: effect, reason: state === 'failed' ? 'GAME_NAVIGATION_NO_ROUTE' : null,
+      evidence: effect === 'verified' ? [{world_session_id:task.world_session_id,seq:game.observation.seq,
+        kind:nextGoal.skill==='navigate'?'position':'inventory',summary:'Protocol fixture only: confirmed native effect'}] : [],
       updated_at: new Date(f.manager.wall()).toISOString() } });
     await until(() => f.manager.tasks.get(task.task_id).state === state);
     await observe(); return task.task_id;
