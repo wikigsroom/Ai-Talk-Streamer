@@ -66,7 +66,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
     private int confirmedInventory;
     private int arrivalTicks;
     private long progressAt, miningAt, pickupUntil;
-    private Vec3 lastProgress;
+    private final NativeTravelProgress motionProgress = new NativeTravelProgress();
     private int lastInventory;
     private NativeStepPlan.Step stair;
     private NativeStepReceipt stairReceipt;
@@ -175,7 +175,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         lastRouteRecovery=null;lastLandingRecovery=null;
         stair=null;stairReceipt=null;stairCut=null;stairSteps=stairCuts=stairPackets=0;stairStarted=0;stairCleared.clear();stairEvidence.clear();
         inventoryTarget = target; gather = skill.equals("gather");
-        progressAt = now(); lastProgress = client.player.position(); miningAt = pickupUntil = 0;
+        progressAt = now(); motionProgress.reset(); miningAt = pickupUntil = 0;
         if (gather) {
             wanted = item(goal); require(resourceSupported(wanted) && target != null, "GAME_GATHER_UNSUPPORTED");
             lastInventory = inventoryCount(wanted);
@@ -216,11 +216,12 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         else if (walk(destination, radius)) { stop(); finished.run(); return; }
         if (closed) return;
         int count = gather ? inventoryCount(wanted) : 0;
-        if (client.player.position().distanceToSqr(lastProgress) > .16 || count != lastInventory) {
-            progressAt = now(); lastProgress = client.player.position(); lastInventory = count;
+        if (gather && inventoryPackets > 0 && confirmedInventory > lastInventory && count >= confirmedInventory) {
+            progressAt = now(); lastInventory = confirmedInventory;
         }
         if (now() - progressAt > (gather || stair != null ? 18000 : 8000))
-            // Lack of movement/inventory progress is not a missing server acknowledgement.
+            // Jumping, wandering or merely changing the route cannot renew this clock.
+            // Lack of route/inventory progress is not a missing server acknowledgement.
             // The separate per-block acknowledgement deadline below remains fatal.
             throw new LocalTaskFailure(gather ? GATHER_NO_PROGRESS : NAVIGATION_NO_PROGRESS);
     }
@@ -579,7 +580,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
                     if(!client.player.onGround() || Math.abs(next.y()-client.player.getY())>.15) return false;
                     stairSteps++;stair=null;stairCleared.clear();progressAt=now();
                 }
-                path.remove(); next = path.peek(); walked++;
+                path.remove(); next = path.peek(); walked++; progressAt=now();
             }
         }
         if (!goal.equals(pathGoal) || pathRadius != distance || next == null
@@ -605,6 +606,8 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
             if (next==null) throw routeFailure("next_step_changed",goal,rejected);
         }
         scope.stopMining(control, permit);
+        if (motionProgress.observe(next, footY(next), client.player.getX(), client.player.getY(), client.player.getZ()))
+            progressAt=now();
         double dx = next.x() + .5 - client.player.getX(), dz = next.z() + .5 - client.player.getZ();
         float wantedYaw = (float) (Math.toDegrees(Math.atan2(-dx, dz)));
         float error = net.minecraft.util.Mth.wrapDegrees(wantedYaw - client.player.getYRot());
@@ -1046,6 +1049,11 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
     JsonObject proof() {
         return obj("task_id", task == null ? null : task.get("task_id"), "active", !closed, "gather", gather,
                 "ticks", ticks, "arrival_ticks", arrivalTicks, "path_searches", searches, "walked_waypoints", walked, "block_attempts", attemptedBlocks,
+                "waypoint_progress",obj("source","admitted_waypoint_distance_and_confirmed_milestones",
+                        "target",motionProgress.target()==null?null:obj("x",motionProgress.target().x(),"y",motionProgress.target().y(),"z",motionProgress.target().z()),
+                        "best_remaining_distance",Double.isFinite(motionProgress.bestDistance())?motionProgress.bestDistance():null,
+                        "meaningful_advances",motionProgress.advances(),"minimum_advance",NativeTravelProgress.MIN_ADVANCE,
+                        "no_progress_elapsed_ms",closed?null:Math.max(0,now()-progressAt),"jumping_alone_renews_clock",false),
                 "escape_sprint_input_ticks", escapeSprintTicks, "ordinary_sprint_key", true,
                 "sprint_observed_ticks",sprintObservedTicks,"diagonal_route_edges",diagonalRouteEdges,
                 "route_recoveries",routeRecovery.attempts(),"route_recovery_limit",NativeRouteRecovery.MAX_ATTEMPTS,

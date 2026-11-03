@@ -5,7 +5,12 @@ import { ensure } from '../errors.mjs';
 const LEAVES = new Set(['oak_log','spruce_log','birch_log','jungle_log','acacia_log','dark_oak_log','mangrove_log','cherry_log',
   'dirt','cobblestone','coal','wheat','carrot','potato','beetroot','apple','sweet_berries']);
 const STARTER = [['crafting_table',1],['wooden_pickaxe',1],['stone_pickaxe',1],['stone_axe',1],['furnace',1],['bread',3]];
+// Match the native food whitelist. Nutrition describes held stock, not future drops.
+const FOOD = new Map([['cooked_beef',8],['cooked_porkchop',8],['cooked_mutton',6],['cooked_chicken',6],
+  ['bread',5],['baked_potato',5],['cooked_rabbit',5],['cooked_salmon',6],['cooked_cod',5],['carrot',3],
+  ['apple',4],['potato',1],['beetroot',1],['melon_slice',2],['sweet_berries',2],['glow_berries',2]]);
 const count = (state, item) => state.inventory?.find(row => row.item_id === 'minecraft:' + item)?.count || 0;
+const foodReserve = state => [...FOOD].reduce((total,[item,nutrition])=>total+count(state,item)*nutrition,0);
 const short = id => id?.startsWith('minecraft:') ? id.slice(10) : null;
 const station = (state, item) => state.details?.construction?.workstations?.some(row => row.block_id === 'minecraft:' + item) === true;
 const unsupported = () => { throw new Error('GAME_MINDCRAFT_DIRECT_EXECUTION_DISABLED'); };
@@ -38,6 +43,11 @@ export class MindcraftNativePlanner {
   current(state) {
     const scope = canonical([state.bridge_boot_id, state.world_session_id, state.connection_generation, state.control_epoch]);
     if (scope !== this.scope) this.reset(scope);
+  }
+  constructionFresh(state) {
+    const value=state.details?.construction,age=(this.manager.wall?.() ?? Date.now())-Date.parse(value?.sampled_at);
+    return value?.source==='runtime_client' && Array.isArray(value.workstations)
+      && Number.isFinite(age) && age>=-1000 && age<=4000;
   }
   signature(state, goal) { const p=state.player?.position;
     // A few metres of unsuccessful walking must not erase the same failure.
@@ -186,7 +196,10 @@ export class MindcraftNativePlanner {
     }
     else if(this.pending.goal.skill==='use_item' && this.pending.goal.item_id==='minecraft:dirt' && this.pending.goal.target)
       this.exitStance={...this.pending.goal.target,y:this.pending.goal.target.y+1};
-    if(this.pending.returningTable && !station(state,'crafting_table')) {
+    const target=this.pending.goal.target,p=state.player?.position;
+    if(this.pending.returningTable && task.state==='succeeded' && task.effect_status==='verified'
+        && p?.dimension===target?.dimension && Math.hypot(p.x-target.x,p.y-target.y,p.z-target.z)<=this.pending.goal.radius
+        && this.constructionFresh(state) && !station(state,'crafting_table')) {
       // Reaching a historical coordinate is not finding a usable workstation.
       // One completed attempt without a received table must not pull every
       // later resource/craft step back to the same unconfirmed location.
@@ -203,14 +216,14 @@ export class MindcraftNativePlanner {
     if (!this.settle(state)) return true;
     if (mindcraftThreatened(state)) return this.retreat(context,state);
     const table=state.details?.construction?.workstations?.find(row => row.block_id==='minecraft:crafting_table');
-    const construction=state.details?.construction,age=(m.wall?.() ?? Date.now())-Date.parse(construction?.sampled_at);
-    if(table?.position && construction.source==='runtime_client' && Number.isFinite(age) && age>=-1000 && age<=4000)
-      this.rememberTable(state,table.position,construction.sampled_at,{kind:'native_observation',seq:state.seq});
+    if(table?.position && this.constructionFresh(state))
+      this.rememberTable(state,table.position,state.details.construction.sampled_at,{kind:'native_observation',seq:state.seq});
     this.restoreTable(state);
-    if (state.player?.food<=16) for (const item of ['bread','cooked_beef','cooked_porkchop','cooked_chicken','baked_potato','carrot','apple']) {
+    if (state.player?.food<=16) for (const item of FOOD.keys()) {
       if (count(state,item)>0 && await this.submit({skill:'use_item',item_id:'minecraft:'+item,purpose:'eat'},context,
         {engine:'mindcraft_item_goal_native',stage:'restore_food'})) return true;
     }
+    if(state.player?.food<=12 && await this.gatherObservedFood(context,state))return true;
     if(this.exitStance) {
       const target=this.exitStance;this.exitStance=null;
       if(canonical(target)!==canonical(state.player.position) && await this.submit({skill:'navigate',target,radius:0},context,
@@ -235,14 +248,21 @@ export class MindcraftNativePlanner {
         if(await this.submit({skill:'navigate',target,radius:2},context,
           {engine:'mindcraft_item_goal_native',stage:'return_to_known_workstation',historical_candidate:true}))return true;
         if(this.lastPlan?.reason==='GAME_NAVIGATION_NO_ROUTE' && await this.buildExitStep(context,state,target))return true;
-      } else {
+      } else if(this.constructionFresh(state)) {
         this.unconfirmedTables.add(canonical(this.lastTable));this.lastTable=null;
       }
     }
     for (const [item,total] of STARTER) {
-      if (count(state,item) >= total) this.completed.add(item);
-      if (this.completed.has(item)) continue;
-      const plan = await this.plan('minecraft:' + item,total,context), goal = plan.next_goal;
+      const reserve=item==='bread'?foodReserve(state):null;
+      if(item==='bread') {
+        if(reserve>=15)continue;
+        if(await this.gatherObservedFood(context,state))return true;
+      } else {
+        if (count(state,item) >= total) this.completed.add(item);
+        if (this.completed.has(item)) continue;
+      }
+      const targetTotal=item==='bread'?count(state,'bread')+Math.ceil((15-reserve)/5):total;
+      const plan = await this.plan('minecraft:' + item,targetTotal,context), goal = plan.next_goal;
       if (!goal) return false;
       // Without a received nearby table, prepare a real portable workstation.
       // An observed usable table already satisfies this dependency; forcing a
@@ -267,7 +287,29 @@ export class MindcraftNativePlanner {
         if (await this.submit({skill:'navigate',target,radius:2},context,
           {engine:'mindcraft_item_goal_native',stage:'return_to_observed_workstation'})) return true;
       }
-      return this.explore(context,this.lastPlan?.reason || 'resource_or_route_unavailable');
+      return this.explore(context,this.lastPlan?.reason || 'resource_or_route_unavailable',{preferSurface:item==='bread'});
+    }
+    return false;
+  }
+  async gatherObservedFood(context,state) {
+    const sample=state.details?.nearby_food,p=state.player?.position;
+    const age=(this.manager.wall?.() ?? Date.now())-Date.parse(sample?.sampled_at);
+    const deficit=15-foodReserve(state);
+    if(!p || deficit<=0 || sample?.source!=='runtime_client' || !Number.isFinite(age) || age< -1000 || age>4000)return false;
+    const seen=new Set();let attempted=0;
+    for(const source of (sample.items || []).slice(0,8).sort((a,b)=>a.distance-b.distance)) {
+      const item=short(source.item_id),at=source.position;
+      if(!FOOD.has(item) || seen.has(item) || source.line_of_sight!==true
+          || !['mature_crop','loose_item'].includes(source.kind) || at?.dimension!==p.dimension
+          || !['x','y','z'].every(axis=>Number.isInteger(at[axis])) || Math.abs(at.y-p.y)>3
+          || Math.hypot(at.x-p.x,at.y-p.y,at.z-p.z)>6
+          || !Number.isFinite(source.distance) || source.distance<0 || source.distance>6)continue;
+      seen.add(item);if(attempted++>=4)break;
+      const goal={skill:'gather',item_id:source.item_id,count:Math.min(4,Math.ceil(deficit/FOOD.get(item)))};
+      if(await this.submit(goal,context,{engine:'mindcraft_item_goal_native',stage:'gather_observed_food',
+          food_reserve_nutrition:15-deficit,reserve_target_nutrition:15,
+          observed_source:{kind:source.kind,position:at,sampled_at:sample.sampled_at},
+          reachability_and_inventory_verified:false}))return true;
     }
     return false;
   }
@@ -328,7 +370,7 @@ export class MindcraftNativePlanner {
         && this.lastTable ? structuredClone(this.lastTable) : null};
     this.lastPlan={...plan,state:'task_submitted',task_id:task.task_id,next_goal:goal};this.report(this.lastPlan);return true;
   }
-  async explore(context,reason) {
+  async explore(context,reason,{preferSurface=false}={}) {
     const state=this.manager.state.requireFresh(),p=state.player?.position,h=state.details?.hazards;
     // Coordinates below are candidate route queries, never observed safe cells.
     // Only the real native route check can admit a move. Stop bounded exploration
@@ -337,7 +379,9 @@ export class MindcraftNativePlanner {
       mindcraftThreats(state).some(row => row.visible!==false && row.distance<=6) || this.explored.size>=16) return false;
     this.exploreOrigin ||= p;
     let attempted=0;
-    for(const target of this.frontiers(state)) {
+    const frontiers=this.frontiers(state);
+    if(preferSurface)frontiers.sort((a,b)=>b.y-a.y);
+    for(const target of frontiers) {
       const key=canonical(target);
       if(this.explored.has(key) || Math.hypot(target.x-this.exploreOrigin.x,target.z-this.exploreOrigin.z)>24)continue;
       if(attempted++>=4)break;
@@ -346,14 +390,18 @@ export class MindcraftNativePlanner {
         this.explored.add(key);return true;
       }
     }
-    const offsets=[[4,0,0],[0,0,4],[-4,0,0],[0,0,-4],[4,-2,0],[0,-2,4],[-4,-2,0],[0,-2,-4],
-      [4,-4,0],[0,-4,4],[-4,-4,0],[0,-4,-4]];
+    const offsets=preferSurface
+      ? [[4,2,0],[0,2,4],[-4,2,0],[0,2,-4],[4,4,0],[0,4,4],[-4,4,0],[0,4,-4],
+        [4,0,0],[0,0,4],[-4,0,0],[0,0,-4],[4,-2,0],[0,-2,4],[-4,-2,0],[0,-2,-4]]
+      : [[4,0,0],[0,0,4],[-4,0,0],[0,0,-4],[4,-2,0],[0,-2,4],[-4,-2,0],[0,-2,-4],
+        [4,-4,0],[0,-4,4],[-4,-4,0],[0,-4,-4]];
     for (let trial=attempted;trial<4;trial++) {
       const [dx,dy,dz]=offsets[this.exploreIndex++ % offsets.length];
       const target={dimension:p.dimension,x:p.x+dx,y:p.y+dy,z:p.z+dz},key=canonical(target);
       if (this.explored.has(key) || Math.hypot(target.x-this.exploreOrigin.x,target.z-this.exploreOrigin.z)>24) continue;
       const goal={skill:'navigate',target,radius:1};
-      if (await this.submit(goal,context,{engine:'mindcraft_item_goal_native',stage:'explore_for_dependency',reason})) {
+      if (await this.submit(goal,context,{engine:'mindcraft_item_goal_native',stage:'explore_for_dependency',reason,
+        exploration_preference:preferSurface?'higher_ground_for_food':'resource_dependency',candidate_only:true})) {
         this.explored.add(key);return true;
       }
     }

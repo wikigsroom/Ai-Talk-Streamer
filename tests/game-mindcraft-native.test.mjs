@@ -66,22 +66,37 @@ function pitFixture() {
   return {...f,target};
 }
 
-test('a completed return without an observed table cannot pull the next craft back to history',async()=>{
-  for(const outcome of [{state:'succeeded',effect_status:'verified'},{state:'failed',effect_status:'unknown'}]) {
+test('a verified arrival with fresh absence cannot pull the next craft back to history',async()=>{
+  {
     const f=fixture([{item_id:'minecraft:oak_planks',count:5},{item_id:'minecraft:stone_pickaxe',count:1},
       {item_id:'minecraft:stone_axe',count:1}]);
     f.planner.current(f.manager.stateView());const table={...f.state.player.position,x:6};
     f.planner.lastTable=table;
     await f.planner.submit({skill:'navigate',target:{...table,y:table.y+1},radius:2},{},{stage:'return_to_known_workstation'});
-    Object.assign(f.tasks.get('task-0'),outcome);
+    Object.assign(f.tasks.get('task-0'),{state:'succeeded',effect_status:'verified'});
     assert.equal(f.planner.settle(f.manager.stateView()),false,'wait for later native facts');
     assert.deepEqual(f.planner.lastTable,table);
-    f.observe({details:{construction:{workstations:[]}}});
+    f.observe({player:{position:{...table,y:table.y+1}},
+      details:{construction:{source:'runtime_client',sampled_at:new Date().toISOString(),workstations:[]}}});
     assert.equal(f.planner.settle(f.manager.stateView()),true);
     assert.equal(f.planner.lastTable,null);assert.equal(f.planner.tableCandidate(f.manager.stateView(),table),false);
     assert.equal(await f.planner.bootstrap({}),true);
     assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,
       {skill:'craft',item_id:'minecraft:crafting_table',count:1});
+  }
+});
+
+test('a failed route, stale scan or arrival outside its region cannot erase a historical workstation',async()=>{
+  for(const scenario of ['failed','unknown','stale','far']) {
+    const f=fixture();f.planner.current(f.manager.stateView());const table={...f.state.player.position,x:6};
+    f.planner.lastTable=table;
+    await f.planner.submit({skill:'navigate',target:{...table,y:table.y+1},radius:2},{},{stage:'return_to_known_workstation'});
+    Object.assign(f.tasks.get('task-0'),{state:scenario==='failed'?'failed':'succeeded',effect_status:scenario==='unknown'?'unknown':'verified'});
+    f.planner.settle(f.manager.stateView());
+    f.observe({player:{position:['failed','far'].includes(scenario)?f.state.player.position:{...table,y:table.y+1}},
+      details:{construction:{source:'runtime_client',sampled_at:new Date(Date.now()-(scenario==='stale'?10000:0)).toISOString(),workstations:[]}}});
+    assert.equal(f.planner.settle(f.manager.stateView()),true);assert.deepEqual(f.planner.lastTable,table);
+    assert.equal(f.planner.unconfirmedTables.size,0);
   }
 });
 
@@ -734,6 +749,82 @@ test('dependency exploration preserves the observed descent first and requires i
   assert.equal(await f.planner.explore({},'GAME_NAVIGATION_NO_ROUTE'),true);
   assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,
     {skill:'navigate',target:ground,radius:0});
+});
+
+const suppliedTools=()=>['crafting_table','wooden_pickaxe','stone_pickaxe','stone_axe','furnace']
+  .map(item=>({item_id:'minecraft:'+item,count:1}));
+const foodSample=(position,item='carrot')=>({source:'runtime_client',sampled_at:new Date().toISOString(),radius:6,vertical_radius:3,
+  items:[{kind:'mature_crop',item_id:'minecraft:'+item,block_id:'minecraft:carrots',distance:2,line_of_sight:true,
+    position:{...position,x:position.x+2}}],truncated:false,action_precondition_required:true,unknown_fields:[]});
+
+test('sufficient varied held food satisfies the reserve without forcing a wheat-only milestone',async()=>{
+  const f=fixture([...suppliedTools(),{item_id:'minecraft:carrot',count:5}]);
+  assert.equal(await f.planner.bootstrap({}),false);
+  assert.equal(f.calls.length,0);
+  f.observe({inventory:suppliedTools(),details:{nearby_food:foodSample(f.state.player.position)}});
+  assert.equal(await f.planner.bootstrap({}),true,'consumed reserves are replenished rather than permanently completed');
+  assert.deepEqual(f.calls.find(row=>row.name==='game_start_task').args.goal,{skill:'gather',item_id:'minecraft:carrot',count:4});
+});
+
+test('fresh observed food is gathered through a native admission before asking for bread dependencies',async()=>{
+  const f=fixture([...suppliedTools(),{item_id:'minecraft:apple',count:3}]);
+  const sample=foodSample(f.state.player.position,'bread');sample.items[0].kind='loose_item';sample.items[0].block_id=null;
+  f.observe({details:{nearby_food:sample}});
+  assert.equal(await f.planner.bootstrap({}),true);
+  const goal={skill:'gather',item_id:'minecraft:bread',count:1};
+  assert.deepEqual(f.calls.map(row=>[row.name,row.args.goal]),[['game_check_action',goal],['game_start_task',goal]]);
+  assert.equal(f.planner.lastPlan.stage,'gather_observed_food');assert.equal(f.planner.lastPlan.reachability_and_inventory_verified,false);
+});
+
+test('hungry autonomous startup seeks observed food before crafting another tool',async()=>{
+  const f=fixture(),position=f.state.player.position;
+  f.observe({player:{position,health:20,food:8},details:{nearby_food:foodSample(position)}});
+  assert.equal(await f.planner.bootstrap({}),true);
+  assert.deepEqual(f.calls.find(row=>row.name==='game_start_task').args.goal,{skill:'gather',item_id:'minecraft:carrot',count:4});
+  assert.equal(f.calls.some(row=>row.name==='game_get_recipe'),false);
+});
+
+test('stale, foreign, distant, hidden or unsupported food observations cannot authorize gathering',async()=>{
+  for(const change of ['stale','future','source','dimension','distance','moved','hidden','unsupported']) {
+    const f=fixture(suppliedTools()),sample=foodSample(f.state.player.position);
+    if(change==='stale')sample.sampled_at=new Date(Date.now()-10000).toISOString();
+    if(change==='future')sample.sampled_at=new Date(Date.now()+10000).toISOString();
+    if(change==='source')sample.source='model';
+    if(change==='dimension')sample.items[0].position.dimension='minecraft:the_nether';
+    if(change==='distance')sample.items[0].distance=7;
+    if(change==='moved')sample.items[0].position.x+=20;
+    if(change==='hidden')sample.items[0].line_of_sight=false;
+    if(change==='unsupported')sample.items[0].item_id='minecraft:poisonous_potato';
+    f.observe({details:{nearby_food:sample}});await f.planner.bootstrap({});
+    assert.equal(f.calls.some(row=>row.name==='game_start_task' && row.args.goal.item_id==='minecraft:carrot'),false,change);
+    assert.notEqual(f.planner.lastPlan.stage,'gather_observed_food',change);
+  }
+});
+
+test('rejected observed food never starts a task and missing food prefers checked upward route candidates',async()=>{
+  const f=fixture(suppliedTools()),position=f.state.player.position,invoke=f.manager.tools.invoke;
+  f.observe({player:{position,health:20,food:20},details:{nearby_food:foodSample(position)}});
+  f.manager.tools.invoke=async(name,args,...rest)=>{
+    if(name==='game_check_action' && args.goal.skill==='gather') {
+      f.calls.push({name,args});return {state:'succeeded',result:{allowed:false,reason:'GAME_GATHER_RESOURCE_UNAVAILABLE'}};
+    }
+    return invoke(name,args,...rest);
+  };
+  assert.equal(await f.planner.bootstrap({}),true);
+  const starts=f.calls.filter(row=>row.name==='game_start_task');assert.equal(starts.length,1);
+  assert.equal(starts[0].args.goal.skill,'navigate');assert.equal(starts[0].args.goal.target.y,position.y+2);
+  assert.equal(f.planner.lastPlan.exploration_preference,'higher_ground_for_food');
+  assert.equal(f.planner.lastPlan.candidate_only,true);
+  assert.ok(f.calls.some(row=>row.name==='game_check_action' && row.args.goal===starts[0].args.goal));
+});
+
+test('food exploration ranks fresh higher frontiers while resource exploration retains supplied order',async()=>{
+  for(const preferSurface of [true,false]) {
+    const f=fixture(),position=f.state.player.position,low={...position,x:4,y:position.y-2},high={...position,z:4,y:position.y+2};
+    f.observe({player:{position,health:20,food:20},details:{navigation:navigation(position,[low,high])}});
+    assert.equal(await f.planner.explore({},'missing',{preferSurface}),true);
+    assert.deepEqual(f.calls.find(row=>row.name==='game_start_task').args.goal.target,preferSurface?high:low);
+  }
 });
 
 test('an adjacent exploration frontier requires movement instead of consuming a visit at the current stance',async()=>{
