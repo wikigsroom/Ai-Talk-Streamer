@@ -67,6 +67,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
     private int arrivalTicks;
     private long progressAt, miningAt, pickupUntil;
     private final NativeTravelProgress motionProgress = new NativeTravelProgress();
+    private final NativeRouteAlignment alignment = new NativeRouteAlignment();
     private int lastInventory;
     private NativeStepPlan.Step stair;
     private NativeStepReceipt stairReceipt;
@@ -175,7 +176,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         lastRouteRecovery=null;lastLandingRecovery=null;
         stair=null;stairReceipt=null;stairCut=null;stairSteps=stairCuts=stairPackets=0;stairStarted=0;stairCleared.clear();stairEvidence.clear();
         inventoryTarget = target; gather = skill.equals("gather");
-        progressAt = now(); motionProgress.reset(); miningAt = pickupUntil = 0;
+        progressAt = now(); motionProgress.reset(); alignment.reset(); miningAt = pickupUntil = 0;
         if (gather) {
             wanted = item(goal); require(resourceSupported(wanted) && target != null, "GAME_GATHER_UNSUPPORTED");
             lastInventory = inventoryCount(wanted);
@@ -547,8 +548,38 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
             throw routeFailure("landing_recovery_"+state.name().toLowerCase(Locale.ROOT),goal,rejected);
         return state!=NativeEscapeLanding.State.READY;
     }
+    private boolean alignmentSpace() {
+        if(!client.player.onGround() || client.player.isInWater() || client.player.isInLava()
+                || !stand(feet()) || Math.abs(footY(feet())-client.player.getY())>.125)return false;
+        var body=client.player.getBoundingBox();var p=feet();
+        var target=body.move(p.x()+.5-client.player.getX(),0,p.z()+.5-client.player.getZ());
+        var sweep=body.minmax(target);
+        return client.level.noCollision(client.player,sweep) && loadedDry(sweep.move(0,-.025,0));
+    }
+    private boolean beginAlignment() {
+        if(!alignment.begin(feet(),client.player.getX(),client.player.getZ(),alignmentSpace()))return false;
+        scope.stopMining(control,permit);scope.move(0,false,control,permit);return true;
+    }
+    private boolean align(Point goal) {
+        var state=alignment.observe(feet(),client.player.getX(),client.player.getZ(),alignmentSpace());
+        scope.stopMining(control,permit);
+        if(state!=NativeRouteAlignment.State.MOVING) {
+            scope.move(0,false,control,permit);
+            if(state==NativeRouteAlignment.State.BLOCKED || state==NativeRouteAlignment.State.TIMED_OUT)
+                throw routeFailure("origin_alignment_"+state.name().toLowerCase(Locale.ROOT),goal,alignment.anchor());
+            return false;
+        }
+        var p=alignment.anchor();double dx=p.x()+.5-client.player.getX(),dz=p.z()+.5-client.player.getZ();
+        float yaw=(float)Math.toDegrees(Math.atan2(-dx,dz));
+        float error=net.minecraft.util.Mth.wrapDegrees(yaw-client.player.getYRot());
+        scope.look(client.player.getYRot()+net.minecraft.util.Mth.clamp(error,-25,25),12,control,permit);
+        scope.move(Math.abs(error)<35?.2f:0,false,control,permit);
+        // Ordinary movement only; centering never renews the original no-progress clock.
+        return true;
+    }
     private boolean walk(Point goal, double distance) {
         if(gather)gatherRouteGoal=goal;
+        if(alignment.active() && align(goal))return false;
         if (routeRecovery.waiting() && awaitLanding("observing_landing",goal,path.peek())) return false;
         boolean swimming=client.player.isInWater();
         if(swimming && !waterRoute) {
@@ -568,7 +599,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         // The admitted radius is the arrival region, including when the exact
         // target cell is occupied. Gathering still requires its precise stance.
         // Stop and observe three grounded, settled ticks before completing.
-        if (inGoal && stand(feet()) && (distance > 0 || centerX * centerX + centerZ * centerZ < .09
+        if (inGoal && stand(feet()) && (distance > 0 || centerX * centerX + centerZ * centerZ <= NativeRouteAlignment.CENTER_DISTANCE_SQUARED
                 && Math.abs(footY(goal) - client.player.getY()) < .3)) {
             scope.move(0, false, control, permit); path.clear(); pathGoal = goal; pathRadius = distance;
             Vec3 speed = client.player.getDeltaMovement();
@@ -582,7 +613,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
             // Keep the admitted landing waypoint during a jump/knockback.
             // Advancing it in midair can trigger a fresh grounded-only search
             // from an unsupported integer cell and falsely report no route.
-            if ((swimming || client.player.onGround()) && dx * dx + dz * dz < .10
+            if ((swimming || client.player.onGround()) && dx * dx + dz * dz <= NativeRouteAlignment.CENTER_DISTANCE_SQUARED
                     && Math.abs(footY(next) - client.player.getY()) < .6) {
                 if(stair!=null && next.equals(stair.to())) {
                     if(!client.player.onGround() || Math.abs(next.y()-client.player.getY())>.15) return false;
@@ -594,6 +625,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         if (!goal.equals(pathGoal) || pathRadius != distance || next == null
                 || !(waterRoute ? stand(next) || waterCell(next) : stand(next, true)) || feet().distanceSquared(next) > 12) {
             if (!swimming && !client.player.onGround() && awaitLanding("before_route_search",goal,next)) return false;
+            if(!swimming && beginAlignment())return false;
             var route = NativeWalkPlanner.find(waterRoute ? waterTerrain() : terrain(true), feet(), goal, waterRoute ? 0 : distance, waterRoute ? 256 : 1024); searches++;
             if(waterRoute && !NativeWaterRoute.admissible(feet(),goal,stand(goal),route))throw new LocalTaskFailure(NAVIGATION_NO_ROUTE);
             if (!waterRoute && !route.reachesGoal() && goal.y()>feet().y() && beginStair(goal)) return false;
@@ -608,6 +640,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         if (!(waterRoute ? (stand(next) || waterCell(next)) && waterEdge(feet(),next)
                 : stand(next) && walkStep(feet(),next,false))) {
             if (!swimming && !client.player.onGround() && awaitLanding("changed_next_step",goal,next)) return false;
+            if(!waterRoute && beginAlignment())return false;
             if (!waterRoute && clearRouteLeaves(next)) return false;
             Point rejected=next;
             next=recoverRoute(goal,distance,rejected);
@@ -623,7 +656,7 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         scope.look(client.player.getYRot() + turn, waterRoute ? -20 : 12, control, permit);
         boolean threatened = !client.level.getEntitiesOfClass(Monster.class, client.player.getBoundingBox().inflate(12),
                 enemy -> enemy.isAlive() && client.player.distanceToSqr(enemy) <= 144).isEmpty();
-        float throttle = NativeEscapeMotion.throttle(threatened, next.equals(goal), dx * dx + dz * dz);
+        float throttle = NativeEscapeMotion.throttle(threatened, next.equals(goal) || dx*dx+dz*dz<.36, dx * dx + dz * dz);
         float forward = Math.abs(error) < 55 ? throttle : 0;
         boolean sprint = NativeEscapeMotion.sprint(threatened, client.player.onGround(), swimming, client.player.isInLava(),
                 client.player.isUsingItem(), client.player.horizontalCollision, client.player.getFoodData().getFoodLevel(),
@@ -715,7 +748,11 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
         }
         if(stairCleared.size()==stair.cuts().size()) {
             scope.stopMining(control,permit);
-            if(!stand(stair.to()) || !client.level.noCollision(client.player,edge(stair.from(),stair.to())))throw new LocalTaskFailure(NAVIGATION_NO_ROUTE);
+            if(!stand(stair.to()))throw routeFailure("stair_landing_changed",pathGoal,stair.to());
+            if(!client.level.noCollision(client.player,edge(stair.from(),stair.to()))) {
+                if(beginAlignment())return false;
+                throw routeFailure("stair_swept_space_blocked",pathGoal,stair.to());
+            }
             if(path.isEmpty())path.add(stair.to());return true;
         }
         BlockHitResult hit=null;
@@ -1057,6 +1094,10 @@ final class NativeTravel implements ExecutorTaskSession.Runtime {
     JsonObject proof() {
         return obj("task_id", task == null ? null : task.get("task_id"), "active", !closed, "gather", gather,
                 "ticks", ticks, "arrival_ticks", arrivalTicks, "path_searches", searches, "walked_waypoints", walked, "block_attempts", attemptedBlocks,
+                "origin_alignment",obj("active",!closed && alignment.active(),"episodes",alignment.episodes(),
+                        "episode_ticks",alignment.episodeTicks(),"total_ticks",alignment.totalTicks(),
+                        "maximum_task_ticks",NativeRouteAlignment.MAX_TASK_TICKS,"maximum_episode_ticks",NativeRouteAlignment.MAX_EPISODE_TICKS,
+                        "ordinary_owned_input",true,"progress_clock_reset",false,"position_or_velocity_written",false),
                 "waypoint_progress",obj("source","admitted_waypoint_distance_and_confirmed_milestones",
                         "target",motionProgress.target()==null?null:obj("x",motionProgress.target().x(),"y",motionProgress.target().y(),"z",motionProgress.target().z()),
                         "best_remaining_distance",Double.isFinite(motionProgress.bestDistance())?motionProgress.bestDistance():null,

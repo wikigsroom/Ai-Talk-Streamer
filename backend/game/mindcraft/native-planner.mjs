@@ -243,7 +243,9 @@ export class MindcraftNativePlanner {
       if(await this.placeWorkstation(context,state))return true;
       return this.explore(context,'workstation_site_unavailable');
     }
-    if(!station(state,'crafting_table') && count(state,'crafting_table')<1 && this.lastTable) {
+    const needsWorkstation=STARTER.some(([item,total])=>item!=='bread'
+      && count(state,item)<total && !this.completed.has(item));
+    if(needsWorkstation && !station(state,'crafting_table') && count(state,'crafting_table')<1 && this.lastTable) {
       const target={...this.lastTable,y:this.lastTable.y+1},p=state.player.position;
       if(Math.hypot(target.x-p.x,target.y-p.y,target.z-p.z)>2) {
         if(await this.submit({skill:'navigate',target,radius:2},context,

@@ -128,6 +128,26 @@ function pitFixture() {
   return {...f,target};
 }
 
+test('a stocked starter kit searches for food without returning to a historical table',async()=>{
+  const f=fixture(['wooden_pickaxe','stone_pickaxe','stone_axe','furnace'].map(item=>({item_id:'minecraft:'+item,count:1})));
+  const p=f.state.player.position,exit={...p,x:p.x+1,y:p.y+1};
+  f.observe({player:{position:p,health:20,food:17},details:{hazards:{on_ground:true},
+    navigation:navigation(p,[exit]),construction:{source:'runtime_client',sampled_at:new Date().toISOString(),workstations:[]}}});
+  f.planner.current(f.manager.stateView());f.planner.lastTable={...p,x:p.x-6};
+  const invoke=f.manager.tools.invoke;
+  f.manager.tools.invoke=async(name,args,...rest)=>{
+    if(name==='game_check_action' && args.goal.skill==='gather'){
+      f.calls.push({name,args});return {state:'succeeded',result:{allowed:false,reason:'GAME_GATHER_RESOURCE_UNAVAILABLE'}};
+    }
+    return invoke(name,args,...rest);
+  };
+  assert.equal(await f.planner.bootstrap({}),true);
+  assert.equal(f.planner.lastPlan.stage,'explore_observed_frontier');
+  assert.deepEqual(f.calls.filter(x=>x.name==='game_start_task').at(-1).args.goal.target,exit);
+  assert.equal(f.calls.some(x=>x.name==='game_check_action' && x.args.goal.target?.x===p.x-6),false);
+  assert.deepEqual(f.planner.lastTable,{...p,x:p.x-6},'unneeded history remains available for a later actual craft');
+});
+
 test('a verified arrival with fresh absence cannot pull the next craft back to history',async()=>{
   {
     const f=fixture([{item_id:'minecraft:oak_planks',count:5},{item_id:'minecraft:stone_pickaxe',count:1},
