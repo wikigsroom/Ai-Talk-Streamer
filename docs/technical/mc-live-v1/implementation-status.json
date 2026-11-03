@@ -4,111 +4,113 @@
   "branch": "mc",
   "goal_status": "active",
   "overall_status": "in_progress_full_application_not_accepted",
-  "current_round": "097",
-  "turn_classification": "remote_native_waypoint_food_and_workstation_observed_full_acceptance_pending",
+  "current_round": "098",
+  "turn_classification": "remote_native_excavation_exploration_context_and_source_refresh_observed_full_acceptance_pending",
   "delivery_mode": "single_integrated_release",
   "user_facing_release_count": 1,
   "progress_document": "docs/technical/mc-live-v1/实现进度.md",
-  "latest_evidence": "docs/evidence/mc-runtime-round-097.json",
+  "latest_evidence": "docs/evidence/mc-runtime-round-098.json",
   "current_round_implemented_ids": [
-    "I1114",
-    "I1115",
-    "I1116",
-    "I1117",
-    "I1118",
-    "I1119",
-    "I1120"
+    "I1121",
+    "I1122",
+    "I1123",
+    "I1124",
+    "I1125",
+    "I1126",
+    "I1127",
+    "I1128",
+    "I1129"
   ],
   "required_domains": [
     {
       "id": "D01",
       "required": true,
-      "status": "round097_remote_native_observed_full_acceptance_pending",
-      "remaining": "完整安装包/许可、干净Windows重建、来源和全部副本审计、缓存与回退自动化、异常启动回收；097已完成本安装受管准备及服务启动，完整application_ready仍false，不能代替清洁安装交付。"
+      "status": "round098_remote_native_observed_full_acceptance_pending",
+      "remaining": "完整安装包及许可、干净Windows重建、来源与全部副本审计、缓存/回退、异常启动回收；当前安装受管准备及启动已过，完整application_ready仍false。"
     },
     {
       "id": "D02",
       "required": true,
-      "status": "round097_remote_native_observed_full_acceptance_pending",
-      "remaining": "模组实体与容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物及后续联机差异；097原世界与控制会话观察不覆盖全部协议和模组场景。"
+      "status": "round098_remote_native_observed_full_acceptance_pending",
+      "remaining": "模组实体/容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物和联机差异；本场原世界观察不覆盖全部模组及协议场景。"
     },
     {
       "id": "D03",
       "required": true,
-      "status": "round097_remote_native_observed_full_acceptance_pending",
-      "remaining": "地下脱困、日/夜多敌持续撤离、动态地形/落地恢复、普通PvE、饥饿和重生补给、GUI/水/岩浆/窒息、租约及长期停止；097修复跳跃续期并实机观察，仍未通过持续生存。"
+      "status": "round098_remote_native_observed_full_acceptance_pending",
+      "remaining": "完整地下脱困、昼夜多敌撤离、动态地形/落地恢复、普通PvE、饥饿及重生补给、GUI/水/岩浆/窒息和长期停止；098有限挖阶不等同持续生存验收。"
     },
     {
       "id": "D04",
       "required": true,
-      "status": "round097_remote_native_observed_full_acceptance_pending",
-      "remaining": "持续资源→工具→食物、熔炼、种收吃、容器往返、耐久更换、模组资源及探索建造；097多食物储备和来源检查已实现，真实完整食物链仍待通过，零碎采集/放置不等同生产链完成。"
+      "status": "round098_remote_native_observed_full_acceptance_pending",
+      "remaining": "持续资源→工具→食物、熔炼、种收吃、容器往返、耐久更换、模组资源及探索建造；必须取得真实完整生产链回执，零碎动作不等同完成。"
     },
     {
       "id": "D05",
       "required": true,
-      "status": "round097_remote_native_observed_full_acceptance_pending",
-      "remaining": "地下脱困、可达食物选择、失败后有效改策、跨场目标/工作台补给、Mindcraft依赖覆盖、真实互动并发和模型预算/取消/事实核验；097新增路线和工作台判定已实测，完整自主内容仍未达标。"
+      "status": "round098_remote_native_observed_full_acceptance_pending",
+      "remaining": "有效内容目标、可达食物选择、失败后改策、跨场工作台/补给、Mindcraft依赖覆盖、真实互动并发和模型预算/取消/事实核验；持续探索及事件投影已实现，完整自主内容仍待验。"
     },
     {
       "id": "D06",
       "required": true,
-      "status": "round097_remote_native_observed_full_acceptance_pending",
-      "remaining": "595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连与节目展示；097公开采集连通观察624.1秒，现场新事件0条；不伪造样本，不重复要求用户发送。"
+      "status": "round098_remote_native_observed_full_acceptance_pending",
+      "remaining": "595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连和节目展示；第一场公开采集629.4秒，新事件0条。不伪造或代发观众事件。"
     },
     {
       "id": "D07",
       "required": true,
-      "status": "community_recall_mood_soul_adapted_full_memory_lifecycle_pending",
-      "remaining": "真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复及唯一写者隔离。"
+      "status": "round098_remote_native_observed_full_acceptance_pending",
+      "remaining": "真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复和唯一写者隔离。"
     },
     {
       "id": "D08",
       "required": true,
-      "status": "round090_actual_chat_side_and_six_mobile_pages_passed_full_operator_acceptance_pending",
-      "remaining": "完整原生状态/启停/任务/资源/音量/诊断/恢复与两方案切换；090左右换边及6个手机页面记录保留，仍需有真实消息时队列保留、并发和完整操作流程验收。"
+      "status": "round098_remote_native_observed_full_acceptance_pending",
+      "remaining": "完整启停/任务/资源/音量/诊断/恢复与两方案切换；真实消息左右换边的队列保留、并发、手机及完整操作验收。"
     },
     {
       "id": "D09",
       "required": true,
-      "status": "round097_remote_native_observed_full_acceptance_pending",
-      "remaining": "持续有效内容和及时自然解说、人物供帧/4秒重缓冲、真实弹幕合成与手机观看；097后台已接受正式播放源，但旧直播姬页面缺少transport/media身份，完整绑定样本不足，不发布混合FPS/欠载均值。需受控刷新实际官方源后重测。"
+      "status": "round098_remote_native_observed_full_acceptance_pending",
+      "remaining": "持续有效节目内容、及时自然解说、人物供帧/重缓冲、真实弹幕合成和手机观看；取得1个来源完整绑定的浏览器呈现诊断段，按各段分别报告，不代替官方采集或观众CDN验收。"
     },
     {
       "id": "D10",
       "required": true,
-      "status": "not_generated",
-      "remaining": "两套各2闲置+48动作共100段新素材、索引、口型、圆形遮罩与接缝；仍0/100，原female-A历史素材保留。"
+      "status": "round098_remote_native_observed_full_acceptance_pending",
+      "remaining": "两套各2闲置+48动作共100段新素材、索引、口型、圆形遮罩与接缝；仍0/100，原female-A素材保留。"
     },
     {
       "id": "D11",
       "required": true,
-      "status": "approved_voice_pair_integrated_audio_acceptance_pending",
+      "status": "round098_remote_native_observed_full_acceptance_pending",
       "remaining": "原生游戏声/人声/BGM压低恢复、O07/F07故障切换、唯一音源与完整实录验收。"
     },
     {
       "id": "D12",
       "required": true,
-      "status": "round097_remote_native_observed_full_acceptance_pending",
-      "remaining": "真实JPEG→Luna模组物品/危险准确率、OCR/复杂状态条、装备误识别、帧/世界绑定、超时取消、公平性与联合负载；097视觉终态{\"succeeded\": 26, \"failed\": 4}，调用成功不代替准确率/控制效果验收。"
+      "status": "round098_remote_native_observed_full_acceptance_pending",
+      "remaining": "原生JPEG→Luna的模组物品/危险准确率、OCR/复杂状态条、装备误识别、帧/世界绑定、超时取消、公平性与联合负载；本场调用终态{\"succeeded\": 25, \"failed\": 5}不能代替准确率和控制效果验收。"
     },
     {
       "id": "D13",
       "required": true,
-      "status": "official_local_output_verified_public_audience_pending",
-      "remaining": "公开状态核对、独立观众CDN音画和端到端时延；本轮内部验证未公开开播。"
+      "status": "round098_remote_native_observed_full_acceptance_pending",
+      "remaining": "公开状态核对、独立观众CDN音画及端到端时延；本轮没有公开开播。"
     },
     {
       "id": "D14",
       "required": true,
-      "status": "round097_remote_native_observed_full_acceptance_pending",
-      "remaining": "冷启动/重复资源核对耗时、CPU/GPU/内存/可归属实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转及异常退出；097已完成10分钟联合观察和正常保存停止，仍未达长稳要求。"
+      "status": "round098_remote_native_observed_full_acceptance_pending",
+      "remaining": "冷启动与重复资源核对耗时、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转和异常退出；10分钟联合观察及正常收尾不等同长稳。"
     },
     {
       "id": "D15",
       "required": true,
-      "status": "not_accepted",
-      "remaining": "正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/20项交接；继承117项冻结待办原编号不变。"
+      "status": "round098_remote_native_observed_full_acceptance_pending",
+      "remaining": "正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/20项交接；继承117项冻结待办原编号保留。"
     }
   ],
   "acceptance": [
@@ -389,50 +391,71 @@
   "remote_4090_control": "paused",
   "current_inherited_target": "rtx3080",
   "layout_unchanged": true,
-  "last_updated": "2026-11-03T07:31:42.609487+00:00",
+  "last_updated": "2026-11-03T20:05:59.075256+00:00",
   "known_incomplete_integration": [
-    "D01 完整安装包/许可、干净Windows重建、来源和全部副本审计、缓存与回退自动化、异常启动回收；097已完成本安装受管准备及服务启动，完整application_ready仍false，不能代替清洁安装交付。",
-    "D02 模组实体与容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物及后续联机差异；097原世界与控制会话观察不覆盖全部协议和模组场景。",
-    "D03 地下脱困、日/夜多敌持续撤离、动态地形/落地恢复、普通PvE、饥饿和重生补给、GUI/水/岩浆/窒息、租约及长期停止；097修复跳跃续期并实机观察，仍未通过持续生存。",
-    "D04 持续资源→工具→食物、熔炼、种收吃、容器往返、耐久更换、模组资源及探索建造；097多食物储备和来源检查已实现，真实完整食物链仍待通过，零碎采集/放置不等同生产链完成。",
-    "D05 地下脱困、可达食物选择、失败后有效改策、跨场目标/工作台补给、Mindcraft依赖覆盖、真实互动并发和模型预算/取消/事实核验；097新增路线和工作台判定已实测，完整自主内容仍未达标。",
-    "D06 595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连与节目展示；097公开采集连通观察624.1秒，现场新事件0条；不伪造样本，不重复要求用户发送。",
-    "D07 真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复及唯一写者隔离。",
-    "D08 完整原生状态/启停/任务/资源/音量/诊断/恢复与两方案切换；090左右换边及6个手机页面记录保留，仍需有真实消息时队列保留、并发和完整操作流程验收。",
-    "D09 持续有效内容和及时自然解说、人物供帧/4秒重缓冲、真实弹幕合成与手机观看；097后台已接受正式播放源，但旧直播姬页面缺少transport/media身份，完整绑定样本不足，不发布混合FPS/欠载均值。需受控刷新实际官方源后重测。",
-    "D10 两套各2闲置+48动作共100段新素材、索引、口型、圆形遮罩与接缝；仍0/100，原female-A历史素材保留。",
+    "D01 完整安装包及许可、干净Windows重建、来源与全部副本审计、缓存/回退、异常启动回收；当前安装受管准备及启动已过，完整application_ready仍false。",
+    "D02 模组实体/容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物和联机差异；本场原世界观察不覆盖全部模组及协议场景。",
+    "D03 完整地下脱困、昼夜多敌撤离、动态地形/落地恢复、普通PvE、饥饿及重生补给、GUI/水/岩浆/窒息和长期停止；098有限挖阶不等同持续生存验收。",
+    "D04 持续资源→工具→食物、熔炼、种收吃、容器往返、耐久更换、模组资源及探索建造；必须取得真实完整生产链回执，零碎动作不等同完成。",
+    "D05 有效内容目标、可达食物选择、失败后改策、跨场工作台/补给、Mindcraft依赖覆盖、真实互动并发和模型预算/取消/事实核验；持续探索及事件投影已实现，完整自主内容仍待验。",
+    "D06 595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连和节目展示；第一场公开采集629.4秒，新事件0条。不伪造或代发观众事件。",
+    "D07 真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复和唯一写者隔离。",
+    "D08 完整启停/任务/资源/音量/诊断/恢复与两方案切换；真实消息左右换边的队列保留、并发、手机及完整操作验收。",
+    "D09 持续有效节目内容、及时自然解说、人物供帧/重缓冲、真实弹幕合成和手机观看；取得1个来源完整绑定的浏览器呈现诊断段，按各段分别报告，不代替官方采集或观众CDN验收。",
+    "D10 两套各2闲置+48动作共100段新素材、索引、口型、圆形遮罩与接缝；仍0/100，原female-A素材保留。",
     "D11 原生游戏声/人声/BGM压低恢复、O07/F07故障切换、唯一音源与完整实录验收。",
-    "D12 真实JPEG→Luna模组物品/危险准确率、OCR/复杂状态条、装备误识别、帧/世界绑定、超时取消、公平性与联合负载；097视觉终态{\"succeeded\": 26, \"failed\": 4}，调用成功不代替准确率/控制效果验收。",
-    "D13 公开状态核对、独立观众CDN音画和端到端时延；本轮内部验证未公开开播。",
-    "D14 冷启动/重复资源核对耗时、CPU/GPU/内存/可归属实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转及异常退出；097已完成10分钟联合观察和正常保存停止，仍未达长稳要求。",
-    "D15 正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/20项交接；继承117项冻结待办原编号不变。"
+    "D12 原生JPEG→Luna的模组物品/危险准确率、OCR/复杂状态条、装备误识别、帧/世界绑定、超时取消、公平性与联合负载；本场调用终态{\"succeeded\": 25, \"failed\": 5}不能代替准确率和控制效果验收。",
+    "D13 公开状态核对、独立观众CDN音画及端到端时延；本轮没有公开开播。",
+    "D14 冷启动与重复资源核对耗时、CPU/GPU/内存/实际呈现FPS、4小时含60分钟稳定段、断线恢复、日志轮转和异常退出；10分钟联合观察及正常收尾不等同长稳。",
+    "D15 正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/20项交接；继承117项冻结待办原编号保留。"
   ],
   "current_round_validation": {
-    "round": "097",
-    "evidence": "docs/evidence/mc-runtime-round-097.json",
-    "report": "docs/technical/mc-live-v1/路径进展与097自主食物修复.md",
+    "round": "098",
+    "evidence": "docs/evidence/mc-runtime-round-098.json",
+    "report": "docs/technical/mc-live-v1/逐阶脱困与098持续探索修复.md",
     "checks": {
       "core": {
-        "tests": 378,
-        "pass": 378,
+        "tests": 382,
+        "pass": 382,
         "fail": 0,
         "cancelled": 0,
         "skipped": 0,
         "todo": 0
       },
       "targeted": {
-        "pass": 148,
+        "pass": 154,
         "fail": 0
       },
-      "java_fixtures": 14,
-      "suites_overlap_do_not_sum": true
+      "java_fixtures": 15,
+      "java_fixtures_reused_from": "098a",
+      "programme_browser": {
+        "pass": 12,
+        "fail": 0
+      },
+      "receiver": {
+        "pass": 19,
+        "fail": 0
+      },
+      "suites_overlap_do_not_sum": true,
+      "programme_asset_proxy": {
+        "pass": 3,
+        "fail": 0
+      },
+      "runtime_projection": {
+        "pass": 8,
+        "fail": 0
+      },
+      "frame_proxy": {
+        "pass": 4,
+        "fail": 0
+      }
     },
     "new_runtime_observation": true,
-    "last_real_runtime_round": "097",
+    "last_real_runtime_round": "098b",
     "formal_acceptance_advanced": 0,
     "github_publication": {
       "branch": "mc",
-      "source_commit": "30fc445fa945b69b4e09f826aaf6843d6d9e8c34",
+      "source_commit": "d2633e0ccd96579ff3f3821515bc74e921e3f34f",
       "source_pushed_and_remote_verified": true,
       "documentation_published_with_this_revision": true
     }
@@ -1084,9 +1107,9 @@
     "evidence": "docs/evidence/mc-runtime-round-022.json"
   },
   "previous_round_summary": {
-    "round": "096",
-    "evidence": "docs/evidence/mc-runtime-round-096.json",
-    "report": "docs/technical/mc-live-v1/执行反馈与096播放诊断修复.md"
+    "round": "097",
+    "evidence": "docs/evidence/mc-runtime-round-097.json",
+    "report": "docs/technical/mc-live-v1/路径进展与097自主食物修复.md"
   },
   "round026_draft_follow_up": {
     "classification": "FINALIZED_LOCAL_ONLY_AFTER_PLANNING_R3",
@@ -2841,9 +2864,9 @@
     "continuous_survival_verified": false
   },
   "current_runtime_verification": {
-    "round": "097",
+    "round": "098",
     "remote_3080_tested": true,
-    "source_snapshot_sha256": "64625620c653965d960c3f3d9c1d36c95e8021b07c592ea5713cfd487d1b9b29",
+    "source_snapshot_sha256": "7c8e039dd5a49d28fdd01de07ef1bf4933a597bde7f162a00367b8aa47d610ae",
     "candidate_disabled": true,
     "keep_inventory_after_engine_save": true,
     "normal_save_stop_verified": true,
@@ -2852,13 +2875,15 @@
     "formal_survival_acceptance_passed": false
   },
   "latest_turn_implemented_ids": [
-    "I1114",
-    "I1115",
-    "I1116",
-    "I1117",
-    "I1118",
-    "I1119",
-    "I1120"
+    "I1121",
+    "I1122",
+    "I1123",
+    "I1124",
+    "I1125",
+    "I1126",
+    "I1127",
+    "I1128",
+    "I1129"
   ],
   "sample120_user_requested_recording": {
     "video": "outputs/mc-validation/round-088/remote-evidence/mc-live-dsh-mc-agent-088d-120s.mp4",
@@ -14186,16 +14211,16 @@
     }
   },
   "current_source_verification": {
-    "round": "097",
+    "round": "098",
     "device": "remote-3080",
-    "source_commit": "30fc445fa945b69b4e09f826aaf6843d6d9e8c34",
-    "source_snapshot_sha256": "64625620c653965d960c3f3d9c1d36c95e8021b07c592ea5713cfd487d1b9b29",
+    "source_commit": "d2633e0ccd96579ff3f3821515bc74e921e3f34f",
+    "source_snapshot_sha256": "7c8e039dd5a49d28fdd01de07ef1bf4933a597bde7f162a00367b8aa47d610ae",
     "checks_passed": true,
     "runtime_projection_matches_source": true,
     "environment_prepared": true,
     "application_ready": false,
     "new_game_or_model_run": true,
-    "last_real_runtime_round": "097",
+    "last_real_runtime_round": "098b",
     "keep_inventory_preserved": true,
     "world_unchanged": false,
     "formal_acceptance_advanced": 0
@@ -14276,6 +14301,55 @@
     "full_acceptance_pending": true,
     "github_push_pending": false,
     "source_commit": "30fc445fa945b69b4e09f826aaf6843d6d9e8c34",
+    "documentation_published_with_this_revision": true
+  },
+  "before_round098_current_round_validation": {
+    "round": "097",
+    "evidence": "docs/evidence/mc-runtime-round-097.json",
+    "report": "docs/technical/mc-live-v1/路径进展与097自主食物修复.md",
+    "checks": {
+      "core": {
+        "tests": 378,
+        "pass": 378,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "targeted": {
+        "pass": 148,
+        "fail": 0
+      },
+      "java_fixtures": 14,
+      "suites_overlap_do_not_sum": true
+    },
+    "new_runtime_observation": true,
+    "last_real_runtime_round": "097",
+    "formal_acceptance_advanced": 0,
+    "github_publication": {
+      "branch": "mc",
+      "source_commit": "30fc445fa945b69b4e09f826aaf6843d6d9e8c34",
+      "source_pushed_and_remote_verified": true,
+      "documentation_published_with_this_revision": true
+    }
+  },
+  "round098_follow_up": {
+    "implemented_ids": [
+      "I1121",
+      "I1122",
+      "I1123",
+      "I1124",
+      "I1125",
+      "I1126",
+      "I1127",
+      "I1128",
+      "I1129"
+    ],
+    "evidence": "docs/evidence/mc-runtime-round-098.json",
+    "report": "docs/technical/mc-live-v1/逐阶脱困与098持续探索修复.md",
+    "full_acceptance_pending": true,
+    "github_push_pending": false,
+    "source_commit": "d2633e0ccd96579ff3f3821515bc74e921e3f34f",
     "documentation_published_with_this_revision": true
   }
 }
