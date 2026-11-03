@@ -173,7 +173,7 @@ final class NativeSurvival implements ExecutorTaskSession.Runtime {
             selectedWeapon = client.player.getInventory().getItem(weapon).getItem();
             scope = inputs.scope(); scope.select(weapon, control, permit); lastOutcome = "defending"; return true;
         }
-        if (hunger <= 14 && canInterrupt()) {
+        if (NativeFoodPlan.needsIntervention(hunger, client.player.getHealth(), client.player.getMaxHealth()) && canInterrupt()) {
             Item meal = food();
             if (meal == null) { if (hunger <= 6) throw new LocalTaskFailure(SUPPLY_NO_PROGRESS); return false; }
             if (++supplies > 3) throw new LocalTaskFailure(SUPPLY_RANGE_LIMIT);

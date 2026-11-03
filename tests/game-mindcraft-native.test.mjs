@@ -835,9 +835,115 @@ test('dependency exploration preserves the observed descent first and requires i
 
 const suppliedTools=()=>['crafting_table','wooden_pickaxe','stone_pickaxe','stone_axe','furnace']
   .map(item=>({item_id:'minecraft:'+item,count:1}));
+test('a wounded player at seventeen food admits one held meal before more exploration',async()=>{
+  const f=fixture([...suppliedTools(),{item_id:'minecraft:bread',count:4}]);
+  f.observe({player:{...f.state.player,health:12.033335,max_health:20,food:17}});
+  const before=structuredClone(f.manager.stateView());
+  assert.equal(await f.planner.bootstrap({}),true);
+  const goal={skill:'use_item',item_id:'minecraft:bread',purpose:'eat'};
+  assert.deepEqual(f.calls.map(row=>[row.name,row.args.goal]),[['game_check_action',goal],['game_start_task',goal]]);
+  assert.equal(f.planner.lastPlan.stage,'restore_health_food');
+  assert.equal(f.planner.lastPlan.health_recovery_verified,false);
+  assert.deepEqual(f.manager.stateView(),before,'admission cannot heal or consume anything');
+  assert.equal(await f.planner.bootstrap({}),true);
+  assert.equal(f.calls.filter(row=>row.name==='game_start_task').length,1,'wait for the original meal receipt');
+});
+
+test('food at the ordinary regeneration threshold or full health does not trigger extra healing meals',async()=>{
+  for(const vitals of [{health:12,max_health:20,food:18},{health:12,max_health:20,food:20},
+    {health:20,max_health:20,food:17},{health:12,food:17}]) {
+    const f=fixture([...suppliedTools(),{item_id:'minecraft:bread',count:4}]);
+    f.observe({player:{...f.state.player,...vitals}});
+    assert.equal(await f.planner.bootstrap({}),false);
+    assert.equal(f.calls.length,0);
+  }
+});
+
+test('healing food still needs an admitted native use and cannot replace retreat or invent supplies',async()=>{
+  const f=fixture([...suppliedTools(),{item_id:'minecraft:bread',count:4}]);
+  f.observe({player:{...f.state.player,health:12,max_health:20,food:17}});
+  f.manager.tools.invoke=async(name,args)=>{
+    f.calls.push({name,args});assert.equal(name,'game_check_action');
+    return {state:'succeeded',result:{allowed:false,reason:'GAME_GUI_BLOCKED'}};
+  };
+  assert.equal(await f.planner.bootstrap({}),false);
+  assert.equal(f.calls.some(row=>row.name==='game_start_task'),false);
+  assert.equal(f.manager.stateView().inventory.find(row=>row.item_id==='minecraft:bread').count,4);
+  const threatened=fixture([...suppliedTools(),{item_id:'minecraft:bread',count:4}]);
+  threatened.observe({player:{...threatened.state.player,health:12,max_health:20,food:17},details:{hazards:{in_water:true}}});
+  await threatened.planner.bootstrap({});
+  assert.equal(threatened.calls.some(row=>row.args.goal?.purpose==='eat'),false);
+});
 const foodSample=(position,item='carrot')=>({source:'runtime_client',sampled_at:new Date().toISOString(),radius:6,vertical_radius:3,
   items:[{kind:'mature_crop',item_id:'minecraft:'+item,block_id:'minecraft:carrots',distance:2,line_of_sight:true,
     position:{...position,x:position.x+2}}],truncated:false,action_precondition_required:true,unknown_fields:[]});
+const livestockSample=position=>{
+  const sample=foodSample(position,'mutton');Object.assign(sample.items[0],{kind:'livestock',block_id:null,
+    entity_type:'minecraft:sheep',entity_uuid:'12345678-1234-1234-1234-123456789abc'});return sample;
+};
+
+test('an observed sheep admits one bounded raw-material collection and keeps the edible reserve empty',async()=>{
+  const f=fixture(suppliedTools()),sample=livestockSample(f.state.player.position);
+  f.observe({details:{nearby_food:sample}});assert.equal(await f.planner.bootstrap({}),true);
+  assert.deepEqual(f.calls.map(row=>[row.name,row.args.goal]),[
+    ['game_check_action',{skill:'gather',item_id:'minecraft:mutton',count:1}],
+    ['game_start_task',{skill:'gather',item_id:'minecraft:mutton',count:1}]]);
+  assert.equal(f.planner.lastPlan.stage,'gather_observed_cooking_material');
+  assert.equal(f.planner.lastPlan.food_reserve_nutrition,0);assert.equal(f.planner.lastPlan.raw_material_is_edible,false);
+  assert.equal(f.planner.lastPlan.observed_source.entity_uuid,sample.items[0].entity_uuid);
+  assert.deepEqual(f.manager.stateView().inventory,suppliedTools());
+});
+
+test('stale or mismatched animal observations cannot authorize raw collection',async()=>{
+  for(const change of [s=>s.sampled_at='2000-01-01T00:00:00Z',s=>delete s.items[0].entity_uuid,
+    s=>s.items[0].entity_type='minecraft:cow',s=>s.items[0].kind='mature_crop',s=>s.items[0].block_id='minecraft:carrots']) {
+    const f=fixture(suppliedTools()),sample=livestockSample(f.state.player.position);change(sample);
+    f.observe({details:{nearby_food:sample}});
+    assert.equal(await f.planner.gatherObservedFood({},f.manager.stateView()),false);assert.equal(f.calls.length,0);
+  }
+});
+
+test('held raw meat requests an ordinary cooking task and never an eating action or another animal',async()=>{
+  for(const [raw,cooked] of [['mutton','cooked_mutton'],['beef','cooked_beef'],['porkchop','cooked_porkchop']]) {
+    const f=fixture([...suppliedTools(),{item_id:'minecraft:'+raw,count:2}]);
+    f.observe({player:{...f.state.player,health:12,max_health:20,food:17},details:{nearby_food:livestockSample(f.state.player.position)}});
+    const before=structuredClone(f.manager.stateView());assert.equal(await f.planner.bootstrap({}),true);
+    assert.deepEqual(f.calls.find(row=>row.name==='game_start_task').args.goal,{skill:'craft',item_id:'minecraft:'+cooked,count:1});
+    assert.equal(f.planner.lastPlan.stage,'cook_received_food_material');assert.equal(f.planner.lastPlan.inventory_output_verified,false);
+    assert.equal(f.planner.lastPlan.food_reserve_nutrition,0);assert.deepEqual(f.manager.stateView(),before);
+  }
+});
+
+test('cooking can place a held furnace only on a fresh checked construction site',async()=>{
+  const f=fixture([...suppliedTools(),{item_id:'minecraft:mutton',count:1}]),at={...f.state.player.position,x:1};
+  f.manager.capabilities={features:{targeted_block_placement:true}};
+  f.observe({details:{construction:{source:'runtime_client',sampled_at:new Date().toISOString(),workstations:[],placement_sites:[{position:at}]}}});
+  const invoke=f.manager.tools.invoke;f.manager.tools.invoke=async(name,args,...rest)=>{
+    if(name==='game_check_action' && args.goal.item_id==='minecraft:cooked_mutton'){
+      f.calls.push({name,args});return {state:'succeeded',result:{allowed:false,reason:'GAME_COOKING_WORKSTATION_UNAVAILABLE'}};
+    }
+    return invoke(name,args,...rest);
+  };
+  assert.equal(await f.planner.bootstrap({}),true);
+  assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').map(row=>row.args.goal),[
+    {skill:'use_item',item_id:'minecraft:furnace',purpose:'activate',target:at}]);
+  assert.equal(f.planner.lastPlan.stage,'place_cooking_workstation');
+});
+
+test('missing furnace fuel is gathered only after native rejection and another admitted source check',async()=>{
+  const f=fixture([...suppliedTools(),{item_id:'minecraft:mutton',count:1}]),invoke=f.manager.tools.invoke;
+  f.manager.tools.invoke=async(name,args,...rest)=>{
+    if(name==='game_check_action' && ['minecraft:cooked_mutton','minecraft:coal'].includes(args.goal.item_id)){
+      f.calls.push({name,args});return {state:'succeeded',result:{allowed:false,reason:args.goal.skill==='craft'
+        ?'GAME_RESOURCE_SMELTING_FUEL_UNAVAILABLE':'GAME_GATHER_RESOURCE_UNAVAILABLE'}};
+    }
+    return invoke(name,args,...rest);
+  };
+  assert.equal(await f.planner.bootstrap({}),true);
+  assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').map(row=>row.args.goal),[
+    {skill:'gather',item_id:'minecraft:oak_log',count:1}]);
+  assert.equal(f.planner.lastPlan.stage,'gather_cooking_fuel');
+});
 
 test('sufficient varied held food satisfies the reserve without forcing a wheat-only milestone',async()=>{
   const f=fixture([...suppliedTools(),{item_id:'minecraft:carrot',count:5}]);

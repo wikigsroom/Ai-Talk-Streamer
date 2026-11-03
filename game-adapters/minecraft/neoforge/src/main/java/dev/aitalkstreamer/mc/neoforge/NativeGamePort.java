@@ -26,6 +26,7 @@ public final class NativeGamePort implements GamePort {
     private final NativeInputOwner inputs;
     private final NativeItemUse itemUse;
     private final NativeTravel travel;
+    private final NativeHunt hunting;
     private final NativeCraft craft;
     private final NativeSmelt cooking;
     private final NativeSurvival survival;
@@ -50,6 +51,7 @@ public final class NativeGamePort implements GamePort {
         inputs = new NativeInputOwner(client, physicalKeys);
         itemUse = new NativeItemUse(client, inputs, observation);
         travel = new NativeTravel(client, inputs);
+        hunting = new NativeHunt(client, inputs, travel);
         craft = new NativeCraft(client, inputs, observation);
         cooking = new NativeSmelt(client, inputs, observation);
         survival = new NativeSurvival(client, inputs, itemUse, travel);
@@ -58,7 +60,8 @@ public final class NativeGamePort implements GamePort {
                               InventoryTarget target, BaseTarget base, Runnable finished) {
                 require(activeRuntime == null, "GAME_TASK_BUSY");
                 activeRuntime = switch (str(task.getAsJsonObject("goal"), "skill")) {
-                    case "use_item" -> itemUse; case "craft" -> craftRuntime(task.getAsJsonObject("goal")); default -> travel;
+                    case "use_item" -> itemUse; case "craft" -> craftRuntime(task.getAsJsonObject("goal"));
+                    case "gather" -> gatherRuntime(task.getAsJsonObject("goal")); default -> travel;
                 };
                 survival.bind(activeRuntime);
                 survival.start(task, control, permit, target, base, finished);
@@ -72,6 +75,10 @@ public final class NativeGamePort implements GamePort {
     }
     private ExecutorTaskSession.Runtime craftRuntime(JsonObject goal) {
         return craft.check(goal).get("allowed").getAsBoolean() || !cooking.hasRecipe(goal) ? craft : cooking;
+    }
+    private ExecutorTaskSession.Runtime gatherRuntime(JsonObject goal) {
+        return !NativeHuntPlan.material(str(goal, "item_id")) || travel.check(goal, null).get("allowed").getAsBoolean()
+                ? travel : hunting;
     }
     private void mainThread() { require(client.isSameThread(), "GAME_WRONG_THREAD"); }
     private void world() {
@@ -170,6 +177,7 @@ public final class NativeGamePort implements GamePort {
                 "source", "runtime_client", "unknown_fields", List.of("server_side_use_restrictions"));
         return switch (str(goal, "skill")) {
             case "use_item" -> itemUse.check(goal.deepCopy()); case "craft" -> craftRuntime(goal) == craft ? craft.check(goal.deepCopy()) : cooking.check(goal.deepCopy());
+            case "gather" -> gatherRuntime(goal) == hunting ? hunting.check(goal.deepCopy()) : travel.check(goal.deepCopy(), base);
             default -> travel.check(goal.deepCopy(), base);
         };
     }
@@ -186,11 +194,12 @@ public final class NativeGamePort implements GamePort {
     void tick() { mainThread(); tickResume(); itemSession.tick(observation.get()); }
     boolean physicallyActive() { return inputs.physicallyActive(); }
     boolean allowVanillaUse() { mainThread(); return !itemSession.active() && !inputs.ownsUse(); }
-    boolean allowVanillaAttack() { mainThread(); return !travel.activeGather() && !survival.ownsAttack(); }
+    boolean allowVanillaAttack() { mainThread(); return !travel.activeGather() && !hunting.active() && !survival.ownsAttack(); }
     JsonObject inputProof() { mainThread(); return inputs.proof(); }
     JsonObject travelProof() { mainThread(); return travel.proof(); }
     JsonObject craftProof() { mainThread(); return craft.proof(); }
     JsonObject cookingProof() { mainThread(); return cooking.proof(); }
+    JsonObject huntingProof() { mainThread(); return hunting.proof(); }
     JsonObject survivalProof() { mainThread(); return survival.proof(); }
     JsonObject plantingProof() { mainThread(); return NativePlanting.runtimeProof(); }
     @Override public boolean allowsGui(JsonObject acceptedTask) { mainThread(); return activeRuntime == craft && craft.allowsGui(acceptedTask)
@@ -204,12 +213,12 @@ public final class NativeGamePort implements GamePort {
         craft.inventory(packet);
         cooking.inventory(packet);
         travel.inventory(packet);
-        if (packet.getContainerId() == 0) travel.inventoryPacket();
+        if (packet.getContainerId() == 0) { travel.inventoryPacket(); hunting.inventoryPacket(); }
     }
     void opened(net.minecraft.network.protocol.game.ClientboundOpenScreenPacket packet) { mainThread(); craft.opened(packet); cooking.opened(packet); }
     void inventorySlot(net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket packet) {
         cooking.slot(packet);
-        mainThread(); if (packet.getContainerId() == 0 || packet.getContainerId() == -2) travel.inventoryPacket();
+        mainThread(); if (packet.getContainerId() == 0 || packet.getContainerId() == -2) { travel.inventoryPacket(); hunting.inventoryPacket(); }
     }
     void health(int food) { mainThread(); if (itemSession.active()) itemUse.health(food); }
     void block(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {

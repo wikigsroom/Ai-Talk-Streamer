@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -69,6 +70,16 @@ final class NativeFoodSources {
             if (hit.getType() != HitResult.Type.MISS) continue;
             rows.add(row("loose_item", item, null, loose.blockPosition(), dimension,
                     Math.sqrt(origin.distSqr(loose.blockPosition()))));
+        }
+        for (var entity : client.level.getEntitiesOfClass(Animal.class, client.player.getBoundingBox().inflate(RADIUS, HEIGHT, RADIUS))) {
+            String type = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).toString();
+            String item = NativeHuntPlan.raw(type);
+            if (!NativeHunt.eligible(client, entity, item) || origin.distSqr(entity.blockPosition()) > RADIUS * RADIUS
+                    || Math.abs(entity.blockPosition().getY() - origin.getY()) > HEIGHT || !client.player.hasLineOfSight(entity)) continue;
+            var observed = row("livestock", item, null, entity.blockPosition(), dimension,
+                    Math.sqrt(origin.distSqr(entity.blockPosition())));
+            observed.addProperty("entity_uuid", entity.getUUID().toString()); observed.addProperty("entity_type", type);
+            rows.add(observed);
         }
         rows.sort(Comparator.comparingDouble(r -> r.get("distance").getAsDouble()));
         sites.sort(Comparator.comparingDouble(r -> r.get("distance").getAsDouble()));

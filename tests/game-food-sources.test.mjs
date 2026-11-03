@@ -72,3 +72,22 @@ test('hay is a visible bread material or loose drop and cannot masquerade as a m
   Object.assign(food.items[0],{kind:'loose_item',block_id:null});
   validate('RuntimeDetails',{...details(),nearby_food:food});
 });
+
+test('livestock observations bind one adult entity kind to its raw material without inventing edible stock',()=>{
+  for(const [entity,raw] of [['sheep','mutton'],['cow','beef'],['pig','porkchop']]) {
+    const food=sources();Object.assign(food.items[0],{kind:'livestock',item_id:'minecraft:'+raw,block_id:null,
+      entity_type:'minecraft:'+entity,entity_uuid:'12345678-1234-1234-1234-123456789abc'});
+    validate('RuntimeDetails',{...details(),nearby_food:food});
+    for(const change of [f=>delete f.items[0].entity_uuid,f=>f.items[0].entity_uuid='not-an-entity',
+      f=>f.items[0].entity_type='minecraft:wolf',f=>f.items[0].item_id='minecraft:bread',
+      f=>f.items[0].block_id='minecraft:hay_block',f=>f.items[0].count=3]) {
+      const bad=structuredClone(food);change(bad);assert.throws(()=>validate('RuntimeDetails',{...details(),nearby_food:bad}));
+    }
+    Object.assign(food.items[0],{kind:'loose_item'});delete food.items[0].entity_uuid;delete food.items[0].entity_type;
+    validate('RuntimeDetails',{...details(),nearby_food:food});
+    food.items[0].kind='mature_crop';food.items[0].block_id='minecraft:carrots';
+    assert.throws(()=>validate('RuntimeDetails',{...details(),nearby_food:food}));
+  }
+  const ordinary=sources();ordinary.items[0].entity_uuid='12345678-1234-1234-1234-123456789abc';
+  assert.throws(()=>validate('RuntimeDetails',{...details(),nearby_food:ordinary}));
+});

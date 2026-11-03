@@ -9,6 +9,8 @@ const STARTER = [['crafting_table',1],['wooden_pickaxe',1],['stone_pickaxe',1],[
 const FOOD = new Map([['cooked_beef',8],['cooked_porkchop',8],['cooked_mutton',6],['cooked_chicken',6],
   ['bread',5],['baked_potato',5],['cooked_rabbit',5],['cooked_salmon',6],['cooked_cod',5],['carrot',3],
   ['apple',4],['potato',1],['beetroot',1],['melon_slice',2],['sweet_berries',2],['glow_berries',2]]);
+const COOKED = new Map([['mutton','cooked_mutton'],['beef','cooked_beef'],['porkchop','cooked_porkchop']]);
+const LIVESTOCK = new Map([['minecraft:sheep','mutton'],['minecraft:cow','beef'],['minecraft:pig','porkchop']]);
 const count = (state, item) => state.inventory?.find(row => row.item_id === 'minecraft:' + item)?.count || 0;
 const foodReserve = state => [...FOOD].reduce((total,[item,nutrition])=>total+count(state,item)*nutrition,0);
 const short = id => id?.startsWith('minecraft:') ? id.slice(10) : null;
@@ -222,11 +224,15 @@ export class MindcraftNativePlanner {
     if(table?.position && this.constructionFresh(state))
       this.rememberTable(state,table.position,state.details.construction.sampled_at,{kind:'native_observation',seq:state.seq});
     this.restoreTable(state);
-    if (state.player?.food<=16) for (const item of FOOD.keys()) {
+    const vitals=state.player,healingFood=Number.isFinite(vitals?.health) && Number.isFinite(vitals?.max_health)
+      && vitals.health>0 && vitals.max_health>0 && vitals.health<vitals.max_health
+      && Number.isInteger(vitals.food) && vitals.food>=0 && vitals.food<18;
+    if (vitals?.food<=16 || healingFood) for (const item of FOOD.keys()) {
       if (count(state,item)>0 && await this.submit({skill:'use_item',item_id:'minecraft:'+item,purpose:'eat'},context,
-        {engine:'mindcraft_item_goal_native',stage:'restore_food'})) return true;
+        {engine:'mindcraft_item_goal_native',stage:healingFood?'restore_health_food':'restore_food',
+          ...(healingFood?{health_recovery_verified:false}:{} )})) return true;
     }
-    if(state.player?.food<=12 && await this.gatherObservedFood(context,state))return true;
+    if(state.player?.food<=12 && (await this.prepareCookedFood(context,state) || await this.gatherObservedFood(context,state)))return true;
     if(this.exitStance) {
       const target=this.exitStance;this.exitStance=null;
       if(canonical(target)!==canonical(state.player.position) && await this.submit({skill:'navigate',target,radius:0},context,
@@ -261,6 +267,7 @@ export class MindcraftNativePlanner {
       const reserve=item==='bread'?foodReserve(state):null;
       if(item==='bread') {
         if(reserve>=15)continue;
+        if(await this.prepareCookedFood(context,state))return true;
         // Hay is a received material, never edible stock. Native crafting still
         // checks the real recipe and confirms its nine-wheat inventory batch.
         if(count(state,'wheat')<3 && count(state,'hay_block')>0 && await this.submit(
@@ -312,6 +319,28 @@ export class MindcraftNativePlanner {
     }
     return false;
   }
+  async prepareCookedFood(context,state) {
+    if(foodReserve(state)>=15)return false;
+    for(const [raw,cooked] of COOKED) {
+      if(count(state,raw)<1)continue;
+      const plan={engine:'mindcraft_item_goal_native',stage:'cook_received_food_material',
+        raw_item_id:'minecraft:'+raw,food_reserve_nutrition:foodReserve(state),reserve_target_nutrition:15,
+        inventory_output_verified:false};
+      if(await this.submit({skill:'craft',item_id:'minecraft:'+cooked,count:1},context,plan))return true;
+      if(this.lastPlan?.reason==='GAME_COOKING_WORKSTATION_UNAVAILABLE' && count(state,'furnace')>0
+          && this.constructionFresh(state) && this.manager.capabilities?.features?.targeted_block_placement) {
+        for(const site of (state.details.construction.placement_sites || []).slice(0,8))
+          if(await this.submit({skill:'use_item',item_id:'minecraft:furnace',purpose:'activate',target:site.position},context,
+              {...plan,stage:'place_cooking_workstation'}))return true;
+      }
+      if(this.lastPlan?.reason==='GAME_RESOURCE_SMELTING_FUEL_UNAVAILABLE') {
+        for(const fuel of ['coal','oak_log','birch_log','spruce_log'])
+          if(await this.submit({skill:'gather',item_id:'minecraft:'+fuel,count:1},context,
+              {...plan,stage:'gather_cooking_fuel'}))return true;
+      }
+    }
+    return false;
+  }
   async gatherObservedFood(context,state) {
     const sample=state.details?.nearby_food,p=state.player?.position;
     const age=(this.manager.wall?.() ?? Date.now())-Date.parse(sample?.sampled_at);
@@ -327,10 +356,15 @@ export class MindcraftNativePlanner {
     for(const source of (sample.items || []).slice(0,8).sort((a,b)=>a.distance-b.distance)) {
       const item=short(source.item_id),at=source.position;
       const amount=FOOD.has(item)?Math.ceil(deficit/FOOD.get(item))
+        : COOKED.has(item) && count(state,item)<1 ? 1
         : item==='wheat' && count(state,'wheat')<3 ? requiredWheat
         : item==='hay_block' && count(state,'hay_block')<1 && count(state,'wheat')<3 ? Math.ceil(requiredWheat/9) : 0;
       if(amount<=0 || seen.has(item) || source.line_of_sight!==true
-          || !['mature_crop','loose_item','food_material'].includes(source.kind) || at?.dimension!==p.dimension
+          || !['mature_crop','loose_item','food_material','livestock'].includes(source.kind) || at?.dimension!==p.dimension
+          || source.kind==='livestock' && (LIVESTOCK.get(source.entity_type)!==item
+            || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(source.entity_uuid || '')
+            || source.block_id!==null)
+          || COOKED.has(item) && !['livestock','loose_item'].includes(source.kind)
           || source.kind==='food_material' && (item!=='hay_block' || source.block_id!=='minecraft:hay_block')
           || !['x','y','z'].every(axis=>Number.isInteger(at[axis])) || Math.abs(at.y-origin.y)>height
           || Math.hypot(at.x-origin.x,at.y-origin.y,at.z-origin.z)>radius
@@ -338,11 +372,14 @@ export class MindcraftNativePlanner {
           || !Number.isFinite(source.distance) || source.distance<0 || source.distance>radius)continue;
       seen.add(item);if(attempted++>=4)break;
       const goal={skill:'gather',item_id:source.item_id,count:Math.min(4,amount)};
-      const details={engine:'mindcraft_item_goal_native',stage:'gather_observed_food',
+      const details={engine:'mindcraft_item_goal_native',stage:COOKED.has(item)?'gather_observed_cooking_material':'gather_observed_food',
           food_reserve_nutrition:15-deficit,reserve_target_nutrition:15,
-          observed_source:{kind:source.kind,position:at,sampled_at:sample.sampled_at},
+          observed_source:{kind:source.kind,position:at,sampled_at:sample.sampled_at,
+            ...(source.kind==='livestock'?{entity_uuid:source.entity_uuid,entity_type:source.entity_type}:{})},
+          ...(COOKED.has(item)?{raw_material_is_edible:false}:{}),
           reachability_and_inventory_verified:false};
       if(await this.submit(goal,context,details))return true;
+      if(source.kind==='livestock' && !['GAME_GATHER_RESOURCE_UNAVAILABLE','GAME_NAVIGATION_NO_ROUTE'].includes(this.lastPlan?.reason))continue;
       const distance=Math.hypot(at.x-p.x,at.y-p.y,at.z-p.z),key=canonical([source.item_id,at]);
       // A visible source outside direct gathering range can guide an admitted
       // ordinary route. Two approaches per minute; only received two-block

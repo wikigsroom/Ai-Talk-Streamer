@@ -21,8 +21,14 @@ public final class NativeFoodPlan {
             "minecraft:beetroot", "minecraft:melon_slice", "minecraft:sweet_berries", "minecraft:glow_berries");
 
     public static boolean edible(String item) { return item != null && EDIBLE.contains(item); }
+    /** In-flight travel can restore food for normal regeneration without changing health or hunger. */
+    public static boolean needsIntervention(int hunger, float health, float maxHealth) {
+        if (hunger < 0 || hunger > 20 || !Float.isFinite(health) || !Float.isFinite(maxHealth)
+                || health <= 0 || maxHealth <= 0 || health > maxHealth) return false;
+        return hunger <= 14 || health < maxHealth && hunger < 18;
+    }
     public static boolean gatherable(String item) {
-        return edible(item) || "minecraft:wheat".equals(item) || "minecraft:hay_block".equals(item);
+        return edible(item) || NativeHuntPlan.material(item) || "minecraft:wheat".equals(item) || "minecraft:hay_block".equals(item);
     }
     public static String kind(String block) {
         return "minecraft:hay_block".equals(block) ? "food_material" : "mature_crop";

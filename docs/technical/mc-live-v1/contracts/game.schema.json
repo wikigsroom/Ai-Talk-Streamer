@@ -12935,7 +12935,8 @@
                     "enum": [
                       "mature_crop",
                       "loose_item",
-                      "food_material"
+                      "food_material",
+                      "livestock"
                     ]
                   },
                   "item_id": {
@@ -12943,6 +12944,9 @@
                     "enum": [
                       "minecraft:wheat",
                       "minecraft:hay_block",
+                      "minecraft:mutton",
+                      "minecraft:beef",
+                      "minecraft:porkchop",
                       "minecraft:carrot",
                       "minecraft:potato",
                       "minecraft:beetroot",
@@ -12982,6 +12986,13 @@
                   },
                   "position": {
                     "$ref": "#/$defs/Position"
+                  },
+                  "entity_uuid": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "entity_type": {
+                    "enum": ["minecraft:sheep", "minecraft:cow", "minecraft:pig"]
                   }
                 },
                 "required": [
@@ -13017,7 +13028,7 @@
                     "if": {
                       "properties": {
                         "kind": {
-                          "const": "loose_item"
+                          "enum": ["loose_item", "livestock"]
                         }
                       }
                     },
@@ -13035,6 +13046,24 @@
                         }
                       }
                     }
+                  },
+                  {
+                    "if": { "properties": { "kind": { "const": "livestock" } } },
+                    "then": {
+                      "required": ["entity_uuid", "entity_type"],
+                      "oneOf": [
+                        { "properties": { "entity_type": { "const": "minecraft:sheep" }, "item_id": { "const": "minecraft:mutton" } } },
+                        { "properties": { "entity_type": { "const": "minecraft:cow" }, "item_id": { "const": "minecraft:beef" } } },
+                        { "properties": { "entity_type": { "const": "minecraft:pig" }, "item_id": { "const": "minecraft:porkchop" } } }
+                      ]
+                    },
+                    "else": {
+                      "properties": { "entity_uuid": false, "entity_type": false }
+                    }
+                  },
+                  {
+                    "if": { "properties": { "kind": { "enum": ["mature_crop", "food_material"] } } },
+                    "then": { "properties": { "item_id": { "not": { "enum": ["minecraft:mutton", "minecraft:beef", "minecraft:porkchop"] } } } }
                   },
                   {
                     "if": {

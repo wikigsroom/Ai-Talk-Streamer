@@ -115,7 +115,7 @@ final class NativeBridge {
                 "probe_input", probeInput == null ? null : probeInput.deepCopy(),
                 "native_singleplayer_stop", pause.proof(),
                 "native_presentation", port.presentationProof(),
-                "native_input", port.inputProof(), "native_travel", port.travelProof(), "native_craft", port.craftProof(), "native_cooking", port.cookingProof(), "native_survival", port.survivalProof(),
+                "native_input", port.inputProof(), "native_travel", port.travelProof(), "native_craft", port.craftProof(), "native_cooking", port.cookingProof(), "native_hunting", port.huntingProof(), "native_survival", port.survivalProof(),
                 "native_planting", port.plantingProof(), "native_auto_resume", port.resumeProof());
     }
     synchronized void close() {

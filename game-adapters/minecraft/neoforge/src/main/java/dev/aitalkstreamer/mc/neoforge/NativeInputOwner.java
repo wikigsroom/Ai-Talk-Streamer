@@ -174,6 +174,17 @@ final class NativeInputOwner {
                 client.gameMode.attack(client.player, enemy); client.player.swing(InteractionHand.MAIN_HAND);
             });
         }
+        void hunt(net.minecraft.world.entity.animal.Animal animal, java.util.UUID expected, String material,
+                  ControlArbiter control, ControlArbiter.Permit permit) {
+            control.actuate(permit, () -> { current();
+                if (physical(client.options.keyAttack) || expected == null || animal == null
+                        || !expected.equals(animal.getUUID()) || !NativeHunt.eligible(client, animal, material)
+                        || client.player.distanceToSqr(animal) > 9 || !client.player.hasLineOfSight(animal)
+                        || client.player.getAttackStrengthScale(0) < .9f)
+                    throw new IllegalStateException("GAME_GATHER_TARGET_CHANGED");
+                client.gameMode.attack(client.player, animal); client.player.swing(InteractionHand.MAIN_HAND);
+            });
+        }
         void release() { thread(); ticket.release(); }
     }
     /** Vanilla calls this continuation later: the original scope and permit are checked again there. */

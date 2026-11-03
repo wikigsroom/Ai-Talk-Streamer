@@ -35,6 +35,16 @@ public final class NativeFoodPlanFixture {
             equal(true, NativeFoodPlan.gatherable("minecraft:" + food));
         }
         equal(false, NativeFoodPlan.gatherable("minecraft:poisonous_potato"));
+        for (int hunger = 0; hunger <= 20; hunger++) {
+            equal(hunger < 18, NativeFoodPlan.needsIntervention(hunger, 12.033335f, 20));
+            equal(hunger <= 14, NativeFoodPlan.needsIntervention(hunger, 20, 20));
+        }
+        for (float invalid : new float[]{Float.NaN, Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY, -1, 0, 21})
+            equal(false, NativeFoodPlan.needsIntervention(17, invalid, 20));
+        equal(false, NativeFoodPlan.needsIntervention(-1, 12, 20));
+        equal(false, NativeFoodPlan.needsIntervention(21, 12, 20));
+        equal(false, NativeFoodPlan.needsIntervention(17, 12, Float.NaN));
+        equal(false, NativeFoodPlan.needsIntervention(17, 12, 0));
         System.out.println("PASS NativeFoodPlanFixture " + checks + " checks; no game or input effects");
     }
 }
