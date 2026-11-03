@@ -312,17 +312,22 @@ test('away from an observed table, portable stock is prepared before mining',asy
   }
 });
 
-test('after the first stone pickaxe, local sticks and stone are acquired without restocking a second table',async()=>{
+test('after the first stone pickaxe, the next tool uses local dependencies without restocking a second table',async()=>{
   const tools=[{item_id:'minecraft:wooden_pickaxe',count:1},{item_id:'minecraft:stone_pickaxe',count:1}];
   const f=fixture([...tools,{item_id:'minecraft:oak_planks',count:3}]);
   f.observe({details:{construction:{workstations:[{block_id:'minecraft:crafting_table'}]}}});
   await f.planner.bootstrap({});
+  assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,{skill:'gather',item_id:'minecraft:cobblestone',count:3});
+  Object.assign([...f.tasks.values()].at(-1),{state:'succeeded',effect_status:'verified'});
+  await f.planner.bootstrap({});
+  f.observe({inventory:[...tools,{item_id:'minecraft:oak_planks',count:3},{item_id:'minecraft:cobblestone',count:3}]});
+  await f.planner.bootstrap({});
   assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,{skill:'craft',item_id:'minecraft:stick',count:2});
   Object.assign([...f.tasks.values()].at(-1),{state:'succeeded',effect_status:'verified'});
   await f.planner.bootstrap({});
-  f.observe({inventory:[...tools,{item_id:'minecraft:oak_planks',count:1},{item_id:'minecraft:stick',count:4}]});
+  f.observe({inventory:[...tools,{item_id:'minecraft:oak_planks',count:1},{item_id:'minecraft:stick',count:4},{item_id:'minecraft:cobblestone',count:3}]});
   await f.planner.bootstrap({});
-  assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,{skill:'gather',item_id:'minecraft:cobblestone',count:3});
+  assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,{skill:'craft',item_id:'minecraft:stone_axe',count:1});
   assert.equal(f.calls.some(row=>row.name==='game_check_action' && row.args.goal.item_id==='minecraft:oak_log'),false);
 });
 
