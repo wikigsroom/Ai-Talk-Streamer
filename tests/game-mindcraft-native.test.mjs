@@ -866,6 +866,88 @@ test('hungry autonomous startup seeks observed food before crafting another tool
   assert.equal(f.calls.some(row=>row.name==='game_get_recipe'),false);
 });
 
+const expandedFood=(position,item='carrot')=>{
+  const sample=foodSample(position,item);Object.assign(sample,{radius:16,vertical_radius:6,scan_origin:{...position}});
+  Object.assign(sample.items[0],{distance:14,position:{...position,x:position.x+14}});return sample;
+};
+const rejectDirectGather=f=>{
+  const invoke=f.manager.tools.invoke;
+  f.manager.tools.invoke=async(name,args,...rest)=>{
+    if(name==='game_check_action' && args.goal.skill==='gather'){
+      f.calls.push({name,args});return {state:'succeeded',result:{allowed:false,reason:'GAME_GATHER_RESOURCE_UNAVAILABLE'}};
+    }
+    return invoke(name,args,...rest);
+  };
+};
+
+test('a distant visible food source guides a checked route without claiming food acquisition',async()=>{
+  const f=fixture(suppliedTools()),sample=expandedFood(f.state.player.position);rejectDirectGather(f);
+  f.observe({details:{nearby_food:sample}});assert.equal(await f.planner.bootstrap({}),true);
+  const starts=f.calls.filter(row=>row.name==='game_start_task');assert.equal(starts.length,1);
+  assert.deepEqual(starts[0].args.goal,{skill:'navigate',target:sample.items[0].position,radius:2});
+  assert.equal(f.planner.lastPlan.stage,'approach_observed_food');
+  assert.equal(f.planner.lastPlan.food_acquisition_verified,false);
+  assert.equal(f.planner.lastPlan.reachability_and_inventory_verified,false);
+  assert.deepEqual(f.manager.stateView().inventory,suppliedTools());
+});
+
+test('distant food is gathered directly only when the native executor really admits its route',async()=>{
+  const f=fixture(suppliedTools()),sample=expandedFood(f.state.player.position);
+  f.observe({details:{nearby_food:sample}});assert.equal(await f.planner.bootstrap({}),true);
+  assert.deepEqual(f.calls.find(row=>row.name==='game_start_task').args.goal,{skill:'gather',item_id:'minecraft:carrot',count:4});
+  assert.equal(f.planner.lastPlan.stage,'gather_observed_food');
+});
+
+test('observed wheat is bread material; a ready held batch proceeds to crafting',async()=>{
+  const f=fixture(suppliedTools()),sample=foodSample(f.state.player.position,'wheat');sample.items[0].block_id='minecraft:wheat';
+  f.observe({details:{nearby_food:sample}});assert.equal(await f.planner.bootstrap({}),true);
+  assert.deepEqual(f.calls.find(row=>row.name==='game_start_task').args.goal,{skill:'gather',item_id:'minecraft:wheat',count:4});
+  const ready=fixture([...suppliedTools(),{item_id:'minecraft:wheat',count:3}]);
+  ready.observe({details:{nearby_food:sample}});assert.equal(await ready.planner.bootstrap({}),true);
+  assert.deepEqual(ready.calls.find(row=>row.name==='game_start_task').args.goal,{skill:'craft',item_id:'minecraft:bread',count:1});
+});
+
+test('hay acquisition, unpacking and bread are separate native checks with no invented reserves',async()=>{
+  const f=fixture(suppliedTools()),sample=foodSample(f.state.player.position,'hay_block');
+  Object.assign(sample.items[0],{kind:'food_material',block_id:'minecraft:hay_block'});
+  f.observe({details:{nearby_food:sample}});assert.equal(await f.planner.bootstrap({}),true);
+  assert.deepEqual(f.calls.find(row=>row.name==='game_start_task').args.goal,{skill:'gather',item_id:'minecraft:hay_block',count:1});
+  const held=fixture([...suppliedTools(),{item_id:'minecraft:hay_block',count:1}]);
+  assert.equal(await held.planner.bootstrap({}),true);
+  assert.deepEqual(held.calls.find(row=>row.name==='game_start_task').args.goal,{skill:'craft',item_id:'minecraft:wheat',count:9});
+  assert.equal(held.planner.lastPlan.stage,'unpack_received_hay');assert.equal(held.planner.lastPlan.food_reserve_nutrition,0);
+  assert.equal(held.planner.lastPlan.inventory_output_verified,false);
+  const fed=fixture([...suppliedTools(),{item_id:'minecraft:bread',count:3},{item_id:'minecraft:hay_block',count:1}]);
+  assert.equal(await fed.planner.bootstrap({}),false);assert.equal(fed.calls.length,0);
+});
+
+test('two approaches without received progress exhaust a source budget, while real nearer position replenishes it',async()=>{
+  const f=fixture(suppliedTools()),p=f.state.player.position,sample=expandedFood(p);rejectDirectGather(f);
+  f.observe({details:{nearby_food:sample}});f.planner.current(f.manager.stateView());
+  assert.equal(await f.planner.gatherObservedFood({},f.manager.stateView()),true);
+  assert.equal(await f.planner.gatherObservedFood({},f.manager.stateView()),true);
+  assert.equal(await f.planner.gatherObservedFood({},f.manager.stateView()),false);
+  f.observe({player:{position:{...p,x:p.x+3}}});
+  assert.equal(await f.planner.gatherObservedFood({},f.manager.stateView()),true);
+  assert.equal(f.calls.filter(row=>row.name==='game_start_task').length,3);
+});
+
+test('expanded approach rejects absent, stale or foreign scan origins and sources outside the actual scan',async()=>{
+  for(const change of ['missing_origin','far_origin','foreign_origin','stale','distance','height','moved','wrong_material']){
+    const f=fixture(suppliedTools()),sample=expandedFood(f.state.player.position);rejectDirectGather(f);
+    if(change==='missing_origin')delete sample.scan_origin;
+    if(change==='far_origin')sample.scan_origin.z+=5;
+    if(change==='foreign_origin')sample.scan_origin.dimension='minecraft:the_nether';
+    if(change==='stale')sample.sampled_at=new Date(Date.now()-10000).toISOString();
+    if(change==='distance')sample.items[0].distance=17;
+    if(change==='height')sample.items[0].position.y+=7;
+    if(change==='moved')sample.items[0].position.x+=3;
+    if(change==='wrong_material')sample.items[0].kind='food_material';
+    f.observe({details:{nearby_food:sample}});assert.equal(await f.planner.gatherObservedFood({},f.manager.stateView()),false,change);
+    assert.equal(f.calls.length,0,change);
+  }
+});
+
 test('stale, foreign, distant, hidden or unsupported food observations cannot authorize gathering',async()=>{
   for(const change of ['stale','future','source','dimension','distance','moved','hidden','unsupported']) {
     const f=fixture(suppliedTools()),sample=foodSample(f.state.player.position);

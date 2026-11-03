@@ -12911,10 +12911,19 @@
               "format": "date-time"
             },
             "radius": {
-              "const": 6
+              "enum": [
+                6,
+                16
+              ]
             },
             "vertical_radius": {
-              "const": 3
+              "enum": [
+                3,
+                6
+              ]
+            },
+            "scan_origin": {
+              "$ref": "#/$defs/Position"
             },
             "items": {
               "type": "array",
@@ -12925,13 +12934,15 @@
                   "kind": {
                     "enum": [
                       "mature_crop",
-                      "loose_item"
+                      "loose_item",
+                      "food_material"
                     ]
                   },
                   "item_id": {
                     "type": "string",
                     "enum": [
                       "minecraft:wheat",
+                      "minecraft:hay_block",
                       "minecraft:carrot",
                       "minecraft:potato",
                       "minecraft:beetroot",
@@ -12957,13 +12968,14 @@
                       "minecraft:carrots",
                       "minecraft:potatoes",
                       "minecraft:beetroots",
-                      "minecraft:melon"
+                      "minecraft:melon",
+                      "minecraft:hay_block"
                     ]
                   },
                   "distance": {
                     "type": "number",
                     "minimum": 0,
-                    "maximum": 6
+                    "maximum": 16
                   },
                   "line_of_sight": {
                     "const": true
@@ -12986,6 +12998,25 @@
                     "if": {
                       "properties": {
                         "kind": {
+                          "const": "food_material"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "item_id": {
+                          "const": "minecraft:hay_block"
+                        },
+                        "block_id": {
+                          "const": "minecraft:hay_block"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "kind": {
                           "const": "loose_item"
                         }
                       }
@@ -13001,6 +13032,29 @@
                       "properties": {
                         "block_id": {
                           "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "kind": {
+                          "const": "mature_crop"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "item_id": {
+                          "not": {
+                            "const": "minecraft:hay_block"
+                          }
+                        },
+                        "block_id": {
+                          "not": {
+                            "const": "minecraft:hay_block"
+                          }
                         }
                       }
                     }
@@ -13081,7 +13135,44 @@
             "planting_sites_truncated": [
               "planting_sites"
             ]
-          }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "radius": {
+                    "const": 16
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "scan_origin"
+                ],
+                "properties": {
+                  "vertical_radius": {
+                    "const": 6
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "vertical_radius": {
+                    "const": 3
+                  },
+                  "items": {
+                    "items": {
+                      "properties": {
+                        "distance": {
+                          "maximum": 6
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
         },
         "nearby_hostiles": {
           "type": "array",

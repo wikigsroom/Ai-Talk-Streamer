@@ -35,7 +35,7 @@ export class MindcraftNativePlanner {
   reset(scope) { this.scope = scope; this.completed = new Set(); this.pending = null; this.denied = new Map(); this.lastPlan = null;
     this.explored = new Set(); this.exploreIndex = 0; this.exploreOrigin = null; this.lastTable = null;
     this.exploreWindowCount=0;this.exploreWindows=new Set();
-    this.stationHistoryChecked = false; this.unconfirmedTables = new Set(); this.terrainPlacements = 0;
+    this.stationHistoryChecked = false; this.unconfirmedTables = new Set(); this.foodApproaches = new Map(); this.terrainPlacements = 0;
     this.terrainAnchors = new Map(); this.terrainGatherings = 0; this.exitStance = null; }
   report(value) {
     this.manager.publish('mindcraft',value);
@@ -259,7 +259,13 @@ export class MindcraftNativePlanner {
       const reserve=item==='bread'?foodReserve(state):null;
       if(item==='bread') {
         if(reserve>=15)continue;
-        if(await this.gatherObservedFood(context,state))return true;
+        // Hay is a received material, never edible stock. Native crafting still
+        // checks the real recipe and confirms its nine-wheat inventory batch.
+        if(count(state,'wheat')<3 && count(state,'hay_block')>0 && await this.submit(
+          {skill:'craft',item_id:'minecraft:wheat',count:9},context,
+          {engine:'mindcraft_item_goal_native',stage:'unpack_received_hay',food_reserve_nutrition:reserve,
+            reserve_target_nutrition:15,inventory_output_verified:false}))return true;
+        if(count(state,'wheat')<3 && await this.gatherObservedFood(context,state))return true;
       } else {
         if (count(state,item) >= total) this.completed.add(item);
         if (this.completed.has(item)) continue;
@@ -299,20 +305,46 @@ export class MindcraftNativePlanner {
     const age=(this.manager.wall?.() ?? Date.now())-Date.parse(sample?.sampled_at);
     const deficit=15-foodReserve(state);
     if(!p || deficit<=0 || sample?.source!=='runtime_client' || !Number.isFinite(age) || age< -1000 || age>4000)return false;
+    const expanded=sample.radius===16 && sample.vertical_radius===6,origin=sample.scan_origin || p;
+    const radius=expanded?16:6,height=expanded?6:3;
+    if(expanded && !sample.scan_origin || origin.dimension!==p.dimension
+        || !['x','y','z'].every(axis=>Number.isInteger(origin[axis]))
+        || Math.hypot(origin.x-p.x,origin.y-p.y,origin.z-p.z)>4)return false;
+    const requiredWheat=Math.max(0,Math.ceil(deficit/5)*3-count(state,'wheat'));
     const seen=new Set();let attempted=0;
     for(const source of (sample.items || []).slice(0,8).sort((a,b)=>a.distance-b.distance)) {
       const item=short(source.item_id),at=source.position;
-      if(!FOOD.has(item) || seen.has(item) || source.line_of_sight!==true
-          || !['mature_crop','loose_item'].includes(source.kind) || at?.dimension!==p.dimension
-          || !['x','y','z'].every(axis=>Number.isInteger(at[axis])) || Math.abs(at.y-p.y)>3
-          || Math.hypot(at.x-p.x,at.y-p.y,at.z-p.z)>6
-          || !Number.isFinite(source.distance) || source.distance<0 || source.distance>6)continue;
+      const amount=FOOD.has(item)?Math.ceil(deficit/FOOD.get(item))
+        : item==='wheat' && count(state,'wheat')<3 ? requiredWheat
+        : item==='hay_block' && count(state,'hay_block')<1 && count(state,'wheat')<3 ? Math.ceil(requiredWheat/9) : 0;
+      if(amount<=0 || seen.has(item) || source.line_of_sight!==true
+          || !['mature_crop','loose_item','food_material'].includes(source.kind) || at?.dimension!==p.dimension
+          || source.kind==='food_material' && (item!=='hay_block' || source.block_id!=='minecraft:hay_block')
+          || !['x','y','z'].every(axis=>Number.isInteger(at[axis])) || Math.abs(at.y-origin.y)>height
+          || Math.hypot(at.x-origin.x,at.y-origin.y,at.z-origin.z)>radius
+          || Math.hypot(at.x-p.x,at.y-p.y,at.z-p.z)>radius
+          || !Number.isFinite(source.distance) || source.distance<0 || source.distance>radius)continue;
       seen.add(item);if(attempted++>=4)break;
-      const goal={skill:'gather',item_id:source.item_id,count:Math.min(4,Math.ceil(deficit/FOOD.get(item)))};
-      if(await this.submit(goal,context,{engine:'mindcraft_item_goal_native',stage:'gather_observed_food',
+      const goal={skill:'gather',item_id:source.item_id,count:Math.min(4,amount)};
+      const details={engine:'mindcraft_item_goal_native',stage:'gather_observed_food',
           food_reserve_nutrition:15-deficit,reserve_target_nutrition:15,
           observed_source:{kind:source.kind,position:at,sampled_at:sample.sampled_at},
-          reachability_and_inventory_verified:false}))return true;
+          reachability_and_inventory_verified:false};
+      if(await this.submit(goal,context,details))return true;
+      const distance=Math.hypot(at.x-p.x,at.y-p.y,at.z-p.z),key=canonical([source.item_id,at]);
+      // A visible source outside direct gathering range can guide an admitted
+      // ordinary route. Two approaches per minute; only received two-block
+      // progress can replenish that source's budget. No route means no move.
+      const previous=this.foodApproaches.get(key),now=this.manager.clock();
+      if(distance<=4 || previous && now-previous.at<60000 && previous.attempts>=2
+          && distance>previous.distance-2)continue;
+      if(await this.submit({skill:'navigate',target:at,radius:2},context,
+          {...details,stage:'approach_observed_food',food_acquisition_verified:false})) {
+        this.foodApproaches.set(key,{at:now,distance,attempts:previous && now-previous.at<60000
+          && distance>previous.distance-2?previous.attempts+1:1});
+        while(this.foodApproaches.size>32)this.foodApproaches.delete(this.foodApproaches.keys().next().value);
+        return true;
+      }
     }
     return false;
   }

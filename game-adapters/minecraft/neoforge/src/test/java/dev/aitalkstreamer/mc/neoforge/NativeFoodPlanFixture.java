@@ -20,6 +20,12 @@ public final class NativeFoodPlanFixture {
         }
         equal("minecraft:melon_slice", NativeFoodPlan.harvest("minecraft:melon", -1));
         equal(null, NativeFoodPlan.harvest("minecraft:melon", 0));
+        equal("minecraft:hay_block", NativeFoodPlan.harvest("minecraft:hay_block", -1));
+        equal(null, NativeFoodPlan.harvest("minecraft:hay_block", 7));
+        equal("food_material", NativeFoodPlan.kind("minecraft:hay_block"));
+        equal("mature_crop", NativeFoodPlan.kind("minecraft:wheat"));
+        equal(true, NativeFoodPlan.gatherable("minecraft:hay_block"));
+        equal(false, NativeFoodPlan.edible("minecraft:hay_block"));
         for (String unknown : new String[]{null, "minecraft:oak_leaves", "minecraft:sweet_berry_bush", "mod:carrots", "minecraft:poisonous_potato"})
             equal(null, NativeFoodPlan.harvest(unknown, 7));
         for (String unsafe : new String[]{null, "minecraft:wheat", "minecraft:rotten_flesh", "minecraft:poisonous_potato", "minecraft:spider_eye", "minecraft:pufferfish", "mod:apple"})

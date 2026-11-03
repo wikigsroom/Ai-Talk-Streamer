@@ -15,8 +15,9 @@ import java.time.Instant;
 import java.util.*;
 import static dev.aitalkstreamer.mc.core.Json.*;
 
-/** Read-only loaded client facts, cached for at most one second and one block position. */
+/** Read-only, visible loaded client facts. Cache keeps its actual scan origin/time. */
 final class NativeFoodSources {
+    private static final int RADIUS = 16, HEIGHT = 6;
     private Object level, player, connection;
     private BlockPos anchor;
     private long scannedAt;
@@ -32,16 +33,17 @@ final class NativeFoodSources {
         long now = System.nanoTime() / 1_000_000;
         BlockPos origin = client.player.blockPosition();
         if (cached != null && level == client.level && player == client.player && connection == client.getConnection()
-                && origin.equals(anchor) && now >= scannedAt && now - scannedAt < 1000) return cached.deepCopy();
+                && origin.distSqr(anchor) <= 16 && now >= scannedAt && now - scannedAt < 1000) return cached.deepCopy();
         var rows = new ArrayList<JsonObject>();
         var sites = new ArrayList<JsonObject>();
         String dimension = client.level.dimension().location().toString();
-        for (int dy = -3; dy <= 3; dy++) for (int dx = -6; dx <= 6; dx++) for (int dz = -6; dz <= 6; dz++) {
+        for (int dy = -HEIGHT; dy <= HEIGHT; dy++) for (int dx = -RADIUS; dx <= RADIUS; dx++) for (int dz = -RADIUS; dz <= RADIUS; dz++) {
             BlockPos at = origin.offset(dx, dy, dz);
-            if (origin.distSqr(at) > 36 || !client.level.hasChunkAt(at)
+            double distanceSquared = origin.distSqr(at);
+            if (distanceSquared > RADIUS * RADIUS || !client.level.hasChunkAt(at)
                     || !client.level.getWorldBorder().isWithinBounds(at)) continue;
             BlockState state = client.level.getBlockState(at);
-            if (NativePlanting.site(client, at) != null) sites.add(obj("position",
+            if (distanceSquared <= 36 && Math.abs(dy) <= 3 && NativePlanting.site(client, at) != null) sites.add(obj("position",
                     obj("dimension", dimension, "x", at.getX(), "y", at.getY(), "z", at.getZ()),
                     "soil_id", "minecraft:farmland", "line_of_sight", true,
                     "distance", client.player.getEyePosition().distanceTo(NativePlanting.top(at.below()))));
@@ -53,22 +55,25 @@ final class NativeFoodSources {
             var hit = client.level.clip(new ClipContext(client.player.getEyePosition(), target,
                     ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, client.player));
             if (hit.getType() != HitResult.Type.BLOCK || !hit.getBlockPos().equals(at)) continue;
-            rows.add(row("mature_crop", item, BuiltInRegistries.BLOCK.getKey(state.getBlock()).toString(),
+            String block = BuiltInRegistries.BLOCK.getKey(state.getBlock()).toString();
+            rows.add(row(NativeFoodPlan.kind(block), item, block,
                     at, dimension, Math.sqrt(origin.distSqr(at))));
         }
-        for (var loose : client.level.getEntitiesOfClass(ItemEntity.class, client.player.getBoundingBox().inflate(6),
-                e -> e.isAlive() && !e.hasPickUpDelay() && client.player.distanceToSqr(e) <= 36)) {
+        for (var loose : client.level.getEntitiesOfClass(ItemEntity.class, client.player.getBoundingBox().inflate(RADIUS, HEIGHT, RADIUS),
+                e -> e.isAlive() && !e.hasPickUpDelay() && origin.distSqr(e.blockPosition()) <= RADIUS * RADIUS
+                        && Math.abs(e.blockPosition().getY() - origin.getY()) <= HEIGHT)) {
             String item = BuiltInRegistries.ITEM.getKey(loose.getItem().getItem()).toString();
             if (!NativeFoodPlan.gatherable(item)) continue;
             var hit = client.level.clip(new ClipContext(client.player.getEyePosition(), loose.position().add(0, .1, 0),
                     ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, client.player));
             if (hit.getType() != HitResult.Type.MISS) continue;
             rows.add(row("loose_item", item, null, loose.blockPosition(), dimension,
-                    Math.sqrt(client.player.distanceToSqr(loose))));
+                    Math.sqrt(origin.distSqr(loose.blockPosition()))));
         }
         rows.sort(Comparator.comparingDouble(r -> r.get("distance").getAsDouble()));
         sites.sort(Comparator.comparingDouble(r -> r.get("distance").getAsDouble()));
-        cached = obj("source", "runtime_client", "sampled_at", Instant.now().toString(), "radius", 6, "vertical_radius", 3,
+        cached = obj("source", "runtime_client", "sampled_at", Instant.now().toString(), "radius", RADIUS, "vertical_radius", HEIGHT,
+                "scan_origin", obj("dimension", dimension, "x", origin.getX(), "y", origin.getY(), "z", origin.getZ()),
                 "items", rows.subList(0, Math.min(8, rows.size())), "truncated", rows.size() > 8,
                 "planting_sites", sites.subList(0, Math.min(8, sites.size())), "planting_sites_truncated", sites.size() > 8,
                 "action_precondition_required", true, "unknown_fields", List.of("unloaded_chunks", "occluded_sources",

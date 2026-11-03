@@ -51,3 +51,24 @@ test('planning receives food sources without converting them into inventory or a
   const missing = structuredClone(source); delete missing.details.nearby_food;
   assert.equal(planningState(missing).details.nearby_food, undefined);
 });
+
+test('expanded food search binds sixteen blocks and six vertical blocks to an explicit scan origin',()=>{
+  const food=sources();Object.assign(food,{radius:16,vertical_radius:6,scan_origin:position});
+  Object.assign(food.items[0],{distance:14,position:{...position,x:position.x+14}});
+  validate('RuntimeDetails',{...details(),nearby_food:food});
+  for(const change of [f=>delete f.scan_origin,f=>f.vertical_radius=3,f=>f.items[0].distance=16.1]){
+    const bad=structuredClone(food);change(bad);assert.throws(()=>validate('RuntimeDetails',{...details(),nearby_food:bad}));
+  }
+  const old=sources();old.items[0].distance=7;
+  assert.throws(()=>validate('RuntimeDetails',{...details(),nearby_food:old}),'legacy six-block contract stays bounded');
+});
+
+test('hay is a visible bread material or loose drop and cannot masquerade as a mature crop or edible carrot',()=>{
+  const food=sources();Object.assign(food.items[0],{kind:'food_material',item_id:'minecraft:hay_block',block_id:'minecraft:hay_block'});
+  validate('RuntimeDetails',{...details(),nearby_food:food});
+  for(const change of [f=>f.items[0].kind='mature_crop',f=>f.items[0].item_id='minecraft:carrot',f=>f.items[0].block_id=null]){
+    const bad=structuredClone(food);change(bad);assert.throws(()=>validate('RuntimeDetails',{...details(),nearby_food:bad}));
+  }
+  Object.assign(food.items[0],{kind:'loose_item',block_id:null});
+  validate('RuntimeDetails',{...details(),nearby_food:food});
+});
