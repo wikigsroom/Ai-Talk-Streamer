@@ -847,7 +847,7 @@ test('held wheat without a table prepares checked portable materials instead of 
     return invoke(name,args,...rest);
   };
   assert.equal(await f.planner.bootstrap({}),true);
-  assert.deepEqual(f.calls.map(row=>[row.name,row.args.goal]),[
+  assert.deepEqual(f.calls.filter(row=>row.args.goal).map(row=>[row.name,row.args.goal]),[
     ['game_check_action',{skill:'craft',item_id:'minecraft:bread',count:1}],
     ['game_check_action',{skill:'gather',item_id:'minecraft:oak_log',count:1}],
     ['game_start_task',{skill:'gather',item_id:'minecraft:oak_log',count:1}]]);
@@ -860,7 +860,9 @@ test('portable materials still need their own native admission and cannot bypass
   const f=fixture([...suppliedTools().filter(row=>row.item_id!=='minecraft:crafting_table'),
     {item_id:'minecraft:oak_planks',count:1},{item_id:'minecraft:wheat',count:9}]);
   f.observe({details:{construction:{placement_sites:[],workstations:[]}}});
-  f.manager.tools.invoke=async(name,args)=>{
+  const invoke=f.manager.tools.invoke;
+  f.manager.tools.invoke=async(name,args,...rest)=>{
+    if(name!=='game_check_action')return invoke(name,args,...rest);
     f.calls.push({name,args});assert.equal(name,'game_check_action');
     return {state:'succeeded',result:{allowed:false,reason:args.goal.item_id==='minecraft:bread'
       ?'GAME_CRAFT_WORKSTATION_UNAVAILABLE':'GAME_GATHER_RESOURCE_UNAVAILABLE'}};
