@@ -1,0 +1,905 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261104-099",
+  "round": "099",
+  "at": "2026-11-03T21:02:31.610666+00:00",
+  "branch": "mc",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "scope": "REMOTE_NATIVE_OBSERVATION_WITH_UNMET_FULL_DELIVERY_GATES",
+  "source_files": 1012,
+  "source_snapshot_sha256": "6d45ac6ff96126c9b01e42376b5f4812de52152d229d7df802e40bfeb09abe71",
+  "source_archive_sha256": "98f7a47787a94a48f175da1037cef69cd714ec116cff81a120a6b6850ffe2655",
+  "native_build": {
+    "sha256": "c9f88ef626fd1ccd8d11988f674b13b95498f520772f2e724df8746cb6a12056",
+    "bytes": 12544810,
+    "compiled_against": "actual_supplied_neoforge_21.1.248_mojmap_libraries",
+    "classes": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/build/classes-1b001caacf1f4ce38533db81af84cbf2"
+  },
+  "checks": {
+    "core": {
+      "tests": 383,
+      "pass": 383,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "java_fixtures": 16,
+    "suites_overlap_do_not_sum": true
+  },
+  "unchanged_suites_not_rerun": {
+    "receiver": {
+      "round": "098b",
+      "passed": 19
+    },
+    "programme_browser": {
+      "round": "098b",
+      "passed": 12
+    },
+    "programme_assets": {
+      "round": "098b",
+      "passed": 3
+    }
+  },
+  "runtime": {
+    "window_seconds": 600.4592804908752,
+    "observations": 573,
+    "task_count": 70,
+    "task_states": {
+      "succeeded": 60,
+      "failed": 3,
+      "cancelled": 7
+    },
+    "task_reasons": {
+      "GAME_NAVIGATION_NO_ROUTE": 3,
+      "PLAYER_DEATH": 3,
+      "AGENT_EMERGENCY_THREAT": 4
+    },
+    "verified_navigation": 56,
+    "productive_by_item": {
+      "minecraft:rotten_flesh": 4
+    },
+    "death_transitions": 3,
+    "formal_speech_completions": 23,
+    "vision_states": {
+      "succeeded": 25,
+      "failed": 5
+    },
+    "first_player": {
+      "health": 20,
+      "max_health": 20,
+      "food": 17,
+      "oxygen": 300,
+      "position": {
+        "dimension": "minecraft:overworld",
+        "x": 1264,
+        "y": 72,
+        "z": -95
+      }
+    },
+    "last_player": {
+      "health": 12.033335,
+      "max_health": 20,
+      "food": 17,
+      "oxygen": 300,
+      "position": {
+        "dimension": "minecraft:overworld",
+        "x": 1504,
+        "y": 75,
+        "z": -171
+      }
+    },
+    "sampled_y_range": [
+      72,
+      77
+    ],
+    "seconds_after_last_non_navigation_completion": 45.15501356124878,
+    "excavation_frontier_samples": 17,
+    "sampled_confirmed_step_cuts": 4,
+    "origin_alignment_tasks": {
+      "task-5484b3f3-3c9e-4db6-83d5-4986e7204197": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-ea2ad04b-dc66-4ae8-9d88-109e80937a05": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-72525dd8-0713-4d81-a0b6-35f72cd38488": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-0be9c957-0254-47b0-9a30-52f67714a307": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-eecc1ef5-a7e9-4b21-91a7-687f7c3616d4": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-8e093c0c-b861-4595-bdb0-10d4b723072e": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-5f79060f-f651-4f68-8685-bb8792516097": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-8e811810-2d64-4087-bdb2-96d19f703b2f": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-f18fe144-6491-4e5a-b203-ac3d98314532": {
+        "episodes": 1,
+        "total_ticks": 8
+      },
+      "task-fe783767-59cf-4a78-bf6a-8c523b5fb02b": {
+        "episodes": 1,
+        "total_ticks": 8
+      },
+      "task-60577abb-ef9e-47fc-bed8-24442b898722": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-b29aa90b-b561-4e6f-92bd-2f991084e6cc": {
+        "episodes": 1,
+        "total_ticks": 16
+      },
+      "task-11213560-29a5-4d72-bed1-2f046132387f": {
+        "episodes": 1,
+        "total_ticks": 9
+      },
+      "task-1235fe7d-5f87-477e-a745-8cfa6e727e9d": {
+        "episodes": 1,
+        "total_ticks": 1
+      },
+      "task-6834d725-a7c4-4efc-93d3-0a55d907438b": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-5485ba02-ae31-4c0d-8dee-e89ef44ce42d": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-0eb6cc2b-84ba-4e4f-91ef-709257a06552": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-6204064f-e5ac-432f-b58e-07861978ef5f": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-921ee321-270f-41cb-8ced-58c1c5e9474d": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-18a2945d-af17-4b01-98ac-96c622f053f7": {
+        "episodes": 2,
+        "total_ticks": 16
+      },
+      "task-3a2908f2-d050-4ef1-8e4f-60bc99afb45e": {
+        "episodes": 1,
+        "total_ticks": 1
+      },
+      "task-dcb60f20-7d14-432a-afcd-4b1eba20ef92": {
+        "episodes": 1,
+        "total_ticks": 1
+      },
+      "task-26f2aa8f-20f3-4ba9-8d60-0bb0de11b605": {
+        "episodes": 1,
+        "total_ticks": 2
+      },
+      "task-5c87c932-678f-4f5e-befa-6c2d8498a3c0": {
+        "episodes": 1,
+        "total_ticks": 13
+      },
+      "task-6a029adb-7c0f-4354-910f-145467e8284b": {
+        "episodes": 1,
+        "total_ticks": 9
+      },
+      "task-197fa899-3569-443f-9262-4e7a6b7f2aaf": {
+        "episodes": 1,
+        "total_ticks": 9
+      },
+      "task-4d3661b5-2028-492f-b0aa-370dfbf25466": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-d5f3057b-8d4d-4c4c-bf14-8485bc03bd49": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-01d65e62-a7c1-43d7-88a9-3a04a8df5659": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-8172779d-fcab-4814-9877-d22be537828f": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-b4651425-2f7a-4464-9bc7-201232d4abd9": {
+        "episodes": 1,
+        "total_ticks": 9
+      },
+      "task-255b66f9-625e-47da-9d40-28af84ead35f": {
+        "episodes": 1,
+        "total_ticks": 7
+      },
+      "task-c910bca4-dad4-4614-96e7-be29c8f89c06": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-3384e2a7-6508-477e-a1a8-43f3b240d5a2": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-6b6b0dd4-0e96-4f47-bd28-120859fac342": {
+        "episodes": 1,
+        "total_ticks": 2
+      },
+      "task-f550af74-e72b-46ba-a627-ef204754c6f6": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-dc9a4994-b38e-44a0-879f-2aec32a26541": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-68b411c7-aab6-4f99-871d-42f1e51958bc": {
+        "episodes": 1,
+        "total_ticks": 1
+      },
+      "task-0f7fb586-520a-4fb1-9ee2-31ab32f11ce8": {
+        "episodes": 1,
+        "total_ticks": 10
+      },
+      "task-31062eb5-2586-439f-a6d7-84c5b9cadd48": {
+        "episodes": 1,
+        "total_ticks": 6
+      },
+      "task-52224494-bf62-45bb-83d4-cec1e073b6b0": {
+        "episodes": 1,
+        "total_ticks": 7
+      },
+      "task-f14841c7-4d1f-4bfe-9949-fc2672a6b07f": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-d510b0a4-e305-458f-a21e-f99d6f4d16ba": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-8866c9bf-c175-4662-b433-407f93fec9d0": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-2893889a-e754-4fe6-bfba-f86505194a4b": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-2c85a538-29dc-4801-9fb8-7fb77a20a4cd": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-5b00d45e-ab31-477b-bbba-939fbed5d6fd": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-69dcbc8d-500c-41b8-8351-dd103aa11a72": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-05ef395b-a7b2-4e99-8100-61b463a61949": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-9dec6105-9021-4a25-8aff-0459234f279c": {
+        "episodes": 1,
+        "total_ticks": 7
+      },
+      "task-49decdd0-aa0e-4930-a84a-ca632c86f1ee": {
+        "episodes": 1,
+        "total_ticks": 10
+      },
+      "task-1f3d0be3-8a55-40a1-8b29-89746ea6e731": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-55c9c4b6-dc9a-4298-8f59-63b490f1445a": {
+        "episodes": 1,
+        "total_ticks": 7
+      },
+      "task-6e956c48-cd05-4110-b62f-170f16467c90": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-b283a7f0-b914-4769-9651-5255077cc9f8": {
+        "episodes": 1,
+        "total_ticks": 11
+      },
+      "task-de812c91-56e2-4bd4-a2be-6bf62c044e11": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-11d44228-f085-4172-9e66-2e4726c2e537": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-4fec7714-7251-4cd8-8267-f1eb8b51bfec": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-edd7c3b1-e4fc-400c-9f55-ee3a68fe737c": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-f25f8190-2ac8-4e03-8e4b-e8962e1713b1": {
+        "episodes": 0,
+        "total_ticks": 0
+      },
+      "task-7091a174-e3b1-4659-9a70-294c3b946952": {
+        "episodes": 0,
+        "total_ticks": 0
+      }
+    },
+    "pre_first_death_progress": {
+      "death_task_count": 3,
+      "first_death_at": 1793738986.059344,
+      "samples": 100,
+      "max_y": 76,
+      "max_horizontal_distance_from_start": 38.48376280978771,
+      "verified_navigation_before_death": 13
+    },
+    "death_inventory_sample_brackets": [
+      {
+        "before_at": 1793738985.2629693,
+        "after_at": 1793738990.4522455,
+        "sample_interval_seconds": 5.189276218414307,
+        "before_inventory": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:cobblestone": 69,
+          "minecraft:dirt": 99,
+          "minecraft:furnace": 1,
+          "minecraft:oak_planks": 1,
+          "minecraft:oak_sapling": 5,
+          "minecraft:rotten_flesh": 8,
+          "minecraft:spider_eye": 1,
+          "minecraft:stick": 2,
+          "minecraft:stone_axe": 1,
+          "minecraft:stone_pickaxe": 1,
+          "minecraft:string": 2,
+          "minecraft:wheat_seeds": 2,
+          "minecraft:wooden_pickaxe": 1
+        },
+        "after_inventory": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:cobblestone": 69,
+          "minecraft:dirt": 99,
+          "minecraft:furnace": 1,
+          "minecraft:oak_planks": 1,
+          "minecraft:oak_sapling": 5,
+          "minecraft:rotten_flesh": 8,
+          "minecraft:spider_eye": 1,
+          "minecraft:stick": 2,
+          "minecraft:stone_axe": 1,
+          "minecraft:stone_pickaxe": 1,
+          "minecraft:string": 2,
+          "minecraft:wheat_seeds": 2,
+          "minecraft:wooden_pickaxe": 1
+        },
+        "item_count_changes": {},
+        "scope": "NEAREST_ALIVE_SAMPLES_BRACKETING_A_SAMPLED_DEATH_NOT_EXACT_DEATH_TICK_OR_COMPLETE_MODDED_INVENTORY_ACCEPTANCE"
+      },
+      {
+        "before_at": 1793739072.240264,
+        "after_at": 1793739076.4902585,
+        "sample_interval_seconds": 4.249994516372681,
+        "before_inventory": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:cobblestone": 69,
+          "minecraft:dirt": 99,
+          "minecraft:furnace": 1,
+          "minecraft:oak_planks": 1,
+          "minecraft:oak_sapling": 5,
+          "minecraft:rotten_flesh": 8,
+          "minecraft:spider_eye": 1,
+          "minecraft:stick": 2,
+          "minecraft:stone_axe": 1,
+          "minecraft:stone_pickaxe": 1,
+          "minecraft:string": 2,
+          "minecraft:wheat_seeds": 2,
+          "minecraft:wooden_pickaxe": 1
+        },
+        "after_inventory": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:cobblestone": 69,
+          "minecraft:dirt": 99,
+          "minecraft:furnace": 1,
+          "minecraft:oak_planks": 1,
+          "minecraft:oak_sapling": 5,
+          "minecraft:rotten_flesh": 8,
+          "minecraft:spider_eye": 1,
+          "minecraft:stick": 2,
+          "minecraft:stone_axe": 1,
+          "minecraft:stone_pickaxe": 1,
+          "minecraft:string": 2,
+          "minecraft:wheat_seeds": 2,
+          "minecraft:wooden_pickaxe": 1
+        },
+        "item_count_changes": {},
+        "scope": "NEAREST_ALIVE_SAMPLES_BRACKETING_A_SAMPLED_DEATH_NOT_EXACT_DEATH_TICK_OR_COMPLETE_MODDED_INVENTORY_ACCEPTANCE"
+      },
+      {
+        "before_at": 1793739208.482205,
+        "after_at": 1793739212.6407003,
+        "sample_interval_seconds": 4.1584954261779785,
+        "before_inventory": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:arrow": 2,
+          "minecraft:bone": 1,
+          "minecraft:cobblestone": 69,
+          "minecraft:dirt": 99,
+          "minecraft:furnace": 1,
+          "minecraft:oak_planks": 1,
+          "minecraft:oak_sapling": 5,
+          "minecraft:rotten_flesh": 8,
+          "minecraft:spider_eye": 1,
+          "minecraft:stick": 2,
+          "minecraft:stone_axe": 1,
+          "minecraft:stone_pickaxe": 1,
+          "minecraft:string": 2,
+          "minecraft:wheat_seeds": 2,
+          "minecraft:wooden_pickaxe": 1
+        },
+        "after_inventory": {
+          "cottonly:cotton_seeds": 2,
+          "gravestone:obituary": 1,
+          "minecraft:arrow": 2,
+          "minecraft:bone": 1,
+          "minecraft:cobblestone": 69,
+          "minecraft:dirt": 99,
+          "minecraft:furnace": 1,
+          "minecraft:oak_planks": 1,
+          "minecraft:oak_sapling": 5,
+          "minecraft:rotten_flesh": 8,
+          "minecraft:spider_eye": 1,
+          "minecraft:stick": 2,
+          "minecraft:stone_axe": 1,
+          "minecraft:stone_pickaxe": 1,
+          "minecraft:string": 2,
+          "minecraft:wheat_seeds": 2,
+          "minecraft:wooden_pickaxe": 1
+        },
+        "item_count_changes": {},
+        "scope": "NEAREST_ALIVE_SAMPLES_BRACKETING_A_SAMPLED_DEATH_NOT_EXACT_DEATH_TICK_OR_COMPLETE_MODDED_INVENTORY_ACCEPTANCE"
+      }
+    ]
+  },
+  "prompt_summary": {
+    "scope": "SAMPLED_BOUNDED_PROMPT_METRICS_NOT_BILLING_OR_RAW_PROMPTS",
+    "capacity": 12000,
+    "sampled_probes": 73,
+    "by_purpose": {
+      "speech": 34,
+      "vision": 1,
+      "game_plan": 38
+    },
+    "denied_count": 0,
+    "estimated_input_tokens_max": 8044,
+    "above_old_6000_admitted": 43,
+    "includes_startup_tail": true,
+    "admitted_estimated_input_tokens_max": 8044
+  },
+  "performance": {
+    "scope": "SOURCE_BOUND_RENDERER_DIAGNOSTICS_NOT_OFFICIAL_CAPTURE_OR_CDN_ACCEPTANCE",
+    "samples": 122,
+    "bound_segments": [
+      {
+        "binding": {
+          "receiver_epoch": "0780db61-b819-4d43-8667-c34b8171a3bf",
+          "consumer_id": "browser-38930d75-b79d-4074-bb2a-1c81418c5a94",
+          "transport_id": "avatar-17dd07c6-b225-4ed5-8a91-a39ceb30e18f",
+          "media_stream_id": "media-00fb2f53da46415e8bf7aa122b294d58",
+          "media_protocol_version": 3,
+          "counter_segment": 1
+        },
+        "distinct_reports": 119,
+        "duration_seconds": 607.4711904525757,
+        "reported_canvas_fps_mean": 22.36814362541577,
+        "counter_delta": {
+          "frames": 13648,
+          "audio_underruns": 10,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0
+        }
+      }
+    ],
+    "incomplete_or_unowned_fresh_samples": 1,
+    "stale_or_absent_samples": 2,
+    "fps_aggregate_withheld_without_complete_binding": false,
+    "gpu_samples": 21,
+    "gpu_memory_peak_mib": 8886.0,
+    "gpu_utilization_mean": 44.142857142857146,
+    "system_cpu_mean": 11.571311475409836,
+    "browser_contexts_opened": 0
+  },
+  "public_guest": {
+    "duration_seconds": 618.2342963218689,
+    "connected_observed": true,
+    "event_types": {},
+    "events": [],
+    "owned_collector_stopped": true
+  },
+  "startup_diagnostic": {
+    "start_phase_interval_seconds": 1111.2689802646637,
+    "console_log_bytes": 4726301801,
+    "console_log_contents_exported": false,
+    "thread_dump_sha256": "57d7a83446a1122a47de38109417f90c003e66646bff7d4819dff0ad6d9abdcb",
+    "blocked_component_observed": "FTB_PROMOTER_HTTP_CLIENT_CLOSE",
+    "recovered_before_stop_preconditions": true,
+    "game_stop_request_written": false,
+    "full_startup_performance_accepted": false
+  },
+  "application_ready": false,
+  "candidate_disabled": true,
+  "services_after": {
+    "dsh": false,
+    "avatar": false,
+    "tts": false,
+    "receiver": false,
+    "vision": false,
+    "minecraft": false
+  },
+  "official_clients_preserved": true,
+  "world": {
+    "keepInventory": true,
+    "normal_engine_save": true,
+    "sha256": "1472459a46497610bd928a36fe75687bdfe3ec829ac9434371d1804f60392e47",
+    "backup089_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f"
+  },
+  "cleanup": {
+    "runtime_browser_contexts_opened": 0,
+    "fixture_browser_contexts_closed": 0,
+    "byte_helper": {
+      "ok": true,
+      "purpose": "BYTE_TRANSFER_HELPER_CLOSED_AFTER_EVIDENCE_VERIFICATION",
+      "pid": 26444,
+      "creation_time_verified": true,
+      "command_path_verified": true,
+      "listener_owner_verified": true,
+      "port": 2531,
+      "listeners_after": 0,
+      "unrelated_processes_stopped": false,
+      "browser_contexts_opened": 0,
+      "at": "2026-11-03T21:02:16.8289655Z"
+    },
+    "workers_remaining": []
+  },
+  "private_policy": {
+    "changed_this_round": false,
+    "sha256": "1aba677cdf0e53fb7ade93c487a24ebfe3f64beef2b7aa01a44e32ee83ca792e",
+    "contents_exported": false
+  },
+  "implemented_ids": [
+    "I1130",
+    "I1131",
+    "I1132",
+    "I1133",
+    "I1134",
+    "I1135",
+    "I1136",
+    "I1137"
+  ],
+  "formal_acceptance_passed": 0,
+  "formal_acceptance_advanced": 0,
+  "new_avatar_clips": 0,
+  "inherited_todos_open": 117,
+  "new_video_recorded": false,
+  "report": "docs/technical/mc-live-v1/原地对齐与099自主游玩修复.md",
+  "github_publication": {
+    "branch": "mc",
+    "source_commit": "750d6ecd0bd59757af4963b570410ec9f22fbde0",
+    "source_pushed_and_remote_verified": true,
+    "documentation_published_with_this_revision": true
+  },
+  "raw_evidence_policy": "Ignored originals retained locally and on3080; sanitized summaries and file hashes only.",
+  "raw_artifacts": [
+    {
+      "file": "abort099-blocked-start.stdout.log",
+      "bytes": 612,
+      "sha256": "f6b344ef241ec199c3aa34d1aa776342d73d2eafbb3aecc06d1932fe4802bcca"
+    },
+    {
+      "file": "ArrivalRadiusFixture099.log",
+      "bytes": 204,
+      "sha256": "0ead68e79a6d7d9bdf4210f3482e88f10e2bb1f314427f501711424b6ecd3e5e"
+    },
+    {
+      "file": "audit099-expected-sha.json",
+      "bytes": 166,
+      "sha256": "cf4bfb17399189f73316bc194b63486dc030297113192e4be96d431a9b8109a5"
+    },
+    {
+      "file": "audit099-result.json",
+      "bytes": 28660,
+      "sha256": "8537ba80428135820dad3693e29c6f03ceac59c31d85800c35fb2a19dbdcd157"
+    },
+    {
+      "file": "audit099-tasks-result.json",
+      "bytes": 58440,
+      "sha256": "2e4861bce4ef2f0c052f8a7847d47190adcc05477006918d974341e17af4c01f"
+    },
+    {
+      "file": "build099.log",
+      "bytes": 14298,
+      "sha256": "ed4c9c71c3fbae8dadda5fc4869c4023de8445312550b659d87ee66ebc72b397"
+    },
+    {
+      "file": "core099-inputs.json",
+      "bytes": 138484,
+      "sha256": "e5fafaac2af1c7b5f4d2c349934bec0c6ae0cecfd647426295c5db80408e3148"
+    },
+    {
+      "file": "core099-report.json",
+      "bytes": 819,
+      "sha256": "60552a48ec3432d988996bf21fa4e66960aab1beeba0195d9498a404e3d63a90"
+    },
+    {
+      "file": "core099.log",
+      "bytes": 819,
+      "sha256": "60552a48ec3432d988996bf21fa4e66960aab1beeba0195d9498a404e3d63a90"
+    },
+    {
+      "file": "deploy099-bootstrap.json",
+      "bytes": 167,
+      "sha256": "bb1de634b22117287c30d785bfaa36012e39db9c94a4b09d4a2005c5afec69a0"
+    },
+    {
+      "file": "deploy099-progress.json",
+      "bytes": 70,
+      "sha256": "ee6ac487abb6fec9711b9c2f1bdc0f9a4f19e2d52754e6a1d68ef52ea9a4520f"
+    },
+    {
+      "file": "deploy099-result.json",
+      "bytes": 6448,
+      "sha256": "5674981e2d6fb4a8e8934f3e7ded9a7a975c1c31909762e136137d2050bd0f50"
+    },
+    {
+      "file": "deploy099-transfer.json",
+      "bytes": 4891,
+      "sha256": "a0e09959bf5a78f6aceea98b0c295e82eead12848dae66850116270db4f9aad0"
+    },
+    {
+      "file": "deploy099-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "diagnose099-threads.stdout.log",
+      "bytes": 365,
+      "sha256": "64659bb95ba2cddaa4e17aab18529ffafee1c08ab53bf8729ad5220d70db0a3a"
+    },
+    {
+      "file": "DiagonalRouteFixture099.log",
+      "bytes": 92,
+      "sha256": "7e75f57485e283ba84a760a40b4fc45fd77bdb3fde97c7355673e7e48d1b96a8"
+    },
+    {
+      "file": "DryDescentFixture099.log",
+      "bytes": 80,
+      "sha256": "3eea82aafda98d3efc020c6a6bff9ea1a6f4006584a7ca958e5c076906e3b368"
+    },
+    {
+      "file": "EscapeLandingFixture099.log",
+      "bytes": 63,
+      "sha256": "62c8cc1b85f3941cad2d8edf66da1ea2bdadd3441ab56e3c327a8222b2ecd872"
+    },
+    {
+      "file": "EscapeMotionFixture099.log",
+      "bytes": 62,
+      "sha256": "59e30bc89230aaa20d8373909fdb9c0272eafbf3623a50e75686263b22a0878c"
+    },
+    {
+      "file": "ExcavationStepFixture099.log",
+      "bytes": 58,
+      "sha256": "7af78cc5285243d6b063b712d829091bb3ab237069e3971dd8189f7564998975"
+    },
+    {
+      "file": "final099-readonly.json",
+      "bytes": 792,
+      "sha256": "8b80dcb1c270a01ac797ee04f3d3602caa2145bef70904a67278336967e75202"
+    },
+    {
+      "file": "finish099-result.json",
+      "bytes": 128007,
+      "sha256": "96adf99c97c324fbf6a2cf54841e99a14be8380f36b065ba4c2b23701c8306be"
+    },
+    {
+      "file": "fixture-compile099.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "focus099-receipt.json",
+      "bytes": 215,
+      "sha256": "b83b39ef76c4813a62e66791d3f7511795f811e16b2cec551834031f5671822f"
+    },
+    {
+      "file": "focus099-startup-game.jpg",
+      "bytes": 166750,
+      "sha256": "8c7e6741f61a313c24ef6fff9a1cb6b1b4264eed7bd395208f5d5b46e8081b99"
+    },
+    {
+      "file": "focus099-startup-receipt.json",
+      "bytes": 376,
+      "sha256": "26a7cca2931e69c405774140b4b1fddf442da9359352ee0a5b87128fe022d4c1"
+    },
+    {
+      "file": "FrontierFixture099.log",
+      "bytes": 61,
+      "sha256": "84537d9e96e383c138dd76950882cd44549af2061c8d5383cb4a99883f17ee75"
+    },
+    {
+      "file": "monitor099-result.json",
+      "bytes": 467475,
+      "sha256": "447ea8c1a20c3c43faba5fabed7a89c76ee6a4db736462628e7875e56f66e2dd"
+    },
+    {
+      "file": "native099-session-progress.json",
+      "bytes": 86,
+      "sha256": "f46af1fa802a178534d243b8684a5590f35170c215c2eb1cf92fbd417e022ab1"
+    },
+    {
+      "file": "native099-session-result.json",
+      "bytes": 5387846,
+      "sha256": "20d6492bfc60546f2b49111130abbac9020b41b5ad7a61509e5dde8fef573eef"
+    },
+    {
+      "file": "native099-vision-1.jpg",
+      "bytes": 100719,
+      "sha256": "f2b3862866e15e95a34548e43e573b5ad1c59775475252c128ef1ae0d7c8c130"
+    },
+    {
+      "file": "native099-vision-2.jpg",
+      "bytes": 196359,
+      "sha256": "70a3618e0d3e27e59d6647f92a56c90087ae30faa042a61ebc92b69a00b93ee2"
+    },
+    {
+      "file": "native099-vision-3.jpg",
+      "bytes": 144002,
+      "sha256": "c407843e205acd5625fbb1cca4940cb5e87a85b2b80d58175078b9975e26e908"
+    },
+    {
+      "file": "native099-vision-4.jpg",
+      "bytes": 322275,
+      "sha256": "9139fd3f809fc8fbd83b1c649fcc70899352a0531b71813f27bf7dcdd9f89377"
+    },
+    {
+      "file": "NativeWorldFramesFixture099.log",
+      "bytes": 71,
+      "sha256": "b502b9db318ef800421887d48eae442229a0009f238c87203a7377caf87d1f88"
+    },
+    {
+      "file": "orchestration099-bootstrap.json",
+      "bytes": 174,
+      "sha256": "54573aaab2c72616865f6585c261e8c30b5ed2f58b2daa95a9150cc004c9ce09"
+    },
+    {
+      "file": "orchestration099-result.json",
+      "bytes": 1617,
+      "sha256": "f644c561f814721074da91874da9cc1a49e3064551db9bbd629bf9edbad928a9"
+    },
+    {
+      "file": "PartialFootingFixture099.log",
+      "bytes": 69,
+      "sha256": "78be713b0b076fccf6547276cbeda2779420cde5a5eede44f572fd030fca8980"
+    },
+    {
+      "file": "platform099-result.json",
+      "bytes": 37088,
+      "sha256": "dd64dba969d89eed53e08ed38ad209c0c29a1fc36a78e788e42ee010683416b8"
+    },
+    {
+      "file": "preflight099.log",
+      "bytes": 805,
+      "sha256": "8dbb8fce6f06e7773c120a2f95c6b455de84066e9d4e06ae81c3ee57ce7d70bb"
+    },
+    {
+      "file": "prepare099.log",
+      "bytes": 376,
+      "sha256": "0c530888e28087d3bcbf638f324d2d9155348ecb5e24c2cc8372c5d1a7fb45b1"
+    },
+    {
+      "file": "prompt099-summary.json",
+      "bytes": 27751,
+      "sha256": "afed617db8d5dbff8f515f1dab267add084c89b1814f5c4cd0459763cc1f07eb"
+    },
+    {
+      "file": "readiness099.log",
+      "bytes": 3372,
+      "sha256": "27b1c285f30ccc590ddeeabaadc56e599396be59811180a43591ff366a72aaa4"
+    },
+    {
+      "file": "RouteAlignmentFixture099.log",
+      "bytes": 97,
+      "sha256": "3c19fa7bedfb3a118591f7682d36c858bb3cb5071092f674f17893d4ad6af6a2"
+    },
+    {
+      "file": "RouteRecoveryBudgetFixture099.log",
+      "bytes": 80,
+      "sha256": "f6c52d7974a814f14caa21f1f5bcf7a0c51dc465a1e1a7725a75d5e5cbb0084d"
+    },
+    {
+      "file": "RouteRecoveryFixture099.log",
+      "bytes": 82,
+      "sha256": "a5c734ac4ee4ba7336d153a136437ce536b1122bee055f57e6dfd4c2dca275f4"
+    },
+    {
+      "file": "SoilDescentFixture099.log",
+      "bytes": 87,
+      "sha256": "49d164c3ae2b3fb92a2212dd7bc29f01f4c01cad00d1fd86410f8183de61279a"
+    },
+    {
+      "file": "start099.log",
+      "bytes": 1007,
+      "sha256": "51fa962bee221ef87861d4010d1232e360587364e41210faa54cbf9bfca8b3ca"
+    },
+    {
+      "file": "startup099-diagnostic.json",
+      "bytes": 845,
+      "sha256": "eedc1594ed5148bf5b16ee28183bbe5b4cb05f5a101213738a7601d79bf187ed"
+    },
+    {
+      "file": "startup099-guarded-noop.json",
+      "bytes": 644,
+      "sha256": "dca95e8c17f1afefaa285f22ea5131c808f02a5897c23cc9d12951fc197adcae"
+    },
+    {
+      "file": "startup099-thread-dump.log",
+      "bytes": 169543,
+      "sha256": "57d7a83446a1122a47de38109417f90c003e66646bff7d4819dff0ad6d9abdcb"
+    },
+    {
+      "file": "startup099-threads-result.json",
+      "bytes": 428,
+      "sha256": "58042013f865628ecd2857974cd6c5fa1b3ae28b3cae0794d40ad582463345d9"
+    },
+    {
+      "file": "stop099.log",
+      "bytes": 169,
+      "sha256": "0838675953289f276b84f2470da731166fdf705eeadc09044e730e6cb292e9a6"
+    },
+    {
+      "file": "target099.log",
+      "bytes": 608,
+      "sha256": "ef32bb04b3a6da98e74f361e94aee53793a86a00427f49de1cccc4c0cb9f611c"
+    },
+    {
+      "file": "TerrainStepFixture099.log",
+      "bytes": 36,
+      "sha256": "08de1db873bc605ddfd2e6a40143c95deb3b808037dab949e0faca19cdd0f135"
+    },
+    {
+      "file": "transfer099-result.json",
+      "bytes": 4190,
+      "sha256": "7fe4c8389ac2fa71ce458b0a26701a57ee55f5e679398c1aa5087e9ab41e10da"
+    },
+    {
+      "file": "TravelProgressFixture099.log",
+      "bytes": 102,
+      "sha256": "a528cd1e95827070f5e822dcd623da5e12d6e06e414debb982c49040d716f76a"
+    },
+    {
+      "file": "WaterRouteFixture099.log",
+      "bytes": 78,
+      "sha256": "10154e63ef2b0becdb9992534ed0cd80985b1c3c8dce4f6b0c3edb6160d012fc"
+    }
+  ]
+}
