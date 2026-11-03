@@ -288,24 +288,23 @@ test('observed reachable workstation satisfies only dependencies without inventi
   assert.notEqual((await f.planner.plan('minecraft:crafting_table',1,{})).state,'satisfied');
 });
 
-test('mining prepares a real portable table even when a placed table already satisfies the tool dependency',async()=>{
+test('an observed usable table allows mining without forcing another log trip for a portable table',async()=>{
   const f=fixture([{item_id:'minecraft:wooden_pickaxe',count:1},{item_id:'minecraft:oak_planks',count:3},
     {item_id:'minecraft:stick',count:2}]);
   f.observe({details:{construction:{workstations:[{block_id:'minecraft:crafting_table'}]}}});
   await f.planner.bootstrap({});
   assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,
-    {skill:'gather',item_id:'minecraft:oak_log',count:1});
-  assert.equal(f.planner.lastPlan.stage,'prepare_portable_workstation');
-  assert.equal(f.planner.lastPlan.for_item,'minecraft:stone_pickaxe');
-  assert.equal(f.calls.some(row=>row.name==='game_start_task' && row.args.goal.item_id==='minecraft:cobblestone'),false);
+    {skill:'gather',item_id:'minecraft:cobblestone',count:3});
+  assert.notEqual(f.planner.lastPlan.stage,'prepare_portable_workstation');
+  assert.equal(f.calls.some(row=>row.name==='game_check_action' && row.args.goal.item_id==='minecraft:oak_log'),false);
   assert.equal(f.manager.stateView().inventory.some(row=>row.item_id==='minecraft:crafting_table'),false);
 });
 
-test('portable table is crafted from real planks and mining resumes only with carried stock',async()=>{
+test('away from an observed table, portable stock is prepared before mining',async()=>{
   for(const carried of [false,true]) {
     const inventory=[{item_id:'minecraft:wooden_pickaxe',count:1},{item_id:'minecraft:oak_planks',count:4},
       {item_id:'minecraft:stick',count:2},...(carried?[{item_id:'minecraft:crafting_table',count:1}]:[])];
-    const f=fixture(inventory);f.observe({details:{construction:{workstations:[{block_id:'minecraft:crafting_table'}]}}});
+    const f=fixture(inventory);f.observe({details:{construction:{workstations:[]}}});
     await f.planner.bootstrap({});
     assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,carried
       ? {skill:'gather',item_id:'minecraft:cobblestone',count:3}
@@ -313,9 +312,23 @@ test('portable table is crafted from real planks and mining resumes only with ca
   }
 });
 
+test('after the first stone pickaxe, local sticks and stone are acquired without restocking a second table',async()=>{
+  const tools=[{item_id:'minecraft:wooden_pickaxe',count:1},{item_id:'minecraft:stone_pickaxe',count:1}];
+  const f=fixture([...tools,{item_id:'minecraft:oak_planks',count:3}]);
+  f.observe({details:{construction:{workstations:[{block_id:'minecraft:crafting_table'}]}}});
+  await f.planner.bootstrap({});
+  assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,{skill:'craft',item_id:'minecraft:stick',count:2});
+  Object.assign([...f.tasks.values()].at(-1),{state:'succeeded',effect_status:'verified'});
+  await f.planner.bootstrap({});
+  f.observe({inventory:[...tools,{item_id:'minecraft:oak_planks',count:1},{item_id:'minecraft:stick',count:4}]});
+  await f.planner.bootstrap({});
+  assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,{skill:'gather',item_id:'minecraft:cobblestone',count:3});
+  assert.equal(f.calls.some(row=>row.name==='game_check_action' && row.args.goal.item_id==='minecraft:oak_log'),false);
+});
+
 test('denied portable-table preparation cannot fall through to unprepared mining',async()=>{
   const f=fixture([{item_id:'minecraft:wooden_pickaxe',count:1},{item_id:'minecraft:stick',count:2}]);
-  f.observe({details:{construction:{workstations:[{block_id:'minecraft:crafting_table'}]}}});
+  f.observe({details:{construction:{workstations:[]}}});
   const invoke=f.manager.tools.invoke;
   f.manager.tools.invoke=async(name,args,...rest)=>{
     if(name==='game_check_action') {f.calls.push({name,args});return {state:'succeeded',result:{allowed:false,reason:'GAME_GATHER_RESOURCE_UNAVAILABLE'}};}
@@ -576,6 +589,27 @@ test('water escape keeps a denied bank failed and does not submit a resource act
   assert.equal(await f.planner.bootstrap({}),false);
   assert.equal(f.calls.some(row=>row.name==='game_start_task'),false);
   assert.equal(f.planner.lastPlan.state,'emergency_route_blocked');
+});
+
+test('explicitly occluded mobs do not interrupt production while unknown visibility stays conservative',async()=>{
+  const f=fixture([{item_id:'minecraft:oak_planks',count:4}]),position=f.state.player.position;
+  const threat={distance:3,position:{...position,x:3},visible:false};
+  f.observe({player:{position,health:20,food:20},details:{nearby_hostiles:[threat]}});
+  assert.equal(mindcraftThreatened(f.manager.stateView()),false);
+  await f.planner.bootstrap({});
+  assert.equal(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal.skill,'craft');
+  for(const visibility of [true,undefined]) {
+    f.observe({details:{nearby_hostiles:[{...threat,visible:visibility}]}});
+    assert.equal(mindcraftThreatened(f.manager.stateView()),true);
+  }
+});
+
+test('an occluded nearby mob does not veto a real checked exploration route',async()=>{
+  const f=fixture(),position=f.state.player.position,target={...position,x:6};
+  f.observe({player:{position,health:20,food:20},details:{navigation:navigation(position,[target]),
+    nearby_hostiles:[{distance:3,position:{...position,x:3},visible:false}]}});
+  assert.equal(await f.planner.explore({},'missing_resource'),true);
+  assert.deepEqual(f.calls.filter(row=>row.name==='game_start_task').at(-1).args.goal,{skill:'navigate',target,radius:0});
 });
 
 test('ordinary fire without a received hostile waits in the running world then resumes real dependencies',async()=>{

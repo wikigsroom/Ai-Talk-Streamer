@@ -52,6 +52,7 @@ export class GameTools {
       if (skills.includes('cancel')) names.push('game_cancel_task');
     }
     return names.map(name => ({ name, description: descriptions[name] +
+      (name==='game_start_task' ? '自主navigate不能提交已经处于到达半径内的目标；会返回GAME_NAVIGATION_ALREADY_AT_DESTINATION且不创建任务，应选择真正需要前往的位置。' : '') +
       (this.manager.capabilities?.features.targeted_planting === true && ['game_start_task','game_check_action'].includes(name)
         ? '补种使用use_item、purpose=activate、item_id为wheat_seeds/carrot/potato/beetroot_seeds（minecraft命名空间），并传target:{dimension,x,y,z}为原生nearby_food.planting_sites中的空格位置。一次消耗一个，先检查；不移动至目标，不猜坐标，不能把补种当作采收或进食。' : ''),
       argument_description: argumentDescriptions[name] }));
@@ -102,11 +103,22 @@ export class GameTools {
         const suggestion = this.manager.suggestions.get(args.suggestion_id);
         suggestionRef = this.manager.suggestions.reference(suggestion.suggestion_id, suggestion.revision, args.goal);
       }
+      const requireNavigationProgress = () => {
+        // Already satisfied approved steps retain their real provenance. An
+        // autonomous model must not manufacture progress by navigating in place.
+        if (args.goal.skill !== 'navigate' || reference || suggestionRef) return;
+        const position=this.manager.state.requireFresh().player.position,target=args.goal.target;
+        ensure(position.dimension!==target.dimension ||
+          Math.hypot(position.x-target.x,position.y-target.y,position.z-target.z)>args.goal.radius,
+        'GAME_NAVIGATION_ALREADY_AT_DESTINATION');
+      };
+      requireNavigationProgress();
       const checked = await this.query('check_action', { goal: args.goal }, context);
       ensure(checked.result?.allowed === true, 'GAME_PRECONDITION_FAILED', 409, { reason: String(checked.result?.reason || 'not_confirmed').slice(0, 240) });
       ensure(!context.signal?.aborted, 'GAME_PLAN_CANCELLED');
       const state = this.manager.state.requireFresh();
       ensure(state.world_session_id === context.worldSessionId && state.control_epoch === context.controlEpoch, 'GAME_CONTROL_CONFLICT');
+      requireNavigationProgress();
       const request = { request_id: 'plan-' + randomUUID(), bridge_boot_id: state.bridge_boot_id,
         world_session_id: state.world_session_id, expected_control_epoch: state.control_epoch, based_on_seq: state.seq,
         accept_within_ms: this.manager.config.control.accept_within_ms,

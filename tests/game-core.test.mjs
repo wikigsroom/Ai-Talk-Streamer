@@ -185,6 +185,33 @@ test('game start tool checks the current world and protocol bridge preflight bef
   const task = await call; assert.equal(task.state, 'accepted'); await game.next('task_start');
 });
 
+test('autonomous navigation already inside the arrival radius creates no query or task', async t => {
+  const f=await gameFixture();t.after(()=>f.close());const game=await f.connect();await game.auto();
+  const state=f.manager.state.view(),position=state.player.position;
+  const context={purpose:'game_plan',worldSessionId:state.world_session_id,controlEpoch:state.control_epoch};
+  for(const [dx,radius] of [[0,0],[1,1],[2,8]]) {
+    const before=game.messages.length;
+    await assert.rejects(f.manager.tools.invoke('game_start_task',{goal:{skill:'navigate',target:{...position,x:position.x+dx},radius}},context),
+      {code:'GAME_NAVIGATION_ALREADY_AT_DESTINATION'});
+    assert.equal(game.messages.slice(before).some(row=>['query','task_start'].includes(row.type)),false);
+    assert.equal(f.manager.tasks.active(),null);
+  }
+});
+
+test('navigation arrival during a preflight query cannot create a redundant autonomous task', async t => {
+  const f=await gameFixture();t.after(()=>f.close());const game=await f.connect();await game.auto();
+  const state=f.manager.state.view(),target={...state.player.position,x:state.player.position.x+4};
+  const context={purpose:'game_plan',worldSessionId:state.world_session_id,controlEpoch:state.control_epoch};
+  const call=f.manager.tools.invoke('game_start_task',{goal:{skill:'navigate',target,radius:1}},context);
+  const rejected=assert.rejects(call,{code:'GAME_NAVIGATION_ALREADY_AT_DESTINATION'});
+  const query=await game.next('query');
+  game.snapshot({seq:game.observation.seq+1,player:{...game.observation.player,position:target}});
+  await until(()=>f.manager.state.value.player.position.x===target.x);
+  const operation=f.manager.operation(query.payload.operation_id);
+  game.send('query_result',{...operation,state:'succeeded',result:{world_session_id:state.world_session_id,kind:'check_action',allowed:true}});
+  await rejected;assert.equal(game.messages.some(row=>row.type==='task_start'),false);assert.equal(f.manager.tasks.active(),null);
+});
+
 test('one database owner is enforced and host restart records uncertainty without replay', async () => {
   const f = await gameFixture();
   try {

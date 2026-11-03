@@ -18,7 +18,9 @@ export const mindcraftThreats = state => (state.details?.nearby_hostiles || []).
   && ['x','y','z'].every(axis => Number.isFinite(row.position[axis])));
 export const mindcraftThreatened = state => state.details?.hazards?.in_water === true
   || state.details?.hazards?.on_fire === true
-  || mindcraftThreats(state).some(row => row.distance <= 10);
+  // Explicitly occluded entities remain useful route context, but cannot
+  // interrupt production through a wall. Unknown visibility stays conservative.
+  || mindcraftThreats(state).some(row => row.visible !== false && row.distance <= 10);
 
 /** Mindcraft's actual ItemWrapper dependency solver, with received native recipes.
  * This port produces fixed native goals. It never opens a second player, runs
@@ -242,10 +244,11 @@ export class MindcraftNativePlanner {
       if (this.completed.has(item)) continue;
       const plan = await this.plan('minecraft:' + item,total,context), goal = plan.next_goal;
       if (!goal) return false;
-      // Mining can lead below the placed surface table. Prepare a real carried
-      // table while wood remains reachable, then place it near the later craft.
+      // Without a received nearby table, prepare a real portable workstation.
+      // An observed usable table already satisfies this dependency; forcing a
+      // second one underground can deadlock stone acquisition behind new logs.
       if(goal.skill==='gather' && ['minecraft:cobblestone','minecraft:coal'].includes(goal.item_id)
-          && count(state,'crafting_table')<1) {
+          && count(state,'crafting_table')<1 && !station(state,'crafting_table')) {
         const portable=await this.plan('minecraft:crafting_table',1,context);
         if(portable.next_goal && await this.submit(portable.next_goal,context,
             {...portable,stage:'prepare_portable_workstation',for_item:'minecraft:'+item}))return true;
@@ -331,7 +334,7 @@ export class MindcraftNativePlanner {
     // Only the real native route check can admit a move. Stop bounded exploration
     // when survival is urgent, or this connection's 16 destinations are exhausted.
     if (!p || state.player.health<12 || state.player.food<6 || h?.in_lava || h?.on_fire || h?.in_water ||
-      state.details?.nearby_hostiles?.some(row => row.distance<=6) || this.explored.size>=16) return false;
+      mindcraftThreats(state).some(row => row.visible!==false && row.distance<=6) || this.explored.size>=16) return false;
     this.exploreOrigin ||= p;
     let attempted=0;
     for(const target of this.frontiers(state)) {

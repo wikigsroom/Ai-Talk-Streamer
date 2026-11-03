@@ -165,6 +165,15 @@ try{
   assert.equal(probes.at(-1).replay_transport_within_limit,false);assert.equal(probes.at(-1).budget_admitted,false);
   mode='text';assert((await generate({signal})).text);assert.equal(report.requests.length-before,2);
  });
+ await check('G10-bounded-mc-context-retains-tool-headroom',async signal=>{
+  const before=report.requests.length,probes=[];
+  const result=await generate({signal,context:JSON.stringify({data_only:true,mc_fixture:'中文事实'.repeat(3000)}),
+   onProbe:probe=>probes.push(probe)});
+  assert(result.text);assert.equal(report.requests.length-before,1);assert.equal(probes.length,1);
+  assert(probes[0].estimated_input_tokens>6000);
+  assert(probes[0].estimated_input_tokens<=policy.conversation.context_max_estimated_tokens);
+  assert.equal(probes[0].budget_admitted,true);
+ });
  report.result='PASS';
 }catch(error){report.error=String(error.stack||error);throw error;}
 finally{try{await host?.close();}finally{globalThis.fetch=originalFetch;server.closeAllConnections();for(const socket of sockets)socket.destroy();await new Promise(r=>server.close(r));
