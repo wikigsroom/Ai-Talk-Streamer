@@ -281,6 +281,22 @@ async def mc_layout(_request):
     return web.FileResponse(ROOT / 'configs/layouts/mc-landscape-v1.json',headers={'Cache-Control':'no-store'})
 
 
+MC_PROGRAMME_ASSETS = frozenset({
+    'browser-id.js', 'room-client.js', 'room-audio.js', 'dsh-playback.js',
+    'local-stream.js', 'mc-chat-position.js', 'mc-game-client.js',
+    'mc-programme-overlay.js', 'mc-programme.js', 'mc-programme.css',
+})
+
+
+async def mc_programme_asset(request):
+    # The vendor application's catch-all static root is a different directory.
+    # Serve the exact reviewed dependencies alongside the current programme HTML.
+    name = request.path.removeprefix('/')
+    if name not in MC_PROGRAMME_ASSETS:
+        raise web.HTTPNotFound()
+    return web.FileResponse(ROOT / 'web' / name, headers={'Cache-Control': 'no-store'})
+
+
 async def mc_control_asset(request):
     name = request.match_info['name']
     if name not in ('css', 'js'):
@@ -328,6 +344,8 @@ def configure(app):
     app.router.add_get('/mc/programme', mc_programme_page)
     app.router.add_get('/mc/preview', mc_programme_page)
     app.router.add_get('/mc/layout.json', mc_layout)
+    for name in sorted(MC_PROGRAMME_ASSETS):
+        app.router.add_get('/' + name, mc_programme_asset)
     app.router.add_get('/mc-control.{name:css|js}', mc_control_asset)
     app.router.add_get('/mc-task-failures.js', mc_task_failures_asset)
     app.router.add_get('/mc-player-safety.mjs', mc_player_safety_asset)
