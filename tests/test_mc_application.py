@@ -241,6 +241,13 @@ class ApplicationBoundaryTests(unittest.TestCase):
         self.assertEqual(frame['file'], 'scripts/mc_application.py')
         self.assertEqual(frame['function'], 'require'); self.assertGreater(frame['line'], 0)
 
+    def test_preparation_reason_is_retained_without_an_arbitrary_exception_message(self):
+        from mc_deployment import PreparationError
+        good = app.startup_diagnostic(PreparationError('MC_PREPARATION_RUNTIME_CHANGED'), 'studio_spawn_tts', 0)
+        self.assertEqual(good['exception_chain'][0]['reason_code'], 'MC_PREPARATION_RUNTIME_CHANGED')
+        rejected = app.startup_diagnostic(PreparationError('SECRET_EXAMPLE'), 'guard', 0)
+        self.assertNotIn('SECRET_EXAMPLE', json.dumps(rejected))
+
     def test_studio_reports_its_guard_phase_and_does_not_spawn_after_a_failed_check(self):
         import start_studio
         stages = []

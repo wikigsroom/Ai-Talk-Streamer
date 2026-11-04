@@ -154,7 +154,7 @@ test('A23/A30: failed extraction keeps cursor; daily budget includes unknown usa
 });
 test('daily maintenance quota defers before a DSH call, preserves the cursor and resumes at the local date boundary',async()=>{
  const f=fixture();try{
-  f.start();f.accept('我喜欢茶。',true);f.end();f.policy.maintenance.max_model_calls_per_day=1;
+  f.start();const request=f.accept('我喜欢茶。',true);f.end();f.policy.maintenance.max_model_calls_per_day=1;
   let calls=0;
   const s=new MaintenanceScheduler(f.db,f.state,f.memory,f.policy,async({job,chunk})=>{
    calls++;const attempt=s.reserveModel({jobId:job.job_id,inputHash:chunk.inputHash,providerRevision:'test',maxTokens:10});
@@ -168,7 +168,7 @@ test('daily maintenance quota defers before a DSH call, preserves the cursor and
   assert.equal(f.db.get('SELECT COUNT(*) n FROM job_chunks WHERE job_id=?',job.job_id).n,0);
   const reset=nextQuotaDate(f.db.now(),f.policy.maintenance.timezone);
   assert.equal(Date.parse(deferred.not_before),reset);assert.ok(reset-f.db.now()>3600000);
-  const foreground=s.reserveModel({foreground:true,requestId:'foreground-fixture',inputHash:digest('foreground'),providerRevision:'test',maxTokens:10});
+  const foreground=s.reserveModel({foreground:true,requestId:request.request_id,inputHash:digest('foreground'),providerRevision:'test',maxTokens:10});
   assert.equal(f.db.get('SELECT budget_scope FROM model_attempts WHERE attempt_id=?',foreground).budget_scope,'foreground');
   f.advance(reset-f.db.now()-1);assert.equal(s.claim(),null);assert.equal(calls,0);
   f.advance(1);const resumed=s.claim();assert.equal(resumed.job_id,job.job_id);await s.runJob(resumed);
