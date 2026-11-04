@@ -4,117 +4,117 @@
   "branch": "mc",
   "goal_status": "active",
   "overall_status": "in_progress_full_application_not_accepted",
-  "current_round": "105",
-  "turn_classification": "native_import_diagnostics_process_exit_fences_and_remote_runtime_attempt",
+  "current_round": "106",
+  "turn_classification": "native_admission_fences_and_interrupted_remote_autonomy",
   "delivery_mode": "single_integrated_release",
   "user_facing_release_count": 1,
   "progress_document": "docs/technical/mc-live-v1/实现进度.md",
-  "latest_evidence": "docs/evidence/mc-runtime-round-105.json",
+  "latest_evidence": "docs/evidence/mc-runtime-round-106.json",
   "current_round_implemented_ids": [
-    "I1192",
-    "I1193",
-    "I1194",
-    "I1195",
-    "I1196",
-    "I1197",
-    "I1198",
-    "I1199",
-    "I1200",
-    "I1201",
-    "I1202",
-    "I1203",
-    "I1204"
+    "I1205",
+    "I1206",
+    "I1207",
+    "I1208",
+    "I1209",
+    "I1210",
+    "I1211",
+    "I1212",
+    "I1213",
+    "I1214",
+    "I1215",
+    "I1216",
+    "I1217"
   ],
   "required_domains": [
     {
       "id": "D01",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "完整安装包、许可及干净Windows重建、来源/副本、缓存与回退、冷/热启动和共享资源恢复。逐模块CPU检查、期限、原生进程族清理及共享锁恢复已新增实机验证。最新环境检查8/8；必需服务启动通过，完整应用尚未验收。记录600.245秒观察窗口，AUTO采样20项、PAUSED采样542项；相邻AUTO采样覆盖21.011秒，不能作为连续游玩时长。已验证非导航任务3项；视觉成功样本0项。期间因GAME_OBSERVATION_EXPIRED停止，持续自主游玩未通过。本轮没有新增视频。正常保存后仍有1个未决任务；正式口播完成回执0项。"
+      "remaining": "完整安装包、许可及干净Windows重建、来源与副本、缓存/回退、冷/热启动、共享资源恢复；必需服务启动与完整应用验收分别核算。 本次服务启动通过；中断后的正常停机及最终进程清点未确认。"
     },
     {
       "id": "D02",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "模组实体/容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物和联机差异；单次原世界观察不覆盖全部协议场景。"
+      "remaining": "真实模组方块/实体/容器/维度、断连/换世界/死亡与地形、墓碑/重连、后续联机兼容；新接收封锁仍需跨场与断电恢复长期验证。"
     },
     {
       "id": "D03",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "持续地下脱困、昼夜多敌、普通PvE、水/岩浆/窒息、GUI、租约及长期停止；持续食物和自然回血、死亡恢复后继续补给，实际死亡物品完整核对。keepInventory=true持续保留。"
+      "remaining": "普通PvE、夜间/多敌人、饥饿回血与复活、GUI、水/熔岩/氧气、租约和长期停止；死亡不掉落保留，不修改其他规则。"
     },
     {
       "id": "D04",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "实际多配方制作及补台、自然回血、采木/制台/放台、持续工具与资源补给、牲畜击杀拾取、燃料烹饪、种收吃、鱼及模组食品、容器、耐久与建造。102轮14次歧义拒绝的历史保留。本轮制作面包和进食的实际任务回执见报告，仍未证明持续补给。"
+      "remaining": "采集合成工具/工作站、模组多配方、持续食物、狩猎烹饪进食、种植钓鱼、储物、耐久、建造和连续生存。"
     },
     {
       "id": "D05",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "有效长期目标、持续补给不空转、实际多配方及Mindcraft依赖/补台/模组配方、Luna建议落实、跨场台站、真实观众并发、预算/取消/事实核验。105轮出现GAME_OBSERVATION_EXPIRED后暂停及未决任务，须完成精确时序定位、原生账本核对和有期限的安全恢复，不能放宽观察或控制期限、伪造终态或盲重放。后台记忆日额度仍需实机长期及跨日验证。"
+      "remaining": "持续产出目标、Mindcraft依赖求解与模组配方、Luna决策、工作站/弹幕并发、预算/取消、事实与未知结果恢复的长时闭环；单次安全恢复不等于直播内容可用。"
     },
     {
       "id": "D06",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连与显示；公开采集连接不等同收到真实事件，不代发或伪造事件。"
+      "remaining": "595139真实弹幕/礼物/SC、建议/投票/撤回/反馈、断线补偿及展示；公开采集接通不替代真实观众样本，用户当前不能发送样本。"
     },
     {
       "id": "D07",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复和唯一写者隔离；历史20项整理夹具检查不等同现场观众或跨日验收。"
+      "remaining": "记忆纠错/遗忘/删除、跨日、备份恢复、唯一写者隔离、配额延后与真实弹幕语义验收。"
     },
     {
       "id": "D08",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "完整启停/任务/资源/音量/诊断/恢复与两方案切换；真实消息左右换边的队列保留、并发、手机及完整操作验收。"
+      "remaining": "全端启停/任务/资源/音量/诊断/恢复、方案切换、并发/手机、真实消息左右换边队列保留及完整后台操作验收。"
     },
     {
       "id": "D09",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "持续有效节目、自然及时口播、供帧/重缓冲、真实弹幕、手机及官方横屏实录。最新环境检查8/8；必需服务启动通过，完整应用尚未验收。记录600.245秒观察窗口，AUTO采样20项、PAUSED采样542项；相邻AUTO采样覆盖21.011秒，不能作为连续游玩时长。已验证非导航任务3项；视觉成功样本0项。期间因GAME_OBSERVATION_EXPIRED停止，持续自主游玩未通过。本轮没有新增视频。正常保存后仍有1个未决任务；正式口播完成回执0项。"
+      "remaining": "持续有效节目、自然及时口播、供帧/重缓冲、真实弹幕、手机与官方横屏实录；需重新交付有效游玩的120秒样片。 本轮媒体断连、完整会话结果及正式口播回执仍待取回。"
     },
     {
       "id": "D10",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "两套各2闲置+48动作共100段新素材、索引、口型、圆形遮罩与接缝；仍0/100，原female-A素材保留。"
+      "remaining": "两套各2段待机+48动作共100段新素材、索引、口型、圆形遮罩及接缝；新包0/100，原female-A素材保留。"
     },
     {
       "id": "D11",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "游戏/人物语音/BGM混音与闪避、F07真实故障接替、唯一有声音源和完整节目实录。本轮正式口播完成回执为0，不能将人物服务启动或接收器有帧视为语音链路通过。"
+      "remaining": "游戏/人物语音/BGM混音与闪避、F07实际故障接替、唯一有声音源、完成回执和完整节目实录。"
     },
     {
       "id": "D12",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "原生JPEG与Luna的实际理解准确率、模组物品/危险/OCR/装备识别、来源帧绑定、超时及共同负载公平调度。本轮2次视觉结果为MODEL_PREEMPTED/MODEL_CANCELLED，成功0项，不能据此比较Luna理解质量。"
+      "remaining": "真实原生JPEG至Luna准确率、模组物品/危险/OCR/装备、帧绑定、超时与共享负载调度；请求成功数与理解质量分别验证。"
     },
     {
       "id": "D13",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "公开状态核对、独立观众CDN音画及端到端时延；本轮没有公开开播。"
+      "remaining": "公开状态核对、独立观众CDN音画与端到端时延；没有公开开播授权，本轮不公开开播。"
     },
     {
       "id": "D14",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "逐模块导入和进程回收已实机检查；仍需整套冷/热启动、FTB、日志持续上限、CPU/GPU/内存与来源绑定供帧、4小时含60分钟稳定段及异常停止。单次检查或600秒观察不替代连续性能验收。"
+      "remaining": "整套冷/热启动、FTB、日志持续上限、CPU/GPU/内存、来源绑定供帧、4小时含60分钟稳定段和异常停止；600秒观察不能替代。 本次应用启动约1253.9秒；媒体断连与远端桌面不可用的因果关系未确定。"
     },
     {
       "id": "D15",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/20项交接；继承117项冻结待办原编号保留。"
+      "remaining": "正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚及20项交接；117项冻结待办原编号保留。 本轮正常保存、全部自有服务关闭及最终原生账本审计必须在3080桌面恢复后补齐。"
     }
   ],
   "acceptance": [
@@ -395,46 +395,45 @@
   "remote_4090_control": "paused",
   "current_inherited_target": "rtx3080",
   "layout_unchanged": true,
-  "last_updated": "2026-11-04T03:35:10.106459+00:00",
+  "last_updated": "2026-11-04T05:05:40.185258+00:00",
   "known_incomplete_integration": [
-    "D01 完整安装包、许可及干净Windows重建、来源/副本、缓存与回退、冷/热启动和共享资源恢复。逐模块CPU检查、期限、原生进程族清理及共享锁恢复已新增实机验证。最新环境检查8/8；必需服务启动通过，完整应用尚未验收。记录600.245秒观察窗口，AUTO采样20项、PAUSED采样542项；相邻AUTO采样覆盖21.011秒，不能作为连续游玩时长。已验证非导航任务3项；视觉成功样本0项。期间因GAME_OBSERVATION_EXPIRED停止，持续自主游玩未通过。本轮没有新增视频。正常保存后仍有1个未决任务；正式口播完成回执0项。",
-    "D02 模组实体/容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物和联机差异；单次原世界观察不覆盖全部协议场景。",
-    "D03 持续地下脱困、昼夜多敌、普通PvE、水/岩浆/窒息、GUI、租约及长期停止；持续食物和自然回血、死亡恢复后继续补给，实际死亡物品完整核对。keepInventory=true持续保留。",
-    "D04 实际多配方制作及补台、自然回血、采木/制台/放台、持续工具与资源补给、牲畜击杀拾取、燃料烹饪、种收吃、鱼及模组食品、容器、耐久与建造。102轮14次歧义拒绝的历史保留。本轮制作面包和进食的实际任务回执见报告，仍未证明持续补给。",
-    "D05 有效长期目标、持续补给不空转、实际多配方及Mindcraft依赖/补台/模组配方、Luna建议落实、跨场台站、真实观众并发、预算/取消/事实核验。105轮出现GAME_OBSERVATION_EXPIRED后暂停及未决任务，须完成精确时序定位、原生账本核对和有期限的安全恢复，不能放宽观察或控制期限、伪造终态或盲重放。后台记忆日额度仍需实机长期及跨日验证。",
-    "D06 595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连与显示；公开采集连接不等同收到真实事件，不代发或伪造事件。",
-    "D07 真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复和唯一写者隔离；历史20项整理夹具检查不等同现场观众或跨日验收。",
-    "D08 完整启停/任务/资源/音量/诊断/恢复与两方案切换；真实消息左右换边的队列保留、并发、手机及完整操作验收。",
-    "D09 持续有效节目、自然及时口播、供帧/重缓冲、真实弹幕、手机及官方横屏实录。最新环境检查8/8；必需服务启动通过，完整应用尚未验收。记录600.245秒观察窗口，AUTO采样20项、PAUSED采样542项；相邻AUTO采样覆盖21.011秒，不能作为连续游玩时长。已验证非导航任务3项；视觉成功样本0项。期间因GAME_OBSERVATION_EXPIRED停止，持续自主游玩未通过。本轮没有新增视频。正常保存后仍有1个未决任务；正式口播完成回执0项。",
-    "D10 两套各2闲置+48动作共100段新素材、索引、口型、圆形遮罩与接缝；仍0/100，原female-A素材保留。",
-    "D11 游戏/人物语音/BGM混音与闪避、F07真实故障接替、唯一有声音源和完整节目实录。本轮正式口播完成回执为0，不能将人物服务启动或接收器有帧视为语音链路通过。",
-    "D12 原生JPEG与Luna的实际理解准确率、模组物品/危险/OCR/装备识别、来源帧绑定、超时及共同负载公平调度。本轮2次视觉结果为MODEL_PREEMPTED/MODEL_CANCELLED，成功0项，不能据此比较Luna理解质量。",
-    "D13 公开状态核对、独立观众CDN音画及端到端时延；本轮没有公开开播。",
-    "D14 逐模块导入和进程回收已实机检查；仍需整套冷/热启动、FTB、日志持续上限、CPU/GPU/内存与来源绑定供帧、4小时含60分钟稳定段及异常停止。单次检查或600秒观察不替代连续性能验收。",
-    "D15 正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/20项交接；继承117项冻结待办原编号保留。"
+    "D01 完整安装包、许可及干净Windows重建、来源与副本、缓存/回退、冷/热启动、共享资源恢复；必需服务启动与完整应用验收分别核算。 本次服务启动通过；中断后的正常停机及最终进程清点未确认。",
+    "D02 真实模组方块/实体/容器/维度、断连/换世界/死亡与地形、墓碑/重连、后续联机兼容；新接收封锁仍需跨场与断电恢复长期验证。",
+    "D03 普通PvE、夜间/多敌人、饥饿回血与复活、GUI、水/熔岩/氧气、租约和长期停止；死亡不掉落保留，不修改其他规则。",
+    "D04 采集合成工具/工作站、模组多配方、持续食物、狩猎烹饪进食、种植钓鱼、储物、耐久、建造和连续生存。",
+    "D05 持续产出目标、Mindcraft依赖求解与模组配方、Luna决策、工作站/弹幕并发、预算/取消、事实与未知结果恢复的长时闭环；单次安全恢复不等于直播内容可用。",
+    "D06 595139真实弹幕/礼物/SC、建议/投票/撤回/反馈、断线补偿及展示；公开采集接通不替代真实观众样本，用户当前不能发送样本。",
+    "D07 记忆纠错/遗忘/删除、跨日、备份恢复、唯一写者隔离、配额延后与真实弹幕语义验收。",
+    "D08 全端启停/任务/资源/音量/诊断/恢复、方案切换、并发/手机、真实消息左右换边队列保留及完整后台操作验收。",
+    "D09 持续有效节目、自然及时口播、供帧/重缓冲、真实弹幕、手机与官方横屏实录；需重新交付有效游玩的120秒样片。 本轮媒体断连、完整会话结果及正式口播回执仍待取回。",
+    "D10 两套各2段待机+48动作共100段新素材、索引、口型、圆形遮罩及接缝；新包0/100，原female-A素材保留。",
+    "D11 游戏/人物语音/BGM混音与闪避、F07实际故障接替、唯一有声音源、完成回执和完整节目实录。",
+    "D12 真实原生JPEG至Luna准确率、模组物品/危险/OCR/装备、帧绑定、超时与共享负载调度；请求成功数与理解质量分别验证。",
+    "D13 公开状态核对、独立观众CDN音画与端到端时延；没有公开开播授权，本轮不公开开播。",
+    "D14 整套冷/热启动、FTB、日志持续上限、CPU/GPU/内存、来源绑定供帧、4小时含60分钟稳定段和异常停止；600秒观察不能替代。 本次应用启动约1253.9秒；媒体断连与远端桌面不可用的因果关系未确定。",
+    "D15 正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚及20项交接；117项冻结待办原编号保留。 本轮正常保存、全部自有服务关闭及最终原生账本审计必须在3080桌面恢复后补齐。"
   ],
   "current_round_validation": {
-    "round": "105",
-    "evidence": "docs/evidence/mc-runtime-round-105.json",
-    "report": "docs/technical/mc-live-v1/依赖导入与105自主运行记录.md",
+    "round": "106",
+    "evidence": "docs/evidence/mc-runtime-round-106.json",
+    "report": "docs/technical/mc-live-v1/接收封锁与106中断记录.md",
     "checks": {
-      "native_import_check": 11,
-      "native_operation": 17,
-      "native_supervision": 20,
-      "mc_application": 33
+      "java_unit": 434,
+      "host_recovery": 42,
+      "java_interop": 45,
+      "core": 418
     },
     "application_start_passed": true,
     "new_runtime_observation": true,
-    "last_real_runtime_round": "105d",
+    "last_real_runtime_round": "106e",
+    "observation_window_completed": false,
+    "final_owned_services_census_available": false,
     "formal_acceptance_advanced": 0,
     "github_publication": {
       "branch": "mc",
-      "source_commit": "c2c538a718d6471ed5372eb31237898ab1a11ce3",
+      "source_commit": "7ec1fad97ed963ab644210aec3ed840f3927db48",
       "source_pushed_and_verified": true,
-      "documentation_push_pending": false,
-      "documentation_pushed_and_verified": true,
-      "documentation_commit": "ddd548b86b49963c813bc4224e1dcb250c3fb659",
-      "publication_receipt": "docs/evidence/mc-runtime-round-105-publication.json"
+      "documentation_push_pending": true
     }
   },
   "documentation_validation": {
@@ -1084,9 +1083,9 @@
     "evidence": "docs/evidence/mc-runtime-round-022.json"
   },
   "previous_round_summary": {
-    "round": "104",
-    "evidence": "docs/evidence/mc-runtime-round-104.json",
-    "report": "docs/technical/mc-live-v1/启动诊断与104恢复记录.md"
+    "round": "105",
+    "evidence": "docs/evidence/mc-runtime-round-105.json",
+    "report": "docs/technical/mc-live-v1/依赖导入与105自主运行记录.md"
   },
   "round026_draft_follow_up": {
     "classification": "FINALIZED_LOCAL_ONLY_AFTER_PLANNING_R3",
@@ -2858,19 +2857,19 @@
     "formal_survival_acceptance_passed": false
   },
   "latest_turn_implemented_ids": [
-    "I1192",
-    "I1193",
-    "I1194",
-    "I1195",
-    "I1196",
-    "I1197",
-    "I1198",
-    "I1199",
-    "I1200",
-    "I1201",
-    "I1202",
-    "I1203",
-    "I1204"
+    "I1205",
+    "I1206",
+    "I1207",
+    "I1208",
+    "I1209",
+    "I1210",
+    "I1211",
+    "I1212",
+    "I1213",
+    "I1214",
+    "I1215",
+    "I1216",
+    "I1217"
   ],
   "sample120_user_requested_recording": {
     "video": "outputs/mc-validation/round-088/remote-evidence/mc-live-dsh-mc-agent-088d-120s.mp4",
@@ -14198,19 +14197,25 @@
     }
   },
   "current_source_verification": {
-    "round": "105",
+    "round": "106",
     "device": "remote-3080",
-    "source_commit": "c2c538a718d6471ed5372eb31237898ab1a11ce3",
-    "source_snapshot_sha256": "0e9bbfb9c1bb2d6fe371f9d8c4fe09b04e5d2d4799647440e918ed3d3e343831",
-    "source_archive_sha256": "48920bb3428d249c63369c6217665aa2800d90d6c2b019a52576562f0fc100eb",
-    "source_files": 1025,
-    "local_application_tests": 0,
-    "checks_passed": true,
+    "ok": true,
+    "classification": "PROJECT_SOURCE_PACKAGE_NOT_COMPLETE_APPLICATION_RELEASE",
+    "archive": "E:\\dev\\sandbox\\虚拟数字人直播\\Ai-Talk-Streamer\\outputs\\mc-validation\\round-106\\mc-source-106d-v1.zip",
+    "sha256": "43acc972c8076d31247304bc0c49187298e30fdb78277475542a789ab29ee9f5",
+    "source_snapshot_sha256": "caf6063cc1ebdd96485dcf4a4c7565651f4e556d89dbe5b3c70b417d3dac0e85",
+    "source_files": 1026,
     "environment_prepared": true,
+    "services_started": false,
+    "models_loaded": false,
+    "automatic_input_authorized": false,
+    "real_acceptance_passed": 0,
+    "source_commit": "7ec1fad97ed963ab644210aec3ed840f3927db48",
+    "checks_passed": true,
     "application_ready": false,
     "new_game_or_model_run": true,
-    "last_real_runtime_round": "105d",
-    "keep_inventory_preserved": true
+    "keep_inventory_before_start_verified": true,
+    "keep_inventory_after_final_save_verified": false
   },
   "round096_follow_up": {
     "implemented_ids": [
@@ -14811,5 +14816,58 @@
     "github_push_pending": false,
     "publication_receipt": "docs/evidence/mc-runtime-round-105-publication.json",
     "documentation_commit": "ddd548b86b49963c813bc4224e1dcb250c3fb659"
+  },
+  "before_round106_current_round_validation": {
+    "round": "105",
+    "evidence": "docs/evidence/mc-runtime-round-105.json",
+    "report": "docs/technical/mc-live-v1/依赖导入与105自主运行记录.md",
+    "checks": {
+      "native_import_check": 11,
+      "native_operation": 17,
+      "native_supervision": 20,
+      "mc_application": 33
+    },
+    "application_start_passed": true,
+    "new_runtime_observation": true,
+    "last_real_runtime_round": "105d",
+    "formal_acceptance_advanced": 0,
+    "github_publication": {
+      "branch": "mc",
+      "source_commit": "c2c538a718d6471ed5372eb31237898ab1a11ce3",
+      "source_pushed_and_verified": true,
+      "documentation_push_pending": false,
+      "documentation_pushed_and_verified": true,
+      "documentation_commit": "ddd548b86b49963c813bc4224e1dcb250c3fb659",
+      "publication_receipt": "docs/evidence/mc-runtime-round-105-publication.json"
+    }
+  },
+  "round106_follow_up": {
+    "implemented_ids": [
+      "I1205",
+      "I1206",
+      "I1207",
+      "I1208",
+      "I1209",
+      "I1210",
+      "I1211",
+      "I1212",
+      "I1213",
+      "I1214",
+      "I1215",
+      "I1216",
+      "I1217"
+    ],
+    "evidence": "docs/evidence/mc-runtime-round-106.json",
+    "report": "docs/technical/mc-live-v1/接收封锁与106中断记录.md",
+    "full_acceptance_pending": true,
+    "source_commit": "7ec1fad97ed963ab644210aec3ed840f3927db48",
+    "legacy_admission_gate_passed_before_AUTO": true,
+    "legacy_persistent_fence_final_audit_available": false,
+    "observation_window_completed": false,
+    "productive_tasks_minimum_confirmed": 4,
+    "vision_successes_minimum_confirmed": 1,
+    "normal_final_save_and_service_close_pending": true,
+    "remote_desktop_required": true,
+    "github_push_pending": true
   }
 }

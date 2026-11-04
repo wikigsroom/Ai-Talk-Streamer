@@ -1,0 +1,471 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261104-106",
+  "round": "106",
+  "at": "2026-11-04T05:05:40.185258+00:00",
+  "branch": "mc",
+  "goal_status": "active",
+  "scope": "EXPIRED_ADMISSION_TERMINALS_AND_NATIVE_ABSENCE_FENCES_WITH_INTERRUPTED_REAL_RUN_NOT_RELEASE_ACCEPTANCE",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "local_application_tests": 0,
+  "virtualization_used": false,
+  "remote4090_connected": false,
+  "source_commit": "7ec1fad97ed963ab644210aec3ed840f3927db48",
+  "package_base_commit": "b33fc787c91a9503a0992a43783aaa53b7067e01",
+  "source_snapshot_sha256": "caf6063cc1ebdd96485dcf4a4c7565651f4e556d89dbe5b3c70b417d3dac0e85",
+  "sha256": "43acc972c8076d31247304bc0c49187298e30fdb78277475542a789ab29ee9f5",
+  "source_files": 1026,
+  "native_jar_sha256": "e9d8513b4044fd535a2d4e06aebbf64569e5db0e84f745a464c570fa1ef62df1",
+  "checks": {
+    "java_unit": 434,
+    "host_recovery": 42,
+    "java_interop": 45,
+    "core": 418
+  },
+  "suites_overlap_do_not_sum": true,
+  "readiness_passed": 8,
+  "application_services_ready": true,
+  "application_ready": false,
+  "application_start_elapsed_seconds": 1253.8733468055725,
+  "keep_inventory_before_start": true,
+  "world_rules_changed_this_round": false,
+  "saved_world_before_sha256": "3a9405b66ef37870af166166460909247150b3548d3ebd02c958e5d029f6cd8c",
+  "final_world_sha256": null,
+  "keep_inventory_after_final_save_verified": null,
+  "runtime": {
+    "planned_observation_seconds": 600,
+    "completed_observation_window": false,
+    "complete_session_result_retrieved": false,
+    "saved_fresh_state_samples": [
+      {
+        "at": 1793767765.8276365,
+        "worker_elapsed": 46.7,
+        "mode": "AUTO",
+        "player": {
+          "health": 20,
+          "max_health": 20,
+          "food": 20,
+          "oxygen": 300,
+          "position": {
+            "dimension": "minecraft:overworld",
+            "x": 1429,
+            "y": 74,
+            "z": -168
+          }
+        }
+      },
+      {
+        "at": 1793767828.4014895,
+        "worker_elapsed": 109.1,
+        "mode": "AUTO",
+        "player": {
+          "health": 20,
+          "max_health": 20,
+          "food": 20,
+          "oxygen": 300,
+          "position": {
+            "dimension": "minecraft:overworld",
+            "x": 1366,
+            "y": 74,
+            "z": -163
+          }
+        }
+      }
+    ],
+    "last_saved_worker_elapsed_seconds": 109.1,
+    "continuous_autonomy_accepted": false,
+    "productive_tasks_minimum_confirmed": 4,
+    "productive_tasks": [
+      {
+        "task_id": "task-d6ec7bf2-fa8b-4efc-9bfa-ce6d7ed10c8a",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:bread",
+          "skill": "craft"
+        },
+        "state": "succeeded",
+        "effect_status": "verified",
+        "reason": null,
+        "created_at": "2026-11-04T04:50:16.703267Z",
+        "updated_at": "2026-11-04T04:50:17.759306100Z"
+      },
+      {
+        "task_id": "task-420b9fbe-637a-497b-a09e-091e4debbb27",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:bread",
+          "skill": "craft"
+        },
+        "state": "succeeded",
+        "effect_status": "verified",
+        "reason": null,
+        "created_at": "2026-11-04T04:50:10.384459300Z",
+        "updated_at": "2026-11-04T04:50:12.641754600Z"
+      },
+      {
+        "task_id": "task-83b5fe58-dae1-499c-8ec3-d2e8573679ee",
+        "goal": {
+          "count": 9,
+          "item_id": "minecraft:wheat",
+          "skill": "craft"
+        },
+        "state": "succeeded",
+        "effect_status": "verified",
+        "reason": null,
+        "created_at": "2026-11-04T04:50:04.026419500Z",
+        "updated_at": "2026-11-04T04:50:04.973383700Z"
+      },
+      {
+        "task_id": "task-6bbf2b38-8d0c-44af-affd-3bc27d758d6d",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:hay_block",
+          "skill": "gather"
+        },
+        "state": "succeeded",
+        "effect_status": "verified",
+        "reason": null,
+        "created_at": "2026-11-04T04:49:52.467468800Z",
+        "updated_at": "2026-11-04T04:50:00.25609Z"
+      }
+    ],
+    "task_count_is_complete": false,
+    "vision_successes_minimum_confirmed": 1,
+    "vision_results": [
+      {
+        "frame_id": "frame-67812567-5fdf-4760-b945-c241b514c1fa",
+        "source_seq": 2422,
+        "captured_at": "2026-11-04T04:50:20.029194900Z",
+        "model_id": "gpt-6-luna",
+        "state": "succeeded",
+        "elapsed_ms": 3806,
+        "image_sha256": "ab64accfd203f0c35acb1f6462b45c2d36486eca29e67df149aaafde409175b0",
+        "caption": "夜间的草地村落中，前方堆着多捆干草，准星指向干草；旁有砖墙房屋、木屋、火把、道路和水流。画面未见明确危险。",
+        "visible_text": [
+          "Hay Bale",
+          "Minecraft",
+          "PlainS",
+          "56/100"
+        ]
+      }
+    ],
+    "vision_understanding_accuracy_accepted": false,
+    "completed_formal_utterances": null,
+    "final_playback_audit_available": false,
+    "worker_auto_requests": 0,
+    "worker_gameplay_task_submissions": 0,
+    "worker_game_keys": 0,
+    "new_video": null
+  },
+  "legacy_admission": {
+    "runtime_gate_passed_before_AUTO": true,
+    "final_persistent_fence_readback_available": false,
+    "original_task": {
+      "bridge_boot_id": "boot-d1ec01f4-5466-4a59-81dd-0711f305639a",
+      "control_epoch": 4,
+      "created_at": "2026-11-04T03:21:11.163Z",
+      "effect_status": "unknown",
+      "evidence": [],
+      "game_instance_id": "mc-e0475d31-2426-49b4-a370-7386101c7771",
+      "goal": {
+        "count": 1,
+        "item_id": "minecraft:bread",
+        "skill": "craft"
+      },
+      "reason": null,
+      "request_id": "plan-1faa7ff9-450e-4332-8148-d7e4d93b6d01",
+      "state": "accepted",
+      "task_id": "task-92a24c5f-7aef-4d27-8402-195f70bb0630",
+      "updated_at": "2026-11-04T03:21:11.163Z",
+      "version": 1,
+      "world_id": "world-5f83e1f6ad5c5685ce9971a83e7747c2",
+      "world_session_id": "world-session-3ec4a1d6-5676-4062-abfa-379e2c06e34c"
+    }
+  },
+  "public_collection": {
+    "room_id": "595139",
+    "duration_seconds": 321.3569583892822,
+    "guest_mode_verified": true,
+    "connected_observed": true,
+    "events": [],
+    "messages_posted": 0,
+    "synthetic_events_submitted": 0,
+    "owned_collector_stopped": true
+  },
+  "media_observation": {
+    "samples": 55,
+    "fresh_source_bound_fps_samples": 9,
+    "fresh_source_bound_canvas_fps_min": 0,
+    "fresh_source_bound_canvas_fps_max": 25.217333599177934,
+    "scope": "RENDERER_REPORTED_CANVAS_NOT_OFFICIAL_RECORDING_OR_NATIVE_GAME_FPS",
+    "last_sample": {
+      "at": 1793768000.165367,
+      "system_cpu_percent": 8.5,
+      "system_memory": {
+        "total": 68603527168,
+        "available": 41783820288,
+        "percent": 39.1,
+        "used": 26819706880,
+        "free": 41783820288
+      },
+      "processes": {
+        "dsh": {
+          "pid": 6004,
+          "rss_bytes": 230371328,
+          "cpu_seconds": 194.015625,
+          "threads": 13
+        },
+        "avatar": {
+          "pid": 16524,
+          "rss_bytes": 2699264,
+          "cpu_seconds": 0.0,
+          "threads": 1
+        },
+        "tts": {
+          "pid": 20848,
+          "rss_bytes": 2703360,
+          "cpu_seconds": 0.0,
+          "threads": 1
+        },
+        "receiver": {
+          "pid": 23536,
+          "rss_bytes": 2691072,
+          "cpu_seconds": 0.0,
+          "threads": 2
+        },
+        "minecraft": {
+          "pid": 30532,
+          "rss_bytes": 2682880,
+          "cpu_seconds": 0.03125,
+          "threads": 2
+        }
+      },
+      "receiver": {
+        "media_connected": false,
+        "player_fps": null,
+        "player_metrics": {
+          "frames": 111,
+          "received_frames": 150,
+          "fps": 25.08511019557341,
+          "audio_clock_seconds": 72318.70133333333,
+          "decoder_queue": 0,
+          "pending_video_frames": 0,
+          "audio_underruns": 0,
+          "audio_buffer_ms": 1567.999999038875,
+          "missing_packets": 0,
+          "skipped_video_frames": 0,
+          "decode_errors": 0,
+          "max_arrival_gap_ms": 150,
+          "target_audio_buffer_ms": 4000,
+          "codec": "h264_nvenc",
+          "fps_source": "canvas_draw",
+          "output_mode": "direct_canvas_audio"
+        },
+        "player_metrics_at": 1793767944.990447,
+        "upstream_errors": 7,
+        "media_packets": 11463,
+        "last_media_at": 1793767988.8456016,
+        "media_codec": "h264_nvenc",
+        "player_metrics_binding": {
+          "consumer_id": "browser-49b55451-a9eb-4b41-8a55-e99aee1be50a",
+          "transport_id": "avatar-eb0fdaeb-d7c3-492e-b2cf-832030d7a9df",
+          "media_stream_id": "media-b32756e51176486aa24809fb5598e397",
+          "media_protocol_version": 3,
+          "complete": true,
+          "upstream_accepted": true,
+          "playback_authority": true,
+          "broadcast_id": "bc-1cd0cbbc-f588-4f75-ba89-f222ad46ab75",
+          "renderer": "livehime",
+          "report_sequence": 75,
+          "receiver_epoch": "a5bc850e-1248-4278-83a6-ae69f1a95533",
+          "counter_segment": 4,
+          "counter_discontinuity": false
+        },
+        "player_reports_ignored": 55,
+        "player_reports_reordered": 0,
+        "player_counter_discontinuities": 0,
+        "receiver_epoch": "a5bc850e-1248-4278-83a6-ae69f1a95533"
+      },
+      "platforms": {
+        "collectors": {
+          "bilibili": {
+            "state": "CONNECTED",
+            "error": null,
+            "updated_at": 1793767973283
+          }
+        },
+        "counters": {},
+        "pending": 0,
+        "output_player": {
+          "consumer_id": "browser-49b55451-a9eb-4b41-8a55-e99aee1be50a",
+          "last_seen": 1793767944994,
+          "connected": false,
+          "renderer": "livehime",
+          "programme": "mc",
+          "layout_id": "mc-landscape-v1",
+          "frames": 111,
+          "width": 1920,
+          "height": 1080,
+          "audio_state": "running",
+          "receiver_id": "receiver-3080",
+          "receiver_client_ready": true
+        }
+      },
+      "dsh_health": {
+        "tts_ready": false,
+        "avatar_ready": false,
+        "authority_ready": false,
+        "rss_bytes": 229011456
+      },
+      "gpu_csv": "NVIDIA GeForce RTX 3080, 9767, 10240, 100, 56"
+    }
+  },
+  "orchestration": {
+    "ok": false,
+    "gameplay_goals_submitted": 0,
+    "game_keys_issued": 0,
+    "public_broadcast_started": false,
+    "workers": [
+      {
+        "file": "native106e-session-worker.py",
+        "pid": 27616,
+        "create_time": 1793767695.817792,
+        "sha256": "8b56c2bf0133fcbf6b8e53678b84a852a749357b8407dcbf1ad46845e34214ea"
+      },
+      {
+        "file": "monitor106e-worker.py",
+        "pid": 10304,
+        "create_time": 1793767695.871303,
+        "sha256": "f083122cd5e517fefa941ce4b749e18ad1fdde4a30e00a0d6ac2ca8baa8152dc"
+      },
+      {
+        "file": "platform106e-monitor-worker.py",
+        "pid": 25052,
+        "create_time": 1793767695.9217727,
+        "sha256": "947af114d238069748ae560dfd1565484ba34167da6aa126957cc3f9416cd58f"
+      }
+    ],
+    "error": "Traceback (most recent call last):\n  File \"C:\\dev\\虚拟数字人直播\\downloads\\mc-106e\\orchestrate106e-worker.py\", line 46, in <module>\n    assert result.get('internal_broadcast_closed'),'FINISH_REQUIRES_CLOSED_INTERNAL_SESSION'\nAssertionError: FINISH_REQUIRES_CLOSED_INTERNAL_SESSION\n",
+    "finished_at": 1793768028.203875
+  },
+  "control": {
+    "scope": "REMOTE_CONTROL_OBSERVATION_ONLY",
+    "at": "2026-11-04T04:55:32.7592966Z",
+    "application_workers_preexisting": true,
+    "control_operations_forced": false,
+    "rejections": [
+      {
+        "executed_steps": 0,
+        "code": "CONTROL_PREEMPTED",
+        "generation": 7759,
+        "at": "2026-11-04T12:53:22+08:00"
+      },
+      {
+        "state": "unavailable",
+        "wait_seconds": 0,
+        "generation": 7760,
+        "at": "2026-11-04T12:54:50+08:00"
+      }
+    ],
+    "local_application_tests": 0,
+    "last_verified_state": "unavailable",
+    "last_verified_generation": 7760
+  },
+  "final_owned_services_census_available": false,
+  "normal_final_save_verified": false,
+  "official_clients_final_census_available": false,
+  "private_policy_final_hash_verified": false,
+  "local_byte_helper_closed": {
+    "ok": true,
+    "purpose": "BYTE_TRANSFER_ONLY",
+    "pid": 25492,
+    "start_time": "2026-11-04T03:58:09.9223589Z",
+    "identity_verified": true,
+    "listener_closed": true,
+    "at": "2026-11-04T05:02:59.9888651Z"
+  },
+  "new_browser_tabs": 0,
+  "public_broadcast_started": false,
+  "formal_acceptance_passed": 0,
+  "formal_acceptance_total": 68,
+  "new_avatar_clips": 0,
+  "required_new_avatar_clips": 100,
+  "frozen_open_todos": 117,
+  "implemented_ids": [
+    "I1205",
+    "I1206",
+    "I1207",
+    "I1208",
+    "I1209",
+    "I1210",
+    "I1211",
+    "I1212",
+    "I1213",
+    "I1214",
+    "I1215",
+    "I1216",
+    "I1217"
+  ],
+  "report": "docs/technical/mc-live-v1/接收封锁与106中断记录.md",
+  "evidence_files": {
+    "build106e.log": "d696ade6baa66f3a445a31426a9ee62fda69d65c2327ca2aa719031405857aed",
+    "check106-progress.json": "0c4ee6db94b9964f79dd5eaced7abb6a2e599923c2100c8f31e07a47eea29a35",
+    "check106-result.json": "aed577fe287132d915247adcd0f1ebdfbdeaf9d4b18ba2d6417bdb7e30345ed2",
+    "check106b-progress.json": "051a659142e87514755d31a69abaeb93446358f04c14bf242570f1f196bb4860",
+    "check106b-result.json": "ea55f06f61f32ccb6db111aada14a67d179b2d43fb25785e2255322652db93cd",
+    "check106c-progress.json": "c857efb0a9d1755b53ccc0fd50b14b5aa2c7cba22d7b58f50d10db3c63ed0038",
+    "check106c-result.json": "f3bff3a2df3065a7bfa215010e33abcadd4f4c96171c6a8ed1381e939adf0e38",
+    "check106d-progress.json": "5d117f1013ac4ba113e62dacf73608719d351c4edacc1753613e105dacba519d",
+    "check106d-result.json": "7dce63ef59bbe9694af0ebb4fee834971562f284514412c4783e471d74550579",
+    "check106e-progress.json": "6aeee78f95709fc4e170df961500db68f40a913384f66167c8d569f66fd5b25b",
+    "check106e-result.json": "f8999e0589edf3e6e4d1b9fc42109dcc7279eb6564ab7bb61bb71b8d29f23933",
+    "check106e-worker.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile-core106.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile-core106b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile-core106c.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile-core106d.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile-tests106.log": "bbf81772471bf93996b6c730f186dad6e0bf87f9fc7a1f5cb0939f1f4e0e519a",
+    "compile-tests106b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile-tests106c.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile-tests106d.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "core106c.log": "f0bba834a9790ec1decbce1ecb286d2eda5f983de25a252fbbf0d237d54d7861",
+    "core106d.log": "f0bba834a9790ec1decbce1ecb286d2eda5f983de25a252fbbf0d237d54d7861",
+    "core106e.log": "b4a87d379ba864617e9c46fb4c1baad9c4d2a1ff0a1d04398f9b5ef68f457238",
+    "deploy106d-bootstrap.json": "354db90ea6e8afd40eca963079f21a6c3ce0d877c41d2e80af17281f7f43765b",
+    "deploy106d-progress.json": "30994232ebcdf61db260dfb26f514c1ee94b013242b92900c0a4157664bef3aa",
+    "deploy106d-result.json": "cecf01df9519ca1cc183c14d24b519d67e36455d4ca9dc2e24ab964ff5f013a0",
+    "deploy106e-bootstrap.json": "d7aac86273cabab9d45bf84065490a86aa65156d98ab127a3a154819095cc376",
+    "deploy106e-progress.json": "dde0acf2ca7e1f191ec4b0758ca1d898a26e653e5d69e06a6ff118141423c8d9",
+    "deploy106e-result.json": "39499bbc4b2472cc2e2597b0cf8795f19c5e57bc36377a75111054c08d82f171",
+    "final106e-bootstrap.json": "d90ae04aac21233fcfce3978f50358700519c54c49ebe5d8d4ec7a5063ddac71",
+    "focus106e-receipt.json": "1b635634013f503a3c19fb779a522970bcacc1bcd94795457aa544d31619026a",
+    "host-recovery106c.log": "2eb829058d8643432f927632456c63fef48806e84b2b2a884a309e3b1c3d388c",
+    "host-recovery106d.log": "dcd72183b9666a8bf28d27b30f3d09e9c5c68c7427f5d6383c874a661215e71c",
+    "java-interop106c.log": "be6955ef32432e847950cd8786fee5203f827f10f76f791ae019a35e1887c7ce",
+    "java-interop106d.log": "88c5271bc4f0ab14ea5b641dc290290833987452d40f9a323c3a69ae24891fa7",
+    "java-unit106b.log": "bc030c8f62c5428032c6364a99d91580466464db0f5b202114d0331679b98a93",
+    "java-unit106c.log": "199fce26ad4243f3d4c946b6ddafb9b0c5bc431fc10c7792ac0d25214a0004ed",
+    "java-unit106d.log": "120ce3053a179ae4d247da637fcb73a7c7f6225985bbdb617d04a237ad0025d5",
+    "monitor106e-result.json": "afeaba11965ed35c3af91fd7e8d1ca1a15d4fa90ee9419681503d6f9e75c8c26",
+    "orchestration106e-bootstrap.json": "5ff84baac734d927f5163098a0aef3121cd43fb9ebd20a471f0945bc8af8d0fe",
+    "orchestration106e-result.json": "e71b6a41e886c90785946e64ae7e56fb2816109603b369c127cb85613b7f2b25",
+    "platform106e-result.json": "a2ba47784878f85d5c7541abc39712fafd451892dd716fdd838cd2d8e44e4455",
+    "preflight106e.log": "8dbb8fce6f06e7773c120a2f95c6b455de84066e9d4e06ae81c3ee57ce7d70bb",
+    "prepare106e.log": "1e26ff3a43c38a51c85947c4bf2269afc680160ffd7f3f1f6a4a1b5c05cbe758",
+    "readiness106e.log": "22543bd1eaf8ae4f1152deb24ee7a841f4dd2ec565237bcdf5a50088bc4c0fc4",
+    "report.json": "b4a87d379ba864617e9c46fb4c1baad9c4d2a1ff0a1d04398f9b5ef68f457238",
+    "start106e.log": "51fa962bee221ef87861d4010d1232e360587364e41210faa54cbf9bfca8b3ca",
+    "target106e.log": "43eb8d7f4501de2bb13f24faaf1b520d925301ab9b87043373c09346b832b825",
+    "watch106d-bootstrap.json": "0afcc3db1924e9ad10adf39df1c85e6dc2a9d425ef2cee566cf2e92bde83cd8a",
+    "watch106d-result.json": "e6e3a677a76b0de372545a7ca5cb548b3daa06a340c402fe729710dac700307a",
+    "watch106e-bootstrap.json": "d67b664407b50755bb68b637ff026b70f00162cf2b4d5c2c9cdf755e833385ce",
+    "watch106e-result.json": "fa86a3d01cf7e7149031e6cf61a42805eb893daea2937646d729694867f8d5ef"
+  },
+  "github_publication": {
+    "branch": "mc",
+    "source_commit": "7ec1fad97ed963ab644210aec3ed840f3927db48",
+    "source_pushed_and_verified": true,
+    "documentation_push_pending": true
+  }
+}
