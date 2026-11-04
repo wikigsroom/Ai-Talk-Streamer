@@ -42,10 +42,16 @@ def startup_diagnostic(error, stage, elapsed_ms):
             ConnectionError, OSError, ValueError, KeyError, TypeError, RuntimeError)
             if isinstance(error, kind)), 'Exception')
         item = {'type': category, 'frames': []}
-        if type(error).__module__ in {'mc_application', 'native_operation', 'start_studio', 'mc_deployment', 'native_artifact_pins'}:
+        if type(error).__module__ in {'mc_application', 'native_operation', 'start_studio', 'mc_deployment', 'native_artifact_pins', 'launch'}:
             code = getattr(error, 'code', None) or (error.args[0] if len(error.args) == 1 else None)
             if isinstance(code, str) and re.fullmatch(r'(?:MC|STUDIO)_[A-Z0-9_]{1,90}', code):
                 item['reason_code'] = code
+            if type(error).__module__ == 'launch':
+                details = getattr(error, 'details', {})
+                item['resources'] = {key: details[key] for key in ('free_mib', 'minimum_mib', 'waited_ms', 'probes')
+                    if type(details.get(key)) is int and 0 <= details[key] <= 1000000000}
+                if details.get('service') in ('avatar', 'tts'):
+                    item['resources']['service'] = details['service']
         for frame, line in traceback.walk_tb(error.__traceback__):
             try:
                 name = Path(frame.f_code.co_filename).resolve().relative_to(ROOT)

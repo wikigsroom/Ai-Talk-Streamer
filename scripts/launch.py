@@ -1,6 +1,6 @@
 """Native Windows entry points for the prepared local avatar stack."""
 from pathlib import Path
-import argparse,json,os,socket,subprocess,sys,time
+import argparse,json,math,os,socket,subprocess,sys,time
 from runtime_environment import ROOT,environment
 from native_operation import operation,atomic_json
 from native_windows_process import identity_alive
@@ -14,6 +14,30 @@ def gpu_free():
     flags={'creationflags':0x08000000} if os.name=='nt' else {}
     value=subprocess.check_output(['nvidia-smi','--query-gpu=memory.free','--format=csv,noheader,nounits'],text=True,timeout=10,**flags)
     return int(value.splitlines()[0])
+
+
+class ServiceStartError(RuntimeError):
+    def __init__(self, code, **details):
+        self.code, self.details = code, details
+        super().__init__(code)
+
+
+def wait_for_gpu(service, minimum, transaction=None, *, timeout=120, clock=time.monotonic, sleep=time.sleep):
+    """Wait for actual capacity without changing the gate or starting a duplicate."""
+    started = clock(); deadline = started + timeout; probes = 0
+    required = math.ceil(minimum * 1024)
+    while True:
+        free = gpu_free(); probes += 1
+        result = {'service': service, 'free_mib': free, 'minimum_mib': required,
+                  'waited_ms': round(max(0, clock() - started) * 1000), 'probes': probes}
+        if transaction is not None:
+            transaction.value['startup_gpu_check'] = result
+            transaction.write()
+        if free >= required:
+            return result
+        if clock() >= deadline:
+            raise ServiceStartError('MC_SERVICE_GPU_MEMORY_LOW', **result)
+        sleep(min(1, max(0, deadline - clock())))
 
 def state():
     data={}
@@ -47,8 +71,7 @@ def _start_service(name,profile,minimum,transaction):
         from hardware_profile import minimum_free_gib
         minimum=minimum_free_gib(name)
     if minimum>0:
-        free=gpu_free()
-        if free<minimum*1024:raise RuntimeError(f'Only {free} MiB GPU memory is free; need {minimum} GiB. Existing applications are left running.')
+        wait_for_gpu(name, minimum, transaction)
     env=environment()
     if name=='tts':
         config=json.loads((ROOT/'configs/livetalking.yaml').read_text(encoding='utf-8-sig'))
