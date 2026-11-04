@@ -431,7 +431,10 @@
       "branch": "mc",
       "source_commit": "c2c538a718d6471ed5372eb31237898ab1a11ce3",
       "source_pushed_and_verified": true,
-      "documentation_push_pending": true
+      "documentation_push_pending": false,
+      "documentation_pushed_and_verified": true,
+      "documentation_commit": "ddd548b86b49963c813bc4224e1dcb250c3fb659",
+      "publication_receipt": "docs/evidence/mc-runtime-round-105-publication.json"
     }
   },
   "documentation_validation": {
@@ -14805,6 +14808,8 @@
     "continuous_autonomous_gameplay_passed": false,
     "application_start_passed": true,
     "latest_failure_diagnostic": "GAME_OBSERVATION_EXPIRED",
-    "github_push_pending": true
+    "github_push_pending": false,
+    "publication_receipt": "docs/evidence/mc-runtime-round-105-publication.json",
+    "documentation_commit": "ddd548b86b49963c813bc4224e1dcb250c3fb659"
   }
 }

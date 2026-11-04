@@ -1044,7 +1044,10 @@
     "branch": "mc",
     "source_commit": "c2c538a718d6471ed5372eb31237898ab1a11ce3",
     "source_pushed_and_verified": true,
-    "documentation_push_pending": true
+    "documentation_push_pending": false,
+    "documentation_pushed_and_verified": true,
+    "documentation_commit": "ddd548b86b49963c813bc4224e1dcb250c3fb659",
+    "publication_receipt": "docs/evidence/mc-runtime-round-105-publication.json"
   },
   "goal_status": "active",
   "public_broadcast_started": false,

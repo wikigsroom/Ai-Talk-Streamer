@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261104-105-PUBLICATION",
+  "source": {
+    "checked_at": "2026-11-04T02:51:28.5251329Z",
+    "branch": "mc",
+    "ok": true,
+    "head": "c2c538a718d6471ed5372eb31237898ab1a11ce3",
+    "remote_head": "c2c538a718d6471ed5372eb31237898ab1a11ce3"
+  },
+  "report": {
+    "ok": true,
+    "branch": "mc",
+    "head": "ddd548b86b49963c813bc4224e1dcb250c3fb659",
+    "remote_head": "ddd548b86b49963c813bc4224e1dcb250c3fb659",
+    "report": "docs/technical/mc-live-v1/依赖导入与105自主运行记录.md",
+    "at": "2026-11-04T03:37:11.3228642Z"
+  },
+  "continuous_autonomous_gameplay_passed": false,
+  "observation_window_seconds": 600.244975566864,
+  "adjacent_auto_sample_coverage_seconds": 21.010603666305542,
+  "formal_acceptance_advanced": 0,
+  "goal_status": "active"
+}
