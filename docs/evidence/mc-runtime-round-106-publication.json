@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261104-106-PUBLICATION",
+  "source": {
+    "ok": true,
+    "branch": "mc",
+    "head": "7ec1fad97ed963ab644210aec3ed840f3927db48",
+    "remote_head": "7ec1fad97ed963ab644210aec3ed840f3927db48",
+    "source_snapshot_sha256": "caf6063cc1ebdd96485dcf4a4c7565651f4e556d89dbe5b3c70b417d3dac0e85",
+    "at": "2026-11-04T04:17:48.8054487+00:00",
+    "scope": "SOURCE_CHANGES_ONLY_NOT_RELEASE_ACCEPTANCE"
+  },
+  "report": {
+    "ok": true,
+    "branch": "mc",
+    "head": "a5064b5c364528d60b34c587ed4766a7e586da8e",
+    "remote_head": "a5064b5c364528d60b34c587ed4766a7e586da8e",
+    "report": "docs/technical/mc-live-v1/接收封锁与106中断记录.md",
+    "at": "2026-11-04T05:07:56.997383+00:00"
+  },
+  "observation_window_completed": false,
+  "normal_final_save_and_service_close_verified": false,
+  "remote_desktop_required": true,
+  "formal_acceptance_advanced": 0,
+  "goal_status": "active"
+}

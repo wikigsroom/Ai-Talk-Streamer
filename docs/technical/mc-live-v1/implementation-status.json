@@ -395,7 +395,7 @@
   "remote_4090_control": "paused",
   "current_inherited_target": "rtx3080",
   "layout_unchanged": true,
-  "last_updated": "2026-11-04T05:05:40.185258+00:00",
+  "last_updated": "2026-11-04T05:07:56.997383+00:00",
   "known_incomplete_integration": [
     "D01 完整安装包、许可及干净Windows重建、来源与副本、缓存/回退、冷/热启动、共享资源恢复；必需服务启动与完整应用验收分别核算。 本次服务启动通过；中断后的正常停机及最终进程清点未确认。",
     "D02 真实模组方块/实体/容器/维度、断连/换世界/死亡与地形、墓碑/重连、后续联机兼容；新接收封锁仍需跨场与断电恢复长期验证。",
@@ -433,7 +433,11 @@
       "branch": "mc",
       "source_commit": "7ec1fad97ed963ab644210aec3ed840f3927db48",
       "source_pushed_and_verified": true,
-      "documentation_push_pending": true
+      "documentation_push_pending": false,
+      "report_commit": "a5064b5c364528d60b34c587ed4766a7e586da8e",
+      "report_pushed_and_verified": true,
+      "report_remote_head": "a5064b5c364528d60b34c587ed4766a7e586da8e",
+      "report_checked_at": "2026-11-04T05:07:56.997383+00:00"
     }
   },
   "documentation_validation": {
@@ -14868,6 +14872,6 @@
     "vision_successes_minimum_confirmed": 1,
     "normal_final_save_and_service_close_pending": true,
     "remote_desktop_required": true,
-    "github_push_pending": true
+    "github_push_pending": false
   }
 }
