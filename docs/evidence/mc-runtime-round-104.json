@@ -32,7 +32,8 @@
       "deployment_target": 20
     },
     "native_java_fixtures_reused_from_103": 21,
-    "suites_overlap_do_not_sum": true
+    "suites_overlap_do_not_sum": true,
+    "native_windows_log_archive": 5
   },
   "attempts": {
     "104": {
@@ -491,7 +492,11 @@
     "branch": "mc",
     "source_commit": "5ec08c16462334966443272069b30209f493d4b7",
     "source_pushed_and_verified": true,
-    "documentation_push_pending": true
+    "report_commit": "0fc48ec3f93a170cff1dd7f1406294f88acdcce2",
+    "report_pushed_and_verified": true,
+    "documentation_push_pending": false,
+    "verified_at": "2026-11-04T02:20:31.0289531Z",
+    "receipt": "docs/evidence/mc-runtime-round-104-publication.json"
   },
   "previous_goal_turn_classification": "progress",
   "goal_status": "active",

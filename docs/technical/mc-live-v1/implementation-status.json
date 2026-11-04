@@ -397,7 +397,7 @@
   "remote_4090_control": "paused",
   "current_inherited_target": "rtx3080",
   "layout_unchanged": true,
-  "last_updated": "2026-11-04T02:18:56.931025+00:00",
+  "last_updated": "2026-11-04T02:20:31.0289531Z",
   "known_incomplete_integration": [
     "D01 完整安装包、许可及干净Windows重建、来源/副本、缓存与回退；安全错误定位、阶段记录、操作内受锁摘要复用和显存等待已实现，仍需证明冷/热启动及共享资源下恢复稳定。本轮未完成新的自主观察，最近完整运行仍为102轮。最新尝试尚未进入完整应用启动。最新环境检查未通过：avatar_cpu_imports / TimeoutExpired / 180.047秒。",
     "D02 模组实体/容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物和联机差异；本轮无新游戏观察，102轮原世界证据不覆盖全部模组及协议场景。",
@@ -449,7 +449,11 @@
       "branch": "mc",
       "source_commit": "5ec08c16462334966443272069b30209f493d4b7",
       "source_pushed_and_verified": true,
-      "documentation_push_pending": true
+      "report_commit": "0fc48ec3f93a170cff1dd7f1406294f88acdcce2",
+      "report_pushed_and_verified": true,
+      "documentation_push_pending": false,
+      "verified_at": "2026-11-04T02:20:31.0289531Z",
+      "receipt": "docs/evidence/mc-runtime-round-104-publication.json"
     }
   },
   "documentation_validation": {
@@ -14227,7 +14231,11 @@
     "application_ready": false,
     "new_game_or_model_run": false,
     "last_real_runtime_round": "102",
-    "keep_inventory_preserved": true
+    "keep_inventory_preserved": true,
+    "source_fixture_checks_passed": true,
+    "readiness_passed": false,
+    "readiness_passed_count": 7,
+    "readiness_total_count": 8
   },
   "round096_follow_up": {
     "implemented_ids": [
@@ -14746,6 +14754,17 @@
       ],
       "application_start_not_reached": true
     },
-    "github_push_pending": true
+    "github_push_pending": false,
+    "github_publication": {
+      "branch": "mc",
+      "source_commit": "5ec08c16462334966443272069b30209f493d4b7",
+      "source_pushed_and_verified": true,
+      "report_commit": "0fc48ec3f93a170cff1dd7f1406294f88acdcce2",
+      "report_pushed_and_verified": true,
+      "documentation_push_pending": false,
+      "verified_at": "2026-11-04T02:20:31.0289531Z",
+      "receipt": "docs/evidence/mc-runtime-round-104-publication.json"
+    },
+    "next_action": "在3080定位人物CPU依赖导入的具体模块、冷启动耗时和超时进程族；环境检查与真实显存满足原门禁后，验证原世界的面包制作、进食、持续补给及600秒自主观察。"
   }
 }
