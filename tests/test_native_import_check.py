@@ -5,6 +5,7 @@ import os
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 import unittest
 
@@ -137,6 +138,52 @@ while True:time.sleep(.02)
         with self.assertRaisesRegex(ValueError, 'CPU_ENVIRONMENT_REQUIRED'):
             self.run_probe(['json'])
         self.assertFalse((self.root / '.setup').exists())
+
+    def held_progress_reader(self, *, release_after=None):
+        self.module('reader_fixture', 'from pathlib import Path\nimport time\n'
+                    + 'root=Path(' + repr(str(self.root)) + ')\n'
+                    + "(root/'module-entered').touch()\n"
+                    + "while not(root/'release-module').exists():time.sleep(.01)\n")
+        readers = []
+        def hold(value):
+            self.updates.append(value)
+            if value['phase'] != 'IMPORTING' or readers:
+                return
+            deadline = time.monotonic() + 5
+            while not (self.root / 'module-entered').exists():
+                if time.monotonic() >= deadline:
+                    self.fail('fixture module did not enter')
+                time.sleep(.01)
+            # Ordinary Windows readers deny replacement while their handle is open.
+            reader = (self.root / value['progress']).open('rb')
+            readers.append(reader)
+            if release_after is not None:
+                timer = threading.Timer(release_after, reader.close)
+                timer.daemon = True
+                timer.start()
+                self.addCleanup(timer.join)
+            (self.root / 'release-module').touch()
+        return hold, readers
+
+    def test_transient_windows_reader_does_not_fail_an_import(self):
+        hold, readers = self.held_progress_reader(release_after=.3)
+        try:
+            result = self.run_probe(['reader_fixture'], progress=hold, timeout=20, module_timeout=10)
+            self.assertTrue(result['ok']); self.assert_closed(result)
+        finally:
+            for reader in readers:reader.close()
+
+    def test_persistent_windows_reader_has_bounded_failure_and_closed_family(self):
+        hold, readers = self.held_progress_reader()
+        try:
+            with self.assertRaises(ImportCheckError) as failed:
+                self.run_probe(['reader_fixture'], progress=hold, timeout=20, module_timeout=10)
+            self.assertEqual(failed.exception.code, 'MC_IMPORT_CHECK_FAILED')
+            self.assertGreaterEqual(failed.exception.details['elapsed_ms'], 1000)
+            self.assertLess(failed.exception.details['elapsed_ms'], 10000)
+            self.assert_closed(failed.exception.details)
+        finally:
+            for reader in readers:reader.close()
 
     def test_progress_write_failure_still_closes_family_without_exposing_text(self):
         def unavailable(value):
