@@ -42,7 +42,7 @@ def startup_diagnostic(error, stage, elapsed_ms):
             ConnectionError, OSError, ValueError, KeyError, TypeError, RuntimeError)
             if isinstance(error, kind)), 'Exception')
         item = {'type': category, 'frames': []}
-        if type(error).__module__ in {'mc_application', 'native_operation', 'start_studio', 'mc_deployment'}:
+        if type(error).__module__ in {'mc_application', 'native_operation', 'start_studio', 'mc_deployment', 'native_artifact_pins'}:
             code = getattr(error, 'code', None) or (error.args[0] if len(error.args) == 1 else None)
             if isinstance(code, str) and re.fullmatch(r'(?:MC|STUDIO)_[A-Z0-9_]{1,90}', code):
                 item['reason_code'] = code

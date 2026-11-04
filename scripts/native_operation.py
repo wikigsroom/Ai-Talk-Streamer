@@ -165,16 +165,40 @@ def _pending(metadata):
     return result
 
 
+_active_operation = threading.local()
+PIN_MIN_BYTES = 64 * 1024 * 1024
+PIN_SUFFIXES = {'.pt', '.pth', '.bin', '.ckpt', '.safetensors', '.onnx', '.gguf', '.dll', '.exe', '.jar', '.zip'}
+
+
+def artifact_digest(path):
+    """Reuse only opaque large artifacts held against writes in this thread's operation."""
+    current = getattr(_active_operation, 'current', None)
+    if current is None:
+        return None
+    path = Path(path).resolve()
+    if not path.is_relative_to(current.root) or path.suffix.casefold() not in PIN_SUFFIXES:
+        return None
+    relative = path.relative_to(current.root).as_posix()
+    if not relative.startswith(('models/', 'runtime/', 'tools/', 'src/LiveTalking/models/')):
+        return None
+    if path.stat().st_size < PIN_MIN_BYTES:
+        return None
+    return current.artifact_pins.digest(path)
+
+
 class NativeOperation:
     def __init__(self, root, action, stream, previous):
         self.root, self.stream = Path(root).resolve(), stream
         self.job, self.processes, self.registries, self.aborted = None, [], [], False
         self.supervisor = None
+        from native_artifact_pins import FileHashPins
+        self.artifact_pins = FileHashPins()
         self.value = {'schema_version': 1, 'operation_id': uuid.uuid4().hex,
             'action': action, 'phase': 'STARTING', 'controller_pid': os.getpid(),
             'started_at': datetime.now(timezone.utc).isoformat(), 'processes': [],
             'recovery_pending': _pending(previous),
             'previous_operation': {key: previous.get(key) for key in ('operation_id', 'phase', 'action')}}
+        self.value['artifact_hashes'] = self.artifact_pins.statistics
 
     def write(self):
         self.stream.seek(1)
@@ -305,6 +329,8 @@ def operation(root, action, *, recovery=False):
             raise OperationError('MC_NATIVE_OPERATION_RECOVERY_REQUIRED')
         current = NativeOperation(root, action, stream, previous)
         state['current'] = current
+        previous_active = getattr(_active_operation, 'current', None)
+        _active_operation.current = current
         try:
             current.write()
             yield current
@@ -313,11 +339,17 @@ def operation(root, action, *, recovery=False):
             current.rollback()
             raise
         finally:
-            for process in current.processes:
-                process.close()
-            if current.supervisor:
-                current.supervisor.close()
-            state['current'] = None
+            try:
+                for process in current.processes:
+                    process.close()
+                if current.supervisor:
+                    current.supervisor.close()
+            finally:
+                try:
+                    current.artifact_pins.close()
+                finally:
+                    _active_operation.current = previous_active
+                    state['current'] = None
     finally:
         if stream:
             try:

@@ -88,6 +88,10 @@ def require(condition, code):
 
 def sha(path):
     # The pinned native avatar environment uses Python 3.10, before file_digest.
+    from native_operation import artifact_digest
+    pinned = artifact_digest(path)
+    if pinned is not None:
+        return pinned
     value = hashlib.sha256()
     with path.open('rb') as stream:
         while block := stream.read(1024 * 1024):
