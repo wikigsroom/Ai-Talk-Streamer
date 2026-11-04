@@ -177,9 +177,11 @@ export class GameNarration {
     ensure(this.live()?.broadcast_id === item.broadcast_id && this.live()?.state === 'LIVE', 'GAME_NARRATION_BROADCAST_CHANGED');
     ensure(m.roomId() === item.room_id && state.world_session_id === item.world_session_id && state.world_id === item.world_id, 'GAME_NARRATION_WORLD_CHANGED');
     if (!media || ['pending', 'submitting', 'queued', 'thinking'].includes(item.state)) ensure(m.wall() < Date.parse(item.expires_at), 'GAME_NARRATION_EXPIRED');
-    if (item.world_session_id) ensure(state.freshness === 'fresh', 'GAME_NARRATION_STATE_STALE');
     const source = this.source(item); ensure(source, 'GAME_NARRATION_SOURCE_REMOVED');
     if (item.source_event_ids.length && !this.sourceReferences(item, source).some(id => this.roomMessage(id))) ensure(false, 'GAME_NARRATION_SOURCE_REMOVED');
+    // Pending items may wait for a new observation, but their source, world,
+    // broadcast and original deadline must remain valid even during that wait.
+    if (item.world_session_id) ensure(state.freshness === 'fresh', 'GAME_NARRATION_STATE_STALE');
     return source;
   }
   byRequest(id) {
@@ -284,7 +286,14 @@ export class GameNarration {
         if (request && !REQUEST_STATES[request.status]) { this.finish(item, request.status === 'UNKNOWN' ? 'unknown' : 'cancelled', 'REQUEST_' + request.status, false); continue; }
         if (request && REQUEST_STATES[request.status] !== item.state) this.save(item, { state: REQUEST_STATES[request.status] });
         if (request && this.observations.has(request.request_id)) this.assertSource(request.request_id, true);
-      } catch (error) { this.generationFailed(item.request_id, error.code || 'GAME_NARRATION_SOURCE_UNAVAILABLE'); if (!item.request_id) this.finish(item, error.code === 'GAME_NARRATION_EXPIRED' ? 'expired' : 'discarded', error.code || 'GAME_NARRATION_SOURCE_UNAVAILABLE'); }
+      } catch (error) {
+        // No request has been admitted or could have reached an audio consumer.
+        // Retain only this unsent candidate while fresh observations recover;
+        // never renew its expiry or revive a cancelled/possibly spoken request.
+        if (error.code === 'GAME_NARRATION_STATE_STALE' && item.state === 'pending' && !item.request_id) continue;
+        this.generationFailed(item.request_id, error.code || 'GAME_NARRATION_SOURCE_UNAVAILABLE');
+        if (!item.request_id) this.finish(item, error.code === 'GAME_NARRATION_EXPIRED' ? 'expired' : 'discarded', error.code || 'GAME_NARRATION_SOURCE_UNAVAILABLE');
+      }
     }
     this.prune();
   }
@@ -293,7 +302,8 @@ export class GameNarration {
     this.sweep();
     const bridge = this.manager.bridge, live = this.live(), policy = bridge.platforms?.config?.value?.interaction;
     if (!bridge.ready || bridge.administration?.locked || !bridge.health?.().persona_injection_ready || live?.state !== 'LIVE' ||
-        !this.scheduler.settings().enabled || !bridge.state.authorityReady(live.broadcast_id) || !bridge.auth?.resolve) return;
+        !this.scheduler.settings().enabled || !bridge.state.authorityReady(live.broadcast_id) || !bridge.auth?.resolve ||
+        this.manager.state.view().freshness !== 'fresh') return;
     const eligible = item => item.state === 'pending' && !(item.kind === 'question' && this.manager.intents?.waiting(item.source_event_ids));
     this.performance.tick();
     let pending = this.open().filter(eligible); if (!pending.length) return;

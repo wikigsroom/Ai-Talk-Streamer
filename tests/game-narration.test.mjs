@@ -134,6 +134,65 @@ test('pending candidates expire at their original deadline and remain visibly ex
   assert.equal(f.manager.narration.get(item.narration_id).state, 'expired'); assert.equal(f.calls.length, 0);
 });
 
+test('unsent narration waits through an observation gap and submits once after fresh observations recover', async t => {
+  const f = await fixture(t), { item } = await f.comment();
+  f.advanceClock(2100);
+  assert.equal(f.manager.state.view().freshness, 'stale');
+  for (let i = 0; i < 3; i++) assert.equal(await f.run(), null);
+  const waiting = f.manager.narration.get(item.narration_id);
+  assert.equal(waiting.state, 'pending'); assert.equal(waiting.attempt, 0);
+  assert.equal(waiting.expires_at, item.expires_at); assert.equal(waiting.request_id, null);
+  assert.equal(f.calls.length, 0); assert.equal(f.media.length, 0);
+  f.game.snapshot({ seq: f.game.observation.seq + 1, observed_at: new Date(f.manager.wall()).toISOString() });
+  await until(() => f.manager.state.view().freshness === 'fresh');
+  const request = await f.run(); assert(request);
+  assert.equal(f.calls.length, 1); assert.equal(f.media.length, 1);
+  assert.equal(f.manager.narration.get(item.narration_id).attempt, 1);
+  assert.equal(f.manager.narration.get(item.narration_id).expires_at, item.expires_at);
+  assert.equal(f.complete().result.accepted, true);
+});
+
+test('waiting for fresh observations cannot extend an unsent narration deadline', async t => {
+  const f = await fixture(t), { item } = await f.comment();
+  f.advanceClock(2100); f.manager.narration.tick();
+  assert.equal(f.manager.narration.get(item.narration_id).state, 'pending');
+  f.advanceClock(Date.parse(item.expires_at) - f.manager.wall());
+  f.manager.narration.tick();
+  const expired = f.manager.narration.get(item.narration_id);
+  assert.equal(expired.state, 'expired'); assert.equal(expired.reason, 'GAME_NARRATION_EXPIRED');
+  assert.equal(expired.expires_at, item.expires_at); assert.equal(f.calls.length, 0);
+});
+
+test('hidden sources are discarded immediately while an unsent narration waits for observations', async t => {
+  const f = await fixture(t), { key, item } = await f.comment();
+  f.advanceClock(2100); f.manager.narration.tick();
+  assert.equal(f.manager.narration.get(item.narration_id).state, 'pending');
+  f.room.messageControl({ action: 'hide', id: key }); f.manager.narration.tick();
+  assert.equal(f.manager.narration.get(item.narration_id).state, 'discarded');
+  assert.equal(f.manager.narration.get(item.narration_id).reason, 'GAME_NARRATION_SOURCE_REMOVED');
+  assert.equal(f.calls.length, 0); assert.equal(f.media.length, 0);
+});
+
+test('world changes end unsent narration even while observations are stale', async t => {
+  const f = await fixture(t), { item } = await f.comment();
+  f.advanceClock(2100); f.manager.narration.tick();
+  f.manager.state.value.world_session_id = 'different-world-session'; f.manager.narration.tick();
+  assert.equal(f.manager.narration.get(item.narration_id).state, 'discarded');
+  assert.equal(f.manager.narration.get(item.narration_id).reason, 'GAME_NARRATION_WORLD_CHANGED');
+  assert.equal(f.calls.length, 0);
+});
+
+test('observation loss still cancels admitted speech and never replays it after observations recover', async t => {
+  const f = await fixture(t), { item } = await f.comment(), request = await f.run();
+  assert.equal(f.media.length, 1);
+  f.advanceClock(2100); f.manager.narration.tick();
+  assert.equal(f.state.request(request.request_id).status, 'CANCELLED');
+  assert.equal(f.manager.narration.get(item.narration_id).reason, 'GAME_NARRATION_STATE_STALE');
+  f.game.snapshot({ seq: f.game.observation.seq + 1, observed_at: new Date(f.manager.wall()).toISOString() });
+  await until(() => f.manager.state.view().freshness === 'fresh');
+  assert.equal(await f.run(), null); assert.equal(f.calls.length, 1); assert.equal(f.media.length, 1);
+});
+
 test('the queue stays bounded and source replay cannot resurrect an evicted candidate', async t => {
   const f = await fixture(t), first = await f.comment('第一条');
   for (let i = 0; i < 20; i++) await f.comment('后续问题 ' + i);
