@@ -28,12 +28,12 @@ def publish(phase,module=None,error_type=None):
     try:
         with os.fdopen(fd,'w',encoding='utf8')as out:
             json.dump(value,out);out.flush();os.fsync(out.fileno())
-    deadline=time.monotonic()+1
-    while True:
-        try:os.replace(name,path);break
-        except PermissionError as error:
-            if getattr(error,'winerror',None)not in(5,32,33)or time.monotonic()>=deadline:raise
-            time.sleep(.01)
+        deadline=time.monotonic()+1
+        while True:
+            try:os.replace(name,path);break
+            except PermissionError as error:
+                if getattr(error,'winerror',None)not in(5,32,33)or time.monotonic()>=deadline:raise
+                time.sleep(.01)
     finally:
         if os.path.exists(name):os.unlink(name)
     print(json.dumps(value),flush=True)
