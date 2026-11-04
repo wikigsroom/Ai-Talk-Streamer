@@ -108,6 +108,64 @@ class ResidentTests(unittest.TestCase):
         process.terminate.assert_called_once();fake.wait_procs.assert_called_once()
         child.terminate.assert_called_once();child.wait.assert_called_once_with(timeout=10)
 
+    def start_broker(self, responses):
+        b=self.broker();b.config['voices']['O07']['python']='runtime/python/python.exe'
+        b.poll=self.service.Broker.poll.__get__(b)
+        b.rpc=Mock(side_effect=responses)
+        child=Mock();child.poll.return_value=None
+        return b,child
+
+    def health(self, **changes):
+        value={'engine':'OmniVoice','voice_id':'O07','reference_sha256':'a'*64,
+               'ready':True,'error':None}
+        value.update(changes)
+        return Reply(json.dumps(value).encode())
+
+    def test_startup_transport_timeout_retries_same_worker_until_ready(self):
+        for error in (TimeoutError('busy'), ConnectionResetError('reset'),
+                      self.service.urllib.error.URLError('not listening')):
+            with self.subTest(error=type(error).__name__):
+                b,child=self.start_broker([error,self.health(ready=False),self.health()])
+                with tempfile.TemporaryDirectory() as directory, patch.object(self.service,'ROOT',Path(directory)), \
+                     patch.object(self.service.socket,'socket') as sock, \
+                     patch.object(self.service.subprocess,'Popen',return_value=child) as spawn, \
+                     patch.object(self.service.time,'sleep'):
+                    sock.return_value.__enter__.return_value.connect_ex.return_value=1
+                    b.spawn('O07')
+                spawn.assert_called_once();self.assertEqual(b.rpc.call_count,3)
+                self.assertTrue(b.workers['O07']['ready']);self.assertIs(b.children['O07'],child)
+
+    def test_startup_model_reported_error_still_fails_immediately(self):
+        b,child=self.start_broker([self.health(ready=False,error='TimeoutError: warmup failed')])
+        with tempfile.TemporaryDirectory() as directory, patch.object(self.service,'ROOT',Path(directory)), \
+             patch.object(self.service.socket,'socket') as sock, \
+             patch.object(self.service.subprocess,'Popen',return_value=child), \
+             patch.object(self.service.time,'sleep'):
+            sock.return_value.__enter__.return_value.connect_ex.return_value=1
+            with self.assertRaisesRegex(RuntimeError,'warmup failed'):b.spawn('O07')
+        self.assertEqual(b.rpc.call_count,1)
+
+    def test_startup_identity_mismatch_is_not_retried(self):
+        b,child=self.start_broker([self.health(reference_sha256='wrong')])
+        with tempfile.TemporaryDirectory() as directory, patch.object(self.service,'ROOT',Path(directory)), \
+             patch.object(self.service.socket,'socket') as sock, \
+             patch.object(self.service.subprocess,'Popen',return_value=child), \
+             patch.object(self.service.time,'sleep'):
+            sock.return_value.__enter__.return_value.connect_ex.return_value=1
+            with self.assertRaisesRegex(RuntimeError,'RuntimeError'):b.spawn('O07')
+        self.assertEqual(b.rpc.call_count,1)
+
+    def test_startup_repeated_probe_failure_still_obeys_deadline(self):
+        b,child=self.start_broker([TimeoutError('busy')])
+        with tempfile.TemporaryDirectory() as directory, patch.object(self.service,'ROOT',Path(directory)), \
+             patch.object(self.service.socket,'socket') as sock, \
+             patch.object(self.service.subprocess,'Popen',return_value=child) as spawn, \
+             patch.object(self.service.time,'sleep'), \
+             patch.object(self.service.time,'monotonic',side_effect=[0,0,181]):
+            sock.return_value.__enter__.return_value.connect_ex.return_value=1
+            with self.assertRaisesRegex(TimeoutError,'startup deadline exceeded'):b.spawn('O07')
+        spawn.assert_called_once();self.assertEqual(b.rpc.call_count,1)
+
     def test_partition_preserves_text_punctuation_and_long_runs(self):
         text=('你好。 继续说！\n'+'长句'*120)*2
         parts=self.worker.partition(text)

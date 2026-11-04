@@ -47,7 +47,11 @@ class Broker:
                 raise RuntimeError('Unexpected worker identity')
             self.workers[voice] = value
         except (OSError, ValueError, RuntimeError) as exc:
-            self.workers[voice] = {'ready': False, 'voice_id': voice, 'error': type(exc).__name__}
+            # A health request may time out while CUDA imports or model loading
+            # hold the worker. That is not a model-reported initialization error.
+            retryable = isinstance(exc, (urllib.error.URLError, TimeoutError, ConnectionError)) and not isinstance(exc, urllib.error.HTTPError)
+            self.workers[voice] = {'ready': False, 'voice_id': voice,
+                'error': type(exc).__name__, 'probe_retryable': retryable}
         return self.workers[voice]
 
     def spawn(self, voice):
@@ -71,7 +75,7 @@ class Broker:
             if child.poll() is not None:
                 raise RuntimeError(voice+' exited during loading')
             state = self.poll(voice)
-            if state.get('error') and state['error'] not in ('URLError', 'ConnectionResetError'):
+            if state.get('error') and not state.get('probe_retryable'):
                 raise RuntimeError(voice+' failed to initialize: '+state['error'])
             if state.get('ready'):
                 return
