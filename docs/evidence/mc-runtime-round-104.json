@@ -1,0 +1,835 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261104-104",
+  "round": "104",
+  "at": "2026-11-04T02:18:56.931025+00:00",
+  "branch": "mc",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "scope": "SAFE_STARTUP_DIAGNOSTICS_LOCKED_ARTIFACT_HASHES_GPU_WAIT_AND_MAINTENANCE_DEFERRAL_WITH_REMOTE_VERIFICATION",
+  "source_commit": "5ec08c16462334966443272069b30209f493d4b7",
+  "source_snapshot_sha256": "22f3fffe62594dee3298ed313f367321e8ea9db725e826015764ca0dc670e729",
+  "source_archive_sha256": "5ad177a35608e0d47a13c32cd3c8bbd5365586aad2b4a599778732192f9bb490",
+  "source_files": 1023,
+  "local_application_tests": 0,
+  "checks": {
+    "application": 33,
+    "maintenance": 20,
+    "core": {
+      "tests": 416,
+      "pass": 416,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "isolated_windows_source_installation": {
+      "native_gpu_start": 5,
+      "native_artifact_pins": 11,
+      "native_operation": 17,
+      "mc_application": 33,
+      "mc_deployment": 43,
+      "deployment_target": 20
+    },
+    "native_java_fixtures_reused_from_103": 21,
+    "suites_overlap_do_not_sum": true
+  },
+  "attempts": {
+    "104": {
+      "ok": false,
+      "checks": [
+        {
+          "name": "application104",
+          "exit_code": 0
+        },
+        {
+          "name": "maintenance104",
+          "exit_code": 1
+        }
+      ],
+      "source_snapshot_sha256": "1ab685b88e5f5117baf217c45c2d62d01215bc07c7b5416690277e81a602c13c",
+      "finished_at": 1793754758.022796
+    },
+    "104b": {
+      "ok": false,
+      "checks": [
+        {
+          "name": "application104b",
+          "exit_code": 0
+        },
+        {
+          "name": "maintenance104b",
+          "exit_code": 0
+        },
+        {
+          "name": "core104b",
+          "exit_code": 0
+        },
+        {
+          "name": "log-fixtures104b",
+          "exit_code": 0
+        },
+        {
+          "name": "readiness104b",
+          "exit_code": 0
+        },
+        {
+          "name": "preflight104b",
+          "exit_code": 0
+        },
+        {
+          "name": "prepare104b",
+          "exit_code": 0
+        },
+        {
+          "name": "target104b",
+          "exit_code": 0
+        },
+        {
+          "name": "start104b",
+          "exit_code": 1
+        }
+      ],
+      "source_snapshot_sha256": "0e2c612831315bc48fa9ee1f50ec1f96f6555ba73aa802484ba6ba52a22f1052",
+      "finished_at": 1793756239.5908587
+    },
+    "104f": {
+      "ok": false,
+      "checks": [
+        {
+          "name": "application104f",
+          "exit_code": 0
+        },
+        {
+          "name": "maintenance104f",
+          "exit_code": 0
+        },
+        {
+          "name": "core104f",
+          "exit_code": 0
+        },
+        {
+          "name": "log-fixtures104f",
+          "exit_code": 0
+        },
+        {
+          "name": "readiness104f",
+          "exit_code": 1
+        }
+      ],
+      "source_snapshot_sha256": "22f3fffe62594dee3298ed313f367321e8ea9db725e826015764ca0dc670e729",
+      "finished_at": 1793758551.9169948
+    }
+  },
+  "readiness": {
+    "ok": false,
+    "checks": [
+      {
+        "name": "source_syntax",
+        "ok": true,
+        "elapsed_seconds": 0.25
+      },
+      {
+        "name": "runtime_source_projection",
+        "ok": true,
+        "elapsed_seconds": 0.015999999945051968
+      },
+      {
+        "name": "pinned_model_bytes",
+        "ok": true,
+        "elapsed_seconds": 121.78200000000652
+      },
+      {
+        "name": "approved_reference_and_avatar_index",
+        "ok": true,
+        "elapsed_seconds": 0.43700000003445894
+      },
+      {
+        "name": "avatar_cpu_imports",
+        "ok": false,
+        "elapsed_seconds": 180.0470000000205,
+        "error_type": "TimeoutExpired"
+      },
+      {
+        "name": "O07_cpu_imports",
+        "ok": true,
+        "elapsed_seconds": 127.375
+      },
+      {
+        "name": "F07_cpu_imports",
+        "ok": true,
+        "elapsed_seconds": 75.93700000003446
+      },
+      {
+        "name": "public_collector_imports",
+        "ok": true,
+        "elapsed_seconds": 2.843999999924563
+      }
+    ]
+  },
+  "application_start": null,
+  "latest_failure_diagnostic": {
+    "stage": "native_readiness",
+    "failed_checks": [
+      {
+        "name": "avatar_cpu_imports",
+        "elapsed_seconds": 180.0470000000205,
+        "error_type": "TimeoutExpired"
+      }
+    ],
+    "application_start_not_reached": true
+  },
+  "application_service_start_passed": false,
+  "application_ready": false,
+  "new_gameplay_seconds": 0,
+  "new_runtime_observation": false,
+  "last_real_runtime_round": "102",
+  "new_video_recorded": false,
+  "world": {
+    "keepInventory": true,
+    "sha256": "fa2f20fdd9c7c9a25c63a8107276886716d89dd08c09ab06b59435dd2f763cf4",
+    "backup089_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
+    "unchanged_this_round": true
+  },
+  "maintenance_budget": {
+    "scope": "maintenance",
+    "foreground_not_subject_to_maintenance_daily_quota": true,
+    "limit_raised": false,
+    "source_module": "backend/memory/scheduler.mjs",
+    "reset_uses_configured_timezone": true,
+    "exhaustion_blocks_before_dsh_session": true
+  },
+  "candidate_disabled": true,
+  "native_build": {
+    "sha256": "66e49401bfd2aaf44f85a216d6c60b22be111adcc23b8d374fdb7cd526ae7c18",
+    "bytes": 12558497,
+    "compiled_against": "actual_supplied_neoforge_21.1.248_mojmap_libraries",
+    "classes": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/build/classes-f860af5211e8475aad7be365d713c403"
+  },
+  "final_readonly_audit": {
+    "ok": true,
+    "host": "DESKTOP-2QQPN1H",
+    "at": 1793758645.9337618,
+    "source_snapshot_sha256": "22f3fffe62594dee3298ed313f367321e8ea9db725e826015764ca0dc670e729",
+    "native_jar_sha256": "66e49401bfd2aaf44f85a216d6c60b22be111adcc23b8d374fdb7cd526ae7c18",
+    "world_sha256": "fa2f20fdd9c7c9a25c63a8107276886716d89dd08c09ab06b59435dd2f763cf4",
+    "world_unchanged_from_before104": true,
+    "keepInventory": true,
+    "backup089_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
+    "candidate_enabled": false,
+    "private_policy_sha256": "1aba677cdf0e53fb7ade93c487a24ebfe3f64beef2b7aa01a44e32ee83ca792e",
+    "owned_services": {
+      "dsh": false,
+      "avatar": false,
+      "tts": false,
+      "receiver": false,
+      "vision": false,
+      "minecraft": false
+    },
+    "service_processes_remaining": [],
+    "cpu_import_processes_remaining": [],
+    "workers": [
+      {
+        "run": "104",
+        "role": "deploy",
+        "pid": 9888,
+        "create_time": 1793754712.5720696,
+        "identity_alive": false
+      },
+      {
+        "run": "104",
+        "role": "watch",
+        "pid": 25368,
+        "create_time": 1793754724.0645833,
+        "identity_alive": false
+      },
+      {
+        "run": "104b",
+        "role": "deploy",
+        "pid": 29280,
+        "create_time": 1793754868.4794369,
+        "identity_alive": false
+      },
+      {
+        "run": "104b",
+        "role": "watch",
+        "pid": 27436,
+        "create_time": 1793754880.6838567,
+        "identity_alive": false
+      },
+      {
+        "run": "104f",
+        "role": "deploy",
+        "pid": 15480,
+        "create_time": 1793757326.9950795,
+        "identity_alive": false
+      },
+      {
+        "run": "104f",
+        "role": "watch",
+        "pid": 15300,
+        "create_time": 1793757328.6269667,
+        "identity_alive": false
+      },
+      {
+        "run": "104c",
+        "role": "isolated_checks",
+        "pid": 21308,
+        "create_time": 1793756092.400815,
+        "identity_alive": false
+      },
+      {
+        "run": "104d",
+        "role": "isolated_checks",
+        "pid": 1400,
+        "create_time": 1793756260.906454,
+        "identity_alive": false
+      },
+      {
+        "run": "104e",
+        "role": "isolated_checks",
+        "pid": 20408,
+        "create_time": 1793756923.4169524,
+        "identity_alive": false
+      },
+      {
+        "run": "104f",
+        "role": "isolated_checks",
+        "pid": 6484,
+        "create_time": 1793757323.1600847,
+        "identity_alive": false
+      }
+    ],
+    "official_clients": [
+      {
+        "pid": 1204,
+        "create_time": 1792960780.2620182
+      },
+      {
+        "pid": 9556,
+        "create_time": 1792960780.3685114
+      }
+    ],
+    "operation": {
+      "busy": false,
+      "phase": "COMPLETED",
+      "action": "mc-native-readiness",
+      "cleanup_errors": null,
+      "artifact_hashes": {
+        "policy": "WINDOWS_READ_HANDLES_UNTIL_OPERATION_EXIT",
+        "hashed_files": 6,
+        "hashed_bytes": 8490322669,
+        "cache_hits": 0
+      },
+      "startup_gpu_check": null
+    },
+    "new_gameplay_seconds": 0,
+    "new_video_recorded": false,
+    "processes_started_or_stopped_by_this_audit": false,
+    "public_broadcast_started": false,
+    "browser_contexts_opened": 0,
+    "local_application_tests": 0
+  },
+  "cleanup": {
+    "ok": true,
+    "purpose": "BYTE_TRANSFER_HELPER_CLOSED_AFTER_EVIDENCE_VERIFICATION",
+    "pid": 5604,
+    "creation_time_verified": true,
+    "command_path_verified": true,
+    "listener_owner_verified": true,
+    "port": 2536,
+    "listeners_after": 0,
+    "unrelated_processes_stopped": false,
+    "browser_contexts_opened": 0,
+    "at": "2026-11-04T02:18:46.1310029Z"
+  },
+  "artifact_hash_policy": {
+    "scope": "single_operation_same_thread",
+    "minimum_bytes": 67108864,
+    "held_native_read_handles": true,
+    "cross_operation_cache": false,
+    "source_and_config_always_hashed": true
+  },
+  "startup_memory_policy": {
+    "minimum_changed": false,
+    "batch_changed": false,
+    "wait_seconds": 120,
+    "each_gpu_query_timeout_seconds": 10,
+    "unrelated_processes_stopped": false
+  },
+  "isolated_failure_history": {
+    "104c": "minimal installer had no native_operation dependency; source fixed",
+    "104d": "41 of 43 deployment tests failed in Git setUp because child PATH lacked existing Git; per-process PATH fixed in104e",
+    "104e": "41 of43 deployment tests then reached the stale fixture missing the motion-control projection; fixture fixed in104f",
+    "104f_source_only_installation_passed": true
+  },
+  "isolated_check_reuse": [
+    {
+      "name": "native_gpu_start",
+      "exit_code": 0,
+      "elapsed_seconds": 5.125,
+      "count": 5,
+      "evidence": "mc-104e-checks\\native_gpu_start104e.log",
+      "evidence_sha256": "ffe40085de9aea3f29e0e1da0e6afc771375a4491df98d1d202b438a808705bc",
+      "source_snapshot_sha256": "e919b64e9482deff031625d913f9e1c84cdcc99c5edf651ffa086ed849982e75",
+      "changed_files": [
+        "tests/test_mc_deployment.py"
+      ],
+      "reason": "only installation fixture setup changed; corresponding implementation and tests are byte-identical"
+    },
+    {
+      "name": "native_artifact_pins",
+      "exit_code": 0,
+      "elapsed_seconds": 6.343999999924563,
+      "count": 11,
+      "evidence": "mc-104e-checks\\native_artifact_pins104e.log",
+      "evidence_sha256": "82a70ecf5fc936dae48f2fbb372510c6d79d6365bbd11649ae8d0a89851f4691",
+      "source_snapshot_sha256": "e919b64e9482deff031625d913f9e1c84cdcc99c5edf651ffa086ed849982e75",
+      "changed_files": [
+        "tests/test_mc_deployment.py"
+      ],
+      "reason": "only installation fixture setup changed; corresponding implementation and tests are byte-identical"
+    },
+    {
+      "name": "native_operation",
+      "exit_code": 0,
+      "elapsed_seconds": 19.31200000003446,
+      "count": 17,
+      "evidence": "mc-104e-checks\\native_operation104e.log",
+      "evidence_sha256": "0fd8bdc4362c286f9725ce100d086c2e970642e4cd342735f06c4fe414a090c1",
+      "source_snapshot_sha256": "e919b64e9482deff031625d913f9e1c84cdcc99c5edf651ffa086ed849982e75",
+      "changed_files": [
+        "tests/test_mc_deployment.py"
+      ],
+      "reason": "only installation fixture setup changed; corresponding implementation and tests are byte-identical"
+    },
+    {
+      "name": "mc_application",
+      "exit_code": 0,
+      "elapsed_seconds": 17.85999999998603,
+      "count": 33,
+      "evidence": "mc-104e-checks\\mc_application104e.log",
+      "evidence_sha256": "c81747c86f311989f12b96de86520164823c740841214567219e7dd5f5ba576c",
+      "source_snapshot_sha256": "e919b64e9482deff031625d913f9e1c84cdcc99c5edf651ffa086ed849982e75",
+      "changed_files": [
+        "tests/test_mc_deployment.py"
+      ],
+      "reason": "only installation fixture setup changed; corresponding implementation and tests are byte-identical"
+    }
+  ],
+  "confirmed_104b_failure": {
+    "stage": "studio_spawn_tts",
+    "elapsed_ms": 499609,
+    "exception_chain": [
+      {
+        "type": "RuntimeError",
+        "frames": [
+          {
+            "file": "scripts/mc_application.py",
+            "line": 483,
+            "function": "start"
+          },
+          {
+            "file": "scripts/mc_application.py",
+            "line": 283,
+            "function": "start"
+          },
+          {
+            "file": "scripts/start_studio.py",
+            "line": 23,
+            "function": "start"
+          },
+          {
+            "file": "scripts/start_studio.py",
+            "line": 47,
+            "function": "_start"
+          },
+          {
+            "file": "scripts/launch.py",
+            "line": 40,
+            "function": "start_service"
+          },
+          {
+            "file": "scripts/launch.py",
+            "line": 51,
+            "function": "_start_service"
+          }
+        ]
+      }
+    ]
+  },
+  "latest_readiness_failed_checks": [
+    {
+      "name": "avatar_cpu_imports",
+      "elapsed_seconds": 180.0470000000205,
+      "error_type": "TimeoutExpired"
+    }
+  ],
+  "formal_acceptance_passed": 0,
+  "formal_acceptance_advanced": 0,
+  "new_avatar_clips": 0,
+  "inherited_todos_open": 117,
+  "implemented_ids": [
+    "I1177",
+    "I1178",
+    "I1179",
+    "I1180",
+    "I1181",
+    "I1182",
+    "I1183",
+    "I1184",
+    "I1185",
+    "I1186",
+    "I1187",
+    "I1188",
+    "I1189",
+    "I1190",
+    "I1191"
+  ],
+  "report": "docs/technical/mc-live-v1/启动诊断与104恢复记录.md",
+  "github_publication": {
+    "branch": "mc",
+    "source_commit": "5ec08c16462334966443272069b30209f493d4b7",
+    "source_pushed_and_verified": true,
+    "documentation_push_pending": true
+  },
+  "previous_goal_turn_classification": "progress",
+  "goal_status": "active",
+  "raw_artifacts": [
+    {
+      "file": "application104.log",
+      "bytes": 136,
+      "sha256": "277448ad0e5e07177122bea67dda3dac588d00ed2c50a08a9ef0fd402b3d1320"
+    },
+    {
+      "file": "application104b.log",
+      "bytes": 137,
+      "sha256": "3e74896ca7051419af8e5211f9d6058a22f78c86ba7c0638089e5bf1c553518f"
+    },
+    {
+      "file": "application104f.log",
+      "bytes": 137,
+      "sha256": "cd20e39e82b457f0a50883600890e7aa699003530f2ba8819e6ae6f1078b874b"
+    },
+    {
+      "file": "avatar104b-startup-source-diagnostic.json",
+      "bytes": 11726,
+      "sha256": "a96ee683b95f13c73ffad05f202a282f905273bdb253077446b7813cdc60007d"
+    },
+    {
+      "file": "core104b-report.json",
+      "bytes": 820,
+      "sha256": "2c7a598f6ad128127f367f438e7c5dffaab2e6c069c81faaaf452accc23b1bb5"
+    },
+    {
+      "file": "core104b.log",
+      "bytes": 820,
+      "sha256": "2c7a598f6ad128127f367f438e7c5dffaab2e6c069c81faaaf452accc23b1bb5"
+    },
+    {
+      "file": "core104f-report.json",
+      "bytes": 818,
+      "sha256": "176222b8a8732e90aee84855bbbecdf3d5201fda5de909128ced7cedd675e252"
+    },
+    {
+      "file": "core104f.log",
+      "bytes": 818,
+      "sha256": "176222b8a8732e90aee84855bbbecdf3d5201fda5de909128ced7cedd675e252"
+    },
+    {
+      "file": "deploy104-bootstrap.json",
+      "bytes": 204,
+      "sha256": "d6a6d85ab6d070e14af2659e4b50c2247c8d7ff0c2d746a1c3c5dac9a83a7aad"
+    },
+    {
+      "file": "deploy104-progress.json",
+      "bytes": 72,
+      "sha256": "2c0317ce1fea204f16d5a46b8824e4b7217cd12382595eb93ce7bf06538115ca"
+    },
+    {
+      "file": "deploy104-result.json",
+      "bytes": 7894,
+      "sha256": "dc30067df4c914cd9243efe72c5e2b5621ccf54adfb3d8d7a9e9ec636deb1f90"
+    },
+    {
+      "file": "deploy104-transfer.json",
+      "bytes": 1004,
+      "sha256": "7eccab92d9b8fc83de726bebbce58e5eb84db3f0163a69df03dae55880d66a7c"
+    },
+    {
+      "file": "deploy104-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "deploy104b-bootstrap.json",
+      "bytes": 205,
+      "sha256": "7e81c8a36bd36d5a87eacd4892bdd78319cb3043df646d84b06c054cb4153299"
+    },
+    {
+      "file": "deploy104b-progress.json",
+      "bytes": 72,
+      "sha256": "1f8a0b50f2947ef707b16c3a6d3f6ccdaa662e9eb0a619d93e00c58a4ec609e2"
+    },
+    {
+      "file": "deploy104b-result.json",
+      "bytes": 6094,
+      "sha256": "6a91bd2c9ae4893aca159e701a36866fa7ac876f4f655225fede6f5113b23ccd"
+    },
+    {
+      "file": "deploy104b-transfer.json",
+      "bytes": 2252,
+      "sha256": "3462327a1279a751f1d3d7f34cb12a27b58010f44b9dab313d63a4107323c771"
+    },
+    {
+      "file": "deploy104b-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "deploy104f-bootstrap.json",
+      "bytes": 205,
+      "sha256": "13147a32a1a2c48602e0409f4af2864e437d2f23d2433cce2b8f633c03754f5a"
+    },
+    {
+      "file": "deploy104f-progress.json",
+      "bytes": 73,
+      "sha256": "3bbd326e1dc5645c35c9a8f16007e65aa3b656e920a8f6586d3e3241c0ff8f43"
+    },
+    {
+      "file": "deploy104f-result.json",
+      "bytes": 8729,
+      "sha256": "25321dd14da834ee9e9679260059a3b707c273e66f1f3685f79e66336b257f3e"
+    },
+    {
+      "file": "deploy104f-transfer.json",
+      "bytes": 1636,
+      "sha256": "e47fe3219d98c1d34509c1013808cbbf6c3da71ec7de058c98e0acc844aef94a"
+    },
+    {
+      "file": "deploy104f-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "deployment_target104f.log",
+      "bytes": 124,
+      "sha256": "eef5b2daa488d2f07cc669a77288b30c6aa0d25db9b9ab01414a8ab8a29a4a21"
+    },
+    {
+      "file": "final104-independent-readonly.json",
+      "bytes": 3238,
+      "sha256": "f8dcb485df7e8bb2ffb2ff371afbaa0fdd97d674545e1947a59d040ddab9ead7"
+    },
+    {
+      "file": "log-fixtures104b.log",
+      "bytes": 108,
+      "sha256": "5e94846368628e99c0fad6bd5e619c24672ce3014627ea57bb44c6c59d37cd6c"
+    },
+    {
+      "file": "log-fixtures104f.log",
+      "bytes": 108,
+      "sha256": "87d4778d3c836d369b4daed17ace833591108cdd67cb5869c09ad2ad4ba79076"
+    },
+    {
+      "file": "maintenance104.log",
+      "bytes": 3615,
+      "sha256": "59a15101beb4b75e0c6ea6e835b1ff0ca3ae4f62de670bc2471a373a47525bd4"
+    },
+    {
+      "file": "maintenance104b.log",
+      "bytes": 2257,
+      "sha256": "548463ae00a87fb472bf40f044c071dd349262ecf583590cc3b630564296d68c"
+    },
+    {
+      "file": "maintenance104f.log",
+      "bytes": 2253,
+      "sha256": "867e501f7c3f9e4d9f1af3bde274e6c076ea7485ed3babb75e69be7a74a9153d"
+    },
+    {
+      "file": "mc_application104d.log",
+      "bytes": 137,
+      "sha256": "06ecc5bc2b950935606d9c6ec7522befeedf1c15c6f6b5bc2eb564a03fedf273"
+    },
+    {
+      "file": "mc_application104e.log",
+      "bytes": 138,
+      "sha256": "c81747c86f311989f12b96de86520164823c740841214567219e7dd5f5ba576c"
+    },
+    {
+      "file": "mc_deployment104d.log",
+      "bytes": 64930,
+      "sha256": "e4f9a793ab4da9ea13f4bf6f2697ab57d6f2dabe01b5f7420cee4bc30d87dd94"
+    },
+    {
+      "file": "mc_deployment104e.log",
+      "bytes": 61405,
+      "sha256": "d1e409028db069bd00f9691adf0bbc5bda976fc08f91efb17affbc138950a111"
+    },
+    {
+      "file": "mc_deployment104f.log",
+      "bytes": 149,
+      "sha256": "70ce5cdb384306e62417ce70fde99cc795cf5f7950255d9cecc5cf0a2050b985"
+    },
+    {
+      "file": "native_artifact_pins104d.log",
+      "bytes": 115,
+      "sha256": "3d14fde55cc5a88f9d76333f655222960c30d18eb96eb2d40d68ef38d25b6cd1"
+    },
+    {
+      "file": "native_artifact_pins104e.log",
+      "bytes": 115,
+      "sha256": "82a70ecf5fc936dae48f2fbb372510c6d79d6365bbd11649ae8d0a89851f4691"
+    },
+    {
+      "file": "native_gpu_start104e.log",
+      "bytes": 108,
+      "sha256": "ffe40085de9aea3f29e0e1da0e6afc771375a4491df98d1d202b438a808705bc"
+    },
+    {
+      "file": "native_operation104d.log",
+      "bytes": 121,
+      "sha256": "93be920f4ced961372e4b07c53f609c5d46160c41c85265a11bcb7bda4679411"
+    },
+    {
+      "file": "native_operation104e.log",
+      "bytes": 122,
+      "sha256": "0fd8bdc4362c286f9725ce100d086c2e970642e4cd342735f06c4fe414a090c1"
+    },
+    {
+      "file": "pins104c-bootstrap.json",
+      "bytes": 169,
+      "sha256": "56f177ca19b63686269fc4e4a1f44d3c12a9dfa15a6b7f51be9aff5800a44675"
+    },
+    {
+      "file": "pins104c-progress.json",
+      "bytes": 52,
+      "sha256": "2411b07f5a1fa73cf4942cd59d10191c5eac04516558cd0370fed6dd2f365441"
+    },
+    {
+      "file": "pins104c-result.json",
+      "bytes": 1420,
+      "sha256": "d9f572554f03d70434b39a1a4656dee17312ab8977a2d8d13901ff9781d6643f"
+    },
+    {
+      "file": "pins104d-bootstrap.json",
+      "bytes": 168,
+      "sha256": "6bd6f1a956921a7400541aabf368d8a908fc775000b49ae010f4802fed67d772"
+    },
+    {
+      "file": "pins104d-progress.json",
+      "bytes": 53,
+      "sha256": "1daed4065dc0ea5af3054f65e7a845fd7064052efdf2a555751b0191c18ae81d"
+    },
+    {
+      "file": "pins104d-result.json",
+      "bytes": 1704,
+      "sha256": "0c74c39711720311f6dfa1a6fcf00058a407eb08ced992f2a3174331efcf619e"
+    },
+    {
+      "file": "pins104e-bootstrap.json",
+      "bytes": 170,
+      "sha256": "3a60f8623fecca53c858c122586d39f4be44556be05a81b62807c609ce04e539"
+    },
+    {
+      "file": "pins104e-progress.json",
+      "bytes": 54,
+      "sha256": "0c1bf4fe203b39ca4e315adca7c83290f6a94e791e7e3fa46b9484892f29e032"
+    },
+    {
+      "file": "pins104e-result.json",
+      "bytes": 1823,
+      "sha256": "9a47512c8a76a87930fde3e189647d5a59c5694c10e24f661b3d4840d59f94c2"
+    },
+    {
+      "file": "pins104f-bootstrap.json",
+      "bytes": 168,
+      "sha256": "994bb0c145aceba3f7388c40af738dbd334c01b9ae8c90d40fcee0238fade4e8"
+    },
+    {
+      "file": "pins104f-progress.json",
+      "bytes": 54,
+      "sha256": "5a96fbe4da2d54716eb0fe16757c6fb2a317efa9caff35471e0e68ff337f5ac3"
+    },
+    {
+      "file": "pins104f-result.json",
+      "bytes": 3505,
+      "sha256": "c9cc659c1efd5acdd85f1a03b73a0f9de7b119cc5732ef286a8848949f763930"
+    },
+    {
+      "file": "preflight104b.log",
+      "bytes": 805,
+      "sha256": "8dbb8fce6f06e7773c120a2f95c6b455de84066e9d4e06ae81c3ee57ce7d70bb"
+    },
+    {
+      "file": "prepare104b.log",
+      "bytes": 376,
+      "sha256": "5b8c08f2a465604d64b7e441e2d37789f248af78cba44ed91103ca15e485e08b"
+    },
+    {
+      "file": "readiness104b.log",
+      "bytes": 3397,
+      "sha256": "b2f5960a61c6cee30521564d8fd6138170b2cb91efa15ba44b2ec2f168db79bd"
+    },
+    {
+      "file": "readiness104f.log",
+      "bytes": 3691,
+      "sha256": "2c3dc97231311ef8ce589b776ca8171f2ba10ebbca3737487757f68ae924379d"
+    },
+    {
+      "file": "start104b.log",
+      "bytes": 1501,
+      "sha256": "8fe520dcf0b990b3a8e18a507cc5f5a04f1ac363166216cbce3a353eaacdf5f3"
+    },
+    {
+      "file": "target104b.log",
+      "bytes": 608,
+      "sha256": "4b1ca189979ab549d202602b2124439deb4de29cbbd39534a29b7ab44bc7bc29"
+    },
+    {
+      "file": "watch104-bootstrap.json",
+      "bytes": 205,
+      "sha256": "a56cd7e0a72de98b124a96e72a5d3424a268a649c1bd7d2cafbf757216999771"
+    },
+    {
+      "file": "watch104-result.json",
+      "bytes": 445,
+      "sha256": "45fe45f0e22070fd47e13f15c74fbdd2292e142be2fa0694cdc36f5c803832c6"
+    },
+    {
+      "file": "watch104-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "watch104b-bootstrap.json",
+      "bytes": 205,
+      "sha256": "f6118b3904d1e2ce0e1b706f19ed17aff543c46296677845e2568e27f55dbed6"
+    },
+    {
+      "file": "watch104b-result.json",
+      "bytes": 448,
+      "sha256": "0fdeb4ed24876c69d98918a4d0e0d9f535e5a56328e2777b4af16035cdc9c474"
+    },
+    {
+      "file": "watch104b-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "watch104f-bootstrap.json",
+      "bytes": 204,
+      "sha256": "d9a845ba3786aa8ba2b843c9f5128fecd6d6e02bd5cbea5991ae88b2413dc946"
+    },
+    {
+      "file": "watch104f-result.json",
+      "bytes": 447,
+      "sha256": "042450b029defc34fa2c6c13d2a339f4f17f8b9b34bc6de38fb01efff8b3be19"
+    },
+    {
+      "file": "watch104f-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}
