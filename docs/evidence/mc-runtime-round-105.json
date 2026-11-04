@@ -1,0 +1,1305 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261104-105",
+  "round": "105",
+  "at": "2026-11-04T03:35:10.106459+00:00",
+  "branch": "mc",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "source_commit": "c2c538a718d6471ed5372eb31237898ab1a11ce3",
+  "source_snapshot_sha256": "0e9bbfb9c1bb2d6fe371f9d8c4fe09b04e5d2d4799647440e918ed3d3e343831",
+  "source_archive_sha256": "48920bb3428d249c63369c6217665aa2800d90d6c2b019a52576562f0fc100eb",
+  "source_files": 1025,
+  "local_application_tests": 0,
+  "scope": "NATIVE_CPU_IMPORT_PROGRESS_DEADLINES_WINDOWS_SHARING_LOCKS_AND_PROCESS_EXIT_FENCES_WITH_REMOTE_RUN",
+  "new_windows_checks": {
+    "native_import_check": 11,
+    "native_operation": 17,
+    "native_supervision": 20,
+    "mc_application": 33
+  },
+  "reused_checks": [
+    {
+      "name": "maintenance104f",
+      "count": 20,
+      "exit_code": 0,
+      "evidence": "mc-104f\\maintenance104f.log",
+      "evidence_sha256": "867e501f7c3f9e4d9f1af3bde274e6c076ea7485ed3babb75e69be7a74a9153d",
+      "source_snapshot_sha256": "22f3fffe62594dee3298ed313f367321e8ea9db725e826015764ca0dc670e729",
+      "changed_files": [
+        "README.md",
+        "README.zh-CN.md",
+        "scripts/mc_readiness.py",
+        "scripts/native_import_check.py",
+        "scripts/native_windows_process.py",
+        "tests/test_native_import_check.py"
+      ],
+      "reason": "corresponding maintenance, business and log implementations and tests are byte-identical; all Windows lifecycle suites run freshly in the isolated installation; the new import helper is tested separately and fresh readiness is mandatory"
+    },
+    {
+      "name": "core104f",
+      "count": 416,
+      "exit_code": 0,
+      "evidence": "mc-104f\\core104f.log",
+      "evidence_sha256": "176222b8a8732e90aee84855bbbecdf3d5201fda5de909128ced7cedd675e252",
+      "source_snapshot_sha256": "22f3fffe62594dee3298ed313f367321e8ea9db725e826015764ca0dc670e729",
+      "changed_files": [
+        "README.md",
+        "README.zh-CN.md",
+        "scripts/mc_readiness.py",
+        "scripts/native_import_check.py",
+        "scripts/native_windows_process.py",
+        "tests/test_native_import_check.py"
+      ],
+      "reason": "corresponding maintenance, business and log implementations and tests are byte-identical; all Windows lifecycle suites run freshly in the isolated installation; the new import helper is tested separately and fresh readiness is mandatory"
+    },
+    {
+      "name": "log-fixtures104f",
+      "count": 5,
+      "exit_code": 0,
+      "evidence": "mc-104f\\log-fixtures104f.log",
+      "evidence_sha256": "87d4778d3c836d369b4daed17ace833591108cdd67cb5869c09ad2ad4ba79076",
+      "source_snapshot_sha256": "22f3fffe62594dee3298ed313f367321e8ea9db725e826015764ca0dc670e729",
+      "changed_files": [
+        "README.md",
+        "README.zh-CN.md",
+        "scripts/mc_readiness.py",
+        "scripts/native_import_check.py",
+        "scripts/native_windows_process.py",
+        "tests/test_native_import_check.py"
+      ],
+      "reason": "corresponding maintenance, business and log implementations and tests are byte-identical; all Windows lifecycle suites run freshly in the isolated installation; the new import helper is tested separately and fresh readiness is mandatory"
+    }
+  ],
+  "new_isolated_result": {
+    "ok": true,
+    "host": "DESKTOP-2QQPN1H",
+    "checks": [
+      {
+        "name": "native_import_check",
+        "exit_code": 0,
+        "elapsed_seconds": 21.98499999998603
+      },
+      {
+        "name": "native_operation",
+        "exit_code": 0,
+        "elapsed_seconds": 6.045999999972992
+      },
+      {
+        "name": "native_supervision",
+        "exit_code": 0,
+        "elapsed_seconds": 13.093999999924563
+      },
+      {
+        "name": "mc_application",
+        "exit_code": 0,
+        "elapsed_seconds": 8.406000000075437
+      }
+    ],
+    "models_loaded": false,
+    "game_inputs": 0,
+    "production_source_updated": false,
+    "source_snapshot_sha256": "0e9bbfb9c1bb2d6fe371f9d8c4fe09b04e5d2d4799647440e918ed3d3e343831",
+    "installation": {
+      "ok": true,
+      "classification": "PROJECT_SOURCE_INSTALLED_NOT_COMPLETE_APPLICATION_RELEASE",
+      "source_files": 1025,
+      "source_snapshot_sha256": "0e9bbfb9c1bb2d6fe371f9d8c4fe09b04e5d2d4799647440e918ed3d3e343831",
+      "package_sha256": "48920bb3428d249c63369c6217665aa2800d90d6c2b019a52576562f0fc100eb",
+      "source_origin": ".setup/mc-source-origin.json",
+      "environment_prepared": false,
+      "services_started": false,
+      "models_loaded": false,
+      "automatic_input_authorized": false,
+      "real_acceptance_passed": 0
+    },
+    "finished_at": 1793760580.8131876
+  },
+  "failed_isolated_attempts": {
+    "105": {
+      "ok": false,
+      "checks": [
+        {
+          "name": "native_import_check",
+          "exit_code": 1,
+          "elapsed_seconds": 15.125
+        }
+      ],
+      "source_snapshot_sha256": "ef7be88da7e5f4724a1c080b25f144263ca2150d5532db481968518113a08a43",
+      "finished_at": 1793759675.458835
+    },
+    "105b": {
+      "ok": false,
+      "checks": [
+        {
+          "name": "native_import_check",
+          "exit_code": 1,
+          "elapsed_seconds": 7.60999999998603
+        }
+      ],
+      "source_snapshot_sha256": "1102c60f7baa92de7f52794871cca2a7777ea3e4edd47b4361ce0f40e5304a87",
+      "finished_at": 1793760179.574414
+    },
+    "105c": {
+      "ok": false,
+      "checks": [
+        {
+          "name": "native_import_check",
+          "exit_code": 1,
+          "elapsed_seconds": 21.82799999997951
+        }
+      ],
+      "source_snapshot_sha256": "a00fe108cc8f33641f5fd6fd0835cf63cbc0cb9358a51905ef46d2fe527f6024",
+      "finished_at": 1793760319.2211323
+    }
+  },
+  "readiness": {
+    "ok": true,
+    "passed": 8,
+    "checks": [
+      {
+        "name": "source_syntax",
+        "ok": true,
+        "details": {
+          "files": 130
+        },
+        "elapsed_seconds": 0.2660000000614673
+      },
+      {
+        "name": "runtime_source_projection",
+        "ok": true,
+        "details": {
+          "files": {
+            ".setup/mc-runtime-projection.json": "307606da4bac48bb6acce9ebeb55abf94dd919c7d0d7bcb5d2f38fe825e33712",
+            "src/LiveTalking/server/dsh_bridge.py": "184d627281e9da2c3e3d9d66335cc21e969da5aa9fe20f10fb596e2b7f887008",
+            "src/LiveTalking/server/motion_control.py": "9bfdf4e22f0dce109ad25a969fd5cd4c742e31940a1fa734aa40bdf8c33548ae"
+          },
+          "scope": "EXACT_BYTES_IMPORTED_BY_LIVETALKING_NOT_MODEL_INFERENCE"
+        },
+        "elapsed_seconds": 0.030999999959021807
+      },
+      {
+        "name": "pinned_model_bytes",
+        "ok": true,
+        "details": {
+          "files": 36,
+          "inventory_sha256": "601aef5d9873b78549e3e299fdd448b3cbc5d7ebe1c0422adbe2476652beefe3",
+          "archive_metadata_missing": [
+            "models/tts-benchmark/omnivoice/.gitattributes",
+            "models/tts-benchmark/omnivoice/benchmark-download.json",
+            "models/tts-benchmark/omnivoice/benchmark-manifest.json",
+            "models/tts-benchmark/omnivoice/configuration.json",
+            "models/tts-benchmark/omnivoice/README.md",
+            "models/tts-benchmark/f5/.gitattributes",
+            "models/tts-benchmark/f5/benchmark-download.json",
+            "models/tts-benchmark/f5/benchmark-manifest.json",
+            "models/tts-benchmark/f5/configuration.json",
+            "models/tts-benchmark/f5/README.md",
+            "models/tts-benchmark/vocos-mel24/.gitattributes",
+            "models/tts-benchmark/vocos-mel24/benchmark-download.json",
+            "models/tts-benchmark/vocos-mel24/benchmark-manifest.json",
+            "models/tts-benchmark/vocos-mel24/README.md"
+          ],
+          "historical_provenance_reconstructed": false
+        },
+        "elapsed_seconds": 55.53200000000652
+      },
+      {
+        "name": "approved_reference_and_avatar_index",
+        "ok": true,
+        "details": {
+          "avatar_id": "student_dorm_motion_bank_v3",
+          "frames": 10000,
+          "masks": 10000,
+          "reference_sha256": "310c5d326dfabf0701eb255ca28e9e08f5626795d8b81d4e3b641bbac6b573a8",
+          "scope": "INDEX_COUNTS_AND_BOUNDARY_PNG_HEADERS_NOT_RENDERED_MOTION_ACCEPTANCE"
+        },
+        "elapsed_seconds": 0.4529999999795109
+      },
+      {
+        "name": "avatar_cpu_imports",
+        "ok": true,
+        "details": {
+          "ok": true,
+          "run_id": "3b72ef88c3f04bf5890d05da46c4cdeb",
+          "cpu_only": true,
+          "modules": [
+            "torch",
+            "cv2",
+            "diffusers",
+            "transformers",
+            "aiortc",
+            "soundfile",
+            "psutil"
+          ],
+          "log": "logs/mc-readiness-livetalking-3b72ef88c3f04bf5890d05da46c4cdeb.log",
+          "progress": ".setup/mc-dependency-checks/livetalking-3b72ef88c3f04bf5890d05da46c4cdeb.progress.json",
+          "timeout_seconds": 300,
+          "module_timeout_seconds": 180,
+          "family_closed": true,
+          "owner": {
+            "pid": 12588,
+            "creation_ticks": 134382342838659165
+          },
+          "exit_code": 0,
+          "phase": "SUCCEEDED",
+          "module": null,
+          "completed": [
+            {
+              "module": "torch",
+              "elapsed_ms": 23531
+            },
+            {
+              "module": "cv2",
+              "elapsed_ms": 500
+            },
+            {
+              "module": "diffusers",
+              "elapsed_ms": 15734
+            },
+            {
+              "module": "transformers",
+              "elapsed_ms": 812
+            },
+            {
+              "module": "aiortc",
+              "elapsed_ms": 4766
+            },
+            {
+              "module": "soundfile",
+              "elapsed_ms": 63
+            },
+            {
+              "module": "psutil",
+              "elapsed_ms": 16
+            }
+          ],
+          "elapsed_ms": 46797,
+          "code": "MC_IMPORT_CHECK_PASSED",
+          "result": ".setup/mc-dependency-checks/livetalking-3b72ef88c3f04bf5890d05da46c4cdeb.result.json"
+        },
+        "elapsed_seconds": 46.82799999997951
+      },
+      {
+        "name": "O07_cpu_imports",
+        "ok": true,
+        "details": {
+          "ok": true,
+          "run_id": "4541b8d257d940579df4351039cd4c7a",
+          "cpu_only": true,
+          "modules": [
+            "torch",
+            "soundfile",
+            "omnivoice"
+          ],
+          "log": "logs/mc-readiness-tts-benchmark-omnivoice-4541b8d257d940579df4351039cd4c7a.log",
+          "progress": ".setup/mc-dependency-checks/tts-benchmark-omnivoice-4541b8d257d940579df4351039cd4c7a.progress.json",
+          "timeout_seconds": 300,
+          "module_timeout_seconds": 180,
+          "family_closed": true,
+          "owner": {
+            "pid": 6176,
+            "creation_ticks": 134382343307822524
+          },
+          "exit_code": 0,
+          "phase": "SUCCEEDED",
+          "module": null,
+          "completed": [
+            {
+              "module": "torch",
+              "elapsed_ms": 14078
+            },
+            {
+              "module": "soundfile",
+              "elapsed_ms": 78
+            },
+            {
+              "module": "omnivoice",
+              "elapsed_ms": 57797
+            }
+          ],
+          "elapsed_ms": 73969,
+          "code": "MC_IMPORT_CHECK_PASSED",
+          "result": ".setup/mc-dependency-checks/tts-benchmark-omnivoice-4541b8d257d940579df4351039cd4c7a.result.json"
+        },
+        "elapsed_seconds": 74.10999999998603
+      },
+      {
+        "name": "F07_cpu_imports",
+        "ok": true,
+        "details": {
+          "ok": true,
+          "run_id": "e1b220c717e748c8b27f344f5fa465b9",
+          "cpu_only": true,
+          "modules": [
+            "torch",
+            "soundfile",
+            "f5_tts.api"
+          ],
+          "log": "logs/mc-readiness-tts-benchmark-f5-e1b220c717e748c8b27f344f5fa465b9.log",
+          "progress": ".setup/mc-dependency-checks/tts-benchmark-f5-e1b220c717e748c8b27f344f5fa465b9.progress.json",
+          "timeout_seconds": 300,
+          "module_timeout_seconds": 180,
+          "family_closed": true,
+          "owner": {
+            "pid": 9596,
+            "creation_ticks": 134382344048187586
+          },
+          "exit_code": 0,
+          "phase": "SUCCEEDED",
+          "module": null,
+          "completed": [
+            {
+              "module": "torch",
+              "elapsed_ms": 5125
+            },
+            {
+              "module": "soundfile",
+              "elapsed_ms": 47
+            },
+            {
+              "module": "f5_tts.api",
+              "elapsed_ms": 103344
+            }
+          ],
+          "elapsed_ms": 116484,
+          "code": "MC_IMPORT_CHECK_PASSED",
+          "result": ".setup/mc-dependency-checks/tts-benchmark-f5-e1b220c717e748c8b27f344f5fa465b9.result.json"
+        },
+        "elapsed_seconds": 116.51600000006147
+      },
+      {
+        "name": "public_collector_imports",
+        "ok": true,
+        "details": {
+          "ok": true,
+          "run_id": "37ba088bf0d6486e89b316e4185c18a7",
+          "cpu_only": true,
+          "modules": [
+            "aiohttp",
+            "blivedm"
+          ],
+          "log": "logs/mc-readiness-platforms-37ba088bf0d6486e89b316e4185c18a7.log",
+          "progress": ".setup/mc-dependency-checks/platforms-37ba088bf0d6486e89b316e4185c18a7.progress.json",
+          "timeout_seconds": 300,
+          "module_timeout_seconds": 180,
+          "family_closed": true,
+          "owner": {
+            "pid": 18572,
+            "creation_ticks": 134382345215241441
+          },
+          "exit_code": 0,
+          "phase": "SUCCEEDED",
+          "module": null,
+          "completed": [
+            {
+              "module": "aiohttp",
+              "elapsed_ms": 3937
+            },
+            {
+              "module": "blivedm",
+              "elapsed_ms": 843
+            }
+          ],
+          "elapsed_ms": 6719,
+          "code": "MC_IMPORT_CHECK_PASSED",
+          "result": ".setup/mc-dependency-checks/platforms-37ba088bf0d6486e89b316e4185c18a7.result.json"
+        },
+        "elapsed_seconds": 6.937999999965541
+      }
+    ]
+  },
+  "latest_readiness_failures": [],
+  "application_start": {
+    "schema_version": 1,
+    "scope": "NATIVE_APPLICATION_LIFECYCLE_NOT_RELEASE_ACCEPTANCE",
+    "ok": true,
+    "application_ready": false,
+    "services_ready": true,
+    "checks": {
+      "dsh": {
+        "ready": true
+      },
+      "studio": {
+        "ready": true
+      },
+      "speech": {
+        "ready": true
+      },
+      "receiver": {
+        "ready": true
+      },
+      "minecraft": {
+        "ready": true
+      },
+      "vision": {
+        "ready": true
+      },
+      "official_playback": {
+        "ready": false,
+        "code": "MC_APPLICATION_OFFICIAL_CAPTURE_NOT_VERIFIED"
+      },
+      "avatar_packs": {
+        "ready": false,
+        "code": "MC_APPLICATION_NEW_AVATAR_PACKS_NOT_ACCEPTED"
+      }
+    },
+    "automatic_input_authorized": false,
+    "public_broadcast_started": false,
+    "real_acceptance_passed": 0,
+    "complete_application": false,
+    "action": "start",
+    "code": "MC_APPLICATION_SERVICES_STARTED_REQUIRED_INTEGRATION_PENDING",
+    "new_process_count": 5,
+    "operation_phase": "COMPLETED"
+  },
+  "application_service_start_passed": true,
+  "application_ready": false,
+  "new_runtime_observation": true,
+  "new_observation_window_seconds": 600.244975566864,
+  "continuous_autonomous_gameplay_passed": false,
+  "last_real_runtime_round": "105d",
+  "new_video_recorded": false,
+  "runtime": {
+    "task_states": {
+      "accepted": 1,
+      "succeeded": 3
+    },
+    "productive_tasks": [
+      {
+        "task_id": "task-f487dfb0-4625-4687-b46c-1d5a3bd8d70b",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:bread",
+          "skill": "craft"
+        }
+      },
+      {
+        "task_id": "task-b1952724-618f-42e4-bca8-2922edd09faf",
+        "goal": {
+          "item_id": "minecraft:bread",
+          "purpose": "eat",
+          "skill": "use_item"
+        }
+      },
+      {
+        "task_id": "task-655ea778-7b25-4f75-94fb-cfa29f20b1db",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:bread",
+          "skill": "craft"
+        }
+      }
+    ],
+    "vision_succeeded": 0,
+    "vision_states": {
+      "failed": 2
+    },
+    "sampled_modes": {
+      "AUTO": 20,
+      "PAUSED": 542
+    },
+    "adjacent_auto_sample_coverage_seconds": 21.010603666305542,
+    "sampled_coverage_is_not_continuous_gameplay_duration": true,
+    "observation_worker_ok_is_not_continuous_gameplay_acceptance": true,
+    "first_stop_readonly_reason": "GAME_OBSERVATION_EXPIRED",
+    "sampled_death_transitions": 0,
+    "manual_task_submissions": 0,
+    "gameplay_keys_issued_by_validation_worker": 0
+  },
+  "verified_effect_summary": {
+    "player_before": {
+      "health": 10.166666,
+      "max_health": 20,
+      "food": 16,
+      "oxygen": 300,
+      "position": {
+        "dimension": "minecraft:overworld",
+        "x": 1421,
+        "y": 74,
+        "z": -176
+      }
+    },
+    "player_last_sample": {
+      "health": 16.166668,
+      "max_health": 20,
+      "food": 17,
+      "oxygen": 300,
+      "position": {
+        "dimension": "minecraft:overworld",
+        "x": 1421,
+        "y": 74,
+        "z": -176
+      }
+    },
+    "native_verified_tasks": [
+      {
+        "task_id": "task-f487dfb0-4625-4687-b46c-1d5a3bd8d70b",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:bread",
+          "skill": "craft"
+        },
+        "state": "succeeded",
+        "effect_status": "verified",
+        "evidence": [
+          {
+            "kind": "craft_result",
+            "seq": 1009,
+            "summary": "Recipe utilitarian:utility/bread: 1/1 batches, 1 produced units; server full-state revision 37; cursor/material/result checks after controlled clicks. Clean end: true. Later observed inventory total: 1; starting total: 0.",
+            "world_session_id": "world-session-3ec4a1d6-5676-4062-abfa-379e2c06e34c"
+          }
+        ]
+      },
+      {
+        "task_id": "task-b1952724-618f-42e4-bca8-2922edd09faf",
+        "goal": {
+          "item_id": "minecraft:bread",
+          "purpose": "eat",
+          "skill": "use_item"
+        },
+        "state": "succeeded",
+        "effect_status": "verified",
+        "evidence": [
+          {
+            "kind": "item_effect",
+            "seq": 907,
+            "summary": "Item minecraft:bread, purpose eat, destination mainhand:consume_once; confirmed consumed units 1; server inventory revision 20; inventory confirmed true; item-specific effect confirmed true; clean end true. Later inventory total: 0.",
+            "world_session_id": "world-session-3ec4a1d6-5676-4062-abfa-379e2c06e34c"
+          }
+        ]
+      },
+      {
+        "task_id": "task-655ea778-7b25-4f75-94fb-cfa29f20b1db",
+        "goal": {
+          "count": 1,
+          "item_id": "minecraft:bread",
+          "skill": "craft"
+        },
+        "state": "succeeded",
+        "effect_status": "verified",
+        "evidence": [
+          {
+            "kind": "craft_result",
+            "seq": 756,
+            "summary": "Recipe utilitarian:utility/bread: 1/1 batches, 1 produced units; server full-state revision 18; cursor/material/result checks after controlled clicks. Clean end: true. Later observed inventory total: 1; starting total: 0.",
+            "world_session_id": "world-session-3ec4a1d6-5676-4062-abfa-379e2c06e34c"
+          }
+        ]
+      }
+    ],
+    "natural_gameplay_observed_not_world_or_inventory_injection": true,
+    "task_nonterminal_after_stop": 1,
+    "completed_formal_utterances": 0,
+    "narration_states": {
+      "failed": 1,
+      "discarded": 2
+    }
+  },
+  "renderer_observation_summary": {
+    "scope": "FRESH_CONNECTED_SAME_BROADCAST_LIVEHIME_RENDERER_REPORTED_CANVAS_FPS_NOT_CAPTURE_OR_CONTINUOUS_PERFORMANCE_ACCEPTANCE",
+    "host_samples": 119,
+    "eligible_fps_samples": 15,
+    "fps_min": 0.0,
+    "fps_median": 7.357,
+    "fps_max": 30.991,
+    "transport_generations": 9,
+    "counts_not_concatenated_across_transports": true
+  },
+  "public_guest_collection": {
+    "room_id": "595139",
+    "guest_mode_verified": true,
+    "connected_observed": true,
+    "duration_seconds": 635.1711828708649,
+    "event_types": {},
+    "messages_posted": 0,
+    "synthetic_events_submitted": 0
+  },
+  "stop_diagnostic": {
+    "readonly_native_probe_sha256": "d6ec08c454a46c1213a4d22898f7bb3262464f2a9804c92f1895e2b4e55c92ae",
+    "first_stop_reason": "GAME_OBSERVATION_EXPIRED",
+    "host_bridge_health": {
+      "storage_error": false,
+      "controller_session_id": "controller-94753b5e-a764-4e3e-b67a-e050348d3701",
+      "connected": true,
+      "last_fault": null,
+      "last_protocol_error": {
+        "schema_version": 1,
+        "at": "2026-11-04T03:21:54.142Z",
+        "phase": "bridge_message",
+        "code": "GAME_STALE_CONNECTION",
+        "frame_type": "snapshot",
+        "sqlite_code": null,
+        "observed_seq": 1898
+      },
+      "last_disconnect": {
+        "at": "2026-11-04T03:21:54.089Z",
+        "reason": "heartbeat_timeout"
+      },
+      "last_bridge_message": {
+        "at": "2026-11-04T03:29:29.167Z",
+        "phase": "bridge_message",
+        "frame_type": "snapshot",
+        "duration_ms": 0.386
+      },
+      "slowest_bridge_message": {
+        "at": "2026-11-04T03:20:11.114Z",
+        "phase": "bridge_handshake",
+        "frame_type": "hello",
+        "duration_ms": 360.119
+      }
+    },
+    "root_cause_of_latency_fully_proven": false
+  },
+  "world": {
+    "keepInventory": true,
+    "sha256": "3a9405b66ef37870af166166460909247150b3548d3ebd02c958e5d029f6cd8c",
+    "backup089_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
+    "unchanged_this_round": false
+  },
+  "candidate_disabled": true,
+  "final_readonly_audit": {
+    "ok": true,
+    "host": "DESKTOP-2QQPN1H",
+    "at": 1793763137.8595297,
+    "source_snapshot_sha256": "0e9bbfb9c1bb2d6fe371f9d8c4fe09b04e5d2d4799647440e918ed3d3e343831",
+    "native_jar_sha256": "66e49401bfd2aaf44f85a216d6c60b22be111adcc23b8d374fdb7cd526ae7c18",
+    "world_sha256": "3a9405b66ef37870af166166460909247150b3548d3ebd02c958e5d029f6cd8c",
+    "world_unchanged_from_before105": false,
+    "keepInventory": true,
+    "backup089_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
+    "candidate_enabled": false,
+    "private_policy_sha256": "1aba677cdf0e53fb7ade93c487a24ebfe3f64beef2b7aa01a44e32ee83ca792e",
+    "owned_services": {
+      "dsh": false,
+      "avatar": false,
+      "tts": false,
+      "receiver": false,
+      "vision": false,
+      "minecraft": false
+    },
+    "service_processes_remaining": [],
+    "cpu_import_processes_remaining": [],
+    "workers": [
+      {
+        "run": "105d",
+        "role": "deploy",
+        "pid": 26964,
+        "create_time": 1793760553.829844,
+        "identity_alive": false
+      },
+      {
+        "run": "105d",
+        "role": "watch",
+        "pid": 21308,
+        "create_time": 1793760564.5569906,
+        "identity_alive": false
+      },
+      {
+        "run": "105d",
+        "role": "orchestration",
+        "pid": 20488,
+        "create_time": 1793762416.2737844,
+        "identity_alive": false
+      },
+      {
+        "run": "105d",
+        "role": "final",
+        "pid": 28848,
+        "create_time": 1793762416.3888657,
+        "identity_alive": false
+      },
+      {
+        "run": "105",
+        "role": "isolated_checks",
+        "pid": 13792,
+        "create_time": 1793759641.6386328,
+        "identity_alive": false
+      },
+      {
+        "run": "105b",
+        "role": "isolated_checks",
+        "pid": 27828,
+        "create_time": 1793760146.5465417,
+        "identity_alive": false
+      },
+      {
+        "run": "105c",
+        "role": "isolated_checks",
+        "pid": 16576,
+        "create_time": 1793760281.1851416,
+        "identity_alive": false
+      },
+      {
+        "run": "105d",
+        "role": "isolated_checks",
+        "pid": 9336,
+        "create_time": 1793760512.9102108,
+        "identity_alive": false
+      }
+    ],
+    "official_clients": [
+      {
+        "pid": 1204,
+        "create_time": 1792960780.2620182
+      },
+      {
+        "pid": 9556,
+        "create_time": 1792960780.3685114
+      }
+    ],
+    "operation": {
+      "busy": false,
+      "phase": "COMPLETED",
+      "action": "supervision-cleanup",
+      "cleanup_errors": null,
+      "artifact_hashes": {
+        "policy": "WINDOWS_READ_HANDLES_UNTIL_OPERATION_EXIT",
+        "hashed_files": 0,
+        "hashed_bytes": 0,
+        "cache_hits": 0
+      },
+      "startup_gpu_check": null
+    },
+    "new_observation_window_seconds": 600.244975566864,
+    "new_video_recorded": false,
+    "processes_started_or_stopped_by_this_audit": false,
+    "public_broadcast_started": false,
+    "browser_contexts_opened": 0,
+    "local_application_tests": 0,
+    "import_probe_results": [
+      {
+        "run_id": "3b72ef88c3f04bf5890d05da46c4cdeb",
+        "ok": true,
+        "cpu_only": true,
+        "code": "MC_IMPORT_CHECK_PASSED",
+        "modules": [
+          "torch",
+          "cv2",
+          "diffusers",
+          "transformers",
+          "aiortc",
+          "soundfile",
+          "psutil"
+        ],
+        "phase": "SUCCEEDED",
+        "module": null,
+        "completed": [
+          {
+            "module": "torch",
+            "elapsed_ms": 23531
+          },
+          {
+            "module": "cv2",
+            "elapsed_ms": 500
+          },
+          {
+            "module": "diffusers",
+            "elapsed_ms": 15734
+          },
+          {
+            "module": "transformers",
+            "elapsed_ms": 812
+          },
+          {
+            "module": "aiortc",
+            "elapsed_ms": 4766
+          },
+          {
+            "module": "soundfile",
+            "elapsed_ms": 63
+          },
+          {
+            "module": "psutil",
+            "elapsed_ms": 16
+          }
+        ],
+        "elapsed_ms": 46797,
+        "family_closed": true,
+        "owner": {
+          "pid": 12588,
+          "creation_ticks": 134382342838659165
+        }
+      },
+      {
+        "run_id": "37ba088bf0d6486e89b316e4185c18a7",
+        "ok": true,
+        "cpu_only": true,
+        "code": "MC_IMPORT_CHECK_PASSED",
+        "modules": [
+          "aiohttp",
+          "blivedm"
+        ],
+        "phase": "SUCCEEDED",
+        "module": null,
+        "completed": [
+          {
+            "module": "aiohttp",
+            "elapsed_ms": 3937
+          },
+          {
+            "module": "blivedm",
+            "elapsed_ms": 843
+          }
+        ],
+        "elapsed_ms": 6719,
+        "family_closed": true,
+        "owner": {
+          "pid": 18572,
+          "creation_ticks": 134382345215241441
+        }
+      },
+      {
+        "run_id": "e1b220c717e748c8b27f344f5fa465b9",
+        "ok": true,
+        "cpu_only": true,
+        "code": "MC_IMPORT_CHECK_PASSED",
+        "modules": [
+          "torch",
+          "soundfile",
+          "f5_tts.api"
+        ],
+        "phase": "SUCCEEDED",
+        "module": null,
+        "completed": [
+          {
+            "module": "torch",
+            "elapsed_ms": 5125
+          },
+          {
+            "module": "soundfile",
+            "elapsed_ms": 47
+          },
+          {
+            "module": "f5_tts.api",
+            "elapsed_ms": 103344
+          }
+        ],
+        "elapsed_ms": 116484,
+        "family_closed": true,
+        "owner": {
+          "pid": 9596,
+          "creation_ticks": 134382344048187586
+        }
+      },
+      {
+        "run_id": "4541b8d257d940579df4351039cd4c7a",
+        "ok": true,
+        "cpu_only": true,
+        "code": "MC_IMPORT_CHECK_PASSED",
+        "modules": [
+          "torch",
+          "soundfile",
+          "omnivoice"
+        ],
+        "phase": "SUCCEEDED",
+        "module": null,
+        "completed": [
+          {
+            "module": "torch",
+            "elapsed_ms": 14078
+          },
+          {
+            "module": "soundfile",
+            "elapsed_ms": 78
+          },
+          {
+            "module": "omnivoice",
+            "elapsed_ms": 57797
+          }
+        ],
+        "elapsed_ms": 73969,
+        "family_closed": true,
+        "owner": {
+          "pid": 6176,
+          "creation_ticks": 134382343307822524
+        }
+      }
+    ],
+    "import_probe_owners_remaining": []
+  },
+  "cleanup": {
+    "ok": true,
+    "purpose": "BYTE_TRANSFER_HELPER_CLOSED_AFTER_EVIDENCE_VERIFICATION",
+    "pid": 16512,
+    "creation_time_verified": true,
+    "command_path_verified": true,
+    "listener_owner_verified": true,
+    "port": 2537,
+    "listeners_after": 0,
+    "unrelated_processes_stopped": false,
+    "browser_contexts_opened": 0,
+    "at": "2026-11-04T03:34:25.2076821Z"
+  },
+  "initial_readonly": {
+    "host": "DESKTOP-2QQPN1H",
+    "at": 1793758993.158661,
+    "source": "22f3fffe62594dee3298ed313f367321e8ea9db725e826015764ca0dc670e729",
+    "owned": {
+      "dsh": false,
+      "avatar": false,
+      "tts": false,
+      "receiver": false,
+      "vision": false,
+      "minecraft": false
+    },
+    "operation": {
+      "busy": false,
+      "phase": "COMPLETED",
+      "action": "mc-native-readiness",
+      "cleanup_errors": null
+    },
+    "keepInventory": true,
+    "world_sha256": "fa2f20fdd9c7c9a25c63a8107276886716d89dd08c09ab06b59435dd2f763cf4",
+    "memory_available_bytes": 30077636608,
+    "gpu_free_mib": 4398,
+    "last_readiness": {
+      "phase": "public_collector_imports",
+      "running": false,
+      "checks": [
+        {
+          "name": "source_syntax",
+          "ok": true,
+          "elapsed_seconds": 0.25
+        },
+        {
+          "name": "runtime_source_projection",
+          "ok": true,
+          "elapsed_seconds": 0.015999999945051968
+        },
+        {
+          "name": "pinned_model_bytes",
+          "ok": true,
+          "elapsed_seconds": 121.78200000000652
+        },
+        {
+          "name": "approved_reference_and_avatar_index",
+          "ok": true,
+          "elapsed_seconds": 0.43700000003445894
+        },
+        {
+          "name": "avatar_cpu_imports",
+          "ok": false,
+          "error_type": "TimeoutExpired",
+          "elapsed_seconds": 180.0470000000205
+        },
+        {
+          "name": "O07_cpu_imports",
+          "ok": true,
+          "elapsed_seconds": 127.375
+        },
+        {
+          "name": "F07_cpu_imports",
+          "ok": true,
+          "elapsed_seconds": 75.93700000003446
+        },
+        {
+          "name": "public_collector_imports",
+          "ok": true,
+          "elapsed_seconds": 2.843999999924563
+        }
+      ]
+    },
+    "avatar_import_log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tail": ""
+    },
+    "official_clients": [
+      {
+        "pid": 1204,
+        "created_at": 1792960780.2620182
+      },
+      {
+        "pid": 9556,
+        "created_at": 1792960780.3685114
+      }
+    ]
+  },
+  "windows_reference_sources": [
+    "https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-jobobject_basic_process_id_list",
+    "https://learn.microsoft.com/en-us/windows/win32/procthread/terminating-a-process"
+  ],
+  "formal_acceptance_passed": 0,
+  "formal_acceptance_advanced": 0,
+  "new_avatar_clips": 0,
+  "inherited_todos_open": 117,
+  "implemented_ids": [
+    "I1192",
+    "I1193",
+    "I1194",
+    "I1195",
+    "I1196",
+    "I1197",
+    "I1198",
+    "I1199",
+    "I1200",
+    "I1201",
+    "I1202",
+    "I1203",
+    "I1204"
+  ],
+  "report": "docs/technical/mc-live-v1/依赖导入与105自主运行记录.md",
+  "github_publication": {
+    "branch": "mc",
+    "source_commit": "c2c538a718d6471ed5372eb31237898ab1a11ce3",
+    "source_pushed_and_verified": true,
+    "documentation_push_pending": true
+  },
+  "goal_status": "active",
+  "public_broadcast_started": false,
+  "virtualization_started": false,
+  "new_browser_tabs": 0,
+  "raw_artifacts": [
+    {
+      "file": "audit105d-expected-sha.json",
+      "bytes": 166,
+      "sha256": "b287fcfc817069591002ec4228b0e24a01fc847967ccc8c8fc33fd4b3f8d75e5"
+    },
+    {
+      "file": "audit105d-result.json",
+      "bytes": 1116,
+      "sha256": "2693cb79057e3ea49569f67deee6dc06b21abcf22b6be524d8a8bc5cae5b7c06"
+    },
+    {
+      "file": "audit105d-tasks-result.json",
+      "bytes": 5229,
+      "sha256": "fc9958c67610aab430942422ee155b19cf26b9506ec87bf0f59fc6060daebea7"
+    },
+    {
+      "file": "check105-bootstrap.json",
+      "bytes": 170,
+      "sha256": "ef10340bc4ebed36a49f83ce196d0ef365b484aef3c32e64be44bf544bb49c43"
+    },
+    {
+      "file": "check105-progress.json",
+      "bytes": 54,
+      "sha256": "996c6aca6aa4448da806d07e28618bd7d297d5f8469376956b483821cdabeea2"
+    },
+    {
+      "file": "check105-result.json",
+      "bytes": 1330,
+      "sha256": "f0c874589680062290e2c30e78ddeeba412f1fd5b1279f3a5f2bbb2bfde509fd"
+    },
+    {
+      "file": "check105b-bootstrap.json",
+      "bytes": 169,
+      "sha256": "2f21e4740928178e67dd7f3221c53eb29a2b70174db6cfe9aadfab0de7b990d0"
+    },
+    {
+      "file": "check105b-progress.json",
+      "bytes": 53,
+      "sha256": "d1bf724e37d5e7095a232e185f2a109712604b0c9bbe433964c5c65fde962e08"
+    },
+    {
+      "file": "check105b-result.json",
+      "bytes": 1342,
+      "sha256": "c357b9347541b8013ad8d7c9640181c2586bbfd568ef63f1a86dfe4f955a9b95"
+    },
+    {
+      "file": "check105c-bootstrap.json",
+      "bytes": 169,
+      "sha256": "6d56ad4e62e3def906321f008b5b66fef53390527e94c53c2d5e0161d81d6da3"
+    },
+    {
+      "file": "check105c-progress.json",
+      "bytes": 54,
+      "sha256": "c83e946dcc701a4e467ce3921393fb502453abaf317fb447aef8a3beff485328"
+    },
+    {
+      "file": "check105c-result.json",
+      "bytes": 1344,
+      "sha256": "c1932b5e867f99c80a1c109757d0f8851edf9eaedcca718cb5c77565288869f9"
+    },
+    {
+      "file": "check105d-bootstrap.json",
+      "bytes": 169,
+      "sha256": "afbd5f3590ded4b6ac42a394cb299b99183a3738a48ad838f4cb2271a3224ebd"
+    },
+    {
+      "file": "check105d-progress.json",
+      "bytes": 54,
+      "sha256": "e11ff18ad4e2118af6f9bab6f6f50eac8c872cbef7751f69e7459f0a00346a90"
+    },
+    {
+      "file": "check105d-result.json",
+      "bytes": 1333,
+      "sha256": "93007cc2dba622b7b8f5e109c6183fcc0a2d7cfff0031d960a2c13e6db1cdaed"
+    },
+    {
+      "file": "deploy105d-bootstrap.json",
+      "bytes": 204,
+      "sha256": "11e306b19106b67dea50dd089e5601f8416abe6cb2f30a6f8061d307dfc66861"
+    },
+    {
+      "file": "deploy105d-progress.json",
+      "bytes": 71,
+      "sha256": "9070ec059ec629dd5c277ee1ffc2cbf737edab8f1bbdae8b0041f353cac9161d"
+    },
+    {
+      "file": "deploy105d-result.json",
+      "bytes": 8829,
+      "sha256": "35d62cb6421fc0788318a846205618e9c51202a94d9778612b4885f87a4a6d91"
+    },
+    {
+      "file": "deploy105d-transfer.json",
+      "bytes": 1466,
+      "sha256": "a84df2bc8fbb9d52e37a19270144fb6171c93d5168218eab07bb98a0655eb1b3"
+    },
+    {
+      "file": "deploy105d-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "final105-independent-readonly.json",
+      "bytes": 6285,
+      "sha256": "6e22ab14a38ab122f42ed37e27f20ea525eab21b8149ad41f1d51fe4bb794d77"
+    },
+    {
+      "file": "final105d-bootstrap.json",
+      "bytes": 175,
+      "sha256": "4aa23a00305319073e8263bd4be67bbc79852201ed9799518b7732edb9a20f92"
+    },
+    {
+      "file": "final105d-readonly.json",
+      "bytes": 855,
+      "sha256": "14ffecac7137b0e1ded9e2855a5cad26ec4eb3763cc2b654aa11bcfb320cf802"
+    },
+    {
+      "file": "finish105d-result.json",
+      "bytes": 134057,
+      "sha256": "98d1ff58c82c207aef4f15612a44b37c1367303484edb02f8c69c774e615c4f6"
+    },
+    {
+      "file": "focus105d-receipt.json",
+      "bytes": 215,
+      "sha256": "0634121281fd316a80449d40bd241258ade824cfec3735c2c0787ae7cef04b06"
+    },
+    {
+      "file": "mc_application105d.log",
+      "bytes": 3930,
+      "sha256": "c94543bf55fc347c9042cef8cbee294215c47731c6456de51c8f3aa8463f50a1"
+    },
+    {
+      "file": "monitor105d-result.json",
+      "bytes": 453103,
+      "sha256": "160610fb4fc9fd0dde50a0c556183599552eb5d0ae1429a220349ae798cc91c6"
+    },
+    {
+      "file": "native105d-bridge-health-readonly.json",
+      "bytes": 1025,
+      "sha256": "5794043cfbe94a400f2701743e5d56e10fa910391344d04086976634872c9097"
+    },
+    {
+      "file": "native105d-session-progress.json",
+      "bytes": 86,
+      "sha256": "2cbd7a964d255e50654ac7ff616eb2b7a26fce2568b2e12b55fa58453db55315"
+    },
+    {
+      "file": "native105d-session-result.json",
+      "bytes": 5665630,
+      "sha256": "ef0f2bc115bf1afa5ba408ccbf45ae57638e3291d032a9db6ca39f2ae6e626b6"
+    },
+    {
+      "file": "native_import_check105.log",
+      "bytes": 1798,
+      "sha256": "6386c4510db78cfe3ac8624dc3d94bf8b6da9f118fce1599ee773ff8d5bb008b"
+    },
+    {
+      "file": "native_import_check105b.log",
+      "bytes": 6795,
+      "sha256": "446a9db587217937851a78d9a4a50f3d1441daf30cba24ed44eab2a8dc59e9ae"
+    },
+    {
+      "file": "native_import_check105c.log",
+      "bytes": 6217,
+      "sha256": "6d0ff2d3fee6af7e9dcdc88df2cc429e2e7a4d87e50d738b183df99546e4ce9d"
+    },
+    {
+      "file": "native_import_check105d.log",
+      "bytes": 1415,
+      "sha256": "c308c11cd46685dedf1eadcbf3ff30ff709b199489136397b148f5249503f23f"
+    },
+    {
+      "file": "native_operation105d.log",
+      "bytes": 2031,
+      "sha256": "849908808dc4484659c84cff0949de76c299ae2fc66eb83ebb3e70e550977755"
+    },
+    {
+      "file": "native_supervision105d.log",
+      "bytes": 2442,
+      "sha256": "1317cc76168f84fbedf2100016841e3f801386ae0eaaef37a42371802d97ea57"
+    },
+    {
+      "file": "orchestration105d-bootstrap.json",
+      "bytes": 175,
+      "sha256": "782d89ff1deec1a74bc3179af0d7a63751ed0be7b481b9442eb65dc69a649a09"
+    },
+    {
+      "file": "orchestration105d-result.json",
+      "bytes": 1623,
+      "sha256": "4db0dfde7acf71cf3b039a85ce59f93f9c5714a45e210b92a24972b1d9ef7231"
+    },
+    {
+      "file": "platform105d-result.json",
+      "bytes": 37916,
+      "sha256": "472089cb46975fa7303941b4ce0c56cbfab84f67188e360330e45cb5aadfaf74"
+    },
+    {
+      "file": "preflight105d.log",
+      "bytes": 805,
+      "sha256": "8dbb8fce6f06e7773c120a2f95c6b455de84066e9d4e06ae81c3ee57ce7d70bb"
+    },
+    {
+      "file": "prepare105d.log",
+      "bytes": 376,
+      "sha256": "332de02e4658a981bba4d043d5f9442f5655edbdf8f7970280bc2c134c4ec345"
+    },
+    {
+      "file": "prompt105d-summary.json",
+      "bytes": 2158,
+      "sha256": "bba2f63dd36c30511b6c972adfbffe9593cc94316c7c430e0aeb22237d7df511"
+    },
+    {
+      "file": "readiness105d.log",
+      "bytes": 6231,
+      "sha256": "22352ff4bdb44d92cb55ba87954be6330d0e1da5c2b8172516a28db0f04d81fa"
+    },
+    {
+      "file": "start105d.log",
+      "bytes": 1007,
+      "sha256": "51fa962bee221ef87861d4010d1232e360587364e41210faa54cbf9bfca8b3ca"
+    },
+    {
+      "file": "stop105d.log",
+      "bytes": 169,
+      "sha256": "0838675953289f276b84f2470da731166fdf705eeadc09044e730e6cb292e9a6"
+    },
+    {
+      "file": "target105d.log",
+      "bytes": 608,
+      "sha256": "5b3c4970b4d3e9181466e6a9b3478463ff069a12311d3113b0c9292699033aef"
+    },
+    {
+      "file": "transfer105d-result.json",
+      "bytes": 2775,
+      "sha256": "87c2a9d56712c723fd8a275a4dc75718f7923afaaf3fb186c6a3e0203d5ff1c4"
+    },
+    {
+      "file": "watch105d-bootstrap.json",
+      "bytes": 205,
+      "sha256": "8a37fc8adc456499ec0fe86e2593e1e4fa059c944cd0cb5de46036cbd3304e06"
+    },
+    {
+      "file": "watch105d-result.json",
+      "bytes": 315,
+      "sha256": "0126f5be0534773a9c02fa2761a71f760c778f9deaed72694233f44e0a631214"
+    },
+    {
+      "file": "watch105d-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

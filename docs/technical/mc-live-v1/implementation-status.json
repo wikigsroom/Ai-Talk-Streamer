@@ -4,71 +4,69 @@
   "branch": "mc",
   "goal_status": "active",
   "overall_status": "in_progress_full_application_not_accepted",
-  "current_round": "104",
-  "turn_classification": "startup_diagnostics_and_maintenance_quota_checks_with_remote_runtime_attempt",
+  "current_round": "105",
+  "turn_classification": "native_import_diagnostics_process_exit_fences_and_remote_runtime_attempt",
   "delivery_mode": "single_integrated_release",
   "user_facing_release_count": 1,
   "progress_document": "docs/technical/mc-live-v1/实现进度.md",
-  "latest_evidence": "docs/evidence/mc-runtime-round-104.json",
+  "latest_evidence": "docs/evidence/mc-runtime-round-105.json",
   "current_round_implemented_ids": [
-    "I1177",
-    "I1178",
-    "I1179",
-    "I1180",
-    "I1181",
-    "I1182",
-    "I1183",
-    "I1184",
-    "I1185",
-    "I1186",
-    "I1187",
-    "I1188",
-    "I1189",
-    "I1190",
-    "I1191"
+    "I1192",
+    "I1193",
+    "I1194",
+    "I1195",
+    "I1196",
+    "I1197",
+    "I1198",
+    "I1199",
+    "I1200",
+    "I1201",
+    "I1202",
+    "I1203",
+    "I1204"
   ],
   "required_domains": [
     {
       "id": "D01",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "完整安装包、许可及干净Windows重建、来源/副本、缓存与回退；安全错误定位、阶段记录、操作内受锁摘要复用和显存等待已实现，仍需证明冷/热启动及共享资源下恢复稳定。本轮未完成新的自主观察，最近完整运行仍为102轮。最新尝试尚未进入完整应用启动。最新环境检查未通过：avatar_cpu_imports / TimeoutExpired / 180.047秒。"
+      "remaining": "完整安装包、许可及干净Windows重建、来源/副本、缓存与回退、冷/热启动和共享资源恢复。逐模块CPU检查、期限、原生进程族清理及共享锁恢复已新增实机验证。最新环境检查8/8；必需服务启动通过，完整应用尚未验收。记录600.245秒观察窗口，AUTO采样20项、PAUSED采样542项；相邻AUTO采样覆盖21.011秒，不能作为连续游玩时长。已验证非导航任务3项；视觉成功样本0项。期间因GAME_OBSERVATION_EXPIRED停止，持续自主游玩未通过。本轮没有新增视频。正常保存后仍有1个未决任务；正式口播完成回执0项。"
     },
     {
       "id": "D02",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "模组实体/容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物和联机差异；本轮无新游戏观察，102轮原世界证据不覆盖全部模组及协议场景。"
+      "remaining": "模组实体/容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物和联机差异；单次原世界观察不覆盖全部协议场景。"
     },
     {
       "id": "D03",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "持续地下脱困、昼夜多敌、普通PvE、水/岩浆/窒息、GUI、租约及长期停止；持续食物和自然回血、死亡恢复后继续补给。keepInventory=true已复核，但103/104轮无新死亡或生存场景，不把存档规则读回当作死亡物品全量验收。"
+      "remaining": "持续地下脱困、昼夜多敌、普通PvE、水/岩浆/窒息、GUI、租约及长期停止；持续食物和自然回血、死亡恢复后继续补给，实际死亡物品完整核对。keepInventory=true持续保留。"
     },
     {
       "id": "D04",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "多配方选择及补台策略源码已安装，本轮尚无新游玩回执；仍需实际制作面包、进食回血、采木/制台/放台、持续工具与资源补给、牲畜击杀拾取、燃料烹饪、种收吃、鱼及模组食品、容器、耐久与建造。102轮14次歧义拒绝的历史保留。"
+      "remaining": "实际多配方制作及补台、自然回血、采木/制台/放台、持续工具与资源补给、牲畜击杀拾取、燃料烹饪、种收吃、鱼及模组食品、容器、耐久与建造。102轮14次歧义拒绝的历史保留。本轮制作面包和进食的实际任务回执见报告，仍未证明持续补给。"
     },
     {
       "id": "D05",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "有效长期目标、持续补给不空转、实际多配方选择及Mindcraft依赖/补台/模组配方、Luna建议落实、跨场台站、真实观众并发、预算/取消/事实核验。后台记忆日额度已按来源区分并实现次日退避，仍需实机长期及跨日验证。"
+      "remaining": "有效长期目标、持续补给不空转、实际多配方及Mindcraft依赖/补台/模组配方、Luna建议落实、跨场台站、真实观众并发、预算/取消/事实核验。105轮出现GAME_OBSERVATION_EXPIRED后暂停及未决任务，须完成精确时序定位、原生账本核对和有期限的安全恢复，不能放宽观察或控制期限、伪造终态或盲重放。后台记忆日额度仍需实机长期及跨日验证。"
     },
     {
       "id": "D06",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连与显示；本轮只通过公开采集依赖检查，未开展新的现场采集，不代发或伪造事件。"
+      "remaining": "595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连与显示；公开采集连接不等同收到真实事件，不代发或伪造事件。"
     },
     {
       "id": "D07",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复和唯一写者隔离；本轮20项整理检查通过，仍非真实观众验收。"
+      "remaining": "真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复和唯一写者隔离；历史20项整理夹具检查不等同现场观众或跨日验收。"
     },
     {
       "id": "D08",
@@ -80,7 +78,7 @@
       "id": "D09",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "持续有效游戏节目、自然及时口播、供帧/重缓冲、真实弹幕、手机与官方横屏实录；本轮未完成新自主观察和新视频，最近完整运行仍为102；不沿用旧性能数字充当本轮测量。"
+      "remaining": "持续有效节目、自然及时口播、供帧/重缓冲、真实弹幕、手机及官方横屏实录。最新环境检查8/8；必需服务启动通过，完整应用尚未验收。记录600.245秒观察窗口，AUTO采样20项、PAUSED采样542项；相邻AUTO采样覆盖21.011秒，不能作为连续游玩时长。已验证非导航任务3项；视觉成功样本0项。期间因GAME_OBSERVATION_EXPIRED停止，持续自主游玩未通过。本轮没有新增视频。正常保存后仍有1个未决任务；正式口播完成回执0项。"
     },
     {
       "id": "D10",
@@ -92,13 +90,13 @@
       "id": "D11",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "原生游戏声/人声/BGM压低恢复、O07/F07故障切换、唯一音源与完整实录验收。"
+      "remaining": "游戏/人物语音/BGM混音与闪避、F07真实故障接替、唯一有声音源和完整节目实录。本轮正式口播完成回执为0，不能将人物服务启动或接收器有帧视为语音链路通过。"
     },
     {
       "id": "D12",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "原生JPEG→gpt-6-luna语义准确率、模组物品/危险/OCR/装备、帧世界绑定、超时取消/公平与联合负载。后台记忆额度与前台调用已区分，不能把前者拒绝当作全局视觉额度耗尽。"
+      "remaining": "原生JPEG与Luna的实际理解准确率、模组物品/危险/OCR/装备识别、来源帧绑定、超时及共同负载公平调度。本轮2次视觉结果为MODEL_PREEMPTED/MODEL_CANCELLED，成功0项，不能据此比较Luna理解质量。"
     },
     {
       "id": "D13",
@@ -110,7 +108,7 @@
       "id": "D14",
       "required": true,
       "status": "full_acceptance_pending",
-      "remaining": "操作内重复大文件核验优化和显存等待已实现，仍需验证整套启动实际耗时与稳定性、FTB等待、日志大小上限、CPU/GPU/内存/来源绑定供帧、4小时含60分钟稳定段与异常停止；启动异常和阶段可定位，不能以夹具代替连续性能验收。"
+      "remaining": "逐模块导入和进程回收已实机检查；仍需整套冷/热启动、FTB、日志持续上限、CPU/GPU/内存与来源绑定供帧、4小时含60分钟稳定段及异常停止。单次检查或600秒观察不替代连续性能验收。"
     },
     {
       "id": "D15",
@@ -397,63 +395,43 @@
   "remote_4090_control": "paused",
   "current_inherited_target": "rtx3080",
   "layout_unchanged": true,
-  "last_updated": "2026-11-04T02:20:31.0289531Z",
+  "last_updated": "2026-11-04T03:35:10.106459+00:00",
   "known_incomplete_integration": [
-    "D01 完整安装包、许可及干净Windows重建、来源/副本、缓存与回退；安全错误定位、阶段记录、操作内受锁摘要复用和显存等待已实现，仍需证明冷/热启动及共享资源下恢复稳定。本轮未完成新的自主观察，最近完整运行仍为102轮。最新尝试尚未进入完整应用启动。最新环境检查未通过：avatar_cpu_imports / TimeoutExpired / 180.047秒。",
-    "D02 模组实体/容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物和联机差异；本轮无新游戏观察，102轮原世界证据不覆盖全部模组及协议场景。",
-    "D03 持续地下脱困、昼夜多敌、普通PvE、水/岩浆/窒息、GUI、租约及长期停止；持续食物和自然回血、死亡恢复后继续补给。keepInventory=true已复核，但103/104轮无新死亡或生存场景，不把存档规则读回当作死亡物品全量验收。",
-    "D04 多配方选择及补台策略源码已安装，本轮尚无新游玩回执；仍需实际制作面包、进食回血、采木/制台/放台、持续工具与资源补给、牲畜击杀拾取、燃料烹饪、种收吃、鱼及模组食品、容器、耐久与建造。102轮14次歧义拒绝的历史保留。",
-    "D05 有效长期目标、持续补给不空转、实际多配方选择及Mindcraft依赖/补台/模组配方、Luna建议落实、跨场台站、真实观众并发、预算/取消/事实核验。后台记忆日额度已按来源区分并实现次日退避，仍需实机长期及跨日验证。",
-    "D06 595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连与显示；本轮只通过公开采集依赖检查，未开展新的现场采集，不代发或伪造事件。",
-    "D07 真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复和唯一写者隔离；本轮20项整理检查通过，仍非真实观众验收。",
+    "D01 完整安装包、许可及干净Windows重建、来源/副本、缓存与回退、冷/热启动和共享资源恢复。逐模块CPU检查、期限、原生进程族清理及共享锁恢复已新增实机验证。最新环境检查8/8；必需服务启动通过，完整应用尚未验收。记录600.245秒观察窗口，AUTO采样20项、PAUSED采样542项；相邻AUTO采样覆盖21.011秒，不能作为连续游玩时长。已验证非导航任务3项；视觉成功样本0项。期间因GAME_OBSERVATION_EXPIRED停止，持续自主游玩未通过。本轮没有新增视频。正常保存后仍有1个未决任务；正式口播完成回执0项。",
+    "D02 模组实体/容器、维度/断线/世界切换/死亡恢复、异形地面、坟墓取物和联机差异；单次原世界观察不覆盖全部协议场景。",
+    "D03 持续地下脱困、昼夜多敌、普通PvE、水/岩浆/窒息、GUI、租约及长期停止；持续食物和自然回血、死亡恢复后继续补给，实际死亡物品完整核对。keepInventory=true持续保留。",
+    "D04 实际多配方制作及补台、自然回血、采木/制台/放台、持续工具与资源补给、牲畜击杀拾取、燃料烹饪、种收吃、鱼及模组食品、容器、耐久与建造。102轮14次歧义拒绝的历史保留。本轮制作面包和进食的实际任务回执见报告，仍未证明持续补给。",
+    "D05 有效长期目标、持续补给不空转、实际多配方及Mindcraft依赖/补台/模组配方、Luna建议落实、跨场台站、真实观众并发、预算/取消/事实核验。105轮出现GAME_OBSERVATION_EXPIRED后暂停及未决任务，须完成精确时序定位、原生账本核对和有期限的安全恢复，不能放宽观察或控制期限、伪造终态或盲重放。后台记忆日额度仍需实机长期及跨日验证。",
+    "D06 595139真实弹幕/礼物/SC、建议/投票/撤回/执行反馈、重连与显示；公开采集连接不等同收到真实事件，不代发或伪造事件。",
+    "D07 真实观众长期记忆、更正/遗忘/删除不复活、跨场次日、异常备份恢复和唯一写者隔离；历史20项整理夹具检查不等同现场观众或跨日验收。",
     "D08 完整启停/任务/资源/音量/诊断/恢复与两方案切换；真实消息左右换边的队列保留、并发、手机及完整操作验收。",
-    "D09 持续有效游戏节目、自然及时口播、供帧/重缓冲、真实弹幕、手机与官方横屏实录；本轮未完成新自主观察和新视频，最近完整运行仍为102；不沿用旧性能数字充当本轮测量。",
+    "D09 持续有效节目、自然及时口播、供帧/重缓冲、真实弹幕、手机及官方横屏实录。最新环境检查8/8；必需服务启动通过，完整应用尚未验收。记录600.245秒观察窗口，AUTO采样20项、PAUSED采样542项；相邻AUTO采样覆盖21.011秒，不能作为连续游玩时长。已验证非导航任务3项；视觉成功样本0项。期间因GAME_OBSERVATION_EXPIRED停止，持续自主游玩未通过。本轮没有新增视频。正常保存后仍有1个未决任务；正式口播完成回执0项。",
     "D10 两套各2闲置+48动作共100段新素材、索引、口型、圆形遮罩与接缝；仍0/100，原female-A素材保留。",
-    "D11 原生游戏声/人声/BGM压低恢复、O07/F07故障切换、唯一音源与完整实录验收。",
-    "D12 原生JPEG→gpt-6-luna语义准确率、模组物品/危险/OCR/装备、帧世界绑定、超时取消/公平与联合负载。后台记忆额度与前台调用已区分，不能把前者拒绝当作全局视觉额度耗尽。",
+    "D11 游戏/人物语音/BGM混音与闪避、F07真实故障接替、唯一有声音源和完整节目实录。本轮正式口播完成回执为0，不能将人物服务启动或接收器有帧视为语音链路通过。",
+    "D12 原生JPEG与Luna的实际理解准确率、模组物品/危险/OCR/装备识别、来源帧绑定、超时及共同负载公平调度。本轮2次视觉结果为MODEL_PREEMPTED/MODEL_CANCELLED，成功0项，不能据此比较Luna理解质量。",
     "D13 公开状态核对、独立观众CDN音画及端到端时延；本轮没有公开开播。",
-    "D14 操作内重复大文件核验优化和显存等待已实现，仍需验证整套启动实际耗时与稳定性、FTB等待、日志大小上限、CPU/GPU/内存/来源绑定供帧、4小时含60分钟稳定段与异常停止；启动异常和阶段可定位，不能以夹具代替连续性能验收。",
+    "D14 逐模块导入和进程回收已实机检查；仍需整套冷/热启动、FTB、日志持续上限、CPU/GPU/内存与来源绑定供帧、4小时含60分钟稳定段及异常停止。单次检查或600秒观察不替代连续性能验收。",
     "D15 正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚/20项交接；继承117项冻结待办原编号保留。"
   ],
   "current_round_validation": {
-    "round": "104",
-    "evidence": "docs/evidence/mc-runtime-round-104.json",
-    "report": "docs/technical/mc-live-v1/启动诊断与104恢复记录.md",
+    "round": "105",
+    "evidence": "docs/evidence/mc-runtime-round-105.json",
+    "report": "docs/technical/mc-live-v1/依赖导入与105自主运行记录.md",
     "checks": {
-      "application": 33,
-      "maintenance": 20,
-      "core": {
-        "tests": 416,
-        "pass": 416,
-        "fail": 0,
-        "cancelled": 0,
-        "skipped": 0,
-        "todo": 0
-      },
-      "isolated_windows_source_installation": {
-        "native_gpu_start": 5,
-        "native_artifact_pins": 11,
-        "native_operation": 17,
-        "mc_application": 33,
-        "mc_deployment": 43,
-        "deployment_target": 20
-      },
-      "native_java_fixtures_reused_from_103": 21,
-      "suites_overlap_do_not_sum": true
+      "native_import_check": 11,
+      "native_operation": 17,
+      "native_supervision": 20,
+      "mc_application": 33
     },
-    "application_start_passed": false,
-    "new_runtime_observation": false,
-    "last_real_runtime_round": "102",
+    "application_start_passed": true,
+    "new_runtime_observation": true,
+    "last_real_runtime_round": "105d",
     "formal_acceptance_advanced": 0,
     "github_publication": {
       "branch": "mc",
-      "source_commit": "5ec08c16462334966443272069b30209f493d4b7",
+      "source_commit": "c2c538a718d6471ed5372eb31237898ab1a11ce3",
       "source_pushed_and_verified": true,
-      "report_commit": "0fc48ec3f93a170cff1dd7f1406294f88acdcce2",
-      "report_pushed_and_verified": true,
-      "documentation_push_pending": false,
-      "verified_at": "2026-11-04T02:20:31.0289531Z",
-      "receipt": "docs/evidence/mc-runtime-round-104-publication.json"
+      "documentation_push_pending": true
     }
   },
   "documentation_validation": {
@@ -1103,9 +1081,9 @@
     "evidence": "docs/evidence/mc-runtime-round-022.json"
   },
   "previous_round_summary": {
-    "round": "103",
-    "evidence": "docs/evidence/mc-runtime-round-103.json",
-    "report": "docs/technical/mc-live-v1/多配方选择与103启动回滚记录.md"
+    "round": "104",
+    "evidence": "docs/evidence/mc-runtime-round-104.json",
+    "report": "docs/technical/mc-live-v1/启动诊断与104恢复记录.md"
   },
   "round026_draft_follow_up": {
     "classification": "FINALIZED_LOCAL_ONLY_AFTER_PLANNING_R3",
@@ -2877,21 +2855,19 @@
     "formal_survival_acceptance_passed": false
   },
   "latest_turn_implemented_ids": [
-    "I1177",
-    "I1178",
-    "I1179",
-    "I1180",
-    "I1181",
-    "I1182",
-    "I1183",
-    "I1184",
-    "I1185",
-    "I1186",
-    "I1187",
-    "I1188",
-    "I1189",
-    "I1190",
-    "I1191"
+    "I1192",
+    "I1193",
+    "I1194",
+    "I1195",
+    "I1196",
+    "I1197",
+    "I1198",
+    "I1199",
+    "I1200",
+    "I1201",
+    "I1202",
+    "I1203",
+    "I1204"
   ],
   "sample120_user_requested_recording": {
     "video": "outputs/mc-validation/round-088/remote-evidence/mc-live-dsh-mc-agent-088d-120s.mp4",
@@ -14219,23 +14195,19 @@
     }
   },
   "current_source_verification": {
-    "round": "104",
+    "round": "105",
     "device": "remote-3080",
-    "source_commit": "5ec08c16462334966443272069b30209f493d4b7",
-    "source_snapshot_sha256": "22f3fffe62594dee3298ed313f367321e8ea9db725e826015764ca0dc670e729",
-    "source_archive_sha256": "5ad177a35608e0d47a13c32cd3c8bbd5365586aad2b4a599778732192f9bb490",
-    "source_files": 1023,
+    "source_commit": "c2c538a718d6471ed5372eb31237898ab1a11ce3",
+    "source_snapshot_sha256": "0e9bbfb9c1bb2d6fe371f9d8c4fe09b04e5d2d4799647440e918ed3d3e343831",
+    "source_archive_sha256": "48920bb3428d249c63369c6217665aa2800d90d6c2b019a52576562f0fc100eb",
+    "source_files": 1025,
     "local_application_tests": 0,
     "checks_passed": true,
-    "environment_prepared": false,
+    "environment_prepared": true,
     "application_ready": false,
-    "new_game_or_model_run": false,
-    "last_real_runtime_round": "102",
-    "keep_inventory_preserved": true,
-    "source_fixture_checks_passed": true,
-    "readiness_passed": false,
-    "readiness_passed_count": 7,
-    "readiness_total_count": 8
+    "new_game_or_model_run": true,
+    "last_real_runtime_round": "105d",
+    "keep_inventory_preserved": true
   },
   "round096_follow_up": {
     "implemented_ids": [
@@ -14766,5 +14738,73 @@
       "receipt": "docs/evidence/mc-runtime-round-104-publication.json"
     },
     "next_action": "在3080定位人物CPU依赖导入的具体模块、冷启动耗时和超时进程族；环境检查与真实显存满足原门禁后，验证原世界的面包制作、进食、持续补给及600秒自主观察。"
+  },
+  "before_round105_current_round_validation": {
+    "round": "104",
+    "evidence": "docs/evidence/mc-runtime-round-104.json",
+    "report": "docs/technical/mc-live-v1/启动诊断与104恢复记录.md",
+    "checks": {
+      "application": 33,
+      "maintenance": 20,
+      "core": {
+        "tests": 416,
+        "pass": 416,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "isolated_windows_source_installation": {
+        "native_gpu_start": 5,
+        "native_artifact_pins": 11,
+        "native_operation": 17,
+        "mc_application": 33,
+        "mc_deployment": 43,
+        "deployment_target": 20
+      },
+      "native_java_fixtures_reused_from_103": 21,
+      "suites_overlap_do_not_sum": true
+    },
+    "application_start_passed": false,
+    "new_runtime_observation": false,
+    "last_real_runtime_round": "102",
+    "formal_acceptance_advanced": 0,
+    "github_publication": {
+      "branch": "mc",
+      "source_commit": "5ec08c16462334966443272069b30209f493d4b7",
+      "source_pushed_and_verified": true,
+      "report_commit": "0fc48ec3f93a170cff1dd7f1406294f88acdcce2",
+      "report_pushed_and_verified": true,
+      "documentation_push_pending": false,
+      "verified_at": "2026-11-04T02:20:31.0289531Z",
+      "receipt": "docs/evidence/mc-runtime-round-104-publication.json"
+    }
+  },
+  "round105_follow_up": {
+    "implemented_ids": [
+      "I1192",
+      "I1193",
+      "I1194",
+      "I1195",
+      "I1196",
+      "I1197",
+      "I1198",
+      "I1199",
+      "I1200",
+      "I1201",
+      "I1202",
+      "I1203",
+      "I1204"
+    ],
+    "evidence": "docs/evidence/mc-runtime-round-105.json",
+    "report": "docs/technical/mc-live-v1/依赖导入与105自主运行记录.md",
+    "full_acceptance_pending": true,
+    "source_commit": "c2c538a718d6471ed5372eb31237898ab1a11ce3",
+    "new_observation_window_seconds": 600.244975566864,
+    "sampled_auto_interval_seconds": 21.010603666305542,
+    "continuous_autonomous_gameplay_passed": false,
+    "application_start_passed": true,
+    "latest_failure_diagnostic": "GAME_OBSERVATION_EXPIRED",
+    "github_push_pending": true
   }
 }
