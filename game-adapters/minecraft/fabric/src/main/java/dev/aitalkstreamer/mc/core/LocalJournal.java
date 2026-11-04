@@ -238,6 +238,47 @@ public final class LocalJournal implements AutoCloseable {
             return result;
         } catch (SQLException error) { throw new IllegalStateException(io(error)); }
     }
+    /**
+     * A missing row alone cannot prove that an action never happened: completed
+     * history may have been retained elsewhere. Only a new, durable task-ID
+     * tombstone, created atomically while both live and retired records are
+     * absent, proves non-admission and also fences a delayed task_start.
+     * Existing restore protection preserves these tombstones across rollback.
+     */
+    public synchronized JsonArray lookupForRecovery(JsonArray ids, String boot, String world) throws IOException {
+        require(ids.size() == 1 && !maintenanceOnly, "GAME_LEDGER_QUERY_LIMIT");
+        return transaction(() -> {
+            require(Objects.equals(boot, text("SELECT value FROM metadata WHERE key='active_boot'"))
+                    && Objects.equals(world, text("SELECT value FROM metadata WHERE key='active_world'")), "GAME_LEDGER_CONTEXT");
+            String id = ids.get(0).getAsString(); require(id.matches("[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}"), "GAME_LEDGER_TASK_ID");
+            String found = text("SELECT task FROM tasks WHERE task_id=?", id);
+            JsonArray result = new JsonArray();
+            if (found != null) { result.add(obj("task_id", id, "status", "found", "task", parse(found))); return result; }
+            JsonObject proof = null;
+            try (PreparedStatement query = statement("SELECT world,request_id,body_hash,summary FROM journal_retired_tasks WHERE task_id=?", id);
+                 ResultSet rows = query.executeQuery()) {
+                if (rows.next()) {
+                    if ("admission-absence".equals(rows.getString(1))) {
+                        proof = parse(rows.getString(4));
+                        require(id.equals(rows.getString(2)) && hash(canonical(proof)).equals(rows.getString(3))
+                                && "never_admitted".equals(str(proof,"kind")) && id.equals(str(proof,"task_id"))
+                                && instance.equals(str(proof,"game_instance_id")), "GAME_JOURNAL_ADMISSION_FENCE_INVALID");
+                    } else { result.add(obj("task_id", id, "status", "missing", "task", null)); return result; }
+                }
+            }
+            if (proof == null) {
+                require(scalar("SELECT count(*) FROM journal_retired_tasks") < JournalRetention.TOMBSTONE_LIMIT,
+                        "GAME_RETENTION_TOMBSTONE_LIMIT");
+                proof = obj("kind", "never_admitted", "fence_id", "admission-fence-" + UUID.randomUUID(),
+                        "task_id", id, "game_instance_id", instance, "fenced_at", Instant.now().toString());
+                execute("INSERT INTO journal_retired_tasks VALUES(?,?,?,?,?,?)", "admission-absence", id, id,
+                        hash(canonical(proof)), System.currentTimeMillis(), canonical(proof));
+            }
+            JsonObject checked = proof.deepCopy(); checked.addProperty("checked_bridge_boot_id", boot);
+            checked.addProperty("checked_world_session_id", world);
+            result.add(obj("task_id", id, "status", "missing", "task", null, "admission_fence", checked)); return result;
+        });
+    }
     public synchronized void accept(String world, JsonObject request, JsonObject task) throws IOException { accept(world, request, task, null); }
     public synchronized void accept(String world, JsonObject request, JsonObject task, String boot) throws IOException {
         transaction(() -> {

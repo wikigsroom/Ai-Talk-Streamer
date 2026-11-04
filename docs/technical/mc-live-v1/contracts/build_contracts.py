@@ -155,10 +155,15 @@ D["Observation"]["properties"] = {**observation, "details": ref("RuntimeDetails"
 D["Evidence"] = obj({"world_session_id": ID, "seq": integer(),
                      "kind": enum("position", "inventory", "craft_result", "item_effect", "input_release"),
                      "summary": string(500)})
+D["AdmissionFence"] = obj({"kind": {"const": "never_admitted"}, "fence_id": ID, "task_id": ID,
+    "game_instance_id": ID, "fenced_at": TIME, "checked_bridge_boot_id": ID, "checked_world_session_id": ID})
 D["TaskRecovery"] = obj({"task_id": ID, "revision": integer(1),
-    "status": enum("required", "querying", "waiting_terminal", "verified", "missing", "conflict", "unsupported", "operator_closed"),
+    "status": enum("required", "querying", "waiting_terminal", "verified", "missing", "conflict", "unsupported", "operator_closed", "not_admitted"),
     "reason": string(240), "created_at": TIME, "updated_at": TIME, "attempts": integer(),
     "checked_bridge_boot_id": nullable(ID), "confirmed_version": nullable(integer(1)), "last_error": nullable(string(120))})
+D["TaskRecovery"]["properties"]["admission_fence"] = ref("AdmissionFence")
+D["TaskRecovery"]["allOf"] = [{"if": {"properties": {"status": {"const": "not_admitted"}}},
+    "then": {"required": ["admission_fence"]}, "else": {"not": {"required": ["admission_fence"]}}}]
 D["Task"] = obj({"task_id": ID, "game_instance_id": ID, "bridge_boot_id": ID,
                  "world_id": ID, "world_session_id": ID, "request_id": ID,
                  "control_epoch": integer(), "version": integer(1), "goal": ref("Goal"),
@@ -241,8 +246,10 @@ D["RecipeResult"] = obj({"kind": {"const": "recipe"}, "world_session_id": ID, "b
     "inventory_checked": {"const": False}, "ingredient_projection": {"const": "item_ids_only"},
     "unknown_fields": array(string(160), 16, 1, unique=True)})
 D["LedgerEntry"] = obj({"task_id": ID, "status": enum("found", "missing"), "task": nullable(ref("Task"))})
+D["LedgerEntry"]["properties"]["admission_fence"] = ref("AdmissionFence")
 D["LedgerEntry"]["allOf"] = [{"if": {"properties": {"status": {"const": "found"}}},
-    "then": {"properties": {"task": ref("Task")}}, "else": {"properties": {"task": {"type": "null"}}}}]
+    "then": {"properties": {"task": ref("Task")}, "not": {"required": ["admission_fence"]}},
+    "else": {"properties": {"task": {"type": "null"}}}}]
 D["TaskLedgerResult"] = obj({"kind": {"const": "task_ledger"}, "game_instance_id": ID,
     "world_session_id": ID, "based_on_seq": integer(), "entries": array(ref("LedgerEntry"), 1, 1)})
 D["ReconcileRequest"] = obj({"request_id": ID})

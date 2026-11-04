@@ -2,6 +2,7 @@ import { playerSafety } from './mc-player-safety.mjs';
 const $ = id => document.getElementById(id), apiBase = '/api/dsh/game';
 const labels = { PAUSED:'已暂停', AUTO:'自动游玩', MANUAL_COMMENTARY:'人工游玩', draft:'待批准', active:'进行中', needs_review:'待复核', blocked:'待处理', completed:'已完成', archived:'已归档', pending:'待执行', running:'执行中', awaiting_observation:'等待观测', accepted:'已受理', succeeded:'成功', failed:'失败', cancelled:'已取消', verified:'已验证', partial:'部分生效', unknown:'结果未知', required:'待核对', querying:'核对中', waiting_terminal:'等待结束', missing:'账本缺失', conflict:'记录冲突', unsupported:'暂不支持核对', operator_closed:'人工确认未知', closed_unknown:'人工确认未知', reopened:'已重新拦截', observed:'观测中', unobserved:'当前不可观测', ended:'观测会话结束', gather:'采集', craft:'合成', use_item:'使用物品', navigate:'移动', return_base:'回基地' };
 const model = { state:null, health:null, synchronized:false, configuration:null, capabilities:null, goals:[], sessions:[], tasks:[], bases:[], checkpoints:[], worlds:[], suggestions:[], votes:[], narration:[], narrationScheduler:null, narrationSettingsDirty:false, audience:null, audienceKey:null, world:null, worldRecord:null, selection:null, cursors:{}, busy:false };
+labels.not_admitted='未执行，旧请求已封锁';
 Object.assign(model,{intents:[],intentSettingsDirty:false});
 try { const saved=sessionStorage.getItem('mc-control.world'); if(saved&&/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$/.test(saved)) model.selection=saved; } catch {}
 let viewRevision=0;
@@ -228,7 +229,7 @@ function renderSessions() { const box=$('sessions'); box.replaceChildren(); $('s
   if(!model.sessions.length) box.append(node('p','等待首次观测','empty'));
   for(const session of model.sessions) { const item=node('article',undefined,'session'); item.append(node('h3',text(session.status)),node('p',session.world_session_id,'muted'),node('p',`${time(session.first_observed_at)} → ${time(session.last_observed_at)}`,'muted'),node('p',session.source==='legacy_registry'?'旧登记导入，缺少完整会话证据':`已保存序号 ${session.last_seq} · 连接次数 ${session.connection_count}`,'muted')); box.append(item); } $('more-sessions').hidden=!model.cursors.sessions; }
 function renderTasks() { const box=$('tasks'); box.replaceChildren(); if(!model.tasks.length) { const row=node('tr'), cell=node('td','尚无任务记录','empty'); cell.colSpan=4; row.append(cell); box.append(row); }
-  for(const task of model.tasks) { const row=node('tr'); row.dataset.task=task.task_id; const name=node('td',text(task.goal.skill)); name.append(node('small',task.task_id),node('small',`${task.world_id} / v${task.version}`)); const state=node('td',text(task.state)); state.append(node('small',text(task.effect_status)));
+  for(const task of model.tasks) { const row=node('tr'); row.dataset.task=task.task_id; const name=node('td',text(task.goal.skill)); name.append(node('small',task.task_id),node('small',`${task.world_id} / v${task.version}`)); const state=node('td',text(task.recovery?.status==='not_admitted'?'not_admitted':task.state)); state.append(node('small',text(task.effect_status)));
     if(task.reason) {
       const failure=window.McTaskFailures.describe(task.reason);
       if(failure) state.append(node('strong',failure.label),node('small',failure.detail),node('small',failure.action));
@@ -242,7 +243,7 @@ const goalLabel = goal => `${text(goal.skill)} ${goal.item_id || goal.base_id ||
 const suggestionLabel = value => ({proposed:'待审核',accepted:'已采纳',rejected:'已拒绝',expired:'已过期',converted:'已关联任务',cancelled:'已取消'})[value];
 const liveSuggestion = value => ['proposed','accepted'].includes(value.state) && Date.parse(value.expires_at)>Date.parse(model.audience?.server_time||0);
 function canDispatch(value) { return currentView() && liveSuggestion(value) && value.state==='accepted' && fresh() && model.state.mode==='AUTO' && model.state.automation_ready &&
-  !model.state.active_task_id && !model.tasks.some(task=>!['succeeded','failed','cancelled'].includes(task.state)&&task.disposition?.status!=='closed_unknown') &&
+  !model.state.active_task_id && !model.tasks.some(task=>!['succeeded','failed','cancelled'].includes(task.state)&&task.disposition?.status!=='closed_unknown'&&task.recovery?.status!=='not_admitted') &&
   model.capabilities?.skills.includes(value.goal.skill) && model.configuration?.settings.control.enabled_skills.includes(value.goal.skill); }
 let selectedSuggestion, suggestionDecision;
 function openSuggestion(value, kind) { selectedSuggestion=structuredClone(value); suggestionDecision=kind;

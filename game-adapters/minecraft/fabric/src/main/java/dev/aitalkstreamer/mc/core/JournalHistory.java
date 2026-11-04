@@ -18,10 +18,13 @@ final class JournalHistory {
             "retention_summaries", "journal_summaries", "retired_tasks", "journal_retired_tasks", "retention_runs", "journal_retention_runs");
         require(tables.containsKey(source), "GAME_HISTORY_SOURCE");
         String table = tables.get(source);
+        // Absence guards are not retired executions. Their proof is returned by
+        // the bound task-ledger query and retained in host recovery history.
+        String visible = source.equals("retired_tasks") ? " AND world<>'admission-absence'" : "";
         long after = num(params, "after"); int offset = Math.toIntExact(num(params, "offset")), limit = Math.toIntExact(num(params, "limit"));
         require(after >= 0 && offset >= 0 && offset < Wire.MAX_BYTES && limit >= 1 && limit <= 20, "GAME_HISTORY_CURSOR");
         long maximum;
-        try (Statement query = db.createStatement(); ResultSet rows = query.executeQuery("SELECT coalesce(max(rowid),0) FROM " + table)) {
+        try (Statement query = db.createStatement(); ResultSet rows = query.executeQuery("SELECT coalesce(max(rowid),0) FROM " + table + " WHERE 1=1" + visible)) {
             require(rows.next(), "GAME_HISTORY_WINDOW_CHANGED"); maximum = rows.getLong(1);
         }
         long through = params.get("through").isJsonNull() ? maximum : num(params, "through");
@@ -34,7 +37,7 @@ final class JournalHistory {
             default -> "rowid,run_id,result";
         };
         JsonArray chunks = new JsonArray(); long nextAfter = after; int nextOffset = offset, budget = PAGE_BYTES;
-        try (PreparedStatement query = db.prepareStatement("SELECT " + columns + " FROM " + table + " WHERE rowid>? AND rowid<=? ORDER BY rowid LIMIT ?")) {
+        try (PreparedStatement query = db.prepareStatement("SELECT " + columns + " FROM " + table + " WHERE rowid>? AND rowid<=?" + visible + " ORDER BY rowid LIMIT ?")) {
             query.setLong(1, after); query.setLong(2, through); query.setInt(3, limit);
             try (ResultSet rows = query.executeQuery()) {
                 while (rows.next() && budget > 0) {
@@ -82,7 +85,7 @@ final class JournalHistory {
         require(offset == 0 || !chunks.isEmpty(), "GAME_HISTORY_WINDOW_CHANGED");
         boolean complete = false;
         if (nextOffset == 0) {
-            try (PreparedStatement query = db.prepareStatement("SELECT 1 FROM " + table + " WHERE rowid>? AND rowid<=? LIMIT 1")) {
+            try (PreparedStatement query = db.prepareStatement("SELECT 1 FROM " + table + " WHERE rowid>? AND rowid<=?" + visible + " LIMIT 1")) {
                 query.setLong(1, nextAfter); query.setLong(2, through);
                 try (ResultSet rows = query.executeQuery()) { complete = !rows.next(); }
             }

@@ -1309,7 +1309,8 @@
             "missing",
             "conflict",
             "unsupported",
-            "operator_closed"
+            "operator_closed",
+            "not_admitted"
           ]
         },
         "reason": {
@@ -1366,6 +1367,9 @@
               "type": "null"
             }
           ]
+        },
+        "admission_fence": {
+          "$ref": "#/$defs/AdmissionFence"
         }
       },
       "required": [
@@ -1380,7 +1384,30 @@
         "confirmed_version",
         "last_error"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_admitted"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "admission_fence"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "admission_fence"
+              ]
+            }
+          }
+        }
+      ]
     },
     "Task": {
       "type": "object",
@@ -2962,6 +2989,9 @@
               "type": "null"
             }
           ]
+        },
+        "admission_fence": {
+          "$ref": "#/$defs/AdmissionFence"
         }
       },
       "required": [
@@ -2984,6 +3014,11 @@
               "task": {
                 "$ref": "#/$defs/Task"
               }
+            },
+            "not": {
+              "required": [
+                "admission_fence"
+              ]
             }
           },
           "else": {
@@ -12992,7 +13027,11 @@
                     "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
                   },
                   "entity_type": {
-                    "enum": ["minecraft:sheep", "minecraft:cow", "minecraft:pig"]
+                    "enum": [
+                      "minecraft:sheep",
+                      "minecraft:cow",
+                      "minecraft:pig"
+                    ]
                   }
                 },
                 "required": [
@@ -13028,7 +13067,10 @@
                     "if": {
                       "properties": {
                         "kind": {
-                          "enum": ["loose_item", "livestock"]
+                          "enum": [
+                            "loose_item",
+                            "livestock"
+                          ]
                         }
                       }
                     },
@@ -13048,22 +13090,82 @@
                     }
                   },
                   {
-                    "if": { "properties": { "kind": { "const": "livestock" } } },
+                    "if": {
+                      "properties": {
+                        "kind": {
+                          "const": "livestock"
+                        }
+                      }
+                    },
                     "then": {
-                      "required": ["entity_uuid", "entity_type"],
+                      "required": [
+                        "entity_uuid",
+                        "entity_type"
+                      ],
                       "oneOf": [
-                        { "properties": { "entity_type": { "const": "minecraft:sheep" }, "item_id": { "const": "minecraft:mutton" } } },
-                        { "properties": { "entity_type": { "const": "minecraft:cow" }, "item_id": { "const": "minecraft:beef" } } },
-                        { "properties": { "entity_type": { "const": "minecraft:pig" }, "item_id": { "const": "minecraft:porkchop" } } }
+                        {
+                          "properties": {
+                            "entity_type": {
+                              "const": "minecraft:sheep"
+                            },
+                            "item_id": {
+                              "const": "minecraft:mutton"
+                            }
+                          }
+                        },
+                        {
+                          "properties": {
+                            "entity_type": {
+                              "const": "minecraft:cow"
+                            },
+                            "item_id": {
+                              "const": "minecraft:beef"
+                            }
+                          }
+                        },
+                        {
+                          "properties": {
+                            "entity_type": {
+                              "const": "minecraft:pig"
+                            },
+                            "item_id": {
+                              "const": "minecraft:porkchop"
+                            }
+                          }
+                        }
                       ]
                     },
                     "else": {
-                      "properties": { "entity_uuid": false, "entity_type": false }
+                      "properties": {
+                        "entity_uuid": false,
+                        "entity_type": false
+                      }
                     }
                   },
                   {
-                    "if": { "properties": { "kind": { "enum": ["mature_crop", "food_material"] } } },
-                    "then": { "properties": { "item_id": { "not": { "enum": ["minecraft:mutton", "minecraft:beef", "minecraft:porkchop"] } } } }
+                    "if": {
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "mature_crop",
+                            "food_material"
+                          ]
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "item_id": {
+                          "not": {
+                            "enum": [
+                              "minecraft:mutton",
+                              "minecraft:beef",
+                              "minecraft:porkchop"
+                            ]
+                          }
+                        }
+                      }
+                    }
                   },
                   {
                     "if": {
@@ -13436,12 +13538,27 @@
           "items": {
             "type": "object",
             "properties": {
-              "position": { "$ref": "#/$defs/Position" },
-              "kind": { "const": "one_step_excavation" },
-              "route_verified": { "const": false },
-              "cuts": { "type": "integer", "minimum": 1, "maximum": 3 }
+              "position": {
+                "$ref": "#/$defs/Position"
+              },
+              "kind": {
+                "const": "one_step_excavation"
+              },
+              "route_verified": {
+                "const": false
+              },
+              "cuts": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 3
+              }
             },
-            "required": [ "position", "kind", "route_verified", "cuts" ],
+            "required": [
+              "position",
+              "kind",
+              "route_verified",
+              "cuts"
+            ],
             "additionalProperties": false
           }
         },
@@ -13468,6 +13585,58 @@
         "frontiers",
         "action_precondition_required",
         "unknown_fields"
+      ],
+      "additionalProperties": false
+    },
+    "AdmissionFence": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "never_admitted"
+        },
+        "fence_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+        },
+        "game_instance_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+        },
+        "fenced_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "checked_bridge_boot_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+        },
+        "checked_world_session_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+        }
+      },
+      "required": [
+        "kind",
+        "fence_id",
+        "task_id",
+        "game_instance_id",
+        "fenced_at",
+        "checked_bridge_boot_id",
+        "checked_world_session_id"
       ],
       "additionalProperties": false
     }

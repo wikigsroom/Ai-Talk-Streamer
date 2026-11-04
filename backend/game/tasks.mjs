@@ -66,7 +66,8 @@ export class TaskService {
   }
   active() {
     return this.store.all("SELECT value FROM objects WHERE kind='task'").map(r => JSON.parse(r.value))
-      .find(t => !TERMINAL.has(t.state) && this.disposition(t.task_id)?.status !== 'closed_unknown') || null;
+      .find(t => !TERMINAL.has(t.state) && this.disposition(t.task_id)?.status !== 'closed_unknown'
+        && this.recovery(t.task_id)?.status !== 'not_admitted') || null;
   }
   start(request) {
     validate('TaskCreate', request);
@@ -110,6 +111,10 @@ export class TaskService {
   }
   update(payload, { publish = true } = {}) {
     const task = payload.task, previous = this.raw(task.task_id);
+    if (this.recovery(task.task_id)?.status === 'not_admitted') {
+      this.setRecovery(task.task_id, 'conflict', 'GAME_ADMISSION_FENCE_CONFLICT', { last_error: 'GAME_ADMISSION_FENCE_CONFLICT' });
+      ensure(false, 'GAME_ADMISSION_FENCE_CONFLICT');
+    }
     ensure(!Object.hasOwn(task, 'recovery') && !Object.hasOwn(task, 'disposition'), 'GAME_TASK_SOURCE_INVALID');
     for (const key of ['game_instance_id', 'bridge_boot_id', 'world_id', 'world_session_id', 'request_id', 'control_epoch'])
       ensure(task[key] === previous[key], 'GAME_TASK_CONTEXT_CHANGED');
@@ -140,9 +145,10 @@ export class TaskService {
   }
   interrupted(reason) {
     for (const row of this.store.all("SELECT value FROM objects WHERE kind='task'")) {
-      const task = JSON.parse(row.value); if (TERMINAL.has(task.state) || this.disposition(task.task_id)?.status === 'closed_unknown') continue;
+      const task = JSON.parse(row.value); if (TERMINAL.has(task.state) || this.disposition(task.task_id)?.status === 'closed_unknown'
+        || this.recovery(task.task_id)?.status === 'not_admitted') continue;
       const old = this.recovery(task.task_id);
-      this.setRecovery(task.task_id, ['conflict', 'missing'].includes(old?.status) ? old.status : 'required', reason,
+      this.setRecovery(task.task_id, old?.status === 'conflict' || (old?.status === 'missing' && reason !== 'INTERRUPTED_HOST_RESTART') ? old.status : 'required', reason,
         { last_error: old?.last_error || null, ...(reason === 'INTERRUPTED_HOST_RESTART' ? { attempts: 0 } : {}) });
       this.manager.publish('task', this.get(task.task_id));
     }
@@ -152,10 +158,11 @@ export class TaskService {
       .filter(row => JSON.parse(row.value).attempts < 3 && !TERMINAL.has(this.raw(row.task_id).state)).slice(0, 1).map(row => row.task_id);
   }
   querying(ids) {
-    for (const id of ids) this.setRecovery(id, 'querying', null, { attempts: (this.recovery(id)?.attempts || 0) + 1 });
+    for (const id of ids) if (this.recovery(id)?.status !== 'not_admitted')
+      this.setRecovery(id, 'querying', null, { attempts: (this.recovery(id)?.attempts || 0) + 1 });
   }
   queryFailed(ids, error) {
-    for (const id of ids) if (!TERMINAL.has(this.raw(id).state) && !['conflict', 'missing'].includes(this.recovery(id)?.status))
+    for (const id of ids) if (!TERMINAL.has(this.raw(id).state) && !['conflict', 'missing', 'not_admitted'].includes(this.recovery(id)?.status))
       this.setRecovery(id, 'required', null, { last_error: error });
   }
   reconcile(result, requested) {
@@ -164,12 +171,29 @@ export class TaskService {
       result.entries.every((entry, i) => entry.task_id === requested[i]), 'GAME_LEDGER_CONTEXT');
     for (const entry of result.entries) {
       const previous = this.raw(entry.task_id);
-      if (entry.status === 'missing') {
-        this.setRecovery(entry.task_id, 'missing', null, { last_error: 'GAME_LEDGER_TASK_MISSING', checked_bridge_boot_id: this.manager.state.identity.bridge_boot_id });
-        this.manager.publish('task', this.get(entry.task_id)); continue;
-      }
-      const task = entry.task;
       try {
+        const oldRecovery = this.recovery(entry.task_id);
+        if (entry.status === 'missing') {
+          const proof = entry.admission_fence;
+          if (proof) {
+            ensure(!TERMINAL.has(previous.state) && previous.version === 1 && previous.state === 'accepted'
+              && !this.store.get('SELECT 1 FROM task_transitions WHERE task_id=? LIMIT 1', entry.task_id), 'GAME_ADMISSION_FENCE_CONFLICT');
+            ensure(proof.task_id === entry.task_id && proof.game_instance_id === previous.game_instance_id
+              && proof.game_instance_id === this.manager.state.identity.game_instance_id
+              && proof.checked_bridge_boot_id === this.manager.state.identity.bridge_boot_id
+              && proof.checked_world_session_id === this.manager.state.value.world_session_id, 'GAME_ADMISSION_FENCE_CONTEXT');
+            ensure(!oldRecovery?.admission_fence || oldRecovery.admission_fence.fence_id === proof.fence_id, 'GAME_ADMISSION_FENCE_CONFLICT');
+            this.setRecovery(entry.task_id, 'not_admitted', 'GAME_NATIVE_ADMISSION_FENCED', {
+              admission_fence: proof, checked_bridge_boot_id: proof.checked_bridge_boot_id });
+            this.store.audit('native_unadmitted_task_fenced', { task_id: entry.task_id, fence_id: proof.fence_id });
+          } else {
+            ensure(oldRecovery?.status !== 'not_admitted', 'GAME_ADMISSION_FENCE_CONFLICT');
+            this.setRecovery(entry.task_id, 'missing', null, { last_error: 'GAME_LEDGER_TASK_MISSING', checked_bridge_boot_id: this.manager.state.identity.bridge_boot_id });
+          }
+          this.manager.publish('task', this.get(entry.task_id)); continue;
+        }
+        ensure(oldRecovery?.status !== 'not_admitted', 'GAME_ADMISSION_FENCE_CONFLICT');
+        const task = entry.task;
         ensure(!Object.hasOwn(task, 'recovery') && !Object.hasOwn(task, 'disposition') && task.task_id === previous.task_id, 'GAME_TASK_SOURCE_INVALID');
         for (const key of ['game_instance_id', 'bridge_boot_id', 'world_id', 'world_session_id', 'request_id', 'control_epoch'])
           ensure(task[key] === previous[key], 'GAME_TASK_CONTEXT_CHANGED');

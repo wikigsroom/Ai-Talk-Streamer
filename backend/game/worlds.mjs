@@ -17,7 +17,7 @@ export class WorldService {
     return { world, active_base: world?.active_base_id ? this.base(id, world.active_base_id) : null,
       latest_checkpoint: checkpoint ? { checkpoint_id: checkpoint.checkpoint_id, created_at: checkpoint.created_at,
         reason: checkpoint.reason, world_session_id: checkpoint.world_session_id, seq: checkpoint.snapshot.seq } : null,
-      task_recovery: this.store.all("SELECT value FROM task_recovery WHERE status NOT IN ('verified','operator_closed') ORDER BY rowid LIMIT 100").map(row => JSON.parse(row.value)),
+      task_recovery: this.store.all("SELECT value FROM task_recovery WHERE status NOT IN ('verified','operator_closed','not_admitted') ORDER BY rowid LIMIT 100").map(row => JSON.parse(row.value)),
       ...this.manager.continuity.summary(id) };
   }
   get(worldId) {

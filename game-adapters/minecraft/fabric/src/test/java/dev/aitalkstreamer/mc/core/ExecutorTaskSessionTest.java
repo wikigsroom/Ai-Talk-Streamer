@@ -212,7 +212,7 @@ class ExecutorTaskSessionTest {
     }
     @Test void aKnownDefenseFailureKeepsItsFixedReasonAndReleasesTheRoot() {
         start(); tick=()->{throw new LocalTaskFailure(LocalTaskFailure.Reason.DEFENSE_NO_PROGRESS);};
-        assertThrows(LocalTaskFailure.class,()->session.tick(observation(2,0,0)));
+        assertDoesNotThrow(()->session.tick(observation(2,0,0)));
         assertEquals(1,cancels);assertFalse(session.active());
         assertEquals("GAME_DEFENSE_NO_PROGRESS",str(results.getFirst(),"reason"));
         assertEquals("failed",str(results.getFirst(),"state"));assertEquals("unknown",str(results.getFirst(),"effect_status"));

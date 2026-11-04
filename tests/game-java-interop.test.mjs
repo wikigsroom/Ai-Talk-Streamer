@@ -119,6 +119,42 @@ async function registeredHomeFixture(t) {
   return { f, goal, base: registered.value };
 }
 
+test('an expired admission is durably failed without stopping AUTO or scheduling an input', {timeout:90000}, async t => {
+  const f=await javaFixture(t); await f.auto(); const stale={...f.request('expired-admission'),accept_within_ms:250};
+  await new Promise(resolve=>setTimeout(resolve,450));
+  const response=await f.api('/tasks',stale); assert.equal(response.status,202,JSON.stringify(response));
+  await taskState(f,response.value.task_id,'failed'); const rejected=f.manager.tasks.get(response.value.task_id);
+  assert.equal(rejected.version,2); assert.equal(rejected.reason,'GAME_OBSERVATION_EXPIRED');
+  assert.equal(rejected.effect_status,'unknown'); assert.deepEqual(rejected.evidence,[]);
+  assert.equal(f.manager.state.value.mode,'AUTO'); assert.equal((await f.stats()).effects,0);
+  assert(!f.lines.some(line=>line==='FIXTURE_PORT_STARTED '+response.value.task_id));
+  const fresh=await f.api('/tasks',f.request('fresh-after-expired')); assert.equal(fresh.status,202,JSON.stringify(fresh));
+  await taskState(f,fresh.value.task_id,'running'); await until(()=>f.lines.includes('FIXTURE_PORT_STARTED '+fresh.value.task_id));
+  f.child.stdin.write('complete\n'); await taskState(f,fresh.value.task_id,'succeeded');
+  assert.equal((await f.stats()).effects,1);
+  const duplicate=await f.api('/tasks',stale); assert.equal(duplicate.value.task_id,rejected.task_id); assert.equal((await f.stats()).effects,1);
+});
+
+test('compiled Java fences an undispatched host request before a fresh AUTO handshake and blocks its delayed arrival', {timeout:90000}, async t => {
+  const f=await javaFixture(t); await f.auto();
+  const send=f.manager.send.bind(f.manager); let dropped;
+  f.manager.send=(type,payload)=>{ if(type==='task_start'&&!dropped){dropped=structuredClone(payload);return;} return send(type,payload); };
+  const response=await f.api('/tasks',f.request('undispatched-host-request')); assert.equal(response.status,202); assert(dropped);
+  f.manager.send=send;
+  const stopped=await f.api('/control',{request_id:'pause-before-absence-check',target_mode:'PAUSED',reason:'PROTOCOL_FIXTURE_ONLY'});
+  assert.equal(stopped.status,202); await until(()=>f.manager.state.value.mode==='PAUSED'&&f.manager.state.value.inputs_released);
+  const checked=await f.api('/tasks/'+response.value.task_id+'/reconcile',{request_id:'native-absence-check'}); assert.equal(checked.status,202,JSON.stringify(checked));
+  await until(()=>f.manager.operation(checked.value.operation_id).state==='succeeded');
+  const task=f.manager.tasks.get(response.value.task_id); assert.equal(task.recovery.status,'not_admitted');
+  assert.equal(task.recovery.admission_fence.game_instance_id,task.game_instance_id);
+  assert.equal(task.state,'accepted'); assert.equal(task.effect_status,'unknown'); assert.equal(f.manager.tasks.active(),null);
+  assert.equal(journalView(f.folder).tasks.length,0); assert.equal((await f.stats()).effects,0);
+  await importNativeHistory(f,'absence-guard-history'); assert.equal(f.manager.history.page({kind:'retired_tasks'}).items.length,0);
+  await f.auto('new-handshake-after-native-fence'); send('task_start',dropped);
+  await until(()=>f.manager.state.value.mode==='PAUSED'||!f.manager.state.connected,8000);
+  assert.equal((await f.stats()).effects,0); assert.equal(journalView(f.folder).tasks.length,0);
+});
+
 test('late input binding renegotiates the existing bridge and world without authorizing AUTO', { timeout: 90000 }, async t => {
   const f = await javaFixture(t, { noExecutor: true }), before = f.manager.state.view();
   assert.equal(f.manager.capabilities.features.local_takeover, false);

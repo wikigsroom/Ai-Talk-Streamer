@@ -4290,6 +4290,49 @@
         "effect_status": "unknown",
         "evidence": []
       }
+    },
+    {
+      "name": "ledger-never-admitted",
+      "definition": "LedgerEntry",
+      "value": {
+        "task_id": "task-example-unadmitted",
+        "status": "missing",
+        "task": null,
+        "admission_fence": {
+          "kind": "never_admitted",
+          "fence_id": "admission-fence-example",
+          "task_id": "task-example-unadmitted",
+          "game_instance_id": "mc-example-001",
+          "fenced_at": "2026-11-04T04:00:00Z",
+          "checked_bridge_boot_id": "boot-example-001",
+          "checked_world_session_id": "world-session-example-001"
+        }
+      }
+    },
+    {
+      "name": "recovery-not-admitted",
+      "definition": "TaskRecovery",
+      "value": {
+        "task_id": "task-example-unadmitted",
+        "revision": 1,
+        "status": "not_admitted",
+        "reason": "GAME_NATIVE_ADMISSION_FENCED",
+        "created_at": "2026-11-04T04:00:00Z",
+        "updated_at": "2026-11-04T04:00:00Z",
+        "attempts": 1,
+        "checked_bridge_boot_id": "boot-example-001",
+        "confirmed_version": null,
+        "last_error": null,
+        "admission_fence": {
+          "kind": "never_admitted",
+          "fence_id": "admission-fence-example",
+          "task_id": "task-example-unadmitted",
+          "game_instance_id": "mc-example-001",
+          "fenced_at": "2026-11-04T04:00:00Z",
+          "checked_bridge_boot_id": "boot-example-001",
+          "checked_world_session_id": "world-session-example-001"
+        }
+      }
     }
   ]
 }

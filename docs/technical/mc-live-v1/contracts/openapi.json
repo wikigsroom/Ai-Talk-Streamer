@@ -3,7 +3,7 @@
   "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
   "info": {
     "title": "林知夏MC直播接口技术设计",
-    "version": "1.13.0",
+    "version": "1.13.1",
     "description": "服务端核心、调度、平台来源/SC撤回、过滤复核和建议当前支持已有源码及隔离检查；真实MC、模型及完整系统未验收。Room操作仍仅描述留言换边子集。202/accepted不代表游戏完成或声音播完。"
   },
   "servers": [
@@ -7296,6 +7296,9 @@
       },
       "HistoryMaintenanceMetadata": {
         "$ref": "game.schema.json#/$defs/HistoryMaintenanceMetadata"
+      },
+      "AdmissionFence": {
+        "$ref": "./game.schema.json#/$defs/AdmissionFence"
       }
     }
   }

@@ -390,8 +390,13 @@ public final class BridgeCore implements AutoCloseable {
                 && Objects.equals(prior.getAsJsonObject("task").get("base_target"), p.get("base_target")), "GAME_REQUEST_CONFLICT"); return; }
         try {
             require(task == null && boot.equals(str(request, "bridge_boot_id")), "GAME_TASK_BUSY_OR_BOOT_CHANGED");
-            control.authorize(str(p, "controller_session_id"), str(p, "lease_id"), worldAtStart, num(p, "control_epoch"),
-                    num(request, "based_on_seq"), num(request, "accept_within_ms"));
+            try {
+                control.authorize(str(p, "controller_session_id"), str(p, "lease_id"), worldAtStart, num(p, "control_epoch"),
+                        num(request, "based_on_seq"), num(request, "accept_within_ms"));
+            } catch (Json.Rejected rejection) {
+                if (!"GAME_OBSERVATION_EXPIRED".equals(rejection.code)) throw rejection;
+                rejectExpiredAdmission(p, request, worldAtStart); return;
+            }
             require(num(request, "expected_control_epoch") == num(p, "control_epoch"), "GAME_CONTROL_CONFLICT");
             BaseTarget base = BaseTarget.resolve(request.getAsJsonObject("goal"), p.get("base_target"), request.get("base_ref"), sample.get());
             String now = Instant.now().toString(); JsonObject created = obj("task_id", p.get("task_id"), "game_instance_id", instance(),
@@ -445,6 +450,30 @@ public final class BridgeCore implements AutoCloseable {
             });
         } catch (IOException error) { throw new IllegalStateException(error); }
     }
+    private void rejectExpiredAdmission(JsonObject command, JsonObject request, String requestedWorld) throws IOException {
+        require(Objects.equals(world, requestedWorld) && boot.equals(str(request,"bridge_boot_id"))
+                && Objects.equals(control.controller(), str(command,"controller_session_id"))
+                && num(request,"expected_control_epoch") == num(command,"control_epoch"), "GAME_CONTROL_CONFLICT");
+        JsonObject current = sample.get();
+        require(current != null && requestedWorld.equals(str(current,"world_session_id")), "GAME_WORLD_CHANGED");
+        String now = Instant.now().toString();
+        JsonObject rejected = obj("task_id", command.get("task_id"), "game_instance_id", instance(), "bridge_boot_id", boot,
+                "world_id", current.get("world_id"), "world_session_id", requestedWorld, "request_id", request.get("request_id"),
+                "control_epoch", request.get("expected_control_epoch"), "version", 1, "goal", request.get("goal"),
+                "state", "accepted", "created_at", now, "updated_at", now, "reason", null, "effect_status", "unknown", "evidence", new JsonArray());
+        if (command.has("base_target")) rejected.add("base_target", command.get("base_target").deepCopy());
+        wire.validate("Task", rejected);
+        long began = System.nanoTime();
+        try {
+            // No task pointer, game-thread callback or input is installed. A
+            // crash between these durable commits still recovers as unknown;
+            // it cannot execute the rejected request on the next boot.
+            journal.accept(requestedWorld, request, rejected, boot);
+            rejected.addProperty("version", 2); rejected.addProperty("state", "failed");
+            rejected.addProperty("reason", "GAME_OBSERVATION_EXPIRED"); rejected.addProperty("updated_at", Instant.now().toString());
+            wire.validate("Task", rejected); journal.update(rejected, boot); nextReliable = 0;
+        } finally { lastAdmission.set(Math.max(0, System.nanoTime() - began)); }
+    }
     private void authorizeExecution(JsonObject command, JsonObject request, String worldAtStart, long deadline) {
         require(clock.getAsLong() < deadline, "TASK_TIMEOUT");
         JsonObject current = sample.get();
@@ -490,7 +519,7 @@ public final class BridgeCore implements AutoCloseable {
             JsonObject latest = sample.get();
             JsonObject result = obj("kind", "task_ledger", "game_instance_id", instance(), "world_session_id", queryWorld,
                     "based_on_seq", latest == null ? 0 : num(latest, "seq"),
-                    "entries", journal.lookup(request.getAsJsonObject("params").getAsJsonArray("task_ids")));
+                    "entries", recoveryEntries(request, queryWorld));
             wire.validate("TaskLedgerResult", result);
             send("query_result", obj("operation_id", p.get("operation_id"), "request_id", request.get("request_id"), "kind", "query",
                     "state", "succeeded", "created_at", created, "updated_at", Instant.now().toString(), "result", result, "error", null));
@@ -522,6 +551,10 @@ public final class BridgeCore implements AutoCloseable {
                     "state", error == null ? "succeeded" : "failed", "created_at", created, "updated_at", Instant.now().toString(), "result", result, "error", error);
             post(() -> { if (Objects.equals(world, queryWorld) && generation.get() == queryConnection && acknowledged) send("query_result", completed); });
         });
+    }
+    private JsonArray recoveryEntries(JsonObject request, String queryWorld) {
+        try { return journal.lookupForRecovery(request.getAsJsonObject("params").getAsJsonArray("task_ids"), boot, queryWorld); }
+        catch (IOException error) { throw new IllegalStateException(error); }
     }
     private void captureQuery(JsonObject p, String queryWorld, String created) {
         JsonObject request = p.getAsJsonObject("request"); long connection = generation.get();

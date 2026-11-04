@@ -4,6 +4,7 @@ import { DatabaseSync } from 'node:sqlite';
 import { join } from 'node:path';
 import { readdirSync } from 'node:fs';
 import { GameStore } from '../backend/game/store.mjs';
+import { validate } from '../backend/game/protocol.mjs';
 import { gameFixture, until } from './game-fixture.mjs';
 
 const context = (f, request_id) => ({ request_id, bridge_boot_id: f.manager.state.value.bridge_boot_id,
@@ -137,6 +138,67 @@ test('a conflicting ledger identity cannot overwrite the task or remove the reco
   await until(() => !f.manager.state.connected);
   const current = f.manager.tasks.get(task.task_id); assert.equal(current.world_id, task.world_id);
   assert.equal(current.recovery.status, 'conflict'); assert.equal(current.recovery.last_error, 'GAME_TASK_CONTEXT_CHANGED');
+});
+
+const absenceProof = (f, task) => ({ kind: 'never_admitted', fence_id: 'admission-fence-fixture', task_id: task.task_id,
+  game_instance_id: task.game_instance_id, fenced_at: new Date().toISOString(),
+  checked_bridge_boot_id: f.manager.state.identity.bridge_boot_id, checked_world_session_id: f.manager.state.value.world_session_id });
+
+test('the admission proof contract requires a proof for not-admitted recovery and forbids it on a found task', () => {
+  const proof={kind:'never_admitted',fence_id:'fence-one',task_id:'task-one',game_instance_id:'mc-one',fenced_at:new Date().toISOString(),checked_bridge_boot_id:'boot-one',checked_world_session_id:'world-one'};
+  const recovery={task_id:'task-one',revision:1,status:'not_admitted',reason:'NATIVE_FENCE',created_at:proof.fenced_at,updated_at:proof.fenced_at,attempts:1,checked_bridge_boot_id:'boot-one',confirmed_version:null,last_error:null,admission_fence:proof};
+  validate('TaskRecovery',recovery); validate('LedgerEntry',{task_id:'task-one',status:'missing',task:null,admission_fence:proof});
+  const {admission_fence,...withoutProof}=recovery; assert.throws(()=>validate('TaskRecovery',withoutProof));
+  assert.throws(()=>validate('TaskRecovery',{...recovery,status:'verified'}));
+  assert.throws(()=>validate('LedgerEntry',{task_id:'task-one',status:'found',task:null,admission_fence:proof}));
+  assert.throws(()=>validate('AdmissionFence',{...proof,kind:'executed_successfully'}));
+});
+
+test('native absence proof releases only the admission blocker and survives a host restart without inventing an outcome', async t => {
+  const { f, next, task } = await interruptedFixture(t);
+  const { operation } = await ledgerReply(f, next, task, { task_id: task.task_id, status: 'missing', task: null, admission_fence: absenceProof(f,task) });
+  await until(() => f.manager.operation(operation.operation_id).state === 'succeeded');
+  assert.deepEqual(f.manager.tasks.raw(task.task_id), task); assert.equal(f.manager.tasks.active(), null);
+  assert.equal(f.manager.tasks.get(task.task_id).recovery.status, 'not_admitted');
+  assert.equal(f.manager.state.value.mode, 'PAUSED'); assert.equal(f.manager.lease, null);
+  assert.equal(next.messages.filter(frame => frame.type === 'task_start').length, 0);
+  assert.equal(f.manager.tasks.planningOutcomes(f.manager.state.view()).length, 0);
+  await f.restartHost(); assert.equal(f.manager.tasks.active(), null);
+  assert.equal(f.manager.tasks.get(task.task_id).recovery.status, 'not_admitted');
+});
+
+for (const field of ['task_id','game_instance_id','checked_bridge_boot_id','checked_world_session_id']) {
+  test('an absence proof with a foreign '+field+' cannot clear an unknown task', async t => {
+    const { f, next, task } = await interruptedFixture(t), proof = { ...absenceProof(f,task), [field]: 'foreign-id' };
+    await ledgerReply(f,next,task,{ task_id:task.task_id,status:'missing',task:null,admission_fence:proof });
+    await until(() => !f.manager.state.connected);
+    assert.equal(f.manager.tasks.active().task_id,task.task_id); assert.deepEqual(f.manager.tasks.raw(task.task_id),task);
+    assert.equal(f.manager.tasks.recovery(task.task_id).status,'conflict');
+  });
+}
+
+test('an accepted native transition contradicting an absence proof reinstates the blocker', async t => {
+  const { f,next,task }=await interruptedFixture(t);
+  const { operation }=await ledgerReply(f,next,task,{ task_id:task.task_id,status:'missing',task:null,admission_fence:absenceProof(f,task) });
+  await until(()=>f.manager.operation(operation.operation_id).state==='succeeded');
+  assert.throws(()=>f.manager.tasks.update({task,transition_seq:task.version}),{code:'GAME_ADMISSION_FENCE_CONFLICT'});
+  assert.equal(f.manager.tasks.active().task_id,task.task_id); assert.equal(f.manager.tasks.recovery(task.task_id).status,'conflict');
+});
+
+test('host restart gives a legacy missing record one fresh reconciliation without clearing it', async t => {
+  const {f,next,task}=await interruptedFixture(t);
+  const {operation}=await ledgerReply(f,next,task,{task_id:task.task_id,status:'missing',task:null});
+  await until(()=>f.manager.operation(operation.operation_id).state==='succeeded');
+  assert.equal(f.manager.tasks.recovery(task.task_id).status,'missing');
+  await f.restartHost();assert.equal(f.manager.tasks.recovery(task.task_id).status,'required');
+  assert.equal(f.manager.tasks.active().task_id,task.task_id);assert.deepEqual(f.manager.tasks.raw(task.task_id),task);
+});
+
+test('a previously confirmed native acceptance cannot be cleared by an absence proof', async t => {
+  const {f,next,task}=await interruptedFixture(t);f.manager.tasks.update({task,transition_seq:task.version});
+  await ledgerReply(f,next,task,{task_id:task.task_id,status:'missing',task:null,admission_fence:absenceProof(f,task)});
+  await until(()=>!f.manager.state.connected);assert.equal(f.manager.tasks.recovery(task.task_id).status,'conflict');
+  assert.equal(f.manager.tasks.active().task_id,task.task_id);
 });
 
 test('legacy host-created terminal projections recover the last B version and retain an audit record', async t => {

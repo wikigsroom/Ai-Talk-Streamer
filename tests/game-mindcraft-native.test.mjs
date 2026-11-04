@@ -769,7 +769,7 @@ test('fire in water retains the existing checked bank escape rather than waiting
 });
 
 test('known transient native stops revoke the old lease and require a fresh delayed handshake',async t=>{
-  for(const reason of ['LEASE_EXPIRED','GAME_CLIENT_TICK_STALLED'])await t.test(reason,async t=>{
+  for(const reason of ['LEASE_EXPIRED','GAME_CLIENT_TICK_STALLED','GAME_OBSERVATION_EXPIRED'])await t.test(reason,async t=>{
     const f=await gameFixture({fakeClock:true});t.after(()=>f.close());
     const game=await f.connect({features:{autonomous_resume:true}});await game.auto();
     f.bridge.health=()=>({persona_injection_ready:true});
@@ -797,7 +797,7 @@ test('known transient native stops revoke the old lease and require a fresh dela
 });
 
 test('transient recovery cannot clear explicit stops or authorize published and old clients',async t=>{
-  for(const row of [{priorStop:true},{published:true},{capability:false},{singleplayer:false},{reason:'GUI_BLOCKED'}])await t.test(JSON.stringify(row),async t=>{
+  for(const row of [{priorStop:true},{priorStop:true,reason:'GAME_OBSERVATION_EXPIRED'},{published:true},{capability:false},{singleplayer:false},{reason:'GUI_BLOCKED'}])await t.test(JSON.stringify(row),async t=>{
     const f=await gameFixture({fakeClock:true});t.after(()=>f.close());
     const game=await f.connect({features:{autonomous_resume:row.capability!==false}});await game.auto();
     f.bridge.health=()=>({persona_injection_ready:true});

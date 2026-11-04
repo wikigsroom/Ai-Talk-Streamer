@@ -378,7 +378,7 @@ export class GameManager extends EventEmitter {
         result.world_session_id === this.state.value.world_session_id &&
         this.capabilities?.features?.autonomous_respawn === true && !result.error &&
         !result.automation_ready && result.lease_id === null;
-      const transientStop = ['LEASE_EXPIRED','GAME_CLIENT_TICK_STALLED'].includes(result.stop_reason) &&
+      const transientStop = ['LEASE_EXPIRED','GAME_CLIENT_TICK_STALLED','GAME_OBSERVATION_EXPIRED'].includes(result.stop_reason) &&
         result.mode === 'PAUSED' && result.world_session_id === this.state.value.world_session_id &&
         this.capabilities?.features?.autonomous_resume === true && !result.error &&
         !result.automation_ready && result.lease_id === null && this.state.value.details?.environment?.singleplayer === true &&
