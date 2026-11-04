@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261104-107-PUBLICATION",
+  "at": "2026-11-04T08:26:28.548421+00:00",
+  "branch": "mc",
+  "source_commit": "79f635c6cc2bf776e04e2908ce2ab64db1bbc242",
+  "source_pushed_and_verified": true,
+  "report_commit": "aa281b2f977a59106cc474841760b356f086de47",
+  "report_pushed_and_verified": true,
+  "report_remote_head_at_check": "aa281b2f977a59106cc474841760b356f086de47",
+  "scope": "VERIFIED_SOURCE_AND_REVIEWED_DOCUMENTATION_NOT_COMPLETE_APPLICATION_RELEASE",
+  "review_scope": "LOCAL_DOCUMENT_AND_SAVED_EVIDENCE_REVIEW_ONLY",
+  "application_tests_in_local_review": 0,
+  "formal_acceptance_passed": 0,
+  "formal_acceptance_total": 68,
+  "new_avatar_clips": 0,
+  "new_avatar_total": 100,
+  "runtime_test_device": "remote-3080",
+  "official_sample_digests": [
+    {
+      "file": "mc-native-luna-107c-120s.mp4",
+      "sha256": "eeec364de17100c0ff4c5a05de991b9c44f83d19dea448601758b02a043889dc",
+      "bytes": 16037635
+    },
+    {
+      "file": "mc-native-luna-107c-late-120s.mp4",
+      "sha256": "c976d0b3a36450651a470b35c0e20461604909a2f3514c55110058fc560ce18d",
+      "bytes": 26516809
+    }
+  ],
+  "videos_in_git": false,
+  "public_broadcast_started": false,
+  "private_runtime_or_raw_logs_published": false,
+  "published_report_tree_files": [
+    {
+      "path": "docs/evidence/mc-runtime-round-107.json",
+      "sha256_of_git_blob_bytes": "aa31407b67cba9f12e16bb137c6d3fc0bf5cf33c2d97fac1254aadb9a56cfdb0"
+    },
+    {
+      "path": "docs/technical/mc-live-v1/口播等待恢复与107运行复核.md",
+      "sha256_of_git_blob_bytes": "de5681ab289e8c2b05a147063c922baf2bb6e817f257e7bae815757ba37fc250"
+    }
+  ]
+}

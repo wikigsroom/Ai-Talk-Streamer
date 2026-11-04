@@ -396,7 +396,7 @@
   "remote_4090_control": "paused",
   "current_inherited_target": "rtx3080",
   "layout_unchanged": true,
-  "last_updated": "2026-11-04T08:22:54.137440+00:00",
+  "last_updated": "2026-11-04T08:26:28.548421+00:00",
   "known_incomplete_integration": [
     "D01 完整安装包、许可及干净Windows重建、来源与副本、缓存/回退、冷/热启动、共享资源恢复；必需服务启动不替代完整交付。106中断后的自有服务全关已确认，正常最终保存仍不能追认。",
     "D02 真实模组方块/实体/容器/维度、断连/换世界/死亡地形、墓碑/重连、后续联机兼容；接收封锁须跨场和断电恢复长期验证。",
@@ -433,7 +433,12 @@
       "branch": "mc",
       "source_commit": "79f635c6cc2bf776e04e2908ce2ab64db1bbc242",
       "source_pushed_and_verified": true,
-      "documentation_push_pending": true
+      "documentation_push_pending": false,
+      "report_commit": "aa281b2f977a59106cc474841760b356f086de47",
+      "report_pushed_and_verified": true,
+      "report_remote_head": "aa281b2f977a59106cc474841760b356f086de47",
+      "report_checked_at": "2026-11-04T08:26:28.548421+00:00",
+      "publication_receipt": "docs/evidence/mc-runtime-round-107-publication.json"
     }
   },
   "documentation_validation": {
@@ -14985,6 +14990,15 @@
     "new_runtime_productive_verified": 5,
     "new_runtime_formal_speech_completed": 11,
     "new_runtime_normal_game_exit_verified": true,
-    "github_push_pending": true
+    "github_push_pending": false
+  },
+  "round107_document_review": {
+    "classification": "LOCAL_DOCUMENT_AND_SAVED_EVIDENCE_REVIEW_ONLY",
+    "checked_at": "2026-11-04T08:23:55.181049+00:00",
+    "passed": true,
+    "application_tests_executed": 0,
+    "formal_acceptance_unchanged": true,
+    "remaining_domains": 15,
+    "media_digests_verified": 2
   }
 }
