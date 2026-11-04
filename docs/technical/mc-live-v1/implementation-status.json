@@ -450,7 +450,10 @@
     "github_publication": {
       "branch": "mc",
       "game_source_commit": "124e85fe44a21ec31de1d84e2da74c91df40753b",
-      "push_pending": true
+      "push_pending": false,
+      "verified_source_and_report_commit": "7af7085eba1c34908363120e6d13891b39976d36",
+      "verified_at": "2026-11-04T00:58:25.2434095Z",
+      "verification": "remote refs/heads/mc SHA matched local HEAD; this subsequent change only publishes that receipt"
     }
   },
   "documentation_validation": {
@@ -14659,6 +14662,7 @@
     "new_gameplay_seconds": 0,
     "latest_application_start_failed": true,
     "exact_latest_failure_cause_pending": true,
-    "github_push_pending": true
+    "github_push_pending": false,
+    "verified_source_and_report_commit": "7af7085eba1c34908363120e6d13891b39976d36"
   }
 }
