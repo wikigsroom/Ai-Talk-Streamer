@@ -4,9 +4,10 @@ This generates fresh MC preparation checks. It never copies historical manifests
 or claims that obsolete GPT-SoVITS/OBS dependencies were installed or tested.
 """
 from pathlib import Path
-import ast,json,os,platform,subprocess,sys,time
+import ast,json,os,platform,sys,time
 from mc_deployment import installed_source_identity, inside, read, require, sha, digest, model_runtime_rows
 from native_operation import atomic_json, operation
+from native_import_check import ImportCheckError, run_imports
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -18,11 +19,14 @@ def run(root=ROOT):
     dependencies=read(inside(root,'.setup/mc-offline-dependencies.json'),limit=64*1024*1024)
     require(dependencies['installation_root']==str(root) and len(dependencies['source_snapshot_sha256'])==64,
             'MC_READINESS_DEPENDENCY_SOURCE_MISMATCH')
-    checks=[]
+    checks=[];active_check=None
     def check(name,fn):
+        nonlocal active_check
+        active_check=name
         started=time.monotonic()
         atomic_json(root,root/'.setup/mc-readiness-progress.json',{'phase':name,'running':True,'at':time.time(),'checks':checks})
         try: details=fn();checks.append({'name':name,'ok':True,'details':details})
+        except ImportCheckError as error:checks.append({'name':name,'ok':False,'error_type':'ImportCheckError','error':error.code,'details':error.details})
         except Exception as error:checks.append({'name':name,'ok':False,'error_type':type(error).__name__,'error':str(error)[:500]})
         checks[-1]['elapsed_seconds']=time.monotonic()-started
         atomic_json(root,root/'.setup/mc-readiness-progress.json',{'phase':name,'running':False,'at':time.time(),'checks':checks})
@@ -62,16 +66,12 @@ def run(root=ROOT):
     def imports(name,modules,source_path=None):
         from runtime_environment import environment
         executable=root/('runtime/'+name+'/Scripts/python.exe')
-        script='import importlib,json,sys;'
-        if source_path:script+='sys.path[:0]='+repr([str(root/source_path),str(root/source_path/'src')])+';'
-        script+='modules='+repr(modules)+';loaded=[importlib.import_module(m) for m in modules];print(json.dumps({"modules":modules,"python":sys.version.split()[0]}))'
-        logs=root/'logs';logs.mkdir(exist_ok=True);log=logs/('mc-readiness-'+name.replace('/','-')+'.log')
-        env=environment(cpu=True)
-        with log.open('wb') as out:
-            process=subprocess.run([str(executable),'-X','utf8','-B','-c',script],cwd=root,env=env,stdout=out,stderr=subprocess.STDOUT,
-                                   timeout=180,creationflags=0x08000000)
-        require(process.returncode==0,'MC_READINESS_IMPORT_FAILED:'+log.relative_to(root).as_posix())
-        return {'exit_code':process.returncode,'log':log.relative_to(root).as_posix(),'modules':modules,'cpu_only':True}
+        paths=[Path(source_path),Path(source_path)/'src']if source_path else []
+        def report(value):
+            atomic_json(root,root/'.setup/mc-readiness-progress.json',{'phase':active_check,'running':not value.get('family_closed'),
+                        'at':time.time(),'checks':checks,'dependency':value})
+        return run_imports(root,executable,modules,env=environment(cpu=True),label=name.replace('/','-'),
+                           source_paths=paths,timeout=300,module_timeout=180,progress=report)
     with operation(root,'mc-native-readiness'):
         check('source_syntax',syntax);check('runtime_source_projection',runtime_projection)
         check('pinned_model_bytes',model_files);check('approved_reference_and_avatar_index',assets)
