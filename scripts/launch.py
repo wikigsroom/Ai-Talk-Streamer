@@ -11,7 +11,8 @@ def port_open(port):
         return sock.connect_ex(('127.0.0.1',port))==0
 
 def gpu_free():
-    value=subprocess.check_output(['nvidia-smi','--query-gpu=memory.free','--format=csv,noheader,nounits'],text=True)
+    flags={'creationflags':0x08000000} if os.name=='nt' else {}
+    value=subprocess.check_output(['nvidia-smi','--query-gpu=memory.free','--format=csv,noheader,nounits'],text=True,timeout=10,**flags)
     return int(value.splitlines()[0])
 
 def state():

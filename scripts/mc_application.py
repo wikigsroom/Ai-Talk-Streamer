@@ -6,8 +6,11 @@ import hashlib
 import io
 import json
 import math
+import re
 import socket
+import subprocess
 import time
+import traceback
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -29,6 +32,39 @@ def require(condition, code):
         raise ApplicationError(code)
 
 
+def startup_diagnostic(error, stage, elapsed_ms):
+    """Expose code locations and fixed reason codes, never exception text or locals."""
+    chain, seen = [], set()
+    while error is not None and id(error) not in seen and len(chain) < 4:
+        seen.add(id(error))
+        category = next((kind.__name__ for kind in (
+            subprocess.TimeoutExpired, subprocess.CalledProcessError, TimeoutError,
+            ConnectionError, OSError, ValueError, KeyError, TypeError, RuntimeError)
+            if isinstance(error, kind)), 'Exception')
+        item = {'type': category, 'frames': []}
+        if type(error).__module__ in {'mc_application', 'native_operation', 'start_studio', 'mc_deployment'}:
+            code = getattr(error, 'code', None)
+            if isinstance(code, str) and re.fullmatch(r'(?:MC|STUDIO)_[A-Z0-9_]{1,90}', code):
+                item['reason_code'] = code
+        for frame, line in traceback.walk_tb(error.__traceback__):
+            try:
+                name = Path(frame.f_code.co_filename).resolve().relative_to(ROOT)
+            except (OSError, ValueError):
+                continue
+            if name.parts[0] in ('scripts', 'integration'):
+                item['frames'].append({'file': name.as_posix(), 'line': line,
+                                       'function': frame.f_code.co_name})
+        item['frames'] = item['frames'][-8:]
+        if isinstance(error, OSError):
+            for key in ('errno', 'winerror'):
+                value = getattr(error, key, None)
+                if type(value) is int:
+                    item[key] = value
+        chain.append(item)
+        error = error.__cause__ or (None if error.__suppress_context__ else error.__context__)
+    return {'stage': stage, 'elapsed_ms': elapsed_ms, 'exception_chain': chain}
+
+
 class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         return None
@@ -45,6 +81,7 @@ class NativeServices:
         self.root = Path(root).resolve()
         self.http = urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect())
         self.pins = {}
+        self.startup_progress = None
 
     @property
     def candidate_mode(self):
@@ -243,7 +280,7 @@ class NativeServices:
                     state = self.ownership(component, reject=True)
                     # A previously started owner still loading must not produce a duplicate.
                     require(not state['owned'] or state['port_open'], 'MC_APPLICATION_SERVICE_STILL_STARTING')
-                start_studio.start()
+                start_studio.start(progress=self.startup_progress)
             elif name == 'receiver':
                 import receiver_control
                 if not self.ownership('receiver', reject=True)['owned']:
@@ -423,18 +460,31 @@ class Application:
 
     def start(self, timeout=1800):
         checks, transaction = {}, None
+        started, stage = self.clock(), 'validate_request'
+        def progress(value):
+            nonlocal stage
+            stage = value
+            transaction.value['startup'] = {'stage': stage,
+                'elapsed_ms': round(max(0, self.clock() - started) * 1000)}
+            transaction.write()
         try:
             require(type(timeout) in (int, float) and math.isfinite(timeout) and 1 <= timeout <= 1800,
                     'MC_APPLICATION_TIMEOUT_INVALID')
+            stage = 'acquire_operation'
             with operation(self.root, 'mc-application-start') as transaction:
+                if isinstance(self.services, NativeServices):
+                    self.services.startup_progress = progress
+                progress('guard')
                 self.services.guard()
                 deadline = self.clock() + timeout
                 names = ('dsh', 'studio', 'receiver', 'candidate') if getattr(self.services, 'candidate_mode', False) else ('dsh', 'studio', 'receiver', 'vision', 'minecraft')
                 for name in names:
+                    progress('start_' + name)
                     self.services.start(name, transaction)
                     require(self.clock() < deadline, 'MC_APPLICATION_START_TIMEOUT')
                     require(not any(p.poll() is not None for p in transaction.processes),
                             'MC_APPLICATION_SERVICE_EXITED_DURING_START')
+                progress('observe_services')
                 while self.clock() < deadline:
                     require(not any(p.poll() is not None for p in transaction.processes),
                             'MC_APPLICATION_SERVICE_EXITED_DURING_START')
@@ -449,13 +499,17 @@ class Application:
                                else 'MC_APPLICATION_SERVICES_STARTED_REQUIRED_INTEGRATION_PENDING',
                                new_process_count=len(transaction.processes),
                                operation_phase=transaction.value['phase'])
-        except (OSError, ValueError, KeyError, TypeError, RuntimeError) as error:
+        except (OSError, ValueError, KeyError, TypeError, RuntimeError, subprocess.SubprocessError) as error:
             phase = transaction.value['phase'] if transaction else 'NOT_STARTED'
             return self.report(checks, ok=False, action='start',
                 code=error.code if isinstance(error, ApplicationError) else str(error)
                      if isinstance(error, OperationError) else 'MC_APPLICATION_START_FAILED',
                 new_process_count=len(transaction.processes) if transaction else 0,
-                operation_phase=phase, rollback_complete=phase == 'ROLLED_BACK')
+                operation_phase=phase, rollback_complete=phase == 'ROLLED_BACK',
+                diagnostic=startup_diagnostic(error, stage, round(max(0, self.clock() - started) * 1000)))
+        finally:
+            if isinstance(self.services, NativeServices):
+                self.services.startup_progress = None
 
     def stop(self):
         transaction = None

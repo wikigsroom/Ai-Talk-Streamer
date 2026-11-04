@@ -31,7 +31,7 @@ class FixtureServices:
     def __init__(self, case):
         self.case, self.order, self.records = case, [], []
         self.fail_at, self.ready, self.guard_failure, self.stop_refused = None, True, False, False
-        self.exit_at = None
+        self.exit_at, self.start_error = None, None
 
     def guard(self):
         if self.guard_failure:
@@ -42,7 +42,7 @@ class FixtureServices:
         for component in (('avatar', 'tts') if name == 'studio' else (name,)):
             self.order.append(component)
             if component == self.fail_at:
-                raise app.ApplicationError('FIXTURE_COMPONENT_FAILED')
+                raise self.start_error or app.ApplicationError('FIXTURE_COMPONENT_FAILED')
             registry = self.case.root / '.setup' / (component + '.json')
             process = self.case.spawn_helper(transaction, registry=registry)
             self.records.append((registry, None, native.read_json(registry)))
@@ -98,6 +98,32 @@ class NativeApplicationTests(unittest.TestCase):
         self.assertTrue(all(not identity_alive(p) for p in self.identities[1:]))
         self.assertTrue((self.root / '.setup/preexisting.json').is_file())
         self.assertFalse((self.root / '.setup/dsh.json').exists())
+        self.assertEqual(result['diagnostic']['stage'], 'start_studio')
+        self.assertEqual(result['diagnostic']['exception_chain'][0]['type'], 'RuntimeError')
+        self.assertEqual(native.status(self.root)['startup']['stage'], 'start_studio')
+
+    def test_unexpected_start_failure_reports_stage_and_rolls_back_without_exception_text(self):
+        controller, service = self.application(); service.fail_at = 'tts'
+        service.start_error = RuntimeError('https://private.invalid/?key=SECRET_EXAMPLE')
+        result = controller.start()
+        self.assertEqual(result['code'], 'MC_APPLICATION_START_FAILED')
+        self.assertEqual(result['diagnostic']['stage'], 'start_studio')
+        self.assertEqual(result['diagnostic']['exception_chain'][0]['type'], 'RuntimeError')
+        self.assertTrue(result['rollback_complete']); self.assert_family_closed()
+        self.assertNotIn('SECRET_EXAMPLE', json.dumps(result))
+        self.assertNotIn('private.invalid', json.dumps(result))
+
+    def test_failed_or_timed_out_guard_subprocess_returns_a_safe_terminal_result(self):
+        controller, service = self.application()
+        for error in (subprocess.TimeoutExpired(['SECRET_EXAMPLE'], 10, output='SECRET_EXAMPLE'),
+                      subprocess.CalledProcessError(9, ['SECRET_EXAMPLE'], stderr='SECRET_EXAMPLE')):
+            with self.subTest(kind=type(error).__name__), patch.object(service, 'guard', side_effect=error):
+                result = controller.start()
+                self.assertFalse(result['ok']); self.assertEqual(result['new_process_count'], 0)
+                self.assertTrue(result['rollback_complete'])
+                self.assertEqual(result['diagnostic']['stage'], 'guard')
+                self.assertEqual(result['diagnostic']['exception_chain'][0]['type'], type(error).__name__)
+                self.assertNotIn('SECRET_EXAMPLE', json.dumps(result))
 
     def test_readiness_timeout_releases_all_new_owners(self):
         controller, service = self.application(); service.ready = False
@@ -190,6 +216,39 @@ class ApplicationBoundaryTests(unittest.TestCase):
     def write_config(self, name, value):
         folder = self.root / 'configs'; folder.mkdir(exist_ok=True)
         (folder / name).write_text(json.dumps(value), encoding='utf-8')
+
+    def test_diagnostic_keeps_trusted_reason_and_numeric_os_error_but_no_message_or_absolute_path(self):
+        from start_studio import StudioStartError
+        try:
+            try:
+                raise OSError(13, 'SECRET_EXAMPLE', str(self.root / 'SECRET_EXAMPLE'))
+            except OSError as cause:
+                raise StudioStartError('STUDIO_RESIDENT_TTS_WORKER_FAILED') from cause
+        except RuntimeError as error:
+            result = app.startup_diagnostic(error, 'studio_verify_resident_tts', 1234)
+        self.assertEqual(result['exception_chain'][0]['reason_code'], 'STUDIO_RESIDENT_TTS_WORKER_FAILED')
+        self.assertEqual(result['exception_chain'][1]['errno'], 13)
+        self.assertEqual(result['elapsed_ms'], 1234)
+        self.assertNotIn('SECRET_EXAMPLE', json.dumps(result))
+        self.assertNotIn(str(self.root), json.dumps(result))
+
+    def test_diagnostic_reports_source_location_without_reading_frame_locals(self):
+        try:
+            app.require(False, 'MC_APPLICATION_DIAGNOSTIC_FIXTURE')
+        except RuntimeError as error:
+            result = app.startup_diagnostic(error, 'guard', 0)
+        frame = result['exception_chain'][0]['frames'][-1]
+        self.assertEqual(frame['file'], 'scripts/mc_application.py')
+        self.assertEqual(frame['function'], 'require'); self.assertGreater(frame['line'], 0)
+
+    def test_studio_reports_its_guard_phase_and_does_not_spawn_after_a_failed_check(self):
+        import start_studio
+        stages = []
+        with patch('deployment_target.validate_target', side_effect=RuntimeError('failed check')), \
+             patch.object(start_studio, 'start_service') as spawn:
+            with self.assertRaises(RuntimeError):
+                start_studio._start(progress=stages.append)
+        self.assertEqual(stages, ['studio_guard']); spawn.assert_not_called()
 
     def test_fresh_owned_dsh_checks_the_selected_channel_before_media_start(self):
         health = {'process_alive':True, 'dsh_ready':True, 'persona_injection_ready':False,

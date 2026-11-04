@@ -8,6 +8,16 @@ export function localParts(millis, timezone) {
   const value = Object.fromEntries(parts.map(part => [part.type, part.value]));
   return { date: `${value.year}-${value.month}-${value.day}`, time: `${value.hour}:${value.minute}`, weekday: { Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6,Sun:7 }[value.weekday] };
 }
+export function nextQuotaDate(millis, timezone) {
+  const today = localParts(millis, timezone).date;
+  let first = Math.floor(millis / 60000) + 1, last = first + 48 * 60;
+  while (first < last) {
+    const middle = Math.floor((first + last) / 2);
+    if (localParts(middle * 60000, timezone).date === today) first = middle + 1;
+    else last = middle;
+  }
+  return first * 60000;
+}
 export class MaintenanceScheduler {
   constructor(db, state, memory, policy, model) {
     this.db = db; this.state = state; this.memory = memory; this.policy = policy; this.model = model;
@@ -17,16 +27,21 @@ export class MaintenanceScheduler {
     return this.db.tx(() => {
       const today = localParts(this.db.now(), this.policy.maintenance.timezone).date;
       if (!foreground) {
-        const count = this.db.get("SELECT COUNT(*) AS n FROM model_attempts WHERE budget_scope='maintenance' AND quota_local_date=? AND status!='FAILED_BEFORE_SEND'", today).n;
-        requireValue(count < this.policy.maintenance.max_model_calls_per_day, 'MODEL_DAILY_BUDGET');
-        const runtime = this.db.get('SELECT * FROM job_runtime WHERE job_id=?', jobId);
-        requireValue(runtime.model_call_count < this.policy.maintenance.max_model_calls_per_run, 'MODEL_RUN_BUDGET');
+        this.assertModelBudget(jobId);
         this.db.run('UPDATE job_runtime SET model_call_count=model_call_count+1 WHERE job_id=?', jobId);
       }
       const attempt = id('attempt');
       this.db.run("INSERT INTO model_attempts(attempt_id,job_id,request_id,budget_scope,quota_local_date,input_sha256,provider_revision,reserved_output_tokens,status,created_at) VALUES (?,?,?,?,?,?,?,?,'RESERVED',?)", attempt, jobId, requestId, foreground ? 'foreground' : 'maintenance', today, inputHash, providerRevision, maxTokens, utc(this.db.now()));
       return attempt;
     });
+  }
+  assertModelBudget(jobId) {
+    const today = localParts(this.db.now(), this.policy.maintenance.timezone).date;
+    const count = this.db.get("SELECT COUNT(*) AS n FROM model_attempts WHERE budget_scope='maintenance' AND quota_local_date=? AND status!='FAILED_BEFORE_SEND'", today).n;
+    requireValue(count < this.policy.maintenance.max_model_calls_per_day, 'MODEL_DAILY_BUDGET');
+    const runtime = this.db.get('SELECT * FROM job_runtime WHERE job_id=?', jobId);
+    requireValue(runtime, 'MAINTENANCE_JOB_UNAVAILABLE');
+    requireValue(runtime.model_call_count < this.policy.maintenance.max_model_calls_per_run, 'MODEL_RUN_BUDGET');
   }
   settleModel(attempt, usage, sent, failed = false) {
     this.db.tx(() => this.db.run('UPDATE model_attempts SET status=?,input_tokens=?,output_tokens=? WHERE attempt_id=?',
@@ -155,6 +170,9 @@ export class MaintenanceScheduler {
         const chunk = this.chunk(job), chunkIndex = this.db.get("SELECT COUNT(*) AS n FROM job_chunks WHERE job_id=? AND state='COMMITTED'", job.job_id).n;
         const previous = this.db.get('SELECT * FROM job_chunks WHERE job_id=? AND chunk_index=?', job.job_id, chunkIndex);
         requireValue(!previous || previous.input_sha256 === chunk.inputHash, 'CHUNK_INPUT_CHANGED');
+        // Check before constructing a DSH session or recording another extraction attempt.
+        // reserveModel repeats this inside its transaction immediately before a paid call.
+        if (chunk.fresh.length) this.assertModelBudget(job.job_id);
         this.db.tx(() => this.db.run("INSERT INTO job_chunks(job_id,chunk_index,input_sha256,source_start_seq,source_end_seq,state,attempt_count) VALUES (?,?,?,?,?,'PENDING',1) ON CONFLICT(job_id,chunk_index) DO UPDATE SET attempt_count=attempt_count+1,state='PENDING'", job.job_id, chunkIndex, chunk.inputHash, chunk.start, chunk.end));
         let result = { schema_version: 1, summary: '该分区无新增合格来源。', open_questions: [], candidate_facts: [] };
         if (chunk.fresh.length) result = await this.model({ job, chunk, schema: EXTRACT_SCHEMA, signal: AbortSignal.any([abort.signal, AbortSignal.timeout(this.policy.maintenance.model_timeout_ms)]) });
@@ -168,8 +186,10 @@ export class MaintenanceScheduler {
         const current = this.db.get('SELECT * FROM compaction_jobs WHERE job_id=?', job.job_id);
         if (!current || current.lease_generation !== job.lease_generation || current.state !== 'RUNNING') return;
         const unavailable=error.code==='CHANNEL_COMPATIBILITY_REQUIRED';
-        const attempt = current.attempt_count + (unavailable?0:1), budget = /BUDGET/.test(error.code || error.message), fenced = /FENCED|STALE/.test(error.code || error.message);
-        const wait = budget ? 3600000 : Math.min(this.policy.maintenance.backoff_max_ms, this.policy.maintenance.backoff_initial_ms * 2 ** (attempt - 1));
+        const budget = /BUDGET/.test(error.code || error.message), fenced = /FENCED|STALE/.test(error.code || error.message);
+        const attempt = current.attempt_count + (unavailable || budget ? 0 : 1);
+        const wait = error.code === 'MODEL_DAILY_BUDGET' ? nextQuotaDate(this.db.now(), this.policy.maintenance.timezone) - this.db.now()
+          : budget ? 3600000 : Math.min(this.policy.maintenance.backoff_max_ms, this.policy.maintenance.backoff_initial_ms * 2 ** (attempt - 1));
         this.db.run('UPDATE compaction_jobs SET state=?,reason=?,attempt_count=?,owner_id=NULL,lease_expires_at=NULL,not_before=? WHERE job_id=?', unavailable?'DEFERRED':fenced ? 'PAUSED' : attempt >= this.policy.maintenance.max_attempts_per_chunk && !budget ? 'FAILED' : budget ? 'DEFERRED' : 'RETRY_WAIT', unavailable?'channel_unavailable':budget ? 'budget' : fenced ? 'live_or_source_barrier' : error.code==='PROJECTION_LAG' ? 'projection_lag' : 'extraction_failed', attempt, utc(this.db.now() + (unavailable?60000:wait)), job.job_id);
       });
     } finally { clearInterval(heartbeat); if (this.runningAbort === abort) this.runningAbort = null; }

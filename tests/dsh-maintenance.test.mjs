@@ -5,7 +5,7 @@ import {resolve,join,relative} from 'node:path';
 import {StateStore} from '../backend/memory/store.mjs';
 import {StreamState} from '../backend/dsh-bridge/state.mjs';
 import {MemoryService,validateExtraction} from '../backend/memory/service.mjs';
-import {MaintenanceScheduler} from '../backend/memory/scheduler.mjs';
+import {MaintenanceScheduler,nextQuotaDate} from '../backend/memory/scheduler.mjs';
 import {MemoryAdministration} from '../backend/memory/administration.mjs';
 import {prepareRestore} from '../backend/memory/restore.mjs';
 import {loadPolicy} from '../backend/dsh-bridge/policy.mjs';
@@ -152,6 +152,36 @@ test('A23/A30: failed extraction keeps cursor; daily budget includes unknown usa
   f.advance(86400000);assert.ok(s.reserveModel({jobId:job.job_id,inputHash:digest('x'),providerRevision:'x',maxTokens:10}));
  }finally{f.close()}
 });
+test('daily maintenance quota defers before a DSH call, preserves the cursor and resumes at the local date boundary',async()=>{
+ const f=fixture();try{
+  f.start();f.accept('我喜欢茶。',true);f.end();f.policy.maintenance.max_model_calls_per_day=1;
+  let calls=0;
+  const s=new MaintenanceScheduler(f.db,f.state,f.memory,f.policy,async({job,chunk})=>{
+   calls++;const attempt=s.reserveModel({jobId:job.job_id,inputHash:chunk.inputHash,providerRevision:'test',maxTokens:10});
+   s.settleModel(attempt,{inputTokens:1,outputTokens:1},true);return f.extract(chunk.fresh[0]);
+  });
+  const job=s.claim(),attempt=s.reserveModel({jobId:job.job_id,inputHash:digest('spent'),providerRevision:'test',maxTokens:10});
+  s.settleModel(attempt,null,true,true);await s.runJob(job);
+  const deferred=f.db.get('SELECT * FROM compaction_jobs WHERE job_id=?',job.job_id);
+  assert.equal(calls,0);assert.equal(deferred.state,'DEFERRED');assert.equal(deferred.reason,'budget');
+  assert.equal(deferred.consumed_through_seq,job.consumed_through_seq);assert.equal(deferred.attempt_count,job.attempt_count);
+  assert.equal(f.db.get('SELECT COUNT(*) n FROM job_chunks WHERE job_id=?',job.job_id).n,0);
+  const reset=nextQuotaDate(f.db.now(),f.policy.maintenance.timezone);
+  assert.equal(Date.parse(deferred.not_before),reset);assert.ok(reset-f.db.now()>3600000);
+  const foreground=s.reserveModel({foreground:true,requestId:'foreground-fixture',inputHash:digest('foreground'),providerRevision:'test',maxTokens:10});
+  assert.equal(f.db.get('SELECT budget_scope FROM model_attempts WHERE attempt_id=?',foreground).budget_scope,'foreground');
+  f.advance(reset-f.db.now()-1);assert.equal(s.claim(),null);assert.equal(calls,0);
+  f.advance(1);const resumed=s.claim();assert.equal(resumed.job_id,job.job_id);await s.runJob(resumed);
+  assert.equal(calls,1);assert.equal(f.db.get('SELECT state FROM compaction_jobs WHERE job_id=?',job.job_id).state,'COMPLETED');
+ }finally{f.close()}
+});
+
+test('maintenance quota resets by the configured calendar date including daylight-saving changes',()=>{
+ assert.equal(nextQuotaDate(Date.parse('2026-11-04T09:00:00+08:00'),'Asia/Taipei'),Date.parse('2026-11-05T00:00:00+08:00'));
+ assert.equal(nextQuotaDate(Date.parse('2026-03-08T00:30:00-05:00'),'America/New_York'),Date.parse('2026-03-09T00:00:00-04:00'));
+ assert.equal(nextQuotaDate(Date.parse('2026-11-01T00:30:00-04:00'),'America/New_York'),Date.parse('2026-11-02T00:00:00-05:00'));
+});
+
 test('A24: canonical commit is retained while projection retries; no second model extraction',async()=>{
  const f=fixture();try{f.start();f.accept('我喜欢茶。',true);f.end();let calls=0;
   const s=new MaintenanceScheduler(f.db,f.state,f.memory,f.policy,async({chunk})=>{calls++;return f.extract(chunk.fresh[0])});
