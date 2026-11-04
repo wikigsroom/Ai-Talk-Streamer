@@ -7,6 +7,7 @@ import sys
 import tempfile
 import threading
 import unittest
+from types import SimpleNamespace
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
@@ -43,6 +44,16 @@ class NativeArtifactPinTests(unittest.TestCase):
             writer.seek(0); writer.write(self.data)
         self.assertFalse(cache.pins)
         self.assertEqual(cache.digest(self.path), hashlib.sha256(self.data).hexdigest())
+
+    def test_minimal_package_installer_does_not_require_an_operation_module(self):
+        with patch.dict(sys.modules, {'native_operation': None}):
+            self.assertEqual(deployment.sha(self.path), hashlib.sha256(self.data).hexdigest())
+        self.path.write_bytes(b'changed after standalone hash')
+
+    def test_an_older_source_updater_still_hashes_fresh_bytes(self):
+        with patch.dict(sys.modules, {'native_operation': SimpleNamespace()}):
+            before = deployment.sha(self.path); self.path.write_bytes(b'changed under old updater')
+            self.assertNotEqual(deployment.sha(self.path), before)
 
     def test_failed_first_hash_releases_the_native_handle(self):
         cache = pins.FileHashPins(); self.addCleanup(cache.close)

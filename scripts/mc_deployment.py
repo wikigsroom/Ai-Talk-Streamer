@@ -18,6 +18,7 @@ import socket
 import stat
 import struct
 import subprocess
+import sys
 import uuid
 import zipfile
 
@@ -88,8 +89,10 @@ def require(condition, code):
 
 def sha(path):
     # The pinned native avatar environment uses Python 3.10, before file_digest.
-    from native_operation import artifact_digest
-    pinned = artifact_digest(path)
+    # The minimal source installer deliberately has no operation/runtime modules.
+    # An active operation has already imported its native module in this process.
+    probe = getattr(sys.modules.get('native_operation'), 'artifact_digest', None)
+    pinned = probe(path) if probe else None
     if pinned is not None:
         return pinned
     value = hashlib.sha256()
