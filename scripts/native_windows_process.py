@@ -224,13 +224,58 @@ class NativeJob:
         checked(self.kernel.QueryInformationJobObject(self.handle, 1, ct.byref(value), ct.sizeof(value), None))
         return value.ActiveProcesses
 
+    def members(self):
+        """Retain exact member handles before termination; PID reuse is excluded."""
+        capacity = 16
+        while capacity <= 4096:
+            buffer = ct.create_string_buffer(8 + ct.sizeof(ct.c_size_t) * capacity)
+            ok = self.kernel.QueryInformationJobObject(self.handle, 3, buffer, ct.sizeof(buffer), None)
+            error = ct.get_last_error()
+            assigned = wt.DWORD.from_buffer(buffer, 0).value
+            count = wt.DWORD.from_buffer(buffer, 4).value
+            if not ok and error != 234:
+                raise ct.WinError(error)
+            if ok and count == assigned and count <= capacity:
+                break
+            capacity = max(capacity * 2, assigned)
+        else:
+            raise NativeProcessError('MC_NATIVE_PROCESS_FAMILY_MEMBER_LIMIT')
+        processes = []
+        try:
+            identifiers = (ct.c_size_t * count).from_buffer(buffer, 8)
+            for pid in identifiers:
+                handle = self.kernel.OpenProcess(0x100000 | 0x1000, False, pid)
+                if not handle:
+                    if ct.get_last_error() in (87, 1168):
+                        continue
+                    raise ct.WinError(ct.get_last_error())
+                try:
+                    member = wt.BOOL()
+                    checked(self.kernel.IsProcessInJob(handle, self.handle, ct.byref(member)))
+                    if member.value:
+                        processes.append(NativeProcess(self.kernel, handle, pid))
+                        handle = None
+                finally:
+                    if handle:self.kernel.CloseHandle(handle)
+            return processes
+        except BaseException:
+            for process in processes:process.close()
+            raise
+
     def rollback(self, timeout=15):
-        checked(self.kernel.TerminateJobObject(self.handle, 1))
         deadline = time.monotonic() + timeout
-        while self.active():
-            if time.monotonic() >= deadline:
-                raise NativeProcessError('MC_NATIVE_PROCESS_FAMILY_STILL_ALIVE')
-            time.sleep(.02)
+        members = []
+        try:
+            try:
+                members = self.members()
+            finally:
+                checked(self.kernel.TerminateJobObject(self.handle, 1))
+            while self.active() or any(process.poll() is None for process in members):
+                if time.monotonic() >= deadline:
+                    raise NativeProcessError('MC_NATIVE_PROCESS_FAMILY_STILL_ALIVE')
+                time.sleep(.02)
+        finally:
+            for process in members:process.close()
 
     def commit(self):
         self.prepare_commit()

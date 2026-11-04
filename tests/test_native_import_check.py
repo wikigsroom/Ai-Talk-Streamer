@@ -51,6 +51,22 @@ class NativeImportTests(unittest.TestCase):
         self.assertIn('"phase": "IMPORTING", "module": "second"', log)
         self.assertTrue(all(type(r['elapsed_ms']) is int and r['elapsed_ms'] >= 0 for r in result['completed']))
 
+    def test_exit_during_progress_publication_reads_the_final_completion(self):
+        self.module('finish_during_report', 'from pathlib import Path\nimport time\n'
+                    + 'root=Path(' + repr(str(self.root)) + ')\n'
+                    + "while not(root/'allow-completion').exists():time.sleep(.01)\n")
+        def delayed_report(value):
+            self.updates.append(value)
+            if len(self.updates) != 1:return
+            (self.root / 'allow-completion').touch()
+            deadline = time.monotonic() + 5
+            while identity_alive(value['owner']):
+                if time.monotonic() >= deadline:self.fail('fixture interpreter did not finish')
+                time.sleep(.01)
+        result = self.run_probe(['finish_during_report'], progress=delayed_report, timeout=20, module_timeout=10)
+        self.assertTrue(result['ok']); self.assertEqual(result['phase'], 'SUCCEEDED')
+        self.assert_closed(result)
+
     def test_interpreter_start_deadline_reports_no_module_and_closes_venv(self):
         self.module('sitecustomize', 'import time;time.sleep(60)\n')
         self.env['PYTHONPATH'] = str(self.modules)

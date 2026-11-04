@@ -136,11 +136,13 @@ def run_imports(root, executable, modules, *, env, label, source_paths=(), timeo
                         raise
                     last_publish = now
                 last_key = key
+                now = time.monotonic()
                 if now - started >= timeout:
                     code = 'MC_IMPORT_CHECK_TIMEOUT'
                     raise RuntimeError(code)
                 exit_code = process.poll()
                 if exit_code is not None:
+                    snapshot = probe_progress(status_path, run_id, modules)
                     result['exit_code'] = exit_code
                     if exit_code != 0:
                         raise RuntimeError('MC_IMPORT_CHECK_FAILED')
@@ -164,8 +166,9 @@ def run_imports(root, executable, modules, *, env, label, source_paths=(), timeo
     finally:
         try:
             if job is not None:
-                if job.active():
+                if job.active() or not result['ok']:
                     job.rollback(timeout=15)
+                if process is not None:process.wait(timeout=15)
                 result['family_closed'] = job.active() == 0
         except BaseException as cleanup:
             result['ok'] = False
