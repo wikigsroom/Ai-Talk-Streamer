@@ -1,0 +1,1068 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261104-107",
+  "round": "107",
+  "at": "2026-11-04T08:22:54.137440+00:00",
+  "branch": "mc",
+  "scope": "RECOVERED_INTERRUPTED_RUNTIME_AND_PENDING_NARRATION_FIX_NOT_RELEASE_ACCEPTANCE",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "local_application_tests": 0,
+  "virtualization_used": false,
+  "remote4090_connected": false,
+  "source_commit": "79f635c6cc2bf776e04e2908ce2ab64db1bbc242",
+  "source_snapshot_sha256": "0e77421184901f0990a1b15eac5e8c77607c1d570cedb532405073b11de6d6e9",
+  "package_sha256": "00fc0f82d748ff6ee5c31ed9fe2fb927b4d6af03c77217c31301cc2b7e394679",
+  "source_files": 1026,
+  "source_checks": {
+    "ok": true,
+    "scope": "NODE_BUSINESS_AND_PROTOCOL_FIXTURES_NOT_REAL_GAME_MODEL_OR_PROGRAMME",
+    "suite": "core",
+    "output": "outputs/mc-validation/round-107-core-v1",
+    "tests": {
+      "tests": 423,
+      "pass": 423,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "services_started": false,
+    "models_loaded": false,
+    "real_minecraft": false,
+    "official_client_started": false,
+    "public_broadcast_started": false,
+    "native_dsh_booted": false,
+    "native_environment_prepared": false,
+    "source_snapshot_sha256": "0e77421184901f0990a1b15eac5e8c77607c1d570cedb532405073b11de6d6e9",
+    "source_files": 1026,
+    "node_exit_code": 0,
+    "source_unchanged": true,
+    "code": "PASS",
+    "elapsed_seconds": 65.656,
+    "completed_at": "2026-11-04T07:06:53.479045+00:00"
+  },
+  "targeted_tests": 69,
+  "core_tests": 423,
+  "suites_overlap_do_not_sum": true,
+  "new_cases": 5,
+  "checks_production_source_updated": false,
+  "recovered_round106": {
+    "scope": "RECOVERED_106_EVIDENCE_REVIEW_NOT_NEW_RUNTIME_OR_RELEASE_ACCEPTANCE",
+    "input_files": {
+      "native106e-session-result.json": "b8d2d972d3ac6a29fb8efe87e51c4ea1454a492b264729ac88b701210792fcdf",
+      "audit106f-interruption-v2-result.json": "a078c2d5464c33d80b1924de37aa674404b57426c74f840a97af81cead8145b8",
+      "final106-independent-readonly.json": "3f1587f58b0a8cfaea5ef8a102bf9b57ec65e3e3996a4705e7cc24a75dc43cf1"
+    },
+    "observation": {
+      "count": 256,
+      "started_at": 1793767719.0219119,
+      "last_sample_at": 1793767995.2637343,
+      "last_sample_offset_seconds": 276.2418224811554,
+      "modes": {
+        "AUTO": 238,
+        "PAUSED": 18
+      },
+      "original_session_ok": false,
+      "worker_task_submissions": 0,
+      "game_keys_issued": 0,
+      "worker_auto_requests": 0,
+      "manual_takeover": false,
+      "error_code": "NATIVE_SESSION_CONDITION_DEADLINE",
+      "cleanup_error_code": "NATIVE_SESSION_CONDITION_DEADLINE"
+    },
+    "productive_tasks": {
+      "count": 15,
+      "states": {
+        "succeeded": 11,
+        "failed": 3,
+        "accepted": 1
+      },
+      "reasons": {
+        "GAME_OBSERVATION_EXPIRED": 1,
+        "GAME_NAVIGATION_NO_ROUTE": 2
+      },
+      "productive_confirmed_all_session": 7,
+      "productive_created_and_confirmed_within_saved_samples": 7
+    },
+    "productive_goals": [
+      {
+        "item_id": "minecraft:bread",
+        "purpose": "eat",
+        "skill": "use_item"
+      },
+      {
+        "count": 1,
+        "item_id": "minecraft:bread",
+        "skill": "craft"
+      },
+      {
+        "count": 1,
+        "item_id": "minecraft:hay_block",
+        "skill": "gather"
+      },
+      {
+        "count": 9,
+        "item_id": "minecraft:wheat",
+        "skill": "craft"
+      },
+      {
+        "count": 1,
+        "item_id": "minecraft:bread",
+        "skill": "craft"
+      },
+      {
+        "count": 1,
+        "item_id": "minecraft:bread",
+        "skill": "craft"
+      },
+      {
+        "count": 1,
+        "item_id": "minecraft:bread",
+        "skill": "craft"
+      }
+    ],
+    "vision_unique_states": {
+      "failed": 1,
+      "succeeded": 12
+    },
+    "visually_reviewed_native_jpegs": [
+      {
+        "file": "native106e-vision-1.jpg",
+        "frame_id": "frame-c97cb5ce-0289-489a-a59e-d6106148f3e7",
+        "sha256": "14b9a5934d32bfecc08dfa7134804b3ad8e81ac23d253b314f297575bfa233cb",
+        "bytes": 185407
+      },
+      {
+        "file": "native106e-vision-2.jpg",
+        "frame_id": "frame-ceea53df-db8e-4b43-a154-e97f27ea4627",
+        "sha256": "3a7f9d176b4f0ac28a3a2f4837c5a21c946d676d9c917f7e97c26b3315cfb029",
+        "bytes": 233086
+      },
+      {
+        "file": "native106e-vision-3.jpg",
+        "frame_id": "frame-38f404ac-5d15-4582-a4c7-f216b9441a03",
+        "sha256": "dc6fc4a93dd3eb472618f62f8c02183b188ab5a00156024125ff063f4849d7be",
+        "bytes": 257756
+      },
+      {
+        "file": "native106e-vision-4.jpg",
+        "frame_id": "frame-67812567-5fdf-4760-b945-c241b514c1fa",
+        "sha256": "ab64accfd203f0c35acb1f6462b45c2d36486eca29e67df149aaafde409175b0",
+        "bytes": 249223
+      }
+    ],
+    "death_inventory": {
+      "sample_count": 4,
+      "episodes": 1,
+      "all_three_inventories_equal": true,
+      "distinct_items": 19,
+      "samples": [
+        {
+          "at": 1793767786.7790475,
+          "seq": 1765,
+          "screen": "gameplay",
+          "mode": "AUTO",
+          "player": {
+            "health": 0.549139,
+            "max_health": 20,
+            "food": 17,
+            "oxygen": 300,
+            "position": {
+              "dimension": "minecraft:overworld",
+              "x": 1424,
+              "y": 74,
+              "z": -165
+            }
+          },
+          "inventory": [
+            {
+              "item_id": "cottonly:cotton_seeds",
+              "count": 2
+            },
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:arrow",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:bone",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:bread",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:cobbled_deepslate",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:cobblestone",
+              "count": 69
+            },
+            {
+              "item_id": "minecraft:dirt",
+              "count": 99
+            },
+            {
+              "item_id": "minecraft:furnace",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:oak_planks",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:oak_sapling",
+              "count": 6
+            },
+            {
+              "item_id": "minecraft:rotten_flesh",
+              "count": 5
+            },
+            {
+              "item_id": "minecraft:spider_eye",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:stick",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:stone_axe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:stone_pickaxe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:string",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:wheat_seeds",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:wooden_pickaxe",
+              "count": 1
+            }
+          ],
+          "native_auto_resume": {
+            "pending": false,
+            "requests": 3,
+            "confirmed": 3,
+            "synthetic_key_events": 0,
+            "world_data_mutated": false,
+            "ordinary_respawn_requests": 0,
+            "confirmed_respawns": 0,
+            "world_data_injection": false
+          }
+        },
+        {
+          "at": 1793767788.2348626,
+          "seq": 1797,
+          "screen": "death",
+          "mode": "PAUSED",
+          "player": {
+            "health": 0,
+            "max_health": 20,
+            "food": 17,
+            "oxygen": 300,
+            "position": {
+              "dimension": "minecraft:overworld",
+              "x": 1424,
+              "y": 74,
+              "z": -166
+            }
+          },
+          "inventory": [
+            {
+              "item_id": "cottonly:cotton_seeds",
+              "count": 2
+            },
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:arrow",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:bone",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:bread",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:cobbled_deepslate",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:cobblestone",
+              "count": 69
+            },
+            {
+              "item_id": "minecraft:dirt",
+              "count": 99
+            },
+            {
+              "item_id": "minecraft:furnace",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:oak_planks",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:oak_sapling",
+              "count": 6
+            },
+            {
+              "item_id": "minecraft:rotten_flesh",
+              "count": 5
+            },
+            {
+              "item_id": "minecraft:spider_eye",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:stick",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:stone_axe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:stone_pickaxe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:string",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:wheat_seeds",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:wooden_pickaxe",
+              "count": 1
+            }
+          ],
+          "native_auto_resume": {
+            "pending": false,
+            "requests": 3,
+            "confirmed": 3,
+            "synthetic_key_events": 0,
+            "world_data_mutated": false,
+            "ordinary_respawn_requests": 0,
+            "confirmed_respawns": 0,
+            "world_data_injection": false
+          }
+        },
+        {
+          "at": 1793767792.6188433,
+          "seq": 1879,
+          "screen": "gameplay",
+          "mode": "AUTO",
+          "player": {
+            "health": 20,
+            "max_health": 20,
+            "food": 20,
+            "oxygen": 300,
+            "position": {
+              "dimension": "minecraft:overworld",
+              "x": 1368,
+              "y": 75,
+              "z": -169
+            }
+          },
+          "inventory": [
+            {
+              "item_id": "cottonly:cotton_seeds",
+              "count": 2
+            },
+            {
+              "item_id": "gravestone:obituary",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:arrow",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:bone",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:bread",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:cobbled_deepslate",
+              "count": 4
+            },
+            {
+              "item_id": "minecraft:cobblestone",
+              "count": 69
+            },
+            {
+              "item_id": "minecraft:dirt",
+              "count": 99
+            },
+            {
+              "item_id": "minecraft:furnace",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:oak_planks",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:oak_sapling",
+              "count": 6
+            },
+            {
+              "item_id": "minecraft:rotten_flesh",
+              "count": 5
+            },
+            {
+              "item_id": "minecraft:spider_eye",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:stick",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:stone_axe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:stone_pickaxe",
+              "count": 1
+            },
+            {
+              "item_id": "minecraft:string",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:wheat_seeds",
+              "count": 2
+            },
+            {
+              "item_id": "minecraft:wooden_pickaxe",
+              "count": 1
+            }
+          ],
+          "native_auto_resume": {
+            "pending": false,
+            "requests": 4,
+            "confirmed": 4,
+            "synthetic_key_events": 0,
+            "world_data_mutated": true,
+            "ordinary_respawn_requests": 1,
+            "confirmed_respawns": 1,
+            "world_data_injection": false
+          }
+        }
+      ]
+    },
+    "formal_speech_completed": 0,
+    "narration_states": {
+      "failed": 5,
+      "discarded": 11,
+      "expired": 9,
+      "unknown": 1
+    },
+    "owned_services_after": {
+      "dsh": false,
+      "avatar": false,
+      "tts": false,
+      "receiver": false,
+      "vision": false,
+      "minecraft": false
+    },
+    "unresolved_admissions_after": [],
+    "legacy_recovery": {
+      "admission_fence": {
+        "checked_bridge_boot_id": "boot-8ae2abf5-0e89-4aed-8ae7-74b3ed87f59b",
+        "checked_world_session_id": "world-session-9af284da-eca5-4327-bff6-26501a5a2bf5",
+        "fence_id": "admission-fence-c7603985-dd0a-4378-8316-a40f54112fb2",
+        "fenced_at": "2026-11-04T04:48:11.479291200Z",
+        "game_instance_id": "mc-e0475d31-2426-49b4-a370-7386101c7771",
+        "kind": "never_admitted",
+        "task_id": "task-92a24c5f-7aef-4d27-8402-195f70bb0630"
+      },
+      "attempts": 1,
+      "checked_bridge_boot_id": "boot-8ae2abf5-0e89-4aed-8ae7-74b3ed87f59b",
+      "confirmed_version": null,
+      "created_at": "2026-11-04T03:21:11.486Z",
+      "last_error": null,
+      "reason": "GAME_NATIVE_ADMISSION_FENCED",
+      "revision": 8,
+      "status": "not_admitted",
+      "task_id": "task-92a24c5f-7aef-4d27-8402-195f70bb0630",
+      "updated_at": "2026-11-04T04:48:11.500Z"
+    },
+    "keepInventory": true,
+    "saved_world_sha256": "6aa39aa29a47bbf35fcd13440bb2097c73bb2c172c04f15bfab0c1adcb02b5f2",
+    "normal_final_save_verified": false,
+    "latest_supervision": [
+      {
+        "phase": "FAULTED",
+        "reason": "UNEXPECTED_ROOT_EXIT",
+        "updated_at": "2026-11-04T04:55:47.054637+00:00",
+        "family_empty_confirmed": true,
+        "registry_cleanup_confirmed": true
+      }
+    ],
+    "new_video": false
+  },
+  "deployment": {
+    "ok": true,
+    "checks": [
+      {
+        "name": "target107b",
+        "exit_code": 0,
+        "elapsed_seconds": 41.21899999992456
+      },
+      {
+        "name": "start107b",
+        "exit_code": 0,
+        "elapsed_seconds": 549.8120000000345
+      }
+    ],
+    "unchanged_native_jar_sha256": "e9d8513b4044fd535a2d4e06aebbf64569e5db0e84f745a464c570fa1ef62df1",
+    "keep_inventory_before_start": true,
+    "world_rules_changed": false,
+    "started_at": 1793778152.5261924,
+    "finished_at": 1793778746.713724,
+    "readiness_reused_after_unchanged_source_and_normal_stop": true
+  },
+  "readiness_from_unchanged_source_previous_start": [
+    {
+      "name": "readiness107b",
+      "exit_code": 0,
+      "elapsed_seconds": 209.73399999993853
+    },
+    {
+      "name": "preflight107b",
+      "exit_code": 0,
+      "elapsed_seconds": 112.51600000006147
+    },
+    {
+      "name": "prepare107b",
+      "exit_code": 0,
+      "elapsed_seconds": 97.31299999996554
+    },
+    {
+      "name": "target107b",
+      "exit_code": 0,
+      "elapsed_seconds": 40.68700000003446
+    },
+    {
+      "name": "start107b",
+      "exit_code": 0,
+      "elapsed_seconds": 634.4379999999655
+    }
+  ],
+  "source_update": {
+    "source_snapshot_sha256": "0e77421184901f0990a1b15eac5e8c77607c1d570cedb532405073b11de6d6e9",
+    "package_sha256": "00fc0f82d748ff6ee5c31ed9fe2fb927b4d6af03c77217c31301cc2b7e394679",
+    "before_snapshot_sha256": "caf6063cc1ebdd96485dcf4a4c7565651f4e556d89dbe5b3c70b417d3dac0e85",
+    "changed_files": [
+      "README.md",
+      "README.zh-CN.md",
+      "backend/game/narration.mjs",
+      "tests/game-narration.test.mjs"
+    ]
+  },
+  "first_runtime_attempt": {
+    "id": "107b",
+    "autonomous_window_established": false,
+    "auto_requests_refused": 3,
+    "reason": "GAME_PRECONDITION_FAILED_WHILE_GAME_WINDOW_INACTIVE",
+    "normal_game_exit_verified": true,
+    "owned_services_stopped": true,
+    "productive_verified": 0,
+    "formal_speech_completed": 0,
+    "failure_preserved": true
+  },
+  "new_runtime": {
+    "ok": true,
+    "scope": "BOUNDED_REMOTE_GAMEPLAY_AND_FORMAL_RECEIPT_REVIEW_NOT_RELEASE_ACCEPTANCE",
+    "started_at": 1793778754.5933602,
+    "finished_at": 1793779366.0925567,
+    "window_seconds": 600.895961523056,
+    "observation_window_completed": true,
+    "internal_broadcast_closed": true,
+    "application_stop_exit_code": 0,
+    "services_after": {
+      "dsh": false,
+      "avatar": false,
+      "tts": false,
+      "receiver": false,
+      "vision": false,
+      "minecraft": false
+    },
+    "keep_inventory_after_save": true,
+    "saved_world_sha256": "90fa83f5ef508bbd42fe0db2637c96b12697172c876a27b715a705783bb1539b",
+    "source_unchanged": true,
+    "worker_task_submissions": 0,
+    "worker_auto_requests": 0,
+    "game_keys_issued": 0,
+    "manual_takeover": false,
+    "viewer_events_injected": 0,
+    "public_broadcast_started": false,
+    "world_or_inventory_injection": false
+  },
+  "new_runtime_id": "107c",
+  "recording_order": "RECORD_BEFORE_APPLICATION_START_KEEP_NATIVE_GAME_FOREGROUND",
+  "new_runtime_samples": 572,
+  "new_runtime_narration_states": {
+    "unknown": 1,
+    "discarded": 3,
+    "answered": 11,
+    "expired": 4,
+    "failed": 1
+  },
+  "new_runtime_modes_sample_counts_not_continuous_auto_duration": {
+    "AUTO": 569,
+    "PAUSED": 3
+  },
+  "new_runtime_vision_unique_states": {
+    "succeeded": 24,
+    "failed": 5
+  },
+  "new_runtime_productive_tasks": [
+    {
+      "goal": {
+        "count": 2,
+        "item_id": "minecraft:cobblestone",
+        "skill": "gather"
+      },
+      "state": "succeeded",
+      "effect_status": "verified",
+      "version": 3,
+      "created_at": "2026-11-04T07:59:45.985559600Z",
+      "updated_at": "2026-11-04T07:59:54.357980Z",
+      "native_current_receipt_matches": true
+    },
+    {
+      "goal": {
+        "count": 2,
+        "item_id": "minecraft:oak_log",
+        "skill": "gather"
+      },
+      "state": "succeeded",
+      "effect_status": "verified",
+      "version": 3,
+      "created_at": "2026-11-04T08:00:11.905589400Z",
+      "updated_at": "2026-11-04T08:00:28.514282100Z",
+      "native_current_receipt_matches": true
+    },
+    {
+      "goal": {
+        "count": 1,
+        "item_id": "minecraft:oak_log",
+        "skill": "gather"
+      },
+      "state": "succeeded",
+      "effect_status": "verified",
+      "version": 3,
+      "created_at": "2026-11-04T08:00:41.232936200Z",
+      "updated_at": "2026-11-04T08:01:40.726761100Z",
+      "native_current_receipt_matches": true
+    },
+    {
+      "goal": {
+        "count": 1,
+        "item_id": "minecraft:oak_log",
+        "skill": "gather"
+      },
+      "state": "succeeded",
+      "effect_status": "verified",
+      "version": 3,
+      "created_at": "2026-11-04T08:01:57.015389500Z",
+      "updated_at": "2026-11-04T08:02:01.994362Z",
+      "native_current_receipt_matches": true
+    },
+    {
+      "goal": {
+        "count": 1,
+        "item_id": "minecraft:oak_log",
+        "skill": "gather"
+      },
+      "state": "succeeded",
+      "effect_status": "verified",
+      "version": 3,
+      "created_at": "2026-11-04T08:02:16.947986Z",
+      "updated_at": "2026-11-04T08:02:20.901785Z",
+      "native_current_receipt_matches": true
+    }
+  ],
+  "new_runtime_performance": {
+    "resource_samples": 115,
+    "unique_official_metrics": 110,
+    "fps_min": 0,
+    "fps_median": 24.873603226730335,
+    "fps_max": 25.63933995094912,
+    "audio_underrun_max": 2,
+    "audio_underruns_first": 1,
+    "audio_underruns_last": 2,
+    "missing_packets_max": 0,
+    "decode_errors_max": 0,
+    "scope": "BOUNDED_WINDOW_SAMPLED_PLAYER_METRICS_NOT_CONTINUOUS_STABILITY_ACCEPTANCE"
+  },
+  "independent_post_stop": {
+    "ok": true,
+    "database_writes": 0,
+    "started_or_stopped_processes": false,
+    "owned_services": {
+      "dsh": false,
+      "avatar": false,
+      "tts": false,
+      "receiver": false,
+      "vision": false,
+      "minecraft": false
+    },
+    "keepInventory": true,
+    "world_sha256": "90fa83f5ef508bbd42fe0db2637c96b12697172c876a27b715a705783bb1539b",
+    "original_backup_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
+    "candidate_enabled": false,
+    "unresolved_admissions": [],
+    "native_jar_sha256": "e9d8513b4044fd535a2d4e06aebbf64569e5db0e84f745a464c570fa1ef62df1"
+  },
+  "official_sample": {
+    "ok": true,
+    "session_ok": true,
+    "export": {
+      "file": "mc-native-luna-107c-120s.mp4",
+      "bytes": 16037635,
+      "sha256": "eeec364de17100c0ff4c5a05de991b9c44f83d19dea448601758b02a043889dc",
+      "duration": 120.0,
+      "width": 1920,
+      "height": 1080,
+      "frames": 3600,
+      "fps": 30,
+      "audio_codec": "aac",
+      "audio_sample_rate": "48000"
+    },
+    "original": {
+      "file": "20261104-154205.mp4",
+      "bytes": 431672130,
+      "sha256": "06dca2b3378a2b8dd8ed56680ddd1021ac204178615a1f33e59682a29ac3858d",
+      "duration": 1348.833334,
+      "filename_start_epoch": 1793778125.0
+    },
+    "selection_method": "FIRST_120_SECONDS_AFTER_FIXED_10_SECOND_PROGRAMME_BUFFER",
+    "continuous_trim_start_seconds": 639.5933601856232,
+    "continuous_trim_duration_seconds": 120,
+    "audio": {
+      "rms_dbfs": -29.65444777343776,
+      "peak": 0.70050048828125,
+      "non_silent": true,
+      "twenty_second_windows": [
+        {
+          "start": 0,
+          "rms_dbfs": -300.0,
+          "non_silent": false
+        },
+        {
+          "start": 20,
+          "rms_dbfs": -24.075013038323867,
+          "non_silent": true
+        },
+        {
+          "start": 40,
+          "rms_dbfs": -300.0,
+          "non_silent": false
+        },
+        {
+          "start": 60,
+          "rms_dbfs": -300.0,
+          "non_silent": false
+        },
+        {
+          "start": 80,
+          "rms_dbfs": -25.877066793609753,
+          "non_silent": true
+        },
+        {
+          "start": 100,
+          "rms_dbfs": -300.0,
+          "non_silent": false
+        }
+      ],
+      "non_silence_is_not_speech_recognition": true
+    },
+    "formal_completed_in_clip": [
+      {
+        "request_id": "req-345e8809-a65d-4fc2-a40d-303e8cc72bcc",
+        "completion_event_seq": 4121,
+        "at_seconds": 85.9346399307251
+      }
+    ],
+    "observed_window": {
+      "samples": 114,
+      "modes": {
+        "AUTO": 114
+      },
+      "fresh_samples": 114,
+      "first_player": {
+        "health": 20,
+        "max_health": 20,
+        "food": 20,
+        "oxygen": 300,
+        "position": {
+          "dimension": "minecraft:overworld",
+          "x": 1366,
+          "y": 74,
+          "z": -163
+        }
+      },
+      "last_player": {
+        "health": 20,
+        "max_health": 20,
+        "food": 20,
+        "oxygen": 300,
+        "position": {
+          "dimension": "minecraft:overworld",
+          "x": 1374,
+          "y": 74,
+          "z": -163
+        }
+      }
+    },
+    "synthetic_game_frames": 0,
+    "post_production_voice_added": false,
+    "viewer_chat_fabricated": false,
+    "public_broadcast_started": false,
+    "local_artifact": "outputs/mc-validation/round-106/remote-evidence/mc-native-luna-107c-120s.mp4",
+    "clip_start_epoch": 1793778764.5933602,
+    "clip_end_epoch": 1793778884.5933602,
+    "productive_tasks_completed_in_clip": 0,
+    "local_bytes_verified": true
+  },
+  "official_late_sample": {
+    "ok": true,
+    "session_ok": true,
+    "export": {
+      "file": "mc-native-luna-107c-late-120s.mp4",
+      "bytes": 26516809,
+      "sha256": "c976d0b3a36450651a470b35c0e20461604909a2f3514c55110058fc560ce18d",
+      "duration": 120.0,
+      "width": 1920,
+      "height": 1080,
+      "frames": 3600,
+      "fps": 30,
+      "audio_codec": "aac",
+      "audio_sample_rate": "48000"
+    },
+    "original": {
+      "file": "20261104-154205.mp4",
+      "bytes": 431672130,
+      "sha256": "06dca2b3378a2b8dd8ed56680ddd1021ac204178615a1f33e59682a29ac3858d",
+      "duration": 1348.833334,
+      "filename_start_epoch": 1793778125.0
+    },
+    "selection_method": "LAST_120_SECONDS_ENDING_5_SECONDS_BEFORE_OBSERVATION_END",
+    "continuous_trim_start_seconds": 1105.4893217086792,
+    "continuous_trim_duration_seconds": 120,
+    "audio": {
+      "rms_dbfs": -28.817021238931492,
+      "peak": 0.840667724609375,
+      "non_silent": true,
+      "twenty_second_windows": [
+        {
+          "start": 0,
+          "rms_dbfs": -28.189255850774366,
+          "non_silent": true
+        },
+        {
+          "start": 20,
+          "rms_dbfs": -300.0,
+          "non_silent": false
+        },
+        {
+          "start": 40,
+          "rms_dbfs": -25.284858271301687,
+          "non_silent": true
+        },
+        {
+          "start": 60,
+          "rms_dbfs": -300.0,
+          "non_silent": false
+        },
+        {
+          "start": 80,
+          "rms_dbfs": -27.65234563083945,
+          "non_silent": true
+        },
+        {
+          "start": 100,
+          "rms_dbfs": -27.739691427629523,
+          "non_silent": true
+        }
+      ],
+      "non_silence_is_not_speech_recognition": true
+    },
+    "formal_completed_in_clip": [
+      {
+        "request_id": "req-be84bd6f-95c9-4bac-9953-f30e7e397427",
+        "completion_event_seq": 4193,
+        "at_seconds": 11.211678266525269
+      },
+      {
+        "request_id": "req-17cfab6a-efa9-4ab4-8c65-69a8b95d157f",
+        "completion_event_seq": 4200,
+        "at_seconds": 52.393678188323975
+      },
+      {
+        "request_id": "req-989b8b85-96cf-4fbd-8179-d64957a4219f",
+        "completion_event_seq": 4207,
+        "at_seconds": 85.79967832565308
+      },
+      {
+        "request_id": "req-7f63a23f-a233-4f31-82b6-5fa5f93332cc",
+        "completion_event_seq": 4214,
+        "at_seconds": 108.35867834091187
+      }
+    ],
+    "observed_window": {
+      "samples": 114,
+      "modes": {
+        "AUTO": 114
+      },
+      "fresh_samples": 114,
+      "first_player": {
+        "health": 20,
+        "max_health": 20,
+        "food": 20,
+        "oxygen": 300,
+        "position": {
+          "dimension": "minecraft:overworld",
+          "x": 1384,
+          "y": 74,
+          "z": -162
+        }
+      },
+      "last_player": {
+        "health": 20,
+        "max_health": 20,
+        "food": 20,
+        "oxygen": 300,
+        "position": {
+          "dimension": "minecraft:overworld",
+          "x": 1384,
+          "y": 75,
+          "z": -152
+        }
+      }
+    },
+    "synthetic_game_frames": 0,
+    "post_production_voice_added": false,
+    "viewer_chat_fabricated": false,
+    "public_broadcast_started": false,
+    "local_artifact": "outputs/mc-validation/round-106/remote-evidence/mc-native-luna-107c-late-120s.mp4",
+    "clip_start_epoch": 1793779230.4893217,
+    "clip_end_epoch": 1793779350.4893217,
+    "productive_tasks_completed_in_clip": 3,
+    "local_bytes_verified": true
+  },
+  "programme_quality_accepted": false,
+  "visual_review_notes": "开场等待较长，约30秒处可见人物圆形区域短暂黑屏；片段可见待机歪头、眨眼与说话口型。末段可见砍木和移动，原木目标也包括村屋立柱，资源选择与持续节目目标仍需改善。不能把采样AUTO、文件编码成功、非静音或正式回执当作整套节目质量验收。",
+  "new_runtime_productive_verified": 5,
+  "new_runtime_formal_speech_completed": 11,
+  "normal_game_exit_verified": true,
+  "full_application_accepted": false,
+  "formal_acceptance_passed": 0,
+  "formal_acceptance_total": 68,
+  "new_avatar_clips": 0,
+  "new_avatar_total": 100,
+  "frozen_remaining_items": 117,
+  "implemented_ids": [
+    "I1218",
+    "I1219",
+    "I1220",
+    "I1221",
+    "I1222",
+    "I1223",
+    "I1224",
+    "I1225",
+    "I1226",
+    "I1227",
+    "I1228",
+    "I1229",
+    "I1230",
+    "I1231"
+  ],
+  "remaining": {
+    "D01": "完整安装包、许可及干净Windows重建、来源与副本、缓存/回退、冷/热启动、共享资源恢复；必需服务启动不替代完整交付。106中断后的自有服务全关已确认，正常最终保存仍不能追认。",
+    "D02": "真实模组方块/实体/容器/维度、断连/换世界/死亡地形、墓碑/重连、后续联机兼容；接收封锁须跨场和断电恢复长期验证。",
+    "D03": "普通PvE、夜间多敌人、饥饿回血、复活、GUI、水/熔岩/氧气、租约及长期停止。已有一次死亡不掉落实机证据，尚不等于持续生存通过；不改变其他规则。",
+    "D04": "工具/工作站、模组多配方、持续食物、狩猎烹饪、种植钓鱼、储物、耐久、建造及连续生存。106的采集→小麦→面包及进食有真实回执；107c取得圆石2、原木5，原木目标含村屋立柱，资源选择与持续循环待改进。",
+    "D05": "持续有效目标、Mindcraft依赖求解、Luna决策、工作站/弹幕并发、预算/取消、事实与未知结果恢复的长时闭环；一次旧请求封锁恢复不替代持续节目。",
+    "D06": "595139真实弹幕/礼物/SC、建议/投票/撤回/反馈、断线补偿及展示；公开采集接通不替代真实观众样本，用户当前不能发送样本。",
+    "D07": "记忆纠错/遗忘/删除、跨日、备份恢复、唯一写者隔离、配额延后与真实弹幕语义验收；保留既有配额限制。",
+    "D08": "全端启停/任务/资源/音量/诊断/恢复、方案切换、并发/手机、真实消息左右换边与队列保留及完整后台验收。",
+    "D09": "持续有效节目、自然及时口播、供帧/重缓冲、真实弹幕、手机及完整官方横屏验收。已有两段原速120秒实录；107c正式完成11项，但开场等待、人物短黑屏、口播过期与取消仍存在。",
+    "D10": "两套各2段待机+48动作，共100段新素材及索引、口型、圆形遮罩和接缝；新包0/100，原female-A素材保留。",
+    "D11": "游戏/人物语音/BGM混音闪避、F07实际故障接替、唯一有声音源及长期稳定。107c有11条正式完成和实录音轨，仍发生authority_lost、欠载累计计数1→2及口播取消；本次未验收游戏声/BGM混音。",
+    "D12": "真实原生JPEG至Luna准确率、模组物品/危险/OCR/装备、帧绑定、超时与共享负载调度；106的12成功/1失败及4帧定性检查、107c的24成功/5失败，均不替代系统准确率。",
+    "D13": "公开状态核对、独立观众CDN音画及端到端时延；没有公开开播授权，保持未执行。",
+    "D14": "冷/热启动、FTB、日志持续上限、CPU/GPU/内存、来源绑定供帧、4小时含60分钟稳定段及异常停止。107c源FPS按时间去重110项，最低0、中位约24.87，仍有短黑屏、欠载及3项PAUSED采样；106根进程退出原因未闭环。",
+    "D15": "正式0/68、24组合/12场景/8发布门、跨场次日、干净安装/回滚及20项交接；117项冻结待办保留，一份完整集成交付不降低范围。"
+  },
+  "private_logs_or_database_published": false,
+  "normal_game_exit_receipt": {
+    "graceful_close_requested": true,
+    "all_owned_processes_closed": true,
+    "exit_code": 0
+  },
+  "new_runtime_verified_navigation_tasks": 3,
+  "productive_detail": "5项成果分别为采集圆石2个，以及4次原木采集、共取得5个原木；另有3次导航成功，单独统计。",
+  "private_evidence_digests": {
+    "native107-session-result.json": "9f941ac6c1956e0f7043caad2803f5d2dc9434dff3e6fd02b16d91f474918cb9",
+    "check107-result.json": "306f51aa0791722b9ea6f26b7eff4e43720f41c29fd261d762406e8a158fe2e7",
+    "core107-report.json": "6b1713921dd4c68a6a6794cd0a39e394b4d11e90dbd3ad5d48c37f16fef7a0a0",
+    "deploy107b-result.json": "b9f1592566c1a685da9d87eb08aa8fd7fca831bc4623321f297e5dc729471bfa",
+    "107c-native107-session-result.json": "6cbab6ef62964adf90e6f9db9dc3e4d9143333b6311e0b4117c3771dba001007",
+    "107c-deploy107b-result.json": "ceff1ad0aa7113353e1aa8a12a80c6989e2644b57bd8bb113c6c297d778275bb",
+    "107c-final-independent-readonly.json": "afaaf2239b0575ba81d224b0ce6e9d95f9c8629e93451c4c3aec7f9f4711ce14",
+    "close106-recovering-result.json": "ed748eed0bc2daac3ba4c329a3a38786eb7fac0ff259348fc82c38b232099305",
+    "export107c-result.json": "2a9ad554a435c4ca0a507271e5fd4bdef28dc97ace08fc6feff295f5b654ef19",
+    "export107c-late-result.json": "ca822a2a1ac814f489da617417a4faaff6db170f539060ed8f1e171ac652efd1"
+  },
+  "reviewed_contact_sheets": [
+    {
+      "path": "docs/media/mc-round-107/opening-contact.jpg",
+      "sha256": "3c8cde9d53027e6d48fae2c54b006a64a9c2488926a23b8b0859a6849aa62d09"
+    },
+    {
+      "path": "docs/media/mc-round-107/opening-avatar-contact.jpg",
+      "sha256": "db1179cf25a2b72658a20b87324af5bb700a8fd22ca28f6c005977e392f7decc"
+    },
+    {
+      "path": "docs/media/mc-round-107/late-contact.jpg",
+      "sha256": "0cb26a72a05cbfc3dffd401e67894ee9cacaa33e5a8aa2a48d76cf1b2dc4abc1"
+    },
+    {
+      "path": "docs/media/mc-round-107/late-avatar-contact.jpg",
+      "sha256": "3ac33ef283c1f43fc0e412f8b7e8fd1cc188a4bce8e304bc23004467b623f054"
+    }
+  ],
+  "byte_transfer_helper_closed": true,
+  "task_browser_tabs_created": 0
+}
