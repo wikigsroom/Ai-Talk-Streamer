@@ -1,0 +1,1023 @@
+{
+  "schema_version": 1,
+  "id": "MC-20261104-103",
+  "round": "103",
+  "at": "2026-11-04T00:56:51.571649+00:00",
+  "branch": "mc",
+  "device": "remote-3080",
+  "host": "DESKTOP-2QQPN1H",
+  "scope": "ACTUAL_RECIPE_SELECTION_AND_TTS_PROBE_FIX_WITH_FAILED_APPLICATION_STARTS_NO_NEW_GAMEPLAY",
+  "source_commit": "124e85fe44a21ec31de1d84e2da74c91df40753b",
+  "source_snapshot_sha256": "983435ec46b4f926362aefce0a609f66514ba13a79e782e6019efae43834d940",
+  "source_archive_sha256": "f0743d2f935a4801993926a1a752d3537c6e4cccf2389f58b21f7b90b85bdc08",
+  "source_files": 1020,
+  "native_build": {
+    "sha256": "66e49401bfd2aaf44f85a216d6c60b22be111adcc23b8d374fdb7cd526ae7c18",
+    "bytes": 12558497,
+    "compiled_against": "actual_supplied_neoforge_21.1.248_mojmap_libraries",
+    "classes": "runtime/minecraft/mc-friends-s1-neoforge-21.1.248/build/classes-f860af5211e8475aad7be365d713c403"
+  },
+  "checks": {
+    "core": {
+      "tests": 416,
+      "pass": 416,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "java_fixtures": 21,
+    "native_recipe_selection_fixture_checks": 24,
+    "resident_tts": 16,
+    "windows_log_checks": 5,
+    "readiness": 8,
+    "reused_unchanged_checks": {
+      "evidence": "../mc-103/deploy103-result.json",
+      "evidence_sha256": "3839606672595ac1d2bdaaefe63b42f3fed48b6b628e3f018b73be49e7f4a6ee",
+      "changed_source_files": [
+        "integration/resident_tts_service.py",
+        "tests/test_resident_tts.py"
+      ],
+      "java_fixtures": 21,
+      "core_checks": 416,
+      "windows_log_checks": 5,
+      "readiness_checks": 8,
+      "reason": "only speech broker and its unit tests changed; native controller, Node business, model assets and configuration are identical"
+    },
+    "suites_overlap_do_not_sum": true
+  },
+  "catalog_inspection": {
+    "host": "DESKTOP-2QQPN1H",
+    "services": {
+      "dsh": false,
+      "avatar": false,
+      "tts": false,
+      "receiver": false,
+      "vision": false,
+      "minecraft": false
+    },
+    "source": "5aed65f4eeffb99be86991079f7c31d6ef2e7cdf9d4f9d70b77e933ffc0c065f",
+    "keepInventory": true,
+    "world_sha256": "fa2f20fdd9c7c9a25c63a8107276886716d89dd08c09ab06b59435dd2f763cf4",
+    "jars_scanned": 320,
+    "recipes": [
+      {
+        "jar": "create-1.21.1-6.0.10.jar",
+        "path": "data/create/recipe/smoking/bread.json",
+        "recipe": {
+          "type": "minecraft:smoking",
+          "category": "food",
+          "cookingtime": 100,
+          "experience": 0.0,
+          "ingredient": {
+            "item": "create:dough"
+          },
+          "result": {
+            "count": 1,
+            "id": "minecraft:bread"
+          }
+        }
+      },
+      {
+        "jar": "create-1.21.1-6.0.10.jar",
+        "path": "data/create/recipe/smelting/bread.json",
+        "recipe": {
+          "type": "minecraft:smelting",
+          "category": "food",
+          "cookingtime": 200,
+          "experience": 0.0,
+          "ingredient": {
+            "item": "create:dough"
+          },
+          "result": {
+            "count": 1,
+            "id": "minecraft:bread"
+          }
+        }
+      },
+      {
+        "jar": "create-1.21.1-6.0.10.jar",
+        "path": "data/create/recipe/campfire_cooking/bread.json",
+        "recipe": {
+          "type": "minecraft:campfire_cooking",
+          "category": "food",
+          "cookingtime": 600,
+          "experience": 0.0,
+          "ingredient": {
+            "item": "create:dough"
+          },
+          "result": {
+            "count": 1,
+            "id": "minecraft:bread"
+          }
+        }
+      },
+      {
+        "jar": "FarmersDelight-1.21.1-1.3.4.jar",
+        "path": "data/farmersdelight/recipe/bread_from_smelting.json",
+        "recipe": {
+          "type": "minecraft:smelting",
+          "category": "food",
+          "cookingtime": 200,
+          "experience": 0.35,
+          "ingredient": {
+            "item": "farmersdelight:wheat_dough"
+          },
+          "result": {
+            "count": 1,
+            "id": "minecraft:bread"
+          }
+        }
+      },
+      {
+        "jar": "FarmersDelight-1.21.1-1.3.4.jar",
+        "path": "data/farmersdelight/recipe/bread_from_smoking.json",
+        "recipe": {
+          "type": "minecraft:smoking",
+          "category": "food",
+          "cookingtime": 100,
+          "experience": 0.35,
+          "ingredient": {
+            "item": "farmersdelight:wheat_dough"
+          },
+          "result": {
+            "count": 1,
+            "id": "minecraft:bread"
+          }
+        }
+      },
+      {
+        "jar": "Mekanism-1.21.1-10.7.19.85.jar",
+        "path": "data/mekanism/recipe/crushing/biofuel/bread.json",
+        "recipe": {
+          "type": "mekanism:crushing",
+          "input": {
+            "count": 1,
+            "item": "minecraft:bread"
+          },
+          "output": {
+            "count": 4,
+            "id": "mekanism:bio_fuel"
+          }
+        }
+      },
+      {
+        "jar": "minecolonies-1.1.1396-1.21.1-snapshot.jar",
+        "path": "data/minecolonies/recipe/baked_bread_campfire_cooking.json",
+        "recipe": {
+          "type": "minecraft:campfire_cooking",
+          "category": "food",
+          "cookingtime": 600,
+          "experience": 0.35,
+          "ingredient": {
+            "item": "minecolonies:bread_dough"
+          },
+          "result": {
+            "count": 1,
+            "id": "minecraft:bread"
+          }
+        }
+      },
+      {
+        "jar": "minecolonies-1.1.1396-1.21.1-snapshot.jar",
+        "path": "data/minecolonies/recipe/baked_bread.json",
+        "recipe": {
+          "type": "minecraft:smelting",
+          "category": "food",
+          "cookingtime": 300,
+          "experience": 0.35,
+          "ingredient": {
+            "item": "minecolonies:bread_dough"
+          },
+          "result": {
+            "count": 1,
+            "id": "minecraft:bread"
+          }
+        }
+      },
+      {
+        "jar": "minecolonies-1.1.1396-1.21.1-snapshot.jar",
+        "path": "data/minecolonies/recipe/baked_bread_smoking.json",
+        "recipe": {
+          "type": "minecraft:smoking",
+          "category": "food",
+          "cookingtime": 100,
+          "experience": 0.35,
+          "ingredient": {
+            "item": "minecolonies:bread_dough"
+          },
+          "result": {
+            "count": 1,
+            "id": "minecraft:bread"
+          }
+        }
+      },
+      {
+        "jar": "theurgy-1.21.1-neoforge-1.76.1.jar",
+        "path": "data/theurgy/recipe/distillation/bread.json",
+        "recipe": {
+          "type": "theurgy:distillation",
+          "category": "misc",
+          "ingredient": {
+            "count": 1,
+            "ingredient": {
+              "item": "minecraft:bread"
+            }
+          },
+          "result": {
+            "type": "theurgy:item",
+            "count": 1,
+            "id": "theurgy:mercury_shard"
+          },
+          "time": 100
+        }
+      },
+      {
+        "jar": "twilightforest-1.21.1-4.8.3345-universal.jar",
+        "path": "data/twilightforest/recipe/stale_bread.json",
+        "recipe": {
+          "type": "twilightforest:drying",
+          "filter_time": 6000,
+          "input": {
+            "item": "minecraft:bread"
+          },
+          "result": {
+            "count": 1,
+            "id": "twilightforest:stale_bread"
+          }
+        }
+      },
+      {
+        "jar": "utilitarian-1.21.1-0.19.2.jar",
+        "path": "data/utilitarian/recipe/utility/bread.json",
+        "recipe": {
+          "type": "minecraft:crafting_shaped",
+          "category": "misc",
+          "key": {
+            "#": {
+              "item": "minecraft:wheat"
+            }
+          },
+          "pattern": [
+            "##",
+            "# "
+          ],
+          "result": {
+            "count": 1,
+            "id": "minecraft:bread"
+          }
+        }
+      }
+    ],
+    "errors": []
+  },
+  "attempts": {
+    "103": {
+      "ok": false,
+      "checks": [
+        {
+          "name": "build103",
+          "exit_code": 0
+        },
+        {
+          "name": "fixture-compile103",
+          "exit_code": 0
+        },
+        {
+          "name": "EscapeLandingFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "EscapeMotionFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "PartialFootingFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "TerrainStepFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "FrontierFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "DryDescentFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "ArrivalRadiusFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "WaterRouteFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "NativeWorldFramesFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "RouteRecoveryFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "RouteRecoveryBudgetFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "DiagonalRouteFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "SoilDescentFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "TravelProgressFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "ExcavationStepFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "RouteAlignmentFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "NativeFoodPlanFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "NativeFoodAimFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "NativeHuntPlanFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "NativeCraftRouteFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "NativeCraftSelectionFixture103",
+          "exit_code": 0
+        },
+        {
+          "name": "core103",
+          "exit_code": 0
+        },
+        {
+          "name": "log-fixtures103",
+          "exit_code": 0
+        },
+        {
+          "name": "readiness103",
+          "exit_code": 0
+        },
+        {
+          "name": "preflight103",
+          "exit_code": 0
+        },
+        {
+          "name": "prepare103",
+          "exit_code": 0
+        },
+        {
+          "name": "target103",
+          "exit_code": 0
+        },
+        {
+          "name": "start103",
+          "exit_code": 1
+        }
+      ],
+      "saved_world_before_sha256": "fa2f20fdd9c7c9a25c63a8107276886716d89dd08c09ab06b59435dd2f763cf4",
+      "finished_at": 1793751089.427271,
+      "application_failure": {
+        "schema_version": 1,
+        "scope": "NATIVE_APPLICATION_LIFECYCLE_NOT_RELEASE_ACCEPTANCE",
+        "ok": false,
+        "application_ready": false,
+        "services_ready": false,
+        "checks": {},
+        "automatic_input_authorized": false,
+        "public_broadcast_started": false,
+        "real_acceptance_passed": 0,
+        "complete_application": false,
+        "action": "start",
+        "code": "MC_APPLICATION_START_FAILED",
+        "new_process_count": 3,
+        "operation_phase": "ROLLED_BACK",
+        "rollback_complete": true
+      }
+    },
+    "103b": {
+      "ok": false,
+      "checks": [
+        {
+          "name": "resident-tts103b",
+          "exit_code": 0
+        },
+        {
+          "name": "preflight103b",
+          "exit_code": 1
+        }
+      ],
+      "saved_world_before_sha256": "fa2f20fdd9c7c9a25c63a8107276886716d89dd08c09ab06b59435dd2f763cf4",
+      "finished_at": 1793751637.1892352,
+      "application_failure": {
+        "schema_version": 1,
+        "classification": "NATIVE_ENVIRONMENT_PREPARATION_NOT_GAME_OR_RELEASE_ACCEPTANCE",
+        "ok": false,
+        "checks": [
+          {
+            "name": "profile",
+            "ok": true
+          },
+          {
+            "name": "source",
+            "ok": true
+          },
+          {
+            "name": "game_files",
+            "ok": true
+          },
+          {
+            "name": "device",
+            "ok": true
+          },
+          {
+            "name": "native",
+            "ok": true
+          },
+          {
+            "name": "runtime_files",
+            "ok": false,
+            "code": "MC_RUNTIME_FILES_UNAVAILABLE"
+          },
+          {
+            "name": "idle",
+            "ok": true
+          }
+        ],
+        "profile": "configs/deployment-profiles/mc-native-3080-neoforge-v1.json",
+        "automatic_input_authorized": false,
+        "real_acceptance_passed": 0,
+        "services_started": false,
+        "models_loaded": false,
+        "downloads_performed": false
+      }
+    },
+    "103c": {
+      "ok": false,
+      "checks": [
+        {
+          "name": "readiness103c",
+          "exit_code": 0
+        },
+        {
+          "name": "preflight103c",
+          "exit_code": 0
+        },
+        {
+          "name": "prepare103c",
+          "exit_code": 0
+        },
+        {
+          "name": "target103c",
+          "exit_code": 0
+        },
+        {
+          "name": "start103c",
+          "exit_code": 1
+        }
+      ],
+      "saved_world_before_sha256": "fa2f20fdd9c7c9a25c63a8107276886716d89dd08c09ab06b59435dd2f763cf4",
+      "finished_at": 1793753330.5167189,
+      "application_failure": {
+        "schema_version": 1,
+        "scope": "NATIVE_APPLICATION_LIFECYCLE_NOT_RELEASE_ACCEPTANCE",
+        "ok": false,
+        "application_ready": false,
+        "services_ready": false,
+        "checks": {},
+        "automatic_input_authorized": false,
+        "public_broadcast_started": false,
+        "real_acceptance_passed": 0,
+        "complete_application": false,
+        "action": "start",
+        "code": "MC_APPLICATION_START_FAILED",
+        "new_process_count": 2,
+        "operation_phase": "ROLLED_BACK",
+        "rollback_complete": true
+      }
+    }
+  },
+  "startup_phase_durations": {
+    "103": {
+      "seconds": 547.6925628185272,
+      "new_process_count": 3,
+      "rollback_complete": true,
+      "game_started": false
+    },
+    "103c": {
+      "seconds": 910.7805733680725,
+      "new_process_count": 2,
+      "rollback_complete": true,
+      "game_started": false
+    }
+  },
+  "initial_failure": {
+    "voice": "O07",
+    "observed_error": "TimeoutError from loopback health probe",
+    "fix": "transient transport probes retry within unchanged 180-second deadline; model errors, identity mismatch and deadline remain fatal",
+    "full_start_after_fix_passed": false
+  },
+  "latest_failure": {
+    "phase": "studio_before_tts_spawn",
+    "code": "MC_APPLICATION_START_FAILED",
+    "exact_cause_confirmed": false,
+    "observed_budget_rejection": "MODEL_DAILY_BUDGET",
+    "budget_rejection_proven_startup_cause": false
+  },
+  "world": {
+    "keepInventory": true,
+    "sha256": "fa2f20fdd9c7c9a25c63a8107276886716d89dd08c09ab06b59435dd2f763cf4",
+    "backup089_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
+    "unchanged_this_round": true
+  },
+  "new_game_started": false,
+  "new_gameplay_seconds": 0,
+  "new_runtime_observation": false,
+  "last_real_runtime_round": "102",
+  "new_video_recorded": false,
+  "candidate_disabled": true,
+  "portable_table_followup_source_installed": true,
+  "portable_table_followup_exercised_this_round": false,
+  "final_readonly_audit": {
+    "ok": true,
+    "host": "DESKTOP-2QQPN1H",
+    "at": 1793753575.010797,
+    "source_snapshot_sha256": "983435ec46b4f926362aefce0a609f66514ba13a79e782e6019efae43834d940",
+    "native_jar_sha256": "66e49401bfd2aaf44f85a216d6c60b22be111adcc23b8d374fdb7cd526ae7c18",
+    "world_sha256": "fa2f20fdd9c7c9a25c63a8107276886716d89dd08c09ab06b59435dd2f763cf4",
+    "world_unchanged_from_before103": true,
+    "keepInventory": true,
+    "backup089_sha256": "b3ed1c9299c2041df6ba86c91186b9547d7a939de7874d981866a4af5464234f",
+    "candidate_enabled": false,
+    "private_policy_sha256": "1aba677cdf0e53fb7ade93c487a24ebfe3f64beef2b7aa01a44e32ee83ca792e",
+    "owned_services": {
+      "dsh": false,
+      "avatar": false,
+      "tts": false,
+      "receiver": false,
+      "vision": false,
+      "minecraft": false
+    },
+    "service_processes_remaining": [],
+    "workers": [
+      {
+        "run": "103",
+        "role": "deploy",
+        "pid": 16688,
+        "create_time": 1793750095.1848547,
+        "identity_alive": false
+      },
+      {
+        "run": "103",
+        "role": "watch",
+        "pid": 29952,
+        "create_time": 1793750105.1492124,
+        "identity_alive": false
+      },
+      {
+        "run": "103b",
+        "role": "deploy",
+        "pid": 25908,
+        "create_time": 1793751568.3318372,
+        "identity_alive": false
+      },
+      {
+        "run": "103b",
+        "role": "watch",
+        "pid": 22708,
+        "create_time": 1793751578.0275888,
+        "identity_alive": false
+      },
+      {
+        "run": "103c",
+        "role": "deploy",
+        "pid": 21008,
+        "create_time": 1793751733.560048,
+        "identity_alive": false
+      },
+      {
+        "run": "103c",
+        "role": "watch",
+        "pid": 704,
+        "create_time": 1793751735.343443,
+        "identity_alive": false
+      }
+    ],
+    "official_clients": [
+      {
+        "pid": 1204,
+        "create_time": 1792960780.2620182
+      },
+      {
+        "pid": 9556,
+        "create_time": 1792960780.3685114
+      }
+    ],
+    "operation": {
+      "busy": false,
+      "phase": "ROLLED_BACK",
+      "action": "mc-application-start",
+      "cleanup_errors": []
+    },
+    "new_gameplay_seconds": 0,
+    "new_video_recorded": false,
+    "processes_started_or_stopped_by_this_audit": false,
+    "public_broadcast_started": false,
+    "browser_contexts_opened": 0,
+    "local_application_tests": 0
+  },
+  "cleanup": {
+    "ok": true,
+    "purpose": "BYTE_TRANSFER_HELPER_CLOSED_AFTER_EVIDENCE_VERIFICATION",
+    "pid": 33132,
+    "creation_time_verified": true,
+    "command_path_verified": true,
+    "listener_owner_verified": true,
+    "port": 2535,
+    "listeners_after": 0,
+    "unrelated_processes_stopped": false,
+    "browser_contexts_opened": 0,
+    "at": "2026-11-04T00:54:30.7367348Z"
+  },
+  "application_ready": false,
+  "formal_acceptance_passed": 0,
+  "formal_acceptance_advanced": 0,
+  "new_avatar_clips": 0,
+  "inherited_todos_open": 117,
+  "implemented_ids": [
+    "I1167",
+    "I1168",
+    "I1169",
+    "I1170",
+    "I1171",
+    "I1172",
+    "I1173",
+    "I1174",
+    "I1175",
+    "I1176"
+  ],
+  "report": "docs/technical/mc-live-v1/多配方选择与103启动回滚记录.md",
+  "github_publication": {
+    "branch": "mc",
+    "game_source_commit": "124e85fe44a21ec31de1d84e2da74c91df40753b",
+    "push_pending": true
+  },
+  "previous_goal_turn_classification": "progress",
+  "goal_status": "active",
+  "raw_artifacts": [
+    {
+      "file": "ArrivalRadiusFixture103.log",
+      "bytes": 204,
+      "sha256": "0ead68e79a6d7d9bdf4210f3482e88f10e2bb1f314427f501711424b6ecd3e5e"
+    },
+    {
+      "file": "build103.log",
+      "bytes": 14818,
+      "sha256": "c9e048a95cc14fea420e0f4b1b9372e1995988a341c9142508bf3ea4d1c7fcd0"
+    },
+    {
+      "file": "core103-report.json",
+      "bytes": 819,
+      "sha256": "ab125dadbfafda2ba96233ddf0ce222dc00f8fcc4b5c6e585507f76f409d79e8"
+    },
+    {
+      "file": "core103.log",
+      "bytes": 819,
+      "sha256": "ab125dadbfafda2ba96233ddf0ce222dc00f8fcc4b5c6e585507f76f409d79e8"
+    },
+    {
+      "file": "deploy103-bootstrap.json",
+      "bytes": 205,
+      "sha256": "c4f4cdaab9c02f2684fe1ea8e47c19f4f7b53c1bd94d053b89bc1235be2546b1"
+    },
+    {
+      "file": "deploy103-progress.json",
+      "bytes": 72,
+      "sha256": "f015e5b21345fcfa06db09aa1e372d4dcaaeadcec7c715d05a006dac626df73b"
+    },
+    {
+      "file": "deploy103-result.json",
+      "bytes": 6914,
+      "sha256": "3839606672595ac1d2bdaaefe63b42f3fed48b6b628e3f018b73be49e7f4a6ee"
+    },
+    {
+      "file": "deploy103-transfer.json",
+      "bytes": 5714,
+      "sha256": "6fb50c547dbe31609ed91d5632b4e11e5d9c8b3a9303e95ea00497730349b18c"
+    },
+    {
+      "file": "deploy103-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "deploy103b-bootstrap.json",
+      "bytes": 205,
+      "sha256": "0bfbeb9419c922c62cf3f4e47430e763846568b63082a5bd12dfc654fa4b7cb7"
+    },
+    {
+      "file": "deploy103b-progress.json",
+      "bytes": 73,
+      "sha256": "09eff938a54d3d729eb6aa192693824a1bafc28b6e58efb50d98a5c4418a9dbb"
+    },
+    {
+      "file": "deploy103b-result.json",
+      "bytes": 4942,
+      "sha256": "769ef44c036ce10a53d01410baa7c6b3e10b57fbb1f13a41e7c5d239a88f6281"
+    },
+    {
+      "file": "deploy103b-transfer.json",
+      "bytes": 1008,
+      "sha256": "d2d9efff3c2d1bdacf3c906977e1a678237ef43df3d3e106c1b6d75832fd8210"
+    },
+    {
+      "file": "deploy103b-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "deploy103c-bootstrap.json",
+      "bytes": 203,
+      "sha256": "d9f1c8a58f1fe1931e0607bba2b4ef161e47155986666943a35abaf4d7266646"
+    },
+    {
+      "file": "deploy103c-progress.json",
+      "bytes": 73,
+      "sha256": "42f17d5a728d2be559d394edced4ac42fa2bd9a30cd79c8f55cdb830bb4748a7"
+    },
+    {
+      "file": "deploy103c-result.json",
+      "bytes": 4977,
+      "sha256": "8bd6377df1c67db78e065617cd042c9ef3a3ba534ae27d18269073ccaf6cd465"
+    },
+    {
+      "file": "deploy103c-transfer.json",
+      "bytes": 1465,
+      "sha256": "6236b4a74bbc68bbf44206972675faba0514d54313024c5800905553eef285c3"
+    },
+    {
+      "file": "deploy103c-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "DiagonalRouteFixture103.log",
+      "bytes": 92,
+      "sha256": "7e75f57485e283ba84a760a40b4fc45fd77bdb3fde97c7355673e7e48d1b96a8"
+    },
+    {
+      "file": "DryDescentFixture103.log",
+      "bytes": 80,
+      "sha256": "3eea82aafda98d3efc020c6a6bff9ea1a6f4006584a7ca958e5c076906e3b368"
+    },
+    {
+      "file": "EscapeLandingFixture103.log",
+      "bytes": 63,
+      "sha256": "62c8cc1b85f3941cad2d8edf66da1ea2bdadd3441ab56e3c327a8222b2ecd872"
+    },
+    {
+      "file": "EscapeMotionFixture103.log",
+      "bytes": 62,
+      "sha256": "59e30bc89230aaa20d8373909fdb9c0272eafbf3623a50e75686263b22a0878c"
+    },
+    {
+      "file": "ExcavationStepFixture103.log",
+      "bytes": 58,
+      "sha256": "7af78cc5285243d6b063b712d829091bb3ab237069e3971dd8189f7564998975"
+    },
+    {
+      "file": "final103-failed-runs-readonly.json",
+      "bytes": 2326,
+      "sha256": "ccf81d0bdef7008f9e237abf7d1ce9c30a57153a79b9c9f28347341e0e99bcc8"
+    },
+    {
+      "file": "fixture-compile103.log",
+      "bytes": 492,
+      "sha256": "5ffb86de2772a00979b77e4d3bc992b7fc9ac65184884d63d8c34fb670165d1a"
+    },
+    {
+      "file": "FrontierFixture103.log",
+      "bytes": 61,
+      "sha256": "84537d9e96e383c138dd76950882cd44549af2061c8d5383cb4a99883f17ee75"
+    },
+    {
+      "file": "log-fixtures103.log",
+      "bytes": 108,
+      "sha256": "73f184750234ab08fa63fd64b74f47676928895c2006541208be1ecfa67a275e"
+    },
+    {
+      "file": "NativeCraftRouteFixture103.log",
+      "bytes": 66,
+      "sha256": "46c18494e5bafce4a5a5d48edba952b07241ec35f817c106385e8d1267a80278"
+    },
+    {
+      "file": "NativeCraftSelectionFixture103.log",
+      "bytes": 70,
+      "sha256": "275a1db4b61b1af086d8d377c65824e9d90e0f35b0eb40d77cec589e54d1b81b"
+    },
+    {
+      "file": "NativeFoodAimFixture103.log",
+      "bytes": 109,
+      "sha256": "d5949af93d0a71911bb7a955db2e8f06664cca5cf3031be3906ffb40db2fa18e"
+    },
+    {
+      "file": "NativeFoodPlanFixture103.log",
+      "bytes": 65,
+      "sha256": "021ba27f38b41b8e118d060e2d21627394bcc1520d64ad47013dd6c9af95677f"
+    },
+    {
+      "file": "NativeHuntPlanFixture103.log",
+      "bytes": 65,
+      "sha256": "992c022760e52d95f64c179952510d61d8a6a641befc9db9831a7b3176edbf44"
+    },
+    {
+      "file": "NativeWorldFramesFixture103.log",
+      "bytes": 71,
+      "sha256": "b502b9db318ef800421887d48eae442229a0009f238c87203a7377caf87d1f88"
+    },
+    {
+      "file": "PartialFootingFixture103.log",
+      "bytes": 69,
+      "sha256": "78be713b0b076fccf6547276cbeda2779420cde5a5eede44f572fd030fca8980"
+    },
+    {
+      "file": "preflight103.log",
+      "bytes": 805,
+      "sha256": "8dbb8fce6f06e7773c120a2f95c6b455de84066e9d4e06ae81c3ee57ce7d70bb"
+    },
+    {
+      "file": "preflight103b.log",
+      "bytes": 854,
+      "sha256": "c9406b1360052a8a6e8c653eb8dac03b2acf584ca32580842ecb4e4a0a81fe39"
+    },
+    {
+      "file": "preflight103c.log",
+      "bytes": 805,
+      "sha256": "8dbb8fce6f06e7773c120a2f95c6b455de84066e9d4e06ae81c3ee57ce7d70bb"
+    },
+    {
+      "file": "prepare103.log",
+      "bytes": 376,
+      "sha256": "32fb804e9834f65854d5929b36b070221bd025bcafb5b82c18c9fef9309a9b13"
+    },
+    {
+      "file": "prepare103c.log",
+      "bytes": 376,
+      "sha256": "6b05d252925510c8eec08778e816e4a9799ee1848bfa2d5d76555a18d63a41b4"
+    },
+    {
+      "file": "readiness103.log",
+      "bytes": 3388,
+      "sha256": "303855d01eeec28dc214e2435574d47c151f121c769be2c0d707bbaf8a181d12"
+    },
+    {
+      "file": "readiness103c.log",
+      "bytes": 3398,
+      "sha256": "0129579709df9d678af8824ad40031b663e93b03d0b05e3f7f16fa3fd8da2bb7"
+    },
+    {
+      "file": "resident-tts103b.log",
+      "bytes": 959,
+      "sha256": "07691759035936eddeec1bc880032b5c3306050354b4c23f60e19171e6e2fbc6"
+    },
+    {
+      "file": "RouteAlignmentFixture103.log",
+      "bytes": 97,
+      "sha256": "3c19fa7bedfb3a118591f7682d36c858bb3cb5071092f674f17893d4ad6af6a2"
+    },
+    {
+      "file": "RouteRecoveryBudgetFixture103.log",
+      "bytes": 80,
+      "sha256": "f6c52d7974a814f14caa21f1f5bcf7a0c51dc465a1e1a7725a75d5e5cbb0084d"
+    },
+    {
+      "file": "RouteRecoveryFixture103.log",
+      "bytes": 82,
+      "sha256": "a5c734ac4ee4ba7336d153a136437ce536b1122bee055f57e6dfd4c2dca275f4"
+    },
+    {
+      "file": "SoilDescentFixture103.log",
+      "bytes": 87,
+      "sha256": "49d164c3ae2b3fb92a2212dd7bc29f01f4c01cad00d1fd86410f8183de61279a"
+    },
+    {
+      "file": "start103.log",
+      "bytes": 490,
+      "sha256": "cae957235248ede4408810e8a47df16f082afb221d198cbd89892f666e76cbc8"
+    },
+    {
+      "file": "start103c.log",
+      "bytes": 490,
+      "sha256": "f7ce26505561f1ff7b4725e90813c865493bcecaf6a03dfe2f54ee2e5e758d14"
+    },
+    {
+      "file": "target103.log",
+      "bytes": 608,
+      "sha256": "092f95521802bd8f0a5a277a36ae7e9d23b13a1f5cf5695d2fde3b92d3022b6e"
+    },
+    {
+      "file": "target103c.log",
+      "bytes": 608,
+      "sha256": "09b393b987991ed4f16f5a5dd043b43957e86a9f98037e46ec545ccb8480fea0"
+    },
+    {
+      "file": "TerrainStepFixture103.log",
+      "bytes": 36,
+      "sha256": "08de1db873bc605ddfd2e6a40143c95deb3b808037dab949e0faca19cdd0f135"
+    },
+    {
+      "file": "TravelProgressFixture103.log",
+      "bytes": 102,
+      "sha256": "a528cd1e95827070f5e822dcd623da5e12d6e06e414debb982c49040d716f76a"
+    },
+    {
+      "file": "watch103-bootstrap.json",
+      "bytes": 205,
+      "sha256": "fd56e2c72aa735dde0fee19b0d1666e856fb9ea043b565a21c086d96cf2cb5ca"
+    },
+    {
+      "file": "watch103-result.json",
+      "bytes": 445,
+      "sha256": "87ace79d2661c3683972066254803911b3b03ed11508cfeb4dd336dc279e729d"
+    },
+    {
+      "file": "watch103-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "watch103b-bootstrap.json",
+      "bytes": 205,
+      "sha256": "cb788dc5ffdb15e77b44fe952291dea884895b4d90c9cae58f26eeb2161e2280"
+    },
+    {
+      "file": "watch103b-result.json",
+      "bytes": 448,
+      "sha256": "01a53aa8fe30accf67651b97dbfa37cbdb8572c976989cfcc14cf80996d30006"
+    },
+    {
+      "file": "watch103b-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "watch103c-bootstrap.json",
+      "bytes": 202,
+      "sha256": "54f9cd2615f6ac1d3e479f92b8bbd913228976c7be76cc0f2a4ecdf781ebdfb4"
+    },
+    {
+      "file": "watch103c-result.json",
+      "bytes": 448,
+      "sha256": "2a00f35102033dc4abb7ff507b38e817f85bbb8050302dc8a0669660037c88a9"
+    },
+    {
+      "file": "watch103c-worker.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "WaterRouteFixture103.log",
+      "bytes": 78,
+      "sha256": "10154e63ef2b0becdb9992534ed0cd80985b1c3c8dce4f6b0c3edb6160d012fc"
+    }
+  ],
+  "saved_diagnostics": [
+    {
+      "file": "start103c-failure-diagnostic.json",
+      "sha256": "22ac20c53d17e20182e8de9115131fd66463530923b17e8ced742bebaa01766d"
+    },
+    {
+      "file": "startup103c-diagnostic-002615448.json",
+      "sha256": "1fc77576e01d24bbf7805cf4cd6b50ba16786743a37f754ce7bfca2040b252de"
+    },
+    {
+      "file": "startup103c-diagnostic-004430771.json",
+      "sha256": "a3772d84524c8ed57a31a03a86ac0dae9be7dd3cb09a9240dbecf6bf027b94d9"
+    },
+    {
+      "file": "tts103-start-failure-diagnostic.json",
+      "sha256": "28683d67aa0ec5e9ea290431838a732d39b881bdcf02ee983e990f064094f4fc"
+    }
+  ]
+}
