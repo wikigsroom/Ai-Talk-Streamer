@@ -113,6 +113,8 @@ class McDeploymentTests(unittest.TestCase):
         self.write('configs/mc-player.private.json', {'schema_version':2,'mode':'singleplayer','world':None})
         self.bytes('integration/dsh_bridge.py', b'# source-owned proxy fixture\n')
         self.bytes('src/LiveTalking/server/dsh_bridge.py', b'# source-owned proxy fixture\n')
+        self.bytes('integration/motion_control.py', b'# source-owned motion fixture\n')
+        self.bytes('src/LiveTalking/server/motion_control.py', b'# source-owned motion fixture\n')
         self.git('init', '-b', 'mc')
         self.git('add', '.')
         self.commit('temporary fixture source')
