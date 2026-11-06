@@ -39,6 +39,8 @@ def validate_target(root=ROOT, *, expected_target=None, check_hardware=True, che
     target = selected['target']
     if target is None:
         raise RuntimeError('main contains shared source only. Use deploy/rtx3080 or deploy/rtx4090 before deploying or starting inference.')
+    if selected.get('deployment_allowed') is not True:
+        raise RuntimeError('Deployment is disabled for ' + target + '; integration and acceptance are pending. Services were not started.')
     if expected_target is not None and target != expected_target:
         raise RuntimeError('This operation requires ' + expected_target + '; selected target is ' + target)
     spec = registry['targets'][target]

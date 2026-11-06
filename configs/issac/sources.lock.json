@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "captured_on": "2026-11-07",
+  "activation_status": "planning_only",
+  "streamer": {
+    "repository": "https://github.com/wikigsroom/Ai-Talk-Streamer",
+    "base_branch": "naimei",
+    "commit": "1931c45696d02f2c2e205c9a7a8a9f141e89e40c"
+  },
+  "gameplay": {
+    "repository": "https://github.com/wikigsroom/agent-gameplay-isaac/",
+    "commit": "5ceb4a4d95402df306ad7dad94bf91f1e04b6649",
+    "release": "native130-dsh/0.1.0",
+    "license": "MIT",
+    "original_upstream": "chongchong59699/isaac-jev",
+    "tracked_files": 282,
+    "tracked_file_bytes": 10088385,
+    "declared_game_baseline": "Repentance 1.7.9b x86",
+    "dsh": "0.2.2-rc.1",
+    "python_validated_upstream": "3.13.1",
+    "node_validated_upstream": "24.22.1",
+    "inspected_not_installed_or_executed": true
+  },
+  "wiki_skill": {
+    "name": "issac-wiki",
+    "source_directory": "E:\\dev\\sandbox\\以撒的结合skill\\issac-wiki",
+    "snapshot_date": "2026-11-07",
+    "snapshot_baseline": "Repentance+ v1.9.7.17.J460",
+    "default_edition": "rep+",
+    "required_gameplay_edition": "rep",
+    "files": 4525,
+    "bytes": 71823884,
+    "source_tree_sha256": "3f1b67aae3ca7316b94273dbfccd106dd22862508ede7a3ce3008c0e50213a43",
+    "excluded_generated_files": [
+      "**/__pycache__/**",
+      "**/*.pyc",
+      "**/*.pyo"
+    ],
+    "tree_hash_encoding": "UTF-8 of path + NUL + decimal bytes + NUL + lowercase content SHA256 + LF, sorted by relative POSIX path",
+    "critical_files": [
+      {
+        "path": "LICENSE.md",
+        "bytes": 2812,
+        "sha256": "ce42f4261486bf3f5fa3f7dd0a1d44fd053eba8e68bf8a042d67aafab39886c0"
+      },
+      {
+        "path": "SKILL.md",
+        "bytes": 6522,
+        "sha256": "929c320688eb35d62fa30267012e21829b52c8d221981323dec344dba31ce602"
+      },
+      {
+        "path": "assets/run-template.json",
+        "bytes": 975,
+        "sha256": "3248070871d71a67f4418afbe74742b033a57a6ad7b3d0ad53933cc097709027"
+      },
+      {
+        "path": "data/coverage.json",
+        "bytes": 3630,
+        "sha256": "0f9a70f594bef784196e1c285ff27f0ad36aab285a281972e8fea6a3b16ac73d"
+      },
+      {
+        "path": "data/isaac.sqlite3",
+        "bytes": 52187136,
+        "sha256": "60f86b199d7c0ae642dbf8969f1ffe8f0841d3e9540bc51bdf00cb16325aed4e"
+      },
+      {
+        "path": "data/source/manifest.json",
+        "bytes": 657,
+        "sha256": "9f9075652ab770b00458b9cc4d6fa0405fb6724395377871e9a29c863c59b4e7"
+      },
+      {
+        "path": "licenses/CC-BY-SA-4.0.txt",
+        "bytes": 20138,
+        "sha256": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5"
+      },
+      {
+        "path": "references/query-guide.md",
+        "bytes": 6086,
+        "sha256": "338dc7f718a90a56de396b078c1f1a638227c70cfd9c4393b766e0d7ac434a81"
+      },
+      {
+        "path": "references/run-evaluation.md",
+        "bytes": 5661,
+        "sha256": "52f9a795f922cb212e1d7e7170f13af2c9fab354371d18ebaa62829f56bce824"
+      },
+      {
+        "path": "references/sources-and-versions.md",
+        "bytes": 6134,
+        "sha256": "7b7b08f259910297164872c0832c94e4f1a46f5d93b10fb4d5737f82a524f268"
+      },
+      {
+        "path": "scripts/isaac.py",
+        "bytes": 25665,
+        "sha256": "2b936166034d9d1d876a744611da65e4882c906e50a48d207dd163881e9502a4"
+      },
+      {
+        "path": "scripts/wiki_text.py",
+        "bytes": 7971,
+        "sha256": "984b1f8b64ac2df5f607c5be347a9ef9c0afcc0c513645e8ec4cc005d4d9ad7e"
+      }
+    ],
+    "data_license": "CC-BY-SA-4.0",
+    "original_helper_license": "MIT",
+    "remote_provisioned": false,
+    "dsh_tool_implemented": false
+  },
+  "game": {
+    "source_directory": "E:\\game\\The.Binding.of.Isaac.and.The.Binding.of.Isaac.Rebirth.Build.10102354\\The.Binding.of.Isaac.and.The.Binding.of.Isaac.Rebirth.Build.10102354\\The.Binding.of.Isaac.and.The.Binding.of.Isaac.Rebirth.Build.10102354",
+    "files": 1223,
+    "bytes": 1175163776,
+    "executable": "isaac-ng.exe",
+    "executable_sha256": "530b4d2accef833b8dbf6f1a9f781fe1e051c1916ca5acdb579df05a34640627",
+    "machine": "0x014c/x86",
+    "changelog_baseline": "v1.7.9b – December 7, 2022",
+    "actual_runtime_compatibility_verified": false,
+    "distribution_in_git": false,
+    "remote_provisioned": false
+  },
+  "new_model_weight_bytes_this_change": 0
+}

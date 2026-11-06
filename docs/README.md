@@ -1,5 +1,7 @@
 # Documentation / 文档导航
 
+**当前 `issac` 分支：** [奶妹直播游玩以撒：完整更新方案](issac/完整更新方案20261107.md) · [编号实施与验收清单](issac/实施任务与验收清单20261107.csv)。独立4090目标现为准备状态，尚未部署或开播；下方为继承的历史文档。
+
 **先确认分支与设备：** [3080 / 4090分支规范](deployment/DEVICE_BRANCHES.md)。`main`不直接部署；原生3080与A4090+B3080有不同的推理角色、batch和记忆目录。
 
 [当前3080原生定稿](deployment/RTX3080_K02_RELEASE.md)：K02、O07/F07、同机官方直播姬、batch4实测；[五段可视化报告](analysis/native-rtx3080-k02-20261029/report.html)保留原batch8失败和最终通过证据。

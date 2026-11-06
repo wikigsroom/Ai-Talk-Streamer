@@ -96,6 +96,29 @@
       "engine": "flashhead-lite",
       "topology": "naimei_native_local_media",
       "validation_status": "implementation_in_progress_no_public_broadcast"
+    },
+    "issac-rtx4090": {
+      "selection": {
+        "schema_version": 1,
+        "target": "issac-rtx4090",
+        "branch": "issac",
+        "deployment_allowed": false
+      },
+      "release_pointer": {
+        "release": null,
+        "manifest": "configs/issac/integration-plan.json",
+        "runbook": "docs/issac/完整更新方案20261107.md",
+        "target": "issac-rtx4090",
+        "deployment_branch": "issac",
+        "status": "planning_not_activated"
+      },
+      "gpu_pattern": "RTX\\s+4090(?:\\s|$)",
+      "minimum_vram_mib": 45000,
+      "batch_size": 1,
+      "state_path": "state/issac-stream",
+      "engine": "flashhead-lite",
+      "topology": "native_4090_game_strategy_narrator_livehime",
+      "validation_status": "plan_only_gameplay_and_public_broadcast_not_accepted"
     }
   }
 }

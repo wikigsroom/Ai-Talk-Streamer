@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-11-07",
+  "branch": "issac",
+  "scope": "planning_artifacts_and_pre_inference_guard_only",
+  "ok": true,
+  "json_files_parsed": 7,
+  "mode_image_sha256_matches": 3,
+  "voice_freeze": {
+    "ok": true,
+    "freeze_id": "NM-VOICE-FINAL-20261106-v1",
+    "voice_id": "NCM01",
+    "source_count": 2,
+    "reference_seconds": 11.92,
+    "audition_seconds": 31.57,
+    "locked_files": 10,
+    "user_approved": true,
+    "automatic_fallback": false,
+    "new_model_weight_bytes": 0,
+    "repository_contains_reference_audio": false,
+    "private_reference_available": false,
+    "mouth_quality_accepted": false,
+    "remote_activation_recorded": false
+  },
+  "local_document_links_checked": 7,
+  "numbered_tasks": 30,
+  "deployment_guard_tests": {
+    "passed": 21,
+    "failures": 0,
+    "errors": 0
+  },
+  "preparation_startup_refusal": "Deployment is disabled for issac-rtx4090; integration and acceptance are pending. Services were not started.",
+  "gameplay_or_remote_deployment_tested": false,
+  "qualified_local_model_tested": false,
+  "public_broadcast_tested": false
+}

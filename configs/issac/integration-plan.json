@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "plan_id": "NM-ISSAC-PLAN-20261107-v1",
+  "branch": "issac",
+  "status": "source_audited_plan_prepared_not_live_implementation",
+  "target": "issac-rtx4090",
+  "deployment_allowed": false,
+  "gameplay_enabled": false,
+  "public_broadcast_enabled": false,
+  "native_windows_only": true,
+  "cloud_inference_allowed": false,
+  "virtualization_allowed": false,
+  "new_model_weight_bytes_committed_or_downloaded": 0,
+  "source_lock": "configs/issac/sources.lock.json",
+  "character_contract": "configs/issac/character-inheritance.json",
+  "proposed_remote_paths": {
+    "installation": "C:/dev/虚拟数字人直播/issac",
+    "game": "C:/dev/虚拟数字人直播/issac/game",
+    "wiki": "C:/dev/虚拟数字人直播/issac/knowledge/issac-wiki",
+    "strategy_state": "state/isaac-strategy",
+    "narrator_state": "state/issac-stream"
+  },
+  "strategy": {
+    "dsh_version": "0.2.2-rc.1",
+    "provider": "qualified_local_only_not_yet_configured",
+    "native_realtime_loop_not_llm": true,
+    "macro_hz": 6,
+    "event_poll_ms": 250,
+    "decision_deadline_seconds": 45,
+    "hidden_room_metadata_allowed": false,
+    "save_slot": 3,
+    "goal": "legally_available_goal_selected_at_run_start"
+  },
+  "wiki": {
+    "requested_edition": "rep",
+    "proposed_tool": "isaac_wiki_query",
+    "prompt_injection": "same_isaac_complete_prompt_section_plus_explicit_tool_allowlist",
+    "implemented": false,
+    "proposed_timeout_seconds": 2,
+    "proposed_max_queries_per_decision": 3,
+    "proposed_model_result_token_budget": 3000,
+    "arbitrary_shell_or_file_access": false
+  },
+  "narrator": {
+    "dsh_version": "0.2.0-rc.2",
+    "humanity_version": "0.1.17",
+    "voice_id": "NCM01",
+    "voice_fallback": null,
+    "event_input": "verified_game_events_only",
+    "seven_inherited_sources": "configs/naimei/dsh-extensions.json",
+    "one_audio_authority": true,
+    "new_state_root_required": true
+  },
+  "proposed_ports": {
+    "streamer_ui": 8062,
+    "narrator_api_loopback": 3104,
+    "narrator_management_loopback": 3103,
+    "native_game_bridge_loopback": 9528,
+    "upstream_diagnostics_loopback_optional": 9529,
+    "strategy_api_loopback": 9532,
+    "strategy_dsh_loopback": 9533,
+    "avatar_engine_existing_exclusive_owner": 8030
+  },
+  "proposed_capture": {
+    "preferred": "official_livehime_native_game_capture_plus_single_avatar_browser_source",
+    "initial_game_video": [
+      1280,
+      720,
+      30
+    ],
+    "after_acceptance_game_video": [
+      1920,
+      1080,
+      30
+    ],
+    "avatar_video": [
+      512,
+      512,
+      25
+    ],
+    "single_screenshot_script_is_stream_capture": false,
+    "game_audio_path": "one_verified_game_only_route",
+    "actually_validated": false
+  },
+  "activation_gates": [
+    "game_runtime_and_protected_save_baseline",
+    "real_rep_wiki_tool_and_prompt_probe",
+    "qualified_local_model_tool_decisions",
+    "NCM01_remote_voice_alignment",
+    "exclusive_media_engine_and_playback_authority",
+    "native_capture_and_audio_test",
+    "cohost_25fps_mouth_fang_and_long_session_acceptance",
+    "new_origin_receipt_and_rollback_drill"
+  ]
+}

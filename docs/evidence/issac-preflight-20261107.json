@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-11-07T06:00:35+08:00",
+  "scope": "read_only_snapshot_not_performance_acceptance",
+  "gpu": {
+    "name": "NVIDIA GeForce RTX 4090",
+    "vram_total_mib": 49140,
+    "vram_used_mib": 13703,
+    "utilization_percent": 0
+  },
+  "ram": {
+    "free_kib": 42575484,
+    "total_kib": 67004276
+  },
+  "drive_free_bytes": {
+    "C": 92083445760
+  },
+  "checked_local_model_ports_unavailable": [
+    1234,
+    8080,
+    11434
+  ],
+  "retained_swift_gguf_bytes": 75827956000,
+  "requested_game_path_exists_on_remote": false,
+  "studio_observed_voice_id": "O07",
+  "required_voice_id": "NCM01",
+  "narrator_dsh_observed": "0.2.0-rc.2",
+  "humanity_observed": "0.1.17",
+  "model_channel_configured_observed": false,
+  "playback_authority_ready_observed": false,
+  "old_ledger_live_flag_is_not_public_broadcast_proof": true,
+  "http_probes": [
+    {
+      "url": "http://127.0.0.1:8030/health",
+      "status": 200,
+      "reachable": true,
+      "selected_fields": {
+        "ready": true,
+        "voice_id": null,
+        "size": 512,
+        "state": null
+      }
+    },
+    {
+      "url": "http://127.0.0.1:8052/health",
+      "status": 200,
+      "reachable": true,
+      "selected_fields": {
+        "ready": true,
+        "voice_id": "O07",
+        "size": 512,
+        "state": "idle"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:3094/api/dsh/status",
+      "status": 200,
+      "reachable": true,
+      "selected_fields": {
+        "ready": null,
+        "voice_id": null,
+        "size": null,
+        "state": null
+      }
+    },
+    {
+      "url": "http://127.0.0.1:1234/v1/models",
+      "reachable": false,
+      "selected_fields": {}
+    },
+    {
+      "url": "http://127.0.0.1:8080/v1/models",
+      "reachable": false,
+      "selected_fields": {}
+    },
+    {
+      "url": "http://127.0.0.1:11434/api/tags",
+      "reachable": false,
+      "selected_fields": {}
+    }
+  ],
+  "game_started": false,
+  "saves_modified": false,
+  "remote_service_restart_performed": false,
+  "gameplay_capture_audio_or_performance_benchmark_performed": false,
+  "browser_tabs_opened_by_this_task": 0,
+  "user_existing_tabs_modified": false,
+  "new_models_downloaded": false,
+  "public_broadcast_started": false
+}

@@ -1,7 +1,8 @@
 {
-  "release": "naimei-o01-live-v1",
-  "manifest": "configs/releases/naimei-o01-live-v1.json",
-  "runbook": "docs/naimei/A01-A14实施与直播接入.md",
-  "target": "naimei-rtx4090",
-  "deployment_branch": "naimei"
+  "release": null,
+  "manifest": "configs/issac/integration-plan.json",
+  "runbook": "docs/issac/完整更新方案20261107.md",
+  "target": "issac-rtx4090",
+  "deployment_branch": "issac",
+  "status": "planning_not_activated"
 }

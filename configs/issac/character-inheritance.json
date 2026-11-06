@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "branch": "issac",
+  "character_id": "naimei",
+  "costume_id": "O01",
+  "parent_commit": "1931c45696d02f2c2e205c9a7a8a9f141e89e40c",
+  "modes": [
+    {
+      "mode_id": "M01",
+      "name": "日光陪玩",
+      "reference_image": "assets/issac/references/M01.png",
+      "sha256": "d29215e26baf0e2447efeab92aeef52a6de4aceccab8cd20329bc10383d98213",
+      "bytes": 2230929,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "inherited_from": "assets/naimei/modes-v1/M01-daylight/naimei-M01-daylight.png",
+      "static_reference_user_locked": true,
+      "visual_constraints": {
+        "机位与景别": "以原01为准：方形正面中景、镜头平视，人物居中；保留完整橙帽与绿叶、双手及整个手柄，画面底部是浅木桌沿。",
+        "坐姿": "坐在奶油白配橙边的高背椅上，躯干基本直立、肩部放松；双臂在身前，不能改成后仰、明显前倾或侧坐。",
+        "默认表情": "双眼睁开、自然闭嘴的小笑，亲近而专注；眼神接近镜头方向，保留短圆口鼻。",
+        "双手与手柄": "沿用01图中的白灰配橙色手柄及具体握姿，双手各握一侧，拇指在摇杆附近；手柄位于腹部前、桌沿之上，与下巴保持明显间距。",
+        "椅子": "奶油白软包、橙色边线与侧翼；扶手和靠背形状按本图固定，不能替换成M03的深色椅。",
+        "场景与道具": "画面左侧木框窗、浅色窗帘与绿植；右侧木书架、书本、收纳盒、篮筐和橙子公仔；桌面左下有橙色杯与圆形杯垫。位置与数量按图固定。",
+        "尾巴": "仅一条，按图从椅子右侧可见，保留橙色背部凸起及浅色腹侧；尾根被身体和椅子遮挡时不额外补画。",
+        "时间与光照": "明确白天，窗外有明亮自然光；室内暖白及木色，人物脸部明亮均匀，绿眼不受强色偏污染。",
+        "允许变化": "自然眨眼、微小呼吸、细微眼神与点头、低幅度拇指操作；说话时采用通过复核的口型，维持持柄和端坐基准。",
+        "不可混入": "M02的夜窗和书架灯带、M03的深色椅/近景前倾构图、显示器遮脸、杯子或窗户左右反转。",
+        "片段起止": "动作前后回到本图的端坐、持柄与自然闭嘴状态，手柄和桌沿位置接续一致。"
+      },
+      "purpose": "白天的桌前游戏、日常陪伴与边玩边聊。",
+      "g0_state": "M01-G0",
+      "live_motion_accepted": false,
+      "mouth_fangs_accepted": false
+    },
+    {
+      "mode_id": "M02",
+      "name": "暖夜陪玩",
+      "reference_image": "assets/issac/references/M02.png",
+      "sha256": "20760c617f9032917f7ce4adecdac52000065c40c6a4743dce16e54afe94fc79",
+      "bytes": 2198876,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "inherited_from": "assets/naimei/modes-v1/M02-warm-night/naimei-M02-warm-night.png",
+      "static_reference_user_locked": true,
+      "visual_constraints": {
+        "机位与景别": "以原01N为准：方形正面中景、人物居中、平视机位；构图与M01属于同一桌前设置，帽叶、双手、手柄和底部桌沿完整入镜。",
+        "坐姿": "与M01同类的直立端坐与放松肩线；不得因为夜间模式就改为躺靠、困倦闭眼或M03的前倾。",
+        "默认表情": "双眼睁开、自然闭嘴小笑，安静亲近；夜间只改变场景氛围，不改变身份、眼睛颜色或口鼻比例。",
+        "双手与手柄": "按01N固定同款白灰配橙色手柄、双手握柄及摇杆附近的拇指位置；手柄低于脸，不能抬到下巴前。",
+        "椅子": "延续奶油白配橙边的高背椅和扶手，保留本图光照下的材质；不能染成M03的深灰电竞椅。",
+        "场景与道具": "与M01保持同一房间布局：左窗/窗帘/植物、右书架/橙子公仔/收纳物、左下橙杯与杯垫。夜窗及暖色书架灯带为本形态标识。",
+        "尾巴": "仅一条，椅子右侧可见，体量、背部凸起与浅色腹侧按01N固定。",
+        "时间与光照": "窗外深蓝夜色、暗色树叶与远处暖色窗灯；书架暖色灯带点亮，人物受柔和暖白主光，发丝和椅缘有少量蓝色侧光。",
+        "允许变化": "自然眨眼、微小呼吸、轻微眼神和点头、低幅度拇指操作；夜间灯光强度保持稳定，讲话时维持脸部曝光。",
+        "不可混入": "太阳、夕阳或强日照光束；脸部随背景变成蓝色或昏暗；大面积紫色霓虹、M03前倾近景或另一套服装。",
+        "片段起止": "回到本图的端坐持柄与自然闭嘴状态；灯带不闪烁，窗外夜色不能在循环接缝变成白天。"
+      },
+      "purpose": "夜间的桌前游戏、安静陪伴与轻松聊天。",
+      "g0_state": "M02-G0",
+      "live_motion_accepted": false,
+      "mouth_fangs_accepted": false
+    },
+    {
+      "mode_id": "M03",
+      "name": "专注对局",
+      "reference_image": "assets/issac/references/M03.png",
+      "sha256": "643654517a4a55a971f560c107b1a3bc42e5ccbd151ab5dcd50f02fb8300f0ab",
+      "bytes": 2137919,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "inherited_from": "assets/naimei/modes-v1/M03-focused-play/naimei-M03-focused-play.png",
+      "static_reference_user_locked": true,
+      "visual_constraints": {
+        "机位与景别": "以原05为准：方形、近乎正面的偏近景，人物脸部比M01/M02更大；帽子绿叶、整个手柄和双手完整可见，前景没有桌沿。",
+        "坐姿": "臀部仍坐在椅上，上身明显前倾，双肘收向身体、双肩投入操作；不改回M01的直立姿态或后仰靠坐，膝腿不必强行补出。",
+        "默认表情": "双眼睁开、眉形略收紧，闭嘴轻笑且专注；保持原05的脸部透视，不夸张成愤怒、露齿吼叫或另一种长口鼻脸型。",
+        "双手与手柄": "固定05本图中的白灰配橙色手柄及按键外观，双手在画面下部握持，拇指落在两侧摇杆附近；不因操作把手柄抬到嘴或眼睛前。",
+        "椅子": "深灰软包电竞椅、橙色缝线及扶手，靠背在肩后；禁止无过渡地变成M01/M02奶油白椅。",
+        "场景与道具": "按原05的紫蓝游戏空间固定，左侧书架、绿植和橙子灯/公仔，右侧蓝色灯条及远景沙发/靠垫；不补画M01桌面或左下橙杯。",
+        "尾巴": "右侧仅一条可见尾巴，保留背部橙色凸起、浅色腹侧和当前露出比例；不能把尾巴误作第二条手臂。",
+        "时间与光照": "暗色室内游戏氛围，紫蓝色只作为背景及少量边缘光；脸部保持中性偏暖的柔光、黄色皮肤与清晰绿眼。",
+        "允许变化": "前倾基准上的细微呼吸、眨眼、眼神追踪、轻微眉部反应与小幅拇指操作；表演收束后仍回到本形态的前倾专注。",
+        "不可混入": "明亮日窗、木桌和桌上橙杯、奶油白椅、大幅推镜或甩头、站起/挥臂/摔手柄；近景时不能进一步裁掉帽叶或手。",
+        "片段起止": "以本图的前倾、低位持柄和自然闭嘴为首尾基准；没有大动作也必须保持可识别的专注状态。"
+      },
+      "purpose": "投入操作、紧张对局及游戏中的即时反应。",
+      "g0_state": "M03-G0",
+      "live_motion_accepted": false,
+      "mouth_fangs_accepted": false
+    }
+  ],
+  "voice_profile": "assets/naimei/voice-final-v1/profile.json",
+  "voice_profile_sha256": "28e5a3cbdb1501164200efb726aa5d8a56117631340975c49918508b0768fd4f",
+  "voice_freeze": "NM-VOICE-FINAL-20261106-v1",
+  "voice_id": "NCM01",
+  "voice_engine": "OmniVoice",
+  "automatic_voice_fallback": false,
+  "historical_O07_F07_mode_metadata_superseded": true,
+  "reference_audio_included": false,
+  "reference_transcript_included": false,
+  "avatar": {
+    "engine": "flashhead-lite",
+    "size": [
+      512,
+      512
+    ],
+    "target_fps": 25,
+    "steps": 4,
+    "batch_size": 1
+  },
+  "identity": {
+    "same_character_all_modes": true,
+    "upper_fangs": 2,
+    "fingers_per_hand_including_thumb": 4,
+    "tails": 1,
+    "no_mirroring": true,
+    "no_extra_teeth": true
+  },
+  "body_seams": {
+    "same_mode_G0_start_and_end": true,
+    "real_decoded_seam_review_required": true,
+    "freeze_padding_or_endpoint_replacement_allowed": false,
+    "h3_speech_allowed": false
+  },
+  "current_scope": "immutable_static_references_and_latest_voice_contract_not_live_quality_acceptance"
+}

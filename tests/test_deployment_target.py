@@ -45,6 +45,13 @@ class DeploymentTargetTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError,'shared source'):guard.validate_target(self.root)
             command.assert_not_called()
 
+    def test_issac_preparation_target_stops_before_hardware_or_runtime_access(self):
+        self.select('issac-rtx4090')
+        with patch.object(guard.subprocess,'check_output') as command:
+            with self.assertRaisesRegex(RuntimeError,'Deployment is disabled for issac-rtx4090'):
+                guard.validate_target(self.root,expected_target='issac-rtx4090',check_hardware=False,check_runtime=False)
+            command.assert_not_called()
+
     def test_cross_branch_descriptor_is_rejected(self):
         d=dict(REGISTRY['targets']['rtx3080']['selection']);d['branch']='deploy/rtx4090'
         self.write('configs/deployment-target.json',d)
