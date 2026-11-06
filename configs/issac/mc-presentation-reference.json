@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "contract_id": "NM-ISSAC-MC-PRESENTATION-20261107-v1",
+  "status": "documentation_contract_not_runtime_implementation",
+  "branch": "issac",
+  "user_scope": "Reuse MC gameplay/avatar composition and presentation rules; change title text only",
+  "source_branch": "mc",
+  "source_head_at_review": "3fc81c46455b169101e43ab440e3e7434881c7e6",
+  "source_worktree": "E:\\dev\\sandbox\\虚拟数字人直播\\Ai-Talk-Streamer",
+  "source_observation_includes_uncommitted_changes": true,
+  "source_files": [
+    {
+      "path": "configs/layouts/mc-landscape-v1.json",
+      "bytes": 7583,
+      "sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+      "normalized_lf_sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+      "tracked": true,
+      "differs_from_HEAD": false
+    },
+    {
+      "path": "configs/mc-capture-profile.json",
+      "bytes": 403,
+      "sha256": "8f0046783eef72f70b9e007891426c10555e5b5404537baa3e2f213cc0a1dbae",
+      "normalized_lf_sha256": "8f0046783eef72f70b9e007891426c10555e5b5404537baa3e2f213cc0a1dbae",
+      "tracked": false,
+      "differs_from_HEAD": true
+    },
+    {
+      "path": "web/mc-programme.html",
+      "bytes": 774,
+      "sha256": "95ee0469d92b148aac00f026ff1a3f81f282c62fcac9749a5856dc74ca9a7a10",
+      "normalized_lf_sha256": "95ee0469d92b148aac00f026ff1a3f81f282c62fcac9749a5856dc74ca9a7a10",
+      "tracked": true,
+      "differs_from_HEAD": false
+    },
+    {
+      "path": "web/mc-programme.css",
+      "bytes": 4349,
+      "sha256": "06e0cc5fb4425c209ecb80104561d863ea5c2d104fe0695477ef5249c23f9726",
+      "normalized_lf_sha256": "4e066ea50a601d342e16441b1769a53a3274d850ebe07b0c71a4509b12b90930",
+      "tracked": true,
+      "differs_from_HEAD": false
+    },
+    {
+      "path": "web/mc-programme.js",
+      "bytes": 9732,
+      "sha256": "c7f5566dc57f2c49ce1c32d02e4b08ee36059c7ce7cefe8713f742fe76eed500",
+      "normalized_lf_sha256": "c7f5566dc57f2c49ce1c32d02e4b08ee36059c7ce7cefe8713f742fe76eed500",
+      "tracked": true,
+      "differs_from_HEAD": true
+    },
+    {
+      "path": "web/mc-programme-overlay.js",
+      "bytes": 17908,
+      "sha256": "973510fffc1cfc947032f58cd70b7c5ef04d67326e06f47c58e368a7f37056f1",
+      "normalized_lf_sha256": "973510fffc1cfc947032f58cd70b7c5ef04d67326e06f47c58e368a7f37056f1",
+      "tracked": true,
+      "differs_from_HEAD": true
+    },
+    {
+      "path": "web/mc-chat-position.js",
+      "bytes": 1017,
+      "sha256": "383707c7b7e38c492f4e37240ee50881eff6a55abe453de1beae7ad49f787045",
+      "normalized_lf_sha256": "383707c7b7e38c492f4e37240ee50881eff6a55abe453de1beae7ad49f787045",
+      "tracked": true,
+      "differs_from_HEAD": false
+    },
+    {
+      "path": "web/local-stream.js",
+      "bytes": 23279,
+      "sha256": "3a99931b24c98eaf0c7755746fe16ac73cbee8b7447959f3531fdf3a986724b1",
+      "normalized_lf_sha256": "09ce5983d99be17eb4741d5461d5f802cf8cee6acbcd539d90a7b040e1af8e77",
+      "tracked": true,
+      "differs_from_HEAD": true
+    },
+    {
+      "path": "web/dsh-playback.js",
+      "bytes": 10279,
+      "sha256": "947af2868218fbff8e9f01c1cb88069555f46fb134a3347e55ddcdd6562828d2",
+      "normalized_lf_sha256": "2728a7cfb56c61ce1e2e4068088c3b783181da9f7fa1b747657a665355c624ad",
+      "tracked": true,
+      "differs_from_HEAD": false
+    },
+    {
+      "path": "web/room-audio.js",
+      "bytes": 6838,
+      "sha256": "5142050adfe2ba9fd6d2de0dcf2bb0077dfc83d4c6de4c1e1ebcb6536bc9b751",
+      "normalized_lf_sha256": "5142050adfe2ba9fd6d2de0dcf2bb0077dfc83d4c6de4c1e1ebcb6536bc9b751",
+      "tracked": true,
+      "differs_from_HEAD": true
+    },
+    {
+      "path": "backend/room/defaults.mjs",
+      "bytes": 4543,
+      "sha256": "1a732b58f81862f99d82dfc23043777c471edea5e512adae6d96015e9a0f6f7a",
+      "normalized_lf_sha256": "c6bb9f878f1e9c3320481f77bd27a7cecd96ba13cb7698cbfa96b2c04573313e",
+      "tracked": true,
+      "differs_from_HEAD": true
+    },
+    {
+      "path": "docs/design/mc-landscape-v1/定稿说明.md",
+      "bytes": 6027,
+      "sha256": "aef430af09452805f6cec030be42d3fc93875490aff92d7221e3fd7c5cf0c63f",
+      "normalized_lf_sha256": "aef430af09452805f6cec030be42d3fc93875490aff92d7221e3fd7c5cf0c63f",
+      "tracked": true,
+      "differs_from_HEAD": false
+    },
+    {
+      "path": "docs/technical/mc-live-v1/05-横屏媒体与素材.md",
+      "bytes": 10016,
+      "sha256": "189102177e626769d3a89eef848d6ddf88ed06a00c9909b8acec4e5d10913efe",
+      "normalized_lf_sha256": "189102177e626769d3a89eef848d6ddf88ed06a00c9909b8acec4e5d10913efe",
+      "tracked": true,
+      "differs_from_HEAD": false
+    },
+    {
+      "path": "docs/technical/mc-live-v1/横屏节目与媒体接入.md",
+      "bytes": 6791,
+      "sha256": "bf53cc01194b5915cbeedfc020f303e9e25fcbd5211e536616a20e39b67d5b67",
+      "normalized_lf_sha256": "bf53cc01194b5915cbeedfc020f303e9e25fcbd5211e536616a20e39b67d5b67",
+      "tracked": true,
+      "differs_from_HEAD": false
+    },
+    {
+      "path": "docs/technical/mc-live-v1/正式播放就绪握手与故障诊断.md",
+      "bytes": 8662,
+      "sha256": "f6554f2d59ce35812da39743a8e1178c2e3691d51776fd4d162963154971b69b",
+      "normalized_lf_sha256": "f6554f2d59ce35812da39743a8e1178c2e3691d51776fd4d162963154971b69b",
+      "tracked": true,
+      "differs_from_HEAD": false
+    },
+    {
+      "path": "docs/technical/mc-live-v1/MC130发布交付与实机结果冻结-20261107.md",
+      "bytes": 11525,
+      "sha256": "c1ef9b101bf032698babcac99e4cdbcae0cd64e9330eaf6f0616fc9b1b7f65b2",
+      "normalized_lf_sha256": "c1ef9b101bf032698babcac99e4cdbcae0cd64e9330eaf6f0616fc9b1b7f65b2",
+      "tracked": false,
+      "differs_from_HEAD": true
+    }
+  ],
+  "canonical_layout_snapshot": "configs/issac/references/mc-landscape-v1.rev04.json",
+  "canonical_layout_sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+  "snapshot_normalization": "CRLF to LF only; JSON fields and values unchanged",
+  "source_snapshot_metadata_is_historical_not_activation_status": true,
+  "visual_change_policy": "title_text_only",
+  "title_overrides": {
+    "identity.title": "奶妹 · 以撒的结合",
+    "identity.topic": "以撒的结合",
+    "document.title": "奶妹 · 以撒的结合直播",
+    "programme_aria_label": "奶妹的以撒直播叠层",
+    "status_character_name": "奶妹"
+  },
+  "reuse": [
+    "canvas",
+    "regions",
+    "avatar_default",
+    "avatar_variants.*.region",
+    "avatar_variants.*.status_region",
+    "avatar_variants.*.mask",
+    "chat",
+    "danmaku",
+    "gift",
+    "layer_order",
+    "composition",
+    "palette",
+    "typography",
+    "scenes",
+    "single_playback_authority",
+    "silent_preview",
+    "media_v3_init_reset_mapping",
+    "actual_pcm_caption_clock",
+    "ready_handshake",
+    "comment_side_switch_preserves_nodes_queue_time"
+  ],
+  "internal_compatibility_settings": [
+    "overlay.mc_chat_side",
+    "overlay.mc_avatar_variant",
+    "overlay.mc_scene"
+  ],
+  "programme_output": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "basis": "MC current capture profile and documented official local recording; not an Isaac measurement"
+  },
+  "proposed_routes": {
+    "official": "/issac/programme?renderer=livehime",
+    "preview": "/issac/preview",
+    "layout": "/issac/layout.json",
+    "implemented": false
+  },
+  "naimei_runtime": {
+    "character_id": "naimei",
+    "voice_id": "NCM01",
+    "engine": "flashhead-lite",
+    "media_width": 512,
+    "media_height": 512,
+    "media_fps": 25,
+    "voice_fallback": null
+  },
+  "adaptation_boundaries": [
+    "Isaac read-only game status adapter instead of Minecraft GameClient",
+    "No MC candidate viewer iframe or synthetic Minecraft HUD",
+    "Do not apply old 720x1280 crop coordinates to the 512x512 Naimei stream",
+    "Circle and landscape masks require actual Naimei crop/identity QA",
+    "Minecraft protected HUD rectangles do not prove Isaac HUD safety",
+    "MC GPU, voice, model endpoints, state and private receipts are not inherited"
+  ],
+  "actual_isaac_capture_and_livehime_acceptance": false,
+  "runtime_deployment_performed_by_this_update": false
+}

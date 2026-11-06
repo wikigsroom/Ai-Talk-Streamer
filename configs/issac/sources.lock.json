@@ -116,5 +116,17 @@
     "distribution_in_git": false,
     "remote_provisioned": false
   },
-  "new_model_weight_bytes_this_change": 0
+  "new_model_weight_bytes_this_change": 0,
+  "mc_presentation": {
+    "repository": "https://github.com/wikigsroom/Ai-Talk-Streamer",
+    "branch": "mc",
+    "head_at_review": "3fc81c46455b169101e43ab440e3e7434881c7e6",
+    "layout_id": "mc-landscape-v1",
+    "layout_revision": 4,
+    "canonical_snapshot": "configs/issac/references/mc-landscape-v1.rev04.json",
+    "canonical_snapshot_sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+    "reference_contract": "configs/issac/mc-presentation-reference.json",
+    "scope": "presentation_only_title_override_no_runtime_or_acceptance_migration",
+    "current_worktree_source_observation": true
+  }
 }

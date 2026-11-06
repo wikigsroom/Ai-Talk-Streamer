@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "plan_id": "NM-ISSAC-PLAN-20261107-v1",
+  "plan_id": "NM-ISSAC-PLAN-20261107-v2",
   "branch": "issac",
   "status": "source_audited_plan_prepared_not_live_implementation",
   "target": "issac-rtx4090",
@@ -62,15 +62,21 @@
     "avatar_engine_existing_exclusive_owner": 8030
   },
   "proposed_capture": {
-    "preferred": "official_livehime_native_game_capture_plus_single_avatar_browser_source",
-    "initial_game_video": [
-      1280,
-      720,
-      30
-    ],
-    "after_acceptance_game_video": [
+    "preferred": "official_livehime_native_game_capture_plus_mc_transparent_programme_overlay",
+    "presentation_reference": "configs/issac/mc-presentation-reference.json",
+    "programme_output": [
       1920,
       1080,
+      30
+    ],
+    "game_capture_target": [
+      1920,
+      1080,
+      30
+    ],
+    "internal_capture_benchmark_only": [
+      1280,
+      720,
       30
     ],
     "avatar_video": [
@@ -78,8 +84,10 @@
       512,
       25
     ],
+    "avatar_default": "circle",
     "single_screenshot_script_is_stream_capture": false,
     "game_audio_path": "one_verified_game_only_route",
+    "visual_change_policy": "title_text_only",
     "actually_validated": false
   },
   "activation_gates": [
@@ -91,5 +99,6 @@
     "native_capture_and_audio_test",
     "cohost_25fps_mouth_fang_and_long_session_acceptance",
     "new_origin_receipt_and_rollback_drill"
-  ]
+  ],
+  "presentation_contract": "configs/issac/mc-presentation-reference.json"
 }
