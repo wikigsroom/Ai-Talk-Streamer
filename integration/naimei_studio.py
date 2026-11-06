@@ -312,7 +312,8 @@ class Studio:
         profile = self.voice_profile
         voice = next(x for x in profile['voices'] if x['id'] == self.voice_id)
         if self.voice_id == profile['default_voice_id']:
-            for metadata_file in (self.root / 'assets/naimei/live-v1/voice/cues').glob('*.json'):
+            cache_root = profile.get('speech_asset_root', 'assets/naimei/live-v1/voice')
+            for metadata_file in (self.root / cache_root / 'cues').glob('*.json'):
                 cached = json.loads(metadata_file.read_text('utf-8'))
                 wav_path = metadata_file.with_suffix('.wav')
                 if cache_matches(cached, voice, spoken_text(text)) and wav_path.exists():
@@ -555,6 +556,26 @@ class Studio:
         self.voice_id = value['voice_id']
         return web.json_response({'accepted': True, 'voice_id': self.voice_id})
 
+    async def voice_profile_data(self, _request):
+        # The public page exposes approved generated auditions, never reference
+        # waveforms, source paths or the private reference transcript.
+        return web.json_response({'label': self.voice_profile['label'],
+            'default_voice_id': self.voice_profile['default_voice_id'],
+            'voices': [{'id': v['id'], 'label': v['label']} for v in self.voice_profile['voices']]})
+
+    async def voice_audition(self, request):
+        voice = next((v for v in self.voice_profile['voices'] if v['id'] == request.match_info['voice_id']), None)
+        if voice is None:
+            raise web.HTTPNotFound()
+        path = (self.root / voice['audition']).resolve()
+        if not path.is_relative_to(self.root / 'assets/naimei/voice-final-v1') or not path.is_file():
+            raise web.HTTPNotFound()
+        freeze = json.loads((self.root / self.voice_profile['approved_source']).read_text('utf-8'))
+        record = next((x for x in freeze['files'] if x['path'] == voice['audition']), None)
+        if record is None or hashlib.sha256(path.read_bytes()).hexdigest() != record['sha256']:
+            raise web.HTTPConflict(text='APPROVED_AUDITION_MISMATCH')
+        return web.FileResponse(path)
+
     async def stop_command(self, _request):
         if self.cue_task:
             self.cue_task.cancel()
@@ -583,6 +604,8 @@ class Studio:
         path = (self.root / 'assets/naimei/live-v1' / request.match_info['path']).resolve()
         base = (self.root / 'assets/naimei/live-v1').resolve()
         if not path.is_relative_to(base) or not path.is_file() or path.suffix.lower() not in {'.png', '.jpg', '.json', '.wav', '.mp4', '.srt'}:
+            raise web.HTTPNotFound()
+        if path.relative_to(base).as_posix().lower() in {'voice/selected-reference.wav', 'voice/profile.json'}:
             raise web.HTTPNotFound()
         return web.FileResponse(path)
 
@@ -622,6 +645,8 @@ class Studio:
             web.get('/api/studio/stream', self.stream), web.post('/internal/dsh/{action}', self.dsh_command),
             web.post('/api/naimei/action', self.action_command), web.post('/api/naimei/cue', self.cue_command),
             web.post('/api/naimei/voice', self.voice_command),
+            web.get('/api/naimei/voice-profile', self.voice_profile_data),
+            web.get('/api/naimei/voice-audition/{voice_id}', self.voice_audition),
             web.post('/api/naimei/stop', self.stop_command),
             web.post('/api/naimei/sfx', self.sfx_command),
             web.get('/api/naimei/captions/{request_id}', self.caption_data),

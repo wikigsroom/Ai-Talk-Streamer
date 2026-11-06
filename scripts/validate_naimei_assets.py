@@ -1,4 +1,4 @@
-"""Validate the A01-A14 pack and export a reviewable, versioned content index."""
+"""Validate the historical A01-A14 live-v1 pack; not the current voice freeze."""
 from pathlib import Path
 import csv
 import hashlib
@@ -10,7 +10,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from integration.naimei_voice_contract import load_profile, cache_matches
+from integration.naimei_voice_contract import load_legacy_profile as load_profile, cache_matches
 from integration.naimei_text import spoken_text
 PACK = ROOT / 'assets/naimei/live-v1'
 

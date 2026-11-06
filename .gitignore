@@ -75,3 +75,13 @@ __pycache__/
 /output/imagegen/character-selection-angles-v3-20261024/*.record.json
 /output/imagegen/character-selection-angles-v3-20261024/generation-manifest.json
 /output/imagegen/character-selection-angles-v3-20261024/*.attempt*
+
+# Naimei original voice references and intermediate private recordings.
+/assets/naimei/voice-final-v1/private/
+/assets/naimei/voice-clone-v2/
+/assets/naimei/voice-clone-merged-v3/
+/operations/naimei-voice-clone-v2-20261106/
+/operations/naimei-voice-clone-merged-v3-20261106/
+/operations/naimei-voice-final-20261106/
+/output/audio/naimei-voice-clone-v2-20261106/
+/output/audio/naimei-voice-clone-merged-v3-20261106/

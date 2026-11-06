@@ -1,4 +1,4 @@
-"""Generate Naimei dialogue using both original approved local voice engines."""
+"""Generate a new audition take without overwriting the approved frozen audio."""
 from pathlib import Path
 import argparse
 import hashlib
@@ -26,7 +26,7 @@ def main():
     text = '大家好，我是奶妹。今天也想陪你，慢慢聊一会儿。'
     records = []
     for voice in profile['voices']:
-        url = 'http://127.0.0.1:' + ('9891' if voice['id'] == 'O07' else '9892')
+        url = 'http://127.0.0.1:' + ('9891' if voice['id'] == profile['default_voice_id'] else '9892')
         with http.open(url + '/health', timeout=5) as response:
             health = json.load(response)
         if not worker_matches(profile, health, voice['id']) or health.get('busy'):
@@ -49,12 +49,15 @@ def main():
             pcm = np.frombuffer(stream.readframes(stream.getnframes()), dtype='<i2').astype(np.float32) / 32768
         assert len(pcm) and np.isfinite(pcm).all() and np.sqrt(np.mean(pcm ** 2)) > .001 and np.abs(pcm).max() < .99
         target = root / voice['audition']
+        if profile.get('voice_frozen'):
+            target = root / profile['speech_asset_root'] / 'auditions' / (rid + '.wav')
+        target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(body)
         record = {**metrics, 'text': text, 'sha256': hashlib.sha256(body).hexdigest(),
                   'binding_and_pcm_verified': True, 'human_listening_accepted': False}
         target.with_suffix('.json').write_text(json.dumps(record, ensure_ascii=False, indent=2), 'utf-8')
         records.append({'voice_id': voice['id'], 'audio_seconds': metrics['audio_seconds'],
-                        'reference_sha256': metrics['reference_sha256'], 'path': voice['audition']})
+                        'reference_sha256': metrics['reference_sha256'], 'path': target.relative_to(root).as_posix()})
     print(json.dumps({'auditions': records, 'cloud_inference_allowed': False}, ensure_ascii=False))
 
 

@@ -82,15 +82,16 @@ def main():
             previous[name] = {'pid': child.pid, 'port': port, 'root': str(root), 'started_at': time.time()}
             registry.write_text(json.dumps(previous, ensure_ascii=False, indent=2), encoding='utf-8')
         value = wait_ready(port, timeout, path, child)
-        voice_id = {'voice-primary': 'O07', 'voice-fallback': 'F07'}.get(name)
+        voice_id = {'voice-primary': profile['default_voice_id'], 'voice-fallback': profile.get('fallback_voice_id')}.get(name)
         if voice_id and not worker_matches(profile, value, voice_id):
             raise RuntimeError('APPROVED_RUNNING_VOICE_MISMATCH:' + name)
         return value
 
     start('voice-primary', [python, '-X', 'utf8', '-B', '-m', 'integration.naimei_voice_worker',
           '--root', root, '--shared-root', shared, '--port', '9891'], 9891, timeout=900)
-    start('voice-fallback', [f5_python, '-X', 'utf8', '-B', '-m', 'integration.naimei_voice_worker',
-          '--root', root, '--shared-root', shared, '--engine', 'F5-TTS-v1', '--port', '9892'], 9892, timeout=240)
+    if profile.get('fallback_voice_id'):
+        start('voice-fallback', [f5_python, '-X', 'utf8', '-B', '-m', 'integration.naimei_voice_worker',
+              '--root', root, '--shared-root', shared, '--engine', profile['fallback_engine'], '--port', '9892'], 9892, timeout=240)
     if args.voice_only:
         print(json.dumps({**result, 'voices_ready': True}, ensure_ascii=False))
         return

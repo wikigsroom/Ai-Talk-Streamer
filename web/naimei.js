@@ -110,7 +110,7 @@ async function refresh(){
  try{
   [status,streamStatus]=await Promise.all([api('/api/studio/status'),api('/api/dsh/status')]);
   const modelReady=modelsReady(),playerReady=modelReady&&hasPlayback(),liveReady=playerReady&&streamStatus.broadcast?.state==='LIVE';
-  $('voice-selection').textContent=modelReady?'当前：'+status.voice_id+' · '+status.voice_label+'（'+status.voice_engine+'）':'原选 O07 / F07 语音正在准备…';
+  $('voice-selection').textContent=modelReady?'当前：'+status.voice_label:'奶妹的定稿声音正在准备…';
   $('health').textContent=liveReady?'可以有声播报':playerReady?'播放页已连接 · 待准备':modelReady?'等待启用有声播放':'正在准备本地服务';
   $('integration-status').textContent=liveReady?'有声播放已连接，点击播报即可看到台词与字幕。口型与角色细节仍待验收。':
    playerReady?'有声播放页已连接。点击准备排练、播报或节目按钮，即可开始本地排练。':
@@ -165,12 +165,12 @@ async function loadContent(){
   },{playback:true,check:()=>{$('current-line').textContent=item.text;}});$('cues').append(button);
  }
  try{
-  const profile=await api('/naimei-assets/voice/profile.json');
+  const profile=await api('/api/naimei/voice-profile');
   for(const voice of profile.voices){
    const card=document.createElement('div');card.className='voice-card';
    const title=document.createElement('h3');title.textContent=voice.label;
-   const audio=document.createElement('audio');audio.controls=true;audio.preload='none';audio.src='/naimei-assets/'+voice.audition.slice('assets/naimei/live-v1/'.length);
-   const button=document.createElement('button');button.textContent=voice.id==='O07'?'使用原选主音色 O07':'使用原选备用 F07';
+   const audio=document.createElement('audio');audio.controls=true;audio.preload='none';audio.src='/api/naimei/voice-audition/'+encodeURIComponent(voice.id);
+   const button=document.createElement('button');button.textContent=voice.id===profile.default_voice_id?'使用定稿声音':'使用此声音';
    action(button,()=>api('/api/naimei/voice',{voice_id:voice.id}).then(()=>message('已选择：'+voice.label+'；下一句生效。')));
    card.append(title,audio,button);$('voices').append(card);
   }

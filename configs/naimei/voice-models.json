@@ -1,0 +1,22 @@
+{
+  "release": "NM-VOICE-FINAL-20261106-v1",
+  "default_voice_id": "NCM01",
+  "automatic_fallback": false,
+  "seed": 2026102807,
+  "reference_audio": "assets/naimei/voice-final-v1/private/reference.wav",
+  "reference_sha256": "73ef5e49c20d2fad0cbf5911d6ff1b351836a0116635a1e6439fae4e195a6908",
+  "reference_preprocess_prompt": false,
+  "voices": {
+    "NCM01": {
+      "engine": "OmniVoice",
+      "python": "runtime/tts-benchmark/omnivoice/Scripts/python.exe",
+      "source": "src/tts-benchmark/omnivoice",
+      "model": "models/tts-benchmark/omnivoice",
+      "port": 9891,
+      "precision": "FP16",
+      "steps": 32
+    }
+  },
+  "reference_text_file": "assets/naimei/voice-final-v1/private/reference.txt",
+  "reference_text_sha256": "5bfdd017e75c2bb8e4b274cfc7955db2171b7f0c397210b5f91f03bb618a0613"
+}

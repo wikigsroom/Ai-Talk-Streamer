@@ -1,8 +1,4 @@
-"""Native local speech using the user's selected O07/F07 voice contract.
-
-Only installed OmniVoice/F5 weights and their existing Python environments are
-read. The original approved reference is copied unchanged into Naimei's assets.
-"""
+"""Native local speech using Naimei's frozen, single merged-reference voice."""
 from pathlib import Path
 import argparse
 import asyncio
@@ -16,7 +12,7 @@ import time
 import traceback
 from aiohttp import web
 from integration.naimei_text import spoken_text, segments
-from integration.naimei_voice_contract import load_profile
+from integration.naimei_voice_contract import load_profile, voice_for_engine
 
 
 def save_json(path, value):
@@ -31,8 +27,8 @@ class VoiceWorker:
         self.root, self.shared, self.engine = root, shared, engine
         self.pack = root / 'assets/naimei/live-v1'
         self.profile = load_profile(root)
-        self.voice_id = 'O07' if engine == 'OmniVoice' else 'F07'
-        self.voice = next(v for v in self.profile['voices'] if v['id'] == self.voice_id)
+        self.voice = voice_for_engine(self.profile, engine)
+        self.voice_id = self.voice['id']
         self.model_config = json.loads((root / self.profile['model_configuration']).read_text('utf-8'))
         self.spec = self.model_config['voices'][self.voice_id]
         self.reference = root / self.voice['reference']
@@ -54,6 +50,8 @@ class VoiceWorker:
             'active_request': self.active, 'error': self.error, 'recent': self.recent[-8:],
             'reference_sha256': self.voice['sha256'], 'steps': self.spec['steps'],
             'precision': self.loaded_precision, 'model': self.spec['model'], 'seed': self.seed,
+            'voice_freeze_id': self.profile.get('freeze_id'),
+            'reference_preprocess_prompt': self.voice.get('preprocess_prompt', True),
             'cloud_inference_allowed': False, 'new_model_weight_bytes': 0}
 
     def check(self, request_id):
@@ -86,7 +84,8 @@ class VoiceWorker:
             if self.engine == 'OmniVoice':
                 from omnivoice import OmniVoice
                 self.model = OmniVoice.from_pretrained(str(self.shared / self.spec['model']), device_map='cuda:0', dtype=torch.float16)
-                self.prompts[self.voice_id] = self.model.create_voice_clone_prompt(ref_audio=str(self.reference), ref_text=self.reference_text)
+                self.prompts[self.voice_id] = self.model.create_voice_clone_prompt(ref_audio=str(self.reference),
+                    ref_text=self.reference_text, preprocess_prompt=self.voice.get('preprocess_prompt', True))
                 self.loaded_precision = str(next(self.model.parameters()).dtype)
             else:
                 from f5_tts.api import F5TTS
@@ -154,6 +153,8 @@ class VoiceWorker:
                 metrics = {'request_id': request_id, 'character_id': 'naimei', 'engine': self.engine, 'voice_id': voice_id,
                     'reference_sha256': hashlib.sha256(self.reference.read_bytes()).hexdigest(),
                     'precision': self.loaded_precision, 'steps': self.spec['steps'], 'seed': self.seed, 'model': self.spec['model'],
+                    'voice_freeze_id': self.profile.get('freeze_id'),
+                    'reference_preprocess_prompt': self.voice.get('preprocess_prompt', True),
                     'audio_seconds': len(audio) / 24000, 'wall_seconds': time.monotonic() - started, 'spoken_text': text,
                     'captions': captions, 'caption_sample_rate': 16000, 'alignment': 'actual_generated_segment_boundaries'}
                 self.recent.append(metrics)

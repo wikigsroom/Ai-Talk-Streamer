@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "freeze_id": "NM-VOICE-FINAL-20261106-v1",
+  "status": "frozen",
+  "character_id": "naimei",
+  "voice_id": "NCM01",
+  "parent_clone_id": "NM-VOICE-CLONE-MERGED-20261106-v3",
+  "approved_reference_sha256": "73ef5e49c20d2fad0cbf5911d6ff1b351836a0116635a1e6439fae4e195a6908",
+  "approval": {
+    "by": "user",
+    "date": "2026-11-06",
+    "instruction": "定稿约束，使用该版本的音频，并且同步更新到仓库。",
+    "scope": "Merged-v3 reference, voice identity, approved audition and synthesis recipe"
+  },
+  "voice_identity_accepted": true,
+  "mouth_quality_accepted": false,
+  "live_performance_accepted": false,
+  "remote_activation_recorded": false,
+  "public_broadcast_allowed": false,
+  "files": [
+    {
+      "path": "assets/naimei/voice-final-v1/approved-audition.wav",
+      "bytes": 1515438,
+      "sha256": "89fbb053bfb5e9a9cecc8a3f3ba63512c85f800d74a337de74647a9dc36b246e"
+    },
+    {
+      "path": "assets/naimei/voice-final-v1/samples/NCM01-S01.wav",
+      "bytes": 288044,
+      "sha256": "ff14eae6b40f5278e1283696f43d511253d87b347e92318dd8003258559a3930"
+    },
+    {
+      "path": "assets/naimei/voice-final-v1/samples/NCM01-S02.wav",
+      "bytes": 265004,
+      "sha256": "35d4e78defb9ff148b2b5600a2e01d6bff7f0b15f9d8231c5a132067ed62ba92"
+    },
+    {
+      "path": "assets/naimei/voice-final-v1/samples/NCM01-S03.wav",
+      "bytes": 192044,
+      "sha256": "8f1c366f74c58bee50231e9072c95fd6f4cc90e88781046146a7e7e3a1861f4c"
+    },
+    {
+      "path": "assets/naimei/voice-final-v1/samples/NCM01-S04.wav",
+      "bytes": 195884,
+      "sha256": "8a5f2aecfb30ceea6ad38416ca5b3226e5dd1af7cd85d0e78e1ef3e31cb7f8ee"
+    },
+    {
+      "path": "assets/naimei/voice-final-v1/samples/NCM01-S05.wav",
+      "bytes": 240044,
+      "sha256": "5b44193e41e1730ae7822a4f056d0b941f898e2e638dfc7775a57a05d4f25e2e"
+    },
+    {
+      "path": "assets/naimei/voice-final-v1/samples/NCM01-S06.wav",
+      "bytes": 178604,
+      "sha256": "cd1ac7a50b4325b8e7376e4bd8b80862d326a7a50aa38f0c76bd57d7b92f4042"
+    },
+    {
+      "path": "assets/naimei/voice-final-v1/profile.json",
+      "bytes": 1855,
+      "sha256": "28e5a3cbdb1501164200efb726aa5d8a56117631340975c49918508b0768fd4f"
+    },
+    {
+      "path": "configs/naimei/voice-models.json",
+      "bytes": 809,
+      "sha256": "7a99eead32529bff2081195d5ae079ad3ffebabdf8fd740bdf53d2a3d54e4146"
+    },
+    {
+      "path": "assets/naimei/voice-final-v1/provenance.json",
+      "bytes": 3176,
+      "sha256": "724581f94db91aebe41a1679060b7b9e98bcd262c9e4e2b1c9e204829348b2d2"
+    }
+  ],
+  "repository_contains_reference_audio": false,
+  "publication_constraint": "Generated auditions only; exclude original reference audio, transcript and full source recordings",
+  "private_files": [
+    {
+      "path": "assets/naimei/voice-final-v1/private/combined-full.wav",
+      "bytes": 18092258,
+      "sha256": "ab9df249cf4a4bd3601c392c78756055da6a488e1f9a01a0227a4e9fe7b9dec8",
+      "required_for_runtime": false
+    },
+    {
+      "path": "assets/naimei/voice-final-v1/private/reference.txt",
+      "bytes": 167,
+      "sha256": "5bfdd017e75c2bb8e4b274cfc7955db2171b7f0c397210b5f91f03bb618a0613",
+      "required_for_runtime": true
+    },
+    {
+      "path": "assets/naimei/voice-final-v1/private/reference.wav",
+      "bytes": 572204,
+      "sha256": "73ef5e49c20d2fad0cbf5911d6ff1b351836a0116635a1e6439fae4e195a6908",
+      "required_for_runtime": true
+    }
+  ]
+}

@@ -16,11 +16,13 @@
   "tts_fallback_url": "http://127.0.0.1:9892",
   "shared_installation_root": "C:/dev/虚拟数字人直播",
   "asset_pack": "assets/naimei/live-v1/pack.json",
-  "voice_profile": "assets/naimei/live-v1/voice/profile.json",
+  "voice_profile": "assets/naimei/voice-final-v1/profile.json",
   "native_windows_only": true,
   "cloud_inference_allowed": false,
   "automatic_events_enabled": false,
   "automatic_conversation_enabled": false,
   "public_broadcast_allowed": false,
-  "quality_accepted": false
+  "quality_accepted": false,
+  "voice_freeze_id": "NM-VOICE-FINAL-20261106-v1",
+  "voice_release": "configs/releases/naimei-voice-final-v1.json"
 }

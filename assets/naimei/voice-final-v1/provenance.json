@@ -1,0 +1,93 @@
+{
+  "parent_clone_id": "NM-VOICE-CLONE-MERGED-20261106-v3",
+  "reference_sha256": "73ef5e49c20d2fad0cbf5911d6ff1b351836a0116635a1e6439fae4e195a6908",
+  "reference_seconds": 11.92,
+  "source_ids": [
+    "SRC01",
+    "SRC02"
+  ],
+  "source_segments": [
+    {
+      "source_id": "SRC01",
+      "original_source_sha256": "f74a4cceea5e026240b57ecbbe5e52fd11d38ad1f4d23b98dfddf99573fc81cf",
+      "source_excerpt_sha256": "4e9cad75b95addadebce06ac68fb7b4169d97f1df878e0c99684c3231c4d4962",
+      "source_segments": [
+        {
+          "start_seconds": 1.85,
+          "end_seconds": 7.2
+        }
+      ],
+      "seconds": 5.35,
+      "combined_start_seconds": 0.0,
+      "combined_end_seconds": 5.35,
+      "constant_gain": 0.6047690947982726,
+      "balanced_rms_dbfs": -23.0
+    },
+    {
+      "source_id": "SRC02",
+      "original_source_sha256": "6a9a9fb759878a32e602b9aadfd6f7eb264857155c4e36a836b042550aea2dba",
+      "source_excerpt_sha256": "1891a64968f1b16d64d86238a7c601d17966403009da65d893b44cb3ba17743c",
+      "source_segments": [
+        {
+          "start_seconds": 62.86,
+          "end_seconds": 65.82
+        },
+        {
+          "start_seconds": 71.8,
+          "end_seconds": 75.0
+        }
+      ],
+      "seconds": 6.32,
+      "combined_start_seconds": 5.6,
+      "combined_end_seconds": 11.92,
+      "constant_gain": 0.8358039185424989,
+      "balanced_rms_dbfs": -23.0
+    }
+  ],
+  "full_combined_seconds": 376.92112499999996,
+  "full_combined_sha256": "ab9df249cf4a4bd3601c392c78756055da6a488e1f9a01a0227a4e9fe7b9dec8",
+  "one_combined_prompt": true,
+  "preprocess_prompt": false,
+  "encoded_reference_seconds": 11.92,
+  "reference_audio_token_frames": 298,
+  "audition_sha256": "89fbb053bfb5e9a9cecc8a3f3ba63512c85f800d74a337de74647a9dc36b246e",
+  "audition_seconds": 31.57,
+  "samples": [
+    {
+      "id": "NCM01-S01",
+      "text": "大家好，我是奶妹。今天也陪你一起玩游戏，慢慢聊一会儿。",
+      "sha256": "ff14eae6b40f5278e1283696f43d511253d87b347e92318dd8003258559a3930",
+      "seconds": 6.0
+    },
+    {
+      "id": "NCM01-S02",
+      "text": "等我看一下地图。嗯，这边好像更安全，我们慢慢过去。",
+      "sha256": "35d4e78defb9ff148b2b5600a2e01d6bff7f0b15f9d8231c5a132067ed62ba92",
+      "seconds": 5.52
+    },
+    {
+      "id": "NCM01-S03",
+      "text": "哎，真的过了！刚才那一下配合得真好。",
+      "sha256": "8f1c366f74c58bee50231e9072c95fd6f4cc90e88781046146a7e7e3a1861f4c",
+      "seconds": 4.0
+    },
+    {
+      "id": "NCM01-S04",
+      "text": "先别急，我看一下。等它过去，好，现在走。",
+      "sha256": "8a5f2aecfb30ceea6ad38416ca5b3226e5dd1af7cd85d0e78e1ef3e31cb7f8ee",
+      "seconds": 4.08
+    },
+    {
+      "id": "NCM01-S05",
+      "text": "没关系啦，输一局也没什么。休息一下，我们再来。",
+      "sha256": "5b44193e41e1730ae7822a4f056d0b941f898e2e638dfc7775a57a05d4f25e2e",
+      "seconds": 5.0
+    },
+    {
+      "id": "NCM01-S06",
+      "text": "我先喝口水，大家也休息一下眼睛。",
+      "sha256": "cd1ac7a50b4325b8e7376e4bd8b80862d326a7a50aa38f0c76bd57d7b92f4042",
+      "seconds": 3.72
+    }
+  ]
+}

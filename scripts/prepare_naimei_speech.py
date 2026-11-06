@@ -22,6 +22,7 @@ def main():
     root = args.root.resolve()
     pack = root / 'assets/naimei/live-v1'
     profile = load_profile(root)
+    speech_root = root / profile.get('speech_asset_root', 'assets/naimei/live-v1/voice')
     voice = next(v for v in profile['voices'] if v['id'] == profile['default_voice_id'])
     http = urllib.request.build_opener(urllib.request.ProxyHandler({}))
     tests = json.loads((pack / 'speech-tests.json').read_text('utf-8'))
@@ -29,7 +30,7 @@ def main():
     results = []
     for item in tests + cues:
         aid = item['id']
-        folder = pack / 'voice' / ('tests' if item in tests else 'cues')
+        folder = speech_root / ('tests' if item in tests else 'cues')
         folder.mkdir(parents=True, exist_ok=True)
         target = folder / (aid + '.wav')
         metrics_path = folder / (aid + '.json')
@@ -76,13 +77,13 @@ def main():
         target.with_suffix('.srt').write_text('\n'.join(lines), encoding='utf-8')
         results.append(record)
         status = {'completed': len(results), 'total': len(tests) + len(cues), 'last_asset': aid}
-        (pack / 'voice/preparation-status.json').write_text(json.dumps(status), encoding='utf-8')
+        (speech_root / 'preparation-status.json').write_text(json.dumps(status), encoding='utf-8')
         print(json.dumps(status), flush=True)
     report = {'character_id': 'naimei', 'voice_id': voice['id'], 'engine': voice['engine'],
         'reference_sha256': voice['sha256'],
         'test_count': len(tests), 'programme_cues': len(cues), 'assets': results,
         'new_model_weight_bytes': 0, 'cloud_inference_allowed': False, 'listening_acceptance': False}
-    (pack / 'voice/speech-library.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+    (speech_root / 'speech-library.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
     print(json.dumps({'complete': True, 'audio_assets': len(results)}), flush=True)
 
 

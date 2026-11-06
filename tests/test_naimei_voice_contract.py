@@ -1,11 +1,11 @@
-"""Protect the actual approved voice and model routing, including stale audio caches."""
+"""Preserve the historical O07/F07 release and its cache validation."""
 from pathlib import Path
 import copy
 import json
 import shutil
 import tempfile
 import unittest
-from integration.naimei_voice_contract import load_profile, route_for, cache_matches, worker_matches, APPROVED_REFERENCE_SHA256
+from integration.naimei_voice_contract import load_legacy_profile as load_profile, route_for, cache_matches, worker_matches, APPROVED_REFERENCE_SHA256
 
 ROOT = Path(__file__).resolve().parents[1]
 

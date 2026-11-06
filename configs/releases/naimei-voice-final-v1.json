@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "naimei-voice-final-v1",
+  "character_id": "naimei",
+  "source_branch": "naimei",
+  "target": "naimei-rtx4090",
+  "voice_id": "NCM01",
+  "voice_freeze_id": "NM-VOICE-FINAL-20261106-v1",
+  "profile": "assets/naimei/voice-final-v1/profile.json",
+  "manifest": "assets/naimei/voice-final-v1/manifest.json",
+  "voice_identity_accepted": true,
+  "mouth_quality_accepted": false,
+  "live_performance_accepted": false,
+  "remote_activation_recorded": false,
+  "public_broadcast_allowed": false
+}
