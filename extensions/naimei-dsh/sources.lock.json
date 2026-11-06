@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "contract": "naimei-dsh-extensions-v1",
+  "sources": [
+    {
+      "id": "soul-md",
+      "repository": "https://github.com/Scorp1o117/dsh-soul-md",
+      "commit": "0de8445b4941315da18138d5b5f1fc19fa5cc7d2",
+      "version": "0.12.1",
+      "directory": "vendor/soul-md",
+      "license": "MIT",
+      "modified_files": [],
+      "files": {
+        ".editorconfig": "9776639a5315f81e67875258592051f02c0c341491eb83eeb9ff07cf3ee28177",
+        "LICENSE": "c187a1890be96d99ed9bbe02705bb7d98ce7f3ccefc81ff2e9eb48ee8c44e432",
+        "README.en.md": "c10cad3e1bcbfbcb86270112704f7c586e37073e4f23a10defade9a088c26383",
+        "README.md": "2c1e9649f7f6457aac131d73ab57e02e2c4aa006003751a1625117413dab0241",
+        "README.zh.md": "7351d645e94dd05039850401fdb5ee7031f34079ed971ac4e67b7070080f37d8",
+        "VERIFICATION.md": "2362cfda6ee2e0f94a595db997667948ceb04e68bfb90588d5a00d3073d6ec22",
+        "client.js": "e8e72592a7ca1cf38d44dd99f8149e5425ed693fc942755fed0cf39d9f1b46da",
+        "cordis.patch.yml": "c9d66c7e3467a4a3d682077f2f4d40a2cfe7c25210d02630a37957f143af18e4",
+        "index.js": "e96937e8d51a0e333b35d89bed4c28908f01024ca8271c9287dce25ad99a0181",
+        "locale/en.json": "6d3d507426565ab7251c59f7d50c325abce45180640a1cbb730065fa989fd987",
+        "locale/zh.json": "768f879995d9752ac5187275adc5cf88c00db61b746d98eaf4aac82d35414852",
+        "memory-layout.js": "494304368170191ff6488a766ac3e37c854bf42365f7d09afe760385bfaa4707",
+        "memory-recall.js": "8110a2b4576070a7fab064baca98c0a2f306298b18f1b41664b8fe93754a09c8",
+        "package.json": "ff87e2edd88e0dbd3df4da1533095decc22c3a3d4a346154d7c0a9433bc0f147",
+        "subagents.js": "2a1762358b30225eedbc0d7c27b2ce18d1629147d16c7366d1895f24c724840c"
+      }
+    },
+    {
+      "id": "fish-memory",
+      "repository": "https://github.com/Yuuyuko-uu/dsh-fish-memory",
+      "commit": "a070ebf096f3472c107982b5741994cabdcc18f7",
+      "version": "1.5.5",
+      "directory": "vendor/fish-memory",
+      "license": "SEE LICENSE IN LICENSE",
+      "modified_files": [
+        "lib/index.js",
+        "README.md"
+      ],
+      "files": {
+        "CHANGELOG.md": "d45555b24374a28b187c515ac487d5d3e716ff2ea4e6a64a7afe3b27d51ed74d",
+        "LICENSE": "b1c0b55a06ca3c6bdaf6d0e95464e940ce8aa8ce9ef02c4066bc13ae4c4aa735",
+        "README.md": "a3597e933befe720a78f3292a065eb97fbaf6214e4d4cd17b27242818300f32a",
+        "cordis.patch.yml": "7806d295174f949e822582ab881112250458897775d18f9a2e8945a999d165ee",
+        "lib/atomic-file.mjs": "f8030fe351e54537cb36c4ceb0b032c37bf718dbaa6f6b4c615b432d9c526e62",
+        "lib/client.js": "45cf64b56674bc0eb46332a1056e73d08ce50a790baf18bfd5aa37bd942ca98f",
+        "lib/hostdeps.mjs": "14b062eb5798c5fa1a3d52d9054775cfdda57347ea27fc49070a5e80324626b3",
+        "lib/index.js": "9eafd0ef886501d21132fa4e94fde2f2be577a18fb98201552b0fb4c1f81949c",
+        "lib/selfupdate.mjs": "4b9d90ec11af6f9454c383b47a8ac707ce26e6d7d3bb043dba662ce9d0d3e44b",
+        "lib/store-merge.mjs": "1f48aebfd0b00d5799787fd3ef84e18a06f9c0bd8cbed9cd35bcaa03fa95ea57",
+        "lib/生成档案.js": "f9924f8ce7c35369c002f01e6d83f4fad7e1628dc6bb402de9221f0d124a454a",
+        "lib/词典-来源.txt": "277ff363da5160a323165e43742f83e5d2298cb30adbb77d499eff78574e059e",
+        "lib/词典.txt": "4010d218291bbe2fb0287228def98563e8795fee2bff4c97c127bd6f19d78b51",
+        "lib/词频.txt": "d630106a55932a447264c03ead2ec13f2cace32c9e624ea549689ebe5dbb9673",
+        "package.json": "8a1896500501f5971bd15031e699d670e5f92cb223ab674a6203ffc8cc7e3808"
+      }
+    },
+    {
+      "id": "feiyu-mood",
+      "repository": "https://github.com/Yuuyuko-uu/dsh-feiyu-mood",
+      "commit": "2f52a367e2ea673c7e73a4a8c718721665d10081",
+      "version": "0.9.1",
+      "directory": "vendor/feiyu-mood",
+      "license": "SEE LICENSE IN LICENSE",
+      "modified_files": [
+        "lib/index.js",
+        "README.md"
+      ],
+      "files": {
+        "CHANGELOG.md": "d82633572ac7d94140bb708d665ba35763684d8bf22a4e902890344c53629054",
+        "LICENSE": "b1c0b55a06ca3c6bdaf6d0e95464e940ce8aa8ce9ef02c4066bc13ae4c4aa735",
+        "README.md": "111b91a6ec0198f90bb2bb8c6a2a03a8665bb3b0275ae74d688ee645de6f73d4",
+        "assets/face-good.png": "392b150d6355e4874dab5a3455511747b474ead085dbe2b154399115012cc440",
+        "assets/face-great.png": "071b6b805c37b0c1cf4639643bef49ad0536cc09338c468415ae826e66a8c449",
+        "assets/face-ok.png": "6682c5fee046e01fe7f6087f389485d845bd79c3ecd7caf1371d21a56b1c2b98",
+        "assets/face-sad.png": "0f1a0ef313964940e1f5d7e261dabe5f0bb262b3e7b2c6edcd261b2ff493e354",
+        "assets/face-worry.png": "5277a28ba837578fdd9178672d35b574878c58b246d30d601fe2eb6bbc8b9be0",
+        "assets/feiyu-good.png": "438a3ea52a5781112d2d0c8b82b6a5fdf1e7fbdb0b2a4fa6eede97bedbdb729a",
+        "assets/feiyu-great.png": "1c08ff29cc21271cc9981b3b4a1ff1f694e18dff7d13eef42bfe335e00f61326",
+        "assets/feiyu-sad.png": "33b911d2600613ccc4ae78ac9e6320345ec13b122df8f049dac4b46557a14b3d",
+        "assets/feiyu-worry.png": "ef51fb443b70f2083b921b5a8d0d880328dc1e7db3f45658be9528fc7e0d5609",
+        "assets/feiyu.png": "8b55954b5ee8594174b83b85faeb287a7fca1e9a326ff2f9748eff12322cbeba",
+        "assets/widget.js": "554ed832e70bddda739a2b1a8c270fda236c00c30e6b9e1e2394473daa220a93",
+        "client.js": "aacc69added345ff2011404a8592c94c67b4de939d622bcc3385e79b512977ab",
+        "cordis.patch.yml": "c4eda71edcfbc021fa28c85e414edc77a80f375fa1fe4a162c40c2f47e4506a2",
+        "lib/index.js": "ebbad4f86072b4ccf20c4a35721853cb46da7495be6f03eb31770661cef95621",
+        "lib/selfupdate.mjs": "f78aec17acdc22483dfae2abda06b7ac0bb4af7a6b5f8deb0fb8971944e483ec",
+        "package.json": "0ff65e23d79cfbe483fc2a6c2b2e2ef986f4eab81f076f27b874d729e4a87ad4"
+      }
+    },
+    {
+      "id": "speak-up",
+      "repository": "https://github.com/Yuuyuko-uu/dsh-speak-up",
+      "commit": "e3bc6362208c693bb833ecf463ec6a20df4b6419",
+      "version": "0.3.0",
+      "directory": "vendor/speak-up",
+      "license": "SEE LICENSE IN LICENSE",
+      "modified_files": [
+        "lib/host.js",
+        "README.md"
+      ],
+      "files": {
+        "CHANGELOG.md": "bf11eaa031f69af56e5ec83e911a63bd769c82a408d748a56b77f39f9a5ccca5",
+        "LICENSE": "b1c0b55a06ca3c6bdaf6d0e95464e940ce8aa8ce9ef02c4066bc13ae4c4aa735",
+        "README.md": "41ef1b35146ba1c80e33a665ec4bc46a7f8342fb3f525d8c3ec25cc3d30d933b",
+        "cordis.patch.yml": "4970d380bfa662b23dbb3b2e3acf1e2371be76fbbc803689b78a635b0e45db74",
+        "lib/client.js": "bb6deb7a359743a2fc3b269e8991a0966eb728090be68f451a7d3bb5605b5e7d",
+        "lib/host.js": "8a200eed47cda8853b43f52546c70bdeffa7011e7c8632ff4edabcc106aac43c",
+        "lib/selfupdate.mjs": "95e56179ff63673031131f226c302ccbbe196b80a2a788887a6a2b3243e5d326",
+        "package.json": "330006ab5f1e70800601ce4af724d0caa2ddd0ab6337fe21bd58c78ccdf2b33c"
+      }
+    },
+    {
+      "id": "memewiki-thawline",
+      "repository": "https://github.com/thawline/dsh-memewiki",
+      "commit": "bf3155ad93dedfdbe37798680e79b5386503e38d",
+      "version": "0.1.20",
+      "directory": "vendor/memewiki-thawline",
+      "license": "MIT",
+      "modified_files": [],
+      "files": {
+        "CHANGELOG.md": "bfe978d237f95cf315406cba7740dcf353bd50b77f494910a0113d69cffeef6c",
+        "LICENSE": "40b7d5bedb0a5e111da7637e329c200942c0cb93707ce4a1b2bad180c0c96f65",
+        "NOTICE": "aa2e8e7685184109596feb8bbc9ccc258af7e6d57e88037480409e68f243d9c8",
+        "README.md": "73002bfeaa941d0881f3cd40c9c48a79218cc7d28a36101e6d46b8c174074e68",
+        "cordis.patch.yml": "302a113c93f2abb68bf270a0d80311f54f645ceadac88bc3eae2cef7c8777f80",
+        "data/memes.db": "813269fa113d9db71eeda73ff8c801d4f6a80c76736401db4538af6ee359b4d0",
+        "lib/client.js": "078086df999db02838b5d5e10f95dbdd5a4c0182c36074217520b92515731fe2",
+        "lib/index.js": "71baf4b3192b496e2eda8b951afafa5532fcb4c97579e44ec9419fad98c735ac",
+        "package.json": "c481682767094b16572da5b2e06f7142672fabe62332a6c579f1bb8f1e5107e6",
+        "scripts/sync-cnmeme.mjs": "e572a0ff0753a6b33b12ac07beb0d5e54dde79762d913d83013277b92f866fde"
+      }
+    },
+    {
+      "id": "humanizer-chinese",
+      "repository": "https://github.com/jiji262/humanizer-chinese",
+      "commit": "1d6c08e10fbfe0e1b36ac784834451c6aae0a92c",
+      "version": "1.0.0",
+      "directory": "vendor/humanizer-chinese",
+      "license": "MIT",
+      "modified_files": [],
+      "files": {
+        ".claude-plugin/marketplace.json": "b5c030d8b48d0ae1dcbf5a5a910d4ac431f539942829f37e944c0d8a7bd17b73",
+        ".claude-plugin/plugin.json": "3ca548bc8e6c3271e1ad52d24ca3bbc512d437744c7996e6757d8e69dcd65fa6",
+        "LICENSE": "d62683e0283ff7c9cc36d1d0d64922fa89141643d6a6d804cb5cff31cc54ca08",
+        "README.md": "40fea798a68442a9c7d1be3bb23540d746d292d8e6809d197973b3414b501f35",
+        "SKILL.md": "66a8242e6b0b57f455d593ca0f2f7069d0e060de17d6f591e2744688d2ec462c",
+        "agents/openai.yaml": "b08d2679c363d55bf6514317b433be8173fd77fe9d87ecc362b6bb55fc86d26b",
+        "scripts/validate-package.py": "3ef6d8fc8134aa29167e4bbdee0ed540016aed755d739f84aecf71a0e7b275d6"
+      }
+    },
+    {
+      "id": "memewiki-liujelly",
+      "repository": "https://github.com/Liujelly/dsh-memewiki",
+      "commit": "1d3f8266468823fe85290a016eadf3b8d1262de3",
+      "version": "1.0.0",
+      "directory": "vendor/memewiki-liujelly",
+      "license": "MIT",
+      "modified_files": [
+        "lib/index.js"
+      ],
+      "files": {
+        "LICENSE": "8271ea8b46dcab7a311f610eebee230f98ecfef239042ac5fb8b685051354f22",
+        "README.md": "d8738ac728abb6662c08f4a68a2c9dc953d1c3ac89cf7a77fe28b9fdc88b7e93",
+        "client.js": "039203d5c314b39daa2bf1ac2aa1f1864aadaac2dc3d39b885d34ad4d99ccdfb",
+        "cordis.patch.yml": "1cc0eb19b15a9c706c3ae06fa80344b5fdb700fd3ad45caa705e1b1824ac6d7d",
+        "data/memes.db": "05d902ff642dbb894fe2fa61b7623ca9c094cc2e6d26d2f818986296cdacdef3",
+        "icon.svg": "f418b3811eb58465501a99401140932dd99c4a99a47b4d4a366e2e9f69e431f7",
+        "lib/index.js": "9482c29fff475a9e56642105390a4563366979d89312035ae6bca20a2a9dc2e5",
+        "locale/en.json": "bee94136760c4b1ac0ac6bc39177ec987a29e9a51a3faeb4682c9fde7d8f670d",
+        "locale/zh.json": "d0a9126c483bca1f96d119441b5b934e5d098b38aff0a1350cfaaa963682e179",
+        "package.json": "9b98f4c4f9c8232e166aafa068d0b1e8582efa3537fb6aac1af1eb2684becb91"
+      }
+    }
+  ]
+}

@@ -55,7 +55,8 @@ export class MemoryService {
     // Partition predicate precedes ranking; there is never an all-viewers pool.
     const rows = this.db.all("SELECT * FROM memory_entries WHERE character_id=? AND room_id=? AND state='active' AND ((visibility='public' AND subject_key='public') OR (visibility='viewer' AND subject_key=?)) AND (valid_from IS NULL OR valid_from<=?) AND (valid_until IS NULL OR valid_until>?) ORDER BY pinned DESC,updated_at DESC", ...this.state.characterRoom, partition, utc(this.db.now()), utc(this.db.now()));
     const words = norm(query).toLowerCase().match(/[\p{L}\p{N}]+/gu) || [];
-    const ranked = rows.map(row => ({ ...row, score: (row.pinned ? 1000 : 0) + words.reduce((score, word) => score + (row.content.toLowerCase().includes(word) || word.includes(row.fact_key.split('.').at(-1)) ? 10 : 0), 0) })).sort((a,b) => b.score - a.score);
+    const ranked = this.extensions ? this.extensions.rankMemory(rows, query, this.db.now())
+      : rows.map(row => ({ ...row, score: (row.pinned ? 1000 : 0) + words.reduce((score, word) => score + (row.content.toLowerCase().includes(word) || word.includes(row.fact_key.split('.').at(-1)) ? 10 : 0), 0) })).sort((a,b) => b.score - a.score);
     const take = (visibility, maximum, chars) => {
       const found = []; let used = 0;
       for (const row of ranked.filter(row => row.visibility === visibility)) {
@@ -78,7 +79,7 @@ export class MemoryService {
     const rows = this.db.all(`SELECT e.*,p.payload_json FROM stream_events e JOIN event_payloads p USING(event_seq) WHERE e.broadcast_id=? AND e.event_seq>=? AND e.event_seq<=? AND e.event_type IN ('input.accepted','playback.completed') AND p.redacted_at IS NULL AND (json_extract(p.payload_json,'$.partition_key')=? ${publicAlso ? "OR json_extract(p.payload_json,'$.partition_key')='public'" : ''}) ORDER BY event_seq`, broadcastId, start, end, partition);
     return rows.filter(row => {
       const data = JSON.parse(row.payload_json), relevant = data.partition_key === 'public' ? publicFence : fence;
-      return !relevant || row.event_seq > relevant.event_seq;
+      return (row.event_type !== 'input.accepted' || data.source?.collector !== 'dsh-speak-up') && (!relevant || row.event_seq > relevant.event_seq);
     }).map(row => { const data = JSON.parse(row.payload_json); return { event_seq: row.event_seq, event_id: row.event_id,
       event_type: row.event_type, request_id:row.request_id, text: data.text, partition_key: data.partition_key,
       payload_sha256: row.payload_sha256, source_revision: row.source_revision,

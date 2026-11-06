@@ -30,4 +30,8 @@ if (!$PythonExe) { $PythonExe = Join-Path $DshProjectRoot 'runtime/livetalking/S
 if (!(Test-Path -LiteralPath $PythonExe)) { throw 'Pass -PythonExe with an existing native Python executable' }
 & $PythonExe -X utf8 -B (Join-Path $DshProjectRoot 'deployment/patch_humanity.py') --project-root $DshProjectRoot --runtime $DshRuntime --source-root $DshProjectRoot
 if ($LASTEXITCODE -ne 0) { throw 'Humanity connector patch failed' }
+if (Test-Path -LiteralPath (Join-Path $DshProjectRoot 'extensions/naimei-dsh/sources.lock.json')) {
+ & $PythonExe -X utf8 -B (Join-Path $DshProjectRoot 'deployment/stage_naimei_dsh_extensions.py') --project-root $DshProjectRoot --runtime $DshRuntime
+ if ($LASTEXITCODE -ne 0) { throw 'Naimei extension integrity check failed' }
+}
 @{ installed_at = [DateTime]::UtcNow.ToString('o'); node = $DshVersion; node_sha256 = $DshExpected; dsh = '0.2.0-rc.2'; humanity = '0.1.17'; scripts_disabled = $true } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $DshProjectRoot '.setup/dsh-runtime.json') -Encoding UTF8

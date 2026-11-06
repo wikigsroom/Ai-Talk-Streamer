@@ -12,6 +12,8 @@ const projectKey = 'stream:project-persona';
 const mappingKey = memoryId => 'stream:projection:' + memoryId;
 
 export function createStreamConnector(ctx, state) {
+  const characterId = process.env.STREAM_CHARACTER_ID || 'female-a';
+  const roomId = process.env.STREAM_ROOM_ID || 'room-main';
   let injectionEnabled = false;
   let mirrorRevision = 0;
   let serial = Promise.resolve();
@@ -45,7 +47,7 @@ export function createStreamConnector(ctx, state) {
     publishPersona(input) {
       return enqueue(async () => {
         const store = requireStore();
-        if (input.character_id !== 'female-a' || input.room_id !== 'room-main' || !input.operation_id || !input.persona_version || documentHash(input.document) !== input.approved_hash) throw new Error('PERSONA_PUBLICATION_INVALID');
+        if (input.character_id !== characterId || input.room_id !== roomId || !input.operation_id || !input.persona_version || documentHash(input.document) !== input.approved_hash) throw new Error('PERSONA_PUBLICATION_INVALID');
         const current = store.documents.read(projectKey)?.value;
         if (current?.operation_id === input.operation_id) {
           if (current.approved_hash !== input.approved_hash) {
@@ -92,7 +94,7 @@ export function createStreamConnector(ctx, state) {
     applyPublicProjection(input) {
       return enqueue(async () => {
         const store = requireStore();
-        if (input.visibility !== 'public' || input.subject_key !== 'public' || input.character_id !== 'female-a' || input.room_id !== 'room-main') throw new Error('PROJECTION_PARTITION');
+        if (input.visibility !== 'public' || input.subject_key !== 'public' || input.character_id !== characterId || input.room_id !== roomId) throw new Error('PROJECTION_PARTITION');
         if (!input.operation_id || !input.memory_id || !Number.isSafeInteger(input.memory_revision) || input.memory_revision < 1 || !['UPSERT', 'ARCHIVE', 'REMOVE'].includes(input.action)) throw new Error('PROJECTION_OPERATION');
         injectionEnabled = false;
         const operationKey = 'stream:operation:' + input.operation_id;

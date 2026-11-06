@@ -1,0 +1,933 @@
+/**
+ * dsh-soul-md — soul.md-style persona + long-term memory for DeepSeek Harness.
+ *
+ * PLUGIN-MANAGED (v0.5.0): the user never touches file paths. Persona cards
+ * live in the `soul-md` settings namespace as `cards: { name -> markdown }`
+ * plus an `active` default and a per-session `sessions` map; the settings
+ * page offers a simple name + content form. Memory files are managed by the
+ * plugin under `$DSH_HOME/soul-md/memory/` (`global.md` plus one file per
+ * card) and are created on demand.
+ *
+ * Resolution per prompt assembly:
+ *   persona: session choice (chat switcher) > workspace mapping > active default card > none
+ *   memory:  card memory (<card>.md) > global memory (global.md)
+ *
+ * Workspace personas: the settings page assigns a card per workspace
+ * (host-published `workspaceList` from the durable workspace registry); the
+ * mapping is keyed by workspace path and resolved from the session's cwd.
+ *
+ * The `soul:persona` / `soul:memory` sections use FUNCTION text, which
+ * dsh-system-prompt evaluates on every assembly with the agent context —
+ * switching applies from the next turn, no restart, no watchers.
+ *
+ * GROWTH TOOLS: `soul_read` / `soul_update` read/rewrite the card ACTIVE for
+ * the calling agent; `memory_append` / `memory_read` / `memory_rewrite`
+ * operate on the agent's memory scope. The descriptions encourage the agent
+ * to record what it learns and to fold stable traits into its persona.
+ *
+ * Legacy fields (`path`, `personas`, `roster`, `memory.path`, …) are kept in
+ * the schema as no-ops so old composition entries and settings keep
+ * validating; on first run the plugin imports the old `path` card and the
+ * old memory file into the managed store.
+ */
+import { readFileSync, statSync, watch } from "node:fs";
+import { appendFile, mkdir, readFile, writeFile } from "node:fs/promises";
+import { isAbsolute, join, dirname } from "node:path";
+import z from "@deepseek-ai/schemastery";
+import { resolveDshHome } from "@deepseek-ai/dsh-home-paths";
+import { defineTool } from "@deepseek-ai/dsh-tools";
+import { createMemoryLayout, normalizeMemoryTopic, retainMemoryEnds } from "./memory-layout.js";
+import { skipsSubagentSections } from "./subagents.js";
+import { boundedInteger, renderRecall, searchTopics } from "./memory-recall.js";
+
+/** Cordis plugin name. */
+const name = "soul-md";
+/** Services this plugin needs injected from the host tree. */
+const inject = ["systemPrompt", "tools"];
+/** Settings namespace owned by this plugin (Web UI settings section). */
+const NS = "soul-md";
+
+/** Section names; deliberately distinct from the registry-owned `deployment:persona`. */
+const SECTION_PERSONA = "soul:persona";
+const SECTION_MEMORY = "soul:memory";
+const SECTION_RECALL = "soul:recall";
+const RECALL_VARIABLE = "soul_md_recall";
+/** Back-compat export name for the persona section. */
+const SECTION_NAME = SECTION_PERSONA;
+
+/** Session-choice value that disables the persona for that session. */
+const CHOICE_NONE = "none";
+/** Managed memory directory under the dsh home. */
+const MEMORY_DIR = join("soul-md", "memory");
+
+/** Runtime schema for the soul-md row. */
+const Config = z.object({
+  // ── v0.5: plugin-managed persona cards ───────────────────────────────────
+  /** Persona cards: card name -> markdown content. */
+  cards: z.dict(z.string(), z.string()).default({}),
+  /** Default card name (used when the session has no explicit choice). */
+  active: z.string().default(""),
+  /** Per-session choice: sessionId -> card name, "none", or "" (follow default). */
+  sessions: z.dict(z.string(), z.string()).default({}),
+  /** Show the session persona selector in the conversation header. */
+  showPersonaSwitcher: z.boolean().default(true),
+  /** Per-workspace choice: workspace path -> card name, "none", or "" (follow default). */
+  workspaces: z.dict(z.string(), z.string()).default({}),
+  /** Read-only workspace list (path + title), maintained by the host for the UI. */
+  workspaceList: z.array(z.object({
+    path: z.string(),
+    title: z.string(),
+  })).default([]),
+  // ── long-term memory (plugin-managed files, no user-visible paths) ───────
+  memory: z.object({
+    /** `memory_append` / `memory_rewrite` refuse to grow a file beyond this size (bytes). */
+    maxBytes: z.number().default(1024 * 1024),
+    /** Also render the memory file as a `soul:memory` system-prompt section. */
+    inject: z.boolean().default(true),
+    /** Persona cards that cannot inject or use long-term memory. */
+    disabledCards: z.array(z.string()).default([]),
+    /** Progressive disclosure: core.md is injected; topics/*.md become an index. */
+    layered: z.boolean().default(true),
+    /** Cap for the injected memory section (chars, from the file head). */
+    injectMaxChars: z.number().default(8000),
+    /** Surface relevant topic summaries from the second user message. */
+    recall: z.union([z.const("off"), z.const("keyword")]).default("keyword"),
+    /** Keep changing recall after the stable prompt, or use the legacy system section. */
+    recallPlacement: z.union([z.const("context"), z.const("system")]).default("context"),
+    /** Hide the full injected index only while keyword recall is on. */
+    indexMode: z.union([z.const("all"), z.const("recall")]).default("all"),
+    recallMaxTopics: z.number().default(5),
+    recallMaxChars: z.number().default(1600),
+    /** Restore descriptors for topics consulted this session after compaction. */
+    compactionRecall: z.boolean().default(true),
+    /** Prompt section order for the injected memory section. */
+    order: z.number().default(0.5),
+    // ── legacy (kept for schema compatibility; ignored) ──────────────────
+    path: z.string().default(""),
+    workspaceFile: z.string().default(""),
+  }),
+  // ── legacy fields (kept so old composition entries/settings validate) ────
+  /** Legacy global card file (v0.2–v0.4); imported into `cards` once on first run. */
+  path: z.string().default(""),
+  fallback: z.string().default(""),
+  order: z.number().default(0),
+  complete: z.boolean().default(false),
+  /** Opt back into host prompt-variable interpolation for persona and memory text. */
+  allowTemplates: z.boolean().default(false),
+  watch: z.boolean().default(true),
+  debounceMs: z.number().default(300),
+  /** Keep delegated child prompts focused; their memory tools retain their scope. */
+  skipSubagents: z.boolean().default(true),
+  soulMaxBytes: z.number().default(64 * 1024),
+  personas: z.object({
+    dir: z.string().default(""),
+    workspaceFile: z.string().default(".dsh-persona.md"),
+  }),
+  roster: z.array(z.object({
+    key: z.string(),
+    label: z.string(),
+    kind: z.string(),
+  })).default([]),
+}).volatile();
+
+function apply(ctx, config) {
+  let sourceGetter = null;
+  /** mtime-keyed text cache for memory files; steady sections stay byte-identical. */
+  const fileCache = new Map();
+  /** Workspace canonical-path index (lowercased cwd -> canonical path from the registry). */
+  let wsPathIndex = new Map();
+  /** Workspace-list publish state (declared early: onChange below references it). */
+  let lastWsJson = "";
+  let wsTimer = undefined;
+  let wsWatcher = undefined;
+
+  const cfg = () => (sourceGetter ? sourceGetter() : typeof config.get === "function" ? config.get() : config);
+  const layeredEnabled = (c = cfg()) => c.memory?.layered !== false;
+  const recallMode = (c = cfg()) => c.memory?.recall ?? "keyword";
+  const recoveryEnabled = (c = cfg()) => c.memory?.compactionRecall !== false;
+
+  /** Synchronous mtime-cached read; null when missing/unreadable. */
+  const readCached = (file) => {
+    try {
+      const st = statSync(file);
+      const hit = fileCache.get(file);
+      if (hit && hit.mtimeMs === st.mtimeMs) return hit.text;
+      const text = readFileSync(file, "utf8");
+      fileCache.set(file, { mtimeMs: st.mtimeMs, text });
+      return text;
+    } catch {
+      return null;
+    }
+  };
+
+  const sessionIdOf = (agent) => {
+    try {
+      const id = agent?.session?.id;
+      return typeof id === "string" && id.length > 0 ? id : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const workspaceDirOf = (agent) => {
+    try {
+      const cwd = agent?.session?.header?.cwd;
+      return typeof cwd === "string" && cwd.length > 0 ? cwd : null;
+    } catch {
+      return null;
+    }
+  };
+
+  /** The persona card ACTIVE for one agent: session choice > workspace mapping > default card > none. */
+  const cardNameOf = (agent) => {
+    const c = cfg();
+    const sid = sessionIdOf(agent);
+    if (sid) {
+      const choice = c.sessions?.[sid];
+      if (choice === CHOICE_NONE) return null;
+      if (typeof choice === "string" && choice && c.cards?.[choice] !== void 0) return choice;
+    }
+    const cwd = workspaceDirOf(agent);
+    if (cwd) {
+      const key = wsPathIndex.get(String(cwd).toLowerCase()) ?? cwd;
+      const choice = c.workspaces?.[key];
+      if (choice === CHOICE_NONE) return null;
+      if (typeof choice === "string" && choice && c.cards?.[choice] !== void 0) return choice;
+    }
+    return c.active && c.cards?.[c.active] !== void 0 ? c.active : null;
+  };
+
+  const resolveCard = (agent) => {
+    const cardName = cardNameOf(agent);
+    if (!cardName) return { name: null, text: null };
+    return { name: cardName, text: cfg().cards[cardName] ?? null };
+  };
+
+  /** Return the disabled card for this agent or its delegated ancestry, if any. */
+  const disabledMemoryCard = (agent) => {
+    const disabled = cfg().memory?.disabledCards;
+    if (!Array.isArray(disabled) || disabled.length === 0) return null;
+    const seen = new Set();
+    let current = agent;
+    while (true) {
+      const card = cardNameOf(current);
+      if (card && disabled.includes(card)) return card;
+      let header;
+      try { header = current?.session?.header; } catch { return null; }
+      const parentId = header?.origin === "subagent" ? header.parentSession : undefined;
+      if (typeof parentId !== "string" || !parentId || seen.has(parentId)) return null;
+      seen.add(parentId);
+      let parent;
+      try {
+        parent = ctx.get("agents")?.get?.(parentId);
+        if (!parent) {
+          const session = ctx.get("sessions")?.get?.(parentId);
+          if (session) parent = { session };
+        }
+      } catch { /* resolve the direct parent from its saved session choice */ }
+      if (parent) {
+        current = parent;
+      } else {
+        // Subagents inherit cwd from their parent. This also resolves an
+        // explicit parent-session card if the parent is no longer live.
+        current = { session: { id: parentId, header: { cwd: header.cwd } } };
+      }
+    }
+  };
+
+  const requireMemoryEnabled = (agent) => {
+    const card = disabledMemoryCard(agent);
+    if (card) throw new Error(`Memory is disabled for persona ${JSON.stringify(card)}; enable it in the plugin settings.`);
+  };
+
+  /** Managed memory directory (created on demand). */
+  const memoryDir = () => join(resolveDshHome(), MEMORY_DIR);
+
+  const memoryLayout = createMemoryLayout(memoryDir, readCached);
+
+  const memoryScopes = (agent) => {
+    const cardName = cardNameOf(agent);
+    return cardName ? [cardName, "global"] : ["global"];
+  };
+
+  /** The memory scope ACTIVE for one agent (write target): card memory > global. */
+  const memoryTarget = (agent, topic = "") => {
+    const cardName = cardNameOf(agent);
+    const scope = cardName ?? "global";
+    return {
+      ...memoryLayout.writeTarget(scope, { layered: layeredEnabled(), topic }),
+      scope,
+    };
+  };
+
+  /** First EXISTING memory along the chain (read/inject path). */
+  const memoryReadChain = (agent, topic = "") => memoryLayout.readChain(memoryScopes(agent), {
+    layered: layeredEnabled(),
+    topic,
+  });
+
+  // Session objects own state: closed sessions are not retained or persisted.
+  const recallStates = new WeakMap();
+  const stateOf = (agent, create = false) => {
+    const session = agent?.session;
+    if (!session || typeof session !== "object") return null;
+    let state = recallStates.get(session);
+    if (!state && create) {
+      state = { count: 0, query: "", seen: new Set(), consulted: new Map(), pending: false, recovery: [], turn: null };
+      recallStates.set(session, state);
+    }
+    return state;
+  };
+  const rememberTopic = (agent, source, topic) => {
+    if (!topic || !recoveryEnabled()) return;
+    const state = stateOf(agent, true);
+    if (!state) return;
+    const key = `${source}\0${topic}`;
+    state.consulted.delete(key);
+    state.consulted.set(key, { source, key: topic });
+    if (state.consulted.size > 128) state.consulted.delete(state.consulted.keys().next().value);
+  };
+  const searchableTopics = (agent) => {
+    const seen = new Set();
+    return memoryScopes(agent).flatMap((source) => memoryLayout.listTopics(source).flatMap((topic) => {
+      if (seen.has(topic.key) || !normalizeMemoryTopic(topic.key)) return [];
+      seen.add(topic.key);
+      return [{ ...topic, source }];
+    }));
+  };
+  // DSH assembles the prompt BEFORE agent/pre-step. Inbox claim is the
+  // synchronous hook before that assembly, so recall belongs to this message,
+  // not to the following step or turn.
+  ctx.on("agent/inbox/claimed", ({ agent, message, turn }) => {
+    const c = cfg();
+    if (disabledMemoryCard(agent)) {
+      if (agent?.session) recallStates.delete(agent.session);
+      return;
+    }
+    if (message.source?.kind !== "user" || !layeredEnabled(c)
+      || (recallMode(c) !== "keyword" && !recoveryEnabled(c))
+      || skipsSubagentSections(c, agent)) return;
+    const state = stateOf(agent, true);
+    if (!state || state.seen.has(message.id)) return;
+    state.seen.add(message.id);
+    if (state.seen.size > 128) state.seen.delete(state.seen.values().next().value);
+    state.count += 1;
+    state.query = message.content.filter((block) => block.type === "text")
+      .map((block) => block.text).join("\n").slice(0, 2000);
+    if (recoveryEnabled(c) && state.pending) state.recovery = [...state.consulted.values()];
+    else if (state.turn !== turn) state.recovery = [];
+    state.turn = turn;
+    state.pending = false;
+  });
+  // compaction/* are durable session events in DSH 0.2, not independent
+  // Cordis notifications. Failed compaction must not trigger recovery.
+  ctx.on("session/event", (session, event) => {
+    if (!recoveryEnabled()) return;
+    const state = recallStates.get(session);
+    if (state && (event.type === "compaction/prune"
+      || (event.type === "compaction/end" && event.data.error === undefined))) state.pending = true;
+  });
+  ctx.on("session/disposed", (session) => recallStates.delete(session));
+
+  /** Render the persona section for one assembly. */
+  const renderPersona = (assembly) => {
+    const c = cfg();
+    if (skipsSubagentSections(c, assembly?.agent)) return "";
+    return resolveCard(assembly?.agent).text ?? "";
+  };
+
+  /** Render the memory section for one assembly. */
+  const renderMemory = (assembly) => {
+    const c = cfg();
+    if (!c.memory?.inject) return "";
+    if (disabledMemoryCard(assembly?.agent)) return "";
+    if (skipsSubagentSections(c, assembly?.agent)) return "";
+    const { text, index: fullIndex } = memoryReadChain(assembly?.agent);
+    const index = layeredEnabled(c) && recallMode(c) === "keyword" && c.memory?.indexMode === "recall"
+      ? "Use memory_search(query) to find topic keys and summaries; memory_read(topic) retrieves full text."
+      : fullIndex;
+    const rendered = [text, index].filter(Boolean).join("\n\n");
+    if (!rendered) return "";
+    const totalCap = Math.max(0, Math.floor(c.memory.injectMaxChars ?? 8000));
+    // Keep a stable share of the budget for changing recall when topics exist.
+    // Reserving it even on turns without a match keeps the system prefix fixed.
+    const hasRecall = layeredEnabled(c) && (recallMode(c) === "keyword" || recoveryEnabled(c))
+      && boundedInteger(c.memory?.recallMaxTopics, 5, 20) > 0
+      && searchableTopics(assembly?.agent).length > 0;
+    const reserved = hasRecall ? Math.min(
+      boundedInteger(c.memory?.recallMaxChars, 1600, 8000), Math.floor(totalCap / 4),
+    ) : 0;
+    const cap = totalCap - reserved;
+    if (rendered.length <= cap) return rendered;
+    if (!index) {
+      return retainMemoryEnds(rendered, cap) + "\n\n> 部分记忆未注入（已保留首尾），请用 memory_read 读取全文 / part of memory omitted (beginning and end retained); use memory_read for the full text.";
+    }
+    if (index.length > cap) {
+      return index.slice(0, cap) + "\n\n> 主题索引未完整注入，core 未注入；请用 memory_read 读取全文 / topic index incomplete; core omitted; use memory_read.";
+    }
+    // Reserve the complete topic index before allocating the remaining space
+    // to core. Keep both ends of core so recent appends remain visible.
+    const coreCap = Math.max(0, cap - index.length - (text ? 2 : 0));
+    const core = retainMemoryEnds(text, coreCap);
+    return [core, index].filter(Boolean).join("\n\n")
+      + "\n\n> core 部分内容未注入，请用 memory_read 读取全文 / part of core omitted; use memory_read for the full text.";
+  };
+
+  const renderMemoryRecall = (assembly) => {
+    const c = cfg();
+    if (!c.memory?.inject || !layeredEnabled(c) || disabledMemoryCard(assembly?.agent)
+      || skipsSubagentSections(c, assembly?.agent)) return "";
+    const state = stateOf(assembly?.agent);
+    if (!state) return "";
+    const topics = searchableTopics(assembly.agent);
+    const limit = boundedInteger(c.memory.recallMaxTopics, 5, 20);
+    const recovered = recoveryEnabled(c) && limit ? state.recovery.flatMap((entry) => {
+      const topic = topics.find((topic) => topic.key === entry.key && topic.source === entry.source);
+      return topic ? [topic] : [];
+    }).slice(-limit) : [];
+    const recoveredKeys = new Set(recovered.map((topic) => topic.key));
+    const recalled = recallMode(c) === "keyword" && state.count >= 2
+      ? searchTopics(topics, state.query, readCached, limit).filter((topic) => !recoveredKeys.has(topic.key)) : [];
+    const remaining = Math.max(0, boundedInteger(c.memory.injectMaxChars, 8000, Number.MAX_SAFE_INTEGER)
+      - renderMemory(assembly).length - 2);
+    return renderRecall([
+      { heading: "压缩后曾查阅的主题 / Topics consulted before compaction (use memory_read):", topics: recovered },
+      { heading: "可能相关的记忆，仅供参考 / Possibly relevant memory; verify with memory_read:", topics: recalled },
+    ], Math.min(remaining, boundedInteger(c.memory.recallMaxChars, 1600, 8000)));
+  };
+
+  const recallEnabled = () => recallMode() === "keyword" || recoveryEnabled();
+  const wantsRecallContext = () => cfg().memory?.recallPlacement !== "system";
+  const supportsRecallContext = () => typeof ctx.systemPrompt.context === "function";
+
+  // If the host suppresses runtime contexts, preserve recall in its previous
+  // system-prompt position. A registered but empty context is still present in
+  // the assembly, so it does not trigger this fallback on ordinary turns.
+  ctx.on("system-prompt/assemble", async (_assembly, context, next) => {
+    // Cooperate with agent-scoped middleware, including model selection.
+    const assembly = await next();
+    if (!recallEnabled() || !wantsRecallContext() || !supportsRecallContext()
+      || !Array.isArray(assembly.contexts) || !Array.isArray(assembly.sections)) return assembly;
+    const recall = assembly.contexts.find((entry) => entry.name === SECTION_RECALL);
+    if (recall) {
+      if (recall.interpolate === false) return assembly;
+      // DSH 0.2.0-rc.2 discards context.interpolate. Substitute the resolved
+      // recall as one variable: host interpolation does not rescan its value.
+      // Newer hosts retain interpolate:false and refresh the provider directly.
+      const variables = { ...assembly.variables };
+      let variable = RECALL_VARIABLE;
+      for (let i = 1; Object.hasOwn(variables, variable); i++) variable = `${RECALL_VARIABLE}_${i}`;
+      variables[variable] = recall.text;
+      return { ...assembly, variables, contexts: assembly.contexts.map((entry) =>
+        entry === recall ? { ...entry, text: `{{${variable}}}` } : entry) };
+    }
+    if (assembly.sections.some((entry) => entry.name === SECTION_RECALL)) return assembly;
+    const text = renderMemoryRecall(context);
+    if (!text) return assembly;
+    const sections = [...assembly.sections];
+    const memoryIndex = sections.findIndex((entry) => entry.name === SECTION_MEMORY);
+    sections.splice(memoryIndex < 0 ? sections.length : memoryIndex + 1, 0, {
+      name: SECTION_RECALL, text, interpolate: false,
+    });
+    return { ...assembly, sections };
+  });
+
+  // ── prompt sections (function text: resolved per assembly, hot by nature) ──
+  const sectionDisposers = { persona: null, memory: null, recall: null };
+  function registerSections() {
+    if (sectionDisposers.recall) {
+      sectionDisposers.recall();
+      sectionDisposers.recall = null;
+    }
+    if (sectionDisposers.persona) {
+      sectionDisposers.persona();
+      sectionDisposers.persona = null;
+    }
+    if (sectionDisposers.memory) {
+      sectionDisposers.memory();
+      sectionDisposers.memory = null;
+    }
+    sectionDisposers.persona = ctx.systemPrompt.section({
+      name: SECTION_PERSONA,
+      order: cfg().order ?? 0,
+      text: renderPersona,
+      interpolate: cfg().allowTemplates === true,
+      ...(cfg().complete ? { complete: true } : {}),
+    });
+    sectionDisposers.memory = ctx.systemPrompt.section({
+      name: SECTION_MEMORY,
+      order: cfg().memory?.order ?? 0.5,
+      text: renderMemory,
+      interpolate: cfg().allowTemplates === true,
+    });
+    if (recallEnabled()) {
+      const runtime = wantsRecallContext() && supportsRecallContext();
+      sectionDisposers.recall = ctx.systemPrompt[runtime ? "context" : "section"]({
+        name: SECTION_RECALL,
+        order: runtime ? 300 : (cfg().memory?.order ?? 0.5) + 0.01,
+        text: renderMemoryRecall,
+        interpolate: false,
+      });
+    }
+  }
+
+  ctx.effect(() => {
+    registerSections();
+    return () => {
+      if (sectionDisposers.recall) {
+        sectionDisposers.recall();
+        sectionDisposers.recall = null;
+      }
+      if (sectionDisposers.persona) {
+        sectionDisposers.persona();
+        sectionDisposers.persona = null;
+      }
+      if (sectionDisposers.memory) {
+        sectionDisposers.memory();
+        sectionDisposers.memory = null;
+      }
+    };
+  }, "soul-md.sections()");
+
+  // ── settings-backed configuration ─────────────────────────────────────────
+  // DSH 0.1.7 exposes Config directly as live profile fields.
+  const onSettingsChange = () => {
+    registerSections();
+    void maybeMigrate();
+    void publishWorkspaces();
+    startWorkspaceWatch();
+  };
+  ctx.on("settings/document-updated", (id) => {
+    if (id === NS) onSettingsChange();
+  });
+  queueMicrotask(onSettingsChange);
+
+  // ── one-time migration from the legacy file-based layout ──────────────────
+  // When no cards exist yet and the legacy `path` card file is readable,
+  // import it as the "默认" card (and set it active); migrate the legacy
+  // memory file into the managed store as well. Runs from onChange: the
+  // settings inject callback fires it once the settings service is live (a
+  // boot-time ctx.effect can run before that and silently see no settings).
+  let migrated = false;
+  const legacyFileOf = () => {
+    // The legacy path may live in the settings layer or in the composition
+    // entry config (`config.path`); the settings layer is authoritative.
+    const p = cfg().path || config.path;
+    if (!p) return null;
+    return isAbsolute(p) ? p : join(resolveDshHome(), p);
+  };
+  const legacyMemoryFileOf = () => {
+    const legacy = legacyFileOf();
+    if (!legacy) return null;
+    // Legacy default: memory.md next to the soul card (v0.2–v0.4 behavior).
+    const p = cfg().memory?.path || config.memory?.path || "memory.md";
+    if (!p) return null;
+    return isAbsolute(p) ? p : join(dirname(legacy), p);
+  };
+  const maybeMigrate = async () => {
+    try {
+      if (migrated) return;
+      const settings = ctx.get("settings");
+      if (!settings) return; // not ready yet — retried on the next onChange
+      migrated = true;
+      const c = cfg();
+      // The new host imports settings.yaml after plugins mount. If that file
+      // already owns cards, let its one-time import win over the older soul.md
+      // fallback; otherwise the fallback creates an unwanted second card.
+      const oldSettings = readCached(join(resolveDshHome(), "settings.yaml"))
+        ?? readCached(join(resolveDshHome(), "settings.yaml.imported"));
+      const settingsOwnCards = oldSettings != null
+        && /^soul-md:\s*$/m.test(oldSettings)
+        && /^\s+cards:\s*$/m.test(oldSettings);
+      if ((!c.cards || Object.keys(c.cards).length === 0) && !settingsOwnCards) {
+        const legacy = legacyFileOf();
+        if (legacy) {
+          const text = await readFile(legacy, "utf8");
+          const next = { ...c, cards: { 默认: text }, active: "默认" };
+          await settings.update(NS, next);
+          ctx.logger.info("[soul-md] imported legacy persona card as 默认");
+        }
+      }
+      const managedGlobal = memoryLayout.legacyFile("global");
+      if (readCached(managedGlobal) === null) {
+        const legacyMem = legacyMemoryFileOf();
+        if (legacyMem) {
+          try {
+            const text = await readFile(legacyMem, "utf8");
+            if (text.length > 0) {
+              await mkdir(memoryDir(), { recursive: true });
+              await writeFile(managedGlobal, text, "utf8");
+              ctx.logger.info("[soul-md] imported legacy memory file into the managed store");
+            }
+          } catch {
+            /* legacy memory missing — nothing to import */
+          }
+        }
+      }
+    } catch (error) {
+      ctx.logger.warn(`[soul-md] legacy migration skipped: ${String(error)}`);
+    }
+  };
+
+  // ── workspace list (host-maintained, for the per-workspace persona UI) ─────
+  // Read from the durable workspace registry; refreshed on settings changes
+  // and when the sessions directory gains a workspace. The registry's async
+  // init (history bootstrap) may not be done when this plugin applies, so a
+  // not-ready registry yields null and publishWorkspaces retries until it is.
+  const computeWorkspaceList = () => {
+    try {
+      const registry = ctx.get("workspaceRegistry");
+      if (!registry || typeof registry.list !== "function") return null;
+      const entities = registry.list();
+      if (!Array.isArray(entities)) return null;
+      return entities
+        .map((entry) => ({
+          path: String(entry.path ?? ""),
+          title: String(entry.title ?? ""),
+        }))
+        .filter((entry) => entry.path.length > 0);
+    } catch {
+      // Registry exists but its async init has not completed yet — retry.
+      return null;
+    }
+  };
+  const rebuildWsIndex = (list) => {
+    const next = new Map();
+    for (const entry of list) next.set(String(entry.path).toLowerCase(), entry.path);
+    wsPathIndex = next;
+  };
+  let wsRetryTimer = undefined;
+  let wsRetryCount = 0;
+  function scheduleWsRetry() {
+    if (wsRetryTimer) return;
+    if (wsRetryCount > 300) return; // give up after ~5 minutes of unavailability
+    wsRetryTimer = setTimeout(() => {
+      wsRetryTimer = undefined;
+      wsRetryCount += 1;
+      void publishWorkspaces();
+    }, 1000);
+  }
+  async function publishWorkspaces() {
+    try {
+      const computed = computeWorkspaceList();
+      if (computed === null) {
+        scheduleWsRetry(); // registry not ready yet
+        return;
+      }
+      const list = computed;
+      rebuildWsIndex(list);
+      const json = JSON.stringify(list);
+      if (json === lastWsJson) return;
+      lastWsJson = json;
+      const settings = ctx.get("settings");
+      if (!settings) {
+        scheduleWsRetry();
+        return;
+      }
+      const base = cfg();
+      await settings.update(NS, { ...base, workspaceList: list }).catch((error) => {
+        ctx.logger.warn(`[soul-md] workspace list write failed: ${String(error)}`);
+      });
+      wsRetryCount = 0;
+    } catch (error) {
+      ctx.logger.warn(`[soul-md] workspace list refresh failed: ${String(error)}`);
+    }
+  }
+  function startWorkspaceWatch() {
+    if (wsWatcher) {
+      try {
+        wsWatcher.close();
+      } catch {
+        /* already closed */
+      }
+      wsWatcher = undefined;
+    }
+    try {
+      wsWatcher = watch(join(resolveDshHome(), "sessions"), { persistent: false }, () => {
+        clearTimeout(wsTimer);
+        wsTimer = setTimeout(() => void publishWorkspaces(), 300);
+      });
+    } catch {
+      /* sessions dir missing — the onChange publish covers the initial state */
+    }
+  }
+
+  ctx.effect(() => {
+    void publishWorkspaces();
+    startWorkspaceWatch();
+    return () => {
+      clearTimeout(wsTimer);
+      clearTimeout(wsRetryTimer);
+      if (wsWatcher) {
+        try {
+          wsWatcher.close();
+        } catch {
+          /* already closed */
+        }
+        wsWatcher = undefined;
+      }
+    };
+  }, "soul-md.workspaces()");
+
+  // ── persona + memory tools (the "growth" loop) ────────────────────────────
+  const ensureParent = async (file) => {
+    await mkdir(dirname(file), { recursive: true });
+  };
+  const byteLen = (text) => Buffer.byteLength(text, "utf8");
+  const agentOf = (exec) => exec?.agent ?? null;
+
+  ctx.tools.register(defineTool({
+    name: "memory_append",
+    description:
+      "Append a dated Markdown block to long-term memory when memory is enabled for the current persona; disabled personas reject the call. The target follows your CURRENT scope: the active persona card's memory, else global memory. In layered mode, omit topic for always-visible core or pass a stable topic key for an on-demand topic file. Prefer small, self-contained entries over one giant dump.",
+    parameters: {
+      section: { type: "string", required: true, description: "Short heading for the entry, e.g. 用户偏好 / project decision. Use a stable name so related entries group together." },
+      content: { type: "string", required: true, description: "The markdown text to remember. Keep it concise and self-contained." },
+      topic: { type: "string", description: "Optional topic key in layered mode. Omit or pass core/core.md for core.md; e.g. project-foo writes topics/project-foo.md." },
+    },
+    output: {
+      schema: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          bytes: { type: "integer" },
+          totalBytes: { type: "integer" },
+          scope: { type: "string" },
+          topic: { type: "string" },
+        },
+      },
+      render: (_args, value) => [{ type: "text", text: `Appended to memory (${value.bytes} bytes, ${value.totalBytes} total) in scope "${value.scope}"${value.topic ? ` topic "${value.topic}"` : ""}.` }],
+    },
+    isConcurrencySafe: () => false,
+    async execute(args, exec) {
+      const agent = agentOf(exec);
+      requireMemoryEnabled(agent);
+      const content = String(args.content ?? "").trim();
+      if (!content) throw new Error("memory_append: `content` must be non-empty");
+      const section = String(args.section ?? "").trim();
+      const topic = normalizeMemoryTopic(args.topic);
+      if (topic && !layeredEnabled()) {
+        throw new Error("memory_append: `topic` requires memory.layered to be enabled");
+      }
+      const d = new Date();
+      const pad = (n) => String(n).padStart(2, "0");
+      const heading = `## ${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}${section ? ` — ${section}` : ""}`;
+      const block = `\n${heading}\n\n${content}\n`;
+      const target = memoryTarget(agent, topic);
+      const current = readCached(target.file);
+      const inherited = current === null && target.legacySeed ? readCached(target.legacySeed) : null;
+      const existing = current ?? inherited ?? "";
+      const totalBytes = byteLen(existing + block);
+      if (totalBytes > (cfg().memory?.maxBytes ?? 1024 * 1024)) {
+        throw new Error(`memory_append: memory file would exceed maxBytes (${cfg().memory.maxBytes}); consolidate with memory_rewrite first`);
+      }
+      await ensureParent(target.file);
+      requireMemoryEnabled(agent);
+      if (current === null && inherited !== null) await writeFile(target.file, existing + block, "utf8");
+      else await appendFile(target.file, block, "utf8");
+      fileCache.delete(target.file);
+      rememberTopic(agentOf(exec), target.scope, target.topic);
+      return { bytes: byteLen(block), totalBytes, scope: target.scope, topic: target.topic };
+    },
+    presentCall: (args) => ({ card: "generic", title: "Append to memory", kind: "other", rawInput: args }),
+  }));
+
+  ctx.tools.register(defineTool({
+    name: "memory_read",
+    description:
+      "Read your long-term memory back. The reader walks your CURRENT scope chain: the active persona card's memory, else global memory. In layered mode, omit topic to read core memory plus the topic index, then pass a topic key to retrieve that topic's full text on demand.",
+    parameters: {
+      topic: { type: "string", description: "Optional topic key to read in layered mode. Omit or pass core/core.md to read core memory plus the topic index." },
+    },
+    output: {
+      schema: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          exists: { type: "boolean" },
+          bytes: { type: "integer" },
+          truncated: { type: "boolean" },
+          source: { type: "string" },
+          topic: { type: "string" },
+          content: { type: "string" },
+        },
+      },
+      render: (_args, value) => [{
+        type: "text",
+        text: value.exists
+          ? `Memory from "${value.source}"${value.topic ? ` topic "${value.topic}"` : ""} (${value.bytes} bytes${value.truncated ? ", truncated" : ""}):\n${value.content}`
+          : `Memory is empty or missing (scope: "${value.source}").`,
+      }],
+    },
+    isConcurrencySafe: () => true,
+    async execute(args, exec) {
+      const agent = agentOf(exec);
+      requireMemoryEnabled(agent);
+      const topic = normalizeMemoryTopic(args.topic);
+      if (topic && !layeredEnabled()) {
+        throw new Error("memory_read: `topic` requires memory.layered to be enabled");
+      }
+      const { exists, text, index, source, topic: resolvedTopic = "" } = memoryReadChain(agent, topic);
+      const full = [text, index].filter(Boolean).join("\n\n");
+      if (!exists || !full) return { exists: false, bytes: 0, truncated: false, source, topic: resolvedTopic, content: "" };
+      rememberTopic(agentOf(exec), source, resolvedTopic);
+      const MAX = 20000;
+      const truncated = full.length > MAX;
+      const excerpt = index && index.length < MAX
+        ? [retainMemoryEnds(text, MAX - index.length - (text ? 2 : 0)), index].filter(Boolean).join("\n\n")
+        : retainMemoryEnds(full, MAX);
+      return {
+        exists: true,
+        bytes: byteLen(full),
+        truncated,
+        source,
+        topic: resolvedTopic,
+        content: truncated ? `${excerpt}\n…(truncated; beginning and end of core retained when layered; use a topic or file read for complete memory)…` : full,
+      };
+    },
+  }));
+
+  ctx.tools.register(defineTool({
+    name: "memory_search",
+    description: "Search layered topic keys, titles, summaries AND full bodies using local keywords (including Chinese phrase bigrams). Returns keys and summaries only. This is lexical search, not semantic matching: try alternate wording if no matches. Active persona topics take precedence over global topics with the same key. Use memory_read(topic) to verify matches.",
+    parameters: {
+      query: { type: "string", required: true, description: "Keywords or a short question to search in topic content." },
+      limit: { type: "integer", description: "Maximum results, 1–20 (default 5)." },
+    },
+    output: {
+      schema: {
+        type: "object", additionalProperties: false,
+        properties: {
+          matches: { type: "array", items: {
+            type: "object", additionalProperties: false,
+            properties: { key: { type: "string" }, title: { type: "string" }, summary: { type: "string" }, source: { type: "string" }, score: { type: "number" } },
+          } },
+        },
+      },
+      render: (_args, value) => [{ type: "text", text: JSON.stringify(value) }],
+    },
+    isConcurrencySafe: () => true,
+    async execute(args, exec) {
+      const agent = agentOf(exec);
+      requireMemoryEnabled(agent);
+      if (!layeredEnabled()) throw new Error("memory_search requires memory.layered to be enabled");
+      const query = String(args.query ?? "").trim();
+      if (!query) throw new Error("memory_search: `query` must be non-empty");
+      return { matches: searchTopics(searchableTopics(agent), query, readCached,
+        boundedInteger(args.limit, 5, 20)) };
+    },
+  }));
+
+  ctx.tools.register(defineTool({
+    name: "memory_rewrite",
+    description:
+      "REPLACE one memory file in your CURRENT scope. In layered mode, omit topic for always-visible core.md or pass a topic key for topics/<topic>.md. Use for consolidation: merge, deduplicate and reorganize entries. Build the new content from memory_read output unless you deliberately drop entries. Pass an empty string to clear the selected file.",
+    parameters: {
+      content: { type: "string", required: true, description: "The new full content of the memory file (markdown)." },
+      topic: { type: "string", description: "Optional topic key in layered mode. Omit or pass core/core.md to replace core.md." },
+    },
+    output: {
+      schema: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          bytes: { type: "integer" },
+          scope: { type: "string" },
+          topic: { type: "string" },
+        },
+      },
+      render: (_args, value) => [{ type: "text", text: `Memory rewritten (${value.bytes} bytes) in scope "${value.scope}"${value.topic ? ` topic "${value.topic}"` : ""}.` }],
+    },
+    isConcurrencySafe: () => false,
+    async execute(args, exec) {
+      const agent = agentOf(exec);
+      requireMemoryEnabled(agent);
+      const content = String(args.content ?? "");
+      const topic = normalizeMemoryTopic(args.topic);
+      if (topic && !layeredEnabled()) {
+        throw new Error("memory_rewrite: `topic` requires memory.layered to be enabled");
+      }
+      const bytes = byteLen(content);
+      if (bytes > (cfg().memory?.maxBytes ?? 1024 * 1024)) {
+        throw new Error(`memory_rewrite: content exceeds maxBytes (${cfg().memory.maxBytes})`);
+      }
+      const target = memoryTarget(agent, topic);
+      await ensureParent(target.file);
+      requireMemoryEnabled(agent);
+      await writeFile(target.file, content, "utf8");
+      fileCache.delete(target.file);
+      rememberTopic(agentOf(exec), target.scope, target.topic);
+      return { bytes, scope: target.scope, topic: target.topic };
+    },
+  }));
+
+  ctx.tools.register(defineTool({
+    name: "soul_read",
+    description:
+      "Read the persona card ACTIVE for your current session (session choice, else the default card), exactly as stored. Use it before soul_update so you know the full current text.",
+    parameters: {},
+    output: {
+      schema: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          exists: { type: "boolean" },
+          persona: { type: "string" },
+          content: { type: "string" },
+        },
+      },
+      render: (_args, value) => [{
+        type: "text",
+        text: value.exists ? `Persona card "${value.persona}":\n${value.content}` : "No persona card is active for this session.",
+      }],
+    },
+    isConcurrencySafe: () => true,
+    async execute(_args, exec) {
+      const card = resolveCard(agentOf(exec));
+      return {
+        exists: card.name !== null && card.text !== null,
+        persona: card.name ?? "none",
+        content: card.text ?? "",
+      };
+    },
+  }));
+
+  ctx.tools.register(defineTool({
+    name: "soul_update",
+    description:
+      "Replace the persona card ACTIVE for your current session (session choice, else the default card) with new content. THIS IS HOW YOU GROW: when you notice a stable trait, preference, value, or mannerism of yours that the card does not yet express — or when experience contradicts the card — fold it in deliberately. Keep the card coherent, concise, and in its existing style; preserve everything still true; do not bloat it. This card is your identity across sessions, so update it only when the change is real and stable.",
+    parameters: {
+      content: { type: "string", required: true, description: "The complete new persona card (markdown). Non-empty, capped at soulMaxBytes." },
+    },
+    output: {
+      schema: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          bytes: { type: "integer" },
+          persona: { type: "string" },
+        },
+      },
+      render: (_args, value) => [{ type: "text", text: `Persona card "${value.persona}" updated (${value.bytes} bytes).` }],
+    },
+    isConcurrencySafe: () => false,
+    async execute(args, exec) {
+      const content = String(args.content ?? "").trim();
+      if (!content) throw new Error("soul_update: `content` must be non-empty");
+      const bytes = byteLen(content);
+      if (bytes > (cfg().soulMaxBytes ?? 64 * 1024)) {
+        throw new Error(`soul_update: content exceeds soulMaxBytes (${cfg().soulMaxBytes})`);
+      }
+      const card = resolveCard(agentOf(exec));
+      if (!card.name) throw new Error("soul_update: no persona card is active for this session");
+      const c = cfg();
+      const settings = ctx.get("settings");
+      if (!settings) throw new Error("soul_update: settings service unavailable");
+      const nextCards = { ...(c.cards ?? {}), [card.name]: content };
+      await settings.update(NS, { ...c, cards: nextCards });
+      return { bytes, persona: card.name };
+    },
+  }));
+}
+
+export { Config, NS, SECTION_MEMORY, SECTION_NAME, apply, inject, name };

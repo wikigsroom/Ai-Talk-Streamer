@@ -38,10 +38,12 @@ export function loadPolicy(root, file) {
   delete shape.example_only;
   const policy = file ? JSON.parse(readFileSync(inside(root, file), 'utf8')) : structuredClone(shape);
   if (Object.hasOwn(policy, 'features')) shape.features = { automatic_memory_enabled: true, automatic_platform_events_enabled: true };
+  if (Object.hasOwn(policy, 'extensions')) shape.extensions = { enabled: true, config: '' };
   sameShape(policy, shape);
   if (policy.schema_version !== 1 || policy.policy_version !== POLICY_VERSION) throw new Error('CONFIG_VERSION');
   if(policy.versions.dsh_candidate!=='0.2.0-rc.2'||policy.versions.humanity_base!=='0.1.17'||policy.versions.allow_unpinned_dependencies||!policy.versions.runtime_validation_required||!policy.versions.humanity_connector_patch_required)throw new Error('CONFIG_VERSION_LOCK');
   const characterId=policy.identity.character_id;
+  if (policy.extensions && (characterId !== 'naimei' || policy.extensions.config !== 'configs/naimei/dsh-extensions.json')) throw new Error('CONFIG_EXTENSION_SCOPE');
   if(!['female-a','naimei'].includes(characterId)||policy.identity.room_id!=='room-main'||policy.identity.anonymous_cross_broadcast_memory||policy.identity.viewer_identity_source!=='server_verified_principal'||policy.identity.character_source!==`configs/characters/${characterId}.json`)throw new Error('CONFIG_IDENTITY_SCOPE');
   if(characterId==='naimei'&&(!/^state\/naimei(?:\/|$)/.test(policy.deployment.state_relative_path.replaceAll('\\','/'))||!policy.deployment.dsh_home_relative_path.replaceAll('\\','/').startsWith(policy.deployment.state_relative_path.replaceAll('\\','/')+'/')))throw new Error('CONFIG_CHARACTER_STATE_SCOPE');
   if (policy.deployment.mode !== 'native_windows' || policy.deployment.bridge_host !== '127.0.0.1' || policy.deployment.management_host !== '127.0.0.1') throw new Error('CONFIG_DEPLOYMENT');

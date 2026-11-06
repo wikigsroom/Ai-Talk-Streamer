@@ -171,9 +171,10 @@ test('A25/A33: corrections have source revisions and compensating undo cannot ov
  }finally{f.close()}
 });
 test('A27/A28: restoring an old backup replays latest deletion identities before recall',async()=>{
- const f=fixture();try{const m=f.seed();f.end();const backup=await f.admin.backup();await f.admin.delete(op,{operation_id:'delete-test',subject_key:op.viewer_id,memory_id:m.memory_id});assert.equal(f.memory.recall(op.viewer_id).viewer.length,0);
+ const f=fixture();try{const m=f.seed();f.end();f.db.tx(()=>f.db.run("INSERT INTO runtime_meta VALUES ('naimei.extensions.mood.public',?)",JSON.stringify({reason:'derived from the deleted source'})));const backup=await f.admin.backup();await f.admin.delete(op,{operation_id:'delete-test',subject_key:op.viewer_id,memory_id:m.memory_id});assert.equal(f.memory.recall(op.viewer_id).viewer.length,0);
+  assert.equal(f.db.get("SELECT * FROM runtime_meta WHERE key='naimei.extensions.mood.public'"),undefined);
   const receipt=prepareRestore(f.root,'backups/'+backup.backup_id);assert.equal(receipt.replayed_deletions,1);assert.equal(receipt.deletion_generation,1);
-  const restored=new StateStore(receipt.database);try{assert.equal(restored.get('SELECT state FROM memory_entries').state,'deleted');assert.equal(restored.get('SELECT content FROM memory_entries').content,'');assert.deepEqual(restored.integrity(),{integrity:'ok',foreign_keys:[]});}finally{restored.close()}
+  const restored=new StateStore(receipt.database);try{assert.equal(restored.get('SELECT state FROM memory_entries').state,'deleted');assert.equal(restored.get('SELECT content FROM memory_entries').content,'');assert.equal(restored.get("SELECT * FROM runtime_meta WHERE key='naimei.extensions.mood.public'"),undefined);assert.deepEqual(restored.integrity(),{integrity:'ok',foreign_keys:[]});}finally{restored.close()}
   unlinkSync(join(f.root,'state/deletion-ledger.jsonl'));assert.throws(()=>prepareRestore(f.root,'backups/'+backup.backup_id),/LEDGER_MISSING/);
  }finally{f.close()}
 });

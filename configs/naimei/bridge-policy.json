@@ -1,5 +1,6 @@
 {
   "schema_version": 1,
+  "extensions": {"enabled": true, "config": "configs/naimei/dsh-extensions.json"},
   "policy_version": "dsh-live-v1.0",
   "deployment": {
     "mode": "native_windows",

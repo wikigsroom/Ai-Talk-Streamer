@@ -471,7 +471,7 @@ class Studio:
             return web.json_response({'error': 'NAIMEI_PUBLIC_BROADCAST_NOT_ENABLED'}, status=409)
         if request.path.startswith('/api/dsh/requests') and request.method == 'POST':
             value = await request.json()
-            if value.get('mode', 'chat') != 'echo':
+            if value.get('mode', 'chat') != 'echo' and not self.config.get('automatic_conversation_enabled'):
                 return web.json_response({'error': 'NAIMEI_A01_A14_MANUAL_SPEECH_ONLY'}, status=409)
             if not await self.playback_ready():
                 return web.json_response({'error': 'NAIMEI_PLAYBACK_SOURCE_REQUIRED'}, status=409)

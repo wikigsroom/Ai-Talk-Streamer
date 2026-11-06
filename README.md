@@ -2,8 +2,10 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [Documentation](docs/README.md)
 
+**Naimei DSH extensions:** the fish-memory, feiyu-mood and speak-up integration copies derive from [Yuuyuko-uu/dsh-fish-memory](https://github.com/Yuuyuko-uu/dsh-fish-memory), [Yuuyuko-uu/dsh-feiyu-mood](https://github.com/Yuuyuko-uu/dsh-feiyu-mood), and [Yuuyuko-uu/dsh-speak-up](https://github.com/Yuuyuko-uu/dsh-speak-up). Original author: **Yuuyuko-uu**. Their complete custom licenses remain applicable. Changes expose reviewed bridge interfaces, clear derived caches, disable live dialogue diagnostics, and retain attribution. [Changes, all seven sources and licenses](extensions/naimei-dsh/README.md).
+
 <!-- deployment-branch:start -->
-**Branch: deploy/rtx3080. Native RTX3080 cohost deployment.** K02 / FP16 batch4, O07 primary and F07 backup; avatar, speech, DSH and official Livehime run on3080. State root: `state/female-a-3080-k02`. [Runbook](docs/deployment/RTX3080_K02_RELEASE.md) · [Device contract](docs/deployment/DEVICE_BRANCHES.md). Five local playback cases passed; public streaming was not repeated.
+**Branch: naimei.** Naimei uses 512×512 FlashHead Lite with a 25FPS target and frozen NCM01 / OmniVoice voice. Seven pinned DSH sources are integrated through tested native bridge adapters. [Current integration and operating status](docs/naimei/DSH扩展接入与使用20261107.md). Actual local model configuration and live quality acceptance remain pending; public broadcasting stays disabled. The device releases below retain their historical scope.
 <!-- deployment-branch:end -->
 
 **Validated RTX3080 variant: K02 / O07 + F07.** The user-requested single-host variant runs avatar, local TTS, DSH/Humanity and official Livehime on the 10 GB workstation. Actual batch8 continuity failed; the accepted batch4 configuration averaged **24.989 Canvas FPS**, with zero new audio underruns, missing packets or decode errors over five utterances. [Runbook](docs/deployment/RTX3080_K02_RELEASE.md) · [Interactive report](docs/analysis/native-rtx3080-k02-20261029/report.html) · [Release manifest](configs/releases/native-rtx3080-k02-v1.2.2.json). This was local playback; public streaming and historical 4090 memory migration were not repeated. Earlier releases and measurements below retain their original scope.

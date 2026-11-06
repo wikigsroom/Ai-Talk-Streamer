@@ -1,0 +1,68 @@
+# DSH Soul / Persona
+
+[简体中文](README.md) | English
+
+Add switchable persona cards and file-based long-term memory to [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness). Choose personas per workspace or session, and let the Agent read and write memory or update a persona through its tools.
+
+## Features
+
+- **Persona cards:** create, edit and set a default card in the plugin page; select a persona for a session on the new-session page or in the conversation header, or hide the selectors in plugin settings.
+- **Workspace personas:** assign a default card to a workspace. Resolution order is session selection → workspace persona → default card → disabled.
+- **File memory:** the Agent can use `memory_read`, `memory_append` and `memory_rewrite`; `soul_read` and `soul_update` read and update persona cards.
+- **Layered memory:** separate a resident `core.md` from on-demand `topics/*.md`, with `memory_search`, keyword recall and post-compaction recall enabled by default; each can be turned off.
+- **Per-persona memory:** memory is enabled for each card by default and can be turned off independently without disabling the persona.
+- **Subagent control:** skip automatic persona and memory injection for subagents by default without changing the memory tools' scope; inheritance can be enabled in settings.
+
+Soul centers memory on files and personas. For conversation capture, model-based extraction and vector recall, see [DSH TDAI Memory](https://github.com/Scorp1o117/dsh-tdai-memory). The plugins can be used independently.
+
+## Compatibility and installation
+
+Supports DSH Web / Desktop. The repository declares compatibility with `0.2.0-rc.2`, `0.2.1-rc.1` / `rc.2` / `rc.3` / `rc.4` / `rc.5` and versions matching `>=0.2.0-rc.2 <0.3.0`; see [package.json](package.json) for the complete prerelease range. Node.js `>=20.18` is required.
+
+DSH `0.2.0-rc.2` does not have the new-session extension slot; use the conversation header selector there.
+
+For Desktop, install its `dsh` command through **Application → Manage dsh Command** first:
+
+```sh
+dsh plugin --profile desktop add dsh-soul-md
+```
+
+Replace `desktop` with `web` for Web. Restart DSH and open **Plugins → Installed → dsh-soul-md**. You can also install it through the [Enhancement Suite](https://github.com/Scorp1o117/dsh-enhancement-suite).
+
+## Quick start
+
+1. Create a persona card in the plugin page, enter a name and Markdown content, and save it.
+2. Set it as the default or assign it to a workspace; the new-session page and chat header can override the persona for one session. Switching workspaces can open another blank session, so check that session's selection.
+3. Talk to the Agent and let it use memory or persona tools as needed. Persona updates and memory writes depend on actual model tool calls and are not guaranteed to happen automatically.
+4. Layered memory, keyword recall and post-compaction recall are enabled by default and can be adjusted independently in settings.
+
+## Memory and settings
+
+| Setting | Default | Purpose |
+| --- | --- | --- |
+| `showPersonaSwitcher` | `true` | Show the new-session and conversation-header selectors; hiding them preserves existing session choices |
+| `memory.inject` | `true` | Inject the memory section into the prompt |
+| `memory.disabledCards` | `[]` | Persona card names with memory disabled; use the switch beside each card in the plugin page |
+| `memory.layered` | `true` | Enable core + topics; turn off for single-file memory |
+| `memory.recall` | `keyword` | Suggest related topics starting with the second user message processed during this plugin run; set to `off` to disable |
+| `memory.recallPlacement` | `context` | Put changing recall in runtime context by default; choose `system` for the system prompt |
+| `memory.indexMode` | `all` | With keyword recall enabled, `recall` avoids injecting the full topic index every turn |
+| `memory.compactionRecall` | `true` | After successful compaction or trimming, suggest recently used topic summaries on the next user turn |
+| `memory.injectMaxChars` | `8000` | Character budget for memory injection |
+| `allowTemplates` | `false` | Resolve prompt variables in personas and memories; by default braces are preserved literally |
+| `skipSubagents` | `true` | Skip persona and memory prompt injection for subagents; set to `false` to let them inherit |
+
+Turn off **Memory** beside a persona card to stop memory injection and recall for that card. All four `memory_*` tools reject calls instead of falling back to global memory, including from delegated subagents and team members. `soul_read` and `soul_update` still work. Memory files are kept and become available again when memory is re-enabled. Tool names may still appear in the tool list. Sessions with no persona card continue to use global memory.
+
+Turning memory off does not remove content already present in the current conversation history, runtime-context snapshots or tool results. Start a new session to isolate those earlier contents.
+
+Keyword search is lexical, not semantic vector search. Recall supplies topic keys and summaries only; full text requires a tool read, and the injection budget still applies. With recall enabled and topics present, up to one quarter of the total budget is reserved for dynamic recall, so a long core does not crowd it out and the system prefix remains stable. The full topic index remains enabled by default so the model can discover topics without a lexical match; with many topics, `recall` index mode reduces resident content. Runtime context uses user-message snapshots. If the host disables or does not support runtime context, recall falls back to the system prompt. Older snapshots may remain in conversation history until compaction. `topic: "core"` or `"core.md"` targets resident core; existing `topics/core.md` is not moved automatically. Back it up and inspect it before manually reorganizing.
+
+Explicitly saved settings keep their values; options not set use the new defaults. Layered memory reads existing single-file memory and preserves its contents when first appending to core.
+
+Persona settings live in the current profile; memory defaults to `$DSH_HOME/soul-md/memory/`. Back up and manage those files as needed. The interface follows the DSH language setting.
+
+## Development and feedback
+
+- `npm test` runs the project tests. The [historical detailed documentation](https://github.com/Scorp1o117/dsh-soul-md/blob/c248af33a8b3215b771ed52c1e2395a56a717908/README.md) preserves older configuration and migration details; install commands and compatibility information may be outdated.
+- [npm](https://www.npmjs.com/package/dsh-soul-md) · [Issues](https://github.com/Scorp1o117/dsh-soul-md/issues) · [MIT License](LICENSE)

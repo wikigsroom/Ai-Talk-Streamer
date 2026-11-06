@@ -1,0 +1,68 @@
+# DSH Soul / Persona
+
+简体中文 | [English](README.en.md)
+
+为 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 添加可切换的人设卡和文件式长期记忆。你可以为不同工作区或会话选择人设，让 Agent 按需读取、写入记忆，并在使用工具时更新人设。
+
+## 功能
+
+- **人设卡**：在插件页创建、编辑并设置默认卡片；在新会话页或聊天标题栏为单个会话选择卡片，也可以在插件页隐藏选择器。
+- **工作区人设**：为工作区指定默认卡片。解析顺序为：会话选择 → 工作区人设 → 默认卡 → 不启用。
+- **文件记忆**：Agent 可使用 `memory_read`、`memory_append`、`memory_rewrite` 读取和维护记忆；`soul_read`、`soul_update` 用于读取和更新人设卡。
+- **分层记忆**：默认将常驻 `core.md` 与按主题读取的 `topics/*.md` 分开，支持 `memory_search`、关键词召回和压缩后补偿，也可按需关闭。
+- **按人设控制记忆**：每张卡默认启用记忆，可在插件页单独关闭，不影响人设本身。
+- **子代理控制**：默认不向子代理自动注入人设和记忆；这不会改变记忆工具的读写作用域，可在设置中恢复注入。
+
+Soul 的记忆以文件和人设为中心；需要对话捕获、模型提取和向量召回时，可另看 [DSH TDAI Memory](https://github.com/Scorp1o117/dsh-tdai-memory)。两个插件可独立使用。
+
+## 兼容性与安装
+
+支持 DSH Web / Desktop；仓库声明兼容 `0.2.0-rc.2`、`0.2.1-rc.1` / `rc.2` / `rc.3` / `rc.4` / `rc.5` 和符合 `>=0.2.0-rc.2 <0.3.0` 的版本，预发布版本范围见 [package.json](package.json)。要求 Node.js `>=20.18`。
+
+DSH `0.2.0-rc.2` 没有新会话页的扩展位，可继续使用会话标题栏选择人设。
+
+Desktop 先在 **应用 → 管理 dsh 命令** 安装桌面版 `dsh`：
+
+```sh
+dsh plugin --profile desktop add dsh-soul-md
+```
+
+Web 将 `desktop` 改为 `web`。安装后重启 DSH，打开 **插件 → 已安装 → dsh-soul-md**。也可通过 [Enhancement Suite](https://github.com/Scorp1o117/dsh-enhancement-suite) 安装。
+
+## 快速使用
+
+1. 在插件页创建人设卡，填写名称和 Markdown 内容并保存。
+2. 设为默认卡，或为指定工作区配置卡片；也可在新会话页或聊天标题栏单独切换会话人设。切换工作区可能打开另一个空白会话，请检查该会话的人设选择。
+3. 与 Agent 对话，让它按需使用记忆或人设工具。人设变化和记忆写入取决于模型的实际工具调用，不保证自动发生。
+4. 分层记忆、关键词自动召回和压缩后补偿默认开启，可在设置中分别调整。
+
+## 记忆与设置
+
+| 设置 | 默认值 | 作用 |
+| --- | --- | --- |
+| `showPersonaSwitcher` | `true` | 显示新会话页和聊天标题栏的人设选择器；隐藏不会更改已有的会话选择 |
+| `memory.inject` | `true` | 将记忆段落注入提示词 |
+| `memory.disabledCards` | `[]` | 关闭记忆的人设卡名称列表；可通过插件页卡片旁的开关修改 |
+| `memory.layered` | `true` | 启用 core + topics 分层，可关闭切回单文件模式 |
+| `memory.recall` | `keyword` | 从插件运行期间的第二条用户消息起提示相关主题，可设为 `off` 关闭 |
+| `memory.recallPlacement` | `context` | 动态召回默认放入运行时上下文；可设为 `system` 使用系统提示词 |
+| `memory.indexMode` | `all` | 在关键词召回开启时可设为 `recall`，避免每轮注入完整主题索引 |
+| `memory.compactionRecall` | `true` | 成功压缩或裁剪后，在下一用户回合提示近期使用过的主题摘要 |
+| `memory.injectMaxChars` | `8000` | 记忆注入的字符预算 |
+| `allowTemplates` | `false` | 是否解析人设与记忆中的提示词变量；默认保留花括号原文 |
+| `skipSubagents` | `true` | 跳过对子代理的人设和记忆注入；设为 `false` 可让子代理继承 |
+
+在插件页的人设卡列表中关闭某张卡的「记忆」后，该卡不再注入或召回记忆，四个 `memory_*` 工具也会拒绝调用，不会改用全局记忆。由该会话派生的子代理和团队成员同样受此限制；`soul_read` 和 `soul_update` 不受影响。已有记忆文件会保留，重新启用后可继续使用。工具名称仍可能显示在工具列表中；如果没有选择人设卡，仍使用全局记忆。
+
+关闭开关不会删除已在当前会话历史中的记忆内容、运行时上下文快照或工具结果；需要隔离这些内容时，请新建会话。
+
+关键词检索是字面匹配，并非语义向量搜索；召回提示只包含主题 key 与摘要，全文仍需通过工具读取，且受注入预算限制。启用召回且存在主题时，插件会在总预算内稳定预留最多四分之一给动态召回，避免长 core 挤掉召回，也避免每轮改变系统提示词。默认保留完整主题索引，方便模型发现没有字面命中的主题；主题很多时可切换到 `recall` 索引模式以减少常驻内容。运行时上下文使用 user 消息快照；若宿主禁用或不支持运行时上下文，会回退到系统提示词。旧快照可能在压缩前保留在对话历史中。`topic: "core"` 或 `"core.md"` 指向常驻 core；已有 `topics/core.md` 不会自动迁移，请先备份并核对后再手动整理。
+
+显式保存的设置仍按原值生效；未设置的选项使用新默认值。分层模式会读取已有的单文件记忆，并在首次向 core 追加时保留其原有内容。
+
+人设配置保存在当前 Profile；记忆默认位于 `$DSH_HOME/soul-md/memory/`。请按个人需要备份和管理这些文件。界面语言跟随 DSH。
+
+## 开发与反馈
+
+- `npm test` 运行项目测试。[历史详细文档](https://github.com/Scorp1o117/dsh-soul-md/blob/c248af33a8b3215b771ed52c1e2395a56a717908/README.zh.md)保留旧版配置和迁移说明，其中安装命令与兼容性信息可能已过时。
+- [npm](https://www.npmjs.com/package/dsh-soul-md) · [问题反馈](https://github.com/Scorp1o117/dsh-soul-md/issues) · [MIT License](LICENSE)

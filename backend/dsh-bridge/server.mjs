@@ -16,11 +16,13 @@ import { memoryPage } from '../memory/query.mjs';
 import { EventSubscriptions } from './events.mjs';
 import { PlatformManager } from '../platforms/manager.mjs';
 import { RoomManager } from '../room/manager.mjs';
+import { NaimeiLocalChannel } from './local-model.mjs';
 
 export class StreamBridge {
   constructor(root, runtime, { policyFile, avatarUrl = 'http://127.0.0.1:8010' } = {}) {
     this.root=resolve(root);this.runtime=inside(this.root,runtime);this.policy=loadPolicy(this.root,policyFile);this.avatarUrl=avatarUrl;
     this.channel=new ChannelConfig(this.root);this.controllers=new Map();this.closed=false;this.probes=[];this.mediaHealth={};this.ready=false;this.mediaChain=Promise.resolve();
+    if(this.policy.extensions?.enabled)this.channel=new NaimeiLocalChannel(this.root);
   }
   async start() {
     this.db=new StateStore(inside(this.root,join(this.policy.deployment.state_relative_path,'stream.sqlite3')));
@@ -37,6 +39,7 @@ export class StreamBridge {
     this.scheduler=new MaintenanceScheduler(this.db,this.state,this.memory,this.policy,options=>this.maintenanceModel(options));
     this.db.on('event',event=>{if(['broadcast.created','broadcast.live'].includes(event.event_type))this.scheduler.runningAbort?.abort();});
     this.administration=new MemoryAdministration(this.root,this.db,this.state,this.memory,this.host,async()=>this.restartHostForPrivacy());
+    this.attachExtensions();
     if(this.db.get("SELECT 1 FROM runtime_meta WHERE key='privacy_redaction_pending'")) {
       await this.restartHostForPrivacy();this.db.tx(()=>this.db.run("DELETE FROM runtime_meta WHERE key='privacy_redaction_pending'"));
     }
@@ -59,12 +62,15 @@ export class StreamBridge {
   }
   async restartHostForPrivacy() {
     this.ready=false;
+    this.moodAbort?.abort(); this.pendingMood=null;
+    if(this.host.extensions)this.db.tx(()=>this.db.run("DELETE FROM runtime_meta WHERE key='naimei.extensions.mood.public'"));
     for(const controller of this.controllers.values())controller.abort();
     for(let attempt=0;attempt<100&&this.host.active.size;attempt++)await new Promise(resolve=>setTimeout(resolve,50));
     const ids=(await this.host.ctx.sessionPersistence.list()).map(row=>row.header.id);
     await this.host.close();
     purgeSessionBodies(this.root,inside(this.root,this.policy.deployment.dsh_home_relative_path),ids);
     this.host=await new DshHost(this.root,this.runtime,this.policy).start();this.memory.port=this.host.port;this.administration.host=this.host;
+    this.attachExtensions();
     this.ready=true;
   }
   async mediaCommand(action,body) {
@@ -78,7 +84,7 @@ export class StreamBridge {
   async refreshMedia() {
     if(this.mediaCheckedAt&&Date.now()-this.mediaCheckedAt<3000)return this.mediaHealth;
     this.mediaCheckedAt=Date.now();
-    try { const response=await fetch(this.avatarUrl+'/api/studio/status',{signal:AbortSignal.timeout(2500)});const health=await response.json();this.mediaHealth={tts_ready:!!health.tts_ready,avatar_ready:!!health.avatar_ready,viewers:health.viewers||0}; }
+    try { const response=await fetch(this.avatarUrl+'/api/studio/status',{signal:AbortSignal.timeout(2500)});const health=await response.json();this.mediaHealth={tts_ready:!!health.tts_ready,avatar_ready:!!health.avatar_ready,viewers:health.viewers||0,natural_state:health.state||'unknown',character_speaking:!!health.speaking}; }
     catch {this.mediaHealth={tts_ready:false,avatar_ready:false,viewers:0};}
     return this.mediaHealth;
   }
@@ -90,6 +96,7 @@ export class StreamBridge {
       ...this.mediaHealth,authority_ready:this.state.current()?this.state.authorityReady(this.state.current().broadcast_id):false,
       channel:this.channel.publicInfo(),persona_version:this.state.personaVersion,node:process.version,
       native_humanity_tools:false,versions:{dsh:'0.2.0-rc.2',humanity:'0.1.17',connector:'stream-humanity-v1'},
+      ...(this.host.extensions ? {extensions:{loaded:this.host.extensions.ready,source_count:7,local_inference_only:true,mood:this.host.extensions.publicMood(),proactive_armed:!!this.automaticSpeechEnabled}} : {}),
       rss_bytes:process.memoryUsage().rss};
   }
   onCall({requestId=null,jobId=null,job=null,foreground=true,maxTokens=256}) {
@@ -164,12 +171,76 @@ export class StreamBridge {
       if(event&&this.db.now()-Date.parse(event.received_at)>this.policy.conversation.tts_timeout_ms)this.state.fail(active.request_id,'TTS_TIMEOUT');
     }
     const request=this.state.activate();if(request)void this.processRequest(request);
+    else if(!this.state.active())void this.updateExtensionMood();
+  }
+  attachExtensions() {
+    const extension=this.host.extensions;
+    if(this.extensionListener)this.db.off('event',this.extensionListener);
+    if(!extension)return;
+    this.memory.extensions=extension;
+    const armed=this.db.get("SELECT value_json FROM runtime_meta WHERE key='naimei.extensions.proactive'");
+    this.automaticSpeechEnabled=armed ? JSON.parse(armed.value_json).enabled===true : false;
+    extension.attachBridge({db:this.db,canSpeak:()=>this.canSpeakUp(),loadHistory:async()=>[],enqueue:async message=>{
+      requireValue(this.canSpeakUp(),'PROACTIVE_NOT_READY');
+      const text=message.content.filter(block=>block.type==='text').map(block=>block.text).join('\n');
+      const request=this.state.accept(this.auth.resolve(),{text,mode:'chat',public_input:true,idempotency_key:id('speakup'),
+        source:{collector:'dsh-speak-up',event_id:id('trigger'),identity_quality:'synthetic_trigger',nickname:'奶妹'}});
+      void this.tick(); return request;
+    }});
+    this.extensionListener=event=>{
+      if(this.closed)return;
+      if(event.event_type==='input.accepted')this.moodAbort?.abort();
+      if(['broadcast.paused','broadcast.draining','runtime.started'].includes(event.event_type)){this.moodAbort?.abort();this.pendingMood=null;}
+      if(!['input.accepted','playback.completed'].includes(event.event_type))return;
+      const payload=this.db.payload(event.event_seq);if(!payload)return;
+      const full=this.db.get('SELECT * FROM stream_events WHERE event_seq=?',event.event_seq);
+      const request=event.request_id?this.state.request(event.request_id):null;
+      const input=request?this.state.input(request):null;
+      extension.noteEvent(full,payload,input);
+      if(event.event_type==='playback.completed'&&payload.partition_key==='public')this.pendingMood={event:full,payload,input};
+    };
+    this.db.on('event',this.extensionListener);
+  }
+  canSpeakUp() {
+    const current=this.state?.current();
+    return !!(this.ready&&!this.closed&&!this.administration.locked&&this.automaticSpeechEnabled
+      &&this.host.extensions?.config.speak_up.enabled&&this.compatibility?.passed
+      &&this.compatibility.provider_revision===this.channel.publicInfo().revision
+      &&current?.state==='LIVE'&&this.state.authorityReady(current.broadcast_id)
+      &&this.mediaHealth.tts_ready&&this.mediaHealth.avatar_ready&&!this.mediaHealth.character_speaking
+      &&['idle','listening'].includes(this.mediaHealth.natural_state)&&Date.now()-this.mediaCheckedAt<5000
+      &&!this.state.active()&&this.host.active.size===0
+      &&!this.db.get("SELECT 1 FROM requests WHERE broadcast_id=? AND status='QUEUED'",current.broadcast_id));
+  }
+  async updateExtensionMood() {
+    const extension=this.host.extensions,cfg=extension?.config.mood;
+    if(!cfg?.enabled||!this.pendingMood||this.moodWorking||this.closed||this.administration.locked
+        ||this.state.current()?.state!=='LIVE'||Date.now()-(this.lastMoodAttempt||0)<cfg.minimum_interval_ms)return;
+    const date=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei'}).format(new Date());
+    const saved=this.db.get("SELECT value_json FROM runtime_meta WHERE key='naimei.extensions.mood.budget'");
+    const old=saved?JSON.parse(saved.value_json):null,budget={date,count:old?.date===date?old.count:0};
+    if(budget.count>=cfg.max_calls_per_day){this.pendingMood=null;return;}
+    budget.count++;
+    this.db.tx(()=>this.db.run("INSERT INTO runtime_meta VALUES ('naimei.extensions.mood.budget',?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json",canonical(budget)));
+    const item=this.pendingMood;this.pendingMood=null;this.moodWorking=true;this.lastMoodAttempt=Date.now();
+    const epoch=this.state.room().runtime_epoch,deletion=this.state.room().deletion_generation;
+    const controller=new AbortController();this.moodAbort=controller;
+    try {
+      const snapshot=this.channel.snapshot(),signal=AbortSignal.any([controller.signal,AbortSignal.timeout(cfg.timeout_ms)]);
+      const delta=await this.host.judgeMood({snapshot,input:item.input?.text||'',reply:item.payload.text,signal,
+        mode:item.input?.source?.collector==='dsh-speak-up'?'talk':'chat',
+        onCall:this.onCall({requestId:item.event.request_id,maxTokens:cfg.max_tokens})});
+      if(!signal.aborted&&!this.closed&&extension===this.host.extensions&&epoch===this.state.room().runtime_epoch
+        &&deletion===this.state.room().deletion_generation&&this.db.payload(item.event.event_seq)
+        &&snapshot.revision===this.channel.publicInfo().revision)extension.applyMood(delta);
+    } catch { /* Auxiliary emotion never fails an already completed utterance. */ }
+    finally {this.moodWorking=false;if(this.moodAbort===controller)this.moodAbort=null;}
   }
   async publishPersona(principal,body) {
     requireValue(!this.administration.locked,'MEMORY_ADMINISTRATION_BUSY',409);
     const current=this.host.port.readPersona();requireValue(body.expected_version===this.state.personaVersion,'PERSONA_VERSION_CONFLICT');
     requireValue(canonical(body.document?.identityCard)===canonical(current.document.identityCard),'IDENTITY_CARD_IMMUTABLE');
-    const version='female-a-'+digest(body.document).slice(0,16),now=utc(this.db.now());
+    const version=this.policy.identity.character_id+'-'+digest(body.document).slice(0,16),now=utc(this.db.now());
     this.db.tx(()=>this.db.run("INSERT OR IGNORE INTO personas VALUES (?,?,?,'PENDING',?,NULL)",version,canonical(body.document),digest(body.document),now));
     await this.host.publishCharacter(body.document,version);
     this.db.tx(()=>{this.db.run("UPDATE personas SET publication_state='PUBLISHED',published_at=? WHERE persona_version=?",utc(this.db.now()),version);this.db.event(this.state.scope({}, {actor_kind:'operator',actor_id:principal.principal_id}),'persona.published',{persona_version:version});});
@@ -199,8 +270,33 @@ export class StreamBridge {
       if(path==='/api/dsh/events'&&req.method==='GET')return this.events.subscribe(req,res,this.auth.require(req.headers),url.searchParams);
       if(path==='/api/dsh/whoami'&&req.method==='GET')return send(this.auth.require(req.headers));
       if(path==='/api/dsh/status'&&req.method==='GET'){await this.refreshMedia();return send(this.publicStatus(principal));}
+      if(path==='/api/dsh/extensions'&&req.method==='GET'){requireValue(this.host.extensions,'EXTENSIONS_NOT_ENABLED',404);return send({...this.host.extensions.status(),proactive_armed:!!this.automaticSpeechEnabled,proactive_ready:this.canSpeakUp(),local_model_ready:!!this.health().persona_injection_ready});}
+      if(path==='/api/dsh/extensions/model'&&req.method==='GET'){requireValue(this.host.extensions,'EXTENSIONS_NOT_ENABLED',404);return send(this.channel.settings());}
+      if(path==='/api/dsh/extensions/model'&&req.method==='POST'){
+        requireValue(this.host.extensions,'EXTENSIONS_NOT_ENABLED',404);requireValue(!this.state.active()&&!this.moodWorking,'SPEECH_IN_PROGRESS');
+        const result=this.channel.save(await this.body(req));this.compatibility=null;this.automaticSpeechEnabled=false;
+        this.db.tx(()=>this.db.run("INSERT INTO runtime_meta VALUES ('naimei.extensions.proactive',?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json",canonical({enabled:false})));
+        return send(result);
+      }
+      if(path==='/api/dsh/extensions/meme'&&req.method==='POST'){
+        requireValue(this.host.extensions,'EXTENSIONS_NOT_ENABLED',404);const value=await this.body(req);
+        requireValue(typeof value.query==='string'&&value.query.length>0&&value.query.length<=80,'MEME_QUERY_INVALID',400);
+        return send(await this.host.extensions.lookup(value.query));
+      }
+      if(path==='/api/dsh/extensions/proactive'&&req.method==='POST'){
+        requireValue(this.host.extensions,'EXTENSIONS_NOT_ENABLED',404);const value=await this.body(req);
+        requireValue(typeof value.enabled==='boolean','PROACTIVE_BOOLEAN_REQUIRED',400);
+        if(value.enabled){requireValue(this.health().persona_injection_ready,'CHANNEL_COMPATIBILITY_REQUIRED',503);requireValue(this.state.current()?.state==='LIVE'&&this.state.authorityReady(this.state.current().broadcast_id),'NAIMEI_PLAYBACK_SOURCE_REQUIRED');}
+        this.automaticSpeechEnabled=value.enabled;
+        this.db.tx(()=>this.db.run("INSERT INTO runtime_meta VALUES ('naimei.extensions.proactive',?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json",canonical({enabled:value.enabled})));
+        return send({enabled:value.enabled,ready:this.canSpeakUp()});
+      }
       if(path==='/api/dsh/requests'&&req.method==='POST'){const p=this.auth.resolve();requireValue(this.ready&&!this.administration.locked,'BRIDGE_NOT_READY',503);const body=await this.body(req);if((body.mode||'chat')==='chat')requireValue(this.health().persona_injection_ready,'CHANNEL_COMPATIBILITY_REQUIRED',503);const result=this.state.accept(p,body);void this.tick();return send(result,result.duplicate?200:202);}
-      if(path.startsWith('/api/dsh/requests/')&&req.method==='GET'){const row=this.state.request(path.split('/').at(-1));requireValue(row,'REQUEST_NOT_FOUND',404);return send(row);}
+      if(path.startsWith('/api/dsh/requests/')&&req.method==='GET'){
+        const row=this.state.request(path.split('/').at(-1));requireValue(row,'REQUEST_NOT_FOUND',404);
+        if(this.host.extensions){const text=this.db.get("SELECT event_seq FROM stream_events WHERE request_id=? AND event_type='utterance.text_ready' ORDER BY event_seq DESC LIMIT 1",row.request_id);row.final_text=text?this.db.payload(text.event_seq)?.text||null:null;}
+        return send(row);
+      }
       if(path.startsWith('/internal/')) {
         const body=await this.body(req);
         if(path==='/internal/obs-session')return send(this.auth.playbackCredential());
@@ -247,6 +343,7 @@ export class StreamBridge {
   }
   async close() {
     if(this.closed)return;this.closed=true;this.ready=false;clearInterval(this.timer);clearInterval(this.maintenanceTimer);this.scheduler?.close();
+    this.moodAbort?.abort();if(this.extensionListener)this.db?.off('event',this.extensionListener);
     this.events?.close();
     await this.room?.close();
     await this.platforms?.close();

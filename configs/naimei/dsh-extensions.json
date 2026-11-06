@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "enabled": true,
+  "character_id": "naimei",
+  "source_lock": "extensions/naimei-dsh/sources.lock.json",
+  "local_inference_only": true,
+  "soul_card": "configs/naimei/soul.md",
+  "humanizer_policy": "configs/naimei/humanizer.md",
+  "meme_max_chars": 900,
+  "memory": {"max_candidates": 200, "half_life_days": 30, "max_items": 6, "max_chars": 800},
+  "mood": {"enabled": true, "public_only": true, "confidence_minimum": 75, "timeout_ms": 10000, "max_tokens": 384, "minimum_interval_ms": 60000, "max_calls_per_day": 120},
+  "speak_up": {
+    "enabled": true,
+    "interval_minutes": 1,
+    "hit_line": 20,
+    "cooldown_minutes": 2,
+    "prompt": "现在处于直播空闲间隙。以奶妹的身份自然说一两句陪玩闲聊，或接续已确认的公共话题。没有可说的话就输出空串。不要假装看到了游戏画面、胜负或观众事件；不要说自己刚做完喝水等尚未确认的动作；不催礼物、不编造经历。"
+  }
+}

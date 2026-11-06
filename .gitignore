@@ -85,3 +85,9 @@ __pycache__/
 /operations/naimei-voice-final-20261106/
 /output/audio/naimei-voice-clone-v2-20261106/
 /output/audio/naimei-voice-clone-merged-v3-20261106/
+
+# Pinned public dictionaries are extension code dependencies, not private state.
+!extensions/naimei-dsh/vendor/memewiki-thawline/data/memes.db
+!extensions/naimei-dsh/vendor/memewiki-liujelly/data/memes.db
+/configs/naimei/channel.env
+/configs/naimei/channel.env.*.tmp

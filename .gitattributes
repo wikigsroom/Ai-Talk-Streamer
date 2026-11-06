@@ -23,3 +23,6 @@ tests/fixtures/livetalking-c7269433/*.py -text -whitespace
 # Frozen Naimei voice bytes must survive checkout unchanged.
 /assets/naimei/voice-final-v1/** -text
 /configs/naimei/voice-models.json -text
+
+# Preserve reviewed vendor sources and dictionary hashes across Windows checkouts.
+/extensions/naimei-dsh/vendor/** -text -whitespace

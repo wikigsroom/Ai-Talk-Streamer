@@ -1,0 +1,47 @@
+{
+  "name": "dsh-memewiki",
+  "version": "1.0.0",
+  "description": "梗百科：6668 条网络梗本地词库，查词工具、自动预查注入和设置页黑话编辑。移植自 AstrBot 插件 astrbot_plugin_memewiki。",
+  "type": "module",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./icon": "./icon.svg",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "lib/index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "data/memes.db",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "slots"
+      ],
+      "external": [
+        "react"
+      ]
+    }
+  },
+  "icon": "./icon.svg",
+  "scripts": {
+    "test": "node test/smoke.mjs"
+  }
+}

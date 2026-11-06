@@ -215,6 +215,9 @@ export class MemoryAdministration {
       this.db.run("UPDATE compaction_jobs SET source_manifest_json='{}',state=CASE WHEN state='COMPLETED' THEN state ELSE 'CANCELLED' END,reason='deleted_source',lease_generation=lease_generation+1 WHERE job_id=?", job.job_id);
     }
     this.db.run("UPDATE memory_proposals SET body_json=NULL,state='DELETED' WHERE subject_key=?", subject);
+    // Mood is derived from dialogue too. Clear it in this transaction so replay
+    // of a deletion into an older backup cannot resurrect its saved reason.
+    this.db.run("DELETE FROM runtime_meta WHERE key='naimei.extensions.mood.public'");
     this.db.run('UPDATE rooms SET deletion_generation=MAX(deletion_generation,?),memory_revision=memory_revision+1,maintenance_barrier=maintenance_barrier+1 WHERE character_id=? AND room_id=?', nextGeneration, ...this.state.characterRoom);
     const eventRefs=seqs.map(seq=>this.db.get('SELECT event_id,event_seq,payload_sha256 FROM stream_events WHERE event_seq=?',seq));
     const body = { subject_key:subject,memory_id:selectedMemoryId,event_seq:eventSeq,event_seqs:seqs,event_refs:eventRefs,memory_ids:[...affected],session_ids:sessionIds,created_at:now };
