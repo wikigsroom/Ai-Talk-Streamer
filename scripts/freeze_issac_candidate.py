@@ -30,12 +30,18 @@ def freeze(root, destination):
     commit=git('rev-parse','HEAD').decode().strip()
     candidate_id='issac-'+commit[:12]+'-'+uuid.uuid4().hex[:8]
     names=git('ls-files','-z').decode('utf-8').split('\0')
-    rows=[]
-    denied={'private','state','runtime','models','cache','game','outputs','operations','.setup'}
+    rows=[];excluded=[]
+    denied={'private','state','runtime','models','cache','game','.setup'}
     for name in names:
         if not name:
             continue
         parts=Path(name).parts
+        # The inherited repository tracks historical exported media and old
+        # operator scripts. Preserve them in Git, outside this deployment's
+        # source package and writeable outputs/operations namespaces.
+        if parts[0] in {'outputs','operations'}:
+            excluded.append(name)
+            continue
         if (parts[0] in denied or 'private' in parts or name.endswith('.env')
                 or name.lower().endswith(('.aac','.gguf','.sqlite3'))):
             raise AdmissionError('PRIVATE_OR_RUNTIME_FILE_IN_SOURCE_COMMIT')
@@ -45,7 +51,8 @@ def freeze(root, destination):
         rows.append({'path':name,'bytes':path.stat().st_size,'sha256':file_hash(path)})
     manifest={'schema_version':1,'candidate_id':candidate_id,'branch':'issac','source_commit':commit,
               'round':inventory['round'],'all_round_code_complete':True,
-              'tests_started_at_freeze':False,'files':rows}
+              'tests_started_at_freeze':False,'files':rows,
+              'excluded_historical_tracked_outputs_and_operations':excluded}
     destination.mkdir(parents=True,exist_ok=True)
     archive=destination/(candidate_id+'.zip')
     with zipfile.ZipFile(archive,'x',compression=zipfile.ZIP_DEFLATED,compresslevel=6) as output:
