@@ -83,13 +83,15 @@ class Livehime:
             except (psutil.NoSuchProcess,psutil.AccessDenied):continue
         self.prepare();start=time.time();env=dict(os.environ)
         base=inside(self.root,'state/issac-stream/livehime')
-        for key,relative in {'USERPROFILE':'profile','APPDATA':'roaming','LOCALAPPDATA':'local','TEMP':'tmp','TMP':'tmp'}.items():
-            path=base/relative;path.mkdir(parents=True,exist_ok=True);env[key]=str(path)
+        from .windows_profile import configure,verify_in_child
+        configure(env,base/'profile')
+        known_folders=verify_in_child(self.root,env,base/'profile')
         handle=subprocess.Popen([str(self.executable)],cwd=self.executable.parent,env=env,
             stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,creationflags=0x08000000)
         process=psutil.Process(handle.pid)
         record={'pid':process.pid,'created_at':process.create_time(),'executable':str(self.executable),
                 'executable_sha256':file_hash(self.executable),'launched_unix':start,'candidate_id':self.candidate['candidate_id'],
+                'known_folder_proof':known_folders,
                 'foreign_clients_preserved':True,'ready':False,'profile_isolation_verified':False}
         write_json(pending,record);deadline=time.monotonic()+45;stable=None;since=None
         while time.monotonic()<deadline:

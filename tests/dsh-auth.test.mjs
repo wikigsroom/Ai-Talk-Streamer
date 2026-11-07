@@ -8,7 +8,7 @@ import {Auth} from '../backend/dsh-bridge/auth.mjs';
 import {StreamState} from '../backend/dsh-bridge/state.mjs';
 import {StreamBridge} from '../backend/dsh-bridge/server.mjs';
 import {loadPolicy} from '../backend/dsh-bridge/policy.mjs';
-function fixture(){const parent=resolve('../outputs/dsh-humanity/unit');mkdirSync(parent,{recursive:true});const root=mkdtempSync(join(parent,'open-access-')),db=new StateStore(':memory:');const state=new StreamState(db,loadPolicy(root),'test');return {root,db,state,auth:new Auth(root,db,state)};}
+function fixture(){const parent=resolve('outputs/dsh-humanity/unit');mkdirSync(parent,{recursive:true});const root=mkdtempSync(join(parent,'open-access-')),db=new StateStore(':memory:');const policy=loadPolicy(root);const state=new StreamState(db,policy,'test');return {root,db,state,policy,auth:new Auth(root,db,state)};}
 
 test('open access: no keys, cookies, role gates, invitation secrets or OBS credentials',()=>{
  const f=fixture();try{
@@ -25,7 +25,7 @@ test('open access: no keys, cookies, role gates, invitation secrets or OBS crede
 
 test('open access: actual HTTP control, memory, persona, request reads and cross-origin preflight need no authentication',async()=>{
  const f=fixture(),bridge=Object.create(StreamBridge.prototype);
- Object.assign(bridge,{db:f.db,state:f.state,auth:f.auth,ready:true,administration:{locked:false},host:{ready:true,port:{readPersona:()=>({version:'test',document:{identityCard:{name:'林知夏'}}})}},refreshMedia:async()=>({tts_ready:true,avatar_ready:true}),health:()=>({persona_injection_ready:true}),tick:async()=>{}});
+ Object.assign(bridge,{db:f.db,state:f.state,policy:f.policy,auth:f.auth,ready:true,administration:{locked:false},host:{ready:true,port:{readPersona:()=>({version:'test',document:{identityCard:{name:'林知夏'}}})}},refreshMedia:async()=>({tts_ready:true,avatar_ready:true}),health:()=>({persona_injection_ready:true}),tick:async()=>{}});
  const server=createServer((req,res)=>bridge.handle(req,res));
  try{
   await new Promise(done=>server.listen(0,'127.0.0.1',done));const base='http://127.0.0.1:'+server.address().port;

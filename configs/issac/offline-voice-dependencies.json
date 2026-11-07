@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "purpose": "Existing OmniVoice 0.2.1 inference under the frozen NCM01 settings, not training, evaluation or a UI installation",
+  "existing_source": "C:\\dev\\虚拟数字人直播\\runtime\\tts\\Lib\\site-packages",
+  "package": "pydub",
+  "version": "0.25.1",
+  "files": [
+    {
+      "path": "pydub/__init__.py",
+      "bytes": 39,
+      "sha256": "c355efd5ac1b691ddf3214cd135fa0ae77ecc200114cd42b2a90737d9fbe5410"
+    },
+    {
+      "path": "pydub/audio_segment.py",
+      "bytes": 49185,
+      "sha256": "35fe55907198d6ff49a9becdb4461fc11a4badfaaeb1f05d3c6399b22ed1e428"
+    },
+    {
+      "path": "pydub/effects.py",
+      "bytes": 11507,
+      "sha256": "d4750cce179faf01bf135ad39f3bdb97e3f4f8a36ec079250a7bbc402192ee30"
+    },
+    {
+      "path": "pydub/exceptions.py",
+      "bytes": 455,
+      "sha256": "a2c817a14ba3c291fc2ba86bf34898a56df408c043170ab26910fee5ded9a4ab"
+    },
+    {
+      "path": "pydub/generators.py",
+      "bytes": 4045,
+      "sha256": "bbaabb27c24b398fae119a8c3d44f36a4c72b9add735070f883b2e88adbe94b0"
+    },
+    {
+      "path": "pydub/logging_utils.py",
+      "bytes": 374,
+      "sha256": "5ae4aa7f39f8cf24fb3f15c7195f8f5cc0f29ee7de33ab02e9e4a6565197d915"
+    },
+    {
+      "path": "pydub/playback.py",
+      "bytes": 1987,
+      "sha256": "cc59e055c9542ffee80e2a63cca0bc6fb8d3a0f355d750d5dbcac6c87f298a8d"
+    },
+    {
+      "path": "pydub/pyaudioop.py",
+      "bytes": 13094,
+      "sha256": "0e9fdc4200326230f8395d991eec6d288d8a001b8f8bd618351505f20891f344"
+    },
+    {
+      "path": "pydub/scipy_effects.py",
+      "bytes": 6637,
+      "sha256": "536a7c010b95ade4e9e4caed500cd16d680e1d473a0f0ab44c01bf46d120fbb8"
+    },
+    {
+      "path": "pydub/silence.py",
+      "bytes": 6457,
+      "sha256": "17a315d1595a3ba9adba2b232c692cfd447e1959b33b5bfceff34abf3c11737d"
+    },
+    {
+      "path": "pydub/utils.py",
+      "bytes": 12368,
+      "sha256": "5bbd6980915b6cd3f769d1fadf29f4128d022cb560cd71bb5876125e95af7727"
+    },
+    {
+      "path": "pydub-0.25.1.dist-info/AUTHORS",
+      "bytes": 1250,
+      "sha256": "0326363d2f48d9e9cec819d49f17297805fe36730d58b413e320ed83c208cbbf"
+    },
+    {
+      "path": "pydub-0.25.1.dist-info/INSTALLER",
+      "bytes": 2,
+      "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+    },
+    {
+      "path": "pydub-0.25.1.dist-info/LICENSE",
+      "bytes": 1074,
+      "sha256": "ae856536224cc7a389e968771fc5f259814bdd0da63539cf72282adbaef6897a"
+    },
+    {
+      "path": "pydub-0.25.1.dist-info/METADATA",
+      "bytes": 1406,
+      "sha256": "7f433cfd956d6e2628508f5e8d721e274dc9a3d03935b8bed15d5b56ab398989"
+    },
+    {
+      "path": "pydub-0.25.1.dist-info/RECORD",
+      "bytes": 1469,
+      "sha256": "856b671f74b1dc5f2224a63d7d2d3eae5593292c29fea39ac2b34ebfc4b93d87"
+    },
+    {
+      "path": "pydub-0.25.1.dist-info/REQUESTED",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "pydub-0.25.1.dist-info/top_level.txt",
+      "bytes": 6,
+      "sha256": "3c78620c241565dc9c6717ca2f6950a33aee053e9986fc99030aa346bc37b74c"
+    },
+    {
+      "path": "pydub-0.25.1.dist-info/WHEEL",
+      "bytes": 110,
+      "sha256": "67e9f2629c2b712ab17ddbb1e4c6e7fc3439db988fec9d831b72601af398c934"
+    }
+  ],
+  "new_download_bytes": 0,
+  "metadata_static_review": {
+    "closure_distributions": [
+      "accelerate",
+      "annotated-doc",
+      "anyio",
+      "audioread",
+      "certifi",
+      "cffi",
+      "charset-normalizer",
+      "cloudpickle",
+      "colorama",
+      "decorator",
+      "exceptiongroup",
+      "filelock",
+      "fsspec",
+      "h11",
+      "hf-xet",
+      "httpcore",
+      "httpx",
+      "huggingface-hub",
+      "idna",
+      "jinja2",
+      "joblib",
+      "lazy-loader",
+      "librosa",
+      "llvmlite",
+      "markdown-it-py",
+      "markupsafe",
+      "mdurl",
+      "mpmath",
+      "msgpack",
+      "networkx",
+      "numba",
+      "numpy",
+      "packaging",
+      "platformdirs",
+      "pooch",
+      "psutil",
+      "pycparser",
+      "pydub",
+      "pygments",
+      "pyyaml",
+      "regex",
+      "requests",
+      "rich",
+      "safetensors",
+      "scikit-learn",
+      "scipy",
+      "shellingham",
+      "soundfile",
+      "soxr",
+      "sympy",
+      "threadpoolctl",
+      "tokenizers",
+      "torch",
+      "torchaudio",
+      "tqdm",
+      "transformers",
+      "typer",
+      "typer-slim",
+      "typing-extensions",
+      "urllib3"
+    ],
+    "metadata_missing_optional_execution_paths": [
+      {
+        "distribution": "hf-xet",
+        "scope": "Hugging Face network transfer; offline local weights only, no Hub downloads"
+      },
+      {
+        "distribution": "typer-slim",
+        "scope": "Hugging Face command line; installed typer 0.27.3 supplies the runtime module, no Hub CLI invoked"
+      }
+    ],
+    "excluded_upstream_extras": [
+      "training/webdataset/tensorboardX",
+      "gradio UI",
+      "ASR/evaluation",
+      "text normalization (normalize_text=false)",
+      "prompt preprocessing (preprocess_prompt=false)"
+    ],
+    "actual_import_and_model_acceptance_still_required": true
+  }
+}

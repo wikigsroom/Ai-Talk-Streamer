@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "round": "R3",
+  "status": "closed_failed",
+  "candidate_id": "issac-474febf173ab-f77b1864",
+  "source_commit": "474febf173abf3f356e58d39c10269275e3216a4",
+  "source_files_verified_unchanged": 2137,
+  "archive_sha256": "107ee7fbae23c5b7996d505165fd1d366faee6d5ed56de432238198563ea19c3",
+  "closed_unix": 1794024962.507747,
+  "closure_receipt": "state/issac-acceptance/closed-phases/issac-474febf173ab-f77b1864.json",
+  "closure_method": "administrative_failed_phase_closure_after_frozen_closer_schema_error",
+  "frozen_closer_defect": "Uniform report checks is a list, but the R3 closer called dict.items; the unchanged-source administrative failure closure preserves that error and all failed reports. No acceptance gates were changed.",
+  "uniform_report": "state/issac-acceptance/round-runs/round-9a5772491a054e5694e719e9e9d4c267/report.json",
+  "uniform_source_unchanged": true,
+  "uniform_checks": {
+    "environment": true,
+    "dependencies": false,
+    "regressions_launcher": false,
+    "materials_scan": true,
+    "native_game": false,
+    "local_model_prepare": false,
+    "local_model_qualification": false,
+    "official_signature": true,
+    "official_client_launch": false
+  },
+  "actual_frozen_regression_report": "state/issac-acceptance/runs/accept-f7d7df751f0f4d6488bba805a7d57876/regression.json",
+  "actual_regressions": {
+    "issac_python_passed": 19,
+    "upstream_game_python_passed": 606,
+    "strategy_node_passed": 6,
+    "parent_node_passed": 106,
+    "parent_node_failed": 1,
+    "parent_node_skipped": 7,
+    "parent_python_passed": 127,
+    "total_passed": 864,
+    "whole_suite_passed": false
+  },
+  "independent_strategy_host": {
+    "DSH": "0.2.2-rc.1",
+    "plugin": "0.1.1",
+    "provider": "isaac-local",
+    "configured_model": "issac-swift-local",
+    "complete_rep_prompt_registered": true,
+    "five_tools_registered": true,
+    "seven_actual_package_hashes_matched": true,
+    "graceful_exit_code": 0,
+    "inference_responses_received": 0,
+    "tool_calls": 0,
+    "full_gameplay_accepted": false
+  },
+  "retained_weight_files_full_hash_verified": {
+    "files": 2,
+    "bytes": 75827956000,
+    "model_loaded": false
+  },
+  "last_idle_observation": {
+    "at_unix": 1794023986.9258978,
+    "gpu_total_mib": 49140,
+    "gpu_free_mib": 34914,
+    "gpu_utilization_percent": 0,
+    "host_available_bytes": 42794356736,
+    "comfy_running_jobs": 0,
+    "is_capacity_estimate": false
+  },
+  "defects": [
+    "OmniVoice inference requires existing pydub absent in isolated runtime",
+    "Acceptance launcher selected game Python lacking aiohttp",
+    "HTTP auth test omitted bridge.policy in its partial fixture",
+    "Game first menu created Documents Repentance configuration folder after save baseline",
+    "Nonstandard isolated profile omitted AppData/Roaming and AppData/Local: fresh-child SHGetFolderPath failed",
+    "Long cohost source verification blocks its own async media receiver (static finding; no cohost run yet)",
+    "Phase closer assumes all checks are dictionaries"
+  ],
+  "foreign_processes_preserved": true,
+  "material_clips_approved": 0,
+  "production_gates_passed": 0,
+  "official_recording_created": false,
+  "public_broadcast_started": false,
+  "private_audio_or_transcript_included": false
+}

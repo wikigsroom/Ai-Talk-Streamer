@@ -55,6 +55,7 @@ class LocalModel:
 
     def environment(self):
         from .preparation import runtime_environment
+        from .windows_profile import configure
         env=runtime_environment(self.root,'model')
         self.profile.mkdir(parents=True,exist_ok=True)
         self.home.mkdir(parents=True,exist_ok=True)
@@ -64,9 +65,7 @@ class LocalModel:
         pointer.write_text(str(self.home),'utf8')
         # These values belong only to the child process. No real user profile,
         # global home pointer, registry entry or credential store is changed.
-        env['USERPROFILE']=str(self.profile)
-        for key,suffix in [('APPDATA','roaming'),('LOCALAPPDATA','local'),('TEMP','tmp'),('TMP','tmp')]:
-            path=self.profile/suffix;path.mkdir(exist_ok=True);env[key]=str(path)
+        configure(env,self.profile)
         env.update(NO_COLOR='1',FORCE_COLOR='0')
         return env
 
@@ -120,6 +119,8 @@ class LocalModel:
         if not self.application.is_file():raise AdmissionError('COPIED_NATIVE_LMSTUDIO_APPLICATION_REQUIRED')
         self.model_directory()
         env=self.environment();data=self.profile/'electron-user-data';data.mkdir(exist_ok=True)
+        from .windows_profile import verify_in_child
+        known_folders=verify_in_child(self.root,env,self.profile)
         started=time.time()
         handle=subprocess.Popen([str(self.application),'--user-data-dir='+str(data)],cwd=self.application.parent,env=env,
                 stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,creationflags=0x08000000)
@@ -128,6 +129,7 @@ class LocalModel:
         process=psutil.Process(handle.pid)
         row={'pid':process.pid,'created_at':process.create_time(),'executable':str(self.application),
              'executable_sha256':file_hash(self.application),'profile':str(self.profile),'installation':str(self.root),
+             'known_folder_proof':known_folders,
              'launched_unix':started,'profile_requested_only':True,'runtime_profile_verified':False}
         write_json(self.registration,row)
         self.audit.append('owned_native_application_launched',pid=process.pid,profile_requested_only=True)

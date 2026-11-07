@@ -12,8 +12,6 @@ import subprocess
 import time
 import uuid
 
-from aiohttp import ClientSession,ClientTimeout,WSMsgType
-
 from .common import AdmissionError,Audit,FileLease,digest,file_hash,inside,read_json,write_json
 from .deployment import require_candidate
 from .saves import SaveProtection
@@ -93,6 +91,7 @@ class Runner:
         self.config=read_json(inside(root,'configs/issac/runtime.json'))
 
     async def json(self,http,port,path):
+        from aiohttp import ClientTimeout
         async with http.get(f'http://127.0.0.1:{port}'+path,timeout=ClientTimeout(total=4)) as response:
             if response.status!=200:raise AdmissionError('LIVE_ACCEPTANCE_SERVICE_UNAVAILABLE')
             return await response.json()
@@ -126,10 +125,11 @@ class Runner:
         write_json(self.folder/'regression.json',result);return result
 
     async def cohost(self,seconds):
+        from aiohttp import ClientSession,ClientTimeout,WSMsgType
         if seconds not in {600,1800,7200}:raise AdmissionError('PINNED_ACCEPTANCE_DURATION_REQUIRED')
         protection=SaveProtection(self.root);protection.verify()
         wire=Counter();intervals=[];last_sequence=last_time=None;profile=None;errors=[];identities=set()
-        start=time.monotonic();first=None;last=None;capture_task=None;finished=asyncio.Event()
+        start=time.monotonic();first=None;last=None;capture_task=None;verification=None;finished=asyncio.Event()
         async with ClientSession(trust_env=False) as http:
             status=await self.json(http,8062,'/health');revision=status['programme']['revision']
             url=f'http://127.0.0.1:8062/api/studio/stream?v=3&codec=h264&programme_revision={revision}'
@@ -160,6 +160,8 @@ class Runner:
             try:
                 due=start
                 while time.monotonic()-start<seconds:
+                    if verification is not None and verification.done():
+                        await verification;verification=None
                     value=await self.snapshot(http)
                     if first is None:first=value
                     last=value;wire['status_samples']+=1
@@ -175,14 +177,21 @@ class Runner:
                         'packets':wire['packets'],'ready_samples':wire['ready_samples'],'total_samples':wire['status_samples'],
                         'candidate_id':self.candidate['candidate_id'],'finished':False})
                     if wire['status_samples']%30==0:
-                        require_candidate(self.root,hardware=False);protection.verify()
+                        # Full source hashing can take seconds on this device.
+                        # Keep receiving actual media while the immutable-source
+                        # and save checks run; observer stalls are not stream stalls.
+                        if verification is None:
+                            verification=asyncio.create_task(verify_during_media(self.root,protection))
                         try:
                             async with http.get('http://127.0.0.1:9534/frame.jpg',timeout=ClientTimeout(total=5)) as response:
                                 if response.status==200:(self.folder/f'game-{wire["status_samples"]:06d}.jpg').write_bytes(await response.read())
                         except Exception:wire['game_frame_inspection_failures']+=1
                     due+=1;await asyncio.sleep(max(0,due-time.monotonic()))
             finally:
-                finished.set();capture_task.cancel();await asyncio.gather(capture_task,return_exceptions=True)
+                try:
+                    if verification is not None:await verification
+                finally:
+                    finished.set();capture_task.cancel();await asyncio.gather(capture_task,return_exceptions=True)
         elapsed=time.monotonic()-start;protection.verify()
         samples=sorted(intervals)
         percentile=lambda q:samples[min(len(samples)-1,int(len(samples)*q))] if samples else None
@@ -236,13 +245,27 @@ def templates(root):
     return {'templates':paths,'passed_gates_created':0}
 
 
+async def verify_during_media(root,protection):
+    await asyncio.to_thread(require_candidate,root,hardware=False)
+    await asyncio.to_thread(protection.verify)
+
+
+def failed_check_names(value):
+    checks=value.get('checks',value.get('results',{}))
+    if isinstance(checks,dict):return [k for k,v in checks.items() if v is False]
+    if isinstance(checks,list):
+        return [str(row.get('check',row.get('test','unknown'))) for row in checks
+                if isinstance(row,dict) and (row.get('passed') is False or row.get('exit_code',0)!=0)]
+    return []
+
+
 def close_phase(root):
     candidate=require_candidate(root,hardware=False);failures=[]
     for path in sorted(inside(root,'state/issac-acceptance').rglob('*.json')):
         value=read_json(path)
-        if value.get('candidate_id')==candidate['candidate_id'] and value.get('passed') is False:
+        if isinstance(value,dict) and value.get('candidate_id')==candidate['candidate_id'] and value.get('passed') is False:
             failures.append({'path':path.relative_to(root).as_posix(),'sha256':file_hash(path),
-                'failed_checks':[k for k,v in value.get('checks',{}).items() if v is False]})
+                'failed_checks':failed_check_names(value)})
     result={**candidate,'phase':'acceptance_closed','defects':failures,'recorded_failures':len(failures),
         'complete_acceptance_requires_all_18_verified_gates':True,
         'next_action':'whole_correction_round_then_freeze' if failures else 'review_all_remaining_gates',

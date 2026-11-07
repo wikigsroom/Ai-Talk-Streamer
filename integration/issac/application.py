@@ -18,6 +18,7 @@ import uuid
 from .common import AdmissionError,Audit,FileLease,file_hash,inside,port_available,read_json,write_json
 from .deployment import require_candidate
 from .preparation import prepare_saves,relocate_native_environments,runtime_environment
+from .offline_dependencies import install_voice_dependencies
 from .strategy_dsh import bridge_token
 
 
@@ -105,6 +106,7 @@ class Application:
         if not all(port_available(x) for x in ports):
             raise AdmissionError('ISOLATED_PORT_ALREADY_OWNED')
         relocate_native_environments(self.root)
+        install_voice_dependencies(self.root)
         prepare_saves(self.root)
         self.persist()
 

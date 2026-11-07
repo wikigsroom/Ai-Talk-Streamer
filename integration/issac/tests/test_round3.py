@@ -131,7 +131,7 @@ class OfficialClientTests(unittest.TestCase):
         handle=SimpleNamespace(pid=123,poll=lambda:0,returncode=0)
         with tempfile.TemporaryDirectory() as temporary:
             client=self.fixture(Path(temporary))
-            with patch.dict('sys.modules',{'psutil':fake}),patch('integration.issac.livehime.subprocess.Popen',return_value=handle):
+            with patch.dict('sys.modules',{'psutil':fake}),patch('integration.issac.livehime.subprocess.Popen',return_value=handle),patch('integration.issac.windows_profile.verify_in_child',return_value={'verified':True}):
                 with self.assertRaisesRegex(AdmissionError,'BEFORE_STABLE_WINDOW'):client.launch()
             self.assertFalse(client.registration.exists())
             pending=json.loads((client.root/'.setup/issac-livehime-launch.json').read_text('utf8'))

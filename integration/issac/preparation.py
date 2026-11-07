@@ -11,18 +11,22 @@ from .common import AdmissionError, file_hash, inside, native_only, read_json, w
 from .saves import SaveProtection, SLOT_FILE, GAME_SHA256
 
 
-def save_roots(root):
+def windows_documents():
     native_only()
-    root=Path(root).resolve()
     # Use the actual Windows Documents known folder, including redirected
     # Documents. Do not assume the English spelling of a profile directory.
     documents=ctypes.create_unicode_buffer(32768)
     if ctypes.windll.shell32.SHGetFolderPathW(None,5,None,0,documents)!=0:
         raise AdmissionError('WINDOWS_DOCUMENTS_PATH_UNAVAILABLE')
+    return Path(documents.value).resolve()
+
+
+def save_roots(root):
+    root=Path(root).resolve()
     candidates=[inside(root,'game')]
-    parent=Path(documents.value)/'My Games'
+    parent=windows_documents()/'My Games'
     if parent.is_dir():
-        candidates += [p for p in parent.iterdir() if p.is_dir() and 'binding of isaac' in p.name.lower()]
+        candidates += sorted((p for p in parent.iterdir() if p.is_dir() and 'binding of isaac' in p.name.lower()),key=lambda p:p.name.lower())
     # Portable emulators may place data below the project game directory.
     # The recursive save-file filter in SaveProtection excludes game binaries.
     unique=[]
@@ -42,7 +46,8 @@ def prepare_saves(root):
     executable=inside(root,'game/isaac-ng.exe')
     if file_hash(executable)!=GAME_SHA256:
         raise AdmissionError('GAME_EXECUTABLE_CHANGED')
-    return SaveProtection(root).prepare(save_roots(root))
+    first_boot=windows_documents()/'My Games/Binding of Isaac Repentance'
+    return SaveProtection(root).prepare(save_roots(root),first_boot_root=first_boot)
 
 
 def relocate_native_environments(root):

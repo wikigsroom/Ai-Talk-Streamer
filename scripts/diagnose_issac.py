@@ -17,6 +17,7 @@ sys.path.insert(0,str(ROOT))
 from integration.issac.common import AdmissionError,file_hash,inside,read_json,write_json
 from integration.issac.deployment import require_candidate
 from integration.issac.preparation import relocate_native_environments,runtime_environment
+from integration.issac.offline_dependencies import install_voice_dependencies
 from integration.issac.strategy_dsh import bridge_token
 
 
@@ -220,7 +221,9 @@ def main():
     candidate=require_candidate(root,hardware=False)
     folder=inside(root,'state/issac-acceptance/diagnostics')/(args.action+'-'+uuid.uuid4().hex);folder.mkdir(parents=True)
     try:
-        if args.action=='environment':result=relocate_native_environments(root)
+        if args.action=='environment':
+            result=relocate_native_environments(root)
+            result['voice_inference_dependencies']=install_voice_dependencies(root)
         elif args.action=='dependencies':result=dependencies(root,folder)
         elif args.action=='owned-status':result=owned_status(root)
         elif args.action=='retire-stalled-owner':result=retire_stalled_owner(root,args.expected_installation_id,folder)

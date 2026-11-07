@@ -29,12 +29,13 @@ class SaveProtection:
         self.folder = inside(self.root, 'state/isaac-strategy/save-protection')
         self.manifest = self.folder/'baseline.json'
 
-    def prepare(self, roots):
+    def prepare(self, roots, *, first_boot_root=None):
         if self.manifest.exists():
             self.verify()
             existing = read_json(self.manifest)
-            if [str(Path(x).resolve()) for x in roots] != existing['roots']:
-                raise AdmissionError('SAVE_ROOT_SET_CHANGED')
+            observed=[str(Path(x).resolve()) for x in roots]
+            if set(observed)!=set(existing['roots']):
+                return self.extend_first_boot_root(existing,observed,first_boot_root)
             return existing
         if not isinstance(roots, list) or not roots:
             raise AdmissionError('SAVE_ROOTS_MUST_BE_OBSERVED_BEFORE_LAUNCH')
@@ -74,6 +75,71 @@ class SaveProtection:
         self.verify()
         return record
 
+    def game_stopped(self):
+        import psutil
+        for process in psutil.process_iter(['name']):
+            try:
+                if (process.info['name'] or '').lower()=='isaac-ng.exe':
+                    raise AdmissionError('SAVE_ROOT_EXTENSION_REQUIRES_GAME_STOPPED')
+            except psutil.NoSuchProcess:continue
+
+    def extend_first_boot_root(self, existing, observed, expected):
+        """Append only the pinned first-boot config directory, before any saves.
+
+        The original baseline ID, protected hashes and all old backups survive.
+        A new slot file (including slot 3), unknown file, moved root or live game
+        requires investigation; it is never silently accepted as a new baseline.
+        """
+        self.game_stopped()
+        added=set(observed)-set(existing['roots'])
+        if (expected is None or set(existing['roots'])-set(observed) or len(added)!=1
+                or str(Path(expected).resolve()) not in added):
+            raise AdmissionError('SAVE_ROOT_SET_CHANGED')
+        expected=Path(expected)
+        # A known-folder parent may itself be redirected. The newly observed
+        # game directory must not be a junction or link to a different root.
+        source=expected.parent.resolve()/expected.name
+        if (source.name!='Binding of Isaac Repentance' or source.resolve()!=source
+                or not source.is_dir()):
+            raise AdmissionError('FIRST_BOOT_CONFIG_ROOT_INVALID')
+        paths=sorted(source.iterdir())
+        if not paths or any(not p.is_file() or p.is_symlink() or p.name.lower() not in {'options.ini','log.txt'} for p in paths):
+            raise AdmissionError('FIRST_BOOT_CONFIG_ONLY_NO_SAVE_FILES_REQUIRED')
+        if not any(p.name.lower()=='options.ini' for p in paths):
+            raise AdmissionError('FIRST_BOOT_OPTIONS_REQUIRED')
+        extension=self.folder/'root-extensions'/uuid.uuid4().hex
+        extension.mkdir(parents=True)
+        original=extension/'baseline.before.json'
+        shutil.copy2(self.manifest,original)
+        original_sha=file_hash(self.manifest)
+        if file_hash(original)!=original_sha:
+            raise AdmissionError('SAVE_BASELINE_BACKUP_FAILED')
+        index=len(existing['roots']);snapshots=[];new_rows=[]
+        for path in paths:
+            target=extension/'files'/path.name;target.parent.mkdir(exist_ok=True)
+            sha=file_hash(path);shutil.copy2(path,target)
+            if file_hash(path)!=sha or file_hash(target)!=sha:
+                raise AdmissionError('SAVE_CHANGED_DURING_BACKUP')
+            row={'root':index,'relative':path.name,'source':str(path),'backup':str(target),
+                 'sha256':sha,'bytes':path.stat().st_size,'slot':None}
+            snapshots.append(row)
+            if save_file(path):new_rows.append(row)
+        self.game_stopped()
+        if set(source.iterdir())!=set(paths) or file_hash(self.manifest)!=original_sha:
+            raise AdmissionError('SAVE_ROOT_CHANGED_DURING_EXTENSION')
+        updated={**existing,'roots':[*existing['roots'],str(source)],'files':[*existing['files'],*new_rows],
+            'authorized_root_additions':[*existing.get('authorized_root_additions',[]),{
+                'reason':'pinned_first_boot_config_only_no_slot_files','root':str(source),
+                'original_baseline_id':existing['id'],'original_manifest_sha256':original_sha,
+                'original_manifest_backup':str(original),'first_boot_files':snapshots,
+                'normal_gameplay_values_changed':False,'at_unix':time.time()}]}
+        write_json(self.manifest,updated)
+        try:self.verify()
+        except Exception:
+            write_json(self.manifest,existing)
+            raise
+        return updated
+
     def verify(self):
         if not self.manifest.is_file():
             raise AdmissionError('SAVE_BASELINE_MISSING')
@@ -81,13 +147,23 @@ class SaveProtection:
         if record.get('allowed_slot') != 3:
             raise AdmissionError('SAVE_AUTHORIZATION_MISMATCH')
         known = set()
+        for addition in record.get('authorized_root_additions',[]):
+            prior=Path(addition['original_manifest_backup'])
+            if (not prior.resolve().is_relative_to(self.folder) or not prior.is_file()
+                    or file_hash(prior)!=addition['original_manifest_sha256']):
+                raise AdmissionError('SAVE_BASELINE_HISTORY_CHANGED')
+            for snapshot in addition['first_boot_files']:
+                backup=Path(snapshot['backup'])
+                if (not backup.resolve().is_relative_to(self.folder) or not backup.is_file()
+                        or file_hash(backup)!=snapshot['sha256']):
+                    raise AdmissionError('FIRST_BOOT_CONFIG_BACKUP_CHANGED')
         for row in record['files']:
             source, backup = Path(row['source']), Path(row['backup'])
             if not backup.resolve().is_relative_to(self.folder.resolve()) or not backup.is_file() or file_hash(backup) != row['sha256']:
                 raise AdmissionError('SAVE_BACKUP_CHANGED')
             known.add(str(source.resolve()))
-            # Only slot 3 may evolve through normal gameplay. All other files
-            # remain protected except the separately backed-up options file.
+            # Only slot 3 may evolve through normal gameplay. Configuration
+            # backups stay protected too; a changed option is not rebaselined.
             if row.get('slot') != 3:
                 if not source.is_file() or file_hash(source) != row['sha256']:
                     raise AdmissionError('PROTECTED_SAVE_CHANGED')
@@ -100,6 +176,8 @@ class SaveProtection:
                 # created slot-1/2 save is a protection failure, not a new baseline.
                 if match and int(match[1]) != 3:
                     raise AdmissionError('UNAUTHORIZED_SAVE_SLOT_CREATED')
+                if path.suffix.lower()=='.sav':
+                    raise AdmissionError('UNCLASSIFIED_SAVE_FILE_CREATED')
         return {'protected_unchanged': True, 'baseline_id': record['id'],
                 'allowed_slot': 3, 'baseline_files': len(record['files'])}
 

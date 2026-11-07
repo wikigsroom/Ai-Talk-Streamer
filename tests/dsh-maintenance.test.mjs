@@ -19,7 +19,7 @@ import {memoryPage} from '../backend/memory/query.mjs';
 
 const op={role:'operator',principal_id:'op',viewer_id:'viewer-a'};
 function fixture() {
- const parent=resolve('../outputs/dsh-humanity/unit');mkdirSync(parent,{recursive:true});const root=mkdtempSync(join(parent,'case-'));
+ const parent=resolve('outputs/dsh-humanity/unit');mkdirSync(parent,{recursive:true});const root=mkdtempSync(join(parent,'case-'));
  mkdirSync(join(root,'configs/characters'),{recursive:true});copyFileSync(resolve('configs/characters/female-a.json'),join(root,'configs/characters/female-a.json'));
  let now=Date.parse('2026-10-26T04:11:00+08:00');
  const db=new StateStore(join(root,'state/female-a/stream.sqlite3'),{now:()=>now,heartbeat:false}),policy=structuredClone(loadPolicy(root));policy.maintenance.post_broadcast_quiet_ms=0;

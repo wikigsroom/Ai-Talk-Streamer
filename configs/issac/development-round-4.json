@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "round": "R4",
+  "branch": "issac",
+  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "previous_phase": {
+    "candidate_id": "issac-474febf173ab-f77b1864",
+    "status": "closed_failed",
+    "closed_unix": 1794024962.507747
+  },
+  "scope": "All observed R3 corrections, complete diagnostic/regression tools and documentation before uniform immutable testing",
+  "items": [
+    {
+      "id": "R401",
+      "code": "Append only proven first-boot configuration root without resetting save protection",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/saves.py",
+        "integration/issac/preparation.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R402",
+      "code": "Pin and copy the complete existing pydub package and metadata without external runtime links",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/offline_dependencies.py",
+        "configs/issac/offline-voice-dependencies.json",
+        "integration/issac/application.py",
+        "scripts/diagnose_issac.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R403",
+      "code": "Use Windows standard isolated profiles and fresh-child known-folder proof for native clients",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/windows_profile.py",
+        "integration/issac/local_model.py",
+        "integration/issac/livehime.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R404",
+      "code": "Use media Python for acceptance and lazily require the media HTTP library",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/run_issac_round.py",
+        "integration/issac/acceptance.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R405",
+      "code": "Repair partial HTTP fixture policy and keep generated test output inside this checkout",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "tests/dsh-auth.test.mjs",
+        "tests/dsh-maintenance.test.mjs",
+        "tests/dsh-memory-load.mjs"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R406",
+      "code": "Run full source/save verification without blocking actual media collection",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/acceptance.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R407",
+      "code": "Close failed phases for both dictionary gates and uniform check lists",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/acceptance.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R408",
+      "code": "Add meaningful complete-round regressions for real R3 defects",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/tests/test_round4.py",
+        "integration/issac/tests/test_round3.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R409",
+      "code": "Synchronize truthful R3 results and MC presentation implementation status",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "docs/evidence/issac-round3-acceptance-20261107.json",
+        "docs/issac/第四轮完整修正与统一验收20261107.md",
+        "docs/issac/MC同屏方案沿用与标题替换20261107.md"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R410",
+      "code": "Maintain whole-round freeze, immutable test phase and all eighteen live gates",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "AGENTS.md",
+        "configs/issac/development-round-4.json",
+        "configs/issac/execution-rounds.json"
+      ],
+      "runtime_accepted": false
+    }
+  ],
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "public_broadcast_allowed": false,
+  "manual_review_coverage": [
+    "all source diffs and new modules",
+    "save baseline identity, backup hashes and config-only root extension",
+    "full pinned offline package provenance and conflict preservation",
+    "fresh-process Windows known-folder verification and no global profile changes",
+    "media sampling alongside periodic background source verification",
+    "uniform interpreter selection and inherited HTTP fixture",
+    "truthful closed R3 evidence and all sixteen MC source hashes",
+    "all R401-R410 inventory paths, review status and no unresolved code items"
+  ]
+}
