@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "private_staging_policy_not_activated_web_configuration",
+  "installation": "C:/dev/虚拟数字人直播/issac",
+  "public_file_server_started": false,
+  "staged_references_are_public": false,
+  "staged_candidates_are_runtime_accepted": false,
+  "private_paths": [
+    "operations/**",
+    "references/**",
+    "assets/naimei/voice-final-v1/private/**",
+    "assets/naimei/live-v1/voice/selected-reference.wav",
+    "assets/voices/*/reference.*"
+  ],
+  "programme_and_delivery_exclusions": [
+    "original_voice_recordings",
+    "reference_audio",
+    "reference_transcripts",
+    "old_O07_F07_speech_as_current_Naimei_audio",
+    "historical_candidate_quality_flags_as_current_acceptance"
+  ],
+  "current_voice": "NCM01",
+  "current_voice_freeze": "NM-VOICE-FINAL-20261106-v1",
+  "reference_audio_use": "private local OmniVoice input only",
+  "runtime_implementation_required_in_round_2": true
+}

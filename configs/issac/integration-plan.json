@@ -2,7 +2,7 @@
   "schema_version": 1,
   "plan_id": "NM-ISSAC-PLAN-20261107-v2",
   "branch": "issac",
-  "status": "source_audited_plan_prepared_not_live_implementation",
+  "status": "round_1_file_preparation_completed_round_2_full_development_pending",
   "target": "issac-rtx4090",
   "deployment_allowed": false,
   "gameplay_enabled": false,
@@ -100,5 +100,23 @@
     "cohost_25fps_mouth_fang_and_long_session_acceptance",
     "new_origin_receipt_and_rollback_drill"
   ],
-  "presentation_contract": "configs/issac/mc-presentation-reference.json"
+  "presentation_contract": "configs/issac/mc-presentation-reference.json",
+  "execution_authorization": {
+    "date": "2026-11-07",
+    "final_deliverable": "600-second official Bilibili Livehime local recording",
+    "public_broadcast_authorized": false,
+    "round_1": "Comprehensive isolated copy and integrity verification only; no application testing",
+    "round_2_onward": "Finish all round development/TODO/code, freeze complete candidate, then perform all debugging/integration/acceptance",
+    "interleaved_implementation_and_testing_allowed": false,
+    "device_transfer": {
+      "network": "ZeroTier",
+      "controller": "192.168.196.87",
+      "rtx4090": "192.168.196.209",
+      "proxy_allowed": false
+    },
+    "staging_is_runtime_acceptance": false
+  },
+  "execution_rounds": "configs/issac/execution-rounds.json",
+  "preparation_access_policy": "configs/issac/preparation-access.json",
+  "round_1_evidence": "docs/evidence/issac-round1-copy-20261107.json"
 }
