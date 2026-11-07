@@ -23,7 +23,7 @@
     "evidence": "docs/evidence/issac-round1-copy-20261107.json"
   },
   "round_2_onward": {
-    "status": "round_5_all_code_complete_awaiting_commit_and_freeze",
+    "status": "round_6_all_code_complete_awaiting_commit_and_freeze",
     "development_scope": "All remaining implementation and TODO items U05-U30, including acceptance and recording harnesses",
     "order": [
       "finish_all_round_development",
@@ -41,7 +41,7 @@
       "candidate_scope_and_reproducible_commands"
     ],
     "defect_policy": "Close the test phase and implement one complete correction round before retesting; never patch between tests within a phase",
-    "inventory": "configs/issac/development-round-5.json"
+    "inventory": "configs/issac/development-round-6.json"
   },
   "acceptance_scope_retained": [
     "native_game_ABI_and_read_only_observation",
@@ -86,6 +86,13 @@
       "source_commit": "751b62e7722df56941129cb4e67daaed4602a11a",
       "status": "closed_failed",
       "evidence": "docs/evidence/issac-round4-acceptance-20261107.json"
+    },
+    {
+      "round": "R5",
+      "candidate_id": "issac-da48c260b230-b77a0120",
+      "source_commit": "da48c260b2306f81dbef705e5d2a1405df302da3",
+      "status": "closed_failed",
+      "evidence": "docs/evidence/issac-round5-acceptance-20261107.json"
     }
   ]
 }

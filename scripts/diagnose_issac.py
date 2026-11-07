@@ -128,22 +128,47 @@ def owned_status(root):
             'stage':registry['stage'],'processes':rows,'resources':snapshot()}
 
 
+def dependency_code(kind):
+    modules={
+        'game':['frida','lupa.lua53','psutil','win32gui','PIL.Image'],
+        'studio':['torch','cv2','numpy','aiohttp'],
+        'voice':['torch','transformers','omnivoice']}[kind]
+    return '\n'.join([
+        'import faulthandler,importlib,json,sys,time',
+        'from pathlib import Path',
+        'faulthandler.enable();faulthandler.dump_traceback_later(60,repeat=True)',
+        'sys.path.insert(0,str(Path.cwd()/"src/tts-benchmark/omnivoice"))' if kind=='voice' else 'pass',
+        'print(json.dumps({"stage":"interpreter_ready","kind":'+repr(kind)+'}),flush=True)',
+        'for name in '+repr(modules)+':',
+        ' print(json.dumps({"stage":"import_begin","module":name}),flush=True)',
+        ' started=time.monotonic();module=importlib.import_module(name)',
+        ' if name=="torch":assert module.__version__=="2.9.1+cu128"',
+        ' print(json.dumps({"stage":"import_complete","module":name,"seconds":time.monotonic()-started}),flush=True)',
+        'faulthandler.cancel_dump_traceback_later()',
+        'print(json.dumps({"stage":"dependencies_ready","kind":'+repr(kind)+'}),flush=True)'])
+
+
 def dependencies(root,folder):
     config=read_json(inside(root,'configs/issac/runtime.json'))['native_paths']
     probes={
-      'game':('game_python','import frida,lupa.lua53,psutil,win32gui;from PIL import Image;print("native_game_dependencies_ok")'),
-      'studio':('media_python','import torch,cv2,numpy,aiohttp;assert torch.__version__=="2.9.1+cu128";print("native_media_dependencies_ok",torch.__version__)'),
-      'voice':('voice_python','import sys;from pathlib import Path;sys.path.insert(0,str(Path.cwd()/"src/tts-benchmark/omnivoice"));import torch,transformers,omnivoice;assert torch.__version__=="2.9.1+cu128";print("native_voice_dependencies_ok",torch.__version__,transformers.__version__)')}
+      'game':('game_python',60),'studio':('media_python',180),'voice':('voice_python',300)}
     results=[]
-    for kind,(key,code) in probes.items():
+    for kind,(key,deadline) in probes.items():
         log=folder/('dependencies-'+kind+'.log');started=time.monotonic()
         with log.open('wb') as output:
             try:
-                result=subprocess.run([str(inside(root,config[key])),'-X','utf8','-B','-c',code],cwd=root,
-                    env=runtime_environment(root,kind),stdout=output,stderr=subprocess.STDOUT,timeout=120,creationflags=0x08000000)
+                result=subprocess.run([str(inside(root,config[key])),'-X','utf8','-B','-u','-c',dependency_code(kind)],cwd=root,
+                    env=runtime_environment(root,kind),stdout=output,stderr=subprocess.STDOUT,timeout=deadline,creationflags=0x08000000)
                 row={'kind':kind,'passed':result.returncode==0,'exit_code':result.returncode}
             except subprocess.TimeoutExpired:row={'kind':kind,'passed':False,'reason':'DEPENDENCY_IMPORT_DEADLINE'}
-        results.append({**row,'seconds':time.monotonic()-started,'log':log.relative_to(root).as_posix(),'sha256':file_hash(log)})
+        stages=[]
+        for line in log.read_text('utf8',errors='replace').splitlines():
+            try:value=json.loads(line)
+            except ValueError:continue
+            if isinstance(value,dict) and value.get('stage') in {'interpreter_ready','import_begin','import_complete','dependencies_ready'}:
+                stages.append({k:value[k] for k in ('stage','module','kind','seconds') if k in value})
+        results.append({**row,'seconds':time.monotonic()-started,'deadline_seconds':deadline,
+                        'observed_import_stages':stages,'log':log.relative_to(root).as_posix(),'sha256':file_hash(log)})
     return {'passed':all(x['passed'] for x in results),'probes':results,'models_loaded':False}
 
 

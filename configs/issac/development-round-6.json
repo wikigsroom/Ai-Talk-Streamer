@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "round": "R6",
+  "branch": "issac",
+  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "previous_phase": {
+    "candidate_id": "issac-da48c260b230-b77a0120",
+    "status": "closed_failed",
+    "closed_unix": 1794028984.4870248
+  },
+  "scope": "Complete all R5 configuration-writeback, actual application readiness, profile-evidence and diagnostic corrections before uniform frozen testing",
+  "items": [
+    {
+      "id": "R601",
+      "code": "Permit only signed-integer WindowPosX/Y writeback without changing original save baselines or any other configuration",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/saves.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R602",
+      "code": "Wait for the real owned loopback application API and pin CLI discovery to its own metadata",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/local_model.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R603",
+      "code": "Prove actual roaming-profile open handles rather than an empty requested user-data directory",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/local_model.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R604",
+      "code": "Record every unbuffered dependency import stage and bounded traceback with a separate voice deadline",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/diagnose_issac.py",
+        "scripts/run_issac_round.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R605",
+      "code": "Complete regressions for configuration integrity, stale/foreign API ownership, real profile handles and model-free import diagnostics",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/tests/test_round6.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R606",
+      "code": "Publish actual closed R5 evidence and synchronize current MC title-only presentation state",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "docs/evidence/issac-round5-acceptance-20261107.json",
+        "docs/issac/第六轮窗口配置与模型就绪20261107.md",
+        "docs/issac/MC同屏方案沿用与标题替换20261107.md",
+        "docs/issac/完整更新方案20261107.md",
+        "docs/issac/第五轮菜单读取与资源等待20261107.md",
+        "README.md"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R607",
+      "code": "Review and freeze the whole round before every uniform test; preserve all 18 live gates and official 600-second recording",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "AGENTS.md",
+        "configs/issac/development-round-6.json",
+        "configs/issac/execution-rounds.json"
+      ],
+      "runtime_accepted": false
+    }
+  ],
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "public_broadcast_allowed": false,
+  "manual_review_coverage": [
+    "all modified Python source, new regression code, CLI execution order and error handling",
+    "only two signed integer position values, duplicate keys, original backup/manifest bytes and new unknown INI rejection",
+    "actual GUI-published internal metadata and process/listener ownership; stale dead PID versus live foreign PID",
+    "strict CLI API selection and actual roaming-profile open-handle evidence",
+    "unbuffered per-module import logs, bounded stack snapshots, model-free import scope and whole-check deadlines",
+    "all actual R5 receipts, 881 passes/7 skips, omitted native check, no model/recording quality success claims",
+    "all R601-R607 source paths, documentation references and no unresolved round code items",
+    "MC sixteen-file provenance, unchanged geometry/palette/queue/audio and title-only policy"
+  ]
+}

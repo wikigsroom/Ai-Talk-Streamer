@@ -37,7 +37,7 @@ def main():
     py=[str(inside(root,config['game_python'])),'-X','utf8','-B']
     diag=[*py,str(inside(root,'scripts/diagnose_issac.py')),'--root',str(root)]
     media_py=[str(inside(root,config['media_python'])),'-X','utf8','-B']
-    commands=[('environment',[*diag,'environment'],60),('dependencies',[*diag,'dependencies'],420),
+    commands=[('environment',[*diag,'environment'],60),('dependencies',[*diag,'dependencies'],660),
         ('regressions',[*media_py,'-m','integration.issac.acceptance','--root',str(root),'regressions'],1800),
         ('materials-scan',[*media_py,'-m','integration.issac.materials','--root',str(root),'scan'],180)]
     if args.include_native_game:commands.append(('native-game',[*diag,'native-game'],480))

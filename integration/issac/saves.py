@@ -17,10 +17,30 @@ from .common import AdmissionError, file_hash, inside, read_json, write_json
 
 GAME_SHA256 = '530b4d2accef833b8dbf6f1a9f781fe1e051c1916ca5acdb579df05a34640627'
 SLOT_FILE = re.compile(r'^(?:rep_)?(?:persistentgamedata|gamestate)([123])(?:\.dat)?$', re.I)
+WINDOW_POSITION = re.compile(
+    rb'(?m)^([ \t]*(WindowPosX|WindowPosY)[ \t]*=[ \t]*)(-?[0-9]{1,11})([ \t]*)(\r?\n|$)')
 
 
 def save_file(path):
     return bool(SLOT_FILE.fullmatch(path.name)) or path.suffix.lower() in {'.sav','.ini'}
+
+
+def window_position_only(original, current):
+    """Permit only two signed integer values; preserve every other byte.
+
+    In particular, this does not parse/rewrite or rebaseline an INI file. New,
+    missing or duplicate keys, changed whitespace/line endings, console settings
+    and all non-position options remain protection failures.
+    """
+    def normalize(content):
+        matches=list(WINDOW_POSITION.finditer(content))
+        key_count=len(re.findall(rb'(?mi)^[ \t]*(?:WindowPosX|WindowPosY)[ \t]*=',content))
+        if (len(matches)!=2 or key_count!=2 or {m[2] for m in matches}!={b'WindowPosX',b'WindowPosY'}
+                or any(not -(2**31)<=int(m[3])<2**31 for m in matches)):
+            return None
+        return WINDOW_POSITION.sub(lambda m:m[1]+b'<position>'+m[4]+m[5],content)
+    baseline=normalize(original);observed=normalize(current)
+    return baseline is not None and observed is not None and baseline==observed
 
 
 class SaveProtection:
@@ -146,7 +166,7 @@ class SaveProtection:
         record = read_json(self.manifest)
         if record.get('allowed_slot') != 3:
             raise AdmissionError('SAVE_AUTHORIZATION_MISMATCH')
-        known = set()
+        known = set();window_changes=[]
         for addition in record.get('authorized_root_additions',[]):
             prior=Path(addition['original_manifest_backup'])
             if (not prior.resolve().is_relative_to(self.folder) or not prior.is_file()
@@ -162,11 +182,19 @@ class SaveProtection:
             if not backup.resolve().is_relative_to(self.folder.resolve()) or not backup.is_file() or file_hash(backup) != row['sha256']:
                 raise AdmissionError('SAVE_BACKUP_CHANGED')
             known.add(str(source.resolve()))
-            # Only slot 3 may evolve through normal gameplay. Configuration
-            # backups stay protected too; a changed option is not rebaselined.
+            # Slot 3 evolves through normal gameplay. Only numeric desktop
+            # position values may differ in options.ini; original configuration
+            # bytes and backups are never rewritten or rebaselined.
             if row.get('slot') != 3:
-                if not source.is_file() or file_hash(source) != row['sha256']:
+                if not source.is_file():
                     raise AdmissionError('PROTECTED_SAVE_CHANGED')
+                current_sha=file_hash(source)
+                if current_sha!=row['sha256']:
+                    if source.name.lower()!='options.ini' or not window_position_only(backup.read_bytes(),source.read_bytes()):
+                        raise AdmissionError('PROTECTED_SAVE_CHANGED')
+                    window_changes.append({'root':row['root'],'relative':row['relative'],
+                        'permitted_option_names':['WindowPosX','WindowPosY'],
+                        'baseline_sha256':row['sha256'],'observed_sha256':current_sha})
         for name in record['roots']:
             for path in Path(name).rglob('*'):
                 if not path.is_file() or str(path.resolve()) in known:
@@ -178,8 +206,11 @@ class SaveProtection:
                     raise AdmissionError('UNAUTHORIZED_SAVE_SLOT_CREATED')
                 if path.suffix.lower()=='.sav':
                     raise AdmissionError('UNCLASSIFIED_SAVE_FILE_CREATED')
+                if path.suffix.lower()=='.ini':
+                    raise AdmissionError('UNCLASSIFIED_CONFIGURATION_FILE_CREATED')
         return {'protected_unchanged': True, 'baseline_id': record['id'],
-                'allowed_slot': 3, 'baseline_files': len(record['files'])}
+                'allowed_slot': 3, 'baseline_files': len(record['files']),
+                'runtime_window_position_changes':window_changes}
 
     def bind_live_slot(self, process, native_progress, observed_state):
         self.verify()

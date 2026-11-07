@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "round": "R5",
+  "candidate_id": "issac-da48c260b230-b77a0120",
+  "source_commit": "da48c260b2306f81dbef705e5d2a1405df302da3",
+  "source_files_verified": 2148,
+  "source_verified_unchanged": true,
+  "status": "closed_failed",
+  "uniform_checks": [
+    {
+      "check": "environment",
+      "elapsed_seconds": 21.657297200057656,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-a6eabda78fc643dca87da2dda811f2b0/environment.log",
+      "log_sha256": "844802472f1ee0228a0ffdd258bddba84a9517e3f8d318caf89c26b7ede6c83f",
+      "passed": true
+    },
+    {
+      "check": "dependencies",
+      "elapsed_seconds": 161.9546283999225,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-a6eabda78fc643dca87da2dda811f2b0/dependencies.log",
+      "log_sha256": "dd952828dba2b21877c22f7052c18d9a5f41618229117c318e0b8cffcbe5fb3b",
+      "passed": false
+    },
+    {
+      "check": "regressions",
+      "elapsed_seconds": 73.8159786000615,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-a6eabda78fc643dca87da2dda811f2b0/regressions.log",
+      "log_sha256": "366a3f5639de81f67d7c8d2b1f6f15d3b877dcde60cf1dca4f189229013a4bf2",
+      "passed": true
+    },
+    {
+      "check": "materials-scan",
+      "elapsed_seconds": 15.121902500046417,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-a6eabda78fc643dca87da2dda811f2b0/materials-scan.log",
+      "log_sha256": "cf7a9a09bf710e47b000696a09e2464d8b7e015c260c14ff4295ad8dadaf1824",
+      "passed": true
+    },
+    {
+      "check": "local-model-prepare",
+      "elapsed_seconds": 611.9989881999791,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-a6eabda78fc643dca87da2dda811f2b0/local-model-prepare.log",
+      "log_sha256": "3061d191e9040b9174633a3ae47e547834f37f0ab30b335e31d5425cd7243b6f",
+      "passed": false
+    },
+    {
+      "actual_inference": false,
+      "check": "local-model-qualification",
+      "elapsed_seconds": 6.410368100041524,
+      "inference_requests_attempted": 0,
+      "log": "state/issac-acceptance/round-runs/round-a6eabda78fc643dca87da2dda811f2b0/local-model-qualification.log",
+      "log_sha256": "a188bb24dbd0b1b42ab16af8f906852ca145d18c2e1c90e98ada8740ff930033",
+      "passed": false,
+      "reason": "PREREQUISITE_NOT_PASSED",
+      "requires": "local-model-prepare",
+      "state": "blocked"
+    },
+    {
+      "check": "official-client-signature",
+      "elapsed_seconds": 14.352044599945657,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-a6eabda78fc643dca87da2dda811f2b0/official-client-signature.log",
+      "log_sha256": "90ce968963d5fa880a03bdc347a26e29dc96dee6f957ff8daa025b74d2326e9b",
+      "passed": true
+    },
+    {
+      "check": "official-client-launch",
+      "elapsed_seconds": 12.604738499969244,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-a6eabda78fc643dca87da2dda811f2b0/official-client-launch.log",
+      "log_sha256": "954a9600b26942c554142805635273a89dcc909f33de48332c7c8b4a09e03a80",
+      "passed": false
+    }
+  ],
+  "regression_counts": [
+    {
+      "suite": "issac_python",
+      "passed": 35,
+      "skipped": 0
+    },
+    {
+      "suite": "isaac_agent_python",
+      "passed": 606,
+      "skipped": 0
+    },
+    {
+      "suite": "integration_node",
+      "passed": 6,
+      "skipped": 0
+    },
+    {
+      "suite": "parent_node",
+      "passed": 107,
+      "skipped": 7
+    },
+    {
+      "suite": "parent_python",
+      "passed": 127,
+      "skipped": 0
+    }
+  ],
+  "regression_total_passed": 881,
+  "regression_total_skipped": 7,
+  "phase_closure": {
+    "candidate_id": "issac-da48c260b230-b77a0120",
+    "source_commit": "da48c260b2306f81dbef705e5d2a1405df302da3",
+    "source_files_verified": 2148,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "phase": "acceptance_closed",
+    "defects": [
+      {
+        "path": "state/issac-acceptance/diagnostics/close-owned-idle-game-793964dcc896475ab6976b6894c0f926/report.json",
+        "sha256": "ecd69d6c61842c26357889d3fd8c200f76d0d280dbc3109268fb1f55e8fd7b69",
+        "failed_checks": []
+      },
+      {
+        "path": "state/issac-acceptance/diagnostics/dependencies-a0f843dcc9024e9c848f763b8a2ebfc2/report.json",
+        "sha256": "9853b101545e32d72a9d355d5bdbb81beff0b25d66082959047444b361d3ac89",
+        "failed_checks": []
+      },
+      {
+        "path": "state/issac-acceptance/diagnostics/model-prepare-649c59be910c4acb95b93393fb86a00d/report.json",
+        "sha256": "6ef9612c4fc1407e4f6b74a2a731dae6489fcc599e29be31bee8202240b69276",
+        "failed_checks": []
+      },
+      {
+        "path": "state/issac-acceptance/round-runs/round-a6eabda78fc643dca87da2dda811f2b0/progress.json",
+        "sha256": "9485105f93fc931b30e136ea731e788a492a43539b7aad5fc5edd4acef68500e",
+        "failed_checks": [
+          "dependencies",
+          "local-model-prepare",
+          "local-model-qualification",
+          "official-client-launch"
+        ]
+      },
+      {
+        "path": "state/issac-acceptance/round-runs/round-a6eabda78fc643dca87da2dda811f2b0/report.json",
+        "sha256": "974496beca0ce1d642c4628424c7a1e67936c4ab2d8cf404f65958b989aa22fe",
+        "failed_checks": [
+          "dependencies",
+          "local-model-prepare",
+          "local-model-qualification",
+          "official-client-launch"
+        ]
+      }
+    ],
+    "recorded_failures": 5,
+    "complete_acceptance_requires_all_18_verified_gates": true,
+    "next_action": "whole_correction_round_then_freeze",
+    "source_changes_permitted_only_in_new_development_round": true,
+    "closed_unix": 1794028984.4870248
+  },
+  "native_idle_recovery": {
+    "current_native_observations_obtained": true,
+    "old_own_game_closed_normally": true,
+    "forced_termination": false,
+    "post_close_protection_passed": false,
+    "actual_changed_option_names": [
+      "WindowPosX",
+      "WindowPosY"
+    ],
+    "original_backup_intact": true,
+    "files_written_to_saves": 0,
+    "baseline_recreated": false,
+    "native_uniform_check_omitted_due_recovery_failure": true
+  },
+  "model_preparation": {
+    "existing_gpu_job_waited_without_stopping": true,
+    "retained_weight_bytes_hashed": 75827956000,
+    "retained_weight_shards": 2,
+    "native_application_launched": true,
+    "server_command_ran_before_actual_api_publication": true,
+    "actual_api_later_published_for_own_application": true,
+    "resource_estimates_obtained": false,
+    "model_loaded": false,
+    "actual_inference": false,
+    "qualification_requests_attempted": 0
+  },
+  "voice_dependency_probe": {
+    "stage": "module_imports_only",
+    "result": "120_second_timeout_with_no_buffered_log",
+    "missing_package_proven": false,
+    "model_loaded": false,
+    "later_orphan_probe_processes_observed": 0
+  },
+  "official_client": {
+    "signature_valid": true,
+    "launch": "legacy_naimei_client_preserved",
+    "recording_created": false
+  },
+  "existing_processes_stopped": 0,
+  "production_accepted": false,
+  "full_acceptance_passed": false,
+  "all_18_gates_still_required": true,
+  "public_broadcast_allowed": false
+}

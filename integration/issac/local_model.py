@@ -66,7 +66,11 @@ class LocalModel:
         # These values belong only to the child process. No real user profile,
         # global home pointer, registry entry or credential store is changed.
         configure(env,self.profile)
-        env.update(NO_COLOR='1',FORCE_COLOR='0')
+        # Pin discovery to the API metadata published by this isolated GUI.
+        # The prepared CLI supports this override; it must not scan/adopt a
+        # different user's GUI if startup is still in progress.
+        env.update(NO_COLOR='1',FORCE_COLOR='0',
+                   LMS_API_SERVER_INFO_PATH=str(self.home/'.internal/http-server.json'))
         return env
 
     def command(self,*args,timeout=120):
@@ -135,6 +139,41 @@ class LocalModel:
         self.audit.append('owned_native_application_launched',pid=process.pid,profile_requested_only=True)
         return row
 
+    def application_api(self):
+        """Observe the real internal API, independently of a live launcher PID."""
+        import psutil
+        process,_=self.app_owner()
+        ids={p.pid for p in [process,*process.children(recursive=True)]}
+        path=self.home/'.internal/http-server.json'
+        try:info=read_json(path)
+        except (OSError,ValueError):return None
+        if not isinstance(info,dict):raise AdmissionError('ISOLATED_APPLICATION_API_METADATA_INVALID')
+        port=info.get('port');pid=info.get('pid')
+        if type(port) is not int or not 1<=port<=65535:return None
+        if pid is not None and (type(pid) is not int or pid not in ids):
+            if type(pid) is int and not psutil.pid_exists(pid):return None
+            raise AdmissionError('ISOLATED_APPLICATION_API_METADATA_OWNER_CHANGED')
+        listeners=[x for x in psutil.net_connections(kind='tcp')
+                   if x.status==psutil.CONN_LISTEN and x.laddr.port==port]
+        if not listeners:return None
+        if any(x.pid not in ids or x.laddr.ip not in {'127.0.0.1','::1'} for x in listeners):
+            raise AdmissionError('ISOLATED_APPLICATION_API_LISTENER_NOT_OWNED_OR_NOT_LOOPBACK')
+        return {'owner_pid':process.pid,'port':port,'listener_pids':sorted({x.pid for x in listeners}),
+                'metadata_sha256':file_hash(path),'loopback_only':True,'at_unix':time.time()}
+
+    def wait_application_api(self,timeout=120):
+        deadline=time.monotonic()+timeout;last_progress=0
+        while time.monotonic()<deadline:
+            observed=self.application_api()
+            if observed is not None:
+                self.audit.append('isolated_application_api_observed',**observed)
+                return observed
+            if time.monotonic()-last_progress>=10:
+                self.progress('waiting_for_actual_application_api',remaining_seconds=max(0,deadline-time.monotonic()))
+                last_progress=time.monotonic()
+            time.sleep(1)
+        raise AdmissionError('ISOLATED_APPLICATION_API_READY_DEADLINE')
+
     def verify_server_owner(self):
         import psutil
         process,row=self.app_owner()
@@ -159,10 +198,17 @@ class LocalModel:
                     elif ('.lmstudio' in path.as_posix().lower() or '/lm studio/' in path.as_posix().lower()) and not path.is_relative_to(Path('C:/dev/lmstudio/models')):
                         foreign.append(str(path))
             except (psutil.NoSuchProcess,psutil.AccessDenied):continue
-        runtime_files=[p for p in (self.profile/'electron-user-data').rglob('*') if p.is_file()]
-        if foreign or not runtime_files:raise AdmissionError('ISOLATED_LMSTUDIO_RUNTIME_PROFILE_NOT_CONFIRMED')
+        # The copied GUI overrides Chromium's requested user-data-dir with its
+        # actual Windows roaming folder. An empty requested directory or log is
+        # insufficient: require a real open profile file in that roaming root.
+        runtime_root=self.profile/'AppData/Roaming/LM Studio'
+        runtime_files=[p for p in runtime_root.rglob('*') if p.is_file()]
+        actual_profile_handles=[p for p in observed if Path(p).resolve().is_relative_to(runtime_root)]
+        if foreign or not runtime_files or not actual_profile_handles:
+            raise AdmissionError('ISOLATED_LMSTUDIO_RUNTIME_PROFILE_NOT_CONFIRMED')
         proof={'owner_pid':process.pid,'listener_pids':sorted({x.pid for x in listeners}),'loopback_only':True,
                'profile_runtime_files':len(runtime_files),'observed_profile_open_files':observed[:30],
+               'actual_roaming_profile':str(runtime_root),'actual_roaming_profile_open_files':actual_profile_handles[:30],
                'foreign_profile_files':foreign,'at_unix':time.time()}
         row.update(profile_requested_only=False,runtime_profile_verified=True,profile_proof=proof)
         write_json(self.registration,row)
@@ -225,6 +271,7 @@ class LocalModel:
         if models is None:
             self.progress('starting_isolated_native_application')
             self.start_application()
+            self.wait_application_api()
             self.progress('starting_loopback_server')
             self.command('server','start','--port',str(urlsplit(self.url).port),'--bind','127.0.0.1',timeout=180)
             models=self.models()
