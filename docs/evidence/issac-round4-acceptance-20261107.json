@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "round": "R4",
+  "candidate_id": "issac-751b62e7722d-8ba33acb",
+  "source_commit": "751b62e7722df56941129cb4e67daaed4602a11a",
+  "source_files_verified": 2144,
+  "source_verified_unchanged": true,
+  "status": "closed_failed",
+  "uniform_checks": [
+    {
+      "check": "environment",
+      "elapsed_seconds": 22.20032310008537,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-fac3af8ec8ad40028c97e0c787fdd7b6/environment.log",
+      "log_sha256": "eecfc7702b116ea893f84d13a90aafa0eb86468495c871b58a7594ff2770a4e8",
+      "passed": true
+    },
+    {
+      "check": "dependencies",
+      "elapsed_seconds": 107.75957550003659,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-fac3af8ec8ad40028c97e0c787fdd7b6/dependencies.log",
+      "log_sha256": "34d24d2daf99d3eefbd8bd7cd95a459b0ce0c0575243ad64d1070a6ba3a8c5c1",
+      "passed": true
+    },
+    {
+      "check": "regressions",
+      "elapsed_seconds": 96.92230509989895,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-fac3af8ec8ad40028c97e0c787fdd7b6/regressions.log",
+      "log_sha256": "734357ee9b91730d70d57620ca7bb8bab38f6c8d1f1be9d156e09c026ba2e3e0",
+      "passed": true
+    },
+    {
+      "check": "materials-scan",
+      "elapsed_seconds": 17.523146499996074,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-fac3af8ec8ad40028c97e0c787fdd7b6/materials-scan.log",
+      "log_sha256": "47da8eec347b0ae45fd8dd4bf48a3cbe5d7ce0f26c85f0abadcc100b09143af2",
+      "passed": true
+    },
+    {
+      "check": "native-game",
+      "elapsed_seconds": 101.87281780003104,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-fac3af8ec8ad40028c97e0c787fdd7b6/native-game.log",
+      "log_sha256": "66078280c721a442ccbfe1bcfe8ae6df42e6f5972751b9b9d322c3320df3ed2f",
+      "passed": false
+    },
+    {
+      "check": "local-model-prepare",
+      "elapsed_seconds": 15.57215190003626,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-fac3af8ec8ad40028c97e0c787fdd7b6/local-model-prepare.log",
+      "log_sha256": "1bd6b12aecc9a0f3624820041afc86a6fac0c77f998e283250d82df103511cbb",
+      "passed": false
+    },
+    {
+      "check": "local-model-qualification",
+      "elapsed_seconds": 14.087212099926546,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-fac3af8ec8ad40028c97e0c787fdd7b6/local-model-qualification.log",
+      "log_sha256": "5f86e97e62089580f271da32ad26f9607ff0271e5f834904e4827b42574aff2c",
+      "passed": false
+    },
+    {
+      "check": "official-client-signature",
+      "elapsed_seconds": 16.092249399982393,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-fac3af8ec8ad40028c97e0c787fdd7b6/official-client-signature.log",
+      "log_sha256": "90ce968963d5fa880a03bdc347a26e29dc96dee6f957ff8daa025b74d2326e9b",
+      "passed": true
+    },
+    {
+      "check": "official-client-launch",
+      "elapsed_seconds": 13.753553900052793,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-fac3af8ec8ad40028c97e0c787fdd7b6/official-client-launch.log",
+      "log_sha256": "954a9600b26942c554142805635273a89dcc909f33de48332c7c8b4a09e03a80",
+      "passed": false
+    }
+  ],
+  "regression_counts": [
+    {
+      "suite": "regression-0.log",
+      "passed": 28,
+      "skipped": 0
+    },
+    {
+      "suite": "regression-1.log",
+      "passed": 606,
+      "skipped": 0
+    },
+    {
+      "suite": "regression-2.log",
+      "passed": 6,
+      "skipped": 0
+    },
+    {
+      "suite": "regression-3.log",
+      "passed": 107,
+      "skipped": 7
+    },
+    {
+      "suite": "regression-4.log",
+      "passed": 127,
+      "skipped": 0
+    }
+  ],
+  "regression_total_passed": 874,
+  "regression_total_skipped": 7,
+  "phase_closure": {
+    "candidate_id": "issac-751b62e7722d-8ba33acb",
+    "source_commit": "751b62e7722df56941129cb4e67daaed4602a11a",
+    "source_files_verified": 2144,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "phase": "acceptance_closed",
+    "defects": [
+      {
+        "path": "state/issac-acceptance/diagnostics/model-prepare-437c5edc20f441c5bff0b22593cce845/report.json",
+        "sha256": "1c70391dfae7a9a7c2a9c898a4aa63a9cd60b26aa0e33ac7a08f4c6e97244d68",
+        "failed_checks": []
+      },
+      {
+        "path": "state/issac-acceptance/diagnostics/native-game-df7320449f8b40d6b5bde0877d5a9458/report.json",
+        "sha256": "4bb14d32feea3a9f161c831e30b26f608576bbb37221ec37e02d7d8dab8e1167",
+        "failed_checks": []
+      },
+      {
+        "path": "state/issac-acceptance/round-runs/round-fac3af8ec8ad40028c97e0c787fdd7b6/progress.json",
+        "sha256": "6cdfe5720da7477fe40adae446a516a6622a921b8846c4a1f5d9456a8a6b2c32",
+        "failed_checks": [
+          "native-game",
+          "local-model-prepare",
+          "local-model-qualification",
+          "official-client-launch"
+        ]
+      },
+      {
+        "path": "state/issac-acceptance/round-runs/round-fac3af8ec8ad40028c97e0c787fdd7b6/report.json",
+        "sha256": "55509319e07f69cc4f8719995c1085665711839d587c45e9cb45fe84a5731a6f",
+        "failed_checks": [
+          "native-game",
+          "local-model-prepare",
+          "local-model-qualification",
+          "official-client-launch"
+        ]
+      }
+    ],
+    "recorded_failures": 4,
+    "complete_acceptance_requires_all_18_verified_gates": true,
+    "next_action": "whole_correction_round_then_freeze",
+    "source_changes_permitted_only_in_new_development_round": true,
+    "closed_unix": 1794026670.2959762
+  },
+  "observed_existing_capacity": {
+    "gpu_total_mib": 49140,
+    "gpu_free_mib": 6491,
+    "gpu_utilization_percent": 97,
+    "host_total_bytes": 68612378624,
+    "host_available_bytes": 39821864960,
+    "comfy_running_jobs": 1,
+    "at_unix": 1794026787.381093
+  },
+  "existing_processes_stopped": 0,
+  "native_failure": "The main menu Game() returned nil; the observation dereferenced it. Initial Lua pointer readiness also preceded successful evaluation.",
+  "model_preparation": "Deferred before weight hashing/application launch because an existing ComfyUI job was active.",
+  "model_qualification": {
+    "qualified": false,
+    "actual_inference": false,
+    "responses_received": 0,
+    "function_attempts_against_unready_owner": 6
+  },
+  "official_client": "Signature passed; launch refused because old Naimei Livehime was still present.",
+  "material_inspection": {
+    "candidate_id": "issac-751b62e7722d-8ba33acb",
+    "clips": 12,
+    "decoded_frames_per_clip": 294,
+    "sheets": 84,
+    "real_endpoint_images": 12,
+    "reference_audio_transferred": false,
+    "files_verified": 132,
+    "actual_speed_review_completed": false,
+    "quality_approved": false
+  },
+  "production_accepted": false,
+  "official_recording_created": false,
+  "full_acceptance_passed": false,
+  "all_18_gates_still_required": true,
+  "public_broadcast_allowed": false
+}

@@ -15,12 +15,23 @@ from integration.issac.deployment import require_candidate
 from integration.issac.preparation import runtime_environment
 
 
+def blocked_by_prerequisite(name,results):
+    dependencies={'local-model-qualification':'local-model-prepare'}
+    required=dependencies.get(name)
+    if required and not any(row['check']==required and row['passed'] is True for row in results):
+        return {'check':name,'passed':False,'state':'blocked','reason':'PREREQUISITE_NOT_PASSED','requires':required,
+                'actual_inference':False,'inference_requests_attempted':0}
+    return None
+
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--root',type=Path,default=ROOT)
     parser.add_argument('--include-native-game',action='store_true')
     parser.add_argument('--include-model',action='store_true')
     parser.add_argument('--include-official-client',action='store_true')
+    parser.add_argument('--capacity-wait-seconds',type=int,default=3600)
     args=parser.parse_args();root=args.root.resolve();candidate=require_candidate(root)
+    if not 0<=args.capacity_wait_seconds<=3600:parser.error('capacity wait must be between 0 and 3600 seconds')
     folder=inside(root,'state/issac-acceptance/round-runs')/('round-'+uuid.uuid4().hex);folder.mkdir(parents=True)
     config=read_json(inside(root,'configs/issac/runtime.json'))['native_paths']
     py=[str(inside(root,config['game_python'])),'-X','utf8','-B']
@@ -31,7 +42,7 @@ def main():
         ('materials-scan',[*media_py,'-m','integration.issac.materials','--root',str(root),'scan'],180)]
     if args.include_native_game:commands.append(('native-game',[*diag,'native-game'],480))
     if args.include_model:
-        commands.extend([('local-model-prepare',[*diag,'model-prepare'],4200),
+        commands.extend([('local-model-prepare',[*diag,'model-prepare','--capacity-wait-seconds',str(args.capacity_wait_seconds)],7200),
             ('local-model-qualification',[*py,str(inside(root,'scripts/qualify_issac_model.py')),'--root',str(root)],420)])
     if args.include_official_client:
         official=[*py,'-m','integration.issac.livehime','--root',str(root)]
@@ -42,12 +53,16 @@ def main():
             require_candidate(root,hardware=False)
             write_json(folder/'progress.json',{**candidate,'stage':'testing','current':name,'results':results,'source_mutations_allowed':False})
             log=folder/(name+'.log');started=time.monotonic()
-            with log.open('wb') as output:
-                try:
-                    process=subprocess.run(command,cwd=root,env=runtime_environment(root,'studio'),stdout=output,
-                        stderr=subprocess.STDOUT,stdin=subprocess.DEVNULL,timeout=timeout,creationflags=0x08000000)
-                    result={'check':name,'passed':process.returncode==0,'exit_code':process.returncode}
-                except subprocess.TimeoutExpired:result={'check':name,'passed':False,'reason':'FIXED_CHECK_DEADLINE'}
+            blocked=blocked_by_prerequisite(name,results)
+            if blocked:
+                log.write_text(json.dumps(blocked,ensure_ascii=False),'utf8');result=blocked
+            else:
+                with log.open('wb') as output:
+                    try:
+                        process=subprocess.run(command,cwd=root,env=runtime_environment(root,'studio'),stdout=output,
+                            stderr=subprocess.STDOUT,stdin=subprocess.DEVNULL,timeout=timeout,creationflags=0x08000000)
+                        result={'check':name,'passed':process.returncode==0,'exit_code':process.returncode}
+                    except subprocess.TimeoutExpired:result={'check':name,'passed':False,'reason':'FIXED_CHECK_DEADLINE'}
             require_candidate(root,hardware=False)
             results.append({**result,'elapsed_seconds':time.monotonic()-started,
                             'log':log.relative_to(root).as_posix(),'log_sha256':file_hash(log)})

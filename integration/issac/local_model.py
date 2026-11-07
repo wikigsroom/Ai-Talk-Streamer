@@ -12,7 +12,7 @@ import urllib.request
 from urllib.parse import urlsplit
 
 from .common import AdmissionError, Audit, digest, file_hash, inside, local_url, read_json, write_json
-from .resources import MEDIA_RESERVE_MIB, MIB, estimate_fits, parse_estimate, snapshot
+from .resources import MEDIA_RESERVE_MIB, MIB, available_for_initialization, estimate_fits, parse_estimate, snapshot
 
 
 class LocalModel:
@@ -202,7 +202,9 @@ class LocalModel:
             write_json(destination,{'candidate_id':self.candidate,'files':verified,'verified_at_unix':time.time()})
         return {'files':len(rows),'new_model_download_bytes':0,'verification_receipt_sha256':file_hash(destination)}
 
-    def prepare(self):
+    def prepare(self,*,capacity_wait_seconds=0):
+        if type(capacity_wait_seconds) is not int or not 0<=capacity_wait_seconds<=3600:
+            raise AdmissionError('BOUNDED_CAPACITY_WAIT_REQUIRED')
         self.progress('observing_existing_capacity')
         observed=snapshot()
         try:models=self.models()
@@ -210,10 +212,15 @@ class LocalModel:
         if models is not None:self.verify_server_owner()
         expected=self.config['model']
         already_loaded=models is not None and any(x.get('id')==expected for x in models)
-        if (not already_loaded and (observed.get('comfy_running_jobs') or observed['gpu_utilization_percent']>=35
-                or observed['gpu_free_mib']<MEDIA_RESERVE_MIB+4096)):
-            self.progress('waiting_for_existing_gpu_tasks',observed=observed)
-            raise AdmissionError('EXISTING_GPU_TASKS_RETAINED_WAIT_FOR_CAPACITY')
+        deadline=time.monotonic()+capacity_wait_seconds;last_progress=0
+        while not already_loaded and not available_for_initialization(observed,MEDIA_RESERVE_MIB+4096):
+            remaining=deadline-time.monotonic()
+            if time.monotonic()-last_progress>=10 or remaining<=0:
+                self.progress('waiting_for_existing_gpu_tasks',observed=observed,
+                              capacity_wait_seconds=capacity_wait_seconds,remaining_seconds=max(0,remaining))
+                last_progress=time.monotonic()
+            if remaining<=0:raise AdmissionError('EXISTING_GPU_TASKS_RETAINED_WAIT_FOR_CAPACITY')
+            time.sleep(min(2,remaining));observed=snapshot()
         provenance=self.admit_retained_files()
         if models is None:
             self.progress('starting_isolated_native_application')

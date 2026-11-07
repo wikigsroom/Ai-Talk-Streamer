@@ -9,12 +9,13 @@ import sqlite3
 import subprocess
 import sys
 import time
+import urllib.error
 import urllib.request
 import uuid
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from integration.issac.common import AdmissionError,file_hash,inside,read_json,write_json
+from integration.issac.common import AdmissionError,FileLease,file_hash,inside,read_json,write_json
 from integration.issac.deployment import require_candidate
 from integration.issac.preparation import relocate_native_environments,runtime_environment
 from integration.issac.offline_dependencies import install_voice_dependencies
@@ -25,7 +26,82 @@ def json_http(root,url,body=None,timeout=5):
     request=urllib.request.Request(url,data=None if body is None else json.dumps(body).encode(),
         headers={'Content-Type':'application/json','X-Isaac-Token':bridge_token(root)})
     opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
-    with opener.open(request,timeout=timeout) as response:return json.load(response)
+    try:
+        with opener.open(request,timeout=timeout) as response:return json.load(response)
+    except urllib.error.HTTPError as error:
+        try:code=json.loads(error.read(8192)).get('error','')
+        except (ValueError,AttributeError):code=''
+        if not isinstance(code,str) or not code or len(code)>160 or any(c not in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789' for c in code):
+            code='LOCAL_DIAGNOSTIC_HTTP_REJECTED_'+str(error.code)
+        raise AdmissionError(code) from None
+
+
+def wait_native_observation(root,timeout=45):
+    """A Lua pointer appears before the main-menu Lua API can answer."""
+    deadline=time.monotonic()+timeout;last_error='NATIVE_BRIDGE_NOT_READY'
+    while time.monotonic()<deadline:
+        try:return json_http(root,'http://127.0.0.1:9534/control',{'action':'observe'},12)
+        except AdmissionError as error:
+            if str(error) not in {'NATIVE_BRIDGE_REQUEST_FAILED','GAME_NATIVE_SAVE_ABI_NOT_CONFIRMED'}:raise
+            last_error=str(error)
+        except (OSError,ValueError):last_error='NATIVE_OBSERVATION_TRANSPORT_NOT_READY'
+        time.sleep(.5)
+    raise AdmissionError('NATIVE_OBSERVATION_READY_DEADLINE_'+last_error)
+
+
+def close_idle_window(root,record,observe):
+    """Normal WM_CLOSE only after two current, real no-player observations."""
+    before=observe();time.sleep(.2);confirmed=observe()
+    if any(type(row.get('players')) is not int or row['players']!=0 for row in (before,confirmed)):
+        raise AdmissionError('LIVING_OR_UNKNOWN_GAME_PRESERVED')
+    import win32gui,win32process,win32con
+    process=process_identity(root,record);windows=[]
+    def collect(hwnd,_):
+        if win32gui.IsWindowVisible(hwnd) and win32process.GetWindowThreadProcessId(hwnd)[1]==record['pid'] and 'Binding of Isaac' in win32gui.GetWindowText(hwnd):windows.append(hwnd)
+    win32gui.EnumWindows(collect,None)
+    if len(windows)!=1:raise AdmissionError('UNIQUE_OWN_IDLE_GAME_WINDOW_REQUIRED')
+    process_identity(root,record)
+    final=observe()
+    if type(final.get('players')) is not int or final['players']!=0:raise AdmissionError('LIVING_OR_UNKNOWN_GAME_PRESERVED')
+    win32gui.PostMessage(windows[0],win32con.WM_CLOSE,0,0);process.wait(15)
+    return {'own_idle_game_closed_normally':True,'pid':record['pid'],'forced_termination':False}
+
+
+def close_owned_idle_game(root,expected_id):
+    """Recover an explicitly identified closed phase's own idle menu."""
+    import psutil
+    from integration.issac.native_game import NativeGame
+    from integration.issac.saves import SaveProtection
+    registry=read_json(inside(root,'state/issac-stream/application.json'))
+    if not expected_id or registry['installation_id']!=expected_id:
+        raise AdmissionError('EXPLICIT_PREVIOUS_INSTALLATION_ID_REQUIRED')
+    closed=read_json(inside(root,'state/issac-acceptance/closed-phases/'+registry['candidate_id']+'.json'))
+    if closed.get('phase')!='acceptance_closed' or not closed.get('recorded_failures'):
+        raise AdmissionError('CLOSED_FAILED_PHASE_REQUIRED_FOR_IDLE_CLOSE')
+    games=[r for r in registry['processes'] if r['name']=='isaac-game']
+    if len(games)!=1:raise AdmissionError('UNIQUE_REGISTERED_PREVIOUS_GAME_REQUIRED')
+    with FileLease(inside(root,'state/issac-stream/application.lock')),FileLease(inside(root,'state/isaac-strategy/host.lock')):
+        for record in registry['processes']:
+            if record['name']=='isaac-game':continue
+            try:process_identity(root,record)
+            except psutil.NoSuchProcess:continue
+            raise AdmissionError('PREVIOUS_COMPONENT_STILL_LIVE')
+        game=games[0]
+        try:process_identity(root,game)
+        except psutil.NoSuchProcess:return {'own_game_already_ended':True,'forced_termination':False}
+        protection=SaveProtection(root);protection.verify();native=NativeGame(root,protection)
+        try:
+            deadline=time.monotonic()+45
+            while time.monotonic()<deadline:
+                if native.attach(game['pid']).get('lua_ready'):break
+                time.sleep(.5)
+            else:raise AdmissionError('IDLE_RECOVERY_NATIVE_ATTACH_DEADLINE')
+            # No assumption is made from the old failed observation or a PID.
+            result=close_idle_window(root,game,native.observe)
+        finally:native.close()
+        protection.verify()
+        return {**result,'previous_installation_id':expected_id,'previous_candidate_id':registry['candidate_id'],
+                'accepted_fault_recovery':False,'foreign_processes_terminated':0}
 
 
 def process_identity(root,row):
@@ -158,7 +234,6 @@ def retire_stalled_owner(root,expected_id,folder):
 
 
 def native_game_probe(root,folder):
-    import psutil,win32gui,win32process,win32con
     candidate=require_candidate(root)
     config=read_json(inside(root,'configs/issac/runtime.json'))
     game_py=inside(root,config['native_paths']['game_python'])
@@ -184,10 +259,12 @@ def native_game_probe(root,folder):
                 try:
                     attached=json_http(root,'http://127.0.0.1:9534/control',{'action':'attach','pid':game['pid']},10)
                     if attached.get('lua_ready'):break
+                except AdmissionError as error:
+                    if str(error) not in {'NATIVE_BRIDGE_ATTACH_FAILED','NATIVE_BRIDGE_REQUEST_FAILED'}:raise
                 except (OSError,ValueError):pass
                 time.sleep(.5)
             else:raise AdmissionError('PROBE_NATIVE_ATTACH_DEADLINE')
-            observation=json_http(root,'http://127.0.0.1:9534/control',{'action':'observe'},12)
+            observation=wait_native_observation(root)
             checks['real_native_observation']=isinstance(observation.get('observation'),dict)
             modules=json_http(root,'http://127.0.0.1:9534/control',{'action':'modules'},12)
             checks['pinned_game_modules']=modules.get('modules_ready') is True
@@ -195,17 +272,11 @@ def native_game_probe(root,folder):
             checks['normal_pause_or_idle']=pause.get('no_active_run') is True or pause.get('normal_game_pause_acknowledged') is True
             # This probe owns the new idle menu only. Never close a living run.
             if observation['observation']['players']==0:
-                windows=[]
-                def collect(hwnd,_):
-                    if win32gui.IsWindowVisible(hwnd) and win32process.GetWindowThreadProcessId(hwnd)[1]==game['pid'] and 'Binding of Isaac' in win32gui.GetWindowText(hwnd):windows.append(hwnd)
-                win32gui.EnumWindows(collect,None)
-                if len(windows)!=1:raise AdmissionError('PROBE_UNIQUE_IDLE_GAME_WINDOW_REQUIRED')
-                process_identity(root,game)
-                win32gui.PostMessage(windows[0],win32con.WM_CLOSE,0,0);process.wait(15)
-                checks['own_idle_game_closed_normally']=True
+                closed=close_idle_window(root,game,lambda:json_http(root,'http://127.0.0.1:9534/control',{'action':'observe'},12)['observation'])
+                checks['own_idle_game_closed_normally']=closed['own_idle_game_closed_normally']
         finally:
             try:json_http(root,'http://127.0.0.1:9541/action',{'action':'stop'},5)
-            except (OSError,ValueError):pass
+            except (OSError,ValueError,AdmissionError):pass
             try:code=handle.wait(180)
             except subprocess.TimeoutExpired:code=None
             checks['owned_stack_stopped']=code==0
@@ -215,7 +286,8 @@ def native_game_probe(root,folder):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--root',type=Path,default=ROOT)
-    parser.add_argument('action',choices=['environment','dependencies','owned-status','retire-stalled-owner','native-game','model-prepare'])
+    parser.add_argument('action',choices=['environment','dependencies','owned-status','retire-stalled-owner','close-owned-idle-game','native-game','model-prepare'])
+    parser.add_argument('--capacity-wait-seconds',type=int,default=0)
     parser.add_argument('--expected-installation-id');args=parser.parse_args();root=args.root.resolve()
     if os.name!='nt' or root!=Path('C:/dev/虚拟数字人直播/issac').resolve():raise AdmissionError('PINNED_NATIVE_DIAGNOSTIC_ROOT_REQUIRED')
     candidate=require_candidate(root,hardware=False)
@@ -227,10 +299,11 @@ def main():
         elif args.action=='dependencies':result=dependencies(root,folder)
         elif args.action=='owned-status':result=owned_status(root)
         elif args.action=='retire-stalled-owner':result=retire_stalled_owner(root,args.expected_installation_id,folder)
+        elif args.action=='close-owned-idle-game':result=close_owned_idle_game(root,args.expected_installation_id)
         elif args.action=='native-game':result=native_game_probe(root,folder)
         else:
             from integration.issac.local_model import LocalModel
-            result=LocalModel(root).prepare()
+            result=LocalModel(root).prepare(capacity_wait_seconds=args.capacity_wait_seconds)
         result={**candidate,**result};require_candidate(root,hardware=False)
         write_json(folder/'report.json',result);print(json.dumps(result,ensure_ascii=False),flush=True)
         if result.get('passed') is False:raise SystemExit(1)

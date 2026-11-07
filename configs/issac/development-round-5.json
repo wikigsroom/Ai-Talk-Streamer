@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "round": "R5",
+  "branch": "issac",
+  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "previous_phase": {
+    "candidate_id": "issac-751b62e7722d-8ba33acb",
+    "status": "closed_failed",
+    "closed_unix": 1794026670.2959762
+  },
+  "scope": "Complete R4 menu/startup/resource-wait corrections, diagnostic tools, all regression code and current MC documentation before uniform frozen testing",
+  "items": [
+    {
+      "id": "R501",
+      "code": "Observe a nil Game object in the real main menu without accepting a missing Lua API",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/native_game.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R502",
+      "code": "Wait for actual native observations and retain only bounded safe diagnostic HTTP error codes",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/diagnose_issac.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R503",
+      "code": "Normally close only an explicitly owned closed-phase idle game with current native and process proofs",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/diagnose_issac.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R504",
+      "code": "Wait for existing GPU work without hashing or starting a model before capacity",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/local_model.py",
+        "scripts/diagnose_issac.py",
+        "scripts/run_issac_round.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R505",
+      "code": "Block qualification after failed model preparation without pretending an inference ran",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/run_issac_round.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R506",
+      "code": "Complete regressions for the observed menu, startup and ordering failures",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/tests/test_round5.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R507",
+      "code": "Publish truthful closed R4 evidence and synchronize MC title-only presentation status",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "docs/evidence/issac-round4-acceptance-20261107.json",
+        "docs/issac/第五轮菜单读取与资源等待20261107.md",
+        "docs/issac/MC同屏方案沿用与标题替换20261107.md",
+        "README.md",
+        "docs/issac/完整更新方案20261107.md",
+        "docs/issac/第四轮完整修正与统一验收20261107.md"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R508",
+      "code": "Freeze the complete reviewed round before any test and preserve all live acceptance gates",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "AGENTS.md",
+        "configs/issac/development-round-5.json",
+        "configs/issac/execution-rounds.json"
+      ],
+      "runtime_accepted": false
+    }
+  ],
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "public_broadcast_allowed": false,
+  "manual_review_coverage": [
+    "all new and modified Python source, CLI and regression code",
+    "nil object versus missing API, callable Lua constructor, unchanged active-run data",
+    "bounded HTTP error conversion, startup retry allowlist and shutdown exception parity",
+    "explicit old closed-phase identity, kernel locks, current idle observations, normal WM_CLOSE only",
+    "busy-job waiting before hashes/startup and zero inference after an unmet prerequisite",
+    "all R4 actual suite counts, source/phase receipts, no quality/recording success claims",
+    "MC sixteen-file provenance and unchanged layout/title-only contract",
+    "all R501-R508 source paths, documentation links and no unresolved round code items"
+  ]
+}
