@@ -1,0 +1,13 @@
+{
+  "base_url": "http://127.0.0.1:1234/v1",
+  "model": "issac-swift-local",
+  "api_key": "",
+  "context_window": 16384,
+  "instructions": "File preparation writes private/issac/model.json only after hashing the two retained Swift GGUF shards. No cloud, download or inferred qualification. response_model_id, if needed, must match the actual local server response.",
+  "retained_model_key": null,
+  "retained_model_files": [],
+  "gpu_offload": 0.45,
+  "model_downloads_allowed": false,
+  "cloud_fallback": false,
+  "qualified": false
+}

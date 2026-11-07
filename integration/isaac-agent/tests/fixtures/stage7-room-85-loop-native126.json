@@ -1,0 +1,414 @@
+{
+  "enemy_kill_delta": 0,
+  "pill_use_result": "idle",
+  "transition_phase": "entered",
+  "charge_phase": "idle",
+  "bomb_placed": false,
+  "backtrack_guard_active": true,
+  "enemy_observation_valid": true,
+  "active_charge": 0,
+  "bomb_placement_distance": -1,
+  "movement_progress": 510.24841308594,
+  "room_entry_age_frames": 0,
+  "progression_target": "satan",
+  "transition_door_distance": 6.5773315429688,
+  "damage_events": [
+    {
+      "flags": 8,
+      "id": 1,
+      "source_type": 60,
+      "source_variant": 0,
+      "frame": 109237,
+      "amount": 2.0
+    }
+  ],
+  "stage": 7,
+  "utility_result": "idle",
+  "trinket_swap_result": "idle",
+  "held_cards": [
+    {
+      "card": 7,
+      "slot": 0
+    }
+  ],
+  "room_entered_frame": 115424,
+  "player_dead": false,
+  "boss_exit_position": {
+    "x": 0,
+    "y": 0
+  },
+  "keys": 7,
+  "bomb_escape_direction": {
+    "x": 1.0,
+    "y": 0.0
+  },
+  "dimension": 0,
+  "transition_gate": "native_input",
+  "frame": 115424,
+  "boss_exit_available": false,
+  "restart_error": "",
+  "held_pills": [],
+  "safe_move_directions": {
+    "left": "unintended_room_exit",
+    "up": "safe",
+    "down": "safe",
+    "right": "safe"
+  },
+  "held_trinkets": [
+    70
+  ],
+  "enemy_total_hp": 0,
+  "type": "state",
+  "layout": {
+    "blocked": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      22,
+      29,
+      30,
+      37,
+      44,
+      45,
+      52,
+      59,
+      60,
+      67,
+      74,
+      75,
+      82,
+      89,
+      90,
+      97,
+      104,
+      105,
+      112,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134
+    ],
+    "room_index": 85,
+    "is_boss": false,
+    "grid_width": 15,
+    "shot_blocked": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      22,
+      29,
+      30,
+      37,
+      44,
+      45,
+      52,
+      59,
+      60,
+      67,
+      74,
+      75,
+      82,
+      89,
+      90,
+      97,
+      104,
+      105,
+      112,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134
+    ],
+    "grid_height": 9,
+    "room_type": "default",
+    "bomb_walls": [],
+    "grid_events": [],
+    "danger_grid_indices": [
+      37,
+      97,
+      67
+    ],
+    "doors": [
+      {
+        "slot": 0,
+        "door_locked": false,
+        "door_open_known": true,
+        "door_lock_known": true,
+        "target_room_type": "default",
+        "target_room_index": 84,
+        "door_open": true,
+        "pos": {
+          "x": 40.0,
+          "y": 280.0
+        },
+        "grid_index": 60,
+        "target_clear": true,
+        "target_is_boss": false
+      },
+      {
+        "slot": 2,
+        "door_locked": false,
+        "door_open_known": true,
+        "door_lock_known": true,
+        "target_room_type": "default",
+        "target_room_index": 86,
+        "door_open": true,
+        "pos": {
+          "x": 600.0,
+          "y": 280.0
+        },
+        "grid_index": 74,
+        "target_clear": false,
+        "target_is_boss": false
+      }
+    ]
+  },
+  "active_item": 396,
+  "danger_effects": [],
+  "fired_tears": 0,
+  "fire_block_reason": "idle",
+  "hostile_enemy_count": 0,
+  "pickups": [
+    {
+      "kind": "red_heart",
+      "id": 10,
+      "price": 0,
+      "grid_index": 68,
+      "name": "red heart",
+      "quality": 0,
+      "pos": {
+        "x": 372.9,
+        "y": 299.6
+      },
+      "is_collectible": false,
+      "subtype": 1
+    }
+  ],
+  "projectiles": [],
+  "restart_phase": "alive",
+  "enemies": [],
+  "boss_exit_grid_index": -1,
+  "player_grid_index": 61,
+  "last_transition_source_room_index": 84,
+  "last_action_id": "",
+  "bomb_error": "no clear bomb escape corridor",
+  "bombs": 17,
+  "coins": 21,
+  "route_debug": {
+    "position": {
+      "x": 557.03283691406,
+      "y": 218.13732910156
+    },
+    "cursor": 2,
+    "goal": 74,
+    "waypoint": {
+      "x": 560.0,
+      "y": 240.0
+    },
+    "path": [
+      43,
+      58,
+      73
+    ],
+    "start": 43
+  },
+  "native_tear_age": 125424,
+  "last_action_sequence": 256,
+  "bomb_active": false,
+  "room_clear": true,
+  "bomb_target_id": -1,
+  "transition_error": "",
+  "bomb_position": {
+    "x": 0,
+    "y": 0
+  },
+  "action_age_frames": 2,
+  "bomb_placed_frame": -1,
+  "room_cleared_frame": 115424,
+  "trinket_slots": 1,
+  "input_lease": {
+    "automatic": true,
+    "awaiting_reply": false,
+    "move_input_age_frames": 0,
+    "controller_enabled": true,
+    "message_age_ms": 457,
+    "response_age_frames": 2,
+    "shoot_input_age_frames": 5029,
+    "controls_enabled": true,
+    "pending_action_bytes": 0
+  },
+  "mod_version": "2026-11-06-native126",
+  "last_action_mode": "combat",
+  "move_resolution_reason": "lua_safety_rewrite",
+  "start_seed": 1300290230,
+  "enemy_count": 0,
+  "floor_id": "canonical-room-v1",
+  "last_transition_target_room_index": 85,
+  "requested_move": {
+    "x": 0.0,
+    "y": 0.0
+  },
+  "resolved_move": {
+    "x": 1.0,
+    "y": 0.0
+  },
+  "room_index": 85,
+  "movement_blocked": false,
+  "control_shoot": {
+    "x": 0.0,
+    "y": 0.0
+  },
+  "transition_attempt": 0,
+  "stage_type": 0,
+  "restart_count": 0,
+  "room_visit_sequence": 35,
+  "hazards": [
+    {
+      "kind": "red_poop",
+      "id": -100037,
+      "variant": 1,
+      "grid_index": 37,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 320.0,
+        "y": 200.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100067,
+      "variant": 1,
+      "grid_index": 67,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 320.0,
+        "y": 280.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100097,
+      "variant": 1,
+      "grid_index": 97,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 320.0,
+        "y": 360.0
+      }
+    }
+  ],
+  "hazards_observation_valid": true,
+  "weapon_control": {
+    "target_id": -1,
+    "phase": "idle",
+    "extra_frames": 0,
+    "profile": "tear",
+    "elapsed": 0,
+    "last_shot_age": 125424,
+    "confirmed_releases": 0,
+    "release_count": 0,
+    "target_ready": false,
+    "failed_releases": 0,
+    "shot_count": 0,
+    "charge_frames": 8
+  },
+  "player": {
+    "hp": 14,
+    "soul_hearts": 0,
+    "weapon_type_known": true,
+    "damage_cooldown": 0,
+    "red_hearts": 14,
+    "black_hearts": 0,
+    "type": 1,
+    "tear_speed": 1.4700000286102,
+    "id": 0,
+    "weapon_type": "tear",
+    "move_speed": 1.2999999523163,
+    "vel": {
+      "x": 1.9,
+      "y": 0.0
+    },
+    "max_hearts": 14,
+    "pos": {
+      "x": 83.2,
+      "y": 280.0
+    },
+    "eternal_hearts": 0,
+    "tear_range": 260.0,
+    "bone_hearts": 0
+  }
+}

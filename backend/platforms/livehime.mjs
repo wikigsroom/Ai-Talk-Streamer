@@ -13,10 +13,12 @@ export const LIVEHIME_OUTPUT_URL = 'http://127.0.0.1:8010/output.html?renderer=p
 export class LivehimeOutput {
   constructor(root, { playwright, spawnChild = spawn, receiverConfig = () => null,
     sourceUrl = LIVEHIME_SOURCE_URL, previewUrl = LIVEHIME_OUTPUT_URL,
-    windowTitle = LIVEHIME_WINDOW_TITLE, canvasOutput = false, runAsInvoker = false } = {}) {
+    windowTitle = LIVEHIME_WINDOW_TITLE, canvasOutput = false, runAsInvoker = false,
+    width = 720, height = 1280 } = {}) {
     this.root = resolve(root); this.playwright = playwright; this.spawnChild = spawnChild;
     this.receiverConfig = receiverConfig;
     this.runAsInvoker = runAsInvoker;
+    this.viewport={width,height};
     this.sourceUrl = sourceUrl; this.previewUrl = previewUrl; this.windowTitle = windowTitle; this.canvasOutput = canvasOutput;
     this.context = null; this.page = null; this.clientRequested = false;
   }
@@ -101,7 +103,7 @@ export class LivehimeOutput {
     check(executablePath || this.playwright, 'OUTPUT_BROWSER_NOT_INSTALLED', 503);
     try {
       const context = this.context = await chromium.launchPersistentContext(join(this.root, 'cache/platforms/livehime-output'), {
-        executablePath, headless: false, chromiumSandbox: true, viewport: { width: 720, height: 1280 }, deviceScaleFactor: 1,
+        executablePath, headless: false, chromiumSandbox: true, viewport: this.viewport, deviceScaleFactor: 1,
         ignoreDefaultArgs: ['--enable-automation'],
         args: ['--app=' + this.previewUrl, '--window-size=720,1310', '--window-position=20,30',
           '--autoplay-policy=no-user-gesture-required', '--disable-extensions', '--no-first-run',

@@ -1,0 +1,781 @@
+{
+  "enemy_kill_delta": 0,
+  "pill_use_result": "idle",
+  "transition_phase": "entered",
+  "charge_phase": "idle",
+  "bomb_placed": false,
+  "backtrack_guard_active": false,
+  "enemy_observation_valid": true,
+  "active_charge": 0,
+  "bomb_placement_distance": -1,
+  "movement_progress": 1.2304079532623,
+  "room_entry_age_frames": 3586,
+  "progression_target": "satan",
+  "transition_door_distance": -1,
+  "damage_events": [
+    {
+      "flags": 0,
+      "id": 1,
+      "source_type": 265,
+      "source_variant": 0,
+      "frame": 36610,
+      "amount": 1.0
+    },
+    {
+      "flags": 0,
+      "id": 2,
+      "source_type": 58,
+      "source_variant": 0,
+      "frame": 44010,
+      "amount": 2.0
+    }
+  ],
+  "stage": 7,
+  "utility_result": "native_magic_fingers_coin",
+  "trinket_swap_result": "idle",
+  "held_cards": [
+    {
+      "card": 5,
+      "slot": 0
+    }
+  ],
+  "room_entered_frame": 44727,
+  "player_dead": false,
+  "boss_exit_position": {
+    "x": 0,
+    "y": 0
+  },
+  "keys": 5,
+  "bomb_escape_direction": {
+    "x": 0.0,
+    "y": 1.0
+  },
+  "dimension": 0,
+  "transition_gate": "not_navigation",
+  "frame": 48313,
+  "boss_exit_available": false,
+  "restart_error": "",
+  "held_pills": [],
+  "held_trinkets": [
+    11
+  ],
+  "enemy_total_hp": 0,
+  "type": "state",
+  "active_item": 295,
+  "safe_move_directions": {
+    "left": "safe",
+    "up": "safe",
+    "down": "safe",
+    "right": "safe"
+  },
+  "layout": {
+    "blocked": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      27,
+      28,
+      29,
+      30,
+      31,
+      37,
+      43,
+      44,
+      45,
+      59,
+      60,
+      65,
+      69,
+      74,
+      75,
+      89,
+      90,
+      91,
+      97,
+      103,
+      104,
+      105,
+      106,
+      107,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134
+    ],
+    "room_index": 94,
+    "is_boss": false,
+    "grid_width": 15,
+    "shot_blocked": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      27,
+      28,
+      29,
+      30,
+      31,
+      37,
+      43,
+      44,
+      45,
+      59,
+      60,
+      65,
+      69,
+      74,
+      75,
+      89,
+      90,
+      91,
+      97,
+      103,
+      104,
+      105,
+      106,
+      107,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134
+    ],
+    "grid_height": 9,
+    "room_type": "default",
+    "bomb_walls": [],
+    "grid_events": [
+      {
+        "active": true,
+        "kind": "button",
+        "id": -100067,
+        "state": 0,
+        "pos": {
+          "x": 320.0,
+          "y": 280.0
+        },
+        "timed": false,
+        "grid_index": 67,
+        "triggered": false
+      }
+    ],
+    "danger_grid_indices": [
+      64,
+      65,
+      69,
+      70,
+      8,
+      16,
+      17,
+      83,
+      84,
+      85,
+      22,
+      23,
+      24,
+      91,
+      28,
+      31,
+      96,
+      97,
+      34,
+      35,
+      100,
+      37,
+      38,
+      39,
+      106,
+      107,
+      110,
+      111,
+      48,
+      49,
+      50,
+      51,
+      81,
+      117,
+      118,
+      53,
+      112,
+      95,
+      99,
+      86,
+      103,
+      43,
+      126,
+      27
+    ],
+    "doors": [
+      {
+        "slot": 0,
+        "door_locked": false,
+        "door_open_known": true,
+        "door_lock_known": true,
+        "target_room_type": "default",
+        "target_room_index": 92,
+        "door_open": false,
+        "pos": {
+          "x": 40.0,
+          "y": 280.0
+        },
+        "grid_index": 60,
+        "target_clear": false,
+        "target_is_boss": false
+      },
+      {
+        "slot": 2,
+        "door_locked": false,
+        "door_open_known": true,
+        "door_lock_known": true,
+        "target_room_type": "default",
+        "target_room_index": 82,
+        "door_open": false,
+        "pos": {
+          "x": 600.0,
+          "y": 280.0
+        },
+        "grid_index": 74,
+        "target_clear": true,
+        "target_is_boss": false
+      }
+    ]
+  },
+  "fire_block_reason": "idle",
+  "fired_tears": 0,
+  "danger_effects": [
+    {
+      "kind": "moving_spike",
+      "id": 3,
+      "pos": {
+        "x": 360.5,
+        "y": 173.6
+      },
+      "variant": 0,
+      "radius": 36.0
+    },
+    {
+      "kind": "moving_spike_future",
+      "id": 3,
+      "pos": {
+        "x": 362.6,
+        "y": 197.1
+      },
+      "variant": 0,
+      "radius": 36.0
+    },
+    {
+      "kind": "moving_spike",
+      "id": 4,
+      "pos": {
+        "x": 213.6,
+        "y": 239.5
+      },
+      "variant": 0,
+      "radius": 36.0
+    },
+    {
+      "kind": "moving_spike_future",
+      "id": 4,
+      "pos": {
+        "x": 237.1,
+        "y": 237.4
+      },
+      "variant": 0,
+      "radius": 36.0
+    },
+    {
+      "kind": "moving_spike",
+      "id": 5,
+      "pos": {
+        "x": 426.4,
+        "y": 320.5
+      },
+      "variant": 0,
+      "radius": 36.0
+    },
+    {
+      "kind": "moving_spike_future",
+      "id": 5,
+      "pos": {
+        "x": 402.9,
+        "y": 322.6
+      },
+      "variant": 0,
+      "radius": 36.0
+    },
+    {
+      "kind": "moving_spike",
+      "id": 6,
+      "pos": {
+        "x": 279.5,
+        "y": 386.4
+      },
+      "variant": 0,
+      "radius": 36.0
+    },
+    {
+      "kind": "moving_spike_future",
+      "id": 6,
+      "pos": {
+        "x": 277.4,
+        "y": 362.9
+      },
+      "variant": 0,
+      "radius": 36.0
+    }
+  ],
+  "hostile_enemy_count": 0,
+  "restart_phase": "alive",
+  "pickups": [],
+  "projectiles": [],
+  "enemies": [],
+  "last_transition_source_room_index": 82,
+  "last_action_id": "press_button_-100067",
+  "bomb_error": "nil",
+  "boss_exit_grid_index": -1,
+  "player_grid_index": 61,
+  "route_debug": {
+    "position": {
+      "x": 110.39759063721,
+      "y": 284.70346069336
+    },
+    "cursor": 1,
+    "goal": 62,
+    "waypoint": {
+      "x": 120.0,
+      "y": 280.0
+    },
+    "path": [
+      62
+    ],
+    "start": 62
+  },
+  "native_tear_age": 58313,
+  "bombs": 4,
+  "coins": 1,
+  "room_clear": false,
+  "bomb_active": false,
+  "transition_error": "",
+  "bomb_position": {
+    "x": 0,
+    "y": 0
+  },
+  "room_index": 94,
+  "bomb_placed_frame": -1,
+  "room_cleared_frame": -1,
+  "trinket_slots": 1,
+  "action_age_frames": 2,
+  "mod_version": "2026-11-06-native89",
+  "last_action_sequence": 1232,
+  "last_action_mode": "button",
+  "start_seed": 2700781104,
+  "enemy_count": 0,
+  "floor_id": "canonical-room-v1",
+  "move_resolution_reason": "no_walkable_direction",
+  "requested_move": {
+    "x": 0.0,
+    "y": 1.0
+  },
+  "stage_type": 0,
+  "resolved_move": {
+    "x": 0.0,
+    "y": 0.0
+  },
+  "movement_blocked": false,
+  "control_shoot": {
+    "x": 0.0,
+    "y": 0.0
+  },
+  "last_transition_target_room_index": 94,
+  "transition_attempt": 0,
+  "restart_count": 0,
+  "room_visit_sequence": 60,
+  "hazards": [
+    {
+      "kind": "red_poop",
+      "id": -100016,
+      "variant": 1,
+      "grid_index": 16,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 80.0,
+        "y": 160.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100017,
+      "variant": 1,
+      "grid_index": 17,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 120.0,
+        "y": 160.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100027,
+      "variant": 1,
+      "grid_index": 27,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 520.0,
+        "y": 160.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100028,
+      "variant": 1,
+      "grid_index": 28,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 560.0,
+        "y": 160.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100031,
+      "variant": 1,
+      "grid_index": 31,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 80.0,
+        "y": 200.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100037,
+      "variant": 1,
+      "grid_index": 37,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 320.0,
+        "y": 200.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100043,
+      "variant": 1,
+      "grid_index": 43,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State3",
+      "requires_bomb": false,
+      "pos": {
+        "x": 560.0,
+        "y": 200.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100065,
+      "variant": 1,
+      "grid_index": 65,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 240.0,
+        "y": 280.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100069,
+      "variant": 1,
+      "grid_index": 69,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 400.0,
+        "y": 280.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100091,
+      "variant": 1,
+      "grid_index": 91,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 80.0,
+        "y": 360.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100097,
+      "variant": 1,
+      "grid_index": 97,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 320.0,
+        "y": 360.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100103,
+      "variant": 1,
+      "grid_index": 103,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 560.0,
+        "y": 360.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100106,
+      "variant": 1,
+      "grid_index": 106,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 80.0,
+        "y": 400.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100107,
+      "variant": 1,
+      "grid_index": 107,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 120.0,
+        "y": 400.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100117,
+      "variant": 1,
+      "grid_index": 117,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 520.0,
+        "y": 400.0
+      }
+    },
+    {
+      "kind": "red_poop",
+      "id": -100118,
+      "variant": 1,
+      "grid_index": 118,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "destructible": true,
+      "hp": 0,
+      "type": 14,
+      "animation": "State1",
+      "requires_bomb": false,
+      "pos": {
+        "x": 560.0,
+        "y": 400.0
+      }
+    }
+  ],
+  "hazards_observation_valid": true,
+  "bomb_target_id": -1,
+  "player": {
+    "hp": 15,
+    "soul_hearts": 6,
+    "weapon_type_known": true,
+    "damage_cooldown": 0,
+    "red_hearts": 9,
+    "black_hearts": 0,
+    "type": 1,
+    "tear_speed": 1.2000000476837,
+    "id": 0,
+    "weapon_type": "tech_x",
+    "move_speed": 1.2000000476837,
+    "vel": {
+      "x": 0.0,
+      "y": 0.5
+    },
+    "max_hearts": 10,
+    "pos": {
+      "x": 96.6,
+      "y": 288.7
+    },
+    "eternal_hearts": 0,
+    "tear_range": 320.0,
+    "bone_hearts": 0
+  }
+}

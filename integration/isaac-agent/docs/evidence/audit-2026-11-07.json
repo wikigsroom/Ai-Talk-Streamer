@@ -1,0 +1,249 @@
+{
+  "schema": "isaac-public-audit/1",
+  "recorded_at": "2026-11-07T04:21:44.559229+08:00",
+  "build": "native130-dsh/0.1.0",
+  "environment": {
+    "os": "native Windows AMD64",
+    "game": "Repentance 1.7.9b, 32-bit",
+    "python": "3.13.1",
+    "node": "24.22.1",
+    "dsh": "0.2.2-rc.1",
+    "model": "gpt-6-luna"
+  },
+  "gateway_current": {
+    "checked_at": "2026-11-07T04:19:39.375593+08:00",
+    "endpoint_alias": "operator-selected-migrated-gateway",
+    "model": "gpt-6-luna",
+    "models": {
+      "ok": false,
+      "http_status": 401,
+      "error_class": "HTTPError",
+      "elapsed_ms": 1294
+    },
+    "chat/completions": {
+      "ok": false,
+      "http_status": 401,
+      "error_class": "HTTPError",
+      "elapsed_ms": 143
+    }
+  },
+  "current_migrated_dsh_replay": {
+    "scenario": "synthetic route",
+    "passed": 0,
+    "total": 1,
+    "decision_seconds": 15.0,
+    "elapsed_ms": 24102.1,
+    "tool_calls": [],
+    "game_actions_executed": false,
+    "result": "no legal submission; gateway separately rejects authorization; cancellation/drain exceeded requested decision window"
+  },
+  "earlier_model_replay": {
+    "scope": "synthetic labelled replay before gateway migration; historical evidence",
+    "passed": 9,
+    "total": 12,
+    "decision_seconds": 45,
+    "cases": [
+      {
+        "domain": "active",
+        "elapsed_ms": 45026.5,
+        "pass": false
+      },
+      {
+        "domain": "active_special",
+        "elapsed_ms": 16521.9,
+        "pass": true
+      },
+      {
+        "domain": "pickup",
+        "elapsed_ms": 45016.4,
+        "pass": false
+      },
+      {
+        "domain": "pill",
+        "elapsed_ms": 45016.7,
+        "pass": false
+      },
+      {
+        "domain": "card",
+        "elapsed_ms": 25015.7,
+        "pass": true
+      },
+      {
+        "domain": "route",
+        "elapsed_ms": 6908.9,
+        "pass": true
+      },
+      {
+        "domain": "deal",
+        "elapsed_ms": 10225.9,
+        "pass": true
+      },
+      {
+        "domain": "bomb_entry",
+        "elapsed_ms": 17267.2,
+        "pass": true
+      },
+      {
+        "domain": "planetarium",
+        "elapsed_ms": 33205.1,
+        "pass": true
+      },
+      {
+        "domain": "dice",
+        "elapsed_ms": 13164.2,
+        "pass": true
+      },
+      {
+        "domain": "sacrifice",
+        "elapsed_ms": 9828.0,
+        "pass": true
+      },
+      {
+        "domain": "terrain",
+        "elapsed_ms": 10236.6,
+        "pass": true
+      }
+    ],
+    "successful_latency_ms": {
+      "min": 6908.9,
+      "median": 13164.2,
+      "max": 33205.1
+    },
+    "timeouts_are_censored": true,
+    "not_a_win_rate": true
+  },
+  "earlier_live": [
+    {
+      "label": "earlier coin pickup and disconnect pause",
+      "pass": true,
+      "initial": {
+        "stage": 1,
+        "players": 1,
+        "frame": 18286,
+        "room": 71,
+        "hp": 6,
+        "dead": false,
+        "paused": true
+      },
+      "final": {
+        "stage": 1,
+        "players": 1,
+        "frame": 18753,
+        "room": 71,
+        "hp": 6,
+        "dead": false,
+        "paused": true
+      },
+      "dsh_turns": 2,
+      "all_samples_background": true,
+      "background_frames_advanced": true,
+      "elapsed_s": 17.51,
+      "effects": [
+        "pickup_disappeared_and_inventory_or_resource_changed"
+      ],
+      "pause_acknowledged": true
+    },
+    {
+      "label": "earlier short-reference route transition",
+      "pass": true,
+      "initial": {
+        "stage": 1,
+        "players": 1,
+        "frame": 18791,
+        "room": 71,
+        "hp": 6,
+        "dead": false,
+        "paused": true
+      },
+      "final": {
+        "stage": 1,
+        "players": 1,
+        "frame": 21093,
+        "room": 84,
+        "hp": 6,
+        "dead": false,
+        "paused": true
+      },
+      "dsh_turns": 3,
+      "all_samples_background": true,
+      "background_frames_advanced": true,
+      "elapsed_s": 140.77,
+      "effects": [
+        "native_room_transition_observed"
+      ],
+      "pause_acknowledged": true
+    }
+  ],
+  "current_local_recording": {
+    "mode": "local",
+    "requested_seconds": 45,
+    "elapsed_s": 45.92,
+    "rooms_observed": [
+      59,
+      71,
+      72,
+      84,
+      85
+    ],
+    "all_samples_background": false,
+    "background_frames_advanced": true,
+    "initial": {
+      "hp": 6,
+      "frame": 21147,
+      "dead": false,
+      "paused": true,
+      "players": 1,
+      "room": 84,
+      "stage": 1
+    },
+    "final": {
+      "hp": 4,
+      "frame": 22251,
+      "dead": false,
+      "paused": true,
+      "players": 1,
+      "room": 59,
+      "stage": 1
+    },
+    "stop_reason": "bounded_recording_finished",
+    "normal_pause_acknowledged": true,
+    "captured_frames": 187,
+    "foreground_samples": 5,
+    "total_samples": 41,
+    "simulated": false
+  },
+  "integrity": {
+    "protected_original_dat_files": 411,
+    "protected_original_dat_unchanged": true,
+    "frozen_native129_files": 277,
+    "frozen_native129_unchanged": true
+  },
+  "limits": [
+    "No multi-run A/B benefit established",
+    "Rare rooms lack full natural live coverage",
+    "Active/pocket execution slot 0 only",
+    "Ordinary Isaac known health costs only",
+    "Legacy bomb-wall offers use privileged adjacent hidden-room metadata"
+  ],
+  "privacy": "No endpoint, key, token, personal path, save contents, raw session or process identity exported",
+  "tests": {
+    "publication_python_lua": 606,
+    "publication_python_lua_passed": true,
+    "initial_working_copy_python_lua": 386,
+    "node_binding": 4,
+    "node_binding_passed": true,
+    "fresh_python_dependencies_installed": true,
+    "ci_remote_status": "not claimed"
+  },
+  "publication_review": {
+    "tracked_files_scanned": 276,
+    "actual_secret_matches": 0,
+    "personal_marker_matches": 0,
+    "forbidden_runtime_paths": 0,
+    "markdown_links_checked": 60,
+    "broken_local_links": 0,
+    "media_hashes_and_decodes_passed": true,
+    "media_assets": 4,
+    "git_diff_check_passed": true
+  }
+}

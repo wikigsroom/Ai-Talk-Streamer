@@ -1,0 +1,744 @@
+{
+  "schema_version": "decision-v3",
+  "run_id": "c4f45a021f4849f9",
+  "seed": 3123265371,
+  "frame": 58665,
+  "room_index": 59,
+  "provider": "local",
+  "requested_provider": "local",
+  "model": "local-policy",
+  "status": "success",
+  "policy": "navigation",
+  "input": {
+    "frame": 58665,
+    "mod_version": "2026-11-06-local27",
+    "fire_block_reason": "idle",
+    "bomb_active": false,
+    "bomb_placed": false,
+    "bomb_target_id": -1,
+    "bomb_error": "",
+    "bomb_position": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "bomb_placement_distance": -1.0,
+    "bomb_escape_direction": {
+      "x": 1.0,
+      "y": 0.0
+    },
+    "start_seed": 3123265371,
+    "room_clear": true,
+    "room_visit_sequence": 3,
+    "room_entered_frame": 58379,
+    "room_cleared_frame": 58380,
+    "hostile_enemy_count": 0,
+    "enemy_count": 0,
+    "enemy_total_hp": 0.0,
+    "enemy_kill_delta": 0,
+    "enemy_observation_valid": true,
+    "player": {
+      "hp": 2.0,
+      "position": {
+        "x": 332.2,
+        "y": 253.5
+      },
+      "grid_index": 52,
+      "red_hearts": 2,
+      "max_hearts": 6,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 360.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": -0.5,
+        "y": 1.0
+      },
+      "weapon_type": "tear",
+      "weapon_type_known": true
+    },
+    "room": {
+      "index": 59,
+      "stage": 5,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        28,
+        29,
+        30,
+        31,
+        32,
+        40,
+        42,
+        43,
+        44,
+        45,
+        46,
+        56,
+        57,
+        58,
+        59,
+        60,
+        68,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        96,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        108,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [
+        19,
+        20,
+        25,
+        26,
+        27,
+        33,
+        34,
+        39,
+        41,
+        47,
+        48,
+        53,
+        54,
+        55,
+        67,
+        69,
+        81,
+        82,
+        83,
+        95,
+        97,
+        109,
+        110,
+        111
+      ],
+      "grid_events": [
+        {
+          "kind": "spike",
+          "grid_index": 19,
+          "position": {
+            "x": 200.0,
+            "y": 160.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100019
+        },
+        {
+          "kind": "spike",
+          "grid_index": 20,
+          "position": {
+            "x": 240.0,
+            "y": 160.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100020
+        },
+        {
+          "kind": "spike",
+          "grid_index": 25,
+          "position": {
+            "x": 440.0,
+            "y": 160.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100025
+        },
+        {
+          "kind": "spike",
+          "grid_index": 26,
+          "position": {
+            "x": 480.0,
+            "y": 160.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100026
+        },
+        {
+          "kind": "spike",
+          "grid_index": 27,
+          "position": {
+            "x": 520.0,
+            "y": 160.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100027
+        },
+        {
+          "kind": "spike",
+          "grid_index": 33,
+          "position": {
+            "x": 160.0,
+            "y": 200.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100033
+        },
+        {
+          "kind": "spike",
+          "grid_index": 34,
+          "position": {
+            "x": 200.0,
+            "y": 200.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100034
+        },
+        {
+          "kind": "spike",
+          "grid_index": 39,
+          "position": {
+            "x": 400.0,
+            "y": 200.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100039
+        },
+        {
+          "kind": "spike",
+          "grid_index": 41,
+          "position": {
+            "x": 480.0,
+            "y": 200.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100041
+        },
+        {
+          "kind": "spike",
+          "grid_index": 47,
+          "position": {
+            "x": 120.0,
+            "y": 240.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100047
+        },
+        {
+          "kind": "spike",
+          "grid_index": 48,
+          "position": {
+            "x": 160.0,
+            "y": 240.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100048
+        },
+        {
+          "kind": "spike",
+          "grid_index": 53,
+          "position": {
+            "x": 360.0,
+            "y": 240.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100053
+        },
+        {
+          "kind": "spike",
+          "grid_index": 54,
+          "position": {
+            "x": 400.0,
+            "y": 240.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100054
+        },
+        {
+          "kind": "spike",
+          "grid_index": 55,
+          "position": {
+            "x": 440.0,
+            "y": 240.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100055
+        },
+        {
+          "kind": "spike",
+          "grid_index": 67,
+          "position": {
+            "x": 320.0,
+            "y": 280.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100067
+        },
+        {
+          "kind": "spike",
+          "grid_index": 69,
+          "position": {
+            "x": 400.0,
+            "y": 280.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100069
+        },
+        {
+          "kind": "spike",
+          "grid_index": 81,
+          "position": {
+            "x": 280.0,
+            "y": 320.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100081
+        },
+        {
+          "kind": "spike",
+          "grid_index": 82,
+          "position": {
+            "x": 320.0,
+            "y": 320.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100082
+        },
+        {
+          "kind": "spike",
+          "grid_index": 83,
+          "position": {
+            "x": 360.0,
+            "y": 320.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100083
+        },
+        {
+          "kind": "spike",
+          "grid_index": 95,
+          "position": {
+            "x": 240.0,
+            "y": 360.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100095
+        },
+        {
+          "kind": "spike",
+          "grid_index": 97,
+          "position": {
+            "x": 320.0,
+            "y": 360.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100097
+        },
+        {
+          "kind": "spike",
+          "grid_index": 109,
+          "position": {
+            "x": 200.0,
+            "y": 400.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100109
+        },
+        {
+          "kind": "spike",
+          "grid_index": 110,
+          "position": {
+            "x": 240.0,
+            "y": 400.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100110
+        },
+        {
+          "kind": "spike",
+          "grid_index": 111,
+          "position": {
+            "x": 280.0,
+            "y": 400.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100111
+        }
+      ],
+      "bomb_walls": [],
+      "planned_door_slot": 1,
+      "planned_goal": "committed navigation choice",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 58,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 1,
+          "position": {
+            "x": 320.0,
+            "y": 120.0
+          },
+          "target_room_index": 46,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 7,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "resources": {
+      "coins": 11,
+      "keys": 2,
+      "bombs": 7,
+      "held_trinkets": [
+        11
+      ],
+      "trinket_slots": 1,
+      "held_pills": [
+        {
+          "slot": 0,
+          "color": 5
+        }
+      ],
+      "held_cards": [],
+      "pill_use_result": "kept_unidentified",
+      "trinket_swap_result": "idle"
+    },
+    "pickups": [],
+    "hazards": [],
+    "ignored_hazard_ids": [],
+    "combat_stuck": false,
+    "hazards_observation_valid": true,
+    "nearby_enemies": [],
+    "nearby_projectiles": [],
+    "tracking_threats": [],
+    "damage_events": [
+      {
+        "id": 1,
+        "frame": 58406,
+        "amount": 2.0,
+        "flags": 128,
+        "source_type": 0,
+        "source_variant": 8
+      },
+      {
+        "id": 2,
+        "frame": 58468,
+        "amount": 2.0,
+        "flags": 128,
+        "source_type": 0,
+        "source_variant": 8
+      },
+      {
+        "id": 3,
+        "frame": 58574,
+        "amount": 2.0,
+        "flags": 128,
+        "source_type": 0,
+        "source_variant": 8
+      }
+    ],
+    "geometry": {
+      "nearest_enemy_distance": null,
+      "enemy_range_margin": null,
+      "wall_clearance_neighbors": 4,
+      "line_of_fire": false,
+      "line_of_fire_blocked": false,
+      "projectile_threats": [],
+      "nearest_projectile_ttc_frames": null,
+      "nearest_projectile_imminent": false,
+      "tracking_threats": [],
+      "nearest_tracking_bomb_distance": null,
+      "nearest_tracking_bomb_ttc_frames": null,
+      "nearest_tracking_bomb_imminent": false
+    },
+    "navigation_feedback": {
+      "requested_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": -1.0,
+        "y": 0.0
+      },
+      "movement_progress": 1.44,
+      "movement_blocked": false,
+      "move_resolution_reason": "grid_danger_escape",
+      "safe_move_directions": {
+        "right": "spike_or_tnt",
+        "up": "safe",
+        "left": "safe",
+        "down": "spike_or_tnt"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 15,
+      "last_action_id": "enter_door_1",
+      "last_action_mode": "navigate",
+      "last_action_sequence": 2607,
+      "action_age_frames": 44,
+      "recent_actions": [
+        {
+          "id": "enter_door_1",
+          "frame": 58611,
+          "elapsed_frames": 12,
+          "movement_px": 7.1,
+          "goal_progress_px": -4.6,
+          "blocked": false,
+          "resolution": "grid_danger_escape"
+        },
+        {
+          "id": "enter_door_1",
+          "frame": 58623,
+          "elapsed_frames": 12,
+          "movement_px": 9.7,
+          "goal_progress_px": 9.7,
+          "blocked": false,
+          "resolution": "no_walkable_direction"
+        },
+        {
+          "id": "enter_door_1",
+          "frame": 58635,
+          "elapsed_frames": 12,
+          "movement_px": 6.4,
+          "goal_progress_px": -6.2,
+          "blocked": true,
+          "resolution": "grid_danger_escape"
+        },
+        {
+          "id": "enter_door_1",
+          "frame": 58647,
+          "elapsed_frames": 12,
+          "movement_px": 6.8,
+          "goal_progress_px": 6.7,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "enter_door_1",
+          "frame": 58659,
+          "elapsed_frames": 12,
+          "movement_px": 8.1,
+          "goal_progress_px": -6.4,
+          "blocked": false,
+          "resolution": "no_walkable_direction"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "boss_exit": {
+      "available": false,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "grid_index": -1
+    },
+    "death": {
+      "player_dead": false,
+      "restart_phase": "alive",
+      "restart_count": 0,
+      "restart_error": ""
+    }
+  },
+  "output": {
+    "action": "enter_door_1",
+    "action_label": "进入 1 号门"
+  },
+  "probabilities": {
+    "enter_door_1": 1.0
+  },
+  "judgments": {},
+  "composition_schema": "jev-policy-v2",
+  "confidence": 1.0,
+  "top1": 1.0,
+  "top2": 0.0,
+  "margin": 1.0,
+  "entropy": 0.0,
+  "latency_ms": 0.0,
+  "client_latency_ms": 0.0,
+  "server_latency_ms": null,
+  "remote_latency_ms": null,
+  "request_bytes": 0,
+  "estimated_input_tokens": 0,
+  "candidate_set": {
+    "policy": "navigation",
+    "phase": "clear",
+    "raw_candidates": [
+      {
+        "id": "enter_door_1",
+        "mode": "navigate",
+        "target": "default door slot 1",
+        "move": {
+          "x": -1,
+          "y": 0
+        },
+        "shoot": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "reason": "committed navigation choice"
+      }
+    ],
+    "admissible_candidates": [
+      {
+        "id": "enter_door_1",
+        "mode": "navigate",
+        "target": "default door slot 1",
+        "move": {
+          "x": -1,
+          "y": 0
+        },
+        "shoot": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "reason": "committed navigation choice"
+      }
+    ],
+    "rejected_candidates": [],
+    "single_legal_reason": "only one candidate survived deterministic safety/resource rules"
+  },
+  "fallback": false,
+  "fallback_reason": "",
+  "timeout": false,
+  "error": "",
+  "stale_result": false,
+  "policy_fingerprint": "a003df9372e8",
+  "recovery": {
+    "active": false,
+    "reason": "",
+    "stall_frames": 15,
+    "target_door_slot": -1,
+    "remote_cooldown": false
+  },
+  "role_action": "进入 1 号门",
+  "action": "enter_door_1",
+  "source": "local",
+  "execution": {
+    "action_id": "enter_door_1",
+    "mode": "navigate",
+    "source": "local",
+    "execution_source": "local",
+    "provider_fallback": false,
+    "move": {
+      "x": -1,
+      "y": 0
+    },
+    "shoot": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "confidence": 1.0
+  },
+  "policy_route": "navigation",
+  "remote_call": false,
+  "phase": "clear",
+  "state_age_seconds": 0.005091600000014296,
+  "action_age_frames": 44,
+  "outcome": {
+    "hp_before": 2.0,
+    "hp_delta": 0.0,
+    "room_clear": true,
+    "movement_progress": 1.4358602762222
+  },
+  "recorded_at": "2026-11-06 08:48:21",
+  "trace_id": "00823c0b337f4a39"
+}

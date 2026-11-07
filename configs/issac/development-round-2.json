@@ -1,0 +1,282 @@
+{
+  "schema_version": 1,
+  "round": "R2",
+  "branch": "issac",
+  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "scope": "All remaining development U05-U30, including the full acceptance and official recording tools",
+  "items": [
+    {
+      "id": "U05",
+      "code": "Native environment/path adaptation and owned process launcher",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/preparation.py",
+        "integration/issac/application.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U06",
+      "code": "Pinned game/process/x86/native bridge admission",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/native_game.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U07",
+      "code": "Save backup, protected hashes and authorized slot-3 binding",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/saves.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U08",
+      "code": "Read-only bridge observation and disconnect identity",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/native_game.py",
+        "integration/issac/strategy_host.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U09",
+      "code": "Single native controller, bounded inputs and confirmed pause",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/strategy_host.py",
+        "integration/isaac-agent/build_native_controller.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U10",
+      "code": "Isolated strategy DSH and source-pinned runtime",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/strategy_dsh.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U11",
+      "code": "Offline Wiki snapshot and legal/source validation",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/wiki.py",
+        "configs/issac/sources.lock.json"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U12",
+      "code": "Bounded read-only rep Wiki tool and per-decision evidence budget",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/wiki.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U13",
+      "code": "Actual complete prompt, fifth tool and load/trace receipt",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/isaac-agent/dsh-host/isaac-plugin/index.mjs"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U14",
+      "code": "Native existing-model launcher, local-only gateway and qualification",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/local_model.py",
+        "scripts/qualify_issac_model.py",
+        "scripts/prepare_issac_native_inputs.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U15",
+      "code": "Strategy priority, deadlines, cancellation and stale context fences",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/model_gateway.py",
+        "integration/isaac-agent/dsh-host/isaac-plugin/decision_binding.mjs"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U16",
+      "code": "Twelve capability domains, legal run goal and fair observed information",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/game_policy.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U17",
+      "code": "Verified causal game events, durable cursors and deduplication",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/events.py",
+        "backend/dsh-bridge/issac.mjs"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U18",
+      "code": "Narrator DSH, seven extensions, persona and state/memory boundaries",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "backend/dsh-bridge/issac.mjs",
+        "configs/issac/bridge-policy.json"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U19",
+      "code": "NCM01 native voice, strict private inputs and current-voice cache",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/voice.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U20",
+      "code": "Three modes, genuine FlashHead mouth, continuous safe body/drink chains",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/flashhead.py",
+        "integration/issac/mouth.py",
+        "integration/issac/body.py",
+        "integration/issac/materials.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U21",
+      "code": "Continuous real game capture and single verified audio route",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/native_audio.py",
+        "integration/issac/native_game.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U22",
+      "code": "MC rev04 programme, title substitution and official capture",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "web/issac/mc-programme.js",
+        "configs/issac/programme-layout.json",
+        "integration/issac/livehime.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U23",
+      "code": "MC chat/scene/preview controls and internal Isaac director console",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "web/issac/director.html",
+        "web/issac/director.js"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U24",
+      "code": "Owned startup/stop/recovery, exclusive engine and playback lifecycle",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/application.py",
+        "integration/issac/shutdown.py",
+        "scripts/start_issac.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U25",
+      "code": "Source-separated clocks, actual PCM/frame receipts and telemetry",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/media_protocol.py",
+        "integration/issac/stream_encoder.py",
+        "integration/issac/studio.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U26",
+      "code": "Full regression, fault injection and stale/ABA/duplicate rejection tools",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/acceptance.py",
+        "integration/issac/scenarios.py",
+        "integration/issac/tests/test_boundaries.py",
+        "integration/issac/tests/contracts.test.mjs"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U27",
+      "code": "30-minute and 120-minute cohost acceptance harnesses",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/acceptance.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U28",
+      "code": "Natural-seed full-run outcome and truthful review evidence",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/scenarios.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U29",
+      "code": "Consistent state backups, version rollback and source switch drill",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/recovery.py",
+        "integration/issac/scenarios.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "U30",
+      "code": "Verified source installer, candidate freeze, acceptance and official 600-second recording",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/freeze_issac_candidate.py",
+        "scripts/install_issac_candidate.py",
+        "integration/issac/recording.py",
+        "integration/issac/capture_review.py"
+      ],
+      "runtime_accepted": false
+    }
+  ],
+  "test_phase_admission": [
+    "All U05-U30 code and acceptance tools complete",
+    "All round TODOs resolved and reviewed",
+    "Complete candidate commit and source manifest frozen",
+    "No source mutation during the test phase; collect defects for the next whole correction round"
+  ],
+  "final_recording_created": false,
+  "public_broadcast_authorized": false,
+  "runtime_accepted": false,
+  "development_document": "docs/issac/第二轮完整开发与统一验收20261107.md"
+}

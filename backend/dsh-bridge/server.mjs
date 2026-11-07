@@ -143,9 +143,10 @@ export class StreamBridge {
     const signal=AbortSignal.any([controller.signal,AbortSignal.timeout(this.policy.conversation.model_timeout_ms)]);
     try {
       const input=this.state.input(request).text;
+      await this.gameNarrator?.validate(request);
       let speech=input;
       if(request.mode==='chat') {
-        const snapshot=this.channel.snapshot(),context=this.memory.context(request,snapshot);
+        const snapshot=this.channel.snapshot(),context=this.gameNarrator?.contextFor(request)||this.memory.context(request,snapshot);
         const result=await this.host.generate({sessionId:request.dsh_session_id,snapshot,input,context,signal,
           tools:async(name,value)=>name==='stream_memory_recall'?this.memory.recall(request.viewer_id||'public',typeof value.query==='string'?value.query:input):this.memory.propose(request,value),
           onCall:this.onCall({requestId:request.request_id}),onProbe:probe=>this.recordProbe(probe)});
@@ -157,6 +158,7 @@ export class StreamBridge {
         speech=stop>=limit/2?head.slice(0,stop+1):head;
       }
       const utterance=this.state.textReady(request.request_id,speech,request.runtime_epoch,request.generation);
+      await this.gameNarrator?.validate(request);
       await this.mediaCommand('speak',utterance);
     } catch(error) {
       if(this.state.matches(request.request_id,request.runtime_epoch,request.generation))this.state.fail(request.request_id,controller.signal.aborted?'cancelled':error.code||'generation_or_media_failed');
@@ -313,7 +315,10 @@ export class StreamBridge {
       if(path==='/api/dsh/broadcast/pause'&&req.method==='POST')return send(this.state.pause(p,body));
       if(path==='/api/dsh/broadcast/end'&&req.method==='POST'){const value=this.state.end(p,body);void this.tick();return send(value);}
       if(path==='/api/dsh/cancel'&&req.method==='POST')return send(this.state.cancel(body.request_id||this.state.active()?.request_id));
-      if(path==='/api/dsh/playback/claim'&&req.method==='POST')return send(this.state.claimAuthority(p,body.broadcast_id,body.consumer_id,!!body.replace));
+      if(path==='/api/dsh/playback/claim'&&req.method==='POST'){
+        if(this.policy.deployment.state_relative_path==='state/issac-stream')requireValue(this.platforms.player?.consumer_id===body.consumer_id&&this.platforms.player?.programme==='issac'&&Date.now()-this.platforms.player.at<6000,'ISAAC_OFFICIAL_PROGRAMME_PLAYER_REQUIRED');
+        return send(this.state.claimAuthority(p,body.broadcast_id,body.consumer_id,!!body.replace));
+      }
       if(path==='/api/dsh/playback/heartbeat'&&req.method==='POST')return send(this.state.heartbeat(body.lease_id,body.consumer_id));
       if(path==='/api/dsh/playback/receipt'&&req.method==='POST')return send(this.state.receipt(p,body));
       if(path==='/api/dsh/playback/cancel-ack'&&req.method==='POST')return send(this.state.cancelAck(p,body));

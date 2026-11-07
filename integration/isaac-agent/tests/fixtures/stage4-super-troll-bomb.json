@@ -1,0 +1,7573 @@
+[
+  {
+    "frame": 39092,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 193.7,
+        "y": 280.0
+      },
+      "grid_index": 64,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 0.8,
+        "y": 0.0
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [],
+    "feedback": {
+      "requested_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "resolved_move": {
+        "x": -1.0,
+        "y": 0.0
+      },
+      "movement_progress": 4.07,
+      "movement_blocked": false,
+      "move_resolution_reason": "grid_route_control",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "grid_wall"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "open_chest_2",
+      "last_action_mode": "chest",
+      "last_action_sequence": 16,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "clear_hazard_1",
+          "frame": 39050,
+          "elapsed_frames": 12,
+          "movement_px": 33.1,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "clear_hazard_1",
+          "frame": 39062,
+          "elapsed_frames": 12,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "hazard_target_gone",
+          "frame": 39074,
+          "elapsed_frames": 12,
+          "movement_px": 0.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "open_chest_2"
+  },
+  {
+    "frame": 39095,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 197.0,
+        "y": 277.1
+      },
+      "grid_index": 64,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 0.2,
+        "y": -1.8
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [],
+    "feedback": {
+      "requested_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "movement_progress": 2.49,
+      "movement_blocked": false,
+      "move_resolution_reason": "grid_route_control",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "grid_wall"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "open_chest_2",
+      "last_action_mode": "chest",
+      "last_action_sequence": 16,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "clear_hazard_1",
+          "frame": 39050,
+          "elapsed_frames": 12,
+          "movement_px": 33.1,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "clear_hazard_1",
+          "frame": 39062,
+          "elapsed_frames": 12,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "hazard_target_gone",
+          "frame": 39074,
+          "elapsed_frames": 12,
+          "movement_px": 0.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "open_chest_2"
+  },
+  {
+    "frame": 39098,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 197.8,
+        "y": 262.4
+      },
+      "grid_index": 64,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 0.1,
+        "y": -3.2
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [],
+    "feedback": {
+      "requested_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "movement_progress": 5.84,
+      "movement_blocked": false,
+      "move_resolution_reason": "grid_route_control",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "grid_wall"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "open_chest_2",
+      "last_action_mode": "chest",
+      "last_action_sequence": 16,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "clear_hazard_1",
+          "frame": 39050,
+          "elapsed_frames": 12,
+          "movement_px": 33.1,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "clear_hazard_1",
+          "frame": 39062,
+          "elapsed_frames": 12,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "hazard_target_gone",
+          "frame": 39074,
+          "elapsed_frames": 12,
+          "movement_px": 0.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "open_chest_2"
+  },
+  {
+    "frame": 39101,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 198.1,
+        "y": 247.3
+      },
+      "grid_index": 49,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 0.0,
+        "y": -1.2
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [],
+    "feedback": {
+      "requested_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "movement_progress": 2.81,
+      "movement_blocked": false,
+      "move_resolution_reason": "grid_route_control",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "open_chest_2",
+      "last_action_mode": "chest",
+      "last_action_sequence": 16,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "clear_hazard_1",
+          "frame": 39050,
+          "elapsed_frames": 12,
+          "movement_px": 33.1,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "clear_hazard_1",
+          "frame": 39062,
+          "elapsed_frames": 12,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "hazard_target_gone",
+          "frame": 39074,
+          "elapsed_frames": 12,
+          "movement_px": 0.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "open_chest_2"
+  },
+  {
+    "frame": 39104,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 201.1,
+        "y": 242.5
+      },
+      "grid_index": 49,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 1.8,
+        "y": -0.3
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [],
+    "feedback": {
+      "requested_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "movement_progress": 2.61,
+      "movement_blocked": false,
+      "move_resolution_reason": "grid_route_control",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "open_chest_2",
+      "last_action_mode": "chest",
+      "last_action_sequence": 16,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "clear_hazard_1",
+          "frame": 39062,
+          "elapsed_frames": 12,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "hazard_target_gone",
+          "frame": 39074,
+          "elapsed_frames": 12,
+          "movement_px": 0.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "open_chest_2"
+  },
+  {
+    "frame": 39107,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 215.7,
+        "y": 241.2
+      },
+      "grid_index": 49,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 3.2,
+        "y": -0.1
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [],
+    "feedback": {
+      "requested_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "movement_progress": 5.85,
+      "movement_blocked": false,
+      "move_resolution_reason": "grid_route_control",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "open_chest_2",
+      "last_action_mode": "chest",
+      "last_action_sequence": 16,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "clear_hazard_1",
+          "frame": 39062,
+          "elapsed_frames": 12,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "hazard_target_gone",
+          "frame": 39074,
+          "elapsed_frames": 12,
+          "movement_px": 0.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "open_chest_2"
+  },
+  {
+    "frame": 39110,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 236.7,
+        "y": 241.0
+      },
+      "grid_index": 50,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 3.8,
+        "y": 0.0
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [],
+    "feedback": {
+      "requested_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "resolved_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "movement_progress": 7.44,
+      "movement_blocked": false,
+      "move_resolution_reason": "grid_route_control",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "grid_wall",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "open_chest_2",
+      "last_action_mode": "chest",
+      "last_action_sequence": 16,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "clear_hazard_1",
+          "frame": 39062,
+          "elapsed_frames": 12,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "hazard_target_gone",
+          "frame": 39074,
+          "elapsed_frames": 12,
+          "movement_px": 0.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "open_chest_2"
+  },
+  {
+    "frame": 39113,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 260.6,
+        "y": 240.9
+      },
+      "grid_index": 51,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 4.1,
+        "y": 0.0
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [],
+    "feedback": {
+      "requested_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "resolved_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "movement_progress": 8.18,
+      "movement_blocked": false,
+      "move_resolution_reason": "grid_route_control",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "open_chest_2",
+      "last_action_mode": "chest",
+      "last_action_sequence": 16,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "clear_hazard_1",
+          "frame": 39062,
+          "elapsed_frames": 12,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "hazard_target_gone",
+          "frame": 39074,
+          "elapsed_frames": 12,
+          "movement_px": 0.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "open_chest_2"
+  },
+  {
+    "frame": 39116,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 285.9,
+        "y": 240.9
+      },
+      "grid_index": 51,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 4.3,
+        "y": 0.0
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [],
+    "feedback": {
+      "requested_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "resolved_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "movement_progress": 8.53,
+      "movement_blocked": false,
+      "move_resolution_reason": "requested",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "open_chest_2",
+      "last_action_mode": "chest",
+      "last_action_sequence": 16,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "hazard_target_gone",
+          "frame": 39074,
+          "elapsed_frames": 12,
+          "movement_px": 0.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "open_chest_2"
+  },
+  {
+    "frame": 39119,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 301.3,
+        "y": 247.6
+      },
+      "grid_index": 52,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 1.0,
+        "y": 2.4
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [],
+    "feedback": {
+      "requested_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "movement_progress": 4.84,
+      "movement_blocked": false,
+      "move_resolution_reason": "lua_safety_rewrite",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "grid_wall",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "open_chest_2",
+      "last_action_mode": "chest",
+      "last_action_sequence": 16,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "hazard_target_gone",
+          "frame": 39074,
+          "elapsed_frames": 12,
+          "movement_px": 0.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "open_chest_2"
+  },
+  {
+    "frame": 39122,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 304.9,
+        "y": 264.8
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": -0.2,
+        "y": 3.0
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 14.8,
+          "y": 16.1
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "movement_progress": 6.44,
+      "movement_blocked": false,
+      "move_resolution_reason": "lua_safety_rewrite",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "ghost_bomb",
+        "right": "ghost_bomb"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "open_chest_2",
+      "last_action_mode": "chest",
+      "last_action_sequence": 16,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "hazard_target_gone",
+          "frame": 39074,
+          "elapsed_frames": 12,
+          "movement_px": 0.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39125,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 301.1,
+        "y": 273.5
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 0.7,
+        "y": 0.3
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 16.4,
+          "y": 7.1
+        },
+        "velocity": {
+          "x": -2.0,
+          "y": -0.7
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": -1.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "movement_progress": 0.85,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39128,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 310.0,
+        "y": 276.5
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 2.4,
+        "y": 0.6
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 4.0,
+          "y": 2.4
+        },
+        "velocity": {
+          "x": 1.1,
+          "y": 0.0
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": -1.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "movement_progress": 4.22,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39131,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 313.0,
+        "y": 277.5
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": -0.4,
+        "y": -0.9
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 2.9,
+          "y": 1.7
+        },
+        "velocity": {
+          "x": -0.8,
+          "y": -0.9
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "movement_progress": 1.19,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39134,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 315.1,
+        "y": 278.5
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": -0.1,
+        "y": 1.2
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 0.0,
+          "y": -1.3
+        },
+        "velocity": {
+          "x": 0.1,
+          "y": 1.2
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": -1.0,
+        "y": 0.0
+      },
+      "resolved_move": {
+        "x": -0.7,
+        "y": 0.7
+      },
+      "movement_progress": 2.23,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39080,
+          "elapsed_frames": 6,
+          "movement_px": 2.9,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39137,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 315.3,
+        "y": 277.4
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 1.0,
+        "y": -0.7
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": -0.7,
+          "y": 1.7
+        },
+        "velocity": {
+          "x": 0.8,
+          "y": -0.9
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 1.0,
+        "y": 1.0
+      },
+      "resolved_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "movement_progress": 2.02,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39140,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 314.7,
+        "y": 278.3
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": -1.1,
+        "y": -0.2
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 1.5,
+          "y": -0.4
+        },
+        "velocity": {
+          "x": -1.2,
+          "y": 0.0
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": -0.7,
+        "y": -0.7
+      },
+      "movement_progress": 2.01,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39143,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 315.9,
+        "y": 278.2
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 0.7,
+        "y": 0.9
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": -1.6,
+          "y": -0.9
+        },
+        "velocity": {
+          "x": 0.9,
+          "y": 0.8
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": -1.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "movement_progress": 2.03,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39146,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 314.2,
+        "y": 277.4
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": -1.3,
+        "y": -1.3
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 2.4,
+          "y": 2.8
+        },
+        "velocity": {
+          "x": -0.8,
+          "y": -0.7
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "resolved_move": {
+        "x": -0.7,
+        "y": -0.7
+      },
+      "movement_progress": 2.62,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39092,
+          "elapsed_frames": 12,
+          "movement_px": 77.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39149,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 312.9,
+        "y": 276.9
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 0.3,
+        "y": 1.4
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 1.2,
+          "y": -0.6
+        },
+        "velocity": {
+          "x": -0.1,
+          "y": -0.2
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": -1.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "movement_progress": 1.77,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39152,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 314.0,
+        "y": 283.8
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 0.1,
+        "y": -0.6
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 0.1,
+          "y": -4.6
+        },
+        "velocity": {
+          "x": 0.3,
+          "y": 2.7
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 1.0,
+        "y": 1.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "movement_progress": 0.47,
+      "movement_blocked": true,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "ghost_bomb",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39155,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 313.9,
+        "y": 275.3
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": -0.6,
+        "y": -0.7
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 0.7,
+          "y": 6.7
+        },
+        "velocity": {
+          "x": -0.4,
+          "y": -1.5
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "resolved_move": {
+        "x": -0.7,
+        "y": 0.7
+      },
+      "movement_progress": 3.51,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39158,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 313.5,
+        "y": 278.0
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 0.3,
+        "y": 1.8
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": -0.3,
+          "y": -0.2
+        },
+        "velocity": {
+          "x": 0.2,
+          "y": 0.9
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "movement_progress": 2.54,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39104,
+          "elapsed_frames": 12,
+          "movement_px": 38.2,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39161,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 313.4,
+        "y": 279.6
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 0.4,
+        "y": -1.0
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 0.1,
+          "y": 1.0
+        },
+        "velocity": {
+          "x": 0.1,
+          "y": -1.0
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "resolved_move": {
+        "x": 0.7,
+        "y": -0.7
+      },
+      "movement_progress": 1.41,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39161,
+          "elapsed_frames": 12,
+          "movement_px": 2.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39164,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 312.5,
+        "y": 279.6
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": -0.5,
+        "y": 1.1
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 2.1,
+          "y": -0.6
+        },
+        "velocity": {
+          "x": -0.8,
+          "y": 0.9
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "movement_progress": 1.7,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39161,
+          "elapsed_frames": 12,
+          "movement_px": 2.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39167,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 314.4,
+        "y": 279.2
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 0.6,
+        "y": -1.5
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": -1.3,
+          "y": 3.1
+        },
+        "velocity": {
+          "x": 0.5,
+          "y": -0.9
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "movement_progress": 2.41,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39161,
+          "elapsed_frames": 12,
+          "movement_px": 2.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39170,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 313.8,
+        "y": 278.0
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": -1.1,
+        "y": 0.5
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 0.3,
+          "y": 1.8
+        },
+        "velocity": {
+          "x": -1.1,
+          "y": 0.1
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 1.0,
+        "y": 1.0
+      },
+      "resolved_move": {
+        "x": -1.0,
+        "y": 0.0
+      },
+      "movement_progress": 1.55,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "open_chest_2",
+          "frame": 39116,
+          "elapsed_frames": 12,
+          "movement_px": 84.8,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "requested"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39161,
+          "elapsed_frames": 12,
+          "movement_px": 2.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39173,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 313.4,
+        "y": 277.5
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 1.1,
+        "y": -0.5
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": -0.7,
+          "y": 3.2
+        },
+        "velocity": {
+          "x": 0.8,
+          "y": -0.9
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": -1.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "movement_progress": 1.58,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39161,
+          "elapsed_frames": 12,
+          "movement_px": 2.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39173,
+          "elapsed_frames": 12,
+          "movement_px": 2.1,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39176,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 313.0,
+        "y": 280.0
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": -1.3,
+        "y": 1.4
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 2.5,
+          "y": -1.9
+        },
+        "velocity": {
+          "x": -0.7,
+          "y": 0.8
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "resolved_move": {
+        "x": -0.7,
+        "y": 0.7
+      },
+      "movement_progress": 2.68,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39161,
+          "elapsed_frames": 12,
+          "movement_px": 2.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39173,
+          "elapsed_frames": 12,
+          "movement_px": 2.1,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39179,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 312.4,
+        "y": 281.8
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 1.0,
+        "y": 0.4
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 0.9,
+          "y": -2.0
+        },
+        "velocity": {
+          "x": 0.7,
+          "y": 0.7
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": -1.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 0.7,
+        "y": 0.7
+      },
+      "movement_progress": 1.42,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39161,
+          "elapsed_frames": 12,
+          "movement_px": 2.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39173,
+          "elapsed_frames": 12,
+          "movement_px": 2.1,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39182,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 314.0,
+        "y": 282.9
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 0.0,
+        "y": -0.5
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 0.3,
+          "y": -1.9
+        },
+        "velocity": {
+          "x": -0.6,
+          "y": -0.7
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 1.0,
+        "y": 1.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "movement_progress": 0.8,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39125,
+          "elapsed_frames": 9,
+          "movement_px": 36.0,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39161,
+          "elapsed_frames": 12,
+          "movement_px": 2.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39173,
+          "elapsed_frames": 12,
+          "movement_px": 2.1,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39185,
+    "player": {
+      "hp": 7.0,
+      "position": {
+        "x": 315.2,
+        "y": 282.4
+      },
+      "grid_index": 67,
+      "red_hearts": 7,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 0.5,
+        "y": 0.4
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": -1.6,
+          "y": -2.0
+        },
+        "velocity": {
+          "x": 0.6,
+          "y": 0.6
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": -1.0,
+        "y": 0.0
+      },
+      "resolved_move": {
+        "x": 0.7,
+        "y": 0.7
+      },
+      "movement_progress": 0.36,
+      "movement_blocked": true,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39161,
+          "elapsed_frames": 12,
+          "movement_px": 2.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39173,
+          "elapsed_frames": 12,
+          "movement_px": 2.1,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39185,
+          "elapsed_frames": 12,
+          "movement_px": 5.2,
+          "goal_progress_px": null,
+          "blocked": true,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        37,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        65,
+        69,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        97,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "search treasure upgrade before boss",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39188,
+    "player": {
+      "hp": 5.0,
+      "position": {
+        "x": 313.6,
+        "y": 283.0
+      },
+      "grid_index": 67,
+      "red_hearts": 5,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": -1.8,
+        "y": 9.8
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 0.4,
+          "y": -2.3
+        },
+        "velocity": {
+          "x": -0.5,
+          "y": 1.4
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": 1.0,
+        "y": 1.0
+      },
+      "resolved_move": {
+        "x": 0.7,
+        "y": -0.7
+      },
+      "movement_progress": 1.35,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39161,
+          "elapsed_frames": 12,
+          "movement_px": 2.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39173,
+          "elapsed_frames": 12,
+          "movement_px": 2.1,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39185,
+          "elapsed_frames": 12,
+          "movement_px": 5.2,
+          "goal_progress_px": null,
+          "blocked": true,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "unexplored default room",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39191,
+    "player": {
+      "hp": 5.0,
+      "position": {
+        "x": 307.7,
+        "y": 326.4
+      },
+      "grid_index": 82,
+      "red_hearts": 5,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": -0.5,
+        "y": 7.3
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [
+      {
+        "id": 48,
+        "kind": "armed_bomb",
+        "type": 4,
+        "variant": 4,
+        "animation": "",
+        "offset": {
+          "x": 6.3,
+          "y": -45.7
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "radius": 125.0
+      }
+    ],
+    "feedback": {
+      "requested_move": {
+        "x": -1.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "movement_progress": 15.86,
+      "movement_blocked": false,
+      "move_resolution_reason": "ghost_bomb_retreat",
+      "safe_move_directions": {
+        "left": "safe",
+        "up": "ghost_bomb",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39161,
+          "elapsed_frames": 12,
+          "movement_px": 2.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39173,
+          "elapsed_frames": 12,
+          "movement_px": 2.1,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39185,
+          "elapsed_frames": 12,
+          "movement_px": 5.2,
+          "goal_progress_px": null,
+          "blocked": true,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "unexplored default room",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "evade_ghost_bomb"
+  },
+  {
+    "frame": 39194,
+    "player": {
+      "hp": 5.0,
+      "position": {
+        "x": 315.4,
+        "y": 360.0
+      },
+      "grid_index": 97,
+      "red_hearts": 5,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": 0.8,
+        "y": 2.8
+      },
+      "weapon_type": "tech_x",
+      "weapon_type_known": true
+    },
+    "threats": [],
+    "feedback": {
+      "requested_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "resolved_move": {
+        "x": 0.0,
+        "y": -1.0
+      },
+      "movement_progress": 9.63,
+      "movement_blocked": false,
+      "move_resolution_reason": "requested",
+      "safe_move_directions": {
+        "left": "grid_wall",
+        "up": "safe",
+        "down": "safe",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 0,
+      "last_action_id": "evade_ghost_bomb",
+      "last_action_mode": "evade",
+      "last_action_sequence": 17,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39137,
+          "elapsed_frames": 12,
+          "movement_px": 14.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39149,
+          "elapsed_frames": 12,
+          "movement_px": 2.5,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39161,
+          "elapsed_frames": 12,
+          "movement_px": 2.7,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39173,
+          "elapsed_frames": 12,
+          "movement_px": 2.1,
+          "goal_progress_px": null,
+          "blocked": false,
+          "resolution": "ghost_bomb_retreat"
+        },
+        {
+          "id": "evade_ghost_bomb",
+          "frame": 39185,
+          "elapsed_frames": 12,
+          "movement_px": 5.2,
+          "goal_progress_px": null,
+          "blocked": true,
+          "resolution": "ghost_bomb_retreat"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "room": {
+      "index": 137,
+      "stage": 4,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        38,
+        44,
+        45,
+        54,
+        59,
+        60,
+        74,
+        75,
+        80,
+        89,
+        90,
+        96,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "danger_grid_indices": [],
+      "grid_events": [],
+      "bomb_walls": [],
+      "planned_door_slot": 2,
+      "planned_goal": "unexplored default room",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 136,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 138,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "action": "open_chest_2"
+  }
+]

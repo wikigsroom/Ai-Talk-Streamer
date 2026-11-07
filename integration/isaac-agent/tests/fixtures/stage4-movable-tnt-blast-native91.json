@@ -1,0 +1,65 @@
+{
+  "my": 1.0,
+  "flags": 4100,
+  "stage": 4,
+  "mx": 0.0,
+  "charge_phase": "idle",
+  "enemies": [
+    {
+      "id": 3,
+      "active": false,
+      "vulnerable": false,
+      "animation": "ReadyToExplode",
+      "hp": 1.0,
+      "type": 292,
+      "champion": -1,
+      "x": 239.80155944824,
+      "y": 199.80043029785
+    },
+    {
+      "id": 4,
+      "active": true,
+      "vulnerable": true,
+      "animation": "Attack",
+      "hp": 15.0,
+      "type": 15,
+      "champion": -1,
+      "x": 384.99984741211,
+      "y": 207.56381225586
+    }
+  ],
+  "ay": 0.0,
+  "action": "wait_for_safety_filter",
+  "seed": 843686917,
+  "ax": 1.0,
+  "tear_age": 6,
+  "route": {
+    "position": {
+      "x": 117.47135925293,
+      "y": 315.10659790039
+    },
+    "cursor": 2,
+    "goal": 77,
+    "waypoint": {
+      "x": 124.90000152588,
+      "y": 330.29998779297
+    },
+    "path": [
+      92,
+      77
+    ],
+    "start": 77
+  },
+  "room": 35,
+  "move_reason": "lua_safety_rewrite",
+  "source_variant": 0,
+  "source_type": 0,
+  "aim_target": 4,
+  "vy": 2.4167549610138,
+  "vx": -9.7035722732544,
+  "amount": 2.0,
+  "x": 166.69772338867,
+  "bombs": [],
+  "frame": 26088,
+  "y": 209.4979095459
+}

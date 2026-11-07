@@ -1,0 +1,68 @@
+{
+  "my": 0.0,
+  "flags": 0,
+  "stage": 7,
+  "mx": -1.0,
+  "charge_phase": "charge",
+  "enemies": [
+    {
+      "id": 11,
+      "active": true,
+      "vulnerable": true,
+      "animation": "Walk",
+      "hp": 35.0,
+      "type": 58,
+      "champion": 1,
+      "x": 989.73797607422,
+      "y": 160.38662719727
+    },
+    {
+      "id": 12,
+      "active": true,
+      "vulnerable": true,
+      "animation": "Walk",
+      "hp": 35.0,
+      "type": 58,
+      "champion": 1,
+      "x": 815.80462646484,
+      "y": 256.23248291016
+    }
+  ],
+  "ay": 0.0,
+  "action": "route_to_firing_lane",
+  "seed": 2700781104,
+  "ax": -1.0,
+  "tear_age": 54010,
+  "route": {
+    "position": {
+      "x": 1008.4736328125,
+      "y": 150.32788085938
+    },
+    "cursor": 2,
+    "goal": 137,
+    "waypoint": {
+      "x": 1040.0,
+      "y": 160.0
+    },
+    "path": [
+      52,
+      53,
+      81,
+      109,
+      137
+    ],
+    "start": 52
+  },
+  "room": 83,
+  "move_reason": "grid_route_control",
+  "source_variant": 0,
+  "source_type": 58,
+  "aim_target": 11,
+  "vy": 0.018747467547655,
+  "vx": -4.3769874572754,
+  "amount": 2.0,
+  "x": 999.97436523438,
+  "bombs": [],
+  "frame": 44010,
+  "y": 150.38192749023
+}

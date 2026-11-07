@@ -1,0 +1,52 @@
+name: Publish final release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing final version tag, such as v0.1.0
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: final-release-${{ inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    env:
+      RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref_name }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install pinned native Python dependencies
+        run: python -m pip install -r requirements-native.lock.txt
+      - name: Run Python and Lua regressions
+        run: python -B -X utf8 -m unittest discover -s tests -q
+      - name: Test strategic reference binding
+        run: node --test tests/test_dsh_binding.mjs
+      - name: Build source archive, plugin and checksums from the exact commit
+        run: python tools/build_release.py --version "$env:RELEASE_TAG" --ref HEAD --output artifacts/release
+      - name: Upload verified assets and publish as a final Latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/publish_release.py --repo "$env:GITHUB_REPOSITORY" --version "$env:RELEASE_TAG" --directory artifacts/release

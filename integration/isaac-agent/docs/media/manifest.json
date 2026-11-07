@@ -1,0 +1,65 @@
+{
+  "source": "real native game framebuffer and live loopback dashboard",
+  "capture_date": "2026-11-07",
+  "mode": "local_only",
+  "game_audio": false,
+  "speed": "original; variable frame intervals preserved",
+  "gif_source_seconds": [
+    24,
+    38
+  ],
+  "files": [
+    {
+      "file": "dashboard-local.png",
+      "bytes": 80324,
+      "sha256": "9c1fad3711dfa0ed6575b7aea41a2f3bb4b8d3b06ad3df502ada11167e3dfabd"
+    },
+    {
+      "file": "gameplay-local.png",
+      "bytes": 268339,
+      "sha256": "6a6689276f845080ee0b22648c9399c5abe6c84b69a28f1993626c9f69e1c158"
+    },
+    {
+      "file": "local-gameplay.gif",
+      "bytes": 1861606,
+      "sha256": "cde29a445a85bffa38caea8f701db6bff026f2a01c052ce469096cd4b651d8ad",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "gif",
+            "width": 720,
+            "height": 409,
+            "avg_frame_rate": "25/4"
+          }
+        ],
+        "format": {
+          "duration": "14.000000",
+          "size": "1861606"
+        }
+      }
+    },
+    {
+      "file": "local-gameplay.mp4",
+      "bytes": 1136817,
+      "sha256": "2a37d0d3007ad54f77c5cc5db5f5ed4be1e4b8bb17f7bdf83d3b257aa706ffd1",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 968,
+            "height": 550,
+            "avg_frame_rate": "4700/1129"
+          }
+        ],
+        "format": {
+          "duration": "45.160000",
+          "size": "1136817"
+        }
+      }
+    }
+  ]
+}

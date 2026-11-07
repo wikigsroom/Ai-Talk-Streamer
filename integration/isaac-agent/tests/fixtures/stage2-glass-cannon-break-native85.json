@@ -1,0 +1,1811 @@
+[
+  {
+    "schema_version": "decision-v3",
+    "run_id": "61eb4e33388341b1",
+    "seed": 1506051797,
+    "frame": 28045,
+    "room_index": 80,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "combat",
+    "input": {
+      "frame": 28045,
+      "mod_version": "2026-11-06-native85",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "nil",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "start_seed": 1506051797,
+      "room_clear": false,
+      "room_visit_sequence": 20,
+      "room_entered_frame": 27883,
+      "room_cleared_frame": -1,
+      "hostile_enemy_count": 8,
+      "enemy_count": 8,
+      "enemy_total_hp": 156.5,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 4.0,
+        "position": {
+          "x": 269.5,
+          "y": 390.0
+        },
+        "grid_index": 111,
+        "red_hearts": 4,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 320.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": -1.1,
+          "y": 0.0
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 80,
+        "stage": 2,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          32,
+          34,
+          36,
+          38,
+          40,
+          42,
+          44,
+          45,
+          59,
+          60,
+          62,
+          64,
+          66,
+          68,
+          70,
+          72,
+          74,
+          75,
+          89,
+          90,
+          92,
+          94,
+          96,
+          97,
+          98,
+          100,
+          102,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": 2,
+        "planned_goal": "route to unexplored branch",
+        "doors": [
+          {
+            "slot": 2,
+            "position": {
+              "x": 600.0,
+              "y": 280.0
+            },
+            "target_room_index": 81,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 74,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 1,
+        "keys": 2,
+        "bombs": 3,
+        "held_trinkets": [
+          124
+        ],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [],
+      "hazards": [
+        {
+          "id": -100097,
+          "kind": "poop",
+          "type": 14,
+          "grid_index": 97,
+          "offset": {
+            "x": 50.5,
+            "y": -30.0
+          },
+          "hp": 0.0,
+          "destructible": true,
+          "requires_bomb": false,
+          "animation": "State1",
+          "variant": 0,
+          "state": -1
+        }
+      ],
+      "ignored_hazard_ids": [],
+      "combat_stuck": true,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkHeadHori",
+          "is_stationary": false,
+          "offset": {
+            "x": -28.5,
+            "y": 9.4
+          },
+          "velocity": {
+            "x": -1.0,
+            "y": 1.3
+          },
+          "hp": 18.5,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyDown",
+          "is_stationary": false,
+          "offset": {
+            "x": -29.4,
+            "y": -14.8
+          },
+          "velocity": {
+            "x": 0.0,
+            "y": 2.3
+          },
+          "hp": 18.5,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyDown",
+          "is_stationary": false,
+          "offset": {
+            "x": -29.3,
+            "y": -42.6
+          },
+          "velocity": {
+            "x": 0.0,
+            "y": 5.9
+          },
+          "hp": 22.0,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkHeadHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 115.2,
+            "y": 7.2
+          },
+          "velocity": {
+            "x": -7.2,
+            "y": -0.1
+          },
+          "hp": 9.5,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 148.1,
+            "y": 8.7
+          },
+          "velocity": {
+            "x": -6.9,
+            "y": -1.3
+          },
+          "hp": 22.0,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 180.6,
+            "y": 8.7
+          },
+          "velocity": {
+            "x": -6.7,
+            "y": 0.0
+          },
+          "hp": 22.0,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 212.9,
+            "y": 8.5
+          },
+          "velocity": {
+            "x": -6.4,
+            "y": 0.0
+          },
+          "hp": 22.0,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 245.0,
+            "y": 8.3
+          },
+          "velocity": {
+            "x": -6.7,
+            "y": 0.1
+          },
+          "hp": 22.0,
+          "is_boss": true
+        }
+      ],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [
+        {
+          "id": 1,
+          "frame": 28044,
+          "amount": 1.0,
+          "flags": 0,
+          "source_type": 19,
+          "source_variant": 0
+        },
+        {
+          "id": 2,
+          "frame": 28044,
+          "amount": 2.0,
+          "flags": 33564673,
+          "source_type": 1,
+          "source_variant": 0
+        },
+        {
+          "id": 3,
+          "frame": 28044,
+          "amount": 2.0,
+          "flags": 33564673,
+          "source_type": 1,
+          "source_variant": 0
+        }
+      ],
+      "geometry": {
+        "nearest_enemy_distance": 30.0,
+        "enemy_range_margin": 290.0,
+        "wall_clearance_neighbors": 2,
+        "line_of_fire": true,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "resolved_move": {
+          "x": -0.7,
+          "y": -0.7
+        },
+        "movement_progress": 2.25,
+        "movement_blocked": false,
+        "move_resolution_reason": "lua_safety_rewrite",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "grid_wall",
+          "down": "safe",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "dodge_charge_left",
+        "last_action_mode": "combat",
+        "last_action_sequence": 223,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "dodge_charge_left",
+            "frame": 28021,
+            "elapsed_frames": 9,
+            "movement_px": 50.3,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          },
+          {
+            "id": "retreat_and_fire",
+            "frame": 28027,
+            "elapsed_frames": 6,
+            "movement_px": 31.3,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          },
+          {
+            "id": "dodge_charge_left",
+            "frame": 28030,
+            "elapsed_frames": 3,
+            "movement_px": 17.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "no_walkable_direction"
+          },
+          {
+            "id": "route_to_firing_lane",
+            "frame": 28033,
+            "elapsed_frames": 3,
+            "movement_px": 9.2,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          },
+          {
+            "id": "dodge_charge_left",
+            "frame": 28036,
+            "elapsed_frames": 3,
+            "movement_px": 4.0,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": false,
+        "position": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "grid_index": -1
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "dodge_charge_left",
+      "action_label": "向左躲开冲刺"
+    },
+    "probabilities": {
+      "dodge_charge_left": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "combat",
+      "phase": "combat",
+      "raw_candidates": [
+        {
+          "id": "dodge_charge_left",
+          "mode": "combat",
+          "target": "",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": -1,
+            "y": 0
+          },
+          "reason": "leave the charging enemy's projected lane"
+        },
+        {
+          "id": "dodge_charge_right",
+          "mode": "combat",
+          "target": "",
+          "move": {
+            "x": 1,
+            "y": 0
+          },
+          "shoot": {
+            "x": -1,
+            "y": 0
+          },
+          "reason": "leave the charging enemy's projected lane"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "dodge_charge_left",
+          "mode": "combat",
+          "target": "",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": -1,
+            "y": 0
+          },
+          "reason": "leave the charging enemy's projected lane"
+        },
+        {
+          "id": "dodge_charge_right",
+          "mode": "combat",
+          "target": "",
+          "move": {
+            "x": 1,
+            "y": 0
+          },
+          "shoot": {
+            "x": -1,
+            "y": 0
+          },
+          "reason": "leave the charging enemy's projected lane"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": ""
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "向左躲开冲刺",
+    "action": "dodge_charge_left",
+    "source": "local",
+    "execution": {
+      "action_id": "dodge_charge_left",
+      "mode": "combat",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": -1,
+        "y": 0
+      },
+      "shoot": {
+        "x": -1,
+        "y": 0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "combat",
+    "remote_call": false,
+    "phase": "combat",
+    "state_age_seconds": 0.0011812000011559576,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 4.0,
+      "hp_delta": 0.0,
+      "room_clear": false,
+      "movement_progress": 2.2485332489014
+    },
+    "recorded_at": "2026-11-06 15:54:19",
+    "trace_id": "42716a691ef74ea2"
+  },
+  {
+    "schema_version": "decision-v3",
+    "run_id": "61eb4e33388341b1",
+    "seed": 1506051797,
+    "frame": 28048,
+    "room_index": 80,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "combat",
+    "input": {
+      "frame": 28048,
+      "mod_version": "2026-11-06-native85",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "nil",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "start_seed": 1506051797,
+      "room_clear": false,
+      "room_visit_sequence": 20,
+      "room_entered_frame": 27883,
+      "room_cleared_frame": -1,
+      "hostile_enemy_count": 8,
+      "enemy_count": 8,
+      "enemy_total_hp": 153.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 4.0,
+        "position": {
+          "x": 270.8,
+          "y": 395.4
+        },
+        "grid_index": 111,
+        "red_hearts": 4,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 320.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": 1.3,
+          "y": 1.4
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 80,
+        "stage": 2,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          32,
+          34,
+          36,
+          38,
+          40,
+          42,
+          44,
+          45,
+          59,
+          60,
+          62,
+          64,
+          66,
+          68,
+          70,
+          72,
+          74,
+          75,
+          89,
+          90,
+          92,
+          94,
+          96,
+          97,
+          98,
+          100,
+          102,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": 2,
+        "planned_goal": "route to unexplored branch",
+        "doors": [
+          {
+            "slot": 2,
+            "position": {
+              "x": 600.0,
+              "y": 280.0
+            },
+            "target_room_index": 81,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 74,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 1,
+        "keys": 2,
+        "bombs": 3,
+        "held_trinkets": [
+          124
+        ],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [],
+      "hazards": [
+        {
+          "id": -100097,
+          "kind": "poop",
+          "type": 14,
+          "grid_index": 97,
+          "offset": {
+            "x": 49.2,
+            "y": -35.4
+          },
+          "hp": 0.0,
+          "destructible": true,
+          "requires_bomb": false,
+          "animation": "State1",
+          "variant": 0,
+          "state": -1
+        }
+      ],
+      "ignored_hazard_ids": [],
+      "combat_stuck": true,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkHeadHori",
+          "is_stationary": false,
+          "offset": {
+            "x": -28.1,
+            "y": 3.9
+          },
+          "velocity": {
+            "x": 2.2,
+            "y": -0.3
+          },
+          "hp": 18.5,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyDown",
+          "is_stationary": false,
+          "offset": {
+            "x": -30.8,
+            "y": -19.7
+          },
+          "velocity": {
+            "x": -0.1,
+            "y": -0.2
+          },
+          "hp": 18.5,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyDown",
+          "is_stationary": false,
+          "offset": {
+            "x": -30.6,
+            "y": -43.5
+          },
+          "velocity": {
+            "x": 0.0,
+            "y": 0.5
+          },
+          "hp": 22.0,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkHeadHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 94.7,
+            "y": 4.6
+          },
+          "velocity": {
+            "x": -5.0,
+            "y": 0.7
+          },
+          "hp": 6.0,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 125.3,
+            "y": 2.0
+          },
+          "velocity": {
+            "x": -6.7,
+            "y": -0.2
+          },
+          "hp": 22.0,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 157.7,
+            "y": 4.1
+          },
+          "velocity": {
+            "x": -7.5,
+            "y": 0.7
+          },
+          "hp": 22.0,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 191.0,
+            "y": 3.2
+          },
+          "velocity": {
+            "x": -7.1,
+            "y": 0.0
+          },
+          "hp": 22.0,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 223.8,
+            "y": 3.0
+          },
+          "velocity": {
+            "x": -6.8,
+            "y": 0.0
+          },
+          "hp": 22.0,
+          "is_boss": true
+        }
+      ],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [
+        {
+          "id": 1,
+          "frame": 28044,
+          "amount": 1.0,
+          "flags": 0,
+          "source_type": 19,
+          "source_variant": 0
+        },
+        {
+          "id": 2,
+          "frame": 28044,
+          "amount": 2.0,
+          "flags": 33564673,
+          "source_type": 1,
+          "source_variant": 0
+        },
+        {
+          "id": 3,
+          "frame": 28044,
+          "amount": 2.0,
+          "flags": 33564673,
+          "source_type": 1,
+          "source_variant": 0
+        }
+      ],
+      "geometry": {
+        "nearest_enemy_distance": 28.4,
+        "enemy_range_margin": 291.6,
+        "wall_clearance_neighbors": 2,
+        "line_of_fire": true,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "resolved_move": {
+          "x": -0.7,
+          "y": 0.7
+        },
+        "movement_progress": 3.96,
+        "movement_blocked": false,
+        "move_resolution_reason": "lua_safety_rewrite",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "grid_wall",
+          "down": "grid_wall",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "dodge_charge_left",
+        "last_action_mode": "combat",
+        "last_action_sequence": 223,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "retreat_and_fire",
+            "frame": 28027,
+            "elapsed_frames": 6,
+            "movement_px": 31.3,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          },
+          {
+            "id": "dodge_charge_left",
+            "frame": 28030,
+            "elapsed_frames": 3,
+            "movement_px": 17.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "no_walkable_direction"
+          },
+          {
+            "id": "route_to_firing_lane",
+            "frame": 28033,
+            "elapsed_frames": 3,
+            "movement_px": 9.2,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          },
+          {
+            "id": "dodge_charge_left",
+            "frame": 28036,
+            "elapsed_frames": 3,
+            "movement_px": 4.0,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          },
+          {
+            "id": "dodge_charge_left",
+            "frame": 28048,
+            "elapsed_frames": 12,
+            "movement_px": 26.6,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": false,
+        "position": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "grid_index": -1
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "route_to_firing_lane",
+      "action_label": "route_to_firing_lane"
+    },
+    "probabilities": {
+      "route_to_firing_lane": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "combat",
+      "phase": "combat",
+      "raw_candidates": [
+        {
+          "id": "route_to_firing_lane",
+          "mode": "combat",
+          "target": "",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "follow a reachable firing lane around obstacles; evade live threats each frame"
+        },
+        {
+          "id": "retreat_and_fire",
+          "mode": "combat",
+          "target": "",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": -1,
+            "y": 0
+          },
+          "reason": "charging lane has no safe side route"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "route_to_firing_lane",
+          "mode": "combat",
+          "target": "",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "follow a reachable firing lane around obstacles; evade live threats each frame"
+        },
+        {
+          "id": "retreat_and_fire",
+          "mode": "combat",
+          "target": "",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": -1,
+            "y": 0
+          },
+          "reason": "charging lane has no safe side route"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": ""
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "route_to_firing_lane",
+    "action": "route_to_firing_lane",
+    "source": "local",
+    "execution": {
+      "action_id": "route_to_firing_lane",
+      "mode": "combat",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": -1,
+        "y": 0
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "combat",
+    "remote_call": false,
+    "phase": "combat",
+    "state_age_seconds": 0.0019819000008283183,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 4.0,
+      "hp_delta": 0.0,
+      "room_clear": false,
+      "movement_progress": 3.9566819667816
+    },
+    "recorded_at": "2026-11-06 15:54:19",
+    "trace_id": "e771233f1f1b4b5a"
+  },
+  {
+    "schema_version": "decision-v3",
+    "run_id": "61eb4e33388341b1",
+    "seed": 1506051797,
+    "frame": 28051,
+    "room_index": 80,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "combat",
+    "input": {
+      "frame": 28051,
+      "mod_version": "2026-11-06-native85",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "nil",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "start_seed": 1506051797,
+      "room_clear": false,
+      "room_visit_sequence": 20,
+      "room_entered_frame": 27883,
+      "room_cleared_frame": -1,
+      "hostile_enemy_count": 8,
+      "enemy_count": 8,
+      "enemy_total_hp": 151.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 4.0,
+        "position": {
+          "x": 282.5,
+          "y": 402.2
+        },
+        "grid_index": 111,
+        "red_hearts": 4,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 320.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": 2.4,
+          "y": 1.0
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 80,
+        "stage": 2,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          32,
+          34,
+          36,
+          38,
+          40,
+          42,
+          44,
+          45,
+          59,
+          60,
+          62,
+          64,
+          66,
+          68,
+          70,
+          72,
+          74,
+          75,
+          89,
+          90,
+          92,
+          94,
+          96,
+          97,
+          98,
+          100,
+          102,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": 2,
+        "planned_goal": "route to unexplored branch",
+        "doors": [
+          {
+            "slot": 2,
+            "position": {
+              "x": 600.0,
+              "y": 280.0
+            },
+            "target_room_index": 81,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 74,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 1,
+        "keys": 2,
+        "bombs": 3,
+        "held_trinkets": [
+          124
+        ],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [],
+      "hazards": [
+        {
+          "id": -100097,
+          "kind": "poop",
+          "type": 14,
+          "grid_index": 97,
+          "offset": {
+            "x": 37.5,
+            "y": -42.2
+          },
+          "hp": 0.0,
+          "destructible": true,
+          "requires_bomb": false,
+          "animation": "State1",
+          "variant": 0,
+          "state": -1
+        }
+      ],
+      "ignored_hazard_ids": [],
+      "combat_stuck": true,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkHeadHori",
+          "is_stationary": false,
+          "offset": {
+            "x": -28.7,
+            "y": -3.4
+          },
+          "velocity": {
+            "x": 4.2,
+            "y": -0.2
+          },
+          "hp": 16.5,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyDown",
+          "is_stationary": false,
+          "offset": {
+            "x": -42.4,
+            "y": -19.3
+          },
+          "velocity": {
+            "x": 0.1,
+            "y": 3.5
+          },
+          "hp": 18.5,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyDown",
+          "is_stationary": false,
+          "offset": {
+            "x": -42.4,
+            "y": -47.3
+          },
+          "velocity": {
+            "x": 0.0,
+            "y": 2.1
+          },
+          "hp": 22.0,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkHeadHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 65.5,
+            "y": -2.2
+          },
+          "velocity": {
+            "x": -6.0,
+            "y": -0.3
+          },
+          "hp": 6.0,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 96.9,
+            "y": -2.9
+          },
+          "velocity": {
+            "x": -5.5,
+            "y": 1.7
+          },
+          "hp": 22.0,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 127.8,
+            "y": -4.1
+          },
+          "velocity": {
+            "x": -5.6,
+            "y": -0.6
+          },
+          "hp": 22.0,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 158.7,
+            "y": -3.4
+          },
+          "velocity": {
+            "x": -6.2,
+            "y": 0.0
+          },
+          "hp": 22.0,
+          "is_boss": true
+        },
+        {
+          "type": 19,
+          "variant": 0,
+          "subtype": 0,
+          "state": 4,
+          "telegraph": "WalkBodyHori",
+          "is_stationary": false,
+          "offset": {
+            "x": 190.6,
+            "y": -3.6
+          },
+          "velocity": {
+            "x": -7.0,
+            "y": 0.0
+          },
+          "hp": 22.0,
+          "is_boss": true
+        }
+      ],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [
+        {
+          "id": 1,
+          "frame": 28044,
+          "amount": 1.0,
+          "flags": 0,
+          "source_type": 19,
+          "source_variant": 0
+        },
+        {
+          "id": 2,
+          "frame": 28044,
+          "amount": 2.0,
+          "flags": 33564673,
+          "source_type": 1,
+          "source_variant": 0
+        },
+        {
+          "id": 3,
+          "frame": 28044,
+          "amount": 2.0,
+          "flags": 33564673,
+          "source_type": 1,
+          "source_variant": 0
+        }
+      ],
+      "geometry": {
+        "nearest_enemy_distance": 28.9,
+        "enemy_range_margin": 291.1,
+        "wall_clearance_neighbors": 2,
+        "line_of_fire": true,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "resolved_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "movement_progress": 5.03,
+        "movement_blocked": false,
+        "move_resolution_reason": "requested",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "grid_wall",
+          "down": "grid_wall",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "dodge_charge_left",
+        "last_action_mode": "combat",
+        "last_action_sequence": 223,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "retreat_and_fire",
+            "frame": 28027,
+            "elapsed_frames": 6,
+            "movement_px": 31.3,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          },
+          {
+            "id": "dodge_charge_left",
+            "frame": 28030,
+            "elapsed_frames": 3,
+            "movement_px": 17.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "no_walkable_direction"
+          },
+          {
+            "id": "route_to_firing_lane",
+            "frame": 28033,
+            "elapsed_frames": 3,
+            "movement_px": 9.2,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          },
+          {
+            "id": "dodge_charge_left",
+            "frame": 28036,
+            "elapsed_frames": 3,
+            "movement_px": 4.0,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          },
+          {
+            "id": "dodge_charge_left",
+            "frame": 28048,
+            "elapsed_frames": 12,
+            "movement_px": 26.6,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": false,
+        "position": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "grid_index": -1
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "route_to_firing_lane",
+      "action_label": "route_to_firing_lane"
+    },
+    "probabilities": {
+      "route_to_firing_lane": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "combat",
+      "phase": "combat",
+      "raw_candidates": [
+        {
+          "id": "route_to_firing_lane",
+          "mode": "combat",
+          "target": "",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "follow a reachable firing lane around obstacles; evade live threats each frame"
+        },
+        {
+          "id": "retreat_and_fire",
+          "mode": "combat",
+          "target": "",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": -1,
+            "y": 0
+          },
+          "reason": "charging lane has no safe side route"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "route_to_firing_lane",
+          "mode": "combat",
+          "target": "",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "follow a reachable firing lane around obstacles; evade live threats each frame"
+        },
+        {
+          "id": "retreat_and_fire",
+          "mode": "combat",
+          "target": "",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": -1,
+            "y": 0
+          },
+          "reason": "charging lane has no safe side route"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": ""
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "route_to_firing_lane",
+    "action": "route_to_firing_lane",
+    "source": "local",
+    "execution": {
+      "action_id": "route_to_firing_lane",
+      "mode": "combat",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": -1,
+        "y": 0
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "combat",
+    "remote_call": false,
+    "phase": "combat",
+    "state_age_seconds": 0.0014609999998356216,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 4.0,
+      "hp_delta": 0.0,
+      "room_clear": false,
+      "movement_progress": 5.0253057479858
+    },
+    "recorded_at": "2026-11-06 15:54:19",
+    "trace_id": "7e0f76cd7beb4315"
+  }
+]

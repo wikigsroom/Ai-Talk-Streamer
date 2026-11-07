@@ -1,0 +1,489 @@
+{
+  "damage_event": {
+    "flags": 33826849,
+    "id": 3,
+    "source_type": 1,
+    "source_variant": 0,
+    "frame": 49861,
+    "amount": 1.0
+  },
+  "raw_state": {
+    "enemy_kill_delta": 0,
+    "pill_use_result": "kept_unidentified",
+    "control_waypoint": {
+      "x": 113.0,
+      "y": 360.5
+    },
+    "charge_phase": "continuous",
+    "bomb_placed": false,
+    "backtrack_guard_active": false,
+    "enemy_observation_valid": true,
+    "active_charge": 3,
+    "bomb_placement_distance": -1,
+    "movement_progress": 6.4723110198975,
+    "room_entry_age_frames": 257,
+    "progression_target": "satan",
+    "transition_door_distance": -1,
+    "damage_events": [
+      {
+        "flags": 0,
+        "id": 1,
+        "source_type": 85,
+        "source_variant": 0,
+        "frame": 48938,
+        "amount": 1.0
+      },
+      {
+        "flags": 0,
+        "id": 2,
+        "source_type": 24,
+        "source_variant": 1,
+        "frame": 49860,
+        "amount": 2.0
+      },
+      {
+        "flags": 33826849,
+        "id": 3,
+        "source_type": 1,
+        "source_variant": 0,
+        "frame": 49861,
+        "amount": 1.0
+      },
+      {
+        "flags": 33826849,
+        "id": 4,
+        "source_type": 1,
+        "source_variant": 0,
+        "frame": 49861,
+        "amount": 1.0
+      },
+      {
+        "flags": 33826849,
+        "id": 5,
+        "source_type": 1,
+        "source_variant": 0,
+        "frame": 49861,
+        "amount": 1.0
+      },
+      {
+        "flags": 33826849,
+        "id": 6,
+        "source_type": 1,
+        "source_variant": 0,
+        "frame": 49861,
+        "amount": 1.0
+      },
+      {
+        "flags": 0,
+        "id": 7,
+        "source_type": 24,
+        "source_variant": 1,
+        "frame": 49892,
+        "amount": 2.0
+      },
+      {
+        "flags": 33826849,
+        "id": 8,
+        "source_type": 1,
+        "source_variant": 0,
+        "frame": 49906,
+        "amount": 1.0
+      },
+      {
+        "flags": 33826849,
+        "id": 9,
+        "source_type": 1,
+        "source_variant": 0,
+        "frame": 49906,
+        "amount": 1.0
+      },
+      {
+        "flags": 33826849,
+        "id": 10,
+        "source_type": 1,
+        "source_variant": 0,
+        "frame": 49906,
+        "amount": 1.0
+      }
+    ],
+    "stage": 5,
+    "utility_result": "native_active:45",
+    "trinket_swap_result": "idle",
+    "held_cards": [
+      {
+        "card": 10,
+        "slot": 0
+      }
+    ],
+    "room_entered_frame": 49654,
+    "player_dead": false,
+    "boss_exit_position": {
+      "x": 0,
+      "y": 0
+    },
+    "keys": 3,
+    "bomb_escape_direction": {
+      "x": 0.0,
+      "y": -1.0
+    },
+    "dimension": 0,
+    "transition_gate": "not_navigation",
+    "frame": 49911,
+    "boss_exit_available": false,
+    "restart_error": "",
+    "held_pills": [],
+    "safe_move_directions": {
+      "left": "grid_wall",
+      "up": "safe",
+      "down": "safe",
+      "right": "safe"
+    },
+    "layout": {
+      "blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        40,
+        41,
+        43,
+        44,
+        45,
+        46,
+        48,
+        56,
+        58,
+        59,
+        60,
+        61,
+        63,
+        67,
+        71,
+        73,
+        74,
+        75,
+        76,
+        78,
+        86,
+        88,
+        89,
+        90,
+        91,
+        93,
+        94,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "room_index": 97,
+      "is_boss": false,
+      "grid_width": 15,
+      "shot_blocked": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        29,
+        30,
+        44,
+        45,
+        59,
+        60,
+        67,
+        74,
+        75,
+        89,
+        90,
+        104,
+        105,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "grid_height": 9,
+      "room_type": "default",
+      "bomb_walls": [],
+      "grid_events": [],
+      "danger_grid_indices": [],
+      "doors": [
+        {
+          "slot": 1,
+          "door_locked": false,
+          "door_open_known": true,
+          "door_lock_known": true,
+          "target_room_type": "default",
+          "target_room_index": 84,
+          "door_open": false,
+          "pos": {
+            "x": 320.0,
+            "y": 120.0
+          },
+          "grid_index": 7,
+          "target_clear": true,
+          "target_is_boss": false
+        },
+        {
+          "slot": 3,
+          "door_locked": false,
+          "door_open_known": true,
+          "door_lock_known": true,
+          "target_room_type": "default",
+          "target_room_index": 110,
+          "door_open": false,
+          "pos": {
+            "x": 320.0,
+            "y": 440.0
+          },
+          "grid_index": 127,
+          "target_clear": false,
+          "target_is_boss": false
+        }
+      ]
+    },
+    "held_trinkets": [
+      8
+    ],
+    "enemy_total_hp": 18.0,
+    "type": "state",
+    "hostile_enemy_count": 2,
+    "active_item": 45,
+    "fired_tears": 0,
+    "danger_effects": [],
+    "fire_block_reason": "idle",
+    "pickups": [],
+    "projectiles": [],
+    "enemies": [
+      {
+        "id": 1,
+        "is_boss": false,
+        "variant": 1,
+        "subtype": 0,
+        "grid_index": 62,
+        "vel": {
+          "x": -0.3,
+          "y": -0.2
+        },
+        "vulnerable": true,
+        "telegraph": "WalkVert",
+        "state": 4,
+        "type": 24,
+        "champion_color": -1,
+        "hp": 8.0,
+        "pos": {
+          "x": 127.0,
+          "y": 262.8
+        }
+      },
+      {
+        "id": 2,
+        "is_boss": false,
+        "variant": 1,
+        "subtype": 0,
+        "grid_index": 47,
+        "vel": {
+          "x": 0.9,
+          "y": 0.7
+        },
+        "vulnerable": true,
+        "telegraph": "ReGen",
+        "state": 3,
+        "type": 24,
+        "champion_color": 1,
+        "hp": 10.0,
+        "pos": {
+          "x": 112.1,
+          "y": 243.8
+        }
+      }
+    ],
+    "restart_phase": "alive",
+    "boss_exit_grid_index": -1,
+    "player_grid_index": 107,
+    "bombs": 0,
+    "last_transition_source_room_index": 84,
+    "last_action_id": "route_to_firing_lane",
+    "bomb_error": "nil",
+    "coins": 13,
+    "last_action_mode": "combat",
+    "route_debug": {
+      "position": {
+        "x": 120.80474090576,
+        "y": 375.01556396484
+      },
+      "cursor": 2,
+      "goal": 92,
+      "waypoint": {
+        "x": 120.0,
+        "y": 360.0
+      },
+      "path": [
+        77,
+        92
+      ],
+      "start": 92
+    },
+    "native_tear_age": 9,
+    "action_age_frames": 2,
+    "bomb_target_id": -1,
+    "room_clear": false,
+    "bomb_active": false,
+    "transition_error": "",
+    "bomb_position": {
+      "x": 0,
+      "y": 0
+    },
+    "last_action_sequence": 279,
+    "bomb_placed_frame": -1,
+    "room_cleared_frame": -1,
+    "trinket_slots": 1,
+    "input_lease": {
+      "automatic": true,
+      "awaiting_reply": false,
+      "move_input_age_frames": 2,
+      "controller_enabled": true,
+      "message_age_ms": 67,
+      "response_age_frames": 2,
+      "shoot_input_age_frames": 6,
+      "controls_enabled": true,
+      "pending_action_bytes": 0
+    },
+    "mod_version": "2026-11-06-native113",
+    "move_resolution_reason": "grid_route_control",
+    "transition_attempt": 0,
+    "start_seed": 1400950965,
+    "enemy_count": 2,
+    "floor_id": "canonical-room-v1",
+    "resolved_move": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "requested_move": {
+      "x": 0.0,
+      "y": 1.0
+    },
+    "room_index": 97,
+    "last_transition_target_room_index": 97,
+    "movement_blocked": false,
+    "control_shoot": {
+      "x": 0.0,
+      "y": -1.0
+    },
+    "transition_phase": "entered",
+    "stage_type": 0,
+    "restart_count": 0,
+    "room_visit_sequence": 10,
+    "hazards": [],
+    "hazards_observation_valid": true,
+    "weapon_control": {
+      "target_id": 1,
+      "phase": "continuous",
+      "extra_frames": 0,
+      "profile": "tear",
+      "elapsed": 0,
+      "last_shot_age": 9,
+      "confirmed_releases": 0,
+      "release_count": 0,
+      "target_ready": true,
+      "failed_releases": 0,
+      "shot_count": 23,
+      "charge_frames": 13
+    },
+    "player": {
+      "hp": 1,
+      "soul_hearts": 0,
+      "weapon_type_known": true,
+      "damage_cooldown": 49,
+      "red_hearts": 1,
+      "black_hearts": 0,
+      "type": 1,
+      "tear_speed": 1.2000000476837,
+      "id": 0,
+      "weapon_type": "tear",
+      "move_speed": 1.6000000238419,
+      "vel": {
+        "x": 0.8,
+        "y": 2.5
+      },
+      "max_hearts": 8,
+      "pos": {
+        "x": 122.8,
+        "y": 381.2
+      },
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "bone_hearts": 0
+    }
+  }
+}

@@ -1,0 +1,191 @@
+[
+  {
+    "my": -1.0,
+    "flags": 0,
+    "stage": 4,
+    "mx": 0.0,
+    "charge_phase": "idle",
+    "enemies": [
+      {
+        "id": 1,
+        "active": true,
+        "vulnerable": true,
+        "animation": "WalkHori",
+        "hp": 28.918333053589,
+        "type": 24,
+        "champion": -1,
+        "x": 89.016212463379,
+        "y": 339.06729125977
+      },
+      {
+        "id": 2,
+        "active": true,
+        "vulnerable": true,
+        "animation": "WalkHori",
+        "hp": 28.918333053589,
+        "type": 24,
+        "champion": -1,
+        "x": 118.31182098389,
+        "y": 366.16925048828
+      }
+    ],
+    "ay": -1.0,
+    "action": "route_to_firing_lane",
+    "seed": 977822611,
+    "ax": 0.0,
+    "tear_age": 8,
+    "route": {
+      "position": {
+        "x": 100.04051971436,
+        "y": 378.83746337891
+      },
+      "cursor": 2,
+      "goal": 76,
+      "waypoint": {
+        "x": 80.0,
+        "y": 360.0
+      },
+      "path": [
+        92,
+        91
+      ],
+      "start": 92
+    },
+    "room": 49,
+    "move_reason": "lua_safety_rewrite",
+    "source_variant": 0,
+    "source_type": 24,
+    "aim_target": 1,
+    "vy": -3.2124247550964,
+    "vx": 0.3982281088829,
+    "amount": 2.0,
+    "x": 78.898475646973,
+    "bombs": [],
+    "frame": 32006,
+    "y": 352.25924682617
+  },
+  {
+    "my": 0.0,
+    "flags": 0,
+    "stage": 4,
+    "mx": 0.0,
+    "charge_phase": "idle",
+    "enemies": [
+      {
+        "id": 2,
+        "active": true,
+        "vulnerable": true,
+        "animation": "WalkHori",
+        "hp": 16.673332214355,
+        "type": 24,
+        "champion": -1,
+        "x": 544.33630371094,
+        "y": 165.17272949219
+      }
+    ],
+    "ay": 0.0,
+    "action": "route_to_firing_lane",
+    "seed": 977822611,
+    "ax": -1.0,
+    "tear_age": 5,
+    "route": {
+      "position": {
+        "x": 528.28887939453,
+        "y": 171.98664855957
+      },
+      "cursor": 2,
+      "goal": 55,
+      "waypoint": {
+        "x": 520.0,
+        "y": 240.0
+      },
+      "path": [
+        42,
+        57,
+        72,
+        71,
+        70
+      ],
+      "start": 27
+    },
+    "room": 49,
+    "move_reason": "no_walkable_direction",
+    "source_variant": 1,
+    "source_type": 24,
+    "aim_target": 1,
+    "vy": 0.025451458990574,
+    "vx": 0.14769107103348,
+    "amount": 2.0,
+    "x": 565.10968017578,
+    "bombs": [],
+    "frame": 32118,
+    "y": 172.09480285645
+  },
+  {
+    "my": 0.70709997415543,
+    "flags": 0,
+    "stage": 4,
+    "mx": -0.70709997415543,
+    "charge_phase": "idle",
+    "enemies": [
+      {
+        "id": 1,
+        "active": true,
+        "vulnerable": true,
+        "animation": "ReGen",
+        "hp": 10.0,
+        "type": 24,
+        "champion": -1,
+        "x": 502.74096679688,
+        "y": 164.40245056152
+      },
+      {
+        "id": 3,
+        "active": true,
+        "vulnerable": true,
+        "animation": "WalkVert",
+        "hp": 10.0,
+        "type": 24,
+        "champion": -1,
+        "x": 549.67230224609,
+        "y": 192.12823486328
+      }
+    ],
+    "ay": 1.0,
+    "action": "route_to_firing_lane",
+    "seed": 977822611,
+    "ax": 0.0,
+    "tear_age": 6,
+    "route": {
+      "position": {
+        "x": 533.251953125,
+        "y": 150.32456970215
+      },
+      "cursor": 2,
+      "goal": 40,
+      "waypoint": {
+        "x": 480.0,
+        "y": 160.0
+      },
+      "path": [
+        27,
+        26,
+        25,
+        40
+      ],
+      "start": 27
+    },
+    "room": 49,
+    "move_reason": "lua_safety_rewrite",
+    "source_variant": 0,
+    "source_type": 24,
+    "aim_target": 3,
+    "vy": 2.110170841217,
+    "vx": -2.9529829025269,
+    "amount": 2.0,
+    "x": 521.39282226563,
+    "bombs": [],
+    "frame": 32704,
+    "y": 155.8349609375
+  }
+]

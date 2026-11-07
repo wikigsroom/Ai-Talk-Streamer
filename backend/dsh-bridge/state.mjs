@@ -118,7 +118,11 @@ export class StreamState extends EventEmitter {
     });
   }
   enqueueJobsInTransaction(broadcastId, end, revision, notBefore, kind, scheduleKey = '') {
-    const events = this.db.all("SELECT e.event_seq,p.payload_json FROM stream_events e JOIN event_payloads p USING(event_seq) WHERE e.broadcast_id=? AND e.event_seq<=? AND e.event_type IN ('input.accepted','playback.completed') AND p.redacted_at IS NULL ORDER BY event_seq", broadcastId, end);
+    const events = this.db.all("SELECT e.event_seq,e.request_id,p.payload_json FROM stream_events e JOIN event_payloads p USING(event_seq) WHERE e.broadcast_id=? AND e.event_seq<=? AND e.event_type IN ('input.accepted','playback.completed') AND p.redacted_at IS NULL ORDER BY event_seq", broadcastId, end).filter(row=>{
+      if(this.policy.deployment?.state_relative_path!=='state/issac-stream')return true;
+      const request=row.request_id?this.request(row.request_id):null;
+      return !request||this.input(request)?.source?.collector!=='issac-native-game';
+    });
     const partitions = new Set(events.map(e => JSON.parse(e.payload_json).partition_key || 'public'));
     if (!partitions.size) partitions.add('public');
     const room = this.room(), created = [];

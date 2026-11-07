@@ -1,0 +1,378 @@
+{
+  "frame": 11882,
+  "mod_version": "2026-11-06-native74",
+  "fire_block_reason": "idle",
+  "bomb_active": false,
+  "bomb_placed": false,
+  "bomb_target_id": -1,
+  "bomb_error": "nil",
+  "bomb_position": {
+    "x": 0.0,
+    "y": 0.0
+  },
+  "bomb_placement_distance": -1.0,
+  "bomb_escape_direction": {
+    "x": -1.0,
+    "y": 0.0
+  },
+  "start_seed": 4003082508,
+  "room_clear": false,
+  "room_visit_sequence": 25,
+  "room_entered_frame": 11612,
+  "room_cleared_frame": -1,
+  "hostile_enemy_count": 2,
+  "enemy_count": 2,
+  "enemy_total_hp": 41.5,
+  "enemy_kill_delta": 0,
+  "enemy_observation_valid": true,
+  "player": {
+    "hp": 7.0,
+    "position": {
+      "x": 477.4,
+      "y": 289.6
+    },
+    "grid_index": 71,
+    "red_hearts": 6,
+    "max_hearts": 6,
+    "soul_hearts": 1,
+    "black_hearts": 0,
+    "bone_hearts": 0,
+    "eternal_hearts": 0,
+    "tear_range": 460.0,
+    "tear_speed": 1.0,
+    "velocity": {
+      "x": 0.0,
+      "y": 0.9
+    },
+    "weapon_type": "tear",
+    "weapon_type_known": true
+  },
+  "room": {
+    "index": 42,
+    "stage": 3,
+    "stage_type": 0,
+    "dimension": 0,
+    "type": "default",
+    "is_boss": false,
+    "grid_width": 15,
+    "grid_height": 9,
+    "blocked": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      49,
+      55,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      64,
+      66,
+      68,
+      70,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      79,
+      85,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      96,
+      98,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134
+    ],
+    "danger_grid_indices": [],
+    "grid_events": [],
+    "bomb_walls": [],
+    "planned_door_slot": -1,
+    "planned_goal": "no usable exit is currently known",
+    "doors": [
+      {
+        "slot": 1,
+        "position": {
+          "x": 320.0,
+          "y": 120.0
+        },
+        "target_room_index": 29,
+        "target_is_boss": false,
+        "target_clear": false,
+        "grid_index": 7,
+        "target_room_type": "default",
+        "locked": false,
+        "lock_known": true,
+        "open": false,
+        "open_known": true
+      },
+      {
+        "slot": 3,
+        "position": {
+          "x": 320.0,
+          "y": 440.0
+        },
+        "target_room_index": 55,
+        "target_is_boss": false,
+        "target_clear": true,
+        "grid_index": 127,
+        "target_room_type": "default",
+        "locked": false,
+        "lock_known": true,
+        "open": false,
+        "open_known": true
+      }
+    ]
+  },
+  "resources": {
+    "coins": 1,
+    "keys": 1,
+    "bombs": 2,
+    "held_trinkets": [
+      41
+    ],
+    "trinket_slots": 1,
+    "held_pills": [],
+    "held_cards": [],
+    "pill_use_result": "idle",
+    "trinket_swap_result": "idle"
+  },
+  "pickups": [],
+  "hazards": [],
+  "ignored_hazard_ids": [],
+  "combat_stuck": true,
+  "hazards_observation_valid": true,
+  "nearby_enemies": [
+    {
+      "type": 24,
+      "variant": 0,
+      "subtype": 0,
+      "state": 4,
+      "telegraph": "WalkHori",
+      "is_stationary": false,
+      "offset": {
+        "x": -7.6,
+        "y": -78.7
+      },
+      "velocity": {
+        "x": 1.5,
+        "y": 1.8
+      },
+      "hp": 19.0,
+      "is_boss": false
+    },
+    {
+      "type": 24,
+      "variant": 0,
+      "subtype": 0,
+      "state": 4,
+      "telegraph": "WalkHori",
+      "is_stationary": false,
+      "offset": {
+        "x": -32.7,
+        "y": -85.5
+      },
+      "velocity": {
+        "x": 1.4,
+        "y": -1.2
+      },
+      "hp": 22.5,
+      "is_boss": false
+    }
+  ],
+  "nearby_projectiles": [],
+  "tracking_threats": [],
+  "damage_events": [
+    {
+      "id": 1,
+      "frame": 5016,
+      "amount": 2.0,
+      "flags": 4100,
+      "source_type": 0,
+      "source_variant": 0
+    },
+    {
+      "id": 2,
+      "frame": 5945,
+      "amount": 1.0,
+      "flags": 0,
+      "source_type": 9,
+      "source_variant": 0
+    },
+    {
+      "id": 3,
+      "frame": 7421,
+      "amount": 1.0,
+      "flags": 0,
+      "source_type": 18,
+      "source_variant": 0
+    }
+  ],
+  "geometry": {
+    "nearest_enemy_distance": 79.1,
+    "enemy_range_margin": 380.9,
+    "wall_clearance_neighbors": 2,
+    "line_of_fire": true,
+    "line_of_fire_blocked": false,
+    "projectile_threats": [],
+    "nearest_projectile_ttc_frames": null,
+    "nearest_projectile_imminent": false,
+    "tracking_threats": [],
+    "nearest_tracking_bomb_distance": null,
+    "nearest_tracking_bomb_ttc_frames": null,
+    "nearest_tracking_bomb_imminent": false
+  },
+  "navigation_feedback": {
+    "requested_move": {
+      "x": 0.0,
+      "y": -1.0
+    },
+    "resolved_move": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "movement_progress": 2.25,
+    "movement_blocked": false,
+    "move_resolution_reason": "no_walkable_direction",
+    "safe_move_directions": {
+      "left": "grid_wall",
+      "up": "safe",
+      "down": "safe",
+      "right": "grid_wall"
+    },
+    "recovery_active": false,
+    "recovery_reason": "",
+    "recovery_target_door_slot": -1,
+    "stall_frames": 0,
+    "last_action_id": "route_to_firing_lane",
+    "last_action_mode": "combat",
+    "last_action_sequence": 2111,
+    "action_age_frames": 2,
+    "recent_actions": [
+      {
+        "id": "hold_and_fire",
+        "frame": 11849,
+        "elapsed_frames": 12,
+        "movement_px": 10.3,
+        "goal_progress_px": null,
+        "blocked": true,
+        "resolution": "lua_safety_rewrite"
+      },
+      {
+        "id": "dodge_charge_left",
+        "frame": 11852,
+        "elapsed_frames": 3,
+        "movement_px": 6.5,
+        "goal_progress_px": null,
+        "blocked": false,
+        "resolution": "no_walkable_direction"
+      },
+      {
+        "id": "route_to_firing_lane",
+        "frame": 11855,
+        "elapsed_frames": 3,
+        "movement_px": 5.3,
+        "goal_progress_px": null,
+        "blocked": false,
+        "resolution": "grid_route_control"
+      },
+      {
+        "id": "route_to_firing_lane",
+        "frame": 11867,
+        "elapsed_frames": 12,
+        "movement_px": 9.4,
+        "goal_progress_px": null,
+        "blocked": false,
+        "resolution": "requested"
+      },
+      {
+        "id": "route_to_firing_lane",
+        "frame": 11879,
+        "elapsed_frames": 12,
+        "movement_px": 88.1,
+        "goal_progress_px": null,
+        "blocked": false,
+        "resolution": "no_walkable_direction"
+      }
+    ],
+    "transition_phase": "entered"
+  },
+  "boss_exit": {
+    "available": false,
+    "position": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "grid_index": -1
+  },
+  "death": {
+    "player_dead": false,
+    "restart_phase": "alive",
+    "restart_count": 0,
+    "restart_error": ""
+  }
+}

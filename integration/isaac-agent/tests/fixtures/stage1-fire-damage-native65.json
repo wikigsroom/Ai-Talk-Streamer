@@ -1,0 +1,548 @@
+[
+  {
+    "my": 0.0,
+    "flags": 2,
+    "stage": 1,
+    "mx": 0.0,
+    "charge_phase": "idle",
+    "enemies": [
+      {
+        "id": 3,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Dissapear",
+        "hp": 1.0,
+        "type": 33,
+        "champion": -1,
+        "x": 440.0,
+        "y": 240.0
+      },
+      {
+        "id": 6,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Dissapear2",
+        "hp": 1.0,
+        "type": 33,
+        "champion": -1,
+        "x": 320.0,
+        "y": 280.0
+      },
+      {
+        "id": 8,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Dissapear",
+        "hp": 1.0,
+        "type": 33,
+        "champion": -1,
+        "x": 480.0,
+        "y": 280.0
+      },
+      {
+        "id": 10,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering3",
+        "hp": 4.0,
+        "type": 33,
+        "champion": -1,
+        "x": 440.0,
+        "y": 320.0
+      }
+    ],
+    "ay": 0.0,
+    "action": "take_pickup_273",
+    "seed": 1962713925,
+    "ax": 0.0,
+    "tear_age": 36,
+    "route": {
+      "position": {
+        "x": 463.22366333008,
+        "y": 319.82962036133
+      },
+      "cursor": 3,
+      "goal": 67,
+      "waypoint": {
+        "x": 440.0,
+        "y": 320.0
+      },
+      "path": [
+        87,
+        86,
+        85,
+        84,
+        83,
+        82,
+        67
+      ],
+      "start": 86
+    },
+    "room": 83,
+    "move_reason": "grid_route_control",
+    "source_variant": 0,
+    "source_type": 33,
+    "aim_target": 2,
+    "vy": 0.0074972230941057,
+    "vx": -1.0735310316086,
+    "amount": 1.0,
+    "x": 460.61901855469,
+    "bombs": [],
+    "frame": 347,
+    "y": 319.84780883789
+  },
+  {
+    "my": 0.0,
+    "flags": 2,
+    "stage": 1,
+    "mx": 0.0,
+    "charge_phase": "idle",
+    "enemies": [
+      {
+        "id": 1,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering2",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 200.0,
+        "y": 240.0
+      },
+      {
+        "id": 4,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 160.0,
+        "y": 280.0
+      },
+      {
+        "id": 6,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Dissapear2",
+        "hp": 1.0,
+        "type": 33,
+        "champion": -1,
+        "x": 320.0,
+        "y": 280.0
+      },
+      {
+        "id": 9,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 200.0,
+        "y": 320.0
+      }
+    ],
+    "ay": 0.0,
+    "action": "enter_door_0",
+    "seed": 1962713925,
+    "ax": 0.0,
+    "tear_age": 279,
+    "route": {
+      "position": {
+        "x": 184.96479797363,
+        "y": 278.93795776367
+      },
+      "cursor": 9,
+      "goal": 60,
+      "waypoint": {
+        "x": 160.0,
+        "y": 280.0
+      },
+      "path": [
+        71,
+        70,
+        69,
+        68,
+        67,
+        66,
+        65,
+        64,
+        63,
+        62,
+        61
+      ],
+      "start": 64
+    },
+    "room": 83,
+    "move_reason": "grid_route_control",
+    "source_variant": 0,
+    "source_type": 33,
+    "aim_target": 2,
+    "vy": -3.4848287810973e-08,
+    "vx": -1.2338653802872,
+    "amount": 1.0,
+    "x": 181.97113037109,
+    "bombs": [],
+    "frame": 590,
+    "y": 278.93795776367
+  },
+  {
+    "my": 0.0,
+    "flags": 2,
+    "stage": 1,
+    "mx": 0.0,
+    "charge_phase": "idle",
+    "enemies": [
+      {
+        "id": 1,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering2",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 200.0,
+        "y": 240.0
+      },
+      {
+        "id": 4,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 160.0,
+        "y": 280.0
+      },
+      {
+        "id": 6,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Dissapear2",
+        "hp": 1.0,
+        "type": 33,
+        "champion": -1,
+        "x": 320.0,
+        "y": 280.0
+      },
+      {
+        "id": 9,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 200.0,
+        "y": 320.0
+      }
+    ],
+    "ay": 0.0,
+    "action": "enter_door_0",
+    "seed": 1962713925,
+    "ax": 0.0,
+    "tear_age": 507,
+    "route": {
+      "position": {
+        "x": 183.01602172852,
+        "y": 278.33233642578
+      },
+      "cursor": 2,
+      "goal": 60,
+      "waypoint": {
+        "x": 160.0,
+        "y": 280.0
+      },
+      "path": [
+        64,
+        63,
+        62,
+        61
+      ],
+      "start": 64
+    },
+    "room": 83,
+    "move_reason": "grid_route_control",
+    "source_variant": 0,
+    "source_type": 33,
+    "aim_target": 2,
+    "vy": -3.3214963979095e-30,
+    "vx": -0.11611251533031,
+    "amount": 1.0,
+    "x": 182.73429870605,
+    "bombs": [],
+    "frame": 818,
+    "y": 278.33233642578
+  },
+  {
+    "my": 0.0,
+    "flags": 2,
+    "stage": 1,
+    "mx": 0.0,
+    "charge_phase": "idle",
+    "enemies": [
+      {
+        "id": 1,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering2",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 200.0,
+        "y": 240.0
+      },
+      {
+        "id": 4,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 160.0,
+        "y": 280.0
+      },
+      {
+        "id": 6,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Dissapear2",
+        "hp": 1.0,
+        "type": 33,
+        "champion": -1,
+        "x": 320.0,
+        "y": 280.0
+      },
+      {
+        "id": 9,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 200.0,
+        "y": 320.0
+      }
+    ],
+    "ay": 0.0,
+    "action": "enter_door_0",
+    "seed": 1962713925,
+    "ax": 0.0,
+    "tear_age": 718,
+    "route": {
+      "position": {
+        "x": 185.44435119629,
+        "y": 278.24493408203
+      },
+      "cursor": 4,
+      "goal": 60,
+      "waypoint": {
+        "x": 160.0,
+        "y": 280.0
+      },
+      "path": [
+        66,
+        65,
+        64,
+        63,
+        62,
+        61
+      ],
+      "start": 64
+    },
+    "room": 83,
+    "move_reason": "grid_route_control",
+    "source_variant": 0,
+    "source_type": 33,
+    "aim_target": 2,
+    "vy": -2.6205993336328e-29,
+    "vx": -1.1698886156082,
+    "amount": 1.0,
+    "x": 182.60591125488,
+    "bombs": [],
+    "frame": 1029,
+    "y": 278.24493408203
+  },
+  {
+    "my": 0.0,
+    "flags": 2,
+    "stage": 1,
+    "mx": 0.0,
+    "charge_phase": "idle",
+    "enemies": [
+      {
+        "id": 1,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering2",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 200.0,
+        "y": 240.0
+      },
+      {
+        "id": 4,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 160.0,
+        "y": 280.0
+      },
+      {
+        "id": 6,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Dissapear2",
+        "hp": 1.0,
+        "type": 33,
+        "champion": -1,
+        "x": 320.0,
+        "y": 280.0
+      },
+      {
+        "id": 9,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 200.0,
+        "y": 320.0
+      }
+    ],
+    "ay": 0.0,
+    "action": "enter_door_0",
+    "seed": 1962713925,
+    "ax": 0.0,
+    "tear_age": 945,
+    "route": {
+      "position": {
+        "x": 183.01058959961,
+        "y": 277.376953125
+      },
+      "cursor": 2,
+      "goal": 60,
+      "waypoint": {
+        "x": 160.0,
+        "y": 280.0
+      },
+      "path": [
+        64,
+        63,
+        62,
+        61
+      ],
+      "start": 64
+    },
+    "room": 83,
+    "move_reason": "grid_route_control",
+    "source_variant": 0,
+    "source_type": 33,
+    "aim_target": 2,
+    "vy": -6.6904654643153e-30,
+    "vx": -0.11611251533031,
+    "amount": 1.0,
+    "x": 182.72886657715,
+    "bombs": [],
+    "frame": 1256,
+    "y": 277.376953125
+  },
+  {
+    "my": 0.0,
+    "flags": 2,
+    "stage": 1,
+    "mx": 0.0,
+    "charge_phase": "idle",
+    "enemies": [
+      {
+        "id": 1,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering2",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 200.0,
+        "y": 240.0
+      },
+      {
+        "id": 4,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 160.0,
+        "y": 280.0
+      },
+      {
+        "id": 6,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Dissapear2",
+        "hp": 1.0,
+        "type": 33,
+        "champion": -1,
+        "x": 320.0,
+        "y": 280.0
+      },
+      {
+        "id": 9,
+        "active": false,
+        "vulnerable": false,
+        "animation": "Flickering",
+        "hp": 5.0,
+        "type": 33,
+        "champion": -1,
+        "x": 200.0,
+        "y": 320.0
+      }
+    ],
+    "ay": 0.0,
+    "action": "enter_door_0",
+    "seed": 1962713925,
+    "ax": 0.0,
+    "tear_age": 1163,
+    "route": {
+      "position": {
+        "x": 183.18524169922,
+        "y": 277.24893188477
+      },
+      "cursor": 2,
+      "goal": 60,
+      "waypoint": {
+        "x": 160.0,
+        "y": 280.0
+      },
+      "path": [
+        64,
+        63,
+        62,
+        61
+      ],
+      "start": 64
+    },
+    "room": 83,
+    "move_reason": "grid_route_control",
+    "source_variant": 0,
+    "source_type": 33,
+    "aim_target": 2,
+    "vy": -8.8549361263262e-30,
+    "vx": -0.14982260763645,
+    "amount": 1.0,
+    "x": 182.82174682617,
+    "bombs": [],
+    "frame": 1474,
+    "y": 277.24893188477
+  }
+]

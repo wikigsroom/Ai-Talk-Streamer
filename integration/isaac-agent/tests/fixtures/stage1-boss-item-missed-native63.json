@@ -1,0 +1,5631 @@
+[
+  {
+    "schema_version": "decision-v3",
+    "run_id": "08f2db07804e48ed",
+    "seed": 4197814681,
+    "frame": 4845,
+    "room_index": 99,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "navigation",
+    "input": {
+      "frame": 4845,
+      "mod_version": "2026-11-06-native63",
+      "fire_block_reason": "no_combat_target",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "no clear bomb escape corridor",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "start_seed": 4197814681,
+      "room_clear": false,
+      "room_visit_sequence": 1,
+      "room_entered_frame": 2904,
+      "room_cleared_frame": -1,
+      "hostile_enemy_count": 0,
+      "enemy_count": 0,
+      "enemy_total_hp": 0.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 5.0,
+        "position": {
+          "x": 489.3,
+          "y": 195.4
+        },
+        "grid_index": 41,
+        "red_hearts": 5,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 260.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": 0.1,
+          "y": -0.3
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 99,
+        "stage": 1,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          44,
+          45,
+          59,
+          60,
+          74,
+          75,
+          89,
+          90,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": -1,
+        "planned_goal": "no usable exit is currently known",
+        "doors": [
+          {
+            "slot": 0,
+            "position": {
+              "x": 40.0,
+              "y": 280.0
+            },
+            "target_room_index": 98,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 60,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": false,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 11,
+        "keys": 8,
+        "bombs": 6,
+        "held_trinkets": [],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [
+        {
+          "id": 1478,
+          "name": "half red heart",
+          "kind": "red_half_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1479,
+          "name": "red heart",
+          "kind": "red_heart",
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "hazards": [],
+      "ignored_hazard_ids": [],
+      "combat_stuck": false,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [],
+      "geometry": {
+        "nearest_enemy_distance": null,
+        "enemy_range_margin": null,
+        "wall_clearance_neighbors": 4,
+        "line_of_fire": false,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "resolved_move": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "movement_progress": 0.78,
+        "movement_blocked": false,
+        "move_resolution_reason": "requested",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "safe",
+          "down": "safe",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "hold_and_fire",
+        "last_action_mode": "combat",
+        "last_action_sequence": 114,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "route_to_firing_lane",
+            "frame": 4794,
+            "elapsed_frames": 12,
+            "movement_px": 30.0,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          },
+          {
+            "id": "route_to_firing_lane",
+            "frame": 4806,
+            "elapsed_frames": 12,
+            "movement_px": 20.0,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4815,
+            "elapsed_frames": 9,
+            "movement_px": 28.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4827,
+            "elapsed_frames": 12,
+            "movement_px": 43.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4839,
+            "elapsed_frames": 12,
+            "movement_px": 12.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": false,
+        "position": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "grid_index": -1
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "wait_for_room_clear",
+      "action_label": "等待确认清房"
+    },
+    "probabilities": {
+      "wait_for_room_clear": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "navigation",
+      "phase": "awaiting_clear",
+      "raw_candidates": [
+        {
+          "id": "wait_for_room_clear",
+          "mode": "wait",
+          "target": "",
+          "move": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "wait for a confirmed room-clear state"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "wait_for_room_clear",
+          "mode": "wait",
+          "target": "",
+          "move": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "wait for a confirmed room-clear state"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": "only one candidate survived deterministic safety/resource rules"
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "等待确认清房",
+    "action": "wait_for_room_clear",
+    "source": "local",
+    "execution": {
+      "action_id": "wait_for_room_clear",
+      "mode": "wait",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "navigation",
+    "remote_call": false,
+    "phase": "awaiting_clear",
+    "state_age_seconds": 0.0007412999984808266,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 5.0,
+      "hp_delta": 0.0,
+      "room_clear": false,
+      "movement_progress": 0.77583694458008
+    },
+    "recorded_at": "2026-11-06 13:00:38",
+    "trace_id": "29e2138181254661"
+  },
+  {
+    "schema_version": "decision-v3",
+    "run_id": "08f2db07804e48ed",
+    "seed": 4197814681,
+    "frame": 4848,
+    "room_index": 99,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "navigation",
+    "input": {
+      "frame": 4848,
+      "mod_version": "2026-11-06-native63",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "no clear bomb escape corridor",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "start_seed": 4197814681,
+      "room_clear": false,
+      "room_visit_sequence": 1,
+      "room_entered_frame": 2904,
+      "room_cleared_frame": -1,
+      "hostile_enemy_count": 0,
+      "enemy_count": 0,
+      "enemy_total_hp": 0.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 5.0,
+        "position": {
+          "x": 489.9,
+          "y": 194.1
+        },
+        "grid_index": 41,
+        "red_hearts": 5,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 260.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": 0.1,
+          "y": -0.1
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 99,
+        "stage": 1,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          44,
+          45,
+          59,
+          60,
+          74,
+          75,
+          89,
+          90,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": -1,
+        "planned_goal": "no usable exit is currently known",
+        "doors": [
+          {
+            "slot": 0,
+            "position": {
+              "x": 40.0,
+              "y": 280.0
+            },
+            "target_room_index": 98,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 60,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": false,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 11,
+        "keys": 8,
+        "bombs": 6,
+        "held_trinkets": [],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [
+        {
+          "id": 1478,
+          "name": "half red heart",
+          "kind": "red_half_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1479,
+          "name": "red heart",
+          "kind": "red_heart",
+          "quality": 0,
+          "price": 0
+        }
+      ],
+      "hazards": [],
+      "ignored_hazard_ids": [],
+      "combat_stuck": false,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [],
+      "geometry": {
+        "nearest_enemy_distance": null,
+        "enemy_range_margin": null,
+        "wall_clearance_neighbors": 4,
+        "line_of_fire": false,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "resolved_move": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "movement_progress": 0.36,
+        "movement_blocked": false,
+        "move_resolution_reason": "requested",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "safe",
+          "down": "safe",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "wait_for_room_clear",
+        "last_action_mode": "wait",
+        "last_action_sequence": 115,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "route_to_firing_lane",
+            "frame": 4806,
+            "elapsed_frames": 12,
+            "movement_px": 20.0,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4815,
+            "elapsed_frames": 9,
+            "movement_px": 28.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4827,
+            "elapsed_frames": 12,
+            "movement_px": 43.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4839,
+            "elapsed_frames": 12,
+            "movement_px": 12.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "wait_for_room_clear",
+            "frame": 4848,
+            "elapsed_frames": 9,
+            "movement_px": 9.6,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": false,
+        "position": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "grid_index": -1
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "wait_for_room_clear",
+      "action_label": "等待确认清房"
+    },
+    "probabilities": {
+      "wait_for_room_clear": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "navigation",
+      "phase": "awaiting_clear",
+      "raw_candidates": [
+        {
+          "id": "wait_for_room_clear",
+          "mode": "wait",
+          "target": "",
+          "move": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "wait for a confirmed room-clear state"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "wait_for_room_clear",
+          "mode": "wait",
+          "target": "",
+          "move": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "wait for a confirmed room-clear state"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": "only one candidate survived deterministic safety/resource rules"
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "等待确认清房",
+    "action": "wait_for_room_clear",
+    "source": "local",
+    "execution": {
+      "action_id": "wait_for_room_clear",
+      "mode": "wait",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "navigation",
+    "remote_call": false,
+    "phase": "awaiting_clear",
+    "state_age_seconds": 0.0007737000014458317,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 5.0,
+      "hp_delta": 0.0,
+      "room_clear": false,
+      "movement_progress": 0.36114427447319
+    },
+    "recorded_at": "2026-11-06 13:00:38",
+    "trace_id": "c2d597d1a7524b6a"
+  },
+  {
+    "schema_version": "decision-v3",
+    "run_id": "08f2db07804e48ed",
+    "seed": 4197814681,
+    "frame": 4851,
+    "room_index": 99,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "loot",
+    "input": {
+      "frame": 4851,
+      "mod_version": "2026-11-06-native63",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "no clear bomb escape corridor",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "start_seed": 4197814681,
+      "room_clear": true,
+      "room_visit_sequence": 1,
+      "room_entered_frame": 2904,
+      "room_cleared_frame": 4851,
+      "hostile_enemy_count": 0,
+      "enemy_count": 0,
+      "enemy_total_hp": 0.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 5.0,
+        "position": {
+          "x": 490.2,
+          "y": 193.5
+        },
+        "grid_index": 41,
+        "red_hearts": 5,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 260.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": 0.0,
+          "y": -0.1
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 99,
+        "stage": 1,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          44,
+          45,
+          59,
+          60,
+          74,
+          75,
+          89,
+          90,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": 0,
+        "planned_goal": "unexplored default room",
+        "doors": [
+          {
+            "slot": 0,
+            "position": {
+              "x": 40.0,
+              "y": 280.0
+            },
+            "target_room_index": 98,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 60,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 11,
+        "keys": 8,
+        "bombs": 6,
+        "held_trinkets": [],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [
+        {
+          "id": 1478,
+          "name": "half red heart",
+          "kind": "red_half_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1479,
+          "name": "red heart",
+          "kind": "red_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1814,
+          "name": "#EYE_DROPS_NAME",
+          "kind": "collectible",
+          "quality": 3,
+          "price": 0
+        }
+      ],
+      "hazards": [],
+      "ignored_hazard_ids": [],
+      "combat_stuck": false,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [],
+      "geometry": {
+        "nearest_enemy_distance": null,
+        "enemy_range_margin": null,
+        "wall_clearance_neighbors": 4,
+        "line_of_fire": false,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "resolved_move": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "movement_progress": 0.17,
+        "movement_blocked": false,
+        "move_resolution_reason": "requested",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "safe",
+          "down": "safe",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "wait_for_room_clear",
+        "last_action_mode": "wait",
+        "last_action_sequence": 115,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "route_to_firing_lane",
+            "frame": 4806,
+            "elapsed_frames": 12,
+            "movement_px": 20.0,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4815,
+            "elapsed_frames": 9,
+            "movement_px": 28.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4827,
+            "elapsed_frames": 12,
+            "movement_px": 43.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4839,
+            "elapsed_frames": 12,
+            "movement_px": 12.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "wait_for_room_clear",
+            "frame": 4848,
+            "elapsed_frames": 9,
+            "movement_px": 9.6,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": true,
+        "position": {
+          "x": 320.0,
+          "y": 200.0
+        },
+        "grid_index": 37
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "take_item_1814",
+      "action_label": "拾取道具 1814"
+    },
+    "probabilities": {
+      "take_item_1814": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "loot",
+      "phase": "clear",
+      "raw_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": 0,
+            "y": 1
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": 0,
+            "y": 1
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": 0,
+            "y": 1
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": 0,
+            "y": 1
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": 0,
+            "y": 1
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": 0,
+            "y": 1
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": ""
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "拾取道具 1814",
+    "action": "take_item_1814",
+    "source": "local",
+    "execution": {
+      "action_id": "take_item_1814",
+      "mode": "item",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": 0,
+        "y": 1
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "loot",
+    "remote_call": false,
+    "phase": "clear",
+    "state_age_seconds": 0.001381900001433678,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 5.0,
+      "hp_delta": 0.0,
+      "room_clear": true,
+      "movement_progress": 0.16809995472431
+    },
+    "recorded_at": "2026-11-06 13:00:39",
+    "trace_id": "e0c6ac1e7a7a4990"
+  },
+  {
+    "schema_version": "decision-v3",
+    "run_id": "08f2db07804e48ed",
+    "seed": 4197814681,
+    "frame": 4854,
+    "room_index": 99,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "loot",
+    "input": {
+      "frame": 4854,
+      "mod_version": "2026-11-06-native63",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "no clear bomb escape corridor",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "start_seed": 4197814681,
+      "room_clear": true,
+      "room_visit_sequence": 1,
+      "room_entered_frame": 2904,
+      "room_cleared_frame": 4851,
+      "hostile_enemy_count": 0,
+      "enemy_count": 0,
+      "enemy_total_hp": 0.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 5.0,
+        "position": {
+          "x": 490.3,
+          "y": 193.2
+        },
+        "grid_index": 41,
+        "red_hearts": 5,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 260.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 99,
+        "stage": 1,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          44,
+          45,
+          59,
+          60,
+          74,
+          75,
+          89,
+          90,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": 0,
+        "planned_goal": "unexplored default room",
+        "doors": [
+          {
+            "slot": 0,
+            "position": {
+              "x": 40.0,
+              "y": 280.0
+            },
+            "target_room_index": 98,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 60,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 11,
+        "keys": 8,
+        "bombs": 6,
+        "held_trinkets": [],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [
+        {
+          "id": 1478,
+          "name": "half red heart",
+          "kind": "red_half_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1479,
+          "name": "red heart",
+          "kind": "red_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1814,
+          "name": "#EYE_DROPS_NAME",
+          "kind": "collectible",
+          "quality": 3,
+          "price": 0
+        }
+      ],
+      "hazards": [],
+      "ignored_hazard_ids": [],
+      "combat_stuck": false,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [],
+      "geometry": {
+        "nearest_enemy_distance": null,
+        "enemy_range_margin": null,
+        "wall_clearance_neighbors": 4,
+        "line_of_fire": false,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "resolved_move": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "movement_progress": 0.08,
+        "movement_blocked": false,
+        "move_resolution_reason": "requested",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "safe",
+          "down": "safe",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "wait_for_room_clear",
+        "last_action_mode": "wait",
+        "last_action_sequence": 115,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "route_to_firing_lane",
+            "frame": 4806,
+            "elapsed_frames": 12,
+            "movement_px": 20.0,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4815,
+            "elapsed_frames": 9,
+            "movement_px": 28.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4827,
+            "elapsed_frames": 12,
+            "movement_px": 43.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4839,
+            "elapsed_frames": 12,
+            "movement_px": 12.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "wait_for_room_clear",
+            "frame": 4848,
+            "elapsed_frames": 9,
+            "movement_px": 9.6,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": true,
+        "position": {
+          "x": 320.0,
+          "y": 200.0
+        },
+        "grid_index": 37
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "take_item_1814",
+      "action_label": "拾取道具 1814"
+    },
+    "probabilities": {
+      "take_item_1814": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "loot",
+      "phase": "clear",
+      "raw_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": 0,
+            "y": 1
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": 0,
+            "y": 1
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": 0,
+            "y": 1
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": 0,
+            "y": 1
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": 0,
+            "y": 1
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": 0,
+            "y": 1
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": ""
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "拾取道具 1814",
+    "action": "take_item_1814",
+    "source": "local",
+    "execution": {
+      "action_id": "take_item_1814",
+      "mode": "item",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": 0,
+        "y": 1
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "loot",
+    "remote_call": false,
+    "phase": "clear",
+    "state_age_seconds": 0.0020494999989750795,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 5.0,
+      "hp_delta": 0.0,
+      "room_clear": true,
+      "movement_progress": 0.078247606754303
+    },
+    "recorded_at": "2026-11-06 13:00:39",
+    "trace_id": "630624b1061b4fff"
+  },
+  {
+    "schema_version": "decision-v3",
+    "run_id": "08f2db07804e48ed",
+    "seed": 4197814681,
+    "frame": 4857,
+    "room_index": 99,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "loot",
+    "input": {
+      "frame": 4857,
+      "mod_version": "2026-11-06-native63",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "no clear bomb escape corridor",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "start_seed": 4197814681,
+      "room_clear": true,
+      "room_visit_sequence": 1,
+      "room_entered_frame": 2904,
+      "room_cleared_frame": 4851,
+      "hostile_enemy_count": 0,
+      "enemy_count": 0,
+      "enemy_total_hp": 0.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 5.0,
+        "position": {
+          "x": 490.4,
+          "y": 195.5
+        },
+        "grid_index": 41,
+        "red_hearts": 5,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 260.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": 0.0,
+          "y": 0.8
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 99,
+        "stage": 1,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          44,
+          45,
+          59,
+          60,
+          74,
+          75,
+          89,
+          90,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": 0,
+        "planned_goal": "unexplored default room",
+        "doors": [
+          {
+            "slot": 0,
+            "position": {
+              "x": 40.0,
+              "y": 280.0
+            },
+            "target_room_index": 98,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 60,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 11,
+        "keys": 8,
+        "bombs": 6,
+        "held_trinkets": [],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [
+        {
+          "id": 1478,
+          "name": "half red heart",
+          "kind": "red_half_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1479,
+          "name": "red heart",
+          "kind": "red_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1814,
+          "name": "#EYE_DROPS_NAME",
+          "kind": "collectible",
+          "quality": 3,
+          "price": 0
+        }
+      ],
+      "hazards": [],
+      "ignored_hazard_ids": [],
+      "combat_stuck": false,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [],
+      "geometry": {
+        "nearest_enemy_distance": null,
+        "enemy_range_margin": null,
+        "wall_clearance_neighbors": 4,
+        "line_of_fire": false,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": 0.0,
+          "y": 1.0
+        },
+        "resolved_move": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "movement_progress": 1.84,
+        "movement_blocked": false,
+        "move_resolution_reason": "grid_route_control",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "safe",
+          "down": "safe",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "take_item_1814",
+        "last_action_mode": "item",
+        "last_action_sequence": 116,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "hold_and_fire",
+            "frame": 4815,
+            "elapsed_frames": 9,
+            "movement_px": 28.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4827,
+            "elapsed_frames": 12,
+            "movement_px": 43.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4839,
+            "elapsed_frames": 12,
+            "movement_px": 12.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "wait_for_room_clear",
+            "frame": 4848,
+            "elapsed_frames": 9,
+            "movement_px": 9.6,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "take_item_1814",
+            "frame": 4857,
+            "elapsed_frames": 9,
+            "movement_px": 1.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": true,
+        "position": {
+          "x": 320.0,
+          "y": 200.0
+        },
+        "grid_index": 37
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "take_item_1814",
+      "action_label": "拾取道具 1814"
+    },
+    "probabilities": {
+      "take_item_1814": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "loot",
+      "phase": "clear",
+      "raw_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": ""
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "拾取道具 1814",
+    "action": "take_item_1814",
+    "source": "local",
+    "execution": {
+      "action_id": "take_item_1814",
+      "mode": "item",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": -1,
+        "y": 0
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "loot",
+    "remote_call": false,
+    "phase": "clear",
+    "state_age_seconds": 0.0013733000014326535,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 5.0,
+      "hp_delta": 0.0,
+      "room_clear": true,
+      "movement_progress": 1.8359023332596
+    },
+    "recorded_at": "2026-11-06 13:00:39",
+    "trace_id": "2e91f108b5624db7"
+  },
+  {
+    "schema_version": "decision-v3",
+    "run_id": "08f2db07804e48ed",
+    "seed": 4197814681,
+    "frame": 4860,
+    "room_index": 99,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "loot",
+    "input": {
+      "frame": 4860,
+      "mod_version": "2026-11-06-native63",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "no clear bomb escape corridor",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "start_seed": 4197814681,
+      "room_clear": true,
+      "room_visit_sequence": 1,
+      "room_entered_frame": 2904,
+      "room_cleared_frame": 4851,
+      "hostile_enemy_count": 0,
+      "enemy_count": 0,
+      "enemy_total_hp": 0.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 5.0,
+        "position": {
+          "x": 483.6,
+          "y": 198.2
+        },
+        "grid_index": 41,
+        "red_hearts": 5,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 260.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": -2.4,
+          "y": 0.2
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 99,
+        "stage": 1,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          44,
+          45,
+          59,
+          60,
+          74,
+          75,
+          89,
+          90,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": 0,
+        "planned_goal": "unexplored default room",
+        "doors": [
+          {
+            "slot": 0,
+            "position": {
+              "x": 40.0,
+              "y": 280.0
+            },
+            "target_room_index": 98,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 60,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 11,
+        "keys": 8,
+        "bombs": 6,
+        "held_trinkets": [],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [
+        {
+          "id": 1478,
+          "name": "half red heart",
+          "kind": "red_half_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1479,
+          "name": "red heart",
+          "kind": "red_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1814,
+          "name": "#EYE_DROPS_NAME",
+          "kind": "collectible",
+          "quality": 3,
+          "price": 0
+        }
+      ],
+      "hazards": [],
+      "ignored_hazard_ids": [],
+      "combat_stuck": false,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [],
+      "geometry": {
+        "nearest_enemy_distance": null,
+        "enemy_range_margin": null,
+        "wall_clearance_neighbors": 4,
+        "line_of_fire": false,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": 0.0,
+          "y": 1.0
+        },
+        "resolved_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "movement_progress": 3.87,
+        "movement_blocked": false,
+        "move_resolution_reason": "grid_route_control",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "safe",
+          "down": "safe",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "take_item_1814",
+        "last_action_mode": "item",
+        "last_action_sequence": 116,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "hold_and_fire",
+            "frame": 4815,
+            "elapsed_frames": 9,
+            "movement_px": 28.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4827,
+            "elapsed_frames": 12,
+            "movement_px": 43.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4839,
+            "elapsed_frames": 12,
+            "movement_px": 12.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "wait_for_room_clear",
+            "frame": 4848,
+            "elapsed_frames": 9,
+            "movement_px": 9.6,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "take_item_1814",
+            "frame": 4857,
+            "elapsed_frames": 9,
+            "movement_px": 1.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": true,
+        "position": {
+          "x": 320.0,
+          "y": 200.0
+        },
+        "grid_index": 37
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "take_item_1814",
+      "action_label": "拾取道具 1814"
+    },
+    "probabilities": {
+      "take_item_1814": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "loot",
+      "phase": "clear",
+      "raw_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": ""
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "拾取道具 1814",
+    "action": "take_item_1814",
+    "source": "local",
+    "execution": {
+      "action_id": "take_item_1814",
+      "mode": "item",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": -1,
+        "y": 0
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "loot",
+    "remote_call": false,
+    "phase": "clear",
+    "state_age_seconds": 0.0015382000019599218,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 5.0,
+      "hp_delta": 0.0,
+      "room_clear": true,
+      "movement_progress": 3.872670173645
+    },
+    "recorded_at": "2026-11-06 13:00:39",
+    "trace_id": "04b11b96eb12432e"
+  },
+  {
+    "schema_version": "decision-v3",
+    "run_id": "08f2db07804e48ed",
+    "seed": 4197814681,
+    "frame": 4863,
+    "room_index": 99,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "loot",
+    "input": {
+      "frame": 4863,
+      "mod_version": "2026-11-06-native63",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "no clear bomb escape corridor",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "start_seed": 4197814681,
+      "room_clear": true,
+      "room_visit_sequence": 1,
+      "room_entered_frame": 2904,
+      "room_cleared_frame": 4851,
+      "hostile_enemy_count": 0,
+      "enemy_count": 0,
+      "enemy_total_hp": 0.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 5.0,
+        "position": {
+          "x": 466.3,
+          "y": 198.8
+        },
+        "grid_index": 41,
+        "red_hearts": 5,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 260.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": -3.5,
+          "y": 0.0
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 99,
+        "stage": 1,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          44,
+          45,
+          59,
+          60,
+          74,
+          75,
+          89,
+          90,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": 0,
+        "planned_goal": "unexplored default room",
+        "doors": [
+          {
+            "slot": 0,
+            "position": {
+              "x": 40.0,
+              "y": 280.0
+            },
+            "target_room_index": 98,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 60,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 11,
+        "keys": 8,
+        "bombs": 6,
+        "held_trinkets": [],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [
+        {
+          "id": 1478,
+          "name": "half red heart",
+          "kind": "red_half_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1479,
+          "name": "red heart",
+          "kind": "red_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1814,
+          "name": "#EYE_DROPS_NAME",
+          "kind": "collectible",
+          "quality": 3,
+          "price": 0
+        }
+      ],
+      "hazards": [],
+      "ignored_hazard_ids": [],
+      "combat_stuck": false,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [],
+      "geometry": {
+        "nearest_enemy_distance": null,
+        "enemy_range_margin": null,
+        "wall_clearance_neighbors": 4,
+        "line_of_fire": false,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "resolved_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "movement_progress": 6.51,
+        "movement_blocked": false,
+        "move_resolution_reason": "grid_route_control",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "safe",
+          "down": "safe",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "take_item_1814",
+        "last_action_mode": "item",
+        "last_action_sequence": 116,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "hold_and_fire",
+            "frame": 4815,
+            "elapsed_frames": 9,
+            "movement_px": 28.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4827,
+            "elapsed_frames": 12,
+            "movement_px": 43.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4839,
+            "elapsed_frames": 12,
+            "movement_px": 12.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "wait_for_room_clear",
+            "frame": 4848,
+            "elapsed_frames": 9,
+            "movement_px": 9.6,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "take_item_1814",
+            "frame": 4857,
+            "elapsed_frames": 9,
+            "movement_px": 1.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": true,
+        "position": {
+          "x": 320.0,
+          "y": 200.0
+        },
+        "grid_index": 37
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "take_item_1814",
+      "action_label": "拾取道具 1814"
+    },
+    "probabilities": {
+      "take_item_1814": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "loot",
+      "phase": "clear",
+      "raw_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": ""
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "拾取道具 1814",
+    "action": "take_item_1814",
+    "source": "local",
+    "execution": {
+      "action_id": "take_item_1814",
+      "mode": "item",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": -1,
+        "y": 0
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "loot",
+    "remote_call": false,
+    "phase": "clear",
+    "state_age_seconds": 0.0015004000015323982,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 5.0,
+      "hp_delta": 0.0,
+      "room_clear": true,
+      "movement_progress": 6.5064897537231
+    },
+    "recorded_at": "2026-11-06 13:00:39",
+    "trace_id": "b57de7d201a44878"
+  },
+  {
+    "schema_version": "decision-v3",
+    "run_id": "08f2db07804e48ed",
+    "seed": 4197814681,
+    "frame": 4866,
+    "room_index": 99,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "loot",
+    "input": {
+      "frame": 4866,
+      "mod_version": "2026-11-06-native63",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "no clear bomb escape corridor",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "start_seed": 4197814681,
+      "room_clear": true,
+      "room_visit_sequence": 1,
+      "room_entered_frame": 2904,
+      "room_cleared_frame": 4851,
+      "hostile_enemy_count": 0,
+      "enemy_count": 0,
+      "enemy_total_hp": 0.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 5.0,
+        "position": {
+          "x": 444.1,
+          "y": 199.0
+        },
+        "grid_index": 40,
+        "red_hearts": 5,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 260.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": -4.0,
+          "y": 0.0
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 99,
+        "stage": 1,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          44,
+          45,
+          59,
+          60,
+          74,
+          75,
+          89,
+          90,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": 0,
+        "planned_goal": "unexplored default room",
+        "doors": [
+          {
+            "slot": 0,
+            "position": {
+              "x": 40.0,
+              "y": 280.0
+            },
+            "target_room_index": 98,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 60,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 11,
+        "keys": 8,
+        "bombs": 6,
+        "held_trinkets": [],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [
+        {
+          "id": 1478,
+          "name": "half red heart",
+          "kind": "red_half_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1479,
+          "name": "red heart",
+          "kind": "red_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1814,
+          "name": "#EYE_DROPS_NAME",
+          "kind": "collectible",
+          "quality": 3,
+          "price": 0
+        }
+      ],
+      "hazards": [],
+      "ignored_hazard_ids": [],
+      "combat_stuck": false,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [],
+      "geometry": {
+        "nearest_enemy_distance": null,
+        "enemy_range_margin": null,
+        "wall_clearance_neighbors": 4,
+        "line_of_fire": false,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "resolved_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "movement_progress": 7.75,
+        "movement_blocked": false,
+        "move_resolution_reason": "grid_route_control",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "safe",
+          "down": "safe",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "take_item_1814",
+        "last_action_mode": "item",
+        "last_action_sequence": 116,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "hold_and_fire",
+            "frame": 4815,
+            "elapsed_frames": 9,
+            "movement_px": 28.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "lua_safety_rewrite"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4827,
+            "elapsed_frames": 12,
+            "movement_px": 43.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4839,
+            "elapsed_frames": 12,
+            "movement_px": 12.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "wait_for_room_clear",
+            "frame": 4848,
+            "elapsed_frames": 9,
+            "movement_px": 9.6,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "take_item_1814",
+            "frame": 4857,
+            "elapsed_frames": 9,
+            "movement_px": 1.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": true,
+        "position": {
+          "x": 320.0,
+          "y": 200.0
+        },
+        "grid_index": 37
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "take_item_1814",
+      "action_label": "拾取道具 1814"
+    },
+    "probabilities": {
+      "take_item_1814": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "loot",
+      "phase": "clear",
+      "raw_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": ""
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "拾取道具 1814",
+    "action": "take_item_1814",
+    "source": "local",
+    "execution": {
+      "action_id": "take_item_1814",
+      "mode": "item",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": -1,
+        "y": 0
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "loot",
+    "remote_call": false,
+    "phase": "clear",
+    "state_age_seconds": 0.0016496999996888917,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 5.0,
+      "hp_delta": 0.0,
+      "room_clear": true,
+      "movement_progress": 7.7471570968628
+    },
+    "recorded_at": "2026-11-06 13:00:39",
+    "trace_id": "b7b01481cff74766"
+  },
+  {
+    "schema_version": "decision-v3",
+    "run_id": "08f2db07804e48ed",
+    "seed": 4197814681,
+    "frame": 4869,
+    "room_index": 99,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "loot",
+    "input": {
+      "frame": 4869,
+      "mod_version": "2026-11-06-native63",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "no clear bomb escape corridor",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "start_seed": 4197814681,
+      "room_clear": true,
+      "room_visit_sequence": 1,
+      "room_entered_frame": 2904,
+      "room_cleared_frame": 4851,
+      "hostile_enemy_count": 0,
+      "enemy_count": 0,
+      "enemy_total_hp": 0.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 5.0,
+        "position": {
+          "x": 419.6,
+          "y": 199.0
+        },
+        "grid_index": 39,
+        "red_hearts": 5,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 260.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": -4.2,
+          "y": 0.0
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 99,
+        "stage": 1,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          44,
+          45,
+          59,
+          60,
+          74,
+          75,
+          89,
+          90,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": 0,
+        "planned_goal": "unexplored default room",
+        "doors": [
+          {
+            "slot": 0,
+            "position": {
+              "x": 40.0,
+              "y": 280.0
+            },
+            "target_room_index": 98,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 60,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 11,
+        "keys": 8,
+        "bombs": 6,
+        "held_trinkets": [],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [
+        {
+          "id": 1478,
+          "name": "half red heart",
+          "kind": "red_half_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1479,
+          "name": "red heart",
+          "kind": "red_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1814,
+          "name": "#EYE_DROPS_NAME",
+          "kind": "collectible",
+          "quality": 3,
+          "price": 0
+        }
+      ],
+      "hazards": [],
+      "ignored_hazard_ids": [],
+      "combat_stuck": false,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [],
+      "geometry": {
+        "nearest_enemy_distance": null,
+        "enemy_range_margin": null,
+        "wall_clearance_neighbors": 4,
+        "line_of_fire": false,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "resolved_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "movement_progress": 8.33,
+        "movement_blocked": false,
+        "move_resolution_reason": "grid_route_control",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "safe",
+          "down": "safe",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "take_item_1814",
+        "last_action_mode": "item",
+        "last_action_sequence": 116,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "hold_and_fire",
+            "frame": 4827,
+            "elapsed_frames": 12,
+            "movement_px": 43.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4839,
+            "elapsed_frames": 12,
+            "movement_px": 12.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "wait_for_room_clear",
+            "frame": 4848,
+            "elapsed_frames": 9,
+            "movement_px": 9.6,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "take_item_1814",
+            "frame": 4857,
+            "elapsed_frames": 9,
+            "movement_px": 1.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          },
+          {
+            "id": "take_item_1814",
+            "frame": 4869,
+            "elapsed_frames": 12,
+            "movement_px": 70.9,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": true,
+        "position": {
+          "x": 320.0,
+          "y": 200.0
+        },
+        "grid_index": 37
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "take_item_1814",
+      "action_label": "拾取道具 1814"
+    },
+    "probabilities": {
+      "take_item_1814": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "loot",
+      "phase": "clear",
+      "raw_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": ""
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "拾取道具 1814",
+    "action": "take_item_1814",
+    "source": "local",
+    "execution": {
+      "action_id": "take_item_1814",
+      "mode": "item",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": -1,
+        "y": 0
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "loot",
+    "remote_call": false,
+    "phase": "clear",
+    "state_age_seconds": 0.0014881999995850492,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 5.0,
+      "hp_delta": 0.0,
+      "room_clear": true,
+      "movement_progress": 8.3251066207886
+    },
+    "recorded_at": "2026-11-06 13:00:39",
+    "trace_id": "318970da8b064230"
+  },
+  {
+    "schema_version": "decision-v3",
+    "run_id": "08f2db07804e48ed",
+    "seed": 4197814681,
+    "frame": 4872,
+    "room_index": 99,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "loot",
+    "input": {
+      "frame": 4872,
+      "mod_version": "2026-11-06-native63",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "no clear bomb escape corridor",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "start_seed": 4197814681,
+      "room_clear": true,
+      "room_visit_sequence": 1,
+      "room_entered_frame": 2904,
+      "room_cleared_frame": 4851,
+      "hostile_enemy_count": 0,
+      "enemy_count": 0,
+      "enemy_total_hp": 0.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 5.0,
+        "position": {
+          "x": 394.1,
+          "y": 199.0
+        },
+        "grid_index": 39,
+        "red_hearts": 5,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 260.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": -4.3,
+          "y": 0.0
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 99,
+        "stage": 1,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          44,
+          45,
+          59,
+          60,
+          74,
+          75,
+          89,
+          90,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": 0,
+        "planned_goal": "unexplored default room",
+        "doors": [
+          {
+            "slot": 0,
+            "position": {
+              "x": 40.0,
+              "y": 280.0
+            },
+            "target_room_index": 98,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 60,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 11,
+        "keys": 8,
+        "bombs": 6,
+        "held_trinkets": [],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [
+        {
+          "id": 1478,
+          "name": "half red heart",
+          "kind": "red_half_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1479,
+          "name": "red heart",
+          "kind": "red_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1814,
+          "name": "#EYE_DROPS_NAME",
+          "kind": "collectible",
+          "quality": 3,
+          "price": 0
+        }
+      ],
+      "hazards": [],
+      "ignored_hazard_ids": [],
+      "combat_stuck": false,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [],
+      "geometry": {
+        "nearest_enemy_distance": null,
+        "enemy_range_margin": null,
+        "wall_clearance_neighbors": 4,
+        "line_of_fire": false,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "resolved_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "movement_progress": 8.59,
+        "movement_blocked": false,
+        "move_resolution_reason": "grid_route_control",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "safe",
+          "down": "safe",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "take_item_1814",
+        "last_action_mode": "item",
+        "last_action_sequence": 116,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "hold_and_fire",
+            "frame": 4827,
+            "elapsed_frames": 12,
+            "movement_px": 43.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4839,
+            "elapsed_frames": 12,
+            "movement_px": 12.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "wait_for_room_clear",
+            "frame": 4848,
+            "elapsed_frames": 9,
+            "movement_px": 9.6,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "take_item_1814",
+            "frame": 4857,
+            "elapsed_frames": 9,
+            "movement_px": 1.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          },
+          {
+            "id": "take_item_1814",
+            "frame": 4869,
+            "elapsed_frames": 12,
+            "movement_px": 70.9,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": true,
+        "position": {
+          "x": 320.0,
+          "y": 200.0
+        },
+        "grid_index": 37
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "take_item_1814",
+      "action_label": "拾取道具 1814"
+    },
+    "probabilities": {
+      "take_item_1814": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "loot",
+      "phase": "clear",
+      "raw_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": ""
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "拾取道具 1814",
+    "action": "take_item_1814",
+    "source": "local",
+    "execution": {
+      "action_id": "take_item_1814",
+      "mode": "item",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": -1,
+        "y": 0
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "loot",
+    "remote_call": false,
+    "phase": "clear",
+    "state_age_seconds": 0.0013331999980437104,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 5.0,
+      "hp_delta": 0.0,
+      "room_clear": true,
+      "movement_progress": 8.5941772460938
+    },
+    "recorded_at": "2026-11-06 13:00:39",
+    "trace_id": "a1711de3c14a43a8"
+  },
+  {
+    "schema_version": "decision-v3",
+    "run_id": "08f2db07804e48ed",
+    "seed": 4197814681,
+    "frame": 4875,
+    "room_index": 99,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "loot",
+    "input": {
+      "frame": 4875,
+      "mod_version": "2026-11-06-native63",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "no clear bomb escape corridor",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "start_seed": 4197814681,
+      "room_clear": true,
+      "room_visit_sequence": 1,
+      "room_entered_frame": 2904,
+      "room_cleared_frame": 4851,
+      "hostile_enemy_count": 0,
+      "enemy_count": 0,
+      "enemy_total_hp": 0.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 5.0,
+        "position": {
+          "x": 368.0,
+          "y": 199.0
+        },
+        "grid_index": 38,
+        "red_hearts": 5,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 260.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": -4.4,
+          "y": 0.0
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 99,
+        "stage": 1,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          44,
+          45,
+          59,
+          60,
+          74,
+          75,
+          89,
+          90,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": 0,
+        "planned_goal": "unexplored default room",
+        "doors": [
+          {
+            "slot": 0,
+            "position": {
+              "x": 40.0,
+              "y": 280.0
+            },
+            "target_room_index": 98,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 60,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 11,
+        "keys": 8,
+        "bombs": 6,
+        "held_trinkets": [],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [
+        {
+          "id": 1478,
+          "name": "half red heart",
+          "kind": "red_half_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1479,
+          "name": "red heart",
+          "kind": "red_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1814,
+          "name": "#EYE_DROPS_NAME",
+          "kind": "collectible",
+          "quality": 3,
+          "price": 0
+        }
+      ],
+      "hazards": [],
+      "ignored_hazard_ids": [],
+      "combat_stuck": false,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [],
+      "geometry": {
+        "nearest_enemy_distance": null,
+        "enemy_range_margin": null,
+        "wall_clearance_neighbors": 4,
+        "line_of_fire": false,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "resolved_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "movement_progress": 8.72,
+        "movement_blocked": false,
+        "move_resolution_reason": "grid_route_control",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "safe",
+          "down": "safe",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "take_item_1814",
+        "last_action_mode": "item",
+        "last_action_sequence": 116,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "hold_and_fire",
+            "frame": 4827,
+            "elapsed_frames": 12,
+            "movement_px": 43.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4839,
+            "elapsed_frames": 12,
+            "movement_px": 12.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "wait_for_room_clear",
+            "frame": 4848,
+            "elapsed_frames": 9,
+            "movement_px": 9.6,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "take_item_1814",
+            "frame": 4857,
+            "elapsed_frames": 9,
+            "movement_px": 1.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          },
+          {
+            "id": "take_item_1814",
+            "frame": 4869,
+            "elapsed_frames": 12,
+            "movement_px": 70.9,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": true,
+        "position": {
+          "x": 320.0,
+          "y": 200.0
+        },
+        "grid_index": 37
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "take_item_1814",
+      "action_label": "拾取道具 1814"
+    },
+    "probabilities": {
+      "take_item_1814": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "loot",
+      "phase": "clear",
+      "raw_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": ""
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "拾取道具 1814",
+    "action": "take_item_1814",
+    "source": "local",
+    "execution": {
+      "action_id": "take_item_1814",
+      "mode": "item",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": -1,
+        "y": 0
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "loot",
+    "remote_call": false,
+    "phase": "clear",
+    "state_age_seconds": 0.0017465999990236014,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 5.0,
+      "hp_delta": 0.0,
+      "room_clear": true,
+      "movement_progress": 8.7194213867188
+    },
+    "recorded_at": "2026-11-06 13:00:39",
+    "trace_id": "ea37a34bd7264127"
+  },
+  {
+    "schema_version": "decision-v3",
+    "run_id": "08f2db07804e48ed",
+    "seed": 4197814681,
+    "frame": 4878,
+    "room_index": 99,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "loot",
+    "input": {
+      "frame": 4878,
+      "mod_version": "2026-11-06-native63",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": false,
+      "bomb_target_id": -1,
+      "bomb_error": "no clear bomb escape corridor",
+      "bomb_position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "bomb_placement_distance": -1.0,
+      "bomb_escape_direction": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "start_seed": 4197814681,
+      "room_clear": true,
+      "room_visit_sequence": 1,
+      "room_entered_frame": 2904,
+      "room_cleared_frame": 4851,
+      "hostile_enemy_count": 0,
+      "enemy_count": 0,
+      "enemy_total_hp": 0.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 5.0,
+        "position": {
+          "x": 341.7,
+          "y": 199.0
+        },
+        "grid_index": 38,
+        "red_hearts": 5,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 260.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": -4.4,
+          "y": 0.0
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 99,
+        "stage": 1,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "boss",
+        "is_boss": true,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          44,
+          45,
+          59,
+          60,
+          74,
+          75,
+          89,
+          90,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": 0,
+        "planned_goal": "unexplored default room",
+        "doors": [
+          {
+            "slot": 0,
+            "position": {
+              "x": 40.0,
+              "y": 280.0
+            },
+            "target_room_index": 98,
+            "target_is_boss": false,
+            "target_clear": true,
+            "grid_index": 60,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 11,
+        "keys": 8,
+        "bombs": 6,
+        "held_trinkets": [],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [
+        {
+          "id": 1478,
+          "name": "half red heart",
+          "kind": "red_half_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1479,
+          "name": "red heart",
+          "kind": "red_heart",
+          "quality": 0,
+          "price": 0
+        },
+        {
+          "id": 1814,
+          "name": "#EYE_DROPS_NAME",
+          "kind": "collectible",
+          "quality": 3,
+          "price": 0
+        }
+      ],
+      "hazards": [],
+      "ignored_hazard_ids": [],
+      "combat_stuck": false,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [],
+      "geometry": {
+        "nearest_enemy_distance": null,
+        "enemy_range_margin": null,
+        "wall_clearance_neighbors": 4,
+        "line_of_fire": false,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "resolved_move": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "movement_progress": 8.78,
+        "movement_blocked": false,
+        "move_resolution_reason": "grid_route_control",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "safe",
+          "down": "safe",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "take_item_1814",
+        "last_action_mode": "item",
+        "last_action_sequence": 116,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "hold_and_fire",
+            "frame": 4827,
+            "elapsed_frames": 12,
+            "movement_px": 43.8,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "hold_and_fire",
+            "frame": 4839,
+            "elapsed_frames": 12,
+            "movement_px": 12.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "wait_for_room_clear",
+            "frame": 4848,
+            "elapsed_frames": 9,
+            "movement_px": 9.6,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "take_item_1814",
+            "frame": 4857,
+            "elapsed_frames": 9,
+            "movement_px": 1.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          },
+          {
+            "id": "take_item_1814",
+            "frame": 4869,
+            "elapsed_frames": 12,
+            "movement_px": 70.9,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "grid_route_control"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": true,
+        "position": {
+          "x": 320.0,
+          "y": 200.0
+        },
+        "grid_index": 37
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "take_item_1814",
+      "action_label": "拾取道具 1814"
+    },
+    "probabilities": {
+      "take_item_1814": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "loot",
+      "phase": "clear",
+      "raw_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "take_item_1814",
+          "mode": "item",
+          "target": "#EYE_DROPS_NAME",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect quality 3 item for price 0"
+        },
+        {
+          "id": "take_pickup_1478",
+          "mode": "pickup",
+          "target": "half red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_half_heart subtype 2 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        },
+        {
+          "id": "take_pickup_1479",
+          "mode": "pickup",
+          "target": "red heart",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "collect red_heart subtype 1 (held trinkets: []; resources: 11 coins, 8 keys, 6 bombs)"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": ""
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "拾取道具 1814",
+    "action": "take_item_1814",
+    "source": "local",
+    "execution": {
+      "action_id": "take_item_1814",
+      "mode": "item",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": -1,
+        "y": 0
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "loot",
+    "remote_call": false,
+    "phase": "clear",
+    "state_age_seconds": 0.002254399998491863,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 5.0,
+      "hp_delta": 0.0,
+      "room_clear": true,
+      "movement_progress": 8.7777099609375
+    },
+    "recorded_at": "2026-11-06 13:00:39",
+    "trace_id": "24f4786cca914e09"
+  },
+  {
+    "schema_version": "decision-v3",
+    "run_id": "08f2db07804e48ed",
+    "seed": 4197814681,
+    "frame": 4941,
+    "room_index": 84,
+    "provider": "local",
+    "requested_provider": "local",
+    "model": "local-policy",
+    "status": "success",
+    "policy": "navigation",
+    "input": {
+      "frame": 4941,
+      "mod_version": "2026-11-06-native63",
+      "fire_block_reason": "idle",
+      "bomb_active": false,
+      "bomb_placed": true,
+      "bomb_target_id": -200000,
+      "bomb_error": "nil",
+      "bomb_position": {
+        "x": 109.7,
+        "y": 280.0
+      },
+      "bomb_placement_distance": 69.7,
+      "bomb_escape_direction": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "start_seed": 4197814681,
+      "room_clear": true,
+      "room_visit_sequence": 2,
+      "room_entered_frame": 4880,
+      "room_cleared_frame": 4881,
+      "hostile_enemy_count": 0,
+      "enemy_count": 0,
+      "enemy_total_hp": 0.0,
+      "enemy_kill_delta": 0,
+      "enemy_observation_valid": true,
+      "player": {
+        "hp": 5.0,
+        "position": {
+          "x": 319.0,
+          "y": 280.0
+        },
+        "grid_index": 67,
+        "red_hearts": 5,
+        "max_hearts": 6,
+        "soul_hearts": 0,
+        "black_hearts": 0,
+        "bone_hearts": 0,
+        "eternal_hearts": 0,
+        "tear_range": 260.0,
+        "tear_speed": 1.0,
+        "velocity": {
+          "x": 2.6,
+          "y": 0.0
+        },
+        "weapon_type": "tear",
+        "weapon_type_known": true
+      },
+      "room": {
+        "index": 84,
+        "stage": 2,
+        "stage_type": 0,
+        "dimension": 0,
+        "type": "default",
+        "is_boss": false,
+        "grid_width": 15,
+        "grid_height": 9,
+        "blocked": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          29,
+          30,
+          44,
+          45,
+          59,
+          60,
+          74,
+          75,
+          89,
+          90,
+          104,
+          105,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "danger_grid_indices": [],
+        "grid_events": [],
+        "bomb_walls": [],
+        "planned_door_slot": 0,
+        "planned_goal": "newly bombed secret room",
+        "doors": [
+          {
+            "slot": 0,
+            "position": {
+              "x": 40.0,
+              "y": 280.0
+            },
+            "target_room_index": 83,
+            "target_is_boss": false,
+            "target_clear": false,
+            "grid_index": 60,
+            "target_room_type": "secret",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          },
+          {
+            "slot": 1,
+            "position": {
+              "x": 320.0,
+              "y": 120.0
+            },
+            "target_room_index": 71,
+            "target_is_boss": false,
+            "target_clear": false,
+            "grid_index": 7,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          },
+          {
+            "slot": 2,
+            "position": {
+              "x": 600.0,
+              "y": 280.0
+            },
+            "target_room_index": 72,
+            "target_is_boss": false,
+            "target_clear": false,
+            "grid_index": 74,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          },
+          {
+            "slot": 3,
+            "position": {
+              "x": 320.0,
+              "y": 440.0
+            },
+            "target_room_index": 96,
+            "target_is_boss": false,
+            "target_clear": false,
+            "grid_index": 127,
+            "target_room_type": "default",
+            "locked": false,
+            "lock_known": true,
+            "open": true,
+            "open_known": true
+          }
+        ]
+      },
+      "resources": {
+        "coins": 11,
+        "keys": 8,
+        "bombs": 5,
+        "held_trinkets": [],
+        "trinket_slots": 1,
+        "held_pills": [],
+        "held_cards": [],
+        "pill_use_result": "idle",
+        "trinket_swap_result": "idle"
+      },
+      "pickups": [],
+      "hazards": [],
+      "ignored_hazard_ids": [],
+      "combat_stuck": false,
+      "hazards_observation_valid": true,
+      "nearby_enemies": [],
+      "nearby_projectiles": [],
+      "tracking_threats": [],
+      "damage_events": [],
+      "geometry": {
+        "nearest_enemy_distance": null,
+        "enemy_range_margin": null,
+        "wall_clearance_neighbors": 4,
+        "line_of_fire": false,
+        "line_of_fire_blocked": false,
+        "projectile_threats": [],
+        "nearest_projectile_ttc_frames": null,
+        "nearest_projectile_imminent": false,
+        "tracking_threats": [],
+        "nearest_tracking_bomb_distance": null,
+        "nearest_tracking_bomb_ttc_frames": null,
+        "nearest_tracking_bomb_imminent": false
+      },
+      "navigation_feedback": {
+        "requested_move": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "resolved_move": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "movement_progress": 6.43,
+        "movement_blocked": false,
+        "move_resolution_reason": "requested",
+        "safe_move_directions": {
+          "left": "safe",
+          "up": "safe",
+          "down": "safe",
+          "right": "safe"
+        },
+        "recovery_active": false,
+        "recovery_reason": "",
+        "recovery_target_door_slot": -1,
+        "stall_frames": 0,
+        "last_action_id": "wait_for_bomb",
+        "last_action_mode": "wait",
+        "last_action_sequence": 118,
+        "action_age_frames": 2,
+        "recent_actions": [
+          {
+            "id": "bomb_secret_0",
+            "frame": 4896,
+            "elapsed_frames": 12,
+            "movement_px": 87.6,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "bomb_secret_0",
+            "frame": 4908,
+            "elapsed_frames": 12,
+            "movement_px": 105.1,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "requested"
+          },
+          {
+            "id": "wait_for_bomb",
+            "frame": 4914,
+            "elapsed_frames": 6,
+            "movement_px": 15.7,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "ghost_bomb_retreat"
+          },
+          {
+            "id": "wait_for_bomb",
+            "frame": 4926,
+            "elapsed_frames": 12,
+            "movement_px": 87.5,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "ghost_bomb_retreat"
+          },
+          {
+            "id": "wait_for_bomb",
+            "frame": 4938,
+            "elapsed_frames": 12,
+            "movement_px": 105.1,
+            "goal_progress_px": null,
+            "blocked": false,
+            "resolution": "ghost_bomb_retreat"
+          }
+        ],
+        "transition_phase": "entered"
+      },
+      "boss_exit": {
+        "available": false,
+        "position": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "grid_index": -1
+      },
+      "death": {
+        "player_dead": false,
+        "restart_phase": "alive",
+        "restart_count": 0,
+        "restart_error": ""
+      }
+    },
+    "output": {
+      "action": "enter_door_0",
+      "action_label": "进入 0 号门"
+    },
+    "probabilities": {
+      "enter_door_0": 1.0
+    },
+    "judgments": {},
+    "composition_schema": "jev-policy-v2",
+    "confidence": 1.0,
+    "top1": 1.0,
+    "top2": 0.0,
+    "margin": 1.0,
+    "entropy": 0.0,
+    "latency_ms": 0.0,
+    "client_latency_ms": 0.0,
+    "server_latency_ms": null,
+    "remote_latency_ms": null,
+    "request_bytes": 0,
+    "estimated_input_tokens": 0,
+    "candidate_set": {
+      "policy": "navigation",
+      "phase": "clear",
+      "raw_candidates": [
+        {
+          "id": "enter_door_0",
+          "mode": "navigate",
+          "target": "secret door slot 0",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "newly bombed secret room"
+        }
+      ],
+      "admissible_candidates": [
+        {
+          "id": "enter_door_0",
+          "mode": "navigate",
+          "target": "secret door slot 0",
+          "move": {
+            "x": -1,
+            "y": 0
+          },
+          "shoot": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "reason": "newly bombed secret room"
+        }
+      ],
+      "rejected_candidates": [],
+      "single_legal_reason": "only one candidate survived deterministic safety/resource rules"
+    },
+    "fallback": false,
+    "fallback_reason": "",
+    "timeout": false,
+    "error": "",
+    "stale_result": false,
+    "policy_fingerprint": "a003df9372e8",
+    "recovery": {
+      "active": false,
+      "reason": "",
+      "stall_frames": 0,
+      "target_door_slot": -1,
+      "remote_cooldown": false
+    },
+    "role_action": "进入 0 号门",
+    "action": "enter_door_0",
+    "source": "local",
+    "execution": {
+      "action_id": "enter_door_0",
+      "mode": "navigate",
+      "source": "local",
+      "execution_source": "local",
+      "provider_fallback": false,
+      "move": {
+        "x": -1,
+        "y": 0
+      },
+      "shoot": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "confidence": 1.0
+    },
+    "policy_route": "navigation",
+    "remote_call": false,
+    "phase": "clear",
+    "state_age_seconds": 0.003688799999508774,
+    "action_age_frames": 2,
+    "outcome": {
+      "hp_before": 5.0,
+      "hp_delta": 0.0,
+      "room_clear": true,
+      "movement_progress": 6.4269409179688
+    },
+    "recorded_at": "2026-11-06 13:00:53",
+    "trace_id": "64fd915b8e9442fa"
+  }
+]

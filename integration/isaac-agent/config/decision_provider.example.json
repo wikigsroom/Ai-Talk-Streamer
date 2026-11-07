@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "selected_provider": "local",
+  "shadow_enabled": false,
+  "shadow_provider": "jev",
+  "providers": {
+    "systemone": {
+      "url": "http://127.0.0.1:8001/v1/systemone",
+      "model": "decider-v10",
+      "timeout_seconds": 0.75,
+      "confidence_threshold": 0.7,
+      "auth_required": false
+    },
+    "local": {
+      "model": "local-policy",
+      "timeout_seconds": 0.75,
+      "confidence_threshold": 0.0,
+      "auth_required": false
+    },
+    "jev": {
+      "url": "https://api.typesafe.ai/v1/systemone",
+      "model": "jev-latest",
+      "timeout_seconds": 0.75,
+      "confidence_threshold": 0.7,
+      "auth_required": true
+    },
+    "bocha": {
+      "url": "https://jev.bocha.cn/v1/systemone",
+      "model": "bocha-jev-v1",
+      "timeout_seconds": 0.75,
+      "confidence_threshold": 0.7,
+      "auth_required": true
+    }
+  }
+}

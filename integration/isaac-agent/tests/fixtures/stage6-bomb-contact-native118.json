@@ -1,0 +1,281 @@
+[
+  {
+    "frame": 38080,
+    "player": {
+      "hp": 11,
+      "soul_hearts": 1,
+      "weapon_type_known": true,
+      "damage_cooldown": 0,
+      "red_hearts": 10,
+      "black_hearts": 0,
+      "type": 1,
+      "tear_speed": 1.8559999465942,
+      "id": 0,
+      "weapon_type": "tear",
+      "move_speed": 1.2000000476837,
+      "vel": {
+        "x": 2.0,
+        "y": 1.4
+      },
+      "max_hearts": 10,
+      "pos": {
+        "x": 381.4,
+        "y": 291.3
+      },
+      "eternal_hearts": 0,
+      "tear_range": 580.0,
+      "bone_hearts": 0
+    },
+    "bomb_active": false,
+    "bomb_placed": false,
+    "bomb_placed_frame": -1,
+    "bomb_position": {
+      "x": 0,
+      "y": 0
+    },
+    "bomb_escape_direction": {
+      "x": 1.0,
+      "y": 0.0
+    },
+    "move_resolution_reason": "requested",
+    "resolved_move": {
+      "x": 1.0,
+      "y": 0.0
+    },
+    "danger_effects": [],
+    "route_debug": {
+      "position": {
+        "x": 321.16470336914,
+        "y": 347.82833862305
+      },
+      "cursor": 3,
+      "goal": 67,
+      "waypoint": {
+        "x": 320.0,
+        "y": 320.0
+      },
+      "path": [
+        98,
+        97,
+        82,
+        67
+      ],
+      "start": 97
+    },
+    "last_action_id": "bomb_secret_2"
+  },
+  {
+    "frame": 38113,
+    "player": {
+      "hp": 11,
+      "soul_hearts": 1,
+      "weapon_type_known": true,
+      "damage_cooldown": 0,
+      "red_hearts": 10,
+      "black_hearts": 0,
+      "type": 1,
+      "tear_speed": 1.8559999465942,
+      "id": 0,
+      "weapon_type": "tear",
+      "move_speed": 1.2000000476837,
+      "vel": {
+        "x": 0.2,
+        "y": 3.2
+      },
+      "max_hearts": 10,
+      "pos": {
+        "x": 455.2,
+        "y": 274.2
+      },
+      "eternal_hearts": 0,
+      "tear_range": 580.0,
+      "bone_hearts": 0
+    },
+    "bomb_active": false,
+    "bomb_placed": false,
+    "bomb_placed_frame": -1,
+    "bomb_position": {
+      "x": 0,
+      "y": 0
+    },
+    "bomb_escape_direction": {
+      "x": 1.0,
+      "y": 0.0
+    },
+    "move_resolution_reason": "requested",
+    "resolved_move": {
+      "x": 0.0,
+      "y": 1.0
+    },
+    "danger_effects": [],
+    "route_debug": {
+      "position": {
+        "x": 321.16470336914,
+        "y": 347.82833862305
+      },
+      "cursor": 3,
+      "goal": 67,
+      "waypoint": {
+        "x": 320.0,
+        "y": 320.0
+      },
+      "path": [
+        98,
+        97,
+        82,
+        67
+      ],
+      "start": 97
+    },
+    "last_action_id": "bomb_secret_2"
+  },
+  {
+    "frame": 38143,
+    "player": {
+      "hp": 11,
+      "soul_hearts": 1,
+      "weapon_type_known": true,
+      "damage_cooldown": 0,
+      "red_hearts": 10,
+      "black_hearts": 0,
+      "type": 1,
+      "tear_speed": 1.8559999465942,
+      "id": 0,
+      "weapon_type": "tear",
+      "move_speed": 1.2000000476837,
+      "vel": {
+        "x": 2.0,
+        "y": -1.4
+      },
+      "max_hearts": 10,
+      "pos": {
+        "x": 517.6,
+        "y": 263.0
+      },
+      "eternal_hearts": 0,
+      "tear_range": 580.0,
+      "bone_hearts": 0
+    },
+    "bomb_active": false,
+    "bomb_placed": false,
+    "bomb_placed_frame": -1,
+    "bomb_position": {
+      "x": 0,
+      "y": 0
+    },
+    "bomb_escape_direction": {
+      "x": 1.0,
+      "y": 0.0
+    },
+    "move_resolution_reason": "requested",
+    "resolved_move": {
+      "x": 1.0,
+      "y": 0.0
+    },
+    "danger_effects": [],
+    "route_debug": {
+      "position": {
+        "x": 321.16470336914,
+        "y": 347.82833862305
+      },
+      "cursor": 3,
+      "goal": 67,
+      "waypoint": {
+        "x": 320.0,
+        "y": 320.0
+      },
+      "path": [
+        98,
+        97,
+        82,
+        67
+      ],
+      "start": 97
+    },
+    "last_action_id": "bomb_secret_2"
+  },
+  {
+    "frame": 38176,
+    "player": {
+      "hp": 11,
+      "soul_hearts": 1,
+      "weapon_type_known": true,
+      "damage_cooldown": 0,
+      "red_hearts": 10,
+      "black_hearts": 0,
+      "type": 1,
+      "tear_speed": 1.8559999465942,
+      "id": 0,
+      "weapon_type": "tear",
+      "move_speed": 1.2000000476837,
+      "vel": {
+        "x": 2.6,
+        "y": -2.7
+      },
+      "max_hearts": 10,
+      "pos": {
+        "x": 380.0,
+        "y": 258.0
+      },
+      "eternal_hearts": 0,
+      "tear_range": 580.0,
+      "bone_hearts": 0
+    },
+    "bomb_active": true,
+    "bomb_placed": true,
+    "bomb_placed_frame": 38148,
+    "bomb_position": {
+      "x": 532.3,
+      "y": 268.5
+    },
+    "bomb_escape_direction": {
+      "x": -1.0,
+      "y": 0.0
+    },
+    "move_resolution_reason": "ghost_bomb_retreat",
+    "resolved_move": {
+      "x": 0.7,
+      "y": -0.7
+    },
+    "danger_effects": [
+      {
+        "kind": "armed_bomb",
+        "id": 1044,
+        "variant": 0,
+        "subtype": 0,
+        "vel": {
+          "x": -7.8,
+          "y": -0.7
+        },
+        "state": -1,
+        "type": 4,
+        "animation": "",
+        "radius": 125.0,
+        "pos": {
+          "x": 404.6,
+          "y": 290.1
+        }
+      }
+    ],
+    "route_debug": {
+      "position": {
+        "x": 321.16470336914,
+        "y": 347.82833862305
+      },
+      "cursor": 3,
+      "goal": 67,
+      "waypoint": {
+        "x": 320.0,
+        "y": 320.0
+      },
+      "path": [
+        98,
+        97,
+        82,
+        67
+      ],
+      "start": 97
+    },
+    "last_action_id": "wait_for_bomb"
+  }
+]

@@ -1,0 +1,527 @@
+{
+  "schema_version": "decision-v3",
+  "run_id": "cc0d054703b84226",
+  "seed": 1952059200,
+  "frame": 38425,
+  "room_index": 82,
+  "provider": "local",
+  "requested_provider": "local",
+  "model": "local-policy",
+  "status": "success",
+  "policy": "navigation",
+  "input": {
+    "frame": 38425,
+    "mod_version": "2026-11-06-native47",
+    "fire_block_reason": "idle",
+    "bomb_active": false,
+    "bomb_placed": false,
+    "bomb_target_id": -1,
+    "bomb_error": "",
+    "bomb_position": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "bomb_placement_distance": -1.0,
+    "bomb_escape_direction": {
+      "x": 1.0,
+      "y": 0.0
+    },
+    "start_seed": 1952059200,
+    "room_clear": true,
+    "room_visit_sequence": 53,
+    "room_entered_frame": 38167,
+    "room_cleared_frame": 38167,
+    "hostile_enemy_count": 0,
+    "enemy_count": 0,
+    "enemy_total_hp": 0.0,
+    "enemy_kill_delta": 0,
+    "enemy_observation_valid": true,
+    "player": {
+      "hp": 2.0,
+      "position": {
+        "x": 260.2,
+        "y": 242.6
+      },
+      "grid_index": 51,
+      "red_hearts": 2,
+      "max_hearts": 8,
+      "soul_hearts": 0,
+      "black_hearts": 0,
+      "bone_hearts": 0,
+      "eternal_hearts": 0,
+      "tear_range": 260.0,
+      "tear_speed": 1.16,
+      "velocity": {
+        "x": -1.9,
+        "y": 0.0
+      },
+      "weapon_type": "tear",
+      "weapon_type_known": true
+    },
+    "room": {
+      "index": 82,
+      "stage": 5,
+      "stage_type": 0,
+      "dimension": 0,
+      "type": "default",
+      "is_boss": false,
+      "grid_width": 15,
+      "grid_height": 9,
+      "blocked": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        59,
+        60,
+        66,
+        67,
+        68,
+        74,
+        75,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104
+      ],
+      "danger_grid_indices": [
+        50,
+        80,
+        81,
+        82,
+        83
+      ],
+      "grid_events": [
+        {
+          "kind": "spike",
+          "grid_index": 50,
+          "position": {
+            "x": 240.0,
+            "y": 240.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100050,
+          "timed": true
+        },
+        {
+          "kind": "spike",
+          "grid_index": 51,
+          "position": {
+            "x": 280.0,
+            "y": 240.0
+          },
+          "active": false,
+          "triggered": false,
+          "entity_id": -100051,
+          "timed": true
+        },
+        {
+          "kind": "spike",
+          "grid_index": 52,
+          "position": {
+            "x": 320.0,
+            "y": 240.0
+          },
+          "active": false,
+          "triggered": false,
+          "entity_id": -100052,
+          "timed": true
+        },
+        {
+          "kind": "spike",
+          "grid_index": 53,
+          "position": {
+            "x": 360.0,
+            "y": 240.0
+          },
+          "active": false,
+          "triggered": false,
+          "entity_id": -100053,
+          "timed": true
+        },
+        {
+          "kind": "spike",
+          "grid_index": 54,
+          "position": {
+            "x": 400.0,
+            "y": 240.0
+          },
+          "active": false,
+          "triggered": false,
+          "entity_id": -100054,
+          "timed": true
+        },
+        {
+          "kind": "spike",
+          "grid_index": 80,
+          "position": {
+            "x": 240.0,
+            "y": 320.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100080,
+          "timed": true
+        },
+        {
+          "kind": "spike",
+          "grid_index": 81,
+          "position": {
+            "x": 280.0,
+            "y": 320.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100081,
+          "timed": true
+        },
+        {
+          "kind": "spike",
+          "grid_index": 82,
+          "position": {
+            "x": 320.0,
+            "y": 320.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100082,
+          "timed": true
+        },
+        {
+          "kind": "spike",
+          "grid_index": 83,
+          "position": {
+            "x": 360.0,
+            "y": 320.0
+          },
+          "active": true,
+          "triggered": false,
+          "entity_id": -100083,
+          "timed": true
+        },
+        {
+          "kind": "spike",
+          "grid_index": 84,
+          "position": {
+            "x": 400.0,
+            "y": 320.0
+          },
+          "active": false,
+          "triggered": false,
+          "entity_id": -100084,
+          "timed": true
+        }
+      ],
+      "bomb_walls": [],
+      "planned_door_slot": 0,
+      "planned_goal": "committed navigation choice",
+      "doors": [
+        {
+          "slot": 0,
+          "position": {
+            "x": 40.0,
+            "y": 280.0
+          },
+          "target_room_index": 81,
+          "target_is_boss": false,
+          "target_clear": false,
+          "grid_index": 60,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        },
+        {
+          "slot": 2,
+          "position": {
+            "x": 600.0,
+            "y": 280.0
+          },
+          "target_room_index": 83,
+          "target_is_boss": false,
+          "target_clear": true,
+          "grid_index": 74,
+          "target_room_type": "default",
+          "locked": false,
+          "lock_known": true,
+          "open": true,
+          "open_known": true
+        }
+      ]
+    },
+    "resources": {
+      "coins": 11,
+      "keys": 7,
+      "bombs": 8,
+      "held_trinkets": [],
+      "trinket_slots": 1,
+      "held_pills": [],
+      "held_cards": [
+        {
+          "slot": 0,
+          "card": 15
+        }
+      ],
+      "pill_use_result": "kept_unidentified",
+      "trinket_swap_result": "idle"
+    },
+    "pickups": [],
+    "hazards": [],
+    "ignored_hazard_ids": [],
+    "combat_stuck": false,
+    "hazards_observation_valid": true,
+    "nearby_enemies": [],
+    "nearby_projectiles": [],
+    "tracking_threats": [],
+    "damage_events": [
+      {
+        "id": 1,
+        "frame": 38203,
+        "amount": 2.0,
+        "flags": 128,
+        "source_type": 0,
+        "source_variant": 9
+      },
+      {
+        "id": 2,
+        "frame": 38305,
+        "amount": 2.0,
+        "flags": 128,
+        "source_type": 0,
+        "source_variant": 9
+      }
+    ],
+    "geometry": {
+      "nearest_enemy_distance": null,
+      "enemy_range_margin": null,
+      "wall_clearance_neighbors": 2,
+      "line_of_fire": false,
+      "line_of_fire_blocked": false,
+      "projectile_threats": [],
+      "nearest_projectile_ttc_frames": null,
+      "nearest_projectile_imminent": false,
+      "tracking_threats": [],
+      "nearest_tracking_bomb_distance": null,
+      "nearest_tracking_bomb_ttc_frames": null,
+      "nearest_tracking_bomb_imminent": false
+    },
+    "navigation_feedback": {
+      "requested_move": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "resolved_move": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "movement_progress": 6.66,
+      "movement_blocked": false,
+      "move_resolution_reason": "grid_danger_escape",
+      "safe_move_directions": {
+        "left": "spike_or_tnt",
+        "up": "grid_wall",
+        "down": "grid_wall",
+        "right": "safe"
+      },
+      "recovery_active": false,
+      "recovery_reason": "",
+      "recovery_target_door_slot": -1,
+      "stall_frames": 3,
+      "last_action_id": "enter_door_0",
+      "last_action_mode": "navigate",
+      "last_action_sequence": 164,
+      "action_age_frames": 2,
+      "recent_actions": [
+        {
+          "id": "enter_door_0",
+          "frame": 38368,
+          "elapsed_frames": 3,
+          "movement_px": 11.3,
+          "goal_progress_px": -1.6,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        },
+        {
+          "id": "enter_door_0",
+          "frame": 38380,
+          "elapsed_frames": 12,
+          "movement_px": 31.8,
+          "goal_progress_px": 28.1,
+          "blocked": true,
+          "resolution": "grid_danger_escape"
+        },
+        {
+          "id": "enter_door_0",
+          "frame": 38392,
+          "elapsed_frames": 12,
+          "movement_px": 2.0,
+          "goal_progress_px": -2.0,
+          "blocked": false,
+          "resolution": "grid_danger_escape"
+        },
+        {
+          "id": "enter_door_0",
+          "frame": 38404,
+          "elapsed_frames": 12,
+          "movement_px": 0.2,
+          "goal_progress_px": -0.2,
+          "blocked": false,
+          "resolution": "grid_danger_escape"
+        },
+        {
+          "id": "enter_door_0",
+          "frame": 38416,
+          "elapsed_frames": 12,
+          "movement_px": 66.6,
+          "goal_progress_px": 66.2,
+          "blocked": false,
+          "resolution": "grid_route_control"
+        }
+      ],
+      "transition_phase": "entered"
+    },
+    "boss_exit": {
+      "available": false,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "grid_index": -1
+    },
+    "death": {
+      "player_dead": false,
+      "restart_phase": "alive",
+      "restart_count": 0,
+      "restart_error": ""
+    }
+  },
+  "output": {
+    "action": "enter_door_0",
+    "action_label": "进入 0 号门"
+  },
+  "probabilities": {
+    "enter_door_0": 1.0
+  },
+  "judgments": {},
+  "composition_schema": "jev-policy-v2",
+  "confidence": 1.0,
+  "top1": 1.0,
+  "top2": 0.0,
+  "margin": 1.0,
+  "entropy": 0.0,
+  "latency_ms": 0.0,
+  "client_latency_ms": 0.0,
+  "server_latency_ms": null,
+  "remote_latency_ms": null,
+  "request_bytes": 0,
+  "estimated_input_tokens": 0,
+  "candidate_set": {
+    "policy": "navigation",
+    "phase": "clear",
+    "raw_candidates": [
+      {
+        "id": "enter_door_0",
+        "mode": "navigate",
+        "target": "default door slot 0",
+        "move": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "shoot": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "reason": "committed navigation choice"
+      }
+    ],
+    "admissible_candidates": [
+      {
+        "id": "enter_door_0",
+        "mode": "navigate",
+        "target": "default door slot 0",
+        "move": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "shoot": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "reason": "committed navigation choice"
+      }
+    ],
+    "rejected_candidates": [],
+    "single_legal_reason": "only one candidate survived deterministic safety/resource rules"
+  },
+  "fallback": false,
+  "fallback_reason": "",
+  "timeout": false,
+  "error": "",
+  "stale_result": false,
+  "policy_fingerprint": "a003df9372e8",
+  "recovery": {
+    "active": false,
+    "reason": "",
+    "stall_frames": 3,
+    "target_door_slot": -1,
+    "remote_cooldown": false
+  },
+  "role_action": "进入 0 号门",
+  "action": "enter_door_0",
+  "source": "local",
+  "execution": {
+    "action_id": "enter_door_0",
+    "mode": "navigate",
+    "source": "local",
+    "execution_source": "local",
+    "provider_fallback": false,
+    "move": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "shoot": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "confidence": 1.0
+  },
+  "policy_route": "navigation",
+  "remote_call": false,
+  "phase": "clear",
+  "state_age_seconds": 0.0017969000000448432,
+  "action_age_frames": 2,
+  "outcome": {
+    "hp_before": 2.0,
+    "hp_delta": 0.0,
+    "room_clear": true,
+    "movement_progress": 6.6578063964844
+  },
+  "recorded_at": "2026-11-06 11:40:04",
+  "trace_id": "0d723a51204b47eb"
+}

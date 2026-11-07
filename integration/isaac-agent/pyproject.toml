@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "isaac-jev"
+version = "0.1.0"
+description = "Repentance 1.7.9b local real-time control with a bounded DSH strategic agent"
+requires-python = ">=3.11"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [{name = "IsaacJev contributors"}]
+
+[project.scripts]
+isaac-jev = "isaac_jev.cli:main"
+isaac-jev-mcp = "isaac_jev.mcp_server:main"
+isaac-jev-tune = "isaac_jev.tuning:main"
+isaac-jev-eval = "isaac_jev.replay:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.setuptools.package-data]
+isaac_jev = ["strategy_dashboard.html"]

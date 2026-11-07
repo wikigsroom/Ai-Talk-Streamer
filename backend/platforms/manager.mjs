@@ -1,4 +1,6 @@
 import { join } from 'node:path';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { PlatformConfig, PlatformError, PLATFORM_IDS, check } from './config.mjs';
 import { PlatformStore } from './store.mjs';
 import { normalizeEvent, eventPrincipal } from './events.mjs';
@@ -15,20 +17,23 @@ const ACTIVE_OUTPUTS = ['STARTING', 'STREAMING', 'COMPANION_READY', 'MANUAL_LIVE
 
 export class PlatformManager {
   constructor(root, bridge, { store, config, obs, livehime, now = () => Date.now() } = {}) {
-    this.root = root; this.bridge = bridge; this.now = now; this.config = config || new PlatformConfig(root); this.store = store || new PlatformStore(join(root, 'state/platforms/control.sqlite3'), now); this.obs = obs || new ObsClient(root, this.config);
+    this.issac=bridge.policy?.deployment?.state_relative_path==='state/issac-stream';
+    this.root = root; this.bridge = bridge; this.now = now; this.config = config || new PlatformConfig(root); this.store = store || new PlatformStore(join(root, this.issac?'state/issac-stream/platforms/control.sqlite3':'state/platforms/control.sqlite3'), now); this.obs = obs || new ObsClient(root, this.config);
     const naimei = bridge.policy?.identity?.character_id === 'naimei';
     this.naimei = naimei;
     this.livehime = livehime || new LivehimeOutput(root, { receiverConfig: () => this.config.value.platforms.bilibili,
-      ...(naimei ? { sourceUrl: bridge.avatarUrl + '/output.html?renderer=livehime&codec=jpeg&buffer_ms=800&layout=portrait',
-        previewUrl: bridge.avatarUrl + '/output.html?renderer=preview&codec=jpeg&buffer_ms=800&layout=portrait',
-        windowTitle: '奶妹 · O01 · 直播姬画面', canvasOutput: true, runAsInvoker: true } : {}) });
+      ...(naimei ? { sourceUrl: bridge.avatarUrl + (this.issac?'/issac/programme?renderer=livehime':'/output.html?renderer=livehime&codec=jpeg&buffer_ms=800&layout=portrait'),
+        previewUrl: bridge.avatarUrl + (this.issac?'/issac/preview?renderer=preview':'/output.html?renderer=preview&codec=jpeg&buffer_ms=800&layout=portrait'),
+        windowTitle: this.issac?'奶妹 · 以撒的结合':'奶妹 · O01 · 直播姬画面', canvasOutput: true, runAsInvoker: true,
+        ...(this.issac?{width:1920,height:1080}:{}) } : {}) });
     this.collectors = new Map(); this.collectorStatus = {}; this.cooldowns = new Map(); this.lastReply = 0; this.controlChain = Promise.resolve(); this.wantOutputAuthority = false; this.closed = false;
   }
   start() { this.timer = setInterval(() => { void this.dispatch().catch(() => this.store.count('dispatch_errors')); }, 1000); this.timer.unref(); this.pruneTimer = setInterval(() => this.store.prune(), 3600000); this.pruneTimer.unref(); return this; }
   exclusive(work) { const result = this.controlChain.then(work); this.controlChain = result.catch(() => {}); return result; }
   async body(req) { let bytes=0;const chunks=[];for await(const chunk of req){bytes+=chunk.length;check(bytes<=1024*1024,'PLATFORM_BODY_TOO_LARGE',413);chunks.push(chunk);}try{return chunks.length?JSON.parse(Buffer.concat(chunks).toString('utf8')):{};}catch{throw new PlatformError('PLATFORM_JSON_INVALID',400);} }
   status() {
-    return { access_mode: 'open', authentication_required: false, config: this.config.public(), collectors: this.collectorStatus, outputs: this.store.all('SELECT * FROM outputs'), counters: Object.fromEntries(this.store.all('SELECT * FROM counters').map(row => [row.name, row.value])), pending: this.store.get("SELECT COUNT(*) n FROM events WHERE status='PENDING'").n, events: this.store.recent(), output_player: this.player ? { consumer_id: this.player.consumer_id, last_seen: this.player.at, connected: this.now() - this.player.at < 6000, renderer: this.player.renderer, frames: this.player.frames, width: this.player.width, height: this.player.height, audio_state: this.player.audio_state, receiver_id: this.player.receiver_id || null, receiver_client_ready: !!this.player.receiver_client_ready } : null, broadcast: this.bridge.state.current() || null };
+    return { access_mode: 'open', authentication_required: false, config: this.config.public(), collectors: this.collectorStatus, outputs: this.store.all('SELECT * FROM outputs'), counters: Object.fromEntries(this.store.all('SELECT * FROM counters').map(row => [row.name, row.value])), pending: this.store.get("SELECT COUNT(*) n FROM events WHERE status='PENDING'").n, events: this.store.recent(), output_player: this.player ? { consumer_id: this.player.consumer_id, last_seen: this.player.at, connected: this.now() - this.player.at < 6000, renderer: this.player.renderer, frames: this.player.frames, width: this.player.width, height: this.player.height, audio_state: this.player.audio_state, receiver_id: this.player.receiver_id || null, receiver_client_ready: !!this.player.receiver_client_ready,
+      ...(this.issac?{programme:this.player.programme,layout_id:this.player.layout_id,programme_revision:this.player.programme_revision,stream_metrics:this.player.stream_metrics}:{}), } : null, broadcast: this.bridge.state.current() || null };
   }
   ingest(platform, payloads, options = {}) {
     check(!this.closed, 'PLATFORM_SERVICE_STOPPED', 503); const rows = Array.isArray(payloads) ? payloads : [payloads]; check(rows.length <= 1000, 'PLATFORM_BATCH_LIMIT');
@@ -100,6 +105,14 @@ export class PlatformManager {
   }
   async stopCollector(platform) { const adapter = this.collectors.get(platform); this.collectors.delete(platform); await adapter?.stop(); this.collectorStatus[platform] = { state: 'STOPPED', updated_at: this.now() }; return { stopped: true }; }
   outputPlayer(body) {
+    if(this.issac){
+      if(body.renderer!=='livehime'||body.programme!=='issac'||body.layout_id!=='mc-landscape-v1'||body.width!==1920||body.height!==1080)return {ignored:true,isaac_programme_required:true};
+      const files=['mc-programme.html','mc-programme.css','mc-programme.js','mc-programme-overlay.js','mc-chat-position.js','issac-game-client.js','local-stream.js','dsh-playback.js','room-audio.js','room-client.js','browser-id.js'].sort();
+      const sha=createHash('sha256');for(const name of files){sha.update(Buffer.from(name));sha.update(Buffer.from([0]));sha.update(createHash('sha256').update(readFileSync(join(this.root,'web/issac',name))).digest());}sha.update(readFileSync(join(this.root,'configs/issac/programme-layout.json')));
+      const revision=sha.digest('hex');
+      if(body.programme_revision!==revision)return {ignored:true,programme_reload_required:true,programme_revision:revision};
+      check(body.stream_metrics?.media_protocol_version===3&&body.stream_metrics?.width===512&&body.stream_metrics?.height===512,'ISAAC_MEDIA_PROFILE_REQUIRED');
+    }
     check(typeof body.consumer_id === 'string' && body.consumer_id.length <= 150, 'OUTPUT_PLAYER_INVALID');
     if (body.receiver_id !== undefined) check(typeof body.receiver_id === 'string' && /^[a-zA-Z0-9_-]{1,100}$/.test(body.receiver_id), 'RECEIVER_ID_INVALID');
     if (this.config.value.platforms.bilibili.client_location === 'receiver' && body.renderer === 'livehime' && !body.receiver_id) return { claim: false, ignored: true, receiver_required: true };
@@ -108,6 +121,7 @@ export class PlatformManager {
     const nativeConfigured = this.config.value.platforms.bilibili.output_mode === 'livehime';
     if ((nativeActive || nativeConfigured && !anyActive ? 'livehime' : 'obs') !== (body.renderer || 'obs')) return { claim: false, ignored: true };
     this.player = { consumer_id: body.consumer_id, at: this.now(), renderer: body.renderer || 'obs', frames: Number(body.frames) || 0, width: Number(body.width) || 0, height: Number(body.height) || 0, audio_state: String(body.audio_state || '').slice(0, 30) };
+    if(this.issac){this.player.programme='issac';this.player.layout_id=body.layout_id;this.player.programme_revision=body.programme_revision;this.player.stream_metrics=body.stream_metrics;}
     if (body.receiver_id !== undefined) {
       this.player.receiver_id = body.receiver_id;
       this.player.receiver_client_ready = body.receiver_client_ready === true;

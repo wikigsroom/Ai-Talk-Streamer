@@ -1,0 +1,51 @@
+{
+  "my": 0.0,
+  "flags": 4100,
+  "stage": 1,
+  "mx": 1.0,
+  "charge_phase": "idle",
+  "enemies": [],
+  "ay": 0.0,
+  "action": "shoot_tnt_-100028",
+  "seed": 1761900601,
+  "ax": 0.0,
+  "tear_age": 23,
+  "route": {
+    "position": {
+      "x": 432.0905456543,
+      "y": 157.61312866211
+    },
+    "cursor": 5,
+    "goal": 88,
+    "waypoint": {
+      "x": 480.0,
+      "y": 160.0
+    },
+    "path": [
+      22,
+      23,
+      24,
+      25,
+      26,
+      41,
+      42,
+      43,
+      58,
+      73,
+      88
+    ],
+    "start": 25
+  },
+  "room": 86,
+  "move_reason": "grid_route_control",
+  "source_variant": 0,
+  "source_type": 0,
+  "aim_target": -1,
+  "vy": -0.040307275950909,
+  "vx": 0.76943445205688,
+  "amount": 2.0,
+  "x": 436.44683837891,
+  "bombs": [],
+  "frame": 647,
+  "y": 157.61322021484
+}

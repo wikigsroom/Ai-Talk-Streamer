@@ -1,0 +1,151 @@
+{
+  "seed": 843686917,
+  "frame": 105699,
+  "room": 30,
+  "enemies": [
+    {
+      "type": 216,
+      "variant": 0,
+      "subtype": 0,
+      "state": 4,
+      "telegraph": "Body",
+      "is_stationary": false,
+      "offset": {
+        "x": 138.5,
+        "y": 1.0
+      },
+      "velocity": {
+        "x": -1.0,
+        "y": 0.0
+      },
+      "hp": 38.0,
+      "is_boss": false
+    },
+    {
+      "type": 216,
+      "variant": 10,
+      "subtype": 0,
+      "state": 4,
+      "telegraph": "Cord",
+      "is_stationary": false,
+      "offset": {
+        "x": 138.5,
+        "y": 8.0
+      },
+      "velocity": {
+        "x": -1.0,
+        "y": 0.0
+      },
+      "hp": 38.0,
+      "is_boss": false
+    },
+    {
+      "type": 216,
+      "variant": 10,
+      "subtype": 0,
+      "state": 4,
+      "telegraph": "Cord",
+      "is_stationary": false,
+      "offset": {
+        "x": 139.6,
+        "y": 11.8
+      },
+      "velocity": {
+        "x": -0.9,
+        "y": 0.1
+      },
+      "hp": 38.0,
+      "is_boss": false
+    },
+    {
+      "type": 216,
+      "variant": 10,
+      "subtype": 0,
+      "state": 4,
+      "telegraph": "Cord",
+      "is_stationary": false,
+      "offset": {
+        "x": 140.7,
+        "y": 14.9
+      },
+      "velocity": {
+        "x": -0.7,
+        "y": 0.2
+      },
+      "hp": 38.0,
+      "is_boss": false
+    },
+    {
+      "type": 216,
+      "variant": 10,
+      "subtype": 0,
+      "state": 4,
+      "telegraph": "Cord",
+      "is_stationary": false,
+      "offset": {
+        "x": 141.8,
+        "y": 17.3
+      },
+      "velocity": {
+        "x": -0.6,
+        "y": 0.4
+      },
+      "hp": 38.0,
+      "is_boss": false
+    },
+    {
+      "type": 216,
+      "variant": 10,
+      "subtype": 0,
+      "state": 4,
+      "telegraph": "Cord",
+      "is_stationary": false,
+      "offset": {
+        "x": 142.8,
+        "y": 19.1
+      },
+      "velocity": {
+        "x": -0.5,
+        "y": 0.5
+      },
+      "hp": 38.0,
+      "is_boss": false
+    },
+    {
+      "type": 216,
+      "variant": 10,
+      "subtype": 0,
+      "state": 4,
+      "telegraph": "Cord",
+      "is_stationary": false,
+      "offset": {
+        "x": 143.9,
+        "y": 20.2
+      },
+      "velocity": {
+        "x": -0.4,
+        "y": 0.6
+      },
+      "hp": 38.0,
+      "is_boss": false
+    },
+    {
+      "type": 216,
+      "variant": 10,
+      "subtype": 0,
+      "state": 4,
+      "telegraph": "Cord",
+      "is_stationary": false,
+      "offset": {
+        "x": 145.0,
+        "y": 20.7
+      },
+      "velocity": {
+        "x": -0.3,
+        "y": 0.7
+      },
+      "hp": 38.0,
+      "is_boss": false
+    }
+  ]
+}

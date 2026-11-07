@@ -1,0 +1,1035 @@
+{
+  "enemy_kill_delta": 0,
+  "pill_use_result": "idle",
+  "transition_phase": "entered",
+  "charge_phase": "idle",
+  "bomb_placed": false,
+  "backtrack_guard_active": false,
+  "enemy_observation_valid": true,
+  "active_charge": 0,
+  "bomb_placement_distance": -1,
+  "movement_progress": 0.0,
+  "room_entry_age_frames": 839,
+  "progression_target": "satan",
+  "transition_door_distance": -1,
+  "damage_events": [
+    {
+      "flags": 0,
+      "id": 1,
+      "source_type": 9,
+      "source_variant": 0,
+      "frame": 22093,
+      "amount": 1.0
+    },
+    {
+      "flags": 0,
+      "id": 2,
+      "source_type": 9,
+      "source_variant": 0,
+      "frame": 22169,
+      "amount": 1.0
+    },
+    {
+      "flags": 0,
+      "id": 3,
+      "source_type": 9,
+      "source_variant": 0,
+      "frame": 22282,
+      "amount": 1.0
+    },
+    {
+      "flags": 0,
+      "id": 4,
+      "source_type": 264,
+      "source_variant": 0,
+      "frame": 23471,
+      "amount": 1.0
+    },
+    {
+      "flags": 16,
+      "id": 5,
+      "source_type": 1000,
+      "source_variant": 22,
+      "frame": 23501,
+      "amount": 1.0
+    },
+    {
+      "flags": 16,
+      "id": 6,
+      "source_type": 1000,
+      "source_variant": 22,
+      "frame": 23531,
+      "amount": 1.0
+    },
+    {
+      "flags": 16,
+      "id": 7,
+      "source_type": 1000,
+      "source_variant": 22,
+      "frame": 23561,
+      "amount": 1.0
+    }
+  ],
+  "stage": 3,
+  "utility_result": "idle",
+  "trinket_swap_result": "idle",
+  "held_cards": [],
+  "room_entered_frame": 22722,
+  "player_dead": true,
+  "boss_exit_position": {
+    "x": 0,
+    "y": 0
+  },
+  "keys": 12,
+  "bomb_escape_direction": {
+    "x": 1.0,
+    "y": 0.0
+  },
+  "dimension": 0,
+  "transition_gate": "not_navigation",
+  "frame": 23561,
+  "boss_exit_available": false,
+  "restart_error": "",
+  "held_pills": [],
+  "held_trinkets": [],
+  "enemy_total_hp": 400.5,
+  "type": "state",
+  "active_item": 0,
+  "safe_move_directions": {
+    "left": "creep",
+    "up": "creep",
+    "down": "creep",
+    "right": "grid_wall"
+  },
+  "layout": {
+    "blocked": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      29,
+      30,
+      44,
+      45,
+      59,
+      60,
+      64,
+      70,
+      74,
+      75,
+      89,
+      90,
+      104,
+      105,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134
+    ],
+    "room_index": 21,
+    "is_boss": true,
+    "grid_width": 15,
+    "shot_blocked": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      29,
+      30,
+      44,
+      45,
+      59,
+      60,
+      64,
+      70,
+      74,
+      75,
+      89,
+      90,
+      104,
+      105,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134
+    ],
+    "grid_height": 9,
+    "room_type": "boss",
+    "bomb_walls": [],
+    "grid_events": [
+      {
+        "active": false,
+        "kind": "tnt",
+        "id": -100064,
+        "state": 2,
+        "pos": {
+          "x": 200.0,
+          "y": 280.0
+        },
+        "timed": false,
+        "grid_index": 64,
+        "triggered": false
+      },
+      {
+        "active": true,
+        "kind": "tnt",
+        "id": -100070,
+        "state": 1,
+        "pos": {
+          "x": 440.0,
+          "y": 280.0
+        },
+        "timed": false,
+        "grid_index": 70,
+        "triggered": false
+      }
+    ],
+    "danger_grid_indices": [
+      102,
+      131,
+      116,
+      133,
+      70,
+      103,
+      88,
+      89,
+      132,
+      117,
+      104,
+      134,
+      118,
+      119
+    ],
+    "doors": [
+      {
+        "slot": 3,
+        "door_locked": false,
+        "door_open_known": true,
+        "door_lock_known": true,
+        "target_room_type": "default",
+        "target_room_index": 34,
+        "door_open": false,
+        "pos": {
+          "x": 320.0,
+          "y": 440.0
+        },
+        "grid_index": 127,
+        "target_clear": true,
+        "target_is_boss": false
+      }
+    ]
+  },
+  "fire_block_reason": "idle",
+  "fired_tears": 0,
+  "danger_effects": [
+    {
+      "pos": {
+        "x": 597.5,
+        "y": 398.8
+      },
+      "variant": 22,
+      "id": 586,
+      "radius": 40.0
+    },
+    {
+      "pos": {
+        "x": 585.8,
+        "y": 361.3
+      },
+      "variant": 22,
+      "id": 587,
+      "radius": 40.0
+    },
+    {
+      "pos": {
+        "x": 507.1,
+        "y": 419.4
+      },
+      "variant": 22,
+      "id": 588,
+      "radius": 40.0
+    },
+    {
+      "pos": {
+        "x": 625.3,
+        "y": 334.4
+      },
+      "variant": 22,
+      "id": 589,
+      "radius": 40.0
+    },
+    {
+      "pos": {
+        "x": 565.3,
+        "y": 360.8
+      },
+      "variant": 22,
+      "id": 590,
+      "radius": 40.0
+    }
+  ],
+  "hostile_enemy_count": 1,
+  "restart_phase": "death_wait",
+  "pickups": [],
+  "projectiles": [
+    {
+      "id": 627,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 4.0,
+        "y": -5.7
+      },
+      "grid_index": 88,
+      "telegraph": "RegularTear6",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 552.9,
+        "y": 318.0
+      }
+    },
+    {
+      "id": 628,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 4.3,
+        "y": -8.1
+      },
+      "grid_index": 73,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 556.8,
+        "y": 294.7
+      }
+    },
+    {
+      "id": 629,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 4.1,
+        "y": -7.5
+      },
+      "grid_index": 73,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 554.7,
+        "y": 300.0
+      }
+    },
+    {
+      "id": 630,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 4.7,
+        "y": -2.8
+      },
+      "grid_index": 103,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 560.5,
+        "y": 347.7
+      }
+    },
+    {
+      "id": 631,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 4.1,
+        "y": -6.3
+      },
+      "grid_index": 88,
+      "telegraph": "RegularTear6",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 554.3,
+        "y": 311.9
+      }
+    },
+    {
+      "id": 632,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 6.0,
+        "y": -6.6
+      },
+      "grid_index": 88,
+      "telegraph": "RegularTear6",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 573.1,
+        "y": 309.3
+      }
+    },
+    {
+      "id": 633,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 4.3,
+        "y": -6.2
+      },
+      "grid_index": 88,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 556.5,
+        "y": 313.4
+      }
+    },
+    {
+      "id": 634,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 3.6,
+        "y": -8.8
+      },
+      "grid_index": 73,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 549.1,
+        "y": 287.3
+      }
+    },
+    {
+      "id": 635,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 2.3,
+        "y": -5.2
+      },
+      "grid_index": 87,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 536.7,
+        "y": 323.3
+      }
+    },
+    {
+      "id": 636,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 4.2,
+        "y": -3.9
+      },
+      "grid_index": 88,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 555.6,
+        "y": 336.5
+      }
+    },
+    {
+      "id": 637,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 2.1,
+        "y": -6.6
+      },
+      "grid_index": 87,
+      "telegraph": "RegularTear6",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 534.3,
+        "y": 309.8
+      }
+    },
+    {
+      "id": 638,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 3.5,
+        "y": -3.0
+      },
+      "grid_index": 103,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 548.8,
+        "y": 345.4
+      }
+    },
+    {
+      "id": 639,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 2.2,
+        "y": -6.0
+      },
+      "grid_index": 87,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 535.2,
+        "y": 315.0
+      }
+    },
+    {
+      "id": 640,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 4.9,
+        "y": -5.0
+      },
+      "grid_index": 88,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 562.7,
+        "y": 325.2
+      }
+    },
+    {
+      "id": 641,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 1.6,
+        "y": -7.7
+      },
+      "grid_index": 72,
+      "telegraph": "RegularTear6",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 529.6,
+        "y": 298.6
+      }
+    },
+    {
+      "id": 642,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 6.2,
+        "y": -4.9
+      },
+      "grid_index": 88,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 575.6,
+        "y": 326.4
+      }
+    },
+    {
+      "id": 643,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 5.6,
+        "y": -5.3
+      },
+      "grid_index": 88,
+      "telegraph": "RegularTear6",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 569.9,
+        "y": 322.2
+      }
+    },
+    {
+      "id": 644,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 4.5,
+        "y": -5.1
+      },
+      "grid_index": 88,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 558.7,
+        "y": 324.4
+      }
+    },
+    {
+      "id": 645,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 3.9,
+        "y": -5.2
+      },
+      "grid_index": 88,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 552.2,
+        "y": 323.7
+      }
+    },
+    {
+      "id": 646,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 6.5,
+        "y": -6.2
+      },
+      "grid_index": 88,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 578.7,
+        "y": 313.8
+      }
+    },
+    {
+      "id": 647,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 5.2,
+        "y": -5.8
+      },
+      "grid_index": 88,
+      "telegraph": "RegularTear6",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 565.5,
+        "y": 317.3
+      }
+    },
+    {
+      "id": 648,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 2.1,
+        "y": -7.7
+      },
+      "grid_index": 72,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 534.5,
+        "y": 298.6
+      }
+    },
+    {
+      "id": 649,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 2.1,
+        "y": -2.9
+      },
+      "grid_index": 102,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 534.2,
+        "y": 346.6
+      }
+    },
+    {
+      "id": 650,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 0.9,
+        "y": -5.6
+      },
+      "grid_index": 87,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 522.4,
+        "y": 319.2
+      }
+    },
+    {
+      "id": 651,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 4.4,
+        "y": -3.4
+      },
+      "grid_index": 103,
+      "telegraph": "RegularTear6",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 557.4,
+        "y": 341.8
+      }
+    },
+    {
+      "id": 652,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 3.5,
+        "y": -3.7
+      },
+      "grid_index": 88,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 548.5,
+        "y": 338.7
+      }
+    },
+    {
+      "id": 653,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 4.7,
+        "y": -8.6
+      },
+      "grid_index": 73,
+      "telegraph": "RegularTear6",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 560.3,
+        "y": 289.7
+      }
+    },
+    {
+      "id": 654,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 2.2,
+        "y": -3.8
+      },
+      "grid_index": 87,
+      "telegraph": "RegularTear6",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 535.4,
+        "y": 337.3
+      }
+    },
+    {
+      "id": 655,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 4.6,
+        "y": -8.8
+      },
+      "grid_index": 73,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 559.5,
+        "y": 287.3
+      }
+    },
+    {
+      "id": 656,
+      "is_boss": false,
+      "variant": 3,
+      "subtype": 0,
+      "vel": {
+        "x": 4.6,
+        "y": -5.5
+      },
+      "grid_index": 88,
+      "telegraph": "RegularTear5",
+      "state": -1,
+      "type": 9,
+      "champion_color": -1,
+      "hp": 10.0,
+      "pos": {
+        "x": 559.3,
+        "y": 320.4
+      }
+    }
+  ],
+  "enemies": [
+    {
+      "id": 1,
+      "is_boss": true,
+      "variant": 0,
+      "subtype": 0,
+      "vel": {
+        "x": -0.7,
+        "y": 0.0
+      },
+      "grid_index": 102,
+      "telegraph": "Fart",
+      "state": 10,
+      "type": 264,
+      "champion_color": -1,
+      "hp": 400.5,
+      "pos": {
+        "x": 512.7,
+        "y": 375.2
+      }
+    }
+  ],
+  "last_transition_source_room_index": 34,
+  "last_action_id": "retreat_and_fire",
+  "bomb_error": "no clear bomb escape corridor",
+  "boss_exit_grid_index": -1,
+  "player_grid_index": 103,
+  "route_debug": {
+    "position": {
+      "x": 564.25152587891,
+      "y": 358.61581420898
+    },
+    "cursor": 2,
+    "goal": 103,
+    "waypoint": {
+      "x": 579.40002441406,
+      "y": 350.10000610352
+    },
+    "path": [
+      118,
+      103
+    ],
+    "start": 103
+  },
+  "native_tear_age": 1,
+  "bombs": 10,
+  "coins": 6,
+  "room_clear": false,
+  "bomb_active": false,
+  "transition_error": "",
+  "bomb_position": {
+    "x": 0,
+    "y": 0
+  },
+  "room_index": 21,
+  "bomb_placed_frame": -1,
+  "room_cleared_frame": -1,
+  "trinket_slots": 1,
+  "action_age_frames": 0,
+  "mod_version": "2026-11-06-native65",
+  "last_action_sequence": 1193,
+  "last_action_mode": "combat",
+  "start_seed": 4197814681,
+  "enemy_count": 1,
+  "floor_id": "canonical-room-v1",
+  "move_resolution_reason": "requested",
+  "requested_move": {
+    "x": 0.0,
+    "y": 0.0
+  },
+  "stage_type": 0,
+  "resolved_move": {
+    "x": 0.0,
+    "y": 0.0
+  },
+  "movement_blocked": false,
+  "control_shoot": {
+    "x": -1.0,
+    "y": 0.0
+  },
+  "last_transition_target_room_index": 21,
+  "transition_attempt": 0,
+  "restart_count": 0,
+  "room_visit_sequence": 3,
+  "hazards": [],
+  "hazards_observation_valid": true,
+  "bomb_target_id": -1,
+  "player": {
+    "weapon_type_known": true,
+    "eternal_hearts": 0,
+    "id": 0,
+    "tear_speed": 1.0,
+    "hp": 0,
+    "weapon_type": "tear",
+    "soul_hearts": 0,
+    "move_speed": 0.99999988079071,
+    "vel": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "pos": {
+      "x": 569.6,
+      "y": 378.8
+    },
+    "red_hearts": 0,
+    "black_hearts": 0,
+    "type": 1,
+    "max_hearts": 8,
+    "tear_range": 259.99996948242,
+    "bone_hearts": 0
+  }
+}

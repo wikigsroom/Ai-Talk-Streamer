@@ -2,7 +2,7 @@
   "schema_version": 1,
   "plan_id": "NM-ISSAC-PLAN-20261107-v2",
   "branch": "issac",
-  "status": "round_1_file_preparation_completed_round_2_full_development_pending",
+  "status": "round_2_all_source_written_unverified_awaiting_freeze",
   "target": "issac-rtx4090",
   "deployment_allowed": false,
   "gameplay_enabled": false,
@@ -118,5 +118,7 @@
   },
   "execution_rounds": "configs/issac/execution-rounds.json",
   "preparation_access_policy": "configs/issac/preparation-access.json",
-  "round_1_evidence": "docs/evidence/issac-round1-copy-20261107.json"
+  "round_1_evidence": "docs/evidence/issac-round1-copy-20261107.json",
+  "development_inventory": "configs/issac/development-round-2.json",
+  "round_2_development_document": "docs/issac/第二轮完整开发与统一验收20261107.md"
 }

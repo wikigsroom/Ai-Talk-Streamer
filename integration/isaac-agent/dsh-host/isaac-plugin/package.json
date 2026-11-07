@@ -1,0 +1,18 @@
+{
+  "name": "dsh-isaac-strategy",
+  "version": "0.1.0",
+  "description": "Bounded Binding of Isaac strategy tools and event-driven DSH agent",
+  "type": "module",
+  "main": "index.mjs",
+  "exports": "./index.mjs",
+  "files": ["index.mjs", "decision_binding.mjs", "instructions.md", "cordis.patch.yml", "README.md"],
+  "engines": {"node": ">=24.9.0", "dsh": "0.2.2-rc.1"},
+  "dsh": {"bundle": {"patch": "cordis.patch.yml"}},
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.1.0",
+    "@deepseek-ai/dsh-agent": "0.2.2-rc.1",
+    "@deepseek-ai/dsh-llm": "0.2.2-rc.1",
+    "@deepseek-ai/dsh-tools": "0.2.2-rc.1"
+  },
+  "license": "MIT"
+}

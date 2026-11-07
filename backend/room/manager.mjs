@@ -21,6 +21,12 @@ export class RoomManager {
       defaults.audio.music_volume = 0.16;
       this.bgmManifest = character.bgm_manifest;
     }
+    if(bridge.policy.deployment.state_relative_path==='state/issac-stream'){
+      defaults.identity={title:'奶妹 · 以撒的结合',topic:'以撒的结合',announcement:'奶妹陪你玩以撒的结合',show_virtual_label:true};
+      defaults.audio.music_volume=0;
+      defaults.overlay.max_comments=4;
+      defaults.overlay.comment_lifetime=24;
+    }
     this.defaults = defaults;
     const roomState = characterId === 'naimei' ? join(bridge.policy.deployment.state_relative_path, 'room/control.sqlite3') : 'state/live-room/control.sqlite3';
     this.store = store || new RoomStore(join(root, roomState), { defaults }); this.probe = probe;
@@ -206,8 +212,11 @@ export class RoomManager {
     check(player && player.consumer_id === body.consumer_id && this.now() - player.at < 7000, 'ROOM_PLAYER_NOT_PROGRAM', 409);
     const safe = { consumer_id: body.consumer_id, at: this.now(), track_id: typeof body.track_id === 'string' ? body.track_id.slice(0, 80) : null, audio_state: ['running', 'suspended', 'closed'].includes(body.audio_state) ? body.audio_state : 'unknown', music_playing: body.music_playing === true, ducked: body.ducked === true, muted: body.muted === true, error: typeof body.error === 'string' ? body.error.slice(0, 120) : null };
     safe.speaking_request_id = typeof body.speaking_request_id === 'string' ? body.speaking_request_id.slice(0, 100) : null;
+    safe.speech_audible = body.speech_audible === true;
     for (const key of ['current_time', 'music_gain', 'speech_gain', 'speech_progress', 'config_revision']) if (typeof body[key] === 'number' && Number.isFinite(body[key]) && body[key] >= 0 && body[key] <= (key === 'speech_progress' ? 1 : 1e12)) safe[key] = body[key];
-    this.player = safe; return { accepted: true, server_time: this.now() };
+    const shown=Array.isArray(body.overlay_receipts)?body.overlay_receipts.slice(0,32).filter(row=>row&&typeof row.message_id==='string'&&['feed','fly','gift'].includes(row.mode)&&this.boardMessage(row.message_id)):[];
+    for(const row of shown)this.store.log('official_overlay_displayed',{message_id:row.message_id,mode:row.mode,consumer_id:body.consumer_id},this.now());
+    this.player = safe; return { accepted: true, server_time: this.now(),overlay_receipts:shown.map(row=>row.message_id) };
   }
   async handle(req, res, url, send) {
     const path = url.pathname.slice('/api/dsh/room'.length);

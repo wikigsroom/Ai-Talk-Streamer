@@ -1,0 +1,1496 @@
+{
+  "schema_version": 1,
+  "game_agent": {
+    "source": "https://github.com/wikigsroom/agent-gameplay-isaac",
+    "commit": "5ceb4a4d95402df306ad7dad94bf91f1e04b6649",
+    "license": "MIT, Copyright (c) 2026 Chongchong59699",
+    "destination": "integration/isaac-agent",
+    "files": [
+      {
+        "path": ".gitattributes",
+        "sha256": "b6b5c3d1461f40219893fcfad253a81a5311613344872d5fdf59c3764e06fa47",
+        "bytes": 57
+      },
+      {
+        "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+        "sha256": "6ea2d6efccae076742d67b37c11585d666cbabb9a3a53e5efff6f850a9fbea00",
+        "bytes": 530
+      },
+      {
+        "path": ".github/pull_request_template.md",
+        "sha256": "df58240d1d5e403d51effabf72081c88bacc17c219926888d1928f13476b9adc",
+        "bytes": 399
+      },
+      {
+        "path": ".github/workflows/ci.yml",
+        "sha256": "f2ce309311af96e8470b6ab678de974f3633d1a574d147e3d587219d8c2eab54",
+        "bytes": 822
+      },
+      {
+        "path": ".github/workflows/release.yml",
+        "sha256": "6084309e25f47e853a8fd16b8624e77b96c5a3b235876a7eefe0ee391301fbd9",
+        "bytes": 1644
+      },
+      {
+        "path": ".gitignore",
+        "sha256": "b704d815451954e50455c3941d2b13c3e84145e0261840966b94d446486e7084",
+        "bytes": 776
+      },
+      {
+        "path": "AGENTS.md",
+        "sha256": "9ff7f50499435ad65116aa205c711341ba19a14628a53ff7737a5adfb325ee06",
+        "bytes": 1434
+      },
+      {
+        "path": "CHANGELOG.md",
+        "sha256": "f1f164069af1e70a7373d71174a6c18f8e13cec6850417c67528208eb340a444",
+        "bytes": 1733
+      },
+      {
+        "path": "CODE_OF_CONDUCT.md",
+        "sha256": "1f21300382e64b98ca91e31f5b27d2548d3a4c5d1a21edd362636e8e0b943c98",
+        "bytes": 421
+      },
+      {
+        "path": "CONTRIBUTING.md",
+        "sha256": "459c94e35fec8421c6c9d8053a5dc43f89e57d9e95078126015e326a5ed67320",
+        "bytes": 1529
+      },
+      {
+        "path": "DSH控制.ps1",
+        "sha256": "236c7d08c0b6bbda088275991bbb22a3f1f2f95e8288a6f4ed2d24136e7a3d7c",
+        "bytes": 597
+      },
+      {
+        "path": "ISAAC_RULES.md",
+        "sha256": "2d0a8ec31ef2075d7460e97657dfca3ffd605155dd0cbc55370227fdf3e93af4",
+        "bytes": 1112
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "16d737cf2c04bc87b247656363b16350fcb6ec20058540b3a6c33ba8577f82e6",
+        "bytes": 1072
+      },
+      {
+        "path": "PROJECT_MEMORY.md",
+        "sha256": "a1f0c79d7b2606cd8e52ed42565cef05c57f2a478f657a85539c85c6171de09c",
+        "bytes": 754
+      },
+      {
+        "path": "README.en.md",
+        "sha256": "ac9f70eed860461e0468ccca1828ff08f8ace88d51ebbed1c82795ce079312bd",
+        "bytes": 14649
+      },
+      {
+        "path": "README.md",
+        "sha256": "2724cf7fa108dbb5acdc5c5aeb2ac945baa30a36f524cffea12988e2fe5d72c9",
+        "bytes": 13137
+      },
+      {
+        "path": "SECURITY.md",
+        "sha256": "1fa872db8cf36ce723fa97400170e1007287af7d37164394047fc810cf6d60cf",
+        "bytes": 1703
+      },
+      {
+        "path": "build_native_controller.py",
+        "sha256": "3a6a84a9421499d11dd54220185baf6a75f667c8b273032ff6880bda4c361cfe",
+        "bytes": 4999
+      },
+      {
+        "path": "capture_background_game.py",
+        "sha256": "3b33439e7776050f57aad9ced5becd2dec5d320125707ee8dd84e88bded27a40",
+        "bytes": 2720
+      },
+      {
+        "path": "check-saves.py",
+        "sha256": "892b8d9a52cd61140ba72f451bbab80b331c81000579ad327f00289ac4597aaf",
+        "bytes": 889
+      },
+      {
+        "path": "config/decision_provider.example.json",
+        "sha256": "2cf55517500e4461643431d281c5ff69516fdcda2bd8ea32e6c86aa4fe78e5f0",
+        "bytes": 869
+      },
+      {
+        "path": "config/game-install.example.json",
+        "sha256": "4995d25050fe62a1063a35b8b0c1dbbfb97bd85e73f4000348bf1c0973e0bbce",
+        "bytes": 300
+      },
+      {
+        "path": "config/save-protection.example.json",
+        "sha256": "949ca30ac981e3127036a81302668033913d37f544079a5347a7de387575dfb9",
+        "bytes": 198
+      },
+      {
+        "path": "config/strategy.json",
+        "sha256": "c55d00a321cc7f5b274a371e8ed56af808264d7bc3c80926ddaf17e39c8f7226",
+        "bytes": 29
+      },
+      {
+        "path": "configure_install.py",
+        "sha256": "64491c9f0d0b2cb0ee203ac0fba3ae1bd4653d14304d6f373ce82c8ba8a7f6e2",
+        "bytes": 5800
+      },
+      {
+        "path": "configure_model.py",
+        "sha256": "e7bc55884946cafe8126231955ff2299fc85b9406c6b731ace8f16ecbad399fd",
+        "bytes": 1418
+      },
+      {
+        "path": "desktop_game.py",
+        "sha256": "586d8aa928c2fc2aeebc754244eef1fe0c1732e07fd392b115ee58afa18d1a94",
+        "bytes": 5674
+      },
+      {
+        "path": "docs/ARCHITECTURE.md",
+        "sha256": "4890d59add2bf423a02a7a2a015c04defa207302d50fe6ed4a15fab61a88daf4",
+        "bytes": 8289
+      },
+      {
+        "path": "docs/CAPABILITIES.md",
+        "sha256": "cbd3607db28590c8e9deaa4e21b44184d4b9d14a1c3689ca27c4bfadd70d57f5",
+        "bytes": 7501
+      },
+      {
+        "path": "docs/OPEN_SOURCE_RELEASE.md",
+        "sha256": "21f5049b9b0ea8030ffa4daae1212bf0096098c4ed2e64896be3a96cdbc6de6e",
+        "bytes": 1386
+      },
+      {
+        "path": "docs/OPERATIONS.md",
+        "sha256": "3d08e9d87fbc54b7653521849fb4000378ddbd70e953c2dad072daa1a379f2c0",
+        "bytes": 7966
+      },
+      {
+        "path": "docs/README.md",
+        "sha256": "c7dd05cfe4cb6e9993aa0c021e4c77126c9ca54e7ea620c66acba8dbef9f0824",
+        "bytes": 1535
+      },
+      {
+        "path": "docs/RELEASING.md",
+        "sha256": "b657d1b736740a16b731575e321267f5a6275219c2289b85d70c87715e4cb6ae",
+        "bytes": 3312
+      },
+      {
+        "path": "docs/ROADMAP.md",
+        "sha256": "4d5e18bb5d4254e768e03949131ce8876168c1442d22c433db16e1b4135d6189",
+        "bytes": 3055
+      },
+      {
+        "path": "docs/VALIDATION.md",
+        "sha256": "05f2fde9304f19fe7df567c305ae2ec409073b45ecd8201654ab30b1b69f8e06",
+        "bytes": 9247
+      },
+      {
+        "path": "docs/evidence/audit-2026-11-07.json",
+        "sha256": "1a5866dedbbca1ee84f5325d07df105ece390f13eefb971231fd90e9b11a1d82",
+        "bytes": 6014
+      },
+      {
+        "path": "docs/media/README.md",
+        "sha256": "9ee982ec6661aedcc2143065b4de1a7c265463020fbf9483a0132143a7ebafa1",
+        "bytes": 2751
+      },
+      {
+        "path": "docs/media/dashboard-local.png",
+        "sha256": "9c1fad3711dfa0ed6575b7aea41a2f3bb4b8d3b06ad3df502ada11167e3dfabd",
+        "bytes": 80324
+      },
+      {
+        "path": "docs/media/gameplay-local.png",
+        "sha256": "6a6689276f845080ee0b22648c9399c5abe6c84b69a28f1993626c9f69e1c158",
+        "bytes": 268339
+      },
+      {
+        "path": "docs/media/local-gameplay.gif",
+        "sha256": "cde29a445a85bffa38caea8f701db6bff026f2a01c052ce469096cd4b651d8ad",
+        "bytes": 1861606
+      },
+      {
+        "path": "docs/media/local-gameplay.mp4",
+        "sha256": "2a37d0d3007ad54f77c5cc5db5f5ed4be1e4b8bb17f7bdf83d3b257aa706ffd1",
+        "bytes": 1136817
+      },
+      {
+        "path": "docs/media/manifest.json",
+        "sha256": "53429deb5d6c0de23996f2ee591a09503a9767348a37168d1847cc7931389725",
+        "bytes": 1605
+      },
+      {
+        "path": "docs/releases/v0.1.0.md",
+        "sha256": "d480d32e1496613e0be36cd775c3f960aef6b1928df1e32fac3a746fa82e70ad",
+        "bytes": 7342
+      },
+      {
+        "path": "dsh-host/isaac-plugin/LICENSE",
+        "sha256": "16d737cf2c04bc87b247656363b16350fcb6ec20058540b3a6c33ba8577f82e6",
+        "bytes": 1072
+      },
+      {
+        "path": "dsh-host/isaac-plugin/README.md",
+        "sha256": "c695b82a80b936bc045725aca9a7567b5ee96cec12d66ee9c4ef9e04f8a1aefd",
+        "bytes": 2479
+      },
+      {
+        "path": "dsh-host/isaac-plugin/cordis.patch.yml",
+        "sha256": "edbb33ba9996acc1e964ea004b6dfc0d2d005858f0d277c5ad511857e7148072",
+        "bytes": 139
+      },
+      {
+        "path": "dsh-host/isaac-plugin/decision_binding.mjs",
+        "sha256": "f1683d314b93e42a20de6933d9f4b5f14d2af76512a77e16d9215bb530a03fe3",
+        "bytes": 1626
+      },
+      {
+        "path": "dsh-host/isaac-plugin/index.mjs",
+        "sha256": "9218eb5c993fbd1ba414aad0ff1a49e7f5e20f88d1ae55b776fc7c10798e33a5",
+        "bytes": 10099
+      },
+      {
+        "path": "dsh-host/isaac-plugin/instructions.md",
+        "sha256": "de4d840330447a356c19920e3342fd52c88106449fd071ce169ce9b1ecd0fdcc",
+        "bytes": 4002
+      },
+      {
+        "path": "dsh-host/isaac-plugin/package.json",
+        "sha256": "d64e55f3d3b1525ee96634babaf98b75d336c789ee39843e009b269b11055ed5",
+        "bytes": 640
+      },
+      {
+        "path": "dsh-host/package-lock.json",
+        "sha256": "14c04b6d777a4491ef1a5fa87a628d7347178b56b40a8fa9f91d72a91f76b3ff",
+        "bytes": 434093
+      },
+      {
+        "path": "dsh-host/package.json",
+        "sha256": "adcd606de210f6792c1bee78f6862c635b5c027504874f5cf9b99f9dc41e40a2",
+        "bytes": 246
+      },
+      {
+        "path": "game-card-enum.json",
+        "sha256": "d567f1300166d40743ae71636efdd17513f048ce1eb9dcb98f062f92c6e3bc57",
+        "bytes": 356
+      },
+      {
+        "path": "launch_game.py",
+        "sha256": "31c2f519a1db9ee802ebfe8e4dc8ff5fe7acf772bfc845c506f13c8477ea5657",
+        "bytes": 1334
+      },
+      {
+        "path": "manage_stack.py",
+        "sha256": "861c1583fbfc26a5f65f04b601d6356e94569a47ffbe23c91814f99bedb21399",
+        "bytes": 8710
+      },
+      {
+        "path": "mods/IsaacJev/main.lua",
+        "sha256": "ca62f82a1a7e045d69ae085cd35ff5fb65829bf348c538c92be61684b26f15e3",
+        "bytes": 215391
+      },
+      {
+        "path": "mods/IsaacJev/metadata.xml",
+        "sha256": "1fd201f11108ed1339b79621b2939ef22a37db840884aa7c29224d382bd8a38a",
+        "bytes": 325
+      },
+      {
+        "path": "mods/IsaacJev/strategy_control.lua",
+        "sha256": "4bb6312607235c3525ca5e16424c637374a395ccb2774d736eca2931d2fe5524",
+        "bytes": 18381
+      },
+      {
+        "path": "mods/IsaacJev/timed_spikes.lua",
+        "sha256": "ee4a44a57324341fb6224a1226ebeb7212440b6f257ca05c2b5f773a808e32eb",
+        "bytes": 11724
+      },
+      {
+        "path": "mods/IsaacJev/tnt_safety.lua",
+        "sha256": "855af67c689837d148f28737a5e8463109a6fc7ac2d06f012f95e1a1093ecd4e",
+        "bytes": 3838
+      },
+      {
+        "path": "mods/IsaacJev/weapon_control.lua",
+        "sha256": "77e446b9e2bcdf10173a3095a0f07b7949eb99e2c3a7a7a608c4736e59cf1acf",
+        "bytes": 7191
+      },
+      {
+        "path": "native_bridge.js",
+        "sha256": "02abfa8c90df84aa3910fb74d14076258ea1b2517b626213d9ba6b2b801d5c85",
+        "bytes": 7889
+      },
+      {
+        "path": "native_bridge.py",
+        "sha256": "5770c0c8f9d1170e423996db97f17d618730a184d9d027eec0b499aab3563320",
+        "bytes": 5034
+      },
+      {
+        "path": "native_ipc.py",
+        "sha256": "6e27c85ededdaef7456c74e1b695b96c15c9405a14d8efe3e413ebd55eff515f",
+        "bytes": 677
+      },
+      {
+        "path": "native_request.py",
+        "sha256": "6df20d6486fd7a208343838b19e2cc84e3c75e5c0d3ec954e5416d1b4c0e9e84",
+        "bytes": 2364
+      },
+      {
+        "path": "probe_model.py",
+        "sha256": "43efd223b8498c521b369f97c749b07accde2e530506d67839e70bf2902c85cb",
+        "bytes": 3337
+      },
+      {
+        "path": "pyproject.toml",
+        "sha256": "3708d714b3de81e86f18606fc65fa94a92074b6571aa690580b0a7286b7ce8dd",
+        "bytes": 696
+      },
+      {
+        "path": "record_demo.py",
+        "sha256": "0bc14c0bd41aefe81efcd6028c3e2b67475dd95ac065fe99a27cd061dccac639",
+        "bytes": 4411
+      },
+      {
+        "path": "requirements-native.lock.txt",
+        "sha256": "01d1998e41e99eb92362147694a1ecdfd953c8aaeb2b599d08c22634c5ccf66b",
+        "bytes": 124
+      },
+      {
+        "path": "run_local.py",
+        "sha256": "1fd535782060a34be5ce6df0801686c47a48d8deb05a70e9b34391807f7980d7",
+        "bytes": 2815
+      },
+      {
+        "path": "run_strategy.py",
+        "sha256": "9c7a99cb9dccda7e509f2d642c3f7c94c5e4383595d756205bed44827ef23d6c",
+        "bytes": 2781
+      },
+      {
+        "path": "satan_supervisor.py",
+        "sha256": "f90ac456ce2815dbe551972b9111d0a9a60927738ad97f8a12a95a44f77b80ca",
+        "bytes": 9828
+      },
+      {
+        "path": "setup_dsh.py",
+        "sha256": "2e178a449e852541efa079d186bbc3b5540d69d5e84dd6d363c7c3be7c9e7bb4",
+        "bytes": 2994
+      },
+      {
+        "path": "src/isaac_jev/__init__.py",
+        "sha256": "d0263f679eab92dee760edcdc778492153f86c372ee8b3e249b977903b27fcdf",
+        "bytes": 105
+      },
+      {
+        "path": "src/isaac_jev/cli.py",
+        "sha256": "04e4ba0cd4455e092a15c39db266a52b3f017c3aab49da2112dc5cf36febf9af",
+        "bytes": 5438
+      },
+      {
+        "path": "src/isaac_jev/decision.py",
+        "sha256": "32a6d429ee5de2cc66fff7a04a30ca8f916a6edd22fcf2aba9d904b88f0df7c9",
+        "bytes": 122391
+      },
+      {
+        "path": "src/isaac_jev/experiment.py",
+        "sha256": "c086db502311887916f7ff0cf769d1e63bab81533efaf6be896811090f32eb1f",
+        "bytes": 28610
+      },
+      {
+        "path": "src/isaac_jev/mcp_server.py",
+        "sha256": "425c67e8e96be947de5692e6bce688f09c9f6a14cb5146b5ca19f96df83402f5",
+        "bytes": 2986
+      },
+      {
+        "path": "src/isaac_jev/models.py",
+        "sha256": "d45de84f3d85fd757181c70c6ec6c5d581547f47562e2d1d5829e90b5df5d87c",
+        "bytes": 41505
+      },
+      {
+        "path": "src/isaac_jev/navigation.py",
+        "sha256": "e44f9408cc2fe823f18ccfe512238bfdc953d0d3e4360ed3fed7d544adb86a34",
+        "bytes": 20083
+      },
+      {
+        "path": "src/isaac_jev/providers.py",
+        "sha256": "780271269e823e40d7694ff9cab3e15ebef898b7c6d6eff91d6fefa81b38370c",
+        "bytes": 39213
+      },
+      {
+        "path": "src/isaac_jev/replay.py",
+        "sha256": "5797fa936dff8789b705ae0c4f7d35a6aa2306ad05345f567bde48ff7895b89a",
+        "bytes": 9680
+      },
+      {
+        "path": "src/isaac_jev/runtime.py",
+        "sha256": "0294fed7cdea88fa10336be92b48b64e1450bf4182ad746cd247d78ea7df6760",
+        "bytes": 127346
+      },
+      {
+        "path": "src/isaac_jev/snapshots.py",
+        "sha256": "79ce6a44c94822deeb6a6d23bfe1e498b7a842a9cbe50a0b54c4f15eb374288b",
+        "bytes": 865
+      },
+      {
+        "path": "src/isaac_jev/strategy.py",
+        "sha256": "429492746071457ce1ae70f9d8030e429bf5b955c6842ee98414020ca79b8841",
+        "bytes": 50000
+      },
+      {
+        "path": "src/isaac_jev/strategy_dashboard.html",
+        "sha256": "0b34cd81f367494b0cb08b784ae1bf65e485284cad0ed2b925a2d0845a9a19bc",
+        "bytes": 6495
+      },
+      {
+        "path": "src/isaac_jev/strategy_server.py",
+        "sha256": "7ca94b925167d9db72ec0ff40229f99b84f4488a00f6d1e3ccaa571b1b2f0739",
+        "bytes": 4312
+      },
+      {
+        "path": "src/isaac_jev/telemetry.py",
+        "sha256": "61e283b84844879ffc79882c22727a20576a74870f028788c9e9af8178bf9e4b",
+        "bytes": 9442
+      },
+      {
+        "path": "src/isaac_jev/tuning.py",
+        "sha256": "e0916022a3edaab2680afb6689258510440e7f289ed218a1c0e1e3a8bfa73eab",
+        "bytes": 9065
+      },
+      {
+        "path": "src/isaac_jev/web_dashboard.py",
+        "sha256": "f37b940f8dc8ae2d6298a8255deb173d18965a0cde3b7bdf330ec57e17457c9e",
+        "bytes": 28389
+      },
+      {
+        "path": "stack_control.py",
+        "sha256": "337aa2bf1d2edf2d651349cb1cf8c49427fecf232d9f1efa98cb64acd18b835d",
+        "bytes": 5744
+      },
+      {
+        "path": "start_dsh.py",
+        "sha256": "d3b66d25c3bd17a53c774a5d032a31deb1cb59d7131cccac860b398d01edb1b1",
+        "bytes": 3796
+      },
+      {
+        "path": "start_isaac_jev.cmd",
+        "sha256": "6f3792da519a6ffbf7c0f8bbcbaead55dc40114edbd1a200e56a132ae5bfd9b8",
+        "bytes": 86
+      },
+      {
+        "path": "sync_mod_sources.py",
+        "sha256": "25fc062c007117d9cb2ce33a18667fceb398e8b584664a807d0edc0faf413a19",
+        "bytes": 2504
+      },
+      {
+        "path": "tests/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "tests/fixtures/fallen-immunity-clock-native110.json",
+        "sha256": "71b5d859d211f1bb66af4a74a024a2c7e8556081b42c3da4766063c5ee6b4b1d",
+        "bytes": 4729
+      },
+      {
+        "path": "tests/fixtures/health-loop-room-112.json",
+        "sha256": "d21315755f5fec0448f41cb378ca9822c3dc73ea0c7bbfa517991814cd6d7b18",
+        "bytes": 5818
+      },
+      {
+        "path": "tests/fixtures/health-loop-room-125.json",
+        "sha256": "c75dfd81b5538d35e622f78bde492378f0f569f074b5aa630696c9960cace70f",
+        "bytes": 9459
+      },
+      {
+        "path": "tests/fixtures/native-movement-samples.json",
+        "sha256": "34eef06a105c5fb9e480da675c79b9b889e53baa9a31e4deb230feafb881f1f2",
+        "bytes": 17624
+      },
+      {
+        "path": "tests/fixtures/sharp-plug-same-frame-native113.json",
+        "sha256": "3e992803c8067dd53f4dd843bd4b03c029e5da9ce671285aa06f9c49a6f44e76",
+        "bytes": 9508
+      },
+      {
+        "path": "tests/fixtures/stage1-bobs-brain-native128.json",
+        "sha256": "da8cbfbed66b4b6b6dabd277bd0323c9f874097f1d60d91172e774d4b855901c",
+        "bytes": 57894
+      },
+      {
+        "path": "tests/fixtures/stage1-boss-item-missed-native63.json",
+        "sha256": "7965be8066cb2c01b0078cfb9652e51c96cb8eeff0a892e8467eae787d24ad89",
+        "bytes": 139309
+      },
+      {
+        "path": "tests/fixtures/stage1-door-overlap-native120.json",
+        "sha256": "588d144eefab767a8106d739fc7e5aba531029f0cb72de19e3329ceec602f594",
+        "bytes": 9058
+      },
+      {
+        "path": "tests/fixtures/stage1-fire-damage-native65.json",
+        "sha256": "0e489f28932c0845835c0f045aedf6b07ec7633d54946a3ff5e7e8d963bd89dc",
+        "bytes": 10492
+      },
+      {
+        "path": "tests/fixtures/stage1-room71-safety-stall-native120.json",
+        "sha256": "29bd1d81bd4354bb0d94830273aad07de1644494452c0c47b6fa0ad4a0110cf8",
+        "bytes": 8772
+      },
+      {
+        "path": "tests/fixtures/stage1-tnt-damage-native.json",
+        "sha256": "be86ea155f80f90e1fa241cdea673b82d853624eacfe779f4dcc81086ce28a93",
+        "bytes": 803
+      },
+      {
+        "path": "tests/fixtures/stage1-trapdoor-stop-native84.json",
+        "sha256": "e0335e30defb502c4d756de5bbab6d54b508b116dd97f2cadc4886662be4146e",
+        "bytes": 5355
+      },
+      {
+        "path": "tests/fixtures/stage2-gemini-cords-native81.json",
+        "sha256": "319ac76722e45e3812f7737d99c6f72280c9a2ea2be514b7d3412e3416b455f5",
+        "bytes": 8830
+      },
+      {
+        "path": "tests/fixtures/stage2-glass-cannon-break-native85.json",
+        "sha256": "45c2ad9a8c08ddbd40cbc0f3f22e1685df9a126cf55c39c10cc3a585edbdde6b",
+        "bytes": 42383
+      },
+      {
+        "path": "tests/fixtures/stage2-horf-route-stall.json",
+        "sha256": "8f6f220afb1863999a797d527365e6803161c7f46d3d0facd25c69da0a0323b8",
+        "bytes": 4741
+      },
+      {
+        "path": "tests/fixtures/stage2-inertial-lane-stop.json",
+        "sha256": "f9698533110eca78b2d1003afb8dd600a1ad99062f6929aa51bd1e9f8127733d",
+        "bytes": 6049
+      },
+      {
+        "path": "tests/fixtures/stage3-current-native45.json",
+        "sha256": "572601a654459812728e5417c8c39a20bc66fc05fa3dfaa15a0e3143a8e1c207",
+        "bytes": 5378
+      },
+      {
+        "path": "tests/fixtures/stage3-door-guard-trap-9749.json",
+        "sha256": "f2c031f41dea995f7b549c2876e958e1f7831aad628ad4714a891cfc91229160",
+        "bytes": 13295
+      },
+      {
+        "path": "tests/fixtures/stage3-door-guard-trap-9854.json",
+        "sha256": "8ffe2c2285499d0dda550a3b6767353c184ebe44c640bdee1bd7e2fb1dff4ff1",
+        "bytes": 13291
+      },
+      {
+        "path": "tests/fixtures/stage3-door4-route-stall.json",
+        "sha256": "0a42eef389fbd0c93967b6988cc413abf10f248c35ce1205d23a5cade59c72d9",
+        "bytes": 11323
+      },
+      {
+        "path": "tests/fixtures/stage3-empty-pedestal.json",
+        "sha256": "4083f078cf49a654234e1884270f87983185680ecb5cdfad15796fd3e9052227",
+        "bytes": 9246
+      },
+      {
+        "path": "tests/fixtures/stage3-globin-alcove-native74.json",
+        "sha256": "9076dcdc9a4e9ac47b75a17581bd948d8762f2c15f14c70b48a60f587890fdc8",
+        "bytes": 7012
+      },
+      {
+        "path": "tests/fixtures/stage3-globin-contact-loop.json",
+        "sha256": "0d39207381e7340f9682c1afa4fb15f417e54dfdb377fe34ad2b14d87e26347e",
+        "bytes": 13031
+      },
+      {
+        "path": "tests/fixtures/stage3-globin-dead-end-approach.json",
+        "sha256": "d1095437078b50e0a89b6ee4c55b4bc1e2c3261e29bca9a8d0d018f73e0afe18",
+        "bytes": 7230
+      },
+      {
+        "path": "tests/fixtures/stage3-globin-loss-28360-native85.json",
+        "sha256": "550a23c3865ef9adf813fac41ae8329489245c67a3c07b1ceb91c810b761caec",
+        "bytes": 15264
+      },
+      {
+        "path": "tests/fixtures/stage3-globin-loss-28414-native85.json",
+        "sha256": "fe20ff8662893244ec850e36b157ce3a9a64499a7f95ac95b0755b92e164b52b",
+        "bytes": 16176
+      },
+      {
+        "path": "tests/fixtures/stage3-globin-loss-28689-native85.json",
+        "sha256": "10619defbd976686796277f30cb6ee72d398149006429aa5803d21fd38e5289e",
+        "bytes": 15751
+      },
+      {
+        "path": "tests/fixtures/stage3-globin-loss-28749-native85.json",
+        "sha256": "577b4598a6f7e59ffce1cb96bc2dc73faaf8932edd11d215042550a11a703033",
+        "bytes": 15674
+      },
+      {
+        "path": "tests/fixtures/stage3-globin-loss-28809-native85.json",
+        "sha256": "8ae962353cf8d2a982d394d81237314373fce02fcdc0e741675eb86d67d14948",
+        "bytes": 15717
+      },
+      {
+        "path": "tests/fixtures/stage3-gurdy-jr-approach-20103-native91.json",
+        "sha256": "38575d32c711e062e3e4491bc1561862a43efd3aedf03a1f3e2ecf6829ad6574",
+        "bytes": 9960
+      },
+      {
+        "path": "tests/fixtures/stage3-gurdy-jr-approach-20115-native91.json",
+        "sha256": "521107d7fa95f9553f68a44b8744c382bd25e2d50482bae9969a05692116bdf2",
+        "bytes": 9965
+      },
+      {
+        "path": "tests/fixtures/stage3-gurdy-jr-approach-20310-native91.json",
+        "sha256": "64abafffed4894dba3c0ce956f41885d856b8e3513840106f7b42776073c2e42",
+        "bytes": 10129
+      },
+      {
+        "path": "tests/fixtures/stage3-gurdy-jr-approach-20322-native91.json",
+        "sha256": "5d6fe8e49ae257dc86d68cd3ea7bf125727e01c733f4b5c9d4e661e29732e70b",
+        "bytes": 10142
+      },
+      {
+        "path": "tests/fixtures/stage3-host-close-alcove-native87.json",
+        "sha256": "2018cfd05c713a445c22712188155dd1729e7605375198f1daddb4c1b7597e12",
+        "bytes": 6028
+      },
+      {
+        "path": "tests/fixtures/stage3-overlapping-creep.json",
+        "sha256": "a978b5bf8b32b3a56cc3cd707fb5e0843730f77708046d1456b8ca6cf3aea572",
+        "bytes": 18105
+      },
+      {
+        "path": "tests/fixtures/stage3-pit-corner-native68.json",
+        "sha256": "f1069764669671b94e1df887efcbc492c0355d15ab7555814c405827a778ab21",
+        "bytes": 11892
+      },
+      {
+        "path": "tests/fixtures/stage3-timed-plate-977822611.json",
+        "sha256": "c33b5ce852fa128174190b3ae04420689d9365c37b22a0038be67749982bf997",
+        "bytes": 17009
+      },
+      {
+        "path": "tests/fixtures/stage3-tnt-approach-native61.json",
+        "sha256": "edf0bf9150c857332b4372c780edbb11124ade13d7c71db407c883b467605091",
+        "bytes": 420247
+      },
+      {
+        "path": "tests/fixtures/stage3-tnt-damage-native61.json",
+        "sha256": "9cd23651f01e3140efcf26795136696734ddacd044b73713dd8ead6668a2e72d",
+        "bytes": 726
+      },
+      {
+        "path": "tests/fixtures/stage4-corner-blocked-by-ice.json",
+        "sha256": "391476eeef33063cbc519b4672395a0dbaa91bccdc2b693a6aae5fb29f0ea58e",
+        "bytes": 7026
+      },
+      {
+        "path": "tests/fixtures/stage4-explosive-chargers-native122.json",
+        "sha256": "48f8253a5a19f236db87beca7f928aadf4cf2a427f50e015192ccc3a4366a544",
+        "bytes": 321569
+      },
+      {
+        "path": "tests/fixtures/stage4-globin-damage-native62.json",
+        "sha256": "7de5f38d81da30531c149f1fcf932633ef5fc4603ab2b4a76753771ed52a8b45",
+        "bytes": 3735
+      },
+      {
+        "path": "tests/fixtures/stage4-live-trap-projectile-stall-native105.json",
+        "sha256": "1b7acc385f318c64eae4727213880cbde359612c7d9c08d703be79b66c2c4979",
+        "bytes": 8738
+      },
+      {
+        "path": "tests/fixtures/stage4-movable-tnt-blast-native91.json",
+        "sha256": "0212a0782162a454336973ce931681b16918257e91a5c8e41f9455ce1b8bd01d",
+        "bytes": 1182
+      },
+      {
+        "path": "tests/fixtures/stage4-movable-turret-stall.json",
+        "sha256": "68b665bf1986db102985c3af63e0505634d31435a84cf7ba19c5e0293735723c",
+        "bytes": 3944
+      },
+      {
+        "path": "tests/fixtures/stage4-parallel-projectiles-native105.json",
+        "sha256": "ad2b0dcc23f77e699c563d2f6ed2106ba028f590104e51a51c4c10e435d38f58",
+        "bytes": 8689
+      },
+      {
+        "path": "tests/fixtures/stage4-peep-eyes-native75.json",
+        "sha256": "9456bb3325b3498e65967b6f01eb0ffb87f7254e4443f6ec4e4e26bb5db96567",
+        "bytes": 6971
+      },
+      {
+        "path": "tests/fixtures/stage4-super-troll-bomb.json",
+        "sha256": "4b6df189132b7e1bc4423a3c142d8cee66207af6a46d6f3086bb0cfc7a7abb96",
+        "bytes": 161863
+      },
+      {
+        "path": "tests/fixtures/stage5-boss-exit-corner-native71.json",
+        "sha256": "9dc66dc8a7231c30c726513babb96e10c3f89139c2b2af7f25953c0811c6c080",
+        "bytes": 6141
+      },
+      {
+        "path": "tests/fixtures/stage5-deaths-head-vis-trace.json",
+        "sha256": "facc271fded18b19943208ea36c3a8d7bd0a3c6a1fc7830f455e1e6da94be7a3",
+        "bytes": 13945
+      },
+      {
+        "path": "tests/fixtures/stage5-empty-pedestal-stall-native91.json",
+        "sha256": "035e0a4c4e4f54d5e760beb38faf4ac0643d9f49763336e145a117d34ebb77aa",
+        "bytes": 5674
+      },
+      {
+        "path": "tests/fixtures/stage5-globin-contact-native75.json",
+        "sha256": "07069f9dbf90c389c942d3f87b09a4714e917ed791abb043e74b4ce93a05a00f",
+        "bytes": 8430
+      },
+      {
+        "path": "tests/fixtures/stage5-globin-pocket-approach.json",
+        "sha256": "b5d733513ec33d44701c93a020cebc6885f68cb9264747da2f00659f59aba20e",
+        "bytes": 9006
+      },
+      {
+        "path": "tests/fixtures/stage5-mask-heart-target-native100.json",
+        "sha256": "d6709f62665bf4dcf39bb227f156ad81d4c3bb8ae371c972cd53331812c635ac",
+        "bytes": 4361
+      },
+      {
+        "path": "tests/fixtures/stage5-monstro2-beam-fatal-trace.json",
+        "sha256": "979528ce0d28f881e3e5f41e33b0262cb2a25156e7d065df350cbe7d43de9a61",
+        "bytes": 14187
+      },
+      {
+        "path": "tests/fixtures/stage5-monstro2-laser-43781.json",
+        "sha256": "3bda552e2e813453b409ace12875061fe4f529f0a91abb1e37a883fba53524c7",
+        "bytes": 8027
+      },
+      {
+        "path": "tests/fixtures/stage5-monstro2-laser-43812.json",
+        "sha256": "612f825615c2e29a387ae7c6b9920f627a2abe474438fc868e73641008356c34",
+        "bytes": 8750
+      },
+      {
+        "path": "tests/fixtures/stage5-no-enemy-uncleared.json",
+        "sha256": "5f433c4cd1e9d7293c58409925f3d05c82bff47e70ce3cc92d95c3d2f6b88e0e",
+        "bytes": 5488
+      },
+      {
+        "path": "tests/fixtures/stage5-plate-after-safe-crossing.json",
+        "sha256": "cd8fb7ca4c8ee7eadd5eee1b7fef5f078688f54de0349c6510b21bb43d6e26bb",
+        "bytes": 5591
+      },
+      {
+        "path": "tests/fixtures/stage5-retracted-spike-entities-native117.json",
+        "sha256": "b30393e9172cbeb1db339197a6cfa44bba2308a54bd5723a551cd897c71da0b4",
+        "bytes": 1765
+      },
+      {
+        "path": "tests/fixtures/stage5-retracted-spikes-native117.json",
+        "sha256": "0bc6a5e00f7f7cd495ee4a08d5a40b7bc5fbd89983cbf6af0933a99902e382ce",
+        "bytes": 8753
+      },
+      {
+        "path": "tests/fixtures/stage5-rock-corner-approach-native83.json",
+        "sha256": "bba9db1ef627f1816e030acf7df07f2b08f484c151d6d396410e3b1d0a1aab44",
+        "bytes": 7757
+      },
+      {
+        "path": "tests/fixtures/stage5-rock-corner-pinned-native83.json",
+        "sha256": "2c15edea4bf85af7655349d80095de16b6553fe17aed7fb3e37f2f1ea8f3b33e",
+        "bytes": 8268
+      },
+      {
+        "path": "tests/fixtures/stage5-spike-corridor.json",
+        "sha256": "2770cb49fd63a6b863344c01f3dddae121ea94e477bec98820c47fe57212c1af",
+        "bytes": 14492
+      },
+      {
+        "path": "tests/fixtures/stage5-timed-corridor-native73-trace.json",
+        "sha256": "4ee7393a79bb982e8af16fcf470bfa8f19db59525c9d0bd8c7d9f2eb9edaaec8",
+        "bytes": 1659172
+      },
+      {
+        "path": "tests/fixtures/stage5-timed-corridor-native73.json",
+        "sha256": "625e90462a8a05c8f55c26e64de39ada3b9dd5b2b258d7e763e6f4d3a1e0b273",
+        "bytes": 12373
+      },
+      {
+        "path": "tests/fixtures/stage5-timed-spike-fatal-trace.json",
+        "sha256": "71297fea93416b113f4b5e9ab5c006c4d11ef8544c2d5d7e3a3c19bc82fd9ab0",
+        "bytes": 11912
+      },
+      {
+        "path": "tests/fixtures/stage5-timed-spike-phases.json",
+        "sha256": "c4a26469436dd3f6215940efe3a7509added1dfece22832f75d5ca6e7c4bc5d3",
+        "bytes": 112604
+      },
+      {
+        "path": "tests/fixtures/stage5-trap-healing-death.json",
+        "sha256": "d795398b4c52d657540896dff0d16bb7910c266c92e72cfc0237515faec8bf8a",
+        "bytes": 16062
+      },
+      {
+        "path": "tests/fixtures/stage6-bomb-contact-native118.json",
+        "sha256": "85d1356d68e69a1bce6622174d2251db747a5e725f1d393435917162eee2a099",
+        "bytes": 5352
+      },
+      {
+        "path": "tests/fixtures/stage6-globins-boomflies-native124.json",
+        "sha256": "6161ac7f73a7eadb0184421b660fdbc38d61b1aca7e781fbe65583a3bb542e17",
+        "bytes": 117949
+      },
+      {
+        "path": "tests/fixtures/stage6-plate-latched-spikes-native124.json",
+        "sha256": "46e54c603b7680a53a4625090f41e9d5b392acb68c34cc5919577945b3ebc57d",
+        "bytes": 12060
+      },
+      {
+        "path": "tests/fixtures/stage6-room124-spikes.json",
+        "sha256": "43975baa922eea6df99dd9c2873c4f77cc5da8331b639f9f12d41e8b5c5ad3ed",
+        "bytes": 12238
+      },
+      {
+        "path": "tests/fixtures/stage6-room75-navigation.json",
+        "sha256": "16441037f5e50293397cc311639665db9148e6a776a82a38c2fa303e252bfd24",
+        "bytes": 12431
+      },
+      {
+        "path": "tests/fixtures/stage6-timed-spike-corridor.json",
+        "sha256": "28999582701c3973dbd798899f3ca2f279ffe41b8d3d4bc6b4e95ae05e83508b",
+        "bytes": 7954
+      },
+      {
+        "path": "tests/fixtures/stage6-trap-stall-native108.json",
+        "sha256": "314814de6366093f86b8f03859ad5eb04502986da7f889aaf743351e75f72c0c",
+        "bytes": 7944
+      },
+      {
+        "path": "tests/fixtures/stage7-bloodshot-eye-lasers-native119.json",
+        "sha256": "61f0534b4d7580cf8cdbd85b48cd9887ca8021ab43ce40c14a51587c28a1421e",
+        "bytes": 199128
+      },
+      {
+        "path": "tests/fixtures/stage7-button-pocket-recovery-native79.json",
+        "sha256": "740616496f127a8ae36b007e325f8de5de2d4dfbe73398f53bcdcd70707bec12",
+        "bytes": 6629
+      },
+      {
+        "path": "tests/fixtures/stage7-button-trap-safety-native89.json",
+        "sha256": "e597280c2ef09ac6fdb3bf1e059e2b54072a4829f48b0375e020c4a63bf888f1",
+        "bytes": 13230
+      },
+      {
+        "path": "tests/fixtures/stage7-eye-laser-hit.json",
+        "sha256": "9445fed670231bd9574e7869b720c3156b0b0db7b2666ca08c037e5e35e3b30e",
+        "bytes": 723
+      },
+      {
+        "path": "tests/fixtures/stage7-eye-laser-native126.json",
+        "sha256": "66508d821d2709ecb12ecd7d852f884fadbd3a2de6086ccd7a83e1aa3cf4db09",
+        "bytes": 64882
+      },
+      {
+        "path": "tests/fixtures/stage7-gluttony-laser-death.json",
+        "sha256": "b5c6885d51fe60e88c72318acab06fd6aa4c187557e93976aba93cf4104b1343",
+        "bytes": 757
+      },
+      {
+        "path": "tests/fixtures/stage7-navigation-loop-decision-native126.json",
+        "sha256": "bca2f086a9b8a47b362a50dbc3aa2cc033722dd095c8cd01d8c70e4d5c14d7fa",
+        "bytes": 10391
+      },
+      {
+        "path": "tests/fixtures/stage7-parabite-approach-43930-native89.json",
+        "sha256": "280b1610c8b3f6069ee40575d1930e5a8f09b6b32f046eec07b0e79f778a6a8b",
+        "bytes": 13405
+      },
+      {
+        "path": "tests/fixtures/stage7-parabite-approach-43960-native89.json",
+        "sha256": "8c23a2a4a5974df9d27316ef5a6e50371370e9b2c93908a19dfd496fcdafca43",
+        "bytes": 14890
+      },
+      {
+        "path": "tests/fixtures/stage7-parabite-approach-43980-native89.json",
+        "sha256": "7899f1cee02c086eac62adce8843c5e263646088242da092e26046c4f650dde4",
+        "bytes": 15156
+      },
+      {
+        "path": "tests/fixtures/stage7-parabite-approach-44000-native89.json",
+        "sha256": "6d406160fadb880bd46c632473bfc97c03fefce065ec2612f42249466d6f53cf",
+        "bytes": 15166
+      },
+      {
+        "path": "tests/fixtures/stage7-parabite-contact-native89.json",
+        "sha256": "286dfd2d172a651a8c91eff204a85065ac958aea224e1874c30ef6218a7b53a1",
+        "bytes": 1191
+      },
+      {
+        "path": "tests/fixtures/stage7-poop-damage-77425.json",
+        "sha256": "5a2132c356c9f2aba05bd5922edeb4ba914fdf6a7a89ed35f6cea907f874c89c",
+        "bytes": 8247
+      },
+      {
+        "path": "tests/fixtures/stage7-poop-damage-77819.json",
+        "sha256": "2051efe21adcd2ab55c1f5ebe916b994f6a68c1305b1fcf6ebeab40abb90cbc8",
+        "bytes": 8110
+      },
+      {
+        "path": "tests/fixtures/stage7-poop-damage-77863.json",
+        "sha256": "8236e93c9dc35d2cce7ed42731346ae8908c2bd281758139cf237f929a1a7b1a",
+        "bytes": 8217
+      },
+      {
+        "path": "tests/fixtures/stage7-red-poop-button-native78.json",
+        "sha256": "ba92e728cfc7cd8d489f2e9064c80c39ce72e64f29e95ef001667b7610e04022",
+        "bytes": 5653
+      },
+      {
+        "path": "tests/fixtures/stage7-room-84-loop-native126.json",
+        "sha256": "8ee2fc67c69d8373de2fde2819d908b42a03e6a6a0503538c190191d90eea4c0",
+        "bytes": 6720
+      },
+      {
+        "path": "tests/fixtures/stage7-room-85-loop-native126.json",
+        "sha256": "c085baddd27f3f32bf5c00edf36fba874652a785a3bbee2253bc72771cb8c6ae",
+        "bytes": 7356
+      },
+      {
+        "path": "tests/fixtures/stage7-room-85-rocks-native126.json",
+        "sha256": "ad5f912e4f3c2829ed810063f7f205950b3943eceee6b9cefe95b76ab7d66381",
+        "bytes": 294
+      },
+      {
+        "path": "tests/fixtures/stage8-brimstone-button-trap-native95.json",
+        "sha256": "6055c86ccd3aebf2046a9aa85e795ab2b74b69f1f806db4af53b8bab2636e9eb",
+        "bytes": 6235
+      },
+      {
+        "path": "tests/fixtures/stage8-heart-swinger-cords-native96.json",
+        "sha256": "491835784626572f071e37b81962e60a37f6ac92550da7fd86804429711dffb1",
+        "bytes": 2624
+      },
+      {
+        "path": "tests/fixtures/stage8-spikes-native119.json",
+        "sha256": "683566d9dae3230412265a71157fdb3c11ea8cad2dd78d48be1f6bc7cfb7089f",
+        "bytes": 704498
+      },
+      {
+        "path": "tests/strategy_fixtures.py",
+        "sha256": "de95bf43d80f005e655b4558d1b4fd49953295b333cca4617ac71355e52be49e",
+        "bytes": 4130
+      },
+      {
+        "path": "tests/test_active_input_payment.py",
+        "sha256": "d644decdf402e8d1848606ff4c95fda4f194465a06a3d42c0b6a583f10fd9100",
+        "bytes": 3971
+      },
+      {
+        "path": "tests/test_beam_firing_lanes.py",
+        "sha256": "e4d669242d1f7f54ee48be1d55bd3122f36efc91656c707dedc55a63744a56ef",
+        "bytes": 4012
+      },
+      {
+        "path": "tests/test_behavior_improvements.py",
+        "sha256": "c17a07ebe5ee6d861b95d34a81f1a2d74e6886f39516471e46dd6fa4a03b1f46",
+        "bytes": 5439
+      },
+      {
+        "path": "tests/test_bible_retention.py",
+        "sha256": "4b50d78e5f1f5d8bffef8a5d4fe7f9d3f7525de3f51e908773bd88e692d604b7",
+        "bytes": 2632
+      },
+      {
+        "path": "tests/test_blocked_boss_exit.py",
+        "sha256": "9ae08c8ed015aa181aaa290c9b417b883fa168068a6253bde030343ad575246b",
+        "bytes": 1303
+      },
+      {
+        "path": "tests/test_blocked_room_passage.py",
+        "sha256": "6e4ec9e6e84d80ea6c3575968daef8717c8cf6b786c42a97591a957593d97f88",
+        "bytes": 2783
+      },
+      {
+        "path": "tests/test_bobs_brain_survival.py",
+        "sha256": "a8b426c8c8502ad368841a1bc7e94f10022a7eb71dad25462315e90295e5b40f",
+        "bytes": 2731
+      },
+      {
+        "path": "tests/test_bomb_approach.py",
+        "sha256": "bf2d2f08d03993ce49008030bf026bb7bfa33b703149322c3dab7bc6359071e4",
+        "bytes": 2753
+      },
+      {
+        "path": "tests/test_bouncing_contacts.py",
+        "sha256": "e8a99407bb2ab86c4f7b5e27bb94e5d39755ec77811cfb26cfb9065c7936095e",
+        "bytes": 2978
+      },
+      {
+        "path": "tests/test_charged_shooting.py",
+        "sha256": "b758591708f517b94c8ee983a400bdb5ed83effa70e0b1bdd929c3d8ef242a92",
+        "bytes": 7281
+      },
+      {
+        "path": "tests/test_close_host_lane.py",
+        "sha256": "8bee7c5e9c8b5514bb87d983a68d6c6a200fdcd08329beaa8ec8b5cec0bc42e3",
+        "bytes": 1180
+      },
+      {
+        "path": "tests/test_combat_doorway_barrier.py",
+        "sha256": "c45454fdf6a0403830478fbfb7ac4aca3cfa432c344ea024a6910a26fc22d9b7",
+        "bytes": 2594
+      },
+      {
+        "path": "tests/test_combat_pockets.py",
+        "sha256": "0f0e19439512afbaaea330a7a1f5f809f6b290cf3717fe3bb914b08494a0a019",
+        "bytes": 4057
+      },
+      {
+        "path": "tests/test_combat_spike_windows.py",
+        "sha256": "ead67d81e21fe139263253f88e6d7aa9d11c1f4a0462394147ae6ad8bc0ef32e",
+        "bytes": 3400
+      },
+      {
+        "path": "tests/test_compact_status.py",
+        "sha256": "2e55aa4fa8be6edc2f84ab3f1099b7f7ac014197123d713d0fa721b9f0053ee4",
+        "bytes": 1937
+      },
+      {
+        "path": "tests/test_contact_hazards.py",
+        "sha256": "afa2112607e929b9fef7c2a5385000f4382d96a6bce9b6ee31fdece3dff1d83a",
+        "bytes": 6431
+      },
+      {
+        "path": "tests/test_damage_grace_escape.py",
+        "sha256": "428a5f1b9da439bbcf0433585b35dce7f8b5df2140176c994d6c6086e5e70739",
+        "bytes": 4425
+      },
+      {
+        "path": "tests/test_deaths_head.py",
+        "sha256": "df93ac86f4a17aefc26411ead7c78734c7efc7de77645027016c07594251305e",
+        "bytes": 4866
+      },
+      {
+        "path": "tests/test_decision.py",
+        "sha256": "ad89ffb3a93c2f3ac887132347a1b2df67dccc2ce888a8846ddda48c2a840aa5",
+        "bytes": 50216
+      },
+      {
+        "path": "tests/test_dsh_binding.mjs",
+        "sha256": "20a6c734491f7ed5affa945b44bd46cdf05ee5e74cdf4ebdaa81c18d95bdb190",
+        "bytes": 2058
+      },
+      {
+        "path": "tests/test_ending_restart_state.py",
+        "sha256": "8e76eea4418039c1a26962fbca3b3a526702a70c2a7b9a2fa1fedd3e83c937a9",
+        "bytes": 2366
+      },
+      {
+        "path": "tests/test_experiment_statistics.py",
+        "sha256": "e1e6fbb76186522a2d611fc770cdf4834749b6820f983b86ed05131873451f54",
+        "bytes": 7696
+      },
+      {
+        "path": "tests/test_full_run.py",
+        "sha256": "b1f4abe1c8412de8d147e1d96a3327c3cdb2cab26653bae47e932be496454f04",
+        "bytes": 12231
+      },
+      {
+        "path": "tests/test_globin_firing_distance.py",
+        "sha256": "95af3b2d9ba7afd4c51c1e8d9cba3cccc792e000ce140910255970251d6cf55b",
+        "bytes": 1873
+      },
+      {
+        "path": "tests/test_grid_dangers.py",
+        "sha256": "f02e58731b44725c8afd6589c5655d95ec2902e9ef0855defa2d114589965209",
+        "bytes": 1437
+      },
+      {
+        "path": "tests/test_grid_route.py",
+        "sha256": "654593e11527f834726465420a59beefa6217602d6e2fdae8976f6bb21edc56b",
+        "bytes": 9723
+      },
+      {
+        "path": "tests/test_ground_hazard_escape.py",
+        "sha256": "627678134cd65de0a44c209101aa2879421702ca6a7c0e4684167bed2ce9189d",
+        "bytes": 5847
+      },
+      {
+        "path": "tests/test_gurdy_reaction_space.py",
+        "sha256": "943cf99c5e5f9598f9fc23efaa8302aef7be70899639bf79e99beab27c432cde",
+        "bytes": 4065
+      },
+      {
+        "path": "tests/test_harness_v2.py",
+        "sha256": "23128cc3c7e3b5dca816ca985d333537dee54d4e21c367c620fd8d66b7c1d0b2",
+        "bytes": 11907
+      },
+      {
+        "path": "tests/test_health_deal_budget.py",
+        "sha256": "195e8635598ad5feaf3c8180995c26358ddd25007c54713732aa4f10f878cbb8",
+        "bytes": 5221
+      },
+      {
+        "path": "tests/test_held_active.py",
+        "sha256": "4d37819b617dee68b7f430daae0702628a02e9995ba322aedeca932475597c0d",
+        "bytes": 3189
+      },
+      {
+        "path": "tests/test_host_alcove.py",
+        "sha256": "68c28ced7808eccbecf04dfb981991d701240e8a76c62f952ee2dfcdcdbd1dc3",
+        "bytes": 3403
+      },
+      {
+        "path": "tests/test_inertial_navigation.py",
+        "sha256": "79efda754a5310293d795a83187a364c351a1346293f394b7d11cb89ab01506a",
+        "bytes": 6060
+      },
+      {
+        "path": "tests/test_live_bomb_survival.py",
+        "sha256": "7d284e7fa3f1b84e01fbded1f44548723ab4dc68186ff1128563e71a660e6866",
+        "bytes": 6913
+      },
+      {
+        "path": "tests/test_mobile_enemy_firing_lanes.py",
+        "sha256": "674d29fabac9f8b4d52fc4e1c716be2c549a6de7ca8bf0a72257f5431d5b3716",
+        "bytes": 2359
+      },
+      {
+        "path": "tests/test_models_observations.py",
+        "sha256": "56d651d53307ab09da15fd8ea0f6809913196ae0aa976c632da204d3f9de338b",
+        "bytes": 7874
+      },
+      {
+        "path": "tests/test_movement_forecast.py",
+        "sha256": "b8239e906015a3eb93c26d9838529668266aff510a6665aa2e2e12bd0df7e02f",
+        "bytes": 4262
+      },
+      {
+        "path": "tests/test_moving_trap_admission.py",
+        "sha256": "60c9ca13e1dffed0af668fa9d7d4ebbf3b462120b66844eeb2f682cf883734cb",
+        "bytes": 1986
+      },
+      {
+        "path": "tests/test_native_bomb_input.py",
+        "sha256": "19785f4aca439736a17c9d5075f98f3cd939707e36ef28cc81603a7ab78f87d6",
+        "bytes": 7449
+      },
+      {
+        "path": "tests/test_native_bundle.py",
+        "sha256": "b23edc0cff907a378250913680545fccc2b3c08a6bba8cce5aa3cad2b9b91be2",
+        "bytes": 702
+      },
+      {
+        "path": "tests/test_native_ipc.py",
+        "sha256": "8d93aa5a679f909f7178560ca7a95fefe3063cc7d9fd10a55058534fd6b8b3e7",
+        "bytes": 2818
+      },
+      {
+        "path": "tests/test_native_sheol_door.py",
+        "sha256": "a0d64aba7d2c8efae2697392cf5515791be24766f3dc2016e28266a02bb4acce",
+        "bytes": 3494
+      },
+      {
+        "path": "tests/test_native_stream_control.py",
+        "sha256": "f11dc3864f68063f0f8a98506fee503534113002bf6acded53ed9fb8234ae596",
+        "bytes": 8190
+      },
+      {
+        "path": "tests/test_navigation_corner.py",
+        "sha256": "1b61f963ccc87fd069d21b10190767e964a9ada3d35b2c582ddac6fb4800ca1e",
+        "bytes": 3915
+      },
+      {
+        "path": "tests/test_observation_publication.py",
+        "sha256": "7d81b7d576ca6134105d585afd8b5390a273806d2020ea89744b75528eaadfdc",
+        "bytes": 2417
+      },
+      {
+        "path": "tests/test_pedestal_corridor.py",
+        "sha256": "35502bbbdb69ee72dff30696d8d93b50abb52ee5ca24553c7a2cd142d576ed80",
+        "bytes": 3230
+      },
+      {
+        "path": "tests/test_pending_tnt.py",
+        "sha256": "0fb43fee327110a0652f3df2b903208979ded42e2e02d368e37d0e3047da25c3",
+        "bytes": 6965
+      },
+      {
+        "path": "tests/test_portable_setup.py",
+        "sha256": "88a33ea1a8e1a3039a8aecf97d7ab51024b5d4e4f73ab87ff6b9e670ff37a1af",
+        "bytes": 5477
+      },
+      {
+        "path": "tests/test_predictive_combat.py",
+        "sha256": "ca72efe6be3ac578a09624b80ed74ccb7eeee5412f0fd88db99afa780766dfe0",
+        "bytes": 27432
+      },
+      {
+        "path": "tests/test_providers.py",
+        "sha256": "604599ddf5921e5937d409ac96c26df5e47aabbf6242523332ce9b76689d498c",
+        "bytes": 18833
+      },
+      {
+        "path": "tests/test_red_poop_button.py",
+        "sha256": "a871849b1a3e211b73d4de81393d2aed4cb40c8f0f5a6a5984e60a58a7d0f6ac",
+        "bytes": 6797
+      },
+      {
+        "path": "tests/test_removed_provider_config.py",
+        "sha256": "b3b321a034d5212c522f6d4a3c40ca658971fce516b08f19debf929329f87288",
+        "bytes": 1029
+      },
+      {
+        "path": "tests/test_replay.py",
+        "sha256": "b6e3e359a9e070c25e76efd0cd46ca64714431f61af05db18302c3a9f9dedfdf",
+        "bytes": 2553
+      },
+      {
+        "path": "tests/test_restart.py",
+        "sha256": "59618be45cbbb4acafad8af5e3f9fab58a3c4d0405c8705d47f292b09a975d73",
+        "bytes": 3067
+      },
+      {
+        "path": "tests/test_retracted_spikes.py",
+        "sha256": "806795440e5996fb2d143659f957abfc18784bfd8fc7562545ec64259be0a8ba",
+        "bytes": 5213
+      },
+      {
+        "path": "tests/test_rolling_spike_windows.py",
+        "sha256": "0fabbfe6194f57603f56b813cd7adf8ca6b2776f751ba3bcc41acc25c7ba391f",
+        "bytes": 7679
+      },
+      {
+        "path": "tests/test_room_entry.py",
+        "sha256": "caedb888563f84f77a1fa768d538e50b0028afab1aec41b4220c786b741869fb",
+        "bytes": 7844
+      },
+      {
+        "path": "tests/test_room_identity.py",
+        "sha256": "a41c993a1940adad8560ebae9a2dbde574680a9e080f9cc72240d008819a8236",
+        "bytes": 1317
+      },
+      {
+        "path": "tests/test_runtime.py",
+        "sha256": "d14b850cc92798a3f2954f5c9afa6db91ce1525928d653a307fa5f0dca95f9ab",
+        "bytes": 72109
+      },
+      {
+        "path": "tests/test_satan_progression.py",
+        "sha256": "33a0bcfa4f4453eac9e025ed4fe575d9a93925e1522a7c0d86ab412304cdf0d4",
+        "bytes": 4188
+      },
+      {
+        "path": "tests/test_satan_supervisor.py",
+        "sha256": "47f5edf4ede7438d2e2fb47c7e95019fab6a9c429842801cecd2d6a1cfb0887f",
+        "bytes": 3220
+      },
+      {
+        "path": "tests/test_special_room_tracking.py",
+        "sha256": "e3f7d62a72af4c5633aa5ce7c8feea46db434a8b1b125ae49cfac128c4e02c64",
+        "bytes": 1952
+      },
+      {
+        "path": "tests/test_spike_corridor.py",
+        "sha256": "b35e2b6974fa2006c788d0c4c165985796e77740958cfc3711c9c08a2bcf2b40",
+        "bytes": 1351
+      },
+      {
+        "path": "tests/test_spike_escape.py",
+        "sha256": "274f4412c59b245c4f1cba1eda07d80f788a424fba877d094012bd297c219209",
+        "bytes": 4710
+      },
+      {
+        "path": "tests/test_spike_observation.py",
+        "sha256": "6d31f30bd604216d2ff82f160e084c6a38190d1c6444a282497a76571b80dced",
+        "bytes": 3328
+      },
+      {
+        "path": "tests/test_stack_lifecycle.py",
+        "sha256": "83f7800266124b1248d999c2d68c7a6ddfa2bcb8809ff0f2957268ca49827bea",
+        "bytes": 2582
+      },
+      {
+        "path": "tests/test_strategy_api.py",
+        "sha256": "c3ddc7ecd0b82abce1eefd1641899d012a219e852a6b2868ffd7b1dac99c1987",
+        "bytes": 5195
+      },
+      {
+        "path": "tests/test_strategy_contract.py",
+        "sha256": "bb04de1f145120315893fc1bb578b16f3c5e4c8cb7a42c007d8cdd729ddc747c",
+        "bytes": 17342
+      },
+      {
+        "path": "tests/test_strategy_native.py",
+        "sha256": "3c1345c896670e8746a707ac6714d71ccdc9be2bdcfa7a373d900495bbb27871",
+        "bytes": 7763
+      },
+      {
+        "path": "tests/test_synchronized_spikes.py",
+        "sha256": "7b405a53a089caadb1ed059c6e29b219237c949198fd30058027be26e505af60",
+        "bytes": 3725
+      },
+      {
+        "path": "tests/test_telemetry.py",
+        "sha256": "8de68aec18b79dabecfd4e39a2a08d8c841873182598188a029985bf96dc18fa",
+        "bytes": 2710
+      },
+      {
+        "path": "tests/test_timed_spike_route.py",
+        "sha256": "bdb58780de85e8b50e2ca3d03ea4fa65eca0d3c8518eb91cfff0d4b769da15cd",
+        "bytes": 6805
+      },
+      {
+        "path": "tests/test_trapdoor_approach.py",
+        "sha256": "963089f6792e484fc3fa71d0b4b5f1895a69a5cfe716be0536ac49bb7b9ed4dc",
+        "bytes": 2753
+      },
+      {
+        "path": "tests/test_tuning.py",
+        "sha256": "ca934c27f4e06bad6c4279c56f52331f657897ed287c68f7c929898838df9328",
+        "bytes": 2473
+      },
+      {
+        "path": "tests/test_uncleared_button_room.py",
+        "sha256": "b3bb9b958b55a7135b459b7ad0f6de0b3309120bad9fee32e9de66149059c434",
+        "bytes": 6923
+      },
+      {
+        "path": "tests/test_unintended_floor_exit.py",
+        "sha256": "b0fe1995501bb89bd50bbf73ab7890330b66a37ff5f20da6e73dde4b12252c67",
+        "bytes": 4845
+      },
+      {
+        "path": "tests/test_unintended_room_exit.py",
+        "sha256": "f96c8c3b818500c4db0031e1ec5244da6405fc6fd9295f76778cfd1e920dc956",
+        "bytes": 2948
+      },
+      {
+        "path": "tests/test_unreachable_health_return.py",
+        "sha256": "f632f81726d8fa39f4e92eb66a7c57c7705b46f0b125d71da46ff69b4bb21a45",
+        "bytes": 3080
+      },
+      {
+        "path": "tests/test_utility_controls.py",
+        "sha256": "871a9e98930472db4f553061605dcc398c31dc50c54ba2ae4be5e89be82de064",
+        "bytes": 16047
+      },
+      {
+        "path": "tests/test_vulnerable_targets.py",
+        "sha256": "4700f3ce94d969e3469b5f38eebb7c6d8dcb1ac783517fa5fd88b3ddf45e9ea0",
+        "bytes": 2271
+      },
+      {
+        "path": "tests/test_wall_overlap_forecast.py",
+        "sha256": "b7ba029c7e0eca0a7789a4e958a175bb90c53e8db52c6ab791497d66e132fc2f",
+        "bytes": 2956
+      },
+      {
+        "path": "tests/test_weapon_targeting.py",
+        "sha256": "7701e584e2e6ae9e8a2d23e64831cb66c6be7470dcbcb62aa02c7fa14f925aa5",
+        "bytes": 4947
+      },
+      {
+        "path": "tools/build_release.py",
+        "sha256": "1eccc9a970b2e865f19ccef02d41b4f1ef3b0da2830e953be4a6e088df6ee40c",
+        "bytes": 7345
+      },
+      {
+        "path": "tools/publish_release.py",
+        "sha256": "c95fec6349fdb1a46770d25309577fceced8d04d5aec18828b9eaff0908d4add",
+        "bytes": 6290
+      },
+      {
+        "path": "verify_dsh.py",
+        "sha256": "632f3182945416e0039ef3f8bfef0664cdde1a8e108b5f64fd409ea6ab7bf983",
+        "bytes": 2486
+      },
+      {
+        "path": "verify_full_run.py",
+        "sha256": "933bfd1c910d6f756837d5b95bcf1b615a62576c261f142066762e0873a51cde",
+        "bytes": 4195
+      },
+      {
+        "path": "verify_live.py",
+        "sha256": "b006164c005da0ec35e17b5b051c1de373236f3a8d801c675934f577bc2d62c4",
+        "bytes": 5614
+      },
+      {
+        "path": "verify_scenarios.py",
+        "sha256": "dcc9cd7936ab655e8d87dcd8ecb1918f5b05261e8b963c68f74dcbcca679d7a8",
+        "bytes": 5893
+      }
+    ]
+  },
+  "mc_programme_baseline": [
+    {
+      "source": "web/mc-programme.html",
+      "target": "web/issac/mc-programme.html",
+      "sha256": "95ee0469d92b148aac00f026ff1a3f81f282c62fcac9749a5856dc74ca9a7a10"
+    },
+    {
+      "source": "web/mc-programme.css",
+      "target": "web/issac/mc-programme.css",
+      "sha256": "06e0cc5fb4425c209ecb80104561d863ea5c2d104fe0695477ef5249c23f9726"
+    },
+    {
+      "source": "web/mc-programme.js",
+      "target": "web/issac/mc-programme.js",
+      "sha256": "c7f5566dc57f2c49ce1c32d02e4b08ee36059c7ce7cefe8713f742fe76eed500"
+    },
+    {
+      "source": "web/mc-programme-overlay.js",
+      "target": "web/issac/mc-programme-overlay.js",
+      "sha256": "973510fffc1cfc947032f58cd70b7c5ef04d67326e06f47c58e368a7f37056f1"
+    },
+    {
+      "source": "web/mc-chat-position.js",
+      "target": "web/issac/mc-chat-position.js",
+      "sha256": "383707c7b7e38c492f4e37240ee50881eff6a55abe453de1beae7ad49f787045"
+    },
+    {
+      "source": "web/local-stream.js",
+      "target": "web/issac/local-stream.js",
+      "sha256": "3a99931b24c98eaf0c7755746fe16ac73cbee8b7447959f3531fdf3a986724b1"
+    },
+    {
+      "source": "web/dsh-playback.js",
+      "target": "web/issac/dsh-playback.js",
+      "sha256": "947af2868218fbff8e9f01c1cb88069555f46fb134a3347e55ddcdd6562828d2"
+    },
+    {
+      "source": "web/room-audio.js",
+      "target": "web/issac/room-audio.js",
+      "sha256": "5142050adfe2ba9fd6d2de0dcf2bb0077dfc83d4c6de4c1e1ebcb6536bc9b751"
+    }
+  ],
+  "note": "Source baselines only. Subsequent adaptations are visible in Git; not runtime acceptance.",
+  "additional_mc_reviewed_sources": [
+    {
+      "source": "integration/media_protocol.py",
+      "destination": "integration/issac/media_protocol.py",
+      "source_sha256": "974ceb94ce3c34c87c4b8345bab34a21c2d0613649b7571f581153e79ea50434"
+    },
+    {
+      "source": "integration/stream_encoder.py",
+      "destination": "integration/issac/stream_encoder.py",
+      "source_sha256": "5204d759b6adcb6f0f4c6d452ec4b67290bad69213cf19686cd17697849be598"
+    },
+    {
+      "source": "web/browser-id.js",
+      "destination": "web/issac/browser-id.js",
+      "source_sha256": "59238fedc35b3caf1884d43d86f1a40ffa259908a262ef7b1cfe66bee2744705"
+    },
+    {
+      "source": "web/room-client.js",
+      "destination": "web/issac/room-client.js",
+      "source_sha256": "05271c74a82f8aa7ffbda6466ec335665308b171a601ae2411447e3bddf4732d"
+    },
+    {
+      "source": "web/mc-game-client.js",
+      "destination": "web/issac/issac-game-client.js",
+      "source_sha256": "7b0a06fed296ff6ffaab8c9e683059bcb7ac0ff042b78675821c3e5d55347a7b"
+    },
+    {
+      "source": "backend/room/defaults.mjs",
+      "destination": "backend/room/defaults.mjs",
+      "source_sha256": "1a732b58f81862f99d82dfc23043777c471edea5e512adae6d96015e9a0f6f7a"
+    }
+  ]
+}

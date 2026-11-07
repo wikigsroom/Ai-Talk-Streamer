@@ -79,6 +79,8 @@ export class MemoryService {
     const rows = this.db.all(`SELECT e.*,p.payload_json FROM stream_events e JOIN event_payloads p USING(event_seq) WHERE e.broadcast_id=? AND e.event_seq>=? AND e.event_seq<=? AND e.event_type IN ('input.accepted','playback.completed') AND p.redacted_at IS NULL AND (json_extract(p.payload_json,'$.partition_key')=? ${publicAlso ? "OR json_extract(p.payload_json,'$.partition_key')='public'" : ''}) ORDER BY event_seq`, broadcastId, start, end, partition);
     return rows.filter(row => {
       const data = JSON.parse(row.payload_json), relevant = data.partition_key === 'public' ? publicFence : fence;
+      const input=row.request_id?this.db.get("SELECT p.payload_json FROM requests r JOIN event_payloads p ON p.event_seq=r.input_event_seq WHERE r.request_id=?",row.request_id):null;
+      if(input&&JSON.parse(input.payload_json).source?.collector==='issac-native-game')return false;
       return (row.event_type !== 'input.accepted' || data.source?.collector !== 'dsh-speak-up') && (!relevant || row.event_seq > relevant.event_seq);
     }).map(row => { const data = JSON.parse(row.payload_json); return { event_seq: row.event_seq, event_id: row.event_id,
       event_type: row.event_type, request_id:row.request_id, text: data.text, partition_key: data.partition_key,
@@ -133,6 +135,7 @@ export class MemoryService {
     return this.db.get('SELECT * FROM summary_versions WHERE summary_id=?', summaryId);
   }
   propose(request, candidate) {
+    requireValue(this.state.input(request)?.source?.collector!=='issac-native-game','GAME_FACT_IS_NOT_VIEWER_MEMORY',422);
     const allowed = new Set(['fact_key','value','polarity','source_event_id','quote']);
     requireValue(candidate && typeof candidate === 'object' && Object.keys(candidate).every(key => allowed.has(key)) && typeof candidate.fact_key === 'string' && typeof candidate.quote === 'string' && candidate.quote.length <= 300, 'PROPOSAL_SCHEMA', 422);
     const partition = request.viewer_id || 'public';

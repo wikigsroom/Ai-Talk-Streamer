@@ -187,7 +187,8 @@
     "official": "/issac/programme?renderer=livehime",
     "preview": "/issac/preview",
     "layout": "/issac/layout.json",
-    "implemented": false
+    "implemented": true,
+    "runtime_verified": false
   },
   "naimei_runtime": {
     "character_id": "naimei",
@@ -207,5 +208,6 @@
     "MC GPU, voice, model endpoints, state and private receipts are not inherited"
   ],
   "actual_isaac_capture_and_livehime_acceptance": false,
-  "runtime_deployment_performed_by_this_update": false
+  "runtime_deployment_performed_by_this_update": false,
+  "round_2_source_implementation_document": "docs/issac/第二轮完整开发与统一验收20261107.md"
 }

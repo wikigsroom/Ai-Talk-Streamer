@@ -1,0 +1,45 @@
+# Dependencies and Python build output
+node_modules/
+.npm-cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+tools/python-libs/
+# Private machine data and credentials
+private/
+.dsh-home/
+.env
+.env.*
+!.env.example
+game-install.json
+save-protection.json
+config/decision_provider.json
+dsh-host/runtime.json
+dsh-host/isaac.patch.json
+# Game process identity, IPC and generated native bundle
+/native-*.json
+/native-request.lock
+/native-controller.lua
+/strategy-process.json
+/.stack-operation.lock
+/*-process.json
+/latest-*.json
+# Never publish saves, backups, raw sessions or captured telemetry
+*.dat
+*.vdf
+backups/
+logs/
+recordings/
+screenshots/
+artifacts/
+# Publicly reviewed README media/evidence live under docs/.
+*.zip
+*.tgz
+*.tar.gz
+*.7z
+Thumbs.db
+.DS_Store

@@ -142,7 +142,7 @@ export class DshHost {
             text: this.renderPersona(personaSnapshot.document, { enabled: true, independentJudgment: true }) });
           agentCtx.systemPrompt.section({ name:'humanity:memory',order:20,interpolate:false,text:memorySnapshot.text });
           await this.#bind(agentCtx, snapshot, route, maintenance?this.policy.maintenance.model_timeout_ms:this.policy.conversation.model_timeout_ms);
-          const names = maintenance ? ['stream_maintenance_result'] : [...LIVE_TOOLS, ...(this.extensions ? EXTENSION_TOOLS : [])];
+          const names = maintenance ? ['stream_maintenance_result'] : [...(preparedContext?.game_event?[]:LIVE_TOOLS), ...(this.extensions ? EXTENSION_TOOLS : [])];
           if (this.extensions && !maintenance && !negativeMinimal) await this.extensions.mount(agentCtx, agent, input, preparedContext?.partition_key || 'public');
           for (const name of names) agentCtx.tools.register(this.defineTool({ name,
             description: name === 'stream_memory_recall' ? '查询当前观众及公共记忆。身份和分区由服务器决定。' : name === 'stream_memory_propose' ? '提交待核验的记忆候选。不会直接写长期记忆。' : name === 'search_meme_wiki' ? '查两个本地梗词库。data内填query，不联网。' : name === 'soul_read' ? '只读奶妹当前人格卡。data填空JSON对象。' : '提交严格 JSON 的整理结果。',

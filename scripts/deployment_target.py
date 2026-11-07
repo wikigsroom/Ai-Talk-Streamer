@@ -33,10 +33,18 @@ def contract(root):
     return registry, selected
 
 
-def validate_target(root=ROOT, *, expected_target=None, check_hardware=True, check_runtime=True):
+def validate_target(root=ROOT, *, expected_target=None, check_hardware=True, check_runtime=True, candidate=False):
     root = Path(root).resolve()
     registry, selected = contract(root)
     target = selected['target']
+    if target == 'issac-rtx4090' and candidate:
+        if expected_target != target:
+            raise RuntimeError('Explicit issac-rtx4090 rehearsal target required')
+        import sys
+        if str(root) not in sys.path: sys.path.insert(0,str(root))
+        from integration.issac.deployment import require_candidate
+        return {'ok':True,'target':target,'branch':'issac','purpose':'frozen_candidate_local_rehearsal',
+                **require_candidate(root,hardware=check_hardware),'public_broadcast_allowed':False}
     if target is None:
         raise RuntimeError('main contains shared source only. Use deploy/rtx3080 or deploy/rtx4090 before deploying or starting inference.')
     if selected.get('deployment_allowed') is not True:
@@ -96,8 +104,9 @@ if __name__ == '__main__':
     parser.add_argument('--root',type=Path,default=ROOT)
     parser.add_argument('--describe',action='store_true')
     parser.add_argument('--expected-target',default=None)
+    parser.add_argument('--candidate',action='store_true')
     args = parser.parse_args()
     if args.describe:
         print(json.dumps(contract(args.root)[1],ensure_ascii=False,indent=2))
     else:
-        print(json.dumps(validate_target(args.root,expected_target=args.expected_target),ensure_ascii=False,indent=2))
+        print(json.dumps(validate_target(args.root,expected_target=args.expected_target,candidate=args.candidate),ensure_ascii=False,indent=2))

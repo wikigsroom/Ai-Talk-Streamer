@@ -1,0 +1,43 @@
+{
+  "my": 0.0,
+  "flags": 4100,
+  "stage": 3,
+  "mx": 0.0,
+  "charge_phase": "idle",
+  "enemies": [],
+  "ay": 0.0,
+  "action": "route_to_firing_lane",
+  "seed": 977822611,
+  "ax": -1.0,
+  "tear_age": 3,
+  "route": {
+    "position": {
+      "x": 524.10827636719,
+      "y": 280.27551269531
+    },
+    "cursor": 2,
+    "goal": 99,
+    "waypoint": {
+      "x": 440.0,
+      "y": 360.0
+    },
+    "path": [
+      101,
+      100,
+      99
+    ],
+    "start": 72
+  },
+  "room": 14,
+  "move_reason": "grid_route_control",
+  "source_variant": 0,
+  "source_type": 0,
+  "aim_target": 1,
+  "vy": 0.36924570798874,
+  "vx": 1.7988283634186,
+  "amount": 2.0,
+  "x": 522.47583007813,
+  "bombs": [],
+  "frame": 28104,
+  "y": 281.04211425781
+}

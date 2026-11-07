@@ -1,0 +1,802 @@
+{
+  "frame": 58747,
+  "start_seed": 596820008,
+  "stage": 5,
+  "stage_type": 0,
+  "room_index": 80,
+  "room_clear": false,
+  "player": {
+    "hp": 6,
+    "max_hearts": 8,
+    "eternal_hearts": 0,
+    "tear_speed": 1.0,
+    "weapon_type_known": true,
+    "pos": {
+      "y": 272.0,
+      "x": 534.5
+    },
+    "bone_hearts": 0,
+    "tear_range": 260.0,
+    "weapon_type": "tear",
+    "type": 1,
+    "soul_hearts": 0,
+    "id": 0,
+    "black_hearts": 0,
+    "vel": {
+      "y": 0.0,
+      "x": 0.0
+    },
+    "red_hearts": 6
+  },
+  "player_grid_index": 72,
+  "layout": {
+    "doors": [
+      {
+        "door_lock_known": true,
+        "target_is_boss": false,
+        "pos": {
+          "y": 280.0,
+          "x": 40.0
+        },
+        "door_locked": true,
+        "target_room_type": "shop",
+        "grid_index": 60,
+        "slot": 0,
+        "door_open_known": true,
+        "door_open": false,
+        "target_room_index": 79,
+        "target_clear": false
+      },
+      {
+        "door_lock_known": true,
+        "target_is_boss": false,
+        "pos": {
+          "y": 120.0,
+          "x": 320.0
+        },
+        "door_locked": false,
+        "target_room_type": "default",
+        "grid_index": 7,
+        "slot": 1,
+        "door_open_known": true,
+        "door_open": false,
+        "target_room_index": 67,
+        "target_clear": false
+      },
+      {
+        "door_lock_known": true,
+        "target_is_boss": false,
+        "pos": {
+          "y": 280.0,
+          "x": 600.0
+        },
+        "door_locked": false,
+        "target_room_type": "default",
+        "grid_index": 74,
+        "slot": 2,
+        "door_open_known": true,
+        "door_open": false,
+        "target_room_index": 81,
+        "target_clear": true
+      },
+      {
+        "door_lock_known": true,
+        "target_is_boss": false,
+        "pos": {
+          "y": 440.0,
+          "x": 320.0
+        },
+        "door_locked": false,
+        "target_room_type": "default",
+        "grid_index": 127,
+        "slot": 3,
+        "door_open_known": true,
+        "door_open": false,
+        "target_room_index": 93,
+        "target_clear": false
+      }
+    ],
+    "room_type": "default",
+    "room_index": 80,
+    "grid_events": [
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 16,
+        "id": -100016,
+        "state": 0,
+        "pos": {
+          "y": 160.0,
+          "x": 80.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 17,
+        "id": -100017,
+        "state": 0,
+        "pos": {
+          "y": 160.0,
+          "x": 120.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 18,
+        "id": -100018,
+        "state": 0,
+        "pos": {
+          "y": 160.0,
+          "x": 160.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 19,
+        "id": -100019,
+        "state": 0,
+        "pos": {
+          "y": 160.0,
+          "x": 200.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 20,
+        "id": -100020,
+        "state": 0,
+        "pos": {
+          "y": 160.0,
+          "x": 240.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 21,
+        "id": -100021,
+        "state": 0,
+        "pos": {
+          "y": 160.0,
+          "x": 280.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 23,
+        "id": -100023,
+        "state": 0,
+        "pos": {
+          "y": 160.0,
+          "x": 360.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 24,
+        "id": -100024,
+        "state": 0,
+        "pos": {
+          "y": 160.0,
+          "x": 400.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 25,
+        "id": -100025,
+        "state": 0,
+        "pos": {
+          "y": 160.0,
+          "x": 440.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 26,
+        "id": -100026,
+        "state": 0,
+        "pos": {
+          "y": 160.0,
+          "x": 480.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 27,
+        "id": -100027,
+        "state": 0,
+        "pos": {
+          "y": 160.0,
+          "x": 520.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 28,
+        "id": -100028,
+        "state": 0,
+        "pos": {
+          "y": 160.0,
+          "x": 560.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 31,
+        "id": -100031,
+        "state": 0,
+        "pos": {
+          "y": 200.0,
+          "x": 80.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 43,
+        "id": -100043,
+        "state": 0,
+        "pos": {
+          "y": 200.0,
+          "x": 560.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 48,
+        "id": -100048,
+        "state": 0,
+        "pos": {
+          "y": 240.0,
+          "x": 160.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 49,
+        "id": -100049,
+        "state": 0,
+        "pos": {
+          "y": 240.0,
+          "x": 200.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 51,
+        "id": -100051,
+        "state": 0,
+        "pos": {
+          "y": 240.0,
+          "x": 280.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 53,
+        "id": -100053,
+        "state": 0,
+        "pos": {
+          "y": 240.0,
+          "x": 360.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 55,
+        "id": -100055,
+        "state": 0,
+        "pos": {
+          "y": 240.0,
+          "x": 440.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 56,
+        "id": -100056,
+        "state": 0,
+        "pos": {
+          "y": 240.0,
+          "x": 480.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 63,
+        "id": -100063,
+        "state": 0,
+        "pos": {
+          "y": 280.0,
+          "x": 160.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 66,
+        "id": -100066,
+        "state": 0,
+        "pos": {
+          "y": 280.0,
+          "x": 280.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 68,
+        "id": -100068,
+        "state": 0,
+        "pos": {
+          "y": 280.0,
+          "x": 360.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 71,
+        "id": -100071,
+        "state": 0,
+        "pos": {
+          "y": 280.0,
+          "x": 480.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 78,
+        "id": -100078,
+        "state": 0,
+        "pos": {
+          "y": 320.0,
+          "x": 160.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 80,
+        "id": -100080,
+        "state": 0,
+        "pos": {
+          "y": 320.0,
+          "x": 240.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 81,
+        "id": -100081,
+        "state": 0,
+        "pos": {
+          "y": 320.0,
+          "x": 280.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 83,
+        "id": -100083,
+        "state": 0,
+        "pos": {
+          "y": 320.0,
+          "x": 360.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 84,
+        "id": -100084,
+        "state": 0,
+        "pos": {
+          "y": 320.0,
+          "x": 400.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 86,
+        "id": -100086,
+        "state": 0,
+        "pos": {
+          "y": 320.0,
+          "x": 480.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 91,
+        "id": -100091,
+        "state": 0,
+        "pos": {
+          "y": 360.0,
+          "x": 80.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 103,
+        "id": -100103,
+        "state": 0,
+        "pos": {
+          "y": 360.0,
+          "x": 560.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 106,
+        "id": -100106,
+        "state": 0,
+        "pos": {
+          "y": 400.0,
+          "x": 80.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 107,
+        "id": -100107,
+        "state": 0,
+        "pos": {
+          "y": 400.0,
+          "x": 120.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 108,
+        "id": -100108,
+        "state": 0,
+        "pos": {
+          "y": 400.0,
+          "x": 160.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 109,
+        "id": -100109,
+        "state": 0,
+        "pos": {
+          "y": 400.0,
+          "x": 200.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 110,
+        "id": -100110,
+        "state": 0,
+        "pos": {
+          "y": 400.0,
+          "x": 240.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 111,
+        "id": -100111,
+        "state": 0,
+        "pos": {
+          "y": 400.0,
+          "x": 280.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 113,
+        "id": -100113,
+        "state": 0,
+        "pos": {
+          "y": 400.0,
+          "x": 360.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 114,
+        "id": -100114,
+        "state": 0,
+        "pos": {
+          "y": 400.0,
+          "x": 400.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 115,
+        "id": -100115,
+        "state": 0,
+        "pos": {
+          "y": 400.0,
+          "x": 440.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 116,
+        "id": -100116,
+        "state": 0,
+        "pos": {
+          "y": 400.0,
+          "x": 480.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 117,
+        "id": -100117,
+        "state": 0,
+        "pos": {
+          "y": 400.0,
+          "x": 520.0
+        },
+        "active": true
+      },
+      {
+        "triggered": false,
+        "kind": "spike",
+        "grid_index": 118,
+        "id": -100118,
+        "state": 0,
+        "pos": {
+          "y": 400.0,
+          "x": 560.0
+        },
+        "active": true
+      }
+    ],
+    "grid_width": 15,
+    "is_boss": false,
+    "danger_grid_indices": [
+      66,
+      68,
+      71,
+      78,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      86,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      31,
+      113,
+      103,
+      117,
+      115,
+      106,
+      43,
+      108,
+      109,
+      110,
+      111,
+      48,
+      49,
+      114,
+      51,
+      116,
+      53,
+      118,
+      55,
+      56,
+      107,
+      91,
+      84,
+      83,
+      81,
+      80,
+      63
+    ],
+    "shot_blocked": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      29,
+      30,
+      44,
+      45,
+      59,
+      60,
+      74,
+      75,
+      89,
+      90,
+      104,
+      105,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134
+    ],
+    "grid_height": 9,
+    "bomb_walls": [],
+    "blocked": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      29,
+      30,
+      44,
+      45,
+      59,
+      60,
+      74,
+      75,
+      89,
+      90,
+      104,
+      105,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134
+    ]
+  },
+  "enemies": [
+    {
+      "hp": 20.0,
+      "state": 3,
+      "pos": {
+        "y": 280.0,
+        "x": 200.0
+      },
+      "grid_index": 64,
+      "is_boss": false,
+      "type": 30,
+      "telegraph": "Shrink",
+      "id": 1,
+      "subtype": 0,
+      "variant": 0,
+      "vel": {
+        "y": 0.0,
+        "x": 0.0
+      }
+    }
+  ],
+  "hazards": [],
+  "safe_move_directions": {
+    "right": "safe",
+    "up": "safe",
+    "left": "spike_or_tnt",
+    "down": "safe"
+  }
+}

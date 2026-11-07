@@ -5,9 +5,9 @@ export const check = (ok, code, status = 400) => { if (!ok) throw new RoomError(
 export const THEMES = ['daylight', 'paper', 'evening'];
 export const DEFAULTS = {
   identity: { title: '知夏的日光宿舍', topic: '一起聊聊今天的小事', announcement: '欢迎来到知夏的小房间 · 我是虚拟主播林知夏', show_virtual_label: true },
-  audio: { music_volume: 0.22, speech_volume: 1, muted: false, ducking: true, duck_level: 0.23, attack_ms: 90, release_ms: 650 },
+  audio: { music_volume: 0.22, speech_volume: 1, game_volume: 1, muted: false, ducking: true, duck_level: 0.23, game_ducking: true, game_duck_level: 0.35, attack_ms: 90, release_ms: 650 },
   filters: { preset: 'daylight', brightness: 1, contrast: 1, saturation: 1, warmth: 0, softness: 0, vignette: 0.06 },
-  overlay: { theme: 'daylight', embedded: true, brand: true, chat: true, danmaku: false, messages: true, gifts: true, captions: true, announcement: true, opacity: 0.92, font_scale: 1, max_comments: 3, comment_lifetime: 20, danmaku_speed: 12, gift_seconds: 7, auto_board: false },
+  overlay: { theme: 'daylight', mc_chat_side: 'right', mc_avatar_variant: 'circle', mc_scene: 'play', embedded: true, brand: true, chat: true, danmaku: false, messages: true, gifts: true, captions: true, announcement: true, opacity: 0.92, font_scale: 1, max_comments: 3, comment_lifetime: 20, danmaku_speed: 12, gift_seconds: 7, auto_board: false },
   moderation: { blocked_words: [], blocked_names: [], blocked_users: [] },
 };
 const string = (v, n) => typeof v === 'string' && v.length <= n && !/[\u0000-\u0008]/.test(v);
@@ -16,9 +16,9 @@ const boolean = v => typeof v === 'boolean';
 const one = values => v => values.includes(v);
 const rules = {
   identity: { title: v => string(v, 40), topic: v => string(v, 80), announcement: v => string(v, 240), show_virtual_label: boolean },
-  audio: { music_volume: range(0, 1), speech_volume: range(0, 1.5), muted: boolean, ducking: boolean, duck_level: range(0, 1), attack_ms: range(20, 1000), release_ms: range(100, 3000) },
+  audio: { music_volume: range(0, 1), speech_volume: range(0, 1.5), game_volume: range(0, 1), muted: boolean, ducking: boolean, duck_level: range(0, 1), game_ducking: boolean, game_duck_level: range(0, 1), attack_ms: range(20, 1000), release_ms: range(100, 3000) },
   filters: { preset: one(['daylight', 'clean', 'warm', 'soft', 'custom']), brightness: range(0.65, 1.35), contrast: range(0.7, 1.4), saturation: range(0, 1.6), warmth: range(-0.5, 0.5), softness: range(0, 1.2), vignette: range(0, 0.6) },
-  overlay: { theme: one(THEMES), embedded: boolean, brand: boolean, chat: boolean, danmaku: boolean, messages: boolean, gifts: boolean, captions: boolean, announcement: boolean, opacity: range(0.3, 1), font_scale: range(0.8, 1.3), max_comments: v => Number.isInteger(v) && v >= 1 && v <= 5, comment_lifetime: range(5, 90), danmaku_speed: range(6, 24), gift_seconds: range(3, 20), auto_board: boolean },
+  overlay: { theme: one(THEMES), mc_chat_side: one(['left', 'right']), mc_avatar_variant: one(['circle', 'landscape']), mc_scene: one(['play', 'interact', 'break', 'recover']), embedded: boolean, brand: boolean, chat: boolean, danmaku: boolean, messages: boolean, gifts: boolean, captions: boolean, announcement: boolean, opacity: range(0.3, 1), font_scale: range(0.8, 1.3), max_comments: v => Number.isInteger(v) && v >= 1 && v <= 5, comment_lifetime: range(5, 90), danmaku_speed: range(6, 24), gift_seconds: range(3, 20), auto_board: boolean },
   moderation: Object.fromEntries(['blocked_words', 'blocked_names', 'blocked_users'].map(k => [k, v => Array.isArray(v) && v.length <= 200 && v.every(s => string(s, k === 'blocked_users' ? 100 : 80) && s.trim())])),
 };
 export function patchSettings(current, patch) {

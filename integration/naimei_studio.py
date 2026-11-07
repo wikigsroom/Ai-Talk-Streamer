@@ -28,9 +28,9 @@ from integration.naimei_voice_contract import load_profile, route_for, cache_mat
 
 
 class Studio:
-    def __init__(self, root):
+    def __init__(self, root, *, config_path='configs/naimei/live-runtime.json', reference_image=None):
         self.root = root
-        self.config = json.loads((root / 'configs/naimei/live-runtime.json').read_text('utf-8'))
+        self.config = json.loads((root / config_path).read_text('utf-8'))
         self.character = character_identity('naimei', root=root)
         self.pack = json.loads((root / self.config['asset_pack']).read_text('utf-8'))
         if self.pack.get('character_id') != 'naimei' or self.pack.get('outfit_id') != 'O01':
@@ -72,7 +72,9 @@ class Studio:
         self.source_queue = asyncio.Queue(maxsize=96)
         self.last_source = time.monotonic()
         self.source_connected = False
-        self.closed_bgr = cv2.imdecode(np.fromfile(root / self.character['appearance_reference'], dtype=np.uint8), cv2.IMREAD_COLOR)
+        self.closed_bgr = cv2.imdecode(np.fromfile(root / (reference_image or self.character['appearance_reference']), dtype=np.uint8), cv2.IMREAD_COLOR)
+        if reference_image and self.closed_bgr is not None:
+            self.closed_bgr = cv2.resize(self.closed_bgr,(512,512),interpolation=cv2.INTER_AREA)
         if self.closed_bgr is None or self.closed_bgr.shape[:2] != (512, 512):
             raise ValueError('NAIMEI_REFERENCE_INVALID')
         self.closed_jpeg = self.jpeg(self.closed_bgr)
