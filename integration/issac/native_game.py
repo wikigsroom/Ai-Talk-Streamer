@@ -16,15 +16,17 @@ import threading
 import time
 import uuid
 
-from .common import AdmissionError, Audit, file_hash, inside, write_json
+from .common import AdmissionError, Audit, file_hash, inside, read_json, write_json
 from .game_policy import RunGoal
 from .saves import GAME_SHA256, SaveProtection
 
 
-OBSERVE = '''local j=_G.json or require("json");local g=Game();local n=g:GetNumPlayers();local p=n>0 and Isaac.GetPlayer(0)
-return j.encode({paused=g:IsPaused(),frame=g:GetFrameCount(),players=n,dead=p and p:IsDead() or false,
-hp=p and p:GetHearts()+p:GetSoulHearts() or 0,stage=g:GetLevel():GetStage(),room=g:GetLevel():GetCurrentRoomIndex(),
-seed=g:GetSeeds():GetStartSeed(),controller_installed=_G.__NativeIsaacController~=nil})'''
+OBSERVE = '''local g=Game();local n=g:GetNumPlayers();local p=n>0 and Isaac.GetPlayer(0)
+local stage,room,seed=0,0,0
+if p then stage=g:GetLevel():GetStage();room=g:GetLevel():GetCurrentRoomIndex();seed=g:GetSeeds():GetStartSeed() end
+return string.format('{"paused":%s,"frame":%d,"players":%d,"dead":%s,"hp":%d,"stage":%d,"room":%d,"seed":%d,"controller_installed":%s}',
+tostring(g:IsPaused()),g:GetFrameCount(),n,tostring(p and p:IsDead() or false),p and p:GetHearts()+p:GetSoulHearts() or 0,
+stage,room,seed,tostring(_G.__NativeIsaacController~=nil))'''
 
 
 class NativeGame:
@@ -107,7 +109,9 @@ class NativeGame:
             return await asyncio.wait_for(getattr(self.script.exports_async,method)(*args), timeout)
         try:
             return asyncio.run(invoke())
-        except Exception:
+        except Exception as error:
+            self.audit.append('native_rpc_failed',method=method,exception_type=type(error).__name__,
+                              private_diagnostic=str(error)[:1200],session_id=self.session_id)
             raise AdmissionError('NATIVE_BRIDGE_REQUEST_FAILED') from None
 
     def status(self):
@@ -121,9 +125,32 @@ class NativeGame:
     def observe(self):
         with self.lock:
             value=json.loads(self.rpc('evaluate',OBSERVE,timeout=5))
-            if not isinstance(value,dict) or type(value.get('paused')) is not bool:
+            if (not isinstance(value,dict) or any(type(value.get(k)) is not bool for k in ('paused','dead','controller_installed'))
+                    or any(type(value.get(k)) is not int for k in ('frame','players','hp','stage','room','seed'))
+                    or not 0<=value['players']<=4):
                 raise AdmissionError('NATIVE_STATE_RESPONSE_INVALID')
             return value
+
+    def bootstrap_modules(self):
+        config=read_json(inside(self.root,'configs/issac/native-modules.json'))
+        for row in config['files']:
+            path=inside(self.root,row['path'])
+            if path.stat().st_size!=row['bytes'] or file_hash(path)!=row['sha256']:
+                raise AdmissionError('PINNED_GAME_LUA_MODULE_CHANGED')
+        # Lua's Windows C-module loader can use the ANSI API. An ASCII relative
+        # path avoids corrupting this installation's Chinese directory name;
+        # the native process must actually have our pinned game working dir.
+        self.verify_process()
+        if Path(self.process.cwd()).resolve()!=inside(self.root,'game'):
+            raise AdmissionError('PINNED_GAME_WORKING_DIRECTORY_REQUIRED')
+        literal='"resources/scripts"'
+        source=('local d='+literal+';package.path=d.."/?.lua;"..d.."/?/init.lua";'
+                'package.cpath=d.."/?.dll";local j=require("json");local s=require("socket");'
+                'assert(type(j.encode)=="function" and type(s.tcp)=="function");'
+                '_G.json=j;return "pinned modules ready"')
+        if self.rpc('evaluate',source,timeout=6)!='pinned modules ready':
+            raise AdmissionError('NATIVE_GAME_MODULE_BOOTSTRAP_NOT_CONFIRMED')
+        self.audit.append('pinned_modules_ready',files=config['files'],session_id=self.session_id)
 
     def capture_jpeg(self):
         from PIL import Image
@@ -214,6 +241,7 @@ class NativeGame:
             observed=self.observe()
             progress=self.progress()
             self.protection.bind_live_slot(self.process,progress,observed)
+            self.bootstrap_modules()
             goal=goal or RunGoal()
             identity={'start_seed':observed['seed'],'restart_count':0,'bridge':self.session_id}
             goal.validate(identity)

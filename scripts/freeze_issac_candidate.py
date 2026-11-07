@@ -11,10 +11,10 @@ import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from integration.issac.common import AdmissionError, digest, file_hash, read_json, write_json
+from integration.issac.common import AdmissionError, digest, file_hash, inside, read_json, write_json
 
 
-def freeze(root, destination):
+def freeze(root, destination, inventory_relative=None):
     flags={'creationflags':0x08000000}
     def git(*args):
         return subprocess.check_output(['git','-C',str(root),*args],**flags)
@@ -22,14 +22,21 @@ def freeze(root, destination):
         raise AdmissionError('ISAAC_BRANCH_REQUIRED')
     if git('status','--porcelain','--untracked-files=normal').strip():
         raise AdmissionError('COMMIT_WHOLE_ROUND_BEFORE_FREEZE')
-    inventory=read_json(root/'configs/issac/development-round-2.json')
+    inventory_relative=inventory_relative or read_json(root/'configs/issac/execution-rounds.json')['round_2_onward']['inventory']
+    if not inventory_relative.startswith('configs/issac/') or '..' in Path(inventory_relative).parts:
+        raise AdmissionError('TRACKED_ROUND_INVENTORY_REQUIRED')
+    inventory=read_json(inside(root,inventory_relative))
+    ids=[item['id'] for item in inventory['items']]
     if (inventory.get('application_tests_started') is not False or inventory.get('candidate_frozen') is not False
             or {item['status'] for item in inventory['items']}!={'code_complete_pending_acceptance'}
-            or {item['id'] for item in inventory['items']}!={f'U{x:02d}' for x in range(5,31)}):
-        raise AdmissionError('ALL_U05_TO_U30_CODE_REQUIRED_BEFORE_TESTING')
+            or not ids or len(set(ids))!=len(ids) or inventory.get('branch')!='issac'
+            or inventory.get('manual_whole_round_source_review_complete') is not True):
+        raise AdmissionError('ALL_ROUND_CODE_AND_MANUAL_REVIEW_REQUIRED_BEFORE_TESTING')
     commit=git('rev-parse','HEAD').decode().strip()
     candidate_id='issac-'+commit[:12]+'-'+uuid.uuid4().hex[:8]
     names=git('ls-files','-z').decode('utf-8').split('\0')
+    if inventory_relative not in names or any(name not in names for item in inventory['items'] for name in item['source_files']):
+        raise AdmissionError('ROUND_INVENTORY_FILES_MUST_BE_COMMITTED')
     rows=[];excluded=[]
     denied={'private','state','runtime','models','cache','game','.setup'}
     for name in names:
@@ -51,6 +58,7 @@ def freeze(root, destination):
         rows.append({'path':name,'bytes':path.stat().st_size,'sha256':file_hash(path)})
     manifest={'schema_version':1,'candidate_id':candidate_id,'branch':'issac','source_commit':commit,
               'round':inventory['round'],'all_round_code_complete':True,
+              'development_inventory':inventory_relative,'development_inventory_sha256':file_hash(root/inventory_relative),
               'tests_started_at_freeze':False,'files':rows,
               'excluded_historical_tracked_outputs_and_operations':excluded}
     destination.mkdir(parents=True,exist_ok=True)
@@ -70,5 +78,6 @@ def freeze(root, destination):
 if __name__=='__main__':
     parser=argparse.ArgumentParser()
     parser.add_argument('--destination',type=Path,default=ROOT/'operations/issac-candidates')
+    parser.add_argument('--inventory',default=None)
     args=parser.parse_args()
-    print(json.dumps(freeze(ROOT,args.destination.resolve()),ensure_ascii=False))
+    print(json.dumps(freeze(ROOT,args.destination.resolve(),args.inventory),ensure_ascii=False))

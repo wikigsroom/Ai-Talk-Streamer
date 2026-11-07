@@ -118,8 +118,15 @@ export class IsaacBridge extends StreamBridge {
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   const root=resolve(process.argv[2]||'');const bridge=new IsaacBridge(root,'tools/dsh');
   const stopFile=process.env.ISSAC_STOP_FILE;
-  const timer=stopFile?setInterval(()=>{if(existsSync(stopFile)){clearInterval(timer);void bridge.close();}},200):null;
+  let closing=false;
+  const closeOwned=async()=>{
+    if(closing)return;closing=true;
+    const deadline=setTimeout(()=>{console.error(JSON.stringify({event:'issac_narrator_cleanup_deadline',clean:false}));process.exit(1);},25000);
+    try{await bridge.close();clearTimeout(deadline);process.exitCode=0;}
+    catch{clearTimeout(deadline);console.error(JSON.stringify({event:'issac_narrator_cleanup_failed',clean:false}));process.exitCode=1;}
+  };
+  const timer=stopFile?setInterval(()=>{if(existsSync(stopFile)){clearInterval(timer);void closeOwned();}},200):null;
   bridge.stopTimer=timer;
-  process.on('SIGINT',()=>void bridge.close());process.on('SIGTERM',()=>void bridge.close());
+  process.on('SIGINT',()=>void closeOwned());process.on('SIGTERM',()=>void closeOwned());
   try{await bridge.start();}catch(error){clearInterval(timer);console.error(JSON.stringify({event:'issac_narrator_failed',code:error.code||'NARRATOR_START_REJECTED'}));await bridge.close();process.exitCode=1;}
 }

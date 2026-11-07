@@ -1,11 +1,9 @@
-param([Parameter(Mandatory=$true)][int]$ProcessId,[ValidateSet('inspect','record-start','record-stop')][string]$Action='inspect')
+param([Parameter(Mandatory=$true)][int]$ProcessId,[Parameter(Mandatory=$true)][long]$WindowHandle,[ValidateSet('inspect','record-start','record-stop')][string]$Action='inspect')
 $ErrorActionPreference='Stop'
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
-$condition=[Windows.Automation.PropertyCondition]::new([Windows.Automation.AutomationElement]::ProcessIdProperty,$ProcessId)
-$windows=[Windows.Automation.AutomationElement]::RootElement.FindAll([Windows.Automation.TreeScope]::Children,$condition)
-if($windows.Count -ne 1){throw 'ONE_OWNED_OFFICIAL_WINDOW_REQUIRED'}
-$window=$windows.Item(0)
+$window=[Windows.Automation.AutomationElement]::FromHandle([IntPtr]::new($WindowHandle))
+if(-not $window -or $window.Current.ProcessId -ne $ProcessId){throw 'EXACT_OWNED_OFFICIAL_WINDOW_REQUIRED'}
 $nodes=$window.FindAll([Windows.Automation.TreeScope]::Descendants,[Windows.Automation.Condition]::TrueCondition)
 if($nodes.Count -gt 6000){throw 'BOUNDED_OFFICIAL_UI_TREE_REQUIRED'}
 $startNames=@('开始录制','开始录像','录制')

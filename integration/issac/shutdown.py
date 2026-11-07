@@ -30,20 +30,20 @@ def watch(root, callback):
 
 
 def aiohttp_shutdown(app, root):
-    async def start(application):
-        path = stop_path(root)
-        if path is None:
-            return
-        async def poll():
-            from aiohttp import web
-            while not path.exists():
-                await asyncio.sleep(.2)
-            raise web.GracefulExit()
-        application['issac_stop_task'] = asyncio.create_task(poll())
-    async def cleanup(application):
-        task = application.get('issac_stop_task')
-        if task:
-            task.cancel()
-            await asyncio.gather(task, return_exceptions=True)
-    app.on_startup.append(start)
-    app.on_cleanup.append(cleanup)
+    # A background task raising GracefulExit can interrupt cleanup itself.
+    # The runner below owns the stop condition and awaits cleanup normally.
+    app['issac_owned_stop_root']=Path(root).resolve()
+
+
+def run_web(app,root,*,host,port):
+    async def serve():
+        from aiohttp import web
+        runner=web.AppRunner(app,access_log=None,shutdown_timeout=35)
+        try:
+            await runner.setup()
+            await web.TCPSite(runner,host,port).start()
+            path=stop_path(root)
+            while path is None or not path.exists():await asyncio.sleep(.2)
+        finally:
+            await runner.cleanup()
+    asyncio.run(serve())

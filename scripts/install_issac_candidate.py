@@ -48,7 +48,7 @@ def install(archive, expected, root):
     handles=[]
     for relative in ('state/isaac-strategy/host.lock','state/issac-stream/application.lock','state/issac-stream/model-gateway.lock',
                      'state/issac-stream/voice.lock','state/issac-stream/flashhead.lock','state/issac-acceptance/runner.lock',
-                     'state/issac-stream/official-recording.lock'):
+                     'state/issac-stream/official-recording.lock','state/issac-acceptance/round-runner.lock'):
         lock=root/relative
         lock.parent.mkdir(parents=True,exist_ok=True)
         stream=lock.open('a+b');stream.seek(0,2)
@@ -83,17 +83,61 @@ def install(archive, expected, root):
                 if path.stat().st_size!=row['bytes'] or sha(path)!=row['sha256']:
                     raise ValueError('SOURCE_MANIFEST_CHECKSUM_MISMATCH')
         prior=root/'operations/source-install'/('backup-'+uuid.uuid4().hex)
-        changed=[]
+        old_path=root/'.setup/source-manifest.json'
+        old=json.loads(old_path.read_text('utf-8-sig')) if old_path.is_file() else {'files':[]}
+        if old_path.is_file():
+            previous_origin=json.loads((root/'.setup/deployment-origin.json').read_text('utf-8-sig'))
+            if hashlib.sha256(canonical(old).encode()).hexdigest()!=previous_origin['source_manifest_sha256']:
+                raise ValueError('PREVIOUS_SOURCE_MANIFEST_PROVENANCE_CHANGED')
+        old_rows={row['path']:row for row in old['files']}
+        new_rows={row['path']:row for row in manifest['files']}
+        retired=[];changed=[];created=[]
+        for name,row in old_rows.items():
+            path=(root/name).resolve()
+            if (Path(name).is_absolute() or ':' in name or '\\' in name or '..' in Path(name).parts
+                    or not path.is_relative_to(root) or name.split('/')[0] in forbidden):
+                raise ValueError('PREVIOUS_SOURCE_MANIFEST_SCOPE_INVALID')
+            if not path.is_file() or sha(path)!=row['sha256']:
+                raise ValueError('PREVIOUS_FROZEN_SOURCE_CHANGED_STOP_INSTALL')
+            if name not in new_rows:retired.append(row)
         for row in manifest['files']:
             path=root/row['path']
+            if not path.resolve().is_relative_to(root) or path.is_symlink():
+                raise ValueError('INSTALLED_SOURCE_LINK_REJECTED')
+            if path.exists() and row['path'] not in old_rows and sha(path)!=row['sha256']:
+                raise ValueError('UNTRACKED_DESTINATION_SOURCE_CONFLICT_PRESERVED')
             if path.exists() and sha(path)!=row['sha256']:
                 backup=prior/row['path'];backup.parent.mkdir(parents=True,exist_ok=True)
-                shutil.copy2(path,backup)
-                changed.append({'path':row['path'],'sha256':sha(backup)})
-            path.parent.mkdir(parents=True,exist_ok=True)
-            shutil.copy2(stage/row['path'],path)
-            if sha(path)!=row['sha256']:
-                raise ValueError('INSTALLED_SOURCE_CHECKSUM_MISMATCH')
+                shutil.copy2(path,backup);changed.append({'path':row['path'],'sha256':sha(backup)})
+            elif not path.exists():created.append(row)
+        for row in retired:
+            backup=prior/row['path'];backup.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copy2(root/row['path'],backup)
+            if sha(backup)!=row['sha256']:raise ValueError('RETIRED_SOURCE_BACKUP_FAILED')
+        prior.mkdir(parents=True,exist_ok=True)
+        metadata={}
+        for name in ('source-manifest.json','deployment-origin.json','candidate.json'):
+            path=root/'.setup'/name
+            if path.exists():
+                metadata[name]=path.read_bytes();(prior/('metadata-'+name)).write_bytes(metadata[name])
+        try:
+            for row in manifest['files']:
+                path=root/row['path'];path.parent.mkdir(parents=True,exist_ok=True)
+                shutil.copy2(stage/row['path'],path)
+                if sha(path)!=row['sha256']:raise ValueError('INSTALLED_SOURCE_CHECKSUM_MISMATCH')
+            for row in retired:
+                path=(root/row['path']).resolve()
+                if not path.is_relative_to(root) or sha(path)!=row['sha256']:
+                    raise ValueError('RETIRED_SOURCE_CHANGED_PRESERVED')
+                path.unlink()  # exact former source member; verified backup remains
+        except Exception:
+            for row in changed+retired:
+                target=root/row['path'];target.parent.mkdir(parents=True,exist_ok=True)
+                shutil.copy2(prior/row['path'],target)
+            for row in created:
+                target=(root/row['path']).resolve()
+                if target.is_relative_to(root) and target.is_file() and sha(target)==row['sha256']:target.unlink()
+            raise
         # The receipt is emitted only after every installed source member was
         # independently checked, never copied from another device/branch.
         setup=root/'.setup';setup.mkdir(exist_ok=True)
@@ -104,12 +148,25 @@ def install(archive, expected, root):
                 'installed_at_unix':time.time(),'verified_files':len(manifest['files']),
                 'transfer_required':'direct_ZeroTier_192.168.196.87_to_192.168.196.209',
                 'previous_source_backup':str(prior),'previous_source_files':changed,
+                'retired_source_files':retired,'previous_candidate_id':old.get('candidate_id'),
                 'application_accepted':False,'public_broadcast_allowed':False}
         records={'source-manifest.json':manifest,'deployment-origin.json':origin,
                  'candidate.json':{'id':manifest['candidate_id'],'source_commit':manifest['source_commit'],
                                    'source_manifest_sha256':manifest_hash,'accepted':False}}
-        for name,value in records.items():
-            tmp=setup/(name+'.tmp');tmp.write_text(canonical(value)+'\n','utf-8');os.replace(tmp,setup/name)
+        try:
+            for name,value in records.items():
+                tmp=setup/(name+'.tmp');tmp.write_text(canonical(value)+'\n','utf-8');os.replace(tmp,setup/name)
+        except Exception:
+            for row in changed+retired:
+                target=root/row['path'];target.parent.mkdir(parents=True,exist_ok=True)
+                shutil.copy2(prior/row['path'],target)
+            for row in created:
+                target=(root/row['path']).resolve()
+                if target.is_relative_to(root) and target.is_file() and sha(target)==row['sha256']:target.unlink()
+            for name,data in metadata.items():(setup/name).write_bytes(data)
+            for name in records:
+                if name not in metadata and (setup/name).is_file():(setup/name).unlink()
+            raise
         return {'candidate_id':manifest['candidate_id'],'verified_files':len(manifest['files']),
                 'source_commit':manifest['source_commit'],'application_accepted':False}
     finally:

@@ -45,87 +45,102 @@ class Livehime:
         write_json(inside(self.root,'outputs/platforms/setup/bilibili-livehime.json'),receipt)
         return receipt
 
+    def native_window(self,action,*,pending=False,label=None):
+        executable=inside(self.root,'runtime/isaac-native/Scripts/python.exe')
+        args=[str(executable),'-X','utf8','-B','-m','integration.issac.official_window','--root',str(self.root),action]
+        if pending:args.append('--pending')
+        if label:args.extend(['--label',label])
+        result=subprocess.run(args,cwd=self.root,capture_output=True,timeout=25,creationflags=0x08000000)
+        if result.returncode:
+            self.audit.append('official_window_probe_failed',action=action,private_diagnostic=result.stderr.decode('utf8',errors='replace')[-1500:])
+            raise AdmissionError('OWNED_OFFICIAL_WINDOW_NOT_CONFIRMED')
+        return json.loads(result.stdout.decode('utf-8-sig'))
+
     def launch(self):
         import psutil
         if self.registration.exists():
-            try:return self.owner()
-            except (AdmissionError,psutil.NoSuchProcess):pass
-        self.prepare();start=time.time()
-        env=dict(os.environ)
-        for key,relative in {'APPDATA':'state/issac-stream/livehime/roaming',
-            'LOCALAPPDATA':'state/issac-stream/livehime/local','TEMP':'cache/issac/livehime/tmp','TMP':'cache/issac/livehime/tmp'}.items():
-            path=inside(self.root,relative);path.mkdir(parents=True,exist_ok=True);env[key]=str(path)
-        env['__COMPAT_LAYER']='RunAsInvoker'
-        process=subprocess.Popen([str(self.executable)],cwd=self.executable.parent,env=env,
+            old=read_json(self.registration)
+            try:
+                process=psutil.Process(old['pid'])
+                if process.create_time()==old['created_at']:
+                    return self.owner()  # never replace/adopt a live old candidate
+            except psutil.NoSuchProcess:pass
+            archive=inside(self.root,'operations/official-client-history')/(uuid.uuid4().hex+'.json')
+            archive.parent.mkdir(parents=True,exist_ok=True);self.registration.replace(archive)
+        pending=inside(self.root,'.setup/issac-livehime-launch.json')
+        if pending.exists():
+            old=read_json(pending)
+            try:
+                if psutil.Process(old['pid']).create_time()==old['created_at']:
+                    raise AdmissionError('PREVIOUS_OWNED_OFFICIAL_LAUNCH_REQUIRES_REVIEW')
+            except psutil.NoSuchProcess:pass
+        # The official client may enforce a global singleton. Do not discover
+        # that by forwarding a launch into an unrelated user's live session.
+        for proc in psutil.process_iter(['name','exe']):
+            try:
+                if (proc.info['name'] or '').lower()=='livehime.exe':
+                    raise AdmissionError('EXISTING_OFFICIAL_CLIENT_PRESERVED_EXCLUSIVE_WINDOW_REQUIRED')
+            except (psutil.NoSuchProcess,psutil.AccessDenied):continue
+        self.prepare();start=time.time();env=dict(os.environ)
+        base=inside(self.root,'state/issac-stream/livehime')
+        for key,relative in {'USERPROFILE':'profile','APPDATA':'roaming','LOCALAPPDATA':'local','TEMP':'tmp','TMP':'tmp'}.items():
+            path=base/relative;path.mkdir(parents=True,exist_ok=True);env[key]=str(path)
+        handle=subprocess.Popen([str(self.executable)],cwd=self.executable.parent,env=env,
             stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,creationflags=0x08000000)
-        deadline=time.monotonic()+30
+        process=psutil.Process(handle.pid)
+        record={'pid':process.pid,'created_at':process.create_time(),'executable':str(self.executable),
+                'executable_sha256':file_hash(self.executable),'launched_unix':start,'candidate_id':self.candidate['candidate_id'],
+                'foreign_clients_preserved':True,'ready':False,'profile_isolation_verified':False}
+        write_json(pending,record);deadline=time.monotonic()+45;stable=None;since=None
         while time.monotonic()<deadline:
-            candidates=[]
-            for p in psutil.process_iter(['name','exe','create_time']):
-                try:
-                    if (p.info['name'] or '').lower()=='livehime.exe' and Path(p.info['exe']).resolve()==self.executable and p.create_time()>=start-1:
-                        candidates.append(p)
-                except (psutil.AccessDenied,psutil.NoSuchProcess,TypeError):continue
-            roots=[p for p in candidates if p.ppid() not in {x.pid for x in candidates}]
-            if len(roots)==1:
-                p=roots[0];record={'pid':p.pid,'created_at':p.create_time(),'executable':str(self.executable),
-                    'executable_sha256':file_hash(self.executable),'launched_unix':start,'candidate_id':self.candidate['candidate_id'],
-                    'foreign_clients_preserved':True}
-                write_json(self.registration,record);self.audit.append('owned_official_client_launched',**record);return record
-            time.sleep(.25)
+            if handle.poll() is not None:
+                self.audit.append('official_launcher_exited_before_ready',pid=process.pid,exit_code=handle.returncode)
+                raise AdmissionError('OFFICIAL_LAUNCHER_EXITED_BEFORE_STABLE_WINDOW')
+            windows=self.native_window('windows',pending=True)['windows']
+            key=tuple((w['hwnd'],w['pid'],w['created_at']) for w in windows)
+            if len(windows)==1 and key==stable:
+                if time.monotonic()-since>=5:
+                    proof=self.native_window('profile',pending=True)
+                    if not proof['verified']:
+                        self.audit.append('official_profile_not_isolated',private_profile_evidence=proof)
+                        raise AdmissionError('OFFICIAL_RUNTIME_PROFILE_ISOLATION_NOT_CONFIRMED')
+                    record.update(ready=True,profile_isolation_verified=True,profile_proof=proof,
+                                  window=windows[0],stable_window_seconds=5,ready_unix=time.time())
+                    write_json(self.registration,record)
+                    self.audit.append('owned_official_client_ready',pid=process.pid,window_pid=windows[0]['pid'])
+                    return record
+            else:stable=key;since=time.monotonic()
+            time.sleep(.4)
         raise AdmissionError('ISOLATED_OFFICIAL_CLIENT_NOT_OBSERVED_FOREIGN_CLIENTS_PRESERVED')
 
     def owner(self):
         import psutil
         row=read_json(self.registration);process=psutil.Process(row['pid'])
         if (row['candidate_id']!=self.candidate['candidate_id'] or process.create_time()!=row['created_at']
-            or Path(process.exe()).resolve()!=self.executable or file_hash(self.executable)!=row['executable_sha256']):
-            raise AdmissionError('OWNED_OFFICIAL_CLIENT_IDENTITY_CHANGED')
+            or Path(process.exe()).resolve()!=self.executable or file_hash(self.executable)!=row['executable_sha256']
+            or row.get('ready') is not True or row.get('profile_isolation_verified') is not True):
+            raise AdmissionError('OWNED_OFFICIAL_CLIENT_IDENTITY_OR_READY_STATE_CHANGED')
         return row
 
     def ui(self,action='inspect'):
-        row=self.owner()
+        row=self.owner();observed=self.native_window('windows')['windows']
+        if len(observed)!=1:raise AdmissionError('ONE_VISIBLE_OWNED_OFFICIAL_WINDOW_REQUIRED')
+        window=observed[0]
+        if action=='record-start':
+            scene=read_json(inside(self.root,'state/issac-acceptance/official-scene.json'))
+            if scene.get('accepted') is not True or scene.get('candidate_id')!=self.candidate['candidate_id'] or scene.get('official_pid')!=row['pid']:
+                raise AdmissionError('CURRENT_OFFICIAL_SCENE_REVIEW_REQUIRED_BEFORE_RECORDING')
         script=inside(self.root,'scripts/issac_livehime_ui.ps1')
         result=subprocess.run([r'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe','-NoProfile','-NonInteractive',
-            '-ExecutionPolicy','Bypass','-File',str(script),'-ProcessId',str(row['pid']),'-Action',action],
+            '-ExecutionPolicy','Bypass','-File',str(script),'-ProcessId',str(window['pid']),'-WindowHandle',str(window['hwnd']),'-Action',action],
             capture_output=True,timeout=25,creationflags=0x08000000)
         if result.returncode:raise AdmissionError('OFFICIAL_RECORD_CONTROL_NOT_CONFIRMED_USE_VISIBLE_UI_REVIEW')
         value=json.loads(result.stdout.decode('utf-8-sig'));self.audit.append('official_ui',action=action,pid=row['pid'])
         return value
 
     def screenshot(self,label):
-        import win32gui,win32process,win32ui,win32con
-        from PIL import Image
-        if label not in {'scene_sources','audio_settings','video_settings','recording_started','recording_stopped','programme_review'}:
-            raise AdmissionError('FIXED_OFFICIAL_REVIEW_SCREEN_REQUIRED')
-        row=self.owner();windows=[]
-        def collect(hwnd,_):
-            if win32gui.IsWindowVisible(hwnd) and win32process.GetWindowThreadProcessId(hwnd)[1]==row['pid']:
-                box=win32gui.GetWindowRect(hwnd)
-                if box[2]-box[0]>=640 and box[3]-box[1]>=360:windows.append(hwnd)
-        win32gui.EnumWindows(collect,None)
-        if len(windows)!=1:raise AdmissionError('ONE_VISIBLE_OWNED_OFFICIAL_WINDOW_REQUIRED')
-        hwnd=windows[0];left,top,right,bottom=win32gui.GetWindowRect(hwnd);w,h=right-left,bottom-top
-        source=win32gui.GetWindowDC(hwnd);dc=win32ui.CreateDCFromHandle(source);memory=dc.CreateCompatibleDC();bitmap=win32ui.CreateBitmap()
-        try:
-            bitmap.CreateCompatibleBitmap(dc,w,h);memory.SelectObject(bitmap)
-            memory.BitBlt((0,0),(w,h),dc,(0,0),win32con.SRCCOPY)
-            image=Image.frombuffer('RGB',(w,h),bitmap.GetBitmapBits(True),'raw','BGRX',0,1)
-            from PIL import ImageStat,ImageGrab
-            if max(ImageStat.Stat(image.resize((64,36))).stddev)<2:
-                if win32gui.GetForegroundWindow()!=hwnd:
-                    raise AdmissionError('OFFICIAL_WINDOW_PIXELS_UNAVAILABLE_BRING_OWN_WINDOW_TO_FRONT')
-                image=ImageGrab.grab(bbox=(left,top,right,bottom),all_screens=True)
-                if max(ImageStat.Stat(image.resize((64,36))).stddev)<2:
-                    raise AdmissionError('OFFICIAL_WINDOW_CAPTURE_EMPTY')
-            path=inside(self.root,'state/issac-acceptance/official-ui')/(label+'-'+uuid.uuid4().hex+'.png')
-            path.parent.mkdir(parents=True,exist_ok=True);image.save(path)
-        finally:
-            win32gui.DeleteObject(bitmap.GetHandle());memory.DeleteDC();dc.DeleteDC();win32gui.ReleaseDC(hwnd,source)
-        record={'label':label,'path':path.relative_to(self.root).as_posix(),'sha256':file_hash(path),
-            'pid':row['pid'],'created_at':row['created_at'],'candidate_id':self.candidate['candidate_id'],
-            'captured_unix':time.time(),'method':'real_owned_official_window_pixels'}
-        write_json(path.with_suffix('.json'),record);return record
+        self.owner()
+        return self.native_window('screenshot',label=label)
 
     def approve_scene(self,relative):
         review=read_json(inside(self.root,relative));owner=self.owner()

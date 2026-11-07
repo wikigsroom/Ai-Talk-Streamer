@@ -24,36 +24,43 @@ def qualify(root):
       ('stale_room','证据来自房间A，现在已在房间B。同一seed。返回JSON字段usable=false。',{'usable':False}),
       ('rep_edition','当前版本Repentance1.7.9b，Wiki默认Rep+。查询时edition应是什么？返回JSON。',{'edition':'rep'}),
     ]
-    outcomes=[]
+    outcomes=[];attempted=0;completed=0
     for name,prompt,expected in tests:
         start=time.monotonic()
         try:
+            attempted+=1
             response=model.complete({'messages':[{'role':'system','content':'只返回一个JSON对象，不含其他文字。'},
                                                 {'role':'user','content':prompt}], 'max_tokens':100,'temperature':0})
+            completed+=1
             choice=response['choices'][0]
             text=choice['message']['content'].strip()
             actual=json.loads(text)
             passed=choice.get('finish_reason')=='stop' and all(actual.get(k)==v for k,v in expected.items())
             outcomes.append({'id':name,'passed':passed,'seconds':time.monotonic()-start,'actual':actual})
-        except Exception:
-            outcomes.append({'id':name,'passed':False,'seconds':time.monotonic()-start,'reason':'REAL_INFERENCE_OR_STRUCTURED_RESPONSE_FAILED'})
+        except Exception as error:
+            outcomes.append({'id':name,'passed':False,'seconds':time.monotonic()-start,
+                'reason':'REAL_INFERENCE_OR_STRUCTURED_RESPONSE_FAILED','exception_type':type(error).__name__})
     tool={'type':'function','function':{'name':'isaac_wiki_query','description':'查询固定离线Wiki',
           'parameters':{'type':'object','properties':{'operation':{'type':'string','enum':['item']},'query':{'type':'string'}},'required':['operation','query'],'additionalProperties':False}}}
     try:
         start=time.monotonic()
+        attempted+=1
         response=model.complete({'messages':[{'role':'user','content':'请调用isaac_wiki_query，operation=item，query=Brimstone，不要回答道具效果。'}],
                     'tools':[tool],'tool_choice':'auto','max_tokens':160,'temperature':0})
+        completed+=1
         choice=response['choices'][0]
         call=choice['message']['tool_calls'][0]
         args=json.loads(call['function']['arguments'])
         outcomes.append({'id':'actual_fifth_tool','passed':choice.get('finish_reason')=='tool_calls' and call['function']['name']=='isaac_wiki_query' and args=={'operation':'item','query':'Brimstone'},'seconds':time.monotonic()-start})
-    except Exception:
-        outcomes.append({'id':'actual_fifth_tool','passed':False,'reason':'REAL_TOOL_CALL_FAILED'})
+    except Exception as error:
+        outcomes.append({'id':'actual_fifth_tool','passed':False,'seconds':time.monotonic()-start,
+            'reason':'REAL_TOOL_CALL_FAILED','exception_type':type(error).__name__})
     durations=[x['seconds'] for x in outcomes if 'seconds' in x]
     result={'candidate_id':candidate['candidate_id'],'model':model.config['model'],
             'qualified':all(x['passed'] for x in outcomes) and max(durations,default=999)<35,
             'tests':outcomes,'max_seconds':max(durations,default=None),'median_seconds':statistics.median(durations) if durations else None,
-            'actual_inference':True,'cohost_performance_accepted':False,'cloud_fallback':False}
+            'actual_inference':completed>0,'inference_requests_attempted':attempted,'inference_responses_received':completed,
+            'all_six_inferences_completed':completed==6,'cohost_performance_accepted':False,'cloud_fallback':False}
     write_json(inside(root,'state/isaac-strategy/model-qualification.json'),result)
     return result
 

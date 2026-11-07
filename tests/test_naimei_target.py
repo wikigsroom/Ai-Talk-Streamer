@@ -19,11 +19,19 @@ class NaimeiTargetTests(unittest.TestCase):
         temp = tempfile.TemporaryDirectory(dir=TEMP)
         self.addCleanup(temp.cleanup)
         root = Path(temp.name)
-        for name in ['configs/deployment-target.json', 'configs/deployment-targets.json',
-                'configs/releases/current.json', 'configs/naimei/live-runtime.json', 'configs/characters/naimei.json',
-                'configs/dsh-active-policy.json', 'configs/naimei/bridge-policy.json']:
+        for name in ['configs/deployment-targets.json',
+                'configs/naimei/live-runtime.json', 'configs/characters/naimei.json',
+                'configs/naimei/bridge-policy.json']:
             path = root / name; path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes((ROOT / name).read_bytes())
+        # This is a Naimei deployment-contract test even on the Isaac branch.
+        # Construct its explicit selection rather than copying this checkout's
+        # active target or an ignored installation-local policy pointer.
+        spec=json.loads((ROOT/'configs/deployment-targets.json').read_text('utf-8'))['targets']['naimei-rtx4090']
+        for name,value in [('configs/deployment-target.json',spec['selection']),
+                           ('configs/releases/current.json',spec['release_pointer']),
+                           ('configs/dsh-active-policy.json',{'policy_file':'configs/naimei/bridge-policy.json'})]:
+            path=root/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value),encoding='utf-8')
         origin = {'target': 'naimei-rtx4090', 'branch': 'naimei', 'source_commit': 'a' * 40,
                   'archive_sha256': 'b' * 64, 'verified_source_manifest': True}
         (root / '.setup').mkdir()

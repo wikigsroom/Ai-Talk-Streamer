@@ -185,6 +185,10 @@ class StrategyHost:
                 if self.armed:
                     raise AdmissionError('PAUSE_BEFORE_CONTROLLER_INSTALL')
                 return self.native.install_controller(RunGoal(self.config['game']['run_goal']))
+            if action=='modules' and set(body)=={'action'}:
+                if self.armed:raise AdmissionError('PAUSE_BEFORE_MODULE_ADMISSION')
+                self.native.bootstrap_modules()
+                return {'modules_ready':True,'autopilot':False}
             if action in {'resume','pause','observe'} and set(body)=={'action'}:
                 if action=='observe':
                     return {'observation':self.native.observe(),'progress':self.native.progress()}

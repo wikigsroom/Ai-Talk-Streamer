@@ -35,6 +35,7 @@ class Application:
         self.stop_event=threading.Event()
         self.stage='preparing'
         self.error=None
+        self.cleanup_faults=[]
         self.opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
         self.server=self.make_server()
 
@@ -57,9 +58,20 @@ class Application:
         env['ISSAC_STOP_FILE']=str(stop)
         process=subprocess.Popen([str(executable),*args],cwd=inside(self.root,cwd) if cwd else self.root,env=env,
                     stdin=subprocess.DEVNULL,stdout=output,stderr=subprocess.STDOUT,creationflags=0x08000200)
-        identity=psutil.Process(process.pid)
-        record={'name':name,'pid':process.pid,'created_at':identity.create_time(),'executable':identity.exe(),
-                'executable_sha256':file_hash(executable),'args':args,'installation_id':self.id,'candidate_id':self.candidate['candidate_id'],
+        launcher=psutil.Process(process.pid)
+        identity=launcher
+        if executable.name.lower() in {'python.exe','pythonw.exe'} and executable.parent.name.lower()=='scripts':
+            deadline=time.monotonic()+3
+            while process.poll() is None and time.monotonic()<deadline:
+                matches=[p for p in launcher.children() if Path(p.exe()).resolve().is_relative_to(self.root/'runtime')
+                         and p.cmdline()[1:]==args and Path(p.exe()).name.lower() in {'python.exe','pythonw.exe'}]
+                if len(matches)==1:identity=matches[0];break
+                if len(matches)>1:raise AdmissionError('UNIQUE_NATIVE_PYTHON_CHILD_REQUIRED')
+                time.sleep(.05)
+        record={'name':name,'pid':identity.pid,'created_at':identity.create_time(),'executable':identity.exe(),
+                'executable_sha256':file_hash(Path(identity.exe())),'launcher_pid':launcher.pid,
+                'launcher_created_at':launcher.create_time(),'launcher_executable':launcher.exe(),
+                'launcher_sha256':file_hash(executable),'args':args,'installation_id':self.id,'candidate_id':self.candidate['candidate_id'],
                 'stop_file':str(stop)}
         self.children[name]=(process,record)
         self.persist()
@@ -69,7 +81,8 @@ class Application:
         import psutil
         write_json(inside(self.root,'state/issac-stream/application.json'),{'installation_id':self.id,'candidate_id':self.candidate['candidate_id'],
             'pid':os.getpid(),'created_at':psutil.Process().create_time(),'stage':self.stage,
-            'processes':[record for _,record in self.children.values()],'public_broadcast_allowed':False})
+            'processes':[record for _,record in self.children.values()],'public_broadcast_allowed':False,
+            'error':self.error,'cleanup_faults':self.cleanup_faults})
 
     def wait_ready(self,name,url,timeout=180):
         deadline=time.monotonic()+timeout
@@ -79,8 +92,11 @@ class Application:
                 raise AdmissionError('OWNED_COMPONENT_EXITED_'+name.upper())
             try:
                 value=self.http(url)
-                if value.get('ready') or value.get('dsh_ready') or value.get('service')=='issac-native-game':return value
-            except Exception:pass
+            except Exception:value={}
+            if (value.get('stage')=='failed' or value.get('initialization',{}).get('stage')=='failed'
+                    or value.get('error') and not value.get('ready')):
+                raise AdmissionError('COMPONENT_INITIALIZATION_FAILED_'+name.upper())
+            if value.get('ready') or value.get('dsh_ready') or value.get('service')=='issac-native-game':return value
             if time.monotonic()>deadline:raise AdmissionError('COMPONENT_READY_DEADLINE_'+name.upper())
         raise AdmissionError('STARTUP_CANCELLED')
 
@@ -100,16 +116,39 @@ class Application:
         voice_py=self.config['native_paths']['voice_python']
         root_arg=['--root',str(self.root)]
         self.child('model-gateway',media_py,['-X','utf8','-B','-m','integration.issac.model_gateway',*root_arg],'gateway')
+        self.wait_ready('model-gateway','http://127.0.0.1:1235/health',60)
         self.child('game-controller',game_py,['-X','utf8','-B','-m','integration.issac.strategy_host',*root_arg],'game')
         self.wait_ready('game-controller','http://127.0.0.1:9534/status',60)
         from .strategy_dsh import prepare as prepare_dsh
         command,env,dsh_cwd=prepare_dsh(self.root)
         self.child('strategy-dsh',str(Path(command[0]).relative_to(self.root)),command[1:],'game',
                    cwd=str(dsh_cwd.relative_to(self.root)),environment=env)
+        dsh=self.wait_ready('strategy-dsh','http://127.0.0.1:9533/status',90)
+        expected_model=read_json(inside(self.root,'private/issac/model.json'))['model']
+        installed=read_json(inside(self.root,'.setup/isaac-strategy-plugin.json'))
+        expected_files={r['name']:r['sha256'] for r in installed['files']}
+        actual_files={r['name']:r['sha256'] for r in dsh.get('plugin',{}).get('files',[])}
+        required_tools={'isaac_get_state','isaac_get_decision','isaac_lookup','isaac_submit_plan','isaac_wiki_query'}
+        if (dsh.get('model')!=expected_model or dsh.get('provider')!='isaac-local' or dsh.get('dshVersion')!='0.2.2-rc.1'
+                or dsh.get('pid')!=self.children['strategy-dsh'][1]['pid']
+                or dsh.get('plugin',{}).get('version')!=installed['version'] or actual_files!=expected_files
+                or dsh.get('prompt',{}).get('complete') is not True or dsh.get('prompt',{}).get('requested_edition')!='rep'
+                or dsh.get('completePromptRegistered') is not True or set(dsh.get('restrictedTools',[]))!=required_tools
+                or set(dsh.get('registeredTools',[]))!=required_tools):
+            raise AdmissionError('ACTUAL_DSH_PLUGIN_PROMPT_TOOLS_OR_LOCAL_MODEL_DIFFER')
+        self.audit.append('actual_strategy_host_bound',model=expected_model,plugin=dsh['plugin'],prompt=dsh['prompt'])
+        installed.update(runtime_load_verified=True,actual_pid=dsh['pid'],actual_model=expected_model,
+                         actual_provider=dsh['provider'],prompt=dsh['prompt'],registered_tools=dsh['registeredTools'])
+        write_json(inside(self.root,'.setup/isaac-strategy-plugin.json'),installed)
         if components=='all':
+            self.stage='waiting_for_ncm01_capacity_and_initialization';self.persist()
             self.child('voice',voice_py,['-X','utf8','-B','-m','integration.issac.voice',*root_arg],'voice')
+            self.wait_ready('voice','http://127.0.0.1:9893/health',7200)
+            self.stage='waiting_for_flashhead_capacity_and_compilation';self.persist()
             self.child('flashhead',media_py,['-X','utf8','-B','-m','integration.issac.engine_service',*root_arg],'engine')
+            self.wait_ready('flashhead','http://127.0.0.1:8040/health',7200)
             self.child('studio',media_py,['-X','utf8','-B','-m','integration.issac.studio',*root_arg],'studio')
+            self.wait_ready('studio','http://127.0.0.1:8062/health',120)
             self.child('narrator',node,['backend/dsh-bridge/issac.mjs',str(self.root)],'narrator')
         self.stage='running_candidate_not_accepted'
         self.persist()
@@ -145,17 +184,31 @@ class Application:
             item=self.children.get(name)
             if not item:continue
             process,record=item
-            if process.poll() is not None:continue
-            current=psutil.Process(record['pid'])
-            if current.create_time()!=record['created_at'] or Path(current.exe()).resolve()!=Path(record['executable']).resolve():
+            if process.poll() is not None:
+                if process.returncode and name not in self.cleanup_faults:self.cleanup_faults.append(name)
+                continue
+            self.stage='stopping_'+name;self.persist()
+            try:current=psutil.Process(record['pid'])
+            except psutil.NoSuchProcess:
+                # A venv launcher can briefly outlive its actual interpreter.
+                try:process.wait(5)
+                except subprocess.TimeoutExpired:raise AdmissionError('NATIVE_LAUNCHER_EXIT_NOT_CONFIRMED') from None
+                continue
+            if (current.create_time()!=record['created_at'] or Path(current.exe()).resolve()!=Path(record['executable']).resolve()
+                    or file_hash(Path(current.exe()))!=record['executable_sha256']):
                 raise AdmissionError('OWNED_PROCESS_IDENTITY_CHANGED_DURING_STOP')
             Path(record['stop_file']).write_text(self.id,encoding='ascii')
             try:current.wait(45)
             except psutil.TimeoutExpired:
                 self.stage='component_cleanup_not_confirmed';self.persist()
                 raise AdmissionError('OWNED_COMPONENT_GRACEFUL_STOP_NOT_CONFIRMED_'+name.upper()) from None
-            self.audit.append('owned_component_stopped',name=name,pid=record['pid'],method='owned_stop_request_normal_cleanup')
+            try:code=process.wait(5)
+            except subprocess.TimeoutExpired:raise AdmissionError('NATIVE_LAUNCHER_EXIT_NOT_CONFIRMED') from None
+            if code and name not in self.cleanup_faults:self.cleanup_faults.append(name)
+            self.audit.append('owned_component_stopped',name=name,pid=record['pid'],exit_code=code,
+                              clean=code==0,method='owned_stop_request')
         self.stage='stopped_game_preserved_paused'
+        if self.cleanup_faults:self.stage='stopped_with_component_cleanup_faults'
         self.persist()
 
     def make_server(self):
@@ -194,6 +247,7 @@ class Application:
                     self.error='OWNED_COMPONENT_EXITED_'+name.upper();self.audit.append('owned_component_failed',name=name)
                     self.stop_event.set();break
         self.stop()
+        if self.error or self.cleanup_faults:raise AdmissionError(self.error or 'STACK_COMPONENT_CLEANUP_FAILED')
 
     def close(self):
         self.server.shutdown();self.server.server_close()

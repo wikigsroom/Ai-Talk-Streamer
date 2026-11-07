@@ -1,6 +1,3 @@
-- insert:
-    - id: isaac-strategy
-      name: dsh-isaac-strategy
-      config:
-        endpoint: http://127.0.0.1:9532
-        port: 9533
+# Activation is explicit in the isolated installation's isaac.patch.json.
+# A second automatic instance would have no model/provider binding.
+[]

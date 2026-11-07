@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "round": "R2",
+  "status": "closed_failed",
+  "candidate_id": "issac-8e76554c1a19-9e64dba0",
+  "source_commit": "8e76554c1a191bb427ee965d8d79cbaafec0b35a",
+  "archive_sha256": "4a5a1672fa06dd04fed64afe0bf40239621e23971233224c8138cbcc5a96a63e",
+  "source_files_verified_unchanged": 2127,
+  "closed_unix": 1794020314.8048368,
+  "closure_receipt": "state/issac-acceptance/closed-phases/issac-8e76554c1a19-9e64dba0.json",
+  "failed_reports": [
+    {"path": "state/issac-acceptance/runs/accept-40ffe623bdba409fb968fef66616afbd/regression.json", "sha256": "b275b1d17be3243e47a2c4507c09da79c9e633831bcefdeca61eed2175db86db"},
+    {"path": "state/issac-acceptance/runs/round2-complete-reachable-report.json", "sha256": "483dce9c74a893bac718bde19b146e59afe4ddfb0d82b799d30977efb814d311"}
+  ],
+  "actually_passed": [
+    "7 Isaac branch Python boundary tests",
+    "606 vendored upstream native tests on the isolated native game Python",
+    "6 Isaac Node contract tests",
+    "NCM01 source/profile freeze validation without synthesis",
+    "Private save backup preparation, slot 3 policy",
+    "Pinned x86 game launch and Frida read-only attach",
+    "12 existing body clips decoded with all 294 original frames retained once, 512x512/25fps",
+    "Official Livehime Authenticode signature validation, version 8.12.0.11221"
+  ],
+  "failed_or_incomplete": [
+    "Media environment lacks Win32 GUI module; voice environment lost the existing Torch path",
+    "Menu observation requires uninitialized global json / module search paths",
+    "Whole inherited Node/Python regression does not pass",
+    "Strategy DSH copied file dependency still loads old isaac-lan/gpt-6-luna code instead of frozen local adapter",
+    "Owned strategy process has no effective new stop-file watcher and prevents complete cleanup",
+    "Local model preparation exceeds its wrapper deadline; no successful actual inference",
+    "GPU observed 100 percent utilization, 43695 MiB used of 49140 MiB, one existing Comfy job retained",
+    "Official client launcher exits; no stable owned official scene or recording",
+    "Body all-frame/actual-speed quality review and current mouth/fang/25fps acceptance incomplete",
+    "No 30-minute or 120-minute cohost acceptance, complete normal run, final rollback or 600-second official recording"
+  ],
+  "material_review": {
+    "indexed_candidates": 123,
+    "inspected_clips": 12,
+    "modes": ["M01", "M02", "M03"],
+    "original_frames_per_clip": 294,
+    "reviewed_all_frames": false,
+    "reviewed_actual_speed": false,
+    "body_bank_approved": false,
+    "historical_body_audio_admitted": false
+  },
+  "model_qualification": {
+    "passed": false,
+    "successful_inferences_verified": 0,
+    "r2_actual_inference_true_field_is_invalid": true,
+    "cloud_model_fallback_authorized": false
+  },
+  "all_18_acceptance_gates_passed": false,
+  "official_recording_created": false,
+  "public_broadcast_started": false,
+  "private_inputs_included": false,
+  "next_action": "Complete all R3 corrections and tools, manually review, commit/freeze whole candidate, then uniform acceptance"
+}

@@ -11,7 +11,35 @@ import uuid
 
 from aiohttp import ClientSession, ClientTimeout, web
 
-from .common import AdmissionError, Audit, FileLease, inside, local_url, read_json
+from .common import AdmissionError, Audit, FileLease, digest, file_hash, inside, local_url, read_json
+
+
+def strategy_prompt_proof(root,body):
+    required={'isaac_get_state','isaac_get_decision','isaac_lookup','isaac_submit_plan','isaac_wiki_query'}
+    tools=body.get('tools',[])
+    if not isinstance(tools,list):raise AdmissionError('EXACT_FIVE_STRATEGY_TOOLS_REQUIRED')
+    names=[x['function'].get('name') for x in tools if isinstance(x,dict) and isinstance(x.get('function'),dict)]
+    if len(names)!=5 or set(names)!=required:raise AdmissionError('EXACT_FIVE_STRATEGY_TOOLS_REQUIRED')
+    sections=[]
+    for message in body['messages']:
+        if not isinstance(message,dict) or message.get('role') not in {'system','developer'}:continue
+        content=message.get('content','')
+        if isinstance(content,str):sections.append(content)
+        elif isinstance(content,list):sections.extend(p.get('text','') for p in content if isinstance(p,dict) and p.get('type')=='text')
+    text='\n'.join(sections).replace('\r\n','\n').replace('\r','\n')
+    lock=read_json(inside(root,'configs/issac/sources.lock.json'))
+    pins={row['path']:row['sha256'] for row in lock['wiki_skill']['critical_files']}
+    sources=[]
+    for name in ('SKILL.md','references/run-evaluation.md'):
+        path=inside(root,'knowledge/issac-wiki/'+name)
+        if file_hash(path)!=pins.get(name) or path.read_text('utf-8') not in text:
+            raise AdmissionError('ACTUAL_COMPLETE_WIKI_PROMPT_REQUIRED')
+        sources.append({'name':name,'sha256':pins[name]})
+    instructions=inside(root,'integration/isaac-agent/dsh-host/isaac-plugin/instructions.md').read_text('utf-8')
+    if instructions not in text or '攻略查询强制 rep' not in text:
+        raise AdmissionError('ACTUAL_STRATEGY_POLICY_AND_INSTRUCTIONS_REQUIRED')
+    return {'actual_system_sections_sha256':digest(sections),'complete_wiki_sources':sources,
+            'tools':sorted(required),'complete_sources_seen_in_actual_request':True}
 
 
 @dataclass(order=True)
@@ -44,6 +72,8 @@ class ModelGateway:
         self.closing = False
         self.audit = Audit(inside(self.root, 'state/issac-stream/local-model-events.jsonl'))
         self.stats = {'completed':0,'failed':0,'expired':0,'preempted':0,'strategy':0,'narrator':0}
+        from .local_model import LocalModel
+        self.backend_owner=LocalModel(root)
 
     async def completion(self, request):
         kind = request.match_info['kind']
@@ -61,7 +91,12 @@ class ModelGateway:
                 raise AdmissionError('INVALID_LOCAL_MODEL_TOKEN_LIMIT')
             body.pop('max_completion_tokens',None)
             body['max_tokens']=min(bound,requested)
-        except (ValueError,TypeError):
+            if kind=='strategy':
+                proof=strategy_prompt_proof(self.root,body)
+                self.audit.append('actual_complete_strategy_request',**proof)
+        except (ValueError,TypeError) as error:
+            self.audit.append('request_rejected',request_class=kind,
+                              code=str(error) if isinstance(error,AdmissionError) else 'INVALID_LOCAL_MODEL_REQUEST')
             return web.json_response({'error':{'code':'INVALID_LOCAL_MODEL_REQUEST'}},status=400)
         if self.queue.full():
             return web.json_response({'error':{'code':'LOCAL_MODEL_QUEUE_FULL'}},status=429)
@@ -94,6 +129,7 @@ class ModelGateway:
 
     async def execute(self, job):
         start=time.monotonic()
+        await asyncio.to_thread(self.backend_owner.verify_server_owner)
         remaining=job.deadline-asyncio.get_running_loop().time()
         if remaining<=0 or job.done.cancelled():
             raise asyncio.TimeoutError()
@@ -224,7 +260,8 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--root',type=Path,required=True)
     args=parser.parse_args()
-    web.run_app(ModelGateway(args.root).application(),host='127.0.0.1',port=1235,access_log=None)
+    from .shutdown import run_web
+    run_web(ModelGateway(args.root).application(),args.root,host='127.0.0.1',port=1235)
 
 
 if __name__=='__main__':

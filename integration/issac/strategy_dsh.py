@@ -6,9 +6,45 @@ import json
 import os
 from pathlib import Path
 import secrets
+import shutil
 import subprocess
+import uuid
 
-from .common import AdmissionError, inside, local_url, native_only, read_json, write_json
+from .common import AdmissionError, file_hash, inside, local_url, native_only, read_json, write_json
+
+
+def sync_plugin(root):
+    """Replace only this stopped installation's copied file dependency."""
+    import psutil
+    root=Path(root).resolve()
+    host=inside(root,'integration/isaac-agent/dsh-host')
+    cli=(host/'node_modules/@deepseek-ai/dsh/lib/bin.js').resolve()
+    for process in psutil.process_iter(['cmdline']):
+        try:
+            if any(Path(arg).resolve()==cli for arg in process.info['cmdline'] or [] if 'bin.js' in arg):
+                raise AdmissionError('STOP_OWNED_STRATEGY_BEFORE_PLUGIN_SYNC')
+        except (psutil.NoSuchProcess,psutil.AccessDenied,OSError):continue
+    source=host/'isaac-plugin';target=host/'node_modules/dsh-isaac-strategy'
+    if not target.resolve().is_relative_to(root):raise AdmissionError('PLUGIN_DEPENDENCY_OUTSIDE_INSTALLATION')
+    package=read_json(source/'package.json');names=['package.json',*package['files']]
+    backup=inside(root,'operations/native-plugin-sync')/uuid.uuid4().hex
+    rows=[]
+    for name in names:
+        original=inside(source,name);destination=inside(target,name)
+        expected=file_hash(original)
+        if source.resolve()!=target.resolve():
+            if destination.is_file() and file_hash(destination)!=expected:
+                prior=backup/name;prior.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(destination,prior)
+            destination.parent.mkdir(parents=True,exist_ok=True)
+            temporary=destination.with_name(destination.name+'.issac-tmp')
+            shutil.copy2(original,temporary);os.replace(temporary,destination)
+        if file_hash(destination)!=expected:raise AdmissionError('RUNTIME_PLUGIN_SOURCE_BYTES_DIFFER')
+        rows.append({'name':name,'sha256':expected,'source':original.relative_to(root).as_posix(),
+                     'runtime':destination.relative_to(root).as_posix()})
+    receipt={'version':package['version'],'files':rows,'runtime_load_verified':False,
+             'local_dependency_synced_from_frozen_source':True}
+    write_json(inside(root,'.setup/isaac-strategy-plugin.json'),receipt)
+    return receipt
 
 
 def bridge_token(root):
@@ -48,6 +84,7 @@ def prepare(root):
     package=read_json(host/'node_modules/@deepseek-ai/dsh/package.json')
     if package['version']!='0.2.2-rc.1':
         raise AdmissionError('STRATEGY_DSH_VERSION_MISMATCH')
+    sync_plugin(root)
     home=inside(root,'state/isaac-strategy/dsh-home')
     profile=home/'profiles/issac-strategy'
     logs=inside(root,'state/isaac-strategy/dsh-logs')

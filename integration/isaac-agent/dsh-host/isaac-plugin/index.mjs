@@ -1,7 +1,7 @@
 import { createServer } from 'node:http';
 import { readFileSync, mkdirSync, appendFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { randomUUID } from 'node:crypto';
+import { randomUUID, createHash } from 'node:crypto';
 import { defineTool } from '@deepseek-ai/dsh-tools';
 import { createUserMessage } from '@deepseek-ai/dsh-llm';
 import { installModelSelection } from '@deepseek-ai/dsh-agent';
@@ -22,8 +22,11 @@ export function apply(ctx, config = {}) {
   const model = config.model;
   if(typeof model!=='string'||!model.trim())throw Error('ISAAC_LOCAL_MODEL_ID_REQUIRED');
   const logs = config.logs;
+  const pluginFiles=['package.json','index.mjs','decision_binding.mjs','stream-policy.mjs','instructions.md','cordis.patch.yml','README.md'];
+  const pluginReceipt={version:'0.1.1',files:pluginFiles.map(name=>({name,sha256:createHash('sha256').update(readFileSync(new URL(name,import.meta.url))).digest('hex')}))};
   if (logs) mkdirSync(logs, {recursive: true});
-  const metrics = {ready: false, dshVersion: '0.2.2-rc.1', provider, model, prompt:prompt.receipt,
+  const metrics = {ready: false, dshVersion: '0.2.2-rc.1', provider, model, prompt:prompt.receipt,plugin:pluginReceipt,
+    completePromptRegistered:false,restrictedTools:[],
     turns: 0, toolCalls: 0, failures: 0, lastDecision: null, latencyMs: [], toolNames: [], lastError: null};
   let handle, agent, busy = false, timer, server, disposed = false, automatic = false;
   let lastDecision = null, turnSubmitted = false, turnInitializing = false, turnSubmitting = false;
@@ -74,6 +77,7 @@ export function apply(ctx, config = {}) {
         catch(error) { record('tool_error',{name:toolName,message:String(error.message).slice(0,300)}); throw error; }
       }}));
   }
+  metrics.registeredTools=tools.map(t=>t[0]);
   async function drive(prompt, deadlineMs = 25000) {
     if (busy) throw new Error('One strategic turn is already running');
     busy=true; turnInitializing=true; turnSubmitted=false; binding.reset(); const start=performance.now(); let timedOut=false;
@@ -132,6 +136,7 @@ export function apply(ctx, config = {}) {
         installModelSelection(agentCtx);
         agentCtx.systemPrompt.section({name:'isaac-complete',order:0,text:instructions,complete:true});
         agentCtx.tools.restrict({allow:tools.map(t=>t[0])});
+        metrics.completePromptRegistered=true;metrics.restrictedTools=tools.map(t=>t[0]);
         record('complete_prompt_registered',{...prompt.receipt,tool_allowlist:tools.map(t=>t[0])});
       }});
     agent=handle.agent;
@@ -155,18 +160,26 @@ export function apply(ctx, config = {}) {
     });
     await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(config.port??9533,'127.0.0.1',resolve);});
     timer=setInterval(tick,250);
-    if(process.env.ISSAC_STOP_FILE)stopTimer=setInterval(()=>{
-      if(stopping||!existsSync(process.env.ISSAC_STOP_FILE))return;
-      stopping=true;disposed=true;automatic=false;clearInterval(timer);clearInterval(stopTimer);
-      void (async()=>{agent?.cancel({kind:'user'});await handle?.dispose();
-        await new Promise(done=>server?.close(done)??done());
-        record('owned_shutdown_complete',{pid:process.pid});process.exit(0);
-      })().catch(()=>{record('owned_shutdown_failed');process.exit(1);});
-    },200);
-    metrics.ready=true;record('ready',{pid:process.pid,profile:'isaac',model:metrics.model,provider:metrics.provider});
+    metrics.ready=true;record('ready',{pid:process.pid,profile:'isaac',model:metrics.model,provider:metrics.provider,plugin:pluginReceipt,prompt:prompt.receipt});
     if(logs)writeFileSync(`${logs}/host-ready.json`,JSON.stringify({pid:process.pid,port:config.port??9533,...metrics}));
     console.error('Isaac DSH strategic host ready on loopback '+(config.port??9533));
   }
+  // Install owned shutdown before asynchronous agent initialization, including
+  // its startup failure path.
+  if(process.env.ISSAC_STOP_FILE)stopTimer=setInterval(()=>{
+      if(stopping||!existsSync(process.env.ISSAC_STOP_FILE))return;
+      stopping=true;disposed=true;automatic=false;clearInterval(timer);clearInterval(stopTimer);
+      const deadline=setTimeout(()=>{record('owned_shutdown_deadline',{pid:process.pid,clean:false});process.exit(1);},20000);
+      void (async()=>{
+        agent?.cancel({kind:'user'});
+        // Stop new requests and close our own keep-alive sockets before
+        // disposing the DSH handle. A pending dispose cannot hold the entire
+        // application owner forever; timeout is explicitly an unclean stop.
+        const closed=new Promise(done=>{if(!server)return done();server.close(done);server.closeAllConnections?.();});
+        await closed;await handle?.dispose();clearTimeout(deadline);
+        record('owned_shutdown_complete',{pid:process.pid,clean:true});process.exit(0);
+      })().catch(()=>{clearTimeout(deadline);record('owned_shutdown_failed',{clean:false});process.exit(1);});
+    },200);
   start().catch(error=>{metrics.lastError=String(error.message).slice(0,300);record('startup_error',{message:metrics.lastError});console.error('Isaac DSH startup failed: '+metrics.lastError);});
   ctx.on('dispose',()=>{disposed=true;automatic=false;clearInterval(timer);clearInterval(stopTimer);server?.close();handle?.dispose();});
 }

@@ -21,7 +21,7 @@ export class RoomManager {
       defaults.audio.music_volume = 0.16;
       this.bgmManifest = character.bgm_manifest;
     }
-    if(bridge.policy.deployment.state_relative_path==='state/issac-stream'){
+    if(bridge?.policy?.deployment?.state_relative_path==='state/issac-stream'){
       defaults.identity={title:'奶妹 · 以撒的结合',topic:'以撒的结合',announcement:'奶妹陪你玩以撒的结合',show_virtual_label:true};
       defaults.audio.music_volume=0;
       defaults.overlay.max_comments=4;

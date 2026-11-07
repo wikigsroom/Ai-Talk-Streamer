@@ -227,7 +227,7 @@ def review_gate(root,relative):
 def templates(root):
     candidate=require_candidate(root,hardware=False);paths=[]
     for name,checks in REVIEW_CHECKS.items():
-        path=inside(root,'state/issac-acceptance/review-templates/'+name+'.json')
+        path=inside(root,'state/issac-acceptance/review-templates/'+candidate['candidate_id']+'/'+name+'.json')
         if path.exists():continue
         write_json(path,{**candidate,'gate':name,'reviewer':None,'actual_evidence_reviewed':False,
             'historical_result_inherited':False,'checks':{key:False for key in sorted(checks)},'artifacts':[],
@@ -264,6 +264,7 @@ def main():
         try:result=runner.regressions() if args.action=='regressions' else asyncio.run(runner.cohost(args.seconds))
         finally:runner.close()
     print(json.dumps(result,ensure_ascii=False))
+    if result.get('passed') is False:raise SystemExit(1)
 
 
 if __name__=='__main__':main()

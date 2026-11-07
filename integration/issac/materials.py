@@ -21,6 +21,13 @@ CHECKS={'same_locked_character','all_frames_anatomy','four_fingers_per_hand','on
         'no_endpoint_replacement','same_mode_scene','no_mirroring'}
 
 
+def generation(root,candidate):
+    identity=candidate['candidate_id']
+    if not re.fullmatch(r'issac-[0-9a-f]{12}-[0-9a-f]{8}',identity):
+        raise AdmissionError('FROZEN_MATERIAL_GENERATION_REQUIRED')
+    return inside(root,'state/issac-materials/generations/'+identity)
+
+
 def ffmpeg(root,name='ffmpeg.exe'):
     candidates=list(inside(root,'tools/ffmpeg').rglob(name))
     if len(candidates)!=1:raise AdmissionError('ONE_PINNED_NATIVE_MEDIA_TOOL_REQUIRED')
@@ -42,6 +49,7 @@ def scan(root):
             'start_state':job['start_state'],'end_state':job['end_state'],'runtime_enabled':False})
     report={**candidate,'clips':rows,'retained_candidates':len(rows),'quality_accepted':False,'scanned_at':time.time()}
     write_json(inside(root,'state/issac-materials/candidates.json'),report)
+    write_json(generation(root,candidate)/'candidates.json',report)
     return report
 
 
@@ -50,13 +58,14 @@ def inspect(root,clip_id):
     import numpy as np
     from PIL import Image,ImageDraw
     candidate=require_candidate(root,hardware=False)
-    source_index=read_json(inside(root,'state/issac-materials/candidates.json'))
+    folder_root=generation(root,candidate)
+    source_index=read_json(folder_root/'candidates.json')
     if source_index['candidate_id']!=candidate['candidate_id']:raise AdmissionError('CURRENT_MATERIAL_INDEX_REQUIRED')
     row=next((r for r in source_index['clips'] if r['id']==clip_id),None)
     if not row:raise AdmissionError('PINNED_EXISTING_CLIP_REQUIRED')
     source=inside(root,row['source'])
     if file_hash(source)!=row['source_sha256']:raise AdmissionError('BODY_SOURCE_CHANGED')
-    destination=inside(root,'state/issac-materials/clips/'+clip_id+'.mp4')
+    destination=folder_root/'clips'/(clip_id+'.mp4')
     destination.parent.mkdir(parents=True,exist_ok=True)
     if destination.exists():raise AdmissionError('MATERIAL_INSPECTION_ALREADY_EXISTS')
     capture=cv2.VideoCapture(str(source));frames=[]
@@ -81,7 +90,7 @@ def inspect(root,clip_id):
         if code:raise AdmissionError('BODY_FRAME_PRESERVING_ENCODE_FAILED')
     finally:
         if pipe.poll() is None:pipe.terminate();pipe.wait(10)
-    folder=inside(root,'state/issac-materials/inspection/'+clip_id);folder.mkdir(parents=True,exist_ok=True)
+    folder=folder_root/'inspection'/clip_id;folder.mkdir(parents=True,exist_ok=True)
     images=[]
     for start in range(0,len(frames),48):
         sheet=Image.new('RGB',(1024,8*152),'#20252d');draw=ImageDraw.Draw(sheet)
@@ -114,7 +123,7 @@ def approve(root,review_file):
     current=require_candidate(root,hardware=False)
     review=read_json(inside(root,review_file));clip_id=review.get('id','')
     if not re.fullmatch(r'[A-Za-z0-9_-]{1,160}',clip_id):raise AdmissionError('PINNED_CLIP_ID_REQUIRED')
-    folder=inside(root,'state/issac-materials/inspection/'+clip_id)
+    folder=generation(root,current)/'inspection'/clip_id
     inspected=read_json(folder/'inspection.json')
     if (review.get('candidate_id')!=current['candidate_id'] or review.get('inspection_sha256')!=digest(inspected)
         or not isinstance(review.get('reviewer'),str) or not review['reviewer'].strip()
@@ -129,7 +138,7 @@ def approve(root,review_file):
         raise AdmissionError('WHOLE_REVIEWED_DRINK_CHAIN_REQUIRED')
     proof={**inspected,'accepted':True,'clip_sha256':inspected['sha256'],'decoded_seam_reviewed':True,
            'review':review,'reviewed_at':time.time()}
-    destination=inside(root,'state/issac-materials/reviews/'+clip_id+'.json')
+    destination=generation(root,current)/'reviews'/(clip_id+'.json')
     write_json(destination,proof)
     return {'review':destination.relative_to(root).as_posix(),'accepted':True,'id':clip_id}
 
@@ -147,7 +156,7 @@ def build_bank(root):
         modes[mode['mode_id']]={'reference':mode['reference_image'],'reference_sha256':mode['sha256'],
             'face_region':face,'engine_reference':closeup.relative_to(root).as_posix(),'engine_reference_sha256':OPEN_SHA,
             'engine_closeup_is_oral_conditioning_only':True}
-    for path in sorted(inside(root,'state/issac-materials/reviews').glob('*.json')):
+    for path in sorted((generation(root,candidate)/'reviews').glob('*.json')):
         proof=read_json(path)
         if not proof.get('accepted') or proof['candidate_id']!=candidate['candidate_id']:continue
         review=proof['review']
@@ -179,6 +188,7 @@ def build_bank(root):
         'mouth_constraints':{'upper_fangs':fangs,'original_closeup_sha256':OPEN_SHA},
         'body_reviewed':True,'mouth_quality_accepted':False,'historical_speech_is_not_admitted':True}
     write_json(inside(root,'state/issac-materials/runtime-bank.json'),registry)
+    write_json(generation(root,candidate)/'runtime-bank.json',registry)
     return {'modes':len(modes),'accepted_clips':len(clips),'drink_chains':len(chains),'mouth_quality_accepted':False}
 
 

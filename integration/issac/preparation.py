@@ -78,7 +78,13 @@ def relocate_native_environments(root):
             # Absolute legacy project paths cannot leak back into this isolated
             # runtime. Relative library entries and ordinary import hooks stay.
             entries=content.splitlines()
-            filtered=[line for line in entries if not re.match(r'^[A-Za-z]:[\\/]',line.strip())]
+            filtered=[]
+            for line in entries:
+                if re.match(r'^[A-Za-z]:[\\/]',line.strip()):
+                    # Keep this installation's own paths on repeated startup.
+                    # Never reintroduce a link to the live Naimei installation.
+                    if not Path(line.strip()).resolve().is_relative_to(root):continue
+                filtered.append(line)
             if entries!=filtered:
                 target=backup.parent/path.name
                 if not target.exists():target.write_bytes(path.read_bytes())
@@ -86,7 +92,21 @@ def relocate_native_environments(root):
                 pths.append(path.name)
         receipts.append({'environment':relative,'prior_config_sha256':before,'config_sha256':file_hash(cfg),
                          'removed_external_path_files':pths,'native_import_tested':False})
-    record={'environments':receipts,'new_packages_downloaded':0,'runtime_accepted':False}
+    media=inside(root,'runtime/livetalking/Lib/site-packages')
+    voice=inside(root,'runtime/tts-benchmark/omnivoice/Lib/site-packages')
+    version=(media/'torch/version.py').read_text('utf-8')
+    if not re.search(r"__version__[^\n]*['\"]2\.9\.1\+cu128['\"]",version):
+        raise AdmissionError('PINNED_EXISTING_TORCH_VERSION_REQUIRED')
+    if (voice/'torch/version.py').is_file() and (voice/'torch/version.py').read_text('utf-8')!=version:
+        raise AdmissionError('VOICE_TORCH_VERSION_CONFLICT')
+    # .pth processing appends this directory after the voice environment's own
+    # site-packages. Its OmniVoice/transformers versions retain precedence.
+    shared=voice/'zz_issac_existing_torch.pth'
+    shared.write_text(str(media)+'\n','utf-8')
+    record={'environments':receipts,'new_packages_downloaded':0,'runtime_accepted':False,
+            'voice_shared_torch':{'path':media.relative_to(root).as_posix(),
+                'version_file_sha256':file_hash(media/'torch/version.py'),
+                'pth_sha256':file_hash(shared),'voice_packages_precede_shared_packages':True}}
     write_json(inside(root,'.setup/native-relocation.json'),record)
     return record
 

@@ -384,4 +384,5 @@ if __name__=='__main__':
     from .deployment import require_candidate
     require_candidate(args.root)
     studio=IsaacStudio(args.root.resolve())
-    web.run_app(studio.application(),host=studio.config['host'],port=studio.config['port'],access_log=None)
+    from .shutdown import run_web
+    run_web(studio.application(),args.root,host=studio.config['host'],port=studio.config['port'])

@@ -17,3 +17,12 @@ Repentance 1.7.9b 的 DSH 策略插件。配合 native130-dsh 本地控制服务
 启动默认关闭 automatic，操作者经第 3 槽核验后才开启。控制接口需要本机 token。游戏即时战斗、蓄力、躲弹、地刺时机仍由本地执行。未知药丸不揭示；未知机制不构造动作。当前只直接操作主动槽 0、口袋槽 0；全部槽可读。献祭与生命交易先只支持普通 Isaac 的已知生命语义。
 
 12 类回放的合法提交率不等于策略最优率，更不等于实机通关率。实际范围以主项目 docs 和 evidence 报告为准。
+# Isaac isolated deployment adaptation (2026-11-07)
+
+This branch explicitly activates one strategy instance through the installation's
+private `isaac.patch.json`. The package bundle patch is empty to avoid a second,
+unconfigured instance. The copied file dependency must be synchronized from the
+frozen `isaac-plugin` sources before launch. Readiness requires matching hashes
+of all seven package files, the `isaac-local` provider, the selected retained
+model, the complete pinned Wiki prompt and exactly five allowed tools. A copied
+historical package or an old `isaac-lan`/`gpt-6-luna` ready message is rejected.

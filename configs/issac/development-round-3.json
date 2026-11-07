@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "round": "R3",
+  "branch": "issac",
+  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "previous_phase": {
+    "candidate_id": "issac-8e76554c1a19-9e64dba0",
+    "status": "closed_failed",
+    "closed_unix": 1794020314.8048368
+  },
+  "scope": "All corrections and reproducible acceptance tools for observed R2 defects; retain all 18 real acceptance gates",
+  "items": [
+    {
+      "id": "R301",
+      "code": "Idempotent native venv relocation and existing Torch mapping",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/preparation.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R302",
+      "code": "Game module provenance, menu observation and private native error evidence",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/native_game.py",
+        "configs/issac/native-modules.json"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R303",
+      "code": "Owned process identities, bounded cleanup and serialized startup",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/application.py",
+        "integration/issac/shutdown.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R304",
+      "code": "Room contract and isolated inherited test fixtures",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "backend/room/manager.mjs",
+        "tests/test_naimei_target.py",
+        "tests/test_moss_live.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R305",
+      "code": "Native controller tests must never change frozen source",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/isaac-agent/tests/test_native_bundle.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R306",
+      "code": "Candidate-scoped material inspection and honest review",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/materials.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R307",
+      "code": "Local model preparation progress and retained-file admission",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/local_model.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R308",
+      "code": "Actual resource estimates and media reserve before model loading",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/resources.py",
+        "integration/issac/local_model.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R309",
+      "code": "Owned local LM Studio profile and offline runtime lifecycle",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/local_model.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R310",
+      "code": "Truthful model qualification and regression exit status",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/qualify_issac_model.py",
+        "integration/issac/acceptance.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R311",
+      "code": "Stable official client window, capture fallback and profile evidence",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/livehime.py",
+        "integration/issac/official_window.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R312",
+      "code": "Whole-round freeze inventory and reversible source generations",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/freeze_issac_candidate.py",
+        "scripts/install_issac_candidate.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R313",
+      "code": "Frozen dependency, native probe and cleanup diagnostics",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/diagnose_issac.py",
+        "scripts/run_issac_round.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R314",
+      "code": "Meaningful regression coverage for the observed defects",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/tests/test_round3.py",
+        "tests/test_issac_prompt.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R315",
+      "code": "Sanitized round-2 evidence, MC invariant and round-3 instructions",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "docs/issac/第三轮完整修正与统一验收20261107.md",
+        "docs/evidence/issac-round2-acceptance-20261107.json"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R316",
+      "code": "Synchronize actual DSH file dependency, prevent duplicate activation, verify running plugin/prompt/tools/local provider",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/strategy_dsh.py",
+        "integration/isaac-agent/dsh-host/isaac-plugin/package.json",
+        "integration/isaac-agent/dsh-host/isaac-plugin/cordis.patch.yml",
+        "integration/isaac-agent/dsh-host/isaac-plugin/index.mjs"
+      ],
+      "runtime_accepted": false
+    }
+  ],
+  "test_phase_admission": [
+    "All R301-R316 implementation and tools complete",
+    "Manual whole-round source review complete",
+    "Commit clean source and freeze complete candidate",
+    "No source changes during testing; close failed phase before the next round"
+  ],
+  "final_recording_created": false,
+  "public_broadcast_authorized": false,
+  "runtime_accepted": false,
+  "development_document": "docs/issac/第三轮完整修正与统一验收20261107.md",
+  "manual_whole_round_source_review_complete": true,
+  "manual_review_scope": [
+    "All R301-R316 source and tracked diagnostic/acceptance tools",
+    "Exact copied DSH dependency source/provenance and complete actual system prompt",
+    "Native process ownership, save/input boundaries and normal cleanup",
+    "No model/cloud download, no foreign-job termination, no security-dialog automation",
+    "MC visual/title invariants, NCM01 private reference exclusion and honest quality gates"
+  ]
+}

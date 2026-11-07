@@ -68,13 +68,11 @@ class EngineService:
 
     def worker(self):
         try:
-            while not self.stop.is_set():
-                raw=subprocess.check_output(['nvidia-smi','--query-gpu=memory.free,utilization.gpu','--format=csv,noheader,nounits'],
-                                            timeout=10,text=True,creationflags=0x08000000)
-                free,utilization=[int(x.strip()) for x in raw.strip().split(',')]
-                if free>=10000 and utilization<35:break
+            from .resources import wait_for_capacity
+            def waiting(row):
                 self.stage='waiting_for_existing_gpu_tasks'
-                self.stop.wait(2)
+                self.audit.append('waiting_for_capacity',observed=row)
+            wait_for_capacity(self.stop,10000,waiting)
             if self.stop.is_set():return
             self.stage='loading'
             from .flashhead import Engine
@@ -273,4 +271,5 @@ if __name__=='__main__':
     from .deployment import require_candidate
     require_candidate(args.root)
     server=EngineService(args.root.resolve())
-    web.run_app(server.application(),host='127.0.0.1',port=server.config['media']['engine_port'],access_log=None)
+    from .shutdown import run_web
+    run_web(server.application(),args.root,host='127.0.0.1',port=server.config['media']['engine_port'])

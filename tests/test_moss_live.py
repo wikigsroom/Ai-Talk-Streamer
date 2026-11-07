@@ -228,6 +228,8 @@ class MossLiveTests(unittest.TestCase):
             calls.append(name)
             opened.add(8010 if name == 'avatar' else 9880)
         launch.start_service = start_service
+        deployment = ModuleType('deployment_target')
+        deployment.validate_target = Mock(return_value={'ok': True})
         with patch.dict('sys.modules', {'launch': launch}):
             starter = load('moss_start_test', 'scripts/start_studio.py')
         with tempfile.TemporaryDirectory() as temporary:
@@ -242,12 +244,12 @@ class MossLiveTests(unittest.TestCase):
             response.__exit__ = Mock(return_value=False)
             http = Mock()
             http.open.return_value = response
-            with patch.object(starter.urllib.request, 'build_opener', return_value=http):
+            with patch.dict('sys.modules', {'deployment_target': deployment}), patch.object(starter.urllib.request, 'build_opener', return_value=http):
                 starter.start()
             self.assertEqual(calls, ['avatar', 'tts'])
             calls.clear()
             opened.remove(8010)
-            with self.assertRaisesRegex(RuntimeError, 'Stop both project services'):
+            with patch.dict('sys.modules', {'deployment_target': deployment}), self.assertRaisesRegex(RuntimeError, 'Stop both project services'):
                 starter.start()
             self.assertFalse(calls)
 
