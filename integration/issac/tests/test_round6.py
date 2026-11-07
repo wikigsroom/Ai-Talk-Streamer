@@ -140,9 +140,10 @@ class DependencyImportDiagnosticsTests(unittest.TestCase):
         modules={name:SimpleNamespace(__version__='2.9.1+cu128') for name in ('torch','transformers','omnivoice')}
         def load(name):loaded.append(name);return modules[name]
         def observe(value,**kwargs):events.append(json.loads(value))
-        with patch('importlib.import_module',side_effect=load),patch('builtins.print',side_effect=observe),\
+        with patch('builtins.print',side_effect=observe),\
              patch('faulthandler.enable'),patch('faulthandler.dump_traceback_later'),\
-             patch('faulthandler.cancel_dump_traceback_later'),patch('sys.path',[]),patch('pathlib.Path.cwd',return_value=Path('.')):
+             patch('faulthandler.cancel_dump_traceback_later'),patch('sys.path',[]),\
+             patch('pathlib.Path.cwd',return_value=Path('.')),patch('importlib.import_module',side_effect=load):
             exec(code,{})
         self.assertEqual(loaded,['torch','transformers','omnivoice'])
         self.assertEqual([e['module'] for e in events if e['stage']=='import_begin'],loaded)

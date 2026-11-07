@@ -1,0 +1,269 @@
+{
+  "schema_version": 1,
+  "round": "R6",
+  "candidate_id": "issac-5f42f15d9f59-be520083",
+  "source_commit": "5f42f15d9f590fbc3dc40376f11b768992de24e7",
+  "source_files_verified": 2152,
+  "source_verified_unchanged": true,
+  "status": "closed_failed",
+  "uniform_checks": [
+    {
+      "check": "environment",
+      "elapsed_seconds": 21.013517800020054,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-00e8b6ed7fd54af5ae0a5a1d32347b84/environment.log",
+      "log_sha256": "15f3ea8412299471999d6c0312d90f381931344fb6046b42e9b45a862119510a",
+      "passed": true
+    },
+    {
+      "check": "dependencies",
+      "elapsed_seconds": 81.98792750004213,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-00e8b6ed7fd54af5ae0a5a1d32347b84/dependencies.log",
+      "log_sha256": "c52c32ba3be6db406a55d2b0f4983bd874dd5d5ad0ea5d237edb06f10d8ef0ae",
+      "passed": true
+    },
+    {
+      "check": "regressions",
+      "elapsed_seconds": 54.75324150000233,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-00e8b6ed7fd54af5ae0a5a1d32347b84/regressions.log",
+      "log_sha256": "8fedd55ddc3147ebb0a6bba75da5a67c77a678625ef30f232e7676cde7a2c69c",
+      "passed": false
+    },
+    {
+      "check": "materials-scan",
+      "elapsed_seconds": 20.64488420006819,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-00e8b6ed7fd54af5ae0a5a1d32347b84/materials-scan.log",
+      "log_sha256": "cf8a1e0806755982520342a5a49fb5220fdeaaa4c2234b10758bcef7afb01ded",
+      "passed": true
+    },
+    {
+      "check": "native-game",
+      "elapsed_seconds": 128.937173500075,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-00e8b6ed7fd54af5ae0a5a1d32347b84/native-game.log",
+      "log_sha256": "53cbd7e5cc84636caab92ea4b65afe145a86df791aac6208bf0c30655cece941",
+      "passed": true
+    },
+    {
+      "check": "local-model-prepare",
+      "elapsed_seconds": 632.5261619999073,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-00e8b6ed7fd54af5ae0a5a1d32347b84/local-model-prepare.log",
+      "log_sha256": "a05a18e98b6d536c2f5a22829d915a437f96511ae2e082199247f22eec9676d4",
+      "passed": false
+    },
+    {
+      "actual_inference": false,
+      "check": "local-model-qualification",
+      "elapsed_seconds": 6.70602190005593,
+      "inference_requests_attempted": 0,
+      "log": "state/issac-acceptance/round-runs/round-00e8b6ed7fd54af5ae0a5a1d32347b84/local-model-qualification.log",
+      "log_sha256": "a188bb24dbd0b1b42ab16af8f906852ca145d18c2e1c90e98ada8740ff930033",
+      "passed": false,
+      "reason": "PREREQUISITE_NOT_PASSED",
+      "requires": "local-model-prepare",
+      "state": "blocked"
+    },
+    {
+      "check": "official-client-signature",
+      "elapsed_seconds": 18.480257999966852,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-00e8b6ed7fd54af5ae0a5a1d32347b84/official-client-signature.log",
+      "log_sha256": "90ce968963d5fa880a03bdc347a26e29dc96dee6f957ff8daa025b74d2326e9b",
+      "passed": true
+    },
+    {
+      "check": "official-client-launch",
+      "elapsed_seconds": 15.309193599969149,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-00e8b6ed7fd54af5ae0a5a1d32347b84/official-client-launch.log",
+      "log_sha256": "954a9600b26942c554142805635273a89dcc909f33de48332c7c8b4a09e03a80",
+      "passed": false
+    }
+  ],
+  "uniform_finished_unix": 1794031011.6316075,
+  "phase_closure": {
+    "candidate_id": "issac-5f42f15d9f59-be520083",
+    "closed_unix": 1794031100.675629,
+    "complete_acceptance_requires_all_18_verified_gates": true,
+    "defects": [
+      {
+        "failed_checks": [],
+        "path": "state/issac-acceptance/diagnostics/model-prepare-c1e3976b20834e9899ae8ecd5a9d7c87/report.json",
+        "sha256": "eba53666752ca6d0263d4053b675b5c2523c31627766cbb7f6d77ddc341a1a36"
+      },
+      {
+        "failed_checks": [
+          "regressions",
+          "local-model-prepare",
+          "local-model-qualification",
+          "official-client-launch"
+        ],
+        "path": "state/issac-acceptance/round-runs/round-00e8b6ed7fd54af5ae0a5a1d32347b84/progress.json",
+        "sha256": "c91347b184ed9d8500e7c64b816d65c86ed8ee8bfa37e4c030bffd48b621a45d"
+      },
+      {
+        "failed_checks": [
+          "regressions",
+          "local-model-prepare",
+          "local-model-qualification",
+          "official-client-launch"
+        ],
+        "path": "state/issac-acceptance/round-runs/round-00e8b6ed7fd54af5ae0a5a1d32347b84/report.json",
+        "sha256": "11dcb4be1d1119c3eecb9baed57ade7700eb282a0ddb7ff1a62258cabe8cbc5a"
+      },
+      {
+        "failed_checks": [
+          "0"
+        ],
+        "path": "state/issac-acceptance/runs/accept-67cc401215d34ddfa3567340edb139bc/regression.json",
+        "sha256": "150ee5a56a30719da3f7c5c2a4d17269fdd04ed071e39c428ca87b81a42b8a9c"
+      }
+    ],
+    "next_action": "whole_correction_round_then_freeze",
+    "phase": "acceptance_closed",
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "recorded_failures": 4,
+    "source_changes_permitted_only_in_new_development_round": true,
+    "source_commit": "5f42f15d9f590fbc3dc40376f11b768992de24e7",
+    "source_files_verified": 2152
+  },
+  "regression_counts": [
+    {
+      "suite": "issac_python",
+      "passed": 42,
+      "errors": 1,
+      "skipped": 0
+    },
+    {
+      "suite": "isaac_agent_python",
+      "passed": 606,
+      "skipped": 0
+    },
+    {
+      "suite": "integration_node",
+      "passed": 6,
+      "skipped": 0
+    },
+    {
+      "suite": "parent_node",
+      "passed": 107,
+      "skipped": 7
+    },
+    {
+      "suite": "parent_python",
+      "passed": 127,
+      "skipped": 0
+    }
+  ],
+  "regression_total_passed": 888,
+  "regression_total_errors": 1,
+  "regression_total_skipped": 7,
+  "regression_error": "DependencyImportDiagnosticsTests fixture globally replaced importlib.import_module before resolving the later builtins mock target; KeyError builtins",
+  "native_menu_probe": {
+    "candidate_id": "issac-5f42f15d9f59-be520083",
+    "source_commit": "5f42f15d9f590fbc3dc40376f11b768992de24e7",
+    "source_files_verified": 2152,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "passed": true,
+    "checks": {
+      "real_native_observation": true,
+      "pinned_game_modules": true,
+      "normal_pause_or_idle": true,
+      "own_idle_game_closed_normally": true,
+      "owned_stack_stopped": true
+    },
+    "observation": {
+      "observation": {
+        "paused": true,
+        "frame": 0,
+        "players": 0,
+        "dead": false,
+        "hp": 0,
+        "stage": 0,
+        "room": 0,
+        "seed": 0,
+        "controller_installed": false
+      },
+      "progress": {
+        "manager": "0x16492020",
+        "slot": 0,
+        "readonly": false,
+        "womb_unlocked": false,
+        "mom_heart_kills": 0,
+        "satan_kills": 0,
+        "unlocked_count": 0
+      }
+    },
+    "log": "state/issac-acceptance/diagnostics/native-game-69860c8a5f8948389519a010ef84a7c4/game-stack.log",
+    "autopilot_enabled": false,
+    "normal_full_run_accepted": false
+  },
+  "native_full_run_accepted": false,
+  "model_preparation": {
+    "existing_gpu_tasks_preserved": true,
+    "retained_weight_bytes_fully_hashed": 75827956000,
+    "retained_weight_shards": 2,
+    "own_loopback_api_observed": true,
+    "isolated_runtime_profile_verified": true,
+    "actual_roaming_profile_file_count": 51,
+    "actual_roaming_profile_handles_count": 30,
+    "foreign_profile_files_observed": 0,
+    "load_failure": "Relative catalogue path passed to fuzzy modelKey lookup without --exact",
+    "model_loaded": false,
+    "actual_inference_requests": 0
+  },
+  "supplementary_read_only_estimates": {
+    "part_of_uniform_preparation": false,
+    "explicit_estimate_only": true,
+    "actual_model_load_requests": 0,
+    "context_window": 16384,
+    "stdout_empty": true,
+    "successful_estimates_written_to": "stderr",
+    "observed": {
+      "gpu_free_mib": 34780,
+      "host_available_bytes": 40672096256
+    },
+    "media_reserve_mib": 18000,
+    "estimates": [
+      {
+        "gpu_offload": 0.45,
+        "gpu_gib": 33.84,
+        "total_gib": 73.4,
+        "actual_cli_exit_code": 0,
+        "actual_cli_output": "Model: swift-1.5-qwen3.8-flash-next-gsq-rco-abliterated\nContext Length: 16,384\nGPU Offload: 45%\nEstimated GPU Memory:   33.84 GiB\nEstimated Total Memory: 73.40 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings.\n"
+      },
+      {
+        "gpu_offload": 0.338,
+        "gpu_gib": 26.23,
+        "total_gib": 73.4,
+        "actual_cli_exit_code": 0,
+        "actual_cli_output": "Model: swift-1.5-qwen3.8-flash-next-gsq-rco-abliterated\nContext Length: 16,384\nGPU Offload: 33.800000000000004%\nEstimated GPU Memory:   26.23 GiB\nEstimated Total Memory: 73.40 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings.\n"
+      },
+      {
+        "gpu_offload": 0.225,
+        "gpu_gib": 17.1,
+        "total_gib": 73.4,
+        "actual_cli_exit_code": 0,
+        "actual_cli_output": "Model: swift-1.5-qwen3.8-flash-next-gsq-rco-abliterated\nContext Length: 16,384\nGPU Offload: 22.5%\nEstimated GPU Memory:   17.10 GiB\nEstimated Total Memory: 73.40 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings.\n"
+      }
+    ],
+    "all_three_fit_observed_with_existing_reserves": false,
+    "capacity_is_not_live_performance_acceptance": true
+  },
+  "official_client_foreign_session_preserved": true,
+  "official_client_close_permission_pending": true,
+  "all_18_acceptance_gates_still_required": true,
+  "body_quality_approved": false,
+  "mouth_fang_25fps_accepted": false,
+  "ncm01_new_synthesis_accepted": false,
+  "official_recording_created": false,
+  "production_accepted": false,
+  "public_broadcast_started": false,
+  "new_model_weight_download_bytes": 0
+}

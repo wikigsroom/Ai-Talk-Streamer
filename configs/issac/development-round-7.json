@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "round": "R7",
+  "branch": "issac",
+  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "previous_phase": {
+    "candidate_id": "issac-5f42f15d9f59-be520083",
+    "status": "closed_failed",
+    "closed_unix": 1794031100.675629
+  },
+  "scope": "Complete all observed R6 fixture, exact-local model selection, successful stderr estimate capture and capacity reporting corrections before uniform frozen testing",
+  "items": [
+    {
+      "id": "R701",
+      "code": "Select the verified first retained shard through exact local catalogue-path lookup for estimates and loads",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/local_model.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R702",
+      "code": "Read successful estimate diagnostics from stderr while preserving machine-readable stdout and nonzero failures",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/local_model.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R703",
+      "code": "Report actual per-budget capacity requirements and shortfalls without changing any existing margins",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/resources.py",
+        "integration/issac/local_model.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R704",
+      "code": "Correct the global-import mock ordering and add observed CLI/path/capacity regressions",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/tests/test_round6.py",
+        "integration/issac/tests/test_round7.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R705",
+      "code": "Synchronize actual R6 failure closure, current MC title-only documentation and matching document titles",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "docs/evidence/issac-round6-acceptance-20261107.json",
+        "docs/issac/第七轮本地模型选择与容量报告20261107.md",
+        "docs/issac/MC同屏方案沿用与标题替换20261107.md",
+        "docs/issac/完整更新方案20261107.md",
+        "docs/issac/第六轮窗口配置与模型就绪20261107.md",
+        "web/issac/mc-programme.html",
+        "README.md"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R706",
+      "code": "Complete whole-round source review, commit/freeze and direct ZeroTier installation before uniform testing",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "AGENTS.md",
+        "configs/issac/development-round-7.json",
+        "configs/issac/execution-rounds.json"
+      ],
+      "runtime_accepted": false
+    }
+  ],
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "public_broadcast_allowed": false,
+  "resource_reserves_lowered": false,
+  "manual_review_coverage": [
+    "all R701-R706 modified source, new tests, documentation, evidence and prewritten operational wrappers",
+    "exact local path equals fully verified first shard; estimate/load share arguments; no fuzzy variant or LM Link selection",
+    "actual successful stderr estimate output, preserved JSON stdout, nonzero command failures and private diagnostic audit",
+    "unchanged capacity equations and reserves, actual GPU/host requirements and independent shortfalls",
+    "all mock targets resolved before replacing global importlib.import_module; actual R6 fixture error preserved in evidence",
+    "actual completed/closed R6 receipts, 888 passes/1 error/7 skips, native menu scope and no model/600-second success claims",
+    "MC sixteen-source provenance, unchanged style/geometry/queues/audio, only document/aria title text alignment",
+    "R7 transfer and local checks written before freeze; fresh private transfer config supplies candidate metadata later"
+  ]
+}

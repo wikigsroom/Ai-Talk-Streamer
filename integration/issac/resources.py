@@ -70,10 +70,21 @@ def parse_estimate(output):
     return values
 
 
-def estimate_fits(estimate,observed,*,reserve_mib=MEDIA_RESERVE_MIB):
+def assess_estimate(estimate,observed,*,reserve_mib=MEDIA_RESERVE_MIB):
     # Add a rounding allowance to the CLI's formatted estimate and keep room
     # for the two media models plus Windows and normal recording overhead.
-    gpu_limit=max(0,observed['gpu_free_mib']-reserve_mib-GPU_MARGIN_MIB)*MIB
-    host_limit=max(0,observed['host_available_bytes']-HOST_MARGIN_MIB*MIB)
-    return (estimate['gpu_bytes']+512*MIB<=gpu_limit
-            and estimate['total_bytes']-estimate['gpu_bytes']+512*MIB<=host_limit)
+    gpu_required=estimate['gpu_bytes']+(512+reserve_mib+GPU_MARGIN_MIB)*MIB
+    host_required=estimate['total_bytes']-estimate['gpu_bytes']+(512+HOST_MARGIN_MIB)*MIB
+    gpu_available=observed['gpu_free_mib']*MIB
+    host_available=observed['host_available_bytes']
+    return {'fits':gpu_required<=gpu_available and host_required<=host_available,
+            'gpu_required_bytes':gpu_required,'gpu_available_bytes':gpu_available,
+            'host_required_bytes':host_required,'host_available_bytes':host_available,
+            'gpu_shortfall_bytes':max(0,gpu_required-gpu_available),
+            'host_shortfall_bytes':max(0,host_required-host_available),
+            'media_reserve_mib':reserve_mib,'gpu_margin_mib':GPU_MARGIN_MIB,
+            'host_margin_mib':HOST_MARGIN_MIB,'estimate_rounding_mib':512}
+
+
+def estimate_fits(estimate,observed,*,reserve_mib=MEDIA_RESERVE_MIB):
+    return assess_estimate(estimate,observed,reserve_mib=reserve_mib)['fits']

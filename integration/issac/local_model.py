@@ -12,7 +12,7 @@ import urllib.request
 from urllib.parse import urlsplit
 
 from .common import AdmissionError, Audit, digest, file_hash, inside, local_url, read_json, write_json
-from .resources import MEDIA_RESERVE_MIB, MIB, available_for_initialization, estimate_fits, parse_estimate, snapshot
+from .resources import MEDIA_RESERVE_MIB, MIB, assess_estimate, available_for_initialization, estimate_fits, parse_estimate, snapshot
 
 
 class LocalModel:
@@ -73,15 +73,33 @@ class LocalModel:
                    LMS_API_SERVER_INFO_PATH=str(self.home/'.internal/http-server.json'))
         return env
 
-    def command(self,*args,timeout=120):
+    def command(self,*args,timeout=120,include_stderr=False):
         if not self.cli.is_file():raise AdmissionError('PREPARED_NATIVE_LMS_CLI_REQUIRED')
         result=subprocess.run([str(self.cli),*args],cwd=self.root,env=self.environment(),timeout=timeout,
                 stdout=subprocess.PIPE,stderr=subprocess.PIPE,stdin=subprocess.DEVNULL,creationflags=0x08000000)
         output=result.stdout.decode('utf-8-sig',errors='replace')
+        diagnostic=result.stderr.decode('utf-8-sig',errors='replace')
         self.audit.append('native_cli_result',command=list(args[:2]),exit_code=result.returncode,
-                          private_stdout=output[-4000:],private_stderr=result.stderr.decode('utf8',errors='replace')[-4000:])
+                          exact_path_selection='--exact' in args,local_only='--local' in args,
+                          estimate_only='--estimate-only' in args,
+                          private_stdout=output[-4000:],private_stderr=diagnostic[-4000:])
         if result.returncode:raise AdmissionError('NATIVE_LMS_COMMAND_FAILED')
-        return output
+        # This CLI emits successful resource estimates through its logger on
+        # stderr. Keep ordinary stdout (including JSON discovery) separate.
+        return output+('\n'+diagnostic if include_stderr else '')
+
+    def load_arguments(self,ratio,context):
+        key=self.config.get('retained_model_key')
+        try:
+            first=Path(self.config['retained_model_files'][0]['path']).resolve()
+            expected=first.relative_to(Path('C:/dev/lmstudio/models').resolve()).as_posix()
+        except (KeyError,IndexError,TypeError,ValueError,OSError):
+            raise AdmissionError('VERIFIED_RETAINED_FIRST_SHARD_REQUIRED') from None
+        if key!=expected:
+            raise AdmissionError('RETAINED_MODEL_PATH_MUST_SELECT_VERIFIED_FIRST_SHARD')
+        # The pinned setting is a catalogue path, not its fuzzy modelKey.
+        # Both estimate and load must select that exact local variant.
+        return ['load',key,'--exact','--local','--context-length',str(context),'--gpu',str(ratio),'--yes']
 
     def model_directory(self):
         retained=Path('C:/dev/lmstudio/models').resolve()
@@ -288,18 +306,18 @@ class LocalModel:
             observed=snapshot();plans=[]
             for ratio in sorted({round(fraction,3),round(fraction*.75,3),round(fraction*.5,3)},reverse=True):
                 self.progress('estimating_model_resources',gpu_offload=ratio,context_window=context)
-                arguments=['load',key,'--context-length',str(context),'--gpu',str(ratio),'--yes']
-                estimate=parse_estimate(self.command(*arguments,'--estimate-only',timeout=180))
-                fits=estimate_fits(estimate,observed)
-                plans.append({'gpu_offload':ratio,'estimate':estimate,'fits':fits})
+                arguments=self.load_arguments(ratio,context)
+                estimate=parse_estimate(self.command(*arguments,'--estimate-only',timeout=180,include_stderr=True))
+                assessment=assess_estimate(estimate,observed)
+                fits=assessment['fits']
+                plans.append({'gpu_offload':ratio,'estimate':estimate,'fits':fits,'capacity':assessment})
                 if fits:plan=plans[-1];break
             write_json(inside(self.root,'state/isaac-strategy/model-resource-plan.json'),
                 {'candidate_id':self.candidate,'observed':observed,'media_reserve_mib':MEDIA_RESERVE_MIB,'plans':plans,'selected':plan})
             if plan is None:raise AdmissionError('RETAINED_MODEL_AND_MEDIA_DO_NOT_FIT_MEASURED_CAPACITY')
             if not estimate_fits(plan['estimate'],snapshot()):raise AdmissionError('CAPACITY_CHANGED_BEFORE_MODEL_LOAD')
             self.progress('loading_retained_model',gpu_offload=plan['gpu_offload'],context_window=context)
-            self.command('load',key,'--identifier',expected,'--context-length',str(context),
-                '--gpu',str(plan['gpu_offload']),'--yes',timeout=900)
+            self.command(*self.load_arguments(plan['gpu_offload'],context),'--identifier',expected,timeout=900)
             models=self.models()
         if not any(x.get('id')==expected for x in models):raise AdmissionError('ACTUAL_LOCAL_MODEL_ID_NOT_LOADED')
         profile=self.verify_server_owner()
