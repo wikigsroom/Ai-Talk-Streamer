@@ -137,17 +137,22 @@ class DependencyImportDiagnosticsTests(unittest.TestCase):
         spec=importlib.util.spec_from_file_location('round6_diagnostics',path)
         module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
         code=module.dependency_code('voice');events=[];loaded=[]
-        modules={name:SimpleNamespace(__version__='2.9.1+cu128') for name in ('torch','transformers','omnivoice')}
+        names=('torch','transformers','omnivoice','torchaudio','numpy','soundfile','sentencepiece')
+        modules={name:SimpleNamespace(__version__='2.9.1+cu128') for name in names}
+        class SentencePieceFixture:
+            def LoadFromFile(self,_filename):return True
+        modules['sentencepiece'].SentencePieceProcessor=SentencePieceFixture
         def load(name):loaded.append(name);return modules[name]
         def observe(value,**kwargs):events.append(json.loads(value))
-        with patch('builtins.print',side_effect=observe),\
+        with patch.dict('sys.modules',{'sentencepiece':modules['sentencepiece']}),patch('builtins.print',side_effect=observe),\
              patch('faulthandler.enable'),patch('faulthandler.dump_traceback_later'),\
              patch('faulthandler.cancel_dump_traceback_later'),patch('sys.path',[]),\
              patch('pathlib.Path.cwd',return_value=Path('.')),patch('importlib.import_module',side_effect=load):
             exec(code,{})
-        self.assertEqual(loaded,['torch','transformers','omnivoice'])
+        self.assertEqual(loaded,list(names))
         self.assertEqual([e['module'] for e in events if e['stage']=='import_begin'],loaded)
         self.assertEqual([e['module'] for e in events if e['stage']=='import_complete'],loaded)
+        self.assertIn({'stage':'native_audio_compatibility_ready','models_loaded':False},events)
         self.assertEqual(events[-1],{'stage':'dependencies_ready','kind':'voice'})
 
 

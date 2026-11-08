@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$true)][int]$ProcessId,[Parameter(Mandatory=$true)][long]$WindowHandle,[ValidateSet('inspect','record-start','record-stop')][string]$Action='inspect')
+﻿param([Parameter(Mandatory=$true)][int]$ProcessId,[Parameter(Mandatory=$true)][long]$WindowHandle,[ValidateSet('inspect','record-start','record-stop')][string]$Action='inspect')
 $ErrorActionPreference='Stop'
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes

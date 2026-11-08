@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "round": "R8",
+  "candidate_id": "issac-a0f437dcd156-ea41c60b",
+  "source_commit": "a0f437dcd156ed7ef1e1e011387af66bc35b5d07",
+  "status": "closed_failed",
+  "source_files_verified": 2162,
+  "source_verified_unchanged": true,
+  "uniform_checks": [
+    {
+      "check": "environment",
+      "elapsed_seconds": 14.62319379998371,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-e57e48d0ff9a4d139dcb371c9c525722/environment.log",
+      "log_sha256": "d18e41f45a9e979e0e9c2bbeed4fd43098307cd26cc11e65f56f281b08fbc57d",
+      "passed": true
+    },
+    {
+      "check": "dependencies",
+      "elapsed_seconds": 36.31556529994123,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-e57e48d0ff9a4d139dcb371c9c525722/dependencies.log",
+      "log_sha256": "7be2ece042c3be66ad51e5fd866e6cd8a7a122fce8fb6d2240b185ef259f8dbc",
+      "passed": true
+    },
+    {
+      "check": "regressions",
+      "elapsed_seconds": 42.44797410001047,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-e57e48d0ff9a4d139dcb371c9c525722/regressions.log",
+      "log_sha256": "86e7bf204d613c5be1fffe07ecd6513123c447daaf18f1e058e17fb254d616f4",
+      "passed": true
+    },
+    {
+      "check": "materials-scan",
+      "elapsed_seconds": 11.115941600059159,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-e57e48d0ff9a4d139dcb371c9c525722/materials-scan.log",
+      "log_sha256": "d8d4237cd8a338c5cb0cb44eec6a05f5507650d7c58adfdb3316100156f49765",
+      "passed": true
+    },
+    {
+      "check": "native-game",
+      "elapsed_seconds": 53.93615379999392,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-e57e48d0ff9a4d139dcb371c9c525722/native-game.log",
+      "log_sha256": "62e27dad5ac758a6c5038e8f2919c4841fca1ab133e393ec6b53a80fda2f310c",
+      "passed": true
+    },
+    {
+      "check": "media-capacity",
+      "elapsed_seconds": 17.6488093000371,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-e57e48d0ff9a4d139dcb371c9c525722/media-capacity.log",
+      "log_sha256": "a5cc3cd27a351ab4c8f7142eeda5216adde508965b50cd33b7c2a74e3c6558a9",
+      "passed": false
+    },
+    {
+      "actual_inference": false,
+      "check": "local-model-prepare",
+      "elapsed_seconds": 4.9912227999884635,
+      "inference_requests_attempted": 0,
+      "log": "state/issac-acceptance/round-runs/round-e57e48d0ff9a4d139dcb371c9c525722/local-model-prepare.log",
+      "log_sha256": "ed97bd7e52ceabd572feaaaee4fa0c83e1ce94711d6c1386fc5ce3b6ec812b77",
+      "passed": false,
+      "reason": "PREREQUISITE_NOT_PASSED",
+      "requires": "media-capacity",
+      "state": "blocked"
+    },
+    {
+      "actual_inference": false,
+      "check": "local-model-qualification",
+      "elapsed_seconds": 4.922093800036237,
+      "inference_requests_attempted": 0,
+      "log": "state/issac-acceptance/round-runs/round-e57e48d0ff9a4d139dcb371c9c525722/local-model-qualification.log",
+      "log_sha256": "a188bb24dbd0b1b42ab16af8f906852ca145d18c2e1c90e98ada8740ff930033",
+      "passed": false,
+      "reason": "PREREQUISITE_NOT_PASSED",
+      "requires": "local-model-prepare",
+      "state": "blocked"
+    },
+    {
+      "check": "official-client-signature",
+      "elapsed_seconds": 10.443979499978013,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-e57e48d0ff9a4d139dcb371c9c525722/official-client-signature.log",
+      "log_sha256": "90ce968963d5fa880a03bdc347a26e29dc96dee6f957ff8daa025b74d2326e9b",
+      "passed": true
+    },
+    {
+      "check": "official-client-launch",
+      "elapsed_seconds": 21.723822899977677,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-e57e48d0ff9a4d139dcb371c9c525722/official-client-launch.log",
+      "log_sha256": "7a0bedec4922636f7b6e39f5fd370f18bd27e437243bab30da1d461eaffd3662",
+      "passed": true
+    }
+  ],
+  "finished_unix": 1794130185.8706307,
+  "phase_closure": {
+    "candidate_id": "issac-a0f437dcd156-ea41c60b",
+    "source_commit": "a0f437dcd156ed7ef1e1e011387af66bc35b5d07",
+    "source_files_verified": 2162,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "phase": "acceptance_closed",
+    "defects": [
+      {
+        "path": "state/issac-acceptance/round-runs/round-e57e48d0ff9a4d139dcb371c9c525722/progress.json",
+        "sha256": "9903d7a7986382f2ccdd04a422386979b1b5b109a68e5b7001f7621b3c80658c",
+        "failed_checks": [
+          "media-capacity",
+          "local-model-prepare",
+          "local-model-qualification"
+        ]
+      },
+      {
+        "path": "state/issac-acceptance/round-runs/round-e57e48d0ff9a4d139dcb371c9c525722/report.json",
+        "sha256": "a06cd3d2970148a15097ceb9ca13090aba3ab58e086269f3be7ce2efa5e1d69f",
+        "failed_checks": [
+          "media-capacity",
+          "local-model-prepare",
+          "local-model-qualification"
+        ]
+      }
+    ],
+    "recorded_failures": 2,
+    "complete_acceptance_requires_all_18_verified_gates": true,
+    "next_action": "whole_correction_round_then_freeze",
+    "source_changes_permitted_only_in_new_development_round": true,
+    "closed_unix": 1794130388.586752
+  },
+  "actual_voice_failure": "Traceback (most recent call last):\n  File \"C:\\dev\\虚拟数字人直播\\issac\\integration\\naimei_voice_worker.py\", line 78, in initialize\n    compat.native_audio(torch, torchaudio, np, sf)\n  File \"C:\\dev\\虚拟数字人直播\\issac\\integration\\resident_tts_worker.py\", line 61, in native_audio\n    import sentencepiece as spm\nModuleNotFoundError: No module named 'sentencepiece'\nTraceback (most recent call last):\n  File \"C:\\dev\\虚拟数字人直播\\issac\\integration\\issac\\media_capacity_worker.py\", line 90, in <module>\n    try:actor(root,folder,args.role)\n  File \"C:\\dev\\虚拟数字人直播\\issac\\integration\\issac\\media_capacity_worker.py\", line 28, in actor\n    if not worker.ready:raise AdmissionError('FROZEN_NCM01_INITIALIZATION_FAILED_'+str(worker.error))\nintegration.issac.common.AdmissionError: FROZEN_NCM01_INITIALIZATION_FAILED_ModuleNotFoundError: No module named 'sentencepiece'\nTraceback (most recent call last):\n  File \"C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\lib\\runpy.py\", line 196, in _run_module_as_main\n    return _run_code(code, main_globals, None,\n  File \"C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\lib\\runpy.py\", line 86, in _run_code\n    exec(code, run_globals)\n  File \"C:\\dev\\虚拟数字人直播\\issac\\integration\\issac\\media_capacity_worker.py\", line 90, in <module>\n    try:actor(root,folder,args.role)\n  File \"C:\\dev\\虚拟数字人直播\\issac\\integration\\issac\\media_capacity_worker.py\", line 28, in actor\n    if not worker.ready:raise AdmissionError('FROZEN_NCM01_INITIALIZATION_FAILED_'+str(worker.error))\nintegration.issac.common.AdmissionError: FROZEN_NCM01_INITIALIZATION_FAILED_ModuleNotFoundError: No module named 'sentencepiece'\n",
+  "voice_model_loaded": false,
+  "mouth_worker_started": false,
+  "model_inference_requests_attempted": 0,
+  "official_launch_and_actual_profile_passed": true,
+  "official_scene_accepted": false,
+  "official_ui_observation": {
+    "at_unix": 1794130619.1067882,
+    "display_affinity": [
+      0
+    ],
+    "ui_error": "AdmissionError: OFFICIAL_RECORD_CONTROL_NOT_CONFIRMED_USE_VISIBLE_UI_REVIEW",
+    "visible_content_review_passed": false
+  },
+  "new_dependency_inventory": {
+    "source": "C:\\dev\\虚拟数字人直播\\runtime\\tts\\Lib\\site-packages",
+    "package": "sentencepiece",
+    "version": "0.2.2",
+    "files": 18,
+    "bytes": 2597813,
+    "files_with_sha256": [
+      {
+        "path": "sentencepiece/__init__.py",
+        "bytes": 39131,
+        "sha256": "68362fd56619900c20b0ea0816dc825bc48a309451f168d6752c6f2d0d419658"
+      },
+      {
+        "path": "sentencepiece/__init__.pyi",
+        "bytes": 23686,
+        "sha256": "7f3b023d49171d6c3e53de6086db1d0081d4a587583cb4789ed331b367028407"
+      },
+      {
+        "path": "sentencepiece/_sentencepiece.cp310-win_amd64.pyd",
+        "bytes": 1443328,
+        "sha256": "eb47faad15464cf01937ca521541453009a257b7930aa7ad2e7b114149baf8d9"
+      },
+      {
+        "path": "sentencepiece/_version.py",
+        "bytes": 23,
+        "sha256": "320cf4f1fafcb58fbc9a1b010a0aca58ecfba6effebf89204b8acdaed7301b13"
+      },
+      {
+        "path": "sentencepiece/package_data/nfkc.bin",
+        "bytes": 240008,
+        "sha256": "7e46d9e08af4b6a37991b04fb8388644c1595a0abcd0f26d6a5d575e2a3663ea"
+      },
+      {
+        "path": "sentencepiece/package_data/nfkc_cf.bin",
+        "bytes": 247165,
+        "sha256": "d8dfef3d6db0eef0742f8b55a73aee7fce6c1e21d26a09b8d3d4b52c42a791cb"
+      },
+      {
+        "path": "sentencepiece/package_data/nmt_nfkc.bin",
+        "bytes": 240007,
+        "sha256": "5febaab28312e9dbddb42be695c9e4380367f7ebe65121cdf894fb5d59d37eed"
+      },
+      {
+        "path": "sentencepiece/package_data/nmt_nfkc_cf.bin",
+        "bytes": 247164,
+        "sha256": "2df05162904a1bca9784913964d2a863d656676479f7c8bb11be49c980ea5f77"
+      },
+      {
+        "path": "sentencepiece/py.typed",
+        "bytes": 222,
+        "sha256": "19aef9b40a59b1bb6b60f9d34a0ca25dc361747648f9d1af328222064287593f"
+      },
+      {
+        "path": "sentencepiece/sentencepiece_model_pb2.py",
+        "bytes": 6301,
+        "sha256": "ecf0c5f9f5cf113e9464f6fe2fb6f7f03fbb7b5d077d4d76eecfc1442a692181"
+      },
+      {
+        "path": "sentencepiece/sentencepiece_pb2.py",
+        "bytes": 1783,
+        "sha256": "7e7c2a97735eb0aad11d11c0d5fecbac103dc15d8d483183c0c372c63b01d816"
+      },
+      {
+        "path": "sentencepiece/sentencepiece_pybind.cc",
+        "bytes": 72665,
+        "sha256": "ecb52be2b39d5f89e61d99cf4a65f35e478f783572ce0edc34c67913f202d155"
+      },
+      {
+        "path": "sentencepiece-0.2.2.dist-info/INSTALLER",
+        "bytes": 2,
+        "sha256": "e6184ce10e266134fdcfa401e8f1a95005bcd4f18d16b62b757323e2833fe9a9"
+      },
+      {
+        "path": "sentencepiece-0.2.2.dist-info/METADATA",
+        "bytes": 34480,
+        "sha256": "eb1173d40630c7d15aba70e145e6d378ba9137ec1634e74b2f4e4ccd0dc5ffc7"
+      },
+      {
+        "path": "sentencepiece-0.2.2.dist-info/RECORD",
+        "bytes": 1617,
+        "sha256": "36a6ce063bcce83e1e06a05fd433efb5c033f41cbd2097836b172ee491c3278e"
+      },
+      {
+        "path": "sentencepiece-0.2.2.dist-info/REQUESTED",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "sentencepiece-0.2.2.dist-info/top_level.txt",
+        "bytes": 130,
+        "sha256": "3485d52a6b2afb1759e4a44e3071d5d2090b0377ef6cd4dbd60d4ab6089814e9"
+      },
+      {
+        "path": "sentencepiece-0.2.2.dist-info/WHEEL",
+        "bytes": 101,
+        "sha256": "8d85730add27d22e609b781b728488ecf542c5fbd577e871c4cea75a00d189e0"
+      }
+    ],
+    "new_download_bytes": 0,
+    "application_import_tested_during_r9_development": false
+  },
+  "body_quality_approved": false,
+  "official_recording_created": false,
+  "public_broadcast_started": false,
+  "official_ui_actual_failure": {
+    "interpreter": "Windows PowerShell 5.1",
+    "exit_code": 1,
+    "error": "ParserError / UnexpectedToken at issac_livehime_ui.ps1 line 9: UTF-8 Chinese button labels read without BOM",
+    "record_control_invoked": false,
+    "privacy_setting_changed": false
+  }
+}

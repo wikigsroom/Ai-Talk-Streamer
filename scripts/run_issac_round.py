@@ -16,7 +16,7 @@ from integration.issac.preparation import runtime_environment
 
 
 def blocked_by_prerequisite(name,results,*,require_media_profile=False):
-    dependencies={'local-model-qualification':'local-model-prepare'}
+    dependencies={'local-model-qualification':'local-model-prepare','media-capacity':'dependencies'}
     if require_media_profile:dependencies['local-model-prepare']='media-capacity'
     required=dependencies.get(name)
     if required and not any(row['check']==required and row['passed'] is True for row in results):

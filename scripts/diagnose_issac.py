@@ -132,18 +132,25 @@ def dependency_code(kind):
     modules={
         'game':['frida','lupa.lua53','psutil','win32gui','PIL.Image'],
         'studio':['torch','cv2','numpy','aiohttp'],
-        'voice':['torch','transformers','omnivoice']}[kind]
+        'voice':['torch','transformers','omnivoice','torchaudio','numpy','soundfile','sentencepiece']}[kind]
     return '\n'.join([
         'import faulthandler,importlib,json,sys,time',
         'from pathlib import Path',
         'faulthandler.enable();faulthandler.dump_traceback_later(60,repeat=True)',
         'sys.path.insert(0,str(Path.cwd()/"src/tts-benchmark/omnivoice"))' if kind=='voice' else 'pass',
         'print(json.dumps({"stage":"interpreter_ready","kind":'+repr(kind)+'}),flush=True)',
+        'loaded={}',
         'for name in '+repr(modules)+':',
         ' print(json.dumps({"stage":"import_begin","module":name}),flush=True)',
         ' started=time.monotonic();module=importlib.import_module(name)',
+        ' loaded[name]=module',
         ' if name=="torch":assert module.__version__=="2.9.1+cu128"',
         ' print(json.dumps({"stage":"import_complete","module":name,"seconds":time.monotonic()-started}),flush=True)',
+        *([
+        'spec=importlib.util.spec_from_file_location("issac_dependency_native_audio",Path.cwd()/"integration/resident_tts_worker.py")',
+        'compat=importlib.util.module_from_spec(spec);spec.loader.exec_module(compat)',
+        'compat.native_audio(loaded["torch"],loaded["torchaudio"],loaded["numpy"],loaded["soundfile"])',
+        'print(json.dumps({"stage":"native_audio_compatibility_ready","models_loaded":False}),flush=True)'] if kind=='voice' else []),
         'faulthandler.cancel_dump_traceback_later()',
         'print(json.dumps({"stage":"dependencies_ready","kind":'+repr(kind)+'}),flush=True)'])
 
@@ -165,7 +172,7 @@ def dependencies(root,folder):
         for line in log.read_text('utf8',errors='replace').splitlines():
             try:value=json.loads(line)
             except ValueError:continue
-            if isinstance(value,dict) and value.get('stage') in {'interpreter_ready','import_begin','import_complete','dependencies_ready'}:
+            if isinstance(value,dict) and value.get('stage') in {'interpreter_ready','import_begin','import_complete','native_audio_compatibility_ready','dependencies_ready'}:
                 stages.append({k:value[k] for k in ('stage','module','kind','seconds') if k in value})
         results.append({**row,'seconds':time.monotonic()-started,'deadline_seconds':deadline,
                         'observed_import_stages':stages,'log':log.relative_to(root).as_posix(),'sha256':file_hash(log)})

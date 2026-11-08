@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "round": "R9",
+  "branch": "issac",
+  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "previous_phase": {
+    "candidate_id": "issac-a0f437dcd156-ea41c60b",
+    "status": "closed_failed",
+    "closed_unix": 1794130388.586752
+  },
+  "scope": "Complete R8 native voice dependency and observed Windows official-control script encoding corrections; all acceptance unchanged",
+  "items": [
+    {
+      "id": "R901",
+      "code": "Copy the already installed native SentencePiece 0.2.2 package and metadata by all-file hashes, preserve all source and destination conflicts",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/offline_dependencies.py",
+        "configs/issac/offline-voice-dependencies.json"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R902",
+      "code": "Probe all real voice compatibility imports and run native_audio without model loading; failed dependencies block the media probe",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/diagnose_issac.py",
+        "scripts/run_issac_round.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R903",
+      "code": "Regress the observed missing native extension, wrong ABI, corrupt source, other-version conflicts and Unicode model loading",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/tests/test_round9.py",
+        "integration/issac/tests/test_round6.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R904",
+      "code": "Preserve UTF-8 BOM for the observed Windows PowerShell Chinese official-recording labels; verify with native parser without UI invocation",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/issac_livehime_ui.ps1",
+        "integration/issac/tests/test_round9.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R905",
+      "code": "Record actual R8 closure and UI limits, finish operation tools and manually review the entire round before commit/freeze/testing",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "docs/evidence/issac-round8-acceptance-20261108.json",
+        "docs/issac/第九轮原生语音依赖修复20261108.md",
+        "configs/issac/development-round-9.json",
+        "configs/issac/execution-rounds.json",
+        "README.md",
+        "AGENTS.md",
+        "docs/issac/完整更新方案20261107.md"
+      ],
+      "runtime_accepted": false
+    }
+  ],
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "public_broadcast_allowed": false,
+  "existing_margins_lowered": false,
+  "manual_review_coverage": [
+    "R901-R905 entire changed source, diagnostics, all tests, actual failed R8 closure, docs and prewritten private transfer/local-check tools reviewed before any tests",
+    "All 18 already installed native SentencePiece files, exact CPython3.10 Windows ABI, source/destination hash preflight, metadata, no downloads or runtime path linking",
+    "Actual native_audio initialization and Unicode model byte loader, model-free import diagnostics, dependency prerequisite before media probe",
+    "Actual Windows PowerShell 5.1 parser failure at Chinese control labels; UTF-8 BOM retained and native parse-only regression invokes no UI",
+    "Own R8 official client normal cleanup checks exact PID/ctime/executable hash and the registered actual main HWND; foreign clients/profiles preserved",
+    "No source changes during R8 testing; actual R8 failed closure precedes this entire development round",
+    "NCM01 frozen values, private reference exclusion, 51225 compiled mouth, complete body review, all resource margins, MC title-only, original saves and 18 gates unchanged"
+  ]
+}
