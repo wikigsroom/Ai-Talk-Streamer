@@ -1,0 +1,19 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-B",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-b847b0e7bc91-228b31bf",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRB01","status":"code_complete_pending_acceptance","code":"Construct the same recent-history field as the real core before testing reaction preemption; retain both genuine model-failure disarm checks","source_files":["integration/issac/tests/naimei_core.test.mjs"]},
+    {"id":"CRB02","status":"code_complete_pending_acceptance","code":"Explicitly select the legacy-copy fixture and verify system installation path/hash boundaries without changing production admission","source_files":["integration/issac/tests/test_core120_corrections.py"]},
+    {"id":"CRB03","status":"code_complete_pending_acceptance","code":"Verify the separate explicit 300-second amendment and preserve the initial whole-round results including failures","source_files":["integration/issac/tests/test_core120.py","docs/evidence/issac-channel-restoration-20261109.json"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}

@@ -51,6 +51,7 @@ class InstalledClientTests(unittest.TestCase):
     def test_official_installer_identical_root_copy_and_versioned_copy_are_supported(self):
         with tempfile.TemporaryDirectory() as temporary:
             root=Path(temporary);policy=read_json(ROOT/'configs/issac/official-installation.json')
+            policy.pop('installation_scope',None) # Exercise the retained legacy-copy admission path.
             for key in ('application','same_signed_bootstrap_copy'):
                 path=root/policy[key];path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(b'official signed fixture')
             policy['application_sha256']=file_hash(root/policy['application'])
@@ -64,6 +65,7 @@ class InstalledClientTests(unittest.TestCase):
     def test_an_altered_bootstrap_or_unpinned_path_is_rejected(self):
         with tempfile.TemporaryDirectory() as temporary:
             root=Path(temporary);policy=read_json(ROOT/'configs/issac/official-installation.json')
+            policy.pop('installation_scope',None)
             for key in ('application','same_signed_bootstrap_copy'):
                 path=root/policy[key];path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(b'official signed fixture')
             policy['application_sha256']=file_hash(root/policy['application'])
@@ -73,6 +75,18 @@ class InstalledClientTests(unittest.TestCase):
             policy['application']='../../different/livehime.exe'
             write_json(root/'configs/issac/official-installation.json',policy)
             with self.assertRaisesRegex(AdmissionError,'PINNED_OFFICIAL'):installed_executable(root)
+
+    def test_system_installation_rejects_unpinned_paths_and_changed_bytes(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);policy=read_json(ROOT/'configs/issac/official-installation.json')
+            write_json(root/'configs/issac/official-installation.json',policy)
+            with patch('pathlib.Path.is_file',return_value=True),patch('integration.issac.livehime.file_hash',return_value=policy['application_sha256']):
+                self.assertEqual(installed_executable(root),Path(policy['installed_application']).resolve())
+            with patch('pathlib.Path.is_file',return_value=True),patch('integration.issac.livehime.file_hash',return_value='0'*64):
+                with self.assertRaises(AdmissionError):installed_executable(root)
+            policy['installed_application']='C:/different/livehime.exe'
+            write_json(root/'configs/issac/official-installation.json',policy)
+            with self.assertRaises(AdmissionError):installed_executable(root)
 
 
 if __name__=='__main__':unittest.main()

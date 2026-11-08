@@ -12,6 +12,18 @@ from scripts.freeze_issac_candidate import preserved_blobs
 
 
 class DeliveryTests(unittest.TestCase):
+    def test_300_delivery_requires_its_own_explicit_amendment(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)
+            write_json(root/'configs/issac/runtime.json',{'programme':{'required_official_recording_seconds':300}})
+            amendment={'amendment_id':'NM-ISSAC-EXECUTION-300S-20261109-v1','branch':'issac',
+                'required_official_recording_seconds':300,'public_broadcast_authorized':False}
+            write_json(root/'configs/issac/live300.json',amendment)
+            self.assertEqual(recording_gate(root),'official_recording_300')
+            amendment['required_official_recording_seconds']=120
+            write_json(root/'configs/issac/live300.json',amendment)
+            with self.assertRaises(AdmissionError):recording_seconds(root)
+
     def test_120_requires_the_exact_user_amendment_and_never_authorizes_public_streaming(self):
         with tempfile.TemporaryDirectory() as temporary:
             root=Path(temporary)

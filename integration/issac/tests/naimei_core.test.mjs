@@ -6,7 +6,7 @@ const offered=()=>({pending:true,connected:true,id:'decision-A',context_id:'room
   context:{inventory_revision:'inventory-A'},offers:[{id:'heart-A',op:'pickup'}]});
 function fixture() {
   const core=Object.create(NaimeiGameCore.prototype),calls=[];
-  Object.assign(core,{names:Object.keys(ISAAC_CORE_TOOLS),enabled:true,record:()=>{},decision:async()=>offered(),
+  Object.assign(core,{names:Object.keys(ISAAC_CORE_TOOLS),enabled:true,recent:[],record:()=>{},decision:async()=>offered(),
     api:async(port,path,body)=>{calls.push({port,path,body});return {plan_id:body?.plan_id,status:'accepted'};}});
   return {core,calls,turn:{decision_id:'decision-A',context_id:'room-A'},sessionId:'naimei-game-real-session'};
 }
