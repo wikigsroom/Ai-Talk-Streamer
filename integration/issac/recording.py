@@ -11,6 +11,7 @@ import uuid
 
 from .acceptance import Runner,record_gate,verify_gates
 from .common import AdmissionError,FileLease,digest,file_hash,inside,read_json,write_json
+from .delivery import recording_gate,recording_seconds
 from .livehime import Livehime
 from .materials import ffmpeg
 
@@ -39,7 +40,7 @@ def official_writers(client,path):
 
 
 async def record(root):
-    client=Livehime(root);candidate=client.candidate
+    client=Livehime(root);candidate=client.candidate;seconds=recording_seconds(root)
     # All quality gates precede the delivery recording. A preview is not a gate.
     verify_gates(root,before_recording=True)
     scene=read_json(inside(root,'state/issac-acceptance/official-scene.json'));owner=client.owner()
@@ -66,15 +67,15 @@ async def record(root):
         writer=official_writers(client,raw)
         if not writer:raise AdmissionError('GENUINE_OFFICIAL_RECORDING_WRITER_NOT_OBSERVED')
         screenshot=client.screenshot('recording_started')
-        runner=Runner(root);task=asyncio.create_task(runner.cohost(600));previous=raw.stat().st_size
-        for tick in range(122):
+        runner=Runner(root);task=asyncio.create_task(runner.cohost(seconds));previous=raw.stat().st_size
+        for tick in range(seconds//5+3):
             client.owner();size=raw.stat().st_size
             observations.append({'elapsed_seconds':time.monotonic()-start,'bytes':size,'growing':size>previous,
                 'official_writer':official_writers(client,raw) if tick%6==0 else []})
             previous=size
             write_json(output/'progress.json',{'candidate_id':candidate['candidate_id'],'elapsed_seconds':time.monotonic()-start,
-                'raw_bytes':size,'required_live_observation_seconds':600,'finished':False})
-            if task.done() and tick>=120:break
+                'raw_bytes':size,'required_live_observation_seconds':seconds,'finished':False})
+            if task.done() and time.monotonic()-start>=seconds:break
             await asyncio.sleep(5)
         report=await task
         if not report['passed']:raise AdmissionError('OFFICIAL_RECORDING_COHOST_QUALITY_FAILED')
@@ -102,13 +103,13 @@ async def record(root):
     if len(videos)!=1 or len(audio)!=1:raise AdmissionError('ONE_OFFICIAL_VIDEO_AND_MIXED_AUDIO_TRACK_REQUIRED')
     video=videos[0];rate=video.get('avg_frame_rate','0/1').split('/');fps=int(rate[0])/int(rate[1])
     if ((video['width'],video['height'])!=(1920,1080) or abs(fps-30)>.001
-        or int(video.get('nb_read_frames','0'))<18000 or float(metadata['format']['duration'])<600):
-        raise AdmissionError('ACTUAL_OFFICIAL_1080P30_600_SECONDS_REQUIRED')
-    final=output/'奶妹-以撒的结合-官方直播姬-600秒.mp4'
+        or int(video.get('nb_read_frames','0'))<seconds*30 or float(metadata['format']['duration'])<seconds):
+        raise AdmissionError('ACTUAL_OFFICIAL_1080P30_'+str(seconds)+'_SECONDS_REQUIRED')
+    final=output/('奶妹-以撒的结合-官方直播姬-'+str(seconds)+'秒.mp4')
     # This only cuts a continuous interval from the actual official recording.
     # It adds no image, mouth, voice, repeated frame or alternate audio source.
     command=[ffmpeg(root),'-hide_banner','-v','error','-n','-i',str(raw),'-map','0:v:0','-map','0:a:0',
-        '-t','600','-frames:v','18000','-vsync','0','-c:v','libx264','-preset','fast','-crf','18',
+        '-t',str(seconds),'-frames:v',str(seconds*30),'-vsync','0','-c:v','libx264','-preset','fast','-crf','18',
         '-c:a','aac','-b:a','192k','-movflags','+faststart',str(final)]
     with (output/'trim.log').open('wb') as log:
         process=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT,timeout=1800,creationflags=0x08000000)
@@ -123,7 +124,7 @@ async def record(root):
         'final':final.relative_to(root).as_posix(),'final_sha256':file_hash(final),'official_writer':writer,
         'scene_review_sha256':digest(scene),'recording_started_screen':screenshot,'raw_probe':metadata,'final_probe':finalmeta,
         'decode_exit_code':decoded.returncode,'audio_analysis_exit_code':sound.returncode,
-        'continuous_start_seconds':0,'continuous_duration_seconds':600,'postprocess':'continuous_trim_only',
+        'continuous_start_seconds':0,'continuous_duration_seconds':seconds,'postprocess':'continuous_trim_only',
         'added_or_replaced_audio':False,'generated_or_duplicated_frames':False,'public_broadcast_started':False,
         'subjective_final_review_required':True,'quality_accepted':False}
     write_json(output/'manifest.json',manifest)
@@ -133,7 +134,7 @@ async def record(root):
 def approve(root,relative):
     review=read_json(inside(root,relative));manifest=read_json(inside(root,review['manifest']))
     client=Livehime(root)
-    checks={'genuine_official_raw','continuous_600_seconds','real_game_visible','mc_geometry_and_title',
+    checks={'genuine_official_raw','continuous_'+str(recording_seconds(root))+'_seconds','real_game_visible','mc_geometry_and_title',
         'natural_controller_and_drink_actions','mouth_synchronous_and_fluid','two_upper_fangs_stable',
         'ncm01_and_game_audible','no_double_audio','no_private_reference_audio','no_public_broadcast'}
     if (not review.get('reviewer') or review.get('candidate_id')!=client.candidate['candidate_id']
@@ -143,7 +144,7 @@ def approve(root,relative):
         or file_hash(inside(root,manifest['final']))!=manifest['final_sha256']
         or manifest['decode_exit_code'] or manifest['audio_analysis_exit_code']):
         raise AdmissionError('ACTUAL_FINAL_OFFICIAL_RECORDING_REVIEW_REQUIRED')
-    return record_gate(root,'official_recording_600',review['checks'],[relative,review['manifest'],manifest['final'],manifest['raw']])
+    return record_gate(root,recording_gate(root),review['checks'],[relative,review['manifest'],manifest['final'],manifest['raw']])
 
 
 if __name__=='__main__':

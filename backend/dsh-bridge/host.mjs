@@ -103,8 +103,9 @@ export class DshHost {
   async publishCharacter(document, version) {
     const current = this.port.readPersona().publication;
     const approvedHash = digest(document);
-    if (current?.approved_hash === approvedHash && current.persona_version === version) return current;
-    return this.port.publishPersona({ operation_id: 'persona-' + digest({ document, version }),
+    if (current?.approved_hash === approvedHash && current.persona_version === version
+      &&current.character_id===this.policy.identity.character_id&&current.room_id===this.policy.identity.room_id) return current;
+    return this.port.publishPersona({ operation_id: 'persona-' + digest({ document, version, characterId:this.policy.identity.character_id, roomId:this.policy.identity.room_id }),
       character_id: this.policy.identity.character_id, room_id: this.policy.identity.room_id, persona_version: version,
       expected_version: current?.persona_version ?? null, approved_hash: approvedHash, document });
   }
@@ -120,16 +121,18 @@ export class DshHost {
       retryPolicy: { mode: 'normal', maxRetries: 0 },
     } } });
   }
-  async generate({ sessionId, snapshot, input, context = '', signal, tools, onCall, onProbe, maxTokens = this.policy.conversation.max_output_tokens, maintenance = false, negativeMinimal = false }) {
+  async generate({ sessionId, snapshot, input, context = '', signal, tools, onCall, onProbe, maxTokens = this.policy.conversation.max_output_tokens, maintenance = false, negativeMinimal = false, gameplayTurn = null }) {
     if (!this.ready || this.active.has(sessionId)) throw new Error('DSH_NOT_READY_OR_DUPLICATE');
     if (this.extensions) requireLocalModel(snapshot);
     const route = 'studio-' + digest(sessionId).slice(0, 20);
     const extensions = this.extensions;
     const personaSnapshot = this.port.readPersona();
-    const preparedContext=context?JSON.parse(context):null;
+    let preparedContext=context?JSON.parse(context):null;
+    const gameplay=!maintenance&&!negativeMinimal?this.gameplay:null;
+    if(gameplay)preparedContext=gameplay.augment(preparedContext);
     const memorySnapshot=preparedContext?.humanity_public_snapshot||this.port.requestMemorySnapshot([]);
     if(preparedContext)delete preparedContext.humanity_public_snapshot;
-    const maximumSteps=this.policy.conversation.max_memory_tool_rounds+1,contextBudget=this.policy.conversation.context_max_estimated_tokens;
+    const maximumSteps=gameplay?8:this.policy.conversation.max_memory_tool_rounds+1,contextBudget=this.policy.conversation.context_max_estimated_tokens;
     let steps = 0, finalReason, handle, lastAssistant = '', lastError, lastFinish;
     const calls = [];
     try {
@@ -142,17 +145,18 @@ export class DshHost {
             text: this.renderPersona(personaSnapshot.document, { enabled: true, independentJudgment: true }) });
           agentCtx.systemPrompt.section({ name:'humanity:memory',order:20,interpolate:false,text:memorySnapshot.text });
           await this.#bind(agentCtx, snapshot, route, maintenance?this.policy.maintenance.model_timeout_ms:this.policy.conversation.model_timeout_ms);
-          const names = maintenance ? ['stream_maintenance_result'] : [...(preparedContext?.game_event?[]:LIVE_TOOLS), ...(this.extensions ? EXTENSION_TOOLS : [])];
+          const names = maintenance ? ['stream_maintenance_result'] : [...(preparedContext?.game_event||preparedContext?.game_decision?[]:LIVE_TOOLS), ...(this.extensions ? EXTENSION_TOOLS : []), ...(gameplay?gameplay.names:[])];
           if (this.extensions && !maintenance && !negativeMinimal) await this.extensions.mount(agentCtx, agent, input, preparedContext?.partition_key || 'public');
+          if(gameplay)agentCtx.systemPrompt.section({name:'naimei:isaac-complete',order:25,interpolate:false,text:gameplay.prompt.text});
           for (const name of names) agentCtx.tools.register(this.defineTool({ name,
-            description: name === 'stream_memory_recall' ? '查询当前观众及公共记忆。身份和分区由服务器决定。' : name === 'stream_memory_propose' ? '提交待核验的记忆候选。不会直接写长期记忆。' : name === 'search_meme_wiki' ? '查两个本地梗词库。data内填query，不联网。' : name === 'soul_read' ? '只读奶妹当前人格卡。data填空JSON对象。' : '提交严格 JSON 的整理结果。',
+            description: gameplay?.names.includes(name)?gameplay.description(name):name === 'stream_memory_recall' ? '查询当前观众及公共记忆。身份和分区由服务器决定。' : name === 'stream_memory_propose' ? '提交待核验的记忆候选。不会直接写长期记忆。' : name === 'search_meme_wiki' ? '查两个本地梗词库。data内填query，不联网。' : name === 'soul_read' ? '只读奶妹当前人格卡。data填空JSON对象。' : '提交严格 JSON 的整理结果。',
             parameters: { data: { type: 'string', description: 'JSON object encoded as a string.' } },
             output: { schema: { type: 'string' }, render: (_args, value) => [{ type: 'text', text: value }] },
             timeoutMs: 10000,
             execute: async (args, exec) => {
               if (signal?.aborted) throw new Error('CANCELLED');
               let value; try { value = JSON.parse(args.data); } catch { throw new Error('TOOL_JSON'); }
-              const result = EXTENSION_TOOLS.includes(name) && this.extensions ? await this.extensions.tool(name, value, agent) : await tools(name, value);
+              const result = gameplay?.names.includes(name)?await gameplay.tool(name,value,{sessionId,turn:gameplayTurn}):EXTENSION_TOOLS.includes(name) && this.extensions ? await this.extensions.tool(name, value, agent) : await tools(name, value);
               if (maintenance) exec.concludeTurn();
               return canonical(result);
             },
@@ -180,6 +184,7 @@ export class DshHost {
               prompt_sha256: digest(promptText), has_persona: promptText.includes(personaSnapshot.document.identityCard.fields.find(field => field.key === '姓名')?.value || '林知夏'),
               ...(extensions ? { has_soul: promptText.includes('奶妹 · 直播人格卡'), has_humanizer: promptText.includes('humanizer-chinese'), has_meme_guide: promptText.includes('stream_memory_propose') && promptText.includes('search_meme_wiki') } : {}),
               has_native_memory_guidance: promptText.includes('stream_memory_propose'),
+              ...(gameplay?{has_issac_wiki:promptText.includes('naimei:isaac-complete')||gameplay.prompt.receipt.skill_sources.every(source=>promptText.includes(source.sha256)),gameplay_actor_id:'naimei',gameplay_prompt_sha256:gameplay.prompt.receipt.sha256}:{}),
               tools: options.tools?.map(tool => tool.name) ?? [], estimated_input_tokens: Math.ceil(canonical(options.messages).length / 2) };
             if (!negativeMinimal && !maintenance && !probe.has_persona) throw new Error('PERSONA_INJECTION_MISSING');
             if (probe.tools.some(name => !names.includes(name))) throw new Error('STREAM_TOOL_CATALOG_ESCAPE');

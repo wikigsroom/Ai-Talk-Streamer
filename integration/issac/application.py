@@ -102,7 +102,7 @@ class Application:
         raise AdmissionError('STARTUP_CANCELLED')
 
     def prepare(self):
-        ports=(1235,3103,3104,8040,8062,9893,9528,9532,9533,9534)
+        ports=(1235,3103,3104,8040,8062,9893,9528,9532,9534)
         if not all(port_available(x) for x in ports):
             raise AdmissionError('ISOLATED_PORT_ALREADY_OWNED')
         relocate_native_environments(self.root)
@@ -121,27 +121,8 @@ class Application:
         self.wait_ready('model-gateway','http://127.0.0.1:1235/health',60)
         self.child('game-controller',game_py,['-X','utf8','-B','-m','integration.issac.strategy_host',*root_arg],'game')
         self.wait_ready('game-controller','http://127.0.0.1:9534/status',60)
-        from .strategy_dsh import prepare as prepare_dsh
-        command,env,dsh_cwd=prepare_dsh(self.root)
-        self.child('strategy-dsh',str(Path(command[0]).relative_to(self.root)),command[1:],'game',
-                   cwd=str(dsh_cwd.relative_to(self.root)),environment=env)
-        dsh=self.wait_ready('strategy-dsh','http://127.0.0.1:9533/status',90)
-        expected_model=read_json(inside(self.root,'private/issac/model.json'))['model']
-        installed=read_json(inside(self.root,'.setup/isaac-strategy-plugin.json'))
-        expected_files={r['name']:r['sha256'] for r in installed['files']}
-        actual_files={r['name']:r['sha256'] for r in dsh.get('plugin',{}).get('files',[])}
-        required_tools={'isaac_get_state','isaac_get_decision','isaac_lookup','isaac_submit_plan','isaac_wiki_query'}
-        if (dsh.get('model')!=expected_model or dsh.get('provider')!='isaac-local' or dsh.get('dshVersion')!='0.2.2-rc.1'
-                or dsh.get('pid')!=self.children['strategy-dsh'][1]['pid']
-                or dsh.get('plugin',{}).get('version')!=installed['version'] or actual_files!=expected_files
-                or dsh.get('prompt',{}).get('complete') is not True or dsh.get('prompt',{}).get('requested_edition')!='rep'
-                or dsh.get('completePromptRegistered') is not True or set(dsh.get('restrictedTools',[]))!=required_tools
-                or set(dsh.get('registeredTools',[]))!=required_tools):
-            raise AdmissionError('ACTUAL_DSH_PLUGIN_PROMPT_TOOLS_OR_LOCAL_MODEL_DIFFER')
-        self.audit.append('actual_strategy_host_bound',model=expected_model,plugin=dsh['plugin'],prompt=dsh['prompt'])
-        installed.update(runtime_load_verified=True,actual_pid=dsh['pid'],actual_model=expected_model,
-                         actual_provider=dsh['provider'],prompt=dsh['prompt'],registered_tools=dsh['registeredTools'])
-        write_json(inside(self.root,'.setup/isaac-strategy-plugin.json'),installed)
+        # Strategic ownership now belongs to the same Naimei DSH that speaks.
+        # Keep the installed legacy SDK as provenance; do not start its agent.
         if components=='all':
             self.stage='waiting_for_ncm01_capacity_and_initialization';self.persist()
             self.child('voice',voice_py,['-X','utf8','-B','-m','integration.issac.voice',*root_arg],'voice')
@@ -152,6 +133,16 @@ class Application:
             self.child('studio',media_py,['-X','utf8','-B','-m','integration.issac.studio',*root_arg],'studio')
             self.wait_ready('studio','http://127.0.0.1:8062/health',120)
             self.child('narrator',node,['backend/dsh-bridge/issac.mjs',str(self.root)],'narrator')
+            self.wait_ready('narrator','http://127.0.0.1:3104/api/dsh/status',120)
+            core=self.http('http://127.0.0.1:3104/api/dsh/issac/core/status')
+            required_tools={'isaac_get_state','isaac_get_decision','isaac_lookup','isaac_submit_plan','isaac_wiki_query'}
+            if (core.get('actor_id')!='naimei' or core.get('strategic_owner')!='naimei_core_dsh'
+                    or core.get('independent_strategy_host') is not False
+                    or set(core.get('registeredTools',[]))!=required_tools
+                    or core.get('prompt',{}).get('requested_edition')!='rep'
+                    or core.get('prompt',{}).get('complete') is not True):
+                raise AdmissionError('ACTUAL_NAIMEI_CORE_GAME_TOOLS_REQUIRED')
+            self.audit.append('actual_naimei_core_bound',actor_id='naimei',prompt=core['prompt'],tools=core['registeredTools'])
         self.stage='running_candidate_not_accepted'
         self.persist()
         self.audit.append('stack_started',components=components,candidate_id=self.candidate['candidate_id'])

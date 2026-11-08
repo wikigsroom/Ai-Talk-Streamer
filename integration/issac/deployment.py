@@ -48,10 +48,11 @@ def require_candidate(root, *, hardware=True):
 def require_acceptance(root):
     candidate=require_candidate(root)
     evidence=read_json(inside(root,'state/issac-acceptance/release.json'))
+    from .delivery import recording_gate
     required={'native_game','save_protection','ordinary_inputs','wiki_prompt_tools','local_model',
               'verified_events','seven_extensions','ncm01','mouth_fangs_25fps','body_continuity',
               'mc_programme','single_audio','fault_recovery','cohost_1800','cohost_7200',
-              'full_run_outcome','rollback','official_recording_600'}
+              'full_run_outcome','rollback',recording_gate(root)}
     if (evidence.get('candidate_id')!=candidate['candidate_id'] or evidence.get('accepted') is not True
             or set(evidence.get('passed',[]))!=required):
         raise AdmissionError('COMPLETE_REAL_ACCEPTANCE_EVIDENCE_REQUIRED')

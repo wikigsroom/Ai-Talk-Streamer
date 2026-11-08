@@ -93,6 +93,7 @@ class StrategyHost:
         self.facts=GameEvents(root)
         self.service=strategy_class(root)(inside(root,'state/isaac-strategy/logs'),
                         decision_seconds=self.config['game']['decision_deadline_seconds'])
+        self.service.core_actor_required=self.config['game'].get('strategic_owner')=='naimei_core_dsh'
         self.native=NativeGame(root)
         from .native_audio import ScopedAudioEnvelope
         self.audio=ScopedAudioEnvelope(root,self.native)
@@ -109,6 +110,7 @@ class StrategyHost:
         self.action_lock=threading.RLock()
         self.armed=False
         self.last_fault=None
+        self.last_core_check=0
         self.control_revision=0
         self.server=self.make_server()
 
@@ -152,14 +154,14 @@ class StrategyHost:
 
     def strategy_automatic(self,enabled,required=True):
         try:
-            request=urllib.request.Request('http://127.0.0.1:9533/control',
+            request=urllib.request.Request('http://127.0.0.1:3104/api/dsh/issac/core/control',
                 data=json.dumps({'automatic':enabled}).encode(),
                 headers={'Content-Type':'application/json','X-Isaac-Token':self.token})
             opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
             with opener.open(request,timeout=2) as response:value=json.load(response)
-            if value.get('automatic') is not enabled:raise AdmissionError('STRATEGY_CONTROL_NOT_ACKNOWLEDGED')
+            if value.get('automatic') is not enabled or value.get('strategic_owner')!='naimei_core_dsh':raise AdmissionError('NAIMEI_CORE_CONTROL_NOT_ACKNOWLEDGED')
         except Exception:
-            if required:raise AdmissionError('STRATEGY_DSH_NOT_READY') from None
+            if required:raise AdmissionError('NAIMEI_CORE_NOT_READY') from None
 
     def status(self):
         return {'service':'issac-native-game','armed':self.armed,'pid':os.getpid(),
@@ -262,6 +264,18 @@ class StrategyHost:
 
     def watchdog(self):
         while not self.stop_event.wait(.25):
+            if self.armed and time.monotonic()-self.last_core_check>=1:
+                self.last_core_check=time.monotonic()
+                try:
+                    opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
+                    with opener.open('http://127.0.0.1:3104/api/dsh/issac/core/status',timeout=.75) as response:
+                        core=json.load(response)
+                    healthy=core.get('ready') is True and core.get('automatic') is True and core.get('actor_id')=='naimei'
+                except Exception:healthy=False
+                if not healthy:
+                    self.last_fault='NAIMEI_CORE_UNAVAILABLE'
+                    try:self.control({'enabled':False,'live':False})
+                    except Exception:self.last_fault='NAIMEI_CORE_LOSS_PAUSE_ACK_PENDING'
             if self.armed and not self.runtime.controller.autopilot_enabled:
                 try:self.control({'enabled':False,'live':False})
                 except Exception:self.last_fault='TERMINAL_PAUSE_ACK_PENDING'

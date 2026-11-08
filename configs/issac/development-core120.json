@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "round": "CORE120A",
+  "branch": "issac",
+  "phase": "whole_round_source_review_complete_awaiting_commit_and_freeze",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "items": [
+    {
+      "id": "C12001",
+      "code": "Naimei core alone directly observes, queries the complete pinned offline wiki, makes choices and voices real reactions",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "backend/dsh-bridge/isaac-core.mjs",
+        "backend/dsh-bridge/host.mjs",
+        "backend/dsh-bridge/issac.mjs",
+        "configs/issac/core-persona-gameplay.md",
+        "configs/issac/bridge-policy.json",
+        "integration/issac/tests/naimei_core.test.mjs"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "C12002",
+      "code": "Fresh actor-bound native authorizations, real core prompt validation, priority inference and fail-closed normal pause",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/application.py",
+        "integration/issac/game_policy.py",
+        "integration/issac/strategy_host.py",
+        "integration/issac/model_gateway.py",
+        "configs/issac/runtime.json",
+        "integration/issac/tests/test_core120.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "C12003",
+      "code": "Explicit user amendment, actual 120-second official raw recording and unchanged remaining acceptance gates",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/delivery.py",
+        "integration/issac/recording.py",
+        "integration/issac/acceptance.py",
+        "integration/issac/deployment.py",
+        "configs/issac/live120.json"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "C12004",
+      "code": "Whole-round immutable packaging preserves only the hash-pinned unrelated historical CSV from its HEAD blob",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/freeze_issac_candidate.py",
+        "integration/issac/tests/test_core120.py",
+        ".gitignore",
+        "configs/issac/development-core120.json",
+        "configs/issac/execution-rounds.json",
+        "docs/issac/120秒录播推进修订20261109.md",
+        "README.md",
+        "docs/README.md",
+        "AGENTS.md"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "C12005",
+      "code": "Carry the previously untested R12 low-memory media/retained SDK and bounded official render diagnostics into this full candidate",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "configs/issac/development-round-12.json",
+        "integration/issac/mouth_loading.py",
+        "integration/issac/model_backend.mjs",
+        "integration/issac/local_model.py",
+        "configs/issac/model-loading.json",
+        "integration/issac/livehime.py",
+        "scripts/run_issac_round.py",
+        "scripts/review_issac_official_rendering.py"
+      ],
+      "runtime_accepted": false
+    }
+  ],
+  "unresolved_round_code_TODOs": [],
+  "new_weight_download_allowed": false,
+  "existing_margins_lowered": false,
+  "public_broadcast_allowed": false,
+  "manual_review_coverage": [
+    "Same published Naimei DSH/Humanity writer and seven extensions; no independent strategy host starts",
+    "Pinned full skill content and hashes checked in actual core model requests; rep forced and bounded tools retain decision/inventory freshness",
+    "Native local controller alone handles combat and execution; every pickup requires actor-bound offer authorization; failures disarm without automatic recovery",
+    "Core generated final text goes directly through echo NCM01 and actual FlashHead, and only official playback receipts mark completion",
+    "120-second exact user amendment changes only recording duration; protected CSV remains unstaged and source freeze uses only its HEAD blob",
+    "Entire changed diff and new files reviewed before testing; Swift no-new-download decision, original capacity margins, all media/save/MC gates retained"
+  ]
+}

@@ -15,6 +15,7 @@ import uuid
 from .common import AdmissionError,Audit,FileLease,digest,file_hash,inside,read_json,write_json
 from .deployment import require_candidate
 from .saves import SaveProtection
+from .delivery import recording_seconds,recording_gate
 
 GATES={'native_game','save_protection','ordinary_inputs','wiki_prompt_tools','local_model','verified_events',
  'seven_extensions','ncm01','mouth_fangs_25fps','body_continuity','mc_programme','single_audio','fault_recovery',
@@ -28,7 +29,7 @@ REVIEW_CHECKS={
     'bounded_read_only_queries','stale_context_rejected'},
  'local_model':{'actual_current_model_qualified','existing_retained_weights','local_only','finish_reason_complete','no_cloud_fallback'},
  'verified_events':{'actual_native_causality','accepted_not_success','same_run_room_bridge','actual_pcm_before_spoken','no_restart_replay'},
- 'seven_extensions':{'all_seven_loaded_receipts','persona_applied','game_facts_not_viewer_memories','isolated_two_dsh_versions'},
+ 'seven_extensions':{'all_seven_loaded_receipts','persona_applied','game_facts_not_viewer_memories','single_naimei_core_authority'},
  'ncm01':{'merged_reference_hash_private','locked_omnivoice_parameters','generated_audio_auditioned','no_reference_audio_served','no_old_voice_fallback'},
  'mouth_fangs_25fps':{'all_three_modes','actual_ncm01_speech','actual_25fps','audio_synchronous','fluent_nonstatic_mouth',
     'two_upper_fangs_all_frames','silence_closed_natural','all_frame_sheets_and_full_speed_review'},
@@ -53,9 +54,13 @@ def sql(root,statement):
     finally:db.close()
 
 
+def required_gates(root):
+    return (GATES-{'official_recording_600'})|{recording_gate(root)}
+
+
 def record_gate(root,name,checks,artifacts,details=None):
     candidate=require_candidate(root,hardware=False)
-    if name not in GATES or not checks or any(type(v) is not bool for v in checks.values()):
+    if name not in required_gates(root) or not checks or any(type(v) is not bool for v in checks.values()):
         raise AdmissionError('EXPLICIT_ACCEPTANCE_CHECKS_REQUIRED')
     files=[{'path':p,'sha256':file_hash(inside(root,p))} for p in artifacts]
     if not files:raise AdmissionError('ACTUAL_ACCEPTANCE_ARTIFACTS_REQUIRED')
@@ -67,7 +72,7 @@ def record_gate(root,name,checks,artifacts,details=None):
 
 def verify_gates(root,*,before_recording=False):
     candidate=require_candidate(root)
-    expected=GATES-({'official_recording_600'} if before_recording else set())
+    expected=required_gates(root)-({recording_gate(root)} if before_recording else set())
     results=[]
     for name in sorted(expected):
         value=read_json(inside(root,'state/issac-acceptance/gates/'+name+'.json'))
@@ -99,7 +104,7 @@ class Runner:
     async def snapshot(self,http):
         routes={'studio':(8062,'/health'),'engine':(8040,'/health'),'voice':(9893,'/health'),
             'narrator':(3104,'/api/dsh/status'),'player':(3104,'/api/dsh/platforms/status'),
-            'game':(9534,'/status'),'state':(9532,'/query?topic=state'),'strategy_dsh':(9533,'/status'),
+            'game':(9534,'/status'),'state':(9532,'/query?topic=state'),'naimei_core':(3104,'/api/dsh/issac/core/status'),
             'extensions':(3104,'/api/dsh/extensions'),'gateway':(1235,'/health')}
         values=await asyncio.gather(*(self.json(http,*route) for route in routes.values()),return_exceptions=True)
         return {key:value if not isinstance(value,Exception) else {'error':'SERVICE_SAMPLE_FAILED'} for key,value in zip(routes,values)}
@@ -109,6 +114,7 @@ class Runner:
             [str(inside(self.root,paths['game_python'])),'-X','utf8','-B','-m','unittest','discover','-s','integration/issac/tests','-v'],
             [str(inside(self.root,paths['game_python'])),'-X','utf8','-B','-m','unittest','discover','-s','integration/isaac-agent/tests','-q'],
             [str(inside(self.root,paths['node'])),'--test','integration/issac/tests/contracts.test.mjs',
+              'integration/issac/tests/naimei_core.test.mjs',
               'integration/issac/tests/model_backend.test.mjs',
               'integration/isaac-agent/tests/test_dsh_binding.mjs']]
         tests.append([str(inside(self.root,paths['node'])),'--test',
@@ -127,7 +133,7 @@ class Runner:
 
     async def cohost(self,seconds):
         from aiohttp import ClientSession,ClientTimeout,WSMsgType
-        if seconds not in {600,1800,7200}:raise AdmissionError('PINNED_ACCEPTANCE_DURATION_REQUIRED')
+        if seconds not in {recording_seconds(self.root),600,1800,7200}:raise AdmissionError('PINNED_ACCEPTANCE_DURATION_REQUIRED')
         protection=SaveProtection(self.root);protection.verify()
         wire=Counter();intervals=[];last_sequence=last_time=None;profile=None;errors=[];identities=set()
         start=time.monotonic();first=None;last=None;capture_task=None;verification=None;finished=asyncio.Event()
@@ -170,7 +176,10 @@ class Runner:
                     okay=(game.get('connected') and game.get('age_ms') is not None and game['age_ms']<1500
                         and player.get('connected') and player.get('programme')=='issac'
                         and value['narrator'].get('health',{}).get('authority_ready')
-                        and value['studio'].get('ready') and value['game'].get('save_slot')==3)
+                        and value['studio'].get('ready') and value['game'].get('save_slot')==3
+                        and value['naimei_core'].get('ready') and value['naimei_core'].get('automatic')
+                        and value['naimei_core'].get('actor_id')=='naimei'
+                        and value['naimei_core'].get('strategic_owner')=='naimei_core_dsh')
                     wire['ready_samples']+=bool(okay)
                     if game.get('identity'):identities.add(digest(game['identity']))
                     self.audit.append('live_sample',elapsed_seconds=time.monotonic()-start,**value)
@@ -207,7 +216,10 @@ class Runner:
             'actual_open_mouth_frames':delta.get('actual_model_oral_open_frames',0)>=seconds//2,
             'no_source_underflows':delta.get('source_underflows_during_speech',0)==0,
             'no_media_quality_faults':delta.get('media_faults',0)==0,'no_pump_stalls':delta.get('pump_stalls',0)==0,
-            'protected_saves_unchanged':True}
+            'protected_saves_unchanged':True,
+            'actual_naimei_core_choices':last['naimei_core'].get('turns',0)-first['naimei_core'].get('turns',0)>=max(1,seconds//120),
+            'naimei_core_decision_p95_under_8_seconds':last['naimei_core'].get('decision_latency_p95_ms') is not None
+                and last['naimei_core']['decision_latency_p95_ms']<=8000}
         report={**self.candidate,'seconds':seconds,'elapsed_seconds':elapsed,'wire':dict(wire),'counters_delta':delta,
             'interval_p50':percentile(.5),'interval_p95':percentile(.95),'interval_p99':percentile(.99),'max_interval':percentile(1),
             'observed_contexts':len(identities),'errors':errors,'checks':checks,'passed':all(checks.values()),

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "goal": "Real 600-second official Bilibili Livehime local recording of Naimei playing Isaac on native RTX4090",
+  "goal": "Real 120-second official Bilibili Livehime local recording of Naimei core-led Isaac gameplay on native RTX4090",
   "branch": "issac",
   "round_1": {
     "status": "completed_file_preparation_only",
@@ -23,7 +23,7 @@
     "evidence": "docs/evidence/issac-round1-copy-20261107.json"
   },
   "round_2_onward": {
-    "status": "round_12_complete_development_awaiting_manual_review_freeze_and_tests",
+    "status": "core120_complete_development_awaiting_manual_review_freeze_and_tests",
     "development_scope": "All remaining implementation and TODO items U05-U30, including acceptance and recording harnesses",
     "order": [
       "finish_all_round_development",
@@ -41,13 +41,13 @@
       "candidate_scope_and_reproducible_commands"
     ],
     "defect_policy": "Close the test phase and implement one complete correction round before retesting; never patch between tests within a phase",
-    "inventory": "configs/issac/development-round-12.json"
+    "inventory": "configs/issac/development-core120.json"
   },
   "acceptance_scope_retained": [
     "native_game_ABI_and_read_only_observation",
     "protected_save_backups_and_authorized_slot_3",
     "ordinary_inputs_only_and_confirmed_pause_on_controller_loss",
-    "real_DSH_complete_prompt_and_fifth_read_only_rep_wiki_tool",
+    "same_Naimei_core_DSH_complete_prompt_and_five_read_only_or_bounded_rep_game_tools",
     "qualified_local_model_without_cloud_fallback",
     "verified_events_and_receipt_causality",
     "Naimei_personality_and_seven_extension_adapters",
@@ -59,7 +59,7 @@
     "fault_recovery_regressions_and_rollback",
     "30_minute_then_120_minute_same_host_load_checks",
     "real_gameplay_win_death_and_end_receipts",
-    "official_Livehime_600_second_local_recording_and_actual_media_review"
+    "official_Livehime_120_second_local_recording_and_actual_media_review"
   ],
   "public_broadcast_authorized": false,
   "virtualization_allowed": false,
@@ -144,5 +144,6 @@
     "new_model_downloaded_bytes": 0,
     "decision_resolved": true,
     "decision": "retain_swift_no_download"
-  }
+  },
+  "current_user_amendment": "configs/issac/live120.json"
 }

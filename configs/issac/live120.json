@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "amendment_id": "NM-ISSAC-EXECUTION-120S-20261109-v1",
+  "branch": "issac",
+  "base_requirements": "configs/issac/requirements-freeze.json",
+  "document": "docs/issac/120秒录播推进修订20261109.md",
+  "required_official_recording_seconds": 120,
+  "core_actor": "naimei",
+  "strategic_owner": "naimei_core_dsh",
+  "separate_strategy_ai_enabled": false,
+  "local_only": true,
+  "new_model_download_authorized": false,
+  "public_broadcast_authorized": false,
+  "preserved_unrelated_worktree_changes": [
+    {
+      "path": "docs/issac/实施任务与验收清单20261107.csv",
+      "worktree_sha256": "10e9199849894b36f9204e9dacf7e3d7cd1c31ef70a35c6b7087aef8f34adc65",
+      "candidate_content": "HEAD_blob_only"
+    }
+  ],
+  "latency_initial_engineering_targets": {
+    "decision_p95_ms": 8000,
+    "decision_window_seconds": 20,
+    "core_turn_deadline_ms": 18000,
+    "state_poll_ms": 500,
+    "tool_timeout_ms": 2500,
+    "accepted_as_measured": false
+  },
+  "runtime_or_media_acceptance_claimed": false
+}

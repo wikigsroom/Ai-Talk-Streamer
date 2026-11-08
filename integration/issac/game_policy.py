@@ -116,6 +116,7 @@ def strategy_class(root):
         def __init__(self, log_dir, **kwargs):
             super().__init__(log_dir, **kwargs)
             self._live_run_goal = None
+            self.core_actor_required = False
 
         def update(self, raw, state=None):
             with self.lock:
@@ -164,12 +165,23 @@ def strategy_class(root):
 
         def submit(self, body):
             with self.lock:
+                if self.core_actor_required and (not isinstance(body,dict) or body.get('actor_id')!='naimei'
+                        or not isinstance(body.get('core_session_id'),str)
+                        or not body['core_session_id'].startswith(('naimei-game-','naimei-fact-','studio-'))):
+                    raise StrategyError('Naimei core actor and actual DSH session are required')
+                known=isinstance(body,dict) and body.get('plan_id') in self.receipts
                 if self.pending and self.pending['identity'] != self.snapshot.get('identity'):
                     raise StrategyError('Current room/run/bridge differs from the offered context')
                 if self.pending:
                     p = self.pending
                     if p.get('inventory_revision') is not None and p['inventory_revision'] != self.snapshot.get('inventory_revision'):
                         raise StrategyError('Inventory changed since the offer')
-                return super().submit(body)
+                result=super().submit(body)
+                if body.get('actor_id')=='naimei':
+                    receipt=self.receipts[result['plan_id']]
+                    receipt.update(actor_id='naimei',core_session_id=body['core_session_id'])
+                    result=deepcopy(receipt)
+                    if not known:self.emit('naimei_core_plan_accepted',plan_id=result['plan_id'],actor_id='naimei',core_session_id=body['core_session_id'])
+                return result
 
     return StreamStrategy

@@ -2,6 +2,7 @@ import { readFileSync, appendFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { StreamBridge } from './server.mjs';
+import { NaimeiGameCore } from './isaac-core.mjs';
 import { ChannelConfig, digest, canonical } from './channel.mjs';
 import { requireValue } from './state.mjs';
 
@@ -84,13 +85,25 @@ export class IsaacBridge extends StreamBridge {
     super(root,runtime,{policyFile:'configs/issac/bridge-policy.json',avatarUrl:'http://127.0.0.1:8062',...options});
     this.channel=new IsaacLocalChannel(root);
   }
-  async start(){await super.start();this.gameNarrator=new GameNarrator(this);
+  async start(){await super.start();this.gameNarrator=new NaimeiGameCore(this);this.host.gameplay=this.gameNarrator;
     this.gameListener=event=>{if(event.event_type==='playback.completed')void this.gameNarrator.completed(event).catch(()=>{});};this.db.on('event',this.gameListener);
     this.gameTimer=setInterval(()=>{void this.gameNarrator.tick();void this.gameNarrator.checkPending().catch(()=>{});void this.gameAudio().catch(()=>{});},500);
     return this;
   }
   async handle(req,res){
     const path=(req.url||'').split('?')[0];
+    if(path==='/api/dsh/issac/core/status'&&req.method==='GET'){
+      res.writeHead(200,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(this.gameNarrator.status()));return;
+    }
+    if(path==='/api/dsh/issac/core/control'&&req.method==='POST'){
+      try{
+        requireValue(!req.headers.origin&&digest(req.headers['x-isaac-token']||'')===digest(this.gameNarrator.token),'LOCAL_CORE_CONTROL_REQUIRED',403);
+        const body=await this.body(req);requireValue(Object.keys(body).length===1&&typeof body.automatic==='boolean','BOOLEAN_CORE_CONTROL_REQUIRED');
+        const result=this.gameNarrator.control(body.automatic);
+        res.writeHead(200,{'Content-Type':'application/json'});res.end(JSON.stringify(result));
+      }catch(error){res.writeHead(error.status||409,{'Content-Type':'application/json'});res.end(JSON.stringify({error:error.code||'CORE_CONTROL_REJECTED'}));}
+      return;
+    }
     if(path==='/api/dsh/issac/rehearsal/start'&&req.method==='POST'){
       try{
         if(!this.health().persona_injection_ready)await this.probe();
@@ -110,8 +123,9 @@ export class IsaacBridge extends StreamBridge {
       ||b?.state!=='LIVE'||!this.state.authorityReady(b.broadcast_id)||this.state.lease(b.broadcast_id)?.consumer_id!==p.consumer_id)return;
     const speaking=f.speech_audible&&f.audio_state==='running'&&f.speaking_request_id===this.state.active()?.request_id;
     const gain=a.muted?0:a.game_volume*(speaking&&a.game_ducking?a.game_duck_level:1);
-    await this.gameNarrator.api('/game-audio',{gain,ttl_ms:2200,attack_ms:a.attack_ms,release_ms:a.release_ms});
+    await this.gameNarrator.api(9534,'/game-audio',{gain,ttl_ms:2200,attack_ms:a.attack_ms,release_ms:a.release_ms});
   }
+  async restartHostForPrivacy(){this.gameNarrator?.control(false);await super.restartHostForPrivacy();if(this.gameNarrator)this.host.gameplay=this.gameNarrator;}
   async close(){clearInterval(this.stopTimer);clearInterval(this.gameTimer);this.gameNarrator?.close();if(this.gameListener)this.db?.off('event',this.gameListener);await super.close();}
 }
 

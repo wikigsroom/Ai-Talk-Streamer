@@ -6,6 +6,7 @@
   "cloud_inference_allowed": false,
   "public_broadcast_allowed": false,
   "game": {
+    "strategic_owner": "naimei_core_dsh",
     "root": "game",
     "executable": "game/isaac-ng.exe",
     "executable_sha256": "530b4d2accef833b8dbf6f1a9f781fe1e051c1916ca5acdb579df05a34640627",
@@ -22,10 +23,11 @@
     "strategy_dsh_port": 9533,
     "unrestricted_upstream_dashboard_enabled": false,
     "decision_hz": 6,
-    "decision_deadline_seconds": 45,
+    "decision_deadline_seconds": 20,
     "input_lease_ms": 1500,
     "controller_loss_pause_ms": 5000,
-    "native_control_port": 9534
+    "native_control_port": 9534,
+    "strategy_dsh_enabled": false
   },
   "native_paths": {
     "game_python": "runtime/isaac-native/Scripts/python.exe",
@@ -50,7 +52,8 @@
     "qualification_receipt": "state/isaac-strategy/model-qualification.json",
     "strategy_priority": true,
     "maximum_concurrent_generations": 1,
-    "model_downloads_enabled": false
+    "model_downloads_enabled": false,
+    "core_base_url": "http://127.0.0.1:1235/core/v1"
   },
   "narrator": {
     "state": "state/issac-stream",
@@ -91,7 +94,7 @@
     "mc_reference": "configs/issac/references/mc-landscape-v1.rev04.json",
     "visual_change_policy": "title_text_only",
     "capture": "official_livehime_native_game_plus_transparent_programme",
-    "required_official_recording_seconds": 600
+    "required_official_recording_seconds": 120
   },
   "acceptance": {
     "cohost_durations_seconds": [
