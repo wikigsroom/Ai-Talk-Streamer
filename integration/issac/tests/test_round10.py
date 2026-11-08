@@ -50,7 +50,7 @@ class OfficialUtf8ProtocolTests(unittest.TestCase):
             script=Path(temporary)/'native-protocol.ps1'
             script.write_text(prefix+"@{label='奶妹 · 开始录制'}|ConvertTo-Json -Compress\n",'utf-8-sig')
             result=subprocess.run([r'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe',
-                '-NoProfile','-NonInteractive','-File',str(script),'-ProcessId','1','-WindowHandle','1'],
+                '-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',str(script),'-ProcessId','1','-WindowHandle','1'],
                 capture_output=True,timeout=20,creationflags=0x08000000)
             self.assertEqual(result.returncode,0,result.stderr.decode('utf8',errors='replace'))
             self.assertEqual(json.loads(result.stdout.decode('utf-8-sig')),{'label':'奶妹 · 开始录制'})

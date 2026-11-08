@@ -72,7 +72,7 @@ class MeasuredCapacityTests(unittest.TestCase):
                 with self.assertRaisesRegex(AdmissionError,'BOTH_REAL_MEDIA_REPORTS'):budget(root,'new')
 
     def test_intermediate_offload_candidates_preserve_exact_local_model_and_context_selection(self):
-        self.assertEqual(offload_candidates(.45),[.45,.405,.375,.36,.338,.225])
+        self.assertEqual(offload_candidates(.45),[.45,.405,.375,.36,.355,.35,.345,.34,.338,.225])
         for bad in (0,-1,float('nan'),.61,True):
             with self.subTest(bad=bad),self.assertRaises(AdmissionError):offload_candidates(bad)
 

@@ -1,0 +1,543 @@
+{
+  "schema_version": 1,
+  "round": "R10",
+  "candidate_id": "issac-f41412202f54-962f1724",
+  "status": "closed_failed",
+  "source_commit": "f41412202f546c0753de693c5d897c4e7c75d3f0",
+  "source_files_verified": 2170,
+  "source_verified_unchanged": true,
+  "phase_closure": {
+    "candidate_id": "issac-f41412202f54-962f1724",
+    "source_commit": "f41412202f546c0753de693c5d897c4e7c75d3f0",
+    "source_files_verified": 2170,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "phase": "acceptance_closed",
+    "defects": [
+      {
+        "path": "state/issac-acceptance/diagnostics/model-prepare-eb21516273f247b19580d02bae3ab7c3/report.json",
+        "sha256": "860596dcb5fe873a6c77cfd9f591f5d25914602ea5edacd5c1769a8edceeecdf",
+        "failed_checks": []
+      },
+      {
+        "path": "state/issac-acceptance/round-runs/round-931f4826b61a44029e2aff450e232e5d/progress.json",
+        "sha256": "2c23a5ae36a34bb99f288ebcb09484d75364fe50525f721388cd868b897b7a9c",
+        "failed_checks": [
+          "regressions",
+          "local-model-prepare",
+          "local-model-qualification"
+        ]
+      },
+      {
+        "path": "state/issac-acceptance/round-runs/round-931f4826b61a44029e2aff450e232e5d/report.json",
+        "sha256": "227383572f419864f2169146ffc2fc2343a1c5ce14e9956104b5c97420cff00d",
+        "failed_checks": [
+          "regressions",
+          "local-model-prepare",
+          "local-model-qualification"
+        ]
+      },
+      {
+        "path": "state/issac-acceptance/runs/accept-431990c2a8614e5b81733b8c86059f57/regression.json",
+        "sha256": "c1caf7a39ae83af77352c0df6a556e5a8941f03fe52bebdc1e13ac69f55ce098",
+        "failed_checks": [
+          "0"
+        ]
+      }
+    ],
+    "recorded_failures": 4,
+    "complete_acceptance_requires_all_18_verified_gates": true,
+    "next_action": "whole_correction_round_then_freeze",
+    "source_changes_permitted_only_in_new_development_round": true,
+    "closed_unix": 1794134262.020002
+  },
+  "uniform_report": {
+    "all_18_gates_still_required": true,
+    "candidate_id": "issac-f41412202f54-962f1724",
+    "checks": [
+      {
+        "check": "environment",
+        "elapsed_seconds": 14.906675999984145,
+        "exit_code": 0,
+        "log": "state/issac-acceptance/round-runs/round-931f4826b61a44029e2aff450e232e5d/environment.log",
+        "log_sha256": "5a52bae51dea0954f312e765bd251c6eb2e35c80675b297dfdf5a591eec153b6",
+        "passed": true
+      },
+      {
+        "check": "dependencies",
+        "elapsed_seconds": 46.48559739999473,
+        "exit_code": 0,
+        "log": "state/issac-acceptance/round-runs/round-931f4826b61a44029e2aff450e232e5d/dependencies.log",
+        "log_sha256": "34062984314495121e1b69607b3cf1d63a776fadad9585090a63421630e68140",
+        "passed": true
+      },
+      {
+        "check": "regressions",
+        "elapsed_seconds": 44.26131730002817,
+        "exit_code": 1,
+        "log": "state/issac-acceptance/round-runs/round-931f4826b61a44029e2aff450e232e5d/regressions.log",
+        "log_sha256": "c7be767d41298931fad7b70b93e80754b2f98c6edc317ef6f884477977cb38b0",
+        "passed": false
+      },
+      {
+        "check": "materials-scan",
+        "elapsed_seconds": 10.546808199957013,
+        "exit_code": 0,
+        "log": "state/issac-acceptance/round-runs/round-931f4826b61a44029e2aff450e232e5d/materials-scan.log",
+        "log_sha256": "8b2a510f369ba65751e4bf37adaaa7e25e63db6a8b875447ab74845086605b61",
+        "passed": true
+      },
+      {
+        "check": "native-game",
+        "elapsed_seconds": 53.233478200039826,
+        "exit_code": 0,
+        "log": "state/issac-acceptance/round-runs/round-931f4826b61a44029e2aff450e232e5d/native-game.log",
+        "log_sha256": "5e76ed02e3850f9ae6a4b6f172707cd6ac791490957db4369022c2a3d5a99ab8",
+        "passed": true
+      },
+      {
+        "check": "media-capacity",
+        "elapsed_seconds": 475.34373359999154,
+        "exit_code": 0,
+        "log": "state/issac-acceptance/round-runs/round-931f4826b61a44029e2aff450e232e5d/media-capacity.log",
+        "log_sha256": "7ee1803a0183c837427be38b1730acad1be4e233445fb162f304d092113d5c3e",
+        "passed": true
+      },
+      {
+        "check": "local-model-prepare",
+        "elapsed_seconds": 275.9069480000762,
+        "exit_code": 1,
+        "log": "state/issac-acceptance/round-runs/round-931f4826b61a44029e2aff450e232e5d/local-model-prepare.log",
+        "log_sha256": "7895adbe7e26e8228f4acbc005f07c803199e6e3a77a5426b5aaa3a5a3367fe8",
+        "passed": false
+      },
+      {
+        "actual_inference": false,
+        "check": "local-model-qualification",
+        "elapsed_seconds": 4.833563799969852,
+        "inference_requests_attempted": 0,
+        "log": "state/issac-acceptance/round-runs/round-931f4826b61a44029e2aff450e232e5d/local-model-qualification.log",
+        "log_sha256": "a188bb24dbd0b1b42ab16af8f906852ca145d18c2e1c90e98ada8740ff930033",
+        "passed": false,
+        "reason": "PREREQUISITE_NOT_PASSED",
+        "requires": "local-model-prepare",
+        "state": "blocked"
+      },
+      {
+        "check": "official-client-signature",
+        "elapsed_seconds": 10.676358599914238,
+        "exit_code": 0,
+        "log": "state/issac-acceptance/round-runs/round-931f4826b61a44029e2aff450e232e5d/official-client-signature.log",
+        "log_sha256": "90ce968963d5fa880a03bdc347a26e29dc96dee6f957ff8daa025b74d2326e9b",
+        "passed": true
+      },
+      {
+        "check": "official-client-launch",
+        "elapsed_seconds": 21.195336499949917,
+        "exit_code": 0,
+        "log": "state/issac-acceptance/round-runs/round-931f4826b61a44029e2aff450e232e5d/official-client-launch.log",
+        "log_sha256": "b780be940a974a7c95b37b0a4aa4f4fcacbf8e49f594089781785a17b10db4b6",
+        "passed": true
+      }
+    ],
+    "finished_unix": 1794134112.690109,
+    "full_acceptance_passed": false,
+    "official_recording_created": false,
+    "passed": false,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "source_commit": "f41412202f546c0753de693c5d897c4e7c75d3f0",
+    "source_files_verified": 2170,
+    "source_verified_unchanged": true
+  },
+  "regression_counts": {
+    "tests": 921,
+    "passed": 913,
+    "skipped": 7,
+    "failures": 1
+  },
+  "regression_failure": "Native UTF8 protocol fixture omitted the existing production process-only -ExecutionPolicy Bypass arguments, so local script execution was denied before testing the output",
+  "actual_media_capacity": {
+    "actors": {
+      "mouth": {
+        "actual_new_frames": 288,
+        "actual_video_sha256": "ca49639177c16b86fb9a951d22e8592fece9968932e3a7360ed1280fcefd4f03",
+        "batch": 1,
+        "compile_mode": "model-vae",
+        "conditioning_anchor_sha256": "a3ccc15ee02bc3c80eb303757645a5a93570e6e2917d2a04a818e13d5564b6a4",
+        "created_at": 1794133340.322016,
+        "cuda_peak_reserved_bytes": 10057940992,
+        "cuda_resident_reserved_bytes": 10057940992,
+        "executable": "C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\python.exe",
+        "exit_code": 0,
+        "fast_rope": true,
+        "height": 512,
+        "host_peak_bytes": 7009312768,
+        "measured_unix": 1794133766.1926486,
+        "passed": true,
+        "pid": 50816,
+        "quality_accepted": false,
+        "role": "mouth",
+        "scope": "capacity_only",
+        "speech_audio_sha256": "c7a8e8560f7b6bcec7b943d9659d8c2f78b50ddf6bb93bf3898fd97c521c278b",
+        "stage": "measured",
+        "started_unix": 1794133344.8545334,
+        "steps": 4,
+        "timings": [
+          {
+            "actual_new_frames": 24,
+            "audio_embedding_seconds": 0.033794700051657856,
+            "batch": 1,
+            "mode": "capacity-only",
+            "seconds": 0.36344450002070516,
+            "steps": 4
+          },
+          {
+            "actual_new_frames": 24,
+            "audio_embedding_seconds": 0.027347200084477663,
+            "batch": 1,
+            "mode": "capacity-only",
+            "seconds": 0.35079340008087456,
+            "steps": 4
+          },
+          {
+            "actual_new_frames": 24,
+            "audio_embedding_seconds": 0.01694209990091622,
+            "batch": 1,
+            "mode": "capacity-only",
+            "seconds": 0.3393025998957455,
+            "steps": 4
+          },
+          {
+            "actual_new_frames": 24,
+            "audio_embedding_seconds": 0.01652730000205338,
+            "batch": 1,
+            "mode": "capacity-only",
+            "seconds": 0.33976320002693683,
+            "steps": 4
+          },
+          {
+            "actual_new_frames": 24,
+            "audio_embedding_seconds": 0.016902900068089366,
+            "batch": 1,
+            "mode": "capacity-only",
+            "seconds": 0.34063550003338605,
+            "steps": 4
+          },
+          {
+            "actual_new_frames": 24,
+            "audio_embedding_seconds": 0.016821300028823316,
+            "batch": 1,
+            "mode": "capacity-only",
+            "seconds": 0.3403975000837818,
+            "steps": 4
+          },
+          {
+            "actual_new_frames": 24,
+            "audio_embedding_seconds": 0.019777000066824257,
+            "batch": 1,
+            "mode": "capacity-only",
+            "seconds": 0.3470938000828028,
+            "steps": 4
+          },
+          {
+            "actual_new_frames": 24,
+            "audio_embedding_seconds": 0.016625699936412275,
+            "batch": 1,
+            "mode": "capacity-only",
+            "seconds": 0.33896520000416785,
+            "steps": 4
+          },
+          {
+            "actual_new_frames": 24,
+            "audio_embedding_seconds": 0.016689599957317114,
+            "batch": 1,
+            "mode": "capacity-only",
+            "seconds": 0.33813050005119294,
+            "steps": 4
+          },
+          {
+            "actual_new_frames": 24,
+            "audio_embedding_seconds": 0.01687740010675043,
+            "batch": 1,
+            "mode": "capacity-only",
+            "seconds": 0.3393208000343293,
+            "steps": 4
+          },
+          {
+            "actual_new_frames": 24,
+            "audio_embedding_seconds": 0.01682179991621524,
+            "batch": 1,
+            "mode": "capacity-only",
+            "seconds": 0.33930039999540895,
+            "steps": 4
+          },
+          {
+            "actual_new_frames": 24,
+            "audio_embedding_seconds": 0.017338499892503023,
+            "batch": 1,
+            "mode": "capacity-only",
+            "seconds": 0.3447301998967305,
+            "steps": 4
+          }
+        ],
+        "width": 512
+      },
+      "voice": {
+        "created_at": 1794133311.971718,
+        "cuda_peak_reserved_bytes": 5945425920,
+        "cuda_resident_reserved_bytes": 2059403264,
+        "executable": "C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\python.exe",
+        "exit_code": 0,
+        "generated_audio_seconds": 17.48,
+        "generated_audio_sha256": "c7a8e8560f7b6bcec7b943d9659d8c2f78b50ddf6bb93bf3898fd97c521c278b",
+        "generation_seconds": 7.891000000061467,
+        "host_peak_bytes": 3248889856,
+        "measured_unix": 1794133340.1518388,
+        "passed": true,
+        "pid": 4988,
+        "precision": "torch.float16",
+        "quality_accepted": false,
+        "reference_preprocess_prompt": false,
+        "role": "voice",
+        "scope": "capacity_only",
+        "stage": "measured",
+        "started_unix": 1794133316.684994,
+        "steps": 32,
+        "voice_freeze_id": "NM-VOICE-FINAL-20261106-v1",
+        "voice_id": "NCM01"
+      }
+    },
+    "artifacts": [
+      {
+        "path": "state/issac-acceptance/media-capacity/c0e7fa0208f34988a56639dbdb32ce9a/voice.json",
+        "role": "voice",
+        "sha256": "e62e6f460b0fd5bfec0cedf30d64944452779b2e41095314fd9a3fd813055828"
+      },
+      {
+        "path": "state/issac-acceptance/media-capacity/c0e7fa0208f34988a56639dbdb32ce9a/mouth.json",
+        "role": "mouth",
+        "sha256": "c36d44d7faefcd0046de5d1001666af04b33e0d8282c3c5eed4ff5e11ac358a4"
+      }
+    ],
+    "candidate_id": "issac-f41412202f54-962f1724",
+    "concurrent_residency_observed": true,
+    "finished_unix": 1794133776.0864267,
+    "foreign_jobs_observed": false,
+    "initial": {
+      "at_unix": 1794133311.8942597,
+      "comfy_running_jobs": null,
+      "gpu_free_mib": 48257,
+      "gpu_total_mib": 49140,
+      "gpu_utilization_percent": 0,
+      "host_available_bytes": 59587866624,
+      "host_total_bytes": 68612378624
+    },
+    "input_signature": "35bf4e090cc3d414f3bfe8ba40eec22ba46b7ca42f3d2aaf2702af298db564a2",
+    "normal_cleanup": true,
+    "observed_gpu_delta_bytes": 13006536704,
+    "observed_host_delta_bytes": 8385708032,
+    "passed": true,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "quality_accepted": false,
+    "reserves": {
+      "host_extra_reserve_mib": 5687,
+      "host_headroom_mib": 2048,
+      "measured_gpu_peak_bytes": 16003366912,
+      "measured_host_peak_bytes": 10258202624,
+      "media_headroom_mib": 2048,
+      "media_reserve_mib": 17310
+    },
+    "scope": "capacity_only",
+    "source_commit": "f41412202f546c0753de693c5d897c4e7c75d3f0",
+    "source_files_verified": 2170
+  },
+  "actual_new_mouth_generation_fps": 69.87107040383786,
+  "media_worker_cleanup": [
+    {
+      "role": "voice",
+      "pid": 4988,
+      "created_at": 1794133311.971718,
+      "same_incarnation_alive": false
+    },
+    {
+      "role": "mouth",
+      "pid": 50816,
+      "created_at": 1794133340.322016,
+      "same_incarnation_alive": false
+    }
+  ],
+  "model_resource_plan": {
+    "candidate_id": "issac-f41412202f54-962f1724",
+    "media_budget": {
+      "host_extra_reserve_mib": 5687,
+      "host_headroom_mib": 2048,
+      "measured_gpu_peak_bytes": 16003366912,
+      "measured_host_peak_bytes": 10258202624,
+      "media_headroom_mib": 2048,
+      "media_reserve_mib": 17310,
+      "report": "state/issac-acceptance/media-capacity/c0e7fa0208f34988a56639dbdb32ce9a/report.json",
+      "report_sha256": "a649e243a01c5ee7f03ee57661613547f011824bbd4e5fb615a44242307004f5",
+      "source": "actual_concurrent_models"
+    },
+    "media_reserve_mib": 17310,
+    "observed": {
+      "at_unix": 1794134049.0598295,
+      "comfy_running_jobs": null,
+      "gpu_free_mib": 48239,
+      "gpu_total_mib": 49140,
+      "gpu_utilization_percent": 0,
+      "host_available_bytes": 59731759104,
+      "host_total_bytes": 68612378624
+    },
+    "plans": [
+      {
+        "capacity": {
+          "estimate_rounding_mib": 512,
+          "fits": false,
+          "gpu_available_bytes": 50582257664,
+          "gpu_margin_mib": 2048,
+          "gpu_required_bytes": 57170628445,
+          "gpu_shortfall_bytes": 6588370781,
+          "host_available_bytes": 59731759104,
+          "host_extra_reserve_mib": 5687,
+          "host_margin_mib": 6144,
+          "host_required_bytes": 55419800125,
+          "host_shortfall_bytes": 0,
+          "media_reserve_mib": 17310
+        },
+        "estimate": {
+          "gpu_bytes": 36335423325,
+          "total_bytes": 78812649882
+        },
+        "fits": false,
+        "gpu_offload": 0.45
+      },
+      {
+        "capacity": {
+          "estimate_rounding_mib": 512,
+          "fits": false,
+          "gpu_available_bytes": 50582257664,
+          "gpu_margin_mib": 2048,
+          "gpu_required_bytes": 53895715881,
+          "gpu_shortfall_bytes": 3313458217,
+          "host_available_bytes": 59731759104,
+          "host_extra_reserve_mib": 5687,
+          "host_margin_mib": 6144,
+          "host_required_bytes": 58694712689,
+          "host_shortfall_bytes": 0,
+          "media_reserve_mib": 17310
+        },
+        "estimate": {
+          "gpu_bytes": 33060510761,
+          "total_bytes": 78812649882
+        },
+        "fits": false,
+        "gpu_offload": 0.405
+      },
+      {
+        "capacity": {
+          "estimate_rounding_mib": 512,
+          "fits": false,
+          "gpu_available_bytes": 50582257664,
+          "gpu_margin_mib": 2048,
+          "gpu_required_bytes": 50631540736,
+          "gpu_shortfall_bytes": 49283072,
+          "host_available_bytes": 59731759104,
+          "host_extra_reserve_mib": 5687,
+          "host_margin_mib": 6144,
+          "host_required_bytes": 61958887834,
+          "host_shortfall_bytes": 2227128730,
+          "media_reserve_mib": 17310
+        },
+        "estimate": {
+          "gpu_bytes": 29796335616,
+          "total_bytes": 78812649882
+        },
+        "fits": false,
+        "gpu_offload": 0.375
+      },
+      {
+        "capacity": {
+          "estimate_rounding_mib": 512,
+          "fits": false,
+          "gpu_available_bytes": 50582257664,
+          "gpu_margin_mib": 2048,
+          "gpu_required_bytes": 50631540736,
+          "gpu_shortfall_bytes": 49283072,
+          "host_available_bytes": 59731759104,
+          "host_extra_reserve_mib": 5687,
+          "host_margin_mib": 6144,
+          "host_required_bytes": 61958887834,
+          "host_shortfall_bytes": 2227128730,
+          "media_reserve_mib": 17310
+        },
+        "estimate": {
+          "gpu_bytes": 29796335616,
+          "total_bytes": 78812649882
+        },
+        "fits": false,
+        "gpu_offload": 0.36
+      },
+      {
+        "capacity": {
+          "estimate_rounding_mib": 512,
+          "fits": false,
+          "gpu_available_bytes": 50582257664,
+          "gpu_margin_mib": 2048,
+          "gpu_required_bytes": 48999453164,
+          "gpu_shortfall_bytes": 0,
+          "host_available_bytes": 59731759104,
+          "host_extra_reserve_mib": 5687,
+          "host_margin_mib": 6144,
+          "host_required_bytes": 63590975406,
+          "host_shortfall_bytes": 3859216302,
+          "media_reserve_mib": 17310
+        },
+        "estimate": {
+          "gpu_bytes": 28164248044,
+          "total_bytes": 78812649882
+        },
+        "fits": false,
+        "gpu_offload": 0.338
+      },
+      {
+        "capacity": {
+          "estimate_rounding_mib": 512,
+          "fits": false,
+          "gpu_available_bytes": 50582257664,
+          "gpu_margin_mib": 2048,
+          "gpu_required_bytes": 39196190311,
+          "gpu_shortfall_bytes": 0,
+          "host_available_bytes": 59731759104,
+          "host_extra_reserve_mib": 5687,
+          "host_margin_mib": 6144,
+          "host_required_bytes": 73394238259,
+          "host_shortfall_bytes": 13662479155,
+          "media_reserve_mib": 17310
+        },
+        "estimate": {
+          "gpu_bytes": 18360985191,
+          "total_bytes": 78812649882
+        },
+        "fits": false,
+        "gpu_offload": 0.225
+      }
+    ],
+    "selected": null
+  },
+  "model_inference_requests_attempted": 0,
+  "official_client": {
+    "signature_and_isolated_launch_passed": true,
+    "utf8_ui_protocol_passed": true,
+    "start_controls": 0,
+    "stop_controls": 0,
+    "actual_scene_accepted": false,
+    "closed_normally": true
+  },
+  "body_quality_approved": false,
+  "mouth_quality_approved": false,
+  "official_recording_created": false,
+  "public_broadcast_started": false
+}
