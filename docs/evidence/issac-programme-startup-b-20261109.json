@@ -1,0 +1,18 @@
+{
+  "candidate_id":"issac-ee849c3bf7aa-6be1526d",
+  "source_commit":"ee849c3bf7aa4f9f6844811f9d1df4ff313f57d2",
+  "host":"DESKTOP-TE44HE1",
+  "remote_receipt":"state/issac-acceptance/programme-startup-b.json",
+  "remote_receipt_sha256":"ad181d9671c553c632a5ac8aac1ee84843996fae6ee3a39d9cb291bfd9bf59f8",
+  "passed":false,
+  "voice_initialized":true,
+  "flashhead_initialized":true,
+  "actual_native_body_decode_and_h264_three_modes":true,
+  "programme_ready":false,
+  "error_type":"TypeError",
+  "actual_error":"Audit.append() got multiple values for argument 'kind'",
+  "cause":"The programme expanded a body event containing kind into Audit.append(kind, **fields).",
+  "private_voice_input_or_channel_configuration_included":false,
+  "whole_phase_closed":true,
+  "official_recording_created":false
+}

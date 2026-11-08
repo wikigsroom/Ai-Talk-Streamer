@@ -1,0 +1,19 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-C",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-ee849c3bf7aa-6be1526d",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRC01","status":"code_complete_pending_acceptance","code":"Keep the body event as a nested record so the action kind cannot collide with or overwrite the audit event kind; preserve every actual frame and G0 join","source_files":["integration/issac/studio.py"]},
+    {"id":"CRC02","status":"code_complete_pending_acceptance","code":"Latch a visible media error, close programme consumers, request a normal game pause and stop failed output instead of waiting two minutes or emitting a substitute","source_files":["integration/issac/studio.py"]},
+    {"id":"CRC03","status":"code_complete_pending_acceptance","code":"Exercise the actual pump through two real action-event boundaries and a media admission failure; preserve the failed remote startup evidence","source_files":["tests/test_issac_programme_pump.py","docs/evidence/issac-programme-startup-b-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}

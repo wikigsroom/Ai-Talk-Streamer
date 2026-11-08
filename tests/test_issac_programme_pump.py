@@ -1,0 +1,89 @@
+"""Exercise the actual programme pump across body events and a media failure."""
+import asyncio
+from collections import Counter
+from contextlib import suppress
+import json
+from pathlib import Path
+from types import SimpleNamespace
+import tempfile
+import time
+import unittest
+from unittest.mock import AsyncMock
+
+import numpy as np
+
+from integration.issac.common import AdmissionError,Audit
+from integration.issac.studio import IsaacStudio
+
+
+class BodyFixture:
+    def __init__(self,fail=False):
+        self.event=None;self.frames=0;self.fail=fail
+
+    def next(self,**_):
+        if self.fail:raise AdmissionError('ACCEPTED_BODY_CLIP_CHANGED')
+        self.frames+=1
+        if self.frames in (1,3):
+            self.event={'id':f'clip-{self.frames}','kind':'controller','mode':'M03','at_unix':123.0}
+        return np.full((512,512,3),self.frames,np.uint8)
+
+
+class ProgrammePumpTests(unittest.IsolatedAsyncioTestCase):
+    def studio(self,folder,*,fail=False):
+        studio=object.__new__(IsaacStudio)
+        studio.body=BodyFixture(fail);studio.source_queue=asyncio.Queue()
+        studio.mapping=None;studio.speech_task=None;studio.pending_mode=None
+        studio.last_body_event=None;studio.media_fault=False;studio.media_error=None
+        studio.game_state={};studio.stats=Counter();studio.viewers={}
+        studio.last_telemetry=time.monotonic()+3600;studio.audit=Audit(folder/'events.jsonl')
+        studio.emit=AsyncMock();studio.native_call=AsyncMock(return_value={'native_receipt':{'no_active_run':True}})
+        return studio
+
+    async def test_action_kind_does_not_mask_log_kind_or_stop_real_frame_output(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory);studio=self.studio(folder);seen=asyncio.Event()
+            async def emitted(*_):
+                if studio.body.frames>=3:seen.set()
+            studio.emit.side_effect=emitted
+            task=asyncio.create_task(studio.pump())
+            try:await asyncio.wait_for(seen.wait(),2)
+            finally:
+                task.cancel()
+                with suppress(asyncio.CancelledError):await task
+            rows=[json.loads(line) for line in (folder/'events.jsonl').read_text('utf8').splitlines()]
+            self.assertEqual([row['kind'] for row in rows],['body_clip_started','body_clip_started'])
+            self.assertEqual([row['body_event']['kind'] for row in rows],['controller','controller'])
+            self.assertEqual([row['body_event']['id'] for row in rows],['clip-1','clip-3'])
+            self.assertEqual(studio.emit.await_count,3)
+            self.assertFalse(studio.media_fault);studio.native_call.assert_not_awaited()
+
+    async def test_media_failure_stops_output_closes_viewers_and_requests_normal_pause(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory);studio=self.studio(folder,fail=True)
+            viewer=type('Viewer',(),{'close':AsyncMock()})()
+            studio.viewers={viewer:None}
+            await asyncio.wait_for(studio.pump(),2)
+            self.assertTrue(studio.media_fault)
+            self.assertEqual(studio.media_error,'MEDIA_CONTINUITY_OR_MAPPING_REJECTED')
+            self.assertEqual(studio.stage,'media_quality_or_protocol_fault')
+            studio.emit.assert_not_awaited();viewer.close.assert_awaited_once()
+            studio.native_call.assert_awaited_once_with({'action':'pause'})
+            rows=[json.loads(line) for line in (folder/'events.jsonl').read_text('utf8').splitlines()]
+            self.assertEqual([row['kind'] for row in rows],['media_frame_rejected','media_fault_normal_pause'])
+            self.assertEqual(rows[0]['error_type'],'AdmissionError')
+
+    async def test_broken_speech_callback_and_consumer_do_not_skip_game_pause(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory);studio=self.studio(folder,fail=True)
+            studio.mapping=SimpleNamespace(command={'request_id':'current-speech'})
+            studio.fail=AsyncMock(side_effect=OSError('bridge disconnected'))
+            viewer=type('Viewer',(),{'close':AsyncMock(side_effect=OSError('consumer disconnected'))})()
+            studio.viewers={viewer:None}
+            await asyncio.wait_for(studio.pump(),2)
+            studio.native_call.assert_awaited_once_with({'action':'pause'})
+            studio.emit.assert_not_awaited()
+            rows=[json.loads(line) for line in (folder/'events.jsonl').read_text('utf8').splitlines()]
+            self.assertEqual(rows[-1]['kind'],'media_fault_normal_pause')
+
+
+if __name__=='__main__':unittest.main()

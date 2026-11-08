@@ -65,6 +65,7 @@ class IsaacStudio(NaimeiStudio):
         self.last_telemetry=0
         self.mouth=MouthProjector(root,mode,self.body.reference)
         self.media_fault=False
+        self.media_error=None
         self.changing_mode=False
         self.pending_mode=None
         self.auto_drink=None
@@ -175,7 +176,8 @@ class IsaacStudio(NaimeiStudio):
                 reserved=bool(self.mapping or self.speech_task and not self.speech_task.done())
                 body=self.body.next(speaking=speaking,safe=not reserved and self.game_state.get('freshness')=='fresh' and self.game_state.get('paused') is True)
                 if self.body.event!=self.last_body_event:
-                    self.last_body_event=self.body.event.copy();self.audit.append('body_clip_started',**self.last_body_event)
+                    self.last_body_event=self.body.event.copy()
+                    self.audit.append('body_clip_started',body_event=self.last_body_event)
                 if speaking:
                     metadata=self.mapping.range_for(source,self.sequence,self.transport_id)
                     if metadata:
@@ -190,16 +192,26 @@ class IsaacStudio(NaimeiStudio):
                             self.mapping=None;self.state='idle';self.stats['utterances_generated']+=1
                 else:self.stats['body_only_frames']+=1
                 await self.emit(self.jpeg(body),pcm,metadata)
-            except Exception:
+            except Exception as error:
                 self.media_fault=True
+                self.media_error='MEDIA_CONTINUITY_OR_MAPPING_REJECTED'
                 self.stage='media_quality_or_protocol_fault'
                 self.stats['media_faults']+=1
                 failed_id=self.mapping.command['request_id'] if self.mapping else metadata.get('request_id') if metadata else None
-                if failed_id:await self.fail(failed_id,'MEDIA_CONTINUITY_OR_MAPPING_REJECTED')
-                self.audit.append('media_frame_rejected',code='MEDIA_CONTINUITY_OR_MAPPING_REJECTED')
+                if failed_id:
+                    try:await self.fail(failed_id,'MEDIA_CONTINUITY_OR_MAPPING_REJECTED')
+                    except Exception:self.audit.append('media_failure_callback_unavailable')
+                self.audit.append('media_frame_rejected',code=self.media_error,error_type=type(error).__name__)
                 # No static substitute is advertised as a successful live frame.
-                for ws in list(self.viewers):await ws.close(code=1011,message=b'media validation failed')
-                await asyncio.sleep(.5)
+                for ws in list(self.viewers):
+                    try:await ws.close(code=1011,message=b'media validation failed')
+                    except Exception:self.audit.append('media_consumer_close_unconfirmed')
+                try:
+                    receipt=await self.native_call({'action':'pause'})
+                    self.audit.append('media_fault_normal_pause',native_receipt=receipt.get('native_receipt',{}))
+                except Exception:
+                    self.audit.append('media_fault_pause_unconfirmed',code='NORMAL_GAME_PAUSE_NOT_CONFIRMED')
+                return
             if time.perf_counter()-due>.2:
                 self.stats['pump_stalls']+=1;due=time.perf_counter()+.04
             if time.monotonic()-self.last_telemetry>=1:
@@ -289,7 +301,7 @@ class IsaacStudio(NaimeiStudio):
             if self.mode!=mode:raise AdmissionError('REAL_G0_BOUNDARY_NOT_REACHED')
             return web.json_response({'mode':mode,'same_mode_bank':True,'game_control_changed':False})
         except Exception:
-            self.media_fault=True;self.stage='mode_switch_not_confirmed'
+            self.media_fault=True;self.media_error='MODE_SWITCH_NOT_CONFIRMED';self.stage='mode_switch_not_confirmed'
             return web.json_response({'error':'MODE_SWITCH_NOT_CONFIRMED'},status=503)
         finally:self.changing_mode=False
 
@@ -348,7 +360,7 @@ class IsaacStudio(NaimeiStudio):
 
     async def status(self,request):
         return web.json_response({'service':'issac-studio','character_id':'naimei','ready':self.stage=='ready',
-            'stage':self.stage,'tts_ready':self.voice_ready(),'avatar_ready':self.engine_health.get('ready',False),
+            'stage':self.stage,'error':self.media_error,'tts_ready':self.voice_ready(),'avatar_ready':self.engine_health.get('ready',False),
             'speaking':self.state=='speaking','state':self.state,'viewers':len(self.viewers),'mode':self.mode,
             'size':512,'fps':25,'steps':4,'voice_id':'NCM01','voice_freeze_id':self.voice_profile.get('freeze_id'),
             'programme':{'title':'奶妹 · 以撒的结合','width':1920,'height':1080,'fps':30,'revision':self.web_revision},
