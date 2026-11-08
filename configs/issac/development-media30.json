@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "round": "MEDIA30",
+  "branch": "issac",
+  "scope": "User-resumed M01/M02/M03 30-second live browser whole-programme recordings, media only",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "items": [
+    {
+      "id": "MEDIA30-01",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/media_rehearsal.py",
+        "integration/issac/mouth.py",
+        "web/issac/media-rehearsal.html",
+        "scripts/run_issac_media_rehearsal.py",
+        "scripts/install_issac_candidate.py",
+        "docs/issac/三形态独立音画录制20261108.md"
+      ]
+    }
+  ],
+  "game_started": false,
+  "strategy_model_loaded": false,
+  "cloud_inference_allowed": false,
+  "new_weights_download_bytes": 0,
+  "production_accepted": false
+}

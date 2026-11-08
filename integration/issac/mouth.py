@@ -128,8 +128,8 @@ def paste_mouth(plate,source,center,ratio):
                    'target_box':[left,top,width,height]}
 
 class ConstrainedMouth:
-    def __init__(self, root):
-        config=read_json(inside(root,'state/issac-materials/runtime-bank.json'))['mouth_constraints']
+    def __init__(self, root, *, constraints=None):
+        config=constraints if constraints is not None else read_json(inside(root,'state/issac-materials/runtime-bank.json'))['mouth_constraints']
         self.last=None
         self.fangs=[]
         for row in config['upper_fangs']:
@@ -182,9 +182,9 @@ class ConstrainedMouth:
         return result,record
 
 class MouthProjector:
-    def __init__(self,root,mode,reference_bgr):
+    def __init__(self,root,mode,reference_bgr,*,constraints=None):
         self.tracker=Tracker(reference_bgr[...,::-1].copy(),mode)
-        self.mouth=ConstrainedMouth(root)
+        self.mouth=ConstrainedMouth(root,constraints=constraints)
         self.quiet=0
         self.seen_voice=False
 

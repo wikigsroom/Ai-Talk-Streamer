@@ -47,7 +47,8 @@ def install(archive, expected, root):
     import msvcrt
     handles=[]
     for relative in ('state/isaac-strategy/host.lock','state/issac-stream/application.lock','state/issac-stream/model-gateway.lock',
-                     'state/issac-stream/voice.lock','state/issac-stream/flashhead.lock','state/issac-acceptance/runner.lock',
+                     'state/issac-stream/voice.lock','state/issac-stream/flashhead.lock',
+                     'state/issac-stream/media-rehearsal.lock','state/issac-stream/media30-controller.lock','state/issac-acceptance/runner.lock',
                      'state/issac-stream/official-recording.lock','state/issac-acceptance/round-runner.lock'):
         lock=root/relative
         lock.parent.mkdir(parents=True,exist_ok=True)

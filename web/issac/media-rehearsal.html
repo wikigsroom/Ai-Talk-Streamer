@@ -1,0 +1,76 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>奶妹 · 人物直播录制</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#10121a;overflow:hidden;font-family:"Microsoft YaHei",sans-serif}canvas{display:block;width:100vw;height:100vh;object-fit:contain}button{position:fixed;left:50%;top:78%;transform:translate(-50%,-50%);padding:15px 32px;border:0;border-radius:14px;background:#f2bb74;color:#171b25;font:600 21px "Microsoft YaHei";cursor:pointer}button:disabled{opacity:.6;cursor:wait}</style>
+<canvas id="screen" width="1920" height="1080"></canvas><button id="begin" disabled>正在准备人物与声音…</button>
+<script>
+'use strict';
+const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d',{alpha:false}),button=document.querySelector('button');
+const names={M01:'日光陪玩',M02:'暖夜陪玩',M03:'专注对局'};
+let portrait=null,caption='',mode='M01',phase='人物直播排练',audio=null,destination=null;
+window.rehearsal={stage:'preparing',completed:[],error:null};
+function paint(){
+ const gradient=ctx.createLinearGradient(0,0,1920,1080);gradient.addColorStop(0,'#191d2b');gradient.addColorStop(1,'#0d1018');ctx.fillStyle=gradient;ctx.fillRect(0,0,1920,1080);
+ ctx.fillStyle='#202737';ctx.beginPath();ctx.roundRect(32,24,1856,56,16);ctx.fill();
+ ctx.fillStyle='#f5efe4';ctx.font='600 25px "Microsoft YaHei"';ctx.fillText('奶妹 · 以撒的结合',56,61);
+ ctx.fillStyle='#efbc7b';ctx.font='24px "Microsoft YaHei"';ctx.textAlign='right';ctx.fillText(names[mode],1855,61);ctx.textAlign='left';
+ ctx.fillStyle='#252b3a';ctx.beginPath();ctx.roundRect(684,196,552,552,25);ctx.fill();
+ if(portrait)ctx.drawImage(portrait,704,216,512,512);
+ ctx.fillStyle='#f3eadd';ctx.font='600 30px "Microsoft YaHei"';ctx.textAlign='center';ctx.fillText(names[mode],960,803);
+ if(caption){ctx.fillStyle='rgba(17,21,31,.9)';ctx.beginPath();ctx.roundRect(320,840,1120,84,18);ctx.fill();ctx.fillStyle='#fff8ed';ctx.font='28px "Microsoft YaHei"';ctx.fillText(caption,880,891,1060)}
+ ctx.fillStyle='#9ba4b5';ctx.font='22px "Microsoft YaHei"';ctx.fillText(phase,960,994);ctx.textAlign='left';
+}
+paint();
+async function poll(){const s=await fetch('/health').then(r=>r.json());if(s.error){button.textContent='准备失败，请检查运行记录';window.rehearsal.error=s.error;return}if(s.ready){button.disabled=false;button.textContent='开始录制三种形态 · 各30秒';window.rehearsal.stage='ready'}else setTimeout(()=>poll().catch(fail),1500)}
+function fail(error){window.rehearsal.error=String(error?.message||error);window.rehearsal.stage='failed';button.hidden=false;button.disabled=true;button.textContent='录制未完成，请检查运行记录';phase='录制未完成';paint()}
+function wait(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
+async function record(current){
+ mode=current;caption='';phase='人物直播排练';paint();
+ const stream=canvas.captureStream(25);for(const track of destination.stream.getAudioTracks())stream.addTrack(track);
+ const mime=['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus'].find(m=>MediaRecorder.isTypeSupported(m));
+ if(!mime)throw Error('BROWSER_RECORDING_UNAVAILABLE');
+ const recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:8000000,audioBitsPerSecond:192000}),chunks=[];
+ recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+ const stopped=new Promise(resolve=>recorder.onstop=resolve);
+ const ws=new WebSocket('ws://'+location.host+'/stream/'+mode);ws.binaryType='arraybuffer';
+ let base=null,frames=[],decoding=Promise.resolve(),captions=[],serverDone=false,serverError=null;
+ let displayed=0,dropped=0,lastSequence=-1,maxLate=0,raf=null;
+ const metrics={mode,source:'live browser whole programme canvas',frames_received:0,displayed:0,recording_wall_start_unix:null};
+ ws.onmessage=e=>{
+  if(typeof e.data==='string'){const msg=JSON.parse(e.data);if(msg.type==='begin')captions=msg.captions;if(msg.type==='complete')serverDone=true;if(msg.type==='error')serverError=msg.error;return}
+  decoding=decoding.then(async()=>{
+   const view=new DataView(e.data),sequence=view.getUint32(0,true),length=view.getUint32(4,true),samples=view.getUint32(8,true);
+   if(sequence!==metrics.frames_received||samples!==640||12+1280+length!==e.data.byteLength)throw Error('LIVE_PACKET_SEQUENCE_OR_SIZE_CHANGED');
+   const bitmap=await createImageBitmap(new Blob([e.data.slice(1292)],{type:'image/jpeg'}));
+   if(base===null)base=audio.currentTime+1;
+   const buffer=audio.createBuffer(1,640,16000),channel=buffer.getChannelData(0);
+   for(let i=0;i<640;i++)channel[i]=view.getInt16(12+i*2,true)/32768;
+   const source=audio.createBufferSource();source.buffer=buffer;source.connect(audio.destination);source.connect(destination);source.onended=()=>source.disconnect();source.start(base+sequence/25);
+   frames.push({sequence,bitmap});metrics.frames_received++;
+  }).catch(e=>{serverError=String(e.message||e)})
+ };
+ ws.onerror=()=>{serverError='LIVE_BROWSER_CONNECTION_FAILED'};
+ function display(){
+  if(base!==null){const elapsed=audio.currentTime-base;
+   if(elapsed>=0&&recorder.state==='inactive'&&metrics.recording_wall_start_unix===null){recorder.start(1000);metrics.recording_wall_start_unix=Date.now()/1000;metrics.audio_clock_start=audio.currentTime-base;window.rehearsal.stage='recording-'+mode}
+   let updated=false;
+   while(frames.length&&frames[0].sequence/25<=elapsed+.001){
+    const item=frames.shift();if(updated)dropped++;if(portrait)portrait.close();portrait=item.bitmap;lastSequence=item.sequence;displayed++;maxLate=Math.max(maxLate,elapsed-item.sequence/25);updated=true;
+   }
+   const line=captions.find(c=>elapsed>=c.start&&elapsed<c.end);const text=line?.text||'';
+   if(updated||text!==caption){caption=text;paint()}
+  }
+  raf=requestAnimationFrame(display)
+ }
+ display();
+ const deadline=performance.now()+120000;
+ while(base===null||audio.currentTime<base+30){if(serverError)throw Error(serverError);if(performance.now()>deadline)throw Error('LIVE_RECORDING_DEADLINE');await wait(25)}
+ if(recorder.state==='recording')recorder.stop();await stopped;cancelAnimationFrame(raf);await decoding;
+ ws.close();for(const f of frames)f.bitmap.close();stream.getVideoTracks().forEach(t=>t.stop());
+ Object.assign(metrics,{displayed,dropped,max_display_lateness_seconds:maxLate,last_sequence:lastSequence,recording_wall_end_unix:Date.now()/1000,mime,
+   realtime_delivery_complete:serverDone&&metrics.frames_received===750&&lastSequence>=748&&dropped<=2});
+ await fetch('/browser-metrics',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(metrics)});
+ const response=await fetch('/recording/'+mode,{method:'POST',headers:{'Content-Type':mime},body:new Blob(chunks,{type:mime})});
+ if(!response.ok)throw Error('RECORDING_SAVE_FAILED');window.rehearsal.completed.push({mode,...await response.json(),metrics});
+}
+button.onclick=async()=>{button.hidden=true;try{audio=new AudioContext();await audio.resume();destination=audio.createMediaStreamDestination();for(const m of Object.keys(names))await record(m);phase='三种形态录制完成';caption='';paint();window.rehearsal.stage='complete'}catch(e){fail(e)}};
+addEventListener('beforeunload',()=>audio?.close());poll().catch(fail);
+</script></html>
