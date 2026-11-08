@@ -1,0 +1,19 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-F",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-5dc2e9b80c4c-add83ebb",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRF01","status":"code_complete_pending_acceptance","code":"Prepare three verified reference latents before VAE compilation, restore matching mode conditioning without a new encode and inherit the persisted mode consistently","source_files":["integration/issac/flashhead.py","integration/issac/engine_service.py","tests/test_issac_mode_preparation.py"]},
+    {"id":"CRF02","status":"code_complete_pending_acceptance","code":"Predecode the current four-clip bank outside the live pump, prepare the next bank before a true G0 switch, preserve exact four-connected oral selection through native CCL and retain stage timing counters","source_files":["integration/issac/body.py","integration/issac/mouth.py","integration/issac/studio.py","tests/test_issac_mode_preparation.py"]},
+    {"id":"CRF03","status":"code_complete_pending_acceptance","code":"Release actual game event streams and the upstream media connection before official handler drain, with real HTTP shutdown coverage and retained failed-round evidence","source_files":["integration/issac/studio.py","tests/test_issac_programme_pump.py","docs/evidence/issac-programme-modes-e-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}

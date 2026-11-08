@@ -5,6 +5,7 @@ cavity and tongue come from actual FlashHead frames. PCM gates only sustained
 silence; it never creates phonemes or controls an invented mouth aperture.
 Prior output was not quality-accepted. Fresh mouth/teeth review is mandatory.
 """
+import cv2
 import numpy as np
 from numpy.lib.stride_tricks import sliding_window_view
 from PIL import Image,ImageDraw,ImageFilter
@@ -42,24 +43,20 @@ class Tracker:
 
 def component(mask):
     # Largest central connected oral component; reject hair at the crop edges.
-    h,w=mask.shape;visited=np.zeros_like(mask);best=None;best_score=-1e9
-    for y,x in np.argwhere(mask):
-        if visited[y,x]:continue
-        stack=[(int(y),int(x))];visited[y,x]=True;points=[]
-        while stack:
-            yy,xx=stack.pop();points.append((yy,xx))
-            for dy,dx in ((0,1),(0,-1),(1,0),(-1,0)):
-                yn,xn=yy+dy,xx+dx
-                if 0<=yn<h and 0<=xn<w and mask[yn,xn] and not visited[yn,xn]:
-                    visited[yn,xn]=True;stack.append((yn,xn))
-        if len(points)<45:continue
-        points=np.asarray(points);y0,x0=points.min(axis=0);y1,x1=points.max(axis=0)
-        width,height=x1-x0+1,y1-y0+1
+    h,w=mask.shape;best=None;best_score=-1e9
+    # SAUF retains the original row-major component ordering and four-neighbour
+    # connectivity while moving the per-pixel walk out of the live Python loop.
+    count,labels,stats,_=cv2.connectedComponentsWithStatsWithAlgorithm(
+        mask.astype(np.uint8),4,cv2.CV_32S,cv2.CCL_WU)
+    for label in range(1,count):
+        x0,y0,width,height,area=map(int,stats[label]);x1=x0+width-1;y1=y0+height-1
+        if area<45:continue
         if width<15 or height<5 or width>120 or height>80:continue
         cx=(x0+x1)/2;cy=(y0+y1)/2
         if x0<10 or x1>w-10 or y0<24 or cy<40:continue
-        score=len(points)-abs(cx-85)*15-abs(cy-58)*5
-        if score>best_score:best_score=score;best=(x0,y0,x1+1,y1+1,len(points),points)
+        score=area-abs(cx-85)*15-abs(cy-58)*5
+        if score>best_score:
+            best_score=score;best=(x0,y0,x1+1,y1+1,area,np.argwhere(labels==label))
     return best
 
 def hull(points):

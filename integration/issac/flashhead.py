@@ -58,6 +58,12 @@ class Engine:
             from .rotary import rope_apply
             self.pipeline.model.freqs=torch.view_as_real(self.pipeline.model.freqs).float().contiguous().to(self.pipeline.device)
             flash_head_model.rope_apply=rope_apply
+        # Prepare all three reference latents before wrapping VAE.encode. Its
+        # live inference graph encodes a different temporal shape; compiling a
+        # new 33-frame reference during a mode switch can take over 90 seconds.
+        self.conditioning={}
+        for prepared_mode in ('M01','M02','M03'):
+            self.configure(prepared_mode)
         self.configure(mode)
         compile_mode=config.get('compile_mode','model-vae')
         if compile_mode=='model-vae':
@@ -77,8 +83,16 @@ class Engine:
         ref=inside(self.root,row['engine_reference'])
         if file_hash(ref)!=row['engine_reference_sha256']:
             raise AdmissionError('SAME_MODE_ENGINE_REFERENCE_CHANGED')
+        cached=self.conditioning.get(mode)
         with self.torch.inference_mode():
-            self.pipeline.prepare_params(str(ref),(512,512),self.frames,self.overlap,4,42,5.,1.,False)
+            if cached is None:
+                self.pipeline.prepare_params(str(ref),(512,512),self.frames,self.overlap,4,42,5.,1.,False)
+                cached={name:getattr(self.pipeline,name) for name in
+                    ('cond_image_dict','cond_image_tensor_dict','ref_img_latent_dict','person_name')}
+                self.conditioning[mode]=cached
+            else:
+                for name,value in cached.items():setattr(self.pipeline,name,value)
+                self.pipeline.generator=self.torch.Generator(device=self.pipeline.device).manual_seed(42)
         self.mode=mode
         self.reset()
 

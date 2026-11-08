@@ -88,8 +88,14 @@ class BodyBank:
             raise AdmissionError('BODY_DECODED_FRAME_COUNT_CHANGED')
         # Never replace, repeat, reverse, freeze or synthesize clip endpoints.
         self.cache[row['id']]=frames
-        while len(self.cache)>3:self.cache.popitem(last=False)
+        while len(self.cache)>4:self.cache.popitem(last=False)
         return frames
+
+    def preload(self):
+        rows=[row for row in self.rows.values() if row['mode']==self.mode]
+        if len(rows)>4:raise AdmissionError('BODY_MODE_EXCEEDS_PRELOADED_CACHE_BUDGET')
+        for row in rows:self.decode(row)
+        return {'mode':self.mode,'decoded_clips':len(rows)}
 
     def eligible(self, row, now, speaking, safe):
         if row['mode']!=self.mode or row.get('kind')=='drink_segment':return False

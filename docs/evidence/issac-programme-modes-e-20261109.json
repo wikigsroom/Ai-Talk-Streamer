@@ -1,0 +1,18 @@
+{
+  "candidate_id":"issac-5dc2e9b80c4c-add83ebb",
+  "source_commit":"5dc2e9b80c4cf22287ea09d638dde8497b932677",
+  "phase":"acceptance_closed",
+  "passed":false,
+  "remote_evidence":"state/issac-acceptance/programme-modes-e.json",
+  "remote_evidence_sha256":"32875f87a283d3ab186b4dbb7817417186d590bf39b5f47bfdfdf51662a089ac",
+  "m03_diagnostic":{"actual_elapsed_seconds":45.171,"actual_packets":1113,"audio_driven_mouth_frames":321,"open_mouth_frames":234,"completed_utterances":2,"playback_receipts":54,"quality_accepted":false},
+  "failure":{"requested_mode":"M01","engine_later_mode":"M01","programme_mode":"M03","code":"MODE_SWITCH_NOT_CONFIRMED","engine_request_started_unix":1794175283.8646598,"operation_failed_unix":1794175373.9244044,"request_deadline_seconds":90},
+  "source_review":"Reference preparation after compilation invokes VAE encode on a 33-frame conditioning tensor, whereas live render uses another temporal shape. Mode reference latents must be prepared before compilation and selected from verified in-memory conditioning.",
+  "additional_findings":{"pump_stalls_in_diagnostic":2,"maximum_observed_packet_gap_seconds":0.266,"shutdown_first_deadline_exceeded":true,"game_event_stream_not_released_before_handler_drain":true},
+  "official_client_closed_normally":true,
+  "menu_game_closed_normally":true,
+  "owned_media_processes_stopped":true,
+  "source_changed_during_tests":false,
+  "gameplay_run_started":false,
+  "final_recording_created":false
+}

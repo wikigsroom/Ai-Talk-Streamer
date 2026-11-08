@@ -28,7 +28,10 @@ class EngineService:
     def __init__(self, root):
         self.root=Path(root).resolve()
         self.config=read_json(inside(root,'configs/issac/runtime.json'))
-        self.mode=self.config['media']['default_mode']
+        mode_path=inside(root,'state/issac-stream/current-mode.json')
+        self.mode=read_json(mode_path)['mode'] if mode_path.is_file() else self.config['media']['default_mode']
+        if self.mode not in {'M01','M02','M03'}:raise AdmissionError('PREPARED_MODE_REQUIRED')
+        self.prepared_modes=[]
         self.lease=FileLease(inside(root,'state/issac-stream/flashhead.lock')).acquire()
         self.audit=Audit(inside(root,'state/issac-stream/flashhead-events.jsonl'))
         self.stop=threading.Event()
@@ -77,6 +80,7 @@ class EngineService:
             self.stage='loading'
             from .flashhead import Engine
             engine=Engine(self.root,self.mode)
+            self.prepared_modes=sorted(engine.conditioning)
             self.stage='warming_up'
             for _ in range(4):engine.render(np.zeros(engine.samples,np.int16))
             engine.reset()
@@ -88,6 +92,7 @@ class EngineService:
                     requested=self.mode_request
                     self.mode_request=None
                 if requested:
+                    started=time.monotonic()
                     engine.configure(requested)
                     engine.reset()
                     with self.lock:
@@ -95,6 +100,7 @@ class EngineService:
                         self.mode_completed=requested
                         self.ready=True
                         self.stage='ready'
+                    self.audit.append('prepared_mode_selected',mode=requested,seconds=time.monotonic()-started)
                 try:epoch,offset,pcm,valid=self.input.get(timeout=.1)
                 except queue.Empty:
                     if self.ended and self.input.empty():self.drained=True
@@ -213,6 +219,7 @@ class EngineService:
         values=list(self.timings)
         return web.json_response({'service':'issac-flashhead-lite','ready':self.ready,'stage':self.stage,'error':self.error,
             'size':512,'fps':25,'steps':4,'batch_size':1,'mode':self.mode,'epoch':self.epoch,'active':bool(self.active),
+            'prepared_modes':self.prepared_modes,
             'actual_generation_fps':24*len(values)/sum(values) if values else None,'counters':dict(self.stats),
             'quality_accepted':False,'diagnostic_output_is_production_acceptance':False})
 

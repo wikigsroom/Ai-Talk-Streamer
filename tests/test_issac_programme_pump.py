@@ -37,6 +37,7 @@ class ProgrammePumpTests(unittest.IsolatedAsyncioTestCase):
         studio.last_body_event=None;studio.media_fault=False;studio.media_error=None
         studio.game_state={};studio.stats=Counter();studio.viewers={}
         studio.last_telemetry=time.monotonic()+3600;studio.audit=Audit(folder/'events.jsonl')
+        studio.game_event_tasks=set();studio.stopping=False;studio.cleanup_started=False
         studio.emit=AsyncMock();studio.native_call=AsyncMock(return_value={'native_receipt':{'no_active_run':True}})
         return studio
 
@@ -90,6 +91,23 @@ class ProgrammePumpTests(unittest.IsolatedAsyncioTestCase):
                     await asyncio.wait_for(runner.cleanup(),1)
                     self.assertIn((await closed).type,{WSMsgType.CLOSE,WSMsgType.CLOSED})
                     self.assertFalse(studio.viewers);self.assertTrue(studio.http.closed)
+            finally:await runner.cleanup()
+
+    async def test_normal_shutdown_releases_actual_game_event_stream(self):
+        with tempfile.TemporaryDirectory() as directory:
+            studio=self.studio(Path(directory));studio.root=Path(directory)
+            studio.http=ClientSession();studio.cue_task=None;studio.tasks=[]
+            app=studio.application();app.on_startup.clear();runner=web.AppRunner(app,shutdown_timeout=4)
+            await runner.setup();site=web.TCPSite(runner,'127.0.0.1',0);await site.start()
+            try:
+                async with ClientSession() as observer:
+                    response=await observer.get(f'http://127.0.0.1:{site._server.sockets[0].getsockname()[1]}/api/dsh/game/events')
+                    self.assertTrue((await response.content.readline()).startswith(b'event: state'))
+                    self.assertEqual(len(studio.game_event_tasks),1)
+                    await asyncio.wait_for(runner.cleanup(),1)
+                    self.assertFalse(studio.game_event_tasks)
+                    self.assertTrue(studio.http.closed);self.assertTrue(studio.stopping)
+                    response.close()
             finally:await runner.cleanup()
 
     async def test_broken_speech_callback_and_consumer_do_not_skip_game_pause(self):
