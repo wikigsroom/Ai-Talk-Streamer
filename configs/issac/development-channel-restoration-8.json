@@ -1,0 +1,20 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-H",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-8b1cda655782-fc334d19",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRH01","status":"code_complete_pending_acceptance","code":"Conclude only an actually accepted native plan with its same-model short intention; retain complete wiki, narrow game tool catalogue and scope a 24000 estimated-token budget to Isaac game turns","source_files":["backend/dsh-bridge/host.mjs","backend/dsh-bridge/isaac-core.mjs","backend/dsh-bridge/policy.mjs","configs/issac/bridge-policy.json","configs/issac/core-persona-gameplay.md","integration/issac/tests/naimei_core.test.mjs","tests/issac-core-host.test.mjs"]},
+    {"id":"CRH02","status":"code_complete_pending_acceptance","code":"Fence cancelled turns by control revision, keep intentional interruptions out of fault counts and provide bounded fresh-event speech windows without replaying old rooms","source_files":["backend/dsh-bridge/isaac-core.mjs","integration/issac/events.py","integration/issac/tests/naimei_core.test.mjs"]},
+    {"id":"CRH03","status":"code_complete_pending_acceptance","code":"Bound atomic status-file retries for Windows sharing locks, preserving old complete data and failing closed on real or sustained errors","source_files":["integration/issac/common.py","integration/issac/tests/test_atomic_status.py"]},
+    {"id":"CRH04","status":"code_complete_pending_acceptance","code":"Retain closed G evidence and document the full next frozen round without inheriting quality or production approval","source_files":["docs/evidence/issac-programme-modes-g-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}

@@ -74,9 +74,9 @@ class GameEvents:
                 new_room = snapshot.get('room', {})
                 if room != self.identities(previous)[1]:
                     self.emit(snapshot, 'room_entered', {'room_type': new_room.get('type'),
-                              'room_clear': new_room.get('clear')}, ttl=8)
+                              'room_clear': new_room.get('clear')}, ttl=15)
                 elif new_room.get('clear') and not old_room.get('clear'):
-                    self.emit(snapshot, 'room_cleared', {'room_type': new_room.get('type')}, priority=40)
+                    self.emit(snapshot, 'room_cleared', {'room_type': new_room.get('type')}, priority=40, ttl=15)
                 if new_room.get('dead') and not old_room.get('dead'):
                     self.emit(snapshot, 'player_died', {'dead': True}, priority=5, ttl=20)
                 if new_room.get('paused') != old_room.get('paused'):
@@ -88,17 +88,17 @@ class GameEvents:
                 if new_total != old_total and new_hp.get('exact'):
                     self.emit(snapshot, 'health_changed', {'before_half_hearts': old_total,
                               'after_half_hearts': new_total, 'cause': 'unconfirmed'},
-                              priority=15 if new_total <= 2 else 50, ttl=6)
+                              priority=15 if new_total <= 2 else 50, ttl=12)
                 if (snapshot.get('inventory_known') and previous.get('inventory_known')
                         and snapshot.get('inventory_revision') != previous.get('inventory_revision')):
                     before = {x['id']: x.get('count',1) for x in previous.get('inventory',[])}
                     gained = [x for x in snapshot.get('inventory',[]) if x.get('count',1) > before.get(x['id'],0)]
                     self.emit(snapshot, 'inventory_changed', {'gained': gained,
-                              'current_revision': snapshot.get('inventory_revision')}, priority=20)
+                              'current_revision': snapshot.get('inventory_revision')}, priority=20, ttl=15)
                 old_boss = bool(previous.get('bosses'))
                 if snapshot.get('bosses') and not old_boss:
                     self.emit(snapshot, 'boss_encountered', {'bosses':[{'type':x.get('type'), 'variant':x.get('variant')}
-                              for x in snapshot['bosses']]}, priority=25, ttl=5)
+                              for x in snapshot['bosses']]}, priority=25, ttl=12)
             elif (snapshot.get('frame') is not None and 0 <= snapshot['frame'] <= 120
                   and not snapshot.get('room',{}).get('dead')):
                 self.emit(snapshot, 'run_started', {'seed':identity['seed'], 'goal':'已观察的合法路线'}, priority=30)
@@ -114,7 +114,7 @@ class GameEvents:
                 self.emit(snapshot, 'plan_'+receipt['status'],
                           {'status':receipt['status'], 'reason':receipt.get('reason'),
                            'effect':receipt.get('effect'), 'cost':receipt.get('cost')},
-                          priority=20 if receipt['status']=='succeeded' else 60, ttl=6, proof=receipt)
+                          priority=20 if receipt['status']=='succeeded' else 60, ttl=12, proof=receipt)
             self.previous = deepcopy(snapshot)
             self.db.execute('INSERT OR REPLACE INTO metadata(key,value) VALUES(?,?)',
                             ('last_observation',canonical({'run':run,'room':room,'identity':identity,'frame':snapshot.get('frame')})))

@@ -56,7 +56,16 @@ def write_json(path, value):
             stream.write(data)
             stream.flush()
             os.fsync(stream.fileno())
-        os.replace(temporary, path)
+        # Windows readers (including status inspection) can briefly deny rename.
+        # Keep the old complete file and retry only sharing/lock errors, bounded.
+        for attempt in range(8):
+            try:
+                os.replace(temporary, path)
+                break
+            except OSError as error:
+                if getattr(error, 'winerror', None) not in {5, 32, 33} or attempt == 7:
+                    raise
+                time.sleep(min(.02 * 2**attempt, .16))
     finally:
         if temporary.exists():
             temporary.unlink()

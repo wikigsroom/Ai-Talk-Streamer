@@ -131,7 +131,9 @@ export class DshHost {
     if(gameplay)preparedContext=gameplay.augment(preparedContext);
     const memorySnapshot=preparedContext?.humanity_public_snapshot||this.port.requestMemorySnapshot([]);
     if(preparedContext)delete preparedContext.humanity_public_snapshot;
-    const maximumSteps=gameplay?8:this.policy.conversation.max_memory_tool_rounds+1,contextBudget=this.policy.conversation.context_max_estimated_tokens;
+    const gameTurn=!!gameplay&&(!!preparedContext?.game_event||!!preparedContext?.game_decision);
+    const maximumSteps=gameplay?8:this.policy.conversation.max_memory_tool_rounds+1;
+    const contextBudget=gameTurn?this.policy.conversation.game_context_max_estimated_tokens||this.policy.conversation.context_max_estimated_tokens:this.policy.conversation.context_max_estimated_tokens;
     let steps = 0, finalReason, handle, lastAssistant = '', lastError, lastFinish;
     const calls = [];
     try {
@@ -144,7 +146,7 @@ export class DshHost {
             text: this.renderPersona(personaSnapshot.document, { enabled: true, independentJudgment: true }) });
           agentCtx.systemPrompt.section({ name:'humanity:memory',order:20,interpolate:false,text:memorySnapshot.text });
           await this.#bind(agentCtx, snapshot, route, maintenance?this.policy.maintenance.model_timeout_ms:this.policy.conversation.model_timeout_ms);
-          const names = maintenance ? ['stream_maintenance_result'] : [...(preparedContext?.game_event||preparedContext?.game_decision?[]:LIVE_TOOLS), ...(this.extensions ? EXTENSION_TOOLS : []), ...(gameplay?gameplay.names:[])];
+          const names = maintenance ? ['stream_maintenance_result'] : gameTurn ? gameplay.names : [...LIVE_TOOLS, ...(this.extensions ? EXTENSION_TOOLS : []), ...(gameplay?gameplay.names:[])];
           if (this.extensions && !maintenance && !negativeMinimal) await this.extensions.mount(agentCtx, agent, input, preparedContext?.partition_key || 'public');
           if(gameplay)agentCtx.systemPrompt.section({name:'naimei:isaac-complete',order:25,interpolate:false,text:gameplay.prompt.text});
           for (const name of names) agentCtx.tools.register(this.defineTool({ name,
@@ -156,7 +158,9 @@ export class DshHost {
               if (signal?.aborted) throw new Error('CANCELLED');
               let value; try { value = JSON.parse(args.data); } catch { throw new Error('TOOL_JSON'); }
               const result = gameplay?.names.includes(name)?await gameplay.tool(name,value,{sessionId,turn:gameplayTurn}):EXTENSION_TOOLS.includes(name) && this.extensions ? await this.extensions.tool(name, value, agent) : await tools(name, value);
-              if (maintenance) exec.concludeTurn();
+              // Only a server-acknowledged choice may conclude with its model-authored
+              // intention. Failed/obsolete tools cannot publish intermediate text.
+              if (maintenance || name==='isaac_submit_plan'&&gameplayTurn?.submitted?.status==='accepted'&&gameplayTurn.narration) exec.concludeTurn();
               return canonical(result);
             },
           }));
@@ -225,10 +229,11 @@ export class DshHost {
         ] }));
         await handle.agent.whenIdle();
         if (signal?.aborted) throw modelFailure(null, { signal });
-        if (lastError || (!lastAssistant && !maintenance) || finalReason?.kind !== 'completed') {
+        const finalText=gameTurn&&gameplayTurn?.submitted?.status==='accepted'&&gameplayTurn.narration?gameplayTurn.narration:lastAssistant;
+        if (lastError || (!finalText && !maintenance) || finalReason?.kind !== 'completed') {
           throw modelFailure(lastError, { signal, finish: lastFinish });
         }
-        return { text: lastAssistant.trim(), session_id: sessionId, steps, final_reason: finalReason, calls };
+        return { text: finalText.trim(), session_id: sessionId, steps, final_reason: finalReason, calls };
       } finally { signal?.removeEventListener('abort', abort); }
     } catch(error) {
       const failure = modelFailure(error, { signal, finish: lastFinish });

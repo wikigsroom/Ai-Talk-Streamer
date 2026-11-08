@@ -71,3 +71,33 @@ test('a choice intentionally interrupting self-talk does not falsely disarm game
   await core.runFact();
   assert.equal(core.enabled,true);assert.equal(abandoned,1);assert.equal(core.failures,0);
 });
+
+test('accepted model commentary is separated from the native plan and rejected choices have none',async()=>{
+  const {core,calls,turn,sessionId}=fixture();
+  const plan={plan_id:'plan-A',decision_id:'decision-A',context_id:'room-A',offer_id:'heart-A',budget:{},reason:'补血',commentary:'血量不满，这颗红心我先拿上。'};
+  await core.tool('isaac_submit_plan',plan,{sessionId,turn});
+  assert.equal(turn.narration,plan.commentary);assert.equal(calls[0].body.commentary,undefined);
+  const next={decision_id:'decision-A',context_id:'room-A'};
+  core.api=async()=>({plan_id:'plan-A',status:'rejected'});
+  await assert.rejects(core.tool('isaac_submit_plan',plan,{sessionId,turn:next}),/CORE_PLAN_NOT_ACCEPTED/);
+  assert.equal(next.narration,undefined);assert.equal(next.submitted,undefined);
+});
+
+test('normal pause and rearm fence a late model turn without disarming the new revision',async()=>{
+  const {core}=fixture();let release,entered;
+  const started=new Promise(resolve=>entered=resolve),waiting=new Promise(resolve=>release=resolve);
+  Object.assign(core,{busy:false,attempts:new Map(),failures:0,turns:0,latencies:[],recent:[],pending:new Map(),backlog:[],
+    status:()=>({ready:true}),controlRevision:4,
+    generate:async()=>{core.activeAbort=new AbortController();entered();await waiting;throw Error('cancelled old request');}});
+  const pending=core.runDecision(offered());await started;
+  core.control(false);core.control(true);release();await pending;
+  assert.equal(core.enabled,true);assert.equal(core.controlRevision,6);assert.equal(core.failures,0);
+  assert.equal(core.turns,0);assert.equal(core.busy,false);
+});
+
+test('a delayed plan cannot cross a disarm/rearm during the freshness read',async()=>{
+  const {core,calls,turn,sessionId}=fixture();core.controlRevision=1;turn.control_revision=1;
+  core.decision=async()=>{core.controlRevision=3;return offered();};
+  await assert.rejects(core.tool('isaac_submit_plan',{decision_id:'decision-A',context_id:'room-A'},{sessionId,turn}),/CORE_TURN_CANCELLED/);
+  assert.equal(calls.length,0);
+});
