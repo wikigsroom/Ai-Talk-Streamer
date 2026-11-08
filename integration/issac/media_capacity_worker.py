@@ -70,6 +70,7 @@ def actor(root,folder,role):
         media=read_json(inside(root,'configs/issac/runtime.json'))['media']
         row.update(actual_new_frames=count,width=512,height=512,steps=4,batch=1,
             compile_mode=media['compile_mode'],fast_rope=media['fast_rope'],timings=timings,
+            actual_loading=engine.loading,
             conditioning_anchor_sha256=OPEN_SHA,actual_video_sha256=file_hash(video),
             speech_audio_sha256=file_hash(folder/'generated-ncm01.wav'))
     row.update(peaks(),passed=True,stage='measured',measured_unix=time.time())

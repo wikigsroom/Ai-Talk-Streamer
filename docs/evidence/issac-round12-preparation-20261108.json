@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "scope": "read_only_preparation_not_application_acceptance",
+  "branch": "issac",
+  "preceding_candidate": "issac-c52202cff690-d0d3088d",
+  "previous_acceptance_actually_closed": true,
+  "user_decisions": {
+    "physical_official_window_black": true,
+    "retain_swift": true,
+    "new_model_download_allowed": false
+  },
+  "read_only_observations": {
+    "original_owned_official_pid": 25312,
+    "original_owned_model_app_pid": 17224,
+    "both_original_pid_instances_no_longer_exist": true,
+    "closure_by_this_preparation_claimed": false,
+    "gpu_total_mib": 49140,
+    "gpu_free_mib": 48251,
+    "host_available_bytes": 60654301184,
+    "existing_sdk_version": "2.0.0",
+    "existing_sdk_entry_sha256": "04b22d58713117032cf5f5074838838a311493f7cc065e43885090b059c33331",
+    "existing_media_packages": [
+      "diffusers 0.35.1",
+      "accelerate 1.15.0",
+      "transformers 4.51.3",
+      "safetensors 0.8.0"
+    ],
+    "actual_render_errors": [
+      "Passthrough is not supported, GL is disabled, ANGLE is",
+      "GPU process exited unexpectedly: exit_code=1"
+    ],
+    "render_errors_are_proven_root_cause": false,
+    "native_cli_ps_failed_after_owned_app_exit": true,
+    "http_v1_models_is_catalogue_only": true
+  },
+  "new_weights_downloaded_bytes": 0,
+  "new_dependencies_downloaded_bytes": 0,
+  "reference_audio_or_transcript_included": false,
+  "application_tests_run_during_development": false,
+  "runtime_or_quality_accepted": false,
+  "official_recording_created": false,
+  "public_broadcast_started": false
+}

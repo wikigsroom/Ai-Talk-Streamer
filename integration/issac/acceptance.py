@@ -109,6 +109,7 @@ class Runner:
             [str(inside(self.root,paths['game_python'])),'-X','utf8','-B','-m','unittest','discover','-s','integration/issac/tests','-v'],
             [str(inside(self.root,paths['game_python'])),'-X','utf8','-B','-m','unittest','discover','-s','integration/isaac-agent/tests','-q'],
             [str(inside(self.root,paths['node'])),'--test','integration/issac/tests/contracts.test.mjs',
+              'integration/issac/tests/model_backend.test.mjs',
               'integration/isaac-agent/tests/test_dsh_binding.mjs']]
         tests.append([str(inside(self.root,paths['node'])),'--test',
             *[str(p.relative_to(self.root)) for p in sorted(inside(self.root,'tests').glob('*.test.mjs'))]])

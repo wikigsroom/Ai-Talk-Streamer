@@ -79,7 +79,8 @@
     "preview_gain": 0,
     "quality_accepted": false,
     "compile_mode": "model-vae",
-    "fast_rope": true
+    "fast_rope": true,
+    "weight_loading_policy": "native-low-cpu-v1"
   },
   "programme": {
     "title": "奶妹 · 以撒的结合",

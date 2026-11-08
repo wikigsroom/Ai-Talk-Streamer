@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "policy": "retained-swift-low-memory-v1",
+  "new_model_download_allowed": false,
+  "context_length": 16384,
+  "sdk": {
+    "entry": "tools/lmstudio/home/extensions/plugins/lmstudio/rag-v1/node_modules/@lmstudio/sdk/dist/index.cjs",
+    "sha256": "04b22d58713117032cf5f5074838838a311493f7cc065e43885090b059c33331",
+    "version": "2.0.0",
+    "source": "existing isolated LM Studio bundled rag-v1 SDK; no installation or download"
+  },
+  "load_config": {
+    "flashAttention": true,
+    "evalBatchSize": 64,
+    "physicalBatchSize": 64,
+    "maxParallelPredictions": 1,
+    "contextCheckpoints": 0,
+    "keepModelInMemory": false,
+    "tryMmap": true,
+    "useFp16ForKVCache": true,
+    "llamaKCacheQuantizationType": false,
+    "llamaVCacheQuantizationType": false,
+    "engineConfigFileContents": ""
+  },
+  "accepted": false,
+  "requires_actual_estimate_and_echoed_loaded_configuration": true,
+  "all_original_capacity_margins_retained": true
+}

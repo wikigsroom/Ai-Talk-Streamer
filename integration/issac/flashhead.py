@@ -39,8 +39,12 @@ class Engine:
         torch.set_num_threads(6)
         torch.backends.cuda.matmul.allow_tf32=True
         torch.backends.cudnn.allow_tf32=True
-        self.pipeline=get_pipeline(1,str(inside(root,'models/flashhead/SoulX-FlashHead-1_3B')),
-                    'lite',str(inside(root,'models/flashhead/wav2vec2-base-960h')))
+        from flash_head.ltx_video.models.autoencoders.causal_video_autoencoder import CausalVideoAutoencoder
+        from .mouth_loading import native_bf16_loaders,verify_loaded_precision
+        with native_bf16_loaders(root,torch,module.WanModelAudioProject,CausalVideoAutoencoder):
+            self.pipeline=get_pipeline(1,str(inside(root,'models/flashhead/SoulX-FlashHead-1_3B')),
+                        'lite',str(inside(root,'models/flashhead/wav2vec2-base-960h')))
+        self.loading=verify_loaded_precision(self.pipeline,torch)
         self.frames=33
         self.overlap=(2-1)*self.pipeline.config.vae_stride[0]+1
         self.new_frames=self.frames-self.overlap

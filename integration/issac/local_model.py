@@ -40,6 +40,7 @@ class LocalModel:
         print(json.dumps(row,ensure_ascii=False),flush=True)
 
     def models(self):
+        """HTTP availability/catalogue only. This is never proof of a loaded model."""
         try:
             request=urllib.request.Request(self.url+'/models',headers=self.headers())
             with self.opener.open(request,timeout=4) as response:
@@ -52,6 +53,35 @@ class LocalModel:
     def headers(self):
         key=self.config.get('api_key','')
         return {'Content-Type':'application/json',**({'Authorization':'Bearer '+key} if key else {})}
+
+    def sdk(self,action,*,ratio=None,timeout=180):
+        """No SDK discovery, installation, cloud host or fuzzy model selection."""
+        self.verify_server_owner()
+        policy=read_json(inside(self.root,'configs/issac/model-loading.json'))
+        entry=inside(self.root,policy['sdk']['entry'])
+        if file_hash(entry)!=policy['sdk']['sha256']:
+            raise AdmissionError('PINNED_EXISTING_BUNDLED_SDK_REQUIRED')
+        # Reuse the existing first-shard path validation; the SDK independently
+        # resolves precisely this path and requires deviceIdentifier=null.
+        self.load_arguments(self.config.get('gpu_offload'),policy['context_length'])
+        request={'action':action,'base_url':'ws://127.0.0.1:'+str(urlsplit(self.url).port),
+            'retained_path':self.config['retained_model_key'],'identifier':self.config['model'],
+            'ratio':ratio,'api_token':self.config.get('api_key','')}
+        runtime=read_json(inside(self.root,'configs/issac/runtime.json'))
+        result=subprocess.run([str(inside(self.root,runtime['native_paths']['node'])),
+            str(inside(self.root,'integration/issac/model_backend.mjs')),str(self.root)],
+            input=json.dumps(request).encode(),cwd=self.root,env=self.environment(),timeout=timeout,
+            stdout=subprocess.PIPE,stderr=subprocess.PIPE,creationflags=0x08000000)
+        self.audit.append('native_sdk_result',action=action,exit_code=result.returncode,
+            sdk_sha256=policy['sdk']['sha256'],private_stderr=result.stderr.decode('utf8',errors='replace')[-2000:])
+        if result.returncode:raise AdmissionError('OWNED_NATIVE_SDK_OPERATION_FAILED_'+action)
+        try:return json.loads(result.stdout.decode('utf-8-sig'))
+        except (ValueError,UnicodeError):raise AdmissionError('ACTUAL_NATIVE_SDK_JSON_REQUIRED') from None
+
+    def loaded_models(self):
+        value=self.sdk('loaded')
+        if not isinstance(value.get('models'),list):raise AdmissionError('ACTUAL_LOADED_MODEL_LIST_REQUIRED')
+        return value['models']
 
     def environment(self):
         from .preparation import runtime_environment
@@ -271,9 +301,10 @@ class LocalModel:
             raise AdmissionError('BOUNDED_CAPACITY_WAIT_REQUIRED')
         self.progress('observing_existing_capacity')
         observed=snapshot()
-        try:models=self.models()
-        except AdmissionError:models=None
-        if models is not None:self.verify_server_owner()
+        try:catalogue=self.models()
+        except AdmissionError:catalogue=None
+        models=None
+        if catalogue is not None:models=self.loaded_models()
         expected=self.config['model']
         already_loaded=models is not None and any(x.get('id')==expected for x in models)
         deadline=time.monotonic()+capacity_wait_seconds;last_progress=0
@@ -290,31 +321,40 @@ class LocalModel:
         media_budget=budget(self.root,self.candidate)
         reserves={'reserve_mib':media_budget['media_reserve_mib'],
                   'host_extra_reserve_mib':media_budget['host_extra_reserve_mib']}
-        if models is None:
+        if catalogue is None:
             self.progress('starting_isolated_native_application')
             self.start_application()
             self.wait_application_api()
             self.progress('starting_loopback_server')
             self.command('server','start','--port',str(urlsplit(self.url).port),'--bind','127.0.0.1',timeout=180)
-            models=self.models()
+            self.models()  # HTTP server availability only
+            models=self.loaded_models()
         profile=self.verify_server_owner()
-        plan=None
+        plan=None;loaded_proof=None
+        if any(x.get('id')==expected for x in models):
+            prior=read_json(inside(self.root,'state/isaac-strategy/local-backend.json'))
+            if (prior.get('candidate_id')!=self.candidate or prior.get('loaded_configuration',{}).get('configuration_verified') is not True):
+                raise AdmissionError('EXISTING_LOADED_MODEL_REQUIRES_CURRENT_PREPARATION_RECEIPT')
+            loaded_proof=prior['loaded_configuration']
+            current=next(x for x in models if x.get('id')==expected)
+            if (current.get('configuration_verified') is not True or current.get('path')!=self.config['retained_model_key']
+                or current.get('config',{}).get('gpu')!=loaded_proof.get('actual_config',{}).get('gpu')):
+                raise AdmissionError('ACTUAL_LOADED_CONFIGURATION_CHANGED_SINCE_PREPARATION')
         if not any(x.get('id')==expected for x in models):
             key=self.config.get('retained_model_key');fraction=self.config.get('gpu_offload')
             context=self.config.get('context_window',16384)
             if (not isinstance(key,str) or not key.strip() or type(fraction) not in (float,int)
-                    or not 0<=fraction<=.6 or type(context) is not int or context<4096):
+                    or not 0<fraction<=.6 or type(context) is not int or context!=16384):
                 raise AdmissionError('BOUNDED_EXISTING_MODEL_LOAD_SETTINGS_REQUIRED')
-            help_text=self.command('load','--help')
-            if '--estimate-only' not in help_text:raise AdmissionError('PREPARED_LMS_RESOURCE_ESTIMATOR_NOT_SUPPORTED')
             observed=snapshot();plans=[]
             for ratio in offload_candidates(fraction):
                 self.progress('estimating_model_resources',gpu_offload=ratio,context_window=context)
-                arguments=self.load_arguments(ratio,context)
-                estimate=parse_estimate(self.command(*arguments,'--estimate-only',timeout=180,include_stderr=True))
+                actual=self.sdk('estimate',ratio=ratio)
+                estimate=actual['estimate']
                 assessment=assess_estimate(estimate,observed,**reserves)
-                fits=assessment['fits']
-                plans.append({'gpu_offload':ratio,'estimate':estimate,'fits':fits,'capacity':assessment})
+                fits=assessment['fits'] and estimate.get('passes_guardrails') is True
+                plans.append({'gpu_offload':ratio,'estimate':estimate,'fits':fits,'capacity':assessment,
+                              'requested_config':actual['requested_config'],'estimator':'pinned_existing_native_sdk'})
                 if fits:plan=plans[-1];break
             write_json(inside(self.root,'state/isaac-strategy/model-resource-plan.json'),
                 {'candidate_id':self.candidate,'observed':observed,'media_budget':media_budget,
@@ -322,13 +362,16 @@ class LocalModel:
             if plan is None:raise AdmissionError('RETAINED_MODEL_AND_MEDIA_DO_NOT_FIT_MEASURED_CAPACITY')
             if not estimate_fits(plan['estimate'],snapshot(),**reserves):raise AdmissionError('CAPACITY_CHANGED_BEFORE_MODEL_LOAD')
             self.progress('loading_retained_model',gpu_offload=plan['gpu_offload'],context_window=context)
-            self.command(*self.load_arguments(plan['gpu_offload'],context),'--identifier',expected,timeout=900)
-            models=self.models()
+            loaded_proof=self.sdk('load',ratio=plan['gpu_offload'],timeout=930)
+            if loaded_proof.get('configuration_verified') is not True:
+                raise AdmissionError('ACTUAL_NATIVE_MODEL_CONFIGURATION_NOT_VERIFIED')
+            models=self.loaded_models()
         if not any(x.get('id')==expected for x in models):raise AdmissionError('ACTUAL_LOCAL_MODEL_ID_NOT_LOADED')
         profile=self.verify_server_owner()
         receipt={'backend':'native_LM_Studio','candidate_id':self.candidate,'model':expected,'base_url':self.url,
                  'retained_files':provenance['files'],'file_verification':provenance,'profile_proof':profile,
-                 'resource_plan':plan,'media_budget':media_budget,'cloud_fallback':False,'new_model_download_bytes':0,
+                 'resource_plan':plan,'media_budget':media_budget,'loaded_configuration':loaded_proof,
+                 'cloud_fallback':False,'new_model_download_bytes':0,
                  'model_qualified':False,'at_unix':time.time()}
         write_json(inside(self.root,'state/isaac-strategy/local-backend.json'),receipt)
         self.progress('retained_model_prepared_not_qualified')

@@ -18,6 +18,19 @@ SCENE_CHECKS={'official_client','local_recording_only','canvas_1920_1080','outpu
  'programme_url_exact','one_official_audible_source','preview_muted','microphone_disabled',
  'only_game_and_programme_audio','no_obs_client','record_path_inside_issac'}
 
+RENDER_ARGUMENTS={
+    'software-ui':['--disable-gpu','--disable-gpu-compositing',
+                   '--disable-gpu-rasterization','--disable-direct-composition'],
+    'd3d11-ui':['--use-gl=angle','--use-angle=d3d11','--disable-direct-composition'],
+    'native-ui':[]}
+
+
+def render_arguments(root,mode=None):
+    config=read_json(inside(root,'configs/issac/official-rendering.json'))
+    mode=mode or config['default_mode']
+    if mode not in RENDER_ARGUMENTS:raise AdmissionError('BOUNDED_OFFICIAL_RENDER_MODE_REQUIRED')
+    return mode,list(RENDER_ARGUMENTS[mode])
+
 
 class Livehime:
     def __init__(self,root):
@@ -56,13 +69,16 @@ class Livehime:
             raise AdmissionError('OWNED_OFFICIAL_WINDOW_NOT_CONFIRMED')
         return json.loads(result.stdout.decode('utf-8-sig'))
 
-    def launch(self):
+    def launch(self,render_mode=None):
         import psutil
+        mode,graphics=render_arguments(self.root,render_mode)
         if self.registration.exists():
             old=read_json(self.registration)
             try:
                 process=psutil.Process(old['pid'])
                 if process.create_time()==old['created_at']:
+                    if old.get('render_mode')!=mode:
+                        raise AdmissionError('LIVE_OWNED_CLIENT_REQUIRES_NORMAL_CLOSE_BEFORE_RENDERER_CHANGE')
                     return self.owner()  # never replace/adopt a live old candidate
             except psutil.NoSuchProcess:pass
             archive=inside(self.root,'operations/official-client-history')/(uuid.uuid4().hex+'.json')
@@ -86,12 +102,13 @@ class Livehime:
         from .windows_profile import configure,verify_in_child
         configure(env,base/'profile')
         known_folders=verify_in_child(self.root,env,base/'profile')
-        handle=subprocess.Popen([str(self.executable)],cwd=self.executable.parent,env=env,
+        handle=subprocess.Popen([str(self.executable),*graphics],cwd=self.executable.parent,env=env,
             stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,creationflags=0x08000000)
         process=psutil.Process(handle.pid)
         record={'pid':process.pid,'created_at':process.create_time(),'executable':str(self.executable),
                 'executable_sha256':file_hash(self.executable),'launched_unix':start,'candidate_id':self.candidate['candidate_id'],
                 'known_folder_proof':known_folders,
+                'render_mode':mode,'requested_render_arguments':graphics,'visible_ui_accepted':False,
                 'foreign_clients_preserved':True,'ready':False,'profile_isolation_verified':False}
         write_json(pending,record)
         return self.wait_ready(handle,process,record)
@@ -179,6 +196,7 @@ class Livehime:
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--root',type=Path,required=True)
     parser.add_argument('action',choices=['prepare','launch','status','inspect','record-start','record-stop','screenshot','approve-scene'])
-    parser.add_argument('--label');parser.add_argument('--review');args=parser.parse_args();client=Livehime(args.root.resolve())
-    result=client.prepare() if args.action=='prepare' else client.launch() if args.action=='launch' else client.owner() if args.action=='status' else client.screenshot(args.label) if args.action=='screenshot' else client.approve_scene(args.review) if args.action=='approve-scene' else client.ui(args.action)
+    parser.add_argument('--label');parser.add_argument('--review');parser.add_argument('--render-mode',choices=list(RENDER_ARGUMENTS))
+    args=parser.parse_args();client=Livehime(args.root.resolve())
+    result=client.prepare() if args.action=='prepare' else client.launch(args.render_mode) if args.action=='launch' else client.owner() if args.action=='status' else client.screenshot(args.label) if args.action=='screenshot' else client.approve_scene(args.review) if args.action=='approve-scene' else client.ui(args.action)
     print(json.dumps(result,ensure_ascii=False))

@@ -50,7 +50,9 @@ def main():
             ('local-model-qualification',[*py,str(inside(root,'scripts/qualify_issac_model.py')),'--root',str(root)],420)])
     if args.include_official_client:
         official=[*py,'-m','integration.issac.livehime','--root',str(root)]
-        commands.extend([('official-client-signature',[*official,'prepare'],90),('official-client-launch',[*official,'launch'],180)])
+        commands.extend([('official-client-signature',[*official,'prepare'],90),('official-client-launch',[*official,'launch'],180),
+            ('official-ui-diagnostics',[*py,str(inside(root,'scripts/review_issac_official_rendering.py')),
+                '--root',str(root),'inspect'],90)])
     results=[]
     with FileLease(inside(root,'state/issac-acceptance/round-runner.lock')):
         for name,command,timeout in commands:

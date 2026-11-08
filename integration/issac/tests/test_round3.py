@@ -8,7 +8,7 @@ import unittest
 from unittest.mock import Mock,patch
 from types import SimpleNamespace
 
-from integration.issac.common import AdmissionError
+from integration.issac.common import AdmissionError,write_json
 from integration.issac.materials import generation
 from integration.issac.native_game import OBSERVE
 from integration.issac.resources import MIB,available_for_initialization,estimate_fits,parse_estimate
@@ -112,6 +112,7 @@ class OfficialClientTests(unittest.TestCase):
         client=Livehime.__new__(Livehime);client.root=root;client.candidate={'candidate_id':'test'}
         client.registration=root/'.setup/issac-livehime-owner.json';client.executable=root/'tools/bilibili-livehime/livehime.exe'
         client.executable.parent.mkdir(parents=True);client.executable.write_bytes(b'fixture')
+        write_json(root/'configs/issac/official-rendering.json',{'default_mode':'software-ui'})
         client.prepare=Mock();client.audit=Mock()
         return client
 

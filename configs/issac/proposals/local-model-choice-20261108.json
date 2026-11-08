@@ -41,5 +41,9 @@
     "actual official settings/record control and captured scene",
     "body and projected mouth/fang quality approval"
   ],
-  "approval_basis": "AGENTS.md R11 retains current weights and prohibits new model weights; the existing task has not authorized this additional download"
+  "approval_basis": "AGENTS.md R11 retains current weights and prohibits new model weights; the existing task has not authorized this additional download",
+  "status": "declined_by_user_keep_swift",
+  "user_decision": "保留 Swift，先不下载",
+  "decision_resolved": true,
+  "new_model_downloaded_bytes": 0
 }
