@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "application_sha256": "28f801a948386f5dd4bc40a7f9fa21602f8c8cce4dffb78fd00889c6921f6613",
+  "version": "8.13.0.11251",
+  "dpi": 96,
+  "window_size": [
+    1644,
+    941
+  ],
+  "icon_box": [
+    805,
+    860,
+    829,
+    884
+  ],
+  "click_point": [
+    817,
+    872
+  ],
+  "icons": {
+    "record-start": {
+      "path": "configs/issac/official-record-icons/record-start.png",
+      "sha256": "a7a66fd9d2a94974facc9e8e4bd9246ddd08b02a02f02760346385def7518673"
+    },
+    "record-stop": {
+      "path": "configs/issac/official-record-icons/record-stop.png",
+      "sha256": "7ff036f4fd09409c4e82cda74670cbc26a83bccfe592ffcc02ce60f944b9ffa2"
+    }
+  },
+  "reviewed_visible_behavior": "Camera starts local recording; red dot stops and saves. Public broadcast button is separate and excluded.",
+  "source_diagnostic_candidate": "issac-80331441daa8-7c4dcf5a",
+  "runtime_acceptance_claimed": false
+}

@@ -69,9 +69,10 @@ async def record(root):
         screenshot=client.screenshot('recording_started')
         runner=Runner(root);task=asyncio.create_task(runner.cohost(seconds));previous=raw.stat().st_size
         for tick in range(seconds//5+3):
-            client.owner();size=raw.stat().st_size
+            await asyncio.to_thread(client.owner);size=raw.stat().st_size
+            current_writers=await asyncio.to_thread(official_writers,client,raw) if tick%6==0 else []
             observations.append({'elapsed_seconds':time.monotonic()-start,'bytes':size,'growing':size>previous,
-                'official_writer':official_writers(client,raw) if tick%6==0 else []})
+                'official_writer':current_writers})
             previous=size
             write_json(output/'progress.json',{'candidate_id':candidate['candidate_id'],'elapsed_seconds':time.monotonic()-start,
                 'raw_bytes':size,'required_live_observation_seconds':seconds,'finished':False})

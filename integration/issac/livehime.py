@@ -211,12 +211,21 @@ class Livehime:
             scene=read_json(inside(self.root,'state/issac-acceptance/official-scene.json'))
             if scene.get('accepted') is not True or scene.get('candidate_id')!=self.candidate['candidate_id'] or scene.get('official_pid')!=row['pid']:
                 raise AdmissionError('CURRENT_OFFICIAL_SCENE_REVIEW_REQUIRED_BEFORE_RECORDING')
+        if action in {'record-start','record-stop'}:
+            from .official_record_control import operate
+            value=operate(self,action)
+            self.audit.append('official_ui',action=action,pid=row['pid'],method=value['method'])
+            return value
         script=inside(self.root,'scripts/issac_livehime_ui.ps1')
         result=subprocess.run([r'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe','-NoProfile','-NonInteractive',
             '-ExecutionPolicy','Bypass','-File',str(script),'-ProcessId',str(window['pid']),'-WindowHandle',str(window['hwnd']),'-Action',action],
             capture_output=True,timeout=25,creationflags=0x08000000)
         if result.returncode:raise AdmissionError('OFFICIAL_RECORD_CONTROL_NOT_CONFIRMED_USE_VISIBLE_UI_REVIEW')
-        value=json.loads(result.stdout.decode('utf-8-sig'));self.audit.append('official_ui',action=action,pid=row['pid'])
+        value=json.loads(result.stdout.decode('utf-8-sig'))
+        from .official_record_control import writers
+        actual=writers(self)
+        value.update(recording_indicator=bool(actual),actual_recording_writers=actual)
+        self.audit.append('official_ui',action=action,pid=row['pid'])
         return value
 
     def screenshot(self,label):

@@ -49,6 +49,18 @@ _G.__NativeIsaacController = mod''',1)
     start=source.index('    -- A fixed local reload marker')
     end=source.index('    if Input.IsButtonTriggered(Keyboard.KEY_F8, 0)',start)
     source=source[:start]+source[end:]
+    # A completed/dead run is observed and disarmed by the host. Never start a
+    # new run through the console, even if a previous controller is still fresh.
+    start=source.index('    -- The game stops simulation updates on the death screen.')
+    end=source.index('    return true\nend\n\nlocal function collectState()',start)
+    source=source[:start]+'''    -- Retain the actual end screen until ordinary menu input starts another run.
+    restartPhase = "death_wait"
+'''+source[end:]
+    # Walking onto an authorized trinket lets the game apply its normal pickup
+    # and swap rules. Direct DropTrinket would bypass those rules (notably Tick).
+    start=source.index('    local wantedTrinketId = tonumber(string.match(action.id')
+    end=source.index('    -- A response can arrive one state packet after',start)
+    source=source[:start]+'    -- Trinket swaps use the normal, identity-fenced pickup collision only.\n'+source[end:]
     source += '''
 function mod:NativeShutdown()
     automatic,controllerEnabled,manualOverride=false,false,true
@@ -96,6 +108,8 @@ return "native controller installed"
     assert 'player.Velocity =' not in source
     assert 'player.FireDelay =' not in source
     assert 'luamod IsaacJev' not in source
+    assert 'Isaac.ExecuteCommand(' not in source
+    assert ':DropTrinket(' not in source
     output=Path(output) if output is not None else ROOT/'native-controller.lua'
     output.parent.mkdir(parents=True,exist_ok=True)
     output.write_text(source,encoding='utf-8')

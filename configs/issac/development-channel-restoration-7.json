@@ -1,0 +1,19 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-G",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-80331441daa8-7c4dcf5a",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRG01","status":"code_complete_pending_acceptance","code":"Remove inherited console restart and direct trinket mutation from the generated native controller, retaining genuine end screens and normal identity-fenced pickup/swap semantics","source_files":["integration/isaac-agent/build_native_controller.py","integration/isaac-agent/tests/test_native_bundle.py"]},
+    {"id":"CRG02","status":"code_complete_pending_acceptance","code":"Operate the signed client's actual unlabelled local-record icon only through fixed reviewed geometry, visible templates, exact owned foreground identity and real native writer handles; keep recurring writer observations off the live observer event loop","source_files":["integration/issac/official_record_control.py","integration/issac/livehime.py","integration/issac/recording.py","integration/issac/tests/test_official_record_control.py","configs/issac/official-record-control.json","configs/issac/official-record-icons/record-start.png","configs/issac/official-record-icons/record-stop.png"]},
+    {"id":"CRG03","status":"code_complete_pending_acceptance","code":"Retain the closed F runtime evidence without inheriting quality approval and document the complete next frozen round","source_files":["docs/evidence/issac-programme-modes-f-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}

@@ -1,0 +1,22 @@
+{
+  "candidate_id":"issac-80331441daa8-7c4dcf5a",
+  "source_commit":"80331441daa8a15feaaf51678522f5519480b24c",
+  "phase":"acceptance_closed",
+  "original_receipt":"state/issac-acceptance/programme-modes-f.json",
+  "original_receipt_sha256":"954291f45262c2779685abdb71af8807588e6eb8f13409b25f2088d531220a3f",
+  "actual_capture_seconds_per_mode":{"M01":45.297,"M02":45.390,"M03":45.406},
+  "actual_output_packets_per_mode":{"M01":1125,"M02":1125,"M03":1125},
+  "actual_audio_driven_mouth_frames_per_mode":{"M01":321,"M02":321,"M03":321},
+  "actual_open_mouth_frames_per_mode":{"M01":184,"M02":183,"M03":224},
+  "new_programme_pump_stalls_during_each_capture":0,
+  "cached_switch_seconds":{"M01":10.531,"M02":11.969},
+  "closed_defects":["Generated native controller still retained upstream console restart and direct DropTrinket paths; no gameplay run was started, so neither path was executed.","This signed client exposes no UIA recording labels. Its visible local icon was tested with a normally saved diagnostic title-screen recording; existing automation could not identify it."],
+  "normal_component_shutdown_completed":true,
+  "official_client_closed_normally":true,
+  "menu_game_closed_normally":true,
+  "all_frames_and_audio_quality_accepted":false,
+  "historical_acceptance_inherited":false,
+  "final_300_second_recording_created":false,
+  "public_broadcast_started":false,
+  "private_audio_included":false
+}
