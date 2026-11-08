@@ -13,12 +13,19 @@ from urllib.parse import urlsplit
 
 from .common import AdmissionError, Audit, digest, file_hash, inside, local_url, read_json, write_json
 from .resources import MEDIA_RESERVE_MIB, MIB, assess_estimate, available_for_initialization, estimate_fits, offload_candidates, parse_estimate, snapshot
+from .existing_backend import catalogue_root,selection,validate_prepared_config
 
 
 class LocalModel:
     def __init__(self, root):
         self.root=Path(root).resolve()
         self.config=read_json(inside(root,'private/issac/model.json'))
+        self.loading_policy=read_json(inside(root,'configs/issac/model-loading.json'))
+        if self.loading_policy.get('model_identifier')=='issac-naimei-local':
+            policy=selection(root)
+            if self.config.get('backend_policy_id')!=policy['policy_id'] or self.config.get('model')!=policy['model_identifier']:
+                raise AdmissionError('EXISTING_LOCAL_BACKEND_PREPARATION_REQUIRED')
+            validate_prepared_config(root,self.config)
         self.url=local_url(self.config['base_url'])
         self.opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
         self.audit=Audit(inside(root,'state/isaac-strategy/local-model-events.jsonl'))
@@ -122,7 +129,7 @@ class LocalModel:
         key=self.config.get('retained_model_key')
         try:
             first=Path(self.config['retained_model_files'][0]['path']).resolve()
-            expected=first.relative_to(Path('C:/dev/lmstudio/models').resolve()).as_posix()
+            expected=first.relative_to(catalogue_root(getattr(self,'root',None),self.config)).as_posix()
         except (KeyError,IndexError,TypeError,ValueError,OSError):
             raise AdmissionError('VERIFIED_RETAINED_FIRST_SHARD_REQUIRED') from None
         if key!=expected:
@@ -132,7 +139,7 @@ class LocalModel:
         return ['load',key,'--exact','--local','--context-length',str(context),'--gpu',str(ratio),'--yes']
 
     def model_directory(self):
-        retained=Path('C:/dev/lmstudio/models').resolve()
+        retained=catalogue_root(self.root,self.config)
         target=self.home/'models'
         if target.exists():
             if target.resolve()!=retained:raise AdmissionError('ISOLATED_LMS_MODEL_DIRECTORY_CONFLICT')
@@ -266,7 +273,7 @@ class LocalModel:
     def admit_retained_files(self):
         rows=self.config.get('retained_model_files')
         if not isinstance(rows,list) or not rows:raise AdmissionError('EXISTING_MODEL_FILE_PROVENANCE_REQUIRED')
-        allowed=Path('C:/dev/lmstudio/models').resolve()
+        allowed=catalogue_root(self.root,self.config)
         destination=inside(self.root,'state/isaac-strategy/model-file-verification.json')
         cache=read_json(destination) if destination.is_file() else {}
         verified=[]
@@ -343,11 +350,12 @@ class LocalModel:
         if not any(x.get('id')==expected for x in models):
             key=self.config.get('retained_model_key');fraction=self.config.get('gpu_offload')
             context=self.config.get('context_window',16384)
-            if (not isinstance(key,str) or not key.strip() or type(fraction) not in (float,int)
-                    or not 0<fraction<=.6 or type(context) is not int or context!=16384):
+            maximum=getattr(self,'loading_policy',{}).get('maximum_gpu_ratio',.6)
+            if (maximum not in (.6,1) or not isinstance(key,str) or not key.strip() or type(fraction) not in (float,int)
+                    or not 0<fraction<=maximum or type(context) is not int or context!=16384):
                 raise AdmissionError('BOUNDED_EXISTING_MODEL_LOAD_SETTINGS_REQUIRED')
             observed=snapshot();plans=[]
-            for ratio in offload_candidates(fraction):
+            for ratio in offload_candidates(fraction,maximum):
                 self.progress('estimating_model_resources',gpu_offload=ratio,context_window=context)
                 actual=self.sdk('estimate',ratio=ratio)
                 estimate=actual['estimate']

@@ -92,8 +92,8 @@ def estimate_fits(estimate,observed,*,reserve_mib=MEDIA_RESERVE_MIB,host_extra_r
     return assess_estimate(estimate,observed,reserve_mib=reserve_mib,host_extra_reserve_mib=host_extra_reserve_mib)['fits']
 
 
-def offload_candidates(fraction):
-    if type(fraction) not in (int,float) or not 0<fraction<=.6:
+def offload_candidates(fraction,maximum=.6):
+    if maximum not in (.6,1) or type(fraction) not in (int,float) or not 0<fraction<=maximum:
         raise AdmissionError('BOUNDED_EXISTING_MODEL_OFFLOAD_REQUIRED')
     # Real LMS estimates round fractions to whole layers: .375 and .36 used
     # the same memory, missing GPU capacity by 47 MiB. Probe the intervening

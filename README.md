@@ -1,5 +1,7 @@
 # AI Talk Streamer
 
+**当前修正轮 CORE120B：** [官方直播姬重装与120秒整轮修正](docs/issac/直播姬重装与120秒整轮修正20261109.md)。4090已完成正式8.13安装及签名/注册核验，旧程序与场景配置备份保留；画面和录播尚未验收。本轮同时验证现场已有14.25GB模型作为同一奶妹核心后端，新增模型下载0字节、Swift保留，整轮提交冻结后统一测试。
+
 [English](README.md) · [简体中文](README.zh-CN.md) · [Documentation](docs/README.md)
 
 **Naimei DSH extensions:** the fish-memory, feiyu-mood and speak-up integration copies derive from [Yuuyuko-uu/dsh-fish-memory](https://github.com/Yuuyuko-uu/dsh-fish-memory), [Yuuyuko-uu/dsh-feiyu-mood](https://github.com/Yuuyuko-uu/dsh-feiyu-mood), and [Yuuyuko-uu/dsh-speak-up](https://github.com/Yuuyuko-uu/dsh-speak-up). Original author: **Yuuyuko-uu**. Their complete custom licenses remain applicable. Changes expose reviewed bridge interfaces, clear derived caches, disable live dialogue diagnostics, and retain attribution. [Changes, all seven sources and licenses](extensions/naimei-dsh/README.md).

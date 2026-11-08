@@ -53,3 +53,21 @@ test('an unavailable core model disarms rather than delegating choices to rules'
   await core.runDecision(offered());
   assert.equal(disarmed,1);assert.equal(core.turns,0);assert.equal(core.failures,1);assert.equal(core.busy,false);
 });
+test('a failed spontaneous reaction also disarms the same core and abandons its reserved fact',async()=>{
+  const {core}=fixture();let disarmed=0,abandoned=0;
+  Object.assign(core,{busy:false,failures:0,current:async()=>true,
+    api:async()=>({event:{event_id:'observed-fact'},nonce:'reserved-fact'}),
+    generate:async()=>{throw Error('local model unavailable');},
+    abandon:async()=>{abandoned++;},control:value=>{assert.equal(value,false);core.enabled=false;disarmed++;}});
+  await core.runFact();
+  assert.equal(disarmed,1);assert.equal(abandoned,1);assert.equal(core.failures,1);assert.equal(core.busy,false);
+});
+test('a choice intentionally interrupting self-talk does not falsely disarm gameplay',async()=>{
+  const {core}=fixture();let abandoned=0;
+  Object.assign(core,{busy:false,failures:0,current:async()=>true,
+    api:async()=>({event:{event_id:'observed-fact'},nonce:'reserved-fact'}),
+    generate:async()=>{core.activeAbort=new AbortController();core.activeAbort.abort();throw Error('new decision preemption');},
+    abandon:async()=>{abandoned++;},control:()=>{throw Error('unexpected disarm');}});
+  await core.runFact();
+  assert.equal(core.enabled,true);assert.equal(abandoned,1);assert.equal(core.failures,0);
+});

@@ -44,10 +44,32 @@ test('missing, low-confidence and malformed memory numbers are never estimates',
     {...estimate,memory:{...estimate.memory,totalBytes:NaN}}])assert.throws(()=>measuredEstimate(value));
   assert.equal(measuredEstimate({...estimate,passesGuardrails:false}).passes_guardrails,false);
 });
+test('the installed SDK fractional byte estimates round upward without losing guardrails',()=>{
+  const result=measuredEstimate({memory:{confidence:'high',totalVramBytes:29490887697.27727,
+    totalBytes:78641408207.65},passesGuardrails:true});
+  assert.equal(result.gpu_bytes,29490887698);assert.equal(result.total_bytes,78641408208);
+  for(const value of [Infinity,'100',-1])assert.throws(()=>measuredEstimate({
+    memory:{confidence:'high',totalVramBytes:value,totalBytes:200},passesGuardrails:true}));
+});
+test('an existing single-file core model may use full GPU only under its pinned profile',async()=>{
+  let config;
+  const client={system:{listDownloadedModels:async()=>[local]},llm:{listLoaded:async()=>[],
+    estimateResourcesUsage:async(_key,c)=>{config=c;return estimate;}}};
+  const full={...request,identifier:'issac-naimei-local',ratio:1};
+  await assert.rejects(execute(client,full,policy),/PINNED_MODEL_PROFILE/);
+  await execute(client,full,{...policy,model_identifier:'issac-naimei-local',maximum_gpu_ratio:1});
+  assert.equal(config.gpu.ratio,1);assert.equal(config.contextLength,16384);
+});
 test('a successfully loaded model still fails if the backend ignored a required parameter',()=>{
   const requested={...policy.load_config,contextLength:16384,gpu:{ratio:.375}};
   assert.doesNotThrow(()=>verifyEcho({...requested},requested));
   for(const changed of [{evalBatchSize:512},{flashAttention:false},{contextLength:4096},
     {physicalBatchSize:512},{llamaKCacheQuantizationType:'q8_0'},{gpu:{ratio:.45}}])
     assert.throws(()=>verifyEcho({...requested,...changed},requested));
+});
+test('a structured load template must be echoed in full, including thinking and tool instructions',()=>{
+  const promptTemplate={type:'jinja',jinjaPromptTemplate:{template:'{% set enable_thinking = false %} tools {{ messages }}'}};
+  const requested={promptTemplate};
+  assert.doesNotThrow(()=>verifyEcho(structuredClone(requested),requested));
+  assert.throws(()=>verifyEcho({promptTemplate:{...promptTemplate,jinjaPromptTemplate:{template:'different'}}},requested),/PROMPT_TEMPLATE/);
 });

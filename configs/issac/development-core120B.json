@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "round": "CORE120B",
+  "branch": "issac",
+  "phase": "whole_round_source_review_complete_awaiting_commit_and_freeze",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "previous_phase": {
+    "candidate_id": "issac-fe8b406f5e9b-91636855",
+    "status": "closed_failed",
+    "closed_unix": 1794159789.717254,
+    "source_files_verified_unchanged": 2208
+  },
+  "items": [
+    {
+      "id": "CB01",
+      "code": "Select and verify the genuinely reinstalled signed official 8.13 application, its identical bootstrap, actual Windows registration and ordinary visible foreground capture",
+      "status": "code_complete_pending_acceptance",
+      "runtime_accepted": false,
+      "source_files": [
+        "configs/issac/official-installation.json",
+        "configs/issac/official-rendering.json",
+        "integration/issac/livehime.py",
+        "integration/issac/official_window.py",
+        "scripts/review_issac_official_rendering.py",
+        "integration/issac/tests/test_core120_corrections.py"
+      ]
+    },
+    {
+      "id": "CB02",
+      "code": "Register only the independently hashed existing local 14.25GB model through a native hardlink in an owned catalogue; preserve shared files, both Swift shards, private backups, source identity and same Naimei ownership",
+      "status": "code_complete_pending_acceptance",
+      "runtime_accepted": false,
+      "source_files": [
+        "configs/issac/existing-model-backend.json",
+        "integration/issac/existing_backend.py",
+        "integration/issac/local_model.py",
+        "integration/issac/tests/test_core120_corrections.py",
+        "scripts/run_issac_round.py"
+      ]
+    },
+    {
+      "id": "CB03",
+      "code": "Admit real fractional SDK estimates by rounding upward, retain all margins/context, preserve the complete pinned GGUF template with thinking disabled and require complete actual load echo",
+      "status": "code_complete_pending_acceptance",
+      "runtime_accepted": false,
+      "source_files": [
+        "configs/issac/model-loading.json",
+        "integration/issac/model_backend.mjs",
+        "integration/issac/resources.py",
+        "integration/issac/tests/model_backend.test.mjs"
+      ]
+    },
+    {
+      "id": "CB04",
+      "code": "Share actual core prompt proofs without server dependencies and disarm real self-talk inference failures while preserving intentional decision preemption",
+      "status": "code_complete_pending_acceptance",
+      "runtime_accepted": false,
+      "source_files": [
+        "integration/issac/core_contract.py",
+        "integration/issac/model_gateway.py",
+        "integration/issac/tests/test_core120.py",
+        "backend/dsh-bridge/isaac-core.mjs",
+        "integration/issac/tests/naimei_core.test.mjs"
+      ]
+    },
+    {
+      "id": "CB05",
+      "code": "Record actual closed-phase/install/existing-asset facts, immutable whole-round operators and all still-pending original quality and 120-second delivery requirements",
+      "status": "code_complete_pending_acceptance",
+      "runtime_accepted": false,
+      "source_files": [
+        "configs/issac/development-core120B.json",
+        "configs/issac/execution-rounds.json",
+        "docs/evidence/issac-core120B-preparation-20261109.json",
+        "docs/issac/直播姬重装与120秒整轮修正20261109.md",
+        "AGENTS.md",
+        "README.md",
+        "docs/README.md"
+      ]
+    }
+  ],
+  "manual_review_coverage": [
+    "Read complete changed/new source, tests, policies, documents and finite direct-transfer/observation/closure operators before tests; model template copied from actual existing GGUF with matching independently observed metadata SHA",
+    "Official full install evidence is separate from UI/scene acceptance; select versioned app, verify both identical official copies and real registry/uninstaller, preserve old app/profile/recordings",
+    "Only native Windows, task-owned literal paths, same-volume existing-weight hardlinks, no cloud, new model bytes, conversion, deletion of Swift/shared files, virtualization or foreign process closure",
+    "Same Naimei DSH reads current state/wiki and owns choices/reactions; pure prompt proof unchanged, real spontaneous generation failure disarms, intentional preemption remains allowed",
+    "SDK floats round upward and require high confidence/guardrails; GPU/host/media initialization peaks, every original margin and context16384 retained; exact complete template and configuration echo mandatory",
+    "Whole-round frozen source and exact historical CSV HEAD-blob exception retained; no inherited quality/body/scene/gameplay/model acceptance, all 18 original gates and actual official120 recording remain"
+  ],
+  "unresolved_round_code_TODOs": [],
+  "new_weight_download_allowed": false,
+  "existing_margins_lowered": false,
+  "public_broadcast_allowed": false,
+  "official_reinstall_operations_completed_before_source_tests": true
+}

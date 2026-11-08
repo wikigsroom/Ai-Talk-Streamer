@@ -1,10 +1,17 @@
 {
   "schema_version": 1,
-  "default_mode": "software-ui",
-  "frozen_comparison_modes": ["software-ui", "d3d11-ui"],
-  "purpose": "Diagnose the user-confirmed black physical Livehime window with existing Chromium render switches",
+  "default_mode": "native-ui",
+  "frozen_comparison_modes": [
+    "native-ui",
+    "software-ui",
+    "d3d11-ui"
+  ],
+  "purpose": "Inspect the freshly reinstalled official 8.13 client through ordinary visible desktop capture, then use bounded render comparisons if needed",
   "visible_scene_accepted": false,
   "encoder_configuration_changed": false,
   "system_driver_or_registry_changes_allowed": false,
-  "authentication_or_capture_restrictions_changed": false
+  "authentication_or_capture_restrictions_changed": false,
+  "visible_desktop_capture_required": true,
+  "full_official_reinstall_authorized": true,
+  "official_installer_registration_allowed": true
 }

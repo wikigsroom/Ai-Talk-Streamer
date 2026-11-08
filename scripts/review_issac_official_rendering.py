@@ -58,8 +58,15 @@ def main():
         else:raise AdmissionError('OWNED_CLIENT_DID_NOT_EXIT_NORMALLY_NO_FORCE_CLOSE')
         row['closed_normally']=True;row['foreign_clients_preserved']=True
     else:
+        # Ordinary minimize/restore and repaint of this task's verified idle
+        # client; this changes neither graphics drivers nor capture protection.
+        user.ShowWindow(hwnd,6);time.sleep(.2)
         user.ShowWindow(hwnd,9)
-        user.SetForegroundWindow(hwnd);time.sleep(1)
+        user.SetForegroundWindow(hwnd)
+        user.RedrawWindow.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_void_p,ctypes.c_uint]
+        user.RedrawWindow(hwnd,None,None,0x585)
+        row['ordinary_owned_window_redraw_requested']=True
+        time.sleep(1)
         try:row['ui']=client.ui()
         except Exception as error:row['ui_error']=type(error).__name__+': '+str(error)
         try:row['screenshot']=client.screenshot('programme_review')

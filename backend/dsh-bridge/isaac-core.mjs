@@ -158,7 +158,15 @@ export class NaimeiGameCore {
       const result=await this.generate({game_event:reservation.event,recent_naimei_game_decisions:this.recent.slice(-4)},turn,
         '你是正在游玩的奶妹。依据自己刚看到的真实结果自然反应或短暂自言自语；不能把计划接受说成已成功，最多一句。',12000);
       this.offerSpeech({text:result.text.slice(0,80),...reservation});reservation=null;
-    } catch {if(reservation?.nonce)await this.abandon(reservation);}
+    } catch(error) {
+      if(reservation?.nonce)await this.abandon(reservation);
+      // New decisions and an operator disarm intentionally interrupt speech.
+      // An actual model failure must not leave automatic gameplay armed.
+      if(this.enabled&&!this.activeAbort?.signal.aborted&&error.code!=='GAME_EVENT_EXPIRED') {
+        this.failures++;this.lastError=error.code||'CORE_FACT_FAILED';this.control(false);
+        this.record('core_failure_disarmed',{code:this.lastError,turn_kind:'fact'});
+      }
+    }
     finally {this.activeAbort=null;this.activeKind=null;this.busy=false;}
   }
   offerSpeech(item) {

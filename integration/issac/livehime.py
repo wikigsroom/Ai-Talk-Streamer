@@ -5,6 +5,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import time
 import uuid
@@ -25,6 +26,45 @@ RENDER_ARGUMENTS={
     'native-ui':[]}
 
 
+def installed_executable(root):
+    paths=list(inside(root,'tools/bilibili-livehime').rglob('livehime.exe'))
+    config=inside(root,'configs/issac/official-installation.json')
+    if not config.is_file():
+        if len(paths)!=1:raise AdmissionError('ONE_COPIED_OFFICIAL_LIVEHIME_REQUIRED')
+        return paths[0].resolve()
+    policy=read_json(config)
+    if (policy.get('version')!='8.13.0.11251' or policy.get('proper_official_installation_required') is not True
+        or policy.get('public_broadcast_authorized') is not False
+        or policy.get('application')!='tools/bilibili-livehime/app/8.13.0.11251/livehime.exe'
+        or policy.get('same_signed_bootstrap_copy')!='tools/bilibili-livehime/app/livehime.exe'
+        or not re.fullmatch('[0-9a-f]{64}',policy.get('application_sha256',''))):
+        raise AdmissionError('PINNED_OFFICIAL_INSTALLATION_REQUIRED')
+    selected=inside(root,policy['application']);bootstrap=inside(root,policy['same_signed_bootstrap_copy'])
+    if {p.resolve() for p in paths}!={selected,bootstrap}:
+        raise AdmissionError('ONLY_PINNED_OFFICIAL_INSTALLATION_COPIES_ALLOWED')
+    if any(file_hash(p)!=policy['application_sha256'] for p in (selected,bootstrap)):
+        raise AdmissionError('PINNED_OFFICIAL_INSTALLATION_BYTES_CHANGED')
+    return selected
+
+
+def installation_registration(root):
+    config=inside(root,'configs/issac/official-installation.json')
+    if not config.is_file():return None
+    import winreg
+    policy=read_json(config)
+    with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,policy['uninstall_registry_key'],0,
+                        winreg.KEY_READ|winreg.KEY_WOW64_64KEY) as key:
+        version=winreg.QueryValueEx(key,'DisplayVersion')[0]
+        location=Path(winreg.QueryValueEx(key,'InstallLocation')[0]).resolve()
+        uninstall=winreg.QueryValueEx(key,'UninstallString')[0]
+    uninstaller=inside(root,policy['uninstaller'])
+    if (version!=policy['version'] or location!=inside(root,policy['application']).parent
+        or uninstall!='"'+str(uninstaller)+'"' or not uninstaller.is_file()):
+        raise AdmissionError('ACTUAL_OFFICIAL_INSTALLATION_REGISTRATION_REQUIRED')
+    return {'version':version,'system_registration_verified':True,'installation_inside_project':True,
+            'uninstaller_inside_project':True}
+
+
 def render_arguments(root,mode=None):
     config=read_json(inside(root,'configs/issac/official-rendering.json'))
     mode=mode or config['default_mode']
@@ -37,9 +77,7 @@ class Livehime:
         self.root=Path(root).resolve();self.candidate=require_candidate(root,hardware=False)
         self.audit=Audit(inside(root,'state/issac-stream/official-client-events.jsonl'))
         self.registration=inside(root,'.setup/issac-livehime-owner.json')
-        paths=list(inside(root,'tools/bilibili-livehime').rglob('livehime.exe'))
-        if len(paths)!=1:raise AdmissionError('ONE_COPIED_OFFICIAL_LIVEHIME_REQUIRED')
-        self.executable=paths[0].resolve()
+        self.executable=installed_executable(root)
 
     def powershell(self,command,timeout=30):
         result=subprocess.run([r'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe',
@@ -51,10 +89,14 @@ class Livehime:
         escaped=str(self.executable).replace("'","''")
         result=self.powershell("[Console]::OutputEncoding=[Text.UTF8Encoding]::new($false); $p='"+escaped+"'; $s=Get-AuthenticodeSignature -LiteralPath $p; @{status=[string]$s.Status;version=[Diagnostics.FileVersionInfo]::GetVersionInfo($p).FileVersion}|ConvertTo-Json -Compress")
         if result['status']!='Valid':raise AdmissionError('OFFICIAL_LIVEHIME_SIGNATURE_REQUIRED')
+        installed=installation_registration(self.root)
+        if installed and result['version'].strip()!=installed['version']:
+            raise AdmissionError('PINNED_OFFICIAL_INSTALLED_VERSION_REQUIRED')
         receipt={'prepared':True,'application':self.executable.relative_to(self.root).as_posix(),
             'application_sha256':file_hash(self.executable),'version':result['version'],
             'application_signature':{'status':'Valid'},'independently_verified_for':'issac',
-            'account_login_verified':False,'public_broadcast_started':False,'obs_required':False}
+            'account_login_verified':False,'public_broadcast_started':False,'obs_required':False,
+            'official_installation':installed}
         write_json(inside(self.root,'outputs/platforms/setup/bilibili-livehime.json'),receipt)
         return receipt
 

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "version": "8.13.0.11251",
+  "source_page": "https://live.bilibili.com/liveHime",
+  "installer_url": "https://dl.hdslb.com/bili/bililive/win/Livehime-Win-beta-8.13.0.11251-x64.exe",
+  "installer_bytes": 365624448,
+  "installer_sha256": "a0816c44fcb024647387d4e0a461871ca49fa1e15cbacf46a250bbaa5917c140",
+  "application": "tools/bilibili-livehime/app/8.13.0.11251/livehime.exe",
+  "same_signed_bootstrap_copy": "tools/bilibili-livehime/app/livehime.exe",
+  "application_sha256": "28f801a948386f5dd4bc40a7f9fa21602f8c8cce4dffb78fd00889c6921f6613",
+  "uninstaller": "tools/bilibili-livehime/app/8.13.0.11251/unins000.exe",
+  "uninstall_registry_key": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{06BB8CDE-F4AC-4B22-A680-0F3699CB9912}_is1",
+  "publisher": "上海幻电信息科技有限公司",
+  "proper_official_installation_required": true,
+  "public_broadcast_authorized": false,
+  "visible_scene_accepted": false
+}

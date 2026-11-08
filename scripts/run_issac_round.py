@@ -15,10 +15,14 @@ from integration.issac.deployment import require_candidate
 from integration.issac.preparation import runtime_environment
 
 
-def blocked_by_prerequisite(name,results,*,require_media_profile=False):
-    dependencies={'local-model-qualification':'local-model-prepare','media-capacity':'dependencies'}
+def blocked_by_prerequisite(name,results,*,require_media_profile=False,require_existing_backend=False):
+    dependencies={'local-model-qualification':'local-model-prepare','media-capacity':'dependencies',
+                  'existing-model-prepare':'dependencies'}
     if require_media_profile:dependencies['local-model-prepare']='media-capacity'
     required=dependencies.get(name)
+    if (name=='local-model-prepare' and require_existing_backend
+            and not any(row['check']=='existing-model-prepare' and row['passed'] is True for row in results)):
+        required='existing-model-prepare'
     if required and not any(row['check']==required and row['passed'] is True for row in results):
         return {'check':name,'passed':False,'state':'blocked','reason':'PREREQUISITE_NOT_PASSED','requires':required,
                 'actual_inference':False,'inference_requests_attempted':0}
@@ -46,7 +50,8 @@ def main():
     if args.include_media_profile:
         commands.append(('media-capacity',[*py,'-m','integration.issac.media_capacity','--root',str(root)],3000))
     if args.include_model:
-        commands.extend([('local-model-prepare',[*diag,'model-prepare','--capacity-wait-seconds',str(args.capacity_wait_seconds)],7200),
+        commands.extend([('existing-model-prepare',[*py,'-m','integration.issac.existing_backend','--root',str(root),'prepare'],900),
+            ('local-model-prepare',[*diag,'model-prepare','--capacity-wait-seconds',str(args.capacity_wait_seconds)],7200),
             ('local-model-qualification',[*py,str(inside(root,'scripts/qualify_issac_model.py')),'--root',str(root)],420)])
     if args.include_official_client:
         official=[*py,'-m','integration.issac.livehime','--root',str(root)]
@@ -59,7 +64,8 @@ def main():
             require_candidate(root,hardware=False)
             write_json(folder/'progress.json',{**candidate,'stage':'testing','current':name,'results':results,'source_mutations_allowed':False})
             log=folder/(name+'.log');started=time.monotonic()
-            blocked=blocked_by_prerequisite(name,results,require_media_profile=args.include_media_profile)
+            blocked=blocked_by_prerequisite(name,results,require_media_profile=args.include_media_profile,
+                                           require_existing_backend=args.include_model)
             if blocked:
                 log.write_text(json.dumps(blocked,ensure_ascii=False),'utf8');result=blocked
             else:

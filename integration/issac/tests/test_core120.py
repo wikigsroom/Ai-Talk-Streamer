@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 from integration.issac.common import AdmissionError,write_json
 from integration.issac.delivery import recording_seconds,recording_gate
-from integration.issac.model_gateway import core_prompt_proof
+from integration.issac.core_contract import core_prompt_proof
 from scripts.freeze_issac_candidate import preserved_blobs
 
 

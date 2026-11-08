@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "policy_id": "NM-ISSAC-EXISTING-QWEN27B-20261109-v1",
+  "selection_status": "existing_local_candidate_pending_actual_qualification",
+  "model_identifier": "issac-naimei-local",
+  "source_file": "C:/dev/comfyUI/ComfyUI/models/LLM/Qwen3.8-27B-UD-IQ4_XS.gguf",
+  "bytes": 14252845984,
+  "sha256": "40fac4050e940397dbf13087afd50f4734a11805bf9d65ef8ddd7483470e6199",
+  "gguf_architecture": "qwen35",
+  "catalogue_root": "models/naimei-existing-catalogue",
+  "catalogue_path": "Qwen/Qwen3.8-27B/Qwen3.8-27B-UD-IQ4_XS.gguf",
+  "context_length": 16384,
+  "gpu_offload": 1,
+  "model_downloads_allowed": false,
+  "cloud_fallback": false,
+  "existing_swift_files_preserved": true,
+  "deleted_davidau_q6_model_restored": false,
+  "previous_qwen30b_download_proposal_activated": false,
+  "model_weight_conversion_allowed": false,
+  "catalogue_method": "native_NTFS_hardlink_of_hash_verified_existing_file_no_new_weight_payload"
+}

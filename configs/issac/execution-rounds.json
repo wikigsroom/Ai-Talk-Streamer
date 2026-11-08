@@ -23,7 +23,7 @@
     "evidence": "docs/evidence/issac-round1-copy-20261107.json"
   },
   "round_2_onward": {
-    "status": "core120_complete_development_awaiting_manual_review_freeze_and_tests",
+    "status": "core120B_complete_correction_awaiting_freeze_and_uniform_tests",
     "development_scope": "All remaining implementation and TODO items U05-U30, including acceptance and recording harnesses",
     "order": [
       "finish_all_round_development",
@@ -41,7 +41,7 @@
       "candidate_scope_and_reproducible_commands"
     ],
     "defect_policy": "Close the test phase and implement one complete correction round before retesting; never patch between tests within a phase",
-    "inventory": "configs/issac/development-core120.json"
+    "inventory": "configs/issac/development-core120B.json"
   },
   "acceptance_scope_retained": [
     "native_game_ABI_and_read_only_observation",
@@ -136,6 +136,14 @@
       "status": "closed_failed",
       "closed_unix": 1794136579.5052083,
       "evidence": "docs/evidence/issac-round11-acceptance-20261108.json"
+    },
+    {
+      "round": "CORE120A",
+      "candidate_id": "issac-fe8b406f5e9b-91636855",
+      "source_commit": "fe8b406f5e9b8653504506dac9eca88a41aed31a",
+      "status": "closed_failed",
+      "closed_unix": 1794159789.717254,
+      "evidence": "docs/evidence/issac-core120B-preparation-20261109.json"
     }
   ],
   "pending_model_choice": {
@@ -145,5 +153,7 @@
     "decision_resolved": true,
     "decision": "retain_swift_no_download"
   },
-  "current_user_amendment": "configs/issac/live120.json"
+  "current_user_amendment": "configs/issac/live120.json",
+  "existing_local_candidate": "configs/issac/existing-model-backend.json",
+  "official_installation": "configs/issac/official-installation.json"
 }

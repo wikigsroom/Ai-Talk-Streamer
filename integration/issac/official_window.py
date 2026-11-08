@@ -74,8 +74,8 @@ def profile(root,row):
 
 
 def capture(root,row,label):
-    import win32gui,win32process,win32ui,win32con
-    from PIL import Image,ImageStat,ImageGrab
+    import win32gui
+    from PIL import ImageStat,ImageGrab
     if label not in LABELS:raise AdmissionError('FIXED_OFFICIAL_REVIEW_SCREEN_REQUIRED')
     windows=inspect(root,row)['windows']
     if len(windows)!=1:raise AdmissionError('ONE_VISIBLE_OWNED_OFFICIAL_WINDOW_REQUIRED')
@@ -84,24 +84,20 @@ def capture(root,row,label):
         foreground=win32gui.GetForegroundWindow()
         return foreground==hwnd or bool(foreground and win32gui.GetAncestor(foreground,3)==hwnd)
     if not foreground_owned():raise AdmissionError('OFFICIAL_WINDOW_PIXELS_UNAVAILABLE_BRING_OWN_WINDOW_TO_FRONT')
-    source=win32gui.GetWindowDC(hwnd);dc=win32ui.CreateDCFromHandle(source);memory=dc.CreateCompatibleDC();bitmap=win32ui.CreateBitmap()
-    try:
-        bitmap.CreateCompatibleBitmap(dc,w,h);memory.SelectObject(bitmap)
-        memory.BitBlt((0,0),(w,h),dc,(0,0),win32con.SRCCOPY)
-        image=Image.frombuffer('RGB',(w,h),bitmap.GetBitmapBits(True),'raw','BGRX',0,1)
-        if max(ImageStat.Stat(image.resize((64,36))).stddev)<2:
-            if not foreground_owned():raise AdmissionError('OFFICIAL_WINDOW_PIXELS_UNAVAILABLE_BRING_OWN_WINDOW_TO_FRONT')
-            image=ImageGrab.grab(bbox=(left,top,right,bottom),all_screens=True)
-            if not foreground_owned() or max(ImageStat.Stat(image.resize((64,36))).stddev)<2:
-                raise AdmissionError('OFFICIAL_WINDOW_CAPTURE_EMPTY_OR_FOREGROUND_CHANGED')
-        if not foreground_owned():raise AdmissionError('OFFICIAL_WINDOW_FOREGROUND_CHANGED_DURING_CAPTURE')
-        path=inside(root,'state/issac-acceptance/official-ui')/(label+'-'+uuid.uuid4().hex+'.png')
-        path.parent.mkdir(parents=True,exist_ok=True);image.save(path)
-    finally:
-        win32gui.DeleteObject(bitmap.GetHandle());memory.DeleteDC();dc.DeleteDC();win32gui.ReleaseDC(hwnd,source)
+    # Window-DC BitBlt can omit CEF composition while still returning a varied
+    # desktop background, so a flat-image threshold cannot identify that case.
+    # Capture the ordinary visible desktop rectangle, including layered UI.
+    # Never use a hidden-window capture or alter display-affinity restrictions.
+    image=ImageGrab.grab(bbox=(left,top,right,bottom),all_screens=True,include_layered_windows=True)
+    if not foreground_owned():raise AdmissionError('OFFICIAL_WINDOW_FOREGROUND_CHANGED_DURING_CAPTURE')
+    if max(ImageStat.Stat(image.resize((64,36))).stddev)<2:
+        raise AdmissionError('OFFICIAL_WINDOW_CAPTURE_EMPTY_OR_FOREGROUND_CHANGED')
+    path=inside(root,'state/issac-acceptance/official-ui')/(label+'-'+uuid.uuid4().hex+'.png')
+    path.parent.mkdir(parents=True,exist_ok=True);image.save(path)
     record={'label':label,'path':path.relative_to(root).as_posix(),'sha256':file_hash(path),
             'pid':row['pid'],'created_at':row['created_at'],'window_pid':window['pid'],'window_hwnd':hwnd,
-            'candidate_id':row['candidate_id'],'captured_unix':time.time(),'method':'real_owned_official_window_pixels'}
+            'candidate_id':row['candidate_id'],'captured_unix':time.time(),'method':'visible_owned_desktop_rectangle',
+            'layered_windows_included':True,'display_affinity_changed':False}
     write_json(path.with_suffix('.json'),record);return record
 
 
