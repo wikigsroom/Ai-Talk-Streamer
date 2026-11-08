@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "round": "R8",
+  "branch": "issac",
+  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "previous_phase": {
+    "candidate_id": "issac-070ff9131119-2cd73ed7",
+    "status": "closed_failed",
+    "closed_unix": 1794128672.547916
+  },
+  "scope": "Complete all R7b observed capacity and delayed official-client readiness corrections before any frozen testing",
+  "items": [
+    {
+      "id": "R801",
+      "code": "Measure the exact frozen NCM01 and compiled 512x512 FlashHead concurrently in separate native interpreters, with real generated audio and frames",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/media_capacity.py",
+        "integration/issac/media_capacity_worker.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R802",
+      "code": "Bind measured capacity to current candidate, exact media inputs, complete actor reports, normal cleanup and actual peaks; retain default on absent or old evidence",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/media_capacity.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R803",
+      "code": "Use measured media peak plus headroom and actual intermediate offload estimates while retaining all existing GPU/host/rounding margins",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/resources.py",
+        "integration/issac/local_model.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R804",
+      "code": "Wait for actual official profile creation after a stable login window, retain immediate rejection of foreign profiles, keep bounded startup; distinguish true ownerless frames from observed internal owned CEF surfaces",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/livehime.py",
+        "integration/issac/official_window.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R805",
+      "code": "Integrate the optional media-capacity check before model preparation with an explicit prerequisite and bounded worker cleanup",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/run_issac_round.py",
+        "integration/issac/media_capacity.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R806",
+      "code": "Cover measured-budget rejection, settings invariants, host peaks, intermediate offloads and delayed official profile creation",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/tests/test_round8.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R807",
+      "code": "Record the actually closed R7b failure, synchronize current docs, review the complete source round, commit and freeze before uniform tests",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "docs/evidence/issac-round7b-acceptance-20261108.json",
+        "docs/issac/第八轮媒体实测与同机容量20261108.md",
+        "configs/issac/development-round-8.json",
+        "configs/issac/execution-rounds.json",
+        "AGENTS.md",
+        "README.md",
+        "docs/issac/完整更新方案20261107.md"
+      ],
+      "runtime_accepted": false
+    }
+  ],
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "public_broadcast_allowed": false,
+  "existing_margins_lowered": false,
+  "manual_review_coverage": [
+    "All R801-R807 source, tests, docs, actual failed R7b receipts, and prewritten private direct-transfer/local-check tools reviewed before tests",
+    "Separate native runtimes retain exact NCM01 settings and production FlashHead compile/rope/render path; capacity-only anchor override cannot approve body banks or live quality",
+    "Actual concurrent model residency, voice generation, 288 speech-driven frames, CUDA peaks, host peaks, normal cleanup, 2 GiB measurement headroom and all existing margins",
+    "Current candidate/input signatures, actual actor report hashes and freshness; no previous-candidate or missing-artifact approval",
+    "Actual exact retained-shard resource estimates across intermediate offloads, unchanged context and pre-load capacity recheck",
+    "Delayed profile writes wait within deadline; foreign profile immediately rejects; native ownerless frame selection excludes observed CEF popup chains without choosing arbitrary clients",
+    "Current owned official login/main-window cleanup only; no inherited global client adoption; official login and platform state remain unaccepted",
+    "Original save baseline, all 18 gates, NCM01 reference exclusion, no cloud/OBS/public broadcast/virtualization remain unchanged"
+  ]
+}

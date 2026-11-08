@@ -10,6 +10,13 @@ from .common import AdmissionError,file_hash,inside,read_json,write_json
 LABELS={'scene_sources','audio_settings','video_settings','recording_started','recording_stopped','programme_review'}
 
 
+def primary_windows(windows):
+    # CEF advertises large owned tool/popup surfaces as visible top-level
+    # windows. The actual official frame has no native owner. Never choose an
+    # arbitrary largest popup or treat each internal panel as a second client.
+    return [row for row in windows if row.get('owner_hwnd')==0]
+
+
 def identity(root,row):
     import psutil
     process=psutil.Process(row['pid'])
@@ -35,10 +42,13 @@ def inspect(root,row):
         if pid not in owned or not win32gui.IsWindowVisible(hwnd):return
         box=win32gui.GetWindowRect(hwnd)
         if box[2]-box[0]>=640 and box[3]-box[1]>=360:
+            foreground=win32gui.GetForegroundWindow()
             windows.append({'hwnd':hwnd,'pid':pid,'created_at':owned[pid].create_time(),'title':win32gui.GetWindowText(hwnd),
-                            'rect':list(box),'foreground':win32gui.GetForegroundWindow()==hwnd})
+                            'rect':list(box),'owner_hwnd':win32gui.GetWindow(hwnd,4),
+                            'foreground':foreground==hwnd or bool(foreground and win32gui.GetAncestor(foreground,3)==hwnd)})
     win32gui.EnumWindows(collect,None)
-    return {'root_pid':process.pid,'windows':windows,'observed_unix':time.time()}
+    main=primary_windows(windows)
+    return {'root_pid':process.pid,'windows':main,'owned_internal_surfaces_excluded':len(windows)-len(main),'observed_unix':time.time()}
 
 
 def profile(root,row):
@@ -70,16 +80,21 @@ def capture(root,row,label):
     windows=inspect(root,row)['windows']
     if len(windows)!=1:raise AdmissionError('ONE_VISIBLE_OWNED_OFFICIAL_WINDOW_REQUIRED')
     window=windows[0];hwnd=window['hwnd'];left,top,right,bottom=window['rect'];w,h=right-left,bottom-top
+    def foreground_owned():
+        foreground=win32gui.GetForegroundWindow()
+        return foreground==hwnd or bool(foreground and win32gui.GetAncestor(foreground,3)==hwnd)
+    if not foreground_owned():raise AdmissionError('OFFICIAL_WINDOW_PIXELS_UNAVAILABLE_BRING_OWN_WINDOW_TO_FRONT')
     source=win32gui.GetWindowDC(hwnd);dc=win32ui.CreateDCFromHandle(source);memory=dc.CreateCompatibleDC();bitmap=win32ui.CreateBitmap()
     try:
         bitmap.CreateCompatibleBitmap(dc,w,h);memory.SelectObject(bitmap)
         memory.BitBlt((0,0),(w,h),dc,(0,0),win32con.SRCCOPY)
         image=Image.frombuffer('RGB',(w,h),bitmap.GetBitmapBits(True),'raw','BGRX',0,1)
         if max(ImageStat.Stat(image.resize((64,36))).stddev)<2:
-            if win32gui.GetForegroundWindow()!=hwnd:raise AdmissionError('OFFICIAL_WINDOW_PIXELS_UNAVAILABLE_BRING_OWN_WINDOW_TO_FRONT')
+            if not foreground_owned():raise AdmissionError('OFFICIAL_WINDOW_PIXELS_UNAVAILABLE_BRING_OWN_WINDOW_TO_FRONT')
             image=ImageGrab.grab(bbox=(left,top,right,bottom),all_screens=True)
-            if win32gui.GetForegroundWindow()!=hwnd or max(ImageStat.Stat(image.resize((64,36))).stddev)<2:
+            if not foreground_owned() or max(ImageStat.Stat(image.resize((64,36))).stddev)<2:
                 raise AdmissionError('OFFICIAL_WINDOW_CAPTURE_EMPTY_OR_FOREGROUND_CHANGED')
+        if not foreground_owned():raise AdmissionError('OFFICIAL_WINDOW_FOREGROUND_CHANGED_DURING_CAPTURE')
         path=inside(root,'state/issac-acceptance/official-ui')/(label+'-'+uuid.uuid4().hex+'.png')
         path.parent.mkdir(parents=True,exist_ok=True);image.save(path)
     finally:

@@ -93,7 +93,11 @@ class Livehime:
                 'executable_sha256':file_hash(self.executable),'launched_unix':start,'candidate_id':self.candidate['candidate_id'],
                 'known_folder_proof':known_folders,
                 'foreign_clients_preserved':True,'ready':False,'profile_isolation_verified':False}
-        write_json(pending,record);deadline=time.monotonic()+45;stable=None;since=None
+        write_json(pending,record)
+        return self.wait_ready(handle,process,record)
+
+    def wait_ready(self,handle,process,record):
+        deadline=time.monotonic()+90;stable=None;since=None;profile_pending=False;last_report=0
         while time.monotonic()<deadline:
             if handle.poll() is not None:
                 self.audit.append('official_launcher_exited_before_ready',pid=process.pid,exit_code=handle.returncode)
@@ -104,8 +108,15 @@ class Livehime:
                 if time.monotonic()-since>=5:
                     proof=self.native_window('profile',pending=True)
                     if not proof['verified']:
-                        self.audit.append('official_profile_not_isolated',private_profile_evidence=proof)
-                        raise AdmissionError('OFFICIAL_RUNTIME_PROFILE_ISOLATION_NOT_CONFIRMED')
+                        profile_pending=True
+                        if proof.get('foreign_profile_files'):
+                            self.audit.append('official_foreign_profile_observed',private_profile_evidence=proof)
+                            raise AdmissionError('OFFICIAL_RUNTIME_PROFILE_ISOLATION_NOT_CONFIRMED')
+                        if time.monotonic()-last_report>=10:
+                            self.audit.append('waiting_for_actual_official_profile',private_profile_evidence=proof)
+                            last_report=time.monotonic()
+                        time.sleep(.4)
+                        continue
                     record.update(ready=True,profile_isolation_verified=True,profile_proof=proof,
                                   window=windows[0],stable_window_seconds=5,ready_unix=time.time())
                     write_json(self.registration,record)
@@ -113,6 +124,7 @@ class Livehime:
                     return record
             else:stable=key;since=time.monotonic()
             time.sleep(.4)
+        if profile_pending:raise AdmissionError('OFFICIAL_RUNTIME_PROFILE_ISOLATION_NOT_CONFIRMED')
         raise AdmissionError('ISOLATED_OFFICIAL_CLIENT_NOT_OBSERVED_FOREIGN_CLIENTS_PRESERVED')
 
     def owner(self):

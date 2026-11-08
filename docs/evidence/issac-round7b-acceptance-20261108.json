@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "round": "R7b",
+  "candidate_id": "issac-070ff9131119-2cd73ed7",
+  "source_commit": "070ff913111924cf08bd3e518386435802ae2ae9",
+  "status": "closed_failed",
+  "source_files_verified": 2156,
+  "source_verified_unchanged": true,
+  "uniform_checks": [
+    {
+      "check": "environment",
+      "elapsed_seconds": 18.257102300063707,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-3c6513338d6f4e458cfab91edad597b5/environment.log",
+      "log_sha256": "acb7c35e5655d9da30a05b5de636b7d1bf014c64f4724fe39eadd3465288fc8b",
+      "passed": true
+    },
+    {
+      "check": "dependencies",
+      "elapsed_seconds": 116.18285310000647,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-3c6513338d6f4e458cfab91edad597b5/dependencies.log",
+      "log_sha256": "55dfa1a74905d8cea6edddfdce12a56ac43faad79eaccaa421bc9c7979a745df",
+      "passed": true
+    },
+    {
+      "check": "regressions",
+      "elapsed_seconds": 73.23294460005127,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-3c6513338d6f4e458cfab91edad597b5/regressions.log",
+      "log_sha256": "3b90bdfd1d95a2c69a17972c991a7ecf00867910d0f52b00b239fd630c7e2648",
+      "passed": true
+    },
+    {
+      "check": "materials-scan",
+      "elapsed_seconds": 16.523692900082096,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-3c6513338d6f4e458cfab91edad597b5/materials-scan.log",
+      "log_sha256": "54d1cb19f72cd429a4f34131fa999c78d5be3b7d9cbbdfbc6d0c658fdd3e4d20",
+      "passed": true
+    },
+    {
+      "check": "native-game",
+      "elapsed_seconds": 92.04859849996865,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-3c6513338d6f4e458cfab91edad597b5/native-game.log",
+      "log_sha256": "58b171ef2a1b54c939ac082ccf8a923f5bca9f7aade763b4649408752fecdf96",
+      "passed": true
+    },
+    {
+      "check": "local-model-prepare",
+      "elapsed_seconds": 41.771398499957286,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-3c6513338d6f4e458cfab91edad597b5/local-model-prepare.log",
+      "log_sha256": "22808efbe2d9df4cfc4b7d592899507603a931dc89a671a56515b83618b22e44",
+      "passed": false
+    },
+    {
+      "actual_inference": false,
+      "check": "local-model-qualification",
+      "elapsed_seconds": 5.961840200005099,
+      "inference_requests_attempted": 0,
+      "log": "state/issac-acceptance/round-runs/round-3c6513338d6f4e458cfab91edad597b5/local-model-qualification.log",
+      "log_sha256": "a188bb24dbd0b1b42ab16af8f906852ca145d18c2e1c90e98ada8740ff930033",
+      "passed": false,
+      "reason": "PREREQUISITE_NOT_PASSED",
+      "requires": "local-model-prepare",
+      "state": "blocked"
+    },
+    {
+      "check": "official-client-signature",
+      "elapsed_seconds": 12.668179699918255,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-3c6513338d6f4e458cfab91edad597b5/official-client-signature.log",
+      "log_sha256": "90ce968963d5fa880a03bdc347a26e29dc96dee6f957ff8daa025b74d2326e9b",
+      "passed": true
+    },
+    {
+      "check": "official-client-launch",
+      "elapsed_seconds": 16.572189699974842,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-3c6513338d6f4e458cfab91edad597b5/official-client-launch.log",
+      "log_sha256": "512289ad0153bb2fc55153334390e9d8de52fce1ff1c28ad17fcf19ba981d958",
+      "passed": false
+    }
+  ],
+  "finished_unix": 1794128340.0240078,
+  "phase_closure": {
+    "candidate_id": "issac-070ff9131119-2cd73ed7",
+    "source_commit": "070ff913111924cf08bd3e518386435802ae2ae9",
+    "source_files_verified": 2156,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "phase": "acceptance_closed",
+    "defects": [
+      {
+        "path": "state/issac-acceptance/diagnostics/model-prepare-0c8956c3a96045e3b4dc2e5abc812786/report.json",
+        "sha256": "058d7bb6b35503c1b1c967153d91b0c3d19f1357d794cafc68df0ccf01159f74",
+        "failed_checks": []
+      },
+      {
+        "path": "state/issac-acceptance/diagnostics/model-prepare-ce44f1b0e3ae497aab49c292d05a1cb4/report.json",
+        "sha256": "058d7bb6b35503c1b1c967153d91b0c3d19f1357d794cafc68df0ccf01159f74",
+        "failed_checks": []
+      },
+      {
+        "path": "state/issac-acceptance/round-runs/round-3c6513338d6f4e458cfab91edad597b5/progress.json",
+        "sha256": "5c7cf86018b50ba9f5d38ce751a57953ec97e2c48d2dc9ba23f102706e0445a0",
+        "failed_checks": [
+          "local-model-prepare",
+          "local-model-qualification",
+          "official-client-launch"
+        ]
+      },
+      {
+        "path": "state/issac-acceptance/round-runs/round-3c6513338d6f4e458cfab91edad597b5/report.json",
+        "sha256": "ac9a116471b352b2172d23599de4aabae15746888d0f4ce2cb0150317302fa80",
+        "failed_checks": [
+          "local-model-prepare",
+          "local-model-qualification",
+          "official-client-launch"
+        ]
+      },
+      {
+        "path": "state/issac-acceptance/round-runs/round-c8cb410063324dee9ec64392f8f0cb32/progress.json",
+        "sha256": "0a4a61096d086492caf6f8cef9b741929543a38d16d1502d1205eb500030828c",
+        "failed_checks": [
+          "local-model-prepare",
+          "local-model-qualification",
+          "official-client-launch"
+        ]
+      },
+      {
+        "path": "state/issac-acceptance/round-runs/round-c8cb410063324dee9ec64392f8f0cb32/report.json",
+        "sha256": "24225006436d430235d4a000e2504927e94296729211882fb1a5a60201cc0b33",
+        "failed_checks": [
+          "local-model-prepare",
+          "local-model-qualification",
+          "official-client-launch"
+        ]
+      }
+    ],
+    "recorded_failures": 6,
+    "complete_acceptance_requires_all_18_verified_gates": true,
+    "next_action": "whole_correction_round_then_freeze",
+    "source_changes_permitted_only_in_new_development_round": true,
+    "closed_unix": 1794128672.547916
+  },
+  "resource_plan": {
+    "candidate_id": "issac-070ff9131119-2cd73ed7",
+    "media_reserve_mib": 18000,
+    "observed": {
+      "at_unix": 1794128274.286254,
+      "comfy_running_jobs": 0,
+      "gpu_free_mib": 47510,
+      "gpu_total_mib": 49140,
+      "gpu_utilization_percent": 0,
+      "host_available_bytes": 55794597888,
+      "host_total_bytes": 68612378624
+    },
+    "plans": [
+      {
+        "capacity": {
+          "estimate_rounding_mib": 512,
+          "fits": false,
+          "gpu_available_bytes": 49817845760,
+          "gpu_margin_mib": 2048,
+          "gpu_required_bytes": 57894145885,
+          "gpu_shortfall_bytes": 8076300125,
+          "host_available_bytes": 55794597888,
+          "host_margin_mib": 6144,
+          "host_required_bytes": 49456548413,
+          "host_shortfall_bytes": 0,
+          "media_reserve_mib": 18000
+        },
+        "estimate": {
+          "gpu_bytes": 36335423325,
+          "total_bytes": 78812649882
+        },
+        "fits": false,
+        "gpu_offload": 0.45
+      },
+      {
+        "capacity": {
+          "estimate_rounding_mib": 512,
+          "fits": false,
+          "gpu_available_bytes": 49817845760,
+          "gpu_margin_mib": 2048,
+          "gpu_required_bytes": 49722970604,
+          "gpu_shortfall_bytes": 0,
+          "host_available_bytes": 55794597888,
+          "host_margin_mib": 6144,
+          "host_required_bytes": 57627723694,
+          "host_shortfall_bytes": 1833125806,
+          "media_reserve_mib": 18000
+        },
+        "estimate": {
+          "gpu_bytes": 28164248044,
+          "total_bytes": 78812649882
+        },
+        "fits": false,
+        "gpu_offload": 0.338
+      },
+      {
+        "capacity": {
+          "estimate_rounding_mib": 512,
+          "fits": false,
+          "gpu_available_bytes": 49817845760,
+          "gpu_margin_mib": 2048,
+          "gpu_required_bytes": 39919707751,
+          "gpu_shortfall_bytes": 0,
+          "host_available_bytes": 55794597888,
+          "host_margin_mib": 6144,
+          "host_required_bytes": 67430986547,
+          "host_shortfall_bytes": 11636388659,
+          "media_reserve_mib": 18000
+        },
+        "estimate": {
+          "gpu_bytes": 18360985191,
+          "total_bytes": 78812649882
+        },
+        "fits": false,
+        "gpu_offload": 0.225
+      }
+    ],
+    "selected": null
+  },
+  "scope_notes": [
+    "Native game proof is main-menu read-only observation and normal close only, not gameplay or slot 3.",
+    "Global user-selected LM Studio was explicitly closed; no models were loaded in that instance.",
+    "Old ComfyUI jobs finished without interruption; idle cache release did not stop the service.",
+    "Actual official launch first failed Windows error 740; user then restarted the controller with administrator privileges.",
+    "Elevated launch reached a real login window but the existing code rejected profile creation too early. Later actual profile inspection passed.",
+    "No local model load, model inference, body approval, full live acceptance or official recording has passed.",
+    "Later native window observation found one true ownerless official frame and multiple owned CEF surfaces. Their presence and a black loading surface do not establish scene readiness or login."
+  ],
+  "public_broadcast_started": false,
+  "official_recording_created": false,
+  "private_reference_published": false
+}

@@ -12,7 +12,7 @@ import urllib.request
 from urllib.parse import urlsplit
 
 from .common import AdmissionError, Audit, digest, file_hash, inside, local_url, read_json, write_json
-from .resources import MEDIA_RESERVE_MIB, MIB, assess_estimate, available_for_initialization, estimate_fits, parse_estimate, snapshot
+from .resources import MEDIA_RESERVE_MIB, MIB, assess_estimate, available_for_initialization, estimate_fits, offload_candidates, parse_estimate, snapshot
 
 
 class LocalModel:
@@ -286,6 +286,10 @@ class LocalModel:
             if remaining<=0:raise AdmissionError('EXISTING_GPU_TASKS_RETAINED_WAIT_FOR_CAPACITY')
             time.sleep(min(2,remaining));observed=snapshot()
         provenance=self.admit_retained_files()
+        from .media_capacity import budget
+        media_budget=budget(self.root,self.candidate)
+        reserves={'reserve_mib':media_budget['media_reserve_mib'],
+                  'host_extra_reserve_mib':media_budget['host_extra_reserve_mib']}
         if models is None:
             self.progress('starting_isolated_native_application')
             self.start_application()
@@ -304,18 +308,19 @@ class LocalModel:
             help_text=self.command('load','--help')
             if '--estimate-only' not in help_text:raise AdmissionError('PREPARED_LMS_RESOURCE_ESTIMATOR_NOT_SUPPORTED')
             observed=snapshot();plans=[]
-            for ratio in sorted({round(fraction,3),round(fraction*.75,3),round(fraction*.5,3)},reverse=True):
+            for ratio in offload_candidates(fraction):
                 self.progress('estimating_model_resources',gpu_offload=ratio,context_window=context)
                 arguments=self.load_arguments(ratio,context)
                 estimate=parse_estimate(self.command(*arguments,'--estimate-only',timeout=180,include_stderr=True))
-                assessment=assess_estimate(estimate,observed)
+                assessment=assess_estimate(estimate,observed,**reserves)
                 fits=assessment['fits']
                 plans.append({'gpu_offload':ratio,'estimate':estimate,'fits':fits,'capacity':assessment})
                 if fits:plan=plans[-1];break
             write_json(inside(self.root,'state/isaac-strategy/model-resource-plan.json'),
-                {'candidate_id':self.candidate,'observed':observed,'media_reserve_mib':MEDIA_RESERVE_MIB,'plans':plans,'selected':plan})
+                {'candidate_id':self.candidate,'observed':observed,'media_budget':media_budget,
+                 'media_reserve_mib':media_budget['media_reserve_mib'],'plans':plans,'selected':plan})
             if plan is None:raise AdmissionError('RETAINED_MODEL_AND_MEDIA_DO_NOT_FIT_MEASURED_CAPACITY')
-            if not estimate_fits(plan['estimate'],snapshot()):raise AdmissionError('CAPACITY_CHANGED_BEFORE_MODEL_LOAD')
+            if not estimate_fits(plan['estimate'],snapshot(),**reserves):raise AdmissionError('CAPACITY_CHANGED_BEFORE_MODEL_LOAD')
             self.progress('loading_retained_model',gpu_offload=plan['gpu_offload'],context_window=context)
             self.command(*self.load_arguments(plan['gpu_offload'],context),'--identifier',expected,timeout=900)
             models=self.models()
@@ -323,7 +328,7 @@ class LocalModel:
         profile=self.verify_server_owner()
         receipt={'backend':'native_LM_Studio','candidate_id':self.candidate,'model':expected,'base_url':self.url,
                  'retained_files':provenance['files'],'file_verification':provenance,'profile_proof':profile,
-                 'resource_plan':plan,'cloud_fallback':False,'new_model_download_bytes':0,
+                 'resource_plan':plan,'media_budget':media_budget,'cloud_fallback':False,'new_model_download_bytes':0,
                  'model_qualified':False,'at_unix':time.time()}
         write_json(inside(self.root,'state/isaac-strategy/local-backend.json'),receipt)
         self.progress('retained_model_prepared_not_qualified')

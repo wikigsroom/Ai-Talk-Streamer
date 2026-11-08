@@ -70,11 +70,13 @@ def parse_estimate(output):
     return values
 
 
-def assess_estimate(estimate,observed,*,reserve_mib=MEDIA_RESERVE_MIB):
+def assess_estimate(estimate,observed,*,reserve_mib=MEDIA_RESERVE_MIB,host_extra_reserve_mib=0):
     # Add a rounding allowance to the CLI's formatted estimate and keep room
     # for the two media models plus Windows and normal recording overhead.
+    if type(reserve_mib) is not int or reserve_mib<=0 or type(host_extra_reserve_mib) is not int or host_extra_reserve_mib<0:
+        raise AdmissionError('POSITIVE_MEASURED_MEDIA_RESERVE_REQUIRED')
     gpu_required=estimate['gpu_bytes']+(512+reserve_mib+GPU_MARGIN_MIB)*MIB
-    host_required=estimate['total_bytes']-estimate['gpu_bytes']+(512+HOST_MARGIN_MIB)*MIB
+    host_required=estimate['total_bytes']-estimate['gpu_bytes']+(512+HOST_MARGIN_MIB+host_extra_reserve_mib)*MIB
     gpu_available=observed['gpu_free_mib']*MIB
     host_available=observed['host_available_bytes']
     return {'fits':gpu_required<=gpu_available and host_required<=host_available,
@@ -83,8 +85,14 @@ def assess_estimate(estimate,observed,*,reserve_mib=MEDIA_RESERVE_MIB):
             'gpu_shortfall_bytes':max(0,gpu_required-gpu_available),
             'host_shortfall_bytes':max(0,host_required-host_available),
             'media_reserve_mib':reserve_mib,'gpu_margin_mib':GPU_MARGIN_MIB,
-            'host_margin_mib':HOST_MARGIN_MIB,'estimate_rounding_mib':512}
+            'host_margin_mib':HOST_MARGIN_MIB,'host_extra_reserve_mib':host_extra_reserve_mib,'estimate_rounding_mib':512}
 
 
-def estimate_fits(estimate,observed,*,reserve_mib=MEDIA_RESERVE_MIB):
-    return assess_estimate(estimate,observed,reserve_mib=reserve_mib)['fits']
+def estimate_fits(estimate,observed,*,reserve_mib=MEDIA_RESERVE_MIB,host_extra_reserve_mib=0):
+    return assess_estimate(estimate,observed,reserve_mib=reserve_mib,host_extra_reserve_mib=host_extra_reserve_mib)['fits']
+
+
+def offload_candidates(fraction):
+    if type(fraction) not in (int,float) or not 0<fraction<=.6:
+        raise AdmissionError('BOUNDED_EXISTING_MODEL_OFFLOAD_REQUIRED')
+    return sorted({round(fraction*scale,3) for scale in (1,.9,5/6,.8,.75,.5)},reverse=True)

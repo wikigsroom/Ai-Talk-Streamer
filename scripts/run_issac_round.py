@@ -15,8 +15,9 @@ from integration.issac.deployment import require_candidate
 from integration.issac.preparation import runtime_environment
 
 
-def blocked_by_prerequisite(name,results):
+def blocked_by_prerequisite(name,results,*,require_media_profile=False):
     dependencies={'local-model-qualification':'local-model-prepare'}
+    if require_media_profile:dependencies['local-model-prepare']='media-capacity'
     required=dependencies.get(name)
     if required and not any(row['check']==required and row['passed'] is True for row in results):
         return {'check':name,'passed':False,'state':'blocked','reason':'PREREQUISITE_NOT_PASSED','requires':required,
@@ -28,6 +29,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--root',type=Path,default=ROOT)
     parser.add_argument('--include-native-game',action='store_true')
     parser.add_argument('--include-model',action='store_true')
+    parser.add_argument('--include-media-profile',action='store_true')
     parser.add_argument('--include-official-client',action='store_true')
     parser.add_argument('--capacity-wait-seconds',type=int,default=3600)
     args=parser.parse_args();root=args.root.resolve();candidate=require_candidate(root)
@@ -41,19 +43,21 @@ def main():
         ('regressions',[*media_py,'-m','integration.issac.acceptance','--root',str(root),'regressions'],1800),
         ('materials-scan',[*media_py,'-m','integration.issac.materials','--root',str(root),'scan'],180)]
     if args.include_native_game:commands.append(('native-game',[*diag,'native-game'],480))
+    if args.include_media_profile:
+        commands.append(('media-capacity',[*py,'-m','integration.issac.media_capacity','--root',str(root)],3000))
     if args.include_model:
         commands.extend([('local-model-prepare',[*diag,'model-prepare','--capacity-wait-seconds',str(args.capacity_wait_seconds)],7200),
             ('local-model-qualification',[*py,str(inside(root,'scripts/qualify_issac_model.py')),'--root',str(root)],420)])
     if args.include_official_client:
         official=[*py,'-m','integration.issac.livehime','--root',str(root)]
-        commands.extend([('official-client-signature',[*official,'prepare'],90),('official-client-launch',[*official,'launch'],90)])
+        commands.extend([('official-client-signature',[*official,'prepare'],90),('official-client-launch',[*official,'launch'],180)])
     results=[]
     with FileLease(inside(root,'state/issac-acceptance/round-runner.lock')):
         for name,command,timeout in commands:
             require_candidate(root,hardware=False)
             write_json(folder/'progress.json',{**candidate,'stage':'testing','current':name,'results':results,'source_mutations_allowed':False})
             log=folder/(name+'.log');started=time.monotonic()
-            blocked=blocked_by_prerequisite(name,results)
+            blocked=blocked_by_prerequisite(name,results,require_media_profile=args.include_media_profile)
             if blocked:
                 log.write_text(json.dumps(blocked,ensure_ascii=False),'utf8');result=blocked
             else:
