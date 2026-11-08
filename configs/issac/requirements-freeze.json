@@ -1,0 +1,361 @@
+{
+  "schema_version": 1,
+  "contract_id": "NM-ISSAC-REQUIREMENTS-20261109-v1",
+  "status": "frozen_product_requirements_implementation_alignment_pending",
+  "frozen_on": "2026-11-09",
+  "prepared_at": "2026-11-09T00:14:17+08:00",
+  "timezone": "Asia/Taipei",
+  "branch": "issac",
+  "scope": "product_requirements_and_acceptance_boundaries_only",
+  "source_head_before_documentation_freeze": "fc68c82733f5475ca624e2b135e57ca29d66feab",
+  "authority": {
+    "latest_explicit_user_instructions_take_precedence": true,
+    "supersedes_legacy_independent_strategy_and_narrator_ownership": true,
+    "supersedes_legacy_wiki_only_on_game_strategy_host": true,
+    "legacy_round_results_remain_historical_evidence": true,
+    "amendment_requires_new_version_reason_traceability_and_hashes": true
+  },
+  "requirement_count": 140,
+  "requirement_groups": [
+    {
+      "id": "G01",
+      "title": "分支、来源和状态隔离",
+      "count": 6
+    },
+    {
+      "id": "G02",
+      "title": "部署、推理后端与资源边界",
+      "count": 8
+    },
+    {
+      "id": "G03",
+      "title": "游戏与来源锁",
+      "count": 6
+    },
+    {
+      "id": "G04",
+      "title": "规则控制、感知与执行器",
+      "count": 8
+    },
+    {
+      "id": "G05",
+      "title": "奶妹核心 AI 的决策权",
+      "count": 15
+    },
+    {
+      "id": "G06",
+      "title": "奶妹的固定身份与人格",
+      "count": 7
+    },
+    {
+      "id": "G07",
+      "title": "三种模式形态",
+      "count": 5
+    },
+    {
+      "id": "G08",
+      "title": "自然动作、游玩操作和随机事件",
+      "count": 10
+    },
+    {
+      "id": "G09",
+      "title": "首尾一致与连接质量",
+      "count": 6
+    },
+    {
+      "id": "G10",
+      "title": "最终声音与音频管理",
+      "count": 8
+    },
+    {
+      "id": "G11",
+      "title": "真实口型与实时画质",
+      "count": 9
+    },
+    {
+      "id": "G12",
+      "title": "奶妹 DSH、Humanity、插件与记忆",
+      "count": 12
+    },
+    {
+      "id": "G13",
+      "title": "奶妹核心直接使用 issac-wiki",
+      "count": 10
+    },
+    {
+      "id": "G14",
+      "title": "MC 同屏、节目和播放规则",
+      "count": 8
+    },
+    {
+      "id": "G15",
+      "title": "推进顺序、验收及录播交付",
+      "count": 11
+    },
+    {
+      "id": "G16",
+      "title": "奶妹在玩游戏的自然展示体验",
+      "count": 11
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/issac/最终总需求冻结20261109.md",
+      "role": "authoritative_requirement_document",
+      "bytes": 56431,
+      "sha256": "833c7fad020ffe864d70ce65ae1b13568d100286291b0df926f773bf49712520",
+      "normalized_lf_sha256": "833c7fad020ffe864d70ce65ae1b13568d100286291b0df926f773bf49712520"
+    },
+    {
+      "path": "docs/issac/需求验收矩阵20261109.csv",
+      "role": "one_row_per_numbered_requirement",
+      "bytes": 44351,
+      "sha256": "644300b3ef9528a7571cf4644df53e64549d060349a45dc3de46a88764a52578",
+      "normalized_lf_sha256": "644300b3ef9528a7571cf4644df53e64549d060349a45dc3de46a88764a52578"
+    }
+  ],
+  "frozen_dependencies": [
+    {
+      "path": "configs/issac/sources.lock.json",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 4954,
+      "sha256": "9f1ccd66dcc906ef43f31e99cdb622a6152bb6e2303e0b030b1a3719076de421",
+      "normalized_lf_sha256": "9f1ccd66dcc906ef43f31e99cdb622a6152bb6e2303e0b030b1a3719076de421"
+    },
+    {
+      "path": "configs/issac/character-inheritance.json",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 8756,
+      "sha256": "6979207fc88c31b9f879a3381187874b55cdc55b226e73f3ab0d8c04bc49bdc8",
+      "normalized_lf_sha256": "7c32578e780d957cb8903cd0a58ef6981f09e0d4059b61f7d80eebab145d4976"
+    },
+    {
+      "path": "assets/issac/references/M01.png",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 2230929,
+      "sha256": "d29215e26baf0e2447efeab92aeef52a6de4aceccab8cd20329bc10383d98213"
+    },
+    {
+      "path": "assets/issac/references/M02.png",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 2198876,
+      "sha256": "20760c617f9032917f7ce4adecdac52000065c40c6a4743dce16e54afe94fc79"
+    },
+    {
+      "path": "assets/issac/references/M03.png",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 2137919,
+      "sha256": "643654517a4a55a971f560c107b1a3bc42e5ccbd151ab5dcd50f02fb8300f0ab"
+    },
+    {
+      "path": "configs/characters/naimei.json",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 3785,
+      "sha256": "a483d71b6d68b981051e3e27332d4c1a8fde21b410c81e09ec85f24141e61081",
+      "normalized_lf_sha256": "a483d71b6d68b981051e3e27332d4c1a8fde21b410c81e09ec85f24141e61081"
+    },
+    {
+      "path": "configs/naimei/soul.md",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 1360,
+      "sha256": "7b7ba63c3413ae07f88ff150c8c5598169064c1e1d717044c08b159a0d6506cf",
+      "normalized_lf_sha256": "7b7ba63c3413ae07f88ff150c8c5598169064c1e1d717044c08b159a0d6506cf"
+    },
+    {
+      "path": "configs/naimei/humanizer.md",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 1543,
+      "sha256": "c6bb0dc67d05c301cd5f7b2e276bc88e7711c9175e44215e8687a8a1c0365523",
+      "normalized_lf_sha256": "c6bb0dc67d05c301cd5f7b2e276bc88e7711c9175e44215e8687a8a1c0365523"
+    },
+    {
+      "path": "assets/naimei/voice-final-v1/profile.json",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 1855,
+      "sha256": "28e5a3cbdb1501164200efb726aa5d8a56117631340975c49918508b0768fd4f",
+      "normalized_lf_sha256": "28e5a3cbdb1501164200efb726aa5d8a56117631340975c49918508b0768fd4f"
+    },
+    {
+      "path": "assets/naimei/voice-final-v1/manifest.json",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 3459,
+      "sha256": "26c92de6536306f34663882b4bfaeffc9266221d02abbebbe4572e47584188d2",
+      "normalized_lf_sha256": "26c92de6536306f34663882b4bfaeffc9266221d02abbebbe4572e47584188d2"
+    },
+    {
+      "path": "configs/releases/naimei-voice-final-v1.json",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 522,
+      "sha256": "873d8637e6824e58752e5f5ac526e5b94dff6d0bffe049799ca273b5de0279b5",
+      "normalized_lf_sha256": "873d8637e6824e58752e5f5ac526e5b94dff6d0bffe049799ca273b5de0279b5"
+    },
+    {
+      "path": "configs/naimei/voice-models.json",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 809,
+      "sha256": "7a99eead32529bff2081195d5ae079ad3ffebabdf8fd740bdf53d2a3d54e4146",
+      "normalized_lf_sha256": "7a99eead32529bff2081195d5ae079ad3ffebabdf8fd740bdf53d2a3d54e4146"
+    },
+    {
+      "path": "configs/naimei/dsh-extensions.json",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 988,
+      "sha256": "42d2431af743564b7956b3f27a6bc701df7fed80690e0593c5866947299dd573",
+      "normalized_lf_sha256": "42d2431af743564b7956b3f27a6bc701df7fed80690e0593c5866947299dd573"
+    },
+    {
+      "path": "extensions/naimei-dsh/sources.lock.json",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 10411,
+      "sha256": "abb2ebd2fef1a9206ba54242860bfbb7c745011b168cfb833f4ffef50d93cedc",
+      "normalized_lf_sha256": "abb2ebd2fef1a9206ba54242860bfbb7c745011b168cfb833f4ffef50d93cedc"
+    },
+    {
+      "path": "configs/issac/references/mc-landscape-v1.rev04.json",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 7583,
+      "sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76",
+      "normalized_lf_sha256": "6d3e60cc91934dd44017f65f992cc4c820f52d84fffb2a3d90da759f3acd9f76"
+    },
+    {
+      "path": "configs/issac/mc-presentation-reference.json",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 8519,
+      "sha256": "44ede0774609f50deed7472bdbaf512369914e628da67e2e0c951a0ce57bf430",
+      "normalized_lf_sha256": "ef4051054dc867d63ccd4d31dffaecbb6f4256b8b7958120b5d8108169fc62f4"
+    },
+    {
+      "path": "docs/issac/MC同屏方案沿用与标题替换20261107.md",
+      "role": "inherited_source_identity_voice_extension_or_presentation_contract",
+      "bytes": 16535,
+      "sha256": "ec47db5b2b92991b22779306c3cddc5c186f1f0bab8c9c4fa1e43051b2acd1a4",
+      "normalized_lf_sha256": "86fc33707c703b5b0832ef543ee04f233c41df56cf7c92c18b8badd1764267d2"
+    }
+  ],
+  "historical_provenance": [
+    {
+      "path": "docs/issac/奶妹人格与DSH配置核查20261108.md",
+      "role": "historical_audit_not_final_architecture",
+      "bytes": 9847,
+      "sha256": "dfd3306ed09ed74536901f1f696f295a287f78faaf177d9bc777ea4bd59c2069",
+      "normalized_lf_sha256": "dfd3306ed09ed74536901f1f696f295a287f78faaf177d9bc777ea4bd59c2069"
+    },
+    {
+      "path": "docs/evidence/issac-naimei-persona-config-audit-20261108.json",
+      "role": "sanitized_read_only_audit_evidence",
+      "bytes": 12876,
+      "sha256": "2483b166955597cb3bd77102b55aa4c8b259d3e736ab25288c235c8bb3462ec5",
+      "normalized_lf_sha256": "6e71302a5d86af00c6f57bccac6eaf668ef458005a4d4c81223fdab7d4cd29c8"
+    }
+  ],
+  "entrypoints": [
+    "AGENTS.md",
+    "README.md",
+    "docs/README.md",
+    "docs/issac/完整更新方案20261107.md",
+    "configs/issac/integration-plan.json"
+  ],
+  "core_authority": {
+    "actor_id": "naimei",
+    "strategic_owner": "naimei_core_ai_dsh",
+    "direct_current_character_and_room_state": true,
+    "direct_issac_wiki_skill_and_query_tool": true,
+    "all_active_passive_and_other_pickup_decisions": true,
+    "ordinary_consumable_pickups_included": true,
+    "native_rules_realtime_combat_navigation_and_authorized_execution": true,
+    "unapproved_auto_pickup_allowed": false,
+    "bounded_target_specific_authorizations_and_fresh_preconditions_required": true,
+    "actual_observed_effect_required_for_success_narration": true,
+    "independent_strategy_persona_may_decide_before_naimei": false,
+    "same_core_context_for_observation_decision_results_and_natural_speech": true
+  },
+  "local_inference_backend": {
+    "required_for_final_core_ai": true,
+    "qualification": "pending_real_inference_tools_and_full_stack_verification",
+    "final_model": null,
+    "existing_swift_files_preserved": true,
+    "swift_is_existing_unqualified_candidate": true,
+    "swift_runtime_mandatory": false,
+    "unloaded_swift_counts_as_actual_memory_load": false,
+    "candidate_combined_budget_must_be_reported_separately": true,
+    "new_model_download_authorized": false,
+    "qwen_download_authorized": false,
+    "cloud_inference_allowed": false
+  },
+  "runtime_boundary": {
+    "target": "native_windows_rtx4090",
+    "remote_installation": "C:/dev/虚拟数字人直播/issac",
+    "virtualization_allowed": false,
+    "gameplay_repository": "https://github.com/wikigsroom/agent-gameplay-isaac/",
+    "gameplay_commit": "5ceb4a4d95402df306ad7dad94bf91f1e04b6649",
+    "actual_game_baseline": "Repentance 1.7.9b x86",
+    "wiki_required_edition": "rep",
+    "protected_original_saves": true,
+    "authorized_test_save_slot": 3,
+    "ordinary_game_inputs_and_read_only_observation_only": true,
+    "preserve_unrelated_apps_and_gpu_jobs": true,
+    "close_task_owned_unused_browser_tabs": true
+  },
+  "media_contract": {
+    "character_id": "naimei",
+    "costume_id": "O01",
+    "modes": [
+      {
+        "id": "M01",
+        "name": "日光陪玩"
+      },
+      {
+        "id": "M02",
+        "name": "暖夜陪玩"
+      },
+      {
+        "id": "M03",
+        "name": "专注对局"
+      }
+    ],
+    "voice_id": "NCM01",
+    "voice_freeze_id": "NM-VOICE-FINAL-20261106-v1",
+    "tts_engine": "OmniVoice",
+    "automatic_voice_fallback_allowed": false,
+    "avatar_engine": "flashhead-lite",
+    "avatar_size": [
+      512,
+      512
+    ],
+    "avatar_target_effective_fps": 25,
+    "avatar_steps": 4,
+    "avatar_batch_size": 1,
+    "upper_fangs": 2,
+    "same_mode_g0_body_seams_required": true,
+    "fake_endpoint_or_static_padding_allowed": false,
+    "programme_size": [
+      1920,
+      1080
+    ],
+    "programme_target_fps": 30,
+    "presentation_source": "mc_rev04_title_only",
+    "title": "奶妹 · 以撒的结合",
+    "final_recorder": "official_bilibili_livehime_local_recording",
+    "final_complete_programme_minimum_seconds": 600,
+    "inherited_each_mode_avatar_segment_seconds": 300,
+    "each_mode_separate_600_second_full_programme_required": false
+  },
+  "evidence_and_process": {
+    "full_runtime_acceptance_claimed": false,
+    "all_current_requirements_implemented_claimed": false,
+    "complete_round_development_review_commit_freeze_before_uniform_tests": true,
+    "tests_resumed_by_this_freeze": false,
+    "services_or_models_started_by_this_freeze": false,
+    "deployment_activated_by_this_freeze": false,
+    "public_broadcast_authorized": false,
+    "reference_audio_or_transcript_embedded": false,
+    "new_model_weight_bytes_downloaded_by_this_freeze": 0,
+    "legacy_45_second_deadline_is_accepted_live_latency": false
+  },
+  "hash_policy": {
+    "sha256": "exact_on_disk_bytes_at_freeze",
+    "normalized_lf_sha256": "text_bytes_with_CRLF_replaced_by_LF_for_cross_checkout_comparison",
+    "self_hash_omitted_to_avoid_cycle": true,
+    "source_entrypoints_are_pointers_not_implementation_acceptance": true
+  }
+}

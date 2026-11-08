@@ -1,6 +1,10 @@
 {
   "schema_version": 1,
   "plan_id": "NM-ISSAC-PLAN-20261107-v2",
+  "requirements_freeze": "configs/issac/requirements-freeze.json",
+  "requirements_document": "docs/issac/最终总需求冻结20261109.md",
+  "requirements_authority": "NM-ISSAC-REQUIREMENTS-20261109-v1",
+  "implementation_alignment": "pending_naimei_core_direct_state_wiki_and_all_pickup_authority; legacy_role_division_is_historical",
   "branch": "issac",
   "status": "round_2_all_source_written_unverified_awaiting_freeze",
   "target": "issac-rtx4090",

@@ -1,0 +1,423 @@
+{
+  "schema_version": 1,
+  "branch": "issac",
+  "scope": "read_only_persona_dsh_plugins_and_skills_configuration_audit",
+  "captured_utc": "2026-11-08T15:35:53.3000864+00:00",
+  "captured_asia_taipei": "2026-11-08T23:35:53.300086+08:00",
+  "remote_host": "DESKTOP-TE44HE1",
+  "remote_installation": "C:\\dev\\虚拟数字人直播\\issac",
+  "expected_character_id": "naimei",
+  "source_contract": "naimei-dsh-extensions-v1",
+  "sources": [
+    {
+      "id": "soul-md",
+      "repository": "https://github.com/Scorp1o117/dsh-soul-md",
+      "version": "0.12.1",
+      "commit": "0de8445b4941315da18138d5b5f1fc19fa5cc7d2",
+      "file_count": 15,
+      "bytes": 131745,
+      "local_hash_mismatches": []
+    },
+    {
+      "id": "fish-memory",
+      "repository": "https://github.com/Yuuyuko-uu/dsh-fish-memory",
+      "version": "1.5.5",
+      "commit": "a070ebf096f3472c107982b5741994cabdcc18f7",
+      "file_count": 15,
+      "bytes": 2037113,
+      "local_hash_mismatches": []
+    },
+    {
+      "id": "feiyu-mood",
+      "repository": "https://github.com/Yuuyuko-uu/dsh-feiyu-mood",
+      "version": "0.9.1",
+      "commit": "2f52a367e2ea673c7e73a4a8c718721665d10081",
+      "file_count": 19,
+      "bytes": 6984468,
+      "local_hash_mismatches": []
+    },
+    {
+      "id": "speak-up",
+      "repository": "https://github.com/Yuuyuko-uu/dsh-speak-up",
+      "version": "0.3.0",
+      "commit": "e3bc6362208c693bb833ecf463ec6a20df4b6419",
+      "file_count": 8,
+      "bytes": 148962,
+      "local_hash_mismatches": []
+    },
+    {
+      "id": "memewiki-thawline",
+      "repository": "https://github.com/thawline/dsh-memewiki",
+      "version": "0.1.20",
+      "commit": "bf3155ad93dedfdbe37798680e79b5386503e38d",
+      "file_count": 10,
+      "bytes": 17210777,
+      "local_hash_mismatches": []
+    },
+    {
+      "id": "humanizer-chinese",
+      "repository": "https://github.com/jiji262/humanizer-chinese",
+      "version": "1.0.0",
+      "commit": "1d6c08e10fbfe0e1b36ac784834451c6aae0a92c",
+      "file_count": 7,
+      "bytes": 46959,
+      "local_hash_mismatches": []
+    },
+    {
+      "id": "memewiki-liujelly",
+      "repository": "https://github.com/Liujelly/dsh-memewiki",
+      "version": "1.0.0",
+      "commit": "1d3f8266468823fe85290a016eadf3b8d1262de3",
+      "file_count": 10,
+      "bytes": 16770952,
+      "local_hash_mismatches": []
+    }
+  ],
+  "source_file_count": 84,
+  "source_bytes": 43330976,
+  "remote_file_hashes": [
+    {
+      "path": "configs/characters/naimei.json",
+      "sha256": "a483d71b6d68b981051e3e27332d4c1a8fde21b410c81e09ec85f24141e61081"
+    },
+    {
+      "path": "configs/naimei/soul.md",
+      "sha256": "7b7ba63c3413ae07f88ff150c8c5598169064c1e1d717044c08b159a0d6506cf"
+    },
+    {
+      "path": "configs/naimei/humanizer.md",
+      "sha256": "c6bb0dc67d05c301cd5f7b2e276bc88e7711c9175e44215e8687a8a1c0365523"
+    },
+    {
+      "path": "configs/naimei/dsh-extensions.json",
+      "sha256": "42d2431af743564b7956b3f27a6bc701df7fed80690e0593c5866947299dd573"
+    },
+    {
+      "path": "configs/issac/bridge-policy.json",
+      "sha256": "828ccfba801f0a8e3e1b7c4ec5e357ecad11c1e088497809c2bb2c5dba2b09ac"
+    },
+    {
+      "path": "configs/issac/runtime.json",
+      "sha256": "a1b526f0b3d21cf29d2e8e980ee70fcd41b4e1a32e1f24764d1c85d82c9e155a"
+    },
+    {
+      "path": "extensions/naimei-dsh/sources.lock.json",
+      "sha256": "abb2ebd2fef1a9206ba54242860bfbb7c745011b168cfb833f4ffef50d93cedc"
+    },
+    {
+      "path": "backend/dsh-bridge/host.mjs",
+      "sha256": "4fd5745e79636e976fb8dbbec7ccff4f251e0f7a90b73859045e64554cc06323"
+    },
+    {
+      "path": "backend/dsh-bridge/issac.mjs",
+      "sha256": "367a7d621d9d9b6bc730b1666a976ce9395c3dbc17cb5b32f40b2777b46d5044"
+    }
+  ],
+  "remote_configuration_matches_checkout": true,
+  "remote_installed_versions": [
+    {
+      "path": "tools/dsh/node_modules/@deepseek-ai/dsh/package.json",
+      "name": "@deepseek-ai/dsh",
+      "version": "0.2.0-rc.2"
+    },
+    {
+      "path": "tools/dsh/node_modules/deepseek-harness-humanity/package.json",
+      "name": "deepseek-harness-humanity",
+      "version": "0.1.17"
+    },
+    {
+      "path": "integration/isaac-agent/dsh-host/node_modules/@deepseek-ai/dsh/package.json",
+      "name": "@deepseek-ai/dsh",
+      "version": "0.2.2-rc.1"
+    }
+  ],
+  "remote_staged_extensions": [
+    {
+      "id": "soul-md",
+      "version": "0.12.1",
+      "commit": "0de8445b4941315da18138d5b5f1fc19fa5cc7d2",
+      "files": 15,
+      "errors": []
+    },
+    {
+      "id": "fish-memory",
+      "version": "1.5.5",
+      "commit": "a070ebf096f3472c107982b5741994cabdcc18f7",
+      "files": 15,
+      "errors": []
+    },
+    {
+      "id": "feiyu-mood",
+      "version": "0.9.1",
+      "commit": "2f52a367e2ea673c7e73a4a8c718721665d10081",
+      "files": 19,
+      "errors": []
+    },
+    {
+      "id": "speak-up",
+      "version": "0.3.0",
+      "commit": "e3bc6362208c693bb833ecf463ec6a20df4b6419",
+      "files": 8,
+      "errors": []
+    },
+    {
+      "id": "memewiki-thawline",
+      "version": "0.1.20",
+      "commit": "bf3155ad93dedfdbe37798680e79b5386503e38d",
+      "files": 10,
+      "errors": []
+    },
+    {
+      "id": "humanizer-chinese",
+      "version": "1.0.0",
+      "commit": "1d6c08e10fbfe0e1b36ac784834451c6aae0a92c",
+      "files": 7,
+      "errors": []
+    },
+    {
+      "id": "memewiki-liujelly",
+      "version": "1.0.0",
+      "commit": "1d3f8266468823fe85290a016eadf3b8d1262de3",
+      "files": 10,
+      "errors": []
+    }
+  ],
+  "remote_receipts": [
+    {
+      "path": "tools/dsh/naimei-extensions-receipt.json",
+      "exists": true,
+      "keys": [
+        "contract",
+        "source_lock_sha256",
+        "sources",
+        "upstream_install_scripts_executed",
+        "model_weights_added_bytes"
+      ],
+      "source_lock_sha256": "abb2ebd2fef1a9206ba54242860bfbb7c745011b168cfb833f4ffef50d93cedc"
+    },
+    {
+      "path": "state/issac-stream/dsh-home/composition-receipt.json",
+      "exists": false
+    },
+    {
+      "path": "state/naimei/dsh-home/composition-receipt.json",
+      "exists": false
+    },
+    {
+      "path": ".setup/isaac-strategy-plugin.json",
+      "exists": true,
+      "keys": [
+        "actual_model",
+        "actual_pid",
+        "actual_provider",
+        "files",
+        "local_dependency_synced_from_frozen_source",
+        "prompt",
+        "registered_tools",
+        "runtime_load_verified",
+        "version"
+      ],
+      "runtime_load_verified": true,
+      "actual_pid": 38092,
+      "actual_model": "issac-swift-local",
+      "actual_provider": "isaac-local"
+    }
+  ],
+  "remote_ports": [
+    {
+      "port": 3093,
+      "listening": true,
+      "owners": [
+        32356
+      ]
+    },
+    {
+      "port": 3094,
+      "listening": true,
+      "owners": [
+        32356
+      ]
+    },
+    {
+      "port": 3103,
+      "listening": false,
+      "owners": []
+    },
+    {
+      "port": 3104,
+      "listening": false,
+      "owners": []
+    },
+    {
+      "port": 9532,
+      "listening": false,
+      "owners": []
+    },
+    {
+      "port": 9533,
+      "listening": false,
+      "owners": []
+    },
+    {
+      "port": 9534,
+      "listening": false,
+      "owners": []
+    },
+    {
+      "port": 1235,
+      "listening": false,
+      "owners": []
+    },
+    {
+      "port": 8062,
+      "listening": false,
+      "owners": []
+    },
+    {
+      "port": 8052,
+      "listening": false,
+      "owners": []
+    }
+  ],
+  "remote_model_configuration": {
+    "model": "issac-swift-local",
+    "base_url": "http://127.0.0.1:1234/v1",
+    "context_window": 16384,
+    "qualified": false
+  },
+  "existing_naimei_service": {
+    "port": 3094,
+    "health": {
+      "character_id": "naimei",
+      "dsh_ready": true,
+      "persona_injection_ready": false,
+      "memory_ready": true,
+      "tts_ready": false,
+      "avatar_ready": false,
+      "authority_ready": false,
+      "persona_version": "naimei-v1-a32fec26cf72",
+      "node": "v26.12.0",
+      "versions": {
+        "dsh": "0.2.0-rc.2",
+        "humanity": "0.1.17",
+        "connector": "stream-humanity-v1"
+      }
+    },
+    "dialogue_model_configured": false,
+    "dialogue_channel_error": "CHANNEL_NOT_CONFIGURED",
+    "extensions_http_status": 404,
+    "extension_model_http_status": 404,
+    "persona_version": "naimei-v1-a32fec26cf72",
+    "persona_document": {
+      "schemaVersion": 1,
+      "identityCard": {
+        "fields": [
+          {
+            "key": "姓名",
+            "value": "奶妹",
+            "custom": false
+          },
+          {
+            "key": "性别",
+            "value": "",
+            "custom": false
+          },
+          {
+            "key": "人格偏好",
+            "value": "温暖亲近、机灵、轻俏皮，有自己的判断",
+            "custom": false
+          },
+          {
+            "key": "主语言",
+            "value": "简体中文",
+            "custom": false
+          },
+          {
+            "key": "物种",
+            "value": "虚构的金黄色女性化拟人龙",
+            "custom": false
+          },
+          {
+            "key": "角色设定",
+            "value": "当前穿 O01 橙子日常装，场景为奶妹的橙光小屋。年龄、身高和身世未设定。",
+            "custom": true
+          }
+        ],
+        "initializedAt": "2026-10-31T00:00:00.000Z",
+        "sealedAt": "2026-10-31T00:00:00.000Z"
+      },
+      "mutableLayer": {
+        "sections": [
+          {
+            "title": "对用户称呼",
+            "items": [
+              "自然使用你、大家、朋友们；观众昵称来自真实输入，不凭昵称声称记得对方。"
+            ]
+          },
+          {
+            "title": "说话风格",
+            "items": [
+              "自然中文口语，温暖、机灵、轻俏皮，一次一件事，通常一到三句。",
+              "不机械重复口头禅，不持续尖叫或幼儿化。"
+            ]
+          },
+          {
+            "title": "交付格式",
+            "items": [
+              "只输出最终可播的口语，不朗读动作标签、内部参数和后台记录。"
+            ]
+          },
+          {
+            "title": "行为边界",
+            "items": [
+              "如实说明自己是虚拟小龙。未设定的年龄、身世等保留未知，不继承其他角色的身份和经历。",
+              "只描述真实发生的互动；不声称已播完、已搜索或已执行尚未完成的动作。"
+            ]
+          }
+        ],
+        "userDefined": []
+      }
+    },
+    "publication_character_id": "female-a",
+    "publication_room_id": "room-main",
+    "publication_identity_matches_expected": false
+  },
+  "state_paths": [
+    {
+      "path": "C:\\dev\\虚拟数字人直播\\issac\\state\\issac-stream\\stream.sqlite3",
+      "exists": false
+    },
+    {
+      "path": "C:\\dev\\虚拟数字人直播\\issac\\knowledge\\issac-wiki\\SKILL.md",
+      "exists": true
+    },
+    {
+      "path": "C:\\dev\\虚拟数字人直播\\state\\naimei\\dsh-home\\composition-receipt.json",
+      "exists": false
+    },
+    {
+      "path": "C:\\dev\\虚拟数字人直播\\state\\naimei\\stream.sqlite3",
+      "exists": false
+    }
+  ],
+  "findings": [
+    "All seven pinned extension sources and all 84 remote staged files match their hashes.",
+    "The issac narrator ports are not listening; no narrator composition receipt or narrator state database was found at the configured installation paths.",
+    "The old naimei service on port 3094 is alive but exposes no extension API and has no configured dialogue model.",
+    "The old service has a naimei persona body but female-a in persona publication metadata.",
+    "Humanizer full SKILL is read and verified; the project humanizer.md policy is the text mounted into narrator prompts.",
+    "The Isaac Wiki is mounted into the game strategy DSH, not the narrator ordinary-chat tool set."
+  ],
+  "service_restart_performed": false,
+  "game_started": false,
+  "model_inference_started": false,
+  "persona_or_state_mutated": false,
+  "reference_audio_or_transcript_included": false,
+  "credentials_included": false,
+  "browser_tabs_opened": 0,
+  "docker_wsl_vm_used": false,
+  "limitations": [
+    "This read-only audit is not an end-to-end dialogue, game, media, or broadcast acceptance test.",
+    "Historical runtime-load receipts do not establish a currently running host or successful model inference."
+  ]
+}
