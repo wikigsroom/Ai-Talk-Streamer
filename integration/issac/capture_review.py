@@ -48,6 +48,7 @@ async def capture(root,mode,seconds=60,speak=False):
                 metrics.append({'elapsed':time.monotonic()-start,'health':value});await asyncio.sleep(.5)
         tasks=[asyncio.create_task(sample())]
         if speak:tasks.append(asyncio.create_task(request_speech()))
+        failure=None
         try:
             with (folder/'actual.h264').open('wb') as video,(folder/'actual.s16le').open('wb') as audio:
                 async with http.ws_connect(f'http://127.0.0.1:8062/api/studio/stream?v=3&codec=h264&programme_revision={revision}',
@@ -70,10 +71,18 @@ async def capture(root,mode,seconds=60,speak=False):
                             video.write(b'\0\0\0\1'+encoded[at:at+length]);at+=length
                         audio.write(pcm);trace.append({'frame':packets,'sequence':sequence,'elapsed':time.monotonic()-start});packets+=1
             await asyncio.gather(*tasks)
+        except Exception as error:
+            failure=str(error) if isinstance(error,AdmissionError) else type(error).__name__
+            raise
         finally:
             for task in tasks:
                 if not task.done():task.cancel()
             await asyncio.gather(*tasks,return_exceptions=True)
+            if failure:
+                write_json(folder/'capture-failure.json',{**candidate,'mode':mode,'passed':False,
+                    'failure':failure,'requests':requests,'packets':packets,'trace':trace,'metrics':metrics,
+                    'actual_elapsed_seconds':time.monotonic()-start,'quality_accepted':False,
+                    'official_delivery_recording':False,'observer_muted':True,'playback_authority_claimed':False})
     result={**candidate,'mode':mode,'profile':profile,'packets':packets,'actual_elapsed_seconds':time.monotonic()-start,
         'requests':requests,'trace':trace,'metrics':metrics,'official_delivery_recording':False,
         'observer_muted':True,'playback_authority_claimed':False,'quality_accepted':False}

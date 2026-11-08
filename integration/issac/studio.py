@@ -7,6 +7,7 @@ from collections import deque
 import hashlib
 import json
 from pathlib import Path
+import re
 import struct
 import time
 import uuid
@@ -201,7 +202,11 @@ class IsaacStudio(NaimeiStudio):
                 if failed_id:
                     try:await self.fail(failed_id,'MEDIA_CONTINUITY_OR_MAPPING_REJECTED')
                     except Exception:self.audit.append('media_failure_callback_unavailable')
-                self.audit.append('media_frame_rejected',code=self.media_error,error_type=type(error).__name__)
+                # Keep a bounded protocol reason, never arbitrary exception text
+                # that might contain a private endpoint or request body.
+                reason=str(error)
+                self.audit.append('media_frame_rejected',code=self.media_error,error_type=type(error).__name__,
+                                  reason=reason if re.fullmatch('[A-Z][A-Z0-9_]{0,99}',reason) else 'UNCLASSIFIED_MEDIA_FAILURE')
                 # No static substitute is advertised as a successful live frame.
                 for ws in list(self.viewers):
                     try:await ws.close(code=1011,message=b'media validation failed')
@@ -386,6 +391,9 @@ class IsaacStudio(NaimeiStudio):
             web.post('/api/issac/application',self.application_action),
             web.get('/{name}',self.static)])
         app.on_startup.append(self.startup);app.on_cleanup.append(self.cleanup)
+        # Close media sockets before AppRunner waits for active handlers. Waiting
+        # until on_cleanup leaves WebSocket consumers holding shutdown open.
+        app.on_shutdown.append(self.cleanup)
         from .shutdown import aiohttp_shutdown
         aiohttp_shutdown(app,self.root)
         return app

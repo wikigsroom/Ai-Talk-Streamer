@@ -11,6 +11,7 @@ import unittest
 from unittest.mock import AsyncMock
 
 import numpy as np
+from aiohttp import ClientSession,WSMsgType,web
 
 from integration.issac.common import AdmissionError,Audit
 from integration.issac.studio import IsaacStudio
@@ -71,6 +72,25 @@ class ProgrammePumpTests(unittest.IsolatedAsyncioTestCase):
             rows=[json.loads(line) for line in (folder/'events.jsonl').read_text('utf8').splitlines()]
             self.assertEqual([row['kind'] for row in rows],['media_frame_rejected','media_fault_normal_pause'])
             self.assertEqual(rows[0]['error_type'],'AdmissionError')
+            self.assertEqual(rows[0]['reason'],'ACCEPTED_BODY_CLIP_CHANGED')
+
+    async def test_normal_shutdown_releases_live_media_consumers_before_handler_drain(self):
+        with tempfile.TemporaryDirectory() as directory:
+            studio=self.studio(Path(directory))
+            studio.root=Path(directory);studio.web_revision='test-revision'
+            studio.http=ClientSession();studio.cue_task=None
+            studio.tasks=[asyncio.create_task(asyncio.Event().wait())]
+            app=studio.application();app.on_startup.clear()
+            runner=web.AppRunner(app,shutdown_timeout=2)
+            await runner.setup();site=web.TCPSite(runner,'127.0.0.1',0);await site.start()
+            try:
+                async with ClientSession() as observer:
+                    socket=await observer.ws_connect(f'http://127.0.0.1:{site._server.sockets[0].getsockname()[1]}/api/studio/stream?v=3&codec=h264&programme_revision=test-revision')
+                    closed=asyncio.create_task(socket.receive())
+                    await asyncio.wait_for(runner.cleanup(),1)
+                    self.assertIn((await closed).type,{WSMsgType.CLOSE,WSMsgType.CLOSED})
+                    self.assertFalse(studio.viewers);self.assertTrue(studio.http.closed)
+            finally:await runner.cleanup()
 
     async def test_broken_speech_callback_and_consumer_do_not_skip_game_pause(self):
         with tempfile.TemporaryDirectory() as directory:

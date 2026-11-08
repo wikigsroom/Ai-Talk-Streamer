@@ -1,0 +1,12 @@
+{
+  "candidate_id":"issac-2766095e7037-e7c6fa5a",
+  "passed":false,
+  "remote_receipt":"state/issac-acceptance/programme-speech-d.json",
+  "remote_receipt_sha256":"21a1430331d2ae8d3f78f5c4ce4fce2d787ba6e247f6cbbeaf02bb9d76d9e59f",
+  "observed":{"real_audio_driven_mouth_frames":61,"actual_open_mouth_frames":44,"persisted_media_ranges":60,"official_playback_receipts":0},
+  "failure":"Programme frontend requires deferred claim/ready protocol; backend ignores defer_ready, omits ready and exposes no playback/ready endpoint. The browser rejects the claim response and sends no heartbeats. Lease expiry cancels active speech at 21:37:44.308Z; next media-map is stale, so programme correctly stops output.",
+  "normal_cleanup":{"all_owned_components_stopped":true,"forced_process_termination":false,"owned_official_client_closed":true,"owned_idle_game_closed":true,"transient_studio_stop_deadline_observed":true},
+  "recording_created":false,
+  "source_changed_during_tests":false,
+  "new_candidate_acceptance_claimed":false
+}

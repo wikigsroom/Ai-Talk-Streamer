@@ -316,7 +316,11 @@ export class StreamBridge {
       if(path==='/api/dsh/cancel'&&req.method==='POST')return send(this.state.cancel(body.request_id||this.state.active()?.request_id));
       if(path==='/api/dsh/playback/claim'&&req.method==='POST'){
         if(this.policy.deployment.state_relative_path==='state/issac-stream')requireValue(this.platforms.player?.consumer_id===body.consumer_id&&this.platforms.player?.programme==='issac'&&Date.now()-this.platforms.player.at<6000,'ISAAC_OFFICIAL_PROGRAMME_PLAYER_REQUIRED');
-        return send(this.state.claimAuthority(p,body.broadcast_id,body.consumer_id,!!body.replace));
+        requireValue(body.defer_ready===undefined||typeof body.defer_ready==='boolean','PLAYBACK_READY_INVALID',400);
+        return send(this.state.claimAuthority(p,body.broadcast_id,body.consumer_id,!!body.replace,body.defer_ready===true));
+      }
+      if(path==='/api/dsh/playback/ready'&&req.method==='POST'){
+        const value=this.state.activateAuthority(body.lease_id,body.consumer_id);void this.tick();return send(value);
       }
       if(path==='/api/dsh/playback/heartbeat'&&req.method==='POST')return send(this.state.heartbeat(body.lease_id,body.consumer_id));
       if(path==='/api/dsh/playback/receipt'&&req.method==='POST')return send(this.state.receipt(p,body));
