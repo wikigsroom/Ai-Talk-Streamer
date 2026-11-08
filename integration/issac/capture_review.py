@@ -21,7 +21,7 @@ from .materials import ffmpeg
 async def capture(root,mode,seconds=60,speak=False):
     if mode not in {'M01','M02','M03'} or not 30<=seconds<=120:raise AdmissionError('BOUNDED_MODE_REVIEW_REQUIRED')
     candidate=require_candidate(root);folder=inside(root,'state/issac-acceptance/mouth')/(mode+'-'+uuid.uuid4().hex);folder.mkdir(parents=True)
-    requests=[];packets=0;profile=None;trace=[];start=time.monotonic();metrics=[]
+    requests=[];packets=0;profile=None;trace=[];start=time.monotonic();wire_start=time.perf_counter();metrics=[]
     async with ClientSession(trust_env=False) as http:
         async with http.get('http://127.0.0.1:8062/health') as response:health=await response.json()
         if health.get('mode')!=mode:raise AdmissionError('SWITCH_TO_REVIEW_MODE_BEFORE_CAPTURE')
@@ -69,7 +69,7 @@ async def capture(root,mode,seconds=60,speak=False):
                             length=struct.unpack_from('>I',encoded,at)[0];at+=4
                             if not length or at+length>len(encoded):raise AdmissionError('REVIEW_AVCC_INVALID')
                             video.write(b'\0\0\0\1'+encoded[at:at+length]);at+=length
-                        audio.write(pcm);trace.append({'frame':packets,'sequence':sequence,'elapsed':time.monotonic()-start});packets+=1
+                        audio.write(pcm);trace.append({'frame':packets,'sequence':sequence,'elapsed':time.perf_counter()-wire_start});packets+=1
             await asyncio.gather(*tasks)
         except Exception as error:
             failure=str(error) if isinstance(error,AdmissionError) else type(error).__name__

@@ -1,0 +1,21 @@
+{
+  "candidate_id":"issac-d5d2e3fea443-e19b8640",
+  "source_commit":"d5d2e3fea4439e80fc84a97ae986acb5719afd65",
+  "phase":"acceptance_closed",
+  "remote_receipt":"state/issac-acceptance/programme-modes-h.json",
+  "receipt_sha256":"b1e1de171259504b53f803a9acc7c54bfeb29aa3b6afcff19bac9be6edb80196",
+  "five_uniform_prechecks_passed":true,
+  "actual_first_naimei_choice_ms":4070,
+  "original_model_failures":0,
+  "three_real_mouth_captures_completed":true,
+  "closed_defects":[
+    "Room-change cancellation races a pending media-map request, producing STALE_GENERATION and stopping the programme pump.",
+    "The existing readiness formula cannot classify a deliberately paused, verified safe 14-second drink as healthy service.",
+    "45-second captures achieve at least 24.75 actual FPS but observed packet P99 is 93 to 94 ms against the 80 ms target."
+  ],
+  "game_and_official_client_closed_normally":true,
+  "full_run_observer_interrupted_without_claiming_outcome":true,
+  "production_accepted":false,
+  "final_300_second_delivery_created":false,
+  "private_audio_or_credentials_included":false
+}

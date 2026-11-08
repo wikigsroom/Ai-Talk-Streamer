@@ -24,6 +24,8 @@ from .common import AdmissionError,Audit,inside,read_json,write_json
 from .mouth import MouthProjector
 from .media_protocol import MediaProfile,stream_request_error
 from .stream_encoder import H264Encoder
+from .media_clock import MediaTimer
+from .readiness import verified_drink_pause
 from .strategy_dsh import bridge_token
 
 
@@ -75,6 +77,9 @@ class IsaacStudio(NaimeiStudio):
         self.stopping=False
         self.cleanup_started=False
         self.auto_drink=None
+        self.command_lock=asyncio.Lock()
+        self.command_tasks=set()
+        self.media_timer=MediaTimer()
         self.last_auto_drink=time.monotonic()
         self.sample_mouth=None
 
@@ -132,12 +137,53 @@ class IsaacStudio(NaimeiStudio):
         self.mouth.reset()
         await super().speech(command)
 
+    async def dsh_command(self, request):
+        # A delayed old cancel must not clear a newer speech mapping/engine.
+        async with self.command_lock:
+            return await super().dsh_command(request)
+
+    async def discard_cancelled_frame(self, metadata, receipt):
+        barrier=receipt.get('barrier') or {}
+        if (receipt.get('persisted') is not False or receipt.get('cancelled') is not True
+                or barrier.get('request_id')!=metadata['request_id']
+                or barrier.get('runtime_epoch')!=metadata['runtime_epoch']
+                or barrier.get('generation')!=metadata['generation']
+                or not isinstance(barrier.get('barrier_id'),str)
+                or type(barrier.get('new_generation')) is not int
+                or barrier['new_generation']<=metadata['generation']):
+            raise AdmissionError('MEDIA_CANCEL_RECEIPT_INVALID')
+        # Another handler may already be draining an older generator while
+        # holding the command lock. Its advanced fence is sufficient to drop
+        # this frame immediately, without waiting on network cleanup.
+        if self.fence.matches(metadata):
+            async with self.command_lock:
+                if self.fence.matches(metadata) and self.fence.cancel(barrier):
+                    self.mapping=None
+                    self.pending.clear()
+                    await self.broadcast_control(barrier)
+                    self.state='idle'
+                    task=asyncio.create_task(self.retire_cancelled_source(metadata['request_id'],barrier))
+                    self.command_tasks.add(task);task.add_done_callback(self.command_tasks.discard)
+        self.stats['cancelled_frames_discarded']+=1
+        self.audit.append('cancelled_frame_discarded',request_id=metadata['request_id'],barrier_id=barrier['barrier_id'])
+
+    async def retire_cancelled_source(self,request_id,barrier):
+        async with self.command_lock:
+            if self.fence.current==(barrier['runtime_epoch'],barrier['new_generation']):
+                await self.cancel_source(request_id)
+
     async def emit(self, jpeg, pcm=SILENCE, metadata=None):
         if metadata:
+            if not self.fence.matches(metadata):return
             started=time.perf_counter()
             receipt=await self.api('/internal/media-map',metadata)
             elapsed=round((time.perf_counter()-started)*1e6)
             self.stats['media_map_max_us']=max(self.stats['media_map_max_us'],elapsed)
+            if receipt.get('cancelled'):
+                await self.discard_cancelled_frame(metadata,receipt)
+                return
+            if receipt.get('persisted') is not True:
+                raise AdmissionError('MEDIA_MAP_NOT_PERSISTED')
             if not self.fence.matches(metadata):
                 return
             metadata={'type':'media.map','protocol':2,**metadata,'map_revision':receipt['map_revision']}
@@ -349,7 +395,12 @@ class IsaacStudio(NaimeiStudio):
                     if done or now>action['deadline']:
                         self.body.request_drink=False
                         if done and not self.media_fault and not self.changing_mode:
-                            await self.native_call({'action':'resume','expected_revision':action['revision']})
+                            sample=await self.drink_sample()
+                            if not verified_drink_pause(sample):raise AdmissionError('DRINK_PAUSE_OWNERSHIP_CHANGED')
+                            await self.native_call({'action':'resume','expected_revision':action['control_revision']})
+                            self.audit.append('natural_drink_completed',identity=action['identity'],control_revision=action['control_revision'])
+                        elif not done:
+                            self.audit.append('natural_drink_deadline_exceeded',automatic_resume=False)
                         self.auto_drink=None
                         self.last_auto_drink=now
                 elif (not self.media_fault and not self.changing_mode and not self.mapping
@@ -360,12 +411,32 @@ class IsaacStudio(NaimeiStudio):
                     async with self.http.get('http://127.0.0.1:9534/status',timeout=ClientTimeout(total=2)) as response:status=await response.json()
                     result=await self.native_call({'action':'pause','expected_revision':status['control_revision']})
                     if result.get('native_receipt',{}).get('normal_game_pause_acknowledged'):
+                        native=result['native_receipt'];created=time.time()
+                        async with self.http.get('http://127.0.0.1:9532/query?topic=state',timeout=ClientTimeout(total=2)) as response:view=await response.json()
+                        self.auto_drink={'kind':'drink','control_revision':result['control_revision'],
+                            'native_receipt':native,'identity':view.get('identity'),'started':False,
+                            'created_unix':created,'expires_unix':created+60,'deadline':time.monotonic()+60}
+                        sample=await self.drink_sample()
+                        if not verified_drink_pause(sample):raise AdmissionError('FRESH_SAFE_DRINK_PAUSE_REQUIRED')
                         self.body.request_drink=True
-                        self.auto_drink={'revision':result['control_revision'],'started':False,'deadline':now+60}
-                        self.audit.append('natural_drink_pause_confirmed',control_revision=result['control_revision'])
-            except Exception:
+                        self.audit.append('natural_drink_pause_confirmed',control_revision=result['control_revision'],identity=view['identity'],stable_frame=native['stable_frame'])
+            except Exception as error:
+                reason=str(error) if isinstance(error,AdmissionError) else 'NATURAL_ACTION_NOT_CONFIRMED'
+                self.audit.append('natural_action_stopped',reason=reason,automatic_resume=False)
                 self.body.request_drink=False;self.auto_drink=None;self.last_auto_drink=time.monotonic()
             await asyncio.sleep(1)
+
+    def natural_action(self):
+        return {k:v for k,v in self.auto_drink.items() if k!='deadline'} if self.auto_drink else None
+
+    async def drink_sample(self):
+        values={}
+        for key,port,path in (('state',9532,'/query?topic=state'),('game',9534,'/status')):
+            async with self.http.get(f'http://127.0.0.1:{port}'+path,timeout=ClientTimeout(total=2)) as response:
+                if response.status!=200:raise AdmissionError('DRINK_PAUSE_OBSERVATION_UNAVAILABLE')
+                values[key]=await response.json()
+        values['studio']={'natural_action':self.natural_action(),'ready':not self.media_fault}
+        return values
 
     async def static(self,request):
         name=request.match_info['name']
@@ -395,27 +466,33 @@ class IsaacStudio(NaimeiStudio):
             'speaking':self.state=='speaking','state':self.state,'viewers':len(self.viewers),'mode':self.mode,
             'size':512,'fps':25,'steps':4,'voice_id':'NCM01','voice_freeze_id':self.voice_profile.get('freeze_id'),
             'programme':{'title':'奶妹 · 以撒的结合','width':1920,'height':1080,'fps':30,'revision':self.web_revision},
-            'game':self.game_state,'body':self.body.status(),'counters':dict(self.stats),'engine':self.engine_health,
+            'game':self.game_state,'body':self.body.status(),'natural_action':self.natural_action(),'counters':dict(self.stats),'engine':self.engine_health,
             'mouth_postprocess':'actual_flashhead_oral_pixels_with_two_original_upper_fangs','mouth_diagnostic':self.sample_mouth,
             'output_fps_measured':len(self.intervals)/sum(self.intervals) if self.intervals else 0,
             'source_queue_frames':self.source_queue.qsize(),'quality_accepted':False,'cloud_fallback':False})
 
     async def startup(self,app):
+        self.media_timer.start()
         cv2.setNumThreads(1)
-        await asyncio.to_thread(self.body.preload)
+        try:await asyncio.to_thread(self.body.preload)
+        except BaseException:
+            self.media_timer.close()
+            raise
         self.http=ClientSession(trust_env=False)
         self.tasks=[asyncio.create_task(fn()) for fn in (self.source_reader,self.refresh_health,self.game_monitor,self.natural_events,self.pump)]
 
     async def cleanup(self,app):
         if self.cleanup_started:return
         self.cleanup_started=True;self.stopping=True
-        tasks=list(self.game_event_tasks)
+        tasks=[*self.game_event_tasks,*getattr(self,'command_tasks',set())]
         for task in tasks:task.cancel()
         await asyncio.gather(*tasks,return_exceptions=True)
         # Close the upstream client first so its WebSocket context cannot keep
         # a cancelled reader waiting for the remote close handshake.
         if self.http:await self.http.close()
-        await super().cleanup(app)
+        try:await super().cleanup(app)
+        finally:
+            if getattr(self,'media_timer',None):self.media_timer.close()
 
     def application(self):
         app=web.Application(client_max_size=1024*1024)

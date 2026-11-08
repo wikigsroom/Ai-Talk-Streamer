@@ -259,9 +259,24 @@ export class StreamState extends EventEmitter {
       return { expires_at: until, runtime_epoch: lease.runtime_epoch };
     });
   }
-  mediaMap(input) {
+  mediaMap(input, { cancelledReceipt = false } = {}) {
     return this.db.tx(() => {
       const utterance = this.db.get('SELECT * FROM utterances WHERE utterance_id=?', input.utterance_id);
+      // An exact, already persisted cancellation is a discard instruction,
+      // never permission to publish late samples. Unknown stale frames still fail.
+      if (cancelledReceipt && utterance && !this.matches(utterance.request_id, input.runtime_epoch, input.generation)) {
+        requireValue(input.request_id===utterance.request_id && input.runtime_epoch===utterance.runtime_epoch
+          && input.generation===utterance.generation && input.valid_sample_count===utterance.valid_sample_count,'STALE_GENERATION');
+        const request=this.request(utterance.request_id);
+        const barrier=this.db.get('SELECT * FROM cancel_barriers WHERE barrier_id=?',utterance.cancel_barrier_id||'');
+        const event=this.db.get("SELECT event_seq FROM stream_events WHERE request_id=? AND event_type='playback.cancel_barrier' ORDER BY event_seq DESC LIMIT 1",request.request_id);
+        const value=event && this.db.payload(event.event_seq);
+        requireValue(['CANCELLED','INTERRUPTED'].includes(request.status) && barrier && value?.barrier_id===barrier.barrier_id
+          && barrier.runtime_epoch===input.runtime_epoch && barrier.generation===input.generation
+          && Number.isSafeInteger(value.new_generation) && value.new_generation>input.generation,'STALE_GENERATION');
+        return {persisted:false,cancelled:true,barrier:{barrier_id:barrier.barrier_id,request_id:request.request_id,
+          runtime_epoch:barrier.runtime_epoch,generation:barrier.generation,new_generation:value.new_generation,reason:value.reason}};
+      }
       requireValue(utterance && this.matches(utterance.request_id, input.runtime_epoch, input.generation), 'STALE_GENERATION');
       requireValue(input.request_id===utterance.request_id&&input.valid_sample_count===utterance.valid_sample_count,'MEDIA_UTTERANCE_MISMATCH',400);
       requireValue(utterance.valid_sample_count !== null && typeof input.transport_instance_id === 'string' && Array.isArray(input.ranges) && input.ranges.length > 0 && input.ranges.length <= 100, 'MEDIA_MAP_INVALID', 400);

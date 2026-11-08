@@ -7,7 +7,6 @@ Prior output was not quality-accepted. Fresh mouth/teeth review is mandatory.
 """
 import cv2
 import numpy as np
-from numpy.lib.stride_tricks import sliding_window_view
 from PIL import Image,ImageDraw,ImageFilter
 from .common import AdmissionError,inside,file_hash,read_json
 
@@ -28,10 +27,9 @@ class Tracker:
     def locate(self,frame):
         bx,by=self.x-48,self.y-28
         region=np.asarray(Image.fromarray(frame).crop((bx,by,self.x+48,self.y+30)).resize((48,29)))
-        windows=sliding_window_view(gray(region).astype(np.float32),(11,30))
-        sums=windows.sum(axis=(-1,-2));sq=(windows**2).sum(axis=(-1,-2))
-        norms=np.sqrt(np.maximum(1,sq-sums**2/330))
-        scores=np.einsum('ijkl,kl->ij',windows,self.template,optimize=True)/(norms*self.norm)
+        # The same centred normalised correlation, without a tiny per-frame
+        # matrix product dispatching a BLAS thread pool alongside inference.
+        scores=cv2.matchTemplate(gray(region).astype(np.float32),self.template,cv2.TM_CCOEFF_NORMED)
         y,x=np.unravel_index(np.argmax(scores),scores.shape)
         measured=np.array([bx+x*2+30,by+y*2+10],np.float32)
         score=float(scores[y,x])

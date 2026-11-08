@@ -15,6 +15,7 @@ from aiohttp import ClientSession,WSMsgType,web
 
 from integration.issac.common import AdmissionError,Audit
 from integration.issac.studio import IsaacStudio
+from integration.naimei_media import CommandFence
 
 
 class BodyFixture:
@@ -122,6 +123,38 @@ class ProgrammePumpTests(unittest.IsolatedAsyncioTestCase):
             studio.emit.assert_not_awaited()
             rows=[json.loads(line) for line in (folder/'events.jsonl').read_text('utf8').splitlines()]
             self.assertEqual(rows[-1]['kind'],'media_fault_normal_pause')
+
+    async def test_persisted_cancel_discards_old_frame_without_stopping_newer_speech(self):
+        with tempfile.TemporaryDirectory() as directory:
+            studio=self.studio(Path(directory));studio.fence=CommandFence();studio.command_lock=asyncio.Lock();studio.command_tasks=set();studio.pending=[]
+            old={'request_id':'old','utterance_id':'old-u','runtime_epoch':5,'generation':8,'text':'旧房间'}
+            barrier={'barrier_id':'cancel-old','request_id':'old','runtime_epoch':5,'generation':8,'new_generation':9}
+            receipt={'persisted':False,'cancelled':True,'barrier':barrier}
+            studio.fence.speak(old);studio.cancel_source=AsyncMock();studio.broadcast_control=AsyncMock()
+            await studio.discard_cancelled_frame(old,receipt)
+            await asyncio.gather(*studio.command_tasks)
+            studio.cancel_source.assert_awaited_once_with('old');studio.broadcast_control.assert_awaited_once_with(barrier)
+            self.assertEqual(studio.fence.current,(5,9));self.assertFalse(studio.media_fault)
+            newer={**old,'request_id':'new','utterance_id':'new-u','generation':10,'text':'当前房间'}
+            studio.fence.speak(newer);studio.cancel_source.reset_mock();studio.broadcast_control.reset_mock()
+            await studio.discard_cancelled_frame(old,receipt)
+            studio.cancel_source.assert_not_awaited();studio.broadcast_control.assert_not_awaited()
+            self.assertTrue(studio.fence.matches(newer));studio.native_call.assert_not_awaited()
+            for change in ({'persisted':True},{'barrier':{**barrier,'request_id':'other'}},{'barrier':{**barrier,'new_generation':8}}):
+                with self.assertRaises(AdmissionError):await studio.discard_cancelled_frame(old,{**receipt,**change})
+
+    async def test_emit_cancel_response_never_encodes_or_publishes_stale_pcm(self):
+        with tempfile.TemporaryDirectory() as directory:
+            studio=self.studio(Path(directory));studio.fence=CommandFence();studio.command_lock=asyncio.Lock();studio.command_tasks=set();studio.pending=[]
+            old={'request_id':'old','utterance_id':'u','runtime_epoch':5,'generation':8,'text':'旧房间'}
+            studio.fence.speak(old);studio.cancel_source=AsyncMock();studio.broadcast_control=AsyncMock()
+            studio.api=AsyncMock(return_value={'persisted':False,'cancelled':True,'barrier':{
+                'barrier_id':'cancel','request_id':'old','runtime_epoch':5,'generation':8,'new_generation':9}})
+            # Deliberately invalid pixels: a cancelled frame must return before decoding.
+            await IsaacStudio.emit(studio,b'not an image',b'not publishable',old)
+            await asyncio.gather(*studio.command_tasks)
+            self.assertEqual(studio.stats['output_frames'],0)
+            self.assertEqual(studio.stats['cancelled_frames_discarded'],1);self.assertFalse(studio.media_fault)
 
 
 if __name__=='__main__':unittest.main()

@@ -302,7 +302,7 @@ export class StreamBridge {
         const body=await this.body(req);
         if(path==='/internal/obs-session')return send(this.auth.playbackCredential());
         if(path==='/internal/audio-ready')return send(this.state.audioReady(body));
-        if(path==='/internal/media-map')return send(this.state.mediaMap(body));
+        if(path==='/internal/media-map')return send(this.state.mediaMap(body,{cancelledReceipt:this.policy.deployment.state_relative_path==='state/issac-stream'}));
         if(path==='/internal/failed'){this.state.fail(body.request_id,'media_or_tts_failed');return send({ok:true});}
         throw new StreamError('NOT_FOUND',404);
       }

@@ -16,6 +16,7 @@ from .common import AdmissionError,Audit,FileLease,digest,file_hash,inside,read_
 from .deployment import require_candidate
 from .saves import SaveProtection
 from .delivery import recording_seconds,recording_gate
+from .readiness import verified_drink_pause
 
 GATES={'native_game','save_protection','ordinary_inputs','wiki_prompt_tools','original_api_channel','verified_events',
  'seven_extensions','ncm01','mouth_fangs_25fps','body_continuity','mc_programme','single_audio','fault_recovery',
@@ -159,7 +160,7 @@ class Runner:
                             data=message.data;seq,length,rate=struct.unpack_from('<III',data)
                             if not profile or rate!=16000 or len(data)!=12+length+1280 or data[12:16]!=b'AVC1':
                                 raise AdmissionError('ACTUAL_H264_PCM_PACKET_INVALID')
-                            now=time.monotonic()
+                            now=time.perf_counter()
                             if last_sequence is not None and seq!=(last_sequence+1)&0xffffffff:wire['sequence_gaps']+=1
                             if last_time is not None:intervals.append(now-last_time)
                             last_sequence,last_time=seq,now;wire['packets']+=1
@@ -174,11 +175,14 @@ class Runner:
                     if first is None:first=value
                     last=value;wire['status_samples']+=1
                     game=value['state'];player=value['player'].get('output_player') or {}
+                    active=value['naimei_core'].get('automatic') is True
+                    drink=not active and verified_drink_pause(value)
+                    wire['active_samples']+=active;wire['verified_drink_samples']+=drink
                     okay=(game.get('connected') and game.get('age_ms') is not None and game['age_ms']<1500
                         and player.get('connected') and player.get('programme')=='issac'
                         and value['narrator'].get('health',{}).get('authority_ready')
                         and value['studio'].get('ready') and value['game'].get('save_slot')==3
-                        and value['naimei_core'].get('ready') and value['naimei_core'].get('automatic')
+                        and value['naimei_core'].get('ready') and (active or drink)
                         and value['naimei_core'].get('actor_id')=='naimei'
                         and value['naimei_core'].get('strategic_owner')=='naimei_core_dsh')
                     wire['ready_samples']+=bool(okay)

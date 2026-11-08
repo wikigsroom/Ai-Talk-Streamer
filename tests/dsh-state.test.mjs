@@ -115,6 +115,29 @@ test('A07: the Bridge TTS watchdog records FAILED and starts the next request at
   }finally{f.close()}
 });
 
+test('Isaac late media gets only its exact persisted cancel fence; no samples are admitted',()=>{
+  const f=fixture();try {
+    f.start();accept(f.state);const u=spoken(f),barrier=f.state.cancel(u.request_id,'game_room_changed');
+    const late={...u,valid_sample_count:1000,transport_instance_id:'transport-test',ranges:[{packet_seq:3,packet_offset:0,sample_start:1000,sample_count:1}],final:true};
+    const before=f.db.get('SELECT COUNT(*) n FROM media_manifests').n;
+    assert.throws(()=>f.state.mediaMap(late),/STALE_GENERATION/);
+    const result=f.state.mediaMap(late,{cancelledReceipt:true});
+    assert.equal(result.persisted,false);assert.equal(result.cancelled,true);
+    assert.deepEqual(result.barrier,{...barrier,reason:'game_room_changed'});
+    assert.equal(f.db.get('SELECT COUNT(*) n FROM media_manifests').n,before);
+    for(const change of [{request_id:'wrong'},{runtime_epoch:u.runtime_epoch+1},{generation:u.generation+1},{utterance_id:'unknown'},{valid_sample_count:999}])
+      assert.throws(()=>f.state.mediaMap({...late,...change},{cancelledReceipt:true}),/STALE_GENERATION/);
+    assert.equal(f.state.request(u.request_id).status,'CANCELLED');
+  }finally{f.close()}
+});
+
+test('A failed or unknown generation cannot be disguised as an ordinary cancel',()=>{
+  const f=fixture();try {
+    f.start();accept(f.state);const u=spoken(f);f.state.fail(u.request_id,'TTS_FAILED');
+    assert.throws(()=>f.state.mediaMap({...u,valid_sample_count:1000},{cancelledReceipt:true}),/STALE_GENERATION/);
+  }finally{f.close()}
+});
+
 test('request deadline is a failure and emits the same media flush barrier',()=>{
   const f=fixture();try{
     f.start();accept(f.state);f.policy.conversation.active_request_deadline_ms=1000;const r=f.state.activate(),barriers=[];
