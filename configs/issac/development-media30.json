@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "MEDIA30",
+  "round": "MEDIA30B",
   "branch": "issac",
   "scope": "User-resumed M01/M02/M03 30-second live browser whole-programme recordings, media only",
   "candidate_frozen": false,
@@ -13,6 +13,8 @@
       "source_files": [
         "integration/issac/media_rehearsal.py",
         "integration/issac/mouth.py",
+        "integration/issac/shutdown.py",
+        "integration/issac/tests/test_media_rehearsal.py",
         "web/issac/media-rehearsal.html",
         "scripts/run_issac_media_rehearsal.py",
         "scripts/install_issac_candidate.py",

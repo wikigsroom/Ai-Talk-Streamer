@@ -29,6 +29,7 @@ from .common import AdmissionError, FileLease, file_hash, inside, read_json, wri
 from .deployment import require_candidate
 from .materials import MATERIAL_ROOT, OPEN_ANCHOR, OPEN_SHA, ffmpeg
 from .mouth import MouthProjector
+from .shutdown import stop_path
 
 MODES = {'M01':'日光陪玩','M02':'暖夜陪玩','M03':'专注对局'}
 TEXT = {
@@ -91,7 +92,8 @@ class Rehearsal:
         self.completed = {}
         self.active = None
         self.stop = threading.Event()
-        self.native_stop = inside(root,'state/issac-stream/media30.stop')
+        self.native_stop = stop_path(root)
+        if self.native_stop is None:raise AdmissionError('OWNED_MEDIA_STOP_REQUEST_REQUIRED')
         self.constraints = {'upper_fangs':[
             {'path':MATERIAL_ROOT+f'/assets/naimei/production-freeze-v1/snapshots/mouth/original-upper-fang-{n}.png',
              'sha256':file_hash(inside(root,MATERIAL_ROOT+f'/assets/naimei/production-freeze-v1/snapshots/mouth/original-upper-fang-{n}.png'))}

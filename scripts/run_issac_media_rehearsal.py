@@ -16,6 +16,7 @@ from integration.issac.common import AdmissionError, FileLease, inside, port_ava
 from integration.issac.deployment import require_candidate
 from integration.issac.preparation import relocate_native_environments, runtime_environment
 from integration.issac.offline_dependencies import install_voice_dependencies
+from integration.issac.shutdown import media_rehearsal_stops
 
 
 def main(root):
@@ -23,8 +24,8 @@ def main(root):
     candidate=require_candidate(root)
     owner=FileLease(inside(root,'state/issac-stream/media30-controller.lock')).acquire()
     work=inside(root,'operations/media30-live');work.mkdir(parents=True,exist_ok=True)
-    stop=inside(root,'state/issac-stream/media30.stop')
-    voice_stop=inside(root,'state/issac-stream/media30-voice.stop')
+    stop,voice_stop=media_rehearsal_stops(root,candidate['candidate_id'])
+    stop.parent.mkdir(parents=True,exist_ok=True)
     if stop.exists() or voice_stop.exists():raise AdmissionError('REVIEW_PRIOR_MEDIA30_STOP_BEFORE_A_NEW_RUN')
     if not all(port_available(p) for p in (9893,8072,9223)):
         raise AdmissionError('MEDIA_REHEARSAL_PORT_OCCUPIED_PRESERVED')
@@ -34,7 +35,7 @@ def main(root):
     children=[];logs=[]
     def status(stage,**extra):
         write_json(work/'status.json',{'stage':stage,'pid':os.getpid(),'candidate':candidate,'at_unix':time.time(),
-            'children':children,'game_started':False,'strategy_model_loaded':False,'public_broadcast_started':False,**extra})
+            'children':children,'stop_request':str(stop),'game_started':False,'strategy_model_loaded':False,'public_broadcast_started':False,**extra})
     def start(name,exe,args,kind,stopfile=None):
         log=(work/(name+'.log')).open('ab');logs.append(log)
         env=runtime_environment(root,kind)
@@ -47,6 +48,7 @@ def main(root):
         return process
     def get():
         with http.open('http://127.0.0.1:8072/status',timeout=3) as response:return json.load(response)
+    failed=False
     try:
         status('starting_frozen_ncm01')
         voice=start('voice',inside(root,config['native_paths']['voice_python']),['-X','utf8','-B','-m','integration.issac.voice','--root',str(root)],'voice',voice_stop)
@@ -60,7 +62,7 @@ def main(root):
             if health.get('ready'):break
             if time.monotonic()>deadline:raise AdmissionError('NCM01_PREPARATION_DEADLINE')
             status('preparing_ncm01');time.sleep(2)
-        page=start('live-page',inside(root,config['native_paths']['media_python']),['-X','utf8','-B','-m','integration.issac.media_rehearsal','--root',str(root)],'engine')
+        page=start('live-page',inside(root,config['native_paths']['media_python']),['-X','utf8','-B','-m','integration.issac.media_rehearsal','--root',str(root)],'engine',stop)
         deadline=time.monotonic()+2400
         while True:
             if page.poll() is not None:raise AdmissionError('LIVE_PAGE_CHILD_EXITED')
@@ -91,6 +93,7 @@ def main(root):
         deadline=time.monotonic()+1800
         while time.monotonic()<deadline and not stop.exists():time.sleep(1)
     except Exception as error:
+        failed=True
         status('failed',error=str(error));(work/'private-error.log').write_text(traceback.format_exc(),'utf8')
     finally:
         stop.write_text('media-only stop','ascii');voice_stop.write_text('media-only stop','ascii')
@@ -106,6 +109,7 @@ def main(root):
                 # Preserve evidence and leave identity-based review to caller.
         for log in logs:log.close()
         owner.close()
+    if failed:raise SystemExit(1)
 
 
 if __name__=='__main__':

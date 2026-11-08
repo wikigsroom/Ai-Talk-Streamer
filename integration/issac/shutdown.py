@@ -2,9 +2,17 @@
 import asyncio
 import os
 from pathlib import Path
+import re
 import threading
 
 from .common import AdmissionError, inside
+
+
+def media_rehearsal_stops(root, candidate_id):
+    if not re.fullmatch(r'issac-[0-9a-f]{12}-[0-9a-f]{8}',candidate_id):
+        raise AdmissionError('FROZEN_MEDIA_CANDIDATE_REQUIRED')
+    parent=inside(root,'state/issac-stream/stop-requests')
+    return (parent/('media30-'+candidate_id+'.stop'),parent/('media30-'+candidate_id+'-voice.stop'))
 
 
 def stop_path(root):
