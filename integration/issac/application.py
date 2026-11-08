@@ -102,7 +102,7 @@ class Application:
         raise AdmissionError('STARTUP_CANCELLED')
 
     def prepare(self):
-        ports=(1235,3103,3104,8040,8062,9893,9528,9532,9534)
+        ports=(3103,3104,8040,8062,9893,9528,9532,9534)
         if not all(port_available(x) for x in ports):
             raise AdmissionError('ISOLATED_PORT_ALREADY_OWNED')
         relocate_native_environments(self.root)
@@ -117,8 +117,6 @@ class Application:
         media_py=self.config['native_paths']['media_python']
         voice_py=self.config['native_paths']['voice_python']
         root_arg=['--root',str(self.root)]
-        self.child('model-gateway',media_py,['-X','utf8','-B','-m','integration.issac.model_gateway',*root_arg],'gateway')
-        self.wait_ready('model-gateway','http://127.0.0.1:1235/health',60)
         self.child('game-controller',game_py,['-X','utf8','-B','-m','integration.issac.strategy_host',*root_arg],'game')
         self.wait_ready('game-controller','http://127.0.0.1:9534/status',60)
         # Strategic ownership now belongs to the same Naimei DSH that speaks.
@@ -134,6 +132,10 @@ class Application:
             self.wait_ready('studio','http://127.0.0.1:8062/health',120)
             self.child('narrator',node,['backend/dsh-bridge/issac.mjs',str(self.root)],'narrator')
             self.wait_ready('narrator','http://127.0.0.1:3104/api/dsh/status',120)
+            compatibility=self.http('http://127.0.0.1:3104/api/dsh/probe',{},timeout=45)
+            if (compatibility.get('passed') is not True or compatibility.get('model')!='gpt-6-luna'
+                    or compatibility.get('protocol')!='responses'):
+                raise AdmissionError('ORIGINAL_RESPONSES_CHANNEL_COMPATIBILITY_REQUIRED')
             core=self.http('http://127.0.0.1:3104/api/dsh/issac/core/status')
             required_tools={'isaac_get_state','isaac_get_decision','isaac_lookup','isaac_submit_plan','isaac_wiki_query'}
             if (core.get('actor_id')!='naimei' or core.get('strategic_owner')!='naimei_core_dsh'

@@ -1,19 +1,21 @@
 {
   "schema_version": 1,
-  "contract_id": "NM-ISSAC-REQUIREMENTS-20261109-v1",
+  "contract_id": "NM-ISSAC-REQUIREMENTS-20261109-v3",
   "status": "frozen_product_requirements_implementation_alignment_pending",
   "frozen_on": "2026-11-09",
-  "prepared_at": "2026-11-09T00:14:17+08:00",
+  "prepared_at": "2026-11-09T03:03:43+08:00",
   "timezone": "Asia/Taipei",
   "branch": "issac",
   "scope": "product_requirements_and_acceptance_boundaries_only",
-  "source_head_before_documentation_freeze": "fc68c82733f5475ca624e2b135e57ca29d66feab",
+  "source_head_before_documentation_freeze": "ebd8abdc26d67e78f9fff344ab0d9012e138bddb",
   "authority": {
     "latest_explicit_user_instructions_take_precedence": true,
     "supersedes_legacy_independent_strategy_and_narrator_ownership": true,
     "supersedes_legacy_wiki_only_on_game_strategy_host": true,
     "legacy_round_results_remain_historical_evidence": true,
-    "amendment_requires_new_version_reason_traceability_and_hashes": true
+    "amendment_requires_new_version_reason_traceability_and_hashes": true,
+    "supersedes_withdrawn_inference_architecture_and_memory_admission": true,
+    "historical_inventories_or_runtime_defaults_are_current_authority": false
   },
   "requirement_count": 140,
   "requirement_groups": [
@@ -24,7 +26,7 @@
     },
     {
       "id": "G02",
-      "title": "部署、推理后端与资源边界",
+      "title": "部署、原模型渠道与媒体资源边界",
       "count": 8
     },
     {
@@ -102,16 +104,23 @@
     {
       "path": "docs/issac/最终总需求冻结20261109.md",
       "role": "authoritative_requirement_document",
-      "bytes": 56431,
-      "sha256": "833c7fad020ffe864d70ce65ae1b13568d100286291b0df926f773bf49712520",
-      "normalized_lf_sha256": "833c7fad020ffe864d70ce65ae1b13568d100286291b0df926f773bf49712520"
+      "bytes": 56829,
+      "sha256": "290b4ee967f21325958393566ea9e81ac2b82b5d07a44bad047ef5e13a801631",
+      "normalized_lf_sha256": "ee5f57f7ce47d3cf1250e1b5ffb69657f51cb50b34c348e425150475a1cd4fae"
     },
     {
       "path": "docs/issac/需求验收矩阵20261109.csv",
       "role": "one_row_per_numbered_requirement",
-      "bytes": 44351,
-      "sha256": "644300b3ef9528a7571cf4644df53e64549d060349a45dc3de46a88764a52578",
-      "normalized_lf_sha256": "644300b3ef9528a7571cf4644df53e64549d060349a45dc3de46a88764a52578"
+      "bytes": 44722,
+      "sha256": "a3acdd1cc1bbc8efd425026569f83bbed88a8d22d4dc5bd60e65d490b2ae847e",
+      "normalized_lf_sha256": "f574d3909c5f1cba8d89920b52f693db38c96035a84dbf7b9ee65dfcec9c9698"
+    },
+    {
+      "path": "docs/issac/原渠道与核心职责修订20261109.md",
+      "role": "model_channel_correction_and_detailed_responsibility_contract",
+      "bytes": 9872,
+      "sha256": "f0a84cbf7979c755d04d4b20078a8fd1aab24fde6db5cf5c8dd8d14faf41ac08",
+      "normalized_lf_sha256": "f0a84cbf7979c755d04d4b20078a8fd1aab24fde6db5cf5c8dd8d14faf41ac08"
     }
   ],
   "frozen_dependencies": [
@@ -199,9 +208,9 @@
     {
       "path": "configs/naimei/dsh-extensions.json",
       "role": "inherited_source_identity_voice_extension_or_presentation_contract",
-      "bytes": 988,
-      "sha256": "42d2431af743564b7956b3f27a6bc701df7fed80690e0593c5866947299dd573",
-      "normalized_lf_sha256": "42d2431af743564b7956b3f27a6bc701df7fed80690e0593c5866947299dd573"
+      "bytes": 1009,
+      "sha256": "dec7c972c4ce6562a7810e570b8cf42b63e7fb82cb857d28f2e1c8e3417fd86c",
+      "normalized_lf_sha256": "dec7c972c4ce6562a7810e570b8cf42b63e7fb82cb857d28f2e1c8e3417fd86c"
     },
     {
       "path": "extensions/naimei-dsh/sources.lock.json",
@@ -227,18 +236,18 @@
     {
       "path": "docs/issac/MC同屏方案沿用与标题替换20261107.md",
       "role": "inherited_source_identity_voice_extension_or_presentation_contract",
-      "bytes": 16535,
-      "sha256": "ec47db5b2b92991b22779306c3cddc5c186f1f0bab8c9c4fa1e43051b2acd1a4",
-      "normalized_lf_sha256": "86fc33707c703b5b0832ef543ee04f233c41df56cf7c92c18b8badd1764267d2"
+      "bytes": 13743,
+      "sha256": "fb7ca644ba1441503a3be38d7c729dbae5d1dc0e135b5b5ca038749e1c1b081c",
+      "normalized_lf_sha256": "fb7ca644ba1441503a3be38d7c729dbae5d1dc0e135b5b5ca038749e1c1b081c"
     }
   ],
   "historical_provenance": [
     {
       "path": "docs/issac/奶妹人格与DSH配置核查20261108.md",
       "role": "historical_audit_not_final_architecture",
-      "bytes": 9847,
-      "sha256": "dfd3306ed09ed74536901f1f696f295a287f78faaf177d9bc777ea4bd59c2069",
-      "normalized_lf_sha256": "dfd3306ed09ed74536901f1f696f295a287f78faaf177d9bc777ea4bd59c2069"
+      "bytes": 9814,
+      "sha256": "99f6020a08071263e7a7ec14a7549a335a35f6754ecf6ed8b6f18c8d6434ad97",
+      "normalized_lf_sha256": "99f6020a08071263e7a7ec14a7549a335a35f6754ecf6ed8b6f18c8d6434ad97"
     },
     {
       "path": "docs/evidence/issac-naimei-persona-config-audit-20261108.json",
@@ -253,7 +262,8 @@
     "README.md",
     "docs/README.md",
     "docs/issac/完整更新方案20261107.md",
-    "configs/issac/integration-plan.json"
+    "configs/issac/integration-plan.json",
+    "docs/issac/原渠道与核心职责修订20261109.md"
   ],
   "core_authority": {
     "actor_id": "naimei",
@@ -269,19 +279,6 @@
     "independent_strategy_persona_may_decide_before_naimei": false,
     "same_core_context_for_observation_decision_results_and_natural_speech": true
   },
-  "local_inference_backend": {
-    "required_for_final_core_ai": true,
-    "qualification": "pending_real_inference_tools_and_full_stack_verification",
-    "final_model": null,
-    "existing_swift_files_preserved": true,
-    "swift_is_existing_unqualified_candidate": true,
-    "swift_runtime_mandatory": false,
-    "unloaded_swift_counts_as_actual_memory_load": false,
-    "candidate_combined_budget_must_be_reported_separately": true,
-    "new_model_download_authorized": false,
-    "qwen_download_authorized": false,
-    "cloud_inference_allowed": false
-  },
   "runtime_boundary": {
     "target": "native_windows_rtx4090",
     "remote_installation": "C:/dev/虚拟数字人直播/issac",
@@ -294,7 +291,23 @@
     "authorized_test_save_slot": 3,
     "ordinary_game_inputs_and_read_only_observation_only": true,
     "preserve_unrelated_apps_and_gpu_jobs": true,
-    "close_task_owned_unused_browser_tabs": true
+    "close_task_owned_unused_browser_tabs": true,
+    "native_windows_4090_hosts": [
+      "game",
+      "rules",
+      "naimei_DSH_Humanity",
+      "seven_extensions",
+      "offline_wiki",
+      "tts",
+      "mouth",
+      "body",
+      "programme",
+      "official_recording"
+    ],
+    "model_requests": "original_user_saved_gpt_6_luna_responses_api_channel",
+    "cloud_media_services_allowed": false,
+    "resource_budget": "actual_4090_game_tools_and_media_initialization_and_continuous_peaks_with_margins",
+    "api_and_tool_latency_measured_separately": true
   },
   "media_contract": {
     "character_id": "naimei",
@@ -336,9 +349,9 @@
     "presentation_source": "mc_rev04_title_only",
     "title": "奶妹 · 以撒的结合",
     "final_recorder": "official_bilibili_livehime_local_recording",
-    "final_complete_programme_minimum_seconds": 600,
+    "final_complete_programme_minimum_seconds": 300,
     "inherited_each_mode_avatar_segment_seconds": 300,
-    "each_mode_separate_600_second_full_programme_required": false
+    "each_mode_separate_full_programme_required": false
   },
   "evidence_and_process": {
     "full_runtime_acceptance_claimed": false,
@@ -350,12 +363,147 @@
     "public_broadcast_authorized": false,
     "reference_audio_or_transcript_embedded": false,
     "new_model_weight_bytes_downloaded_by_this_freeze": 0,
-    "legacy_45_second_deadline_is_accepted_live_latency": false
+    "legacy_45_second_deadline_is_accepted_live_latency": false,
+    "tests_paused_by_user": false,
+    "source_alignment_complete": false,
+    "runtime_files_modified_by_this_revision": false,
+    "historical_raw_evidence_modified_by_this_revision": false
   },
   "hash_policy": {
     "sha256": "exact_on_disk_bytes_at_freeze",
     "normalized_lf_sha256": "text_bytes_with_CRLF_replaced_by_LF_for_cross_checkout_comparison",
     "self_hash_omitted_to_avoid_cycle": true,
     "source_entrypoints_are_pointers_not_implementation_acceptance": true
-  }
+  },
+  "revision_reason": "Latest explicit user instruction resumes implementation and requests continuous 300-second official recording; retain original gpt-6-luna Responses and all quality requirements",
+  "revision_document": "docs/issac/300秒录播推进修订20261109.md",
+  "supersedes_contract_id": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "core_model_channel": {
+    "model": "gpt-6-luna",
+    "protocol": "responses",
+    "provider": "original_user_saved_api_channel",
+    "historical_evidence": "docs/evidence/dsh-real-channel-three-turn.json",
+    "original_configuration_entrypoint": "configs/channel.env",
+    "private_configuration_fields": [
+      "AVATAR_LLM_BASE_URL",
+      "AVATAR_LLM_MODEL",
+      "AVATAR_LLM_PROTOCOL",
+      "AVATAR_LLM_API_KEY"
+    ],
+    "model_selection_pending": false,
+    "actual_issac_responses_tools_and_runtime_validation_pending": true,
+    "original_api_channel_allowed": true,
+    "automatic_model_or_channel_replacement_allowed": false,
+    "private_credentials_or_endpoint_embedded": false,
+    "current_remote_configuration_or_health_verified": false
+  },
+  "channel_provenance": [
+    {
+      "path": "docs/evidence/dsh-real-channel-three-turn.json",
+      "role": "historical_original_api_model_and_protocol_not_current_naimei_runtime_acceptance",
+      "bytes": 2857,
+      "sha256": "e3cc2bbbed572b9d95e59d3c9e1c1bd58169bdd1ee7e7e7be25f01bb403cc96a",
+      "normalized_lf_sha256": "e3cc2bbbed572b9d95e59d3c9e1c1bd58169bdd1ee7e7e7be25f01bb403cc96a"
+    },
+    {
+      "path": "docs/DSH_HUMANITY.md",
+      "role": "inherited_saved_channel_design",
+      "bytes": 23845,
+      "sha256": "e469dbd8b9c42494259b7b949a26997b1733af9500bf7ba34d90fe3f05e1282a",
+      "normalized_lf_sha256": "e469dbd8b9c42494259b7b949a26997b1733af9500bf7ba34d90fe3f05e1282a"
+    }
+  ],
+  "documentation_and_plan_contracts": [
+    {
+      "path": "AGENTS.md",
+      "role": "current_entrypoint_or_plan_not_runtime_acceptance",
+      "bytes": 3383,
+      "sha256": "1b8377992c52a5a0c79a734eacf40e255ab98d502ad74a9613dcd56635096414",
+      "normalized_lf_sha256": "17ffee2d82c28d4d7de46f680505c1797e83e0fc3acb25188e66924712fd9ec3"
+    },
+    {
+      "path": "README.md",
+      "role": "current_entrypoint_or_plan_not_runtime_acceptance",
+      "bytes": 27499,
+      "sha256": "f94e9ded5144ca60a3372e3ffb94808381b1667ec66c8e7c73797b5601ddddd2",
+      "normalized_lf_sha256": "3751cb136d3e0277237b06e77bfe78f5c56e1ea48fb39422f91bc2423ebc7028"
+    },
+    {
+      "path": "README.zh-CN.md",
+      "role": "current_entrypoint_or_plan_not_runtime_acceptance",
+      "bytes": 24400,
+      "sha256": "680d8258a6ea8e7c564b28e95822ce96e828a0c700475843b49d629aba7d4297",
+      "normalized_lf_sha256": "405f37e27be4ec0ea4bc21a10461bd243c439ebc58f3c52432b744be9cc22e99"
+    },
+    {
+      "path": "docs/README.md",
+      "role": "current_entrypoint_or_plan_not_runtime_acceptance",
+      "bytes": 14226,
+      "sha256": "c79a45bcbfab748df21a691a1ce8bb4e33a90c0e875a125c936d14ed355542bd",
+      "normalized_lf_sha256": "b8d95155f8b6fe833d78d2f8e8ea569ba5c580704500112204ea66057cdbf55e"
+    },
+    {
+      "path": "docs/issac/完整更新方案20261107.md",
+      "role": "current_entrypoint_or_plan_not_runtime_acceptance",
+      "bytes": 13554,
+      "sha256": "a7e15a6aae99d25ebfd7671c1080e9098fadea231dfface7e49ff15eb0e67259",
+      "normalized_lf_sha256": "a7e15a6aae99d25ebfd7671c1080e9098fadea231dfface7e49ff15eb0e67259"
+    },
+    {
+      "path": "docs/issac/120秒录播推进修订20261109.md",
+      "role": "current_entrypoint_or_plan_not_runtime_acceptance",
+      "bytes": 2248,
+      "sha256": "e09dcea895ffda931ca41c8c70ba084e7b48fcb1ea9886898306c7c1a030aff2",
+      "normalized_lf_sha256": "e09dcea895ffda931ca41c8c70ba084e7b48fcb1ea9886898306c7c1a030aff2"
+    },
+    {
+      "path": "configs/issac/live120.json",
+      "role": "current_entrypoint_or_plan_not_runtime_acceptance",
+      "bytes": 1905,
+      "sha256": "733f760f51a176d728b48424abddf7b17bd914c70949e7dd130d94b49c5afa50",
+      "normalized_lf_sha256": "733f760f51a176d728b48424abddf7b17bd914c70949e7dd130d94b49c5afa50"
+    },
+    {
+      "path": "configs/issac/integration-plan.json",
+      "role": "current_entrypoint_or_plan_not_runtime_acceptance",
+      "bytes": 5941,
+      "sha256": "9b1fd804fa2809073eec19eac97b0d7ec379a63749d9368b45c57a1f2376e022",
+      "normalized_lf_sha256": "9b1fd804fa2809073eec19eac97b0d7ec379a63749d9368b45c57a1f2376e022"
+    },
+    {
+      "path": "configs/issac/execution-rounds.json",
+      "role": "current_entrypoint_or_plan_not_runtime_acceptance",
+      "bytes": 7195,
+      "sha256": "f55852062c3f45b33624b173ec5d461dad30f29bd86a6f9689ce6dfabe7b9b38",
+      "normalized_lf_sha256": "888b15bf5e040276452fb5eeeaa1333048b515f2670ecc92043308a6841142a5"
+    },
+    {
+      "path": "docs/naimei/DSH扩展接入与使用20261107.md",
+      "role": "current_entrypoint_or_plan_not_runtime_acceptance",
+      "bytes": 9559,
+      "sha256": "00b000f2bdfb44d90911e6c9f53dbee3eb23f16a16a772abd99da67fdea6f25f",
+      "normalized_lf_sha256": "00b000f2bdfb44d90911e6c9f53dbee3eb23f16a16a772abd99da67fdea6f25f"
+    },
+    {
+      "path": "configs/issac/development-channel-restoration.json",
+      "role": "planned_source_alignment_inventory_no_runtime_acceptance",
+      "bytes": 4549,
+      "sha256": "2d1352c707d63ef5d7f67a3de63fb89f828c6ca89082decab73bb3a8c84b6bfe",
+      "normalized_lf_sha256": "8a21d986980fb7ab4c9d4d24cc7be318c30fc0fdb18c02770c5058015e559b43"
+    },
+    {
+      "path": "configs/issac/live300.json",
+      "role": "latest_explicit_user_execution_amendment",
+      "bytes": 2053,
+      "sha256": "8769e59a3369869074f227d61b09746294af4eee11ae8f051062f07747afb2e9",
+      "normalized_lf_sha256": "7fe4c22e61d6d42469971fb387644419538dcbaea25d37cd338740571f32b990"
+    },
+    {
+      "path": "docs/issac/300秒录播推进修订20261109.md",
+      "role": "latest_explicit_user_execution_plan",
+      "bytes": 3222,
+      "sha256": "bc391a41df94a7f5dc3b2439da3b81fcbf0c0f66ce6a2b25f20df66edb8b8a0e",
+      "normalized_lf_sha256": "bc391a41df94a7f5dc3b2439da3b81fcbf0c0f66ce6a2b25f20df66edb8b8a0e"
+    }
+  ]
 }

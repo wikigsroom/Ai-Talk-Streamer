@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "amendment_id": "NM-ISSAC-EXECUTION-120S-20261109-v1",
+  "amendment_id": "NM-ISSAC-EXECUTION-120S-20261109-v2",
   "branch": "issac",
   "base_requirements": "configs/issac/requirements-freeze.json",
   "document": "docs/issac/120秒录播推进修订20261109.md",
@@ -8,7 +8,6 @@
   "core_actor": "naimei",
   "strategic_owner": "naimei_core_dsh",
   "separate_strategy_ai_enabled": false,
-  "local_only": true,
   "new_model_download_authorized": false,
   "public_broadcast_authorized": false,
   "preserved_unrelated_worktree_changes": [
@@ -26,5 +25,22 @@
     "tool_timeout_ms": 2500,
     "accepted_as_measured": false
   },
-  "runtime_or_media_acceptance_claimed": false
+  "runtime_or_media_acceptance_claimed": false,
+  "tests_paused_by_user": true,
+  "current_action_scope": "documentation_and_plan_alignment_only",
+  "game_and_media_host": "native_windows_rtx4090",
+  "core_model_channel": {
+    "model": "gpt-6-luna",
+    "protocol": "responses",
+    "provider": "original_user_saved_api_channel",
+    "credentials_source": "legitimate_original_private_channel_configuration",
+    "original_configuration_entrypoint": "configs/channel.env",
+    "secrets_or_endpoint_embedded": false,
+    "historical_channel_evidence": "docs/evidence/dsh-real-channel-three-turn.json",
+    "historical_channel_evidence_is_current_deployment_acceptance": false,
+    "same_naimei_core_for_observation_tools_decisions_and_speech": true,
+    "automatic_model_or_channel_replacement_allowed": false,
+    "runtime_alignment": "pending_source_and_target_deployment_verification"
+  },
+  "cloud_media_services_allowed": false
 }

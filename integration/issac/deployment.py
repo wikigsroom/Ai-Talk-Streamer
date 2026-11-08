@@ -49,7 +49,7 @@ def require_acceptance(root):
     candidate=require_candidate(root)
     evidence=read_json(inside(root,'state/issac-acceptance/release.json'))
     from .delivery import recording_gate
-    required={'native_game','save_protection','ordinary_inputs','wiki_prompt_tools','local_model',
+    required={'native_game','save_protection','ordinary_inputs','wiki_prompt_tools','original_api_channel',
               'verified_events','seven_extensions','ncm01','mouth_fangs_25fps','body_continuity',
               'mc_programme','single_audio','fault_recovery','cohost_1800','cohost_7200',
               'full_run_outcome','rollback',recording_gate(root)}

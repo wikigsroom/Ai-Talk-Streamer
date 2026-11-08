@@ -19,11 +19,11 @@ def preserved_blobs(root,git):
     changes=git('status','--porcelain=v1','-z','--untracked-files=normal').decode('utf-8').split('\0')
     changes=[row for row in changes if row]
     if not changes:return {},[]
-    amendment=read_json(inside(root,'configs/issac/live120.json'))
+    amendment=read_json(inside(root,'configs/issac/live300.json'))
     allowed=amendment.get('preserved_unrelated_worktree_changes',[])
     approved='docs/issac/实施任务与验收清单20261107.csv'
     expected='10e9199849894b36f9204e9dacf7e3d7cd1c31ef70a35c6b7087aef8f34adc65'
-    if (amendment.get('amendment_id')!='NM-ISSAC-EXECUTION-120S-20261109-v1'
+    if (amendment.get('amendment_id')!='NM-ISSAC-EXECUTION-300S-20261109-v1'
             or allowed!=[{'path':approved,'worktree_sha256':expected,'candidate_content':'HEAD_blob_only'}]
             or changes!=[' M '+approved] or file_hash(inside(root,approved))!=expected):
         raise AdmissionError('COMMIT_WHOLE_ROUND_BEFORE_FREEZE')

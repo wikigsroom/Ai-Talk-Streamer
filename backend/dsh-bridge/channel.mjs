@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { inside } from './policy.mjs';
 
@@ -62,4 +62,24 @@ export class ChannelConfig {
       return { configured: false, has_key: false, source: 'studio_channel_env', error: /^CHANNEL_/.test(error.message) ? error.message : 'CHANNEL_READ_FAILED' };
     }
   }
+}
+
+// Isaac inherits an existing private channel. It never substitutes a provider,
+// model or protocol and never exposes the endpoint through its settings route.
+export class OriginalIsaacChannel extends ChannelConfig {
+  constructor(root) {
+    super(root);
+    const isolated = inside(root, 'private/issac/channel.env');
+    if (existsSync(isolated)) this.file = isolated;
+  }
+  snapshot() {
+    const value = super.snapshot();
+    if (value.model !== 'gpt-6-luna' || value.protocol !== 'responses') {
+      const error = new Error('ORIGINAL_GPT_6_LUNA_RESPONSES_CHANNEL_REQUIRED');
+      error.code = error.message; error.status = 409; throw error;
+    }
+    return Object.freeze({ ...value, source: 'issac_original_saved_api_channel' });
+  }
+  settings() { return { ...this.publicInfo(), inherited: true, editable: false }; }
+  save() { throw new Error('ORIGINAL_CHANNEL_IS_INHERITED'); }
 }

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "round": "R3",
   "branch": "issac",
-  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "phase": "historical_native_game_media_notes_not_current_execution_authority",
   "candidate_frozen": false,
   "application_tests_started": false,
   "previous_phase": {
@@ -10,7 +10,7 @@
     "status": "closed_failed",
     "closed_unix": 1794020314.8048368
   },
-  "scope": "All corrections and reproducible acceptance tools for observed R2 defects; retain all 18 real acceptance gates",
+  "scope": "Historical native game, media, presentation or source-process planning subset; withdrawn inference planning removed",
   "items": [
     {
       "id": "R301",
@@ -67,44 +67,6 @@
       "status": "code_complete_pending_acceptance",
       "source_files": [
         "integration/issac/materials.py"
-      ],
-      "runtime_accepted": false
-    },
-    {
-      "id": "R307",
-      "code": "Local model preparation progress and retained-file admission",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "integration/issac/local_model.py"
-      ],
-      "runtime_accepted": false
-    },
-    {
-      "id": "R308",
-      "code": "Actual resource estimates and media reserve before model loading",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "integration/issac/resources.py",
-        "integration/issac/local_model.py"
-      ],
-      "runtime_accepted": false
-    },
-    {
-      "id": "R309",
-      "code": "Owned local LM Studio profile and offline runtime lifecycle",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "integration/issac/local_model.py"
-      ],
-      "runtime_accepted": false
-    },
-    {
-      "id": "R310",
-      "code": "Truthful model qualification and regression exit status",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "scripts/qualify_issac_model.py",
-        "integration/issac/acceptance.py"
       ],
       "runtime_accepted": false
     },
@@ -188,5 +150,11 @@
     "Native process ownership, save/input boundaries and normal cleanup",
     "No model/cloud download, no foreign-job termination, no security-dialog automation",
     "MC visual/title invariants, NCM01 private reference exclusion and honest quality gates"
-  ]
+  ],
+  "current_execution_authority": false,
+  "documentation_amended_on": "2026-11-09",
+  "original_historical_source_snapshot_in_git": true,
+  "current_inventory": "configs/issac/development-channel-restoration.json",
+  "current_requirements": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "tests_paused_by_user": true
 }

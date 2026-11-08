@@ -4,7 +4,6 @@ import { pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
 import { inside } from './policy.mjs';
 import { canonical, digest } from './channel.mjs';
-export { requireLocalModel } from './local-model.mjs';
 
 const noop = () => {};
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -17,8 +16,7 @@ export class NaimeiExtensions {
   constructor(root, runtime, policy) {
     this.root = root; this.runtime = runtime; this.policy = policy;
     this.config = JSON.parse(readFileSync(inside(root, policy.extensions.config), 'utf8'));
-    if (!this.config.enabled || this.config.character_id !== 'naimei' || policy.identity.character_id !== 'naimei'
-        || this.config.local_inference_only !== true) throw new Error('NAIMEI_EXTENSION_CONFIG');
+    if (!this.config.enabled || this.config.character_id !== 'naimei' || policy.identity.character_id !== 'naimei') throw new Error('NAIMEI_EXTENSION_CONFIG');
     this.disposers = []; this.registrations = new Map(); this.sections = new Map();
     this.ready = false; this.moodPending = false; this.lastMoodAt = 0;
   }
@@ -174,7 +172,7 @@ export class NaimeiExtensions {
     return this.moodState ? { mood: Math.round(this.moodState.mood), label: this.mood.moodLabel(this.moodState.mood), dims: this.mood.displayDims(this.moodState) } : null;
   }
   status() {
-    return { enabled: true, loaded: this.ready, contract: this.lock.contract, inference: 'local_only',
+    return { enabled: true, loaded: this.ready, contract: this.lock.contract, inference: 'saved_api_channel',
       sources: this.lock.sources.map(({ id, repository, version, commit }) => ({ id, repository, version, commit, applied: this.ready })),
       tools: EXTENSION_TOOLS, mood: this.publicMood(), proactive: { enabled: !!this.scheduler && this.config.speak_up.enabled,
         interval_minutes: this.config.speak_up.interval_minutes, cooldown_minutes: this.config.speak_up.cooldown_minutes,

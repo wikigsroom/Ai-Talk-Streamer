@@ -2,7 +2,7 @@
   "schema_version": 1,
   "round": "R6",
   "branch": "issac",
-  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "phase": "historical_native_game_media_notes_not_current_execution_authority",
   "candidate_frozen": false,
   "application_tests_started": false,
   "previous_phase": {
@@ -10,7 +10,7 @@
     "status": "closed_failed",
     "closed_unix": 1794028984.4870248
   },
-  "scope": "Complete all R5 configuration-writeback, actual application readiness, profile-evidence and diagnostic corrections before uniform frozen testing",
+  "scope": "Historical native game, media, presentation or source-process planning subset; withdrawn inference planning removed",
   "items": [
     {
       "id": "R601",
@@ -18,24 +18,6 @@
       "status": "code_complete_pending_acceptance",
       "source_files": [
         "integration/issac/saves.py"
-      ],
-      "runtime_accepted": false
-    },
-    {
-      "id": "R602",
-      "code": "Wait for the real owned loopback application API and pin CLI discovery to its own metadata",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "integration/issac/local_model.py"
-      ],
-      "runtime_accepted": false
-    },
-    {
-      "id": "R603",
-      "code": "Prove actual roaming-profile open handles rather than an empty requested user-data directory",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "integration/issac/local_model.py"
       ],
       "runtime_accepted": false
     },
@@ -64,7 +46,7 @@
       "status": "code_complete_pending_acceptance",
       "source_files": [
         "docs/evidence/issac-round5-acceptance-20261107.json",
-        "docs/issac/第六轮窗口配置与模型就绪20261107.md",
+        "docs/issac/第六轮窗口配置与原生就绪20261107.md",
         "docs/issac/MC同屏方案沿用与标题替换20261107.md",
         "docs/issac/完整更新方案20261107.md",
         "docs/issac/第五轮菜单读取与资源等待20261107.md",
@@ -97,5 +79,11 @@
     "all actual R5 receipts, 881 passes/7 skips, omitted native check, no model/recording quality success claims",
     "all R601-R607 source paths, documentation references and no unresolved round code items",
     "MC sixteen-file provenance, unchanged geometry/palette/queue/audio and title-only policy"
-  ]
+  ],
+  "current_execution_authority": false,
+  "documentation_amended_on": "2026-11-09",
+  "original_historical_source_snapshot_in_git": true,
+  "current_inventory": "configs/issac/development-channel-restoration.json",
+  "current_requirements": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "tests_paused_by_user": true
 }

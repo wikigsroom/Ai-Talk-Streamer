@@ -2,7 +2,7 @@
   "schema_version": 1,
   "round": "CORE120A",
   "branch": "issac",
-  "phase": "whole_round_source_review_complete_awaiting_commit_and_freeze",
+  "phase": "historical_native_game_media_notes_not_current_execution_authority",
   "candidate_frozen": false,
   "application_tests_started": false,
   "manual_whole_round_source_review_complete": true,
@@ -65,22 +65,6 @@
         "AGENTS.md"
       ],
       "runtime_accepted": false
-    },
-    {
-      "id": "C12005",
-      "code": "Carry the previously untested R12 low-memory media/retained SDK and bounded official render diagnostics into this full candidate",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "configs/issac/development-round-12.json",
-        "integration/issac/mouth_loading.py",
-        "integration/issac/model_backend.mjs",
-        "integration/issac/local_model.py",
-        "configs/issac/model-loading.json",
-        "integration/issac/livehime.py",
-        "scripts/run_issac_round.py",
-        "scripts/review_issac_official_rendering.py"
-      ],
-      "runtime_accepted": false
     }
   ],
   "unresolved_round_code_TODOs": [],
@@ -92,7 +76,13 @@
     "Pinned full skill content and hashes checked in actual core model requests; rep forced and bounded tools retain decision/inventory freshness",
     "Native local controller alone handles combat and execution; every pickup requires actor-bound offer authorization; failures disarm without automatic recovery",
     "Core generated final text goes directly through echo NCM01 and actual FlashHead, and only official playback receipts mark completion",
-    "120-second exact user amendment changes only recording duration; protected CSV remains unstaged and source freeze uses only its HEAD blob",
-    "Entire changed diff and new files reviewed before testing; Swift no-new-download decision, original capacity margins, all media/save/MC gates retained"
-  ]
+    "120-second exact user amendment changes only recording duration; protected CSV remains unstaged and source freeze uses only its HEAD blob"
+  ],
+  "scope": "Historical native game, media, presentation or source-process planning subset; withdrawn inference planning removed",
+  "current_execution_authority": false,
+  "documentation_amended_on": "2026-11-09",
+  "original_historical_source_snapshot_in_git": true,
+  "current_inventory": "configs/issac/development-channel-restoration.json",
+  "current_requirements": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "tests_paused_by_user": true
 }

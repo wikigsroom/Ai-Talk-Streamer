@@ -19,9 +19,10 @@ def primary_windows(windows):
 
 def identity(root,row):
     import psutil
+    from .livehime import installed_executable
     process=psutil.Process(row['pid'])
     executable=Path(row['executable']).resolve()
-    if (not executable.is_relative_to(inside(root,'tools/bilibili-livehime'))
+    if (executable!=installed_executable(root)
             or executable.name.lower()!='livehime.exe' or Path(process.exe()).resolve()!=executable
             or process.create_time()!=row['created_at'] or file_hash(executable)!=row['executable_sha256']):
         raise AdmissionError('OWNED_OFFICIAL_WINDOW_PROCESS_REQUIRED')
@@ -34,7 +35,7 @@ def inspect(root,row):
     owned={process.pid:process}
     for child in process.children(recursive=True):
         try:
-            if Path(child.exe()).resolve().is_relative_to(inside(root,'tools/bilibili-livehime')):owned[child.pid]=child
+            if Path(child.exe()).resolve().is_relative_to(Path(row['executable']).resolve().parent):owned[child.pid]=child
         except (psutil.NoSuchProcess,psutil.AccessDenied):pass
     windows=[]
     def collect(hwnd,_):
@@ -60,7 +61,8 @@ def profile(root,row):
             for item in proc.open_files():
                 path=Path(item.path).resolve()
                 if path.is_relative_to(base):files.append(str(path))
-                elif 'livehime' in path.as_posix().lower() and not path.is_relative_to(Path(root).resolve()):foreign.append(str(path))
+                elif (('appdata' in path.as_posix().lower()) and ('livehime' in path.as_posix().lower() or 'bililive' in path.as_posix().lower())
+                      and not path.is_relative_to(Path(root).resolve())):foreign.append(str(path))
         except (psutil.NoSuchProcess,psutil.AccessDenied):pass
     # Environment redirection alone does not prove what KnownFolder APIs used.
     profile_roots=[base/name for name in ('roaming','local','profile')]

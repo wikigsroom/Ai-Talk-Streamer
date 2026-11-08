@@ -20,8 +20,7 @@ SCENE_CHECKS={'official_client','local_recording_only','canvas_1920_1080','outpu
  'only_game_and_programme_audio','no_obs_client','record_path_inside_issac'}
 
 RENDER_ARGUMENTS={
-    'software-ui':['--disable-gpu','--disable-gpu-compositing',
-                   '--disable-gpu-rasterization','--disable-direct-composition'],
+    'software-ui':['--disable-ui-gpu-compositing'],
     'd3d11-ui':['--use-gl=angle','--use-angle=d3d11','--disable-direct-composition'],
     'native-ui':[]}
 
@@ -33,6 +32,14 @@ def installed_executable(root):
         if len(paths)!=1:raise AdmissionError('ONE_COPIED_OFFICIAL_LIVEHIME_REQUIRED')
         return paths[0].resolve()
     policy=read_json(config)
+    if policy.get('installation_scope')=='system_official':
+        selected=Path(policy['installed_application']).resolve()
+        if (str(selected).lower()!=r'c:\program files\bililive\livehime\8.13.0.11251\livehime.exe'
+            or policy.get('public_broadcast_authorized') is not False
+            or not re.fullmatch('[0-9a-f]{64}',policy.get('application_sha256',''))
+            or not selected.is_file() or file_hash(selected)!=policy['application_sha256']):
+            raise AdmissionError('PINNED_SYSTEM_OFFICIAL_APPLICATION_REQUIRED')
+        return selected
     if (policy.get('version')!='8.13.0.11251' or policy.get('proper_official_installation_required') is not True
         or policy.get('public_broadcast_authorized') is not False
         or policy.get('application')!='tools/bilibili-livehime/app/8.13.0.11251/livehime.exe'
@@ -57,12 +64,13 @@ def installation_registration(root):
         version=winreg.QueryValueEx(key,'DisplayVersion')[0]
         location=Path(winreg.QueryValueEx(key,'InstallLocation')[0]).resolve()
         uninstall=winreg.QueryValueEx(key,'UninstallString')[0]
-    uninstaller=inside(root,policy['uninstaller'])
-    if (version!=policy['version'] or location!=inside(root,policy['application']).parent
+    system=policy.get('installation_scope')=='system_official'
+    uninstaller=Path(policy['installed_uninstaller']).resolve() if system else inside(root,policy['uninstaller'])
+    if (version!=policy['version'] or location!=installed_executable(root).parent
         or uninstall!='"'+str(uninstaller)+'"' or not uninstaller.is_file()):
         raise AdmissionError('ACTUAL_OFFICIAL_INSTALLATION_REGISTRATION_REQUIRED')
-    return {'version':version,'system_registration_verified':True,'installation_inside_project':True,
-            'uninstaller_inside_project':True}
+    return {'version':version,'system_registration_verified':True,'installation_inside_project':not system,
+            'uninstaller_inside_project':not system,'isolated_runtime_profile_required':True}
 
 
 def render_arguments(root,mode=None):
@@ -92,7 +100,7 @@ class Livehime:
         installed=installation_registration(self.root)
         if installed and result['version'].strip()!=installed['version']:
             raise AdmissionError('PINNED_OFFICIAL_INSTALLED_VERSION_REQUIRED')
-        receipt={'prepared':True,'application':self.executable.relative_to(self.root).as_posix(),
+        receipt={'prepared':True,'application':str(self.executable),
             'application_sha256':file_hash(self.executable),'version':result['version'],
             'application_signature':{'status':'Valid'},'independently_verified_for':'issac',
             'account_login_verified':False,'public_broadcast_started':False,'obs_required':False,

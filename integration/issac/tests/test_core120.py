@@ -50,7 +50,7 @@ class PreservedSourceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root=Path(temporary);name='docs/issac/实施任务与验收清单20261107.csv'
             sha='10e9199849894b36f9204e9dacf7e3d7cd1c31ef70a35c6b7087aef8f34adc65'
-            write_json(root/'configs/issac/live120.json',{'amendment_id':'NM-ISSAC-EXECUTION-120S-20261109-v1',
+            write_json(root/'configs/issac/live300.json',{'amendment_id':'NM-ISSAC-EXECUTION-300S-20261109-v1',
                 'preserved_unrelated_worktree_changes':[{'path':name,'worktree_sha256':sha,'candidate_content':'HEAD_blob_only'}]})
             def git(*args):return (' M '+name+'\0').encode() if args[0]=='status' else b'committed historical csv\n'
             with patch('scripts.freeze_issac_candidate.file_hash',return_value=sha):

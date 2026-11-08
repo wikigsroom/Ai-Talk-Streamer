@@ -2,7 +2,7 @@
   "schema_version": 1,
   "round": "R5",
   "branch": "issac",
-  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "phase": "historical_native_game_media_notes_not_current_execution_authority",
   "candidate_frozen": false,
   "application_tests_started": false,
   "previous_phase": {
@@ -10,7 +10,7 @@
     "status": "closed_failed",
     "closed_unix": 1794026670.2959762
   },
-  "scope": "Complete R4 menu/startup/resource-wait corrections, diagnostic tools, all regression code and current MC documentation before uniform frozen testing",
+  "scope": "Historical native game, media, presentation or source-process planning subset; withdrawn inference planning removed",
   "items": [
     {
       "id": "R501",
@@ -36,17 +36,6 @@
       "status": "code_complete_pending_acceptance",
       "source_files": [
         "scripts/diagnose_issac.py"
-      ],
-      "runtime_accepted": false
-    },
-    {
-      "id": "R504",
-      "code": "Wait for existing GPU work without hashing or starting a model before capacity",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "integration/issac/local_model.py",
-        "scripts/diagnose_issac.py",
-        "scripts/run_issac_round.py"
       ],
       "runtime_accepted": false
     },
@@ -107,5 +96,11 @@
     "all R4 actual suite counts, source/phase receipts, no quality/recording success claims",
     "MC sixteen-file provenance and unchanged layout/title-only contract",
     "all R501-R508 source paths, documentation links and no unresolved round code items"
-  ]
+  ],
+  "current_execution_authority": false,
+  "documentation_amended_on": "2026-11-09",
+  "original_historical_source_snapshot_in_git": true,
+  "current_inventory": "configs/issac/development-channel-restoration.json",
+  "current_requirements": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "tests_paused_by_user": true
 }

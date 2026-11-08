@@ -30,10 +30,10 @@ def official_writers(client,path):
     for process in [parent,*parent.children(recursive=True)]:
         try:
             executable=Path(process.exe()).resolve()
-            if not executable.is_relative_to(inside(client.root,'tools/bilibili-livehime')):continue
+            if not executable.is_relative_to(client.executable.parent):continue
             if any(Path(f.path).resolve()==path for f in process.open_files()):
                 rows.append({'pid':process.pid,'created_at':process.create_time(),
-                    'executable':executable.relative_to(client.root).as_posix(),'executable_sha256':file_hash(executable),
+                    'executable':str(executable),'executable_sha256':file_hash(executable),
                     'observed_unix':time.time(),'method':'native_process_open_file_handle'})
         except (psutil.NoSuchProcess,psutil.AccessDenied):continue
     return rows

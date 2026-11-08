@@ -2,7 +2,7 @@
   "schema_version": 1,
   "round": "R7",
   "branch": "issac",
-  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "phase": "historical_native_game_media_notes_not_current_execution_authority",
   "candidate_frozen": false,
   "application_tests_started": false,
   "previous_phase": {
@@ -10,36 +10,7 @@
     "status": "closed_failed",
     "closed_unix": 1794031100.675629
   },
-  "scope": "Complete all observed R6 fixture, exact-local model selection, successful stderr estimate capture and capacity reporting corrections before uniform frozen testing",
   "items": [
-    {
-      "id": "R701",
-      "code": "Select the verified first retained shard through exact local catalogue-path lookup for estimates and loads",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "integration/issac/local_model.py"
-      ],
-      "runtime_accepted": false
-    },
-    {
-      "id": "R702",
-      "code": "Read successful estimate diagnostics from stderr while preserving machine-readable stdout and nonzero failures",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "integration/issac/local_model.py"
-      ],
-      "runtime_accepted": false
-    },
-    {
-      "id": "R703",
-      "code": "Report actual per-budget capacity requirements and shortfalls without changing any existing margins",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "integration/issac/resources.py",
-        "integration/issac/local_model.py"
-      ],
-      "runtime_accepted": false
-    },
     {
       "id": "R704",
       "code": "Correct the global-import mock ordering and add observed CLI/path/capacity regressions",
@@ -56,10 +27,10 @@
       "status": "code_complete_pending_acceptance",
       "source_files": [
         "docs/evidence/issac-round6-acceptance-20261107.json",
-        "docs/issac/第七轮本地模型选择与容量报告20261107.md",
+        "docs/issac/第七轮原生运行与录制检查20261107.md",
         "docs/issac/MC同屏方案沿用与标题替换20261107.md",
         "docs/issac/完整更新方案20261107.md",
-        "docs/issac/第六轮窗口配置与模型就绪20261107.md",
+        "docs/issac/第六轮窗口配置与原生就绪20261107.md",
         "web/issac/mc-programme.html",
         "README.md"
       ],
@@ -91,5 +62,12 @@
     "actual completed/closed R6 receipts, 888 passes/1 error/7 skips, native menu scope and no model/600-second success claims",
     "MC sixteen-source provenance, unchanged style/geometry/queues/audio, only document/aria title text alignment",
     "R7 transfer and local checks written before freeze; fresh private transfer config supplies candidate metadata later"
-  ]
+  ],
+  "scope": "Historical native game, media, presentation or source-process planning subset; withdrawn inference planning removed",
+  "current_execution_authority": false,
+  "documentation_amended_on": "2026-11-09",
+  "original_historical_source_snapshot_in_git": true,
+  "current_inventory": "configs/issac/development-channel-restoration.json",
+  "current_requirements": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "tests_paused_by_user": true
 }

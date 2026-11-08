@@ -50,7 +50,7 @@ class OfficialGraphicsTests(unittest.TestCase):
             root=Path(temporary)
             write_json(root/'configs/issac/official-rendering.json',{'default_mode':'software-ui'})
             mode,args=render_arguments(root)
-            self.assertEqual(mode,'software-ui');self.assertIn('--disable-gpu-compositing',args)
+            self.assertEqual(mode,'software-ui');self.assertEqual(args,['--disable-ui-gpu-compositing'])
             for bad in ('--no-sandbox','software-ui --ignore-certificate-errors','unknown'):
                 with self.assertRaises(AdmissionError):render_arguments(root,bad)
             forbidden=('sandbox','certificate','web-security','capture','encoder','privacy')

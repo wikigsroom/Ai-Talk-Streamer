@@ -2,7 +2,7 @@
   "schema_version": 1,
   "round": "MEDIA30B",
   "branch": "issac",
-  "scope": "User-resumed M01/M02/M03 30-second live browser whole-programme recordings, media only",
+  "scope": "Historical native game, media, presentation or source-process planning subset; withdrawn inference planning removed",
   "candidate_frozen": false,
   "application_tests_started": false,
   "manual_whole_round_source_review_complete": true,
@@ -26,5 +26,12 @@
   "strategy_model_loaded": false,
   "cloud_inference_allowed": false,
   "new_weights_download_bytes": 0,
-  "production_accepted": false
+  "production_accepted": false,
+  "phase": "historical_native_game_media_notes_not_current_execution_authority",
+  "current_execution_authority": false,
+  "documentation_amended_on": "2026-11-09",
+  "original_historical_source_snapshot_in_git": true,
+  "current_inventory": "configs/issac/development-channel-restoration.json",
+  "current_requirements": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "tests_paused_by_user": true
 }

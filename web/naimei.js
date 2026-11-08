@@ -10,8 +10,8 @@ const errors={
  SPEECH_IN_PROGRESS:'奶妹正在说话，请播完后再切换。',
  NAIMEI_BRIDGE_UNAVAILABLE:'本地播放服务暂时未连接，请稍后重试。',
  NAIMEI_LOCAL_MODEL_REQUIRED:'请连接这台电脑或局域网中的模型服务。',
- CHANNEL_NOT_CONFIGURED:'请先填写本地对话设置并检查连接。',
- CHANNEL_COMPATIBILITY_REQUIRED:'本地对话模型尚未通过连接检查。请先保存并检查连接。',
+ CHANNEL_NOT_CONFIGURED:'原有对话配置尚未就绪，请检查保存的渠道。',
+ CHANNEL_COMPATIBILITY_REQUIRED:'奶妹原有对话渠道尚未通过检查，请先检查连接。',
  MODEL_RESPONSE_INVALID:'模型回复没有完成，请检查模型服务后重试。'
 };
 async function api(path,value){
@@ -198,7 +198,7 @@ async function refreshExtensions(){
  try{
   extensionState=await api('/api/dsh/extensions');
   const state=extensionState;
-  $('extensions-status').textContent=(state.loaded?'七项聊天能力已载入':'聊天能力正在准备')+' · 心情：'+(state.mood?.label||'平常')+' · '+(state.local_model_ready?'对话模型已连接':'等待连接本地对话模型')+(state.proactive_armed?(state.proactive_ready?' · 可在空闲时搭话':' · 空闲搭话已开，等待合适时机'):' · 空闲搭话未开');
+  $('extensions-status').textContent=(state.loaded?'七项聊天能力已载入':'聊天能力正在准备')+' · 心情：'+(state.mood?.label||'平常')+' · '+(state.channel_ready?'对话模型已连接':'等待原对话渠道连接')+(state.proactive_armed?(state.proactive_ready?' · 可在空闲时搭话':' · 空闲搭话已开，等待合适时机'):' · 空闲搭话未开');
   $('proactive').textContent=state.proactive_armed?'关闭空闲搭话':'开启空闲搭话';
  }catch{$('extensions-status').textContent='聊天能力尚未连接，请检查本地服务。';}
 }
@@ -206,11 +206,11 @@ action($('chat'),async()=>{
  const text=$('speech').value.trim();
  const result=await api('/api/dsh/requests',{text,mode:'chat',public_input:true,idempotency_key:crypto.randomUUID()});
  trackRequest(result,'奶妹回应','正在回应：'+text);
-},{playback:true,check:()=>{if(!$('speech').value.trim())throw Error('先在上方输入想跟奶妹说的话。');if(!extensionState?.local_model_ready)throw Error(errors.CHANNEL_COMPATIBILITY_REQUIRED);}});
+},{playback:true,check:()=>{if(!$('speech').value.trim())throw Error('先在上方输入想跟奶妹说的话。');if(!extensionState?.channel_ready)throw Error(errors.CHANNEL_COMPATIBILITY_REQUIRED);}});
 action($('proactive'),async()=>{
  const enabled=!extensionState?.proactive_armed;
  if(enabled){
-  if(!extensionState?.local_model_ready)throw Error(errors.CHANNEL_COMPATIBILITY_REQUIRED);
+  if(!extensionState?.channel_ready)throw Error(errors.CHANNEL_COMPATIBILITY_REQUIRED);
   if(!modelsReady())throw Error('本地声音与人物画面正在准备。');
   openPlayback();await preparePlayback();
  }
@@ -218,17 +218,14 @@ action($('proactive'),async()=>{
  message(enabled?'空闲搭话已开启。奶妹会等当前内容结束，偶尔自然起个话题。':'空闲搭话已关闭。');
 });
 action($('local-model-save'),async()=>{
- const value={base_url:$('local-model-url').value.trim(),model:$('local-model-name').value.trim(),protocol:$('local-model-protocol').value};
- if($('local-model-key').value)value.api_key=$('local-model-key').value;
- await api('/api/dsh/extensions/model',value);$('local-model-key').value='';
  const result=await api('/api/dsh/probe',{});
  if(!result.passed)throw Error('模型已连接，但还不能正确使用奶妹的人格和工具，请检查模型兼容性。');
- await refreshExtensions();message('本地对话连接检查通过，可以让奶妹回应。');
+ await refreshExtensions();message('原有对话渠道检查通过，可以让奶妹回应。');
 });
 action($('meme-search'),async()=>{
  const value=await api('/api/dsh/extensions/meme',{query:$('meme-query').value.trim()});
  $('meme-result').textContent=value.found?value.results.map(item=>item.text).join('\n\n'):'两个本地词库都没有收录这个词。';
 });
 api('/api/dsh/extensions/model').then(value=>{
- if(value.configured){$('local-model-url').value=value.base_url;$('local-model-name').value=value.model;$('local-model-protocol').value=value.protocol;}
+ $('channel-summary').textContent=value.configured?'当前模型：'+value.model+' · '+value.protocol+' · 沿用已保存的渠道':'原有对话渠道尚未配置。';
 }).catch(()=>{});

@@ -1,18 +1,17 @@
 {
   "schema_version": 1,
-  "plan_id": "NM-ISSAC-PLAN-20261107-v2",
+  "plan_id": "NM-ISSAC-PLAN-20261109-v3",
   "requirements_freeze": "configs/issac/requirements-freeze.json",
   "requirements_document": "docs/issac/最终总需求冻结20261109.md",
-  "requirements_authority": "NM-ISSAC-REQUIREMENTS-20261109-v1",
-  "implementation_alignment": "pending_naimei_core_direct_state_wiki_and_all_pickup_authority; legacy_role_division_is_historical",
+  "requirements_authority": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "implementation_alignment": "original_api_responses_channel_and_single_naimei_core_pending_source_alignment",
   "branch": "issac",
-  "status": "round_2_all_source_written_unverified_awaiting_freeze",
+  "status": "documentation_corrected_tests_paused_runtime_unaccepted",
   "target": "issac-rtx4090",
   "deployment_allowed": false,
   "gameplay_enabled": false,
   "public_broadcast_enabled": false,
   "native_windows_only": true,
-  "cloud_inference_allowed": false,
   "virtualization_allowed": false,
   "new_model_weight_bytes_committed_or_downloaded": 0,
   "source_lock": "configs/issac/sources.lock.json",
@@ -24,36 +23,15 @@
     "strategy_state": "state/isaac-strategy",
     "narrator_state": "state/issac-stream"
   },
-  "strategy": {
-    "dsh_version": "0.2.2-rc.1",
-    "provider": "qualified_local_only_not_yet_configured",
-    "native_realtime_loop_not_llm": true,
-    "macro_hz": 6,
-    "event_poll_ms": 250,
-    "decision_deadline_seconds": 45,
-    "hidden_room_metadata_allowed": false,
-    "save_slot": 3,
-    "goal": "legally_available_goal_selected_at_run_start"
-  },
   "wiki": {
     "requested_edition": "rep",
     "proposed_tool": "isaac_wiki_query",
-    "prompt_injection": "same_isaac_complete_prompt_section_plus_explicit_tool_allowlist",
-    "implemented": false,
+    "prompt_injection": "complete_skill_and_run_evaluation_in_same_naimei_core_with_rep_and_five_tools",
+    "implemented": "source_alignment_and_actual_core_use_pending",
     "proposed_timeout_seconds": 2,
     "proposed_max_queries_per_decision": 3,
     "proposed_model_result_token_budget": 3000,
     "arbitrary_shell_or_file_access": false
-  },
-  "narrator": {
-    "dsh_version": "0.2.0-rc.2",
-    "humanity_version": "0.1.17",
-    "voice_id": "NCM01",
-    "voice_fallback": null,
-    "event_input": "verified_game_events_only",
-    "seven_inherited_sources": "configs/naimei/dsh-extensions.json",
-    "one_audio_authority": true,
-    "new_state_root_required": true
   },
   "proposed_ports": {
     "streamer_ui": 8062,
@@ -62,8 +40,7 @@
     "native_game_bridge_loopback": 9528,
     "upstream_diagnostics_loopback_optional": 9529,
     "strategy_api_loopback": 9532,
-    "strategy_dsh_loopback": 9533,
-    "avatar_engine_existing_exclusive_owner": 8030
+    "avatar_engine_existing_exclusive_owner": 8040
   },
   "proposed_capture": {
     "preferred": "official_livehime_native_game_capture_plus_mc_transparent_programme_overlay",
@@ -97,7 +74,7 @@
   "activation_gates": [
     "game_runtime_and_protected_save_baseline",
     "real_rep_wiki_tool_and_prompt_probe",
-    "qualified_local_model_tool_decisions",
+    "original_gpt_6_luna_responses_and_same_core_tool_decisions",
     "NCM01_remote_voice_alignment",
     "exclusive_media_engine_and_playback_authority",
     "native_capture_and_audio_test",
@@ -106,8 +83,8 @@
   ],
   "presentation_contract": "configs/issac/mc-presentation-reference.json",
   "execution_authorization": {
-    "date": "2026-11-07",
-    "final_deliverable": "600-second official Bilibili Livehime local recording",
+    "date": "2026-11-09",
+    "final_deliverable": "120-second official Bilibili Livehime local recording",
     "public_broadcast_authorized": false,
     "round_1": "Comprehensive isolated copy and integrity verification only; no application testing",
     "round_2_onward": "Finish all round development/TODO/code, freeze complete candidate, then perform all debugging/integration/acceptance",
@@ -118,11 +95,50 @@
       "rtx4090": "192.168.196.209",
       "proxy_allowed": false
     },
-    "staging_is_runtime_acceptance": false
+    "staging_is_runtime_acceptance": false,
+    "current_scope": "documentation_only_tests_paused_by_user",
+    "model_requests": "original_user_saved_gpt_6_luna_responses_api_channel"
   },
   "execution_rounds": "configs/issac/execution-rounds.json",
   "preparation_access_policy": "configs/issac/preparation-access.json",
   "round_1_evidence": "docs/evidence/issac-round1-copy-20261107.json",
-  "development_inventory": "configs/issac/development-round-2.json",
-  "round_2_development_document": "docs/issac/第二轮完整开发与统一验收20261107.md"
+  "development_inventory": "configs/issac/development-channel-restoration.json",
+  "round_2_development_document": "docs/issac/第二轮完整开发与统一验收20261107.md",
+  "core_model_channel": {
+    "model": "gpt-6-luna",
+    "protocol": "responses",
+    "provider": "original_user_saved_api_channel",
+    "credentials_source": "legitimate_original_private_channel_configuration",
+    "original_configuration_entrypoint": "configs/channel.env",
+    "secrets_or_endpoint_embedded": false,
+    "historical_channel_evidence": "docs/evidence/dsh-real-channel-three-turn.json",
+    "historical_channel_evidence_is_current_deployment_acceptance": false,
+    "same_naimei_core_for_observation_tools_decisions_and_speech": true,
+    "automatic_model_or_channel_replacement_allowed": false,
+    "runtime_alignment": "pending_source_and_target_deployment_verification"
+  },
+  "approved_original_model_api_allowed": true,
+  "cloud_media_services_allowed": false,
+  "tests_paused_by_user": true,
+  "current_revision_document": "docs/issac/原渠道与核心职责修订20261109.md",
+  "naimei_core": {
+    "actor_id": "naimei",
+    "dsh_version": "0.2.0-rc.2",
+    "humanity_version": "0.1.17",
+    "owns_all_item_and_pickup_decisions": true,
+    "direct_game_state_and_rep_wiki_tools": true,
+    "natural_speech_derived_from_own_decisions_and_actual_results": true,
+    "voice_id": "NCM01",
+    "voice_fallback": null,
+    "seven_inherited_sources": "configs/naimei/dsh-extensions.json",
+    "one_audio_authority": true,
+    "new_state_root_required": true
+  },
+  "native_rules": {
+    "realtime_combat_navigation_and_bounded_authorized_execution_only": true,
+    "separate_strategic_ai_enabled": false,
+    "unapproved_auto_pickup_allowed": false,
+    "save_slot": 3,
+    "hidden_room_metadata_allowed": false
+  }
 }

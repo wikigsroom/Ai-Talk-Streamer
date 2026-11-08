@@ -2,7 +2,7 @@
   "schema_version": 1,
   "round": "R8",
   "branch": "issac",
-  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "phase": "historical_native_game_media_notes_not_current_execution_authority",
   "candidate_frozen": false,
   "application_tests_started": false,
   "previous_phase": {
@@ -10,7 +10,7 @@
     "status": "closed_failed",
     "closed_unix": 1794128672.547916
   },
-  "scope": "Complete all R7b observed capacity and delayed official-client readiness corrections before any frozen testing",
+  "scope": "Historical native game, media, presentation or source-process planning subset; withdrawn inference planning removed",
   "items": [
     {
       "id": "R801",
@@ -28,16 +28,6 @@
       "status": "code_complete_pending_acceptance",
       "source_files": [
         "integration/issac/media_capacity.py"
-      ],
-      "runtime_accepted": false
-    },
-    {
-      "id": "R803",
-      "code": "Use measured media peak plus headroom and actual intermediate offload estimates while retaining all existing GPU/host/rounding margins",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "integration/issac/resources.py",
-        "integration/issac/local_model.py"
       ],
       "runtime_accepted": false
     },
@@ -96,9 +86,14 @@
     "Separate native runtimes retain exact NCM01 settings and production FlashHead compile/rope/render path; capacity-only anchor override cannot approve body banks or live quality",
     "Actual concurrent model residency, voice generation, 288 speech-driven frames, CUDA peaks, host peaks, normal cleanup, 2 GiB measurement headroom and all existing margins",
     "Current candidate/input signatures, actual actor report hashes and freshness; no previous-candidate or missing-artifact approval",
-    "Actual exact retained-shard resource estimates across intermediate offloads, unchanged context and pre-load capacity recheck",
     "Delayed profile writes wait within deadline; foreign profile immediately rejects; native ownerless frame selection excludes observed CEF popup chains without choosing arbitrary clients",
     "Current owned official login/main-window cleanup only; no inherited global client adoption; official login and platform state remain unaccepted",
     "Original save baseline, all 18 gates, NCM01 reference exclusion, no cloud/OBS/public broadcast/virtualization remain unchanged"
-  ]
+  ],
+  "current_execution_authority": false,
+  "documentation_amended_on": "2026-11-09",
+  "original_historical_source_snapshot_in_git": true,
+  "current_inventory": "configs/issac/development-channel-restoration.json",
+  "current_requirements": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "tests_paused_by_user": true
 }

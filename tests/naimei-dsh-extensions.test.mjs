@@ -6,7 +6,6 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { DshHost } from '../backend/dsh-bridge/host.mjs';
 import { initialPersona } from '../backend/dsh-bridge/persona.mjs';
 import { loadPolicy } from '../backend/dsh-bridge/policy.mjs';
-import { requireLocalModel } from '../backend/dsh-bridge/extensions.mjs';
 import { StateStore } from '../backend/memory/store.mjs';
 import { StreamState } from '../backend/dsh-bridge/state.mjs';
 import { StreamBridge } from '../backend/dsh-bridge/server.mjs';
@@ -14,7 +13,7 @@ import { MemoryService } from '../backend/memory/service.mjs';
 import { MaintenanceScheduler } from '../backend/memory/scheduler.mjs';
 import { Auth } from '../backend/dsh-bridge/auth.mjs';
 import { digest } from '../backend/dsh-bridge/channel.mjs';
-import { NaimeiLocalChannel } from '../backend/dsh-bridge/local-model.mjs';
+
 
 const root = resolve(import.meta.dirname, '..'), runtime = join(root, 'tools/dsh');
 const policy = structuredClone(loadPolicy(root, 'configs/naimei/bridge-policy.json'));
@@ -30,6 +29,23 @@ before(async () => {
   server = createServer(async (req, res) => {
     const chunks = []; for await (const chunk of req) chunks.push(chunk);
     const body = JSON.parse(Buffer.concat(chunks)); requests.push(body);
+    if(req.url.endsWith('/responses')){
+      const first=!(body.input||[]).some(item=>item.type==='function_call_output');
+      const args=JSON.stringify({data:JSON.stringify({query:'杂鱼'})});
+      const item=first?{id:'fc-probe',type:'function_call',call_id:'call_meme_responses',name:'search_meme_wiki',arguments:args,status:'completed'}:
+        {id:'msg-probe',type:'message',role:'assistant',status:'completed',content:[{type:'output_text',text:'我是奶妹，刚才查到了这个梗。',annotations:[]}]};
+      res.writeHead(200,{'Content-Type':'text/event-stream'});
+      const emit=data=>res.write('data: '+JSON.stringify(data)+'\n\n');
+      emit({type:'response.created',response:{id:'resp-probe',status:'in_progress'}});
+      emit({type:'response.output_item.added',output_index:0,item:first?{...item,arguments:'',status:'in_progress'}:{...item,content:[],status:'in_progress'}});
+      if(first){
+        emit({type:'response.function_call_arguments.delta',item_id:item.id,output_index:0,delta:args});
+        emit({type:'response.function_call_arguments.done',item_id:item.id,output_index:0,arguments:args});
+      }else emit({type:'response.output_text.delta',item_id:item.id,output_index:0,content_index:0,delta:item.content[0].text});
+      emit({type:'response.output_item.done',output_index:0,item});
+      emit({type:'response.completed',response:{id:'resp-probe',status:'completed',output:[item],usage:{input_tokens:100,output_tokens:20,total_tokens:120}}});
+      res.end();return;
+    }
     const system = body.messages.filter(m => m.role === 'system').map(m => m.content).join('\n');
     const mood = system.includes('moodDelta');
     const first = !body.messages.some(m => m.role === 'tool');
@@ -84,14 +100,15 @@ verifiedTest('actual DSH prompt contains soul and humanizer; only reviewed tools
   assert.deepEqual(probes[0].tools.sort(), ['search_meme_wiki', 'soul_read', 'stream_memory_propose', 'stream_memory_recall']);
   assert.ok(!JSON.stringify(requests).includes('林知夏'));
 });
-verifiedTest('cloud model addresses are rejected before any request is made', async () => {
-  for (const baseUrl of ['https://api.deepseek.com/v1', 'https://example.com', 'http://127.0.0.1.evil.test', 'http://192.168.evil.test', 'file:///tmp/model']) {
-    assert.throws(() => requireLocalModel({ baseUrl }), /NAIMEI_LOCAL_MODEL_REQUIRED/);
-  }
-  for (const baseUrl of ['http://127.0.0.1:8080/v1', 'http://192.168.196.209:1234/v1', 'http://localhost:11434/v1']) assert.doesNotThrow(() => requireLocalModel({ baseUrl }));
-  const count = requests.length;
-  await assert.rejects(host.generate({ sessionId: 'bad-cloud', snapshot: { ...snapshot, baseUrl: 'https://example.com' }, input: '你好', tools: async () => ({}) }), /NAIMEI_LOCAL_MODEL_REQUIRED/);
-  assert.equal(requests.length, count);
+verifiedTest('Responses passes a real DSH tool result back to the same selected model', async () => {
+ const before=requests.length;
+ const result=await host.generate({sessionId:'naimei-responses-'+Date.now(),snapshot:{...snapshot,model:'gpt-6-luna',protocol:'responses'},
+   input:'查一下杂鱼这个梗。',tools:async()=>{throw Error('UNEXPECTED_TOOL');},onProbe:p=>probes.push(p)});
+ assert.equal(result.text,'我是奶妹，刚才查到了这个梗。');
+ const turns=requests.slice(before);
+ assert.equal(turns.length,2);
+ assert.ok(turns.every(turn=>turn.model==='gpt-6-luna'));
+ assert.ok(turns[1].input.some(item=>item.type==='function_call_output'&&item.call_id==='call_meme_responses'&&item.output.includes('杂鱼')));
 });
 verifiedTest('upstream fish ranking selects relevant approved records without writing a second store', () => {
   const now = Date.now();
@@ -124,14 +141,6 @@ verifiedTest('the original feiyu judge runs through the pinned DSH adapter and a
   assert.equal(delta?.confidence, 90);
   assert.equal(delta?.moodDelta, 6);
   assert.deepEqual(calls.map(call => call.phase), ['reserve', 'sent', 'settle']);
-});
-verifiedTest('local model settings stay separate and never expose saved keys', () => {
-  const local = new NaimeiLocalChannel(join(root, policy.deployment.dsh_home_relative_path, 'settings-test'));
-  const value = local.save({ base_url: snapshot.baseUrl, model: 'probe', api_key: 'private-test-key' });
-  assert.equal(value.local_only, true);
-  assert.ok(!JSON.stringify([value, local.publicInfo()]).includes('private-test-key'));
-  assert.ok(!local.file.endsWith('configs/channel.env'));
-  assert.throws(() => local.save({ base_url: 'https://example.com', model: 'probe' }), /NAIMEI_LOCAL_MODEL_REQUIRED/);
 });
 verifiedTest('proactive speech uses the real queue and mood waits for complete playback receipts', async () => {
   const state = new StreamState(db, policy, initialPersona(root, 'naimei').version);

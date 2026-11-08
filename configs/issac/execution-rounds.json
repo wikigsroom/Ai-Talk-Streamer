@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "goal": "Real 120-second official Bilibili Livehime local recording of Naimei core-led Isaac gameplay on native RTX4090",
+  "goal": "Real 300-second official Bilibili Livehime local recording of Naimei core-led Isaac gameplay on native RTX4090",
   "branch": "issac",
   "round_1": {
     "status": "completed_file_preparation_only",
@@ -23,8 +23,8 @@
     "evidence": "docs/evidence/issac-round1-copy-20261107.json"
   },
   "round_2_onward": {
-    "status": "core120B_complete_correction_awaiting_freeze_and_uniform_tests",
-    "development_scope": "All remaining implementation and TODO items U05-U30, including acceptance and recording harnesses",
+    "status": "whole_round_implementation_resumed",
+    "development_scope": "Frozen G01-G16 / 140 requirements with original Responses channel and one Naimei core",
     "order": [
       "finish_all_round_development",
       "resolve_all_round_code_TODOs",
@@ -41,14 +41,14 @@
       "candidate_scope_and_reproducible_commands"
     ],
     "defect_policy": "Close the test phase and implement one complete correction round before retesting; never patch between tests within a phase",
-    "inventory": "configs/issac/development-core120B.json"
+    "inventory": "configs/issac/development-channel-restoration.json"
   },
   "acceptance_scope_retained": [
     "native_game_ABI_and_read_only_observation",
     "protected_save_backups_and_authorized_slot_3",
     "ordinary_inputs_only_and_confirmed_pause_on_controller_loss",
     "same_Naimei_core_DSH_complete_prompt_and_five_read_only_or_bounded_rep_game_tools",
-    "qualified_local_model_without_cloud_fallback",
+    "original_gpt_6_luna_responses_channel_and_actual_same_core_tool_calls",
     "verified_events_and_receipt_causality",
     "Naimei_personality_and_seven_extension_adapters",
     "actual_NCM01_voice_generation_and_private_reference_exclusion",
@@ -59,7 +59,7 @@
     "fault_recovery_regressions_and_rollback",
     "30_minute_then_120_minute_same_host_load_checks",
     "real_gameplay_win_death_and_end_receipts",
-    "official_Livehime_120_second_local_recording_and_actual_media_review"
+    "official_Livehime_300_second_local_recording_and_actual_media_review"
   ],
   "public_broadcast_authorized": false,
   "virtualization_allowed": false,
@@ -146,14 +146,23 @@
       "evidence": "docs/evidence/issac-core120B-preparation-20261109.json"
     }
   ],
-  "pending_model_choice": {
-    "proposal": "configs/issac/proposals/local-model-choice-20261108.json",
-    "approved": false,
-    "new_model_downloaded_bytes": 0,
-    "decision_resolved": true,
-    "decision": "retain_swift_no_download"
-  },
   "current_user_amendment": "configs/issac/live120.json",
-  "existing_local_candidate": "configs/issac/existing-model-backend.json",
-  "official_installation": "configs/issac/official-installation.json"
+  "official_installation": "configs/issac/official-installation.json",
+  "current_model_channel": {
+    "model": "gpt-6-luna",
+    "protocol": "responses",
+    "provider": "original_user_saved_api_channel",
+    "credentials_source": "legitimate_original_private_channel_configuration",
+    "original_configuration_entrypoint": "configs/channel.env",
+    "secrets_or_endpoint_embedded": false,
+    "historical_channel_evidence": "docs/evidence/dsh-real-channel-three-turn.json",
+    "historical_channel_evidence_is_current_deployment_acceptance": false,
+    "same_naimei_core_for_observation_tools_decisions_and_speech": true,
+    "automatic_model_or_channel_replacement_allowed": false,
+    "runtime_alignment": "pending_source_and_target_deployment_verification"
+  },
+  "tests_paused_by_user": false,
+  "current_revision_document": "docs/issac/原渠道与核心职责修订20261109.md",
+  "historical_round_inventory_is_current_startup_authority": false,
+  "current_execution_amendment": "configs/issac/live300.json"
 }

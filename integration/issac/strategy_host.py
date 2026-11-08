@@ -122,9 +122,14 @@ class StrategyHost:
             enabled=body['enabled']
             live=body.get('live',False)
             if enabled and live:
-                model=read_json(inside(self.root,self.config['model_gateway']['qualification_receipt']))
-                if model.get('qualified') is not True or model.get('candidate_id')!=read_json(inside(self.root,'.setup/candidate.json')).get('id'):
-                    raise AdmissionError('CURRENT_LOCAL_MODEL_QUALIFICATION_REQUIRED')
+                opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
+                with opener.open('http://127.0.0.1:3104/api/dsh/issac/core/status',timeout=3) as response:
+                    core=json.load(response)
+                if (core.get('ready') is not True or core.get('actor_id')!='naimei'
+                    or core.get('strategic_owner')!='naimei_core_dsh'
+                    or core.get('model')!='gpt-6-luna' or core.get('protocol')!='responses'
+                    or core.get('candidate_id')!=read_json(inside(self.root,'.setup/candidate.json')).get('id')):
+                    raise AdmissionError('CURRENT_ORIGINAL_NAIMEI_CORE_CHANNEL_REQUIRED')
                 self.native.protection.admit_current(self.native.process,self.native.progress())
                 if not self.service.fresh():
                     raise AdmissionError('FRESH_NATIVE_STATE_REQUIRED')

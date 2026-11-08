@@ -2,7 +2,7 @@
   "schema_version": 1,
   "round": "R9",
   "branch": "issac",
-  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "phase": "historical_native_game_media_notes_not_current_execution_authority",
   "candidate_frozen": false,
   "application_tests_started": false,
   "previous_phase": {
@@ -10,7 +10,7 @@
     "status": "closed_failed",
     "closed_unix": 1794130388.586752
   },
-  "scope": "Complete R8 native voice dependency and observed Windows official-control script encoding corrections; all acceptance unchanged",
+  "scope": "Historical native game, media, presentation or source-process planning subset; withdrawn inference planning removed",
   "items": [
     {
       "id": "R901",
@@ -81,5 +81,11 @@
     "Own R8 official client normal cleanup checks exact PID/ctime/executable hash and the registered actual main HWND; foreign clients/profiles preserved",
     "No source changes during R8 testing; actual R8 failed closure precedes this entire development round",
     "NCM01 frozen values, private reference exclusion, 51225 compiled mouth, complete body review, all resource margins, MC title-only, original saves and 18 gates unchanged"
-  ]
+  ],
+  "current_execution_authority": false,
+  "documentation_amended_on": "2026-11-09",
+  "original_historical_source_snapshot_in_git": true,
+  "current_inventory": "configs/issac/development-channel-restoration.json",
+  "current_requirements": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "tests_paused_by_user": true
 }

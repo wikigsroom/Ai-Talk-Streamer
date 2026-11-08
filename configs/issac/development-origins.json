@@ -1492,5 +1492,14 @@
       "destination": "backend/room/defaults.mjs",
       "source_sha256": "1a732b58f81862f99d82dfc23043777c471edea5e512adae6d96015e9a0f6f7a"
     }
-  ]
+  ],
+  "items": [],
+  "phase": "historical_native_game_media_notes_not_current_execution_authority",
+  "scope": "Historical native game, media, presentation or source-process planning subset; withdrawn inference planning removed",
+  "current_execution_authority": false,
+  "documentation_amended_on": "2026-11-09",
+  "original_historical_source_snapshot_in_git": true,
+  "current_inventory": "configs/issac/development-channel-restoration.json",
+  "current_requirements": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "tests_paused_by_user": true
 }

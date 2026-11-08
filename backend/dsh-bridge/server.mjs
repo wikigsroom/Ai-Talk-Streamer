@@ -16,13 +16,11 @@ import { memoryPage } from '../memory/query.mjs';
 import { EventSubscriptions } from './events.mjs';
 import { PlatformManager } from '../platforms/manager.mjs';
 import { RoomManager } from '../room/manager.mjs';
-import { NaimeiLocalChannel } from './local-model.mjs';
 
 export class StreamBridge {
   constructor(root, runtime, { policyFile, avatarUrl = 'http://127.0.0.1:8010' } = {}) {
     this.root=resolve(root);this.runtime=inside(this.root,runtime);this.policy=loadPolicy(this.root,policyFile);this.avatarUrl=avatarUrl;
     this.channel=new ChannelConfig(this.root);this.controllers=new Map();this.closed=false;this.probes=[];this.mediaHealth={};this.ready=false;this.mediaChain=Promise.resolve();
-    if(this.policy.extensions?.enabled)this.channel=new NaimeiLocalChannel(this.root);
   }
   async start() {
     this.db=new StateStore(inside(this.root,join(this.policy.deployment.state_relative_path,'stream.sqlite3')));
@@ -96,7 +94,7 @@ export class StreamBridge {
       ...this.mediaHealth,authority_ready:this.state.current()?this.state.authorityReady(this.state.current().broadcast_id):false,
       channel:this.channel.publicInfo(),persona_version:this.state.personaVersion,node:process.version,
       native_humanity_tools:false,versions:{dsh:'0.2.0-rc.2',humanity:'0.1.17',connector:'stream-humanity-v1'},
-      ...(this.host.extensions ? {extensions:{loaded:this.host.extensions.ready,source_count:7,local_inference_only:true,mood:this.host.extensions.publicMood(),proactive_armed:!!this.automaticSpeechEnabled}} : {}),
+      ...(this.host.extensions ? {extensions:{loaded:this.host.extensions.ready,source_count:7,inference:'saved_api_channel',mood:this.host.extensions.publicMood(),proactive_armed:!!this.automaticSpeechEnabled}} : {}),
       rss_bytes:process.memoryUsage().rss};
   }
   onCall({requestId=null,jobId=null,job=null,foreground=true,maxTokens=256}) {
@@ -272,9 +270,10 @@ export class StreamBridge {
       if(path==='/api/dsh/events'&&req.method==='GET')return this.events.subscribe(req,res,this.auth.require(req.headers),url.searchParams);
       if(path==='/api/dsh/whoami'&&req.method==='GET')return send(this.auth.require(req.headers));
       if(path==='/api/dsh/status'&&req.method==='GET'){await this.refreshMedia();return send(this.publicStatus(principal));}
-      if(path==='/api/dsh/extensions'&&req.method==='GET'){requireValue(this.host.extensions,'EXTENSIONS_NOT_ENABLED',404);return send({...this.host.extensions.status(),proactive_armed:!!this.automaticSpeechEnabled,proactive_ready:this.canSpeakUp(),local_model_ready:!!this.health().persona_injection_ready});}
-      if(path==='/api/dsh/extensions/model'&&req.method==='GET'){requireValue(this.host.extensions,'EXTENSIONS_NOT_ENABLED',404);return send(this.channel.settings());}
+      if(path==='/api/dsh/extensions'&&req.method==='GET'){requireValue(this.host.extensions,'EXTENSIONS_NOT_ENABLED',404);return send({...this.host.extensions.status(),proactive_armed:!!this.automaticSpeechEnabled,proactive_ready:this.canSpeakUp(),channel_ready:!!this.health().persona_injection_ready});}
+      if(path==='/api/dsh/extensions/model'&&req.method==='GET'){requireValue(this.host.extensions,'EXTENSIONS_NOT_ENABLED',404);return send(this.channel.settings?.()||this.channel.publicInfo());}
       if(path==='/api/dsh/extensions/model'&&req.method==='POST'){
+        requireValue(typeof this.channel.save==='function'&&this.channel.settings?.().editable!==false,'ORIGINAL_CHANNEL_IS_INHERITED',409);
         requireValue(this.host.extensions,'EXTENSIONS_NOT_ENABLED',404);requireValue(!this.state.active()&&!this.moodWorking,'SPEECH_IN_PROGRESS');
         const result=this.channel.save(await this.body(req));this.compatibility=null;this.automaticSpeechEnabled=false;
         this.db.tx(()=>this.db.run("INSERT INTO runtime_meta VALUES ('naimei.extensions.proactive',?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json",canonical({enabled:false})));

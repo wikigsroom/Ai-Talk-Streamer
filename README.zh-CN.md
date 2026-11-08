@@ -1,3 +1,5 @@
+> 当前执行入口：[300秒录播推进修订](docs/issac/300秒录播推进修订20261109.md)。用户已明确恢复推进，原渠道 gpt-6-luna / Responses，目标为连续300秒官方本地录播。此前暂停说明属于历史。
+
 # AI Talk Streamer · 写实数字人直播
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [完整文档](docs/README.md)
@@ -5,7 +7,7 @@
 **奶妹 DSH 扩展归属：** 本集成的 fish-memory、feiyu-mood、speak-up 副本分别派生自 [Yuuyuko-uu/dsh-fish-memory](https://github.com/Yuuyuko-uu/dsh-fish-memory)、[Yuuyuko-uu/dsh-feiyu-mood](https://github.com/Yuuyuko-uu/dsh-feiyu-mood)、[Yuuyuko-uu/dsh-speak-up](https://github.com/Yuuyuko-uu/dsh-speak-up)，原作者 **Yuuyuko-uu**。完整保留并继续适用各自原许可；修改了直播接口导出、派生缓存清理、原文诊断关闭及归属说明。[七项来源、修改与许可](extensions/naimei-dsh/README.md)。
 
 <!-- deployment-branch:start -->
-**当前分支：issac，基于奶妹。** 保留三种定稿形态、NCM01 / OmniVoice 和 512×512 FlashHead Lite / 目标25FPS。第一轮4090文件准备完成，走ZeroTier内网，逐文件核对 **153,903个文件**。[复制收据与运行待办](docs/issac/第一轮复制与校验20261107.md) · [完整更新方案](docs/issac/完整更新方案20261107.md) · [编号任务与验收表](docs/issac/实施任务与验收清单20261107.csv)。部署开关仍关闭，游戏DSH、Wiki工具、本地模型及采集链尚未通过运行验收。第二轮起先写完全部开发项、冻结候选，再统一调试联调；最终交付由官方哔哩哔哩直播姬录制的真实600秒片段。[继承的七项DSH接入](docs/naimei/DSH扩展接入与使用20261107.md)。以下设备版本保留其历史范围。
+**issac 当前约束（2026-11-09）：** 奶妹核心沿用原 **gpt-6-luna / Responses API渠道**，同一DSH直接读游戏状态、查指定离线wiki、决定全部道具和掉落并自然说话；4090原生Windows承载游戏、DSH/工具和音画。最终交付官方连续120秒本地录播，MC rev04仅改标题、NCM01、三形态和真实512/25口型要求保留。**用户暂停测试继续有效；本次仅文档更新，源码与远端尚待对齐。** [渠道与职责修订](docs/issac/原渠道与核心职责修订20261109.md) · [总需求v2](docs/issac/最终总需求冻结20261109.md) · [140项矩阵](docs/issac/需求验收矩阵20261109.csv) · [当前计划](configs/issac/live120.json)。
 <!-- deployment-branch:end -->
 
 **以撒同屏方案已按MC沿用：** 1920×1080全幅游戏、透明节目叠层、右下264×264圆形人物，以及原有留言换边、字幕、混音和唯一播放权；视觉仅将标题替换为“奶妹 · 以撒的结合”。[源码检查与沿用细则](docs/issac/MC同屏方案沿用与标题替换20261107.md)。奶妹仍用512×512/25FPS与NCM01；约束与参考源码已准备，实际接入和验收待完成。

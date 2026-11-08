@@ -50,9 +50,7 @@ def main():
     if args.include_media_profile:
         commands.append(('media-capacity',[*py,'-m','integration.issac.media_capacity','--root',str(root)],3000))
     if args.include_model:
-        commands.extend([('existing-model-prepare',[*py,'-m','integration.issac.existing_backend','--root',str(root),'prepare'],900),
-            ('local-model-prepare',[*diag,'model-prepare','--capacity-wait-seconds',str(args.capacity_wait_seconds)],7200),
-            ('local-model-qualification',[*py,str(inside(root,'scripts/qualify_issac_model.py')),'--root',str(root)],420)])
+        commands.append(('original-channel',[*py,'-m','integration.issac.channel_probe','--root',str(root)],90))
     if args.include_official_client:
         official=[*py,'-m','integration.issac.livehime','--root',str(root)]
         commands.extend([('official-client-signature',[*official,'prepare'],90),('official-client-launch',[*official,'launch'],180),

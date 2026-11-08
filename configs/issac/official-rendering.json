@@ -1,17 +1,19 @@
 {
   "schema_version": 1,
-  "default_mode": "native-ui",
+  "default_mode": "software-ui",
   "frozen_comparison_modes": [
     "native-ui",
     "software-ui",
     "d3d11-ui"
   ],
-  "purpose": "Inspect the freshly reinstalled official 8.13 client through ordinary visible desktop capture, then use bounded render comparisons if needed",
+  "purpose": "Persist the actually verified native UI software compositor; retain OBS GPU capture and encoding",
   "visible_scene_accepted": false,
   "encoder_configuration_changed": false,
   "system_driver_or_registry_changes_allowed": false,
   "authentication_or_capture_restrictions_changed": false,
   "visible_desktop_capture_required": true,
   "full_official_reinstall_authorized": true,
-  "official_installer_registration_allowed": true
+  "official_installer_registration_allowed": true,
+  "validated_native_ui_argument": "--disable-ui-gpu-compositing",
+  "evidence": "docs/issac/直播姬黑屏与无法点击修复20261109.md"
 }

@@ -5,7 +5,7 @@ import { pathToFileURL } from 'node:url';
 import { canonical, digest } from './channel.mjs';
 import { inside } from './policy.mjs';
 import { modelFailure } from './model-errors.mjs';
-import { NaimeiExtensions, EXTENSION_TOOLS, requireLocalModel } from './extensions.mjs';
+import { NaimeiExtensions, EXTENSION_TOOLS } from './extensions.mjs';
 
 const CORE = new Set(['timer','llm','deepseek-llm-api-extensions','session','session-log-deepseek','typert','typert-loader','agent',
   'session-projection','storage','storage-json','storage-domain','session-persistence-jsonl',
@@ -123,7 +123,6 @@ export class DshHost {
   }
   async generate({ sessionId, snapshot, input, context = '', signal, tools, onCall, onProbe, maxTokens = this.policy.conversation.max_output_tokens, maintenance = false, negativeMinimal = false, gameplayTurn = null }) {
     if (!this.ready || this.active.has(sessionId)) throw new Error('DSH_NOT_READY_OR_DUPLICATE');
-    if (this.extensions) requireLocalModel(snapshot);
     const route = 'studio-' + digest(sessionId).slice(0, 20);
     const extensions = this.extensions;
     const personaSnapshot = this.port.readPersona();
@@ -239,7 +238,6 @@ export class DshHost {
   }
   async judgeMood({ snapshot, input, reply, signal, onCall, mode = 'chat' }) {
     if (!this.extensions || !this.ready) return null;
-    requireLocalModel(snapshot);
     const sessionId = 'mood-' + digest([Date.now(), input, reply]).slice(0, 24), route = 'studio-' + sessionId;
     let handle, scope;
     try {

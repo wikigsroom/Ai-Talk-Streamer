@@ -1,17 +1,14 @@
+> 当前执行入口：[300秒录播推进修订](docs/issac/300秒录播推进修订20261109.md)。用户已明确恢复推进，原渠道 gpt-6-luna / Responses，目标为连续300秒官方本地录播。此前暂停说明属于历史。
+
 # AI Talk Streamer
 
-**当前修正轮 CORE120B：** [官方直播姬重装与120秒整轮修正](docs/issac/直播姬重装与120秒整轮修正20261109.md)。4090已完成正式8.13安装及签名/注册核验，旧程序与场景配置备份保留；画面和录播尚未验收。本轮同时验证现场已有14.25GB模型作为同一奶妹核心后端，新增模型下载0字节、Swift保留，整轮提交冻结后统一测试。
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [Documentation](docs/README.md)
 
 **Naimei DSH extensions:** the fish-memory, feiyu-mood and speak-up integration copies derive from [Yuuyuko-uu/dsh-fish-memory](https://github.com/Yuuyuko-uu/dsh-fish-memory), [Yuuyuko-uu/dsh-feiyu-mood](https://github.com/Yuuyuko-uu/dsh-feiyu-mood), and [Yuuyuko-uu/dsh-speak-up](https://github.com/Yuuyuko-uu/dsh-speak-up). Original author: **Yuuyuko-uu**. Their complete custom licenses remain applicable. Changes expose reviewed bridge interfaces, clear derived caches, disable live dialogue diagnostics, and retain attribution. [Changes, all seven sources and licenses](extensions/naimei-dsh/README.md).
 
 <!-- deployment-branch:start -->
-**Current execution amendment — 2026-11-09:** the user resumes implementation and necessary local tests through delivery of a genuine **120-second Isaac gameplay recording**. [Execution amendment](docs/issac/120秒录播推进修订20261109.md) · [Machine scope](configs/issac/live120.json). Naimei's existing core DSH now owns both decisions and speech; the standalone strategic AI is retired from startup. All other quality, save, media and local-only constraints remain. Runtime acceptance is still pending; the following paragraph records the preceding freeze checkpoint.
-
-**Branch: issac — authoritative requirements frozen 2026-11-09.** Naimei's core AI / DSH directly reads current game state, queries the specified local Isaac wiki, and owns all item/pickup decisions; native rules handle real-time control and authorized execution. The same character naturally narrates and reacts to actual outcomes. [Full frozen requirements](docs/issac/最终总需求冻结20261109.md) · [Numbered acceptance matrix](docs/issac/需求验收矩阵20261109.csv) · [Freeze manifest](configs/issac/requirements-freeze.json). Final scope remains native RTX4090, local inference, NCM01, three modes, real 512/25 mouth/fang quality, MC rev04/title-only and a genuine official 600-second local recording. The local AI backend remains unqualified; keeping existing Swift files does not require running Swift or count as runtime acceptance. No new model download is authorized. This documentation freeze does not resume tests or activate services. Earlier dual-strategy/narrator plans are historical.
-
-**Historical R12 checkpoint:** [R12 scope](docs/issac/第十二轮保留Swift与界面渲染修复20261108.md) · [R11 results](docs/evidence/issac-round11-acceptance-20261108.json) · [2026-11-08 persona and deployment audit](docs/issac/奶妹人格与DSH配置核查20261108.md). These are evidence of their recorded scope and time, not final core-authority or full recording acceptance.
+**issac 当前约束（2026-11-09）：** 奶妹核心沿用原 **gpt-6-luna / Responses API渠道**，同一DSH直接读游戏状态、查指定离线wiki、决定全部道具和掉落并自然说话；4090原生Windows承载游戏、DSH/工具和音画。最终交付官方连续120秒本地录播，MC rev04仅改标题、NCM01、三形态和真实512/25口型要求保留。**用户暂停测试继续有效；本次仅文档更新，源码与远端尚待对齐。** [渠道与职责修订](docs/issac/原渠道与核心职责修订20261109.md) · [总需求v2](docs/issac/最终总需求冻结20261109.md) · [140项矩阵](docs/issac/需求验收矩阵20261109.csv) · [当前计划](configs/issac/live120.json)。
 <!-- deployment-branch:end -->
 
 **Isaac presentation reuses MC:** full-canvas 1920×1080 game capture, a transparent programme overlay, the lower-right 264×264 circular avatar, and existing chat/caption/audio/playback rules. Visual changes are limited to title text: **奶妹 · 以撒的结合**. [Reviewed source and reuse contract](docs/issac/MC同屏方案沿用与标题替换20261107.md). Naimei retains 512×512/25FPS and NCM01. The isolated programme/preview/layout routes are implemented; actual service, official scene and recording acceptance remain pending. All 16 MC reference files were rechecked unchanged.

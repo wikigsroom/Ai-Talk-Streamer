@@ -2,10 +2,10 @@
   "schema_version": 1,
   "round": "R2",
   "branch": "issac",
-  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "phase": "historical_native_game_media_notes_not_current_execution_authority",
   "candidate_frozen": false,
   "application_tests_started": false,
-  "scope": "All remaining development U05-U30, including the full acceptance and official recording tools",
+  "scope": "Historical native game, media, presentation or source-process planning subset; withdrawn inference planning removed",
   "items": [
     {
       "id": "U05",
@@ -89,17 +89,6 @@
       "status": "code_complete_pending_acceptance",
       "source_files": [
         "integration/isaac-agent/dsh-host/isaac-plugin/index.mjs"
-      ],
-      "runtime_accepted": false
-    },
-    {
-      "id": "U14",
-      "code": "Native existing-model launcher, local-only gateway and qualification",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "integration/issac/local_model.py",
-        "scripts/qualify_issac_model.py",
-        "scripts/prepare_issac_native_inputs.py"
       ],
       "runtime_accepted": false
     },
@@ -278,5 +267,11 @@
   "final_recording_created": false,
   "public_broadcast_authorized": false,
   "runtime_accepted": false,
-  "development_document": "docs/issac/第二轮完整开发与统一验收20261107.md"
+  "development_document": "docs/issac/第二轮完整开发与统一验收20261107.md",
+  "current_execution_authority": false,
+  "documentation_amended_on": "2026-11-09",
+  "original_historical_source_snapshot_in_git": true,
+  "current_inventory": "configs/issac/development-channel-restoration.json",
+  "current_requirements": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "tests_paused_by_user": true
 }

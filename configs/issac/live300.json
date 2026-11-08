@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "amendment_id": "NM-ISSAC-EXECUTION-300S-20261109-v1",
+  "branch": "issac",
+  "base_requirements": "configs/issac/requirements-freeze.json",
+  "document": "docs/issac/300秒录播推进修订20261109.md",
+  "required_official_recording_seconds": 300,
+  "core_actor": "naimei",
+  "strategic_owner": "naimei_core_dsh",
+  "separate_strategy_ai_enabled": false,
+  "new_model_download_authorized": false,
+  "public_broadcast_authorized": false,
+  "preserved_unrelated_worktree_changes": [
+    {
+      "path": "docs/issac/实施任务与验收清单20261107.csv",
+      "worktree_sha256": "10e9199849894b36f9204e9dacf7e3d7cd1c31ef70a35c6b7087aef8f34adc65",
+      "candidate_content": "HEAD_blob_only"
+    }
+  ],
+  "latency_initial_engineering_targets": {
+    "decision_p95_ms": 8000,
+    "decision_window_seconds": 20,
+    "core_turn_deadline_ms": 18000,
+    "state_poll_ms": 500,
+    "tool_timeout_ms": 2500,
+    "accepted_as_measured": false
+  },
+  "runtime_or_media_acceptance_claimed": false,
+  "tests_paused_by_user": false,
+  "current_action_scope": "whole_round_implementation_then_uniform_validation_and_local_recording",
+  "game_and_media_host": "native_windows_rtx4090",
+  "core_model_channel": {
+    "model": "gpt-6-luna",
+    "protocol": "responses",
+    "provider": "original_user_saved_api_channel",
+    "credentials_source": "legitimate_original_private_channel_configuration",
+    "original_configuration_entrypoint": "configs/channel.env",
+    "secrets_or_endpoint_embedded": false,
+    "historical_channel_evidence": "docs/evidence/dsh-real-channel-three-turn.json",
+    "historical_channel_evidence_is_current_deployment_acceptance": false,
+    "same_naimei_core_for_observation_tools_decisions_and_speech": true,
+    "automatic_model_or_channel_replacement_allowed": false,
+    "runtime_alignment": "pending_source_and_target_deployment_verification",
+    "isolated_private_configuration": "private/issac/channel.env"
+  },
+  "cloud_media_services_allowed": false
+}

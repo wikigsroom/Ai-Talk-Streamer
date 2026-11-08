@@ -3,7 +3,7 @@
   "enabled": true,
   "character_id": "naimei",
   "source_lock": "extensions/naimei-dsh/sources.lock.json",
-  "local_inference_only": true,
+  "inference_channel": "original_saved_api_channel",
   "soul_card": "configs/naimei/soul.md",
   "humanizer_policy": "configs/naimei/humanizer.md",
   "meme_max_chars": 900,

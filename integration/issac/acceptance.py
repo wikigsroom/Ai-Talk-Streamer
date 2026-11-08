@@ -17,7 +17,7 @@ from .deployment import require_candidate
 from .saves import SaveProtection
 from .delivery import recording_seconds,recording_gate
 
-GATES={'native_game','save_protection','ordinary_inputs','wiki_prompt_tools','local_model','verified_events',
+GATES={'native_game','save_protection','ordinary_inputs','wiki_prompt_tools','original_api_channel','verified_events',
  'seven_extensions','ncm01','mouth_fangs_25fps','body_continuity','mc_programme','single_audio','fault_recovery',
  'cohost_1800','cohost_7200','full_run_outcome','rollback','official_recording_600'}
 
@@ -27,7 +27,7 @@ REVIEW_CHECKS={
  'ordinary_inputs':{'actual_normal_inputs','one_controller','confirmed_normal_pause','controller_loss_pause','no_arbitrary_lua_route'},
  'wiki_prompt_tools':{'complete_skill_in_actual_prompt','actual_fifth_wiki_tool_called','forced_rep_and_version_citations',
     'bounded_read_only_queries','stale_context_rejected'},
- 'local_model':{'actual_current_model_qualified','existing_retained_weights','local_only','finish_reason_complete','no_cloud_fallback'},
+ 'original_api_channel':{'actual_original_channel_probe','gpt_6_luna_responses','same_core_tool_result_roundtrip','finish_reason_complete','no_channel_or_model_substitution'},
  'verified_events':{'actual_native_causality','accepted_not_success','same_run_room_bridge','actual_pcm_before_spoken','no_restart_replay'},
  'seven_extensions':{'all_seven_loaded_receipts','persona_applied','game_facts_not_viewer_memories','single_naimei_core_authority'},
  'ncm01':{'merged_reference_hash_private','locked_omnivoice_parameters','generated_audio_auditioned','no_reference_audio_served','no_old_voice_fallback'},
@@ -105,7 +105,7 @@ class Runner:
         routes={'studio':(8062,'/health'),'engine':(8040,'/health'),'voice':(9893,'/health'),
             'narrator':(3104,'/api/dsh/status'),'player':(3104,'/api/dsh/platforms/status'),
             'game':(9534,'/status'),'state':(9532,'/query?topic=state'),'naimei_core':(3104,'/api/dsh/issac/core/status'),
-            'extensions':(3104,'/api/dsh/extensions'),'gateway':(1235,'/health')}
+            'extensions':(3104,'/api/dsh/extensions'),'channel':(3104,'/api/dsh/extensions/model')}
         values=await asyncio.gather(*(self.json(http,*route) for route in routes.values()),return_exceptions=True)
         return {key:value if not isinstance(value,Exception) else {'error':'SERVICE_SAMPLE_FAILED'} for key,value in zip(routes,values)}
 
@@ -115,6 +115,7 @@ class Runner:
             [str(inside(self.root,paths['game_python'])),'-X','utf8','-B','-m','unittest','discover','-s','integration/isaac-agent/tests','-q'],
             [str(inside(self.root,paths['node'])),'--test','integration/issac/tests/contracts.test.mjs',
               'integration/issac/tests/naimei_core.test.mjs',
+              'integration/issac/tests/channel.test.mjs',
               'integration/issac/tests/model_backend.test.mjs',
               'integration/isaac-agent/tests/test_dsh_binding.mjs']]
         tests.append([str(inside(self.root,paths['node'])),'--test',

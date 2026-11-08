@@ -2,7 +2,7 @@
   "schema_version": 1,
   "round": "R11",
   "branch": "issac",
-  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "phase": "historical_native_game_media_notes_not_current_execution_authority",
   "candidate_frozen": false,
   "application_tests_started": false,
   "previous_phase": {
@@ -10,7 +10,6 @@
     "status": "closed_failed",
     "closed_unix": 1794134262.020002
   },
-  "scope": "Correct the actual fixture failure and estimate the retained local model at whole-layer boundaries, then remeasure real media with the existing compilation cache; no accepted result is inherited",
   "items": [
     {
       "id": "R1101",
@@ -22,23 +21,12 @@
       "runtime_accepted": false
     },
     {
-      "id": "R1102",
-      "code": "Estimate four bounded additional GPU fractions between .36 and .338 to find actual whole-layer boundaries; preserve retained weights, 16384 context and every media/host/GPU margin",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "integration/issac/resources.py",
-        "integration/issac/tests/test_round8.py",
-        "integration/issac/tests/test_round11.py"
-      ],
-      "runtime_accepted": false
-    },
-    {
       "id": "R1103",
       "code": "Preserve the actual R10 closure, successful media capacity and failed model estimates; finish all docs and prewritten direct-transfer, observation and generated-media export tools before freeze",
       "status": "code_complete_pending_acceptance",
       "source_files": [
         "docs/evidence/issac-round10-acceptance-20261108.json",
-        "docs/issac/第十一轮层分配与原生回归修正20261108.md",
+        "docs/issac/第十一轮音画与原生回归修正20261108.md",
         "configs/issac/development-round-11.json",
         "configs/issac/execution-rounds.json",
         "AGENTS.md",
@@ -63,5 +51,12 @@
     "Body inspection only exports twelve unique identifiers; return transfer allows generated diagnostic speech and candidate-bound media only, no source reference audio/transcript, secrets or arbitrary project paths",
     "Device transfers restricted to direct ZeroTier peer addresses, finite file sets/hash verification and task-owned bounded local servers; no virtualization or foreign process closure",
     "NCM01 settings, 512/25/4steps/batch1/model+VAE compile/FP32 rope, original saves, MC title-only, single audio and all 18 gates retained; no official recording claimed"
-  ]
+  ],
+  "scope": "Historical native game, media, presentation or source-process planning subset; withdrawn inference planning removed",
+  "current_execution_authority": false,
+  "documentation_amended_on": "2026-11-09",
+  "original_historical_source_snapshot_in_git": true,
+  "current_inventory": "configs/issac/development-channel-restoration.json",
+  "current_requirements": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "tests_paused_by_user": true
 }

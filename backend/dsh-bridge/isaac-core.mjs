@@ -33,9 +33,13 @@ export class NaimeiGameCore {
   description(name) {return ISAAC_CORE_TOOLS[name];}
   status() {
     const times=[...this.latencies].sort((a,b)=>a-b);
+    const channel=this.bridge.channel.publicInfo();
+    let candidateId=null;
+    try { candidateId=JSON.parse(readFileSync(join(this.root,'.setup/candidate.json'),'utf8')).id; } catch {}
     return {ready:!!this.bridge.host?.ready&&!!this.bridge.health().persona_injection_ready,actor_id:'naimei',
       strategic_owner:'naimei_core_dsh',automatic:this.enabled,busy:this.busy,turns:this.turns,failures:this.failures,
-      last_error:this.lastError,dshVersion:this.bridge.policy.versions.dsh_candidate,model:this.bridge.channel.publicInfo().model,
+      last_error:this.lastError,dshVersion:this.bridge.policy.versions.dsh_candidate,model:channel.model,
+      protocol:channel.protocol,channel_source:channel.source,candidate_id:candidateId,
       process_id:process.pid,registeredTools:this.names,prompt:this.prompt.receipt,independent_strategy_host:false,
       decision_latency_p95_ms:times.length?times[Math.min(times.length-1,Math.ceil(times.length*.95)-1)]:null};
   }
@@ -117,7 +121,7 @@ export class NaimeiGameCore {
   }
   async generate(context,turn,input,timeout=18000) {
     const bridge=this.bridge,base=bridge.channel.snapshot();
-    const snapshot={...base,provider:'issac-naimei-core-local',baseUrl:'http://127.0.0.1:1235/core/v1',
+    const snapshot={...base,provider:'issac-naimei-core',
       revision:digest({base:base.revision,prompt:this.prompt.receipt.sha256})};
     this.activeAbort=new AbortController();
     const signal=AbortSignal.any([this.activeAbort.signal,AbortSignal.timeout(timeout)]);

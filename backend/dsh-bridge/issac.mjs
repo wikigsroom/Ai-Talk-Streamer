@@ -3,22 +3,8 @@ import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { StreamBridge } from './server.mjs';
 import { NaimeiGameCore } from './isaac-core.mjs';
-import { ChannelConfig, digest, canonical } from './channel.mjs';
+import { OriginalIsaacChannel, digest, canonical } from './channel.mjs';
 import { requireValue } from './state.mjs';
-
-export class IsaacLocalChannel extends ChannelConfig {
-  constructor(root){super(root);this.root=root;}
-  snapshot(){
-    const model=JSON.parse(readFileSync(join(this.root,'private/issac/model.json'),'utf8'));
-    const baseUrl='http://127.0.0.1:1235/narrator/v1';
-    if(typeof model.model!=='string'||!model.model.trim())throw Error('ACTUAL_LOCAL_MODEL_REQUIRED');
-    const systemPrompt='你是奶妹，正在玩以撒的结合。只讲当前已验证的事实。accepted只表示计划被接收；只有succeeded或真实观察才能说已做到。不猜未知药丸、道具、路线、解锁或伤害原因。不把游戏状态当作观众记忆。没有当前游戏证据时只能闲聊或说自己尚未看清。口播最多80字。';
-    return Object.freeze({source:'issac_fixed_local_gateway',revision:digest({baseUrl,model:model.model,systemPrompt}),
-      provider:'issac-narrator-local',model:model.model,protocol:'chat_completions',baseUrl,systemPrompt,getApiKey:()=> 'local-only'});
-  }
-  settings(){const x=this.publicInfo();return {...x,local_only:true,base_url:'http://127.0.0.1:1235/narrator/v1'};}
-  save(){throw Error('ISAAC_MODEL_SETTINGS_ARE_FIXED_IN_PRIVATE_INSTALLATION');}
-}
 
 export class GameNarrator {
   constructor(bridge){this.bridge=bridge;this.root=bridge.root;this.pending=new Map();this.busy=false;this.closed=false;this.last=0;this.cursor=0;
@@ -83,7 +69,7 @@ export class GameNarrator {
 export class IsaacBridge extends StreamBridge {
   constructor(root,runtime,options={}){
     super(root,runtime,{policyFile:'configs/issac/bridge-policy.json',avatarUrl:'http://127.0.0.1:8062',...options});
-    this.channel=new IsaacLocalChannel(root);
+    this.channel=new OriginalIsaacChannel(root);
   }
   async start(){await super.start();this.gameNarrator=new NaimeiGameCore(this);this.host.gameplay=this.gameNarrator;
     this.gameListener=event=>{if(event.event_type==='playback.completed')void this.gameNarrator.completed(event).catch(()=>{});};this.db.on('event',this.gameListener);

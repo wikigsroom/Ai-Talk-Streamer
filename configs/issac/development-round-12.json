@@ -2,7 +2,7 @@
   "schema_version": 1,
   "round": "R12",
   "branch": "issac",
-  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "phase": "historical_native_game_media_notes_not_current_execution_authority",
   "candidate_frozen": false,
   "application_tests_started": false,
   "previous_phase": {
@@ -10,7 +10,6 @@
     "status": "closed_failed",
     "closed_unix": 1794136579.5052083
   },
-  "scope": "Retained Swift, BF16 initialization allocation, actual loaded configuration and user-confirmed official physical-black diagnostics",
   "items": [
     {
       "id": "R1201",
@@ -26,19 +25,6 @@
       "runtime_accepted": false
     },
     {
-      "id": "R1202",
-      "code": "Use the existing hash-pinned local SDK to estimate and load the same exact Swift first shard with context16384, Flash Attention and batch64; require actual loaded-model discovery and echoed configuration, preserving all capacity margins",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "configs/issac/model-loading.json",
-        "integration/issac/model_backend.mjs",
-        "integration/issac/local_model.py",
-        "integration/issac/tests/model_backend.test.mjs",
-        "integration/issac/acceptance.py"
-      ],
-      "runtime_accepted": false
-    },
-    {
       "id": "R1203",
       "code": "Diagnose the physically black signed isolated official client through two fixed ordinary Chromium renderer profiles, current ownership and actual pixels; never change system drivers, authentication, capture restrictions or public broadcast state",
       "status": "code_complete_pending_acceptance",
@@ -49,22 +35,6 @@
         "scripts/run_issac_round.py",
         "integration/issac/tests/test_round12.py",
         "integration/issac/tests/test_round3.py"
-      ],
-      "runtime_accepted": false
-    },
-    {
-      "id": "R1204",
-      "code": "Persist the resolved user choice to retain Swift with zero new weights, the physical-black confirmation, read-only preparation findings and every prewritten round transfer/review/closure tool before freeze",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "configs/issac/proposals/local-model-choice-20261108.json",
-        "docs/evidence/issac-round12-preparation-20261108.json",
-        "docs/issac/第十二轮保留Swift与界面渲染修复20261108.md",
-        "configs/issac/development-round-12.json",
-        "configs/issac/execution-rounds.json",
-        "AGENTS.md",
-        "README.md",
-        "docs/issac/完整更新方案20261107.md"
       ],
       "runtime_accepted": false
     }
@@ -82,11 +52,15 @@
   "manual_review_coverage": [
     "Complete tracked diff, every new source/test/config/document, existing upstream loader and SDK interfaces, and all finite R12 transfer/observation/renderer/closure/generated-media tools read before any tests",
     "Original BF16 model precision retained; custom VAE only receives supported dtype, Diffusers low CPU initialization only affects the dedicated diffusion loader, original descriptors restore even on exceptions, actual initialization peaks remain measured",
-    "Existing SDK entry is hash pinned; exact retained local shard and explicit local device required; catalogue presence cannot establish a loaded model; estimate/load configuration identical and actual echoed parameters mandatory",
-    "All original margins and 16384 context retained; no new weights/dependencies, expert reduction, cache quantization or forced over-budget model load",
     "Official renderer flags use a fixed allowlist without security, capture, account or encoder overrides; current PID/creation/profile and real foreground-owned pixels remain required, no UI/scene quality approved by diagnostics",
     "Existing official-launch regression fixture includes its new public renderer configuration without relaxing foreign-client or short-lived-launcher rejection",
-    "Prior two task-owned main processes independently found gone, receiver rechecks exact identities and application trees; no forced closure or foreign process cleanup",
-    "User keep-Swift and physical-black decisions persisted; old Qwen proposal remains declined and zero downloads; NCM01 private references excluded, frozen media, saves, MC title-only and all 18 gates retained"
-  ]
+    "Prior two task-owned main processes independently found gone, receiver rechecks exact identities and application trees; no forced closure or foreign process cleanup"
+  ],
+  "scope": "Historical native game, media, presentation or source-process planning subset; withdrawn inference planning removed",
+  "current_execution_authority": false,
+  "documentation_amended_on": "2026-11-09",
+  "original_historical_source_snapshot_in_git": true,
+  "current_inventory": "configs/issac/development-channel-restoration.json",
+  "current_requirements": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "tests_paused_by_user": true
 }

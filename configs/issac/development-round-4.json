@@ -2,7 +2,7 @@
   "schema_version": 1,
   "round": "R4",
   "branch": "issac",
-  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "phase": "historical_native_game_media_notes_not_current_execution_authority",
   "candidate_frozen": false,
   "application_tests_started": false,
   "previous_phase": {
@@ -10,7 +10,7 @@
     "status": "closed_failed",
     "closed_unix": 1794024962.507747
   },
-  "scope": "All observed R3 corrections, complete diagnostic/regression tools and documentation before uniform immutable testing",
+  "scope": "Historical native game, media, presentation or source-process planning subset; withdrawn inference planning removed",
   "items": [
     {
       "id": "R401",
@@ -31,17 +31,6 @@
         "configs/issac/offline-voice-dependencies.json",
         "integration/issac/application.py",
         "scripts/diagnose_issac.py"
-      ],
-      "runtime_accepted": false
-    },
-    {
-      "id": "R403",
-      "code": "Use Windows standard isolated profiles and fresh-child known-folder proof for native clients",
-      "status": "code_complete_pending_acceptance",
-      "source_files": [
-        "integration/issac/windows_profile.py",
-        "integration/issac/local_model.py",
-        "integration/issac/livehime.py"
       ],
       "runtime_accepted": false
     },
@@ -130,5 +119,11 @@
     "uniform interpreter selection and inherited HTTP fixture",
     "truthful closed R3 evidence and all sixteen MC source hashes",
     "all R401-R410 inventory paths, review status and no unresolved code items"
-  ]
+  ],
+  "current_execution_authority": false,
+  "documentation_amended_on": "2026-11-09",
+  "original_historical_source_snapshot_in_git": true,
+  "current_inventory": "configs/issac/development-channel-restoration.json",
+  "current_requirements": "NM-ISSAC-REQUIREMENTS-20261109-v2",
+  "tests_paused_by_user": true
 }

@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "round": "CHANNEL-RESTORATION-300",
+  "branch": "issac",
+  "phase": "whole_round_source_complete_pending_acceptance",
+  "requirements_authority": "NM-ISSAC-REQUIREMENTS-20261109-v3",
+  "document": "docs/issac/原渠道与核心职责修订20261109.md",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "tests_paused_by_user": false,
+  "historical_inventories_are_current_execution_authority": false,
+  "items": [
+    {
+      "id": "CR01",
+      "code": "Restore the original saved gpt-6-luna Responses API channel for the same Naimei core and all extensions; inherit legitimate private configuration without rewriting sibling installations",
+      "status": "code_complete_pending_acceptance",
+      "runtime_accepted": false,
+      "source_files": [
+        "backend/dsh-bridge/channel.mjs",
+        "backend/dsh-bridge/server.mjs",
+        "backend/dsh-bridge/host.mjs",
+        "backend/dsh-bridge/issac.mjs",
+        "integration/issac/tests/channel.test.mjs"
+      ]
+    },
+    {
+      "id": "CR02",
+      "code": "Align actual Responses tool-call and tool-result round trips, cancellation, timeouts and stale-result rejection with current game state, full rep wiki and all five restricted game tools",
+      "status": "code_complete_pending_acceptance",
+      "runtime_accepted": false,
+      "source_files": [
+        "backend/dsh-bridge/channel.mjs",
+        "backend/dsh-bridge/isaac-core.mjs",
+        "backend/dsh-bridge/issac.mjs"
+      ]
+    },
+    {
+      "id": "CR03",
+      "code": "Verify sole Naimei ownership of all active/passive item and ordinary pickup decisions, target-specific fresh authorization, actual effect receipts and natural self-talk from the same context",
+      "status": "code_complete_pending_acceptance",
+      "runtime_accepted": false,
+      "source_files": [
+        "backend/dsh-bridge/isaac-core.mjs",
+        "backend/dsh-bridge/issac.mjs",
+        "integration/issac/game_policy.py",
+        "integration/issac/events.py"
+      ]
+    },
+    {
+      "id": "CR04",
+      "code": "Align native startup and runtime configuration with the original API channel; remove withdrawn inference startup prerequisites and budget only actual game, tools and media peaks on RTX4090",
+      "status": "code_complete_pending_acceptance",
+      "runtime_accepted": false,
+      "source_files": [
+        "configs/issac/runtime.json",
+        "integration/issac/application.py",
+        "scripts/run_issac_round.py"
+      ]
+    },
+    {
+      "id": "CR05",
+      "code": "Align channel controls, readiness and failure reporting; validate private configuration isolation, seven extensions, API latency and cancellation without leaking credentials or stale speech",
+      "status": "code_complete_pending_acceptance",
+      "runtime_accepted": false,
+      "source_files": [
+        "backend/dsh-bridge/server.mjs",
+        "backend/dsh-bridge/issac.mjs",
+        "integration/issac/studio.py",
+        "web/naimei.html",
+        "web/naimei.js",
+        "tests/naimei-dsh-extensions.test.mjs",
+        "integration/issac/channel_probe.py"
+      ]
+    },
+    {
+      "id": "CR06",
+      "code": "Complete whole-round source and verification tools, review and freeze before uniform acceptance; retain NCM01, genuine 512/25 mouth and fangs, body seams, MC title-only layout, saves, long sessions and official 300-second recording",
+      "status": "code_complete_pending_acceptance",
+      "runtime_accepted": false,
+      "source_files": [
+        "scripts/run_issac_round.py",
+        "integration/issac/acceptance.py",
+        "integration/issac/recording.py",
+        "configs/issac/development-channel-restoration.json"
+      ]
+    },
+    {
+      "id": "CR07",
+      "code": "Use signed system-installed Livehime with isolated project profile, verified native software UI switch and continuous 300-second recording ownership",
+      "status": "code_complete_pending_acceptance",
+      "runtime_accepted": false,
+      "source_files": [
+        "integration/issac/livehime.py",
+        "integration/issac/official_window.py",
+        "integration/issac/recording.py",
+        "integration/issac/delivery.py",
+        "configs/issac/live300.json"
+      ]
+    }
+  ],
+  "execution_or_deployment_started_by_documentation_revision": false,
+  "public_broadcast_authorized": false
+}
