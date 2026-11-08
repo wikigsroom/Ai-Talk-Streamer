@@ -131,7 +131,7 @@ class Application:
             self.child('studio',media_py,['-X','utf8','-B','-m','integration.issac.studio',*root_arg],'studio')
             self.wait_ready('studio','http://127.0.0.1:8062/health',120)
             self.child('narrator',node,['backend/dsh-bridge/issac.mjs',str(self.root)],'narrator')
-            self.wait_ready('narrator','http://127.0.0.1:3104/api/dsh/status',120)
+            self.wait_ready('narrator','http://127.0.0.1:3104/health',120)
             compatibility=self.http('http://127.0.0.1:3104/api/dsh/probe',{},timeout=45)
             if (compatibility.get('passed') is not True or compatibility.get('model')!='gpt-6-luna'
                     or compatibility.get('protocol')!='responses'):

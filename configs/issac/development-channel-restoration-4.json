@@ -1,0 +1,18 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-D",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-d9c57af63bd9-cb67812b",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRD01","status":"code_complete_pending_acceptance","code":"Use the existing explicit narrator health endpoint before original-channel admission; public status nests health and is not a startup readiness response","source_files":["integration/issac/application.py"]},
+    {"id":"CRD02","status":"code_complete_pending_acceptance","code":"Exercise the complete ordered startup against actual HTTP envelope shapes, original channel probe and all five game tools; retain current remote failure evidence","source_files":["integration/issac/tests/test_application_startup.py","docs/evidence/issac-programme-startup-c-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}

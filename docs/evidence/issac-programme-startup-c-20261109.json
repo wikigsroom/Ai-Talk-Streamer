@@ -1,0 +1,20 @@
+{
+  "candidate_id":"issac-d9c57af63bd9-cb67812b",
+  "target":"DESKTOP-TE44HE1",
+  "original_evidence":"state/issac-acceptance/programme-startup-c.json",
+  "original_evidence_sha256":"347b2e30783d8fecbe7f58b013b83109fbd7a4aedebaf97bece19903745d1ebf",
+  "closed_unix":1794172898.9961507,
+  "whole_round_prechecks_passed":true,
+  "ncm01_ready":true,
+  "flashhead_ready":true,
+  "real_body_events_and_programme_frames_observed":true,
+  "body_event_collision_resolved":true,
+  "narrator_process_and_http_running_before_timeout":true,
+  "application_failure":"COMPONENT_READY_DEADLINE_NARRATOR",
+  "cause":"Startup inspected top-level dsh_ready on /api/dsh/status, whose actual envelope places it under health. The existing /health endpoint exposes the required readiness directly.",
+  "cleanup_faults":[],
+  "owned_official_client_closed_normally":true,
+  "source_changed_during_tests":false,
+  "recording_delivered":false,
+  "production_accepted":false
+}
