@@ -9,13 +9,27 @@ import time
 from .common import AdmissionError, file_hash, inside, read_json
 
 
+def prepare_source(root):
+    """The retained upstream reads its YAML relative to its native source CWD.
+
+    This process is the dedicated mouth worker. Keep the installation absolute
+    before changing CWD, so weights, body references and output remain isolated.
+    """
+    root=Path(root).resolve();source=inside(root,'src/flashhead')
+    if not (source/'flash_head/configs/infer_params.yaml').is_file():
+        raise AdmissionError('RETAINED_FLASHHEAD_INFERENCE_CONFIG_REQUIRED')
+    for path in (root,source):
+        if str(path) not in sys.path:sys.path.insert(0,str(path))
+    os.chdir(source)
+    return source
+
+
 class Engine:
     def __init__(self, root, mode='M03'):
         import numpy as np
         import torch
-        self.root=Path(root).resolve()
-        source=inside(root,'src/flashhead')
-        sys.path.insert(0,str(source))
+        self.root=Path(root).resolve();root=self.root
+        self.source=prepare_source(root)
         import flash_head.src.pipeline.flash_head_pipeline as module
         module.COMPILE_MODEL=False
         module.COMPILE_VAE=False

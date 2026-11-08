@@ -1,5 +1,6 @@
 ﻿param([Parameter(Mandatory=$true)][int]$ProcessId,[Parameter(Mandatory=$true)][long]$WindowHandle,[ValidateSet('inspect','record-start','record-stop')][string]$Action='inspect')
 $ErrorActionPreference='Stop'
+[Console]::OutputEncoding=[Text.UTF8Encoding]::new($false)
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
 $window=[Windows.Automation.AutomationElement]::FromHandle([IntPtr]::new($WindowHandle))

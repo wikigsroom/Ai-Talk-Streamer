@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "round": "R9",
+  "candidate_id": "issac-f793898d68b4-37f345b0",
+  "source_commit": "f793898d68b4d0864361ee589ab624c05af0cb68",
+  "status": "closed_failed",
+  "source_files_verified": 2166,
+  "source_verified_unchanged": true,
+  "uniform_checks": [
+    {
+      "check": "environment",
+      "elapsed_seconds": 15.03080189996399,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-b6bd3e5068ab4e6881da3a5afe3e4916/environment.log",
+      "log_sha256": "f7169092bda147cc8d142f8a68933b03f9ef9c1ebbbab64309295875d03d3483",
+      "passed": true
+    },
+    {
+      "check": "dependencies",
+      "elapsed_seconds": 36.44687069999054,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-b6bd3e5068ab4e6881da3a5afe3e4916/dependencies.log",
+      "log_sha256": "dac109245a2efe73fd93da5f80554f7b33cd35a6d5ce9366ece46384377904b5",
+      "passed": true
+    },
+    {
+      "check": "regressions",
+      "elapsed_seconds": 43.51324250001926,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-b6bd3e5068ab4e6881da3a5afe3e4916/regressions.log",
+      "log_sha256": "b51d705442223c1b5f1acf0d4a4444d4e47bc6049f210a598fa6a1f8fa5faceb",
+      "passed": false
+    },
+    {
+      "check": "materials-scan",
+      "elapsed_seconds": 10.911144400015473,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-b6bd3e5068ab4e6881da3a5afe3e4916/materials-scan.log",
+      "log_sha256": "b81938b38fac7a76867ee9ab967ce95750cbb837a92ca69da232a4eb40a74e53",
+      "passed": true
+    },
+    {
+      "check": "native-game",
+      "elapsed_seconds": 53.8918290999718,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-b6bd3e5068ab4e6881da3a5afe3e4916/native-game.log",
+      "log_sha256": "56e3370686c6b2a2e674d205fa4e62edf79fdff6e6a1c97f81a5651aca5c3079",
+      "passed": true
+    },
+    {
+      "check": "media-capacity",
+      "elapsed_seconds": 97.93798479996622,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-b6bd3e5068ab4e6881da3a5afe3e4916/media-capacity.log",
+      "log_sha256": "b337253d6494164e3f188ff6b619aab2f2faa95f8e64204e4318d61e23417042",
+      "passed": false
+    },
+    {
+      "actual_inference": false,
+      "check": "local-model-prepare",
+      "elapsed_seconds": 4.959337200038135,
+      "inference_requests_attempted": 0,
+      "log": "state/issac-acceptance/round-runs/round-b6bd3e5068ab4e6881da3a5afe3e4916/local-model-prepare.log",
+      "log_sha256": "ed97bd7e52ceabd572feaaaee4fa0c83e1ce94711d6c1386fc5ce3b6ec812b77",
+      "passed": false,
+      "reason": "PREREQUISITE_NOT_PASSED",
+      "requires": "media-capacity",
+      "state": "blocked"
+    },
+    {
+      "actual_inference": false,
+      "check": "local-model-qualification",
+      "elapsed_seconds": 5.061135099967942,
+      "inference_requests_attempted": 0,
+      "log": "state/issac-acceptance/round-runs/round-b6bd3e5068ab4e6881da3a5afe3e4916/local-model-qualification.log",
+      "log_sha256": "a188bb24dbd0b1b42ab16af8f906852ca145d18c2e1c90e98ada8740ff930033",
+      "passed": false,
+      "reason": "PREREQUISITE_NOT_PASSED",
+      "requires": "local-model-prepare",
+      "state": "blocked"
+    },
+    {
+      "check": "official-client-signature",
+      "elapsed_seconds": 10.567402999964543,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-b6bd3e5068ab4e6881da3a5afe3e4916/official-client-signature.log",
+      "log_sha256": "90ce968963d5fa880a03bdc347a26e29dc96dee6f957ff8daa025b74d2326e9b",
+      "passed": true
+    },
+    {
+      "check": "official-client-launch",
+      "elapsed_seconds": 21.65263450006023,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-b6bd3e5068ab4e6881da3a5afe3e4916/official-client-launch.log",
+      "log_sha256": "74cd7287ed9a92d573dba3f890d098407f3d6d83fb0bce5b5df2334b6282a8de",
+      "passed": true
+    }
+  ],
+  "phase_closure": {
+    "candidate_id": "issac-f793898d68b4-37f345b0",
+    "source_commit": "f793898d68b4d0864361ee589ab624c05af0cb68",
+    "source_files_verified": 2166,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "phase": "acceptance_closed",
+    "defects": [
+      {
+        "path": "state/issac-acceptance/round-runs/round-b6bd3e5068ab4e6881da3a5afe3e4916/progress.json",
+        "sha256": "7e75e01a0c2b4021ecf4ea835820d226b210067c06506aa382c40024dad7d63f",
+        "failed_checks": [
+          "regressions",
+          "media-capacity",
+          "local-model-prepare",
+          "local-model-qualification"
+        ]
+      },
+      {
+        "path": "state/issac-acceptance/round-runs/round-b6bd3e5068ab4e6881da3a5afe3e4916/report.json",
+        "sha256": "cd801cd96b477440bc7bd87d94ebecbcc0f23f69420ad1bcd0de67a1999511e7",
+        "failed_checks": [
+          "regressions",
+          "media-capacity",
+          "local-model-prepare",
+          "local-model-qualification"
+        ]
+      },
+      {
+        "path": "state/issac-acceptance/runs/accept-b3319a3410864dde8ea5025a35fc054e/regression.json",
+        "sha256": "67e456b4b6bef9ad074da567c40323275176f541c04642d258cd7b4da8fa30eb",
+        "failed_checks": [
+          "0"
+        ]
+      }
+    ],
+    "recorded_failures": 3,
+    "complete_acceptance_requires_all_18_verified_gates": true,
+    "next_action": "whole_correction_round_then_freeze",
+    "source_changes_permitted_only_in_new_development_round": true,
+    "closed_unix": 1794131978.0631518
+  },
+  "actual_voice_generation": {
+    "created_at": 1794131728.2706783,
+    "cuda_peak_reserved_bytes": 5945425920,
+    "cuda_resident_reserved_bytes": 2059403264,
+    "executable": "C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\python.exe",
+    "generated_audio_seconds": 17.48,
+    "generated_audio_sha256": "c7a8e8560f7b6bcec7b943d9659d8c2f78b50ddf6bb93bf3898fd97c521c278b",
+    "generation_seconds": 8.437000000034459,
+    "host_peak_bytes": 3416465408,
+    "measured_unix": 1794131772.7211447,
+    "passed": true,
+    "pid": 48076,
+    "precision": "torch.float16",
+    "quality_accepted": false,
+    "reference_preprocess_prompt": false,
+    "role": "voice",
+    "scope": "capacity_only",
+    "stage": "measured",
+    "started_unix": 1794131733.1547894,
+    "steps": 32,
+    "voice_freeze_id": "NM-VOICE-FINAL-20261106-v1",
+    "voice_id": "NCM01"
+  },
+  "voice_model_loaded": true,
+  "mouth_model_loaded": false,
+  "actual_mouth_failure": {
+    "error": "[Errno 2] No such file or directory: 'flash_head/configs/infer_params.yaml'",
+    "failed_unix": 1794131810.2678373,
+    "passed": false,
+    "quality_accepted": false,
+    "role": "mouth",
+    "scope": "capacity_only"
+  },
+  "actual_voice_worker_closed": true,
+  "regression_results": [
+    {
+      "exit_code": 1,
+      "seconds": 2.969000000040978,
+      "test": 0
+    },
+    {
+      "exit_code": 0,
+      "seconds": 14.609000000054948,
+      "test": 1
+    },
+    {
+      "exit_code": 0,
+      "seconds": 0.3119999999180436,
+      "test": 2
+    },
+    {
+      "exit_code": 0,
+      "seconds": 6.469000000040978,
+      "test": 3
+    },
+    {
+      "exit_code": 0,
+      "seconds": 8.515999999945052,
+      "test": 4
+    }
+  ],
+  "regression_counts": {
+    "tests": 918,
+    "passed": 910,
+    "skipped": 7,
+    "errors": 1
+  },
+  "regression_error": "Round6 fixture replaced sys.path with []; native_audio import required the real standard-library http.server -> html, causing ModuleNotFoundError in fixture only",
+  "official_ui": {
+    "read_successful": true,
+    "output_encoding": "gb18030",
+    "start_controls": 0,
+    "stop_controls": 0,
+    "recording_indicator": false,
+    "actual_scene_accepted": false,
+    "utf8_protocol_error": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xdf in position 72: invalid continuation byte",
+    "captured_pixels_accepted": false
+  },
+  "media_concurrent_capacity_passed": false,
+  "model_inference_requests_attempted": 0,
+  "body_quality_approved": false,
+  "official_recording_created": false,
+  "public_broadcast_started": false
+}

@@ -5,6 +5,7 @@ from copy import deepcopy
 import importlib.util
 import json
 from pathlib import Path
+import sys
 import tempfile
 from types import SimpleNamespace
 import unittest
@@ -146,7 +147,7 @@ class DependencyImportDiagnosticsTests(unittest.TestCase):
         def observe(value,**kwargs):events.append(json.loads(value))
         with patch.dict('sys.modules',{'sentencepiece':modules['sentencepiece']}),patch('builtins.print',side_effect=observe),\
              patch('faulthandler.enable'),patch('faulthandler.dump_traceback_later'),\
-             patch('faulthandler.cancel_dump_traceback_later'),patch('sys.path',[]),\
+             patch('faulthandler.cancel_dump_traceback_later'),patch('sys.path',list(sys.path)),\
              patch('pathlib.Path.cwd',return_value=Path('.')),patch('importlib.import_module',side_effect=load):
             exec(code,{})
         self.assertEqual(loaded,list(names))

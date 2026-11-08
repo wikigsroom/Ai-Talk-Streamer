@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "round": "R10",
+  "branch": "issac",
+  "phase": "all_round_code_complete_awaiting_commit_and_freeze",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "previous_phase": {
+    "candidate_id": "issac-f793898d68b4-37f345b0",
+    "status": "closed_failed",
+    "closed_unix": 1794131978.0631518
+  },
+  "scope": "Complete all actual R9 source-CWD, fixture and official UTF8 protocol corrections; all quality and capacity requirements unchanged",
+  "items": [
+    {
+      "id": "R1001",
+      "code": "Select the retained FlashHead source working directory before its actual relative YAML import; retain absolute installation paths for weights, references and outputs",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/flashhead.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R1002",
+      "code": "Exercise the actual FlashHead source/config import without loading weights, and keep standard library paths in the real audio diagnostic fixture",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/diagnose_issac.py",
+        "integration/issac/tests/test_round6.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R1003",
+      "code": "Emit official native UI JSON in UTF8 while preserving the Windows PowerShell script BOM and existing recording-only action allowlist",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/issac_livehime_ui.ps1"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R1004",
+      "code": "Reproduce the unrelated Unicode working directory, absent config, and native non-ASCII JSON output without models or desktop actions",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/tests/test_round10.py"
+      ],
+      "runtime_accepted": false
+    },
+    {
+      "id": "R1005",
+      "code": "Retain actual R9 failure and real NCM01 result, finish all tools/docs and manual review before freeze and uniform testing",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "docs/evidence/issac-round9-acceptance-20261108.json",
+        "docs/issac/第十轮口型路径与界面协议修复20261108.md",
+        "configs/issac/development-round-10.json",
+        "configs/issac/execution-rounds.json",
+        "AGENTS.md",
+        "README.md",
+        "docs/issac/完整更新方案20261107.md"
+      ],
+      "runtime_accepted": false
+    }
+  ],
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "public_broadcast_allowed": false,
+  "existing_margins_lowered": false,
+  "manual_review_coverage": [
+    "Whole R1001-R1005 changed source, regression tools, tests, actual R9 closed failure, documents and prewritten native transfer/observation/material tools read before tests",
+    "Absolute root captured before dedicated worker CWD selection; actual retained relative YAML path and inference.py read from device; no shared source or weights patched",
+    "Actual source/config import remains model-free; original FlashHead steps/batch/compile/rope/reference and all voice parameters unchanged",
+    "Fixture keeps real standard library in a restored sys.path context; Unicode path test restores working directory before temporary directory deletion",
+    "Windows PowerShell BOM preserved; actual prefix emits UTF8 JSON, tested via native interpreter without any desktop action; public broadcast labels absent from action allowlist",
+    "Prior exact own official client normally closed after actual failed phase, with PID/ctime/executable hash and registered main HWND checks; actual no-recording UI indicator observed",
+    "Material operation limited to exactly twelve explicit mode/action identifiers; no all-candidates loop or automatic body quality approval",
+    "All private reference bytes/text excluded; all margins, 18 gates, original saves, MC title-only and genuine official 600-second recording retained"
+  ]
+}
