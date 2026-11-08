@@ -1,0 +1,152 @@
+{
+  "candidate_id": "issac-f1d12f616947-65e14e09",
+  "branch": "issac",
+  "mode_scope": "media only",
+  "game_started": false,
+  "strategy_model_loaded": false,
+  "recording_is_official_livehime": false,
+  "reference_audio_included": false,
+  "videos": [
+    {
+      "mode": "M01",
+      "name": "日光陪玩",
+      "file": "outputs/issac/三形态人物直播30秒/M01-日光陪玩-30秒.mp4",
+      "sha256": "a642a8f92b8419e4e15646fb3ebf7c5695fa242b759ec8f2cdb03e4acafdc938",
+      "duration": 29.9875,
+      "recorded_video_frames": 570,
+      "recorded_video_average_fps": 19.09,
+      "page_source_frames": 750,
+      "page_displayed_frames": 750,
+      "page_dropped_frames": 0,
+      "max_page_display_lateness_seconds": 0.01922902494331158,
+      "mouth_counters": {
+        "actual_audio_driven_mouth_frames": 175,
+        "body_frames": 750,
+        "drink_frames": 294,
+        "oral_open_frames": 156
+      },
+      "audio": {
+        "sample_count": 479573,
+        "peak": 16679,
+        "speech_rms": 2436.215,
+        "drink_interval_rms": 0.0
+      },
+      "voice_id": "NCM01",
+      "voice_freeze_id": "NM-VOICE-FINAL-20261106-v1",
+      "mouth": "FlashHead Lite 512x512/25/4steps/batch1"
+    },
+    {
+      "mode": "M02",
+      "name": "暖夜陪玩",
+      "file": "outputs/issac/三形态人物直播30秒/M02-暖夜陪玩-30秒.mp4",
+      "sha256": "68073607f336810097f6f476ebda380074a9c2c0649621bd030daeaf5b13405a",
+      "duration": 29.989,
+      "recorded_video_frames": 577,
+      "recorded_video_average_fps": 19.336,
+      "page_source_frames": 750,
+      "page_displayed_frames": 750,
+      "page_dropped_frames": 0,
+      "max_page_display_lateness_seconds": 0.020408163265301482,
+      "mouth_counters": {
+        "actual_audio_driven_mouth_frames": 186,
+        "body_frames": 750,
+        "drink_frames": 294,
+        "oral_open_frames": 184
+      },
+      "audio": {
+        "sample_count": 479573,
+        "peak": 12613,
+        "speech_rms": 1948.546,
+        "drink_interval_rms": 0.0
+      },
+      "voice_id": "NCM01",
+      "voice_freeze_id": "NM-VOICE-FINAL-20261106-v1",
+      "mouth": "FlashHead Lite 512x512/25/4steps/batch1"
+    },
+    {
+      "mode": "M03",
+      "name": "专注对局",
+      "file": "outputs/issac/三形态人物直播30秒/M03-专注对局-30秒.mp4",
+      "sha256": "caec5de3f06903a7d7f77708f056e436950025d968880f035b6379072b7553da",
+      "duration": 29.9875,
+      "recorded_video_frames": 601,
+      "recorded_video_average_fps": 20.119,
+      "page_source_frames": 750,
+      "page_displayed_frames": 750,
+      "page_dropped_frames": 0,
+      "max_page_display_lateness_seconds": 0.019591836734697665,
+      "mouth_counters": {
+        "actual_audio_driven_mouth_frames": 186,
+        "body_frames": 750,
+        "drink_frames": 294,
+        "oral_open_frames": 129
+      },
+      "audio": {
+        "sample_count": 479573,
+        "peak": 17359,
+        "speech_rms": 2602.705,
+        "drink_interval_rms": 0.0
+      },
+      "voice_id": "NCM01",
+      "voice_freeze_id": "NM-VOICE-FINAL-20261106-v1",
+      "mouth": "FlashHead Lite 512x512/25/4steps/batch1"
+    }
+  ],
+  "browser_encoder_fps_accepted_as_25": false,
+  "cleanup": {
+    "at_unix": 1794143918.7649093,
+    "processes": [
+      {
+        "name": "voice",
+        "same_owned_process_alive": false
+      },
+      {
+        "name": "live-page",
+        "same_owned_process_alive": false
+      },
+      {
+        "name": "rehearsal-browser",
+        "same_owned_process_alive": false
+      },
+      {
+        "name": "restarted-rehearsal-browser",
+        "same_owned_process_alive": false
+      }
+    ],
+    "ports": {
+      "9893": false,
+      "8072": false,
+      "9223": false
+    },
+    "resources": {
+      "gpu_total_mib": 49140,
+      "gpu_free_mib": 48253,
+      "gpu_utilization_percent": 0,
+      "host_total_bytes": 68612378624,
+      "host_available_bytes": 60819587072,
+      "comfy_running_jobs": null,
+      "at_unix": 1794143919.9715154
+    },
+    "completed_modes": [
+      "M01",
+      "M02",
+      "M03"
+    ],
+    "temporary_services_stopped": true
+  },
+  "source_commit": "f1d12f616947359ee8df710b73fe1a69f16222c9",
+  "source_files_verified": 2193,
+  "local_checks": {
+    "python_syntax_files": 382,
+    "python_syntax_errors": 0,
+    "javascript_syntax_errors": 0,
+    "node_contracts_passed": 12,
+    "shutdown_and_loading_regressions_passed": 5
+  },
+  "voice_preparation": "Six new NCM01 sentences generated before capture; OmniVoice remained resident; FlashHead generated with bounded lookahead during each recording.",
+  "body_inputs": "Same-mode real controller and complete drink candidates; no production bank approval created.",
+  "recording_limit": "Live browser received and drew all 750 frames per mode; the browser canvas capture/MediaRecorder output contains 570, 577 and 601 frames, about 19-20 FPS. This is not a 25-FPS recording acceptance.",
+  "browser_rendering": "An isolated Chrome software rendering and background scheduling profile restored continuous rAF; the default launcher profile was not changed during tests.",
+  "full_stack_status": "Prior R11 Swift cohost budget failed before inference; full-stack capacity with R12 BF16 initialization changes was not retested. Official Livehime physical-black issue remains outside these recordings.",
+  "quality_scope": "Reviewed sampled mouth/whole-page frames and decoded audio level/silence. No full body-bank, subjective voice-listening or whole-system production approval is fabricated."
+}
