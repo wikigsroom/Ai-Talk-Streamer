@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "round": "HEADER-20261109",
+  "branch": "issac",
+  "document": "docs/issac/节目角标调整20261109.md",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "items": [
+    {
+      "id": "HEADER01",
+      "code": "Persist the requested ?!播播!? programme brand and pale yellow backgrounds on both header badges",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "web/issac/mc-programme.css",
+        "web/issac/mc-programme-overlay.js",
+        "configs/issac/programme-layout.json",
+        "AGENTS.md",
+        "docs/issac/节目角标调整20261109.md"
+      ]
+    }
+  ]
+}

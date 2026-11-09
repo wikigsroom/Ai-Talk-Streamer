@@ -88,7 +88,7 @@
    const o=state.settings.overlay,identity=state.settings.identity,mode=o.danmaku?'fly':'feed';
    this.reconcileSnapshot();this.switchMode(mode);
    this.stage.dataset.scene=o.mc_scene||'play';this.stage.dataset.commentMode=mode;
-   this.brandTitle.textContent=truncate(identity.title,16);this.virtual.hidden=!identity.show_virtual_label;this.brand.hidden=!o.brand;const scene={interact:'和大家聊聊',break:'休息片刻',recover:'稍候继续'}[o.mc_scene];this.topic.textContent=truncate(scene?scene+' · '+identity.topic:identity.topic,20);this.topic.hidden=!o.brand||!identity.topic;
+   this.brandTitle.textContent=truncate(this.layout.brand_title??identity.title,16);this.virtual.hidden=!identity.show_virtual_label;this.brand.hidden=!o.brand;const scene={interact:'和大家聊聊',break:'休息片刻',recover:'稍候继续'}[o.mc_scene];this.topic.textContent=truncate(scene?scene+' · '+identity.topic:identity.topic,20);this.topic.hidden=!o.brand||!identity.topic;
    this.chat.hidden=!o.chat||mode!=='feed';this.fly.hidden=!o.chat||mode!=='fly';this.header.hidden=!o.embedded;
    this.variant=o.mc_avatar_variant||'circle';const v=this.layout.avatar_variants[this.variant];place(this.avatar,v.region);place(this.status,v.status_region);this.avatar.dataset.variant=this.variant;this.crop();
    this.tick();this.renderCaption();
