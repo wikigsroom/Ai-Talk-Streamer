@@ -105,7 +105,9 @@ export class StreamBridge {
     };
   }
   recordProbe(probe) {
-    this.probes.push(probe);if(this.probes.length>30)this.probes.shift();
+    const current=this.probes.findIndex(row=>row.session_id===probe.session_id&&row.step===probe.step);
+    if(current>=0)this.probes[current]={...probe};else this.probes.push({...probe});
+    if(this.probes.length>30)this.probes.shift();
     const folder=inside(this.root,'outputs/dsh-humanity');mkdirSync(folder,{recursive:true});
     writeFileSync(join(folder,'latest-prompt-probes.json'),JSON.stringify(this.probes,null,2));
   }

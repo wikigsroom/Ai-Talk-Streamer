@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "round": "CHANNEL-RESTORATION-300-U",
+  "branch": "issac",
+  "phase": "whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "previous_candidate": "issac-4b447453606d-23627432",
+  "previous_phase_closed": true,
+  "items": [
+    {
+      "id": "CRU01",
+      "status": "code_complete_pending_acceptance",
+      "code": "Use the installed DSH off level mapped explicitly to Responses reasoning.effort=none for Isaac gameplay only; keep the original model, original channel, all five tools and full pinned wiki. Unsupported routes fail without substitution.",
+      "source_files": [
+        "configs/issac/bridge-policy.json",
+        "backend/dsh-bridge/policy.mjs",
+        "backend/dsh-bridge/host.mjs",
+        "tests/issac-core-host.test.mjs"
+      ]
+    },
+    {
+      "id": "CRU02",
+      "status": "code_complete_pending_acceptance",
+      "code": "Record actual per-request start, first chunk/content and completion/interruption timing without prompt text or credentials; update the same session/step probe instead of duplicating it. Controlled HTTP checks the exact wire effort and two-step current-context wiki plus accepted plan through the installed DSH.",
+      "source_files": [
+        "backend/dsh-bridge/host.mjs",
+        "backend/dsh-bridge/server.mjs",
+        "tests/issac-core-host.test.mjs"
+      ]
+    },
+    {
+      "id": "CRU03",
+      "status": "code_complete_pending_acceptance",
+      "code": "Keep closed T evidence and operational entry/recording race distinctions, preserve all media, save and 18 release gates, and exclude generated candidate archives/receipts from source control.",
+      "source_files": [
+        "docs/evidence/issac-runtime-t-20261109.json",
+        "docs/issac/节目启动修正20261109.md",
+        ".gitignore"
+      ]
+    }
+  ],
+  "public_broadcast_authorized": false,
+  "runtime_acceptance_claimed": false
+}

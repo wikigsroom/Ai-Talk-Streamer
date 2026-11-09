@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "round": "CHANNEL-RESTORATION-300-T",
+  "candidate_id": "issac-4b447453606d-23627432",
+  "source_commit": "4b447453606ded4853c533a3f86fdeb68670c192",
+  "source_files_verified": 2288,
+  "source_changed_during_tests": false,
+  "five_prechecks_passed": true,
+  "failures": [
+    "The first compact same-core choice took 9673ms; the next actual wiki tool call returned after 16s and the core timed out at 18016ms.",
+    "No new actual speech frames played before the core disabled automatic gameplay and the ordinary game pause was acknowledged at frame 983.",
+    "Operational initial entry remained paused at frame 0; explicit foreground and operator resume were required."
+  ],
+  "qualified_300_created": false,
+  "final_delivery_created": false,
+  "closed": true,
+  "closed_unix": 1794204127.3165975,
+  "full_failure_sha256": "57eb394062ab2803449dd27467e6be735e7e30e7a322ccf42ff9aedccd9cc676",
+  "phase": {
+    "phase": "acceptance_closed",
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "recorded_failures": 1
+  },
+  "precheck_round": "round-f2e228eb63ed492b8a4f6318fee25fbe",
+  "mouths": {
+    "complete": true,
+    "records": [
+      {
+        "mode": "M03",
+        "folder": "state/issac-acceptance/mouth/M03-5692828bca0d46169a335291a1b740cf",
+        "archive_sha256": "a585e1c5db37527b87314d2638d58dc84e327228fdd83a1ecc71d54b38b6e6d7",
+        "frames": 1126,
+        "actual_elapsed_seconds": 45.07800000021234,
+        "fps": 24.97892541804641,
+        "p99_ms": 53.84970013983548,
+        "max_interval_ms": 69.49890009127557,
+        "quality_accepted": false
+      },
+      {
+        "mode": "M01",
+        "folder": "state/issac-acceptance/mouth/M01-db199a7bf8354fc7b283d4296ba5c66d",
+        "archive_sha256": "a54441a04196b5250ae44d0a75716ff87fd55e8fbf9a9ec0680ce6f75be58152",
+        "frames": 1125,
+        "actual_elapsed_seconds": 45.14099999982864,
+        "fps": 24.92191134454865,
+        "p99_ms": 53.21629997342825,
+        "max_interval_ms": 68.34300002083182,
+        "quality_accepted": false
+      },
+      {
+        "mode": "M02",
+        "folder": "state/issac-acceptance/mouth/M02-dccfbbd8b0264eccaf7b00cf16fc0a51",
+        "archive_sha256": "cfc6a1de0e1c7ab015aff0efdf835b0e0da05b5d9469a718004555121ecfaf86",
+        "frames": 1125,
+        "actual_elapsed_seconds": 45.061999999918044,
+        "fps": 24.965602947096137,
+        "p99_ms": 51.714600063860416,
+        "max_interval_ms": 65.22200000472367,
+        "quality_accepted": false
+      }
+    ],
+    "quality_accepted": false,
+    "returned_mode": "M03"
+  },
+  "game_closed_normally": true,
+  "official_closed_normally": true,
+  "cleanup_faults": [],
+  "protected_after_close": {
+    "protected_unchanged": true,
+    "baseline_id": "76a3a8d2337a4dd8a97877870036b57e",
+    "allowed_slot": 3,
+    "baseline_files": 2,
+    "runtime_window_position_changes": [
+      {
+        "root": 1,
+        "relative": "options.ini",
+        "permitted_option_names": [
+          "WindowPosX",
+          "WindowPosY"
+        ],
+        "baseline_sha256": "ad6e5fced2e623d34601036fb5d5b36b09fbd4aa77e3d25e3c645c58761f2c43",
+        "observed_sha256": "e788d000f547706602850f1ba813b9825b8c7cbd9d886913699319f7ec82b15b"
+      }
+    ]
+  },
+  "full_run": {
+    "incomplete": true,
+    "terminal_claimed": false
+  },
+  "actual_core_events": [
+    {
+      "kind": "core_turn_cancelled",
+      "at": 1794203872219,
+      "tool": null,
+      "elapsed_ms": 518,
+      "code": null,
+      "reason": "FRESH_CORE_DECISION_REQUIRED",
+      "decision_id": "edd939ffeb4645c0a92ccf08efb8e4f0",
+      "status": null,
+      "op": null
+    },
+    {
+      "kind": "core_tool",
+      "at": 1794203899871,
+      "tool": "isaac_submit_plan",
+      "elapsed_ms": 6,
+      "code": null,
+      "reason": null,
+      "decision_id": "eb3b417f6ab54bc5b89fa8904ca7c9b8",
+      "status": "accepted",
+      "op": null
+    },
+    {
+      "kind": "core_choice_completed",
+      "at": 1794203899886,
+      "tool": null,
+      "elapsed_ms": 9673,
+      "code": null,
+      "reason": null,
+      "decision_id": "eb3b417f6ab54bc5b89fa8904ca7c9b8",
+      "status": "accepted",
+      "op": "select_action"
+    },
+    {
+      "kind": "core_tool",
+      "at": 1794203919250,
+      "tool": "isaac_wiki_query",
+      "elapsed_ms": 227,
+      "code": null,
+      "reason": null,
+      "decision_id": "22f0870a9dd14f6090b743f9076a1fdd",
+      "status": null,
+      "op": null
+    },
+    {
+      "kind": "core_turn_failed",
+      "at": 1794203921236,
+      "tool": null,
+      "elapsed_ms": 18016,
+      "code": "MODEL_TIMEOUT",
+      "reason": null,
+      "decision_id": "22f0870a9dd14f6090b743f9076a1fdd",
+      "status": null,
+      "op": null
+    }
+  ],
+  "actual_current_load": {
+    "source_1500ms_limit_preserved": true,
+    "last_native_frame": 983,
+    "normal_pause_acknowledged": true,
+    "core_successful_choices": 1,
+    "successful_choice_ms": 9673,
+    "next_choice_timeout_ms": 18016,
+    "wiki_tool_ms": 227,
+    "new_game_speech_mouth_frames_observed": 0,
+    "registered_tools": [
+      "isaac_get_state",
+      "isaac_get_decision",
+      "isaac_lookup",
+      "isaac_wiki_query",
+      "isaac_submit_plan"
+    ],
+    "original_model": "gpt-6-luna",
+    "protocol": "responses",
+    "game_reasoning_effort": "low",
+    "actual_wiki_tool_called": true,
+    "wiki_query_completed": true,
+    "quality_accepted": false
+  },
+  "privacy": {
+    "reference_audio_or_transcription_included": false,
+    "channel_address_or_key_included": false
+  }
+}

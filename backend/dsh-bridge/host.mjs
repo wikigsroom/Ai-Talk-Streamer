@@ -118,7 +118,7 @@ export class DshHost {
       apiKeyEnv: 'STREAM_BOUND_API_KEY', displayName: '网页默认渠道',
       api: snapshot.protocol === 'responses' ? 'openai-responses' : 'openai-completions',
       baseURL: snapshot.baseUrl, models: [{ id: snapshot.model, input: ['text'], contextWindow: 32768, maxTokens: 2048,
-        ...(gameReasoningEffort?{reasoningEfforts:{low:'low'}}:{}) }],
+        ...(gameReasoningEffort?{reasoningEfforts:{off:'none',low:'low'}}:{}) }],
       defaultInput: ['text'], transport: 'sse', timeoutMs, streamIdleTimeoutMs: timeoutMs,
       retryPolicy: { mode: 'normal', maxRetries: 0 },
     } } });
@@ -135,7 +135,7 @@ export class DshHost {
     if(preparedContext)delete preparedContext.humanity_public_snapshot;
     const gameTurn=!!gameplay&&(!!preparedContext?.game_event||!!preparedContext?.game_decision);
     const gameReasoningEffort=gameTurn?this.policy.conversation.game_reasoning_effort:undefined;
-    if(gameReasoningEffort!==undefined&&gameReasoningEffort!=='low')throw Error('PINNED_GAME_REASONING_EFFORT_REQUIRED');
+    if(gameReasoningEffort!==undefined&&gameReasoningEffort!=='off')throw Error('PINNED_GAME_REASONING_EFFORT_REQUIRED');
     const maximumSteps=gameplay?8:this.policy.conversation.max_memory_tool_rounds+1;
     const contextBudget=gameTurn?this.policy.conversation.game_context_max_estimated_tokens||this.policy.conversation.context_max_estimated_tokens:this.policy.conversation.context_max_estimated_tokens;
     let steps = 0, finalReason, handle, lastAssistant = '', lastError, lastFinish;
@@ -198,6 +198,7 @@ export class DshHost {
             if (!negativeMinimal && !maintenance && !probe.has_persona) throw new Error('PERSONA_INJECTION_MISSING');
             if (probe.tools.some(name => !names.includes(name))) throw new Error('STREAM_TOOL_CATALOG_ESCAPE');
             if (probe.estimated_input_tokens > contextBudget && !maintenance) throw new Error('STREAM_CONTEXT_BUDGET');
+            const streamStarted=Date.now();probe.started_unix_ms=streamStarted;probe.phase='in_flight';
             onProbe?.(probe);
             const settle = onCall?.({ phase: 'reserve', input_sha256: digest(options.messages), provider_revision: snapshot.revision, step: steps });
             let finish = null, usage = null, sent = false, settled = false;
@@ -205,6 +206,10 @@ export class DshHost {
               sent = true;
               onCall?.({ phase: 'sent', attempt: settle });
               for await (const chunk of next()) {
+                if(probe.first_chunk_ms===undefined)probe.first_chunk_ms=Date.now()-streamStarted;
+                if(probe.first_content_ms===undefined&&/text|tool|reason|delta/.test(chunk.type)) {
+                  probe.first_content_ms=Date.now()-streamStarted;probe.first_content_type=chunk.type;
+                }
                 if (chunk.type === 'usage') usage = chunk.usage ?? chunk;
                 if (chunk.type === 'done' || chunk.type === 'finish') finish = lastFinish = chunk;
                 yield chunk;
@@ -220,6 +225,11 @@ export class DshHost {
               // Agent cancellation may close the iterator with return(), bypassing
               // both finish chunks and catch. Sent attempts still need settlement.
               if (!settled) onCall?.({ phase: 'failed', attempt: settle, sent });
+              probe.elapsed_ms=Date.now()-streamStarted;
+              probe.finish_kind=finish?.reason?.kind||null;
+              probe.phase=finish?(['error','aborted'].includes(finish.reason?.kind)?'failed':'completed')
+                :signal?.aborted?'aborted':'iterator_closed';
+              onProbe?.(probe);
             }
           });
         },
