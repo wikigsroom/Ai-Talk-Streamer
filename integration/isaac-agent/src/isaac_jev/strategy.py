@@ -371,14 +371,18 @@ class StrategyService:
         Current geometry and the native per-frame guard still veto movement.
         """
         s = self.snapshot
+        exit_room = bool(s and (s['room']['type'] == 'boss' or
+            s['room']['type'] == 'devil' and state is not None
+            and state.stage == 8 and state.progression_target == 'satan'))
         if (state is None or not s or not s['room']['clear']
-                or s['room']['type'] != 'boss' or not state.room_clear
+                or not exit_room or not state.room_clear
                 or not s['room'].get('exit', {}).get('available')
                 or not state.boss_exit_available or state.boss_exit_grid_index < 0
                 or s['enemies'] or s['projectiles'] or self._threats()):
             return None
         target = state.boss_exit_position
-        if any(e.position.distance_to(target) < e.radius+18 for e in state.floor_danger_effects):
+        if any(e.kind == 'moving_spike' and e.position.distance_to(target) < e.radius+18
+               for e in state.floor_danger_effects):
             return None
         if not math.isfinite(path_distance(state, target, state.boss_exit_grid_index)):
             return None

@@ -47,6 +47,21 @@ class DshFloorExit(unittest.TestCase):
         raw['boss_exit_available']=False;state=self.update(raw)
         self.assertIsNone(self.s._resolve_action(offer,state))
 
+    def test_observed_stage_eight_devil_exit_preserves_original_sheol_route(self):
+        raw=self.raw();raw.update(stage=8,progression_target='satan')
+        raw['layout'].update(room_type='devil',is_boss=False)
+        raw['strategy']['room_type']='devil'
+        state=self.update(raw);offer=self.exit_offer()
+        action=self.s._resolve_action(offer,state)
+        self.assertEqual(action.mode,'boss_exit');self.assertEqual(action.source,'dsh')
+
+    def test_arbitrary_devil_room_is_not_assumed_to_have_a_supported_exit(self):
+        raw=self.raw();raw['stage']=7
+        raw['layout'].update(room_type='devil',is_boss=False)
+        raw['strategy']['room_type']='devil'
+        state=self.update(raw)
+        self.assertFalse(any((o.get('action_id')or'').startswith('enter_boss_exit_') for o in self.s._offers(state)))
+
     def test_moving_spike_obstruction_blocks_alternative_and_execution(self):
         raw=self.raw();self.update(raw);offer=self.exit_offer()
         raw['danger_effects']=[{'id':88,'kind':'moving_spike','pos':raw['boss_exit_position'],'radius':24}]

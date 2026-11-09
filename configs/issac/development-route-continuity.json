@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV11",
+  "round": "NAV12",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -122,6 +122,14 @@
         "integration/isaac-agent/src/isaac_jev/strategy.py",
         "integration/isaac-agent/tests/test_dsh_floor_exit.py",
         "integration/isaac-agent/docs/ROUTE_CONTINUITY.md"
+      ]
+    },
+    {
+      "id": "NAV12-NATIVE-SPECIAL-EXIT-COMPATIBILITY",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/isaac-agent/src/isaac_jev/strategy.py",
+        "integration/isaac-agent/tests/test_dsh_floor_exit.py"
       ]
     }
   ],
