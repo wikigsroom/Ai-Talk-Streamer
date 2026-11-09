@@ -18,6 +18,9 @@ function M.new(socket, config)
     function self:available()
         return enabled and socket.gettime()>=self.retryAt
     end
+    function self:wants(count)
+        return self:available() and count>=(config.min_tracks or 4) and count<=256
+    end
     function self:distances(identity,forecasts,tracks)
         if not self:available() or #tracks==0 then return nil end
         if #tracks>256 then self.fallbacks=self.fallbacks+1;self.last_error='track_capacity';return nil end
@@ -28,7 +31,7 @@ function M.new(socket, config)
             local fields={}
             local function coordinate(value)
                 assert(type(value)=='number' and value==value and math.abs(value)<=8192,'coordinate_bounds')
-                fields[#fields+1]=string.pack('<d',value)
+                fields[#fields+1]=value
             end
             assert(#forecasts==9,'directions')
             for _,path in ipairs(forecasts) do
@@ -36,7 +39,7 @@ function M.new(socket, config)
             end
             for _,track in ipairs(tracks) do
                 for tick=0,10 do coordinate(track.path[tick].X);coordinate(track.path[tick].Y) end
-                fields[#fields+1]=string.pack('<dd',track.first,track.initial and 1 or 0)
+                fields[#fields+1]=track.first;fields[#fields+1]=track.initial and 1 or 0
             end
             local header=string.pack('<c4I4I4I4i4I4I4I4','IGP1',self.sequence,identity.frame,
                 identity.seed,identity.room,identity.stage,#tracks,10)
@@ -50,7 +53,8 @@ function M.new(socket, config)
                 assert(self.client:setoption('tcp-nodelay',true))
             end
             self.client:settimeout(remaining())
-            assert(self.client:send(header..table.concat(fields)))
+            local payload=string.pack('<'..string.rep('d',#fields),table.unpack(fields))
+            assert(self.client:send(header..payload))
             self.client:settimeout(remaining())
             local reply=assert(self.client:receive(32+9*#tracks*8))
             assert(reply:sub(1,4)=='IGR1' and reply:sub(5,32)==header:sub(5),'stale_identity')

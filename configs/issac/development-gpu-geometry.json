@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "GPU01",
+  "round": "GPU02",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -17,7 +17,8 @@
         "integration/isaac-agent/mods/IsaacJev/main.lua",
         "integration/isaac-agent/build_native_controller.py",
         "integration/isaac-agent/tests/test_gpu_geometry.py",
-        "integration/isaac-agent/tools/verify_gpu_geometry.py"
+        "integration/isaac-agent/tools/verify_gpu_geometry.py",
+        "integration/isaac-agent/sync_mod_sources.py"
       ]
     },
     {
@@ -55,6 +56,11 @@
     "initial projectile immunity and bounce paths, near-radius original native recheck, final safety guards retained",
     "owned lifecycle and graceful stop, unchanged original DSH channel, voice/mouth/MC and save authorization boundaries",
     "save-file predicate exactly covers all previously actionable suffix/slot branches, protected baseline hashes remain per check",
-    "reviewed source only in dual repositories; user CSV excluded and exact bytes preserved"
-  ]
+    "reviewed source only in dual repositories; user CSV excluded and exact bytes preserved",
+    "GPU02: adaptive admission before extraction; bulk packing retains identical byte format and finite bounds; maximum 256-track payload covered; higher-priority stream remains bounded; all includes shipped in source sync"
+  ],
+  "previous_round": {
+    "candidate_id": "issac-abb975b41f60-4a64c2be",
+    "closed_for": "Measured tiny-workload overhead and 160-track timeout/cooldown; complete adaptive/bulk-pack correction before revalidation"
+  }
 }

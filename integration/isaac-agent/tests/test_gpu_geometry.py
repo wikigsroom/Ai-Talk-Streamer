@@ -46,22 +46,29 @@ class LuaClientFailureTests(unittest.TestCase):
                 function client:connect(_,_) return 1 end
                 function client:setoption(_,_) return 1 end
                 function client:close() closed=true end
-                function client:send(body) sent=body;return #body end
+                function client:send(body)
+                    local count=string.unpack('<I4',body,25)
+                    assert(#body==32+8*(198+24*count),'payload_length')
+                    assert(string.unpack('<d',body,33)==0,'forecast_payload')
+                    assert(string.unpack('<d',body,33+198*8)==3,'trajectory_payload')
+                    sent=body;return #body
+                end
                 function client:receive(size)
                     if mode=='disconnect' then return nil,'closed' end
                     if mode=='deadline' then now=.02 end
                     local header=sent:sub(1,32)
                     if mode=='stale' then header=header:sub(1,4)..string.pack('<I4',999)..header:sub(9) end
                     local value=mode=='nan' and 0/0 or 5
-                    return 'IGR1'..header:sub(5)..string.rep(string.pack('<d',value),9)
+                    return 'IGR1'..header:sub(5)..string.rep(string.pack('<d',value),(size-32)/8)
                 end
                 local socket={gettime=function() return now end,tcp=function() return client end}
                 local item=module.new(socket,{enabled=true,deadline_ms=8})
                 local forecasts,point={}, {X=0,Y=0}
                 for i=1,9 do forecasts[i]={};for t=0,10 do forecasts[i][t]=point end end
                 local path={};for t=0,10 do path[t]={X=3,Y=4} end
-                local result=item:distances({frame=9,seed=4126411572,room=1,stage=2},forecasts,
-                    {{path=path,first=1,initial=true}})
+                local tracks={}
+                for i=1,mode=='capacity' and 256 or 1 do tracks[i]={path=path,first=1,initial=true} end
+                local result=item:distances({frame=9,seed=4126411572,room=1,stage=2},forecasts,tracks)
                 return result,item:snapshot(),closed,item:available()
             end
         ''')
@@ -73,6 +80,22 @@ class LuaClientFailureTests(unittest.TestCase):
         self.assertEqual(status[b'successes'], 1)
         self.assertFalse(closed)
         self.assertTrue(available)
+
+    def test_maximum_bulk_payload_is_accepted_without_stack_or_shape_errors(self):
+        result, status, closed, available = self.client('capacity')
+        self.assertEqual(result[9][256], 5)
+        self.assertEqual(status[b'successes'], 1)
+        self.assertFalse(closed)
+
+    def test_tiny_workloads_remain_on_cpu(self):
+        lua=LuaRuntime(encoding=None)
+        module=lua.execute((ROOT/'mods/IsaacJev/gpu_geometry.lua').read_bytes())
+        check=lua.execute(b'''return function(module)
+            local client=module.new({gettime=function()return 0 end},{enabled=true})
+            return client:wants(1)==false and client:wants(3)==false
+                and client:wants(4)==true and client:wants(256)==true and client:wants(257)==false
+        end''')
+        self.assertTrue(check(module))
 
     def test_stale_nan_timeout_and_disconnect_close_and_cool_down(self):
         for mode in ('stale', 'nan', 'deadline', 'disconnect'):

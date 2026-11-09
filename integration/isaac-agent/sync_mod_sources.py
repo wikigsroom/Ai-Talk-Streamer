@@ -1,4 +1,4 @@
-"""Back up and synchronize six controller sources (including first install) to the selected game."""
+"""Back up and synchronize all controller modules to the selected game."""
 import argparse
 from datetime import datetime
 import hashlib
@@ -8,7 +8,8 @@ import re
 import shutil
 
 ROOT=Path(__file__).resolve().parent
-FILES=('main.lua','metadata.xml','timed_spikes.lua','tnt_safety.lua','weapon_control.lua','strategy_control.lua')
+FILES=('main.lua','metadata.xml','timed_spikes.lua','tnt_safety.lua','weapon_control.lua','strategy_control.lua',
+       'runtime_profile.lua','gpu_geometry.lua')
 
 
 def main():

@@ -69,7 +69,7 @@ class CudaGeometry:
             raise RuntimeError('CUDA_REQUIRED_FOR_GPU_GEOMETRY')
         torch.set_num_threads(1)
         self.np, self.torch = np, torch
-        self.stream = torch.cuda.Stream(priority=0)
+        self.stream = torch.cuda.Stream(priority=-1)
         self.buckets = {}
         # Warm all graphs before announcing readiness. Nothing is captured or
         # compiled inside the game callback. No model weights are involved.

@@ -41,6 +41,13 @@ differ slightly: candidates within 0.25 pixels of a collision radius use the
 original native formula. Bounce trajectories, immunity, TNT, lasers, floors and
 the final native safety checks remain active.
 
+The integrated planner keeps fewer than four threats on CPU, because the
+measured communication overhead exceeds the saved arithmetic in tiny rooms.
+Payload numbers are packed in one bulk call. The worker uses a high-priority
+CUDA stream to reduce queuing alongside avatar inference; this cannot preempt
+an already executing kernel and is not a latency guarantee. Both client modules
+are included in the source-sync list as well as the in-memory controller.
+
 Run CPU/Lua contract regressions with the standard test suite. With the worker
 already ready, use `python tools/verify_gpu_geometry.py` to compare the actual TCP
 and CUDA output with an independent scalar oracle, including immunity and

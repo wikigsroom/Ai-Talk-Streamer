@@ -2305,7 +2305,7 @@ local function predictiveCombatMove(player, ignoreWaypoint)
     local forecastCollision={}
     local scoringOffsets={Vector(0,0),Vector(11,0),Vector(-11,0),Vector(0,11),Vector(0,-11)}
     local gpuForecasts,gpuDistances,gpuMainIndex,gpuBounceIndex=nil,nil,{},{}
-    if mod and mod.gpuGeometry and mod.gpuGeometry:available() and #projectiles+#contacts*2<=256 then
+    if mod and mod.gpuGeometry and mod.gpuGeometry:wants(#projectiles+#contacts) and #projectiles+#contacts*2<=256 then
         local tracks={}
         local function addTrack(entity,first,initial,bounce)
             local path={[0]=entity.Position}
