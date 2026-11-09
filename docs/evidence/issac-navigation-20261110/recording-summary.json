@@ -1,0 +1,302 @@
+{
+  "candidate_id": "issac-eafa2602b4b6-a03f1207",
+  "source_commit": "eafa2602b4b6c22358262147df0d4ac5d0d4dd69",
+  "sha256": "77915f0627bddca261be441507ef8ee3bd2f8621a0c979f898b4dc3e8b9fd9ee",
+  "duration_seconds": 300.0,
+  "decoded_frames": 9000,
+  "video": [
+    {
+      "codec_name": "h264",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "9000"
+    }
+  ],
+  "audio": {
+    "samples": 4800171,
+    "peak": 0.9884495735168457,
+    "rms": 0.10421460121870041,
+    "non_silent_10s_windows": 30
+  },
+  "roi": [
+    120,
+    150,
+    1440,
+    780
+  ],
+  "first50_comparison": [
+    {
+      "name": "original",
+      "mad": 0.1,
+      "fraction": 0.001,
+      "previous_first50_updates_per_second": 18.46,
+      "navigation_first50_updates_per_second": 12.02
+    },
+    {
+      "name": "small_objects",
+      "mad": 0.05,
+      "fraction": 0.0002,
+      "previous_first50_updates_per_second": 18.84,
+      "navigation_first50_updates_per_second": 12.26
+    }
+  ],
+  "windows": [
+    {
+      "start_seconds": 0,
+      "original": 2.0,
+      "small_objects": 2.0,
+      "strong_tile_over1": 3.2
+    },
+    {
+      "start_seconds": 10,
+      "original": 0.0,
+      "small_objects": 0.0,
+      "strong_tile_over1": 0.0
+    },
+    {
+      "start_seconds": 20,
+      "original": 4.9,
+      "small_objects": 5.0,
+      "strong_tile_over1": 17.7
+    },
+    {
+      "start_seconds": 30,
+      "original": 29.5,
+      "small_objects": 29.6,
+      "strong_tile_over1": 29.6
+    },
+    {
+      "start_seconds": 40,
+      "original": 23.7,
+      "small_objects": 24.7,
+      "strong_tile_over1": 29.4
+    },
+    {
+      "start_seconds": 50,
+      "original": 23.9,
+      "small_objects": 24.4,
+      "strong_tile_over1": 29.3
+    },
+    {
+      "start_seconds": 60,
+      "original": 29.5,
+      "small_objects": 29.6,
+      "strong_tile_over1": 29.6
+    },
+    {
+      "start_seconds": 70,
+      "original": 21.4,
+      "small_objects": 21.8,
+      "strong_tile_over1": 23.1
+    },
+    {
+      "start_seconds": 80,
+      "original": 22.7,
+      "small_objects": 24.2,
+      "strong_tile_over1": 27.0
+    },
+    {
+      "start_seconds": 90,
+      "original": 28.1,
+      "small_objects": 28.2,
+      "strong_tile_over1": 28.3
+    },
+    {
+      "start_seconds": 100,
+      "original": 29.9,
+      "small_objects": 29.9,
+      "strong_tile_over1": 29.9
+    },
+    {
+      "start_seconds": 110,
+      "original": 29.4,
+      "small_objects": 29.4,
+      "strong_tile_over1": 29.4
+    },
+    {
+      "start_seconds": 120,
+      "original": 29.6,
+      "small_objects": 29.6,
+      "strong_tile_over1": 29.6
+    },
+    {
+      "start_seconds": 130,
+      "original": 29.9,
+      "small_objects": 29.9,
+      "strong_tile_over1": 29.9
+    },
+    {
+      "start_seconds": 140,
+      "original": 28.8,
+      "small_objects": 28.8,
+      "strong_tile_over1": 28.8
+    },
+    {
+      "start_seconds": 150,
+      "original": 29.7,
+      "small_objects": 29.7,
+      "strong_tile_over1": 29.7
+    },
+    {
+      "start_seconds": 160,
+      "original": 29.7,
+      "small_objects": 29.7,
+      "strong_tile_over1": 29.7
+    },
+    {
+      "start_seconds": 170,
+      "original": 28.3,
+      "small_objects": 28.3,
+      "strong_tile_over1": 28.3
+    },
+    {
+      "start_seconds": 180,
+      "original": 28.9,
+      "small_objects": 28.9,
+      "strong_tile_over1": 28.9
+    },
+    {
+      "start_seconds": 190,
+      "original": 28.2,
+      "small_objects": 28.7,
+      "strong_tile_over1": 29.9
+    },
+    {
+      "start_seconds": 200,
+      "original": 19.1,
+      "small_objects": 19.1,
+      "strong_tile_over1": 19.4
+    },
+    {
+      "start_seconds": 210,
+      "original": 29.9,
+      "small_objects": 29.9,
+      "strong_tile_over1": 29.9
+    },
+    {
+      "start_seconds": 220,
+      "original": 21.6,
+      "small_objects": 21.6,
+      "strong_tile_over1": 21.7
+    },
+    {
+      "start_seconds": 230,
+      "original": 29.5,
+      "small_objects": 29.5,
+      "strong_tile_over1": 29.5
+    },
+    {
+      "start_seconds": 240,
+      "original": 26.0,
+      "small_objects": 27.2,
+      "strong_tile_over1": 27.8
+    },
+    {
+      "start_seconds": 250,
+      "original": 12.2,
+      "small_objects": 13.4,
+      "strong_tile_over1": 17.3
+    },
+    {
+      "start_seconds": 260,
+      "original": 27.4,
+      "small_objects": 27.4,
+      "strong_tile_over1": 27.4
+    },
+    {
+      "start_seconds": 270,
+      "original": 28.6,
+      "small_objects": 28.6,
+      "strong_tile_over1": 28.6
+    },
+    {
+      "start_seconds": 280,
+      "original": 28.7,
+      "small_objects": 28.7,
+      "strong_tile_over1": 28.7
+    },
+    {
+      "start_seconds": 290,
+      "original": 29.3,
+      "small_objects": 29.3,
+      "strong_tile_over1": 29.3
+    }
+  ],
+  "native": {
+    "active_logic_fps": {
+      "n": 49,
+      "min": 25.79329941670248,
+      "median": 29.47604761384205,
+      "max": 30.081914860164417
+    },
+    "combat_logic_fps": {
+      "n": 35,
+      "min": 27.043131631251118,
+      "median": 29.47604761384205,
+      "max": 30.081914860164417
+    },
+    "render_fps": {
+      "n": 21,
+      "min": 55.01146113377861,
+      "median": 59.47747668790143,
+      "max": 59.99770208719756
+    },
+    "render_interval_p95_ms": {
+      "n": 21,
+      "min": 17.90429997444153,
+      "median": 30.62249994277954,
+      "max": 40.02029991149902
+    },
+    "lua_update_window_mean_ms": {
+      "n": 21,
+      "min": 1.9285714285714,
+      "median": 8.5916666666667,
+      "max": 16.091666666667
+    },
+    "actual_gpu_first": {
+      "enabled": true,
+      "fallbacks": 0,
+      "last_ms": 0,
+      "last_tracks": 0,
+      "max_ms": 0,
+      "mean_ms": 0.0,
+      "requests": 0,
+      "successes": 0
+    },
+    "actual_gpu_last": {
+      "enabled": true,
+      "fallbacks": 36,
+      "last_ms": 0.99945068359375,
+      "last_tracks": 5,
+      "max_ms": 8.9588165283203,
+      "mean_ms": 1.8993580869853,
+      "requests": 3248,
+      "successes": 3212
+    }
+  },
+  "normal_pause_samples": 10,
+  "unqualified_pause_samples": 0,
+  "fault_samples": 0,
+  "stale_samples": 0,
+  "speech_completed_delta": 13,
+  "mouth_frame_delta": 2182,
+  "dsh_failures_last": 0,
+  "rooms": [
+    56,
+    57,
+    58,
+    71,
+    83,
+    84,
+    97,
+    109
+  ],
+  "limits": [
+    "Fixed-input predictor table is a controlled benchmark; this real capture has different encounters than the previous recording.",
+    "ROI motion changes are not GPU Presents; quiet scenery and genuine pauses can repeat frames.",
+    "Native render counters are 10-second sliding windows sampled every 15 seconds; the minimum is not an every-frame guarantee.",
+    "No duplicate frames, replacement audio or game speed changes were added; full 18-gate long-run production acceptance remains separate.",
+    "The first 50 seconds include the real initial drink pause (approximately the first 30 seconds), so the unfiltered ROI update count is not an active-game FPS comparison or a speedup claim. The actual native render/active simulation samples are reported separately."
+  ]
+}

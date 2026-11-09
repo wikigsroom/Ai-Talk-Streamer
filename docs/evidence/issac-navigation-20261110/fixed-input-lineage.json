@@ -1,0 +1,33 @@
+{
+  "new_benchmark_claimed": false,
+  "historical_candidate_id": "issac-b00056a2151a-22d585d0",
+  "current_candidate_id": "issac-eafa2602b4b6-a03f1207",
+  "gpu_sources_unchanged": [
+    "integration/isaac-agent/isaac_gpu_worker.py",
+    "integration/isaac-agent/mods/IsaacJev/gpu_geometry.lua",
+    "integration/isaac-agent/mods/IsaacJev/main.lua"
+  ],
+  "artifacts": [
+    {
+      "path": "相同预测输入_CPU-GPU对照表.csv",
+      "sha256": "be3fffa93a800b0cc4055ea229b8570dc6a4fe0b72871e3e6f94c511e1719ec1"
+    },
+    {
+      "path": "相同预测输入_CPU-GPU对照说明.md",
+      "sha256": "a9b4cd8566c8939efafabc1d13245b4766b66565f30ed4c3a073ce8662bf291a"
+    },
+    {
+      "path": "相同预测输入_完整定义.json",
+      "sha256": "9c682fce62206e7cff31706e8750d0d30c9b5416bf0771822e2230cb0974f8bb"
+    },
+    {
+      "path": "相同预测输入_实体明细.csv",
+      "sha256": "6a40bc437fe81383d4455bfdf188135b8fcffe6f1ad759dfdd1aad1c26abd343"
+    },
+    {
+      "path": "相同预测输入_逐次耗时.csv",
+      "sha256": "f456980b1d265ef08c5c64e15c2daeb1376a61cd3b62e715290720e685e92ae0"
+    }
+  ],
+  "note": "NAV18统一修复实际可达跨房间图、过场观测及伪进展。GPU预测三份源码字节未变；CPU/GPU相同输入表为此前实测，并非本轮重新计时。"
+}

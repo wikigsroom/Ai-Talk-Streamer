@@ -1,0 +1,303 @@
+{
+  "candidate_id": "issac-eafa2602b4b6-a03f1207",
+  "source_commit": "eafa2602b4b6c22358262147df0d4ac5d0d4dd69",
+  "scope": "actual continuous first 300 seconds of official local recording",
+  "route_transitions": 10,
+  "goal_selections": 8,
+  "constraints": 0,
+  "dsh_plans": 10,
+  "pickup_plans": 1,
+  "floor_observations": [
+    {
+      "observed_at_seconds": 3.445387199986726,
+      "stage": [
+        1,
+        0,
+        0
+      ],
+      "room": 84
+    },
+    {
+      "observed_at_seconds": 198.44640530017205,
+      "stage": [
+        2,
+        0,
+        0
+      ],
+      "room": 56
+    }
+  ],
+  "edge_repetition_violations": [],
+  "max_same_directed_edge_per_progress_epoch": 1,
+  "actual_completed_speech_delta": 12,
+  "fault_samples": 0,
+  "stale_samples": 0,
+  "qualified_engine_hold_samples": 4,
+  "limits": [
+    "Native loading may stop game rendering temporarily. No frames or gameplay values were manufactured.",
+    "Floor transitions are sampled observations; room transitions inside a floor are native event records.",
+    "This 300-second capture is not a long-run/complete-game acceptance.",
+    "A long residence in an uncleared boss room is reported with combat sample counts, not described as route-loop repair or full boss-clear proof.",
+    "CSV floor values without event identity are matching adjacent native sample estimates, explicitly labelled; they are not exact event-time floor identities."
+  ],
+  "edge_counter_scope": "Exact native event seed/restart/stage/stage_type/dimension, progress token and directed edge. Missing native scope blocks acceptance, never inferred from five-second samples.",
+  "meaningful_route_transitions": 8,
+  "combat_samples": 41,
+  "most_used_edges_per_floor": [
+    {
+      "scope": [
+        2315627824,
+        0,
+        1,
+        0,
+        0
+      ],
+      "from": 84,
+      "to": 83,
+      "count": 1
+    },
+    {
+      "scope": [
+        2315627824,
+        0,
+        1,
+        0,
+        0
+      ],
+      "from": 83,
+      "to": 84,
+      "count": 1
+    },
+    {
+      "scope": [
+        2315627824,
+        0,
+        1,
+        0,
+        0
+      ],
+      "from": 84,
+      "to": 71,
+      "count": 1
+    },
+    {
+      "scope": [
+        2315627824,
+        0,
+        1,
+        0,
+        0
+      ],
+      "from": 71,
+      "to": 58,
+      "count": 1
+    },
+    {
+      "scope": [
+        2315627824,
+        0,
+        1,
+        0,
+        0
+      ],
+      "from": 58,
+      "to": 57,
+      "count": 1
+    },
+    {
+      "scope": [
+        2315627824,
+        0,
+        1,
+        0,
+        0
+      ],
+      "from": 57,
+      "to": 56,
+      "count": 1
+    },
+    {
+      "scope": [
+        2315627824,
+        0,
+        2,
+        0,
+        0
+      ],
+      "from": 84,
+      "to": 71,
+      "count": 1
+    },
+    {
+      "scope": [
+        2315627824,
+        0,
+        2,
+        0,
+        0
+      ],
+      "from": 71,
+      "to": 84,
+      "count": 1
+    }
+  ],
+  "distinct_observed_room_scopes": 11,
+  "observed_unreachable_edges": [],
+  "stable_graph_floor_mismatches": [],
+  "sampled_room_residences": [
+    {
+      "identity": [
+        2315627824,
+        0,
+        1,
+        0,
+        0,
+        84
+      ],
+      "first_sample_seconds": 3.445387199986726,
+      "combat_samples": 0,
+      "last_sample_seconds": 28.444336600136012,
+      "span_seconds": 24.998949400149286
+    },
+    {
+      "identity": [
+        2315627824,
+        0,
+        1,
+        0,
+        0,
+        83
+      ],
+      "first_sample_seconds": 33.43618670012802,
+      "combat_samples": 2,
+      "last_sample_seconds": 43.45120670017786,
+      "span_seconds": 10.015020000049844
+    },
+    {
+      "identity": [
+        2315627824,
+        0,
+        1,
+        0,
+        0,
+        71
+      ],
+      "first_sample_seconds": 48.44767640018836,
+      "combat_samples": 2,
+      "last_sample_seconds": 58.45013520005159,
+      "span_seconds": 10.002458799863234
+    },
+    {
+      "identity": [
+        2315627824,
+        0,
+        1,
+        0,
+        0,
+        58
+      ],
+      "first_sample_seconds": 63.446580399991944,
+      "combat_samples": 2,
+      "last_sample_seconds": 78.43513350002468,
+      "span_seconds": 14.988553100032732
+    },
+    {
+      "identity": [
+        2315627824,
+        0,
+        1,
+        0,
+        0,
+        57
+      ],
+      "first_sample_seconds": 83.43520659999922,
+      "combat_samples": 0,
+      "last_sample_seconds": 83.43520659999922,
+      "span_seconds": 0.0
+    },
+    {
+      "identity": [
+        2315627824,
+        0,
+        1,
+        0,
+        0,
+        56
+      ],
+      "first_sample_seconds": 88.44441400002688,
+      "combat_samples": 21,
+      "last_sample_seconds": 193.44677920010872,
+      "span_seconds": 105.00236520008184
+    },
+    {
+      "identity": [
+        2315627824,
+        0,
+        2,
+        0,
+        0,
+        56
+      ],
+      "first_sample_seconds": 198.44640530017205,
+      "combat_samples": 0,
+      "last_sample_seconds": 198.44640530017205,
+      "span_seconds": 0.0
+    },
+    {
+      "identity": [
+        2315627824,
+        0,
+        2,
+        0,
+        0,
+        84
+      ],
+      "first_sample_seconds": 203.44581900001504,
+      "combat_samples": 0,
+      "last_sample_seconds": 208.4485914001707,
+      "span_seconds": 5.0027724001556635
+    },
+    {
+      "identity": [
+        2315627824,
+        0,
+        2,
+        0,
+        0,
+        71
+      ],
+      "first_sample_seconds": 213.4375011001248,
+      "combat_samples": 2,
+      "last_sample_seconds": 223.44537760014646,
+      "span_seconds": 10.007876500021666
+    },
+    {
+      "identity": [
+        2315627824,
+        0,
+        2,
+        0,
+        0,
+        97
+      ],
+      "first_sample_seconds": 228.44667650014162,
+      "combat_samples": 4,
+      "last_sample_seconds": 258.4983569001779,
+      "span_seconds": 30.051680400036275
+    },
+    {
+      "identity": [
+        2315627824,
+        0,
+        2,
+        0,
+        0,
+        109
+      ],
+      "first_sample_seconds": 263.44596799998544,
+      "combat_samples": 8,
+      "last_sample_seconds": 298.44529010006227,
+      "span_seconds": 34.999322100076824
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "prior_candidate": "issac-d9e9b119eeab-e9c458a8",
+  "accepted_delivery": false,
+  "actual_first_300_seconds": {
+    "room_transitions": 45,
+    "unique_rooms": [
+      71,
+      73,
+      74,
+      81,
+      83,
+      84,
+      85,
+      86
+    ],
+    "most_repeated_directed_edges": [
+      {
+        "from": 84,
+        "to": 83,
+        "count": 9
+      },
+      {
+        "from": 83,
+        "to": 84,
+        "count": 9
+      },
+      {
+        "from": 84,
+        "to": 85,
+        "count": 5
+      },
+      {
+        "from": 85,
+        "to": 86,
+        "count": 5
+      }
+    ],
+    "goal_82_selections": 8,
+    "goal_82_reached": false
+  },
+  "native_observed_map_and_graph_disagreement": {
+    "stage": 5,
+    "graph_visited_not_current_map_visited": [
+      45,
+      57,
+      58,
+      60,
+      81,
+      94,
+      95,
+      97,
+      108,
+      109,
+      110,
+      136
+    ]
+  },
+  "source_findings": [
+    "remote BFS previously checked door admission without storing the local door_path_distance/native unreachable slot result",
+    "RouteMemory.observe previously reset/merged floors before checking native pause/control hold",
+    "door destination clear/open phases and hazard runtime IDs previously participated in progress signatures"
+  ],
+  "correction": "NAV18 schema-2 stable executable observed graph; original strategic/native input/model/voice boundaries unchanged",
+  "real_room_83_full_obstacle_packet_not_retained": true,
+  "claim_boundary": "The stale floor cache and repeated target are actual records. Missing local reachability in the stored graph is a source defect proved with a split-room regression; exact original obstacle cause is not claimed."
+}
