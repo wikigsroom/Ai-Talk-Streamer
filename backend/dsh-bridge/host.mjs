@@ -264,7 +264,13 @@ export class DshHost {
       const failure = modelFailure(error, { signal, finish: lastFinish });
       console.error(JSON.stringify({event:'dsh.request_failed',session_id:sessionId,steps,phase:handle?'model_turn':'session_create',setup_stage:setupStage,local_failure:generationDiagnostic(error),provider_revision:snapshot.revision,code:failure.code,status:failure.status,retryable:!!failure.retryable,upstream_code:failure.upstreamCode||null}));
       throw failure;
-    } finally { if (handle) await handle.dispose(); this.active.delete(sessionId); }
+    } finally {
+      try { if (handle) await handle.dispose(); }
+      catch(error) {
+        console.error(JSON.stringify({event:'dsh.dispose_failed',session_id:sessionId,steps,phase:'session_dispose',local_failure:generationDiagnostic(error)}));
+        throw error;
+      } finally { this.active.delete(sessionId); }
+    }
   }
   async judgeMood({ snapshot, input, reply, signal, onCall, mode = 'chat' }) {
     if (!this.extensions || !this.ready) return null;

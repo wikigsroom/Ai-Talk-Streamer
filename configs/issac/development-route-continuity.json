@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV05",
+  "round": "NAV06",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -63,6 +63,15 @@
         "backend/dsh-bridge/model-errors.mjs",
         "integration/issac/tests/naimei_core.test.mjs"
       ]
+    },
+    {
+      "id": "NAV06-OUTER-LIFECYCLE-DIAGNOSTICS",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "backend/dsh-bridge/host.mjs",
+        "backend/dsh-bridge/isaac-core.mjs",
+        "integration/issac/tests/naimei_core.test.mjs"
+      ]
     }
   ],
   "source_review": [
@@ -79,17 +88,18 @@
     "event/playback deduplication, current turn fences, cancellation and actual failure disarm retained; no model substitution or automatic retry",
     "finite local session conflict code and create/model phase diagnostics contain no raw error message, credentials or voice inputs",
     "local diagnostics retain finite setup stage, whitelisted exception/errno/guard, package-relative stack positions and a message digest only; no raw error or absolute source paths",
-    "diagnostics do not retry, alter DSH strategic ownership, bypass failure pause or claim the unknown real session-create failure fixed"
+    "diagnostics do not retry, alter DSH strategic ownership, bypass failure pause or claim the unknown real session-create failure fixed",
+    "core catch retains finite original diagnostic even for setup-before-try and post-return dispose errors; dispose cleanup always removes active handle; raw errors and permissions unchanged"
   ],
-  "prior_candidate": "issac-9b7b518e9146-9730d30e",
+  "prior_candidate": "issac-f09f3da6b4f5-3667a66d",
   "closed_test_round": {
-    "candidate_id": "issac-9b7b518e9146-9730d30e",
+    "candidate_id": "issac-f09f3da6b4f5-3667a66d",
     "deployed": true,
     "defects": [
-      "fresh random decision session still failed locally during session_create in 8ms; original exception not retained"
+      "112 second targeted run failed CORE_TURN_FAILED without dsh.request_failed, indicating an uninstrumented outer boundary; root exception unknown"
     ],
     "failed_capture_stopped": true,
     "complete_correction_reviewed": true,
-    "current_round_scope": "finite lifecycle-stage diagnostics; unknown real fault not claimed fixed"
+    "current_round_scope": "diagnose outer core and handle disposal failures without changing strategic or pause policy"
   }
 }

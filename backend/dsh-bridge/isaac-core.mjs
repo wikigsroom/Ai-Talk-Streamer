@@ -2,6 +2,7 @@
 import {appendFileSync, readFileSync, mkdirSync} from 'node:fs';
 import {join} from 'node:path';
 import {randomUUID} from 'node:crypto';
+import {generationDiagnostic} from './model-errors.mjs';
 import {canonical, digest} from './channel.mjs';
 import {requireValue} from './state.mjs';
 import {completePrompt} from '../../integration/isaac-agent/dsh-host/isaac-plugin/stream-policy.mjs';
@@ -226,7 +227,7 @@ export class NaimeiGameCore {
           elapsed_ms:Date.now()-started,turn_kind:'native_state_loss'});return;}
       if(this.turnCancelled(turn)){this.record('core_turn_cancelled',{session_id:sessionId,decision_id:decision.id,
         reason:turn.stale_reason||'control_cancelled',elapsed_ms:Date.now()-started});return;}
-      this.failures++;this.lastError=error.code||'CORE_TURN_FAILED';this.record('core_turn_failed',{session_id:sessionId,decision_id:decision.id,code:this.lastError,elapsed_ms:Date.now()-started});
+      this.failures++;this.lastError=error.code||'CORE_TURN_FAILED';this.record('core_turn_failed',{session_id:sessionId,decision_id:decision.id,code:this.lastError,elapsed_ms:Date.now()-started,local_failure:generationDiagnostic(error)});
       if(!['CORE_DECISION_CHANGED','CORE_PLAN_CONTEXT_CHANGED','FRESH_CORE_DECISION_REQUIRED'].includes(this.lastError)
         ||(this.attempts.get(decision.id)?.count||0)>=2){this.control(false);this.record('core_failure_disarmed',{decision_id:decision.id});}}
     finally {if(this.activeDecisionTurn===turn)this.activeDecisionTurn=null;this.activeAbort=null;this.activeKind=null;this.busy=false;}
@@ -250,7 +251,7 @@ export class NaimeiGameCore {
       // An actual model failure must not leave automatic gameplay armed.
       if(!this.turnCancelled(turn)&&!this.activeAbort?.signal.aborted&&error.code!=='GAME_EVENT_EXPIRED') {
         this.failures++;this.lastError=error.code||'CORE_FACT_FAILED';this.control(false);
-        this.record('core_failure_disarmed',{session_id:turn.session_id,event_id:reservation?.event?.event_id,code:this.lastError,turn_kind:'fact'});
+        this.record('core_failure_disarmed',{session_id:turn.session_id,event_id:reservation?.event?.event_id,code:this.lastError,turn_kind:'fact',local_failure:generationDiagnostic(error)});
       }
     }
     finally {this.activeAbort=null;this.activeKind=null;this.busy=false;}

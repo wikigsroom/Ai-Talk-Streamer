@@ -101,6 +101,25 @@ test('a failed spontaneous reaction also disarms the same core and abandons its 
   await core.runFact();
   assert.equal(disarmed,1);assert.equal(abandoned,1);assert.equal(core.failures,1);assert.equal(core.busy,false);
 });
+
+test('an exception outside the generation boundary retains a safe original location while disarming',async()=>{
+  for(const kind of ['decision','fact']){
+    const {core}=fixture(),events=[];
+    const error=new TypeError('private-key-and-provider');
+    error.stack='TypeError: private-key-and-provider\n    at dispose (file:///C:/private-user/node_modules/@deepseek-ai/dsh-session/lib/index.js:42:8)';
+    Object.assign(core,{busy:false,failures:0,turns:0,attempts:new Map(),latencies:[],
+      current:async()=>true,api:async()=>({event:{event_id:'fact'},nonce:'nonce'}),abandon:async()=>{},
+      generate:async()=>{throw error;},record:(event,body)=>events.push({event,...body}),
+      control:value=>{assert.equal(value,false);core.enabled=false;}});
+    await (kind==='decision'?core.runDecision(offered()):core.runFact());
+    const failure=events.find(event=>event.local_failure);
+    assert.equal(failure.local_failure.name,'TypeError');
+    assert.equal(failure.local_failure.sources[0].package,'dsh-session');
+    assert.equal(failure.local_failure.sources[0].line,42);
+    assert.equal(core.failures,1);assert.equal(core.enabled,false);assert.equal(core.busy,false);
+    for(const secret of ['private-key','provider','private-user'])assert.ok(!JSON.stringify(events).includes(secret));
+  }
+});
 test('a choice intentionally interrupting self-talk does not falsely disarm gameplay',async()=>{
   const {core}=fixture();let abandoned=0;
   Object.assign(core,{busy:false,failures:0,current:async()=>true,
