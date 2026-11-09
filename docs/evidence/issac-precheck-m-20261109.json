@@ -1,0 +1,14 @@
+{
+  "candidate_id":"issac-51f01fbd3206-b2840df1",
+  "source_commit":"51f01fbd32068a8cbf42a8dbf1f42f71a5ad30a0",
+  "passed":false,
+  "production_accepted":false,
+  "source_changes_during_tests":false,
+  "checks":{"environment":true,"dependencies":true,"regressions":false,"materials_scan":true,"native_game":true},
+  "report":{"path":"state/issac-acceptance/round-runs/round-f2295ff045d347a4992a0908e22be5db/report.json","sha256":"7ea6c8b668fe15967bce6da7b29be036c4d5621f3c1eae8277e2305627309ed8"},
+  "failures":[
+    {"suite":"global_python","reason":"The new durability test used a SQLite transaction context without closing its independent connection, preventing Windows temporary directory cleanup."},
+    {"suite":"global_node","reason":"Strict policy loader rejected game_reasoning_effort as unknown before the two controlled Responses tests could start.","log_sha256":"7ac0e7b3c6183e6f96a9e2f274373ec372ba92bd31cd905281c85172b4811dab"}
+  ],
+  "closure":{"closed_unix":1794191765.8183634,"recorded_failures":3,"owned_waiters_stopped":[47440,43368],"application_started":false,"official_started":false,"gameplay_started":false,"official_recording_created":false,"public_broadcast_started":false}
+}

@@ -1,13 +1,30 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createServer} from 'node:http';
-import {mkdtempSync,mkdirSync,rmSync,readFileSync} from 'node:fs';
+import {mkdtempSync,mkdirSync,rmSync,readFileSync,writeFileSync} from 'node:fs';
 import {join} from 'node:path';
 import {DshHost} from '../backend/dsh-bridge/host.mjs';
 import {loadPolicy} from '../backend/dsh-bridge/policy.mjs';
 import {initialPersona} from '../backend/dsh-bridge/persona.mjs';
 import {NaimeiGameCore,ISAAC_CORE_TOOLS} from '../backend/dsh-bridge/isaac-core.mjs';
 import {completePrompt} from '../integration/isaac-agent/dsh-host/isaac-plugin/stream-policy.mjs';
+
+test('game reasoning setting is admitted only for the frozen Isaac scope; inherited defaults remain independent',()=>{
+  const root=process.cwd(),current=loadPolicy(root,'configs/issac/bridge-policy.json');
+  assert.equal(current.conversation.game_reasoning_effort,'low');
+  assert.equal(loadPolicy(root).conversation.game_reasoning_effort,undefined);
+  assert.equal(loadPolicy(root,'configs/naimei/bridge-policy.json').conversation.game_reasoning_effort,undefined);
+  mkdirSync(join(root,'state'),{recursive:true});const folder=mkdtempSync(join(root,'state/issac-policy-test-'));
+  const path=join(folder,'policy.json');
+  try{
+    for(const mutate of [p=>{p.conversation.game_reasoning_effort='high';},p=>{p.deployment.state_relative_path='state/naimei/stream';}]){
+      const policy=structuredClone(current);mutate(policy);writeFileSync(path,JSON.stringify(policy));
+      assert.throws(()=>loadPolicy(root,path),/CONFIG_GAME_REASONING_SCOPE/);
+    }
+    const invalid=structuredClone(current);invalid.conversation.game_reasoning_effort=null;writeFileSync(path,JSON.stringify(invalid));
+    assert.throws(()=>loadPolicy(root,path),/CONFIG_TYPE:policy.conversation.game_reasoning_effort/);
+  }finally{rmSync(folder,{recursive:true,force:true});}
+});
 
 // Controlled HTTP responses exercise the installed DSH loop, not a production
 // channel. In particular its concludeTurn must retain the successful tool result.

@@ -1,0 +1,19 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-N",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-51f01fbd3206-b2840df1",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRN01","status":"code_complete_pending_acceptance","code":"Admit the explicit low game reasoning setting through the strict policy loader only in the locked Isaac deployment; reject alternate values and other scopes, retaining independent inherited Naimei and default policies.","source_files":["backend/dsh-bridge/policy.mjs","tests/issac-core-host.test.mjs"]},
+    {"id":"CRN02","status":"code_complete_pending_acceptance","code":"Close both actual SQLite connections in the durability regression even when an assertion fails, retaining the independent-reader causal-durability assertions.","source_files":["integration/issac/tests/test_boundaries.py"]},
+    {"id":"CRN03","status":"code_complete_pending_acceptance","code":"Preserve closed M failure evidence and all unchanged production, media, save and acceptance constraints; no tests during development and no inherited acceptance.","source_files":["docs/evidence/issac-precheck-m-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}
