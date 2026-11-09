@@ -1,0 +1,206 @@
+{
+  "date": "2026-11-10",
+  "branch": "issac",
+  "type": "standalone GPU feasibility assessment; production source unchanged",
+  "deployed_candidate": "issac-72e9ea16bf91-59c55ebe",
+  "environment": {
+    "game_architecture": "x86",
+    "game_machine_hex": "0x14c",
+    "media_runtime": {
+      "python": "3.10.22",
+      "bits": 64,
+      "torch": "2.9.1+cu128",
+      "torch_cuda": "12.8",
+      "numpy": "1.26.4",
+      "cuda_available": true
+    },
+    "nvcc_found_on_current_path": false
+  },
+  "benchmark_source_sha256_lf_utf8": "65d9bea0beec9db5dfc25eda65d8b3dc91760209a05d5a1348b93bb2ac9a37bf",
+  "benchmark": {
+    "kind": "synthetic swept-collision arithmetic subkernel; no production integration",
+    "python": "3.10.22",
+    "torch": "2.9.1+cu128",
+    "numpy": "1.26.4",
+    "no_new_dependencies_or_weights": true,
+    "limitations": [
+      "CPU input already packed; no Lua snapshot extraction or cross-process IPC",
+      "No room API, walls, bounce branch, temporary immunity, lasers, target scoring or authorization",
+      "CUDA Graph is captured eager tensor operators; not a custom fused CUDA kernel",
+      "Not an implementation of the full production planner; not game FPS or safety validation"
+    ],
+    "studio_before": {
+      "ready": true,
+      "mode": "M03",
+      "voice_id": "NCM01",
+      "output_fps_measured": 24.99988529224116,
+      "speaking": false
+    },
+    "cases": [
+      {
+        "actors": 1,
+        "directions": 9,
+        "segments_per_trajectory": 10,
+        "input_bytes": 884,
+        "output_bytes": 36,
+        "cpu_numpy": {
+          "count": 100,
+          "median_ms": 0.20994991064071655,
+          "p95_ms": 0.2584001049399376,
+          "max_ms": 0.3162000793963671
+        },
+        "gpu_eager_roundtrip": {
+          "count": 100,
+          "median_ms": 1.2838001130148768,
+          "p95_ms": 1.70519994571805,
+          "max_ms": 2.1523998584598303
+        },
+        "gpu_graph_roundtrip": {
+          "count": 100,
+          "median_ms": 0.2628999063745141,
+          "p95_ms": 0.466400058940053,
+          "max_ms": 1.39000010676682
+        },
+        "max_abs_score_difference": 0.0
+      },
+      {
+        "actors": 12,
+        "directions": 9,
+        "segments_per_trajectory": 10,
+        "input_bytes": 1896,
+        "output_bytes": 36,
+        "cpu_numpy": {
+          "count": 100,
+          "median_ms": 0.3391000209376216,
+          "p95_ms": 0.37320004776120186,
+          "max_ms": 0.4474001470953226
+        },
+        "gpu_eager_roundtrip": {
+          "count": 100,
+          "median_ms": 1.3061999343335629,
+          "p95_ms": 1.5708999708294868,
+          "max_ms": 2.4552999529987574
+        },
+        "gpu_graph_roundtrip": {
+          "count": 100,
+          "median_ms": 0.2731999848037958,
+          "p95_ms": 0.421399949118495,
+          "max_ms": 0.7229999173432589
+        },
+        "max_abs_score_difference": 0.0
+      },
+      {
+        "actors": 44,
+        "directions": 9,
+        "segments_per_trajectory": 10,
+        "input_bytes": 4840,
+        "output_bytes": 36,
+        "cpu_numpy": {
+          "count": 100,
+          "median_ms": 0.6279499502852559,
+          "p95_ms": 0.7007999811321497,
+          "max_ms": 0.7811000104993582
+        },
+        "gpu_eager_roundtrip": {
+          "count": 100,
+          "median_ms": 1.2901501031592488,
+          "p95_ms": 1.6429999377578497,
+          "max_ms": 2.2239999379962683
+        },
+        "gpu_graph_roundtrip": {
+          "count": 100,
+          "median_ms": 0.2707000821828842,
+          "p95_ms": 0.4438001196831465,
+          "max_ms": 0.947499880567193
+        },
+        "max_abs_score_difference": 0.0
+      },
+      {
+        "actors": 256,
+        "directions": 9,
+        "segments_per_trajectory": 10,
+        "input_bytes": 24344,
+        "output_bytes": 36,
+        "cpu_numpy": {
+          "count": 100,
+          "median_ms": 2.5127000408247113,
+          "p95_ms": 2.7252999134361744,
+          "max_ms": 2.8334001544862986
+        },
+        "gpu_eager_roundtrip": {
+          "count": 100,
+          "median_ms": 1.3319500721991062,
+          "p95_ms": 1.6117000486701727,
+          "max_ms": 2.3984999861568213
+        },
+        "gpu_graph_roundtrip": {
+          "count": 100,
+          "median_ms": 0.2770499559119344,
+          "p95_ms": 0.44020009227097034,
+          "max_ms": 1.1354000307619572
+        },
+        "max_abs_score_difference": 0.0625
+      }
+    ],
+    "cuda_peak_allocated_bytes": 1151488,
+    "cuda_peak_reserved_bytes": 8388608,
+    "studio_after": {
+      "ready": true,
+      "mode": "M03",
+      "voice_id": "NCM01",
+      "output_fps_measured": 25.001852428905117,
+      "speaking": false
+    }
+  },
+  "model_weights_added_gb": 0,
+  "end_state": {
+    "app": {
+      "candidate_id": "issac-72e9ea16bf91-59c55ebe",
+      "stage": "running_candidate_not_accepted",
+      "error": null
+    },
+    "studio": {
+      "ready": true,
+      "mode": "M03",
+      "voice_id": "NCM01",
+      "output_fps_measured": 24.99994120846048,
+      "speaking": false
+    },
+    "game": {
+      "connected": true,
+      "paused": true
+    },
+    "control": {
+      "armed": false,
+      "last_fault": null,
+      "pause_confirmation_pending": false
+    },
+    "core": {
+      "ready": true,
+      "automatic": false,
+      "failures": 0
+    },
+    "protected_unchanged": true,
+    "diagnostic_job_alive": false
+  },
+  "ideal_movement_stage_acceleration": [
+    {
+      "assumed_stage_factor": 2,
+      "ideal_lua_update_ms": 18.0,
+      "ideal_total_speedup": 1.6041666666666667,
+      "limits": "Assumes entire movement phase accelerates uniformly and ignores added communication cost; not measured or a FPS promise."
+    },
+    {
+      "assumed_stage_factor": 4,
+      "ideal_lua_update_ms": 12.5625,
+      "ideal_total_speedup": 2.298507462686567,
+      "limits": "Assumes entire movement phase accelerates uniformly and ignores added communication cost; not measured or a FPS promise."
+    },
+    {
+      "assumed_stage_factor": 10,
+      "ideal_lua_update_ms": 9.3,
+      "ideal_total_speedup": 3.104838709677419,
+      "limits": "Assumes entire movement phase accelerates uniformly and ignores added communication cost; not measured or a FPS promise."
+    }
+  ]
+}
