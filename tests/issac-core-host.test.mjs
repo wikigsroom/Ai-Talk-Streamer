@@ -49,6 +49,8 @@ test('real DSH Responses concludes '+choice.op+' without an extra request and ke
       context:JSON.stringify({game_decision:{id:'decision-A',context_id:'room-A'}}),input:'提交当前选择与打算。',gameplayTurn:turn,
       tools:async()=>{throw Error('unexpected viewer tool');},onProbe:probe=>probes.push(probe),signal:AbortSignal.timeout(15000)});
     assert.equal(requests,1);assert.equal(result.text,plan.commentary);assert.equal(result.steps,1);
+    assert.equal(received.reasoning.effort,'low');
+    assert.equal(probes[0].game_reasoning_effort,'low');
     assert.equal(result.final_reason.kind,'completed');assert.equal(turn.submitted.status,choice.status);
     assert.deepEqual([...probes[0].tools].sort(),core.names.toSorted());
     assert.ok(probes[0].has_issac_wiki);assert.ok(probes[0].has_persona);

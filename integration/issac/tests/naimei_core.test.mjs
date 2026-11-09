@@ -105,6 +105,18 @@ test('a delayed plan cannot cross a disarm/rearm during the freshness read',asyn
   assert.equal(calls.length,0);
 });
 
+test('a native fault from a cancelled revision cannot disarm a later explicit recovery',async()=>{
+  const {core}=fixture();let entered,release;
+  const started=new Promise(resolve=>entered=resolve),waiting=new Promise(resolve=>release=resolve);
+  Object.assign(core,{busy:false,attempts:new Map(),failures:0,turns:0,latencies:[],pending:new Map(),backlog:[],
+    status:()=>({ready:true}),controlRevision:1,
+    generate:async(_context,turn)=>{core.activeAbort=new AbortController();turn.abort=core.activeAbort;
+      turn.native_fault=true;turn.stale_reason='CORE_NATIVE_STATE_NOT_FRESH';entered();await waiting;throw Error('old fault');}});
+  const old=core.runDecision(offered());await started;
+  core.control(false);core.control(true);release();await old;
+  assert.equal(core.enabled,true);assert.equal(core.controlRevision,3);assert.equal(core.failures,0);
+});
+
 test('a replaced same-room choice aborts its bound model turn and a fresh turn can proceed',async()=>{
   const {core}=fixture();let entered,decision=offered();
   const started=new Promise(resolve=>entered=resolve),seen=[];
@@ -136,12 +148,34 @@ test('a stale get-decision cannot rebind the old turn to the new decision',async
   assert.equal(calls.length,0);
 });
 
-test('loss of the pending decision cancels, while a disconnected state remains a fault',async()=>{
+test('native state loss immediately aborts the bound turn as a distinct fault',async()=>{
   const {core,turn}=fixture();turn.abort=new AbortController();
-  assert.equal(core.cancelObsoleteDecision(turn,{pending:false,connected:false}),null);
-  assert.equal(turn.abort.signal.aborted,false);
+  assert.equal(core.cancelObsoleteDecision(turn,{pending:false,connected:false}),'CORE_NATIVE_STATE_NOT_FRESH');
+  assert.equal(turn.abort.signal.aborted,true);assert.equal(turn.native_fault,true);
+});
+
+test('loss of a fresh pending decision remains an ordinary cancellation',async()=>{
+  const {core,turn}=fixture();turn.abort=new AbortController();
   assert.equal(core.cancelObsoleteDecision(turn,{pending:false,connected:true}),'FRESH_CORE_DECISION_REQUIRED');
   assert.equal(turn.abort.signal.aborted,true);
+});
+
+test('freshness rejection cannot become a no-choice model failure or publish the rejected intention',async()=>{
+  const {core}=fixture();const speeches=[],events=[];let disabled=0;
+  Object.assign(core,{busy:false,attempts:new Map(),failures:0,turns:0,latencies:[],controlRevision:1,
+    record:(kind,body)=>events.push({kind,...body}),offerSpeech:item=>speeches.push(item),
+    control:enabled=>{assert.equal(enabled,false);core.enabled=false;disabled++;},
+    generate:async(_context,turn)=>{
+      turn.abort=new AbortController();core.activeAbort=turn.abort;
+      core.decision=async()=>({...offered(),connected:false});
+      await core.tool('isaac_submit_plan',{},{sessionId:turn.session_id,turn});
+      throw Error('A rejected tool cannot finish as model-authored speech');
+    }});
+  await core.runDecision(offered());
+  assert.equal(disabled,1);assert.equal(core.failures,1);assert.equal(core.turns,0);
+  assert.equal(core.lastError,'CORE_NATIVE_STATE_NOT_FRESH');assert.deepEqual(speeches,[]);
+  assert.equal(events.some(r=>r.code==='CORE_TURN_DID_NOT_SUBMIT_A_CHOICE'),false);
+  assert.equal(events.at(-1).turn_kind,'native_state_loss');
 });
 
 test('an in-flight accepted plan is not cancelled when its pending decision disappears',async()=>{

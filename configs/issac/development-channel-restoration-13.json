@@ -1,0 +1,21 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-M",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-429016066087-955a5a88",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRM01","status":"code_complete_pending_acceptance","code":"Immediately cancel and disarm a native-stale decision as the actual native-state fault, without an extra model completion, rejected commentary or a misleading no-choice error.","source_files":["backend/dsh-bridge/isaac-core.mjs","integration/issac/tests/naimei_core.test.mjs"]},
+    {"id":"CRM02","status":"code_complete_pending_acceptance","code":"Latch ordinary pause until explicit guarded resume. Require actual native pause-input acknowledgement and stable engine state; transitions, boss intros and death cannot prove a normal pause. Retry swallowed pause requests without blind Escape toggles. Withdraw local authority before reverse HTTP; retain and retry pending confirmations.","source_files":["integration/isaac-agent/mods/IsaacJev/strategy_control.lua","integration/isaac-agent/build_native_controller.py","integration/issac/native_game.py","integration/issac/strategy_host.py","integration/isaac-agent/tests/test_strategy_native.py","integration/issac/tests/test_native_pause_proof.py"]},
+    {"id":"CRM03","status":"code_complete_pending_acceptance","code":"Coalesce diagnostic frame-watermark durable writes to one second while all actual changed causal game facts still commit synchronously before narration.","source_files":["integration/issac/events.py","integration/issac/tests/test_boundaries.py"]},
+    {"id":"CRM04","status":"code_complete_pending_acceptance","code":"Use the installed DSH adapter's explicit low reasoning effort for game turns on the same original gpt-6-luna Responses channel, with real wire-level controlled regression; no model, provider, credentials or protocol substitution and no automatic fallback. Runtime compatibility and 8s P95 remain unproven.","source_files":["backend/dsh-bridge/host.mjs","configs/issac/bridge-policy.json","tests/issac-core-host.test.mjs"]},
+    {"id":"CRM05","status":"code_complete_pending_acceptance","code":"Preserve closed L evidence, its real death and diagnostic-only 300s recording, all frozen media/save requirements and every original acceptance gate without an acceptance claim.","source_files":["docs/evidence/issac-runtime-l-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}

@@ -83,8 +83,37 @@ class NativeStrategyTests(unittest.TestCase):
         self.assertIsNone(self.control.pauseRequest)
         self.lua.globals().now=6501;self.control.render(self.control)
         self.assertEqual(self.control.pauseRequest.id,'controller-lease-expired')
+        self.assertTrue(self.control.pauseInput(self.control,1,18))
         self.lua.globals().paused=True;self.control.render(self.control)
         self.assertTrue(self.control.pauseAck.paused);self.assertIsNone(self.control.pauseRequest)
+
+    def test_boss_intro_is_not_acknowledged_as_an_ordinary_pause(self):
+        self.lua.globals().paused=True
+        self.control.requestPause(self.control,'during-intro');self.control.render(self.control)
+        self.assertIsNone(self.control.pauseAck)
+        self.assertTrue(self.control.pauseHold)
+        self.assertIsNone(self.control.pauseInput(self.control,1,18))
+        self.lua.globals().now=5000;self.control.render(self.control)
+        self.assertIsNone(self.control.pauseAck)
+        self.lua.globals().paused=False;self.control.render(self.control)
+        self.assertTrue(self.control.pauseInput(self.control,1,18))
+        self.lua.globals().paused=True;self.control.render(self.control)
+        self.assertEqual(self.control.pauseAck.id,'during-intro')
+        self.assertTrue(self.control.pauseAck.ordinary_pause_input_issued)
+
+    def test_a_transient_pause_end_retries_without_a_stale_input_or_auto_resume(self):
+        self.control.requestPause(self.control,'first')
+        self.assertTrue(self.control.pauseInput(self.control,1,18))
+        self.lua.globals().paused=True;self.control.render(self.control)
+        self.lua.globals().paused=False;self.lua.globals().now=10000;self.control.render(self.control)
+        self.assertIsNone(self.control.pauseAck)
+        self.assertEqual(self.control.pauseRequest.id,'first')
+        self.assertTrue(self.control.pauseInput(self.control,1,18))
+        self.lua.globals().paused=True;self.control.render(self.control)
+        self.assertTrue(self.control.pauseHold)
+        self.control.resumePauseHold(self.control)
+        self.assertFalse(self.control.pauseHold)
+        self.assertIsNone(self.control.pauseRequest);self.assertIsNone(self.control.pauseAck)
 
     def test_dice_floor_is_blocked_until_matching_live_entity_is_authorized(self):
         self.lua.execute('''

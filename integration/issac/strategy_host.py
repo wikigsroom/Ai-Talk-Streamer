@@ -112,6 +112,7 @@ class StrategyHost:
         self.last_fault=None
         self.last_core_check=0
         self.control_revision=0
+        self.pause_pending=False
         self.server=self.make_server()
 
     def control(self, body):
@@ -144,14 +145,23 @@ class StrategyHost:
                     self.runtime.controller.set_autopilot(False)
                     raise
                 self.armed=True
+                self.pause_pending=False
                 self.last_fault=None
                 self.audit.append('autopilot_resumed',receipt=receipt)
             else:
-                self.strategy_automatic(False,required=False)
+                # Withdraw local authority before any reverse HTTP request or
+                # native observation can wait. Keep failed pause confirmation
+                # pending; a transition's IsPaused is not a normal pause menu.
                 self.runtime.controller.set_autopilot(False)
                 self.service.configure(enabled=False,live=False)
                 self.armed=False
-                receipt=self.native.pause() if self.native.session else {'not_attached':True}
+                self.pause_pending=bool(self.native.session)
+                self.audit.append('local_authority_withdrawn',control_revision=self.control_revision)
+                try:
+                    receipt=self.native.pause() if self.native.session else {'not_attached':True}
+                    self.pause_pending=False
+                finally:
+                    self.strategy_automatic(False,required=False)
                 if enabled:
                     self.service.configure(enabled=True,live=False)
                 self.audit.append('autopilot_paused',receipt=receipt)
@@ -172,6 +182,7 @@ class StrategyHost:
         return {'service':'issac-native-game','armed':self.armed,'pid':os.getpid(),
                 'strategy':self.service.status(),'native_attached':self.native.session is not None,
                 'control_revision':self.control_revision,
+                'pause_confirmation_pending':self.pause_pending,
                 'game_audio':self.audio.status(),
                 'last_fault':self.last_fault,'only_ordinary_inputs':True,'save_slot':3}
 
@@ -269,6 +280,13 @@ class StrategyHost:
 
     def watchdog(self):
         while not self.stop_event.wait(.25):
+            if self.pause_pending and not self.armed:
+                try:
+                    with self.action_lock:
+                        receipt=self.native.pause()
+                        self.pause_pending=False
+                        self.audit.append('pending_normal_pause_confirmed',receipt=receipt)
+                except Exception:self.last_fault='NORMAL_PAUSE_ACK_PENDING'
             if self.armed and time.monotonic()-self.last_core_check>=1:
                 self.last_core_check=time.monotonic()
                 try:
@@ -290,10 +308,13 @@ class StrategyHost:
                     self.runtime.controller.set_autopilot(False)
                     self.service.configure(enabled=False,live=False)
                     self.armed=False
+                    self.pause_pending=True
                     try:
                         receipt=self.native.pause()
+                        self.pause_pending=False
                     except Exception:
                         receipt={'normal_pause_confirmed':False,'native_controller_lease_still_required':True}
+                    finally:self.strategy_automatic(False,required=False)
                     self.audit.append('bridge_loss_stop',receipt=receipt)
             if self.armed:
                 try:

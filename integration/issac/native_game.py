@@ -29,6 +29,19 @@ return string.format('{"paused":%s,"frame":%d,"players":%d,"dead":%s,"hp":%d,"st
 tostring(g and g:IsPaused() or false),g and g:GetFrameCount() or 0,n,tostring(p and p:IsDead() or false),p and p:GetHearts()+p:GetSoulHearts() or 0,
 stage,room,seed,tostring(_G.__NativeIsaacController~=nil))'''
 
+PAUSE_STATUS = '''local g=Game();local m=_G.__NativeIsaacController
+local c=m and m.strategyControl
+return json.encode({paused=g:IsPaused(),frame=g:GetFrameCount(),
+    pause_hold=c and c.pauseHold==true or false,pause_ack=c and c.pauseAck or nil})'''
+
+
+def ordinary_pause_proved(status):
+    ack=status.get('pause_ack') or {}
+    return (status.get('paused') is True and status.get('pause_hold') is True
+            and ack.get('ordinary_pause_input_issued') is True and ack.get('paused') is True
+            and isinstance(ack.get('id'),str) and bool(ack['id'])
+            and type(status.get('frame')) is int and ack.get('frame')==status['frame'])
+
 
 class NativeGame:
     def __init__(self, root, protection=None):
@@ -123,9 +136,9 @@ class NativeGame:
                     'game_sha256':GAME_SHA256,'installed_goal':self.installed_goal,
                     'bridge_counters':value.get('counters')}
 
-    def observe(self):
+    def observe(self,timeout=5):
         with self.lock:
-            value=json.loads(self.rpc('evaluate',OBSERVE,timeout=5))
+            value=json.loads(self.rpc('evaluate',OBSERVE,timeout=timeout))
             if (not isinstance(value,dict) or any(type(value.get(k)) is not bool for k in ('paused','dead','controller_installed'))
                     or any(type(value.get(k)) is not int for k in ('frame','players','hp','stage','room','seed'))
                     or not 0<=value['players']<=4):
@@ -198,6 +211,11 @@ class NativeGame:
 
     def pause(self):
         with self.lock:
+            deadline=time.monotonic()+6
+            def budget():
+                remaining=deadline-time.monotonic()
+                if remaining<=0:raise AdmissionError('NORMAL_PAUSE_INPUT_ACK_PENDING')
+                return min(.75,remaining)
             import psutil
             try:
                 ended=not self.process or not self.process.is_running() or self.process.status()==psutil.STATUS_ZOMBIE
@@ -205,33 +223,40 @@ class NativeGame:
                 ended=True
             if ended:
                 return {'game_process_ended':True,'no_active_run':True}
-            before=self.observe()
-            if before['players']==0:
+            before=self.observe(timeout=budget())
+            if before['players']==0 or before['dead']:
                 return {'normal_game_pause_acknowledged':False,'no_active_run':True,'input_armed':False}
-            if not before['paused']:
+            if not before['controller_installed']:
+                raise AdmissionError('NATIVE_PAUSE_INPUT_CALLBACK_REQUIRED')
+            observed=json.loads(self.rpc('evaluate',PAUSE_STATUS,timeout=budget()))
+            if not ordinary_pause_proved(observed):
                 nonce=uuid.uuid4().hex
-                source=('local m=_G.__NativeIsaacController;if m and m.strategyControl then '
-                        'm.strategyControl:requestPause("'+nonce+'");return "requested" end;return "no_callback"')
-                result=self.rpc('evaluate',source)
-                if result=='no_callback':
-                    self.menu_key('escape')
-                deadline=time.monotonic()+2
+                source=('local m=_G.__NativeIsaacController;assert(m and m.strategyControl);'
+                        'm.strategyControl:requestPause("'+nonce+'");return "requested"')
+                if self.rpc('evaluate',source,timeout=budget())!='requested':
+                    raise AdmissionError('NATIVE_PAUSE_REQUEST_NOT_ACKNOWLEDGED')
                 while time.monotonic()<deadline:
                     time.sleep(.1)
-                    observed=self.observe()
-                    if observed['paused']:
-                        break
+                    observed=json.loads(self.rpc('evaluate',PAUSE_STATUS,timeout=budget()))
+                    if ordinary_pause_proved(observed):break
                 else:
-                    self.menu_key('escape')
-                    time.sleep(.25)
-            observed=self.observe()
+                    # The native hold remains latched and retries the ordinary
+                    # pause input when an intro/transition stops swallowing it.
+                    # Never enqueue a blind Escape that can later unpause it.
+                    raise AdmissionError('NORMAL_PAUSE_INPUT_ACK_PENDING')
             time.sleep(.25)
-            confirmed=self.observe()
-            if not confirmed['paused'] or not observed['paused'] or confirmed['frame']!=observed['frame']:
+            confirmed=json.loads(self.rpc('evaluate',PAUSE_STATUS,timeout=budget()))
+            if (not ordinary_pause_proved(confirmed) or not ordinary_pause_proved(observed)
+                    or confirmed['frame']!=observed['frame']
+                    or confirmed['pause_ack']['id']!=observed['pause_ack']['id']):
                 self.audit.append('pause_failed',session_id=self.session_id)
                 raise AdmissionError('STABLE_NATIVE_NORMAL_PAUSE_NOT_CONFIRMED')
+            actual=self.observe(timeout=budget())
+            if not actual['paused'] or actual['frame']!=confirmed['frame']:
+                raise AdmissionError('STABLE_NATIVE_NORMAL_PAUSE_NOT_CONFIRMED')
             receipt={'normal_game_pause_acknowledged':True,'stable_frame':confirmed['frame'],
-                     'native':confirmed,'game_pid':self.process.pid,'game_created_at':self.created_at,
+                     'native':actual,'pause_input_ack':confirmed['pause_ack'],'pause_hold':True,
+                     'game_pid':self.process.pid,'game_created_at':self.created_at,
                      'session_id':self.session_id,'foreground_changed':False,'at_unix':time.time()}
             self.audit.append('pause_confirmed',**receipt)
             write_json(inside(self.root,'state/isaac-strategy/pause-receipt.json'),receipt)

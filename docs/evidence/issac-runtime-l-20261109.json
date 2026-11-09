@@ -1,0 +1,15 @@
+{
+  "candidate_id":"issac-429016066087-955a5a88",
+  "source_commit":"4290160660878c896e7b85d65b591b987e8dd30b",
+  "passed":false,
+  "production_accepted":false,
+  "source_changes_during_tests":false,
+  "five_prechecks_passed":true,
+  "remote_precheck_report":"state/issac-acceptance/round-runs/round-d8fcb70a7cf44103834ef5e12b4f3fee/report.json",
+  "actual_full_run":{"seconds":241.10899999993853,"observed_native_frames":258,"result":"death","natural_terminal_callback":"MC_POST_GAME_END","winning_run_claimed":false,"forced_seed_or_gameplay_values":false},
+  "mouth_diagnostics":{"seconds_each":45,"M01":{"frames":1126,"fps":25.0044,"p99_ms":53.509},"M02":{"frames":1125,"fps":24.9479,"p99_ms":53.333},"M03":{"frames":1125,"fps":24.9396,"p99_ms":56.462},"generated_mouth_frames_each":321,"new_output_stalls_or_underflows":0,"subjective_full_speed_audio_video_review_complete":false},
+  "core_fault":{"session_id":"naimei-game-b0a96ebfdeaa4e94839429b531c0e6d6-0","actual_tool":"isaac_submit_plan","actual_tool_error":"FRESH_CORE_DECISION_REQUIRED","tool_error_unix_ms":1794190033490,"later_model_text":"这份决策可能已经过期，我现在不能提交选择。","incorrect_outer_error":"CORE_TURN_DID_NOT_SUBMIT_A_CHOICE","core_disarmed_unix_ms":1794190036173,"decision_p95_ms":12814,"target_ms":8000},
+  "pause_fault":{"reported_pause_unix":1794190057.6374977,"reported_frame":4779,"later_actual_death_frame":5419,"transient_engine_pause_was_mistaken_for_normal_pause":true,"ordinary_pause_input_ack_was_not_required":true},
+  "actual_official_diagnostic_recording":{"seconds":300,"width":1920,"height":1080,"sha256":"bf3914faa1cddce666f0e375e9dd77087c9c98438daf91ef24e2825434615f3f","diagnostic_only":true,"final_delivery":false,"contains_long_ended_run_screen":true,"postprocess":"continuous_stream_copy_only","added_frames":false,"added_audio":false},
+  "closure":{"closed_unix":1794190634.6985717,"recorded_failures":1,"remote_failure_receipt":"state/issac-acceptance/runtime-l-not-qualified.json","remote_failure_receipt_sha256":"b9800e265c05520b6b3a092136a939b0636b2290b52199507a846824b5fb94a8","game_closed_normally":true,"official_closed_normally":true,"whole_owned_stack_stopped":true,"public_broadcast_started":false}
+}

@@ -65,10 +65,12 @@ export class NaimeiGameCore {
   cancelObsoleteDecision(turn,decision) {
     // A pending choice disappears normally while its own POST is being accepted.
     // Defer this check until that response is known, without weakening native guards.
-    if(!turn?.decision_id||turn.submitted||turn.submitting||decision.connected!==true)return null;
-    const code=!decision.pending||decision.remaining_ms<=0?'FRESH_CORE_DECISION_REQUIRED'
+    if(!turn?.decision_id||turn.submitted||turn.submitting)return null;
+    const code=decision.connected!==true?'CORE_NATIVE_STATE_NOT_FRESH'
+      :!decision.pending||decision.remaining_ms<=0?'FRESH_CORE_DECISION_REQUIRED'
       :decision.id!==turn.decision_id||decision.context_id!==turn.context_id?'CORE_DECISION_CHANGED':null;
     if(code&&!turn.stale_reason){turn.stale_reason=code;turn.abort?.abort();
+      if(code==='CORE_NATIVE_STATE_NOT_FRESH')turn.native_fault=true;
       this.record('core_decision_superseded',{session_id:turn.session_id,decision_id:turn.decision_id,
         replacement_decision_id:decision.pending?decision.id:null,code});}
     return code;
@@ -197,6 +199,10 @@ export class NaimeiGameCore {
         expires_at:Date.now()/1000+10,facts:{decision_id:decision.id,...turn.submitted}};
       this.offerSpeech({text:summary.text,event});
     } catch(error) {
+      if(turn.native_fault&&turn.control_revision===(this.controlRevision||0)&&this.enabled&&!this.closed){
+        this.failures++;this.lastError=turn.stale_reason;this.control(false);
+        this.record('core_failure_disarmed',{session_id:sessionId,decision_id:decision.id,code:this.lastError,
+          elapsed_ms:Date.now()-started,turn_kind:'native_state_loss'});return;}
       if(this.turnCancelled(turn)){this.record('core_turn_cancelled',{session_id:sessionId,decision_id:decision.id,
         reason:turn.stale_reason||'control_cancelled',elapsed_ms:Date.now()-started});return;}
       this.failures++;this.lastError=error.code||'CORE_TURN_FAILED';this.record('core_turn_failed',{session_id:sessionId,decision_id:decision.id,code:this.lastError,elapsed_ms:Date.now()-started});

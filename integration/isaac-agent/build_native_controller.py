@@ -74,6 +74,7 @@ function mod:NativeShutdown()
 end
 function mod:NativeResume()
     if game:GetNumPlayers()~=1 or playerIsDead(Isaac.GetPlayer(0)) then return false end
+    strategyControl:resumePauseHold()
     closeClient()
     lastStateFrame=-10000
     pendingState=nil

@@ -34,6 +34,7 @@ class GameEvents:
         self.source_instance = None
         self.current_run = None
         self.current_room = None
+        self.last_metadata_at = 0
         # Interrupted speech is unknown. It must never be replayed automatically.
         self.db.execute("UPDATE events SET delivery='interrupted_unknown' WHERE delivery IN ('reserved','accepted')")
         self.db.commit()
@@ -116,8 +117,14 @@ class GameEvents:
                            'effect':receipt.get('effect'), 'cost':receipt.get('cost')},
                           priority=20 if receipt['status']=='succeeded' else 60, ttl=12, proof=receipt)
             self.previous = deepcopy(snapshot)
-            self.db.execute('INSERT OR REPLACE INTO metadata(key,value) VALUES(?,?)',
-                            ('last_observation',canonical({'run':run,'room':room,'identity':identity,'frame':snapshot.get('frame')})))
+            # Actual changed facts above still commit synchronously. The
+            # diagnostic frame watermark needs one durable update per second,
+            # not a FULL fsync in every native state/response round trip.
+            now=self.clock()
+            if not previous or self.identities(previous)[1]!=room or now-self.last_metadata_at>=1:
+                self.db.execute('INSERT OR REPLACE INTO metadata(key,value) VALUES(?,?)',
+                                ('last_observation',canonical({'run':run,'room':room,'identity':identity,'frame':snapshot.get('frame')})))
+                self.last_metadata_at=now
 
     def reserve(self):
         with self.lock, self.db:

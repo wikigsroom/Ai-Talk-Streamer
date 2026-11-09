@@ -110,14 +110,15 @@ export class DshHost {
       character_id: this.policy.identity.character_id, room_id: this.policy.identity.room_id, persona_version: version,
       expected_version: current?.persona_version ?? null, approved_hash: approvedHash, document });
   }
-  async #bind(agentCtx, snapshot, route, timeoutMs) {
+  async #bind(agentCtx, snapshot, route, timeoutMs, gameReasoningEffort) {
     agentCtx.provide('launchEnvironment', this.environment.createLaunchEnvironmentSnapshot([
       { source: 'process', values: { STREAM_BOUND_API_KEY: snapshot.getApiKey() } },
     ]));
     await agentCtx.plugin(this.pi, { providers: { [route]: {
       apiKeyEnv: 'STREAM_BOUND_API_KEY', displayName: '网页默认渠道',
       api: snapshot.protocol === 'responses' ? 'openai-responses' : 'openai-completions',
-      baseURL: snapshot.baseUrl, models: [{ id: snapshot.model, input: ['text'], contextWindow: 32768, maxTokens: 2048 }],
+      baseURL: snapshot.baseUrl, models: [{ id: snapshot.model, input: ['text'], contextWindow: 32768, maxTokens: 2048,
+        ...(gameReasoningEffort?{reasoningEfforts:{low:'low'}}:{}) }],
       defaultInput: ['text'], transport: 'sse', timeoutMs, streamIdleTimeoutMs: timeoutMs,
       retryPolicy: { mode: 'normal', maxRetries: 0 },
     } } });
@@ -133,6 +134,8 @@ export class DshHost {
     const memorySnapshot=preparedContext?.humanity_public_snapshot||this.port.requestMemorySnapshot([]);
     if(preparedContext)delete preparedContext.humanity_public_snapshot;
     const gameTurn=!!gameplay&&(!!preparedContext?.game_event||!!preparedContext?.game_decision);
+    const gameReasoningEffort=gameTurn?this.policy.conversation.game_reasoning_effort:undefined;
+    if(gameReasoningEffort!==undefined&&gameReasoningEffort!=='low')throw Error('PINNED_GAME_REASONING_EFFORT_REQUIRED');
     const maximumSteps=gameplay?8:this.policy.conversation.max_memory_tool_rounds+1;
     const contextBudget=gameTurn?this.policy.conversation.game_context_max_estimated_tokens||this.policy.conversation.context_max_estimated_tokens:this.policy.conversation.context_max_estimated_tokens;
     let steps = 0, finalReason, handle, lastAssistant = '', lastError, lastFinish;
@@ -140,13 +143,14 @@ export class DshHost {
     try {
       handle = await this.ctx.agents.create({ sessionId,
         meta: { cwd: this.root, agentPreset: 'streamer-standard' },
-        agentOptions: { provider: route, model: snapshot.model, maxTokens }, signal,
+        agentOptions: { provider: route, model: snapshot.model, maxTokens,
+          ...(gameReasoningEffort?{reasoningEffort:gameReasoningEffort}:{}) }, signal,
         setup: async (agentCtx, agent) => {
           await this.ctx.agentPresets.mount(agentCtx, negativeMinimal?'streamer-minimal-negative':'streamer-standard');
           agentCtx.systemPrompt.section({ name: 'humanity:persona', order: 10, interpolate: false,
             text: this.renderPersona(personaSnapshot.document, { enabled: true, independentJudgment: true }) });
           agentCtx.systemPrompt.section({ name:'humanity:memory',order:20,interpolate:false,text:memorySnapshot.text });
-          await this.#bind(agentCtx, snapshot, route, maintenance?this.policy.maintenance.model_timeout_ms:this.policy.conversation.model_timeout_ms);
+          await this.#bind(agentCtx, snapshot, route, maintenance?this.policy.maintenance.model_timeout_ms:this.policy.conversation.model_timeout_ms,gameReasoningEffort);
           const names = maintenance ? ['stream_maintenance_result'] : gameTurn ? gameplay.names : [...LIVE_TOOLS, ...(this.extensions ? EXTENSION_TOOLS : []), ...(gameplay?gameplay.names:[])];
           if (this.extensions && !maintenance && !negativeMinimal) await this.extensions.mount(agentCtx, agent, input, preparedContext?.partition_key || 'public');
           if(gameplay)agentCtx.systemPrompt.section({name:'naimei:isaac-complete',order:25,interpolate:false,text:gameplay.prompt.text});
@@ -185,6 +189,7 @@ export class DshHost {
             if (steps > maximumSteps) throw new Error('STREAM_TOOL_ROUND_LIMIT');
             const promptText = options.messages.filter(m => m.role === 'system').flatMap(m => m.content).filter(b => b.type === 'text').map(b => b.text).join('\n');
             const probe = { session_id: sessionId, provider_revision: snapshot.revision, model: options.model, step: steps,
+              ...(gameReasoningEffort?{game_reasoning_effort:options.reasoningEffort}:{}),
               prompt_sha256: digest(promptText), has_persona: promptText.includes(personaSnapshot.document.identityCard.fields.find(field => field.key === '姓名')?.value || '林知夏'),
               ...(extensions ? { has_soul: promptText.includes('奶妹 · 直播人格卡'), has_humanizer: promptText.includes('humanizer-chinese'), has_meme_guide: promptText.includes('stream_memory_propose') && promptText.includes('search_meme_wiki') } : {}),
               has_native_memory_guidance: promptText.includes('stream_memory_propose'),

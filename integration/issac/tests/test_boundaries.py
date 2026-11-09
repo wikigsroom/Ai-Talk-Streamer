@@ -69,6 +69,25 @@ class SpeechCausality(unittest.TestCase):
             events.ingest(current);self.assertIsNone(events.reserve())
             self.assertEqual(events.read()['events'][0]['delivery'],'interrupted_unknown');events.close()
 
+    def test_frame_watermark_is_coalesced_but_actual_health_facts_are_immediately_durable(self):
+        import json,sqlite3
+        now=[1000.0]
+        with tempfile.TemporaryDirectory() as temp:
+            events=GameEvents(temp,clock=lambda:now[0]);first=self.snapshot()
+            first['health']={'exact':True,'red_hearts':6,'soul_hearts':0}
+            events.ingest(first)
+            for frame in range(2,12):
+                now[0]+=.05;current=deepcopy(first);current['frame']=frame;events.ingest(current)
+            current['health']['red_hearts']=4;events.ingest(current)
+            with sqlite3.connect(events.path) as durable:
+                watermark=json.loads(durable.execute("SELECT value FROM metadata WHERE key='last_observation'").fetchone()[0])
+                facts=[json.loads(row[0]) for row in durable.execute('SELECT body FROM events')]
+            self.assertEqual(watermark['frame'],1)
+            health=next(row for row in facts if row['type']=='health_changed')
+            self.assertEqual(health['facts']['after_half_hearts'],4)
+            self.assertEqual(health['frame'],11)
+            events.close()
+
 
 class ActualAvc(unittest.TestCase):
     def test_profile_has_actual_parameter_sets_and_rejects_resize_without_idr(self):
