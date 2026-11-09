@@ -152,6 +152,8 @@ class StrategyService:
             return self.status()
 
     def _cancel(self, reason):
+        if reason != 'context_changed':
+            self.routes.suspend(reason)
         if self.pending:
             self.emit('decision_cancelled', decision_id=self.pending['id'], reason=reason)
             self.pending = None
@@ -554,6 +556,8 @@ class StrategyService:
         receipt = self.receipts[self.command['plan_id']]
         receipt.update(status=status, effect=reason, completed_frame=self.raw.get('frame'))
         offer=self.command['offer']
+        if status != 'succeeded' and offer.get('guard', {}).get('door'):
+            self.routes.suspend(reason)
         if status in {'rejected', 'expired', 'indeterminate'} and reason in {
                 'no_current_safe_path_or_candidate', 'effect_timeout_no_retry', 'native_guard'}:
             self.routes.remember(offer, 'failure', reason, self.command['before'])

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV01",
+  "round": "NAV02",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -38,5 +38,11 @@
     "goal continuity is bounded by actual progress and edge count; ordinary pauses and repeated goals do not clear memory",
     "original DSH model/channel, voice/mouth/GPU/official-capture/save constraints retained; protected user CSV excluded"
   ],
-  "prior_candidate": "issac-b00056a2151a-22d585d0"
+  "prior_candidate": "issac-b00056a2151a-22d585d0",
+  "closed_test_round": {
+    "candidate_id": "issac-403aefe7dde5-afad77be",
+    "deployed": false,
+    "defects": ["constraint audit kind collision", "paused route goal required execution suspension"],
+    "complete_correction_reviewed": true
+  }
 }

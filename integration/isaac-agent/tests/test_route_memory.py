@@ -145,6 +145,17 @@ class RouteMemoryTests(unittest.TestCase):
         self.assertFalse(self.service.routes.data['constraints'])
         self.assertTrue(any(o.get('target_id') for o in self.service.decision()['offers']))
 
+    def test_pause_retains_goal_context_but_requires_a_fresh_choice(self):
+        raw=room(84,[(85,'default',False)],visited=(84,))
+        self.update(raw);self.choose(lambda o:bool(o.get('route')),'go')
+        self.service.configure(enabled=False)
+        self.assertEqual(self.service.routes.data['goal']['room'],85)
+        self.assertTrue(self.service.routes.data['goal']['suspended'])
+        self.service.configure(enabled=True,live=True);raw['frame']+=6;self.update(raw)
+        self.assertTrue(self.service.decision()['pending'])
+        self.assertIsNone(self.service.command)
+        self.assertIsNone(self.service.routes.continuation(self.service.decision()['offers']))
+
     def test_free_fallback_respects_declined_resource_and_never_uses_a_key(self):
         raw=room(55,[(81,'shop',True),(70,'default',False)],visited=(55,))
         state=self.update(raw);self.choose(lambda o:o['op']=='wait','wait')

@@ -174,7 +174,7 @@ class RouteMemory:
             room_info['objectives'].remove(key)
         if len(self.data['constraints']) > 512:
             del self.data['constraints'][next(iter(self.data['constraints']))]
-        self.emit('route_constraint', **record)
+        self.emit('route_constraint', constraint=deepcopy(record))
         # A declined terminal paid step invalidates the whole approach, rather
         # than returning to it via another adjacent cleared room.
         if door and self.data['goal'] and self.data['goal']['room'] == door.get('target_room_index'):
@@ -298,11 +298,17 @@ class RouteMemory:
 
     def continuation(self, offers):
         goal = self.data['goal']
-        if not goal:
+        if not goal or goal.get('suspended'):
             return None
         return next((o for o in offers if o.get('route', {}).get('room') == goal['room']
                      and not o.get('guard', {}).get('door', {}).get('door_locked')
                      and o.get('guard', {}).get('door', {}).get('target_room_type') in self.FREE), None)
+
+    def suspend(self, reason):
+        goal = self.data['goal']
+        if goal and not goal.get('suspended'):
+            goal.update(suspended=True, suspension_reason=str(reason)[:160])
+            self.save()
 
     def describe(self):
         return {'goal': deepcopy(self.data['goal']), 'progress_revision': self.data['progress'],
