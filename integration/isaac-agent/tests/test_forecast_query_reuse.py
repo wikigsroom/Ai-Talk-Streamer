@@ -73,7 +73,7 @@ class ForecastQueryReuseTests(unittest.TestCase):
         args=(320,280,0,0,1,0,1,10)
         open_path,queries,sizes=self.current['predict'](*args)
         self.assertTrue(all(value==1 for _,value in queries.items()))
-        self.assertLess(len(queries),20)
+        self.assertLess(len(list(queries.items())),20)
         self.assertEqual(sizes,1)
         expected=self.coordinates(open_path)
         self.set_cells([68])
@@ -88,7 +88,7 @@ class ForecastQueryReuseTests(unittest.TestCase):
     def test_nine_candidates_share_only_synchronous_collision_reads(self):
         self.set_cells([])
         queries,sizes=self.current['candidates']()
-        self.assertGreater(len(queries),4)
+        self.assertGreater(len(list(queries.items())),4)
         self.assertTrue(all(value==1 for _,value in queries.items()))
         self.assertEqual(sizes,1)
         next_queries,next_sizes=self.current['candidates']()
