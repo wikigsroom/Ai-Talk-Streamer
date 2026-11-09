@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "enabled": true,
+  "port": 9536,
+  "health_port": 9537,
+  "deadline_ms": 8,
+  "max_tracks": 256,
+  "boundary_recheck_distance": 0.25,
+  "strategic_decisions": false,
+  "new_models_or_dependencies": false
+}

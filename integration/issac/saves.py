@@ -197,6 +197,12 @@ class SaveProtection:
                         'baseline_sha256':row['sha256'],'observed_sha256':current_sha})
         for name in record['roots']:
             for path in Path(name).rglob('*'):
+                # Only save/config candidates can fail the checks below. Avoid
+                # resolving/stat-ing every unrelated game asset on every poll.
+                # Baseline contents/backups above are still hashed each time;
+                # all unknown .sav/.ini and slot-1/2 paths retain their guards.
+                if not save_file(path):
+                    continue
                 if not path.is_file() or str(path.resolve()) in known:
                     continue
                 match = SLOT_FILE.fullmatch(path.name)

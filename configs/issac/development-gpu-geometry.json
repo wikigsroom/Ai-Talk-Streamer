@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "round": "GPU01",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [
+    {
+      "id": "GPU01-KERNEL",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/isaac-agent/isaac_gpu_worker.py",
+        "integration/isaac-agent/mods/IsaacJev/gpu_geometry.lua",
+        "integration/isaac-agent/mods/IsaacJev/main.lua",
+        "integration/isaac-agent/build_native_controller.py",
+        "integration/isaac-agent/tests/test_gpu_geometry.py",
+        "integration/isaac-agent/tools/verify_gpu_geometry.py"
+      ]
+    },
+    {
+      "id": "GPU01-LIFECYCLE",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/gpu_worker.py",
+        "integration/issac/application.py",
+        "integration/issac/native_game.py",
+        "configs/issac/gpu-geometry.json",
+        "integration/issac/tests/test_application_startup.py"
+      ]
+    },
+    {
+      "id": "GPU01-SAVE-SCAN",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/saves.py",
+        "integration/issac/tests/test_gpu_save_boundaries.py"
+      ]
+    },
+    {
+      "id": "GPU01-DELIVERY",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "docs/issac/GPU接入与双仓同步20261110.md",
+        "configs/issac/development-gpu-geometry.json",
+        "integration/isaac-agent/docs/GPU_GEOMETRY.md"
+      ]
+    }
+  ],
+  "source_review": [
+    "exact binary request/response identity and byte bounds, NaN/inf, shape, local-only socket, cooldown, unchanged CPU guard path",
+    "prewarmed graph buckets with persistent pinned buffers, no model or dependency acquisition, independent scalar reference",
+    "initial projectile immunity and bounce paths, near-radius original native recheck, final safety guards retained",
+    "owned lifecycle and graceful stop, unchanged original DSH channel, voice/mouth/MC and save authorization boundaries",
+    "save-file predicate exactly covers all previously actionable suffix/slot branches, protected baseline hashes remain per check",
+    "reviewed source only in dual repositories; user CSV excluded and exact bytes preserved"
+  ]
+}

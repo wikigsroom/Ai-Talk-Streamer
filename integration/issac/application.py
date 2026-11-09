@@ -103,6 +103,9 @@ class Application:
 
     def prepare(self):
         ports=(3103,3104,8040,8062,9893,9528,9532,9534)
+        geometry=read_json(inside(self.root,'configs/issac/gpu-geometry.json'))
+        if geometry.get('enabled'):
+            ports=(*ports,geometry['port'],geometry['health_port'])
         if not all(port_available(x) for x in ports):
             raise AdmissionError('ISOLATED_PORT_ALREADY_OWNED')
         relocate_native_environments(self.root)
@@ -117,6 +120,10 @@ class Application:
         media_py=self.config['native_paths']['media_python']
         voice_py=self.config['native_paths']['voice_python']
         root_arg=['--root',str(self.root)]
+        geometry=read_json(inside(self.root,'configs/issac/gpu-geometry.json'))
+        if geometry.get('enabled'):
+            self.child('gpu-geometry',media_py,['-X','utf8','-B','-m','integration.issac.gpu_worker',*root_arg],'engine')
+            self.wait_ready('gpu-geometry','http://127.0.0.1:'+str(geometry['health_port'])+'/health',120)
         self.child('game-controller',game_py,['-X','utf8','-B','-m','integration.issac.strategy_host',*root_arg],'game')
         self.wait_ready('game-controller','http://127.0.0.1:9534/status',60)
         # Strategic ownership now belongs to the same Naimei DSH that speaks.
@@ -174,7 +181,7 @@ class Application:
         # Terminate only this run's proven processes. Leave the normally paused
         # game window for inspection; never kill an unrelated pre-existing app.
         import psutil
-        order=['narrator','studio','flashhead','voice','strategy-dsh','model-gateway','game-controller']
+        order=['narrator','studio','flashhead','voice','strategy-dsh','model-gateway','game-controller','gpu-geometry']
         for name in order:
             item=self.children.get(name)
             if not item:continue

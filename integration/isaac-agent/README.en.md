@@ -178,3 +178,7 @@ Model replay validation owns port 9532. Pause and stop live services before runn
 `src/isaac_jev/` contains local control and the strategy service; `mods/IsaacJev/` contains game-side source; `dsh-host/isaac-plugin/` is the DSH plugin; `tests/` contains regressions and labelled replays; `docs/` contains bilingual guides, reviewed media and sanitized evidence. Credentials, saves, raw sessions, dependencies, runtime data and unused experimental weights are excluded.
 
 This project builds on [chongchong59699/isaac-jev](https://github.com/chongchong59699/isaac-jev), retaining the MIT license and original attribution. The `isaac_jev` and `IsaacJev` names remain for compatibility. Game files and artwork are not distributed as software assets; recordings are gameplay demonstrations. Supply your own game. Dependencies retain their own licenses. See [LICENSE](LICENSE), [CHANGELOG](CHANGELOG.md), [contributing](CONTRIBUTING.md) and [security](SECURITY.md).
+
+## Optional GPU trajectory distances
+
+An existing native Windows CUDA/PyTorch environment can batch the nine-direction swept-distance calculations. CPU remains the default. No model is loaded; DSH decisions, ordinary inputs and save protection are preserved. See [GPU setup, failure and validation boundaries](docs/GPU_GEOMETRY.md).

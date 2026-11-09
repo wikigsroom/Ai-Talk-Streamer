@@ -44,6 +44,8 @@ _G.__NativeIsaacController = mod''',1)
     source=source.replace('include("tnt_safety")','(function()\n'+tnt_module+'\nend)()')
     profile_module=(ROOT/'mods/IsaacJev/runtime_profile.lua').read_text(encoding='utf-8')
     source=source.replace('include("runtime_profile")','(function()\n'+profile_module+'\nend)()')
+    geometry_module=(ROOT/'mods/IsaacJev/gpu_geometry.lua').read_text(encoding='utf-8')
+    source=source.replace('include("gpu_geometry")','(function()\n'+geometry_module+'\nend)()')
     source=source.replace('        player.Velocity = Vector(0, 0)','        -- Native input only: preserve normal inertia.')
     start=source.index('    if automatic and game:GetFrameCount() - lastActionFrame <= 45 and needsTearFallback')
     end=source.index('\nend\n\nfunction mod:onInput',start)
@@ -73,6 +75,7 @@ function mod:NativeShutdown()
     automatic,controllerEnabled,manualOverride=false,false,true
     resolvedMove,fireDirection=Vector(0,0),Vector(0,0)
     closeClient()
+    self.gpuGeometry:close()
 end
 function mod:NativeResume()
     if game:GetNumPlayers()~=1 or playerIsDead(Isaac.GetPlayer(0)) then return false end

@@ -153,7 +153,8 @@ class NativeGame:
                 value['lua_profile']={}
                 return value
             source=('local m=_G.__NativeIsaacController;'
-                    'return json.encode(m and m.runtimeProfile and m.runtimeProfile:snapshot() or {})')
+                    'local p=m and m.runtimeProfile and m.runtimeProfile:snapshot() or {};'
+                    'p.gpu_geometry=m and m.gpuGeometry and m.gpuGeometry:snapshot() or {};return json.encode(p)')
             value['lua_profile']=json.loads(self.rpc('evaluate',source,timeout=5))
             return value
 
@@ -291,7 +292,14 @@ class NativeGame:
             spec.loader.exec_module(module)
             output=inside(self.root,'state/isaac-strategy/native-controller.lua')
             module.build(run_goal=goal.name,output=output)
-            result=self.rpc('evaluate',output.read_text(encoding='utf-8'),timeout=8)
+            geometry=read_json(inside(self.root,'configs/issac/gpu-geometry.json'))
+            port,deadline=geometry['port'],geometry['deadline_ms']
+            if (type(port) is not int or not 1024<=port<=65535 or
+                    type(deadline) is not int or not 1<=deadline<=12):
+                raise AdmissionError('BOUNDED_GPU_GEOMETRY_CONFIG_REQUIRED')
+            prefix=('_G.ISAAC_GPU_GEOMETRY={enabled='+('true' if geometry.get('enabled') is True else 'false')+
+                    ',port='+str(port)+',deadline_ms='+str(deadline)+'}\n')
+            result=self.rpc('evaluate',prefix+output.read_text(encoding='utf-8'),timeout=8)
             if result!='native controller installed':
                 raise AdmissionError('NATIVE_CONTROLLER_INSTALL_NOT_CONFIRMED')
             self.installed_goal=goal.name

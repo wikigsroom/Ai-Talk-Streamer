@@ -178,3 +178,7 @@ python check-saves.py
 `src/isaac_jev/` 为本地控制与策略服务；`mods/IsaacJev/` 为游戏侧源码；`dsh-host/isaac-plugin/` 为 DSH 插件；`tests/` 为回归与标注回放；`docs/` 为双语说明、审查后的截图/视频与脱敏证据。运行数据、密钥、存档、完整会话、依赖目录和旧试验权重均不入库。
 
 本项目在 [chongchong59699/isaac-jev](https://github.com/chongchong59699/isaac-jev) 基础上发展，保留 MIT 许可证及原作者署名。`isaac_jev` / `IsaacJev` 名称为接口兼容而保留。游戏及其美术不在本仓库分发，媒体仅为实机演示；需要自行提供游戏。依赖由各自许可证约束。见 [LICENSE](LICENSE)、[变更记录](CHANGELOG.md)、[贡献指南](CONTRIBUTING.md) 与 [安全说明](SECURITY.md)。
+
+## 可选GPU轨迹计算
+
+可使用现有原生Windows CUDA/PyTorch环境，批量加速九方向十步弹道距离计算，默认保留CPU路径。无需模型；不改变DSH道具决策、普通输入或存档约束。协议、超时回退、精度边界及实机验证要求见 [GPU说明](docs/GPU_GEOMETRY.md)。

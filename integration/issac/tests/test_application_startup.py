@@ -52,7 +52,8 @@ class ApplicationStartupTests(unittest.TestCase):
             app.start()
             self.assertEqual(app.stage,'running_candidate_not_accepted')
             self.assertNotIn('/api/dsh/status',requests)
-            self.assertEqual(set(app.children),{'game-controller','voice','flashhead','studio','narrator'})
+            self.assertEqual(set(app.children),{'gpu-geometry','game-controller','voice','flashhead','studio','narrator'})
+            self.assertEqual(next(iter(app.children)), 'gpu-geometry')
             # The public status envelope remains different from the explicit
             # health endpoint; accepting it accidentally caused the real timeout.
             with self.assertRaisesRegex(AdmissionError,'READY_DEADLINE_NARRATOR'):

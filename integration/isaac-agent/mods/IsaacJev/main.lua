@@ -6,6 +6,7 @@ local game = Game()
 local strategyControl = include("strategy_control").new(game)
 mod.strategyControl = strategyControl
 local socketOk, socket = pcall(require, "socket")
+mod.gpuGeometry = include("gpu_geometry").new(socketOk and socket or nil, _G.ISAAC_GPU_GEOMETRY)
 local Json = _G.json
 if not Json then
     local jsonOk, jsonModule = pcall(require, "json")
@@ -2303,7 +2304,35 @@ local function predictiveCombatMove(player, ignoreWaypoint)
     end
     local forecastCollision={}
     local scoringOffsets={Vector(0,0),Vector(11,0),Vector(-11,0),Vector(0,11),Vector(0,-11)}
-    for _, move in ipairs(moves) do
+    local gpuForecasts,gpuDistances,gpuMainIndex,gpuBounceIndex=nil,nil,{},{}
+    if mod and mod.gpuGeometry and mod.gpuGeometry:available() and #projectiles+#contacts*2<=256 then
+        local tracks={}
+        local function addTrack(entity,first,initial,bounce)
+            local path={[0]=entity.Position}
+            for tick=1,10 do path[tick]=bounce and bounce[tick] or projectedPosition(entity,tick*2) end
+            tracks[#tracks+1]={path=path,first=first,initial=initial}
+            return #tracks
+        end
+        for _,projectile in ipairs(projectiles) do
+            gpuMainIndex[projectile]=addTrack(projectile,math.min(11,math.max(1,math.ceil(bulletImmunity/4))),bulletImmunity<=0)
+        end
+        for _,enemy in ipairs(contacts) do
+            gpuMainIndex[enemy]=addTrack(enemy,1,true)
+            if bouncePaths[enemy] then gpuBounceIndex[enemy]=addTrack(enemy,1,true,bouncePaths[enemy]) end
+        end
+        if #tracks>0 then
+            gpuForecasts={}
+            for index,move in ipairs(moves) do
+                local forecast=movementForecast(player,move,10,room,forecastCollision)
+                forecast[0]=player.Position;gpuForecasts[index]=forecast
+            end
+            local profile=mod.runtimeProfile;local started=Isaac.GetTime()
+            gpuDistances=mod.gpuGeometry:distances({frame=game:GetFrameCount(),seed=startSeed(),
+                room=game:GetLevel():GetCurrentRoomIndex(),stage=game:GetLevel():GetStage()},gpuForecasts,tracks)
+            profile:detail("gpu_geometry_transport",Isaac.GetTime()-started)
+        end
+    end
+    for moveIndex, move in ipairs(moves) do
         local score = 0
         local profile=mod and mod.runtimeProfile
         local started=profile and Isaac.GetTime()
@@ -2311,7 +2340,7 @@ local function predictiveCombatMove(player, ignoreWaypoint)
         -- could otherwise choose a spike to reduce predicted bullet risk.
         if move:Length() > 0.5 and not safeMoveCandidate(player, move, false) then score = math.huge end
         if profile then profile:detail("candidate_safety",Isaac.GetTime()-started) end
-        local forecast=movementForecast(player,move,10,room,forecastCollision)
+        local forecast=gpuForecasts and gpuForecasts[moveIndex] or movementForecast(player,move,10,room,forecastCollision)
         score=score+math.max(pocketCost(forecast[3]),pocketCost(forecast[6]),pocketCost(forecast[10]))
         if tntThreat then
             for _,tick in ipairs({2,5,9}) do
@@ -2319,9 +2348,14 @@ local function predictiveCombatMove(player, ignoreWaypoint)
             end
         end
         for _, projectile in ipairs(projectiles) do
+            local radius = (player.Size or 10) + (projectile.Size or 5) + 6
+            local gpuSeparation=gpuDistances and gpuDistances[moveIndex][gpuMainIndex[projectile]]
+            -- Native Vector arithmetic rounds to float32. Recheck the original
+            -- CPU path around every collision boundary; no threat is dropped.
+            local useGpu=gpuSeparation and math.abs(gpuSeparation-radius)>.25
             local previous=projectile.Position-player.Position
-            local separation=bulletImmunity>0 and math.huge or previous:Length()
-            for tick=1,10 do
+            local separation=useGpu and gpuSeparation or (bulletImmunity>0 and math.huge or previous:Length())
+            for tick=1,useGpu and 0 or 10 do
                 local relative=projectedPosition(projectile,tick*2)-forecast[tick]
                 local segment=relative-previous
                 local vv=segment.X*segment.X+segment.Y*segment.Y
@@ -2331,15 +2365,18 @@ local function predictiveCombatMove(player, ignoreWaypoint)
                 end
                 previous=relative
             end
-            local radius = (player.Size or 10) + (projectile.Size or 5) + 6
             if separation < radius then score = score + (radius - separation + 1) * 6000 end
         end
         -- Fast charging enemies can cross Isaac between sampled endpoints.
         -- Check their swept relative path just as for projectiles.
         for _,enemy in ipairs(contacts) do
-            local separation=contactClearance(enemy,forecast,10)
             local radius=deathBlasts[enemy] and 145
                 or ((player.Size or 10)+math.min(50,enemy.Size or 12)+10)
+            local separation=gpuDistances and gpuDistances[moveIndex][gpuMainIndex[enemy]]
+            if separation and gpuBounceIndex[enemy] then
+                separation=math.min(separation,gpuDistances[moveIndex][gpuBounceIndex[enemy]])
+            end
+            if not separation or math.abs(separation-radius)<=.25 then separation=contactClearance(enemy,forecast,10) end
             if separation<radius then score=score+(radius-separation+1)*6000 end
         end
         for _, tick in ipairs({ 2, 5, 9 }) do
