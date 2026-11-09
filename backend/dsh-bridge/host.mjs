@@ -4,7 +4,7 @@ import { join, dirname } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { canonical, digest } from './channel.mjs';
 import { inside } from './policy.mjs';
-import { modelFailure } from './model-errors.mjs';
+import { modelFailure, generationDiagnostic } from './model-errors.mjs';
 import { NaimeiExtensions, EXTENSION_TOOLS } from './extensions.mjs';
 import { coreChoiceConcluded } from './isaac-core.mjs';
 
@@ -138,7 +138,7 @@ export class DshHost {
     if(gameReasoningEffort!==undefined&&gameReasoningEffort!=='off')throw Error('PINNED_GAME_REASONING_EFFORT_REQUIRED');
     const maximumSteps=gameplay?8:this.policy.conversation.max_memory_tool_rounds+1;
     const contextBudget=gameTurn?this.policy.conversation.game_context_max_estimated_tokens||this.policy.conversation.context_max_estimated_tokens:this.policy.conversation.context_max_estimated_tokens;
-    let steps = 0, finalReason, handle, lastAssistant = '', lastError, lastFinish;
+    let steps = 0, finalReason, handle, lastAssistant = '', lastError, lastFinish, setupStage='session_prepare';
     const calls = [];
     try {
       handle = await this.ctx.agents.create({ sessionId,
@@ -146,13 +146,18 @@ export class DshHost {
         agentOptions: { provider: route, model: snapshot.model, maxTokens,
           ...(gameReasoningEffort?{reasoningEffort:gameReasoningEffort}:{}) }, signal,
         setup: async (agentCtx, agent) => {
+          setupStage='preset_mount';
           await this.ctx.agentPresets.mount(agentCtx, negativeMinimal?'streamer-minimal-negative':'streamer-standard');
+          setupStage='persona_render';
           agentCtx.systemPrompt.section({ name: 'humanity:persona', order: 10, interpolate: false,
             text: this.renderPersona(personaSnapshot.document, { enabled: true, independentJudgment: true }) });
           agentCtx.systemPrompt.section({ name:'humanity:memory',order:20,interpolate:false,text:memorySnapshot.text });
+          setupStage='provider_bind';
           await this.#bind(agentCtx, snapshot, route, maintenance?this.policy.maintenance.model_timeout_ms:this.policy.conversation.model_timeout_ms,gameReasoningEffort);
           const names = maintenance ? ['stream_maintenance_result'] : gameTurn ? gameplay.names : [...LIVE_TOOLS, ...(this.extensions ? EXTENSION_TOOLS : []), ...(gameplay?gameplay.names:[])];
+          setupStage='extensions_mount';
           if (this.extensions && !maintenance && !negativeMinimal) await this.extensions.mount(agentCtx, agent, input, preparedContext?.partition_key || 'public');
+          setupStage='tools_mount';
           if(gameplay)agentCtx.systemPrompt.section({name:'naimei:isaac-complete',order:25,interpolate:false,text:gameplay.prompt.text});
           for (const name of names) agentCtx.tools.register(this.defineTool({ name,
             description: gameplay?.names.includes(name)?gameplay.description(name):name === 'stream_memory_recall' ? '查询当前观众及公共记忆。身份和分区由服务器决定。' : name === 'stream_memory_propose' ? '提交待核验的记忆候选。不会直接写长期记忆。' : name === 'search_meme_wiki' ? '查两个本地梗词库。data内填query，不联网。' : name === 'soul_read' ? '只读奶妹当前人格卡。data填空JSON对象。' : '提交严格 JSON 的整理结果。',
@@ -169,6 +174,7 @@ export class DshHost {
               return canonical(result);
             },
           }));
+          setupStage='rules_mount';
           agentCtx.tools.guard(exec => names.includes(exec.name) ? undefined : 'STREAM_TOOL_DENIED');
           agentCtx.systemPrompt.section({ name: 'stream:rules', order: 1, interpolate: false, text:
             maintenance ? '你是离线结构化记忆整理器。只整理给定来源，不编造事实。调用 stream_maintenance_result 提交结果，然后回答“整理完成”。' :
@@ -183,6 +189,7 @@ export class DshHost {
             if (event.type === 'turn/end') finalReason = event.data.reason;
           });
           agentCtx.on('agent/error', payload => { if (!payload.agent || payload.agent.id === sessionId) lastError = payload.error; });
+          setupStage='events_mount';
           agentCtx.on('llm/stream', async function* (options, next) {
             if (options.sessionId !== sessionId) { yield* next(); return; }
             steps++;
@@ -232,8 +239,10 @@ export class DshHost {
               onProbe?.(probe);
             }
           });
+          setupStage='session_publish';
         },
       });
+      setupStage='model_turn';
       this.active.set(sessionId, handle);
       const abort = () => handle.agent.cancel({ kind: 'user', reason: 'stream cancel' });
       signal?.addEventListener('abort', abort, { once: true });
@@ -253,7 +262,7 @@ export class DshHost {
       } finally { signal?.removeEventListener('abort', abort); }
     } catch(error) {
       const failure = modelFailure(error, { signal, finish: lastFinish });
-      console.error(JSON.stringify({event:'dsh.request_failed',session_id:sessionId,steps,phase:handle?'model_turn':'session_create',provider_revision:snapshot.revision,code:failure.code,status:failure.status,retryable:!!failure.retryable,upstream_code:failure.upstreamCode||null}));
+      console.error(JSON.stringify({event:'dsh.request_failed',session_id:sessionId,steps,phase:handle?'model_turn':'session_create',setup_stage:setupStage,local_failure:generationDiagnostic(error),provider_revision:snapshot.revision,code:failure.code,status:failure.status,retryable:!!failure.retryable,upstream_code:failure.upstreamCode||null}));
       throw failure;
     } finally { if (handle) await handle.dispose(); this.active.delete(sessionId); }
   }

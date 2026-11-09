@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV04",
+  "round": "NAV05",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -54,6 +54,15 @@
         "backend/dsh-bridge/model-errors.mjs",
         "integration/issac/tests/naimei_core.test.mjs"
       ]
+    },
+    {
+      "id": "NAV05-SAFE-LIFECYCLE-DIAGNOSTICS",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "backend/dsh-bridge/host.mjs",
+        "backend/dsh-bridge/model-errors.mjs",
+        "integration/issac/tests/naimei_core.test.mjs"
+      ]
     }
   ],
   "source_review": [
@@ -68,17 +77,19 @@
     "native 500ms fresh-observation handoff is one-shot per identity/unhold and does not renew any input lease or clear normal pause latch",
     "every fact and decision attempt obtains a fresh random DSH request identity independent of replayable event identity and resettable attempt counters",
     "event/playback deduplication, current turn fences, cancellation and actual failure disarm retained; no model substitution or automatic retry",
-    "finite local session conflict code and create/model phase diagnostics contain no raw error message, credentials or voice inputs"
+    "finite local session conflict code and create/model phase diagnostics contain no raw error message, credentials or voice inputs",
+    "local diagnostics retain finite setup stage, whitelisted exception/errno/guard, package-relative stack positions and a message digest only; no raw error or absolute source paths",
+    "diagnostics do not retry, alter DSH strategic ownership, bypass failure pause or claim the unknown real session-create failure fixed"
   ],
-  "prior_candidate": "issac-1ea3a88d954a-0592f60d",
+  "prior_candidate": "issac-9b7b518e9146-9730d30e",
   "closed_test_round": {
-    "candidate_id": "issac-1ea3a88d954a-0592f60d",
+    "candidate_id": "issac-9b7b518e9146-9730d30e",
     "deployed": true,
     "defects": [
-      "spontaneous fact failed before model streaming after natural drink recovery; generic error did not retain underlying exception type"
+      "fresh random decision session still failed locally during session_create in 8ms; original exception not retained"
     ],
-    "controlled_reproduction": "pinned DSH rejects reused disposed session ID before streaming; fresh ID succeeds, no model network calls",
     "failed_capture_stopped": true,
-    "complete_correction_reviewed": true
+    "complete_correction_reviewed": true,
+    "current_round_scope": "finite lifecycle-stage diagnostics; unknown real fault not claimed fixed"
   }
 }

@@ -1,3 +1,5 @@
+import {createHash} from 'node:crypto';
+
 // The pinned adapter reports upstream failures as finish chunks as well as throws.
 // Classify only its finite codes. Provider messages can contain prompt text or keys.
 const failures = {
@@ -18,6 +20,28 @@ const failures = {
   ABORTED: ['MODEL_CANCELLED', 409, false],
 };
 const localGuards = new Set(['STREAM_TOOL_ROUND_LIMIT','PERSONA_INJECTION_MISSING','STREAM_TOOL_CATALOG_ESCAPE','STREAM_CONTEXT_BUDGET','DSH_NOT_READY_OR_DUPLICATE']);
+
+// Retain a location for local lifecycle failures without leaking messages,
+// provider addresses, prompts, keys or absolute machine paths.
+export function generationDiagnostic(error, depth=0) {
+  const names=new Set(['Error','TypeError','RangeError','ReferenceError','AbortError','AggregateError','SuppressedError','SessionAlreadyExistsError']);
+  const codes=new Set(['ENOENT','EEXIST','EBUSY','EPERM','EACCES','ENOTDIR','EMFILE','ENFILE']);
+  const guards=new Set([...localGuards,'SOUL_CARD_NOT_INJECTED','CORE_TURN_CANCELLED']);
+  const sources=[];
+  for(const line of String(error?.stack||'').split('\n')) {
+    if(!/^\s+at /.test(line))continue;
+    const dependency=/node_modules\/@deepseek-ai\/([\w-]+)\/(?:lib\/)?([\w/.-]+\.m?js):(\d+):(\d+)/.exec(line);
+    const bridge=/backend\/dsh-bridge\/([\w.-]+\.mjs):(\d+):(\d+)/.exec(line);
+    if(dependency)sources.push({package:dependency[1],file:dependency[2],line:Number(dependency[3]),column:Number(dependency[4])});
+    else if(bridge)sources.push({package:'stream-bridge',file:bridge[1],line:Number(bridge[2]),column:Number(bridge[3])});
+    if(sources.length===4)break;
+  }
+  return {name:names.has(error?.name)?error.name:'OtherError',code:codes.has(error?.code)?error.code:null,
+    guard:guards.has(error?.message)?error.message:null,
+    message_sha256:createHash('sha256').update(String(error?.message||'')).digest('hex'),sources,
+    ...(depth<2?{related:['cause','error','suppressed'].filter(key=>error?.[key]&&typeof error[key]==='object'&&error[key]!==error)
+      .map(key=>({relation:key,...generationDiagnostic(error[key],depth+1)}))}:{})};
+}
 
 export class ModelFailure extends Error {
   constructor(code, status, retryable, upstreamCode = null) {

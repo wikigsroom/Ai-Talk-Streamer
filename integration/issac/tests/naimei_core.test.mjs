@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {NaimeiGameCore,ISAAC_CORE_TOOLS} from '../../../backend/dsh-bridge/isaac-core.mjs';
 import {digest} from '../../../backend/dsh-bridge/channel.mjs';
-import {modelFailure} from '../../../backend/dsh-bridge/model-errors.mjs';
+import {modelFailure,generationDiagnostic} from '../../../backend/dsh-bridge/model-errors.mjs';
 
 const offered=()=>({pending:true,connected:true,id:'decision-A',context_id:'room-A',remaining_ms:7000,
   identity:{controller:'controller-A',seed:100,restart:0,bridge:'bridge-A',room:84,stage:1,stage_type:0,dimension:0,visit:1},
@@ -148,6 +148,20 @@ test('a local DSH persistence conflict has a finite diagnostic, never exposing i
   assert.equal(failure.message,'DSH_SESSION_ID_COLLISION');assert.equal(failure.retryable,false);
   const abort=new AbortController();abort.abort();assert.equal(modelFailure(error,{signal:abort.signal}).code,'MODEL_CANCELLED');
   assert.equal(modelFailure(new Error('private')).code,'DSH_GENERATION_FAILED');
+});
+
+test('local lifecycle diagnostics keep finite codes and dependency locations without private error text or paths',()=>{
+  const error=new TypeError('private-key-and-prompt');error.code='PRIVATE_API_KEY';
+  error.stack='TypeError: private-key-and-prompt\n    at lookup (file:///C:/private-user/node_modules/@deepseek-ai/dsh-session/lib/index.js:42:8)\n    at fetch (https://private-host/secret:1:2)\n    at create (file:///C:/private-user/backend/dsh-bridge/host.mjs:150:12)';
+  const safe=generationDiagnostic(error),text=JSON.stringify(safe);
+  assert.equal(safe.name,'TypeError');assert.equal(safe.code,null);assert.equal(safe.guard,null);
+  assert.deepEqual(safe.sources,[{package:'dsh-session',file:'index.js',line:42,column:8},{package:'stream-bridge',file:'host.mjs',line:150,column:12}]);
+  for(const privateText of ['private-key','private-user','private-host','PRIVATE_API_KEY'])assert.ok(!text.includes(privateText));
+  assert.match(safe.message_sha256,/^[a-f0-9]{64}$/);
+  error.code='EACCES';assert.equal(generationDiagnostic(error).code,'EACCES');
+  error.cause=new Error('another-private-key');error.cause.cause=error;
+  const nested=generationDiagnostic(error);assert.equal(nested.related[0].relation,'cause');
+  assert.ok(!JSON.stringify(nested).includes('another-private-key'));
 });
 
 test('accepted model commentary is separated from the native plan and rejected choices have none',async()=>{
