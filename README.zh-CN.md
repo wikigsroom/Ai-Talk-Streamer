@@ -218,3 +218,5 @@ npm run capture
 录制文档使用已安装的 Chrome，单独创建浏览器上下文，实际发送一段本地播报并操作动作，结束时通过 `finally` 关闭自己的页面和上下文。可用 `CHROME_PATH` 指定浏览器位置。贡献流程见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 本项目集成与文档采用 [Apache-2.0](LICENSE)；上游代码、下载模型及示范声音仍遵循各自许可，不因本仓库许可而被重新授权。见 [NOTICE](NOTICE) 与[第三方声明](THIRD_PARTY_NOTICES.md)。
+
+以撒 GPU02 实测、300秒录播与相同输入对照：[验证说明](docs/issac/GPU实机验证与300秒交付20261110.md)。

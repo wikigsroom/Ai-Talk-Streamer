@@ -59,3 +59,5 @@ context; measure total process/device use as well.
 The worker binds loopback only and accepts no code or game actions. GPU use is an
 arithmetic implementation choice, not a new inference provider. Preserve MIT
 attribution and the existing native Windows-only constraints.
+
+Measured fixed-input timings, fallback counts and validation scope: [GPU02 validation](GPU_VERIFICATION_20261110.md).

@@ -1,0 +1,50 @@
+{
+  "candidate_id": "issac-b00056a2151a-22d585d0",
+  "save_check": {
+    "samples": 15,
+    "mean_ms": 38.57974003379544,
+    "median_ms": 38.2062999997288,
+    "p95_ms": 46.629900112748146,
+    "max_ms": 46.629900112748146,
+    "all_ms": [
+      45.1089998241514,
+      39.3818998709321,
+      38.27780019491911,
+      40.221699979156256,
+      38.2062999997288,
+      36.22979996725917,
+      36.72220022417605,
+      36.22530004940927,
+      38.21739996783435,
+      36.12300008535385,
+      36.38960001990199,
+      46.629900112748146,
+      34.824199974536896,
+      36.975900176912546,
+      39.16210005991161
+    ],
+    "protected_unchanged": true,
+    "baseline_files": 2,
+    "allowed_slot": 3
+  },
+  "process_rss_mib": {
+    "gpu-geometry": 933.15,
+    "game-controller": 162.27,
+    "voice": 1986.48,
+    "flashhead": 2309.32,
+    "studio": 1049.06,
+    "narrator": 203.65,
+    "isaac-game": 462.99
+  },
+  "reported_vram_mib": {
+    "gpu-geometry": "[N/A]",
+    "game-controller": "not reported",
+    "voice": "[N/A]",
+    "flashhead": "[N/A]",
+    "studio": "[N/A]",
+    "narrator": "not reported",
+    "isaac-game": "[N/A]"
+  },
+  "reported_vram_limitation": "NVIDIA driver process allocation includes context and loaded inference; Torch worker reserved memory only measures its allocator. Windows WDDM may not report per-process allocations.",
+  "recording_game_paused": true
+}

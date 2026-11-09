@@ -1,0 +1,339 @@
+{
+  "candidate_id": "issac-b00056a2151a-22d585d0",
+  "source_commit": "b00056a2151a65e633da28906249b6f91af6d4f0",
+  "sha256": "75c7adb60f2768d869d7bf5d00772e164e25bf571d073e5ed26c746e7b3fc406",
+  "duration_seconds": 300.0,
+  "decoded_frames": 9000,
+  "video": [
+    {
+      "codec_name": "h264",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "9000"
+    }
+  ],
+  "audio": {
+    "samples": 4800171,
+    "peak": 0.9974963665008545,
+    "rms": 0.10116605460643768,
+    "non_silent_10s_windows": 30
+  },
+  "roi": [
+    120,
+    150,
+    1440,
+    780
+  ],
+  "first50_comparison": [
+    {
+      "name": "original",
+      "mad": 0.1,
+      "fraction": 0.001,
+      "previous_first50_updates_per_second": 18.46,
+      "gpu_first50_updates_per_second": 14.02
+    },
+    {
+      "name": "small_objects",
+      "mad": 0.05,
+      "fraction": 0.0002,
+      "previous_first50_updates_per_second": 18.84,
+      "gpu_first50_updates_per_second": 15.32
+    }
+  ],
+  "windows": [
+    {
+      "start_seconds": 0,
+      "original": 12.8,
+      "small_objects": 15.6,
+      "strong_tile_over1": 25.0
+    },
+    {
+      "start_seconds": 10,
+      "original": 11.6,
+      "small_objects": 12.0,
+      "strong_tile_over1": 18.3
+    },
+    {
+      "start_seconds": 20,
+      "original": 14.8,
+      "small_objects": 15.1,
+      "strong_tile_over1": 20.8
+    },
+    {
+      "start_seconds": 30,
+      "original": 13.6,
+      "small_objects": 14.7,
+      "strong_tile_over1": 20.8
+    },
+    {
+      "start_seconds": 40,
+      "original": 17.3,
+      "small_objects": 19.2,
+      "strong_tile_over1": 23.7
+    },
+    {
+      "start_seconds": 50,
+      "original": 24.2,
+      "small_objects": 24.2,
+      "strong_tile_over1": 27.1
+    },
+    {
+      "start_seconds": 60,
+      "original": 25.3,
+      "small_objects": 25.4,
+      "strong_tile_over1": 26.9
+    },
+    {
+      "start_seconds": 70,
+      "original": 3.0,
+      "small_objects": 4.2,
+      "strong_tile_over1": 14.3
+    },
+    {
+      "start_seconds": 80,
+      "original": 4.5,
+      "small_objects": 4.5,
+      "strong_tile_over1": 12.8
+    },
+    {
+      "start_seconds": 90,
+      "original": 20.5,
+      "small_objects": 21.6,
+      "strong_tile_over1": 25.6
+    },
+    {
+      "start_seconds": 100,
+      "original": 12.1,
+      "small_objects": 12.3,
+      "strong_tile_over1": 19.5
+    },
+    {
+      "start_seconds": 110,
+      "original": 11.9,
+      "small_objects": 13.0,
+      "strong_tile_over1": 20.1
+    },
+    {
+      "start_seconds": 120,
+      "original": 14.1,
+      "small_objects": 14.1,
+      "strong_tile_over1": 19.7
+    },
+    {
+      "start_seconds": 130,
+      "original": 3.1,
+      "small_objects": 4.4,
+      "strong_tile_over1": 13.8
+    },
+    {
+      "start_seconds": 140,
+      "original": 4.4,
+      "small_objects": 5.3,
+      "strong_tile_over1": 12.7
+    },
+    {
+      "start_seconds": 150,
+      "original": 2.0,
+      "small_objects": 2.1,
+      "strong_tile_over1": 10.3
+    },
+    {
+      "start_seconds": 160,
+      "original": 11.5,
+      "small_objects": 13.3,
+      "strong_tile_over1": 20.2
+    },
+    {
+      "start_seconds": 170,
+      "original": 22.6,
+      "small_objects": 22.7,
+      "strong_tile_over1": 25.4
+    },
+    {
+      "start_seconds": 180,
+      "original": 7.9,
+      "small_objects": 13.7,
+      "strong_tile_over1": 23.6
+    },
+    {
+      "start_seconds": 190,
+      "original": 13.0,
+      "small_objects": 14.4,
+      "strong_tile_over1": 20.9
+    },
+    {
+      "start_seconds": 200,
+      "original": 16.5,
+      "small_objects": 16.5,
+      "strong_tile_over1": 20.6
+    },
+    {
+      "start_seconds": 210,
+      "original": 18.2,
+      "small_objects": 19.8,
+      "strong_tile_over1": 27.8
+    },
+    {
+      "start_seconds": 220,
+      "original": 12.1,
+      "small_objects": 13.9,
+      "strong_tile_over1": 27.0
+    },
+    {
+      "start_seconds": 230,
+      "original": 1.4,
+      "small_objects": 1.4,
+      "strong_tile_over1": 7.8
+    },
+    {
+      "start_seconds": 240,
+      "original": 0.7,
+      "small_objects": 0.7,
+      "strong_tile_over1": 3.8
+    },
+    {
+      "start_seconds": 250,
+      "original": 13.3,
+      "small_objects": 13.3,
+      "strong_tile_over1": 23.1
+    },
+    {
+      "start_seconds": 260,
+      "original": 20.1,
+      "small_objects": 20.1,
+      "strong_tile_over1": 23.7
+    },
+    {
+      "start_seconds": 270,
+      "original": 14.2,
+      "small_objects": 14.3,
+      "strong_tile_over1": 24.7
+    },
+    {
+      "start_seconds": 280,
+      "original": 6.0,
+      "small_objects": 7.3,
+      "strong_tile_over1": 26.3
+    },
+    {
+      "start_seconds": 290,
+      "original": 5.8,
+      "small_objects": 8.0,
+      "strong_tile_over1": 23.8
+    }
+  ],
+  "native": {
+    "active_logic_fps": {
+      "n": 54,
+      "min": 25.204420351450313,
+      "median": 29.146261743590777,
+      "max": 31.312520289308388
+    },
+    "combat_logic_fps": {
+      "n": 0
+    },
+    "render_fps": {
+      "n": 63,
+      "min": 58.75496294576577,
+      "median": 59.56494774747091,
+      "max": 60.01005588476014
+    },
+    "render_interval_p95_ms": {
+      "n": 63,
+      "min": 18.687000036239624,
+      "median": 24.69879984855652,
+      "max": 28.878999948501587
+    },
+    "lua_update_window_mean_ms": {
+      "n": 63,
+      "min": 1.475,
+      "median": 2.6,
+      "max": 4.3583333333333
+    },
+    "actual_gpu_first": {
+      "enabled": true,
+      "fallbacks": 0,
+      "last_ms": 0,
+      "last_tracks": 0,
+      "max_ms": 0,
+      "mean_ms": 0.0,
+      "requests": 0,
+      "successes": 0
+    },
+    "actual_gpu_last": {
+      "enabled": true,
+      "fallbacks": 0,
+      "last_ms": 1.5697479248047,
+      "last_tracks": 4,
+      "max_ms": 4.1675567626953,
+      "mean_ms": 1.6131930881076,
+      "requests": 18,
+      "successes": 18
+    },
+    "single_frame_interval_max_ms": 126.51690006256104
+  },
+  "normal_pause_samples": 5,
+  "unqualified_pause_samples": 0,
+  "fault_samples": 0,
+  "stale_samples": 0,
+  "speech_completed_delta": 8,
+  "mouth_frame_delta": 1401,
+  "dsh_failures_last": 0,
+  "rooms": [
+    45,
+    46,
+    55,
+    58,
+    70,
+    71,
+    84,
+    85,
+    87
+  ],
+  "limits": [
+    "Fixed-input predictor table is a controlled benchmark; this real capture has different encounters than the previous recording.",
+    "ROI motion changes are not GPU Presents; quiet scenery and genuine pauses can repeat frames.",
+    "Native render counters are 10-second sliding windows sampled every 5 seconds; the minimum is not an every-frame guarantee.",
+    "No duplicate frames, replacement audio or game speed changes were added; full 18-gate long-run production acceptance remains separate."
+  ],
+  "official_local_recording": true,
+  "public_broadcast_started": false,
+  "added_audio": false,
+  "added_frames": false,
+  "voice": "NCM01/OmniVoice",
+  "mouth": "FlashHead Lite 512x512 25FPS 4steps batch1",
+  "strategic_model": "original gpt-6-luna / Responses channel",
+  "protected_unchanged": true,
+  "permitted_test_slot": 3,
+  "source_candidate": "issac-b00056a2151a-22d585d0",
+  "release_acceptance": "300-second evidence complete; full 18-gate production and long-run acceptance not claimed",
+  "post_capture_pause": "Initial foreground handoff rejected after the continuous capture had ended; a separate owned normal-pause operation subsequently confirmed paused/unarmed. Original failure retained in private recording log.",
+  "continuous_motion_examples": [
+    {
+      "start_seconds": 55,
+      "end_seconds": 65,
+      "mad_threshold": 0.01,
+      "fraction_over_3_threshold": 8e-05,
+      "visible_updates_per_second": 30.0,
+      "scope": "Motion estimate in selected continuously moving small-object intervals; not full-duration FPS"
+    },
+    {
+      "start_seconds": 95,
+      "end_seconds": 100,
+      "mad_threshold": 0.01,
+      "fraction_over_3_threshold": 8e-05,
+      "visible_updates_per_second": 30.0,
+      "scope": "Motion estimate in selected continuously moving small-object intervals; not full-duration FPS"
+    },
+    {
+      "start_seconds": 170,
+      "end_seconds": 175,
+      "mad_threshold": 0.01,
+      "fraction_over_3_threshold": 8e-05,
+      "visible_updates_per_second": 30.0,
+      "scope": "Motion estimate in selected continuously moving small-object intervals; not full-duration FPS"
+    }
+  ],
+  "raw_official_duration_seconds": 322.766667
+}
