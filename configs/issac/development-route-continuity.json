@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "round": "NAV01",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [
+    {
+      "id": "NAV01-GRAPH-MEMORY",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/isaac-agent/src/isaac_jev/route_memory.py",
+        "integration/isaac-agent/src/isaac_jev/strategy.py",
+        "integration/isaac-agent/tests/test_route_memory.py",
+        "integration/isaac-agent/docs/ROUTE_CONTINUITY.md"
+      ]
+    },
+    {
+      "id": "NAV01-NAIMEI-CONTEXT",
+      "status": "code_complete_pending_acceptance",
+      "source_files": ["backend/dsh-bridge/isaac-core.mjs", "configs/issac/core-persona-gameplay.md"]
+    },
+    {
+      "id": "NAV01-DELIVERY",
+      "status": "code_complete_pending_acceptance",
+      "source_files": ["docs/issac/跨房间路线连续性修复20261110.md", "configs/issac/development-route-continuity.json"]
+    }
+  ],
+  "source_review": [
+    "physical-target memory is separate from unchanged per-visit/native authorization fences",
+    "persistent scope excludes controller incarnation but resets on seed/restart/stage/stage_type/dimension",
+    "observed-door graph only; native visited preserved; paid/special doors cannot be intermediate implicit steps",
+    "shared fallback checks current door geometry, lock, type, budget and reachability",
+    "refusal/failure objectives removed from distant room attractions; relevant new conditions reopen DSH offers only",
+    "goal continuity is bounded by actual progress and edge count; ordinary pauses and repeated goals do not clear memory",
+    "original DSH model/channel, voice/mouth/GPU/official-capture/save constraints retained; protected user CSV excluded"
+  ],
+  "prior_candidate": "issac-b00056a2151a-22d585d0"
+}

@@ -17,6 +17,7 @@ from typing import Any
 from .models import Action, GameState, Vec2
 from .decision import build_candidate_set
 from .navigation import move_towards, path_distance, door_is_usable, door_path_distance
+from .route_memory import RouteMemory
 
 DOMAINS = {
     'active': '主动道具', 'active_special': '一次性/重骰/传送主动',
@@ -108,7 +109,6 @@ class StrategyService:
         self.resolved: set[str] = set()
         self.pending: dict | None = None
         self.command: dict | None = None
-        self.skipped: set[str] = set()
         self.decision_seconds = min(60, max(2, decision_seconds))
         self.agent_heartbeat = 0.0
         self.state_latency: deque = deque(maxlen=500)
@@ -118,6 +118,8 @@ class StrategyService:
         self._writes: queue.Queue = queue.Queue(maxsize=1024)
         self._logger = threading.Thread(target=self._write_loop, daemon=True)
         self._logger.start()
+        self.routes = RouteMemory(self.log_dir / 'route-memory.json', self.emit)
+        self._current_offers = []
 
     def _write_loop(self):
         while not self._stop.is_set() or not self._writes.empty():
@@ -218,6 +220,8 @@ class StrategyService:
             }
             self.snapshot['revision'] = digest({k: self.snapshot[k] for k in
                 ('identity', 'health', 'inventory_revision', 'actives', 'pockets', 'resources', 'doors', 'pickups')})
+            self.routes.observe(self.snapshot, self.raw)
+            self.snapshot['route_progress'] = self.routes.describe()
             changed = previous and previous.get('identity') != identity
             if changed:
                 # A room transition may be the successful effect of the command.
@@ -237,7 +241,6 @@ class StrategyService:
                     else:
                         self._finish('indeterminate', 'context_changed_without_expected_effect')
                 self._cancel('context_changed')
-                self.skipped.clear()
             elif previous and (raw.get('frame', 0) < previous.get('frame', 0)):
                 self._cancel('frame_regression')
             if raw.get('player_dead') or extra.get('manual_override'):
@@ -271,9 +274,12 @@ class StrategyService:
                 self._finish('indeterminate' if self.command.get('issued') else 'expired', 'effect_timeout_no_retry')
             if self.enabled and not self.pending and not self.command and not raw.get('player_dead') and not extra.get('manual_override') and not extra.get('paused'):
                 offers = self._offers(state)
+                self._current_offers = offers
                 fingerprint = digest([identity, extra.get('inventory_revision'),
                     [(o['id'], o.get('guard')) for o in offers]])
-                if offers and fingerprint not in self.resolved:
+                continuation = self.routes.continuation(offers)
+                optional = any(o['op'] != 'wait' and not o.get('guard', {}).get('door') for o in offers)
+                if offers and fingerprint not in self.resolved and not (continuation and not optional):
                     self.pending = {'id': uuid.uuid4().hex, 'fingerprint': fingerprint,
                                     'identity': identity, 'revision': self.snapshot['revision'],
                                     'created': self.clock(), 'deadline': self.clock() + self.decision_seconds,
@@ -393,7 +399,6 @@ class StrategyService:
             target = next((p for p in s['pickups'] if a.action_id in {f"take_item_{p['id']}", f"take_pickup_{p['id']}", f"open_chest_{p['id']}"}), None)
             pickup_state=next((p for p in state.pickups if target and p.entity_id==target['id']),None)
             if a.mode=='chest' and (not target or not pickup_state or pickup_state.pickup_kind in {'bomb_chest','spiked_chest','mimic_chest'}):continue
-            if target and target['target_id'] in self.skipped: continue
             if target and (target.get('subtype') in HARD_ITEMS and target.get('variant') == 100): continue
             if target and target.get('price', 0) < 0 and not self._health_spend(target['price']): continue
             guard=({'target_id':target['target_id'],'price':target.get('price',0),
@@ -413,7 +418,7 @@ class StrategyService:
         # Expose safe alternatives suppressed by a preference rule in the local policy.
         existing = {o.get('action_id') for o in result}
         for p in s['pickups']:
-            if not p.get('locally_eligible', True) or p['target_id'] in self.skipped: continue
+            if not p.get('locally_eligible', True): continue
             if p.get('variant') != 100: continue
             if p.get('subtype') in HARD_ITEMS or p.get('subtype') == 316 and not any(x['id']==260 for x in s['inventory']): continue
             price = p.get('price', 0)
@@ -429,7 +434,7 @@ class StrategyService:
             aid = f'enter_door_{d.slot}'
             usable = door_is_usable(d, state) or (d.target_room_type == 'planetarium' and d.lock_known and d.locked and state.keys > 0)
             if aid in existing or not usable: continue
-            if not math.isfinite(path_distance(state, d.position, d.grid_index)): continue
+            if d.slot in state.unreachable_door_slots or not math.isfinite(door_path_distance(state, d)): continue
             raw_d = next((x for x in s['doors'] if x.get('slot') == d.slot), {})
             if d.target_room_type in {'curse', 'sacrifice'}: continue  # separate explicit health macro required
             add('select_route', 'deal' if d.target_room_type in {'angel', 'devil'} else 'planetarium' if d.target_room_type=='planetarium' else 'route',
@@ -442,7 +447,8 @@ class StrategyService:
         if dice and dice.get('face') in range(1, 7) and dice.get('grid_index') is not None:
             add('trigger_dice', 'dice', f"触发 {dice['face']} 点骰子；不可撤销",
                 {'dice': dice, 'inventory_revision': s['inventory_revision']}, grid_index=dice['grid_index'], effect='dice', safe_only=True)
-        if result: add('wait', 'route', '跳过本轮拾取和可选消耗；只继续免费普通路线与本地战斗', effect='none')
+        result = self.routes.annotate(result, state)
+        if result: add('wait', 'route', '记住本轮跳过的拾取与可选消耗；仅继续有进展的免费路线和本地战斗', effect='none')
         return result
 
     def decision(self):
@@ -457,6 +463,7 @@ class StrategyService:
                        'effects', 'actives', 'pockets', 'trinkets', 'resources', 'room', 'doors', 'map', 'pickups', 'enemies', 'bosses')}
             context['recent_room_observations'] = deepcopy(self.history['room_observations'][-10:])
             context['recent_results'] = deepcopy(list(self.receipts.values())[-5:])
+            context['route_progress'] = self.routes.describe()
             rules = {domain: DOMAIN_GUIDANCE[domain] for domain in {o['domain'] for o in result['offers']}}
             for o in result['offers']:
                 item = o.get('guard', {}).get('id')
@@ -489,15 +496,19 @@ class StrategyService:
                        'status': 'accepted' if self.live else 'observed', 'reason': str(body.get('reason', ''))[:1000],
                        'submitted_frame': self.raw.get('frame'), 'live': self.live}
             receipt['cost'] = deepcopy(offer['cost'])
+            receipt['origin_room'] = self.snapshot['identity']['room']
+            receipt['action_id'] = offer.get('action_id')
+            receipt['route'] = deepcopy(offer.get('route'))
             self.receipts[key] = receipt
             self.resolved.add(pending['fingerprint'])
             self.pending = None
             if self.live and offer['op'] != 'wait':
+                self.routes.choose(offer)
                 self.command = {'plan_id': key, 'identity': deepcopy(self.snapshot['identity']), 'offer': deepcopy(offer),
                                 'before': deepcopy(self.snapshot), 'deadline': self.clock()+min(20, max(1, float(body.get('execution_seconds', 12)))),
                                 'issued': False, 'issued_frame': None}
             elif self.live:
-                self.skipped.update(o['target_id'] for o in pending['offers'] if o.get('target_id'))
+                self.routes.defer(pending['offers'])
                 receipt['status'] = 'succeeded'; receipt['effect'] = 'wait'
             self.emit('plan_received', receipt=deepcopy(receipt), offer=deepcopy(offer))
             return deepcopy(receipt)
@@ -543,6 +554,9 @@ class StrategyService:
         receipt = self.receipts[self.command['plan_id']]
         receipt.update(status=status, effect=reason, completed_frame=self.raw.get('frame'))
         offer=self.command['offer']
+        if status in {'rejected', 'expired', 'indeterminate'} and reason in {
+                'no_current_safe_path_or_candidate', 'effect_timeout_no_retry', 'native_guard'}:
+            self.routes.remember(offer, 'failure', reason, self.command['before'])
         if status=='succeeded' and offer.get('effect')=='pickup' and offer.get('guard',{}).get('price'):
             self.history['transactions'].append({'plan_id':receipt['plan_id'],'frame':self.raw.get('frame'),
                 'identity':deepcopy(self.snapshot['identity']),'price':offer['guard']['price'],
@@ -558,6 +572,7 @@ class StrategyService:
         s, b, o = self.snapshot, c['before'], c['offer']
         ack = (self.raw.get('strategy') or {}).get('command_ack') or {}
         if ack.get('plan_id') == c['plan_id'] and ack.get('status') == 'rejected':
+            self.routes.remember(o, 'failure', ack.get('reason', 'native_guard'), c['before'])
             self._finish('rejected', ack.get('reason', 'native_guard')); return
         if o['op'] == 'use_active':
             g = o['guard']; a = next((x for x in s['actives'] if x.get('slot') == g['slot']), {})
@@ -662,32 +677,40 @@ class StrategyService:
                 # that same item/key/bomb on the next frame.
                 free_route = False
                 if not self.pending:
-                    aid = response.get('id', '')
-                    door = next((d for d in state.layout.doors if aid == f'enter_door_{d.slot}'), None)
-                    free_route = bool(door and not door.locked and door.target_room_type in {'default', 'boss'} and door_is_usable(door,state))
-                    free_route |= response.get('mode') == 'boss_exit'
-                if not free_route and not self.pending:
-                    # A declined pickup can remain the baseline's first choice.
-                    # Select a free route explicitly instead of waiting forever
-                    # behind that withheld proposal after wait/model timeout.
-                    doors=[d for d in state.layout.doors if not d.locked
-                        and d.target_room_type in {'default','boss'}
-                        and d.slot not in state.unreachable_door_slots and door_is_usable(d,state)
-                        and math.isfinite(door_path_distance(state,d))]
-                    doors.sort(key=lambda d:(d.slot!=state.planned_door_slot,
-                        d.target_room_index in state.visited_room_indices,door_path_distance(state,d)))
-                    if doors:
-                        door=doors[0]
-                        intent={'op':'select_route','domain':'route','action_id':f'enter_door_{door.slot}',
-                            'guard':{'door':{'slot':door.slot}},'label':'free route after deferred or expired strategy'}
-                        action=self._resolve_action(intent,state)
+                    # A free baseline suggestion cannot bypass the same route
+                    # goal, cross-room refusals, failures and cycle constraints.
+                    choices = self.routes.annotate(self._offers_without_wait(self._current_offers), state)
+                    choices = [o for o in choices if self._free_route_offer(o, state)]
+                    intent = self.routes.continuation(choices)
+                    if intent is None:
+                        intent = next((o for o in choices if o.get('guard', {}).get('door')
+                            and not o['guard']['door'].get('door_locked')
+                            and o['guard']['door'].get('target_room_type') in {'default', 'boss'}), None)
+                    if intent:
+                        action = self._resolve_action(intent, state)
                         if action:
-                            response.update(replace(action,source='local-strategy-fallback').as_message(True))
-                            response.update(door_slot=door.slot,source_room_index=state.layout.room_index,
+                            door = next(d for d in state.layout.doors if action.action_id == f'enter_door_{d.slot}')
+                            response.update(replace(action, source='local-strategy-fallback').as_message(True))
+                            response.update(door_slot=door.slot, source_room_index=state.layout.room_index,
                                             target_room_index=door.target_room_index)
-                            free_route=True
+                            free_route = True
+                    elif response.get('mode') == 'boss_exit':
+                        free_route = True
                 if not free_route: response = self._hold(response)
             return response
+
+    @staticmethod
+    def _offers_without_wait(offers):
+        return [o for o in offers if o['op'] != 'wait']
+
+    @staticmethod
+    def _free_route_offer(offer, state):
+        door = next((d for d in state.layout.doors
+                     if offer.get('action_id') == f'enter_door_{d.slot}'), None)
+        return bool(door and not door.locked and door.target_room_type in {'default', 'boss'}
+                    and door.slot not in state.unreachable_door_slots and door_is_usable(door, state)
+                    and math.isfinite(door_path_distance(state, door))
+                    and not any(offer.get('cost', {}).values()))
 
     def _hold(self, response):
         response.update(id='strategy_safe_hold', mode='strategy_hold', move={'x': 0, 'y': 0}, shoot={'x': 0, 'y': 0},

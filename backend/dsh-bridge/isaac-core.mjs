@@ -160,6 +160,7 @@ export class NaimeiGameCore {
         requireValue(accepted&&result.plan_id===plan.plan_id&&result.decision_id===plan.decision_id
           &&result.offer_id===value.offer_id,'CORE_PLAN_NOT_ACCEPTED',409);
         if(turn){turn.submitted={plan_id:result.plan_id,status:result.status,offer_id:value.offer_id,op:offer.op,
+          origin_room:decision.identity?.room,action_id:offer.action_id,route:offer.route||null,
           ...(result.effect?{effect:result.effect}:{})};
           if(commentary!==undefined)turn.narration=commentary.trim();}
       }
@@ -204,7 +205,7 @@ export class NaimeiGameCore {
     this.record('core_turn_started',{session_id:sessionId,decision_id:decision.id,context_id:decision.context_id,remaining_ms:decision.remaining_ms});
     try {
       const result=await this.generate({game_decision:decision,recent_naimei_game_decisions:this.recent.slice(-4)},turn,
-        '以奶妹本人身份直接判断已给出的新鲜game_decision；不重复刷新。新道具直接查wiki，不先做机制速查。用isaac_submit_plan仅提交offer_id和commentary两个字段：优先15至24字的一句自然打算，不提后台状态，不称已经完成；该调用成功即结束。',Math.min(18000,Math.max(1000,decision.remaining_ms-500)));
+        '以奶妹本人身份直接判断新鲜game_decision；结合context.route_progress中的持续目标、原生已访房间、跨房间跳过及失败结果，优先持续推进有实际收益的路线。回访不叫首次探索，不反复去刚放弃的资源分支。新道具直接查wiki，不重复刷新。用isaac_submit_plan仅提交offer_id和commentary：15至24字自然打算，不称已经完成；成功即结束。',Math.min(18000,Math.max(1000,decision.remaining_ms-500)));
       this.assertTurnCurrent(turn);
       requireValue(turn.submitted,'CORE_TURN_DID_NOT_SUBMIT_A_CHOICE',409);
       this.turns++;this.lastError=null;this.latencies.push(Date.now()-started);if(this.latencies.length>200)this.latencies.shift();

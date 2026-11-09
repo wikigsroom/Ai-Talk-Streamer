@@ -41,7 +41,7 @@
       "candidate_scope_and_reproducible_commands"
     ],
     "defect_policy": "Close the test phase and implement one complete correction round before retesting; never patch between tests within a phase",
-    "inventory": "configs/issac/development-gpu-geometry.json"
+    "inventory": "configs/issac/development-route-continuity.json"
   },
   "acceptance_scope_retained": [
     "native_game_ABI_and_read_only_observation",
