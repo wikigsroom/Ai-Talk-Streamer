@@ -162,12 +162,12 @@ export class NaimeiGameCore {
         requireValue(accepted&&result.plan_id===plan.plan_id&&result.decision_id===plan.decision_id
           &&result.offer_id===value.offer_id,'CORE_PLAN_NOT_ACCEPTED',409);
         if(turn){turn.submitted={plan_id:result.plan_id,status:result.status,offer_id:value.offer_id,op:offer.op,
-          origin_room:decision.identity?.room,action_id:offer.action_id,route:offer.route||null,
+          origin_room:decision.identity?.room??null,action_id:offer.action_id??null,route:offer.route||null,
           ...(result.effect?{effect:result.effect}:{})};
           if(commentary!==undefined)turn.narration=commentary.trim();}
       }
     }
-    this.record('core_tool',{session_id:sessionId,tool:name,decision_id:turn?.decision_id,elapsed_ms:Date.now()-started,
+    this.record('core_tool',{session_id:sessionId,tool:name,decision_id:turn?.decision_id??null,elapsed_ms:Date.now()-started,
       ...(name==='isaac_submit_plan'?{plan_id:result.plan_id,status:result.status,offer_id:value.offer_id}:{})});
     return result;
   }
@@ -251,7 +251,7 @@ export class NaimeiGameCore {
       // An actual model failure must not leave automatic gameplay armed.
       if(!this.turnCancelled(turn)&&!this.activeAbort?.signal.aborted&&error.code!=='GAME_EVENT_EXPIRED') {
         this.failures++;this.lastError=error.code||'CORE_FACT_FAILED';this.control(false);
-        this.record('core_failure_disarmed',{session_id:turn.session_id,event_id:reservation?.event?.event_id,code:this.lastError,turn_kind:'fact',local_failure:generationDiagnostic(error)});
+        this.record('core_failure_disarmed',{session_id:turn.session_id??null,event_id:reservation?.event?.event_id??null,code:this.lastError,turn_kind:'fact',local_failure:generationDiagnostic(error)});
       }
     }
     finally {this.activeAbort=null;this.activeKind=null;this.busy=false;}

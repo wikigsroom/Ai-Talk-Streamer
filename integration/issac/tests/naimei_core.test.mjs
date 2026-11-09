@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {NaimeiGameCore,ISAAC_CORE_TOOLS} from '../../../backend/dsh-bridge/isaac-core.mjs';
-import {digest} from '../../../backend/dsh-bridge/channel.mjs';
+import {digest,canonical} from '../../../backend/dsh-bridge/channel.mjs';
 import {modelFailure,generationDiagnostic} from '../../../backend/dsh-bridge/model-errors.mjs';
 
 const offered=()=>({pending:true,connected:true,id:'decision-A',context_id:'room-A',remaining_ms:7000,
@@ -119,6 +119,46 @@ test('an exception outside the generation boundary retains a safe original locat
     assert.equal(core.failures,1);assert.equal(core.enabled,false);assert.equal(core.busy,false);
     for(const secret of ['private-key','provider','private-user'])assert.ok(!JSON.stringify(events).includes(secret));
   }
+});
+
+test('accepted wait and active choices without a movement action ID complete, speak and survive strict history serialization',async()=>{
+  for(const op of ['wait','use_active']){
+    const {core}=fixture(),events=[],spoken=[];
+    const decision={...offered(),offers:[{op,id:'choice-A',cost:{coins:0,keys:0,bombs:0,health_half_hearts:0}}]};
+    Object.assign(core,{busy:false,controlRevision:1,failures:0,turns:0,attempts:new Map(),latencies:[],
+      decision:async()=>decision,record:(kind,body)=>events.push(JSON.parse(canonical({kind,...body}))),
+      offerSpeech:item=>spoken.push(item),control:()=>{core.enabled=false;},
+      api:async(_port,_path,body)=>({status:op==='wait'?'succeeded':'accepted',...(op==='wait'?{effect:'wait'}:{}),
+        plan_id:body.plan_id,decision_id:body.decision_id,offer_id:body.offer_id}),
+      generate:async(context,turn)=>{
+        assert.doesNotThrow(()=>canonical(context));
+        const commentary='先跳过这条支路，沿免费路线继续往前走。';
+        await core.tool('isaac_submit_plan',{offer_id:'choice-A',commentary},{sessionId:turn.session_id,turn});
+        return {text:commentary};}});
+    await core.runDecision(decision);await core.runDecision(decision);
+    assert.equal(core.failures,0);assert.equal(core.enabled,true);assert.equal(core.turns,2);
+    assert.equal(spoken.length,2);assert.equal(core.recent.length,2);assert.doesNotThrow(()=>canonical(core.recent));
+    assert.equal(events.filter(e=>e.kind==='core_choice_completed').length,2);
+    for(const e of core.recent){assert.equal(e.action_id,null);assert.equal(e.op,op);}
+  }
+});
+
+test('a fact turn may read state without inventing a decision ID or breaking its audit',async()=>{
+  const {core}=fixture(),events=[];
+  Object.assign(core,{controlRevision:1,api:async()=>({connected:true}),
+    record:(kind,body)=>events.push(JSON.parse(canonical({kind,...body})))});
+  await core.tool('isaac_get_state',{topic:'state'},{sessionId:'naimei-fact-A',turn:{control_revision:1}});
+  assert.equal(events[0].decision_id,null);assert.equal(events[0].tool,'isaac_get_state');
+});
+
+test('failure before reserving a fact still disarms and records a serializable failure',async()=>{
+  const {core}=fixture(),events=[];
+  Object.assign(core,{busy:false,controlRevision:1,failures:0,api:async()=>{throw Error('unavailable');},
+    record:(kind,body)=>events.push(JSON.parse(canonical({kind,...body}))),control:()=>{core.enabled=false;}});
+  await core.runFact();
+  assert.equal(core.enabled,false);assert.equal(core.failures,1);assert.equal(core.busy,false);
+  assert.equal(events[0].session_id,null);assert.equal(events[0].event_id,null);
+  assert.equal(events[0].kind,'core_failure_disarmed');
 });
 test('a choice intentionally interrupting self-talk does not falsely disarm gameplay',async()=>{
   const {core}=fixture();let abandoned=0;

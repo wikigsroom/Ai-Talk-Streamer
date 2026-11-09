@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV06",
+  "round": "NAV07",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -72,6 +72,14 @@
         "backend/dsh-bridge/isaac-core.mjs",
         "integration/issac/tests/naimei_core.test.mjs"
       ]
+    },
+    {
+      "id": "NAV07-NULLABLE-NATIVE-CHOICES",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "backend/dsh-bridge/isaac-core.mjs",
+        "integration/issac/tests/naimei_core.test.mjs"
+      ]
     }
   ],
   "source_review": [
@@ -89,17 +97,18 @@
     "finite local session conflict code and create/model phase diagnostics contain no raw error message, credentials or voice inputs",
     "local diagnostics retain finite setup stage, whitelisted exception/errno/guard, package-relative stack positions and a message digest only; no raw error or absolute source paths",
     "diagnostics do not retry, alter DSH strategic ownership, bypass failure pause or claim the unknown real session-create failure fixed",
-    "core catch retains finite original diagnostic even for setup-before-try and post-return dispose errors; dispose cleanup always removes active handle; raw errors and permissions unchanged"
+    "core catch retains finite original diagnostic even for setup-before-try and post-return dispose errors; dispose cleanup always removes active handle; raw errors and permissions unchanged",
+    "valid wait/active choices have no movement action ID; explicit null preserves strict history and audit JSON without fabricating an action; fact state reads and pre-reservation failures also use null optional identity fields"
   ],
-  "prior_candidate": "issac-f09f3da6b4f5-3667a66d",
+  "prior_candidate": "issac-a69ab61aa9e8-71daa291",
   "closed_test_round": {
-    "candidate_id": "issac-f09f3da6b4f5-3667a66d",
+    "candidate_id": "issac-a69ab61aa9e8-71daa291",
     "deployed": true,
     "defects": [
-      "112 second targeted run failed CORE_TURN_FAILED without dsh.request_failed, indicating an uninstrumented outer boundary; root exception unknown"
+      "NAV05 real accepted wait receipt has absent offer action_id; exact source replay proves native success followed by NON_JSON_UNDEFINED in core_choice_completed serialization"
     ],
     "failed_capture_stopped": true,
     "complete_correction_reviewed": true,
-    "current_round_scope": "diagnose outer core and handle disposal failures without changing strategic or pause policy"
+    "current_round_scope": "explicit null for optional native audit fields; retain strict serializer and real failure disarm"
   }
 }
