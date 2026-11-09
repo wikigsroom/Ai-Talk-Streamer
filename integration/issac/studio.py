@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import re
 import struct
+import threading
 import time
 import uuid
 
@@ -82,6 +83,13 @@ class IsaacStudio(NaimeiStudio):
         self.media_timer=MediaTimer()
         self.last_auto_drink=time.monotonic()
         self.sample_mouth=None
+        # Only genuine prepared frames enter this queue. At 25 FPS the initial
+        # twelve-frame reservoir adds 480 ms equally to picture and its PCM.
+        self.prepared=asyncio.Queue(maxsize=24)
+        self.prepared_ready=asyncio.Event()
+        self.prepare_sequence=0
+        self.published_body=self.body.status()
+        self.mouth_lock=threading.Lock()
 
     def load_actions(self):
         # BodyBank is the sole source of accepted decoded loops. Inherited
@@ -127,14 +135,16 @@ class IsaacStudio(NaimeiStudio):
     async def speech(self, command):
         # Complete a cup action before admitting a speech generation.
         deadline=time.monotonic()+18
-        while self.body.drinking:
+        while self.body.drinking or self.published_body.get('drinking'):
             if time.monotonic()>deadline:
                 await self.fail(command['request_id'],'DRINK_CHAIN_DID_NOT_COMPLETE');return
             await asyncio.sleep(.04)
         if self.changing_mode or self.media_fault:
             await self.fail(command['request_id'],'MEDIA_NOT_IDLE_READY');return
         if not self.fence.matches(command):return
-        self.mouth.reset()
+        def reset():
+            with self.mouth_lock:self.mouth.reset()
+        await asyncio.to_thread(reset)
         await super().speech(command)
 
     async def dsh_command(self, request):
@@ -172,22 +182,47 @@ class IsaacStudio(NaimeiStudio):
             if self.fence.current==(barrier['runtime_epoch'],barrier['new_generation']):
                 await self.cancel_source(request_id)
 
-    async def emit(self, jpeg, pcm=SILENCE, metadata=None):
+    async def emit(self, jpeg, pcm=SILENCE, metadata=None, *, original=None, body_status=None, oral=None):
+        """Durably map a real frame before making it available for playout."""
         if metadata:
-            if not self.fence.matches(metadata):return
-            started=time.perf_counter()
-            receipt=await self.api('/internal/media-map',metadata)
-            elapsed=round((time.perf_counter()-started)*1e6)
-            self.stats['media_map_max_us']=max(self.stats['media_map_max_us'],elapsed)
-            if receipt.get('cancelled'):
-                await self.discard_cancelled_frame(metadata,receipt)
-                return
-            if receipt.get('persisted') is not True:
-                raise AdmissionError('MEDIA_MAP_NOT_PERSISTED')
-            if not self.fence.matches(metadata):
-                return
-            metadata={'type':'media.map','protocol':2,**metadata,'map_revision':receipt['map_revision']}
+            if self.fence.matches(metadata):
+                started=time.perf_counter()
+                receipt=await self.api('/internal/media-map',metadata)
+                elapsed=round((time.perf_counter()-started)*1e6)
+                self.stats['media_map_max_us']=max(self.stats['media_map_max_us'],elapsed)
+                if receipt.get('cancelled'):
+                    await self.discard_cancelled_frame(metadata,receipt)
+                    metadata=None
+                elif receipt.get('persisted') is not True:
+                    raise AdmissionError('MEDIA_MAP_NOT_PERSISTED')
+                elif self.fence.matches(metadata):
+                    metadata={'type':'media.map','protocol':2,**metadata,'map_revision':receipt['map_revision']}
+                else:metadata=None
+            else:metadata=None
+            if metadata is None:
+                if original is None:raise AdmissionError('REAL_BODY_FRAME_REQUIRED_AFTER_CANCEL')
+                jpeg,pcm,oral=original,SILENCE,None
+        await self.prepared.put({'sequence':self.prepare_sequence,'jpeg':jpeg,'original':original or jpeg,
+            'pcm':pcm,'metadata':metadata,'oral':oral,'body':body_status or self.body.status()})
+        self.prepare_sequence+=1
+        if self.prepared.qsize()>=12:self.prepared_ready.set()
+
+    async def publish(self, frame):
+        if frame['sequence']!=self.sequence:raise AdmissionError('PREPARED_FRAME_SEQUENCE_GAP')
+        jpeg,pcm,metadata,oral=frame['jpeg'],frame['pcm'],frame['metadata'],frame['oral']
+        # No await between this fence check and encoding/enqueueing. A frame
+        # cancelled while waiting in the reservoir keeps its original moving
+        # body, never the stale mouth or speech samples.
+        if metadata and not self.fence.matches(metadata):
+            jpeg,pcm,metadata,oral=frame['original'],SILENCE,None,None
+            self.stats['buffered_cancelled_frames_discarded']+=1
+        body_status=frame['body']
+        if body_status['mode']!=self.mode:
+            self.mode=body_status['mode'];self.media=MediaProfile();self.keyframe=True
+            write_json(inside(self.root,'state/issac-stream/current-mode.json'),{'mode':self.mode})
+            self.audit.append('same_mode_bank_changed',mode=self.mode,real_loop_boundary=True)
         image=cv2.imdecode(np.frombuffer(jpeg,np.uint8),cv2.IMREAD_COLOR)
+        if image is None:raise AdmissionError('PREPARED_FRAME_DECODE_FAILED')
         started=time.perf_counter()
         encoded,_=self.encoder.encode(image,self.sequence,keyframe=self.keyframe or self.sequence%50==0)
         elapsed=round((time.perf_counter()-started)*1e6)
@@ -209,10 +244,79 @@ class IsaacStudio(NaimeiStudio):
         self.sent_at=now
         self.stats['output_frames']+=1
         self.last_jpeg=jpeg
+        self.published_body=body_status
+        if body_status['last_event']!=self.last_body_event:
+            self.last_body_event=body_status['last_event']
+            self.audit.append('body_clip_started',body_event=self.last_body_event)
+        self.sample_mouth=oral
+        if metadata:
+            self.stats['actual_audio_driven_mouth_frames']+=1
+            self.stats['actual_model_oral_open_frames']+=int(oral.get('open',False))
+            self.state='idle' if metadata['final'] else 'speaking'
+            if metadata['final']:self.stats['utterances_generated']+=1
+        else:
+            self.stats['body_only_frames']+=1
+            if self.state=='speaking':self.state='idle'
+
+    async def media_failure(self,error,metadata=None):
+        if self.media_fault:return
+        self.media_fault=True
+        self.media_error='MEDIA_CONTINUITY_OR_MAPPING_REJECTED'
+        self.stage='media_quality_or_protocol_fault'
+        self.stats['media_faults']+=1
+        failed_id=self.mapping.command['request_id'] if self.mapping else metadata.get('request_id') if metadata else None
+        if failed_id:
+            try:await self.fail(failed_id,'MEDIA_CONTINUITY_OR_MAPPING_REJECTED')
+            except Exception:self.audit.append('media_failure_callback_unavailable')
+        reason=str(error)
+        self.audit.append('media_frame_rejected',code=self.media_error,error_type=type(error).__name__,
+                          reason=reason if re.fullmatch('[A-Z][A-Z0-9_]{0,99}',reason) else 'UNCLASSIFIED_MEDIA_FAILURE')
+        for ws in list(self.viewers):
+            try:await ws.close(code=1011,message=b'media validation failed')
+            except Exception:self.audit.append('media_consumer_close_unconfirmed')
+        try:
+            receipt=await self.native_call({'action':'pause'})
+            self.audit.append('media_fault_normal_pause',native_receipt=receipt.get('native_receipt',{}))
+        except Exception:self.audit.append('media_fault_pause_unconfirmed',code='NORMAL_GAME_PAUSE_NOT_CONFIRMED')
+
+    async def playout(self):
+        await self.prepared_ready.wait()
+        due=None
+        while not self.media_fault:
+            if due is not None:
+                await asyncio.sleep(max(0,due-time.perf_counter()));due+=.04
+            try:
+                frame=self.prepared.get_nowait()
+                await self.publish(frame)
+            except asyncio.QueueEmpty:
+                self.stats['pump_stalls']+=1
+                await self.media_failure(AdmissionError('PREPARED_FRAME_RESERVOIR_EXHAUSTED'));return
+            except Exception as error:
+                await self.media_failure(error);return
+            # The first encoder packet initializes NVENC before the stream has
+            # any previous presentation timestamp. Anchor the live clock here.
+            if due is None:due=time.perf_counter()+.04
+            if time.perf_counter()-due>.2:
+                self.stats['pump_stalls']+=1
+                await self.media_failure(AdmissionError('PROGRAMME_PLAYOUT_DEADLINE_EXCEEDED'));return
+            if time.monotonic()-self.last_telemetry>=1:
+                self.last_telemetry=time.monotonic()
+                self.audit.append('media_clock',sequence=self.sequence,counters=dict(self.stats),
+                                  body=self.published_body,mouth=self.sample_mouth,prepared_frames=self.prepared.qsize())
+
+    def render_frame(self,source,speaking,reserved):
+        body=self.body.next(speaking=speaking,safe=not reserved and self.game_state.get('freshness')=='fresh' and self.game_state.get('paused') is True)
+        original=self.jpeg(body);oral=None
+        if speaking:
+            face=cv2.imdecode(np.frombuffer(source.jpeg,np.uint8),cv2.IMREAD_COLOR)
+            started=time.perf_counter()
+            with self.mouth_lock:body,oral=self.mouth.project(body,face,source.pcm)
+            self.stats['mouth_projection_max_us']=max(self.stats['mouth_projection_max_us'],round((time.perf_counter()-started)*1e6))
+        return self.jpeg(body) if speaking else original,original,self.body.status(),oral
 
     async def pump(self):
         due=time.perf_counter()+.12
-        while True:
+        while not self.media_fault:
             await asyncio.sleep(max(0,due-time.perf_counter()));due+=.04
             source=None
             try:source=self.source_queue.get_nowait()
@@ -225,65 +329,24 @@ class IsaacStudio(NaimeiStudio):
             try:
                 if self.pending_mode and self.body.at_boundary:
                     self.body=self.pending_body
-                    self.mode=self.pending_mode
                     self.mouth=self.pending_mouth
                     self.pending_mode=None
                     self.pending_body=self.pending_mouth=None
-                    self.sample_mouth=None
-                    self.media=MediaProfile();self.keyframe=True
-                    write_json(inside(self.root,'state/issac-stream/current-mode.json'),{'mode':self.mode})
-                    self.audit.append('same_mode_bank_changed',mode=self.mode,real_loop_boundary=True)
                 reserved=bool(self.mapping or self.speech_task and not self.speech_task.done())
-                body=self.body.next(speaking=speaking,safe=not reserved and self.game_state.get('freshness')=='fresh' and self.game_state.get('paused') is True)
-                if self.body.event!=self.last_body_event:
-                    self.last_body_event=self.body.event.copy()
-                    self.audit.append('body_clip_started',body_event=self.last_body_event)
                 if speaking:
-                    metadata=self.mapping.range_for(source,self.sequence,self.transport_id)
-                    if metadata:
-                        face=cv2.imdecode(np.frombuffer(source.jpeg,np.uint8),cv2.IMREAD_COLOR)
-                        started=time.perf_counter()
-                        body,oral=self.mouth.project(body,face,source.pcm)
-                        elapsed=round((time.perf_counter()-started)*1e6)
-                        self.stats['mouth_projection_max_us']=max(self.stats['mouth_projection_max_us'],elapsed)
-                        self.sample_mouth=oral
-                        self.stats['actual_model_oral_open_frames']+=int(oral.get('open',False))
-                        pcm=source.pcm
-                        self.stats['actual_audio_driven_mouth_frames']+=1
-                        self.state='speaking'
-                        if metadata['final']:
-                            self.mapping=None;self.state='idle';self.stats['utterances_generated']+=1
-                else:self.stats['body_only_frames']+=1
-                await self.emit(self.jpeg(body),pcm,metadata)
+                    metadata=self.mapping.range_for(source,self.prepare_sequence,self.transport_id)
+                speaking=bool(metadata)
+                jpeg,original,body_status,oral=await asyncio.to_thread(self.render_frame,source,speaking,reserved)
+                if metadata:
+                    pcm=source.pcm
+                    if metadata['final'] and self.mapping and self.mapping.command['request_id']==metadata['request_id']:
+                        self.mapping=None
+                await self.emit(jpeg,pcm,metadata,original=original,body_status=body_status,oral=oral)
             except Exception as error:
-                self.media_fault=True
-                self.media_error='MEDIA_CONTINUITY_OR_MAPPING_REJECTED'
-                self.stage='media_quality_or_protocol_fault'
-                self.stats['media_faults']+=1
-                failed_id=self.mapping.command['request_id'] if self.mapping else metadata.get('request_id') if metadata else None
-                if failed_id:
-                    try:await self.fail(failed_id,'MEDIA_CONTINUITY_OR_MAPPING_REJECTED')
-                    except Exception:self.audit.append('media_failure_callback_unavailable')
-                # Keep a bounded protocol reason, never arbitrary exception text
-                # that might contain a private endpoint or request body.
-                reason=str(error)
-                self.audit.append('media_frame_rejected',code=self.media_error,error_type=type(error).__name__,
-                                  reason=reason if re.fullmatch('[A-Z][A-Z0-9_]{0,99}',reason) else 'UNCLASSIFIED_MEDIA_FAILURE')
-                # No static substitute is advertised as a successful live frame.
-                for ws in list(self.viewers):
-                    try:await ws.close(code=1011,message=b'media validation failed')
-                    except Exception:self.audit.append('media_consumer_close_unconfirmed')
-                try:
-                    receipt=await self.native_call({'action':'pause'})
-                    self.audit.append('media_fault_normal_pause',native_receipt=receipt.get('native_receipt',{}))
-                except Exception:
-                    self.audit.append('media_fault_pause_unconfirmed',code='NORMAL_GAME_PAUSE_NOT_CONFIRMED')
+                await self.media_failure(error,metadata)
                 return
             if time.perf_counter()-due>.2:
-                self.stats['pump_stalls']+=1;due=time.perf_counter()+.04
-            if time.monotonic()-self.last_telemetry>=1:
-                self.last_telemetry=time.monotonic()
-                self.audit.append('media_clock',sequence=self.sequence,counters=dict(self.stats),body=self.body.status(),mouth=self.sample_mouth)
+                self.stats['render_delays']+=1
 
     async def stream(self,request):
         if stream_request_error(request.query) or request.query.get('v')!='3':raise web.HTTPBadRequest(text='MEDIA_V3_H264_REQUIRED')
@@ -355,7 +418,7 @@ class IsaacStudio(NaimeiStudio):
     async def change_mode(self,request):
         body=await request.json();mode=body.get('mode')
         if set(body)!={'mode'} or mode not in {'M01','M02','M03'}:raise web.HTTPBadRequest()
-        if self.changing_mode or self.mapping or self.body.drinking or self.speech_task and not self.speech_task.done():
+        if self.changing_mode or self.mapping or self.body.drinking or self.published_body.get('drinking') or self.speech_task and not self.speech_task.done():
             return web.json_response({'error':'WAIT_FOR_SPEECH_AND_NATURAL_ACTION'},status=409)
         if mode==self.mode:return web.json_response({'mode':mode,'unchanged':True})
         self.changing_mode=True
@@ -372,7 +435,7 @@ class IsaacStudio(NaimeiStudio):
             self.pending_body,self.pending_mouth=bank,mouth
             self.pending_mode=mode
             deadline=time.monotonic()+20
-            while self.pending_mode and time.monotonic()<deadline:await asyncio.sleep(.04)
+            while self.mode!=mode and time.monotonic()<deadline:await asyncio.sleep(.04)
             if self.mode!=mode:raise AdmissionError('REAL_G0_BOUNDARY_NOT_REACHED')
             return web.json_response({'mode':mode,'same_mode_bank':True,'game_control_changed':False,'seconds':time.monotonic()-started})
         except Exception as error:
@@ -390,8 +453,8 @@ class IsaacStudio(NaimeiStudio):
                 now=time.monotonic()
                 if self.auto_drink:
                     action=self.auto_drink
-                    if self.body.drinking:action['started']=True
-                    done=action['started'] and not self.body.drinking
+                    if self.published_body.get('drinking'):action['started']=True
+                    done=action['started'] and not self.published_body.get('drinking')
                     if done or now>action['deadline']:
                         self.body.request_drink=False
                         if done and not self.media_fault and not self.changing_mode:
@@ -466,10 +529,11 @@ class IsaacStudio(NaimeiStudio):
             'speaking':self.state=='speaking','state':self.state,'viewers':len(self.viewers),'mode':self.mode,
             'size':512,'fps':25,'steps':4,'voice_id':'NCM01','voice_freeze_id':self.voice_profile.get('freeze_id'),
             'programme':{'title':'奶妹 · 以撒的结合','width':1920,'height':1080,'fps':30,'revision':self.web_revision},
-            'game':self.game_state,'body':self.body.status(),'natural_action':self.natural_action(),'counters':dict(self.stats),'engine':self.engine_health,
+            'game':self.game_state,'body':self.published_body,'natural_action':self.natural_action(),'counters':dict(self.stats),'engine':self.engine_health,
             'mouth_postprocess':'actual_flashhead_oral_pixels_with_two_original_upper_fangs','mouth_diagnostic':self.sample_mouth,
             'output_fps_measured':len(self.intervals)/sum(self.intervals) if self.intervals else 0,
-            'source_queue_frames':self.source_queue.qsize(),'quality_accepted':False,'cloud_fallback':False})
+            'source_queue_frames':self.source_queue.qsize(),'prepared_frames':self.prepared.qsize(),
+            'playout_buffer_frames':12,'playout_buffer_seconds':.48,'quality_accepted':False,'cloud_fallback':False})
 
     async def startup(self,app):
         self.media_timer.start()
@@ -479,7 +543,7 @@ class IsaacStudio(NaimeiStudio):
             self.media_timer.close()
             raise
         self.http=ClientSession(trust_env=False)
-        self.tasks=[asyncio.create_task(fn()) for fn in (self.source_reader,self.refresh_health,self.game_monitor,self.natural_events,self.pump)]
+        self.tasks=[asyncio.create_task(fn()) for fn in (self.source_reader,self.refresh_health,self.game_monitor,self.natural_events,self.pump,self.playout)]
 
     async def cleanup(self,app):
         if self.cleanup_started:return

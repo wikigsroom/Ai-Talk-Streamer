@@ -1,0 +1,24 @@
+{
+  "schema_version":1,
+  "candidate_id":"issac-51b5e0e6ea40-333be2a1",
+  "phase_closed":true,
+  "actual_receipt_relative":"state/issac-acceptance/programme-modes-j.json",
+  "actual_receipt_sha256":"a0f258199e6b632827e282a7bdca782d58b1a1fbc94e4e2fc6c8658544b939e3",
+  "all_five_uniform_prechecks_passed":true,
+  "modes":[
+    {"mode":"M01","actual_frames":1125,"seconds":45.235,"actual_fps":24.8701,"packet_p99_ms":83.3875,"max_interval_ms":119.5321,"new_pump_stalls":0,"actual_open_frames":184},
+    {"mode":"M02","actual_frames":1125,"seconds":45.141,"actual_fps":24.9219,"packet_p99_ms":83.4507,"max_interval_ms":110.5068,"new_pump_stalls":0,"actual_open_frames":186},
+    {"mode":"M03","actual_frames":1102,"seconds":45.250,"actual_fps":24.3536,"packet_p99_ms":98.9810,"max_interval_ms":217.9410,"new_pump_stalls":3,"actual_open_frames":227}
+  ],
+  "same_original_core_actual_route_choice_seconds":4.856,
+  "expected_native_room_effect_verified":true,
+  "full_safe_drink_chain_observed":true,
+  "battle_failure":{"room":83,"enemy_type":248,"enemy_variant":0,"enemy_hp":10,"player_position":[403.23587,479.33228],"enemy_position":[280,440],"requested_move":[-1,0],"resolved_move":[0,0],"outcome":"stationary_enemy_detour_stalled_no_fake_progress"},
+  "media_failure":{"max_observed_mapping_ms":209.798,"source_underflows":0,"media_faults":0,"timing_quality_passed":false},
+  "official_and_game_closed_normally":true,
+  "owned_stack_stopped_normally":true,
+  "full_run_observer_interrupted_truthfully":true,
+  "subjective_audio_or_video_approval_claimed":false,
+  "final_delivery_created":false,
+  "public_broadcast_started":false
+}

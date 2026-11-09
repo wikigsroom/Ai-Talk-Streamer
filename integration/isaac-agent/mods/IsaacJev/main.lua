@@ -2204,7 +2204,8 @@ local function predictiveCombatMove(player, ignoreWaypoint)
     -- Floor hazards, explosives, telegraphs and contact guards stay active.
     local bulletImmunity=player.GetDamageCooldown and math.max(0,player:GetDamageCooldown()-4) or 0
     local function fixedTurret(enemy)
-        return enemy.Type==(EntityType.ENTITY_HORF or 12) and (enemy.Variant or 0)==0
+        return (enemy.Type==(EntityType.ENTITY_HORF or 12) or enemy.Type==(EntityType.ENTITY_PSY_HORF or 248))
+            and (enemy.Variant or 0)==0
             and enemy.Velocity and enemy.Velocity:Length()<0.2
     end
     -- A locally clear retreat into a one-exit rock pocket lets chasing NPCs

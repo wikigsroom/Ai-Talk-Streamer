@@ -49,6 +49,11 @@ _G.__NativeIsaacController = mod''',1)
     start=source.index('    -- A fixed local reload marker')
     end=source.index('    if Input.IsButtonTriggered(Keyboard.KEY_F8, 0)',start)
     source=source[:start]+source[end:]
+    # Keep the actual render/death heartbeat callback, while keeping private
+    # controller diagnostics out of the recorded game picture.
+    start=source.index('    local label = "LOCAL WAITING (bridge)"')
+    end=source.index('\nend\n\nmod:AddCallback(ModCallbacks.MC_POST_UPDATE',start)
+    source=source[:start]+'    -- Controller diagnostics remain in the private native state.\n'+source[end:]
     # A completed/dead run is observed and disarmed by the host. Never start a
     # new run through the console, even if a previous controller is still fresh.
     start=source.index('    -- The game stops simulation updates on the death screen.')

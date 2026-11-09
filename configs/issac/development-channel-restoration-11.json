@@ -1,0 +1,21 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-K",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-51b5e0e6ea40-333be2a1",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRK01","status":"code_complete_pending_acceptance","code":"Recognize only stationary base Psychic Horf as the second fixed turret; preserve moving/variant contact comfort, real body clearance, projectile, laser, blast and floor guards, including the actual observed rock detour geometry","source_files":["integration/isaac-agent/mods/IsaacJev/main.lua","integration/isaac-agent/tests/test_predictive_combat.py"]},
+    {"id":"CRK02","status":"code_complete_pending_acceptance","code":"Remove private developer HUD only from the generated native controller while preserving the actual render/death heartbeat, normal input and outcome observation","source_files":["integration/isaac-agent/build_native_controller.py","integration/isaac-agent/tests/test_native_bundle.py"]},
+    {"id":"CRK03","status":"code_complete_pending_acceptance","code":"Prepare real body/FlashHead frames off the event loop, persist their exact media maps, then pace a bounded genuine twelve-frame reservoir at 25 FPS; recheck cancellation before output, preserving the moving body and silence with no sequence gap, repeated frame or fabricated PCM","source_files":["integration/issac/studio.py","tests/test_issac_programme_pump.py"]},
+    {"id":"CRK04","status":"code_complete_pending_acceptance","code":"Publish mode/G0 identity, actual mouth counters and natural-drink completion only when the corresponding real frame is emitted; preserve the pause revision fence, fail closed on a genuinely exhausted queue and initialize encoder before anchoring live packet deadlines","source_files":["integration/issac/studio.py","tests/test_issac_programme_pump.py"]},
+    {"id":"CRK05","status":"code_complete_pending_acceptance","code":"Keep truthful J failure evidence and unchanged 18 acceptance gates, source freeze, original core, NCM01, FlashHead geometry and local official 300-second recording requirements","source_files":["docs/evidence/issac-programme-modes-j-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}

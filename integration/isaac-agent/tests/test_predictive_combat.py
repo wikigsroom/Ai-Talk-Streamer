@@ -35,19 +35,26 @@ class PredictiveCombatTests(unittest.TestCase):
             local enclosed=false
             local routeDirection=Vector(0,1)
             local function followGridRoute() return routeDirection end
-            local function isCombatEnemy(e) return e.Type==12 or e.Type==10 or e.Type==16 or e.Type==250 or e.Type==25 or e.Type==29 or e.Type==27 or e.Type==24 or e.Type==39 or e.Type==43 or e.Type==49 or e.Type==55 or e.Type==60 or e.Type==81 or e.Type==84 end
+            local function isCombatEnemy(e) return e.Type==12 or e.Type==248 or e.Type==10 or e.Type==16 or e.Type==250 or e.Type==25 or e.Type==29 or e.Type==27 or e.Type==24 or e.Type==39 or e.Type==43 or e.Type==49 or e.Type==55 or e.Type==60 or e.Type==81 or e.Type==84 end
             local function isMovingSpikeTrap(e) return e.Type==212 end
             local function safeMoveCandidate() return not enclosed end
             local function clearTearLine() return true end
             local function actualDoorPosition() return Vector(400,200) end
             local function doorSlotDirection() return Vector(1,0) end
         """ + planner + """
-            return {choose_fixed_turret_route=function(withBullet)
+            return {choose_fixed_turret_route=function(withBullet,kind,variant,speed)
                 action.waypoint=Vector(520,280)
                 routeDirection=Vector(1,0)
-                entities={{Type=12,Variant=0,Position=Vector(520,400),Velocity=Vector(0,0),Size=13}}
+                entities={{Type=kind or 12,Variant=variant or 0,Position=Vector(520,400),Velocity=Vector(speed or 0,0),Size=13}}
                 if withBullet then entities[2]={Type=9,Position=Vector(445,354),Velocity=Vector(-10,0),Size=5} end
                 local move=predictiveCombatMove({Position=Vector(388.2,354.3),Velocity=Vector(0,0),Size=10,MoveSpeed=1,TearRange=260})
+                return move.X,move.Y
+            end,choose_observed_psychic_horf=function(withBullet)
+                action.waypoint=Vector(280,560)
+                routeDirection=Vector(-1,0)
+                entities={{Type=248,Variant=0,Position=Vector(280,440),Velocity=Vector(0,0),Size=13}}
+                if withBullet then entities[2]={Type=9,Position=Vector(360,479),Velocity=Vector(10,0),Size=5} end
+                local move=predictiveCombatMove({Position=Vector(403.23587,479.33228),Velocity=Vector(0,0),Size=10,MoveSpeed=1,TearRange=260})
                 return move.X,move.Y
             end,choose_projectile_window=function(cooldown)
                 action.waypoint=Vector(500,200)
@@ -202,8 +209,16 @@ class PredictiveCombatTests(unittest.TestCase):
         """)
 
     def test_fixed_horf_approach_uses_body_clearance_and_still_vetoes_a_real_bullet(self):
-        self.assertEqual(self.api.choose_fixed_turret_route(False),(1,0))
-        self.assertNotEqual(self.api.choose_fixed_turret_route(True),(1,0))
+        for kind in (12,248):
+            with self.subTest(kind=kind):
+                self.assertEqual(self.api.choose_fixed_turret_route(False,kind,0,0),(1,0))
+                self.assertNotEqual(self.api.choose_fixed_turret_route(True,kind,0,0),(1,0))
+                self.assertNotEqual(self.api.choose_fixed_turret_route(False,kind,1,0),(1,0))
+                self.assertNotEqual(self.api.choose_fixed_turret_route(False,kind,0,1),(1,0))
+
+    def test_actual_psychic_horf_rock_detour_keeps_real_projectile_guard(self):
+        self.assertEqual(self.api.choose_observed_psychic_horf(False),(-1,0))
+        self.assertNotEqual(self.api.choose_observed_psychic_horf(True),(-1,0))
 
     def test_stationary_diagonal_does_not_hold_and_miss_forever(self):
         x,y,_,_=self.api.choose(218,363,322,277,None,None,None,None)

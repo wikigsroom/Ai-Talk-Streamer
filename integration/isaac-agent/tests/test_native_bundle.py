@@ -26,6 +26,13 @@ class NativeBundleTests(unittest.TestCase):
                           ':UseActiveItem(',':UseCard(',':UsePill(',':AddCollectible(',':TakeDamage('):
             self.assertNotIn(forbidden,source)
 
+    def test_native_render_keeps_death_observation_without_operator_hud(self):
+        source=self.generated()
+        render=source.split('function mod:onRender()',1)[1].split('mod:AddCallback(ModCallbacks.MC_POST_UPDATE',1)[0]
+        self.assertIn('safeSendState()',render)
+        self.assertIn('handleDeathAndRestart(player)',render)
+        self.assertNotIn('Isaac.RenderText(',render)
+
     def test_fresh_controller_cannot_restart_a_dead_run_even_with_frozen_game_clock(self):
         source=self.generated()
         part='local function playerIsDead(player)'+source.split('local function playerIsDead(player)',1)[1].split('local function collectState()',1)[0]
