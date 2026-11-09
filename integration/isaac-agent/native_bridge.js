@@ -1,5 +1,5 @@
 // Isaac-only native Lua bridge. Never changes achievement, save, or gameplay flags.
-// Work executes on the game's own render thread; the Lua stack is always restored.
+// Work executes at the original game Lua/render boundaries; restore the Lua stack.
 let luaState = null;
 let api = null;
 let executing = false;
@@ -9,8 +9,11 @@ let counters = { calls: 0, failures: 0 };
 let graphics = null;
 let frameRequests = [];
 let engineSlot = null;
-let luaCallAddress = null;
-let luaRequestHook = null;
+let luaNativeModule = null;
+const luaNative = Object.fromEntries(['state','executing','pending','calls','javascript'].map(name=>[name,Memory.alloc(8)]));
+luaNative.state.writePointer(ptr(0));
+for(const name of ['executing','pending','calls','javascript'])luaNative[name].writeU32(0);
+const luaNativeLeave = new NativeCallback(()=>{drain();},'void',[]);
 const frameHooks = new Set();
 const renderSources = new Map();
 const kernel32 = Module.load('kernel32.dll');
@@ -106,29 +109,15 @@ function refreshLuaState() {
 }
 function expireLuaRequests() {
   while(pending.length && pending[0].expires<=Date.now())pending.shift().reject(new Error('Native request expired before execution'));
-  releaseLuaRequestHook();
-}
-function releaseLuaRequestHook() {
-  if(!executing&&!pending.length&&luaRequestHook){
-    const hook=luaRequestHook;luaRequestHook=null;hook.detach();
-  }
-}
-function armLuaRequestHook() {
-  if(luaRequestHook||!luaCallAddress||!pending.length)return;
-  // Use the original Lua-call return boundary. SwapBuffers may run while the
-  // engine's canonical Lua state is still in use by another execution context.
-  luaRequestHook=Interceptor.attach(luaCallAddress,{
-    onEnter(args){if(!executing)this.state=args[0];},
-    onLeave(){
-      if(this.state&&!executing){luaState=this.state;drain();}
-      releaseLuaRequestHook();
-    }
-  });
+  luaNative.pending.writeU32(pending.length?1:0);
 }
 function drain() {
   expireLuaRequests();
+  const actual=luaNative.state.readPointer();
+  if(!actual.isNull())luaState=actual;
   if (executing || !api || !luaState || pending.length === 0) return;
   executing = true;
+  luaNative.executing.writeU32(1);
   const request = pending.shift();
   const top = api.top(luaState);
   try {
@@ -141,7 +130,10 @@ function drain() {
     if (code !== 0) { counters.failures++; request.reject(new Error(value || `Lua error ${code}`)); }
     else request.resolve(value);
   } catch (error) { counters.failures++; request.reject(error); }
-  finally { api.settop(luaState, top); executing = false; }
+  finally {
+    api.settop(luaState, top);executing=false;luaNative.executing.writeU32(0);
+    luaNative.pending.writeU32(pending.length?1:0);
+  }
 }
 function installLua(module) {
   if (api || !/^lua5\.3/i.test(module.name)) return;
@@ -158,11 +150,30 @@ function installLua(module) {
   for (const name of ['lua_newstate', 'luaL_newstate']) {
     const address = module.findExportByName(name);
     if (address) Interceptor.attach(address, {onLeave(value) {
-      if (!value.isNull()) { luaState = value; notify({event:'lua_state', address:value.toString()}); }
+      if (!value.isNull()) { luaState=value;luaNative.state.writePointer(value);notify({event:'lua_state', address:value.toString()}); }
     }});
   }
-  luaCallAddress=module.getExportByName('lua_pcallk');
-  armLuaRequestHook();
+  // Preserve the proven original Lua-state capture and execution ordering.
+  // Hot game callbacks stay entirely native unless a trusted request is queued.
+  luaNativeModule=new CModule(`
+    #include <gum/guminterceptor.h>
+    extern gpointer volatile state_slot;
+    extern volatile guint32 executing_flag;
+    extern volatile guint32 pending_flag;
+    extern volatile guint32 call_count;
+    extern volatile guint32 javascript_count;
+    extern void leave_ready(void);
+    void on_enter(GumInvocationContext *context) {
+      call_count++;
+      if (!executing_flag) state_slot=gum_invocation_context_get_nth_argument(context,0);
+    }
+    void on_leave(GumInvocationContext *context) {
+      if (pending_flag && !executing_flag) {javascript_count++;leave_ready();}
+    }
+  `,{state_slot:luaNative.state,executing_flag:luaNative.executing,pending_flag:luaNative.pending,
+      call_count:luaNative.calls,javascript_count:luaNative.javascript,leave_ready:luaNativeLeave},
+    {toolchain:'internal'});
+  Interceptor.attach(module.getExportByName('lua_pcallk'),{onEnter:luaNativeModule.on_enter,onLeave:luaNativeModule.on_leave});
   installed.push(module.name);
   notify({event:'lua_api', module:module.name});
 }
@@ -176,7 +187,7 @@ function installFrame(module) {
   const address = module.findExportByName(module.name.toLowerCase() === 'gdi32.dll' ? 'SwapBuffers' : 'wglSwapBuffers');
   if (address && !frameHooks.has(address.toString())) {
     frameHooks.add(address.toString());
-    Interceptor.attach(address, {onEnter() { renderSample(module.name); drainFrames(); }});
+    Interceptor.attach(address, {onEnter() { renderSample(module.name); drain(); drainFrames(); }});
     installed.push('frame:'+module.name);
   }
 }
@@ -193,12 +204,14 @@ if (engineMatches.length === 1) {
 rpc.exports = {
   status() { return {pid:Process.id, lua:luaState ? luaState.toString() : null, installed, counters, keyboardCounters,
     performance:{clock:'QueryPerformanceCounter',render:renderStatus(),keyboard_hooks:keyboardHooks.length,
-      keyboard_leases:keyboardLeases.size,lua_pcall_hooks:luaRequestHook?1:0,lua_execution_point:'lua_pcall_return',
+      keyboard_leases:keyboardLeases.size,lua_pcall_hooks:luaNativeModule?1:0,lua_hook_implementation:'native_c',
+      lua_native_calls:luaNative.calls.readU32(),lua_javascript_returns:luaNative.javascript.readU32(),
+      lua_execution_point:'original_lua_return_and_render_boundaries',
       pending_evaluations:pending.length,pending_captures:frameRequests.length}}; },
   key(name,hwnd) {return ordinaryKey(name,hwnd);},
   evaluate(source) { return new Promise((resolve,reject) => {
     pending.push({source,resolve,reject,expires:Date.now()+3000});
-    armLuaRequestHook();setTimeout(expireLuaRequests,3000);
+    luaNative.pending.writeU32(1);setTimeout(expireLuaRequests,3000);
   }); },
   capture(id) {return new Promise((resolve,reject)=>frameRequests.push({id,resolve,reject,expires:Date.now()+2500}));},
   progress() {
