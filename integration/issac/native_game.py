@@ -134,7 +134,8 @@ class NativeGame:
             return {'attached':True,'pid':self.process.pid,'created_at':self.created_at,
                     'session_id':self.session_id,'lua_ready':bool(value.get('lua')),
                     'game_sha256':GAME_SHA256,'installed_goal':self.installed_goal,
-                    'bridge_counters':value.get('counters')}
+                    'bridge_counters':value.get('counters'),
+                    'performance':value.get('performance')}
 
     def observe(self,timeout=5):
         with self.lock:

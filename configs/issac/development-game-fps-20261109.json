@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "round": "game-fps-20261109-r1",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "items": [
+    {
+      "id": "GF01",
+      "code": "Remove permanent hot Lua/input hooks; bounded menu leases; native render timing and read-only performance observation",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/isaac-agent/native_bridge.js",
+        "integration/issac/native_game.py",
+        "integration/issac/strategy_host.py",
+        "integration/issac/acceptance.py",
+        "integration/issac/tests/native_bridge.test.mjs",
+        "docs/issac/游戏帧率修复20261109.md"
+      ]
+    }
+  ]
+}

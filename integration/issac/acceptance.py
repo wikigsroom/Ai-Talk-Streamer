@@ -116,6 +116,7 @@ class Runner:
             [str(inside(self.root,paths['game_python'])),'-X','utf8','-B','-m','unittest','discover','-s','integration/isaac-agent/tests','-q'],
             [str(inside(self.root,paths['node'])),'--test','integration/issac/tests/contracts.test.mjs',
               'integration/issac/tests/naimei_core.test.mjs',
+              'integration/issac/tests/native_bridge.test.mjs',
               'integration/issac/tests/channel.test.mjs',
               'integration/issac/tests/model_backend.test.mjs',
               'integration/isaac-agent/tests/test_dsh_binding.mjs']]

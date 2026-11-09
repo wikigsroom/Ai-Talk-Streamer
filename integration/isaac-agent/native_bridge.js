@@ -8,22 +8,53 @@ let installed = [];
 let counters = { calls: 0, failures: 0 };
 let graphics = null;
 let frameRequests = [];
+let engineSlot = null;
+const frameHooks = new Set();
+const renderSources = new Map();
+const kernel32 = Module.load('kernel32.dll');
+const clockValue = Memory.alloc(8), clockFrequency = Memory.alloc(8);
+const queryClock = new NativeFunction(kernel32.getExportByName('QueryPerformanceCounter'),'bool',['pointer'],'stdcall');
+new NativeFunction(kernel32.getExportByName('QueryPerformanceFrequency'),'bool',['pointer'],'stdcall')(clockFrequency);
+const clockHz = clockFrequency.readS64().toNumber();
+function nowMs() { queryClock(clockValue); return clockValue.readS64().toNumber()*1000/clockHz; }
+function renderSample(name) {
+  const now=nowMs();
+  let sample=renderSources.get(name);
+  if(!sample){sample={count:0,last:null,intervals:[]};renderSources.set(name,sample);}
+  if(sample.last!==null){sample.intervals.push(now-sample.last);if(sample.intervals.length>600)sample.intervals.shift();}
+  sample.last=now;sample.count++;
+}
+function renderStatus() {
+  return Object.fromEntries([...renderSources].map(([name,sample])=>{
+    const sorted=[...sample.intervals].sort((a,b)=>a-b), total=sample.intervals.reduce((a,b)=>a+b,0);
+    return [name,{count:sample.count,window_frames:sorted.length,window_seconds:total/1000,
+      fps:total>0?sample.intervals.length*1000/total:null,
+      interval_ms_p50:sorted.length?sorted[Math.floor((sorted.length-1)*.5)]:null,
+      interval_ms_p95:sorted.length?sorted[Math.floor((sorted.length-1)*.95)]:null,
+      interval_ms_max:sorted.length?sorted[sorted.length-1]:null,
+      last_age_ms:sample.last===null?null:Math.max(0,nowMs()-sample.last)}];
+  }));
+}
 // Process-scoped ordinary keyboard input for menus/pause. Never activates a desktop window.
 const keyboardLeases = new Map();
 const keyboardCounters = {async:0,state:0,messages:0};
+let keyboardHooks = [];
 const user32 = Module.load('user32.dll');
-for(const apiName of ['GetAsyncKeyState','GetKeyState']) {
-  const address=user32.findExportByName(apiName);
-  if(address)Interceptor.attach(address,{onEnter(args){this.key=args[0].toInt32();},onLeave(result){
-    if((keyboardLeases.get(this.key)??0)>Date.now()){result.replace(ptr(0x8000));keyboardCounters.async++;}
-  }});
-}
-const getKeyboardState=user32.findExportByName('GetKeyboardState');
-if(getKeyboardState)Interceptor.attach(getKeyboardState,{onEnter(args){this.buffer=args[0];},onLeave(result){
-  if(result.toInt32())for(const [key,until] of keyboardLeases)if(until>Date.now()){
-    this.buffer.add(key).writeU8(0x80);keyboardCounters.state++;
+function installKeyboardHooks() {
+  if(keyboardHooks.length)return;
+  for(const apiName of ['GetAsyncKeyState','GetKeyState']) {
+    const address=user32.findExportByName(apiName);
+    if(address)keyboardHooks.push(Interceptor.attach(address,{onEnter(args){this.key=args[0].toInt32();},onLeave(result){
+      if((keyboardLeases.get(this.key)?.until??0)>Date.now()){result.replace(ptr(0x8000));keyboardCounters.async++;}
+    }}));
   }
-}});
+  const address=user32.findExportByName('GetKeyboardState');
+  if(address)keyboardHooks.push(Interceptor.attach(address,{onEnter(args){this.buffer=args[0];},onLeave(result){
+    if(result.toInt32())for(const [key,lease] of keyboardLeases)if(lease.until>Date.now()){
+      this.buffer.add(key).writeU8(0x80);keyboardCounters.state++;
+    }
+  }}));
+}
 function ordinaryKey(name, hwnd) {
   const codes={enter:13,escape:27,left:37,up:38,right:39,down:40};
   const code=codes[name];if(!code)throw new Error('Only ordinary menu/pause keys are allowed');
@@ -31,10 +62,18 @@ function ordinaryKey(name, hwnd) {
   const processId=Memory.alloc(4);
   new NativeFunction(user32.getExportByName('GetWindowThreadProcessId'),'uint',['pointer','pointer'],'stdcall')(window,processId);
   if(processId.readU32()!==Process.id)throw new Error('Window belongs to another process');
-  keyboardLeases.set(code,Date.now()+140);
+  const lease={until:Date.now()+140};
+  installKeyboardHooks();
+  keyboardLeases.set(code,lease);
   const post=new NativeFunction(user32.getExportByName('PostMessageW'),'bool',['pointer','uint','uint','uint'],'stdcall');
   post(window,0x100,code,1);keyboardCounters.messages++;
-  setTimeout(()=>post(window,0x101,code,0xc0000001),145);
+  setTimeout(()=>{
+    // An older timer must not release a newer press of the same key.
+    if(keyboardLeases.get(code)===lease){
+      post(window,0x101,code,0xc0000001);keyboardLeases.delete(code);
+    }
+    if(!keyboardLeases.size){for(const hook of keyboardHooks)hook.detach();keyboardHooks=[];}
+  },145);
   return {key:name,process:Process.id,duration_ms:140,foreground_changed:false};
 }
 function drainFrames() {
@@ -54,9 +93,20 @@ function drainFrames() {
   } catch(error) { request.reject(error); }
 }
 function notify(value) { send(value); }
+function refreshLuaState() {
+  if(!api||!engineSlot)return;
+  const engine=engineSlot.readPointer();
+  if(engine.isNull()){luaState=null;return;}
+  const candidate=engine.add(0x18).readPointer();
+  if(candidate.isNull()){luaState=null;return;}
+  const top=api.top(candidate);
+  luaState=top>=0&&top<100?candidate:null;
+}
 function drain() {
   while(pending.length && pending[0].expires<Date.now())pending.shift().reject(new Error('Native request expired before execution'));
-  if (executing || !api || !luaState || pending.length === 0) return;
+  if (executing || !api || pending.length === 0) return;
+  refreshLuaState();
+  if(!luaState)return;
   executing = true;
   const request = pending.shift();
   const top = api.top(luaState);
@@ -90,10 +140,8 @@ function installLua(module) {
       if (!value.isNull()) { luaState = value; notify({event:'lua_state', address:value.toString()}); }
     }});
   }
-  Interceptor.attach(module.getExportByName('lua_pcallk'), {
-    onEnter(args) { if (!executing) luaState = args[0]; },
-    onLeave() { drain(); }
-  });
+  // Do not intercept every game Lua callback. That also intercepts the very
+  // frequent input callbacks. Trusted requests already run at SwapBuffers.
   installed.push(module.name);
   notify({event:'lua_api', module:module.name});
 }
@@ -105,7 +153,11 @@ function installFrame(module) {
     pixels:new NativeFunction(module.getExportByName('glReadPixels'),'void',['int','int','int','int','uint','uint','pointer'],'stdcall')
   };
   const address = module.findExportByName(module.name.toLowerCase() === 'gdi32.dll' ? 'SwapBuffers' : 'wglSwapBuffers');
-  if (address) { Interceptor.attach(address, {onEnter() { drain(); drainFrames(); }}); installed.push('frame:'+module.name); }
+  if (address && !frameHooks.has(address.toString())) {
+    frameHooks.add(address.toString());
+    Interceptor.attach(address, {onEnter() { renderSample(module.name); drain(); drainFrames(); }});
+    installed.push('frame:'+module.name);
+  }
 }
 Process.attachModuleObserver({onAdded(module) { installLua(module); installFrame(module); }});
 // This build delay-loads Lua through its own loader. Locate only the published
@@ -114,17 +166,13 @@ if (!api) Module.load(Process.mainModule.path.replace(/[^\\/]+$/, 'Lua5.3.3f.dll
 const engineMatches = Memory.scanSync(Process.mainModule.base, Process.mainModule.size,
   '8b 0d ?? ?? ?? ?? c7 45 dc 01 00 00 00');
 if (engineMatches.length === 1) {
-  const engine = engineMatches[0].address.add(2).readPointer().readPointer();
-  if (!engine.isNull()) {
-    const candidate = engine.add(0x18).readPointer();
-    if (!candidate.isNull()) {
-      const top = api.top(candidate);
-      if (top >= 0 && top < 100) luaState = candidate;
-    }
-  }
+  engineSlot = engineMatches[0].address.add(2).readPointer();
+  refreshLuaState();
 }
 rpc.exports = {
-  status() { return {pid:Process.id, lua:luaState ? luaState.toString() : null, installed, counters, keyboardCounters}; },
+  status() { return {pid:Process.id, lua:luaState ? luaState.toString() : null, installed, counters, keyboardCounters,
+    performance:{clock:'QueryPerformanceCounter',render:renderStatus(),keyboard_hooks:keyboardHooks.length,
+      keyboard_leases:keyboardLeases.size,lua_pcall_hooks:0,pending_evaluations:pending.length,pending_captures:frameRequests.length}}; },
   key(name,hwnd) {return ordinaryKey(name,hwnd);},
   evaluate(source) { return new Promise((resolve,reject) => pending.push({source,resolve,reject,expires:Date.now()+3000})); },
   capture(id) {return new Promise((resolve,reject)=>frameRequests.push({id,resolve,reject,expires:Date.now()+2500}));},
