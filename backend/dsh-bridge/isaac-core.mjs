@@ -27,7 +27,7 @@ export class NaimeiGameCore {
     this.prompt=completePrompt(this.root,readFileSync(join(this.root,'configs/issac/core-persona-gameplay.md'),'utf8'));
     this.names=Object.keys(ISAAC_CORE_TOOLS);this.enabled=false;this.closed=false;this.busy=false;this.polling=false;
     this.pending=new Map();this.backlog=[];this.attempts=new Map();this.latest=null;this.recent=[];this.activeAbort=null;this.activeDecisionTurn=null;
-    this.turns=0;this.failures=0;this.lastError=null;this.lastFact=0;this.latencies=[];this.controlRevision=0;
+    this.turns=0;this.failures=0;this.lastError=null;this.lastFact=0;this.latencies=[];this.controlRevision=0;this.completedSpeech=0;
     mkdirSync(join(this.root,'state/issac-stream'),{recursive:true});
     this.audit=join(this.root,'state/issac-stream/naimei-game-core.jsonl');
   }
@@ -43,6 +43,7 @@ export class NaimeiGameCore {
       last_error:this.lastError,dshVersion:this.bridge.policy.versions.dsh_candidate,model:channel.model,
       protocol:channel.protocol,channel_source:channel.source,candidate_id:candidateId,
       process_id:process.pid,registeredTools:this.names,prompt:this.prompt.receipt,independent_strategy_host:false,
+      actual_completed_game_utterances:this.completedSpeech,
       decision_latency_p95_ms:times.length?times[Math.min(times.length-1,Math.ceil(times.length*.95)-1)]:null};
   }
   control(enabled) {
@@ -178,7 +179,8 @@ export class NaimeiGameCore {
       if(!this.busy&&decision.pending&&decision.connected&&decision.remaining_ms>1200) {
         const prior=this.attempts.get(decision.id);
         if(!prior||prior.count<2&&Date.now()-prior.at>1500)void this.runDecision(decision);
-      } else if(!this.busy&&!decision.pending&&Date.now()-this.lastFact>=3000)void this.runFact();
+      } else if(!this.busy&&!decision.pending&&!this.pending.size&&!this.backlog.length
+        &&!this.bridge.state.active()&&Date.now()-this.lastFact>=3000)void this.runFact();
     } catch {this.lastError='CURRENT_GAME_UNAVAILABLE';}
     finally {this.polling=false;}
   }
@@ -202,7 +204,7 @@ export class NaimeiGameCore {
     this.record('core_turn_started',{session_id:sessionId,decision_id:decision.id,context_id:decision.context_id,remaining_ms:decision.remaining_ms});
     try {
       const result=await this.generate({game_decision:decision,recent_naimei_game_decisions:this.recent.slice(-4)},turn,
-        '以奶妹本人身份直接判断已给出的新鲜game_decision；不重复刷新。新道具直接查wiki，不先做机制速查。用isaac_submit_plan仅提交offer_id和commentary两个字段：15至40字自然打算，不提后台状态，不称已经完成；该调用成功即结束。',Math.min(18000,Math.max(1000,decision.remaining_ms-500)));
+        '以奶妹本人身份直接判断已给出的新鲜game_decision；不重复刷新。新道具直接查wiki，不先做机制速查。用isaac_submit_plan仅提交offer_id和commentary两个字段：优先15至24字的一句自然打算，不提后台状态，不称已经完成；该调用成功即结束。',Math.min(18000,Math.max(1000,decision.remaining_ms-500)));
       this.assertTurnCurrent(turn);
       requireValue(turn.submitted,'CORE_TURN_DID_NOT_SUBMIT_A_CHOICE',409);
       this.turns++;this.lastError=null;this.latencies.push(Date.now()-started);if(this.latencies.length>200)this.latencies.shift();
@@ -210,7 +212,7 @@ export class NaimeiGameCore {
       this.recent.push(summary);if(this.recent.length>8)this.recent.shift();
       this.record('core_choice_completed',{session_id:sessionId,...summary,elapsed_ms:Date.now()-started});
       const event={event_id:'naimei-core-'+decision.id,type:'core_decision',...eventIdentity(decision.identity),
-        expires_at:Date.now()/1000+10,facts:{decision_id:decision.id,...turn.submitted}};
+        observed_at:Date.now()/1000,expires_at:Date.now()/1000+30,facts:{decision_id:decision.id,...turn.submitted}};
       this.offerSpeech({text:summary.text,event});
     } catch(error) {
       if(turn.native_fault&&turn.control_revision===(this.controlRevision||0)&&this.enabled&&!this.closed){
@@ -233,7 +235,7 @@ export class NaimeiGameCore {
       requireValue(await this.current(reservation.event),'GAME_EVENT_EXPIRED',409);
       turn.session_id='naimei-fact-'+reservation.event.event_id;
       const result=await this.generate({game_event:reservation.event,recent_naimei_game_decisions:this.recent.slice(-4)},turn,
-        '你是正在游玩的奶妹。依据自己刚看到的真实结果自然反应或短暂自言自语；不能把计划接受说成已成功，15至30字一句口语，不提后台状态。',12000);
+        '你是正在游玩的奶妹。game_event是刚刚核验的同房间真实观察，直接依据其中facts作自然反应或自言自语，不重复调用工具刷新，不作新决定。优先15至24字一句口语；使用刚才发生的事实，不推测原因，不把计划接受说成已成功，不提后台状态。',12000);
       this.assertTurnCurrent(turn);
       this.offerSpeech({text:result.text.slice(0,80),...reservation});reservation=null;
     } catch(error) {
@@ -276,7 +278,13 @@ export class NaimeiGameCore {
     for(const [id,item] of this.pending) {
       const request=this.bridge.state.request(id);
       if(!request||['FAILED','CANCELLED','INTERRUPTED','EXPIRED'].includes(request.status)){this.pending.delete(id);await this.abandon(item);continue;}
-      if(request.status!=='COMPLETED'&&!await this.current(item.event))this.bridge.state.cancel(id,'game_fact_context_changed');
+      if(request.status!=='COMPLETED'&&!await this.current(item.event)){
+        const expired=Date.now()/1000>=item.event.expires_at;
+        this.record('core_speech_cancelled',{request_id:id,event_id:item.event.event_id,event_type:item.event.type,
+          reason:expired?'expired':'native_context_changed',observed_at:item.event.observed_at,
+          expires_at:item.event.expires_at});
+        this.bridge.state.cancel(id,expired?'game_fact_expired':'game_fact_context_changed');
+      }
     }
   }
   async completed(event) {
@@ -286,6 +294,7 @@ export class NaimeiGameCore {
     if(item.nonce){const payload=this.bridge.db.payload(event.event_seq);await this.api(9534,'/narration/receipt',{request_id:event.request_id,
       receipt:{authority:'official_source',request_id:event.request_id,actual_pcm_samples:utterance.contiguous_played_samples,
         completed:true,lease_id:payload.lease_id}});}
+    this.completedSpeech=(this.completedSpeech||0)+1;
     this.record('actual_core_speech_completed',{request_id:event.request_id,event_id:item.event.event_id,samples:utterance.contiguous_played_samples});
     this.pending.delete(event.request_id);
   }

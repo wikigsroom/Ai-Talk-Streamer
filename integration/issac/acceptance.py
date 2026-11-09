@@ -223,6 +223,8 @@ class Runner:
             'no_media_quality_faults':delta.get('media_faults',0)==0,'no_pump_stalls':delta.get('pump_stalls',0)==0,
             'protected_saves_unchanged':True,
             'actual_naimei_core_choices':last['naimei_core'].get('turns',0)-first['naimei_core'].get('turns',0)>=max(1,seconds//120),
+            'actual_complete_game_utterances':last['naimei_core'].get('actual_completed_game_utterances',0)
+                -first['naimei_core'].get('actual_completed_game_utterances',0)>=max(1,seconds//60),
             'naimei_core_decision_p95_under_8_seconds':last['naimei_core'].get('decision_latency_p95_ms') is not None
                 and last['naimei_core']['decision_latency_p95_ms']<=8000}
         report={**self.candidate,'seconds':seconds,'elapsed_seconds':elapsed,'wire':dict(wire),'counters_delta':delta,

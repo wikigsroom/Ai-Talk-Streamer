@@ -15,6 +15,7 @@ from .delivery import recording_gate,recording_seconds
 from .livehime import Livehime
 from .materials import ffmpeg
 from .record_focus import RecordingHandoff,record_controls
+from .av_export import trim_official
 
 
 def probe(root,path):
@@ -128,13 +129,8 @@ async def record(root):
     final=output/('奶妹-以撒的结合-官方直播姬-'+str(seconds)+'秒.mp4')
     # This only cuts a continuous interval from the actual official recording.
     # It adds no image, mouth, voice, repeated frame or alternate audio source.
-    command=[ffmpeg(root),'-hide_banner','-v','error','-n','-i',str(raw),'-ss',str(continuous_offset),'-map','0:v:0','-map','0:a:0',
-        '-t',str(seconds),'-frames:v',str(seconds*30),'-vsync','0','-c:v','libx264','-preset','fast','-crf','18',
-        '-c:a','aac','-b:a','192k','-movflags','+faststart',str(final)]
-    with (output/'trim.log').open('wb') as log:
-        process=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT,timeout=1800,creationflags=0x08000000)
-    if process.returncode:raise AdmissionError('OFFICIAL_RECORDING_CONTINUOUS_TRIM_FAILED')
-    finalmeta=probe(root,final)
+    exported=trim_official(root,raw,final,continuous_offset,seconds)
+    finalmeta=exported['probe']
     decoded=subprocess.run([ffmpeg(root),'-v','error','-i',str(final),'-map','0:v:0','-map','0:a:0',
         '-f','null','-'],capture_output=True,timeout=600,creationflags=0x08000000)
     sound=subprocess.run([ffmpeg(root),'-hide_banner','-i',str(final),'-vn','-af','volumedetect','-f','null','-'],

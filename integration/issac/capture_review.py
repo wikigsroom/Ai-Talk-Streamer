@@ -2,12 +2,9 @@
 from __future__ import annotations
 import argparse
 import asyncio
-import base64
-import io
 import json
 from pathlib import Path
 import struct
-import subprocess
 import time
 import uuid
 
@@ -15,7 +12,7 @@ from aiohttp import ClientSession,ClientTimeout,WSMsgType
 
 from .common import AdmissionError,inside,write_json
 from .deployment import require_candidate
-from .materials import ffmpeg
+from .av_export import mux_review
 
 
 async def capture(root,mode,seconds=60,speak=False):
@@ -87,12 +84,7 @@ async def capture(root,mode,seconds=60,speak=False):
         'requests':requests,'trace':trace,'metrics':metrics,'official_delivery_recording':False,
         'observer_muted':True,'playback_authority_claimed':False,'quality_accepted':False}
     write_json(folder/'capture.json',result)
-    command=[ffmpeg(root),'-hide_banner','-v','error','-n','-r','25','-i',str(folder/'actual.h264'),
-        '-f','s16le','-ar','16000','-ac','1','-i',str(folder/'actual.s16le'),'-map','0:v','-map','1:a',
-        '-c:v','copy','-c:a','aac','-shortest',str(folder/'review.mp4')]
-    process=subprocess.run(command,capture_output=True,timeout=180,creationflags=0x08000000)
-    (folder/'mux.log').write_bytes(process.stderr)
-    if process.returncode:raise AdmissionError('ACTUAL_MOUTH_REVIEW_MUX_FAILED')
+    mux_review(root,folder,packets,sound_required=speak)
     contact_sheets(folder,mode)
     return {'folder':folder.relative_to(root).as_posix(),'frames':packets,'quality_accepted':False,'actual_frame_and_audio_review_required':True}
 

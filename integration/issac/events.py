@@ -35,6 +35,8 @@ class GameEvents:
         self.current_run = None
         self.current_room = None
         self.last_metadata_at = 0
+        self.last_combat_at = 0
+        self.combat_baseline = None
         # Interrupted speech is unknown. It must never be replayed automatically.
         self.db.execute("UPDATE events SET delivery='interrupted_unknown' WHERE delivery IN ('reserved','accepted')")
         self.db.commit()
@@ -47,7 +49,7 @@ class GameEvents:
         run = digest({k: identity[k] for k in ('controller','seed','restart','bridge')})
         return run, digest({k: identity.get(k) for k in ('room','stage','stage_type','dimension','visit')}), identity
 
-    def emit(self, snapshot, kind, facts, *, priority=50, ttl=10, proof=None):
+    def emit(self, snapshot, kind, facts, *, priority=50, ttl=30, proof=None):
         run, room, identity = self.identities(snapshot)
         body = {'event_id': digest([run, room, snapshot.get('frame'), kind, facts, proof]),
                 'run_id': run, 'room_id': room, 'bridge_instance': identity['bridge'],
@@ -75,9 +77,9 @@ class GameEvents:
                 new_room = snapshot.get('room', {})
                 if room != self.identities(previous)[1]:
                     self.emit(snapshot, 'room_entered', {'room_type': new_room.get('type'),
-                              'room_clear': new_room.get('clear')}, ttl=15)
+                              'room_clear': new_room.get('clear')})
                 elif new_room.get('clear') and not old_room.get('clear'):
-                    self.emit(snapshot, 'room_cleared', {'room_type': new_room.get('type')}, priority=40, ttl=15)
+                    self.emit(snapshot, 'room_cleared', {'room_type': new_room.get('type')}, priority=40)
                 if new_room.get('dead') and not old_room.get('dead'):
                     self.emit(snapshot, 'player_died', {'dead': True}, priority=5, ttl=20)
                 if new_room.get('paused') != old_room.get('paused'):
@@ -89,17 +91,17 @@ class GameEvents:
                 if new_total != old_total and new_hp.get('exact'):
                     self.emit(snapshot, 'health_changed', {'before_half_hearts': old_total,
                               'after_half_hearts': new_total, 'cause': 'unconfirmed'},
-                              priority=15 if new_total <= 2 else 50, ttl=12)
+                              priority=15 if new_total <= 2 else 50)
                 if (snapshot.get('inventory_known') and previous.get('inventory_known')
                         and snapshot.get('inventory_revision') != previous.get('inventory_revision')):
                     before = {x['id']: x.get('count',1) for x in previous.get('inventory',[])}
                     gained = [x for x in snapshot.get('inventory',[]) if x.get('count',1) > before.get(x['id'],0)]
                     self.emit(snapshot, 'inventory_changed', {'gained': gained,
-                              'current_revision': snapshot.get('inventory_revision')}, priority=20, ttl=15)
+                              'current_revision': snapshot.get('inventory_revision')}, priority=20)
                 old_boss = bool(previous.get('bosses'))
                 if snapshot.get('bosses') and not old_boss:
                     self.emit(snapshot, 'boss_encountered', {'bosses':[{'type':x.get('type'), 'variant':x.get('variant')}
-                              for x in snapshot['bosses']]}, priority=25, ttl=12)
+                              for x in snapshot['bosses']]}, priority=25)
             elif (snapshot.get('frame') is not None and 0 <= snapshot['frame'] <= 120
                   and not snapshot.get('room',{}).get('dead')):
                 self.emit(snapshot, 'run_started', {'seed':identity['seed'], 'goal':'已观察的合法路线'}, priority=30)
@@ -115,7 +117,27 @@ class GameEvents:
                 self.emit(snapshot, 'plan_'+receipt['status'],
                           {'status':receipt['status'], 'reason':receipt.get('reason'),
                            'effect':receipt.get('effect'), 'cost':receipt.get('cost')},
-                          priority=20 if receipt['status']=='succeeded' else 60, ttl=12, proof=receipt)
+                          priority=20 if receipt['status']=='succeeded' else 60, proof=receipt)
+            # Only observed changes can trigger combat self-talk. A timer alone
+            # never manufactures an event; identities, pause and expiry remain
+            # the same strict narration boundary as for every other fact.
+            room_state = snapshot.get('room', {})
+            combat = {'enemies_remaining': len(snapshot.get('enemies') or []),
+                      'bosses_remaining': len(snapshot.get('bosses') or []),
+                      'red_half_hearts': snapshot.get('health', {}).get('red_hearts'),
+                      'soul_half_hearts': snapshot.get('health', {}).get('soul_hearts')}
+            same_room = previous and self.identities(previous)[:2] == (run, room)
+            if not same_room:
+                self.combat_baseline = combat
+                self.last_combat_at = self.clock()
+            elif (not any(room_state.get(k) for k in ('clear','paused','dead'))
+                    and combat['enemies_remaining'] + combat['bosses_remaining'] > 0
+                    and self.clock()-self.last_combat_at >= 15
+                    and combat != self.combat_baseline):
+                self.emit(snapshot, 'combat_progress', {'before': self.combat_baseline,
+                          'now': combat, 'cause': 'unconfirmed'}, priority=45)
+                self.combat_baseline = combat
+                self.last_combat_at = self.clock()
             self.previous = deepcopy(snapshot)
             # Actual changed facts above still commit synchronously. The
             # diagnostic frame watermark needs one durable update per second,

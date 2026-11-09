@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {NaimeiGameCore,ISAAC_CORE_TOOLS} from '../../../backend/dsh-bridge/isaac-core.mjs';
+import {digest} from '../../../backend/dsh-bridge/channel.mjs';
 
 const offered=()=>({pending:true,connected:true,id:'decision-A',context_id:'room-A',remaining_ms:7000,
   identity:{controller:'controller-A',seed:100,restart:0,bridge:'bridge-A',room:84,stage:1,stage_type:0,dimension:0,visit:1},
@@ -240,4 +241,50 @@ test('only an actual matching completed wait is a valid immediate success',async
     if(expected){await core.tool('isaac_submit_plan',plan,{sessionId,turn});assert.equal(turn.submitted.status,'succeeded');assert.equal(turn.narration,plan.commentary);}
     else{await assert.rejects(core.tool('isaac_submit_plan',plan,{sessionId,turn}),/CORE_PLAN_NOT_ACCEPTED/);assert.equal(turn.narration,undefined);}
   }
+});
+
+test('speech remains bounded but can finish preparation and playback after ten seconds in the same room',async()=>{
+  const {core}=fixture(),identity=offered().identity;
+  const event={run_id:digest({controller:identity.controller,seed:identity.seed,restart:identity.restart,bridge:identity.bridge}),
+    room_id:digest({room:identity.room,stage:identity.stage,stage_type:identity.stage_type,dimension:identity.dimension,visit:identity.visit}),
+    bridge_instance:identity.bridge,observed_at:Date.now()/1000-12,expires_at:Date.now()/1000+18};
+  let actual={...identity};core.api=async()=>({connected:true,age_ms:10,identity:actual});
+  assert.equal(await core.current(event),true);
+  actual.visit++;assert.equal(await core.current(event),false);
+  actual={...identity,bridge:'restarted'};assert.equal(await core.current(event),false);
+  actual={...identity};assert.equal(await core.current({...event,expires_at:Date.now()/1000-1}),false);
+  core.api=async()=>({connected:true,age_ms:1500,identity});assert.equal(await core.current(event),false);
+});
+
+test('a pending real utterance suppresses redundant fact generation without delaying fresh choices',async()=>{
+  const {core}=fixture();let facts=0,choices=0,decision={pending:false,connected:true};
+  Object.assign(core,{bridge:{ready:true,state:{active:()=>null}},polling:false,busy:false,
+    pending:new Map([['playing',{}]]),backlog:[],lastFact:0,attempts:new Map(),
+    drain:async()=>{},decision:async()=>decision,runFact:()=>{facts++;},runDecision:()=>{choices++;}});
+  await core.tick();assert.equal(facts,0);
+  decision=offered();await core.tick();assert.equal(choices,1);assert.equal(facts,0);
+  decision={pending:false,connected:true};core.pending.clear();await core.tick();assert.equal(facts,1);
+});
+
+test('expiry and a room change produce distinct real speech cancellation reasons',async()=>{
+  const {core}=fixture(),cancelled=[],records=[];
+  core.pending=new Map([['expired',{event:{event_id:'a',expires_at:Date.now()/1000-1}}],
+    ['changed',{event:{event_id:'b',expires_at:Date.now()/1000+30}}]]);
+  core.bridge={state:{request:()=>({status:'SPEAKING'}),cancel:(id,reason)=>cancelled.push({id,reason})}};
+  core.current=async()=>false;core.record=(kind,body)=>records.push({kind,...body});
+  await core.checkPending();
+  assert.deepEqual(cancelled,[{id:'expired',reason:'game_fact_expired'},{id:'changed',reason:'game_fact_context_changed'}]);
+  assert.deepEqual(records.map(r=>r.reason),['expired','native_context_changed']);
+});
+
+test('the completion counter requires all actual PCM samples, never partial or missing playback',async()=>{
+  const {core}=fixture();let utterance={valid_sample_count:16000,contiguous_played_samples:8000};
+  core.pending=new Map([['real',{event:{event_id:'verified-choice'}}]]);
+  core.bridge={db:{get:()=>utterance}};core.completedSpeech=0;
+  await core.completed({request_id:'real'});assert.equal(core.completedSpeech,0);assert.equal(core.pending.size,1);
+  utterance={valid_sample_count:0,contiguous_played_samples:0};await core.completed({request_id:'real'});
+  assert.equal(core.completedSpeech,0);
+  utterance={valid_sample_count:16000,contiguous_played_samples:16000};await core.completed({request_id:'real'});
+  assert.equal(core.completedSpeech,1);assert.equal(core.pending.size,0);
+  await core.completed({request_id:'real'});assert.equal(core.completedSpeech,1);
 });

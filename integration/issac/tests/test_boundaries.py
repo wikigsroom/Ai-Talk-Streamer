@@ -89,6 +89,37 @@ class SpeechCausality(unittest.TestCase):
                 self.assertEqual(health['frame'],11)
 
 
+    def test_longer_speech_window_does_not_survive_expiry_or_room_transition(self):
+        from contextlib import closing
+        now=[1000.0]
+        with tempfile.TemporaryDirectory() as temp, closing(GameEvents(temp,clock=lambda:now[0])) as events:
+            events.ingest(self.snapshot());now[0]+=12
+            reserved=events.reserve();self.assertEqual(reserved['event']['type'],'run_started')
+            self.assertEqual(reserved['event']['expires_at'],1030)
+            events.abandon(reserved['nonce'])
+            events.emit(self.snapshot(),'health_changed',{'after_half_hearts':4})
+            now[0]+=31;self.assertIsNone(events.reserve())
+            events.emit(self.snapshot(),'health_changed',{'after_half_hearts':2})
+            next_room=self.snapshot(room=2);next_room['frame']=130;events.ingest(next_room)
+            self.assertEqual(events.reserve()['event']['type'],'room_entered')
+
+    def test_combat_reactions_need_an_observed_change_and_never_a_timer_alone(self):
+        from contextlib import closing
+        now=[1000.0]
+        with tempfile.TemporaryDirectory() as temp, closing(GameEvents(temp,clock=lambda:now[0])) as events:
+            state=self.snapshot();state['enemies']=[{'type':10},{'type':11}]
+            events.ingest(state)
+            now[0]+=16;state['frame']=481;events.ingest(state)
+            self.assertFalse(any(e['type']=='combat_progress' for e in events.read()['events']))
+            state['enemies'].pop();events.ingest(state)
+            facts=[e for e in events.read()['events'] if e['type']=='combat_progress']
+            self.assertEqual(len(facts),1);self.assertEqual(facts[0]['facts']['now']['enemies_remaining'],1)
+            state['health']={'red_hearts':4};now[0]+=2;events.ingest(state)
+            self.assertEqual(len([e for e in events.read()['events'] if e['type']=='combat_progress']),1)
+            state['room']['paused']=True;now[0]+=20;events.ingest(state)
+            self.assertEqual(len([e for e in events.read()['events'] if e['type']=='combat_progress']),1)
+
+
 class ActualAvc(unittest.TestCase):
     def test_profile_has_actual_parameter_sets_and_rejects_resize_without_idr(self):
         profile=MediaProfile();sps=b'\x67\x42\x00\x1f\xaa';pps=b'\x68\xce\x06';idr=b'\x65\x88'

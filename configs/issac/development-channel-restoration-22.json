@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "round": "CHANNEL-RESTORATION-300-V",
+  "branch": "issac",
+  "phase": "whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "previous_candidate": "issac-222833c66f7c-fc9d1481",
+  "previous_phase_closed": true,
+  "items": [
+    {"id":"CRV01","status":"code_complete_pending_acceptance","code":"Bound same-room substantive narration to thirty seconds, preserve strict run/room/bridge/expiry freshness, shorten same-core speech and suppress redundant reaction generation during real playback. Expose and require actual completed game utterances in cohost acceptance.","source_files":["backend/dsh-bridge/isaac-core.mjs","integration/issac/acceptance.py","integration/issac/tests/naimei_core.test.mjs"]},
+    {"id":"CRV02","status":"code_complete_pending_acceptance","code":"Add cooldown-limited combat reactions only from changed verified native facts, never timer-authored speech. Keep pause, death, room and expiry boundaries.","source_files":["integration/issac/events.py","integration/issac/tests/test_boundaries.py"]},
+    {"id":"CRV03","status":"code_complete_pending_acceptance","code":"Timestamp actual review frames and paired PCM, require a real audio track and decode it, replace removed FFmpeg options, retain exactly the actual continuous official frames with zero-based output timestamps, and exercise both paths with real native synthetic-media fixtures.","source_files":["integration/issac/av_export.py","integration/issac/capture_review.py","integration/issac/recording.py","integration/issac/tests/test_av_export.py"]},
+    {"id":"CRV04","status":"code_complete_pending_acceptance","code":"Preserve U failures and the exact scope of user audio approval. Retain all original model, voice, mouth, body, official recording, save and eighteen release requirements.","source_files":["docs/evidence/issac-runtime-u-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized": false,
+  "runtime_acceptance_claimed": false
+}

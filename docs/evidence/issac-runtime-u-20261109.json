@@ -1,0 +1,30 @@
+{
+  "candidate_id": "issac-222833c66f7c-fc9d1481",
+  "source_commit": "222833c66f7c74ba658fbc6054a087750be6a8fe",
+  "round_closed": true,
+  "source_files_verified": 2290,
+  "runtime_failure_receipt_sha256": "ae4e3b140260610bcb4d79e6b7d4e84144f0cbc937dd7bfbd917f2ebb270d1e6",
+  "same_original_model_choices_completed": 24,
+  "core_failures": 0,
+  "decision_latency_p95_ms": 6878,
+  "game_utterances": {"completed": 0, "cancelled": 15, "interrupted": 10},
+  "observed_defects": [
+    "Ten-second decision narration validity was insufficient for preparation plus actual playback; room changes also cancel stale speech.",
+    "The raw-H264 review mux returned success but omitted audio when using copy plus shortest with unset packet timestamps.",
+    "The installed FFmpeg rejected the removed vsync option; a separate diagnostic trim with a fractional output seek also failed its exact 9000-frame assertion."
+  ],
+  "user_confirmed_corrected_review_voice_identity_and_clarity": true,
+  "confirmation_scope": "Corrected derived U previews and generated speech only; not mouth quality, official scene or final programme acceptance.",
+  "corrected_review_sha256": {
+    "M01": "64ed264b8ae880fb2a777b8b1c10f9a5c758069bb0bd05e313fa4715146bd931",
+    "M02": "75442004fb771de0edf7312c7a95c03e742b11de1fe92e4f53e3005140371422",
+    "M03": "b47aa139a37912c086fdf1b3cb23cb9e8114fb7c7f79b250c456ba036549ee6b"
+  },
+  "official_48_second_audio_diagnostic_raw_sha256": "babcaf1dce9e4d905a74e7bf15614ec6d44a78c60ae8c580c644b4d493a16ddd",
+  "game_and_official_client_closed_normally": true,
+  "cleanup_faults": [],
+  "protected_saves_unchanged": true,
+  "qualified_final_300_seconds_created": false,
+  "public_broadcast_started": false,
+  "private_reference_audio_included": false
+}
