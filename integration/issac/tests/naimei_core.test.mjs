@@ -92,6 +92,17 @@ test('an unavailable core model disarms rather than delegating choices to rules'
   await core.runDecision(offered());
   assert.equal(disarmed,1);assert.equal(core.turns,0);assert.equal(core.failures,1);assert.equal(core.busy,false);
 });
+
+test('a completed prose response without an actual native choice is never broadcast or replaced by a rule decision',async()=>{
+  const {core,calls}=fixture();let speech=0;
+  Object.assign(core,{busy:false,attempts:new Map(),failures:0,turns:0,latencies:[],recent:[],
+    generate:async()=>({text:'我想先看看。',choice_completion_followups:1}),
+    offerSpeech:()=>{speech++;},control:value=>{assert.equal(value,false);core.enabled=false;}});
+  await core.runDecision(offered());
+  assert.equal(core.lastError,'CORE_TURN_DID_NOT_SUBMIT_A_CHOICE');
+  assert.equal(core.enabled,false);assert.equal(core.failures,1);assert.equal(core.turns,0);
+  assert.equal(speech,0);assert.equal(calls.length,0);
+});
 test('a failed spontaneous reaction also disarms the same core and abandons its reserved fact',async()=>{
   const {core}=fixture();let disarmed=0,abandoned=0;
   Object.assign(core,{busy:false,failures:0,current:async()=>true,

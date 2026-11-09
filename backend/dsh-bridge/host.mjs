@@ -169,7 +169,7 @@ export class DshHost {
     if(gameReasoningEffort!==undefined&&gameReasoningEffort!=='off')throw Error('PINNED_GAME_REASONING_EFFORT_REQUIRED');
     const maximumSteps=gameplay?8:this.policy.conversation.max_memory_tool_rounds+1;
     const contextBudget=gameTurn?this.policy.conversation.game_context_max_estimated_tokens||this.policy.conversation.context_max_estimated_tokens:this.policy.conversation.context_max_estimated_tokens;
-    let steps = 0, finalReason, handle, lastAssistant = '', lastError, lastFinish, setupStage='session_prepare';
+    let steps = 0, choiceCompletionFollowups = 0, finalReason, handle, lastAssistant = '', lastError, lastFinish, setupStage='session_prepare';
     const calls = [];
     try {
       handle = await this.ctx.agents.create({ sessionId,
@@ -284,12 +284,26 @@ export class DshHost {
           { type: 'text', text: input },
         ] }));
         await handle.agent.whenIdle();
+        // A completed prose reply is not a game choice. Give this same DSH
+        // agent one bounded completion prompt while its original deadline,
+        // step budget and native decision identity are still valid. The first
+        // reply never reaches speech, and no fallback chooses an offer.
+        if (gameplayTurn?.decision_id && !gameplayTurn.submitted && !signal?.aborted
+            && !lastError && finalReason?.kind === 'completed') {
+          gameplay.assertDecisionCurrent(gameplayTurn, await gameplay.decision());
+          if (signal?.aborted) throw modelFailure(null, { signal });
+          choiceCompletionFollowups++;
+          lastAssistant = ''; lastError = undefined; lastFinish = undefined; finalReason = undefined;
+          handle.agent.followup(this.llm.createUserMessage({ source: { kind: 'user' }, content: [{ type: 'text', text:
+            '这仍是同一份尚未提交的游戏决策。上一段口语没有执行选择，也不会播出。请在原合法offers中亲自作出选择，调用isaac_submit_plan提交offer_id和commentary；可以选择当前wait，不得编造或重绑身份。需要wiki时仍直接查询；工具成功后本回合结束。' }] }));
+          await handle.agent.whenIdle();
+        }
         if (signal?.aborted) throw modelFailure(null, { signal });
         const finalText=gameTurn&&coreChoiceConcluded(gameplayTurn)&&gameplayTurn.narration?gameplayTurn.narration:lastAssistant;
         if (lastError || (!finalText && !maintenance) || finalReason?.kind !== 'completed') {
           throw modelFailure(lastError, { signal, finish: lastFinish });
         }
-        return { text: finalText.trim(), session_id: sessionId, steps, final_reason: finalReason, calls };
+        return { text: finalText.trim(), session_id: sessionId, steps, choice_completion_followups: choiceCompletionFollowups, final_reason: finalReason, calls };
       } finally { signal?.removeEventListener('abort', abort); }
     } catch(error) {
       const failure = modelFailure(error, { signal, finish: lastFinish });

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV14",
+  "round": "NAV15",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -148,6 +148,19 @@
         "tests/issac-core-host.test.mjs",
         "docs/issac/跨房间路线连续性修复20261110.md"
       ]
+    },
+    {
+      "id": "NAV15-SAME-TURN-CHOICE-COMPLETION-AND-HEALTH-CAUSE",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "backend/dsh-bridge/host.mjs",
+        "backend/dsh-bridge/isaac-core.mjs",
+        "tests/issac-core-host.test.mjs",
+        "integration/issac/tests/naimei_core.test.mjs",
+        "integration/issac/strategy_host.py",
+        "integration/issac/tests/test_pending_pause_race.py",
+        "docs/issac/跨房间路线连续性修复20261110.md"
+      ]
     }
   ],
   "source_review": [
@@ -177,20 +190,26 @@
     "NAV13 controlled simultaneous requests exposed a second independent collision: pinned pi-ai adapters each declare the complete installed provider catalog in the shared LLM directory",
     "one host-owned cancellable FIFO now spans adapter setup, model execution and final disposal for both conversation/gameplay and mood; no lease/turn/context freshness is extended",
     "queued cancellation completes without issuing a model request and cannot let successors overlap an earlier live adapter; provider channel snapshots remain per-turn isolated",
-    "NAV14 regression exercises original pinned DSH with distinct controlled credentials, simultaneous admission, cancellation of an executing turn, cancellation of a queued turn and immediate successor; development phase runs no tests"
+    "NAV14 regression exercises original pinned DSH with distinct controlled credentials, simultaneous admission, cancellation of an executing turn, cancellation of a queued turn and immediate successor; development phase runs no tests",
+    "NAV14 full regressions passed; actual original gpt-6-luna/Responses probe passed; a later actual decision completed with prose and zero tool calls after six completed choices, then correctly disarmed",
+    "at most one same-agent followup after successful prose-only completion, with a fresh current-decision check, unchanged abort/deadline and total step budget; no failed model request retry, replay or default choice",
+    "first prose is not published, accepted native choice remains mandatory, continued prose still disarms, stale decision never sends a followup; fact narration never enters this path",
+    "watchdog retains original 750ms timeout and immediate current-revision stop, now records finite exception type, response flags and elapsed time; unknown earlier health loss is not declared diagnosed"
   ],
-  "prior_candidate": "issac-de7f3d3c2877-61dd22e0",
+  "prior_candidate": "issac-c169e977482a-beb5fed8",
   "closed_test_round": {
-    "candidate_id": "issac-de7f3d3c2877-61dd22e0",
+    "candidate_id": "issac-c169e977482a-beb5fed8",
     "deployed": true,
-    "regressions_passed": false,
-    "stack_started": false,
-    "game_started": false,
-    "waiting_launcher_stopped": true,
+    "regressions_passed": true,
+    "game_started": true,
+    "game_and_official_closed_normally": true,
+    "failed_recording_stopped": true,
+    "unstarted_recovery_recorder_stopped": true,
     "defects": [
-      "isolating launchEnvironment removed its service registration collision but simultaneous pinned pi-ai adapters still collide on the shared configurable-provider directory"
+      "actual completed decision response made no tool call after six successful choices: CORE_TURN_DID_NOT_SUBMIT_A_CHOICE",
+      "earlier health loss had no captured response/exception cause; new finite diagnostic needed"
     ],
     "complete_correction_reviewed": true,
-    "current_round_scope": "cancellable whole-lifetime provider ownership including mood and final disposal; original strategic actor and native authorization fences retained"
+    "current_round_scope": "one bounded same-DSH-turn choice completion and health stop diagnostics; all native/model-failure protection unchanged"
   }
 }

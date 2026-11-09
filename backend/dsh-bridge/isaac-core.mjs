@@ -216,7 +216,8 @@ export class NaimeiGameCore {
       this.turns++;this.lastError=null;this.latencies.push(Date.now()-started);if(this.latencies.length>200)this.latencies.shift();
       const summary={decision_id:decision.id,...turn.submitted,text:result.text.slice(0,80)};
       this.recent.push(summary);if(this.recent.length>8)this.recent.shift();
-      this.record('core_choice_completed',{session_id:sessionId,...summary,elapsed_ms:Date.now()-started});
+      this.record('core_choice_completed',{session_id:sessionId,...summary,elapsed_ms:Date.now()-started,
+        completion_followups:result.choice_completion_followups??0});
       const event={event_id:'naimei-core-'+decision.id,type:'core_decision',...eventIdentity(decision.identity),
         observed_at:Date.now()/1000,expires_at:Date.now()/1000+30,facts:{decision_id:decision.id,...turn.submitted}};
       this.offerSpeech({text:summary.text,event});

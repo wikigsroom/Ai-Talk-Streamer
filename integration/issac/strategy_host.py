@@ -322,17 +322,23 @@ class StrategyHost:
             if self.armed and time.monotonic()-self.last_core_check>=1:
                 observed_revision=self.control_revision
                 self.last_core_check=time.monotonic()
+                core_check_started=time.monotonic();core={};core_error=None
                 try:
                     opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
                     with opener.open('http://127.0.0.1:3104/api/dsh/issac/core/status',timeout=.75) as response:
                         core=json.load(response)
                     healthy=core.get('ready') is True and core.get('automatic') is True and core.get('actor_id')=='naimei'
-                except Exception:healthy=False
+                except Exception as error:
+                    healthy=False;core_error=type(error).__name__
                 if not healthy:
                     with self.action_lock:
                         # A health response can describe the explicit pause
                         # that completed while this check was in flight.
                         if self.armed and self.control_revision==observed_revision:
+                            self.audit.append('core_loss_stop',control_revision=observed_revision,
+                                elapsed_ms=(time.monotonic()-core_check_started)*1000,
+                                check_error=core_error,
+                                core={key:core.get(key) for key in ('ready','automatic','actor_id','failures','last_error')})
                             self.last_fault='NAIMEI_CORE_UNAVAILABLE'
                             try:self.control({'enabled':False,'live':False})
                             except Exception:self.last_fault='NAIMEI_CORE_LOSS_PAUSE_ACK_PENDING'

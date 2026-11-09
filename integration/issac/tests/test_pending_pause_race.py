@@ -95,6 +95,25 @@ class PendingPauseRace(unittest.TestCase):
         host.control.assert_called_once_with({'enabled':False,'live':False})
         self.assertFalse(host.armed);self.assertEqual(host.last_fault,'NAIMEI_CORE_UNAVAILABLE')
 
+    def test_core_timeout_has_finite_diagnostic_and_keeps_original_stop(self):
+        host=self.make_armed();host.last_core_check=0
+        with patch('integration.issac.strategy_host.urllib.request.build_opener',side_effect=TimeoutError('private message')):host.watchdog()
+        event,=host.audit.append.call_args.args
+        detail=host.audit.append.call_args.kwargs
+        self.assertEqual(event,'core_loss_stop');self.assertEqual(detail['check_error'],'TimeoutError')
+        self.assertNotIn('private message',str(detail));self.assertGreaterEqual(detail['elapsed_ms'],0)
+        host.control.assert_called_once_with({'enabled':False,'live':False})
+
+    def test_unhealthy_core_response_is_distinct_from_http_timeout(self):
+        import io
+        host=self.make_armed();host.last_core_check=0
+        opener=Mock();opener.open.return_value=io.BytesIO(b'{"ready":true,"automatic":false,"actor_id":"naimei","failures":1,"last_error":"CORE_TURN_DID_NOT_SUBMIT_A_CHOICE"}')
+        with patch('integration.issac.strategy_host.urllib.request.build_opener',return_value=opener):host.watchdog()
+        detail=host.audit.append.call_args.kwargs
+        self.assertIsNone(detail['check_error']);self.assertEqual(detail['core']['failures'],1)
+        self.assertEqual(detail['core']['last_error'],'CORE_TURN_DID_NOT_SUBMIT_A_CHOICE')
+        self.assertFalse(host.armed)
+
     def test_old_protection_failure_does_not_stop_a_new_revision(self):
         host=self.make_armed(lambda h:setattr(h,'control_revision',4))
         host.native.protection.admit_current.side_effect=RuntimeError

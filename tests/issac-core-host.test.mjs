@@ -28,8 +28,10 @@ test('game reasoning setting is admitted only for the frozen Isaac scope; inheri
 
 // Controlled HTTP responses exercise the installed DSH loop, not a production
 // channel. In particular its concludeTurn must retain the successful tool result.
-for(const choice of [{op:'pickup',status:'accepted'},{op:'wait',status:'succeeded',effect:'wait'},{op:'pickup',status:'accepted',wiki:true}]){
-test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-context wiki':'')+' with none effort and keeps all wiki text',async()=>{
+for(const choice of [{op:'pickup',status:'accepted'},{op:'wait',status:'succeeded',effect:'wait'},{op:'pickup',status:'accepted',wiki:true},
+  {op:'pickup',status:'accepted',prose:true},{op:'pickup',status:'accepted',prose:true,expired:true},
+  {op:'pickup',status:'accepted',prose:true,alwaysProse:true}]){
+test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-context wiki':'')+(choice.prose?' after prose'+(choice.expired?' with expired decision':choice.alwaysProse?' with bounded non-completion':''):'')+' with none effort and keeps all wiki text',async()=>{
   const root=process.cwd(),policy=structuredClone(loadPolicy(root,'configs/issac/bridge-policy.json'));
   mkdirSync(join(root,'state'),{recursive:true});
   const folder=mkdtempSync(join(root,'state/issac-core-host-test-'));
@@ -41,6 +43,19 @@ test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-cont
     received=JSON.parse(Buffer.concat(chunks));requests++;payloads.push(received);
     res.writeHead(200,{'Content-Type':'text/event-stream'});
     const emit=value=>res.write('data: '+JSON.stringify(value)+'\n\n');
+    if(choice.prose&&(requests===1||choice.alwaysProse)){
+      const part={type:'output_text',text:'这颗红心我想先看看。',annotations:[]};
+      const item={id:'msg-prose-'+requests,type:'message',status:'completed',role:'assistant',content:[part]};
+      emit({type:'response.created',response:{id:'resp-prose-'+requests,status:'in_progress'}});
+      emit({type:'response.output_item.added',output_index:0,item:{...item,status:'in_progress',content:[]}});
+      emit({type:'response.content_part.added',output_index:0,content_index:0,item_id:item.id,part:{...part,text:''}});
+      emit({type:'response.output_text.delta',output_index:0,content_index:0,item_id:item.id,delta:part.text});
+      emit({type:'response.output_text.done',output_index:0,content_index:0,item_id:item.id,text:part.text});
+      emit({type:'response.content_part.done',output_index:0,content_index:0,item_id:item.id,part});
+      emit({type:'response.output_item.done',output_index:0,item});
+      emit({type:'response.completed',response:{id:'resp-prose-'+requests,status:'completed',output:[item],usage:{input_tokens:100,output_tokens:20,total_tokens:120}}});
+      res.end();return;
+    }
     const wiki=choice.wiki&&requests===1;
     const item={type:'function_call',id:'fc-controlled-'+requests,call_id:'call-controlled-'+requests,
       name:wiki?'isaac_wiki_query':'isaac_submit_plan',
@@ -60,7 +75,7 @@ test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-cont
     const core=Object.create(NaimeiGameCore.prototype);
     Object.assign(core,{names:Object.keys(ISAAC_CORE_TOOLS),enabled:true,controlRevision:1,recent:[],record:()=>{},
       prompt:completePrompt(root,readFileSync(join(root,'configs/issac/core-persona-gameplay.md'),'utf8')),
-      decision:async()=>({pending:true,connected:true,id:'decision-A',context_id:'room-A',context:{inventory_revision:'inventory-A'},remaining_ms:10000,offers:[{id:'heart-A',op:choice.op}]}),
+      decision:async()=>({pending:!choice.expired,connected:true,id:'decision-A',context_id:'room-A',context:{inventory_revision:'inventory-A'},remaining_ms:choice.expired?0:10000,offers:[{id:'heart-A',op:choice.op}]}),
       api:async(_port,path,body)=>{
         if(path==='/wiki'){
           assert.deepEqual(body.context,{decision_id:'decision-A',context_id:'room-A',inventory_revision:'inventory-A'});
@@ -69,11 +84,16 @@ test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-cont
         assert.equal(body.commentary,undefined);return {plan_id:body.plan_id,
         decision_id:body.decision_id,offer_id:body.offer_id,status:choice.status,...(choice.effect?{effect:choice.effect}:{})};}});
     host.gameplay=core;const turn={decision_id:'decision-A',context_id:'room-A',control_revision:1},probes=[];
-    const result=await host.generate({sessionId:'controlled-native-plan',snapshot:{revision:'controlled',model:'controlled',protocol:'responses',
+    const generation=host.generate({sessionId:'controlled-native-plan',snapshot:{revision:'controlled',model:'controlled',protocol:'responses',
       baseUrl:'http://127.0.0.1:'+server.address().port+'/v1',systemPrompt:'',getApiKey:()=> 'controlled-key'},
       context:JSON.stringify({game_decision:{id:'decision-A',context_id:'room-A'}}),input:'提交当前选择与打算。',gameplayTurn:turn,
       tools:async()=>{throw Error('unexpected viewer tool');},onProbe:probe=>probes.push(probe),signal:AbortSignal.timeout(15000)});
-    assert.equal(requests,choice.wiki?2:1);assert.equal(result.text,plan.commentary);assert.equal(result.steps,requests);
+    if(choice.expired){await assert.rejects(generation);assert.equal(requests,1);assert.equal(turn.submitted,undefined);return;}
+    const result=await generation;
+    assert.equal(requests,choice.wiki||choice.prose?2:1);assert.equal(result.steps,requests);
+    assert.equal(result.choice_completion_followups,choice.prose?1:0);
+    if(choice.alwaysProse){assert.equal(result.text,'这颗红心我想先看看。');assert.equal(turn.submitted,undefined);return;}
+    assert.equal(result.text,plan.commentary);
     for(const payload of payloads)assert.equal(payload.reasoning.effort,'none');
     for(const probe of probes){assert.equal(probe.game_reasoning_effort,'off');assert.ok(probe.elapsed_ms>=0);
       assert.ok(['completed','iterator_closed'].includes(probe.phase));}
