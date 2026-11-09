@@ -1,0 +1,19 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-S",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-5fe40ed1cfb6-ce439552",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRS01","status":"code_complete_pending_acceptance","code":"Observe asynchronous Win32 foreground completion within two seconds, rechecking actual window PID and process creation lifetime throughout the wait.","source_files":["integration/issac/record_focus.py","integration/issac/tests/test_record_focus.py"]},
+    {"id":"CRS02","status":"code_complete_pending_acceptance","code":"Explicit recording start owns a confirmed ordinary pause, returns to the same game, verifies unchanged pause identity/control revision and explicitly resumes only that pause. Start the continuous playable interval after observed game progress; retain raw provenance and actual trim offset. Stop recording even if its game-pause check fails; never silently recover an existing fault/operator pause.","source_files":["integration/issac/recording.py","integration/issac/record_focus.py","integration/issac/tests/test_record_focus.py"]},
+    {"id":"CRS03","status":"code_complete_pending_acceptance","code":"Retain closed R actual prechecks, three genuine mouth captures, foreground failure and protected save evidence, without inheriting audiovisual or release approval.","source_files":["docs/evidence/issac-runtime-r-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}

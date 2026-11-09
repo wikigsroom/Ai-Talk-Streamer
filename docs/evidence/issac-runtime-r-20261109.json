@@ -1,0 +1,608 @@
+{
+  "complete": true,
+  "phase": {
+    "candidate_id": "issac-5fe40ed1cfb6-ce439552",
+    "source_commit": "5fe40ed1cfb6caa6e2401b01562028882d1c68d3",
+    "source_files_verified": 2282,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "phase": "acceptance_closed",
+    "defects": [
+      {
+        "path": "state/issac-acceptance/mouth/M03-40da69f00a28426ea66228a4ccc6888e/capture-failure.json",
+        "sha256": "d768eaefca9e415d03de57b56288f8bb77645a1dc2501368fa1a7d72acb8298e",
+        "failed_checks": []
+      },
+      {
+        "path": "state/issac-acceptance/runtime-r-not-qualified.json",
+        "sha256": "6371bc6ce68d095f345fd2b2f6d596932dd497a21b5ef0c5fca98d123cb4018d",
+        "failed_checks": []
+      }
+    ],
+    "recorded_failures": 2,
+    "complete_acceptance_requires_all_18_verified_gates": true,
+    "next_action": "whole_correction_round_then_freeze",
+    "source_changes_permitted_only_in_new_development_round": true,
+    "closed_unix": 1794198625.6945932
+  },
+  "cleanup": {
+    "candidate_id": "issac-5fe40ed1cfb6-ce439552",
+    "cleanup_faults": [],
+    "created_at": 1794197139.641504,
+    "error": null,
+    "installation_id": "17b1f701344a4c2b8da58b1cf4851556",
+    "pid": 31368,
+    "processes": [
+      {
+        "args": [
+          "-X",
+          "utf8",
+          "-B",
+          "-m",
+          "integration.issac.strategy_host",
+          "--root",
+          "C:\\dev\\虚拟数字人直播\\issac"
+        ],
+        "candidate_id": "issac-5fe40ed1cfb6-ce439552",
+        "created_at": 1794197145.6930933,
+        "executable": "C:\\dev\\虚拟数字人直播\\issac\\runtime\\python313\\python.exe",
+        "executable_sha256": "03573716a7fcbd8b7fed8fe0163bbfbd3a852546920d6a666123f307c8dac7d9",
+        "installation_id": "17b1f701344a4c2b8da58b1cf4851556",
+        "launcher_created_at": 1794197145.6543252,
+        "launcher_executable": "C:\\dev\\虚拟数字人直播\\issac\\runtime\\isaac-native\\Scripts\\python.exe",
+        "launcher_pid": 23136,
+        "launcher_sha256": "cd15f17b5382c676fe857fd9e7effe0b787f95611538f4193c60a65f2637dd79",
+        "name": "game-controller",
+        "pid": 18584,
+        "stop_file": "C:\\dev\\虚拟数字人直播\\issac\\state\\issac-stream\\stop-requests\\17b1f701344a4c2b8da58b1cf4851556-game-controller.stop"
+      },
+      {
+        "args": [
+          "-X",
+          "utf8",
+          "-B",
+          "-m",
+          "integration.issac.voice",
+          "--root",
+          "C:\\dev\\虚拟数字人直播\\issac"
+        ],
+        "candidate_id": "issac-5fe40ed1cfb6-ce439552",
+        "created_at": 1794197152.3882835,
+        "executable": "C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\python.exe",
+        "executable_sha256": "3fbdcdd370c8840fa15b4f8b6c7162c1812895dd7c0c0a0cc59f49789e27f211",
+        "installation_id": "17b1f701344a4c2b8da58b1cf4851556",
+        "launcher_created_at": 1794197152.3316789,
+        "launcher_executable": "C:\\dev\\虚拟数字人直播\\issac\\runtime\\tts-benchmark\\omnivoice\\Scripts\\python.exe",
+        "launcher_pid": 42604,
+        "launcher_sha256": "70828b6d096591657106905dcddb47e0f00067cc7c7503f55ffba7793c049e3e",
+        "name": "voice",
+        "pid": 8608,
+        "stop_file": "C:\\dev\\虚拟数字人直播\\issac\\state\\issac-stream\\stop-requests\\17b1f701344a4c2b8da58b1cf4851556-voice.stop"
+      },
+      {
+        "args": [
+          "-X",
+          "utf8",
+          "-B",
+          "-m",
+          "integration.issac.engine_service",
+          "--root",
+          "C:\\dev\\虚拟数字人直播\\issac"
+        ],
+        "candidate_id": "issac-5fe40ed1cfb6-ce439552",
+        "created_at": 1794197181.2111926,
+        "executable": "C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\python.exe",
+        "executable_sha256": "3fbdcdd370c8840fa15b4f8b6c7162c1812895dd7c0c0a0cc59f49789e27f211",
+        "installation_id": "17b1f701344a4c2b8da58b1cf4851556",
+        "launcher_created_at": 1794197181.156305,
+        "launcher_executable": "C:\\dev\\虚拟数字人直播\\issac\\runtime\\livetalking\\Scripts\\python.exe",
+        "launcher_pid": 50644,
+        "launcher_sha256": "70828b6d096591657106905dcddb47e0f00067cc7c7503f55ffba7793c049e3e",
+        "name": "flashhead",
+        "pid": 29964,
+        "stop_file": "C:\\dev\\虚拟数字人直播\\issac\\state\\issac-stream\\stop-requests\\17b1f701344a4c2b8da58b1cf4851556-flashhead.stop"
+      },
+      {
+        "args": [
+          "-X",
+          "utf8",
+          "-B",
+          "-m",
+          "integration.issac.studio",
+          "--root",
+          "C:\\dev\\虚拟数字人直播\\issac"
+        ],
+        "candidate_id": "issac-5fe40ed1cfb6-ce439552",
+        "created_at": 1794197241.8157644,
+        "executable": "C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\python.exe",
+        "executable_sha256": "3fbdcdd370c8840fa15b4f8b6c7162c1812895dd7c0c0a0cc59f49789e27f211",
+        "installation_id": "17b1f701344a4c2b8da58b1cf4851556",
+        "launcher_created_at": 1794197241.7553349,
+        "launcher_executable": "C:\\dev\\虚拟数字人直播\\issac\\runtime\\livetalking\\Scripts\\python.exe",
+        "launcher_pid": 20880,
+        "launcher_sha256": "70828b6d096591657106905dcddb47e0f00067cc7c7503f55ffba7793c049e3e",
+        "name": "studio",
+        "pid": 50624,
+        "stop_file": "C:\\dev\\虚拟数字人直播\\issac\\state\\issac-stream\\stop-requests\\17b1f701344a4c2b8da58b1cf4851556-studio.stop"
+      },
+      {
+        "args": [
+          "backend/dsh-bridge/issac.mjs",
+          "C:\\dev\\虚拟数字人直播\\issac"
+        ],
+        "candidate_id": "issac-5fe40ed1cfb6-ce439552",
+        "created_at": 1794197251.462122,
+        "executable": "C:\\dev\\虚拟数字人直播\\issac\\tools\\node\\node-v24.22.1-win-x64\\node.exe",
+        "executable_sha256": "d702daa815eabbff763c7d3808e235cf031cf2ca70211b56847bc72f51e240e5",
+        "installation_id": "17b1f701344a4c2b8da58b1cf4851556",
+        "launcher_created_at": 1794197251.462122,
+        "launcher_executable": "C:\\dev\\虚拟数字人直播\\issac\\tools\\node\\node-v24.22.1-win-x64\\node.exe",
+        "launcher_pid": 15548,
+        "launcher_sha256": "d702daa815eabbff763c7d3808e235cf031cf2ca70211b56847bc72f51e240e5",
+        "name": "narrator",
+        "pid": 15548,
+        "stop_file": "C:\\dev\\虚拟数字人直播\\issac\\state\\issac-stream\\stop-requests\\17b1f701344a4c2b8da58b1cf4851556-narrator.stop"
+      },
+      {
+        "args": [
+          "--luadebug"
+        ],
+        "candidate_id": "issac-5fe40ed1cfb6-ce439552",
+        "created_at": 1794197602.0079489,
+        "executable": "C:\\dev\\虚拟数字人直播\\issac\\game\\isaac-ng.exe",
+        "executable_sha256": "530b4d2accef833b8dbf6f1a9f781fe1e051c1916ca5acdb579df05a34640627",
+        "installation_id": "17b1f701344a4c2b8da58b1cf4851556",
+        "launcher_created_at": 1794197602.0079489,
+        "launcher_executable": "C:\\dev\\虚拟数字人直播\\issac\\game\\isaac-ng.exe",
+        "launcher_pid": 40012,
+        "launcher_sha256": "530b4d2accef833b8dbf6f1a9f781fe1e051c1916ca5acdb579df05a34640627",
+        "name": "isaac-game",
+        "pid": 40012,
+        "stop_file": "C:\\dev\\虚拟数字人直播\\issac\\state\\issac-stream\\stop-requests\\17b1f701344a4c2b8da58b1cf4851556-isaac-game.stop"
+      }
+    ],
+    "public_broadcast_allowed": false,
+    "stage": "stopped_game_preserved_paused"
+  },
+  "game_closed_normally": true,
+  "official_closed_normally": true,
+  "full_run_observer_stopped": true,
+  "public_broadcast_started": false,
+  "final_delivery_created": false,
+  "failure_sha256": "6371bc6ce68d095f345fd2b2f6d596932dd497a21b5ef0c5fca98d123cb4018d",
+  "failure_evidence": {
+    "candidate_id": "issac-5fe40ed1cfb6-ce439552",
+    "passed": false,
+    "source_changed_during_tests": false,
+    "five_prechecks_passed": true,
+    "prechecks": {
+      "all_18_gates_still_required": true,
+      "candidate_id": "issac-5fe40ed1cfb6-ce439552",
+      "checks": [
+        {
+          "check": "environment",
+          "elapsed_seconds": 15.996030900161713,
+          "exit_code": 0,
+          "log": "state/issac-acceptance/round-runs/round-fb41e79bb936441ab61f57c4d594df0f/environment.log",
+          "log_sha256": "99bd7bd340b7fe08251d951065954bb5951dd368eeb8cddd619101d3ccb57edc",
+          "passed": true
+        },
+        {
+          "check": "dependencies",
+          "elapsed_seconds": 47.29773380002007,
+          "exit_code": 0,
+          "log": "state/issac-acceptance/round-runs/round-fb41e79bb936441ab61f57c4d594df0f/dependencies.log",
+          "log_sha256": "8f1f0f7fe1b9498189782373f0f4dc98f13d62d826237f71eeccf7112aa2bce5",
+          "passed": true
+        },
+        {
+          "check": "regressions",
+          "elapsed_seconds": 55.4549845000729,
+          "exit_code": 0,
+          "log": "state/issac-acceptance/round-runs/round-fb41e79bb936441ab61f57c4d594df0f/regressions.log",
+          "log_sha256": "9fca93034b837b5e02ffed9fba6b95252c87f16b3e27f1ea97aec570bb5b3652",
+          "passed": true
+        },
+        {
+          "check": "materials-scan",
+          "elapsed_seconds": 11.143382200039923,
+          "exit_code": 0,
+          "log": "state/issac-acceptance/round-runs/round-fb41e79bb936441ab61f57c4d594df0f/materials-scan.log",
+          "log_sha256": "61807cc3911ccd3ef33cb64ba2d405c0ea5954468a8253bf0cbdc77402804607",
+          "passed": true
+        },
+        {
+          "check": "native-game",
+          "elapsed_seconds": 53.88753900001757,
+          "exit_code": 0,
+          "log": "state/issac-acceptance/round-runs/round-fb41e79bb936441ab61f57c4d594df0f/native-game.log",
+          "log_sha256": "35b13061aca29d09d874e647fbe2f250b6db006dc6cce0be2996cb166db89612",
+          "passed": true
+        }
+      ],
+      "finished_unix": 1794196961.8855505,
+      "full_acceptance_passed": false,
+      "official_recording_created": false,
+      "passed": true,
+      "production_accepted": false,
+      "public_broadcast_allowed": false,
+      "source_commit": "5fe40ed1cfb6caa6e2401b01562028882d1c68d3",
+      "source_files_verified": 2282,
+      "source_verified_unchanged": true
+    },
+    "mouths": {
+      "complete": true,
+      "records": [
+        {
+          "mode": "M03",
+          "folder": "state/issac-acceptance/mouth/M03-9c1c71b5b1b64b9a8e16d2498b5d52e9",
+          "archive_sha256": "34a3e0c02faf589331f232a06a5be3604aab856b5cfbe54d19da605df3ea47e9",
+          "frames": 1126,
+          "actual_elapsed_seconds": 45.188000000081956,
+          "fps": 24.918119854783523,
+          "p99_ms": 53.17660002037883,
+          "max_interval_ms": 67.39360000938177,
+          "quality_accepted": false
+        },
+        {
+          "mode": "M01",
+          "folder": "state/issac-acceptance/mouth/M01-d86ee754983f48e5ae05de9dd10356a1",
+          "archive_sha256": "6794a43c0dc350e9129820ab3ab1331561eebd7bc6878fe0be0a85d511602838",
+          "frames": 1125,
+          "actual_elapsed_seconds": 45.109999999869615,
+          "fps": 24.939037907409702,
+          "p99_ms": 53.177500143647194,
+          "max_interval_ms": 91.40499983914196,
+          "quality_accepted": false
+        },
+        {
+          "mode": "M02",
+          "folder": "state/issac-acceptance/mouth/M02-7e9ee6e7e81f4541852ae2c416cd677a",
+          "archive_sha256": "87fd8e2ce43408549cb6049045a4bde11c5d6516478cd3c8eb93447ad4806edc",
+          "frames": 1125,
+          "actual_elapsed_seconds": 45.061999999918044,
+          "fps": 24.965602947096137,
+          "p99_ms": 52.62380000203848,
+          "max_interval_ms": 63.62650007940829,
+          "quality_accepted": false
+        }
+      ],
+      "quality_accepted": false,
+      "returned_mode": "M03"
+    },
+    "focus_test": {
+      "application-events.jsonl": "\",\"pid\":15108}\n{\"at_unix\":1794192248.148938,\"candidate_id\":\"issac-c38e78405a70-01e9b57b\",\"components\":\"game\",\"kind\":\"stack_started\"}\n{\"at_unix\":1794192249.3878522,\"created_at\":1794192249.3022392,\"kind\":\"owned_component_started\",\"name\":\"isaac-game\",\"pid\":11392}\n{\"at_unix\":1794192261.4405625,\"kind\":\"pre_stop_pause\",\"receipt\":{\"game_process_ended\":true,\"no_active_run\":true}}\n{\"at_unix\":1794192263.7471662,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"game-controller\",\"pid\":25376}\n{\"at_unix\":1794192525.6837296,\"created_at\":1794192525.655671,\"kind\":\"owned_component_started\",\"name\":\"game-controller\",\"pid\":28412}\n{\"at_unix\":1794192532.3688173,\"created_at\":1794192532.332184,\"kind\":\"owned_component_started\",\"name\":\"voice\",\"pid\":22768}\n{\"at_unix\":1794192560.5310774,\"created_at\":1794192560.4519536,\"kind\":\"owned_component_started\",\"name\":\"flashhead\",\"pid\":44428}\n{\"at_unix\":1794192620.5253296,\"created_at\":1794192620.4955993,\"kind\":\"owned_component_started\",\"name\":\"studio\",\"pid\":19092}\n{\"at_unix\":1794192630.9421225,\"created_at\":1794192630.0997372,\"kind\":\"owned_component_started\",\"name\":\"narrator\",\"pid\":16236}\n{\"actor_id\":\"naimei\",\"at_unix\":1794192638.4663665,\"kind\":\"actual_naimei_core_bound\",\"prompt\":{\"allowed_tools\":[\"isaac_get_state\",\"isaac_get_decision\",\"isaac_lookup\",\"isaac_submit_plan\",\"isaac_wiki_query\"],\"complete\":true,\"requested_edition\":\"rep\",\"section\":\"isaac-complete\",\"sha256\":\"eb9e180ce283856643b7c48c9ae738a997e4136249b664589daa49f7926a433a\",\"skill_sources\":[{\"name\":\"SKILL.md\",\"sha256\":\"929c320688eb35d62fa30267012e21829b52c8d221981323dec344dba31ce602\"},{\"name\":\"references/run-evaluation.md\",\"sha256\":\"52f9a795f922cb212e1d7e7170f13af2c9fab354371d18ebaa62829f56bce824\"}],\"source_kind\":\"pinned_local_skill\"},\"tools\":[\"isaac_get_state\",\"isaac_get_decision\",\"isaac_lookup\",\"isaac_wiki_query\",\"isaac_submit_plan\"]}\n{\"at_unix\":1794192638.4754665,\"candidate_id\":\"issac-c38e78405a70-01e9b57b\",\"components\":\"all\",\"kind\":\"stack_started\"}\n{\"at_unix\":1794192740.289494,\"kind\":\"pre_stop_pause\",\"receipt\":{\"not_attached\":true}}\n{\"at_unix\":1794192740.8836598,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"narrator\",\"pid\":16236}\n{\"at_unix\":1794192742.307691,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"studio\",\"pid\":49132}\n{\"at_unix\":1794192745.1087842,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"flashhead\",\"pid\":46600}\n{\"at_unix\":1794192746.6574726,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"voice\",\"pid\":46648}\n{\"at_unix\":1794192749.3261273,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"game-controller\",\"pid\":19168}\n{\"at_unix\":1794193520.2307405,\"created_at\":1794193520.1878471,\"kind\":\"owned_component_started\",\"name\":\"game-controller\",\"pid\":37148}\n{\"at_unix\":1794193526.7829154,\"candidate_id\":\"issac-a8e68d6dab09-6ca9b067\",\"components\":\"game\",\"kind\":\"stack_started\"}\n{\"at_unix\":1794193527.7126276,\"created_at\":1794193527.62899,\"kind\":\"owned_component_started\",\"name\":\"isaac-game\",\"pid\":20368}\n{\"at_unix\":1794193539.7549062,\"kind\":\"pre_stop_pause\",\"receipt\":{\"game_process_ended\":true,\"no_active_run\":true}}\n{\"at_unix\":1794193542.108677,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"game-controller\",\"pid\":25212}\n{\"at_unix\":1794194225.0029886,\"created_at\":1794194224.9725053,\"kind\":\"owned_component_started\",\"name\":\"game-controller\",\"pid\":30460}\n{\"at_unix\":1794194231.5542455,\"candidate_id\":\"issac-cea06e4241a5-0a735c82\",\"components\":\"game\",\"kind\":\"stack_started\"}\n{\"at_unix\":1794194232.594372,\"created_at\":1794194232.5146835,\"kind\":\"owned_component_started\",\"name\":\"isaac-game\",\"pid\":46116}\n{\"at_unix\":1794194244.9942214,\"kind\":\"pre_stop_pause\",\"receipt\":{\"game_process_ended\":true,\"no_active_run\":true}}\n{\"at_unix\":1794194247.2099538,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"game-controller\",\"pid\":42168}\n{\"at_unix\":1794194435.567894,\"created_at\":1794194435.526894,\"kind\":\"owned_component_started\",\"name\":\"game-controller\",\"pid\":22380}\n{\"at_unix\":1794194442.7536292,\"created_at\":1794194442.7196112,\"kind\":\"owned_component_started\",\"name\":\"voice\",\"pid\":42976}\n{\"at_unix\":1794194470.7624278,\"created_at\":1794194470.7223215,\"kind\":\"owned_component_started\",\"name\":\"flashhead\",\"pid\":46900}\n{\"at_unix\":1794194532.0332325,\"created_at\":1794194532.0060852,\"kind\":\"owned_component_started\",\"name\":\"studio\",\"pid\":40224}\n{\"at_unix\":1794194542.4354575,\"created_at\":1794194541.6106553,\"kind\":\"owned_component_started\",\"name\":\"narrator\",\"pid\":37168}\n{\"actor_id\":\"naimei\",\"at_unix\":1794194552.2904363,\"kind\":\"actual_naimei_core_bound\",\"prompt\":{\"allowed_tools\":[\"isaac_get_state\",\"isaac_get_decision\",\"isaac_lookup\",\"isaac_submit_plan\",\"isaac_wiki_query\"],\"complete\":true,\"requested_edition\":\"rep\",\"section\":\"isaac-complete\",\"sha256\":\"eb9e180ce283856643b7c48c9ae738a997e4136249b664589daa49f7926a433a\",\"skill_sources\":[{\"name\":\"SKILL.md\",\"sha256\":\"929c320688eb35d62fa30267012e21829b52c8d221981323dec344dba31ce602\"},{\"name\":\"references/run-evaluation.md\",\"sha256\":\"52f9a795f922cb212e1d7e7170f13af2c9fab354371d18ebaa62829f56bce824\"}],\"source_kind\":\"pinned_local_skill\"},\"tools\":[\"isaac_get_state\",\"isaac_get_decision\",\"isaac_lookup\",\"isaac_wiki_query\",\"isaac_submit_plan\"]}\n{\"at_unix\":1794194552.3008733,\"candidate_id\":\"issac-cea06e4241a5-0a735c82\",\"components\":\"all\",\"kind\":\"stack_started\"}\n{\"at_unix\":1794194783.971939,\"created_at\":1794194783.890375,\"kind\":\"owned_component_started\",\"name\":\"isaac-game\",\"pid\":8496}\n{\"at_unix\":1794195705.3274844,\"kind\":\"pre_stop_pause\",\"receipt\":{\"at_unix\":1794195705.2899933,\"foreground_changed\":false,\"game_created_at\":1794194783.890375,\"game_pid\":8496,\"native\":{\"controller_installed\":true,\"dead\":false,\"frame\":120,\"hp\":6,\"paused\":true,\"players\":1,\"room\":84,\"seed\":2537232381,\"stage\":1},\"normal_game_pause_acknowledged\":true,\"pause_hold\":true,\"pause_input_ack\":{\"frame\":120,\"id\":\"9c3f166d107343e6847735f85a0b8892\",\"input_issued_at\":1090670628,\"observed_at\":1090670629,\"ordinary_pause_input_issued\":true,\"paused\":true},\"session_id\":\"50d3b680d8964e439423aff72d2f6336\",\"stable_frame\":120}}\n{\"at_unix\":1794195705.8918245,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"narrator\",\"pid\":37168}\n{\"at_unix\":1794195707.2524793,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"studio\",\"pid\":45152}\n{\"at_unix\":1794195710.2027087,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"flashhead\",\"pid\":22024}\n{\"at_unix\":1794195711.9139853,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"voice\",\"pid\":18540}\n{\"at_unix\":1794195714.5001016,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"game-controller\",\"pid\":24752}\n{\"at_unix\":1794196481.1666207,\"created_at\":1794196481.12993,\"kind\":\"owned_component_started\",\"name\":\"game-controller\",\"pid\":46164}\n{\"at_unix\":1794196488.2291136,\"candidate_id\":\"issac-0e72c00e4de8-c11adb5a\",\"components\":\"game\",\"kind\":\"stack_started\"}\n{\"at_unix\":1794196488.9052985,\"created_at\":1794196488.8271031,\"kind\":\"owned_component_started\",\"name\":\"isaac-game\",\"pid\":47888}\n{\"at_unix\":1794196500.9974036,\"kind\":\"pre_stop_pause\",\"receipt\":{\"game_process_ended\":true,\"no_active_run\":true}}\n{\"at_unix\":1794196503.186425,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"game-controller\",\"pid\":49352}\n{\"at_unix\":1794196929.7468941,\"created_at\":1794196929.7194235,\"kind\":\"owned_component_started\",\"name\":\"game-controller\",\"pid\":39724}\n{\"at_unix\":1794196936.3338783,\"candidate_id\":\"issac-5fe40ed1cfb6-ce439552\",\"components\":\"game\",\"kind\":\"stack_started\"}\n{\"at_unix\":1794196937.1606839,\"created_at\":1794196937.084165,\"kind\":\"owned_component_started\",\"name\":\"isaac-game\",\"pid\":27464}\n{\"at_unix\":1794196949.4173555,\"kind\":\"pre_stop_pause\",\"receipt\":{\"game_process_ended\":true,\"no_active_run\":true}}\n{\"at_unix\":1794196951.8088868,\"clean\":true,\"exit_code\":0,\"kind\":\"owned_component_stopped\",\"method\":\"owned_stop_request\",\"name\":\"game-controller\",\"pid\":44532}\n{\"at_unix\":1794197145.744468,\"created_at\":1794197145.6930933,\"kind\":\"owned_component_started\",\"name\":\"game-controller\",\"pid\":23136}\n{\"at_unix\":1794197152.4377844,\"created_at\":1794197152.3882835,\"kind\":\"owned_component_started\",\"name\":\"voice\",\"pid\":42604}\n{\"at_unix\":1794197181.2621405,\"created_at\":1794197181.2111926,\"kind\":\"owned_component_started\",\"name\":\"flashhead\",\"pid\":50644}\n{\"at_unix\":1794197241.8607204,\"created_at\":1794197241.8157644,\"kind\":\"owned_component_started\",\"name\":\"studio\",\"pid\":20880}\n{\"at_unix\":1794197252.2524745,\"created_at\":1794197251.462122,\"kind\":\"owned_component_started\",\"name\":\"narrator\",\"pid\":15548}\n{\"actor_id\":\"naimei\",\"at_unix\":1794197260.733359,\"kind\":\"actual_naimei_core_bound\",\"prompt\":{\"allowed_tools\":[\"isaac_get_state\",\"isaac_get_decision\",\"isaac_lookup\",\"isaac_submit_plan\",\"isaac_wiki_query\"],\"complete\":true,\"requested_edition\":\"rep\",\"section\":\"isaac-complete\",\"sha256\":\"eb9e180ce283856643b7c48c9ae738a997e4136249b664589daa49f7926a433a\",\"skill_sources\":[{\"name\":\"SKILL.md\",\"sha256\":\"929c320688eb35d62fa30267012e21829b52c8d221981323dec344dba31ce602\"},{\"name\":\"references/run-evaluation.md\",\"sha256\":\"52f9a795f922cb212e1d7e7170f13af2c9fab354371d18ebaa62829f56bce824\"}],\"source_kind\":\"pinned_local_skill\"},\"tools\":[\"isaac_get_state\",\"isaac_get_decision\",\"isaac_lookup\",\"isaac_wiki_query\",\"isaac_submit_plan\"]}\n{\"at_unix\":1794197260.7381072,\"candidate_id\":\"issac-5fe40ed1cfb6-ce439552\",\"components\":\"all\",\"kind\":\"stack_started\"}\n{\"at_unix\":1794197602.087451,\"created_at\":1794197602.0079489,\"kind\":\"owned_component_started\",\"name\":\"isaac-game\",\"pid\":40012}\n",
+      "foreground_hwnd": 5441170,
+      "foreground_pid": 40012,
+      "native_session": {
+        "attached_at": 1794197603.1212552,
+        "bridge_sha256": "02abfa8c90df84aa3910fb74d14076258ea1b2517b626213d9ba6b2b801d5c85",
+        "control_armed": false,
+        "game_created_at": 1794197602.0079489,
+        "game_pid": 40012,
+        "game_sha256": "530b4d2accef833b8dbf6f1a9f781fe1e051c1916ca5acdb579df05a34640627",
+        "session_id": "025edd3797914e109128475180df524b"
+      },
+      "official-review-300-r-v2.log": "Traceback (most recent call last):\n  File \"C:\\dev\\虚拟数字人直播\\issac\\integration\\issac\\record_focus.py\", line 59, in record_controls\n    foreground(window['hwnd'],window['pid'])\n    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dev\\虚拟数字人直播\\issac\\integration\\issac\\record_focus.py\", line 33, in foreground\n    if u.GetForegroundWindow()!=hwnd:raise AdmissionError('OWNED_WINDOW_FOREGROUND_NOT_CONFIRMED')\n                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nintegration.issac.common.AdmissionError: OWNED_WINDOW_FOREGROUND_NOT_CONFIRMED\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"<string>\", line 26, in <module>\n    with record_controls(client):\n         ~~~~~~~~~~~~~~~^^^^^^^^\n  File \"C:\\dev\\虚拟数字人直播\\issac\\runtime\\python313\\Lib\\contextlib.py\", line 141, in __enter__\n    return next(self.gen)\n  File \"C:\\dev\\虚拟数字人直播\\issac\\integration\\issac\\record_focus.py\", line 65, in record_controls\n    game_foreground(client.root)\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^\n  File \"C:\\dev\\虚拟数字人直播\\issac\\integration\\issac\\record_focus.py\", line 49, in game_foreground\n    return foreground(windows[0],process.pid)\n  File \"C:\\dev\\虚拟数字人直播\\issac\\integration\\issac\\record_focus.py\", line 33, in foreground\n    if u.GetForegroundWindow()!=hwnd:raise AdmissionError('OWNED_WINDOW_FOREGROUND_NOT_CONFIRMED')\n                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nintegration.issac.common.AdmissionError: OWNED_WINDOW_FOREGROUND_NOT_CONFIRMED\n",
+      "official_windows": {
+        "observed_unix": 1794198262.8924572,
+        "owned_internal_surfaces_excluded": 11,
+        "root_pid": 23304,
+        "windows": [
+          {
+            "created_at": 1794197257.7879052,
+            "foreground": false,
+            "hwnd": 6164054,
+            "owner_hwnd": 0,
+            "pid": 23304,
+            "rect": [
+              138,
+              49,
+              1782,
+              990
+            ],
+            "title": "哔哩哔哩直播姬"
+          }
+        ]
+      },
+      "record_writers": [],
+      "unix": 1794198256.5505996
+    },
+    "failures": [
+      "Official record control rejected asynchronous foreground completion before any recording started; immediate restore check failed too. Later actual owned game foreground confirmed.",
+      "Game remained paused at frame 21 with NORMAL_PAUSE_ACK_PENDING; no core turns or authorized pickups; full-run observation incomplete."
+    ],
+    "diagnostic_recording_created": false,
+    "final_delivery_created": false,
+    "checked_unix": 1794198603.9279292,
+    "core_events": [
+      {
+        "actor_id": "naimei",
+        "at": 1794198137410,
+        "automatic": false,
+        "kind": "core_control",
+        "revision": 1
+      },
+      {
+        "actor_id": "naimei",
+        "at": 1794198138066,
+        "automatic": true,
+        "kind": "core_control",
+        "revision": 2
+      },
+      {
+        "actor_id": "naimei",
+        "at": 1794198146153,
+        "automatic": false,
+        "kind": "core_control",
+        "revision": 3
+      }
+    ],
+    "operator_events": [
+      {
+        "at_unix": 1794198136.8824477,
+        "control_revision": 1,
+        "kind": "local_authority_withdrawn"
+      },
+      {
+        "at_unix": 1794198137.413422,
+        "kind": "autopilot_paused",
+        "receipt": {
+          "at_unix": 1794198137.34922,
+          "foreground_changed": false,
+          "game_created_at": 1794197602.0079489,
+          "game_pid": 40012,
+          "native": {
+            "controller_installed": true,
+            "dead": false,
+            "frame": 5,
+            "hp": 6,
+            "paused": true,
+            "players": 1,
+            "room": 84,
+            "seed": 2083112573,
+            "stage": 1
+          },
+          "normal_game_pause_acknowledged": true,
+          "pause_hold": true,
+          "pause_input_ack": {
+            "frame": 5,
+            "id": "fd6c20300917410d91417fdc63018f25",
+            "input_issued_at": 1093244614,
+            "observed_at": 1093244615,
+            "ordinary_pause_input_issued": true,
+            "paused": true
+          },
+          "session_id": "025edd3797914e109128475180df524b",
+          "stable_frame": 5
+        }
+      },
+      {
+        "at_unix": 1794198139.168936,
+        "kind": "autopilot_resumed",
+        "receipt": {
+          "session_id": "025edd3797914e109128475180df524b",
+          "unpaused": true
+        }
+      },
+      {
+        "at_unix": 1794198140.0992548,
+        "control_revision": 3,
+        "kind": "local_authority_withdrawn"
+      }
+    ],
+    "full_run": {
+      "owner": {
+        "created_at": 1794198124.6832905,
+        "phase": "state/issac-acceptance/runs/accept-0eb04506df9c4a0f9368cf3d2aa2384c/phase.json",
+        "pid": 24276,
+        "started_before_new_run": true
+      },
+      "incomplete": true,
+      "terminal_claimed": false,
+      "phase": {
+        "candidate_id": "issac-5fe40ed1cfb6-ce439552",
+        "defects_are_for_next_whole_round": true,
+        "phase": "uniform_acceptance",
+        "production_accepted": false,
+        "public_broadcast_allowed": false,
+        "source_commit": "5fe40ed1cfb6caa6e2401b01562028882d1c68d3",
+        "source_files_verified": 2282,
+        "source_mutation_allowed": false,
+        "started_unix": 1794198132.8882923
+      }
+    },
+    "shutdown_before": {
+      "service": "issac-native-game",
+      "armed": false,
+      "pid": 18584,
+      "strategy": {
+        "enabled": false,
+        "live": false,
+        "reason": "observation_only",
+        "connected": true,
+        "state_age_ms": 326.8,
+        "identity": {
+          "controller": "3f2ae4f3aa5142e9817b4009e587be44",
+          "seed": 2083112573,
+          "restart": 0,
+          "stage": 1,
+          "stage_type": 0,
+          "dimension": 0,
+          "room": 84,
+          "visit": 1,
+          "bridge": "1093242479"
+        },
+        "frame": 21,
+        "pending": null,
+        "executing": null,
+        "recent_receipts": [],
+        "last_event_seq": 5,
+        "state_copy_p95_ms": 1.3946001417934895,
+        "domains": {
+          "active": "主动道具",
+          "active_special": "一次性/重骰/传送主动",
+          "pickup": "道具组合与拾取",
+          "pill": "药丸",
+          "card": "塔罗牌与符文",
+          "route": "楼层路线",
+          "deal": "天使/恶魔房",
+          "bomb_entry": "炸弹开路",
+          "planetarium": "星象房与跳过宝箱房",
+          "dice": "骰子房",
+          "sacrifice": "献祭房",
+          "terrain": "特殊地形路线"
+        }
+      },
+      "native_attached": true,
+      "control_revision": 3,
+      "pause_confirmation_pending": true,
+      "game_audio": {
+        "target_gain": 1.0,
+        "actual_envelope": 1.0,
+        "matched_game_sessions": 1,
+        "expired": false,
+        "error": null,
+        "official_capture_audibility_accepted": false
+      },
+      "last_fault": "NORMAL_PAUSE_ACK_PENDING",
+      "only_ordinary_inputs": true,
+      "save_slot": 3
+    },
+    "explicit_shutdown_resume": {
+      "armed": true,
+      "strategy": {
+        "enabled": true,
+        "live": true,
+        "reason": "armed",
+        "connected": true,
+        "state_age_ms": 373.6,
+        "identity": {
+          "controller": "3f2ae4f3aa5142e9817b4009e587be44",
+          "seed": 2083112573,
+          "restart": 0,
+          "stage": 1,
+          "stage_type": 0,
+          "dimension": 0,
+          "room": 84,
+          "visit": 1,
+          "bridge": "1093242479"
+        },
+        "frame": 21,
+        "pending": null,
+        "executing": null,
+        "recent_receipts": [],
+        "last_event_seq": 6,
+        "state_copy_p95_ms": 1.394700026139617,
+        "domains": {
+          "active": "主动道具",
+          "active_special": "一次性/重骰/传送主动",
+          "pickup": "道具组合与拾取",
+          "pill": "药丸",
+          "card": "塔罗牌与符文",
+          "route": "楼层路线",
+          "deal": "天使/恶魔房",
+          "bomb_entry": "炸弹开路",
+          "planetarium": "星象房与跳过宝箱房",
+          "dice": "骰子房",
+          "sacrifice": "献祭房",
+          "terrain": "特殊地形路线"
+        }
+      },
+      "native_receipt": {
+        "unpaused": true,
+        "session_id": "025edd3797914e109128475180df524b"
+      },
+      "control_revision": 4
+    },
+    "explicit_shutdown_pause": {
+      "armed": false,
+      "strategy": {
+        "enabled": false,
+        "live": false,
+        "reason": "observation_only",
+        "connected": true,
+        "state_age_ms": 4.6,
+        "identity": {
+          "controller": "3f2ae4f3aa5142e9817b4009e587be44",
+          "seed": 2083112573,
+          "restart": 0,
+          "stage": 1,
+          "stage_type": 0,
+          "dimension": 0,
+          "room": 84,
+          "visit": 1,
+          "bridge": "1093242479"
+        },
+        "frame": 27,
+        "pending": null,
+        "executing": null,
+        "recent_receipts": [],
+        "last_event_seq": 7,
+        "state_copy_p95_ms": 1.394700026139617,
+        "domains": {
+          "active": "主动道具",
+          "active_special": "一次性/重骰/传送主动",
+          "pickup": "道具组合与拾取",
+          "pill": "药丸",
+          "card": "塔罗牌与符文",
+          "route": "楼层路线",
+          "deal": "天使/恶魔房",
+          "bomb_entry": "炸弹开路",
+          "planetarium": "星象房与跳过宝箱房",
+          "dice": "骰子房",
+          "sacrifice": "献祭房",
+          "terrain": "特殊地形路线"
+        }
+      },
+      "native_receipt": {
+        "normal_game_pause_acknowledged": true,
+        "stable_frame": 27,
+        "native": {
+          "paused": true,
+          "frame": 27,
+          "players": 1,
+          "dead": false,
+          "hp": 6,
+          "stage": 1,
+          "room": 84,
+          "seed": 2083112573,
+          "controller_installed": true
+        },
+        "pause_input_ack": {
+          "ordinary_pause_input_issued": true,
+          "observed_at": 1093715942,
+          "paused": true,
+          "input_issued_at": 1093715940,
+          "id": "dc7c14f697fe41bd8a35d41d634a1a8f",
+          "frame": 27
+        },
+        "pause_hold": true,
+        "game_pid": 40012,
+        "game_created_at": 1794197602.0079489,
+        "session_id": "025edd3797914e109128475180df524b",
+        "foreground_changed": false,
+        "at_unix": 1794198608.6578143
+      },
+      "control_revision": 5
+    },
+    "protected_after_close": {
+      "protected_unchanged": true,
+      "baseline_id": "76a3a8d2337a4dd8a97877870036b57e",
+      "allowed_slot": 3,
+      "baseline_files": 2,
+      "runtime_window_position_changes": [
+        {
+          "root": 1,
+          "relative": "options.ini",
+          "permitted_option_names": [
+            "WindowPosX",
+            "WindowPosY"
+          ],
+          "baseline_sha256": "ad6e5fced2e623d34601036fb5d5b36b09fbd4aa77e3d25e3c645c58761f2c43",
+          "observed_sha256": "bec7be78154f2cd370aae2f8af79da7ed1669e5e5e68bb8dad483e935d83cd45"
+        }
+      ]
+    }
+  }
+}

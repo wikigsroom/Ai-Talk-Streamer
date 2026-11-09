@@ -14,7 +14,7 @@ from .common import AdmissionError,FileLease,digest,file_hash,inside,read_json,w
 from .delivery import recording_gate,recording_seconds
 from .livehime import Livehime
 from .materials import ffmpeg
-from .record_focus import record_controls
+from .record_focus import RecordingHandoff,record_controls
 
 
 def probe(root,path):
@@ -54,10 +54,18 @@ async def record(root):
     lease=FileLease(inside(root,'state/issac-stream/official-recording.lock')).acquire()
     runner=None;task=None;started=False;observations=[];error=None;raw=None;report=None
     try:
+        handoff=RecordingHandoff(root);pause_receipt=handoff.pause()
         with record_controls(client):
-            start_receipt=client.ui('record-start');started=True;start=time.monotonic();unix=time.time()
+            start_receipt=client.ui('record-start');started=True;capture_start=time.monotonic();unix=time.time()
             screenshot=client.screenshot('recording_started')
-        write_json(output/'start.json',{'owner':owner,'ui':start_receipt,'candidate':candidate,'started_unix':unix})
+        resume_receipt=handoff.resume()
+        await asyncio.sleep(.5)
+        if handoff.state()['data']['room'].get('paused') is not False:
+            raise AdmissionError('RECORDING_LIVE_INTERVAL_STILL_PAUSED')
+        start=time.monotonic();continuous_offset=start-capture_start
+        write_json(output/'start.json',{'owner':owner,'ui':start_receipt,'candidate':candidate,'started_unix':unix,
+            'explicit_recording_pause':pause_receipt,'explicit_recording_resume':resume_receipt,
+            'continuous_game_start_seconds':continuous_offset})
         deadline=start+30
         while time.monotonic()<deadline:
             candidates=[p.resolve() for p in rawdir.rglob('*') if p.is_file() and p.resolve() not in baseline
@@ -88,6 +96,14 @@ async def record(root):
     finally:
         if started:
             try:
+                stop_handoff=RecordingHandoff(root)
+                try:
+                    if stop_handoff.request(9534,'/status').get('armed') is True:
+                        stop_handoff.pause()
+                except Exception:
+                    # A failed pause never rearms control or prevents the
+                    # already-started owned recording from being stopped.
+                    error=error or 'RECORDING_STOP_GAME_PAUSE_NOT_CONFIRMED'
                 with record_controls(client):
                     stop_receipt=client.ui('record-stop');stop_screen=client.screenshot('recording_stopped')
                 write_json(output/'stop.json',{'ui':stop_receipt,'screen':stop_screen,'stopped_unix':time.time()})
@@ -107,12 +123,13 @@ async def record(root):
     if len(videos)!=1 or len(audio)!=1:raise AdmissionError('ONE_OFFICIAL_VIDEO_AND_MIXED_AUDIO_TRACK_REQUIRED')
     video=videos[0];rate=video.get('avg_frame_rate','0/1').split('/');fps=int(rate[0])/int(rate[1])
     if ((video['width'],video['height'])!=(1920,1080) or abs(fps-30)>.001
-        or int(video.get('nb_read_frames','0'))<seconds*30 or float(metadata['format']['duration'])<seconds):
+        or int(video.get('nb_read_frames','0'))<int((seconds+continuous_offset)*30)
+        or float(metadata['format']['duration'])<seconds+continuous_offset):
         raise AdmissionError('ACTUAL_OFFICIAL_1080P30_'+str(seconds)+'_SECONDS_REQUIRED')
     final=output/('奶妹-以撒的结合-官方直播姬-'+str(seconds)+'秒.mp4')
     # This only cuts a continuous interval from the actual official recording.
     # It adds no image, mouth, voice, repeated frame or alternate audio source.
-    command=[ffmpeg(root),'-hide_banner','-v','error','-n','-i',str(raw),'-map','0:v:0','-map','0:a:0',
+    command=[ffmpeg(root),'-hide_banner','-v','error','-n','-i',str(raw),'-ss',str(continuous_offset),'-map','0:v:0','-map','0:a:0',
         '-t',str(seconds),'-frames:v',str(seconds*30),'-vsync','0','-c:v','libx264','-preset','fast','-crf','18',
         '-c:a','aac','-b:a','192k','-movflags','+faststart',str(final)]
     with (output/'trim.log').open('wb') as log:
@@ -128,7 +145,7 @@ async def record(root):
         'final':final.relative_to(root).as_posix(),'final_sha256':file_hash(final),'official_writer':writer,
         'scene_review_sha256':digest(scene),'recording_started_screen':screenshot,'raw_probe':metadata,'final_probe':finalmeta,
         'decode_exit_code':decoded.returncode,'audio_analysis_exit_code':sound.returncode,
-        'continuous_start_seconds':0,'continuous_duration_seconds':seconds,'postprocess':'continuous_trim_only',
+        'continuous_start_seconds':continuous_offset,'continuous_duration_seconds':seconds,'postprocess':'continuous_trim_only',
         'added_or_replaced_audio':False,'generated_or_duplicated_frames':False,'public_broadcast_started':False,
         'subjective_final_review_required':True,'quality_accepted':False}
     write_json(output/'manifest.json',manifest)
