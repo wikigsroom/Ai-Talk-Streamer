@@ -304,6 +304,22 @@ class StrategyHost:
                 pass
         return ThreadingHTTPServer(('127.0.0.1',self.config['game']['native_control_port']),Handler)
 
+    def refresh_quiet_observation(self):
+        # The engine can keep presenting while suspending update/render Mod
+        # callbacks (notably around a boss clear). Ask the pinned native owner
+        # for its normal full observation before the existing stale deadline.
+        # Only a real packet through receive_state may change freshness. A
+        # successful RPC or a live process never substitutes for that packet.
+        received=getattr(self.service,'received',None)
+        if not self.armed or type(received) not in (int,float) or not received:return
+        age=self.service.clock()-received
+        now=time.monotonic()
+        if not .75<=age<1.25 or now-getattr(self,'last_observation_pulse',0)<.4:return
+        self.last_observation_pulse=now
+        try:self.native.refresh_observation()
+        except Exception as error:
+            self.audit.append('native_observation_pulse_failed',exception_type=type(error).__name__)
+
     def watchdog(self):
         while not self.stop_event.wait(.25):
             if self.pause_pending and not self.armed:
@@ -352,6 +368,7 @@ class StrategyHost:
                             and not self.runtime.controller.autopilot_enabled):
                         try:self.control({'enabled':False,'live':False})
                         except Exception:self.last_fault='TERMINAL_PAUSE_ACK_PENDING'
+            self.refresh_quiet_observation()
             if (self.armed and not self.service.fresh()
                     and not self.service.native_engine_hold_grace()):
                 with self.action_lock:
@@ -360,6 +377,7 @@ class StrategyHost:
                     if (not self.armed or self.service.fresh()
                             or self.service.native_engine_hold_grace()):continue
                     packet=getattr(self.runtime.controller,'packet_status',lambda:None)()
+                    stale_age_ms=(self.service.clock()-self.service.received)*1000
                     self.last_fault='GAME_BRIDGE_STALE'
                     self.runtime.controller.set_autopilot(False)
                     self.service.configure(enabled=False,live=False)
@@ -371,7 +389,9 @@ class StrategyHost:
                     except Exception:
                         receipt={'normal_pause_confirmed':False,'native_controller_lease_still_required':True}
                     finally:self.strategy_automatic(False,required=False)
-                    self.audit.append('bridge_loss_stop',receipt=receipt,packet_processing=packet)
+                    self.audit.append('bridge_loss_stop',receipt=receipt,packet_processing=packet,
+                        observation_age_ms=stale_age_ms,
+                        last_observation_pulse=getattr(self,'last_observation_pulse',None))
             if self.armed:
                 observed_revision=self.control_revision
                 try:

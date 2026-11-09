@@ -164,6 +164,16 @@ class NativeGame:
             value['lua_profile']=json.loads(self.rpc('evaluate',source,timeout=5))
             return value
 
+    def refresh_observation(self):
+        """Ask the fixed controller for an actual full packet, never freshness."""
+        with self.lock:
+            value=self.rpc('evaluate',
+                'local m=_G.__NativeIsaacController;return m and m.NativeRefreshObservation and m:NativeRefreshObservation() or "not_installed"',
+                timeout=.2)
+            if value!='observation_requested':
+                raise AdmissionError('NATIVE_OBSERVATION_PULSE_NOT_REQUESTED')
+            return {'observation_requested':True,'freshness_proved':False}
+
     def bootstrap_modules(self):
         config=read_json(inside(self.root,'configs/issac/native-modules.json'))
         for row in config['files']:

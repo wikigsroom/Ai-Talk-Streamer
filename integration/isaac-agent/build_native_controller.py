@@ -86,6 +86,15 @@ function mod:NativeResume()
     manualOverride=false
     return true
 end
+function mod:NativeRefreshObservation()
+    -- Only request the existing full native read/TCP exchange. Rendering can
+    -- continue while the engine suspends simulation/Mod callbacks. This does
+    -- not resume input, change a lease, or certify that a packet was received.
+    if game:GetNumPlayers()~=1 or playerIsDead(Isaac.GetPlayer(0)) then return "no_live_player" end
+    lastStateFrame=-10000
+    safeSendState()
+    return "observation_requested"
+end
 function mod:NativeControlStatus()
     local player=Isaac.GetPlayer(0)
     local checks={}

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV15",
+  "round": "NAV16",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -161,6 +161,18 @@
         "integration/issac/tests/test_pending_pause_race.py",
         "docs/issac/跨房间路线连续性修复20261110.md"
       ]
+    },
+    {
+      "id": "NAV16-FRAME-INDEPENDENT-ACTUAL-OBSERVATION",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/isaac-agent/build_native_controller.py",
+        "integration/isaac-agent/tests/test_native_observation_pulse.py",
+        "integration/issac/native_game.py",
+        "integration/issac/strategy_host.py",
+        "integration/issac/tests/test_native_observation_pulse.py",
+        "docs/issac/跨房间路线连续性修复20261110.md"
+      ]
     }
   ],
   "source_review": [
@@ -194,22 +206,23 @@
     "NAV14 full regressions passed; actual original gpt-6-luna/Responses probe passed; a later actual decision completed with prose and zero tool calls after six completed choices, then correctly disarmed",
     "at most one same-agent followup after successful prose-only completion, with a fresh current-decision check, unchanged abort/deadline and total step budget; no failed model request retry, replay or default choice",
     "first prose is not published, accepted native choice remains mandatory, continued prose still disarms, stale decision never sends a followup; fact narration never enters this path",
-    "watchdog retains original 750ms timeout and immediate current-revision stop, now records finite exception type, response flags and elapsed time; unknown earlier health loss is not declared diagnosed"
+    "watchdog retains original 750ms timeout and immediate current-revision stop, now records finite exception type, response flags and elapsed time; unknown earlier health loss is not declared diagnosed",
+    "a quiet 750-1250ms observation gap may request one fixed native full-state/TCP exchange, at most once per 400ms, with a 200ms RPC budget; age >=1250ms does not request late recovery",
+    "RPC success is only observation_requested and never updates service.received or certifies freshness; only a real regular packet may do so",
+    "native pulse does not resume input, clear an ordinary pause, modify gameplay, replay a utility command, or renew a lease; real 1500ms state loss still disarms"
   ],
-  "prior_candidate": "issac-c169e977482a-beb5fed8",
+  "prior_candidate": "issac-efe1db575010-d362acd0",
   "closed_test_round": {
-    "candidate_id": "issac-c169e977482a-beb5fed8",
+    "candidate_id": "issac-efe1db575010-d362acd0",
     "deployed": true,
     "regressions_passed": true,
     "game_started": true,
     "game_and_official_closed_normally": true,
     "failed_recording_stopped": true,
-    "unstarted_recovery_recorder_stopped": true,
     "defects": [
-      "actual completed decision response made no tool call after six successful choices: CORE_TURN_DID_NOT_SUBMIT_A_CHOICE",
-      "earlier health loss had no captured response/exception cause; new finite diagnostic needed"
+      "actual boss clear around frame70999 stalled full state exchange while native rendering stayed near60FPS; watchdog correctly paused at stale threshold"
     ],
     "complete_correction_reviewed": true,
-    "current_round_scope": "one bounded same-DSH-turn choice completion and health stop diagnostics; all native/model-failure protection unchanged"
+    "current_round_scope": "frame-independent actual native snapshot request before original stale deadline, plus finite bridge-loss age evidence"
   }
 }
