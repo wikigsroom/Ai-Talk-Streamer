@@ -364,6 +364,29 @@ class StrategyService:
             red = min(red, maximum-red_cost); soul -= soul_cost
         return red+soul-damage >= 4
 
+    def _floor_exit_action(self, state):
+        """A native observed exit is a DSH alternative, not a rule preference.
+
+        Do not strip hazards/rewards out of the state to obtain this action.
+        Current geometry and the native per-frame guard still veto movement.
+        """
+        s = self.snapshot
+        if (state is None or not s or not s['room']['clear']
+                or s['room']['type'] != 'boss' or not state.room_clear
+                or not s['room'].get('exit', {}).get('available')
+                or not state.boss_exit_available or state.boss_exit_grid_index < 0
+                or s['enemies'] or s['projectiles'] or self._threats()):
+            return None
+        target = state.boss_exit_position
+        if any(e.position.distance_to(target) < e.radius+18 for e in state.floor_danger_effects):
+            return None
+        if not math.isfinite(path_distance(state, target, state.boss_exit_grid_index)):
+            return None
+        return Action(f'enter_boss_exit_{state.boss_exit_grid_index}',
+            move_towards(state, target, state.boss_exit_grid_index), Vec2(),
+            mode='boss_exit', target='next floor', waypoint=target,
+            reason='进入已实测可达的下层出口；离层将放弃本层剩余拾取，是否离开由奶妹决定')
+
     def _offers(self, state):
         s = self.snapshot
         if not s or not s['inventory_known']: return []
@@ -417,9 +440,13 @@ class StrategyService:
             if result: add('wait', 'route', '保留道具，继续本地战斗', effect='none')
             return result
         candidate_set = build_candidate_set(state)
+        floor_exit = self._floor_exit_action(state)
         for a in candidate_set.admissible_candidates:
             if a.mode in {'combat', 'evade', 'recovery', 'wait'}: continue
             if a.action_id.startswith('wait_'): continue
+            if a.mode == 'boss_exit':
+                if floor_exit is None: continue
+                a = floor_exit
             domain = 'route'
             if a.mode in {'item', 'shop', 'pickup', 'chest'}: domain = 'pickup'
             if a.mode in {'bomb_wall', 'bomb'}: domain = 'bomb_entry'
@@ -449,6 +476,9 @@ class StrategyService:
                 effect='room_change' if a.mode in {'navigate', 'boss_exit'} else 'pickup' if target else 'macro', safe_only=True)
         # Expose safe alternatives suppressed by a preference rule in the local policy.
         existing = {o.get('action_id') for o in result}
+        if floor_exit is not None and floor_exit.action_id not in existing:
+            add('select_action', 'route', floor_exit.reason, action_id=floor_exit.action_id,
+                effect='room_change', safe_only=True)
         for p in s['pickups']:
             if not p.get('locally_eligible', True): continue
             if p.get('variant') != 100: continue
@@ -754,6 +784,10 @@ class StrategyService:
 
     def _resolve_action(self, o, state):
         aid = o.get('action_id')
+        if (aid or '').startswith('enter_boss_exit_'):
+            exit_action = self._floor_exit_action(state)
+            if exit_action is None or exit_action.action_id != aid: return None
+            return replace(exit_action, source='dsh', issued_frame=state.frame, expires_frame=state.frame+8)
         current = next((a for a in build_candidate_set(state).admissible_candidates if a.action_id == aid), None)
         target, mode = None, ''
         grid = -1

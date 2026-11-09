@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV10",
+  "round": "NAV11",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -105,6 +105,23 @@
         "integration/isaac-agent/tests/test_route_memory.py",
         "integration/isaac-agent/docs/ROUTE_CONTINUITY.md",
         "configs/issac/core-persona-gameplay.md"
+      ]
+    },
+    {
+      "id": "NAV11-OWNED-PAUSE-REVISION",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/strategy_host.py",
+        "integration/issac/tests/test_pending_pause_race.py"
+      ]
+    },
+    {
+      "id": "NAV11-DSH-OBSERVED-EXIT-ALTERNATIVE",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/isaac-agent/src/isaac_jev/strategy.py",
+        "integration/isaac-agent/tests/test_dsh_floor_exit.py",
+        "integration/isaac-agent/docs/ROUTE_CONTINUITY.md"
       ]
     }
   ],

@@ -316,8 +316,11 @@ class StrategyHost:
                             receipt=self.native.pause()
                             self.pause_pending=False
                             self.audit.append('pending_normal_pause_confirmed',receipt=receipt)
-                except Exception:self.last_fault='NORMAL_PAUSE_ACK_PENDING'
+                except Exception:
+                    with self.action_lock:
+                        if self.pause_pending and not self.armed:self.last_fault='NORMAL_PAUSE_ACK_PENDING'
             if self.armed and time.monotonic()-self.last_core_check>=1:
+                observed_revision=self.control_revision
                 self.last_core_check=time.monotonic()
                 try:
                     opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
@@ -326,12 +329,23 @@ class StrategyHost:
                     healthy=core.get('ready') is True and core.get('automatic') is True and core.get('actor_id')=='naimei'
                 except Exception:healthy=False
                 if not healthy:
-                    self.last_fault='NAIMEI_CORE_UNAVAILABLE'
-                    try:self.control({'enabled':False,'live':False})
-                    except Exception:self.last_fault='NAIMEI_CORE_LOSS_PAUSE_ACK_PENDING'
+                    with self.action_lock:
+                        # A health response can describe the explicit pause
+                        # that completed while this check was in flight.
+                        if self.armed and self.control_revision==observed_revision:
+                            self.last_fault='NAIMEI_CORE_UNAVAILABLE'
+                            try:self.control({'enabled':False,'live':False})
+                            except Exception:self.last_fault='NAIMEI_CORE_LOSS_PAUSE_ACK_PENDING'
+            observed_revision=self.control_revision
             if self.armed and not self.runtime.controller.autopilot_enabled:
-                try:self.control({'enabled':False,'live':False})
-                except Exception:self.last_fault='TERMINAL_PAUSE_ACK_PENDING'
+                with self.action_lock:
+                    # set_autopilot(False) precedes armed=False in an explicit
+                    # pause. Never turn that transient observation into a
+                    # second pause/revision after the owner has finished.
+                    if (self.armed and self.control_revision==observed_revision
+                            and not self.runtime.controller.autopilot_enabled):
+                        try:self.control({'enabled':False,'live':False})
+                        except Exception:self.last_fault='TERMINAL_PAUSE_ACK_PENDING'
             if (self.armed and not self.service.fresh()
                     and not self.service.native_engine_hold_grace()):
                 with self.action_lock:
@@ -353,14 +367,15 @@ class StrategyHost:
                     finally:self.strategy_automatic(False,required=False)
                     self.audit.append('bridge_loss_stop',receipt=receipt,packet_processing=packet)
             if self.armed:
+                observed_revision=self.control_revision
                 try:
                     self.native.protection.admit_current(self.native.process,self.native.progress())
                 except Exception:
-                    try:
-                        self.control({'enabled':False,'live':False})
-                    except Exception:
-                        pass
-                    self.last_fault='SLOT_OR_NATIVE_IDENTITY_CHANGED'
+                    with self.action_lock:
+                        if self.armed and self.control_revision==observed_revision:
+                            try:self.control({'enabled':False,'live':False})
+                            except Exception:pass
+                            self.last_fault='SLOT_OR_NATIVE_IDENTITY_CHANGED'
 
     def run(self):
         from .shutdown import watch

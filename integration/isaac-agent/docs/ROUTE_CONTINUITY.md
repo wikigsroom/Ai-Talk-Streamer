@@ -42,3 +42,19 @@ model or dependency download is required. CPU-only operation remains supported.
 An actual native IsPaused or ControlsEnabled=false observation permits a bounded ten-second wait for loading, excluding ordinary pause acknowledgements, death and manual takeover. Heartbeats cannot roll that deadline forward. State remains stale after 1.5 seconds; expired input/target authorization and stale speech are never valid. Hosts should only postpone their disconnected-gameplay pause while StrategyService.native_engine_hold_grace() is true, rechecking under their control lock.
 
 The native input guard sends a fresh observation after a room identity change or engine input-unhold and waits up to 500ms for its response before declaring a five-second combat lease lost. It does not renew leaseUntil, release pauseHold, use items or change any game/save data. A real disconnection or loading over the budget still stops normally.
+
+### Strategic exit alternative and host control revisions
+
+A native observed, safe reachable boss exit is offered alongside remaining
+rewards even when the local policy prefers health or treasure backtracking.
+DSH chooses whether to leave; local preferences cannot hide that alternative.
+Offer construction and execution both recheck exit availability, clear state,
+enemies/projectiles, current dangers, exit obstructions and path reachability.
+No old choice may execute after an exit disappears or a spike blocks it.
+
+A host watchdog must recheck its observed control revision under the control
+lock before a delayed health/identity failure or terminal observation can stop
+play. An explicit pause withdraws autopilot before clearing the armed flag;
+that transient combination must not increment the completed owner's revision.
+Current genuine failures still stop normally. Recording/drink resume guards
+remain strict; hosts cannot adopt another owner's pause.
