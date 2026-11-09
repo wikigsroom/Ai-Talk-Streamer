@@ -86,7 +86,7 @@ test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-cont
 });
 }
 
-test('real DSH isolates channel environments across overlapping turns and cancellation', {timeout:20000}, async()=>{
+test('real DSH owns provider registrations through disposal and cancels queued turns without network calls', {timeout:20000}, async()=>{
   const root=process.cwd(),policy=structuredClone(loadPolicy(root,'configs/issac/bridge-policy.json'));
   mkdirSync(join(root,'state'),{recursive:true});
   const folder=mkdtempSync(join(root,'state/issac-concurrent-channel-test-'));
@@ -129,9 +129,12 @@ test('real DSH isolates channel environments across overlapping turns and cancel
     // Observe the first rejection immediately so cancellation is never an
     // unhandled rejection while its successor is being created.
     const cancellation=cancelled.then(()=>assert.fail('cancelled turn completed'),e=>assert.equal(e.code,'MODEL_CANCELLED'));
-    await cStarted;abort.abort();
+    await cStarted;
+    const queuedAbort=new AbortController(),queued=generate('never',queuedAbort.signal);
+    const queuedCancellation=queued.then(()=>assert.fail('queued cancelled turn completed'),e=>assert.equal(e.code,'MODEL_CANCELLED'));
+    queuedAbort.abort();abort.abort();
     const resumed=generate('d');
-    await cancellation;assert.equal((await resumed).text,'这间清完了，我接着走。');
+    await Promise.all([cancellation,queuedCancellation]);assert.equal((await resumed).text,'这间清完了，我接着走。');
     assert.deepEqual(seen.toSorted(),['a','b','c','d']);assert.equal(host.active.size,0);
   }finally{
     await host?.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));

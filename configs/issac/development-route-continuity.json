@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV13",
+  "round": "NAV14",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -139,6 +139,15 @@
         "backend/dsh-bridge/host.mjs",
         "tests/issac-core-host.test.mjs"
       ]
+    },
+    {
+      "id": "NAV14-DSH-PROVIDER-DIRECTORY-OWNERSHIP",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "backend/dsh-bridge/host.mjs",
+        "tests/issac-core-host.test.mjs",
+        "docs/issac/跨房间路线连续性修复20261110.md"
+      ]
     }
   ],
   "source_review": [
@@ -164,19 +173,24 @@
     "special unannotated door offers obey the same edge cap; no guard or resource authorization relaxed",
     "cleared observed boss exits remain goals; legacy observations permit a single clearly labelled survey, never invent an exit",
     "issued observed next-floor command succeeds only on same-run next native stage within existing transition guard; unrelated room changes remain indeterminate",
-    "unavailable route intent is removed before fresh DSH selection; persisted refusals and edges not erased by selecting another goal"
+    "unavailable route intent is removed before fresh DSH selection; persisted refusals and edges not erased by selecting another goal",
+    "NAV13 controlled simultaneous requests exposed a second independent collision: pinned pi-ai adapters each declare the complete installed provider catalog in the shared LLM directory",
+    "one host-owned cancellable FIFO now spans adapter setup, model execution and final disposal for both conversation/gameplay and mood; no lease/turn/context freshness is extended",
+    "queued cancellation completes without issuing a model request and cannot let successors overlap an earlier live adapter; provider channel snapshots remain per-turn isolated",
+    "NAV14 regression exercises original pinned DSH with distinct controlled credentials, simultaneous admission, cancellation of an executing turn, cancellation of a queued turn and immediate successor; development phase runs no tests"
   ],
-  "prior_candidate": "issac-8e9c71b7fa70-da85a8ff",
+  "prior_candidate": "issac-de7f3d3c2877-61dd22e0",
   "closed_test_round": {
-    "candidate_id": "issac-8e9c71b7fa70-da85a8ff",
+    "candidate_id": "issac-de7f3d3c2877-61dd22e0",
     "deployed": true,
+    "regressions_passed": false,
+    "stack_started": false,
+    "game_started": false,
+    "waiting_launcher_stopped": true,
     "defects": [
-      "closed super_secret endpoint and unsupported challenge gate advertised through ordinary corridors",
-      "cleared boss exit omitted from return goals",
-      "special door without annotated route bypasses no-progress edge cap"
+      "isolating launchEnvironment removed its service registration collision but simultaneous pinned pi-ai adapters still collide on the shared configurable-provider directory"
     ],
-    "failed_capture_stopped": true,
     "complete_correction_reviewed": true,
-    "current_round_scope": "shared execution door admission, observed boss exit return and guarded next-stage receipt, every-door cycle limit, invalidate unavailable intent"
+    "current_round_scope": "cancellable whole-lifetime provider ownership including mood and final disposal; original strategic actor and native authorization fences retained"
   }
 }

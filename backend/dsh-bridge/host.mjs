@@ -22,6 +22,7 @@ export class DshHost {
     this.require = createRequire(join(runtime, 'package.json'));
     this.load = name => import(pathToFileURL(this.require.resolve(name)).href);
     this.active = new Map(); this.ready = false;
+    this.providerTail = Promise.resolve();
   }
   async start() {
     if (Number(process.versions.node.split('.')[0]) < 24) throw new Error('DSH_NODE_24_REQUIRED');
@@ -127,7 +128,33 @@ export class DshHost {
       retryPolicy: { mode: 'normal', maxRetries: 0 },
     } } });
   }
-  async generate({ sessionId, snapshot, input, context = '', signal, tools, onCall, onProbe, maxTokens = this.policy.conversation.max_output_tokens, maintenance = false, negativeMinimal = false, gameplayTurn = null }) {
+  async #withProvider(signal, run) {
+    // The pinned adapter declares its entire installed provider catalog in a
+    // shared LLM directory. Hold ownership through disposal, including mood
+    // turns, so cancellation cannot race the next adapter registration.
+    const previous = this.providerTail;
+    let release, abort;
+    const slot = new Promise(resolve => { release = resolve; });
+    this.providerTail = previous.then(() => slot);
+    try {
+      if (signal?.aborted) throw modelFailure(null, { signal });
+      if (signal) await Promise.race([previous, new Promise((_resolve, reject) => {
+        abort = () => reject(modelFailure(null, { signal }));
+        signal.addEventListener('abort', abort, { once: true });
+      })]);
+      else await previous;
+      if (signal?.aborted) throw modelFailure(null, { signal });
+      if (!this.ready) throw new Error('DSH_NOT_READY_OR_DUPLICATE');
+      return await run();
+    } finally {
+      if (abort) signal.removeEventListener('abort', abort);
+      release();
+    }
+  }
+  async generate(request) {
+    return this.#withProvider(request.signal, () => this.#generate(request));
+  }
+  async #generate({ sessionId, snapshot, input, context = '', signal, tools, onCall, onProbe, maxTokens = this.policy.conversation.max_output_tokens, maintenance = false, negativeMinimal = false, gameplayTurn = null }) {
     if (!this.ready || this.active.has(sessionId)) throw new Error('DSH_NOT_READY_OR_DUPLICATE');
     const route = 'studio-' + digest(sessionId).slice(0, 20);
     const extensions = this.extensions;
@@ -278,6 +305,9 @@ export class DshHost {
   }
   async judgeMood({ snapshot, input, reply, signal, onCall, mode = 'chat' }) {
     if (!this.extensions || !this.ready) return null;
+    return this.#withProvider(signal, () => this.#judgeMood({ snapshot, input, reply, signal, onCall, mode }));
+  }
+  async #judgeMood({ snapshot, input, reply, signal, onCall, mode }) {
     const sessionId = 'mood-' + digest([Date.now(), input, reply]).slice(0, 24), route = 'studio-' + sessionId;
     let handle, scope;
     try {
