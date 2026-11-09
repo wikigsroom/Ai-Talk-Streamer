@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "game-fps-20261109-r3",
+  "round": "game-fps-20261109-r4-profile",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -8,10 +8,13 @@
   "items": [
     {
       "id": "GF01",
-      "code": "Preserve original Lua execution boundaries using native C hot callbacks and demand-only JavaScript; bounded menu input leases and measured native render timing",
+      "code": "Measure bounded per-update Lua phases after native-hook-only optimization proved insufficient during actual combat; preserve original decisions and all safety frequencies",
       "status": "code_complete_pending_acceptance",
       "source_files": [
         "integration/isaac-agent/native_bridge.js",
+        "integration/isaac-agent/build_native_controller.py",
+        "integration/isaac-agent/mods/IsaacJev/main.lua",
+        "integration/isaac-agent/mods/IsaacJev/runtime_profile.lua",
         "integration/issac/native_game.py",
         "integration/issac/strategy_host.py",
         "integration/issac/acceptance.py",

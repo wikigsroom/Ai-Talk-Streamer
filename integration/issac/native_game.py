@@ -146,6 +146,17 @@ class NativeGame:
                 raise AdmissionError('NATIVE_STATE_RESPONSE_INVALID')
             return value
 
+    def performance(self):
+        with self.lock:
+            value=self.status()
+            if self.installed_goal is None:
+                value['lua_profile']={}
+                return value
+            source=('local m=_G.__NativeIsaacController;'
+                    'return json.encode(m and m.runtimeProfile and m.runtimeProfile:snapshot() or {})')
+            value['lua_profile']=json.loads(self.rpc('evaluate',source,timeout=5))
+            return value
+
     def bootstrap_modules(self):
         config=read_json(inside(self.root,'configs/issac/native-modules.json'))
         for row in config['files']:

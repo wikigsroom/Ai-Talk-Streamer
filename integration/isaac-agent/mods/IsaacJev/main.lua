@@ -12,6 +12,8 @@ if not Json then
     if jsonOk then Json = jsonModule end
 end
 
+mod.runtimeProfile = include("runtime_profile").new()
+
 local HOST, PORT = "127.0.0.1", 9528
 local client = nil
 local pendingState = nil
@@ -3707,11 +3709,13 @@ local function planUtilityButtons(player)
 end
 
 function mod:onUpdate()
+    self.runtimeProfile:begin()
     syncRoomTransitionState()
     local player = Isaac.GetPlayer(0)
     mod:observeBombInput(player)
     timedSpikeNavigator:observe(game:GetRoom(),game:GetFrameCount(),currentRoomKey(),gridEvent)
     tntBlastGuard:observe(game:GetRoom(),Isaac.GetRoomEntities(),game:GetFrameCount(),currentRoomKey(),gridEvent,clearTearLine)
+    self.runtimeProfile:mark("observation_guards")
     local dead = handleDeathAndRestart(player)
     if lastPlayerPosition then
         lastMovementProgress = player.Position:Distance(lastPlayerPosition)
@@ -3722,15 +3726,18 @@ function mod:onUpdate()
     end
     lastPlayerPosition = Vector(player.Position.X, player.Position.Y)
     safeSendState()
+    self.runtimeProfile:mark("state_exchange")
     if dead then
         -- The bridge may reply with an enabled action while the death screen
         -- is visible; never pass that stale action into the input callbacks.
         automatic = false
         resolvedMove = Vector(0, 0)
+        self.runtimeProfile:finish()
         return
     end
     if automatic then planUtilityButtons(player) else utilityButtons = {} end
     strategyControl:filterButtons(player,utilityButtons)
+    self.runtimeProfile:mark("utility_guards")
     local wantedTrinketId = tonumber(string.match(action.id or "", "^take_pickup_(%d+)$"))
     if automatic and wantedTrinketId and wantedTrinketId ~= lastTrinketSwapTarget then
         for _, entity in ipairs(Isaac.GetRoomEntities()) do
@@ -3777,6 +3784,7 @@ function mod:onUpdate()
         and transitionPhase == "backtrack_blocked"
         and game:GetFrameCount() - roomEntryFrame < backtrackGuardFrames
     resolvedMove = automatic and resolveSafeMove(player,doorInputBlocked or blockedReverseDoor) or Vector(0, 0)
+    self.runtimeProfile:mark("movement_safety")
     local surpriseEnemy = automatic and not bombNeedsRetreat and not trackingBombNearby and hasCombatEnemy()
         and action.mode ~= "combat" and action.mode ~= "hazard"
         and action.mode ~= "bomb" and action.mode ~= "tnt"
@@ -3907,6 +3915,8 @@ function mod:onUpdate()
             end
         end
     end
+    self.runtimeProfile:mark("aim_and_input_guards")
+    self.runtimeProfile:finish()
     local needsTearFallback = currentWeapon == "tear" and not chargeReleaseFrames(player,currentWeapon)
         and nativeFireStartFrame >= 0
         and game:GetFrameCount() - nativeFireStartFrame >= 20

@@ -259,7 +259,7 @@ class StrategyHost:
                     elif url.path=='/status':
                         result=host.status()
                     elif url.path=='/performance':
-                        result=host.native.status() if host.native.session else {'attached':False}
+                        result=host.native.performance() if host.native.session else {'attached':False}
                     elif url.path=='/events':
                         result=host.facts.read(int(parse_qs(url.query).get('after',['0'])[0]))
                     else:
