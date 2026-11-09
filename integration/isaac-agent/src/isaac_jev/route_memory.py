@@ -8,9 +8,10 @@ from collections import deque
 from copy import deepcopy
 import hashlib
 import json
+import math
 from pathlib import Path
 from .models import Door
-from .navigation import door_is_usable
+from .navigation import door_is_usable, door_path_distance
 
 
 def signature(value):
@@ -26,7 +27,7 @@ class RouteMemory:
         self.data = self.empty()
         try:
             value = json.loads(self.path.read_text(encoding='utf8'))
-            if (value.get('schema') == 1 and isinstance(value.get('rooms'), dict)
+            if (value.get('schema') == 2 and isinstance(value.get('rooms'), dict)
                     and len(value['rooms']) <= 512 and len(value.get('constraints', {})) <= 512
                     and isinstance(value.get('edges'), dict) and isinstance(value.get('transitions'), list)):
                 self.data = value
@@ -34,10 +35,11 @@ class RouteMemory:
             pass
         self.snapshot = {}
         self.navigation_state = None
+        self.observation_suspended = False
 
     @staticmethod
     def empty():
-        return {'schema': 1, 'floor': None, 'rooms': {}, 'native_visited': [],
+        return {'schema': 2, 'floor': None, 'rooms': {}, 'native_visited': [],
                 'constraints': {}, 'edges': {}, 'transitions': [], 'goal': None,
                 'progress': 0, 'last_room': None, 'last_resources': None,
                 'last_inventory': None, 'last_health': None}
@@ -53,13 +55,20 @@ class RouteMemory:
         return f'{source}>{target}'
 
     def observe(self, snapshot, raw, state=None):
+        self.snapshot = snapshot
+        self.navigation_state = state
+        self.observation_suspended = (snapshot['room'].get('paused') is True or
+                                      raw.get('input_lease', {}).get('controls_enabled') is False)
+        # During a floor transition the engine can expose the new stage with
+        # the previous room/map. Keep freshness/input fences on the real packet,
+        # but only commit graph facts once normal controls are available.
+        if self.observation_suspended:
+            return
         identity = snapshot['identity']
         floor = {k: identity.get(k) for k in self.FLOOR_FIELDS}
         if self.data['floor'] != floor:
             self.data = self.empty()
             self.data['floor'] = floor
-        self.snapshot = snapshot
-        self.navigation_state = state
         room = identity.get('room')
         if not isinstance(room, int) or room < 0:
             return
@@ -76,12 +85,27 @@ class RouteMemory:
                   'target_clear', 'door_locked', 'door_lock_known', 'door_open', 'door_open_known')}
                  for d in snapshot['doors'] if isinstance(d.get('target_room_index'), int)
                  and d['target_room_index'] >= 0]
+        if state is not None and snapshot['room']['clear']:
+            for door in doors:
+                native = next((d for d in state.layout.doors if d.slot == door['slot']), None)
+                door['locally_reachable'] = bool(native and native.slot not in state.unreachable_door_slots
+                                                and math.isfinite(door_path_distance(state, native)))
+        # Path existence is independent of door admission/resource costs. Store
+        # it with the observed edge so a remote frontier cannot lure repeated
+        # trips to an exit absent from this room's executable alternatives.
+        thresholds = {d.get('grid_index') for d in snapshot['doors']}
+        timed = {e.get('grid_index') for e in raw.get('layout', {}).get('grid_events', [])
+                 if e.get('kind') == 'spike' and e.get('timed')}
+        stable_doors = [{k: v for k, v in d.items() if k not in
+                         {'target_clear', 'locally_reachable', 'door_open', 'door_open_known', 'door_lock_known'}}
+                        | ({} if d.get('target_room_type') in self.FREE and not d.get('door_locked')
+                           else {'door_open': d.get('door_open')}) for d in doors]
         # No moving positions, frame/visit numbers, or animation phases in the
         # progress token. Merely walking back through a room is not progress.
-        geometry = signature({'blocked': sorted(raw.get('layout', {}).get('blocked', [])),
-                              'hazards': sorted((h.get('id'), h.get('kind'), h.get('grid_index'))
+        geometry = signature({'blocked': sorted(set(raw.get('layout', {}).get('blocked', [])) - thresholds - timed),
+                              'hazards': sorted((h.get('kind'), h.get('grid_index'))
                                                 for h in raw.get('hazards', [])),
-                              'doors': doors})
+                              'doors': stable_doors})
         exit_known = 'boss_exit_available' in raw
         exit_available = exit_known and bool(raw['boss_exit_available'])
         content = signature({'geometry': geometry, 'clear': snapshot['room']['clear'],
@@ -208,6 +232,8 @@ class RouteMemory:
         return not self.blocked(fake, s)
 
     def routes(self):
+        if self.observation_suspended:
+            return []
         data, s = self.data, self.snapshot
         origin = s['identity']['room']
         found = []
@@ -220,6 +246,8 @@ class RouteMemory:
             info = data['rooms'].get(str(current), {})
             for d in info.get('doors', []):
                 target = d['target_room_index']
+                if d.get('locally_reachable') is False:
+                    continue
                 if target in path or not self.edge_allowed(current, d):
                     continue
                 if d.get('door_lock_known') is not True:
@@ -272,6 +300,8 @@ class RouteMemory:
         return found
 
     def annotate(self, offers, state):
+        if self.observation_suspended:
+            return []
         s = self.snapshot
         filtered = [o for o in offers if not self.blocked(o)]
         # Publish only currently executable non-route objectives. Failures and
@@ -344,6 +374,12 @@ class RouteMemory:
 
     def describe(self):
         return {'goal': deepcopy(self.data['goal']), 'progress_revision': self.data['progress'],
+                'observed_floor': deepcopy(self.data['floor']),
+                'observation_suspended': self.observation_suspended,
+                'unreachable_observed_edges': [
+                    {'from': int(room), 'to': d['target_room_index'], 'slot': d['slot']}
+                    for room, info in self.data['rooms'].items() for d in info['doors']
+                    if d.get('locally_reachable') is False],
                 'native_visited_rooms': self.data['native_visited'],
                 'surveyed_rooms': sorted(int(k) for k in self.data['rooms']),
                 'constraints': deepcopy(list(self.data['constraints'].values())[-12:]),

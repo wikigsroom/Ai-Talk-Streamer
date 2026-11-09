@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV17",
+  "round": "NAV18",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -182,6 +182,15 @@
         "integration/issac/tests/test_pending_pause_race.py",
         "docs/issac/跨房间路线连续性修复20261110.md"
       ]
+    },
+    {
+      "id": "NAV18-STABLE-EXECUTABLE-FLOOR-GRAPH",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/isaac-agent/src/isaac_jev/route_memory.py",
+        "integration/isaac-agent/tests/test_route_memory.py",
+        "integration/isaac-agent/docs/ROUTE_CONTINUITY.md"
+      ]
     }
   ],
   "source_review": [
@@ -219,19 +228,26 @@
     "a quiet 750-1250ms observation gap may request one fixed native full-state/TCP exchange, at most once per 400ms, with a 200ms RPC budget; age >=1250ms does not request late recovery",
     "RPC success is only observation_requested and never updates service.received or certifies freshness; only a real regular packet may do so",
     "native pulse does not resume input, clear an ordinary pause, modify gameplay, replay a utility command, or renew a lease; real 1500ms state loss still disarms",
-    "disarmed watchdog returns before accessing observation service; existing minimal pending-pause regression retained unchanged"
+    "disarmed watchdog returns before accessing observation service; existing minimal pending-pause regression retained unchanged",
+    "engine-held graph mutation suspended before floor reset; schema-2 observation cache discards mixed schema-1 data without game/save writes",
+    "clear stable room door reachability persists with observed edge and rejects impossible remote frontiers; current execution/cost/native fences unchanged",
+    "ordinary door animation, target-clear flags, threshold cells, timed-spike phases and reallocated hazard IDs cannot reset no-progress edge budget"
   ],
-  "prior_candidate": "issac-2a3ec380bd97-bcdb9d6f",
+  "prior_candidate": "issac-d9e9b119eeab-e9c458a8",
   "closed_test_round": {
-    "candidate_id": "issac-2a3ec380bd97-bcdb9d6f",
+    "candidate_id": "issac-d9e9b119eeab-e9c458a8",
     "deployed": true,
-    "regressions_passed": false,
-    "game_started": false,
-    "owned_waiting_launcher_stopped": true,
+    "regressions_passed": true,
+    "game_started": true,
+    "continuous_capture_seconds": 315,
+    "accepted_delivery": false,
+    "normal_stop_and_phase_closed": true,
     "defects": [
-      "minimal disarmed watchdog fixture has no observation service; quiet-observation guard accessed it before armed short-circuit"
+      "actual stage-five corridor repeated 49 transitions; room 82 repeatedly selected but not reached",
+      "graph advertised remote frontier without stored room-local path reachability",
+      "engine-held new-stage/old-map packet polluted observed visited-room cache",
+      "animation/destination-clear/hazard runtime identity could reset progress edge budget"
     ],
-    "complete_correction_reviewed": true,
-    "current_round_scope": "return immediately when disarmed before accessing observation service; no active runtime boundary change"
+    "complete_correction_reviewed": true
   }
 }

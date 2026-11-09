@@ -241,5 +241,77 @@ class RouteMemoryTests(unittest.TestCase):
         self.update(room(153,[(154,'boss',False)],2,visited=(153,154)))
         self.assertEqual(self.service.receipts['wrong-room']['status'],'indeterminate')
 
+    def test_transition_new_stage_old_map_does_not_pollute_the_next_floor(self):
+        raw=room(84,[(85,'default',False)],visited=(71,84))
+        self.update(raw);self.choose(lambda o:bool(o.get('route')),'continue-goal')
+        original=deepcopy(self.service.routes.data)
+        held=deepcopy(raw);held['stage']+=1;held['strategy']['paused']=True
+        held['input_lease']['controls_enabled']=False
+        observation=deepcopy(self.service.snapshot)
+        observation['identity']['stage']=held['stage'];observation['room']['paused']=True
+        self.service.routes.observe(observation,held,GameState.from_message(held))
+        self.assertEqual(self.service.routes.data,original)
+        self.assertTrue(self.service.routes.describe()['observation_suspended'])
+        self.assertFalse(self.service.routes.annotate([],GameState.from_message(held)))
+        self.assertEqual(self.service.routes.data['goal'],original['goal'])
+        stable=room(97,[(98,'default',False)],2,visited=(97,));stable['stage']=held['stage']
+        self.update(stable)
+        self.assertEqual(self.service.routes.data['native_visited'],[97])
+        self.assertEqual(set(self.service.routes.data['rooms']),{'97'})
+        self.assertIsNone(self.service.routes.data['goal'])
+
+    def test_controls_disabled_without_pause_also_preserves_graph(self):
+        raw=room(84,[(85,'default',False)],visited=(84,))
+        self.update(raw);old=deepcopy(self.service.routes.data)
+        raw['room_index']=85;raw['input_lease']['controls_enabled']=False
+        self.update(raw)
+        self.assertEqual(self.service.routes.data,old)
+        self.assertEqual(self.service.routes.routes(),[])
+
+    def test_unreachable_room_exit_cannot_lure_a_remote_frontier(self):
+        # Observed room 83 is split by a solid wall. From its right entrance
+        # the left door exists, but the existing local executor cannot reach it.
+        raw=room(83,[(82,'default',False),(84,'default',False)],visited=(83,84))
+        raw['player_grid_index']=70;raw['player']['pos']={'x':440,'y':280}
+        for d,grid,x in zip(raw['layout']['doors'],(60,74),(40,600)):
+            d.update(grid_index=grid,pos={'x':x,'y':280})
+        raw['layout']['blocked']=list(range(7,135,15))
+        self.update(raw)
+        self.assertFalse(self.service.routes.data['rooms']['83']['doors'][0]['locally_reachable'])
+        self.assertFalse(any(o.get('route',{}).get('room')==82 for o in self.service._offers(GameState.from_message(raw))))
+        self.update(room(84,[(83,'default',False),(85,'default',False)],2,visited=(83,84)))
+        self.assertNotIn(82,{r['room'] for r in self.service.routes.routes()})
+        self.assertIn(85,{r['room'] for r in self.service.routes.routes()})
+        # Real geometry improvement, not selecting the same target again,
+        # restores the branch while every existing execution guard remains.
+        raw['layout']['blocked']=[];raw['room_visit_sequence']=3;self.update(raw)
+        self.assertTrue(self.service.routes.data['rooms']['83']['doors'][0]['locally_reachable'])
+        self.assertIn(82,{r['room'] for r in self.service.routes.routes()})
+
+    def test_animation_and_reallocated_hazard_ids_do_not_reset_edge_budget(self):
+        raw=room(84,[(85,'default',False)],visited=(84,85))
+        raw['hazards']=[{'id':100,'kind':'fire','grid_index':33,'pos':{'x':120,'y':160}}]
+        self.update(raw);progress=self.service.routes.data['progress']
+        self.service.routes.data['edges']['84>85']=2
+        raw['hazards'][0]['id']=200
+        raw['layout']['doors'][0].update(target_clear=True,door_open=False,door_open_known=False)
+        raw['layout']['blocked']=[7]
+        self.update(raw)
+        self.assertEqual(self.service.routes.data['progress'],progress)
+        self.assertEqual(self.service.routes.data['edges']['84>85'],2)
+        raw['layout']['doors'][0].update(door_open=True,door_open_known=True)
+        self.update(raw)
+        self.assertEqual(self.service.routes.data['edges']['84>85'],2)
+        self.assertFalse(self.service.routes.routes())
+
+    def test_schema_one_mixed_floor_cache_is_not_inherited(self):
+        self.update(room(84,[(85,'default',False)],visited=(84,)))
+        path=self.service.routes.path;old=deepcopy(self.service.routes.data)
+        old['schema']=1;old['native_visited']=[1,2,3,84]
+        path.write_text(json.dumps(old),'utf8')
+        fresh=RouteMemory(path,lambda *a,**k:None)
+        self.assertIsNone(fresh.data['floor'])
+        self.assertFalse(fresh.data['native_visited'])
+
 
 if __name__=='__main__':unittest.main()

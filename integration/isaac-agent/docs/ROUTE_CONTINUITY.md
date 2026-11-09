@@ -60,3 +60,29 @@ Current genuine failures still stop normally. Recording/drink resume guards
 remain strict; hosts cannot adopt another owner's pause.
 
 The existing observed stage-eight Devil Room trapdoor toward Sheol is retained for the Satan run goal. Other Devil Rooms are not assumed to provide that route. Exit-obstruction checks retain the moving-spike veto; inert pedestal/retracted-spike markers still use actual path geometry and native collision guards.
+
+### Stable observations and executable remote frontiers
+
+Schema 2 rebuilds only the observation cache, leaving game/save data untouched.
+Schema 1 can contain a new stage combined with a previous floor's map and is not
+inherited. During native pause or ControlsEnabled=false, graph observation and
+offer annotation suspend before mutating the floor, visited rooms, objectives or
+goal. The real packet and all freshness/authorization guards remain unchanged.
+The first stable packet supplies the actual new floor and map.
+
+For a clear stable room, each observed door stores its local path reachability,
+using the executor's door_path_distance and native unreachable-door slots.
+A physically blocked exit cannot advertise a remote frontier through cleared
+corridors. New actual geometry/entry observations can make it reachable again;
+resource, door-admission and paid-terminal approval checks still apply separately.
+
+Progress signatures exclude destination-clear flags, free-door opening phases,
+door thresholds, timed spike phases and reallocated hazard entity IDs. Actual
+room discovery, clear/content changes, permanent geometry changes and resource
+or inventory gains retain their existing meaning. Animation and merely choosing
+another goal cannot reset the edge repetition budget. No new model is involved.
+
+The native bundle also exposes a fixed `NativeRefreshObservation` hook. It only
+requests the existing full native observation/TCP exchange when simulation/Mod
+callbacks are quiet. Its acknowledgment never certifies freshness, resumes
+input, changes a lease or clears an ordinary pause. Real state loss still stops.
