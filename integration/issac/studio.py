@@ -88,6 +88,8 @@ class IsaacStudio(NaimeiStudio):
         self.prepared=asyncio.Queue(maxsize=24)
         self.prepared_ready=asyncio.Event()
         self.prepare_sequence=0
+        self.map_batch=[]
+        self.map_batch_limit=5
         self.published_body=self.body.status()
         self.mouth_lock=threading.Lock()
 
@@ -183,29 +185,55 @@ class IsaacStudio(NaimeiStudio):
                 await self.cancel_source(request_id)
 
     async def emit(self, jpeg, pcm=SILENCE, metadata=None, *, original=None, body_status=None, oral=None):
-        """Durably map a real frame before making it available for playout."""
-        if metadata:
-            if self.fence.matches(metadata):
-                started=time.perf_counter()
-                receipt=await self.api('/internal/media-map',metadata)
-                elapsed=round((time.perf_counter()-started)*1e6)
-                self.stats['media_map_max_us']=max(self.stats['media_map_max_us'],elapsed)
-                if receipt.get('cancelled'):
-                    await self.discard_cancelled_frame(metadata,receipt)
-                    metadata=None
-                elif receipt.get('persisted') is not True:
-                    raise AdmissionError('MEDIA_MAP_NOT_PERSISTED')
-                elif self.fence.matches(metadata):
-                    metadata={'type':'media.map','protocol':2,**metadata,'map_revision':receipt['map_revision']}
-                else:metadata=None
-            else:metadata=None
-            if metadata is None:
-                if original is None:raise AdmissionError('REAL_BODY_FRAME_REQUIRED_AFTER_CANCEL')
-                jpeg,pcm,oral=original,SILENCE,None
-        await self.prepared.put({'sequence':self.prepare_sequence,'jpeg':jpeg,'original':original or jpeg,
-            'pcm':pcm,'metadata':metadata,'oral':oral,'body':body_status or self.body.status()})
+        """Collect at most five real frames; only durable batches reach playout."""
+        frame={'sequence':self.prepare_sequence,'jpeg':jpeg,'original':original,
+            'pcm':pcm,'metadata':metadata,'oral':oral,'body':body_status or self.body.status()}
         self.prepare_sequence+=1
+        identity=lambda value:tuple((value or {}).get(key) for key in (
+            'request_id','utterance_id','runtime_epoch','generation','valid_sample_count','transport_instance_id'))
+        if self.map_batch and (metadata is None or identity(metadata)!=identity(self.map_batch[0]['metadata'])):
+            await self.flush_map_batch()
+        if metadata:
+            self.map_batch.append(frame)
+            if len(self.map_batch)>=self.map_batch_limit or metadata.get('final'):
+                await self.flush_map_batch()
+        else:
+            await self.queue_prepared(frame)
+
+    async def queue_prepared(self,frame):
+        frame['original']=frame['original'] or frame['jpeg']
+        await self.prepared.put(frame)
         if self.prepared.qsize()>=12:self.prepared_ready.set()
+
+    async def flush_map_batch(self):
+        frames,self.map_batch=self.map_batch,[]
+        if not frames:return
+        first=frames[0]['metadata'];receipt=None
+        if self.fence.matches(first):
+            manifest=first if len(frames)==1 else {**first,
+                'ranges':[span for frame in frames for span in frame['metadata']['ranges']],
+                'final':bool(frames[-1]['metadata'].get('final'))}
+            started=time.perf_counter()
+            receipt=await self.api('/internal/media-map',manifest)
+            self.stats['media_map_max_us']=max(self.stats['media_map_max_us'],round((time.perf_counter()-started)*1e6))
+            if receipt.get('cancelled'):
+                await self.discard_cancelled_frame(first,receipt)
+            elif receipt.get('persisted') is not True:
+                raise AdmissionError('MEDIA_MAP_NOT_PERSISTED')
+            else:
+                self.stats['media_map_batches']+=1
+                self.stats['media_map_frames']+=len(frames)
+                self.stats['media_map_max_batch_frames']=max(self.stats['media_map_max_batch_frames'],len(frames))
+        for frame in frames:
+            metadata=frame['metadata']
+            if receipt and receipt.get('persisted') is True and self.fence.matches(metadata):
+                # Each packet retains only its own PCM span and final flag.
+                # The shared revision proves the complete batch was committed.
+                frame['metadata']={'type':'media.map','protocol':2,**metadata,'map_revision':receipt['map_revision']}
+            else:
+                if frame['original'] is None:raise AdmissionError('REAL_BODY_FRAME_REQUIRED_AFTER_CANCEL')
+                frame.update(jpeg=frame['original'],pcm=SILENCE,metadata=None,oral=None)
+            await self.queue_prepared(frame)
 
     async def publish(self, frame):
         if frame['sequence']!=self.sequence:raise AdmissionError('PREPARED_FRAME_SEQUENCE_GAP')

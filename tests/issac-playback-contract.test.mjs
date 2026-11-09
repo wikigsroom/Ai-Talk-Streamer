@@ -45,12 +45,18 @@ test('actual Isaac browser and HTTP bridge prepare, renew and complete one lease
   assert.equal(f.db.get('SELECT COUNT(*) n FROM playback_history').n,1);
   f.state.accept(operator,{mode:'echo',text:'奶妹的播放协议检查。',idempotency_key:'actual-browser-contract'});
   const request=f.state.activate(),utterance=f.state.textReady(request.request_id,'这句需要实际播完。',request.runtime_epoch,request.generation);
-  f.state.audioReady({...utterance,valid_sample_count:640,audio_sha256:digest('fixture-generated-audio')});
-  const metadata={...utterance,protocol:2,valid_sample_count:640,transport_instance_id:'contract-wire',
-   ranges:[{packet_seq:1,packet_offset:0,sample_start:0,sample_count:640}],final:true};
-  f.state.mediaMap(metadata);player.control({type:'media.map',...metadata});
-  let ended;const source={addEventListener(_name,callback){ended=callback}};
-  player.schedule(source,player.take(1),1,640,16000);audio.currentTime=1.04;ended();await player.postChain;
+  f.state.audioReady({...utterance,valid_sample_count:3200,audio_sha256:digest('fixture-generated-audio')});
+  const metadata={...utterance,protocol:2,valid_sample_count:3200,transport_instance_id:'contract-wire',
+   ranges:Array.from({length:5},(_,i)=>({packet_seq:i+1,packet_offset:0,sample_start:i*640,sample_count:640})),final:true};
+  const mapping=f.state.mediaMap(metadata),ends=[];
+  assert.equal(f.db.get('SELECT COUNT(*) n FROM media_manifests').n,1);
+  for(let i=0;i<5;i++){
+   player.control({type:'media.map',...metadata,ranges:[metadata.ranges[i]],final:i===4,map_revision:mapping.map_revision});
+   const source={addEventListener(_name,callback){ends.push(callback)}};
+   player.schedule(source,player.take(i+1),1+i*.04,640,16000);
+   audio.currentTime=1+(i+1)*.04;ends[i]();player.progress(player.utterances.get(utterance.utterance_id));await player.postChain;
+   if(i<4)assert.notEqual(f.state.request(request.request_id).status,'COMPLETED');
+  }
   assert.equal(player.lastError,null);assert.equal(f.state.request(request.request_id).status,'COMPLETED');
   assert.equal(f.db.get("SELECT COUNT(*) n FROM stream_events WHERE event_type='playback.completed'").n,1);
   // Repeated preparation acknowledges the same lease without new epochs/events.

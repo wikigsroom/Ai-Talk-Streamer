@@ -1,0 +1,12 @@
+{
+  "candidate_id":"issac-c38e78405a70-01e9b57b",
+  "source_commit":"c38e78405a70b1e3dfb6e6029d3a490cdde37a9f",
+  "passed":false,
+  "production_accepted":false,
+  "source_changes_during_tests":false,
+  "five_prechecks_passed":true,
+  "report":{"path":"state/issac-acceptance/round-runs/round-a4a4e2feb2cb45a3bb45c3fd842208db/report.json","source_files_verified":2270},
+  "current_runtime":{"original_naimei_core_ready":true,"model":"gpt-6-luna","protocol":"responses","complete_pinned_wiki_bound":true,"actual_five_game_tools_bound":true,"ncm01_ready":true,"flashhead_ready":true,"official_programme_connected":true,"gameplay_started":false},
+  "media_failure":{"mode":"M03","at_unix":1794192662.1730766,"code":"MEDIA_CONTINUITY_OR_MAPPING_REJECTED","reason":"PREPARED_FRAME_RESERVOIR_EXHAUSTED","output_frames":778,"actual_audio_driven_mouth_frames":155,"actual_model_oral_open_frames":124,"pump_stalls":1,"media_faults":1,"observed_media_map_max_us":193093,"observed_mouth_projection_max_us":49497,"observed_initial_encoder_max_us":399453,"gpu_capacity_shortage_claimed":false},
+  "closure":{"closed_unix":1794192757.078004,"recorded_failures":2,"failure_receipt":"state/issac-acceptance/runtime-n-not-qualified.json","failure_sha256":"317db1e2b2a70d8eb03d557ff0297940bec5a821aa516b3882e3f10c885f3461","whole_owned_stack_stopped":true,"official_closed_normally":true,"official_recording_created":false,"public_broadcast_started":false}
+}

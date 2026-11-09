@@ -57,6 +57,7 @@ class ProgrammePumpTests(unittest.IsolatedAsyncioTestCase):
         studio.emit=AsyncMock();studio.native_call=AsyncMock(return_value={'native_receipt':{'no_active_run':True}})
         studio.root=folder;studio.prepared=asyncio.Queue(maxsize=24);studio.prepared_ready=asyncio.Event()
         studio.prepare_sequence=studio.sequence=0;studio.published_body=studio.body.status()
+        studio.map_batch=[];studio.map_batch_limit=1
         studio.mouth_lock=threading.Lock();studio.mode='M03';studio.media=ProfileFixture();studio.encoder=EncoderFixture()
         studio.web_revision='test-revision';studio.keyframe=True;studio.sent_at=None;studio.intervals=deque(maxlen=1500)
         studio.fence=CommandFence();studio.state='idle';studio.sample_mouth=None
@@ -244,6 +245,119 @@ class ProgrammePumpTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(studio.stats['output_frames'],0)
             self.assertEqual(studio.stats['pump_stalls'],1);self.assertTrue(studio.media_fault)
             studio.native_call.assert_awaited_once_with({'action':'pause'})
+
+    async def test_batch_is_durable_before_any_of_its_real_pcm_frames_become_playable(self):
+        with tempfile.TemporaryDirectory() as directory:
+            studio=self.studio(Path(directory));studio.map_batch_limit=5
+            entered=asyncio.Event();commit=asyncio.Event();calls=[]
+            command={'request_id':'current','utterance_id':'u','runtime_epoch':5,'generation':8,'text':'当前房间',
+                'valid_sample_count':7*640,'transport_instance_id':'wire'}
+            studio.fence.speak(command)
+            async def persisted(_path,manifest):
+                calls.append(manifest);entered.set();await commit.wait()
+                return {'persisted':True,'map_revision':len(calls)}
+            studio.api=AsyncMock(side_effect=persisted)
+            async def emit(index):
+                jpeg=studio.jpeg(np.full((512,512,3),index+10,np.uint8))
+                metadata={**command,'ranges':[{'packet_seq':index,'packet_offset':0,'sample_start':index*640,'sample_count':640}],'final':index==6}
+                await IsaacStudio.emit(studio,jpeg,bytes([index+1])*len(SILENCE),metadata,original=jpeg,oral={'open':True})
+            for index in range(4):await emit(index)
+            self.assertEqual(studio.prepared.qsize(),0);studio.api.assert_not_awaited()
+            task=asyncio.create_task(emit(4));await asyncio.wait_for(entered.wait(),1)
+            self.assertEqual(studio.prepared.qsize(),0);commit.set();await task
+            self.assertEqual(studio.prepared.qsize(),5)
+            await emit(5);self.assertEqual(studio.prepared.qsize(),5)
+            await emit(6);self.assertEqual(studio.prepared.qsize(),7)
+            self.assertEqual([len(row['ranges']) for row in calls],[5,2])
+            self.assertEqual([row['final'] for row in calls],[False,True])
+            queue=asyncio.Queue();studio.viewers={object():queue}
+            for index in range(7):
+                frame=studio.prepared.get_nowait()
+                self.assertEqual(frame['sequence'],index)
+                self.assertEqual(frame['metadata']['ranges'][0]['packet_seq'],index)
+                self.assertEqual(frame['metadata']['map_revision'],1 if index<5 else 2)
+                self.assertEqual(frame['metadata']['final'],index==6)
+                await studio.publish(frame)
+                envelope,packet=queue.get_nowait();self.assertEqual(packet[-len(SILENCE):],bytes([index+1])*len(SILENCE))
+            self.assertEqual(studio.encoder.images,[(i,i+10) for i in range(7)])
+            self.assertEqual(studio.stats['actual_audio_driven_mouth_frames'],7)
+
+    async def test_cancelled_partial_batch_preserves_body_sequences_and_never_maps_old_speech(self):
+        with tempfile.TemporaryDirectory() as directory:
+            studio=self.studio(Path(directory));studio.map_batch_limit=5
+            old={'request_id':'old','utterance_id':'old-u','runtime_epoch':5,'generation':8,'text':'旧房间','final':False}
+            studio.fence.speak(old);studio.api=AsyncMock(return_value={'persisted':True,'map_revision':1})
+            for index in range(3):
+                body=studio.jpeg(np.full((512,512,3),20+index,np.uint8));mouth=studio.jpeg(np.full((512,512,3),99,np.uint8))
+                await IsaacStudio.emit(studio,mouth,bytes([9])*len(SILENCE),old,original=body,oral={'open':True})
+            studio.fence.cancel({'runtime_epoch':5,'new_generation':9})
+            current={**old,'request_id':'new','utterance_id':'new-u','generation':10,'text':'当前房间','final':True}
+            studio.fence.speak(current)
+            body=studio.jpeg(np.full((512,512,3),23,np.uint8))
+            await IsaacStudio.emit(studio,body,SILENCE,current,original=body,oral={'open':True})
+            studio.api.assert_awaited_once_with('/internal/media-map',current)
+            for index in range(4):
+                frame=studio.prepared.get_nowait()
+                self.assertEqual(frame['sequence'],index)
+                if index<3:self.assertIsNone(frame['metadata']);self.assertEqual(frame['pcm'],SILENCE)
+                await studio.publish(frame)
+            self.assertEqual(studio.encoder.images,[(i,i+20) for i in range(4)])
+            self.assertEqual(studio.stats['actual_audio_driven_mouth_frames'],1)
+
+    async def test_repeated_batch_commit_latency_keeps_the_real_playout_order_and_clock(self):
+        with tempfile.TemporaryDirectory() as directory:
+            studio=self.studio(Path(directory));studio.map_batch_limit=5;done=asyncio.Event()
+            command={'request_id':'current','utterance_id':'u','runtime_epoch':5,'generation':8,'text':'当前房间',
+                'valid_sample_count':40*640,'transport_instance_id':'wire'}
+            studio.fence.speak(command)
+            async def persisted(*_):
+                await asyncio.sleep(.1);return {'persisted':True,'map_revision':1}
+            studio.api=AsyncMock(side_effect=persisted)
+            async def producer():
+                due=time.perf_counter()
+                for index in range(40):
+                    await asyncio.sleep(max(0,due-time.perf_counter()));due+=.04
+                    jpeg=studio.jpeg(np.full((512,512,3),index,np.uint8))
+                    metadata={**command,'ranges':[{'packet_seq':index,'packet_offset':0,'sample_start':index*640,'sample_count':640}],'final':index==39}
+                    await IsaacStudio.emit(studio,jpeg,SILENCE,metadata,original=jpeg,oral={'open':True})
+            async def publish(frame):
+                await IsaacStudio.publish(studio,frame)
+                if studio.sequence==30:done.set()
+            studio.publish=publish;tasks=[asyncio.create_task(producer()),asyncio.create_task(studio.playout())]
+            try:await asyncio.wait_for(done.wait(),4)
+            finally:
+                for task in tasks:task.cancel()
+                await asyncio.gather(*tasks,return_exceptions=True)
+            self.assertEqual(studio.encoder.images,[(i,i) for i in range(30)])
+            self.assertLess(max(studio.intervals),.08)
+            self.assertEqual(studio.stats['pump_stalls'],0);self.assertFalse(studio.media_fault)
+
+    async def test_failed_batch_commit_exposes_no_pcm_and_cancel_during_commit_drops_every_old_frame(self):
+        for cancelled in [False,True]:
+            with self.subTest(cancelled=cancelled),tempfile.TemporaryDirectory() as directory:
+                studio=self.studio(Path(directory));studio.map_batch_limit=5
+                old={'request_id':'old','utterance_id':'old-u','runtime_epoch':5,'generation':8,'text':'旧房间',
+                    'valid_sample_count':3200,'transport_instance_id':'wire','final':False}
+                studio.fence.speak(old)
+                async def persisted(*_):
+                    if cancelled:studio.fence.cancel({'runtime_epoch':5,'new_generation':9})
+                    return {'persisted':cancelled,'map_revision':1}
+                studio.api=AsyncMock(side_effect=persisted)
+                async def emit(index):
+                    body=studio.jpeg(np.full((512,512,3),index+30,np.uint8));mouth=studio.jpeg(np.full((512,512,3),99,np.uint8))
+                    metadata={**old,'ranges':[{'packet_seq':index,'packet_offset':0,'sample_start':index*640,'sample_count':640}]}
+                    await IsaacStudio.emit(studio,mouth,bytes([9])*len(SILENCE),metadata,original=body,oral={'open':True})
+                for index in range(4):await emit(index)
+                if not cancelled:
+                    with self.assertRaisesRegex(AdmissionError,'MEDIA_MAP_NOT_PERSISTED'):await emit(4)
+                    self.assertEqual(studio.prepared.qsize(),0);self.assertEqual(studio.stats['output_frames'],0)
+                else:
+                    await emit(4)
+                    for index in range(5):
+                        frame=studio.prepared.get_nowait();self.assertIsNone(frame['metadata']);self.assertEqual(frame['pcm'],SILENCE)
+                        await studio.publish(frame)
+                    self.assertEqual(studio.encoder.images,[(i,i+30) for i in range(5)])
+                    self.assertEqual(studio.stats['actual_audio_driven_mouth_frames'],0)
 
     async def test_drink_resume_waits_for_published_chain_end(self):
         with tempfile.TemporaryDirectory() as directory:
