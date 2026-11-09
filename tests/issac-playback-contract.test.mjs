@@ -26,7 +26,8 @@ test('actual Isaac browser and HTTP bridge prepare, renew and complete one lease
  try{
   await new Promise(done=>server.listen(0,'127.0.0.1',done));const base='http://127.0.0.1:'+server.address().port;
   const audio={currentTime:0},transport={audioContext:audio,receiptsRequired:true,clearPlayback(){}};
-  const scope={window:{streamUUID:()=> 'contract',roomClient:{now:f.now}},
+  let generatedId=0;
+  const scope={window:{streamUUID:()=>generatedId++===0?'contract':'contract-'+generatedId,roomClient:{now:f.now}},
    performance:{now:f.now},setInterval:()=>1,clearInterval(){},setTimeout,clearTimeout,AbortController,
    fetch:(path,options)=>fetch(base+path,options)};
   vm.runInNewContext(readFileSync(new URL('../web/issac/dsh-playback.js',import.meta.url),'utf8'),scope);
@@ -58,6 +59,8 @@ test('actual Isaac browser and HTTP bridge prepare, renew and complete one lease
    if(i<4)assert.notEqual(f.state.request(request.request_id).status,'COMPLETED');
   }
   assert.equal(player.lastError,null);assert.equal(f.state.request(request.request_id).status,'COMPLETED');
+  assert.deepEqual({...f.db.get('SELECT COUNT(*) n, COUNT(DISTINCT receipt_id) unique_ids, SUM(natural_end) natural_ends FROM playback_receipts')},
+    {n:5,unique_ids:5,natural_ends:1});
   assert.equal(f.db.get("SELECT COUNT(*) n FROM stream_events WHERE event_type='playback.completed'").n,1);
   // Repeated preparation acknowledges the same lease without new epochs/events.
   await player.activate();assert.equal(f.db.get("SELECT COUNT(*) n FROM stream_events WHERE event_type='playback.authority_ready'").n,1);

@@ -1,0 +1,12 @@
+{
+  "candidate_id":"issac-a8e68d6dab09-6ca9b067",
+  "source_commit":"a8e68d6dab09105bbbfb7f77122169d8f05a0fc7",
+  "passed":false,
+  "production_accepted":false,
+  "source_changes_during_tests":false,
+  "checks":{"environment":true,"dependencies":true,"regressions":false,"materials_scan":true,"native_game":true},
+  "all_python_and_game_and_core_contract_suites_passed":true,
+  "failure":{"suite":"global_node","test":"actual Isaac browser and HTTP bridge prepare, renew and complete one lease","reason":"Controlled browser fixture returned the same receipt_id for all five partial playback reports, violating the ledger primary key. Production streamUUID already supplies distinct IDs.","reported_error":"ERR_SQLITE_ERROR","log_sha256":"e868bb0af7439744afb412074493ef2c1fd43d4c2c2404ea9f46d12c365e5522"},
+  "report":{"path":"state/issac-acceptance/round-runs/round-8f8047862e574866a06d9639c6ed2a6a/report.json","sha256":"40d3339246caf09e2d18bc504fad78bacac1f16dbf12275279d1e8e53df5e547"},
+  "closure":{"closed_unix":1794193617.1983528,"recorded_failures":3,"application_started":false,"gameplay_started":false,"official_recording_created":false,"public_broadcast_started":false}
+}

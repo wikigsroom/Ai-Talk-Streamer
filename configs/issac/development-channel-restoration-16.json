@@ -1,0 +1,18 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-P",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-a8e68d6dab09-6ca9b067",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRP01","status":"code_complete_pending_acceptance","code":"Give the controlled real-browser fixture distinct receipt IDs, preserving its first consumer identity; assert five unique actual progress receipts with exactly one natural completion. No production source or acceptance threshold changes.","source_files":["tests/issac-playback-contract.test.mjs"]},
+    {"id":"CRP02","status":"code_complete_pending_acceptance","code":"Retain closed O failure evidence and every unchanged production, media, source, save and acceptance requirement; run the complete verification only after freeze.","source_files":["docs/evidence/issac-precheck-o-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}
