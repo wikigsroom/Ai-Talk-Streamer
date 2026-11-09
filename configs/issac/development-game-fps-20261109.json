@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "game-fps-20261109-r4-profile",
+  "round": "game-fps-20261109-r5-prediction-reuse",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -8,13 +8,16 @@
   "items": [
     {
       "id": "GF01",
-      "code": "Measure bounded per-update Lua phases after native-hook-only optimization proved insufficient during actual combat; preserve original decisions and all safety frequencies",
+      "code": "Reduce measured movement-safety hot-path cost through synchronous collision and native-Vector trajectory reuse; preserve all candidates, horizons, guards and next-update freshness. Measure nested spans separately from update totals.",
       "status": "code_complete_pending_acceptance",
       "source_files": [
         "integration/isaac-agent/native_bridge.js",
         "integration/isaac-agent/build_native_controller.py",
         "integration/isaac-agent/mods/IsaacJev/main.lua",
         "integration/isaac-agent/mods/IsaacJev/runtime_profile.lua",
+        "integration/isaac-agent/tests/test_forecast_query_reuse.py",
+        "integration/isaac-agent/tests/test_runtime_profile.py",
+        "integration/isaac-agent/tests/fixtures/movement-forecast-before-fps.lua",
         "integration/issac/native_game.py",
         "integration/issac/strategy_host.py",
         "integration/issac/acceptance.py",

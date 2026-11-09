@@ -1395,13 +1395,13 @@ local function safeMoveCandidate(player, candidate, allowDoorThreshold, plannedB
     if tntBlastGuard and not tntBlastGuard:safe(player,nextPosition) then return false,"pending_tnt_explosion" end
     local gridIndex = room:GetGridIndex(nextPosition)
     if not allowDoorThreshold and room:GetGridPath(gridIndex) >= 1000 then return false, "grid_wall" end
+    local bodyOffsets={Vector(0,0),Vector(16,0),Vector(-16,0),Vector(0,16),Vector(0,-16)}
     for _, point in ipairs({ player.Position + candidate * (lookahead / 2), nextPosition }) do
-        for _, offset in ipairs({ Vector(0, 0), Vector(16, 0), Vector(-16, 0),
-            Vector(0, 16), Vector(0, -16) }) do
+        for _, offset in ipairs(bodyOffsets) do
             local sampled = point + offset
             local index = room:GetGridIndex(sampled)
-            local event = gridEvent(room:GetGridEntity(index), index)
             local redPoop = room:GetGridEntity(index)
+            local event = gridEvent(redPoop, index)
             if redPoop and redPoop.GetType and redPoop:GetType()==GRID_TRAPDOOR_TYPE
                 and intendedExit~=index
                 and nextPosition:Distance(redPoop.Position)<42
@@ -2001,7 +2001,9 @@ local function laserClearance(laser, position, tick)
     return position:Distance(start + delta * fraction)
 end
 
-local function movementForecast(player, move, horizon, room)
+local function movementForecast(player, move, horizon, room, collision)
+    local profile=mod and mod.runtimeProfile
+    local started=profile and Isaac.GetTime()
     -- Native samples: velocity retention ~0.707, displacement ~2 * average
     -- velocity per game update. A released direction still has momentum.
     local position=Vector(player.Position.X,player.Position.Y)
@@ -2009,20 +2011,32 @@ local function movementForecast(player, move, horizon, room)
     local acceleration=1.14*math.max(0.3,player.MoveSpeed or 1)
     local positions={[0]=position}
     local radius=math.max(6,math.min(12,player.Size or 10)-1)
-    local function clearBody(point,from)
-        for _,offset in ipairs({Vector(0,0),Vector(radius,0),Vector(-radius,0),Vector(0,radius),Vector(0,-radius),
+    -- This cache lives for one synchronous prediction only. No engine update,
+    -- grid mutation or room transition occurs between these candidate paths.
+    -- The next prediction starts fresh, including after a door/rock changes.
+    collision=collision or {}
+    if room and not collision.offsets then
+        collision.offsets={Vector(0,0),Vector(radius,0),Vector(-radius,0),Vector(0,radius),Vector(0,-radius),
             Vector(radius*.707,radius*.707),Vector(-radius*.707,radius*.707),
-            Vector(radius*.707,-radius*.707),Vector(-radius*.707,-radius*.707)}) do
+            Vector(radius*.707,-radius*.707),Vector(-radius*.707,-radius*.707)}
+        collision.gridSize=room.GetGridSize and room:GetGridSize() or nil
+        collision.paths={};collision.centers={}
+    end
+    local function clearBody(point,from)
+        for _,offset in ipairs(collision.offsets) do
             local index=room:GetGridIndex(point+offset)
-            if room.GetGridSize and (index<0 or index>=room:GetGridSize()) then return false end
-            if room:GetGridPath(index)>=1000 then
+            if collision.gridSize and (index<0 or index>=collision.gridSize) then return false end
+            local path=collision.paths[index]
+            if path==nil then path=room:GetGridPath(index);collision.paths[index]=path end
+            if path>=1000 then
                 -- A native body may already overlap a closed door/wall edge.
                 -- Rejecting every partially overlapping forecast freezes all
                 -- escape predictions at that position. Permit leaving only
                 -- this already touched cell, with strictly less penetration;
                 -- a new blocked cell still stops normal collision movement.
                 local oldIndex=room:GetGridIndex(from+offset)
-                local center=room.GetGridPosition and room:GetGridPosition(index)
+                local center=collision.centers[index]
+                if not center and room.GetGridPosition then center=room:GetGridPosition(index);collision.centers[index]=center end
                 if oldIndex~=index or not center
                     or point:Distance(center)<=from:Distance(center)+.001 then return false end
             end
@@ -2043,6 +2057,7 @@ local function movementForecast(player, move, horizon, room)
         velocity=nextVelocity
         positions[tick]=position
     end
+    if profile then profile:detail("movement_forecast",Isaac.GetTime()-started) end
     return positions
 end
 
@@ -2137,11 +2152,16 @@ local function predictiveCombatMove(player, ignoreWaypoint)
                 local position,velocity=entity.Position,entity.Velocity
                 local path={[0]=position}
                 local radius=math.max(4,math.min(18,(entity.Size or 14)*.5))
+                local wallOffsets={Vector(0,0),Vector(radius,0),Vector(-radius,0),Vector(0,radius),Vector(0,-radius)}
+                local gridSize=room.GetGridSize and room:GetGridSize() or nil
+                local wallCollision={}
                 local function wallAt(point)
-                    for _,offset in ipairs({Vector(0,0),Vector(radius,0),Vector(-radius,0),Vector(0,radius),Vector(0,-radius)}) do
+                    for _,offset in ipairs(wallOffsets) do
                         local index=room:GetGridIndex(point+offset)
-                        if (room.GetGridSize and (index<0 or index>=room:GetGridSize()))
-                            or room:GetGridCollision(index)>=((GridCollisionClass and GridCollisionClass.COLLISION_WALL) or 4) then return true end
+                        if gridSize and (index<0 or index>=gridSize) then return true end
+                        local value=wallCollision[index]
+                        if value==nil then value=room:GetGridCollision(index);wallCollision[index]=value end
+                        if value>=((GridCollisionClass and GridCollisionClass.COLLISION_WALL) or 4) then return true end
                     end
                     return false
                 end
@@ -2160,6 +2180,15 @@ local function predictiveCombatMove(player, ignoreWaypoint)
             end
         end
     end
+    -- Enemy/projectile trajectories are identical for every candidate in this
+    -- callback. Retain native Vector arithmetic and reuse its exact results.
+    local projectedPositions={}
+    local function projectedPosition(entity,frames)
+        local path=projectedPositions[entity]
+        if not path then path={};projectedPositions[entity]=path end
+        if not path[frames] then path[frames]=entity.Position+entity.Velocity*frames end
+        return path[frames]
+    end
     local function contactClearance(enemy,forecast,horizon)
         local separation=math.huge
         -- Wall rebounds are an additional possible trajectory. Retain the
@@ -2168,7 +2197,7 @@ local function predictiveCombatMove(player, ignoreWaypoint)
             local previous=enemy.Position-player.Position
             separation=math.min(separation,previous:Length())
             for tick=1,horizon do
-                local center=mode==2 and bouncePaths[enemy][tick] or enemy.Position+enemy.Velocity*(tick*2)
+                local center=mode==2 and bouncePaths[enemy][tick] or projectedPosition(enemy,tick*2)
                 local relative=center-forecast[tick]
                 local segment=relative-previous
                 local vv=segment.X*segment.X+segment.Y*segment.Y
@@ -2272,12 +2301,17 @@ local function predictiveCombatMove(player, ignoreWaypoint)
             else routeMove=side end
         end
     end
+    local forecastCollision={}
+    local scoringOffsets={Vector(0,0),Vector(11,0),Vector(-11,0),Vector(0,11),Vector(0,-11)}
     for _, move in ipairs(moves) do
         local score = 0
+        local profile=mod and mod.runtimeProfile
+        local started=profile and Isaac.GetTime()
         -- Known unsafe floor directions are constraints. A weighted penalty
         -- could otherwise choose a spike to reduce predicted bullet risk.
         if move:Length() > 0.5 and not safeMoveCandidate(player, move, false) then score = math.huge end
-        local forecast=movementForecast(player,move,10,room)
+        if profile then profile:detail("candidate_safety",Isaac.GetTime()-started) end
+        local forecast=movementForecast(player,move,10,room,forecastCollision)
         score=score+math.max(pocketCost(forecast[3]),pocketCost(forecast[6]),pocketCost(forecast[10]))
         if tntThreat then
             for _,tick in ipairs({2,5,9}) do
@@ -2288,7 +2322,7 @@ local function predictiveCombatMove(player, ignoreWaypoint)
             local previous=projectile.Position-player.Position
             local separation=bulletImmunity>0 and math.huge or previous:Length()
             for tick=1,10 do
-                local relative=projectile.Position+projectile.Velocity*(tick*2)-forecast[tick]
+                local relative=projectedPosition(projectile,tick*2)-forecast[tick]
                 local segment=relative-previous
                 local vv=segment.X*segment.X+segment.Y*segment.Y
                 local fraction=vv>0.01 and math.max(0,math.min(1,-(previous.X*segment.X+previous.Y*segment.Y)/vv)) or 0
@@ -2324,11 +2358,11 @@ local function predictiveCombatMove(player, ignoreWaypoint)
                 if separation < radius then score = score + (radius - separation + 1) * 9000 end
                 score = score + math.max(0, radius + 28 - separation) * 15
             end
-            for _, offset in ipairs({ Vector(0, 0), Vector(11, 0), Vector(-11, 0), Vector(0, 11), Vector(0, -11) }) do
+            for _, offset in ipairs(scoringOffsets) do
                 if room:GetGridPath(room:GetGridIndex(position + offset)) >= 1000 then score = score + 4000 end
             end
             for _, enemy in ipairs(contacts) do
-                local future = enemy.Position + enemy.Velocity * (math.min(tick, 6)*2)
+                local future = projectedPosition(enemy,math.min(tick,6)*2)
                 local separation = position:Distance(future)
                 if bouncePaths[enemy] then separation=math.min(separation,position:Distance(bouncePaths[enemy][math.min(tick,6)])) end
                 local radius = (player.Size or 10) + math.min(40, enemy.Size or 12) + 8
@@ -2343,7 +2377,7 @@ local function predictiveCombatMove(player, ignoreWaypoint)
                 end
             end
             for _, projectile in ipairs(tick*4>=bulletImmunity and projectiles or {}) do
-                local separation = position:Distance(projectile.Position + projectile.Velocity * (tick*2))
+                local separation = position:Distance(projectedPosition(projectile,tick*2))
                 local radius = (player.Size or 10) + (projectile.Size or 5) + 6
                 if separation < radius then score = score + (radius - separation + 1) * 2500 end
                 score = score + math.max(0, 44 - separation) * 9
@@ -2352,7 +2386,7 @@ local function predictiveCombatMove(player, ignoreWaypoint)
         local position = forecast[6]
         local attackScore = #enemies > 0 and math.huge or (move - action.move):Length() * 40
         for _, enemy in ipairs(attackTargets) do
-            local delta = enemy.Position + enemy.Velocity * 8 - position
+            local delta = projectedPosition(enemy,8) - position
             local distance = delta:Length()
             local alignment = math.min(math.abs(delta.X), math.abs(delta.Y))
             local value = math.max(0, alignment - 8) * 2.5
@@ -2373,7 +2407,7 @@ local function predictiveCombatMove(player, ignoreWaypoint)
         local distance = enemy.Position:Distance(player.Position)
         local aimProfile=mod and mod.weaponControl and mod.weaponControl:profile(player,weaponKind(player)) or {lead=10}
         local lead = math.min(aimProfile.lead, distance / math.max(4, (player.ShotSpeed or 1) * 10))
-        local delta = enemy.Position + enemy.Velocity * lead - player.Position
+        local delta = projectedPosition(enemy,lead) - player.Position
         local minor = math.min(math.abs(delta.X), math.abs(delta.Y))
         local score = minor * 7 + distance * 0.1
         if not clearTearLine(room, player.Position, enemy.Position) then score = score + 1000 end
@@ -2399,7 +2433,7 @@ local function predictiveCombatMove(player, ignoreWaypoint)
     combatAimTargetId=aimTarget
     if routeMove then
         local immediateThreat = false
-        local forecast=movementForecast(player,routeMove,10,room)
+        local forecast=movementForecast(player,routeMove,10,room,forecastCollision)
         for _,tick in ipairs({3,6,10}) do
             if pocketCost(forecast[tick])>0 then immediateThreat=true break end
         end
@@ -2448,7 +2482,7 @@ local function predictiveCombatMove(player, ignoreWaypoint)
         for _, projectile in ipairs(projectiles) do
             local previous=projectile.Position-player.Position
             for tick=1,10 do
-                local relative=projectile.Position+projectile.Velocity*(tick*2)-forecast[tick]
+                local relative=projectedPosition(projectile,tick*2)-forecast[tick]
                 local segment=relative-previous
                 local vv=segment.X*segment.X+segment.Y*segment.Y
                 local fraction=vv>0.01 and math.max(0,math.min(1,-(previous.X*segment.X+previous.Y*segment.Y)/vv)) or 0
