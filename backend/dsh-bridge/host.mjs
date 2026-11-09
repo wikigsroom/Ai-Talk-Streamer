@@ -253,7 +253,7 @@ export class DshHost {
       } finally { signal?.removeEventListener('abort', abort); }
     } catch(error) {
       const failure = modelFailure(error, { signal, finish: lastFinish });
-      console.error(JSON.stringify({event:'dsh.request_failed',session_id:sessionId,steps,provider_revision:snapshot.revision,code:failure.code,status:failure.status,retryable:!!failure.retryable,upstream_code:failure.upstreamCode||null}));
+      console.error(JSON.stringify({event:'dsh.request_failed',session_id:sessionId,steps,phase:handle?'model_turn':'session_create',provider_revision:snapshot.revision,code:failure.code,status:failure.status,retryable:!!failure.retryable,upstream_code:failure.upstreamCode||null}));
       throw failure;
     } finally { if (handle) await handle.dispose(); this.active.delete(sessionId); }
   }

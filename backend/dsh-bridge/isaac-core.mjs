@@ -1,6 +1,7 @@
 // Naimei owns strategic choices; the native controller only offers and executes.
 import {appendFileSync, readFileSync, mkdirSync} from 'node:fs';
 import {join} from 'node:path';
+import {randomUUID} from 'node:crypto';
 import {canonical, digest} from './channel.mjs';
 import {requireValue} from './state.mjs';
 import {completePrompt} from '../../integration/isaac-agent/dsh-host/isaac-plugin/stream-policy.mjs';
@@ -197,7 +198,10 @@ export class NaimeiGameCore {
   }
   async runDecision(decision) {
     if(this.busy||!this.enabled)return;
-    this.busy=true;this.activeKind='decision';const started=Date.now(),sessionId='naimei-game-'+decision.id+'-'+(this.attempts.get(decision.id)?.count||0);
+    // Request identity must outlive neither an interrupted turn nor its retry.
+    // DSH persists disposed sessions; resetting attempts on pause is intentional,
+    // but must never cause agents.create to reuse a persisted session identity.
+    this.busy=true;this.activeKind='decision';const started=Date.now(),sessionId='naimei-game-'+digest({decision_id:decision.id,request_id:randomUUID()});
     this.attempts.set(decision.id,{count:(this.attempts.get(decision.id)?.count||0)+1,at:started});
     if(this.attempts.size>128)this.attempts.delete(this.attempts.keys().next().value);
     const turn={session_id:sessionId,decision_id:decision.id,context_id:decision.context_id,submitted:null,control_revision:this.controlRevision||0};
@@ -234,7 +238,8 @@ export class NaimeiGameCore {
     try {
       reservation=await this.api(9534,'/narration/reserve',{});if(!reservation.event)return;
       requireValue(await this.current(reservation.event),'GAME_EVENT_EXPIRED',409);
-      turn.session_id='naimei-fact-'+reservation.event.event_id;
+      turn.session_id='naimei-fact-'+digest({event_id:reservation.event.event_id,request_id:randomUUID()});
+      this.record('core_fact_started',{session_id:turn.session_id,event_id:reservation.event.event_id,control_revision:turn.control_revision});
       const result=await this.generate({game_event:reservation.event,recent_naimei_game_decisions:this.recent.slice(-4)},turn,
         '你是正在游玩的奶妹。game_event是刚刚核验的同房间真实观察，直接依据其中facts作自然反应或自言自语，不重复调用工具刷新，不作新决定。优先15至24字一句口语；使用刚才发生的事实，不推测原因，不把计划接受说成已成功，不提后台状态。',12000);
       this.assertTurnCurrent(turn);
@@ -245,7 +250,7 @@ export class NaimeiGameCore {
       // An actual model failure must not leave automatic gameplay armed.
       if(!this.turnCancelled(turn)&&!this.activeAbort?.signal.aborted&&error.code!=='GAME_EVENT_EXPIRED') {
         this.failures++;this.lastError=error.code||'CORE_FACT_FAILED';this.control(false);
-        this.record('core_failure_disarmed',{code:this.lastError,turn_kind:'fact'});
+        this.record('core_failure_disarmed',{session_id:turn.session_id,event_id:reservation?.event?.event_id,code:this.lastError,turn_kind:'fact'});
       }
     }
     finally {this.activeAbort=null;this.activeKind=null;this.busy=false;}

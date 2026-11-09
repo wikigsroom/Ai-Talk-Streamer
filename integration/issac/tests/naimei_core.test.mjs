@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {NaimeiGameCore,ISAAC_CORE_TOOLS} from '../../../backend/dsh-bridge/isaac-core.mjs';
 import {digest} from '../../../backend/dsh-bridge/channel.mjs';
+import {modelFailure} from '../../../backend/dsh-bridge/model-errors.mjs';
 
 const offered=()=>({pending:true,connected:true,id:'decision-A',context_id:'room-A',remaining_ms:7000,
   identity:{controller:'controller-A',seed:100,restart:0,bridge:'bridge-A',room:84,stage:1,stage_type:0,dimension:0,visit:1},
@@ -108,6 +109,45 @@ test('a choice intentionally interrupting self-talk does not falsely disarm game
     abandon:async()=>{abandoned++;},control:()=>{throw Error('unexpected disarm');}});
   await core.runFact();
   assert.equal(core.enabled,true);assert.equal(abandoned,1);assert.equal(core.failures,0);
+});
+
+test('re-reserving the same fact after cancelled playback creates a fresh DSH request, retaining event deduplication identity',async()=>{
+  const {core}=fixture(),seen=new Set(),spoken=[];let abandoned=0;
+  Object.assign(core,{busy:false,failures:0,controlRevision:1,current:async()=>true,
+    pending:new Map(),backlog:[],attempts:new Map(),status:()=>({ready:true}),
+    api:async()=>({event:{event_id:'same-native-fact'},nonce:'reserved-fact'}),
+    abandon:async()=>{abandoned++;},offerSpeech:item=>spoken.push(item),
+    generate:async(context,turn)=>{
+      assert.equal(context.game_event.event_id,'same-native-fact');
+      assert.ok(!seen.has(turn.session_id),'DSH persists disposed sessions');seen.add(turn.session_id);
+      core.activeAbort=new AbortController();turn.abort=core.activeAbort;
+      if(seen.size===1){core.activeAbort.abort();throw Error('decision preempts fact');}
+      return {text:'这间房清完了，继续往前走。'};
+    }});
+  await core.runFact();core.control(false);core.control(true);await core.runFact();
+  assert.equal(seen.size,2);assert.equal(core.failures,0);assert.equal(abandoned,1);
+  assert.equal(spoken.length,1);assert.equal(spoken[0].event.event_id,'same-native-fact');
+  assert.equal(core.enabled,true);assert.equal(core.busy,false);
+});
+
+test('normal pause resetting decision attempt counters cannot reuse a persisted decision session',async()=>{
+  const {core}=fixture(),sessions=new Set();
+  Object.assign(core,{busy:false,failures:0,turns:0,controlRevision:1,latencies:[],pending:new Map(),backlog:[],attempts:new Map(),
+    status:()=>({ready:true}),offerSpeech:()=>{},generate:async(_context,turn)=>{
+      assert.ok(!sessions.has(turn.session_id),'same decision rearmed after normal pause');sessions.add(turn.session_id);
+      turn.submitted={status:'accepted',op:'pickup',offer_id:'heart-A'};return {text:'先拿这颗红心，再继续走。'};
+    }});
+  await core.runDecision(offered());core.control(false);core.control(true);await core.runDecision(offered());
+  assert.equal(sessions.size,2);assert.equal(core.turns,2);assert.equal(core.failures,0);assert.equal(core.enabled,true);
+  assert.equal(core.attempts.get('decision-A').count,1);
+});
+
+test('a local DSH persistence conflict has a finite diagnostic, never exposing its raw message or hiding cancellation',()=>{
+  const error=new Error('private-session-and-provider-detail');error.name='SessionAlreadyExistsError';
+  const failure=modelFailure(error);assert.equal(failure.code,'DSH_SESSION_ID_COLLISION');
+  assert.equal(failure.message,'DSH_SESSION_ID_COLLISION');assert.equal(failure.retryable,false);
+  const abort=new AbortController();abort.abort();assert.equal(modelFailure(error,{signal:abort.signal}).code,'MODEL_CANCELLED');
+  assert.equal(modelFailure(new Error('private')).code,'DSH_GENERATION_FAILED');
 });
 
 test('accepted model commentary is separated from the native plan and rejected choices have none',async()=>{

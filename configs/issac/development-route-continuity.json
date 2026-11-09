@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV03",
+  "round": "NAV04",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -44,6 +44,16 @@
         "integration/isaac-agent/tests/test_strategy_native.py",
         "integration/issac/strategy_host.py"
       ]
+    },
+    {
+      "id": "NAV04-DSH-REQUEST-LIFETIME",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "backend/dsh-bridge/isaac-core.mjs",
+        "backend/dsh-bridge/host.mjs",
+        "backend/dsh-bridge/model-errors.mjs",
+        "integration/issac/tests/naimei_core.test.mjs"
+      ]
     }
   ],
   "source_review": [
@@ -55,15 +65,19 @@
     "goal continuity is bounded by actual progress and edge count; ordinary pauses and repeated goals do not clear memory",
     "original DSH model/channel, voice/mouth/GPU/official-capture/save constraints retained; protected user CSV excluded",
     "observed engine loading grace is capped at ten seconds, never makes stale state fresh, never grants input or suppresses explicit pause",
-    "native 500ms fresh-observation handoff is one-shot per identity/unhold and does not renew any input lease or clear normal pause latch"
+    "native 500ms fresh-observation handoff is one-shot per identity/unhold and does not renew any input lease or clear normal pause latch",
+    "every fact and decision attempt obtains a fresh random DSH request identity independent of replayable event identity and resettable attempt counters",
+    "event/playback deduplication, current turn fences, cancellation and actual failure disarm retained; no model substitution or automatic retry",
+    "finite local session conflict code and create/model phase diagnostics contain no raw error message, credentials or voice inputs"
   ],
-  "prior_candidate": "issac-64e8f6d1e657-95e7d0c3",
+  "prior_candidate": "issac-1ea3a88d954a-0592f60d",
   "closed_test_round": {
-    "candidate_id": "issac-64e8f6d1e657-95e7d0c3",
+    "candidate_id": "issac-1ea3a88d954a-0592f60d",
     "deployed": true,
     "defects": [
-      "normal engine loading callback gap was treated as ordinary disconnected gameplay"
+      "spontaneous fact failed before model streaming after natural drink recovery; generic error did not retain underlying exception type"
     ],
+    "controlled_reproduction": "pinned DSH rejects reused disposed session ID before streaming; fresh ID succeeds, no model network calls",
     "failed_capture_stopped": true,
     "complete_correction_reviewed": true
   }

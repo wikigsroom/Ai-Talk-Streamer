@@ -29,6 +29,9 @@ export function modelFailure(error, { signal, finish } = {}) {
   if (signal?.aborted) return signal.reason?.name === 'TimeoutError'
     ? new ModelFailure('MODEL_TIMEOUT', 504, true)
     : new ModelFailure('MODEL_CANCELLED', 409, false);
+  // This is a local DSH persistence conflict, before any provider request.
+  // Keep diagnostics finite; never publish the upstream exception message.
+  if (error?.name === 'SessionAlreadyExistsError') return new ModelFailure('DSH_SESSION_ID_COLLISION', 502, false);
   // Preserve server policy/budget errors, which already carry a safe code/status.
   if (error?.code && Number.isInteger(error.status)) return error;
   const code = [finish?.reason?.failure?.code, error?.code, error?.failure?.code, error?.cause?.code].find(value => Object.hasOwn(failures, value));
