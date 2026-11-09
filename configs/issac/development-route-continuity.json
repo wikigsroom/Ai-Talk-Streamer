@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV07",
+  "round": "NAV08",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -80,6 +80,14 @@
         "backend/dsh-bridge/isaac-core.mjs",
         "integration/issac/tests/naimei_core.test.mjs"
       ]
+    },
+    {
+      "id": "NAV08-CANONICAL-LARGE-ROOM-PAUSE",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/native_game.py",
+        "integration/issac/tests/test_native_pause_proof.py"
+      ]
     }
   ],
   "source_review": [
@@ -98,17 +106,18 @@
     "local diagnostics retain finite setup stage, whitelisted exception/errno/guard, package-relative stack positions and a message digest only; no raw error or absolute source paths",
     "diagnostics do not retry, alter DSH strategic ownership, bypass failure pause or claim the unknown real session-create failure fixed",
     "core catch retains finite original diagnostic even for setup-before-try and post-return dispose errors; dispose cleanup always removes active handle; raw errors and permissions unchanged",
-    "valid wait/active choices have no movement action ID; explicit null preserves strict history and audit JSON without fabricating an action; fact state reads and pre-reservation failures also use null optional identity fields"
+    "valid wait/active choices have no movement action ID; explicit null preserves strict history and audit JSON without fabricating an action; fact state reads and pre-reservation failures also use null optional identity fields",
+    "native OBSERVE uses current room descriptor SafeGridIndex for nonnegative room indices, matching controller state; negative special rooms stay negative; no state/authorization/write changes; actual Lua regression checks alias 110 to 97 and strict drink receipt"
   ],
-  "prior_candidate": "issac-a69ab61aa9e8-71daa291",
+  "prior_candidate": "issac-12a6bd65ed98-e6146389",
   "closed_test_round": {
-    "candidate_id": "issac-a69ab61aa9e8-71daa291",
+    "candidate_id": "issac-12a6bd65ed98-e6146389",
     "deployed": true,
     "defects": [
-      "NAV05 real accepted wait receipt has absent offer action_id; exact source replay proves native success followed by NON_JSON_UNDEFINED in core_choice_completed serialization"
+      "confirmed ordinary pause frame50441 native room110 but same fresh frame canonical state room97; large-room entrance alias caused FRESH_SAFE_DRINK_PAUSE_REQUIRED"
     ],
     "failed_capture_stopped": true,
     "complete_correction_reviewed": true,
-    "current_round_scope": "explicit null for optional native audit fields; retain strict serializer and real failure disarm"
+    "current_round_scope": "align read-only native room observation with canonical descriptor SafeGridIndex, preserving negative special indices and strict pause checks"
   }
 }

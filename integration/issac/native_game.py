@@ -24,7 +24,13 @@ from .saves import GAME_SHA256, SaveProtection
 OBSERVE = '''if Game==nil then error("GAME_API_NOT_READY") end
 local g=Game();local n=g and g:GetNumPlayers() or 0;local p=n>0 and Isaac.GetPlayer(0)
 local stage,room,seed=0,0,0
-if p then stage=g:GetLevel():GetStage();room=g:GetLevel():GetCurrentRoomIndex();seed=g:GetSeeds():GetStartSeed() end
+if p then
+ local level=g:GetLevel();stage=level:GetStage();room=level:GetCurrentRoomIndex()
+ -- A large room can be entered through an alias grid cell. Match the
+ -- controller's canonical room identity, preserving negative special rooms.
+ if room>=0 then local descriptor=level:GetCurrentRoomDesc();room=descriptor and descriptor.SafeGridIndex or room end
+ seed=g:GetSeeds():GetStartSeed()
+end
 return string.format('{"paused":%s,"frame":%d,"players":%d,"dead":%s,"hp":%d,"stage":%d,"room":%d,"seed":%d,"controller_installed":%s}',
 tostring(g and g:IsPaused() or false),g and g:GetFrameCount() or 0,n,tostring(p and p:IsDead() or false),p and p:GetHearts()+p:GetSoulHearts() or 0,
 stage,room,seed,tostring(_G.__NativeIsaacController~=nil))'''

@@ -7,7 +7,8 @@ import unittest
 from unittest.mock import Mock,patch
 
 from integration.issac.common import AdmissionError
-from integration.issac.native_game import NativeGame,ordinary_pause_proved
+from integration.issac.native_game import NativeGame,ordinary_pause_proved,OBSERVE
+from integration.issac.readiness import verified_drink_pause
 
 
 def proof():
@@ -57,6 +58,45 @@ class OrdinaryPauseProof(unittest.TestCase):
         with tempfile.TemporaryDirectory() as root:
             native=self.fixture(root);native.observe.return_value['dead']=True;native.rpc=Mock()
             self.assertTrue(native.pause()['no_active_run']);native.rpc.assert_not_called()
+
+
+class CanonicalNativeRoom(unittest.TestCase):
+    def observed(self,entrance,canonical):
+        from lupa.lua53 import LuaRuntime
+        lua=LuaRuntime(unpack_returned_tuples=True)
+        descriptor='nil' if canonical is None else '{SafeGridIndex='+str(canonical)+'}'
+        lua.execute('''local descriptor='''+descriptor+'''
+            local level={GetStage=function() return 3 end,
+                GetCurrentRoomIndex=function() return '''+str(entrance)+''' end,
+                GetCurrentRoomDesc=function() return descriptor end}
+            local player={IsDead=function() return false end,
+                GetHearts=function() return 10 end,GetSoulHearts=function() return 6 end}
+            local game={GetNumPlayers=function() return 1 end,GetLevel=function() return level end,
+                IsPaused=function() return true end,GetFrameCount=function() return 900 end,
+                GetSeeds=function() return {GetStartSeed=function() return 123 end} end}
+            Game=function() return game end;Isaac={GetPlayer=function() return player end}
+            __NativeIsaacController={}
+        ''')
+        return json.loads(lua.execute(OBSERVE))
+
+    def test_actual_observe_lua_canonicalizes_large_room_aliases_and_preserves_special_rooms(self):
+        for entrance,canonical,wanted in [(110,97,97),(97,97,97),(-1,97,-1),(110,None,110)]:
+            with self.subTest(entrance=entrance,canonical=canonical):
+                result=self.observed(entrance,canonical)
+                self.assertEqual(result['room'],wanted)
+                self.assertEqual(result['frame'],900);self.assertTrue(result['paused'])
+
+    def test_large_room_pause_uses_same_identity_without_relaxing_readiness_checks(self):
+        identity={'controller':'current','seed':123,'room':97,'stage':3,'bridge':'current','visit':2}
+        sample={'state':{'connected':True,'age_ms':50,'identity':identity,
+                    'data':{'frame':900,'room':{'paused':True,'clear':True,'dead':False}}},
+            'game':{'armed':False,'control_revision':8},'studio':{'ready':True,'natural_action':{
+                'kind':'drink','control_revision':8,'identity':dict(identity),'created_unix':1000,'expires_unix':1060,
+                'native_receipt':{'normal_game_pause_acknowledged':True,'stable_frame':900,
+                    'native':self.observed(110,97)}}}}
+        self.assertTrue(verified_drink_pause(sample,1001))
+        sample['studio']['natural_action']['native_receipt']['native']['room']=110
+        self.assertFalse(verified_drink_pause(sample,1001))
 
 
 if __name__=='__main__':unittest.main()
