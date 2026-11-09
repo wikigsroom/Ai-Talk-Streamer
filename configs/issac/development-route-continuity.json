@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV08",
+  "round": "NAV09",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -88,6 +88,13 @@
         "integration/issac/native_game.py",
         "integration/issac/tests/test_native_pause_proof.py"
       ]
+    },
+    {
+      "id": "NAV09-NATIVE-FIXTURE-COMPATIBILITY",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/tests/test_round3.py"
+      ]
     }
   ],
   "source_review": [
@@ -107,17 +114,18 @@
     "diagnostics do not retry, alter DSH strategic ownership, bypass failure pause or claim the unknown real session-create failure fixed",
     "core catch retains finite original diagnostic even for setup-before-try and post-return dispose errors; dispose cleanup always removes active handle; raw errors and permissions unchanged",
     "valid wait/active choices have no movement action ID; explicit null preserves strict history and audit JSON without fabricating an action; fact state reads and pre-reservation failures also use null optional identity fields",
-    "native OBSERVE uses current room descriptor SafeGridIndex for nonnegative room indices, matching controller state; negative special rooms stay negative; no state/authorization/write changes; actual Lua regression checks alias 110 to 97 and strict drink receipt"
+    "native OBSERVE uses current room descriptor SafeGridIndex for nonnegative room indices, matching controller state; negative special rooms stay negative; no state/authorization/write changes; actual Lua regression checks alias 110 to 97 and strict drink receipt",
+    "old ordinary-room fixture now supplies the real current-room descriptor API; original hp/frame/stage/room/seed assertions retained; no production change after NAV08"
   ],
-  "prior_candidate": "issac-12a6bd65ed98-e6146389",
+  "prior_candidate": "issac-42aa8856af50-09df151c",
   "closed_test_round": {
-    "candidate_id": "issac-12a6bd65ed98-e6146389",
+    "candidate_id": "issac-42aa8856af50-09df151c",
     "deployed": true,
     "defects": [
-      "confirmed ordinary pause frame50441 native room110 but same fresh frame canonical state room97; large-room entrance alias caused FRESH_SAFE_DRINK_PAUSE_REQUIRED"
+      "existing test_observation_preserves_real_living_run_numbers fake level lacks real GetCurrentRoomDesc API; production source not changed in this round"
     ],
     "failed_capture_stopped": true,
     "complete_correction_reviewed": true,
-    "current_round_scope": "align read-only native room observation with canonical descriptor SafeGridIndex, preserving negative special indices and strict pause checks"
+    "current_round_scope": "complete old Lua API fixture; keep numerical assertion and all production guards unchanged"
   }
 }

@@ -49,7 +49,8 @@ class NativeMenuTests(unittest.TestCase):
         lua=LuaRuntime(unpack_returned_tuples=True)
         lua.execute('''json=nil;Isaac={GetPlayer=function() return {IsDead=function()return false end,GetHearts=function()return 3 end,GetSoulHearts=function()return 1 end} end}
         function Game() return {GetNumPlayers=function()return 1 end,IsPaused=function()return false end,GetFrameCount=function()return 72 end,
-        GetLevel=function()return {GetStage=function()return 2 end,GetCurrentRoomIndex=function()return 19 end} end,
+        GetLevel=function()return {GetStage=function()return 2 end,GetCurrentRoomIndex=function()return 19 end,
+        GetCurrentRoomDesc=function()return {SafeGridIndex=19} end} end,
         GetSeeds=function()return {GetStartSeed=function()return 123456 end} end} end''')
         value=json.loads(lua.execute(OBSERVE))
         self.assertEqual((value['hp'],value['frame'],value['stage'],value['room'],value['seed']),(4,72,2,19,123456))
