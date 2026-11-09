@@ -49,7 +49,7 @@ class ProgrammePumpTests(unittest.IsolatedAsyncioTestCase):
     def studio(self,folder,*,fail=False):
         studio=object.__new__(IsaacStudio)
         studio.body=BodyFixture(fail);studio.source_queue=asyncio.Queue()
-        studio.mapping=None;studio.speech_task=None;studio.pending_mode=None
+        studio.mapping=None;studio.speech_task=None;studio.pending_mode=None;studio.auto_drink=None
         studio.last_body_event=None;studio.media_fault=False;studio.media_error=None
         studio.game_state={};studio.stats=Counter();studio.viewers={}
         studio.last_telemetry=time.monotonic()+3600;studio.audit=Audit(folder/'events.jsonl')

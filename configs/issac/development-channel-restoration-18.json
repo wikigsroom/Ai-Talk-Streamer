@@ -1,0 +1,18 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-R",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-0e72c00e4de8-c11adb5a",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRR01","status":"code_complete_pending_acceptance","code":"Initialize the real programme pump fixture with the same explicit no-natural-action initial state as the production constructor; preserve actual body fault and playout assertions.","source_files":["tests/test_issac_programme_pump.py"]},
+    {"id":"CRR02","status":"code_complete_pending_acceptance","code":"Retain closed Q evidence, its production fixes and all original requirements; freeze before rerunning the complete uniform suite.","source_files":["docs/evidence/issac-precheck-q-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}

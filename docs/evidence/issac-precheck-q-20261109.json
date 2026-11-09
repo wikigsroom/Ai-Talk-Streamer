@@ -1,0 +1,126 @@
+{
+  "complete": true,
+  "candidate_id": "issac-0e72c00e4de8-c11adb5a",
+  "phase": {
+    "candidate_id": "issac-0e72c00e4de8-c11adb5a",
+    "source_commit": "0e72c00e4de8d4995bb62e15a182d941dbe34b89",
+    "source_files_verified": 2280,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "phase": "acceptance_closed",
+    "defects": [
+      {
+        "path": "state/issac-acceptance/round-runs/round-68227ec8400e4a6b882760db49de42d2/progress.json",
+        "sha256": "0cbd194f8a7ca419229d191bbe59d716f34af7878240cd41df91f6554cb05b8f",
+        "failed_checks": [
+          "regressions"
+        ]
+      },
+      {
+        "path": "state/issac-acceptance/round-runs/round-68227ec8400e4a6b882760db49de42d2/report.json",
+        "sha256": "252008ebe71f9c2afc945667e853cf1a197cf5e569b50091ca6fda9f6566cc5e",
+        "failed_checks": [
+          "regressions"
+        ]
+      },
+      {
+        "path": "state/issac-acceptance/runs/accept-6c198d8d2f034abd861d16777653dbfa/regression.json",
+        "sha256": "b6034d473d8fea9e191ea3c1867693ea757eef0e17bd03262ba0b511c018983d",
+        "failed_checks": [
+          "4"
+        ]
+      }
+    ],
+    "recorded_failures": 3,
+    "complete_acceptance_requires_all_18_verified_gates": true,
+    "next_action": "whole_correction_round_then_freeze",
+    "source_changes_permitted_only_in_new_development_round": true,
+    "closed_unix": 1794196522.4095619
+  },
+  "checks": [
+    {
+      "check": "environment",
+      "elapsed_seconds": 16.15262799989432,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-68227ec8400e4a6b882760db49de42d2/environment.log",
+      "log_sha256": "81d0cdd0e1270209238db564ad176a514ed85e2075cb1c55e68af28fc474266a",
+      "passed": true
+    },
+    {
+      "check": "dependencies",
+      "elapsed_seconds": 47.333303400082514,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-68227ec8400e4a6b882760db49de42d2/dependencies.log",
+      "log_sha256": "294ef95379f5bc7777f283bcf9fdf2240f360fd0da062ebdab8ad65a1c5b7861",
+      "passed": true
+    },
+    {
+      "check": "regressions",
+      "elapsed_seconds": 57.03603099985048,
+      "exit_code": 1,
+      "log": "state/issac-acceptance/round-runs/round-68227ec8400e4a6b882760db49de42d2/regressions.log",
+      "log_sha256": "bb3960de12a2ef597f208bd895b3bca3ca876515dc64bb23a91bb65e769d78de",
+      "passed": false
+    },
+    {
+      "check": "materials-scan",
+      "elapsed_seconds": 11.562142300186679,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-68227ec8400e4a6b882760db49de42d2/materials-scan.log",
+      "log_sha256": "855aa79631cf73934afc3526dd1e82a405dd3281591163e6e50ef23b257587e6",
+      "passed": true
+    },
+    {
+      "check": "native-game",
+      "elapsed_seconds": 54.23579649999738,
+      "exit_code": 0,
+      "log": "state/issac-acceptance/round-runs/round-68227ec8400e4a6b882760db49de42d2/native-game.log",
+      "log_sha256": "9b5f5682f9899e6657f137118d11e7d29572e7405526e8b01d8ff2eeb216298c",
+      "passed": true
+    }
+  ],
+  "report_sha256": "252008ebe71f9c2afc945667e853cf1a197cf5e569b50091ca6fda9f6566cc5e",
+  "regressions": {
+    "candidate_id": "issac-0e72c00e4de8-c11adb5a",
+    "passed": false,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "results": [
+      {
+        "exit_code": 0,
+        "seconds": 8.453000000212342,
+        "test": 0
+      },
+      {
+        "exit_code": 0,
+        "seconds": 14.296999999787658,
+        "test": 1
+      },
+      {
+        "exit_code": 0,
+        "seconds": 0.375,
+        "test": 2
+      },
+      {
+        "exit_code": 0,
+        "seconds": 6.422000000020489,
+        "test": 3
+      },
+      {
+        "exit_code": 1,
+        "seconds": 16.75,
+        "test": 4
+      }
+    ],
+    "source_commit": "0e72c00e4de8d4995bb62e15a182d941dbe34b89",
+    "source_files_verified": 2280,
+    "suite": "whole_round_regression"
+  },
+  "failed_media_log_sha256": "299b0cceb68002a03ec3b01c9e9c9ff7b3b0ec91fdae3ea33ca15b957f0868f3",
+  "failure_excerpt": "bd720997d6ba5fe80b491814c8f0bdf1adae\"}, {\"path\": \"src/LiveTalking/avatars/musetalk_avatar.py\", \"sha256\": \"4e18a23c863640e91b8dc7da747d10cf821ec5c99593877b929cb75a04e8e147\"}, {\"path\": \"src/LiveTalking/server/lipsync_k02.py\", \"sha256\": \"2d8943a00d9b4322fa9652803fe395c24086ba40f46f4d322fde1f3f5591fbd3\"}, {\"path\": \"configs/lipsync.json\", \"sha256\": \"8bec564342e40d6a1b71a9dea54dd7b0236ff44ff9e54a21bcde0506f05009f6\"}], \"batch_size\": 4, \"backup\": \".setup/k02/backups/20261109-115348-201893\", \"services_started\": false, \"new_models_downloaded\": false, \"remote_inference_validated\": false, \"private_livetalking_config_changed\": false, \"memory_or_platform_changed\": false}\nStudio is ready: http://127.0.0.1:8010/\nRemote access: http://<your-host>:8010/\nStopped tts (1 project processes)\n{\"event\": \"speech_ready\", \"request_id\": \"first\", \"requested_voice\": \"O07\", \"voice_id\": \"O07\", \"engine\": \"OmniVoice\", \"fallback\": false, \"fallback_reason\": null, \"audio_seconds\": 0.020041666666666666, \"wall_seconds\": 0.0, \"model_seconds\": 1.2, \"reference_sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"audio_sha256\": \"1a5c6b9821efa66ac0606f87026b2dc73036cd490843fa7bab13a8cf5ac57fa0\"}\n{\"event\": \"speech_ready\", \"request_id\": \"fallback\", \"requested_voice\": \"O07\", \"voice_id\": \"F07\", \"engine\": \"F5-TTS-v1\", \"fallback\": true, \"fallback_reason\": \"OSError\", \"audio_seconds\": 0.020041666666666666, \"wall_seconds\": 0.0, \"model_seconds\": 1.2, \"reference_sha256\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"audio_sha256\": \"1a5c6b9821efa66ac0606f87026b2dc73036cd490843fa7bab13a8cf5ac57fa0\"}\n======================================================================\nERROR: test_action_kind_does_not_mask_log_kind_or_stop_real_frame_output (test_issac_programme_pump.ProgrammePumpTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\lib\\asyncio\\locks.py\", line 214, in wait\n    await fut\nasyncio.exceptions.CancelledError\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\lib\\asyncio\\tasks.py\", line 456, in wait_for\n    return fut.result()\nasyncio.exceptions.CancelledError\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\lib\\unittest\\async_case.py\", line 64, in _callTestMethod\n    self._callMaybeAsync(method)\n  File \"C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\lib\\unittest\\async_case.py\", line 87, in _callMaybeAsync\n    return self._asyncioTestLoop.run_until_complete(fut)\n  File \"C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\lib\\asyncio\\base_events.py\", line 649, in run_until_complete\n    return future.result()\n  File \"C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\lib\\unittest\\async_case.py\", line 101, in _asyncioLoopRunner\n    ret = await awaitable\n  File \"C:\\dev\\虚拟数字人直播\\issac\\tests\\test_issac_programme_pump.py\", line 75, in test_action_kind_does_not_mask_log_kind_or_stop_real_frame_output\n    try:await asyncio.wait_for(seen.wait(),2)\n  File \"C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\lib\\asyncio\\tasks.py\", line 458, in wait_for\n    raise exceptions.TimeoutError() from exc\nasyncio.exceptions.TimeoutError\n\n======================================================================\nFAIL: test_media_failure_stops_output_closes_viewers_and_requests_normal_pause (test_issac_programme_pump.ProgrammePumpTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\lib\\unittest\\async_case.py\", line 64, in _callTestMethod\n    self._callMaybeAsync(method)\n  File \"C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\lib\\unittest\\async_case.py\", line 87, in _callMaybeAsync\n    return self._asyncioTestLoop.run_until_complete(fut)\n  File \"C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\lib\\asyncio\\base_events.py\", line 649, in run_until_complete\n    return future.result()\n  File \"C:\\dev\\虚拟数字人直播\\issac\\runtime\\python\\cpython-3.10.22-windows-x86_64-none\\lib\\unittest\\async_case.py\", line 101, in _asyncioLoopRunner\n    ret = await awaitable\n  File \"C:\\dev\\虚拟数字人直播\\issac\\tests\\test_issac_programme_pump.py\", line 100, in test_media_failure_stops_output_closes_viewers_and_requests_normal_pause\n    self.assertEqual(rows[0]['error_type'],'AdmissionError')\nAssertionError: 'AttributeError' != 'AdmissionError'\n- AttributeError\n+ AdmissionError\n\n\n----------------------------------------------------------------------\nRan 147 tests in 13.575s\n\nFAILED (failures=1, errors=1)\n",
+  "actual_programme_started": false,
+  "actual_gameplay_started": false,
+  "official_recording_created": false,
+  "public_broadcast_started": false,
+  "closure_receipt_sha256": "8491f325fe067237909786cea4e39c83211992b1b0a5e52e0337029c8983a0f1"
+}
