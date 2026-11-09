@@ -32,5 +32,20 @@ class PendingPauseRace(unittest.TestCase):
         host.watchdog()
         host.native.pause.assert_called_once();self.assertFalse(host.pause_pending)
 
+    def test_packet_recovery_before_control_lock_does_not_pause_fresh_run(self):
+        host=object.__new__(StrategyHost)
+        host.pause_pending=False;host.armed=True;host.last_fault=None
+        host.stop_event=Mock();host.stop_event.wait.side_effect=[False,True]
+        host.last_core_check=time.monotonic();host.native=Mock();host.audit=Mock();host.service=Mock()
+        host.service.fresh.side_effect=[False,True]
+        host.runtime=SimpleNamespace(controller=SimpleNamespace(autopilot_enabled=True))
+        class PacketFinishesBeforeLock:
+            def __enter__(self):pass
+            def __exit__(self,*_):pass
+        host.action_lock=PacketFinishesBeforeLock()
+        host.watchdog()
+        self.assertTrue(host.armed);self.assertIsNone(host.last_fault)
+        host.native.pause.assert_not_called();host.service.configure.assert_not_called()
+
 
 if __name__=='__main__':unittest.main()

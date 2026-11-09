@@ -59,12 +59,11 @@ async def record(root):
             start_receipt=client.ui('record-start');started=True;capture_start=time.monotonic();unix=time.time()
             screenshot=client.screenshot('recording_started')
         resume_receipt=handoff.resume()
-        await asyncio.sleep(.5)
-        if handoff.state()['data']['room'].get('paused') is not False:
-            raise AdmissionError('RECORDING_LIVE_INTERVAL_STILL_PAUSED')
+        live_interval=await asyncio.to_thread(handoff.wait_live_interval)
         start=time.monotonic();continuous_offset=start-capture_start
         write_json(output/'start.json',{'owner':owner,'ui':start_receipt,'candidate':candidate,'started_unix':unix,
             'explicit_recording_pause':pause_receipt,'explicit_recording_resume':resume_receipt,
+            'live_interval_observation':live_interval,
             'continuous_game_start_seconds':continuous_offset})
         deadline=start+30
         while time.monotonic()<deadline:

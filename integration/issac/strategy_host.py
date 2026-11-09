@@ -25,6 +25,7 @@ def controller_class(root, service, facts):
     attach_upstream(root)
     from isaac_jev.runtime import Controller
     from isaac_jev.providers import DecisionProviderConfig, ProviderSettings
+    from isaac_jev.observation_cache import observation_scope
 
     class FairController(Controller):
         def __init__(self, **kwargs):
@@ -39,6 +40,8 @@ def controller_class(root, service, facts):
             self.strategy_service=service
             self.fair=FairPolicy(RunGoal(read_json(inside(root,'configs/issac/runtime.json'))['game']['run_goal']))
             self.event_cursor=0
+            self.packet_processing={'stage':'idle'}
+            self.last_packet_timing=None
 
         def update_provider_config(self, raw):
             raise AdmissionError('REALTIME_PROVIDER_IS_FIXED_LOCAL_CODE')
@@ -49,14 +52,33 @@ def controller_class(root, service, facts):
             return {'provider':'local','ready':True,'implementation':'native-policy'}
 
         def receive_state(self, message):
-            filtered=self.fair.filter(message)
-            response=super().receive_state(filtered)
-            with service.lock:
-                snapshot=deepcopy(service.snapshot)
-                batch=service.read_events(self.event_cursor)
-                self.event_cursor=batch['cursor']
-            facts.ingest(snapshot,batch['events'])
-            return response
+            started=time.monotonic();mark=started;timing={}
+            self.packet_processing={'stage':'filter','frame':message.get('frame'),'started_monotonic':started}
+            try:
+                with observation_scope():
+                    filtered=self.fair.filter(message)
+                    timing['filter_ms']=(time.monotonic()-mark)*1000;mark=time.monotonic()
+                    self.packet_processing={**self.packet_processing,'stage':'rules_and_strategy'}
+                    response=super().receive_state(filtered)
+                    timing['rules_and_strategy_ms']=(time.monotonic()-mark)*1000;mark=time.monotonic()
+                    self.packet_processing={**self.packet_processing,'stage':'facts'}
+                    with service.lock:
+                        snapshot=deepcopy(service.snapshot)
+                        batch=service.read_events(self.event_cursor)
+                        self.event_cursor=batch['cursor']
+                    facts.ingest(snapshot,batch['events'])
+                    timing['facts_ms']=(time.monotonic()-mark)*1000
+                    return response
+            finally:
+                timing['total_ms']=(time.monotonic()-started)*1000
+                self.last_packet_timing={'frame':message.get('frame'),**timing}
+                self.packet_processing={'stage':'idle'}
+
+        def packet_status(self):
+            current=dict(self.packet_processing)
+            if 'started_monotonic' in current:
+                current['elapsed_ms']=(time.monotonic()-current.pop('started_monotonic'))*1000
+            return {'current':current,'last':self.last_packet_timing}
 
         def receive_game_event(self, message):
             # Require the current bridge incarnation and restart as well as
@@ -184,6 +206,7 @@ class StrategyHost:
                 'control_revision':self.control_revision,
                 'pause_confirmation_pending':self.pause_pending,
                 'game_audio':self.audio.status(),
+                'packet_processing':getattr(self.runtime.controller,'packet_status',lambda:None)(),
                 'last_fault':self.last_fault,'only_ordinary_inputs':True,'save_slot':3}
 
     def action(self, body):
@@ -308,6 +331,10 @@ class StrategyHost:
                 except Exception:self.last_fault='TERMINAL_PAUSE_ACK_PENDING'
             if self.armed and not self.service.fresh():
                 with self.action_lock:
+                    # The packet or an explicit control may complete while
+                    # this waiter is acquiring the control lock.
+                    if not self.armed or self.service.fresh():continue
+                    packet=getattr(self.runtime.controller,'packet_status',lambda:None)()
                     self.last_fault='GAME_BRIDGE_STALE'
                     self.runtime.controller.set_autopilot(False)
                     self.service.configure(enabled=False,live=False)
@@ -319,7 +346,7 @@ class StrategyHost:
                     except Exception:
                         receipt={'normal_pause_confirmed':False,'native_controller_lease_still_required':True}
                     finally:self.strategy_automatic(False,required=False)
-                    self.audit.append('bridge_loss_stop',receipt=receipt)
+                    self.audit.append('bridge_loss_stop',receipt=receipt,packet_processing=packet)
             if self.armed:
                 try:
                     self.native.protection.admit_current(self.native.process,self.native.progress())

@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "round": "CHANNEL-RESTORATION-300-S",
+  "candidate_id": "issac-3e539b13a037-f23346d8",
+  "source_commit": "3e539b13a0375b5501eee2f81e4edc245ebecabd",
+  "source_files_verified": 2284,
+  "source_changed_during_tests": false,
+  "closed": true,
+  "phase": {
+    "candidate_id": "issac-3e539b13a037-f23346d8",
+    "source_commit": "3e539b13a0375b5501eee2f81e4edc245ebecabd",
+    "source_files_verified": 2284,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "phase": "acceptance_closed",
+    "defects": [
+      {
+        "path": "state/issac-acceptance/runtime-s-not-qualified.json",
+        "sha256": "b983c43621653f209f6da8bb250c75568a16a3964600d8b8bdd1e890bd8bf50b",
+        "failed_checks": []
+      }
+    ],
+    "recorded_failures": 1,
+    "complete_acceptance_requires_all_18_verified_gates": true,
+    "next_action": "whole_correction_round_then_freeze",
+    "source_changes_permitted_only_in_new_development_round": true,
+    "closed_unix": 1794200922.3604121
+  },
+  "closed_original_receipt_sha256": "9305663eb2206995e7890a687b53f36863793a542268ac016b60b07147322b86",
+  "runtime_failure_sha256": "b983c43621653f209f6da8bb250c75568a16a3964600d8b8bdd1e890bd8bf50b",
+  "five_prechecks": {
+    "all_18_gates_still_required": true,
+    "candidate_id": "issac-3e539b13a037-f23346d8",
+    "checks": [
+      {
+        "check": "environment",
+        "elapsed_seconds": 16.32309819990769,
+        "exit_code": 0,
+        "log": "state/issac-acceptance/round-runs/round-efff7e99f5474b49b7bbf3b8dd443547/environment.log",
+        "log_sha256": "19ec4fc8f7c58c5f9a7cfbf32c91684d0c148b59ce05418d7f9a006e299453e2",
+        "passed": true
+      },
+      {
+        "check": "dependencies",
+        "elapsed_seconds": 45.85839909990318,
+        "exit_code": 0,
+        "log": "state/issac-acceptance/round-runs/round-efff7e99f5474b49b7bbf3b8dd443547/dependencies.log",
+        "log_sha256": "ee949c5edc1b2633d6019d92c979036eadfc189bdd71b4262daba1b2e7cf35af",
+        "passed": true
+      },
+      {
+        "check": "regressions",
+        "elapsed_seconds": 56.708517600083724,
+        "exit_code": 0,
+        "log": "state/issac-acceptance/round-runs/round-efff7e99f5474b49b7bbf3b8dd443547/regressions.log",
+        "log_sha256": "f1d60789e28ee59e541985b3df72a2999c5d9235be441e73a9ee1bb2c8b52e5d",
+        "passed": true
+      },
+      {
+        "check": "materials-scan",
+        "elapsed_seconds": 11.253047400154173,
+        "exit_code": 0,
+        "log": "state/issac-acceptance/round-runs/round-efff7e99f5474b49b7bbf3b8dd443547/materials-scan.log",
+        "log_sha256": "2b106aa52085d57d45816306f7297bc4bff1cfd618224759b5790926ac7ff915",
+        "passed": true
+      },
+      {
+        "check": "native-game",
+        "elapsed_seconds": 53.7662233998999,
+        "exit_code": 0,
+        "log": "state/issac-acceptance/round-runs/round-efff7e99f5474b49b7bbf3b8dd443547/native-game.log",
+        "log_sha256": "a5025ab838a34dac72599a0efa7b1bc7ff4020413b82f2c7f04301804ef5009b",
+        "passed": true
+      }
+    ],
+    "finished_unix": 1794199271.5297341,
+    "full_acceptance_passed": false,
+    "official_recording_created": false,
+    "passed": true,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "source_commit": "3e539b13a0375b5501eee2f81e4edc245ebecabd",
+    "source_files_verified": 2284,
+    "source_verified_unchanged": true
+  },
+  "mouths": {
+    "complete": true,
+    "records": [
+      {
+        "mode": "M03",
+        "folder": "state/issac-acceptance/mouth/M03-f35c57fee08f414dafa0832ce4897fb6",
+        "archive_sha256": "6b5c1739ba4e55e87838b8ce12bfab0ae9e24360d72cb986ba096a296f71a32f",
+        "frames": 1126,
+        "actual_elapsed_seconds": 45.139999999897555,
+        "fps": 24.944616747952047,
+        "p99_ms": 53.00990003161132,
+        "max_interval_ms": 69.28759999573231,
+        "quality_accepted": false
+      },
+      {
+        "mode": "M01",
+        "folder": "state/issac-acceptance/mouth/M01-6c7ae9dd48f54908a4daf7615ffefbed",
+        "archive_sha256": "846e87ed76bd2b32d58b8e2a27f7e43ba7faa1dcaebfa337ba180e3890385198",
+        "frames": 1125,
+        "actual_elapsed_seconds": 45.21899999980815,
+        "fps": 24.878922576898496,
+        "p99_ms": 53.89770003966987,
+        "max_interval_ms": 109.30450004525483,
+        "quality_accepted": false
+      },
+      {
+        "mode": "M02",
+        "folder": "state/issac-acceptance/mouth/M02-4f06d610fbd947b7b6cbdcefac0ebbfc",
+        "archive_sha256": "1d7eaa5d8553fe76b9c6956bcb1eac938cf9cb9bc3977a46fb2524aa66bbc1f0",
+        "frames": 1126,
+        "actual_elapsed_seconds": 45.062999999849126,
+        "fps": 24.987240086185338,
+        "p99_ms": 52.79250000603497,
+        "max_interval_ms": 61.33789988234639,
+        "quality_accepted": false
+      }
+    ],
+    "quality_accepted": false,
+    "returned_mode": "M03"
+  },
+  "actual_core_choices": [
+    {
+      "actor_id": "naimei",
+      "at": 1794200299325,
+      "decision_id": "5b47c7962df245d48a284352f757a027",
+      "elapsed_ms": 10115,
+      "kind": "core_choice_completed",
+      "offer_id": "2a0cdf8649e9d453b81a",
+      "op": "select_action",
+      "plan_id": "naimei-route-5b47c796-001",
+      "session_id": "naimei-game-5b47c7962df245d48a284352f757a027-0",
+      "status": "accepted",
+      "text": "这扇门开着又不用花资源，我先从这里继续往前走。"
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794200347812,
+      "decision_id": "4252eba33e1d46e7b2e52ec5d25c82e7",
+      "elapsed_ms": 17061,
+      "kind": "core_choice_completed",
+      "offer_id": "7a0ed1382ae87a125dfa",
+      "op": "select_action",
+      "plan_id": "naimei-pickup-4252eba3-001",
+      "session_id": "naimei-game-4252eba33e1d46e7b2e52ec5d25c82e7-0",
+      "status": "accepted",
+      "text": "我现在还缺半颗红心，先把这颗双红心拿来补满。"
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794200360812,
+      "decision_id": "3989c14964fc46cd832997287e079b24",
+      "elapsed_ms": 10553,
+      "kind": "core_choice_completed",
+      "offer_id": "d71ee5ebbc05af50b6de",
+      "op": "select_action",
+      "plan_id": "naimei-pickup-3989c149-001",
+      "session_id": "naimei-game-3989c14964fc46cd832997287e079b24-0",
+      "status": "accepted",
+      "text": "这枚硬币不用花资源，我先捡起来，之后遇到商店也能多点余地。"
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794200370015,
+      "decision_id": "37d8fed052b748528ac926b362879cc3",
+      "elapsed_ms": 7252,
+      "kind": "core_choice_completed",
+      "offer_id": "45bce1e64f6bdeaf3623",
+      "op": "select_action",
+      "plan_id": "naimei-pickup-37d8fed0-001",
+      "session_id": "naimei-game-37d8fed052b748528ac926b362879cc3-0",
+      "status": "accepted",
+      "text": "这枚硬币是免费的，我先捡着，之后遇到商店也多一点余地。"
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794200384335,
+      "decision_id": "76f8e34707564987a6ab5d36b84301ca",
+      "elapsed_ms": 12494,
+      "kind": "core_choice_completed",
+      "offer_id": "7419db4da805f1286233",
+      "op": "select_action",
+      "plan_id": "naimei-route-76f8e347-001",
+      "session_id": "naimei-game-76f8e34707564987a6ab5d36b84301ca-0",
+      "status": "accepted",
+      "text": "这扇门开着，也不用花资源，我从这边继续往前走。"
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794200442660,
+      "decision_id": "ce91fc33453e4ebfa0fd233c676d13b8",
+      "elapsed_ms": 10735,
+      "kind": "core_choice_completed",
+      "offer_id": "a5dfbb26589d2ac7b0b2",
+      "op": "select_action",
+      "plan_id": "naimei-pickup-ce91fc33-001",
+      "session_id": "naimei-game-ce91fc33453e4ebfa0fd233c676d13b8-0",
+      "status": "accepted",
+      "text": "这颗红心能补得更多，先把生命补起来再往前走。"
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794200456179,
+      "decision_id": "1f492e0a71104defbe5f8829a76ffdb1",
+      "elapsed_ms": 10241,
+      "kind": "core_choice_completed",
+      "offer_id": "744b4e4c2d071f896334",
+      "op": "select_action",
+      "plan_id": "naimei-pickup-1f492e0a-001",
+      "session_id": "naimei-game-1f492e0a71104defbe5f8829a76ffdb1-0",
+      "status": "accepted",
+      "text": "地上这半颗红心正好补满，拿了再沿开放出口往前走。"
+    }
+  ],
+  "confirmed_defects": [
+    "Verified drink started just after explicit recording resume; an unconditional unpaused assertion rejected the legitimate interlude.",
+    "Native state freshness watchdog withdrew authority and obtained an ordinary pause at frame 4834.",
+    "Seven actual same-core choice latencies had P95 17061ms, above the frozen 8000ms target."
+  ],
+  "evidence_correction": "The original failure text inferred a wrong room from native index 96 versus canonical index 95. Large-room subcell and canonical room anchor indices can differ; that mismatch alone is not evidence of a wrong-room snapshot. Staleness is confirmed, its root cause is not established.",
+  "cleanup": {
+    "game_closed_normally": true,
+    "official_closed_normally": true,
+    "full_run_observer_stopped": true,
+    "faults": [],
+    "protected_after_close": {
+      "protected_unchanged": true,
+      "baseline_id": "76a3a8d2337a4dd8a97877870036b57e",
+      "allowed_slot": 3,
+      "baseline_files": 2,
+      "runtime_window_position_changes": [
+        {
+          "root": 1,
+          "relative": "options.ini",
+          "permitted_option_names": [
+            "WindowPosX",
+            "WindowPosY"
+          ],
+          "baseline_sha256": "ad6e5fced2e623d34601036fb5d5b36b09fbd4aa77e3d25e3c645c58761f2c43",
+          "observed_sha256": "bec7be78154f2cd370aae2f8af79da7ed1669e5e5e68bb8dad483e935d83cd45"
+        }
+      ]
+    }
+  },
+  "qualified_300_created": false,
+  "production_accepted": false,
+  "public_broadcast_started": false,
+  "full_speed_audio_video_review_passed": false,
+  "cohost1800_passed": false,
+  "cohost7200_passed": false
+}

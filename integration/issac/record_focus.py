@@ -152,9 +152,14 @@ class RecordingHandoff:
             raise AdmissionError('RECORDING_OWNED_PAUSE_NO_LONGER_CURRENT')
         resumed=self.request(9534,'/control',{'action':'resume','expected_revision':proof['control_revision']})
         if resumed.get('armed') is not True:raise AdmissionError('RECORDING_EXPLICIT_RESUME_NOT_CONFIRMED')
+        self.resume_confirmed=True
         deadline=time.monotonic()+3
         while True:
             actual=self.state();current=self.request(9534,'/status');room=actual['data'].get('room') or {}
+            if current.get('armed') is False and not current.get('last_fault'):
+                live=self.wait_live_interval()
+                return {'explicit_resume':resumed,'state':live['state'],'handoff':proof,
+                        'game_advanced':True,'live_interval':live}
             if (current.get('armed') is not True or current.get('control_revision')!=proof['control_revision']+1
                     or room.get('dead') is not False):
                 raise AdmissionError('RECORDING_RESUMED_RUN_NOT_ACTIVE')
@@ -162,3 +167,53 @@ class RecordingHandoff:
                 return {'explicit_resume':resumed,'state':actual,'handoff':proof,'game_advanced':True}
             if time.monotonic()>=deadline:raise AdmissionError('RECORDING_GAME_ADVANCE_NOT_CONFIRMED')
             time.sleep(.05)
+
+    def wait_live_interval(self,timeout=65):
+        """Observe playable progress, allowing only a proven drink interlude.
+
+        This observer sends no control input and never adopts or resumes an
+        operator/fault pause. The existing drink coordinator owns its resume.
+        """
+        from .readiness import verified_drink_pause
+        proof=self.pause_receipt
+        if not proof or not getattr(self,'resume_confirmed',False):
+            raise AdmissionError('RECORDING_EXPLICIT_RESUME_REQUIRED')
+        deadline=time.monotonic()+min(65,max(0,timeout));live_since=None;first_frame=None;unknown_since=None
+        drinks={};expected_revision=proof['control_revision']+1
+        while True:
+            owner=game_owner(self.root)
+            if owner.pid!=proof['pid'] or owner.create_time()!=proof['created_at']:
+                raise AdmissionError('RECORDING_LIVE_GAME_OWNER_CHANGED')
+            state=self.state();game=self.request(9534,'/status');room=state['data'].get('room') or {}
+            if (any(state['identity'].get(key)!=proof['identity'].get(key)
+                    for key in ('controller','seed','restart','bridge')) or room.get('dead') is not False
+                    or game.get('last_fault')):
+                raise AdmissionError('RECORDING_LIVE_RUN_CHANGED_OR_FAULTED')
+            now=time.monotonic()
+            if game.get('armed') is True and not game.get('pause_confirmation_pending') and room.get('paused') is False:
+                if game.get('control_revision')!=expected_revision:
+                    raise AdmissionError('RECORDING_LIVE_CONTROL_REVISION_CHANGED')
+                unknown_since=None
+                if live_since is None:live_since=now;first_frame=state['data']['frame']
+                if now-live_since>=.5 and state['data']['frame']>first_frame+5:
+                    return {'state':state,'verified_drinks':list(drinks.values()),'observed_live_progress':True}
+            else:
+                live_since=None;first_frame=None
+                studio=self.request(8062,'/health')
+                if verified_drink_pause({'state':state,'game':game,'studio':studio}):
+                    action=studio['natural_action'];key=str(action['control_revision'])
+                    if key not in drinks:
+                        if action['control_revision']!=expected_revision+1:
+                            raise AdmissionError('RECORDING_DRINK_CONTROL_REVISION_CHANGED')
+                        expected_revision=action['control_revision']+1
+                    drinks[key]={'control_revision':action['control_revision'],'identity':action['identity'],
+                        'created_unix':action['created_unix'],'expires_unix':action['expires_unix']}
+                    unknown_since=None
+                else:
+                    # Publication follows the actual ordinary pause. Allow a
+                    # short observation gap, without touching any controls.
+                    if unknown_since is None:unknown_since=now
+                    if now-unknown_since>=1.5:
+                        raise AdmissionError('RECORDING_UNVERIFIED_PAUSE')
+            if now>=deadline:raise AdmissionError('RECORDING_LIVE_INTERVAL_NOT_OBSERVED')
+            time.sleep(.1)

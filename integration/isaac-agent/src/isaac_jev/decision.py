@@ -13,6 +13,7 @@ from typing import Any
 from .models import Action, GameState, Vec2, projectile_is_imminent
 from .navigation import bombing_position, door_is_usable, door_path_distance, firing_position, grid_cell_center, move_towards, newly_opened_secret_door, path_distance
 from .tuning import PolicyProfile
+from .observation_cache import observation_memo
 
 SCHEMA_VERSION = "jev-policy-v2"
 _LOOT_MODES = frozenset({"item", "shop", "pickup", "chest", "hazard", "bomb", "bomb_wall", "tnt"})
@@ -1838,6 +1839,11 @@ def hard_rule_filter(state: GameState, candidates: list[Action], profile: Policy
 
 
 def build_candidate_set(state: GameState, profile: PolicyProfile | None = None) -> CandidateSet:
+    return observation_memo('candidate_set', (state, profile), (),
+                            lambda: _build_candidate_set(state, profile))
+
+
+def _build_candidate_set(state: GameState, profile: PolicyProfile | None = None) -> CandidateSet:
     raw = _raw_candidate_actions(state, profile)
     # Keep candidate_actions() compatible with its historical single-target
     # behavior, while exposing genuine reward conflicts to the remote policy.

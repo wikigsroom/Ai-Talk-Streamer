@@ -124,4 +124,54 @@ class ExplicitRecordingHandoff(unittest.TestCase):
         self.assertEqual(self.actions,['pause'])
 
 
+class RecordingLiveInterval(unittest.TestCase):
+    def fixture(self,stack,kind='drink'):
+        handoff=RecordingHandoff('owned-root');clock=[1001.0];count=[0]
+        identity={'controller':'current','seed':123,'room':83,'stage':1,'bridge':'current','restart':0}
+        handoff.pause_receipt={'pid':7,'created_at':100,'identity':identity,'control_revision':6};handoff.resume_confirmed=True
+        studio={'ready':True,'natural_action':{'kind':kind,'control_revision':8,'identity':deepcopy(identity),
+            'created_unix':1000,'expires_unix':1060,'native_receipt':{
+                'normal_game_pause_acknowledged':True,'stable_frame':900,
+                'native':{'frame':900,'paused':True,'dead':False,'players':1,'seed':123,'room':83,'stage':1}}}}
+        def state():
+            count[0]+=1
+            live=kind=='drink' and count[0]>12
+            return {'connected':True,'age_ms':30,'identity':deepcopy(identity),
+                'data':{'frame':900+max(0,count[0]-12)*4,'room':{'paused':not live,'clear':True,'dead':False}}}
+        def request(port,path,body=None):
+            self.assertIsNone(body) # Waiting must never emit resume/rearm.
+            if port==8062:return deepcopy(studio)
+            live=kind=='drink' and count[0]>12
+            return {'armed':live,'control_revision':9 if live else 8,'last_fault':None}
+        handoff.state=Mock(side_effect=state);handoff.request=Mock(side_effect=request)
+        stack.enter_context(patch('integration.issac.record_focus.game_owner',return_value=SimpleNamespace(pid=7,create_time=lambda:100)))
+        stack.enter_context(patch('integration.issac.record_focus.time.monotonic',side_effect=lambda:clock[0]))
+        stack.enter_context(patch('integration.issac.record_focus.time.time',side_effect=lambda:clock[0]))
+        stack.enter_context(patch('integration.issac.record_focus.time.sleep',side_effect=lambda s:clock.__setitem__(0,clock[0]+s)))
+        return handoff,studio
+
+    def test_actual_drink_finishes_before_continuous_live_interval_without_controls(self):
+        with ExitStack() as stack:
+            handoff,_=self.fixture(stack);result=handoff.wait_live_interval()
+        self.assertTrue(result['observed_live_progress']);self.assertEqual(len(result['verified_drinks']),1)
+        self.assertGreater(result['state']['data']['frame'],905)
+
+    def test_operator_pause_and_expired_drink_are_not_adopted(self):
+        for kind in ('operator_pause','expired'):
+            with ExitStack() as stack:
+                handoff,studio=self.fixture(stack,kind)
+                if kind=='expired':studio['natural_action'].update(kind='drink',expires_unix=1001)
+                with self.assertRaisesRegex(AdmissionError,'UNVERIFIED_PAUSE'):handoff.wait_live_interval()
+
+    def test_fault_or_changed_owner_is_rejected_without_waiting_or_controls(self):
+        for defect in ('fault','owner','seed'):
+            with ExitStack() as stack:
+                handoff,_=self.fixture(stack)
+                if defect=='fault':handoff.request=Mock(return_value={'last_fault':'GAME_BRIDGE_STALE'})
+                if defect=='owner':handoff.pause_receipt['created_at']=99
+                if defect=='seed':handoff.pause_receipt['identity']={**handoff.pause_receipt['identity'],'seed':999}
+                with self.assertRaises(AdmissionError):handoff.wait_live_interval()
+                if defect=='owner':handoff.request.assert_not_called()
+
+
 if __name__=='__main__':unittest.main()

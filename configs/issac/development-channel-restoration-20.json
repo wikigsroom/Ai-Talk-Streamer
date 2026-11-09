@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "round": "CHANNEL-RESTORATION-300-T",
+  "branch": "issac",
+  "phase": "whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "previous_candidate": "issac-3e539b13a037-f23346d8",
+  "previous_phase_closed": true,
+  "items": [
+    {
+      "id": "CRT01",
+      "status": "code_complete_pending_acceptance",
+      "code": "Keep Naimei as sole strategic owner with all five tools and full pinned wiki; prefer model-authored offer_id and commentary. Expand only server-bound current IDs and that exact explicitly chosen offer cost, with no choice selection or raised budget. Preserve legacy full guarded plans.",
+      "source_files": [
+        "backend/dsh-bridge/isaac-core.mjs",
+        "configs/issac/core-persona-gameplay.md",
+        "integration/issac/tests/naimei_core.test.mjs"
+      ]
+    },
+    {
+      "id": "CRT02",
+      "status": "code_complete_pending_acceptance",
+      "code": "Reuse pure candidate sets and BFS distance fields only within one context-local immutable observation. Retain object identities, bound entries, isolate profiles, replaced snapshots and threads; add packet-stage timings and recheck current freshness inside the control lock without relaxing the 1500ms limit.",
+      "source_files": [
+        "integration/isaac-agent/src/isaac_jev/observation_cache.py",
+        "integration/isaac-agent/src/isaac_jev/decision.py",
+        "integration/isaac-agent/src/isaac_jev/navigation.py",
+        "integration/isaac-agent/tests/test_observation_cache.py",
+        "integration/issac/strategy_host.py",
+        "integration/issac/tests/test_pending_pause_race.py"
+      ]
+    },
+    {
+      "id": "CRT03",
+      "status": "code_complete_pending_acceptance",
+      "code": "After explicit owned resume, observe live progress and tolerate only a bounded actually verified drink and its exact subsequent resume revision. Send no controls from this observer; reject owner/run/revision changes, faults and unverified pauses, retaining continuous raw provenance.",
+      "source_files": [
+        "integration/issac/record_focus.py",
+        "integration/issac/recording.py",
+        "integration/issac/tests/test_record_focus.py"
+      ]
+    },
+    {
+      "id": "CRT04",
+      "status": "code_complete_pending_acceptance",
+      "code": "Retain closed S actual outcomes, distinguish confirmed staleness from the unsupported canonical/native-room inference, and preserve all original API, audio, mouth, save and release requirements.",
+      "source_files": [
+        "docs/evidence/issac-runtime-s-20261109.json",
+        "docs/issac/节目启动修正20261109.md"
+      ]
+    }
+  ],
+  "public_broadcast_authorized": false,
+  "runtime_acceptance_claimed": false
+}

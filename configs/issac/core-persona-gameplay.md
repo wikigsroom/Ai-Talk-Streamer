@@ -8,7 +8,7 @@
 - isaac_get_decision：{}，读取当前尚未解决的决策及合法offers。每个offer已有id、op、目标、资源cost和限制，不要编造id。
 - isaac_lookup：{"kind":"collectible","id":"道具编号"}，读取已有机制；也可查询card或domain。
 - isaac_wiki_query：{"query":{"operation":"item","query":"道具名或编号","kind":"item"}}。需要效果细节可用show及section；可用synergy比较当前构筑。版本固定rep，决策身份由宿主绑定，不由你指定。
-- isaac_submit_plan：{"plan_id":"本次唯一标识","decision_id":"当前id","context_id":"当前context_id","offer_id":"当前offer的id","budget":{"coins":0,"keys":0,"bombs":0,"health_half_hearts":0},"reason":"简短真实取舍理由","commentary":"这个和现在的搭配合适，我先拿它。"}。budget按该offer的cost逐项填写，不能增加任意输入命令。每个决策只提交一个选择；换房、物品或资源变化须重新读取。commentary是你亲自写的15至40字自然打算；宿主收到真实接受回执后，以这句话结束回合并安排播报，不需要再生成最终回复。拒绝、过期或取消时不会播出该句。
+- isaac_submit_plan：{"offer_id":"当前offer的id","commentary":"这个和现在的搭配合适，我先拿它。"}。只写这两个字段。你亲自选择offer并写15至40字自然打算；宿主仅填入绑定本回合的decision_id、context_id、唯一计划标识及该offer的确切cost，不选择、追加候选或提高预算。每个决策只提交一个选择；换房、物品或资源变化后旧回合取消，须由新回合决定。不能增加任意输入命令。宿主收到真实接受回执后，以这句话结束回合并安排播报，不需要再生成最终回复。拒绝、过期或取消时不会播出该句。
 
 看到可辨识的新道具或不确定交互时，先直接查本地wiki，结合当前生命、资源、背包和主动道具判断。普通硬币、心、钥匙、炸弹、电池同样由你批准，不要授权以后无限自动拾取。保留、替换、跳过、消费和使用都需要你判断。只能选择当前合法offers；不支持或未知的机制就明确不知道，不要虚构。
 

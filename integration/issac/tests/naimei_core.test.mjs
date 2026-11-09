@@ -5,6 +5,7 @@ import {NaimeiGameCore,ISAAC_CORE_TOOLS} from '../../../backend/dsh-bridge/isaac
 const offered=()=>({pending:true,connected:true,id:'decision-A',context_id:'room-A',remaining_ms:7000,
   identity:{controller:'controller-A',seed:100,restart:0,bridge:'bridge-A',room:84,stage:1,stage_type:0,dimension:0,visit:1},
   context:{inventory_revision:'inventory-A'},offers:[{id:'heart-A',op:'pickup'}]});
+const exactCost=()=>({coins:2,keys:0,bombs:0,health_half_hearts:0});
 function fixture() {
   const core=Object.create(NaimeiGameCore.prototype),calls=[];
   Object.assign(core,{names:Object.keys(ISAAC_CORE_TOOLS),enabled:true,recent:[],record:()=>{},decision:async()=>offered(),
@@ -12,6 +13,39 @@ function fixture() {
       decision_id:body?.decision_id,offer_id:body?.offer_id,status:'accepted'};}});
   return {core,calls,turn:{decision_id:'decision-A',context_id:'room-A'},sessionId:'naimei-game-real-session'};
 }
+
+test('compact choice binds only its own current turn and exact chosen offer cost',async()=>{
+  const {core,calls,turn,sessionId}=fixture();turn.session_id=sessionId;
+  core.decision=async()=>({...offered(),offers:[{id:'heart-A',op:'pickup',cost:exactCost()}]});
+  const choice={offer_id:'heart-A',commentary:'这颗红心能补得更多，先把生命补起来再往前走。'};
+  await core.tool('isaac_submit_plan',choice,{sessionId,turn});
+  assert.deepEqual(calls[0].body.budget,exactCost());
+  assert.equal(calls[0].body.decision_id,turn.decision_id);assert.equal(calls[0].body.context_id,turn.context_id);
+  assert.match(calls[0].body.plan_id,/^nm-[a-f0-9]{32}$/);assert.equal(calls[0].body.reason,choice.commentary);
+  assert.equal(calls[0].body.commentary,undefined);assert.equal(turn.narration,choice.commentary);
+  await assert.rejects(core.tool('isaac_submit_plan',choice,{sessionId,turn}),/ONE_CORE_PLAN_PER_TURN/);
+});
+
+test('compact choice cannot choose an unknown offer, rebind a turn, infer costs or escape a viewer session',async()=>{
+  for(const defect of ['unknown','context','session','missing-cost','negative-cost','extra-cost']){
+    const {core,calls,turn,sessionId}=fixture();turn.session_id=sessionId;
+    const cost=exactCost();if(defect==='negative-cost')cost.coins=-1;if(defect==='extra-cost')cost.arbitrary=0;
+    core.decision=async()=>({...offered(),offers:[{id:'heart-A',op:'pickup',...(defect==='missing-cost'?{}:{cost})}]});
+    if(defect==='context')turn.context_id='old-room';if(defect==='session')turn.session_id='viewer-session';
+    await assert.rejects(core.tool('isaac_submit_plan',{offer_id:defect==='unknown'?'invented':'heart-A',
+      commentary:'这颗红心能补得更多，先把生命补起来再往前走。'},{sessionId,turn}));
+    assert.equal(calls.length,0,defect);assert.equal(turn.narration,undefined,defect);
+  }
+});
+
+test('compact native rejection cannot publish narration or acquire a submitted choice',async()=>{
+  const {core,turn,sessionId}=fixture();turn.session_id=sessionId;
+  core.decision=async()=>({...offered(),offers:[{id:'heart-A',op:'pickup',cost:exactCost()}]});
+  core.api=async()=>({status:'rejected'});
+  await assert.rejects(core.tool('isaac_submit_plan',{offer_id:'heart-A',
+    commentary:'这颗红心能补得更多，先把生命补起来再往前走。'},{sessionId,turn}),/CORE_PLAN_NOT_ACCEPTED/);
+  assert.equal(turn.narration,undefined);assert.equal(turn.submitted,undefined);
+});
 
 test('the same core binds actual actor and session to a fresh bounded choice',async()=>{
   const {core,calls,turn,sessionId}=fixture();

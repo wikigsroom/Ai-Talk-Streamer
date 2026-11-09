@@ -10,7 +10,7 @@ export const ISAAC_CORE_TOOLS = Object.freeze({
   isaac_get_decision: '直接读取当前待决策状态、context_id及合法offers。data为空对象。',
   isaac_lookup: '只读机制速查。data含kind为collectible/card/domain和id。',
   isaac_wiki_query: '直接查本地issac-wiki，固定rep。data为{"query":{"operation":"item","query":"名称或编号","kind":"item"}}；决策上下文由宿主绑定。',
-  isaac_submit_plan: '由奶妹本人提交当前offer：data含plan_id、decision_id、context_id、offer_id、budget、简短reason和commentary。commentary是15至40字自然口语的打算，不能声称已完成。真实接受后结束本回合并播报该句，无需追加回复。',
+  isaac_submit_plan: '由奶妹本人选择当前offer：data只需{"offer_id":"当前候选id","commentary":"15至40字自然口语的打算"}。宿主仅绑定本回合身份和该候选的确切成本，不替你选择。不能声称已完成；真实接受后结束本回合并播报该句，无需追加回复。',
 });
 const TOPICS = new Set(['state','health','inventory','effects','history','actives','pockets','map','room','enemies','bosses','pickups','resources']);
 const identityOf = value => value?.identity || value?.data?.identity;
@@ -125,13 +125,27 @@ export class NaimeiGameCore {
           inventory_revision:decision.context.inventory_revision}});
       } else {
         requireValue(Object.keys(value).every(key=>['plan_id','decision_id','context_id','offer_id','budget','reason','commentary'].includes(key)),'CORE_PLAN_FIELDS');
-        requireValue(value.decision_id===decision.id&&value.context_id===decision.context_id,'CORE_PLAN_CONTEXT_CHANGED',409);
+        const compact=Object.keys(value).every(key=>['offer_id','commentary'].includes(key));
+        if(!compact)requireValue(value.decision_id===decision.id&&value.context_id===decision.context_id,'CORE_PLAN_CONTEXT_CHANGED',409);
         requireValue(!turn?.submitted,'ONE_CORE_PLAN_PER_TURN',409);
-        const {commentary,...plan}=value;
+        const {commentary,...supplied}=value;
         if(commentary!==undefined)requireValue(typeof commentary==='string'&&commentary.trim().length>0&&commentary.trim().length<=40
           &&!/[\r\n{}<>]/.test(commentary),'CORE_COMMENTARY_INVALID');
         const offer=decision.offers?.find(item=>item.id===value.offer_id);
         requireValue(offer,'CORE_PLAN_OFFER_REQUIRED',409);
+        let plan=supplied;
+        if(compact) {
+          requireValue(turn?.session_id===sessionId&&sessionId?.startsWith('naimei-game-')
+            &&turn.decision_id===decision.id&&turn.context_id===decision.context_id,'CORE_COMPACT_BOUND_TURN_REQUIRED',409);
+          requireValue(typeof commentary==='string'&&commentary.trim().length>=15,'CORE_COMMENTARY_INVALID');
+          const keys=['coins','keys','bombs','health_half_hearts'];
+          requireValue(offer.cost&&Object.keys(offer.cost).length===keys.length
+            &&keys.every(key=>Number.isSafeInteger(offer.cost[key])&&offer.cost[key]>=0),'CORE_OFFER_EXACT_COST_REQUIRED',409);
+          plan={plan_id:'nm-'+digest({session:sessionId,decision:decision.id,offer:offer.id}).slice(0,32),
+            decision_id:turn.decision_id,context_id:turn.context_id,offer_id:offer.id,
+            budget:Object.fromEntries(keys.map(key=>[key,offer.cost[key]])),reason:commentary.trim()};
+        }
+        requireValue(plan.decision_id===decision.id&&plan.context_id===decision.context_id,'CORE_PLAN_CONTEXT_CHANGED',409);
         if(turn)turn.submitting=true;
         try {
           result=await this.api(9532,'/plan',{...plan,actor_id:'naimei',core_session_id:sessionId});
@@ -142,7 +156,7 @@ export class NaimeiGameCore {
         } finally {if(turn)turn.submitting=false;}
         this.assertTurnCurrent(turn);
         const accepted=result.status==='accepted'||offer.op==='wait'&&result.status==='succeeded'&&result.effect==='wait';
-        requireValue(accepted&&result.plan_id===value.plan_id&&result.decision_id===value.decision_id
+        requireValue(accepted&&result.plan_id===plan.plan_id&&result.decision_id===plan.decision_id
           &&result.offer_id===value.offer_id,'CORE_PLAN_NOT_ACCEPTED',409);
         if(turn){turn.submitted={plan_id:result.plan_id,status:result.status,offer_id:value.offer_id,op:offer.op,
           ...(result.effect?{effect:result.effect}:{})};
@@ -188,7 +202,7 @@ export class NaimeiGameCore {
     this.record('core_turn_started',{session_id:sessionId,decision_id:decision.id,context_id:decision.context_id,remaining_ms:decision.remaining_ms});
     try {
       const result=await this.generate({game_decision:decision,recent_naimei_game_decisions:this.recent.slice(-4)},turn,
-        '以奶妹本人身份直接判断已给出的新鲜game_decision；不重复刷新。新道具直接查wiki，不先做机制速查。调用isaac_submit_plan时一并提交commentary：15至40字自然打算，不提后台状态，不称已经完成；该调用成功即结束。',Math.min(18000,Math.max(1000,decision.remaining_ms-500)));
+        '以奶妹本人身份直接判断已给出的新鲜game_decision；不重复刷新。新道具直接查wiki，不先做机制速查。用isaac_submit_plan仅提交offer_id和commentary两个字段：15至40字自然打算，不提后台状态，不称已经完成；该调用成功即结束。',Math.min(18000,Math.max(1000,decision.remaining_ms-500)));
       this.assertTurnCurrent(turn);
       requireValue(turn.submitted,'CORE_TURN_DID_NOT_SUBMIT_A_CHOICE',409);
       this.turns++;this.lastError=null;this.latencies.push(Date.now()-started);if(this.latencies.length>200)this.latencies.shift();
