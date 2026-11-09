@@ -265,6 +265,11 @@ function M.new(game)
         local target=self.target
         if not target then return true end
         if pickup.Index~=target.id then return true end
+        -- The game invokes the collision hook again on the consumed, empty
+        -- collectible pedestal. Block it, but preserve the prior command ack;
+        -- only the host's actual inventory delta can prove acquisition.
+        if pickup.InitSeed==target.spawn_seed and pickup.Type==target.type and pickup.Variant==target.variant
+            and target.type==5 and target.variant==100 and target.subtype>0 and pickup.SubType==0 then return true end
         if pickup.InitSeed~=target.spawn_seed or pickup.Type~=target.type or pickup.Variant~=target.variant
             or pickup.SubType~=target.subtype or pickup.Price~=target.price then
             self.ack={plan_id=self.ack and self.ack.plan_id,status='rejected',reason='pickup changed at native collision'}

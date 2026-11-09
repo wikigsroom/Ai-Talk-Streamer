@@ -6,6 +6,7 @@ import { canonical, digest } from './channel.mjs';
 import { inside } from './policy.mjs';
 import { modelFailure } from './model-errors.mjs';
 import { NaimeiExtensions, EXTENSION_TOOLS } from './extensions.mjs';
+import { coreChoiceConcluded } from './isaac-core.mjs';
 
 const CORE = new Set(['timer','llm','deepseek-llm-api-extensions','session','session-log-deepseek','typert','typert-loader','agent',
   'session-projection','storage','storage-json','storage-domain','session-persistence-jsonl',
@@ -160,7 +161,7 @@ export class DshHost {
               const result = gameplay?.names.includes(name)?await gameplay.tool(name,value,{sessionId,turn:gameplayTurn}):EXTENSION_TOOLS.includes(name) && this.extensions ? await this.extensions.tool(name, value, agent) : await tools(name, value);
               // Only a server-acknowledged choice may conclude with its model-authored
               // intention. Failed/obsolete tools cannot publish intermediate text.
-              if (maintenance || name==='isaac_submit_plan'&&gameplayTurn?.submitted?.status==='accepted'&&gameplayTurn.narration) exec.concludeTurn();
+              if (maintenance || name==='isaac_submit_plan'&&coreChoiceConcluded(gameplayTurn)&&gameplayTurn.narration) exec.concludeTurn();
               return canonical(result);
             },
           }));
@@ -229,7 +230,7 @@ export class DshHost {
         ] }));
         await handle.agent.whenIdle();
         if (signal?.aborted) throw modelFailure(null, { signal });
-        const finalText=gameTurn&&gameplayTurn?.submitted?.status==='accepted'&&gameplayTurn.narration?gameplayTurn.narration:lastAssistant;
+        const finalText=gameTurn&&coreChoiceConcluded(gameplayTurn)&&gameplayTurn.narration?gameplayTurn.narration:lastAssistant;
         if (lastError || (!finalText && !maintenance) || finalReason?.kind !== 'completed') {
           throw modelFailure(lastError, { signal, finish: lastFinish });
         }

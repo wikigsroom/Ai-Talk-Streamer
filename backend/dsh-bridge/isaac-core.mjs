@@ -14,6 +14,8 @@ export const ISAAC_CORE_TOOLS = Object.freeze({
 });
 const TOPICS = new Set(['state','health','inventory','effects','history','actives','pockets','map','room','enemies','bosses','pickups','resources']);
 const identityOf = value => value?.identity || value?.data?.identity;
+export const coreChoiceConcluded = turn => turn?.submitted?.status==='accepted'
+  || turn?.submitted?.status==='succeeded'&&turn.submitted.op==='wait'&&turn.submitted.effect==='wait';
 function eventIdentity(identity) {
   return {run_id:digest({controller:identity.controller,seed:identity.seed,restart:identity.restart,bridge:identity.bridge}),
     room_id:digest({room:identity.room,stage:identity.stage,stage_type:identity.stage_type,dimension:identity.dimension,visit:identity.visit}),bridge_instance:identity.bridge};
@@ -24,7 +26,7 @@ export class NaimeiGameCore {
     this.bridge=bridge;this.root=bridge.root;this.token=readFileSync(join(this.root,'private/issac/bridge-token.txt'),'utf8').trim();
     this.prompt=completePrompt(this.root,readFileSync(join(this.root,'configs/issac/core-persona-gameplay.md'),'utf8'));
     this.names=Object.keys(ISAAC_CORE_TOOLS);this.enabled=false;this.closed=false;this.busy=false;this.polling=false;
-    this.pending=new Map();this.backlog=[];this.attempts=new Map();this.latest=null;this.recent=[];this.activeAbort=null;
+    this.pending=new Map();this.backlog=[];this.attempts=new Map();this.latest=null;this.recent=[];this.activeAbort=null;this.activeDecisionTurn=null;
     this.turns=0;this.failures=0;this.lastError=null;this.lastFact=0;this.latencies=[];this.controlRevision=0;
     mkdirSync(join(this.root,'state/issac-stream'),{recursive:true});
     this.audit=join(this.root,'state/issac-stream/naimei-game-core.jsonl');
@@ -53,11 +55,29 @@ export class NaimeiGameCore {
     this.record('core_control',{automatic:enabled,revision:this.controlRevision});return this.status();
   }
   assertTurnCurrent(turn) {
+    requireValue(!turn?.stale_reason,'CORE_TURN_CANCELLED',409);
     if(turn?.control_revision!==undefined)requireValue(this.enabled&&!this.closed&&turn.control_revision===(this.controlRevision||0)
       &&!turn.abort?.signal.aborted,'CORE_TURN_CANCELLED',409);
   }
   turnCancelled(turn) {
-    return !!turn.abort?.signal.aborted||turn.control_revision!==(this.controlRevision||0)||this.closed||!this.enabled;
+    return !!turn.stale_reason||!!turn.abort?.signal.aborted||turn.control_revision!==(this.controlRevision||0)||this.closed||!this.enabled;
+  }
+  cancelObsoleteDecision(turn,decision) {
+    // A pending choice disappears normally while its own POST is being accepted.
+    // Defer this check until that response is known, without weakening native guards.
+    if(!turn?.decision_id||turn.submitted||turn.submitting||decision.connected!==true)return null;
+    const code=!decision.pending||decision.remaining_ms<=0?'FRESH_CORE_DECISION_REQUIRED'
+      :decision.id!==turn.decision_id||decision.context_id!==turn.context_id?'CORE_DECISION_CHANGED':null;
+    if(code&&!turn.stale_reason){turn.stale_reason=code;turn.abort?.abort();
+      this.record('core_decision_superseded',{session_id:turn.session_id,decision_id:turn.decision_id,
+        replacement_decision_id:decision.pending?decision.id:null,code});}
+    return code;
+  }
+  assertDecisionCurrent(turn,decision) {
+    this.assertTurnCurrent(turn);
+    const obsolete=this.cancelObsoleteDecision(turn,decision);
+    requireValue(!obsolete,obsolete||'CORE_DECISION_CHANGED',409);
+    requireValue(decision.pending&&decision.connected&&decision.remaining_ms>0,'FRESH_CORE_DECISION_REQUIRED',409);
   }
   async api(port,path,body) {
     const response=await fetch('http://127.0.0.1:'+port+path,{method:body===undefined?'GET':'POST',
@@ -88,6 +108,7 @@ export class NaimeiGameCore {
       result=await this.api(9532,'/query?topic='+encodeURIComponent(topic));
     } else if(name==='isaac_get_decision') {
       requireValue(!Object.keys(value).length,'CORE_DECISION_FIELDS');result=await this.decision();
+      if(turn?.decision_id)this.assertDecisionCurrent(turn,result);
     } else if(name==='isaac_lookup') {
       requireValue(Object.keys(value).every(key=>['kind','id'].includes(key))&&['collectible','card','domain'].includes(value.kind)
         &&['string','number'].includes(typeof value.id)&&String(value.id).length<=100,'CORE_LOOKUP_FIELDS');
@@ -95,9 +116,7 @@ export class NaimeiGameCore {
     } else {
       requireValue(this.enabled,'CORE_AUTOMATION_NOT_ARMED',409);
       const decision=await this.decision();
-      this.assertTurnCurrent(turn);
-      requireValue(decision.pending&&decision.connected&&decision.remaining_ms>0,'FRESH_CORE_DECISION_REQUIRED',409);
-      if(turn?.decision_id)requireValue(decision.id===turn.decision_id&&decision.context_id===turn.context_id,'CORE_DECISION_CHANGED',409);
+      this.assertDecisionCurrent(turn,decision);
       if(name==='isaac_wiki_query') {
         requireValue(Object.keys(value).length===1&&value.query&&typeof value.query==='object','CORE_WIKI_FIELDS');
         result=await this.api(9532,'/wiki',{query:value.query,context:{decision_id:decision.id,context_id:decision.context_id,
@@ -109,10 +128,22 @@ export class NaimeiGameCore {
         const {commentary,...plan}=value;
         if(commentary!==undefined)requireValue(typeof commentary==='string'&&commentary.trim().length>0&&commentary.trim().length<=40
           &&!/[\r\n{}<>]/.test(commentary),'CORE_COMMENTARY_INVALID');
-        result=await this.api(9532,'/plan',{...plan,actor_id:'naimei',core_session_id:sessionId});
+        const offer=decision.offers?.find(item=>item.id===value.offer_id);
+        requireValue(offer,'CORE_PLAN_OFFER_REQUIRED',409);
+        if(turn)turn.submitting=true;
+        try {
+          result=await this.api(9532,'/plan',{...plan,actor_id:'naimei',core_session_id:sessionId});
+        } catch(error) {
+          if(turn)turn.submitting=false;
+          if(error.code==='CORE_GAME_TOOL_REJECTED')this.assertDecisionCurrent(turn,await this.decision());
+          throw error;
+        } finally {if(turn)turn.submitting=false;}
         this.assertTurnCurrent(turn);
-        requireValue(result.status==='accepted'&&result.plan_id===value.plan_id,'CORE_PLAN_NOT_ACCEPTED',409);
-        if(turn){turn.submitted={plan_id:result.plan_id,status:result.status,offer_id:value.offer_id};
+        const accepted=result.status==='accepted'||offer.op==='wait'&&result.status==='succeeded'&&result.effect==='wait';
+        requireValue(accepted&&result.plan_id===value.plan_id&&result.decision_id===value.decision_id
+          &&result.offer_id===value.offer_id,'CORE_PLAN_NOT_ACCEPTED',409);
+        if(turn){turn.submitted={plan_id:result.plan_id,status:result.status,offer_id:value.offer_id,op:offer.op,
+          ...(result.effect?{effect:result.effect}:{})};
           if(commentary!==undefined)turn.narration=commentary.trim();}
       }
     }
@@ -125,6 +156,7 @@ export class NaimeiGameCore {
     this.polling=true;
     try {
       const decision=await this.decision();this.latest={at:Date.now(),decision};
+      if(this.busy&&this.activeKind==='decision')this.cancelObsoleteDecision(this.activeDecisionTurn,decision);
       await this.drain();
       if(decision.pending&&this.busy&&this.activeKind==='fact')this.activeAbort?.abort();
       if(!this.busy&&decision.pending&&decision.connected&&decision.remaining_ms>1200) {
@@ -150,6 +182,7 @@ export class NaimeiGameCore {
     this.attempts.set(decision.id,{count:(this.attempts.get(decision.id)?.count||0)+1,at:started});
     if(this.attempts.size>128)this.attempts.delete(this.attempts.keys().next().value);
     const turn={session_id:sessionId,decision_id:decision.id,context_id:decision.context_id,submitted:null,control_revision:this.controlRevision||0};
+    this.activeDecisionTurn=turn;
     this.record('core_turn_started',{session_id:sessionId,decision_id:decision.id,context_id:decision.context_id,remaining_ms:decision.remaining_ms});
     try {
       const result=await this.generate({game_decision:decision,recent_naimei_game_decisions:this.recent.slice(-4)},turn,
@@ -164,11 +197,12 @@ export class NaimeiGameCore {
         expires_at:Date.now()/1000+10,facts:{decision_id:decision.id,...turn.submitted}};
       this.offerSpeech({text:summary.text,event});
     } catch(error) {
-      if(this.turnCancelled(turn)){this.record('core_turn_cancelled',{session_id:sessionId,decision_id:decision.id,elapsed_ms:Date.now()-started});return;}
+      if(this.turnCancelled(turn)){this.record('core_turn_cancelled',{session_id:sessionId,decision_id:decision.id,
+        reason:turn.stale_reason||'control_cancelled',elapsed_ms:Date.now()-started});return;}
       this.failures++;this.lastError=error.code||'CORE_TURN_FAILED';this.record('core_turn_failed',{session_id:sessionId,decision_id:decision.id,code:this.lastError,elapsed_ms:Date.now()-started});
       if(!['CORE_DECISION_CHANGED','CORE_PLAN_CONTEXT_CHANGED','FRESH_CORE_DECISION_REQUIRED'].includes(this.lastError)
         ||(this.attempts.get(decision.id)?.count||0)>=2){this.control(false);this.record('core_failure_disarmed',{decision_id:decision.id});}}
-    finally {this.activeAbort=null;this.activeKind=null;this.busy=false;}
+    finally {if(this.activeDecisionTurn===turn)this.activeDecisionTurn=null;this.activeAbort=null;this.activeKind=null;this.busy=false;}
   }
   async runFact() {
     if(this.busy||!this.enabled)return;

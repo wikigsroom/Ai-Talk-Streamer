@@ -230,7 +230,9 @@ class StrategyService:
                     door = offer.get('guard', {}).get('door')
                     same_floor = all(origin.get(k) == identity.get(k) for k in ('stage', 'stage_type', 'dimension'))
                     expected_door = bool(door and same_floor and door.get('target_room_index') == identity.get('room'))
-                    if same_run and moved and (offer.get('effect') == 'teleport' or expected_door):
+                    pause = command.get('transition_pause')
+                    within_pause_grace = not pause or self.clock() <= pause['deadline']
+                    if same_run and moved and within_pause_grace and (offer.get('effect') == 'teleport' or expected_door):
                         self._finish('succeeded', 'native_room_transition_observed')
                     else:
                         self._finish('indeterminate', 'context_changed_without_expected_effect')
@@ -238,8 +240,28 @@ class StrategyService:
                 self.skipped.clear()
             elif previous and (raw.get('frame', 0) < previous.get('frame', 0)):
                 self._cancel('frame_regression')
-            if raw.get('player_dead') or extra.get('manual_override') or extra.get('paused'):
+            if raw.get('player_dead') or extra.get('manual_override'):
                 self._cancel('dead_manual_override_or_paused')
+            elif extra.get('paused'):
+                # Room transitions briefly report IsPaused before the new room
+                # identity arrives. Hold inputs and only retain an already-issued
+                # route for 750 ms; this never authorizes a resume or new action.
+                if self.pending:
+                    self.emit('decision_cancelled', decision_id=self.pending['id'], reason='native_paused')
+                    self.pending = None
+                if self.command:
+                    c = self.command
+                    ack = extra.get('pause_ack') or {}
+                    explicit_pause = ack.get('paused') and ack.get('frame', -1) >= (c.get('issued_frame') or 0)
+                    transition = c.get('issued') and c['offer'].get('effect') in {'room_change', 'teleport'}
+                    if transition and not explicit_pause:
+                        pause = c.setdefault('transition_pause', {'deadline': self.clock()+.75})
+                        if self.clock() > pause['deadline']: self._cancel('native_pause_exceeded_transition_grace')
+                    else: self._cancel('native_paused')
+            elif self.command and self.command.get('transition_pause'):
+                # A quick operator pause/unpause in the same room must not
+                # silently replay the old authorization.
+                self._cancel('pause_ended_without_expected_room_transition')
             self._observe_command()
             if self.pending and self.clock() > self.pending['deadline']:
                 self.resolved.add(self.pending['fingerprint'])
@@ -483,6 +505,7 @@ class StrategyService:
     def _validate(self, o):
         s = self.snapshot; g = o.get('guard', {})
         if s['room']['dead']: raise StrategyError('player dead')
+        if s['room']['paused']: raise StrategyError('game paused')
         if o.get('safe_only') and (not s['room']['clear'] or s['enemies'] or s['projectiles'] or self._threats()):
             raise StrategyError('local danger preempts strategic execution')
         if g.get('inventory_revision') and g['inventory_revision'] != s['inventory_revision']:
@@ -546,9 +569,21 @@ class StrategyService:
         elif o['op'] == 'use_pocket' and s['pockets'] != b['pockets']:
             self._finish('succeeded', 'native_pocket_consumption_observed')
         elif o.get('effect') == 'pickup' and not any(p['target_id'] == o['target_id'] for p in s['pickups']):
-            if s['inventory_revision'] != b['inventory_revision'] or s['resources'] != b['resources'] or s['health'] != b['health'] or s['pockets'] != b['pockets'] or s['trinkets'] != b['trinkets']:
+            target = next((p for p in b['pickups'] if p['target_id'] == o['target_id']), {})
+            if target.get('variant') == 100:
+                count = lambda snapshot: sum(p.get('count', 0) for p in snapshot['inventory'] if p.get('id') == target.get('subtype'))
+                confirmed = s['inventory_known'] and count(s) > count(b)
+            else:
+                confirmed = s['resources'] != b['resources'] or s['health'] != b['health'] or s['pockets'] != b['pockets'] or s['trinkets'] != b['trinkets']
+            if confirmed:
                 self._finish('succeeded', 'pickup_disappeared_and_inventory_or_resource_changed')
-            else: self._finish('indeterminate', 'pickup_disappeared_without_inventory_confirmation')
+            else:
+                # Native inventory refresh is every 15 game frames. Do not
+                # confuse the first empty-pedestal packet with a failed effect.
+                # While awaiting evidence, never chase or pick another target.
+                missing_at = c.setdefault('pickup_missing_since', self.clock())
+                if self.clock()-missing_at >= 1:
+                    self._finish('indeterminate', 'pickup_disappeared_without_inventory_confirmation')
         elif o['op'] == 'sacrifice_once' and s['room']['sacrifice'].get('count', -1) == o['guard']['count'] + 1:
             self._finish('succeeded', 'one_native_sacrifice_payment_observed')
         elif o['op'] == 'trigger_dice' and (s['inventory_revision'] != b['inventory_revision'] or s['room']['dice'] != b['room']['dice']):
@@ -580,6 +615,9 @@ class StrategyService:
             c = self.command
             danger = not self.snapshot['room']['clear'] or bool(self.snapshot['enemies'] or self.snapshot['projectiles'] or self._threats())
             if c:
+                if 'pickup_missing_since' in c:
+                    if danger:self._finish('cancelled','danger_while_waiting_for_pickup_effect');return response
+                    return self._hold(response)
                 if c.get('spent') and c['offer']['domain']=='bomb_entry':
                     # Existing Lua bomb avoidance still preempts this hold.
                     # No second placement while waiting for the opening.

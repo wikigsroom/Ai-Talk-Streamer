@@ -240,6 +240,79 @@ class StrategyContractTests(unittest.TestCase):
         raw['room_index']=84;raw['room_visit_sequence']+=1;self.update(raw)
         self.assertEqual(self.service.receipts[body['plan_id']]['status'],'succeeded')
 
+    def test_short_engine_pause_before_the_selected_room_transition_preserves_the_actual_effect(self):
+        raw,body,_=self.plan('route');self.service.submit(body)
+        self.service.decorate_response({'enabled':True},GameState.from_message(raw))
+        raw['strategy']['paused']=True;raw['frame']+=1;self.update(raw)
+        result=self.service.decorate_response({'enabled':True},GameState.from_message(raw))
+        self.assertTrue(result['strategy']['hold']);self.assertIsNone(result['strategy']['command'])
+        self.assertEqual(self.service.receipts[body['plan_id']]['status'],'issued')
+        self.now+=.1;raw['room_index']=84;raw['room_visit_sequence']+=1;self.update(raw)
+        self.assertEqual(self.service.receipts[body['plan_id']]['status'],'succeeded')
+
+    def test_stable_or_explicit_pause_does_not_keep_an_old_route_authorized(self):
+        for explicit in [False,True]:
+            with self.subTest(explicit=explicit):
+                self.service.pending=None;self.service.command=None;self.service.resolved.clear()
+                raw,body,_=self.plan('route',key=str(explicit));self.service.submit(body)
+                self.service.decorate_response({'enabled':True},GameState.from_message(raw))
+                raw['strategy']['paused']=True
+                if explicit:raw['strategy']['pause_ack']={'paused':True,'frame':raw['frame'],'id':'operator'}
+                self.update(raw)
+                if not explicit:self.now+=.8;self.update(raw)
+                self.assertEqual(self.service.receipts[body['plan_id']]['status'],'cancelled')
+                self.assertIsNone(self.service.command)
+
+    def test_quick_same_room_pause_resume_cannot_replay_an_issued_route(self):
+        raw,body,_=self.plan('route');self.service.submit(body)
+        self.service.decorate_response({'enabled':True},GameState.from_message(raw))
+        raw['strategy']['paused']=True;self.update(raw);self.now+=.1
+        raw['strategy']['paused']=False;self.update(raw)
+        self.assertEqual(self.service.receipts[body['plan_id']]['status'],'cancelled')
+
+    def test_room_transition_after_pause_grace_is_not_claimed_as_success(self):
+        raw,body,_=self.plan('route');self.service.submit(body)
+        self.service.decorate_response({'enabled':True},GameState.from_message(raw))
+        raw['strategy']['paused']=True;self.update(raw);self.now+=.8
+        raw['room_index']=84;raw['room_visit_sequence']+=1;self.update(raw)
+        self.assertEqual(self.service.receipts[body['plan_id']]['status'],'indeterminate')
+
+    def test_pending_or_unissued_choices_are_cancelled_immediately_on_pause(self):
+        raw,body,_=self.plan();raw['strategy']['paused']=True;self.update(raw)
+        with self.assertRaises(StrategyError):self.service.submit(body)
+        raw['strategy']['paused']=False;self.service.resolved.clear();self.update(raw)
+        d=self.service.decision();o=next(o for o in d['offers'] if o['op']!='wait')
+        self.service.submit({'plan_id':'not-issued','decision_id':d['id'],'identity':d['identity'],'offer_id':o['id'],'budget':o['cost']})
+        raw['strategy']['paused']=True;self.update(raw)
+        self.assertEqual(self.service.receipts['not-issued']['status'],'cancelled')
+
+    def test_consumed_collectible_waits_for_its_delayed_inventory_delta_without_reissue(self):
+        raw,body,_=self.plan('pickup');self.service.submit(body)
+        self.service.decorate_response({'enabled':True},GameState.from_message(raw))
+        raw['strategy']['pickups']=[];raw['pickups']=[];self.update(raw)
+        self.assertEqual(self.service.receipts[body['plan_id']]['status'],'issued')
+        result=self.service.decorate_response({'enabled':True},GameState.from_message(raw))
+        self.assertTrue(result['strategy']['hold']);self.assertIsNone(result['strategy']['command'])
+        self.now+=.3;raw['strategy']['inventory'][0]['count']=2;raw['strategy']['inventory_revision']='1x2';self.update(raw)
+        self.assertEqual(self.service.receipts[body['plan_id']]['status'],'succeeded')
+
+    def test_unrelated_resource_delta_cannot_prove_a_missing_collectible_was_acquired(self):
+        raw,body,_=self.plan('pickup');self.service.submit(body)
+        self.service.decorate_response({'enabled':True},GameState.from_message(raw))
+        raw['strategy']['pickups']=[];raw['pickups']=[];raw['bombs']+=1;self.update(raw)
+        self.assertEqual(self.service.receipts[body['plan_id']]['status'],'issued')
+        self.now+=1.1;self.update(raw)
+        self.assertEqual(self.service.receipts[body['plan_id']]['status'],'indeterminate')
+
+    def test_combat_preempts_the_missing_pickup_observation_hold(self):
+        raw,body,_=self.plan('pickup');self.service.submit(body)
+        self.service.decorate_response({'enabled':True},GameState.from_message(raw))
+        raw['strategy']['pickups']=[];raw['pickups']=[];self.update(raw)
+        raw['room_clear']=False;raw['enemies']=[{'id':8,'type':10,'pos':{'x':300,'y':200},'hp':100}];self.update(raw)
+        result=self.service.decorate_response({'enabled':True,'id':'shoot','shoot':{'x':1,'y':0}},GameState.from_message(raw))
+        self.assertEqual(result['id'],'shoot');self.assertFalse(result['strategy']['hold'])
+        self.assertEqual(self.service.receipts[body['plan_id']]['status'],'cancelled')
+
     def test_empty_room_without_candidates_does_not_spend_a_model_turn_on_wait(self):
         raw=scenario();raw['layout']['doors']=[];self.update(raw)
         self.assertFalse(self.service.decision().get('pending'))

@@ -115,4 +115,32 @@ class NativeStrategyTests(unittest.TestCase):
         self.assertTrue(self.filter()[1]);self.lua.globals().item=0
         self.assertFalse(self.control.utilityAllowed(self.control,self.lua.globals().player,1))
 
+    def test_consumed_empty_pedestal_does_not_overwrite_the_accepted_command_ack(self):
+        target=self.lua.table_from({'id':7,'spawn_seed':7007,'type':5,'variant':100,'subtype':367,'price':0})
+        self.accept('select_pickup',target=target)
+        collider=self.lua.eval('{ToPlayer=function() return player end}')
+        pickup=self.lua.table_from({'Index':7,'InitSeed':7007,'Type':5,'Variant':100,'SubType':367,'Price':0})
+        self.assertIsNone(self.control.pickupCollision(self.control,pickup,collider))
+        pickup.SubType=0
+        self.assertTrue(self.control.pickupCollision(self.control,pickup,collider))
+        self.assertEqual(self.control.ack.status,'accepted');self.assertEqual(self.control.ack.plan_id,'one')
+
+    def test_new_nonempty_item_or_reused_empty_entity_still_rejects_the_old_target(self):
+        for seed,subtype in [(7007,368),(7008,0)]:
+            with self.subTest(seed=seed,subtype=subtype):
+                target=self.lua.table_from({'id':7,'spawn_seed':7007,'type':5,'variant':100,'subtype':367,'price':0})
+                self.control.seen=self.lua.table();self.accept('select_pickup',target=target)
+                collider=self.lua.eval('{ToPlayer=function() return player end}')
+                pickup=self.lua.table_from({'Index':7,'InitSeed':seed,'Type':5,'Variant':100,'SubType':subtype,'Price':0})
+                self.assertTrue(self.control.pickupCollision(self.control,pickup,collider))
+                self.assertEqual(self.control.ack.status,'rejected')
+
+    def test_a_changed_price_still_blocks_a_nonempty_authorized_pedestal(self):
+        target=self.lua.table_from({'id':7,'spawn_seed':7007,'type':5,'variant':100,'subtype':367,'price':0})
+        self.accept('select_pickup',target=target)
+        collider=self.lua.eval('{ToPlayer=function() return player end}')
+        pickup=self.lua.table_from({'Index':7,'InitSeed':7007,'Type':5,'Variant':100,'SubType':367,'Price':15})
+        self.assertTrue(self.control.pickupCollision(self.control,pickup,collider))
+        self.assertEqual(self.control.ack.status,'rejected')
+
 if __name__=='__main__':unittest.main()

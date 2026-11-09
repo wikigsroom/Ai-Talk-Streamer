@@ -3,11 +3,13 @@ import assert from 'node:assert/strict';
 import {NaimeiGameCore,ISAAC_CORE_TOOLS} from '../../../backend/dsh-bridge/isaac-core.mjs';
 
 const offered=()=>({pending:true,connected:true,id:'decision-A',context_id:'room-A',remaining_ms:7000,
+  identity:{controller:'controller-A',seed:100,restart:0,bridge:'bridge-A',room:84,stage:1,stage_type:0,dimension:0,visit:1},
   context:{inventory_revision:'inventory-A'},offers:[{id:'heart-A',op:'pickup'}]});
 function fixture() {
   const core=Object.create(NaimeiGameCore.prototype),calls=[];
   Object.assign(core,{names:Object.keys(ISAAC_CORE_TOOLS),enabled:true,recent:[],record:()=>{},decision:async()=>offered(),
-    api:async(port,path,body)=>{calls.push({port,path,body});return {plan_id:body?.plan_id,status:'accepted'};}});
+    api:async(port,path,body)=>{calls.push({port,path,body});return {plan_id:body?.plan_id,
+      decision_id:body?.decision_id,offer_id:body?.offer_id,status:'accepted'};}});
   return {core,calls,turn:{decision_id:'decision-A',context_id:'room-A'},sessionId:'naimei-game-real-session'};
 }
 
@@ -41,7 +43,8 @@ test('disabled, expired or extended plans never reach native execution',async()=
   core.enabled=true;core.decision=async()=>({...offered(),remaining_ms:0});
   await assert.rejects(core.tool('isaac_submit_plan',{}, {sessionId,turn}),/FRESH_CORE_DECISION_REQUIRED/);
   core.decision=async()=>offered();
-  await assert.rejects(core.tool('isaac_submit_plan',{decision_id:'decision-A',context_id:'room-A',arbitrary_input:'X'}, {sessionId,turn}),/CORE_PLAN_FIELDS/);
+  await assert.rejects(core.tool('isaac_submit_plan',{decision_id:'decision-A',context_id:'room-A',arbitrary_input:'X'},
+    {sessionId,turn:{decision_id:'decision-A',context_id:'room-A'}}),/CORE_PLAN_FIELDS/);
   assert.equal(calls.length,0);
 });
 
@@ -100,4 +103,73 @@ test('a delayed plan cannot cross a disarm/rearm during the freshness read',asyn
   core.decision=async()=>{core.controlRevision=3;return offered();};
   await assert.rejects(core.tool('isaac_submit_plan',{decision_id:'decision-A',context_id:'room-A'},{sessionId,turn}),/CORE_TURN_CANCELLED/);
   assert.equal(calls.length,0);
+});
+
+test('a replaced same-room choice aborts its bound model turn and a fresh turn can proceed',async()=>{
+  const {core}=fixture();let entered,decision=offered();
+  const started=new Promise(resolve=>entered=resolve),seen=[];
+  Object.assign(core,{bridge:{ready:true},busy:false,attempts:new Map(),failures:0,turns:0,latencies:[],
+    controlRevision:1,polling:false,drain:async()=>{},offerSpeech:()=>{},decision:async()=>decision,
+    generate:async(_context,turn)=>{
+      seen.push(turn.decision_id);core.activeAbort=new AbortController();turn.abort=core.activeAbort;
+      if(turn.decision_id==='decision-A'){
+        entered();await new Promise((_,reject)=>turn.abort.signal.addEventListener('abort',()=>reject(Error('cancelled')),{once:true}));
+      }
+      await core.tool('isaac_submit_plan',{plan_id:'new-plan',decision_id:decision.id,context_id:decision.context_id,
+        offer_id:'heart-A',budget:{},reason:'current choice'},{sessionId:turn.session_id,turn});
+      return {text:'这颗红心我先拿上。'};
+    }});
+  const old=core.runDecision(decision);await started;
+  decision={...offered(),id:'decision-B'};await core.tick();await old;
+  if(!core.busy&&core.turns===0)await core.runDecision(decision);
+  while(core.busy)await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(core.enabled,true);assert.equal(core.failures,0);assert.equal(core.activeDecisionTurn,null);
+  assert.deepEqual(seen,['decision-A','decision-B']);assert.equal(core.turns,1);assert.equal(core.failures,0);
+});
+
+test('a stale get-decision cannot rebind the old turn to the new decision',async()=>{
+  const {core,turn,sessionId,calls}=fixture();turn.abort=new AbortController();
+  core.decision=async()=>({...offered(),id:'decision-B'});
+  await assert.rejects(core.tool('isaac_get_decision',{}, {sessionId,turn}),/CORE_DECISION_CHANGED/);
+  assert.equal(turn.abort.signal.aborted,true);
+  await assert.rejects(core.tool('isaac_submit_plan',{decision_id:'decision-B',context_id:'room-A'}, {sessionId,turn}),/CORE_TURN_CANCELLED/);
+  assert.equal(calls.length,0);
+});
+
+test('loss of the pending decision cancels, while a disconnected state remains a fault',async()=>{
+  const {core,turn}=fixture();turn.abort=new AbortController();
+  assert.equal(core.cancelObsoleteDecision(turn,{pending:false,connected:false}),null);
+  assert.equal(turn.abort.signal.aborted,false);
+  assert.equal(core.cancelObsoleteDecision(turn,{pending:false,connected:true}),'FRESH_CORE_DECISION_REQUIRED');
+  assert.equal(turn.abort.signal.aborted,true);
+});
+
+test('an in-flight accepted plan is not cancelled when its pending decision disappears',async()=>{
+  const {core,turn,sessionId}=fixture();let entered,release;
+  const started=new Promise(resolve=>entered=resolve),waiting=new Promise(resolve=>release=resolve);
+  turn.abort=new AbortController();core.api=async(_port,_path,body)=>{entered();await waiting;
+    return {plan_id:body.plan_id,decision_id:body.decision_id,offer_id:body.offer_id,status:'accepted'};};
+  const request=core.tool('isaac_submit_plan',{plan_id:'race',decision_id:'decision-A',context_id:'room-A',offer_id:'heart-A',budget:{}},{sessionId,turn});
+  await started;assert.equal(core.cancelObsoleteDecision(turn,{pending:false,connected:true}),null);
+  release();await request;assert.equal(turn.submitted.status,'accepted');assert.equal(turn.abort.signal.aborted,false);
+});
+
+test('a native rejection caused by a replacement decision cancels the obsolete turn',async()=>{
+  const {core,turn,sessionId}=fixture();let reads=0;turn.abort=new AbortController();
+  core.decision=async()=>++reads===1?offered():({...offered(),id:'decision-B'});
+  core.api=async()=>{const error=Error('native refused');error.code='CORE_GAME_TOOL_REJECTED';throw error;};
+  await assert.rejects(core.tool('isaac_submit_plan',{plan_id:'race',decision_id:'decision-A',context_id:'room-A',offer_id:'heart-A',budget:{}},{sessionId,turn}),/CORE_DECISION_CHANGED/);
+  assert.equal(turn.abort.signal.aborted,true);assert.equal(turn.submitted,undefined);
+});
+
+test('only an actual matching completed wait is a valid immediate success',async()=>{
+  for(const [op,status,effect,expected] of [['wait','succeeded','wait',true],['pickup','succeeded','wait',false],
+    ['wait','succeeded','pickup',false],['wait','rejected','wait',false]]){
+    const {core,turn,sessionId}=fixture();
+    core.decision=async()=>({...offered(),offers:[{id:'heart-A',op}]});
+    core.api=async(_port,_path,body)=>({plan_id:body.plan_id,decision_id:body.decision_id,offer_id:body.offer_id,status,effect});
+    const plan={plan_id:'defer',decision_id:'decision-A',context_id:'room-A',offer_id:'heart-A',budget:{},commentary:'先把这件留着，我去下一间看看。'};
+    if(expected){await core.tool('isaac_submit_plan',plan,{sessionId,turn});assert.equal(turn.submitted.status,'succeeded');assert.equal(turn.narration,plan.commentary);}
+    else{await assert.rejects(core.tool('isaac_submit_plan',plan,{sessionId,turn}),/CORE_PLAN_NOT_ACCEPTED/);assert.equal(turn.narration,undefined);}
+  }
 });

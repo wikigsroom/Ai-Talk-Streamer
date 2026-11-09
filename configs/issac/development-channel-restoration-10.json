@@ -1,0 +1,22 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-J",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-97109899176c-62ff5923",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRJ01","status":"code_complete_pending_acceptance","code":"Cancel an obsolete bound model turn and start a distinct current turn without treating normal state replacement as model failure; preserve native guards, in-flight acceptance, control revision fencing and real failure disarm","source_files":["backend/dsh-bridge/isaac-core.mjs","integration/issac/tests/naimei_core.test.mjs"]},
+    {"id":"CRJ02","status":"code_complete_pending_acceptance","code":"Conclude a matching bounded wait using its genuine succeeded/wait receipt; reject nonwait, failed or mismatched receipts and do not fabricate accepted","source_files":["backend/dsh-bridge/isaac-core.mjs","backend/dsh-bridge/host.mjs","configs/issac/core-persona-gameplay.md","tests/issac-core-host.test.mjs","integration/issac/tests/naimei_core.test.mjs"]},
+    {"id":"CRJ03","status":"code_complete_pending_acceptance","code":"Block the exact consumed empty collectible pedestal without overwriting the original native acknowledgment; retain spawn, nonempty subtype, price and unapproved pickup rejection","source_files":["integration/isaac-agent/mods/IsaacJev/strategy_control.lua","integration/isaac-agent/tests/test_strategy_native.py"]},
+    {"id":"CRJ04","status":"code_complete_pending_acceptance","code":"Hold inputs during at most 750 ms of an already-issued route transition and verify the expected actual room; cancel explicit, long and same-room resumed pauses; wait at most 1 second for the actual selected collectible inventory increment with combat preemption and no reissue","source_files":["integration/isaac-agent/src/isaac_jev/strategy.py","integration/isaac-agent/tests/test_strategy_contract.py"]},
+    {"id":"CRJ05","status":"code_complete_pending_acceptance","code":"Use a scoped native Proactor loop with QPC deadlines and timer lookahead in the programme process; retain normal asyncio cleanup and restore policy on failure, while retaining all actual 25 FPS/P99/freeze thresholds","source_files":["integration/issac/media_clock.py","integration/issac/shutdown.py","integration/issac/studio.py","integration/issac/tests/test_media_clock.py"]},
+    {"id":"CRJ06","status":"code_complete_pending_acceptance","code":"Retain truthful I failure evidence and current whole-round freeze instructions; no inherited quality approval, no final recording claim, no model/voice/geometry change","source_files":["docs/evidence/issac-programme-modes-i-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}

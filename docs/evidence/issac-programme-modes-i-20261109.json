@@ -1,0 +1,31 @@
+{
+  "candidate_id":"issac-97109899176c-62ff5923",
+  "source_commit":"97109899176c4ec8b075b6c27384633327e0bb44",
+  "phase":"acceptance_closed",
+  "closed_unix":1794183870.215028,
+  "remote_receipt":"state/issac-acceptance/programme-modes-i.json",
+  "receipt_sha256":"d62e46c9dc8aa2dcd11198c44100f0a317cb6412fd8b018c5f0dd7f219d26073",
+  "five_uniform_prechecks_passed":true,
+  "three_actual_mouth_captures_completed":true,
+  "mode_packet_p99_ms":{"M01":83.0816,"M02":80.507,"M03":78.0424},
+  "threshold_packet_p99_ms":80,
+  "actual_original_core_choices_ms":[4331,7021],
+  "actual_wiki_tool_used_by_same_core":true,
+  "actual_inventory_collectible_id":367,
+  "actual_inventory_collectible_count":1,
+  "actual_verified_natural_drink_pause_and_resume":true,
+  "cancelled_old_speech_discarded_without_media_failure":true,
+  "closed_defects":[
+    "M01 and M02 actual packet P99 still exceed the unchanged 80 ms threshold.",
+    "An empty consumed pedestal collision overwrites the accepted native acknowledgment despite the actual inventory increment.",
+    "A replaced same-room pending decision is not cancelled promptly; the old model turn attempts to rebind and is later classified as a model failure.",
+    "A transient native room-transition pause cancels the already-issued route before its actual expected room effect is observed."
+  ],
+  "game_and_official_client_closed_normally":true,
+  "owned_stack_cleanup_faults":[],
+  "full_run_observer_interrupted_without_claiming_outcome":true,
+  "full_speed_subjective_audio_visual_acceptance_completed":false,
+  "production_accepted":false,
+  "final_300_second_delivery_created":false,
+  "private_audio_or_credentials_included":false
+}

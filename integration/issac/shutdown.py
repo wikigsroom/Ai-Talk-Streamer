@@ -43,7 +43,7 @@ def aiohttp_shutdown(app, root):
     app['issac_owned_stop_root']=Path(root).resolve()
 
 
-def run_web(app,root,*,host,port):
+def run_web(app,root,*,host,port,precise_media_clock=False):
     async def serve():
         from aiohttp import web
         runner=web.AppRunner(app,access_log=None,shutdown_timeout=35)
@@ -54,4 +54,7 @@ def run_web(app,root,*,host,port):
             while path is None or not path.exists():await asyncio.sleep(.2)
         finally:
             await runner.cleanup()
-    asyncio.run(serve())
+    if precise_media_clock:
+        from .media_clock import run_media
+        run_media(serve)
+    else:asyncio.run(serve())

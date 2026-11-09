@@ -520,4 +520,4 @@ if __name__=='__main__':
     require_candidate(args.root)
     studio=IsaacStudio(args.root.resolve())
     from .shutdown import run_web
-    run_web(studio.application(),args.root,host=studio.config['host'],port=studio.config['port'])
+    run_web(studio.application(),args.root,host=studio.config['host'],port=studio.config['port'],precise_media_clock=True)
