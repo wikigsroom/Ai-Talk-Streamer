@@ -111,6 +111,10 @@ export class DshHost {
       expected_version: current?.persona_version ?? null, approved_hash: approvedHash, document });
   }
   async #bind(agentCtx, snapshot, route, timeoutMs, gameReasoningEffort) {
+    // Fact cancellation and the next decision may overlap during disposal.
+    // Each adapter must resolve only its own environment; a shared service
+    // registration otherwise collides before any model request is sent.
+    agentCtx = agentCtx.isolate('launchEnvironment');
     agentCtx.provide('launchEnvironment', this.environment.createLaunchEnvironmentSnapshot([
       { source: 'process', values: { STREAM_BOUND_API_KEY: snapshot.getApiKey() } },
     ]));

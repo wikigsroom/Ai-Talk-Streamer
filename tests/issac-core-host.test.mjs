@@ -85,3 +85,56 @@ test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-cont
   }finally{await host?.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));rmSync(folder,{recursive:true,force:true});}
 });
 }
+
+test('real DSH isolates channel environments across overlapping turns and cancellation', {timeout:20000}, async()=>{
+  const root=process.cwd(),policy=structuredClone(loadPolicy(root,'configs/issac/bridge-policy.json'));
+  mkdirSync(join(root,'state'),{recursive:true});
+  const folder=mkdtempSync(join(root,'state/issac-concurrent-channel-test-'));
+  policy.deployment.dsh_home_relative_path=folder;
+  const seen=[];let startedC;
+  const cStarted=new Promise(resolve=>{startedC=resolve;});
+  const server=createServer(async(req,res)=>{
+    for await(const chunk of req){}
+    const id=req.url.split('/')[1];
+    assert.equal(req.headers.authorization,'Bearer controlled-'+id);
+    seen.push(id);if(id==='c')startedC();
+    await new Promise(resolve=>setTimeout(resolve,250));
+    if(res.destroyed)return;
+    res.writeHead(200,{'Content-Type':'text/event-stream'});
+    const emit=v=>res.write('data: '+JSON.stringify(v)+'\n\n');
+    const part={type:'output_text',text:'这间清完了，我接着走。',annotations:[]};
+    const item={id:'msg-'+id,type:'message',status:'completed',role:'assistant',content:[part]};
+    emit({type:'response.created',response:{id:'response-'+id,status:'in_progress'}});
+    emit({type:'response.output_item.added',output_index:0,item:{...item,status:'in_progress',content:[]}});
+    emit({type:'response.content_part.added',output_index:0,content_index:0,item_id:item.id,part:{...part,text:''}});
+    emit({type:'response.output_text.delta',output_index:0,content_index:0,item_id:item.id,delta:part.text});
+    emit({type:'response.output_text.done',output_index:0,content_index:0,item_id:item.id,text:part.text});
+    emit({type:'response.content_part.done',output_index:0,content_index:0,item_id:item.id,part});
+    emit({type:'response.output_item.done',output_index:0,item});
+    emit({type:'response.completed',response:{id:'response-'+id,status:'completed',output:[item],usage:{input_tokens:1,output_tokens:10,total_tokens:11}}});
+    res.end();
+  });
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let host;
+  try{
+    host=await new DshHost(root,join(root,'tools/dsh'),policy).start();
+    const persona=initialPersona(root,'naimei');await host.publishCharacter(persona.document,persona.version);
+    const generate=(id,signal=AbortSignal.timeout(10000))=>host.generate({sessionId:'controlled-channel-'+id,
+      snapshot:{revision:'controlled-'+id,model:'controlled',protocol:'responses',
+        baseUrl:'http://127.0.0.1:'+server.address().port+'/'+id+'/v1',systemPrompt:'',getApiKey:()=> 'controlled-'+id},
+      input:'根据清房事实自然回应。',tools:async()=>{},signal});
+    const first=await Promise.all([generate('a'),generate('b')]);
+    assert.ok(first.every(r=>r.text==='这间清完了，我接着走。'));
+    assert.equal(host.active.size,0);
+    const abort=new AbortController(),cancelled=generate('c',abort.signal);
+    // Observe the first rejection immediately so cancellation is never an
+    // unhandled rejection while its successor is being created.
+    const cancellation=cancelled.then(()=>assert.fail('cancelled turn completed'),e=>assert.equal(e.code,'MODEL_CANCELLED'));
+    await cStarted;abort.abort();
+    const resumed=generate('d');
+    await cancellation;assert.equal((await resumed).text,'这间清完了，我接着走。');
+    assert.deepEqual(seen.toSorted(),['a','b','c','d']);assert.equal(host.active.size,0);
+  }finally{
+    await host?.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));
+    rmSync(folder,{recursive:true,force:true});
+  }
+});
