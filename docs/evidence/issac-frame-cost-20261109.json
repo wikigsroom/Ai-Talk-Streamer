@@ -1,0 +1,1462 @@
+{
+  "measurement_date": "2026-11-09",
+  "branch": "issac",
+  "deployed_source_commit": "72e9ea16bf9148256b1e917c032129004ba6e432",
+  "deployed_candidate": "issac-72e9ea16bf91-59c55ebe",
+  "scope": "diagnosis only; production source unchanged; separate actual recording, synthetic replays and normal clear-room play",
+  "hardware": {
+    "local": {
+      "cpu": "Intel Core i5-12400F",
+      "cores": 6,
+      "threads": 12,
+      "gpu": "RTX 3060 12GB",
+      "user_workload": "Isaac automatic gameplay only; no Naimei or recording"
+    },
+    "remote4090": {
+      "cpu": "2 x Intel Xeon E5-2673 v4",
+      "cores": 40,
+      "threads": 80,
+      "gpu": "RTX 4090"
+    }
+  },
+  "controlled_runtime": {
+    "python": "3.13.1",
+    "lua": "5.3",
+    "lupa": "2.8"
+  },
+  "matched_replay": {
+    "current": {
+      "replay_sha256": "2bebcde6f70ba9fbf9a2194d43297c81cafa4dda7eeecf278c20c191588f0cb7",
+      "rows": [
+        {
+          "enemies": 1,
+          "projectiles": 0,
+          "local_ms": 0.9428530000150204,
+          "remote_ms": 2.132708333277454,
+          "remote_over_local": 2.261973322716774,
+          "checksums_match": true
+        },
+        {
+          "enemies": 4,
+          "projectiles": 8,
+          "local_ms": 2.888488333313338,
+          "remote_ms": 5.630214000120759,
+          "remote_over_local": 1.949190493583345,
+          "checksums_match": true
+        },
+        {
+          "enemies": 12,
+          "projectiles": 32,
+          "local_ms": 8.103044666640926,
+          "remote_ms": 16.01227566677456,
+          "remote_over_local": 1.9760813774968815,
+          "checksums_match": true
+        }
+      ],
+      "limitation": "Lua-table vectors and mocked room geometry; same code/input/runtime; not a live FPS test"
+    },
+    "original_native129": {
+      "replay_sha256": "ad586ecc353d69e95c7964fe6bef77346dd8027b902ea6ed96eb5796dc595e1b",
+      "rows": [
+        {
+          "enemies": 1,
+          "projectiles": 0,
+          "local_ms": 1.3451846666672889,
+          "remote_ms": 2.6838720000038543,
+          "remote_over_local": 1.995169932060837,
+          "checksums_match": true
+        },
+        {
+          "enemies": 4,
+          "projectiles": 8,
+          "local_ms": 3.5999003333078385,
+          "remote_ms": 7.003524999599904,
+          "remote_over_local": 1.9454774719178345,
+          "checksums_match": true
+        },
+        {
+          "enemies": 12,
+          "projectiles": 32,
+          "local_ms": 10.67950299999211,
+          "remote_ms": 19.606721333693713,
+          "remote_over_local": 1.8359207665102204,
+          "checksums_match": true
+        }
+      ],
+      "limitation": "Lua-table vectors and mocked room geometry; same code/input/runtime; not a live FPS test"
+    }
+  },
+  "native_vector_replay": {
+    "current_loaded_idle": [
+      {
+        "enemies": 1,
+        "projectiles": 0,
+        "updates": 96,
+        "wall_mean_ms": 3.157764581342521,
+        "cpu_mean_ms_quantized": 3.0924479166666665,
+        "detail_total_ms": 3.2518604149421044,
+        "exclusive_phase_ms": {
+          "three_sample_hazard_scores": 0.2583343734343865,
+          "candidate_safety": 0.3233281373977635,
+          "contact_sweeps": 0.4991864686210927,
+          "entity_setup": 0.008715604742368073,
+          "candidate_attack_and_route_score": 0.32593129575252605,
+          "final_aim_and_route_guard": 0.24872500449419166,
+          "projectile_sweeps": 0.012319775919119522,
+          "route_preparation": 0.0018531555930773385,
+          "movement_forecast_and_bomb": 1.5585280979673062
+        }
+      },
+      {
+        "enemies": 4,
+        "projectiles": 8,
+        "updates": 96,
+        "wall_mean_ms": 9.262540618578573,
+        "cpu_mean_ms_quantized": 8.7890625,
+        "detail_total_ms": 9.030288534859812,
+        "exclusive_phase_ms": {
+          "three_sample_hazard_scores": 0.47773021707932184,
+          "candidate_safety": 0.36368857075770517,
+          "contact_sweeps": 1.880746843914177,
+          "entity_setup": 0.020219792922337814,
+          "candidate_attack_and_route_score": 0.6226677273710574,
+          "final_aim_and_route_guard": 0.39521144082148857,
+          "projectile_sweeps": 3.7429135839144583,
+          "route_preparation": 0.0018447786569595322,
+          "movement_forecast_and_bomb": 1.5089010149240512
+        }
+      },
+      {
+        "enemies": 12,
+        "projectiles": 32,
+        "updates": 96,
+        "wall_mean_ms": 28.8690604194999,
+        "cpu_mean_ms_quantized": 29.296875,
+        "detail_total_ms": 29.12135207901417,
+        "exclusive_phase_ms": {
+          "three_sample_hazard_scores": 1.1801354487737041,
+          "candidate_safety": 0.5124968638022739,
+          "contact_sweeps": 6.9913802171746875,
+          "entity_setup": 0.053583333889643335,
+          "candidate_attack_and_route_score": 2.2860405941804585,
+          "final_aim_and_route_guard": 0.7635114565491666,
+          "projectile_sweeps": 15.699948968986687,
+          "route_preparation": 0.0018927107254664104,
+          "movement_forecast_and_bomb": 1.614326044917103
+        }
+      }
+    ],
+    "current_avatar_services_stopped": [
+      {
+        "enemies": 1,
+        "projectiles": 0,
+        "updates": 96,
+        "wall_mean_ms": 3.19746666401625,
+        "cpu_mean_ms_quantized": 3.2552083333333335,
+        "detail_total_ms": 3.146332293748875,
+        "exclusive_phase_ms": {
+          "three_sample_hazard_scores": 0.25025521715482185,
+          "candidate_safety": 0.3106448625524833,
+          "contact_sweeps": 0.479114594558875,
+          "entity_setup": 0.008293752868970229,
+          "candidate_attack_and_route_score": 0.3177302231391271,
+          "final_aim_and_route_guard": 0.24466562022765523,
+          "projectile_sweeps": 0.011939565340677936,
+          "route_preparation": 0.0016666576266288688,
+          "movement_forecast_and_bomb": 1.507103105386103
+        }
+      },
+      {
+        "enemies": 4,
+        "projectiles": 8,
+        "updates": 96,
+        "wall_mean_ms": 9.070453119774635,
+        "cpu_mean_ms_quantized": 9.27734375,
+        "detail_total_ms": 9.005436457693573,
+        "exclusive_phase_ms": {
+          "three_sample_hazard_scores": 0.4736947740117708,
+          "candidate_safety": 0.35988749315341245,
+          "contact_sweeps": 1.8684083223342915,
+          "entity_setup": 0.021242722868919376,
+          "candidate_attack_and_route_score": 0.6261218885580698,
+          "final_aim_and_route_guard": 0.4096333508690187,
+          "projectile_sweeps": 3.716742716729646,
+          "route_preparation": 0.0015833228826522834,
+          "movement_forecast_and_bomb": 1.5119698072473229
+        }
+      },
+      {
+        "enemies": 12,
+        "projectiles": 32,
+        "updates": 96,
+        "wall_mean_ms": 26.880998959143955,
+        "cpu_mean_ms_quantized": 26.204427083333332,
+        "detail_total_ms": 27.39197708666323,
+        "exclusive_phase_ms": {
+          "three_sample_hazard_scores": 1.0973103940486897,
+          "candidate_safety": 0.4794874638319,
+          "contact_sweeps": 6.132905195156739,
+          "entity_setup": 0.051793759067853225,
+          "candidate_attack_and_route_score": 2.159918747842323,
+          "final_aim_and_route_guard": 0.7279739578564938,
+          "projectile_sweeps": 15.246401066581376,
+          "route_preparation": 0.0016500179966290624,
+          "movement_forecast_and_bomb": 1.4782416919867238
+        }
+      }
+    ],
+    "original_native129": [
+      {
+        "enemies": 1,
+        "projectiles": 0,
+        "updates": 96,
+        "wall_mean_ms": 3.407058333357167,
+        "cpu_mean_ms_quantized": 3.2552083333333335,
+        "detail_total_ms": 3.505177085598302,
+        "exclusive_phase_ms": {}
+      },
+      {
+        "enemies": 4,
+        "projectiles": 8,
+        "updates": 96,
+        "wall_mean_ms": 10.638432291646792,
+        "cpu_mean_ms_quantized": 10.579427083333334,
+        "detail_total_ms": 10.76595312605302,
+        "exclusive_phase_ms": {}
+      },
+      {
+        "enemies": 12,
+        "projectiles": 32,
+        "updates": 96,
+        "wall_mean_ms": 31.979498952627498,
+        "cpu_mean_ms_quantized": 32.2265625,
+        "detail_total_ms": 31.241001037259895,
+        "exclusive_phase_ms": {}
+      }
+    ]
+  },
+  "native_vector_replay_limit": "Paused game, native vectors, private synthetic-room environment; no game inputs or real combat changed; 15.625ms CPU clock quantization; loaded idle A/B does not measure continuous speaking plus encoding.",
+  "actual_recording_window": {
+    "elapsed_seconds": 27.069802899844944,
+    "room_clear": false,
+    "lua_profile": {
+      "details": {
+        "candidate_safety": {
+          "max_ms": 7,
+          "mean_ms": 3.225,
+          "total_ms": 387
+        },
+        "movement_forecast": {
+          "max_ms": 5,
+          "mean_ms": 1.25,
+          "total_ms": 150
+        }
+      },
+      "phases": {
+        "aim_and_input_guards": {
+          "max_ms": 10,
+          "mean_ms": 1.2,
+          "total_ms": 144
+        },
+        "movement_safety": {
+          "max_ms": 35,
+          "mean_ms": 21.75,
+          "total_ms": 2610
+        },
+        "observation_guards": {
+          "max_ms": 2,
+          "mean_ms": 0.65,
+          "total_ms": 78
+        },
+        "state_exchange": {
+          "max_ms": 22,
+          "mean_ms": 4.8916666666667,
+          "total_ms": 587
+        },
+        "utility_guards": {
+          "max_ms": 4,
+          "mean_ms": 0.38333333333333,
+          "total_ms": 46
+        }
+      },
+      "update_max_ms": 49,
+      "update_mean_ms": 28.875,
+      "update_p95_ms": 41,
+      "updates": 12065,
+      "window_updates": 120
+    },
+    "opengl_render": {
+      "count": 95448,
+      "fps": 49.47323333530416,
+      "interval_ms_max": 122.32410001754761,
+      "interval_ms_p50": 16.677899837493896,
+      "interval_ms_p95": 53.64289999008179,
+      "last_age_ms": 12.113999843597412,
+      "window_frames": 600,
+      "window_seconds": 12.127770100116729
+    },
+    "python_packet": {
+      "facts_ms": 4.132199799641967,
+      "filter_ms": 2.391299931332469,
+      "frame": 12063,
+      "rules_and_strategy_ms": 26.22170001268387,
+      "total_ms": 32.862700056284666
+    },
+    "source_commit": "143147fa4bc8ca7d4c8e7a9216b1491abf88dd20"
+  },
+  "actual_clear_room_lua": {
+    "updates": 1305,
+    "phase_mean_ms": {
+      "aim_and_input_guards": 0.17133593321760154,
+      "movement_safety": 0.35176100054920306,
+      "observation_guards": 0.24867693199508814,
+      "state_exchange": 1.4425734086968582,
+      "utility_guards": 0.07598881191677548
+    },
+    "protected_unchanged": true,
+    "paused_after": true,
+    "cleanup_error": null
+  },
+  "actual_python_sampling": {
+    "elapsed_seconds": 46.6327961999923,
+    "process_cpu_seconds": 24.0,
+    "unpaused_packet_snapshots": [
+      {
+        "frame": 21856,
+        "filter_ms": 0.6096998695284128,
+        "rules_and_strategy_ms": 29.643099987879395,
+        "facts_ms": 4.236999899148941,
+        "total_ms": 34.511099802330136
+      },
+      {
+        "frame": 21946,
+        "filter_ms": 0.6764999125152826,
+        "rules_and_strategy_ms": 29.725000029429793,
+        "facts_ms": 2.5041999761015177,
+        "total_ms": 32.935400027781725
+      },
+      {
+        "frame": 22036,
+        "filter_ms": 0.70349988527596,
+        "rules_and_strategy_ms": 17.730599967762828,
+        "facts_ms": 13.897900003939867,
+        "total_ms": 32.36000007018447
+      },
+      {
+        "frame": 22126,
+        "filter_ms": 0.7152000907808542,
+        "rules_and_strategy_ms": 32.67950005829334,
+        "facts_ms": 1.2961002066731453,
+        "total_ms": 34.71280005760491
+      },
+      {
+        "frame": 22216,
+        "filter_ms": 0.5860000383108854,
+        "rules_and_strategy_ms": 17.292700009420514,
+        "facts_ms": 14.182299841195345,
+        "total_ms": 32.08860009908676
+      },
+      {
+        "frame": 22295,
+        "filter_ms": 0.7903999648988247,
+        "rules_and_strategy_ms": 13.380900025367737,
+        "facts_ms": 10.085799964144826,
+        "total_ms": 24.303599959239364
+      },
+      {
+        "frame": 22385,
+        "filter_ms": 0.7748000789433718,
+        "rules_and_strategy_ms": 59.05159981921315,
+        "facts_ms": 2.7199999894946814,
+        "total_ms": 62.581000151112676
+      }
+    ],
+    "unpaused_packet_median_ms": 32.935400027781725,
+    "spy_nonblocking": true,
+    "spy_errors": 115,
+    "limitations": "100Hz external samples include idle threads; not per-function CPU timers; short run included intentional drink pause; no combat or official recording",
+    "after_control": {
+      "armed": false,
+      "last_fault": null,
+      "packet_processing": {
+        "current": {
+          "stage": "idle"
+        },
+        "last": {
+          "frame": 22395,
+          "filter_ms": 0.9498998988419771,
+          "rules_and_strategy_ms": 11.633899994194508,
+          "facts_ms": 3.2585998997092247,
+          "total_ms": 15.877599827945232
+        }
+      }
+    },
+    "protected_unchanged": true
+  },
+  "save_verification": {
+    "kind": "read-only checks on paused game; no state writes",
+    "verify_samples": [
+      {
+        "wall_ms": 417.6636999472976,
+        "cpu_ms": 421.875
+      },
+      {
+        "wall_ms": 415.5374001711607,
+        "cpu_ms": 421.875
+      },
+      {
+        "wall_ms": 413.3284001145512,
+        "cpu_ms": 406.25
+      },
+      {
+        "wall_ms": 420.4732000362128,
+        "cpu_ms": 421.875
+      },
+      {
+        "wall_ms": 423.0347000993788,
+        "cpu_ms": 421.875
+      },
+      {
+        "wall_ms": 425.61860010027885,
+        "cpu_ms": 421.875
+      },
+      {
+        "wall_ms": 422.26459993980825,
+        "cpu_ms": 421.875
+      },
+      {
+        "wall_ms": 412.3791002202779,
+        "cpu_ms": 421.875
+      },
+      {
+        "wall_ms": 412.2911000158638,
+        "cpu_ms": 406.25
+      },
+      {
+        "wall_ms": 407.4190999381244,
+        "cpu_ms": 406.25
+      },
+      {
+        "wall_ms": 415.3611999936402,
+        "cpu_ms": 421.875
+      },
+      {
+        "wall_ms": 417.6986999809742,
+        "cpu_ms": 421.875
+      }
+    ],
+    "baseline_files": 2,
+    "roots": 2,
+    "observed_root_entries": [
+      {
+        "entries": 1287,
+        "files": 1223
+      },
+      {
+        "entries": 3,
+        "files": 3
+      }
+    ],
+    "verify_wall_median_ms": 416.60055005922914,
+    "protected_unchanged": true,
+    "profile_total_ms_per_check": 517.3358999999997,
+    "profile_top": [
+      {
+        "file": "~",
+        "function": "<built-in method nt._getfinalpathname>",
+        "line": 0,
+        "calls_per_check": 2470.0,
+        "self_ms_per_check": 233.02159999999998,
+        "inclusive_ms_per_check": 233.02159999999998
+      },
+      {
+        "file": "~",
+        "function": "<built-in method nt.stat>",
+        "line": 0,
+        "calls_per_check": 1298.0,
+        "self_ms_per_check": 116.11976000000001,
+        "inclusive_ms_per_check": 117.36476
+      },
+      {
+        "file": "_local.py",
+        "function": "_parse_path",
+        "line": 257,
+        "calls_per_check": 2478.0,
+        "self_ms_per_check": 15.143240000000002,
+        "inclusive_ms_per_check": 28.836180000000002
+      },
+      {
+        "file": "saves.py",
+        "function": "verify",
+        "line": 163,
+        "calls_per_check": 1.0,
+        "self_ms_per_check": 12.796760000000003,
+        "inclusive_ms_per_check": 517.3315
+      },
+      {
+        "file": "<frozen ntpath>",
+        "function": "realpath",
+        "line": 702,
+        "calls_per_check": 1235.0,
+        "self_ms_per_check": 10.52546,
+        "inclusive_ms_per_check": 263.34692
+      },
+      {
+        "file": "_local.py",
+        "function": "__str__",
+        "line": 227,
+        "calls_per_check": 3800.0,
+        "self_ms_per_check": 8.23024,
+        "inclusive_ms_per_check": 34.72252
+      },
+      {
+        "file": "~",
+        "function": "<built-in method sys.intern>",
+        "line": 0,
+        "calls_per_check": 19192.0,
+        "self_ms_per_check": 7.571940000000001,
+        "inclusive_ms_per_check": 7.571940000000001
+      },
+      {
+        "file": "~",
+        "function": "<built-in method nt.scandir>",
+        "line": 0,
+        "calls_per_check": 132.0,
+        "self_ms_per_check": 6.6012200000000005,
+        "inclusive_ms_per_check": 6.6012200000000005
+      },
+      {
+        "file": "_abc.py",
+        "function": "with_segments",
+        "line": 130,
+        "calls_per_check": 2549.0,
+        "self_ms_per_check": 6.15846,
+        "inclusive_ms_per_check": 25.1261
+      },
+      {
+        "file": "glob.py",
+        "function": "select_wildcard",
+        "line": 424,
+        "calls_per_check": 1356.0,
+        "self_ms_per_check": 6.0610800000000005,
+        "inclusive_ms_per_check": 9.46288
+      },
+      {
+        "file": "_local.py",
+        "function": "__init__",
+        "line": 117,
+        "calls_per_check": 2566.0,
+        "self_ms_per_check": 5.9448,
+        "inclusive_ms_per_check": 9.66754
+      },
+      {
+        "file": "glob.py",
+        "function": "select_recursive_step",
+        "line": 480,
+        "calls_per_check": 1328.0,
+        "self_ms_per_check": 5.76142,
+        "inclusive_ms_per_check": 18.61858
+      }
+    ],
+    "event_database": {
+      "bytes": 1220608,
+      "event_count": 946,
+      "pending_count": 0
+    }
+  },
+  "dsh_recording_window": {
+    "kinds": {
+      "core_control": 4,
+      "core_turn_started": 41,
+      "core_tool": 37,
+      "core_choice_completed": 37,
+      "core_speech_queued": 39,
+      "actual_core_speech_completed": 4,
+      "core_speech_cancelled": 34,
+      "core_decision_superseded": 4,
+      "core_turn_cancelled": 4
+    },
+    "timings": {
+      "core_tool": {
+        "count": 37,
+        "median_ms": 18,
+        "p95_ms": 178,
+        "max_ms": 185
+      },
+      "core_choice_completed": {
+        "count": 37,
+        "median_ms": 3264,
+        "p95_ms": 5394,
+        "max_ms": 8148
+      },
+      "core_turn_cancelled": {
+        "count": 4,
+        "median_ms": 522.5,
+        "p95_ms": 982,
+        "max_ms": 982
+      }
+    }
+  },
+  "python_isolated_replay": {
+    "local_median_ms": 2.529799996409565,
+    "remote_median_ms": 4.864049958996475,
+    "input_sha256": "ed21ddf78dc53c82300a9188f1388093b129499e59f7fe48928ceb6db89f54c6",
+    "limitations": "Fresh independent history/SQLite; all rule services local, no model/game/actuator calls; cProfile times are separate instrumented runs."
+  },
+  "end_state": {
+    "app": {
+      "stage": "running_candidate_not_accepted",
+      "candidate_id": "issac-72e9ea16bf91-59c55ebe",
+      "error": null
+    },
+    "studio": {
+      "ready": true,
+      "mode": "M03",
+      "voice_id": "NCM01",
+      "output_fps_measured": 25.00053155298976,
+      "viewers": 1
+    },
+    "game": {
+      "connected": true,
+      "seed": 4126411572,
+      "stage": 2,
+      "paused": true
+    },
+    "control": {
+      "armed": false,
+      "last_fault": null,
+      "pause_confirmation_pending": false
+    },
+    "core": {
+      "ready": true,
+      "automatic": false,
+      "failures": 0
+    },
+    "active_recording_writers": 0,
+    "source_hashes": {
+      "integration/isaac-agent/mods/IsaacJev/main.lua": "5dfd429619a5d5465816a7de7b75b8d3cdf2ddcdef9a16ad0eb545e0c3ab2391",
+      "integration/issac/strategy_host.py": "4c642c2df2b0f66125cb2979c04a5d99293c0e6ad28c4ee803c961f0c8717078",
+      "integration/issac/saves.py": "46b141a5569133a84f41b9b6c376abd41b33f567f056bbb3fb8caa5242cbfb1f"
+    },
+    "protected_unchanged": true
+  },
+  "critical_limits": [
+    "Native synthetic heavy-case parts are not a retrospective decomposition of the old battle frame.",
+    "Lua, Python, DSH and encoder costs belong to different processes/paths; do not sum them into one frame.",
+    "Remaining actual Python packet latency has not been fully separated into CPU, lock wait and filesystem latency.",
+    "No new recording or production performance acceptance in this diagnostic run."
+  ],
+  "source_note": "All full raw records remain private/ignored; this file contains reviewed numeric diagnostics and code hashes.",
+  "original_native129_source_sha256": "6821ba5ed980b650bb8eebbabbeb68514a3bdf8e4ef117f6e05b554d2ee51601",
+  "evidence_directory": "outputs/issac/diagnostics/录播游戏掉帧核查20261109",
+  "external_python_sampling_summary": {
+    "threads": [
+      {
+        "id": 16968,
+        "cpu_s": 8.171875,
+        "profile": {
+          "name": "Thread 16968 \"Thread-6 (watchdog)\"",
+          "sample_wall_s": 43.84,
+          "self_top": [
+            [
+              [
+                "threading.py",
+                "wait",
+                363
+              ],
+              32.92000000000202
+            ],
+            [
+              [
+                "<frozen ntpath>",
+                "realpath",
+                726
+              ],
+              3.1699999999999764
+            ],
+            [
+              [
+                "<frozen ntpath>",
+                "realpath",
+                753
+              ],
+              2.9399999999999813
+            ],
+            [
+              [
+                "_local.py",
+                "stat",
+                515
+              ],
+              2.6399999999999877
+            ],
+            [
+              [
+                "windows_events.py",
+                "_poll",
+                775
+              ],
+              0.20000000000000004
+            ],
+            [
+              [
+                "common.py",
+                "file_hash",
+                30
+              ],
+              0.13999999999999999
+            ]
+          ],
+          "inclusive_project": [
+            [
+              [
+                "strategy_host.py",
+                "watchdog",
+                307
+              ],
+              32.92000000000202
+            ],
+            [
+              [
+                "strategy_host.py",
+                "watchdog",
+                354
+              ],
+              10.339999999999824
+            ],
+            [
+              [
+                "strategy_host.py",
+                "watchdog",
+                322
+              ],
+              0.18000000000000002
+            ],
+            [
+              [
+                "common.py",
+                "file_hash",
+                30
+              ],
+              0.13999999999999999
+            ],
+            [
+              [
+                "strategy_host.py",
+                "watchdog",
+                310
+              ],
+              0.08
+            ],
+            [
+              [
+                "strategy_host.py",
+                "watchdog",
+                323
+              ],
+              0.07
+            ],
+            [
+              [
+                "common.py",
+                "inside",
+                39
+              ],
+              0.060000000000000005
+            ],
+            [
+              [
+                "events.py",
+                "_run",
+                89
+              ],
+              0.04
+            ]
+          ]
+        }
+      },
+      {
+        "id": 42336,
+        "cpu_s": 6.484375,
+        "profile": {
+          "name": "Thread 42336 \"ThreadPoolExecutor-0_0\"",
+          "sample_wall_s": 43.84,
+          "self_top": [
+            [
+              [
+                "thread.py",
+                "_worker",
+                90
+              ],
+              39.980000000000615
+            ],
+            [
+              [
+                "navigation.py",
+                "_route_distances",
+                84
+              ],
+              0.8500000000000005
+            ],
+            [
+              [
+                "navigation.py",
+                "_neighbors",
+                278
+              ],
+              0.6100000000000003
+            ],
+            [
+              [
+                "navigation.py",
+                "_neighbors",
+                277
+              ],
+              0.46000000000000024
+            ],
+            [
+              [
+                "navigation.py",
+                "_neighbors",
+                275
+              ],
+              0.3300000000000001
+            ],
+            [
+              [
+                "navigation.py",
+                "_route_distances",
+                85
+              ],
+              0.24000000000000007
+            ]
+          ],
+          "inclusive_project": [
+            [
+              [
+                "runtime.py",
+                "_decide",
+                1522
+              ],
+              2.5599999999999894
+            ],
+            [
+              [
+                "runtime.py",
+                "_decide",
+                1634
+              ],
+              0.3300000000000001
+            ],
+            [
+              [
+                "runtime.py",
+                "_decide",
+                1575
+              ],
+              0.15
+            ],
+            [
+              [
+                "runtime.py",
+                "_decide",
+                1690
+              ],
+              0.02
+            ],
+            [
+              [
+                "runtime.py",
+                "_decide",
+                1618
+              ],
+              0.01
+            ],
+            [
+              [
+                "runtime.py",
+                "_decide",
+                1553
+              ],
+              0.01
+            ],
+            [
+              [
+                "runtime.py",
+                "_decide",
+                1628
+              ],
+              0.01
+            ]
+          ]
+        }
+      },
+      {
+        "id": 18388,
+        "cpu_s": 2.90625,
+        "profile": {
+          "name": "Thread 18388 \"Thread-3 (run)\"",
+          "sample_wall_s": 43.84,
+          "self_top": [
+            [
+              [
+                "threading.py",
+                "wait",
+                363
+              ],
+              38.79000000000085
+            ],
+            [
+              [
+                "native_audio.py",
+                "call",
+                26
+              ],
+              3.329999999999973
+            ],
+            [
+              [
+                "native_audio.py",
+                "sessions",
+                76
+              ],
+              0.5200000000000002
+            ],
+            [
+              [
+                "<frozen ntpath>",
+                "realpath",
+                726
+              ],
+              0.5200000000000002
+            ],
+            [
+              [
+                "<frozen ntpath>",
+                "realpath",
+                753
+              ],
+              0.3200000000000001
+            ],
+            [
+              [
+                "__init__.py",
+                "__getitem__",
+                408
+              ],
+              0.07
+            ]
+          ],
+          "inclusive_project": [
+            [
+              [
+                "common.py",
+                "inside",
+                39
+              ],
+              0.36000000000000015
+            ],
+            [
+              [
+                "common.py",
+                "inside",
+                36
+              ],
+              0.15
+            ],
+            [
+              [
+                "common.py",
+                "inside",
+                40
+              ],
+              0.07
+            ],
+            [
+              [
+                "common.py",
+                "inside",
+                37
+              ],
+              0.02
+            ]
+          ]
+        }
+      },
+      {
+        "id": 19380,
+        "cpu_s": 0.640625,
+        "profile": null
+      },
+      {
+        "id": 39156,
+        "cpu_s": 0.5625,
+        "profile": null
+      }
+    ],
+    "global_self_top": [
+      [
+        [
+          "threading.py",
+          "wait",
+          363
+        ],
+        159.23000000000016
+      ],
+      [
+        [
+          "selectors.py",
+          "_select",
+          305
+        ],
+        131.00000000002584
+      ],
+      [
+        [
+          "threading.py",
+          "wait",
+          359
+        ],
+        44.13999999999979
+      ],
+      [
+        [
+          "thread.py",
+          "_worker",
+          90
+        ],
+        39.980000000000615
+      ],
+      [
+        [
+          "runtime.py",
+          "handle",
+          1987
+        ],
+        38.270000000000955
+      ],
+      [
+        [
+          "<frozen ntpath>",
+          "realpath",
+          726
+        ],
+        4.239999999999954
+      ],
+      [
+        [
+          "_local.py",
+          "stat",
+          515
+        ],
+        4.009999999999959
+      ],
+      [
+        [
+          "<frozen ntpath>",
+          "realpath",
+          753
+        ],
+        3.8599999999999617
+      ],
+      [
+        [
+          "native_audio.py",
+          "call",
+          26
+        ],
+        3.329999999999973
+      ],
+      [
+        [
+          "events.py",
+          "ingest",
+          74
+        ],
+        1.1200000000000008
+      ],
+      [
+        [
+          "_local.py",
+          "mkdir",
+          722
+        ],
+        1.0500000000000007
+      ],
+      [
+        [
+          "native_game.py",
+          "resume",
+          316
+        ],
+        0.8800000000000006
+      ],
+      [
+        [
+          "navigation.py",
+          "_route_distances",
+          84
+        ],
+        0.8600000000000005
+      ],
+      [
+        [
+          "navigation.py",
+          "_neighbors",
+          278
+        ],
+        0.6300000000000003
+      ],
+      [
+        [
+          "native_audio.py",
+          "sessions",
+          76
+        ],
+        0.5200000000000002
+      ],
+      [
+        [
+          "_local.py",
+          "open",
+          537
+        ],
+        0.49000000000000027
+      ],
+      [
+        [
+          "navigation.py",
+          "_neighbors",
+          277
+        ],
+        0.46000000000000024
+      ],
+      [
+        [
+          "socket.py",
+          "readinto",
+          719
+        ],
+        0.3900000000000002
+      ]
+    ],
+    "state_self_top": [
+      [
+        [
+          "events.py",
+          "ingest",
+          74
+        ],
+        1.1200000000000008
+      ],
+      [
+        [
+          "_local.py",
+          "mkdir",
+          722
+        ],
+        0.9900000000000007
+      ],
+      [
+        [
+          "_local.py",
+          "stat",
+          515
+        ],
+        0.7500000000000004
+      ],
+      [
+        [
+          "_local.py",
+          "open",
+          537
+        ],
+        0.37000000000000016
+      ],
+      [
+        [
+          "events.py",
+          "ingest",
+          70
+        ],
+        0.25000000000000006
+      ],
+      [
+        [
+          "copy.py",
+          "deepcopy",
+          169
+        ],
+        0.12999999999999998
+      ],
+      [
+        [
+          "copy.py",
+          "_deepcopy_dict",
+          222
+        ],
+        0.11999999999999998
+      ],
+      [
+        [
+          "copy.py",
+          "deepcopy",
+          137
+        ],
+        0.07
+      ],
+      [
+        [
+          "replay.py",
+          "record",
+          31
+        ],
+        0.060000000000000005
+      ],
+      [
+        [
+          "_local.py",
+          "replace",
+          780
+        ],
+        0.05
+      ],
+      [
+        [
+          "copy.py",
+          "_deepcopy_dict",
+          221
+        ],
+        0.03
+      ],
+      [
+        [
+          "encoder.py",
+          "iterencode",
+          261
+        ],
+        0.03
+      ]
+    ],
+    "state_inclusive_top": [
+      [
+        [
+          "threading.py",
+          "_bootstrap_inner",
+          1041
+        ],
+        4.769999999999943
+      ],
+      [
+        [
+          "threading.py",
+          "run",
+          992
+        ],
+        4.769999999999943
+      ],
+      [
+        [
+          "socketserver.py",
+          "process_request_thread",
+          692
+        ],
+        4.769999999999943
+      ],
+      [
+        [
+          "threading.py",
+          "_bootstrap",
+          1012
+        ],
+        4.769999999999943
+      ],
+      [
+        [
+          "socketserver.py",
+          "finish_request",
+          362
+        ],
+        4.769999999999943
+      ],
+      [
+        [
+          "runtime.py",
+          "handle",
+          2002
+        ],
+        4.769999999999943
+      ],
+      [
+        [
+          "socketserver.py",
+          "__init__",
+          761
+        ],
+        4.769999999999943
+      ],
+      [
+        [
+          "",
+          "thread (15180): Thread-12154 (process_request_thread)",
+          0
+        ],
+        3.9699999999999593
+      ],
+      [
+        [
+          "strategy_host.py",
+          "receive_state",
+          62
+        ],
+        2.9799999999999804
+      ],
+      [
+        [
+          "strategy_host.py",
+          "receive_state",
+          69
+        ],
+        1.5900000000000012
+      ],
+      [
+        [
+          "runtime.py",
+          "receive_state",
+          312
+        ],
+        1.5700000000000012
+      ],
+      [
+        [
+          "events.py",
+          "ingest",
+          74
+        ],
+        1.1200000000000008
+      ]
+    ],
+    "project_inclusive_top": [
+      [
+        [
+          "strategy_host.py",
+          "<module>",
+          407
+        ],
+        43.83999999999985
+      ],
+      [
+        [
+          "strategy_host.py",
+          "run",
+          370
+        ],
+        43.83999999999985
+      ],
+      [
+        [
+          "strategy_host.py",
+          "main",
+          396
+        ],
+        43.83999999999985
+      ],
+      [
+        [
+          "strategy.py",
+          "_write_loop",
+          124
+        ],
+        43.73999999999987
+      ],
+      [
+        [
+          "runtime.py",
+          "handle",
+          1987
+        ],
+        38.29000000000095
+      ],
+      [
+        [
+          "strategy_host.py",
+          "watchdog",
+          307
+        ],
+        32.92000000000202
+      ],
+      [
+        [
+          "strategy_host.py",
+          "watchdog",
+          354
+        ],
+        10.339999999999824
+      ],
+      [
+        [
+          "runtime.py",
+          "handle",
+          2002
+        ],
+        4.799999999999942
+      ],
+      [
+        [
+          "strategy_host.py",
+          "action",
+          236
+        ],
+        3.3599999999999723
+      ],
+      [
+        [
+          "strategy_host.py",
+          "do_POST",
+          282
+        ],
+        3.3599999999999723
+      ],
+      [
+        [
+          "strategy_host.py",
+          "receive_state",
+          62
+        ],
+        2.9799999999999804
+      ],
+      [
+        [
+          "runtime.py",
+          "_decide",
+          1522
+        ],
+        2.5599999999999894
+      ],
+      [
+        [
+          "strategy_host.py",
+          "control",
+          163
+        ],
+        1.9700000000000015
+      ],
+      [
+        [
+          "strategy_host.py",
+          "receive_state",
+          69
+        ],
+        1.5900000000000012
+      ],
+      [
+        [
+          "runtime.py",
+          "receive_state",
+          312
+        ],
+        1.5700000000000012
+      ]
+    ]
+  }
+}
