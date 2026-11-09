@@ -1,0 +1,19 @@
+{
+  "schema_version":1,
+  "candidate_id":"issac-97dbbdd12727-dfa060b2",
+  "phase_closed":true,
+  "actual_report_relative":"state/issac-acceptance/round-runs/round-6c3bc35b33514cc4a018ce84a4fee0af/report.json",
+  "actual_report_sha256":"a8dd61435d3da3e1028b3ce6be6f0fb1b271c9d4bb5805a461b2b44a6ae8d2c2",
+  "actual_regression_relative":"state/issac-acceptance/runs/accept-7dcc37ef6d224e8b8ba848f7ca6cc67d/regression.json",
+  "actual_regression_sha256":"47fc634a97c2aec9016de682b27b5d2c943ee09e1df636cdacacac4acb0f5655",
+  "game_python_tests":621,
+  "failed_subtests":2,
+  "failure":"A safely retreating moving Horf was incorrectly asserted to reject the safe requested step. Both type 12 and 248 returned the allowed step.",
+  "actual_rock_detour_and_projectile_cases_passed":true,
+  "global_python_tests_passed":142,
+  "programme_buffer_cancel_drink_boundary_cases_passed":true,
+  "owned_waiters_stopped":true,
+  "runtime_programme_started":false,
+  "runtime_acceptance_claimed":false,
+  "final_delivery_created":false
+}

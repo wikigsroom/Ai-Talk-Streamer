@@ -214,7 +214,10 @@ class PredictiveCombatTests(unittest.TestCase):
                 self.assertEqual(self.api.choose_fixed_turret_route(False,kind,0,0),(1,0))
                 self.assertNotEqual(self.api.choose_fixed_turret_route(True,kind,0,0),(1,0))
                 self.assertNotEqual(self.api.choose_fixed_turret_route(False,kind,1,0),(1,0))
-                self.assertNotEqual(self.api.choose_fixed_turret_route(False,kind,0,1),(1,0))
+                # This velocity moves away from the player. It is not a fixed
+                # turret, but its ordinary forecast still permits a safe step.
+                self.assertEqual(self.api.choose_fixed_turret_route(False,kind,0,1),(1,0))
+                self.assertNotEqual(self.api.choose_fixed_turret_route(True,kind,0,1),(1,0))
 
     def test_actual_psychic_horf_rock_detour_keeps_real_projectile_guard(self):
         self.assertEqual(self.api.choose_observed_psychic_horf(False),(-1,0))

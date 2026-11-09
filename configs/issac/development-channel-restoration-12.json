@@ -1,0 +1,18 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-L",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-97dbbdd12727-dfa060b2",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRL01","status":"code_complete_pending_acceptance","code":"Correct the overbroad regression expectation that a safely retreating moving Horf must prohibit the route; preserve real projectile rejection for stationary and moving base enemies, variant guard and actual observed Psychic Horf rock-detour assertions. No production source changes from K.","source_files":["integration/isaac-agent/tests/test_predictive_combat.py"]},
+    {"id":"CRL02","status":"code_complete_pending_acceptance","code":"Retain actual closed K regression failure evidence and all existing implementation, model, media, save, freeze and 18 acceptance requirements without a runtime acceptance claim","source_files":["docs/evidence/issac-regressions-k-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}
