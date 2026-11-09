@@ -310,8 +310,9 @@ class StrategyHost:
         # for its normal full observation before the existing stale deadline.
         # Only a real packet through receive_state may change freshness. A
         # successful RPC or a live process never substitutes for that packet.
+        if not self.armed:return
         received=getattr(self.service,'received',None)
-        if not self.armed or type(received) not in (int,float) or not received:return
+        if type(received) not in (int,float) or not received:return
         age=self.service.clock()-received
         now=time.monotonic()
         if not .75<=age<1.25 or now-getattr(self,'last_observation_pulse',0)<.4:return

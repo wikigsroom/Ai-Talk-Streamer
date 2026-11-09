@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV16",
+  "round": "NAV17",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -173,6 +173,15 @@
         "integration/issac/tests/test_native_observation_pulse.py",
         "docs/issac/跨房间路线连续性修复20261110.md"
       ]
+    },
+    {
+      "id": "NAV17-DISARMED-OBSERVATION-GUARD",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/strategy_host.py",
+        "integration/issac/tests/test_pending_pause_race.py",
+        "docs/issac/跨房间路线连续性修复20261110.md"
+      ]
     }
   ],
   "source_review": [
@@ -209,20 +218,20 @@
     "watchdog retains original 750ms timeout and immediate current-revision stop, now records finite exception type, response flags and elapsed time; unknown earlier health loss is not declared diagnosed",
     "a quiet 750-1250ms observation gap may request one fixed native full-state/TCP exchange, at most once per 400ms, with a 200ms RPC budget; age >=1250ms does not request late recovery",
     "RPC success is only observation_requested and never updates service.received or certifies freshness; only a real regular packet may do so",
-    "native pulse does not resume input, clear an ordinary pause, modify gameplay, replay a utility command, or renew a lease; real 1500ms state loss still disarms"
+    "native pulse does not resume input, clear an ordinary pause, modify gameplay, replay a utility command, or renew a lease; real 1500ms state loss still disarms",
+    "disarmed watchdog returns before accessing observation service; existing minimal pending-pause regression retained unchanged"
   ],
-  "prior_candidate": "issac-efe1db575010-d362acd0",
+  "prior_candidate": "issac-2a3ec380bd97-bcdb9d6f",
   "closed_test_round": {
-    "candidate_id": "issac-efe1db575010-d362acd0",
+    "candidate_id": "issac-2a3ec380bd97-bcdb9d6f",
     "deployed": true,
-    "regressions_passed": true,
-    "game_started": true,
-    "game_and_official_closed_normally": true,
-    "failed_recording_stopped": true,
+    "regressions_passed": false,
+    "game_started": false,
+    "owned_waiting_launcher_stopped": true,
     "defects": [
-      "actual boss clear around frame70999 stalled full state exchange while native rendering stayed near60FPS; watchdog correctly paused at stale threshold"
+      "minimal disarmed watchdog fixture has no observation service; quiet-observation guard accessed it before armed short-circuit"
     ],
     "complete_correction_reviewed": true,
-    "current_round_scope": "frame-independent actual native snapshot request before original stale deadline, plus finite bridge-loss age evidence"
+    "current_round_scope": "return immediately when disarmed before accessing observation service; no active runtime boundary change"
   }
 }
