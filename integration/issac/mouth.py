@@ -90,6 +90,12 @@ def paste_mouth(plate,source,center,ratio):
     found=oral_crop(source)
     if found is None:return plate.copy(),{'open':False}
     patch,box,area,source_alpha=found
+    return paste_oral_patch(plate,patch,box,area,source_alpha,center,ratio)
+
+def paste_oral_patch(plate,patch,box,area,source_alpha,center,ratio):
+    # Keep the original model's one validated aperture and alpha throughout
+    # tooth constraint and projection. Re-detecting after removing tooth pixels
+    # changes the dark component and can expose unconstrained source teeth.
     width=max(8,round(patch.shape[1]*ratio));height=max(5,round(patch.shape[0]*ratio))
     # The original opening is aligned to the closed plate's upper lip.
     cx,cy=center;left=round(cx-width/2);top=round(cy-3)
@@ -141,16 +147,19 @@ class ConstrainedMouth:
             self.last=None
             return plate.copy(),{'open':False,'silence_gated':gated,'postprocess':'identity-constrained-original-mouth-texture'}
         patch,box,area,alpha=found
-        if patch.shape[1]<33 or patch.shape[0]<16:
+        if patch.shape[1]<33 or patch.shape[0]<16 or patch.shape[1]/patch.shape[0]<1.5:
             return plate.copy(),{'open':False,'postprocess':'reject incomplete oral fragment'}
         coverage=np.asarray(alpha,np.float32)/255
-        white=(patch[...,0]>135)&(patch[...,1]>115)&(patch[...,2]>105)&(patch[...,2]>patch[...,0]*.48)&(coverage>.5)
+        # Even the feathered edge contributes visible colour. Clean all tooth
+        # pixels in this crop, including those below 50% alpha; otherwise an
+        # original model fang can remain beside the two identity textures.
+        white=(patch[...,0]>135)&(patch[...,1]>115)&(patch[...,2]>105)&(patch[...,2]>patch[...,0]*.48)
         remove=np.asarray(Image.fromarray(white.astype(np.uint8)*255).filter(ImageFilter.MaxFilter(3)),np.float32)/255
         clean=patch.astype(np.float32)
         for y in range(len(clean)):
             candidates=(coverage[y]>.5)&(~white[y])&(patch[y,:,1]<115)&(patch[y,:,0]<210)
             color=np.median(patch[y,candidates],axis=0) if candidates.any() else np.array([63,13,19])
-            amount=remove[y]*(coverage[y]>.5)
+            amount=remove[y]
             clean[y]=clean[y]*(1-amount[:,None])+color[None,:]*amount[:,None]
         oral=(coverage>.55)&(clean[...,1]<135)&(clean[...,0]<225)
         for fraction,fang in zip((.23,.77),self.fangs):
@@ -165,13 +174,7 @@ class ConstrainedMouth:
             destination=clean[top:top+fh,left:left+fw]
             clean[top:top+fh,left:left+fw]=destination*(1-opacity[...,None])+texture[...,:3]*opacity[...,None]
         # Preserve the model's own lips, oral shape and tongue. Only tooth pixels are constrained.
-        carrier=source.copy();x0,y0,x1,y1=box
-        carrier[y0:y1,x0:x1]=np.clip(clean,0,255).astype(np.uint8)
-        result,record=paste_mouth(plate,carrier,center,ratio)
-        if record.get('open'):
-            sx0,sy0,sx1,sy1=record['source_box']
-            if sx1-sx0<30 or (sx1-sx0)/(sy1-sy0)<1.5:
-                return plate.copy(),{'open':False,'postprocess':'reject unstable incomplete oral fragment'}
+        result,record=paste_oral_patch(plate,np.clip(clean,0,255).astype(np.uint8),box,area,alpha,center,ratio)
         record.update(postprocess='actual FlashHead mouth with original two-upper-fang constraint',raw_model_box=list(map(int,box)),
                       aperture_source='actual FlashHead lips, cavity and tongue',tooth_pixels_constrained=True)
         return result,record

@@ -111,7 +111,7 @@ class BodyBank:
             raise AdmissionError('NO_ACCEPTED_CONTINUOUS_BODY_LOOP')
         if safe and not speaking and now-self.last_drink>=120:
             chains=[chain for chain in self.registry.get('drink_chains',[]) if chain['mode']==self.mode and chain.get('runtime_enabled')]
-            if chains and (self.request_drink or self.random.random()<.22):
+            if chains and self.request_drink:
                 self.request_drink=False
                 chain=self.random.choice(chains)
                 if any(x not in self.rows for x in chain['clips']):raise AdmissionError('INCOMPLETE_DRINK_CHAIN')

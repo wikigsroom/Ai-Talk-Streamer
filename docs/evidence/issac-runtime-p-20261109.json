@@ -1,0 +1,197 @@
+{
+  "candidate_id": "issac-cea06e4241a5-0a735c82",
+  "passed": false,
+  "source_changed_during_tests": false,
+  "phase": {
+    "candidate_id": "issac-cea06e4241a5-0a735c82",
+    "source_commit": "cea06e4241a5fc6f53f735be1b255df998cabc35",
+    "source_files_verified": 2274,
+    "production_accepted": false,
+    "public_broadcast_allowed": false,
+    "phase": "acceptance_closed",
+    "defects": [
+      {
+        "path": "state/issac-acceptance/runtime-p-not-qualified.json",
+        "sha256": "213023decca9bb200cc98a4bf9516d85a44a4e13b017ebcb4703db516cbfdd3a",
+        "failed_checks": []
+      }
+    ],
+    "recorded_failures": 1,
+    "complete_acceptance_requires_all_18_verified_gates": true,
+    "next_action": "whole_correction_round_then_freeze",
+    "source_changes_permitted_only_in_new_development_round": true,
+    "closed_unix": 1794195722.556185
+  },
+  "five_prechecks_passed": true,
+  "three_actual_mouth_diagnostics": {
+    "complete": true,
+    "records": [
+      {
+        "mode": "M03",
+        "folder": "state/issac-acceptance/mouth/M03-09bc21e67ee14134a0aee44cfe77c5f8",
+        "archive_sha256": "cd286d0efde2a9754d457f6d03524382fc64ce5b7f023101d7b2b3f858fdec26",
+        "frames": 1125,
+        "actual_elapsed_seconds": 45.04700000002049,
+        "fps": 24.97391613202851,
+        "p99_ms": 55.8597999624908,
+        "max_interval_ms": 106.035599950701,
+        "quality_accepted": false
+      },
+      {
+        "mode": "M01",
+        "folder": "state/issac-acceptance/mouth/M01-547343ca9bff4103aea660c994cbfeb7",
+        "archive_sha256": "ec1975bbb7376edc4f01434a6e86505512524db1f842bab2b12b78b5387c0c28",
+        "frames": 1126,
+        "actual_elapsed_seconds": 45.01600000006147,
+        "fps": 25.013328594243436,
+        "p99_ms": 54.08080015331507,
+        "max_interval_ms": 112.14979994110763,
+        "quality_accepted": false
+      },
+      {
+        "mode": "M02",
+        "folder": "state/issac-acceptance/mouth/M02-5a6f9e09c0b7489396c077d1883f6d6c",
+        "archive_sha256": "f4b4ac6e4b6111b82b1d6aed6e10482946a66fccf7734a0a26cf78327e18052a",
+        "frames": 1125,
+        "actual_elapsed_seconds": 45.0,
+        "fps": 25.0,
+        "p99_ms": 55.099899880588055,
+        "max_interval_ms": 70.32960001379251,
+        "quality_accepted": false
+      }
+    ],
+    "quality_accepted": false,
+    "returned_mode": "M03"
+  },
+  "visual_defect": {
+    "mode": "M03",
+    "frame": 318,
+    "extra_upper_tooth_observed": true,
+    "quality_accepted": false
+  },
+  "core_events": [
+    {
+      "actor_id": "naimei",
+      "at": 1794195060868,
+      "automatic": false,
+      "kind": "core_control",
+      "revision": 1
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794195061800,
+      "automatic": true,
+      "kind": "core_control",
+      "revision": 2
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794195063562,
+      "automatic": false,
+      "kind": "core_control",
+      "revision": 3
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794195086283,
+      "automatic": true,
+      "kind": "core_control",
+      "revision": 4
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794195087824,
+      "context_id": "2894306d118088e8f07f",
+      "decision_id": "4e3286c040c04111a73970cb07f7b5a8",
+      "kind": "core_turn_started",
+      "remaining_ms": 19551,
+      "session_id": "naimei-game-4e3286c040c04111a73970cb07f7b5a8-0"
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794195090842,
+      "code": "FRESH_CORE_DECISION_REQUIRED",
+      "decision_id": "4e3286c040c04111a73970cb07f7b5a8",
+      "kind": "core_decision_superseded",
+      "replacement_decision_id": null,
+      "session_id": "naimei-game-4e3286c040c04111a73970cb07f7b5a8-0"
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794195090866,
+      "decision_id": "4e3286c040c04111a73970cb07f7b5a8",
+      "elapsed_ms": 3042,
+      "kind": "core_turn_cancelled",
+      "reason": "FRESH_CORE_DECISION_REQUIRED",
+      "session_id": "naimei-game-4e3286c040c04111a73970cb07f7b5a8-0"
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794195391720,
+      "automatic": false,
+      "kind": "core_control",
+      "revision": 5
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794195561870,
+      "automatic": true,
+      "kind": "core_control",
+      "revision": 6
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794195577206,
+      "automatic": false,
+      "kind": "core_control",
+      "revision": 7
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794195577207,
+      "code": "MODEL_TIMEOUT",
+      "kind": "core_failure_disarmed",
+      "turn_kind": "fact"
+    },
+    {
+      "actor_id": "naimei",
+      "at": 1794195577832,
+      "automatic": false,
+      "kind": "core_control",
+      "revision": 8
+    }
+  ],
+  "protected_options": [
+    {
+      "file": "C:\\Users\\wuxie\\Documents\\My Games\\Binding of Isaac Repentance\\options.ini",
+      "lines": [
+        "PauseOnFocusLost=1"
+      ]
+    }
+  ],
+  "protected_after_close": {
+    "protected_unchanged": true,
+    "baseline_id": "76a3a8d2337a4dd8a97877870036b57e",
+    "allowed_slot": 3,
+    "baseline_files": 2,
+    "runtime_window_position_changes": [
+      {
+        "root": 1,
+        "relative": "options.ini",
+        "permitted_option_names": [
+          "WindowPosX",
+          "WindowPosY"
+        ],
+        "baseline_sha256": "ad6e5fced2e623d34601036fb5d5b36b09fbd4aa77e3d25e3c645c58761f2c43",
+        "observed_sha256": "bec7be78154f2cd370aae2f8af79da7ed1669e5e5e68bb8dad483e935d83cd45"
+      }
+    ]
+  },
+  "game_closed_normally": true,
+  "official_closed_normally": true,
+  "full_run_incomplete": true,
+  "recording_created": false,
+  "final_delivery_created": false,
+  "private_audio_included": false,
+  "whole_closure_receipt_sha256": "8caea2be87e0e67a661320d9f3d099ddd548eae01eae348191e33b2ad982044d"
+}

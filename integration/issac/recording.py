@@ -14,6 +14,7 @@ from .common import AdmissionError,FileLease,digest,file_hash,inside,read_json,w
 from .delivery import recording_gate,recording_seconds
 from .livehime import Livehime
 from .materials import ffmpeg
+from .record_focus import record_controls
 
 
 def probe(root,path):
@@ -53,7 +54,9 @@ async def record(root):
     lease=FileLease(inside(root,'state/issac-stream/official-recording.lock')).acquire()
     runner=None;task=None;started=False;observations=[];error=None;raw=None;report=None
     try:
-        start_receipt=client.ui('record-start');started=True;start=time.monotonic();unix=time.time()
+        with record_controls(client):
+            start_receipt=client.ui('record-start');started=True;start=time.monotonic();unix=time.time()
+            screenshot=client.screenshot('recording_started')
         write_json(output/'start.json',{'owner':owner,'ui':start_receipt,'candidate':candidate,'started_unix':unix})
         deadline=start+30
         while time.monotonic()<deadline:
@@ -66,7 +69,6 @@ async def record(root):
         if raw is None:raise AdmissionError('NO_NEW_OFFICIAL_RECORDING_IN_CONFIGURED_ISSAC_RAW_DIRECTORY')
         writer=official_writers(client,raw)
         if not writer:raise AdmissionError('GENUINE_OFFICIAL_RECORDING_WRITER_NOT_OBSERVED')
-        screenshot=client.screenshot('recording_started')
         runner=Runner(root);task=asyncio.create_task(runner.cohost(seconds));previous=raw.stat().st_size
         for tick in range(seconds//5+3):
             await asyncio.to_thread(client.owner);size=raw.stat().st_size
@@ -86,7 +88,8 @@ async def record(root):
     finally:
         if started:
             try:
-                stop_receipt=client.ui('record-stop');stop_screen=client.screenshot('recording_stopped')
+                with record_controls(client):
+                    stop_receipt=client.ui('record-stop');stop_screen=client.screenshot('recording_stopped')
                 write_json(output/'stop.json',{'ui':stop_receipt,'screen':stop_screen,'stopped_unix':time.time()})
             except Exception:error=error or 'OFFICIAL_RECORD_STOP_NOT_CONFIRMED'
         if runner:runner.close()

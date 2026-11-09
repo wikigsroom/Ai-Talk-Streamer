@@ -333,7 +333,8 @@ class IsaacStudio(NaimeiStudio):
                                   body=self.published_body,mouth=self.sample_mouth,prepared_frames=self.prepared.qsize())
 
     def render_frame(self,source,speaking,reserved):
-        body=self.body.next(speaking=speaking,safe=not reserved and self.game_state.get('freshness')=='fresh' and self.game_state.get('paused') is True)
+        body=self.body.next(speaking=speaking,safe=not reserved and self.auto_drink is not None
+                            and self.game_state.get('freshness')=='fresh' and self.game_state.get('paused') is True)
         original=self.jpeg(body);oral=None
         if speaking:
             face=cv2.imdecode(np.frombuffer(source.jpeg,np.uint8),cv2.IMREAD_COLOR)

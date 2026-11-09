@@ -1,0 +1,21 @@
+{
+  "schema_version":1,
+  "round":"CHANNEL-RESTORATION-300-Q",
+  "branch":"issac",
+  "phase":"whole_correction_round_source_complete_pending_acceptance",
+  "candidate_frozen":false,
+  "application_tests_started":false,
+  "manual_whole_round_source_review_complete":true,
+  "tests_run_during_development":false,
+  "previous_candidate":"issac-cea06e4241a5-0a735c82",
+  "previous_phase_closed":true,
+  "items":[
+    {"id":"CRQ01","status":"code_complete_pending_acceptance","code":"Use one original validated FlashHead aperture throughout tooth cleaning and projection; remove original tooth pixels through the feathered edge before inserting exactly two frozen identity textures. Preserve actual cavity, lips and tongue.","source_files":["integration/issac/mouth.py","tests/test_issac_mouth_constraint.py"]},
+    {"id":"CRQ02","status":"code_complete_pending_acceptance","code":"Recheck pending normal pause under the same control lock so an old waiting watchdog request cannot undo an explicit guarded resume.","source_files":["integration/issac/strategy_host.py","integration/issac/tests/test_pending_pause_race.py"]},
+    {"id":"CRQ03","status":"code_complete_pending_acceptance","code":"Drink only through the verified bounded natural-action pause owner; an operator pause or fault does not independently trigger random drinking.","source_files":["integration/issac/studio.py","integration/issac/body.py"]},
+    {"id":"CRQ04","status":"code_complete_pending_acceptance","code":"Official local record UI operates in a bounded owned foreground context and restores the proven current game foreground, preserving the protected PauseOnFocusLost=1 bytes and never resuming a normal pause.","source_files":["integration/issac/record_focus.py","integration/issac/recording.py","integration/issac/tests/test_record_focus.py"]},
+    {"id":"CRQ05","status":"code_complete_pending_acceptance","code":"Retain actual closed P failure evidence, original brain, NCM01, 512/25 FlashHead, all source/save/privacy rules, formal long-load sessions and every release gate. Freeze the complete round before unified validation.","source_files":["docs/evidence/issac-runtime-p-20261109.json","docs/issac/节目启动修正20261109.md"]}
+  ],
+  "public_broadcast_authorized":false,
+  "runtime_acceptance_claimed":false
+}

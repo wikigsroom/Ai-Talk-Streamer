@@ -283,9 +283,13 @@ class StrategyHost:
             if self.pause_pending and not self.armed:
                 try:
                     with self.action_lock:
-                        receipt=self.native.pause()
-                        self.pause_pending=False
-                        self.audit.append('pending_normal_pause_confirmed',receipt=receipt)
+                        # A guarded explicit resume may have acquired this lock
+                        # first and withdrawn the pending request. Recheck here
+                        # so an old waiter cannot pause the newly resumed run.
+                        if self.pause_pending and not self.armed:
+                            receipt=self.native.pause()
+                            self.pause_pending=False
+                            self.audit.append('pending_normal_pause_confirmed',receipt=receipt)
                 except Exception:self.last_fault='NORMAL_PAUSE_ACK_PENDING'
             if self.armed and time.monotonic()-self.last_core_check>=1:
                 self.last_core_check=time.monotonic()
