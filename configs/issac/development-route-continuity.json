@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV02",
+  "round": "NAV03",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -21,12 +21,29 @@
     {
       "id": "NAV01-NAIMEI-CONTEXT",
       "status": "code_complete_pending_acceptance",
-      "source_files": ["backend/dsh-bridge/isaac-core.mjs", "configs/issac/core-persona-gameplay.md"]
+      "source_files": [
+        "backend/dsh-bridge/isaac-core.mjs",
+        "configs/issac/core-persona-gameplay.md"
+      ]
     },
     {
       "id": "NAV01-DELIVERY",
       "status": "code_complete_pending_acceptance",
-      "source_files": ["docs/issac/跨房间路线连续性修复20261110.md", "configs/issac/development-route-continuity.json"]
+      "source_files": [
+        "docs/issac/跨房间路线连续性修复20261110.md",
+        "configs/issac/development-route-continuity.json"
+      ]
+    },
+    {
+      "id": "NAV03-ENGINE-TRANSITION",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/isaac-agent/src/isaac_jev/strategy.py",
+        "integration/isaac-agent/mods/IsaacJev/strategy_control.lua",
+        "integration/isaac-agent/tests/test_strategy_contract.py",
+        "integration/isaac-agent/tests/test_strategy_native.py",
+        "integration/issac/strategy_host.py"
+      ]
     }
   ],
   "source_review": [
@@ -36,13 +53,18 @@
     "shared fallback checks current door geometry, lock, type, budget and reachability",
     "refusal/failure objectives removed from distant room attractions; relevant new conditions reopen DSH offers only",
     "goal continuity is bounded by actual progress and edge count; ordinary pauses and repeated goals do not clear memory",
-    "original DSH model/channel, voice/mouth/GPU/official-capture/save constraints retained; protected user CSV excluded"
+    "original DSH model/channel, voice/mouth/GPU/official-capture/save constraints retained; protected user CSV excluded",
+    "observed engine loading grace is capped at ten seconds, never makes stale state fresh, never grants input or suppresses explicit pause",
+    "native 500ms fresh-observation handoff is one-shot per identity/unhold and does not renew any input lease or clear normal pause latch"
   ],
-  "prior_candidate": "issac-b00056a2151a-22d585d0",
+  "prior_candidate": "issac-64e8f6d1e657-95e7d0c3",
   "closed_test_round": {
-    "candidate_id": "issac-403aefe7dde5-afad77be",
-    "deployed": false,
-    "defects": ["constraint audit kind collision", "paused route goal required execution suspension"],
+    "candidate_id": "issac-64e8f6d1e657-95e7d0c3",
+    "deployed": true,
+    "defects": [
+      "normal engine loading callback gap was treated as ordinary disconnected gameplay"
+    ],
+    "failed_capture_stopped": true,
     "complete_correction_reviewed": true
   }
 }

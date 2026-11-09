@@ -22,3 +22,9 @@ Door alternatives use walkable `door_path_distance`, including wall-cell doors.
 Validation includes the complete existing suite plus `test_route_memory.py`.
 Synthetic scenarios are regression evidence, not actual game progress. No new
 model or dependency download is required. CPU-only operation remains supported.
+
+### Native engine loading boundary
+
+An actual native IsPaused or ControlsEnabled=false observation permits a bounded ten-second wait for loading, excluding ordinary pause acknowledgements, death and manual takeover. Heartbeats cannot roll that deadline forward. State remains stale after 1.5 seconds; expired input/target authorization and stale speech are never valid. Hosts should only postpone their disconnected-gameplay pause while StrategyService.native_engine_hold_grace() is true, rechecking under their control lock.
+
+The native input guard sends a fresh observation after a room identity change or engine input-unhold and waits up to 500ms for its response before declaring a five-second combat lease lost. It does not renew leaseUntil, release pauseHold, use items or change any game/save data. A real disconnection or loading over the budget still stops normally.

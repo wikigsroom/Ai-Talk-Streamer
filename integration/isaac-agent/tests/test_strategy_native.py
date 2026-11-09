@@ -101,6 +101,36 @@ class NativeStrategyTests(unittest.TestCase):
         self.assertEqual(self.control.pauseAck.id,'during-intro')
         self.assertTrue(self.control.pauseAck.ordinary_pause_input_issued)
 
+    def test_loading_end_only_grants_a_fresh_observation_handoff_not_an_input_lease(self):
+        self.accept();self.control.render(self.control)
+        lease=self.control.leaseUntil
+        self.lua.globals().paused=True;self.lua.globals().now=2000;self.control.render(self.control)
+        self.lua.globals().now=9000;self.control.render(self.control)
+        self.assertIsNone(self.control.pauseRequest)
+        self.lua.globals().paused=False
+        self.assertTrue(self.control.render(self.control))
+        self.assertEqual(self.control.leaseUntil,lease)
+        self.assertFalse(self.filter()[1])
+        self.lua.globals().now=9400;self.control.render(self.control);self.assertIsNone(self.control.pauseRequest)
+        self.lua.globals().now=9501;self.control.render(self.control)
+        self.assertEqual(self.control.pauseRequest.id,'controller-lease-expired')
+
+    def test_new_room_handoff_is_not_renewed_by_repeated_renders(self):
+        self.accept();self.control.render(self.control)
+        self.lua.execute('game.GetLevel=function() return {GetStage=function() return 2 end,GetStageType=function() return 0 end,GetCurrentRoomIndex=function() return 84 end} end')
+        self.lua.globals().now=9000;self.control.render(self.control);self.assertIsNone(self.control.pauseRequest)
+        self.lua.globals().now=9400;self.control.render(self.control)
+        self.assertEqual(self.control.observationHandoffUntil,9500)
+        self.lua.globals().now=9501;self.control.render(self.control)
+        self.assertEqual(self.control.pauseRequest.id,'controller-lease-expired')
+
+    def test_disabled_engine_controls_send_heartbeat_without_renewing_expired_items(self):
+        self.accept();lease=self.control.leaseUntil
+        self.lua.execute('Isaac.GetPlayer=function() return {ControlsEnabled=false} end')
+        self.lua.globals().now=9000;self.assertTrue(self.control.render(self.control))
+        self.assertIsNone(self.control.pauseRequest);self.assertEqual(self.control.leaseUntil,lease)
+        self.assertFalse(self.filter()[1])
+
     def test_a_transient_pause_end_retries_without_a_stale_input_or_auto_resume(self):
         self.control.requestPause(self.control,'first')
         self.assertTrue(self.control.pauseInput(self.control,1,18))

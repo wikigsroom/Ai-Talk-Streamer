@@ -205,6 +205,7 @@ class StrategyHost:
                 'strategy':self.service.status(),'native_attached':self.native.session is not None,
                 'control_revision':self.control_revision,
                 'pause_confirmation_pending':self.pause_pending,
+                'native_engine_hold_grace':self.service.native_engine_hold_grace(),
                 'game_audio':self.audio.status(),
                 'packet_processing':getattr(self.runtime.controller,'packet_status',lambda:None)(),
                 'last_fault':self.last_fault,'only_ordinary_inputs':True,'save_slot':3}
@@ -331,11 +332,13 @@ class StrategyHost:
             if self.armed and not self.runtime.controller.autopilot_enabled:
                 try:self.control({'enabled':False,'live':False})
                 except Exception:self.last_fault='TERMINAL_PAUSE_ACK_PENDING'
-            if self.armed and not self.service.fresh():
+            if (self.armed and not self.service.fresh()
+                    and not self.service.native_engine_hold_grace()):
                 with self.action_lock:
                     # The packet or an explicit control may complete while
                     # this waiter is acquiring the control lock.
-                    if not self.armed or self.service.fresh():continue
+                    if (not self.armed or self.service.fresh()
+                            or self.service.native_engine_hold_grace()):continue
                     packet=getattr(self.runtime.controller,'packet_status',lambda:None)()
                     self.last_fault='GAME_BRIDGE_STALE'
                     self.runtime.controller.set_autopilot(False)

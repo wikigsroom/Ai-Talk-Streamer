@@ -50,6 +50,36 @@ class StrategyContractTests(unittest.TestCase):
         self.assertEqual(self.service.query('health')['data']['red_hearts'],8)
         self.now+=2;self.assertFalse(self.service.query()['connected'])
 
+    def test_loading_wait_does_not_make_stale_state_or_authorization_fresh(self):
+        raw=scenario('pickup');raw['strategy']['paused']=True;self.update(raw)
+        self.now+=6
+        self.assertTrue(self.service.native_engine_hold_grace())
+        self.assertFalse(self.service.query()['connected'])
+        response=self.service.decorate_response({'enabled':True},GameState.from_message(raw))
+        self.assertFalse(response['strategy']['owned'])
+        self.assertIsNone(response['strategy']['command'])
+        self.now+=4
+        self.assertFalse(self.service.native_engine_hold_grace())
+
+    def test_held_heartbeats_cannot_roll_the_loading_deadline_forward(self):
+        raw=scenario();raw['strategy']['paused']=True;self.update(raw)
+        self.now+=8;self.update(raw);self.assertTrue(self.service.native_engine_hold_grace())
+        self.now+=2;self.update(raw);self.assertFalse(self.service.native_engine_hold_grace())
+
+    def test_live_controls_explicit_pause_death_and_manual_override_have_no_loading_grace(self):
+        for changes in ({}, {'strategy':{'paused':True,'pause_ack':{'ordinary_pause_input_issued':True}}},
+                        {'strategy':{'paused':True,'manual_override':True}},
+                        {'strategy':{'paused':True},'player_dead':True}):
+            raw=scenario();raw.update(changes);self.update(raw);self.now+=2
+            self.assertFalse(self.service.native_engine_hold_grace(),changes)
+
+    def test_observed_disabled_controls_grace_clears_when_play_resumes_or_authority_is_withdrawn(self):
+        raw=scenario();raw['input_lease']={'controls_enabled':False};self.update(raw)
+        self.now+=6;self.assertTrue(self.service.native_engine_hold_grace())
+        self.service.configure(enabled=False);self.assertFalse(self.service.native_engine_hold_grace())
+        self.service.configure(enabled=True,live=True);raw['input_lease']['controls_enabled']=True;self.update(raw)
+        self.now+=2;self.assertFalse(self.service.native_engine_hold_grace())
+
     def test_waiting_for_agent_is_not_failed_pickup_movement(self):
         controller=Controller(log_dir=self.temp.name,autopilot_enabled=True)
         controller.strategy_service=self.service

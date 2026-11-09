@@ -103,6 +103,7 @@ class StrategyService:
         self.raw: dict = {}
         self.snapshot: dict = {}
         self.received = 0.0
+        self.engine_hold_since = None
         self.counter = 0
         self.events: deque = deque(maxlen=256)
         self.receipts: dict[str, dict] = {}
@@ -177,6 +178,18 @@ class StrategyService:
             self.raw = deepcopy(raw)
             self.received = self.clock()
             extra = self.raw.get('strategy') or {}
+            # Loading/extra animations can stop both simulation and Lua render
+            # callbacks. This is a bounded wait certificate, never fresh state
+            # or an extension of the 1.5 s native authorization lease.
+            ack = extra.get('pause_ack') or {}
+            engine_held = (extra.get('paused') is True or
+                           self.raw.get('input_lease', {}).get('controls_enabled') is False)
+            if (engine_held and not ack.get('ordinary_pause_input_issued')
+                    and not raw.get('player_dead') and not extra.get('manual_override')):
+                if self.engine_hold_since is None:
+                    self.engine_hold_since = self.received
+            else:
+                self.engine_hold_since = None
             for item in extra.get('catalog', []): self.catalog[item['id']] = item
             identity = self._identity(raw)
             if not previous or previous.get('identity') != identity:
@@ -291,6 +304,16 @@ class StrategyService:
 
     def fresh(self):
         return bool(self.snapshot) and self.clock() - self.received < 1.5
+
+    def native_engine_hold_grace(self):
+        """Wait at most ten seconds after an observed engine input hold.
+
+        Query freshness, stale speech cancellation and all input/target leases
+        remain unchanged. A missing packet in ordinary gameplay has no grace.
+        """
+        with self.lock:
+            return (self.enabled and self.live and self.engine_hold_since is not None
+                    and 0 <= self.clock() - self.engine_hold_since < 10)
 
     def query(self, topic='state'):
         with self.lock:

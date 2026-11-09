@@ -310,8 +310,20 @@ function M.new(game)
         -- combat owner its existing five-second disconnect window, including
         -- an occasional slow room-clear update, before requesting a pause.
         local now=Isaac.GetTime()
+        local paused,key=self.game:IsPaused(),self:key()
+        local controlsOk,controls=pcall(function() return Isaac.GetPlayer(0).ControlsEnabled end)
+        local engineHeld=paused or (controlsOk and controls==false)
+        -- A real engine pause/identity transition may finish after Lua callbacks
+        -- were suspended during loading. Give the first fresh observation/reply
+        -- half a second to arrive. Never renew leaseUntil or replay an old item
+        -- command, and never release an explicitly requested pause latch.
+        local handoffStarted=(self.renderKey and self.renderKey~=key) or (self.engineHeld==true and not engineHeld)
+        if handoffStarted then
+            self.observationHandoffUntil=now+500
+        end
+        self.renderKey,self.engineHeld=key,engineHeld
         if self.owned and not self.manualOverride and now>self.leaseUntil+3500
-            and not self.pauseHold then
+            and not engineHeld and now>(self.observationHandoffUntil or 0) and not self.pauseHold then
             self:requestPause('controller-lease-expired')
         end
         if self.pauseHold and not self.game:IsPaused() and not self.pauseRequest then
@@ -328,7 +340,9 @@ function M.new(game)
                 ordinary_pause_input_issued=true,input_issued_at=self.pauseRequest.input_issued_at}
             self.pauseRequest=nil
         end
-        if self.game:IsPaused() and Isaac.GetTime()-self.lastRenderAt>400 then self.lastRenderAt=Isaac.GetTime();return true end
+        if handoffStarted or ((engineHeld or now<=(self.observationHandoffUntil or 0)) and now-self.lastRenderAt>400) then
+            self.lastRenderAt=now;return true
+        end
         return false
     end
     return self
