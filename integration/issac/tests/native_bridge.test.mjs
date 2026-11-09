@@ -95,18 +95,20 @@ test('an old release timer cannot release a newer press of the same key',()=>{
   assert.equal(f.api.status().performance.keyboard_hooks,0);
 });
 
-test('Lua request waits for game render, discovers a late engine and restores its stack',async()=>{
+test('Lua request waits for the actual Lua return boundary, then restores the stack and detaches',async()=>{
   const f=fixture({engineReady:false});const result=f.api.evaluate('trusted source');
+  assert.equal(f.active('lua_pcallk'),1);
   assert.equal(f.calls.length,0);f.invoke('SwapBuffers');assert.equal(f.calls.length,0);
-  f.makeEngineReady();f.invoke('SwapBuffers');assert.equal(await result,'actual result');
+  f.invoke('lua_pcallk',[f.ptr(80)]);assert.equal(await result,'actual result');
   assert.equal(f.getTop(),4);assert.deepEqual(f.calls,['load','call','restore']);
+  assert.equal(f.active('lua_pcallk'),0);
 });
 
 test('expired or failed Lua requests cannot execute later or leak stack entries',async()=>{
   const f=fixture();const expired=f.api.evaluate('stale');const rejection=assert.rejects(expired,/expired/);
-  f.tick(3001);f.invoke('SwapBuffers');await rejection;assert.equal(f.calls.length,0);
+  f.tick(3001);await rejection;assert.equal(f.calls.length,0);assert.equal(f.active('lua_pcallk'),0);
   f.failLoad();const failed=f.api.evaluate('trusted');const failure=assert.rejects(failed,/load failed/);
-  f.invoke('SwapBuffers');await failure;assert.equal(f.getTop(),4);
+  f.invoke('lua_pcallk',[f.ptr(80)]);await failure;assert.equal(f.getTop(),4);assert.equal(f.active('lua_pcallk'),0);
 });
 
 test('render timing deduplicates API aliases and never captures pixels without a request',async()=>{
