@@ -222,6 +222,9 @@ class StrategyService:
                 'room': {'index': raw.get('room_index'), 'type': extra.get('room_type', raw.get('layout', {}).get('room_type')),
                          'clear': bool(raw.get('room_clear')), 'dead': bool(raw.get('player_dead')),
                          'paused': bool(extra.get('paused')), 'pause_ack': extra.get('pause_ack'),
+                         'exit': {'known': 'boss_exit_available' in raw,
+                                  'available': bool(raw.get('boss_exit_available')),
+                                  'grid_index': raw.get('boss_exit_grid_index', -1)},
                          'sacrifice': deepcopy(extra.get('sacrifice', {'count': None, 'known': False})),
                          'dice': deepcopy(extra.get('dice')), 'terrain': deepcopy(raw.get('layout', {}).get('grid_events', []))},
                 'map': deepcopy(extra.get('map', [])),
@@ -235,7 +238,7 @@ class StrategyService:
             }
             self.snapshot['revision'] = digest({k: self.snapshot[k] for k in
                 ('identity', 'health', 'inventory_revision', 'actives', 'pockets', 'resources', 'doors', 'pickups')})
-            self.routes.observe(self.snapshot, self.raw)
+            self.routes.observe(self.snapshot, self.raw, state)
             self.snapshot['route_progress'] = self.routes.describe()
             changed = previous and previous.get('identity') != identity
             if changed:
@@ -249,10 +252,14 @@ class StrategyService:
                     door = offer.get('guard', {}).get('door')
                     same_floor = all(origin.get(k) == identity.get(k) for k in ('stage', 'stage_type', 'dimension'))
                     expected_door = bool(door and same_floor and door.get('target_room_index') == identity.get('room'))
+                    expected_exit = bool((offer.get('action_id') or '').startswith('enter_boss_exit_')
+                        and command['before']['room'].get('exit', {}).get('available')
+                        and identity.get('stage') == origin.get('stage', -2) + 1
+                        and identity.get('dimension') == origin.get('dimension'))
                     pause = command.get('transition_pause')
                     within_pause_grace = not pause or self.clock() <= pause['deadline']
-                    if same_run and moved and within_pause_grace and (offer.get('effect') == 'teleport' or expected_door):
-                        self._finish('succeeded', 'native_room_transition_observed')
+                    if same_run and moved and within_pause_grace and (offer.get('effect') == 'teleport' or expected_door or expected_exit):
+                        self._finish('succeeded', 'native_floor_transition_observed' if expected_exit else 'native_room_transition_observed')
                     else:
                         self._finish('indeterminate', 'context_changed_without_expected_effect')
                 self._cancel('context_changed')

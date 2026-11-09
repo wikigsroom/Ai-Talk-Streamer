@@ -19,6 +19,20 @@ to two traversals without progress; an exhausted graph safely holds rather than
 oscillating. Shared-corridor backtracking after a new branch remains possible.
 Door alternatives use walkable `door_path_distance`, including wall-cell doors.
 
+Route endpoints also use the real execution `door_is_usable` policy and current
+resources. A closed `super_secret` entrance or unsupported challenge gate cannot
+be advertised through a free corridor. Every door, including a special door
+without route metadata, obeys the same no-progress edge limit. An unavailable
+goal is explicitly removed before a fresh choice rather than kept as stale intent.
+
+Observed boss trapdoors remain productive destinations after clearing the room.
+Returning there is labelled `observed_floor_exit`; an old persisted boss record
+without exit observations allows one `survey_cleared_boss_exit` visit, without
+claiming a trapdoor exists. An observed missing exit is not reoffered as a goal.
+Actual floor-exit offers remain ordinary bounded DSH choices. A next-stage receipt
+requires the same run, an issued observed exit and the next native stage, not an
+arbitrary room change. No pickup, paid step or old authorization is inherited.
+
 Validation includes the complete existing suite plus `test_route_memory.py`.
 Synthetic scenarios are regression evidence, not actual game progress. No new
 model or dependency download is required. CPU-only operation remains supported.

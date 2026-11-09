@@ -9,6 +9,8 @@ from copy import deepcopy
 import hashlib
 import json
 from pathlib import Path
+from .models import Door
+from .navigation import door_is_usable
 
 
 def signature(value):
@@ -31,6 +33,7 @@ class RouteMemory:
         except (OSError, ValueError, TypeError, AttributeError):
             pass
         self.snapshot = {}
+        self.navigation_state = None
 
     @staticmethod
     def empty():
@@ -49,13 +52,14 @@ class RouteMemory:
     def edge_key(source, target):
         return f'{source}>{target}'
 
-    def observe(self, snapshot, raw):
+    def observe(self, snapshot, raw, state=None):
         identity = snapshot['identity']
         floor = {k: identity.get(k) for k in self.FLOOR_FIELDS}
         if self.data['floor'] != floor:
             self.data = self.empty()
             self.data['floor'] = floor
         self.snapshot = snapshot
+        self.navigation_state = state
         room = identity.get('room')
         if not isinstance(room, int) or room < 0:
             return
@@ -78,7 +82,10 @@ class RouteMemory:
                               'hazards': sorted((h.get('id'), h.get('kind'), h.get('grid_index'))
                                                 for h in raw.get('hazards', [])),
                               'doors': doors})
+        exit_known = 'boss_exit_available' in raw
+        exit_available = exit_known and bool(raw['boss_exit_available'])
         content = signature({'geometry': geometry, 'clear': snapshot['room']['clear'],
+                             'exit_available': exit_available,
                              'pickups': sorted(self.pickup_key(p) for p in snapshot['pickups'])})
         resources = snapshot['resources']
         previous_resources = data['last_resources'] or resources
@@ -92,6 +99,7 @@ class RouteMemory:
             data['edges'] = {}
         data['rooms'][str(room)] = {'index': room, 'type': snapshot['room']['type'],
                                     'clear': snapshot['room']['clear'], 'doors': doors,
+                                    'exit_known': exit_known, 'exit_available': exit_available,
                                     'geometry': geometry, 'content': content,
                                     'objectives': old_room.get('objectives', []) if old_room else []}
         last = data['last_room']
@@ -220,7 +228,14 @@ class RouteMemory:
                 if locked and s['resources']['keys'] <= 0:
                     continue
                 kind = d.get('target_room_type')
-                if kind in {'curse', 'sacrifice', 'devil', 'angel', 'secret', 'supersecret'}:
+                if kind in {'curse', 'sacrifice', 'devil', 'angel', 'challenge'}:
+                    continue
+                # Stored remote edges use the same admission policy as actual
+                # movement, with current resources. A closed hidden entrance
+                # is not a free frontier, including the canonical super_secret.
+                if kind in {'secret', 'super_secret', 'supersecret'} and d.get('door_open') is not True:
+                    continue
+                if self.navigation_state is not None and not door_is_usable(Door.from_value(d), self.navigation_state):
                     continue
                 destination = data['rooms'].get(str(target))
                 unseen = target not in data['native_visited']
@@ -231,10 +246,17 @@ class RouteMemory:
                     label = 'survey_previously_visited_room'
                 elif kind == 'boss' and not destination.get('clear'):
                     label = 'observed_uncleared_boss'
+                elif destination.get('exit_available'):
+                    label = 'observed_floor_exit'
+                elif kind == 'boss' and destination.get('clear') and not destination.get('exit_known'):
+                    # Old persisted observations did not store trapdoors. One
+                    # survey may discover the exit, without asserting it exists.
+                    label = 'survey_cleared_boss_exit'
                 elif destination.get('objectives'):
                     label = 'observed_optional_target'
                 if label:
-                    rank = (0 if kind == 'treasure' and unseen else 1 if kind == 'boss' else
+                    rank = (0 if label == 'observed_floor_exit' else
+                            0 if kind == 'treasure' and unseen else 1 if kind == 'boss' else
                             2 if unseen and kind == 'default' else 3 if unseen else
                             4 if label == 'observed_optional_target' else 5)
                     found.append({'room': target, 'kind': label, 'room_type': kind,
@@ -256,12 +278,18 @@ class RouteMemory:
         # explicit refusals therefore cannot lure the actor back to a room.
         objectives = [self.key(o) for o in filtered if not o.get('guard', {}).get('door')
                       and o['op'] not in {'wait', 'use_active', 'use_pocket'}
-                      and o.get('effect') != 'room_change']
+                      and (o.get('effect') != 'room_change'
+                           or (o.get('action_id') or '').startswith('enter_boss_exit_'))]
         room = self.data['rooms'].get(str(s['identity']['room']))
         if room is not None and room['objectives'] != objectives:
             room['objectives'] = objectives
             self.save()
         routes = self.routes()
+        goal = self.data['goal']
+        if goal and not any(r['room'] == goal['room'] for r in routes):
+            self.emit('route_goal_unavailable', goal=deepcopy(goal), reason='no_current_admissible_path')
+            self.data['goal'] = None
+            self.save()
         result = []
         seen = set()
         for o in filtered:
@@ -272,6 +300,10 @@ class RouteMemory:
             d = o.get('guard', {}).get('door')
             if not d:
                 result.append(o)
+                continue
+            # Special/paid offers previously bypassed the check when there was
+            # no route annotation. Every actual door obeys the same edge cap.
+            if not self.edge_allowed(s['identity']['room'], d):
                 continue
             candidates = [r for r in routes if r['first_slot'] == d.get('slot')]
             # Special resource/health offers retain existing explicit guards;

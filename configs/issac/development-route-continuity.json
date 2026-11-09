@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "NAV09",
+  "round": "NAV10",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -95,6 +95,17 @@
       "source_files": [
         "integration/issac/tests/test_round3.py"
       ]
+    },
+    {
+      "id": "NAV10-EXECUTABLE-FRONTIER-AND-FLOOR-EXIT",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/isaac-agent/src/isaac_jev/route_memory.py",
+        "integration/isaac-agent/src/isaac_jev/strategy.py",
+        "integration/isaac-agent/tests/test_route_memory.py",
+        "integration/isaac-agent/docs/ROUTE_CONTINUITY.md",
+        "configs/issac/core-persona-gameplay.md"
+      ]
     }
   ],
   "source_review": [
@@ -115,17 +126,24 @@
     "core catch retains finite original diagnostic even for setup-before-try and post-return dispose errors; dispose cleanup always removes active handle; raw errors and permissions unchanged",
     "valid wait/active choices have no movement action ID; explicit null preserves strict history and audit JSON without fabricating an action; fact state reads and pre-reservation failures also use null optional identity fields",
     "native OBSERVE uses current room descriptor SafeGridIndex for nonnegative room indices, matching controller state; negative special rooms stay negative; no state/authorization/write changes; actual Lua regression checks alias 110 to 97 and strict drink receipt",
-    "old ordinary-room fixture now supplies the real current-room descriptor API; original hp/frame/stage/room/seed assertions retained; no production change after NAV08"
+    "old ordinary-room fixture now supplies the real current-room descriptor API; original hp/frame/stage/room/seed assertions retained; no production change after NAV08",
+    "route endpoints use the same current-resource execution admission; closed super_secret and unsupported challenge targets cannot lure corridors",
+    "special unannotated door offers obey the same edge cap; no guard or resource authorization relaxed",
+    "cleared observed boss exits remain goals; legacy observations permit a single clearly labelled survey, never invent an exit",
+    "issued observed next-floor command succeeds only on same-run next native stage within existing transition guard; unrelated room changes remain indeterminate",
+    "unavailable route intent is removed before fresh DSH selection; persisted refusals and edges not erased by selecting another goal"
   ],
-  "prior_candidate": "issac-42aa8856af50-09df151c",
+  "prior_candidate": "issac-8e9c71b7fa70-da85a8ff",
   "closed_test_round": {
-    "candidate_id": "issac-42aa8856af50-09df151c",
+    "candidate_id": "issac-8e9c71b7fa70-da85a8ff",
     "deployed": true,
     "defects": [
-      "existing test_observation_preserves_real_living_run_numbers fake level lacks real GetCurrentRoomDesc API; production source not changed in this round"
+      "closed super_secret endpoint and unsupported challenge gate advertised through ordinary corridors",
+      "cleared boss exit omitted from return goals",
+      "special door without annotated route bypasses no-progress edge cap"
     ],
     "failed_capture_stopped": true,
     "complete_correction_reviewed": true,
-    "current_round_scope": "complete old Lua API fixture; keep numerical assertion and all production guards unchanged"
+    "current_round_scope": "shared execution door admission, observed boss exit return and guarded next-stage receipt, every-door cycle limit, invalidate unavailable intent"
   }
 }
