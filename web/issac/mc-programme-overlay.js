@@ -10,8 +10,8 @@
    this.resumeKey='mc-programme-overlay-v1:'+location.pathname;this.lastSave=-Infinity;this.resumeRead=false;
    this.stage=node('div','mc-stage');this.stage.style.width=layout.canvas.width+'px';this.stage.style.height=layout.canvas.height+'px';this.stage.style.setProperty('--mc-row-height',layout.chat.row_height_px+'px');this.stage.style.setProperty('--mc-transition',layout.chat.transition_ms+'ms');this.stage.dataset.scene='play';host.append(this.stage);
    const region=(name,cls='mc-'+name)=>{const el=node('div','mc-region '+cls);el.dataset.region=name;this.stage.append(el);if(layout.regions[name])place(el,layout.regions[name]);return el};
-   this.header=region('header');this.brand=node('div','mc-brand');this.brandTitle=node('strong','');this.virtual=node('span','','虚拟主播');this.brand.append(this.brandTitle,this.virtual);this.topic=node('div','mc-topic');this.header.append(this.brand,this.topic);
-   this.chat=region('chat');this.fly=region('danmaku','mc-fly');this.gift=region('gift');this.caption=region('caption');this.avatar=region('avatar');this.status=region('status');this.statusText=node('span','','人物准备中');this.status.append(this.statusText);
+   this.header=region('header');this.brand=node('div','mc-brand');this.brandTitle=node('strong','');this.brand.append(this.brandTitle);this.topic=node('div','mc-topic');this.header.append(this.brand,this.topic);
+   this.chat=region('chat');this.fly=region('danmaku','mc-fly');this.gift=region('gift');this.caption=region('caption');this.avatar=region('avatar');this.status=region('status');this.statusText=node('span','','奶妹');this.status.append(this.statusText);
    this.message=e=>this.accept(e.detail);this.changed=()=>this.sync();this.speech=e=>{this.speechState=e.detail;this.renderCaption()};this.onMedia=e=>this.setMedia(e.detail);this.reset=()=>{this.speechState=null;this.renderCaption();this.avatar.dataset.stale='true'};this.visibility=()=>this.tick();
    room.addEventListener('message',this.message);room.addEventListener('change',this.changed);window.addEventListener('room-speech',this.speech);window.addEventListener('avatar-media-init',this.onMedia);window.addEventListener('avatar-media-reset',this.reset);document.addEventListener('visibilitychange',this.visibility);
    this.unbindSide=McChatPosition.bind(room,this.stage,layout);this.resize=new ResizeObserver(()=>this.fit());this.resize.observe(host);this.timer=setInterval(()=>this.tick(),100);this.fit();this.sync();
@@ -88,7 +88,7 @@
    const o=state.settings.overlay,identity=state.settings.identity,mode=o.danmaku?'fly':'feed';
    this.reconcileSnapshot();this.switchMode(mode);
    this.stage.dataset.scene=o.mc_scene||'play';this.stage.dataset.commentMode=mode;
-   this.brandTitle.textContent=truncate(this.layout.brand_title??identity.title,16);this.virtual.hidden=!identity.show_virtual_label;this.brand.hidden=!o.brand;const scene={interact:'和大家聊聊',break:'休息片刻',recover:'稍候继续'}[o.mc_scene];this.topic.textContent=truncate(scene?scene+' · '+identity.topic:identity.topic,20);this.topic.hidden=!o.brand||!identity.topic;
+   this.brandTitle.textContent=truncate(this.layout.brand_title??identity.title,16);this.brand.hidden=!o.brand;const scene={interact:'和大家聊聊',break:'休息片刻',recover:'稍候继续'}[o.mc_scene];this.topic.textContent=truncate(scene?scene+' · '+identity.topic:identity.topic,20);this.topic.hidden=!o.brand||!identity.topic;
    this.chat.hidden=!o.chat||mode!=='feed';this.fly.hidden=!o.chat||mode!=='fly';this.header.hidden=!o.embedded;
    this.variant=o.mc_avatar_variant||'circle';const v=this.layout.avatar_variants[this.variant];place(this.avatar,v.region);place(this.status,v.status_region);this.avatar.dataset.variant=this.variant;this.crop();
    this.tick();this.renderCaption();

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "round": "page-labels-and-systematic-stutter-diagnosis-20261109-r7",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "items": [
+    {
+      "id": "PL01",
+      "status": "code_complete_pending_acceptance",
+      "code": "Remove the virtual-host subtitle from the Isaac programme and keep its avatar nameplate exactly Naimei across every runtime state; retain actual health and control state independently.",
+      "source_files": [
+        "web/issac/mc-programme-overlay.js",
+        "web/issac/mc-programme.js",
+        "docs/issac/节目角标调整20261109.md",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "PL02",
+      "status": "code_complete_pending_acceptance",
+      "code": "Document the measured native game-thread hotspot, separate actual safety pauses and strategy waits from missing rendered motion, and preserve the unresolved final-frame result without asserting a GPU-memory or browser-polling bottleneck.",
+      "source_files": ["docs/issac/系统性卡顿瓶颈复核20261109.md"]
+    }
+  ]
+}

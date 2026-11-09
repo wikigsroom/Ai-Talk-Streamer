@@ -36,7 +36,7 @@
   }catch{/* The native sound envelope expires when fresh official feedback stops. */}
   finally{mixBusy=false;if(mixAgain){mixAgain=false;requestMix()}}
  }
- function status(){if(!overlay)return;const healthy=game.connected&&game.state?.connected&&game.state.freshness==='fresh';const mode=game.state?.mode;overlay.setGameState(game.connected?game.state:null);overlay.setStatus(preview?'静音预览 · 虚拟主播':!transport?.running?'人物重新连接中':!transport?.dsh?.ready?'等待正式播放':!healthy?'游戏连接待恢复':mode==='AUTO'?'奶妹 · 自主游玩':mode==='MANUAL_COMMENTARY'?'奶妹 · 陪伴解说':'奶妹 · 已暂停',!preview&&!!transport?.dsh?.ready&&healthy)}
+ function status(){if(!overlay)return;const healthy=game.connected&&game.state?.connected&&game.state.freshness==='fresh';overlay.setGameState(game.connected?game.state:null);overlay.setStatus('奶妹',!preview&&!!transport?.dsh?.ready&&healthy)}
  function clearCandidate(){
   if(!candidateState&&!candidateFrame&&!candidateHud)return;
   candidateState=null;candidateFrame?.remove();candidateHud?.remove();candidateFrame=null;candidateHud=null;status();
