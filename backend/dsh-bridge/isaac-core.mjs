@@ -240,7 +240,7 @@ export class NaimeiGameCore {
       revision:base.revision};
     this.activeAbort=new AbortController();turn.abort=this.activeAbort;
     const signal=AbortSignal.any([this.activeAbort.signal,AbortSignal.timeout(timeout)]);
-    return bridge.host.generate({sessionId:turn.session_id,snapshot,input,signal,gameplayTurn:turn,maxTokens:512,
+    return bridge.host.generate({sessionId:turn.session_id,snapshot,input,signal,gameplayTurn:turn,maxTokens:bridge.policy.conversation.max_output_tokens,
       context:canonical({...context,partition_key:'ephemeral_game_not_viewer',humanity_public_snapshot:bridge.host.port.requestMemorySnapshot([])}),
       tools:async()=>{throw Error('GAME_TURN_VIEWER_MEMORY_WRITE_DENIED');},onProbe:probe=>bridge.recordProbe(probe)});
   }

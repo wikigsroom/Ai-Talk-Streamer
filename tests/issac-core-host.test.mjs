@@ -94,7 +94,7 @@ test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-cont
     assert.equal(result.choice_completion_followups,choice.prose?1:0);
     if(choice.alwaysProse){assert.equal(result.text,'这颗红心我想先看看。');assert.equal(turn.submitted,undefined);return;}
     assert.equal(result.text,plan.commentary);
-    for(const payload of payloads)assert.equal(payload.reasoning.effort,'low');
+    for(const payload of payloads){assert.equal(payload.reasoning.effort,'low');assert.equal(payload.max_output_tokens,2048);}
     for(const probe of probes){assert.equal(probe.game_reasoning_effort,'low');assert.ok(probe.elapsed_ms>=0);
       assert.ok(['completed','iterator_closed'].includes(probe.phase));}
     assert.equal(result.final_reason.kind,'completed');assert.equal(turn.submitted.status,choice.status);
@@ -200,6 +200,7 @@ test('one real DSH agent retains three turns with durable compaction and fresh f
     assert.ok(native.deriveMessages().some(m=>JSON.stringify(m).includes('当前第2回合')));
     for(let i=0;i<3;i++){
       assert.equal(payloads[i].reasoning.effort,'low');
+      assert.equal(payloads[i].max_output_tokens,2048);
       const text=JSON.stringify(payloads[i]);assert.ok(text.includes('当前第'+i+'回合'));
       assert.ok(text.includes('奶妹'));assert.ok(text.includes('resources'));assert.ok(text.includes('inventory'));
     }
