@@ -7,10 +7,12 @@ restarts the owned stack/game/official encoder and restores the same programme.
 import argparse
 import json
 from pathlib import Path
+import re
 import subprocess
 import time
 import traceback
 import urllib.request
+import urllib.error
 
 from .common import AdmissionError, Audit, FileLease, file_hash, inside, read_json, write_json
 
@@ -63,8 +65,17 @@ class LiveSupervisor:
         request = urllib.request.Request('http://127.0.0.1:'+str(port)+path,
             data=None if body is None else json.dumps(body).encode(),
             headers={'Content-Type': 'application/json', 'X-Isaac-Token': self.token})
-        with self.opener.open(request, timeout=timeout) as response:
-            return json.load(response)
+        try:
+            with self.opener.open(request, timeout=timeout) as response:
+                return json.load(response)
+        except urllib.error.HTTPError as error:
+            # Keep the local admission reason instead of masking every 409 as
+            # an opaque HTTPError. Never echo arbitrary upstream/private text.
+            try:code=json.loads(error.read(8192)).get('error')
+            except (ValueError,AttributeError):code=None
+            if not isinstance(code,str) or not re.fullmatch(r'[A-Z][A-Z0-9_]{0,159}',code):
+                code='LOCAL_HTTP_'+str(error.code)
+            raise AdmissionError('RECOVERY_API_'+code) from None
 
     def platform_live(self):
         request = urllib.request.Request('https://api.live.bilibili.com/room/v1/Room/get_info?room_id=595139',

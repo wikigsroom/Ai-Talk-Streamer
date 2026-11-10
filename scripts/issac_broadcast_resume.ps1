@@ -1,5 +1,6 @@
 ﻿param([Parameter(Mandatory=$true)][int]$ProcessId,[Parameter(Mandatory=$true)][long]$WindowHandle,[switch]$InspectOnly)
 $ErrorActionPreference='Stop'
+Import-Module (Join-Path $PSScriptRoot 'issac_broadcast_state.psm1') -Force
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
 Add-Type @'
@@ -22,17 +23,18 @@ $labels=@('开始直播','立即开播','确认开播')
 $nodes=$window.FindAll([Windows.Automation.TreeScope]::Descendants,[Windows.Automation.Condition]::TrueCondition)
 if($nodes.Count -gt 6000){throw 'BOUNDED_OFFICIAL_UI_REQUIRED'}
 $targets=@()
-$running=@()
+$uiButtons=@()
 foreach($node in $nodes){
     $info=$node.Current
     # Qt exports both the button and its child text with the same name.
     # Only actionable buttons can authorize a click; text is never a target.
     if($info.ControlType -ne [Windows.Automation.ControlType]::Button){continue}
+    $uiButtons+=@{name=$info.Name.Trim();is_button=$true;enabled=$info.IsEnabled;offscreen=$info.IsOffscreen}
     if($labels -contains $info.Name.Trim() -and $info.IsEnabled -and -not $info.IsOffscreen){$targets+=,$node}
-    if($info.Name.Trim() -eq '关播' -and $info.IsEnabled -and -not $info.IsOffscreen){$running+=,$node}
 }
-if($InspectOnly){@{start_buttons=$targets.Count;running_buttons=$running.Count;can_stop_broadcast=$false;invoked=$false}|ConvertTo-Json -Compress;exit 0}
-if($targets.Count -eq 0 -and $running.Count -eq 1){@{already_running=$true;can_stop_broadcast=$false}|ConvertTo-Json -Compress;exit 0}
+$state=Get-IssacBroadcastUiState -Buttons $uiButtons
+if($InspectOnly){$state.can_stop_broadcast=$false;$state.invoked=$false;$state|ConvertTo-Json -Compress;exit 0}
+if($state.already_running){$state.can_stop_broadcast=$false;$state|ConvertTo-Json -Compress;exit 0}
 if($targets.Count -ne 1){throw 'ONE_EXPLICIT_START_BROADCAST_CONTROL_REQUIRED'}
 $pattern=$null
 if($targets[0].TryGetCurrentPattern([Windows.Automation.InvokePattern]::Pattern,[ref]$pattern)){

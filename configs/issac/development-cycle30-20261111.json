@@ -1,0 +1,13 @@
+{
+ "schema_version":1,"round":"CYCLE30","branch":"issac",
+ "candidate_frozen":false,"application_tests_started":false,
+ "manual_whole_round_source_review_complete":true,"tests_run_during_development":false,
+ "unresolved_round_code_TODOs":[],
+ "items":[{"id":"ACTUAL_OFFICIAL_LIVE_TIMER_STATE_AND_LOCAL_ADMISSION_REASONS","status":"code_complete_pending_acceptance","source_files":[
+ "scripts/issac_broadcast_resume.ps1","scripts/issac_broadcast_state.psm1",
+ "integration/issac/live_supervisor.py","integration/issac/tests/test_official_ui_state.py",
+ "integration/issac/tests/fixtures/official-live-ui-20261111.json","integration/issac/tests/fixtures/classify-official-live-ui.ps1",
+ "docs/issac/采集宿主恢复顺序修订20261110.md","AGENTS.md"]}],
+ "previous_round_closed":"CYCLE29 six suites 1254 passed, 4 skipped; real foreground, slot 3 and public broadcast passed after the user completed platform face verification. Recovery falsely rejected the actual elapsed-time live control and retried; the actual UI had no named stop button, one elapsed button and live-quality button. One local 409 needs its safe admission reason retained.",
+ "private_credentials_in_source":false,"memory_reset_requested":false
+}
