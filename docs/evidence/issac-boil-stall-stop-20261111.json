@@ -1,0 +1,63 @@
+{
+  "date": "2026-11-11",
+  "timezone": "Asia/Taipei",
+  "branch": "issac",
+  "result": "offline_patch_installed_and_project_stopped",
+  "fault": {
+    "stage": 3,
+    "room": 78,
+    "kind": "boss",
+    "fixed_boils": 9,
+    "entity_type": 30,
+    "entity_variant": 0,
+    "last_observation_room_clear": false,
+    "last_observation_paused": false,
+    "root_cause": "nonzero knockback telemetry was treated as body motion for anchored turrets"
+  },
+  "validation": {
+    "production_commit": "8a711c19c0cc7d7eda03177ce92b4c032558e489",
+    "suites": 6,
+    "passed": 1323,
+    "skipped": 7,
+    "failed": 0,
+    "actual_room_snapshot_replay_passed": true,
+    "live_room_clear_verified": false,
+    "live_upgrade_result": "timed out waiting for a quiet combat boundary; source was not changed during the live session",
+    "live_upgrade_timeout_seconds": 600,
+    "upstream_source_commit": "654800dd8c07454e9170fc945600508207ace670",
+    "upstream_python_passed": 691,
+    "upstream_node_passed": 4
+  },
+  "shutdown": {
+    "confirmed_at": "2026-11-11T06:07:44+08:00",
+    "rechecked_at": "2026-11-11T06:09:12+08:00",
+    "public_live_before": true,
+    "public_live_after": false,
+    "project_processes_stopped": 27,
+    "remaining_project_processes": 0,
+    "remaining_project_listeners": 0,
+    "force_stops": 0,
+    "auto_restart_authorized": false,
+    "protected_saves_unchanged": true
+  },
+  "resources": {
+    "measurement": "machine-wide before and after",
+    "ram_available_bytes_before": 49379262464,
+    "ram_available_bytes_after": 57613963264,
+    "ram_available_bytes_increase": 8234700800,
+    "rtx_4090_vram_used_mib_before": 14373,
+    "rtx_4090_vram_used_mib_after": 428,
+    "rtx_4090_vram_used_mib_decrease": 13945
+  },
+  "offline_install": {
+    "installed_at": "2026-11-11T06:08:26+08:00",
+    "candidate": "issac-8a711c19c0cc-f45a2026",
+    "source_commit": "8a711c19c0cc7d7eda03177ce92b4c032558e489",
+    "archive_sha256": "40376aac5da967e3d975864963f29012178d975ef3f6b2a8e8de570190fa73c8",
+    "manifest_sha256": "44769cd770cc90c5ef03afa9db3c42da118b059d8ed072f4f663617aae2bf06d",
+    "source_files_verified": 2477,
+    "source_files_changed": 19,
+    "previously_reviewed_clips_retained": 12,
+    "game_restarted": false
+  }
+}
