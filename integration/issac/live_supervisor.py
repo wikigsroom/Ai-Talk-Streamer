@@ -263,7 +263,7 @@ class LiveSupervisor:
         before = observe()
         if before['progress']['slot'] != 0 or before['observation']['players'] != 0:
             raise AdmissionError('FRESH_GAME_TITLE_REQUIRED_FOR_SLOT3_SELECTION')
-        focus = game_foreground(self.root)
+        focus = game_foreground(self.root, timeout=20)
         self.audit.append('recovery_game_foreground_confirmed',step='native_menu',focus=focus)
         deadline, title_keys, file_keys, intro_keys = time.monotonic()+120, 0, 0, 0
         # A fresh game first plays a film. Waiting for the actual title avoids
@@ -507,6 +507,7 @@ class LiveSupervisor:
                         traceback.print_exc()
                         self.audit.append('owned_restart_retry', exception_type=type(error).__name__,
                             code=str(error) if isinstance(error, AdmissionError) else 'RECOVERY_STEP_FAILED',
+                            focus_diagnostic=getattr(error,'focus_diagnostic',None),
                             next_retry_seconds=backoff)
                         self.report('retrying_recovery', next_retry_seconds=backoff,
                                     error_code=str(error) if isinstance(error, AdmissionError) else 'RECOVERY_STEP_FAILED')

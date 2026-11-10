@@ -91,9 +91,10 @@ class NativeMenuRecoveryTests(unittest.TestCase):
         with patch('integration.issac.live_supervisor.time.monotonic', side_effect=lambda: self.now), \
              patch('integration.issac.live_supervisor.time.sleep', side_effect=self.sleep), \
              patch('integration.issac.live_supervisor.read_json', return_value={'processes': [{'name': 'isaac-game', 'pid': 42}]}), \
-             patch('integration.issac.record_focus.game_foreground'), \
+             patch('integration.issac.record_focus.game_foreground') as focus, \
              patch('integration.issac.saves.SaveProtection'):
             self.owner.restore_game()
+            focus.assert_called_once_with(ROOT,timeout=20)
 
     def test_film_waits_then_actual_title_and_highlight_restore_slot3(self):
         self.restore()

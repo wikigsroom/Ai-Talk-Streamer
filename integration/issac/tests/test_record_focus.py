@@ -53,6 +53,27 @@ class RecordingFocus(unittest.TestCase):
             self.focus_fixture(stack,lambda:8)
             with self.assertRaisesRegex(AdmissionError,'FOREGROUND_NOT_CONFIRMED'):foreground(123,9,timeout=.08)
 
+    def test_fresh_startup_can_wait_beyond_two_seconds_for_actual_foreground(self):
+        with ExitStack() as stack:
+            user=self.focus_fixture(stack,lambda:8);observations=[0]
+            def actual():
+                observations[0]+=1
+                return 123 if observations[0]>175 else 8
+            user.GetForegroundWindow.side_effect=actual
+            result=foreground(123,9,timeout=5)
+            self.assertTrue(result['foreground']);self.assertGreater(result['confirmation_seconds'],2)
+
+    def test_startup_keeps_retrying_confirmed_caption_after_initial_rejections(self):
+        with ExitStack() as stack:
+            active=[False];attempts=[0];self.focus_fixture(stack,lambda:123 if active[0] else 8)
+            def caption(*args):
+                attempts[0]+=1;active[0]=attempts[0]>=4
+                return active[0]
+            stack.enter_context(patch('integration.issac.record_focus.caption_activate',side_effect=caption))
+            result=foreground(123,9,timeout=5)
+            self.assertEqual(result['caption_activation_attempts'],4)
+            self.assertTrue(result['normal_caption_click_used'])
+
     def test_window_owner_change_during_focus_wait_is_rejected(self):
         with ExitStack() as stack:
             self.focus_fixture(stack,lambda:8,iter([9,9,10]))

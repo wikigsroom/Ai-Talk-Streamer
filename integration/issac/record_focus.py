@@ -116,14 +116,21 @@ def foreground(hwnd,pid,*,created_at=None,timeout=2):
             for thread in reversed(attached):u.AttachThreadInput(current,thread,False)
     # Win32 accepts activation before the target's input queue applies it.
     # Observe completion with a bound, checking ownership on every sample.
-    caption_tries=0;caption_used=False;next_caption=started+.2
+    caption_tries=0;caption_used=False;next_caption=started+.2;attempts=[]
+    caption_limit=max(3,min(12,int(timeout)+1));caption_spacing=max(.3,timeout/12)
     while True:
         verify()
         if u.GetForegroundWindow()==hwnd:break
-        if time.monotonic()>=deadline:raise AdmissionError('OWNED_WINDOW_FOREGROUND_NOT_CONFIRMED')
-        if caption_tries<3 and time.monotonic()>=next_caption:
-            caption_used=caption_activate(u,hwnd,pid,verify) or caption_used
-            caption_tries+=1;next_caption=time.monotonic()+.3
+        if time.monotonic()>=deadline:
+            error=AdmissionError('OWNED_WINDOW_FOREGROUND_NOT_CONFIRMED')
+            error.focus_diagnostic={'pid':pid,'hwnd':hwnd,'timeout_seconds':timeout,
+                'elapsed_seconds':time.monotonic()-started,'caption_attempts':attempts}
+            raise error
+        if caption_tries<caption_limit and time.monotonic()>=next_caption:
+            issued=caption_activate(u,hwnd,pid,verify);caption_used=issued or caption_used
+            attempts.append({'elapsed_seconds':time.monotonic()-started,'normal_click_issued':issued,
+                'actual_foreground_hwnd':u.GetForegroundWindow()})
+            caption_tries+=1;next_caption=time.monotonic()+caption_spacing
         time.sleep(.02)
     verify()
     return {'pid':pid,'hwnd':hwnd,'foreground':True,'game_control_changed':False,
@@ -131,7 +138,7 @@ def foreground(hwnd,pid,*,created_at=None,timeout=2):
             'confirmation_seconds':time.monotonic()-started}
 
 
-def game_foreground(root):
+def game_foreground(root,*,timeout=2):
     process=game_owner(root);u=ctypes.windll.user32;windows=[]
     u.GetWindowThreadProcessId.argtypes=[ctypes.c_void_p,ctypes.POINTER(ctypes.c_ulong)]
     u.IsWindowVisible.argtypes=[ctypes.c_void_p]
@@ -143,7 +150,7 @@ def game_foreground(root):
     u.EnumWindows(each,0)
     if len(windows)!=1:raise AdmissionError('UNIQUE_OWNED_GAME_FOCUS_WINDOW_REQUIRED')
     game_owner(root) # Recheck PID lifetime immediately before changing focus.
-    return foreground(windows[0],process.pid,created_at=process.create_time())
+    return foreground(windows[0],process.pid,created_at=process.create_time(),timeout=timeout)
 
 
 @contextmanager
