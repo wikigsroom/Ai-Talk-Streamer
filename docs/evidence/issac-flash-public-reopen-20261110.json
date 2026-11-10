@@ -1,0 +1,37 @@
+{
+  "at": 1794303301.3058848,
+  "room_id": 595139,
+  "room_url": "https://live.bilibili.com/595139",
+  "platform_code": 0,
+  "public_live_status": 1,
+  "title": "品鉴一下codex的狠活",
+  "controller_armed": true,
+  "controller_fault": null,
+  "game_frame": 74624,
+  "core": {
+    "ready": true,
+    "model": "deepseek-flash",
+    "protocol": "responses",
+    "automatic": true,
+    "failures": 0,
+    "last_error": null
+  },
+  "studio": {
+    "ready": true,
+    "mode": "M03",
+    "size": 512,
+    "fps": 25,
+    "output_fps_measured": 24.993202057296447
+  },
+  "chat": "CONNECTED",
+  "output_player": {
+    "connected": true,
+    "renderer": "livehime",
+    "audio_state": "running"
+  },
+  "protected_saves_verified": true,
+  "keep_public_stream_running": true,
+  "public_stop_executed": false,
+  "source_modified": false,
+  "official_ui_verified": "stop-live button visible; stream quality good"
+}
