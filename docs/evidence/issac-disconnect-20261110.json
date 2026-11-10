@@ -1,0 +1,260 @@
+{
+  "checked_at": "2026-11-10T20:54:50.428812+08:00",
+  "result": "death_terminal_without_next_run_then_platform_cut",
+  "production_code_changed": false,
+  "game_resumed": false,
+  "public_stream_reopened": false,
+  "public_room": {
+    "code": 0,
+    "room_id": 595139,
+    "live_status": 0,
+    "live_time": "0000-00-00 00:00:00"
+  },
+  "application": {
+    "stage": "running_candidate_not_accepted",
+    "candidate_id": "issac-8d8842413316-ac14d6db",
+    "error": null,
+    "children": {
+      "gpu-geometry": {
+        "pid": 31696,
+        "alive": true
+      },
+      "game-controller": {
+        "pid": 36364,
+        "alive": true
+      },
+      "voice": {
+        "pid": 43472,
+        "alive": true
+      },
+      "flashhead": {
+        "pid": 19116,
+        "alive": true
+      },
+      "studio": {
+        "pid": 12040,
+        "alive": true
+      },
+      "narrator": {
+        "pid": 35532,
+        "alive": true
+      },
+      "isaac-game": {
+        "pid": 35156,
+        "alive": true
+      }
+    }
+  },
+  "studio": {
+    "ready": true,
+    "stage": "ready",
+    "error": null,
+    "mode": "M03",
+    "fps": 25,
+    "output_fps_measured": 24.999322726714745,
+    "counters": {
+      "encoder_max_us": 415496,
+      "output_frames": 346522,
+      "body_only_frames": 344034,
+      "render_delays": 5,
+      "mouth_projection_max_us": 48744,
+      "media_map_max_us": 90477,
+      "media_map_batches": 542,
+      "media_map_frames": 2606,
+      "media_map_max_batch_frames": 5,
+      "buffered_cancelled_frames_discarded": 118,
+      "actual_audio_driven_mouth_frames": 2488,
+      "actual_model_oral_open_frames": 1645,
+      "utterances_generated": 40,
+      "cancelled_frames_discarded": 1
+    }
+  },
+  "core": {
+    "ready": true,
+    "automatic": false,
+    "busy": false,
+    "model": "deepseek-flash",
+    "last_error": null,
+    "turns": 72,
+    "failures": 0,
+    "actual_completed_game_utterances": 35,
+    "continuous_session_id": "naimei-live-f8506dfa-3387-4fb7-8cbd-2e61b50c7b21"
+  },
+  "controller": {
+    "armed": false,
+    "native_attached": true,
+    "last_fault": null,
+    "control_revision": 17,
+    "pause_confirmation_pending": false
+  },
+  "native": {
+    "connected": true,
+    "age_ms": 43.8,
+    "identity": {
+      "controller": "82352a8c2cb8475d9f9c8e799c67478b",
+      "seed": 2315627824,
+      "restart": 0,
+      "stage": 5,
+      "stage_type": 0,
+      "dimension": 0,
+      "room": 85,
+      "visit": 70,
+      "bridge": "1196874773"
+    },
+    "data": {
+      "frame": 77847,
+      "room": {
+        "index": 85,
+        "type": "default",
+        "clear": false,
+        "dead": true,
+        "paused": true,
+        "pause_ack": null,
+        "exit": {
+          "known": true,
+          "available": false,
+          "grid_index": -1
+        },
+        "sacrifice": {
+          "known": false
+        },
+        "dice": null,
+        "terrain": []
+      },
+      "player": {
+        "tear_range": 360.0,
+        "eternal_hearts": 0,
+        "id": 0,
+        "move_speed": 1.6000000238419,
+        "pos": {
+          "y": 330.0,
+          "x": 142.4
+        },
+        "vel": {
+          "y": 0.0,
+          "x": 0.0
+        },
+        "type": 1,
+        "bone_hearts": 0,
+        "hp": 0,
+        "damage_cooldown": 120,
+        "weapon_type_known": true,
+        "black_hearts": 0,
+        "weapon_type": "tear",
+        "tear_speed": 1.2000000476837,
+        "soul_hearts": 0,
+        "max_hearts": 6,
+        "red_hearts": 0
+      },
+      "players": null,
+      "hp": null,
+      "resources": {
+        "coins": 24,
+        "keys": 6,
+        "bombs": 7
+      },
+      "dead": null,
+      "game_over": null,
+      "restart": null,
+      "terminal": null,
+      "run_state": null,
+      "game_event": null
+    }
+  },
+  "official_end_dialog": {
+    "action": "platform_cut_stream",
+    "reason": "挂机、录播等消极直播行为",
+    "shown_time": "2026-11-10 18:57",
+    "shown_duration": "1小时23分53秒",
+    "manual_appeal_or_restart_performed": false
+  },
+  "terminal_events": [
+    {
+      "seq": 3341,
+      "time": "2026-11-10T17:38:12.970338+08:00",
+      "type": "run_ended",
+      "frame": 77846,
+      "facts": {
+        "callback": "MC_POST_GAME_END",
+        "ending_id": null,
+        "result": "death"
+      },
+      "delivery": "expired"
+    },
+    {
+      "seq": 3339,
+      "time": "2026-11-10T17:38:11.071143+08:00",
+      "type": "player_died",
+      "frame": 77790,
+      "facts": {
+        "dead": true
+      },
+      "delivery": "expired"
+    }
+  ],
+  "controller_events": [
+    {
+      "kind": "autopilot_resumed",
+      "time": "2026-11-10T17:36:27.378322+08:00",
+      "receipt": {
+        "unpaused": true
+      }
+    },
+    {
+      "kind": "local_authority_withdrawn",
+      "control_revision": 17,
+      "time": "2026-11-10T17:38:13.085692+08:00"
+    },
+    {
+      "kind": "autopilot_paused",
+      "time": "2026-11-10T17:38:13.141938+08:00",
+      "receipt": {
+        "normal_game_pause_acknowledged": false,
+        "no_active_run": true
+      }
+    }
+  ],
+  "native_terminal_callback": [
+    {
+      "callback": "MC_POST_GAME_END",
+      "is_game_over": true,
+      "result": "death",
+      "frame": 77847,
+      "stage": 5,
+      "room_index": 85,
+      "start_seed": 2315627824,
+      "run_id": "a4cf9555e8fe49a3"
+    }
+  ],
+  "native_dsh_capacity_at_last_requests": [
+    {
+      "started_unix_ms": 1794303482436,
+      "elapsed_ms": 2484,
+      "first_content_ms": 1113,
+      "model": "deepseek-flash",
+      "phase": "aborted",
+      "finish_kind": null,
+      "estimated_input_tokens": 38378,
+      "serialized_message_bytes": 95958,
+      "context_window_tokens": 1000000,
+      "input_budget_estimated_tokens": 989760
+    },
+    {
+      "started_unix_ms": 1794303485436,
+      "elapsed_ms": 3641,
+      "first_content_ms": 869,
+      "model": "deepseek-flash",
+      "phase": "completed",
+      "finish_kind": "tool-calls",
+      "estimated_input_tokens": 38457,
+      "serialized_message_bytes": 96116,
+      "context_window_tokens": 1000000,
+      "input_budget_estimated_tokens": 989760
+    }
+  ],
+  "interpretation": "Source deliberately retains death_wait and disarms on native run end; no ordinary-input next-run supervisor exists. UI platform cause is verified; internal moderation criteria are unavailable.",
+  "limits": [
+    "No code fix or death-to-next-run acceptance was performed in this diagnostic task.",
+    "This instance is not evidence that prior timeout or media incidents never occurred."
+  ]
+}
