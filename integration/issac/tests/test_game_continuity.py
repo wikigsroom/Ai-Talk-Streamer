@@ -81,7 +81,7 @@ class GameContinuity(unittest.TestCase):
         def api(port,path,body=None,**_):
             if port==9541 and body is None:return {'children':{n:{'alive':True} for n in names}}
             if port==9534 and body is None:return {'service':'issac-native-game',**status}
-            return {'ready':True}
+            return {'ready':True,'automatic':True}
         owner.api=Mock(side_effect=api)
         game={'name':'isaac-game','pid':44,'created_at':100}
         with patch('integration.issac.live_supervisor.read_json',side_effect=lambda path:
@@ -144,6 +144,30 @@ class GameContinuity(unittest.TestCase):
         self.assertEqual(lua.execute(DISABLE_FOCUS_LOSS_PAUSE),'false')
         self.assertFalse(lua.eval('Options.PauseOnFocusLost'))
         self.assertEqual(lua.eval('health'),9);self.assertEqual(lua.eval('seed'),123)
+
+    def test_consecutive_completed_busy_turns_are_not_one_stalled_turn(self):
+        cycle=LiveCycle(SimpleNamespace(audit=Mock()))
+        core={'busy':True,'process_id':9,'continuous_session_id':'one','turns':0}
+        self.assertFalse(cycle.core_turn_stalled(core,0))
+        self.assertFalse(cycle.core_turn_stalled(core,60))
+        self.assertFalse(cycle.core_turn_stalled({**core,'turns':1},70))
+        self.assertFalse(cycle.core_turn_stalled({**core,'turns':2},140))
+        self.assertFalse(cycle.core_turn_stalled({**core,'turns':2},215))
+        self.assertTrue(cycle.core_turn_stalled({**core,'turns':2},216))
+        self.assertFalse(cycle.core_turn_stalled({**core,'busy':False},217))
+        self.assertFalse(cycle.core_turn_stalled(core,218))
+
+    def test_recovered_narrator_rearms_through_current_native_admission(self):
+        owner=object.__new__(LiveSupervisor)
+        owner.api=Mock(side_effect=[{'ready':True,'automatic':False},{'armed':True}])
+        owner.ensure_core_automatic({'armed':True,'manual_override':False,'live_cycle':{'phase':'playing'}})
+        owner.api.assert_any_call(9534,'/control',{'action':'live'},timeout=20)
+        owner.api=Mock(return_value={'automatic':True})
+        self.assertTrue(owner.ensure_core_automatic({})['already_automatic']);self.assertEqual(owner.api.call_count,1)
+        owner.api.reset_mock()
+        with self.assertRaisesRegex(AdmissionError,'CANCELLED_BY_OPERATOR'):
+            owner.ensure_core_automatic({'manual_override':True})
+        owner.api.assert_not_called()
 
     def test_native_focus_setting_is_fixed_and_legacy_policy_issues_no_rpc(self):
         n=object.__new__(NativeGame);n.root=self.root;n.rpc=Mock(return_value='false');n.audit=Mock()

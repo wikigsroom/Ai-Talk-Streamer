@@ -138,6 +138,8 @@ class LiveSupervisor:
         if cycle.get('phase') != 'playing' and cycle.get('phase_seconds', 0) > 90:
             return False, False, True
         core = self.api(3104, '/api/dsh/issac/core/status')
+        if uninterrupted(self.root) and core.get('automatic') is False:
+            return False, False, True
         studio = studio or self.api(8062, '/health')
         player = self.api(3104, '/api/dsh/platforms').get('output_player') or {}
         good = core.get('ready') is True and studio.get('ready') is True and player.get('connected') is True and player.get('audio_state') == 'running'
@@ -571,6 +573,7 @@ class LiveSupervisor:
         if controller_replaced or not controller.get('native_attached') or not controller.get('armed'):
             self.api(9534,'/control',{'action':'adopt_live','pid':game['pid']},timeout=25)
         self.api(3104,'/api/dsh/issac/rehearsal/start',{},timeout=35)
+        self.ensure_core_automatic(controller)
         self.ensure_bilibili_collector()
         try:
             from .official_window import identity
@@ -604,6 +607,15 @@ class LiveSupervisor:
             current=(value.get('collectors') or {}).get('bilibili') or {}
             if current.get('state')!='CONNECTED' or current.get('error'):raise
             return {'already_connected':True,'state':'CONNECTED'}
+
+    def ensure_core_automatic(self,controller):
+        if operator_paused(controller):raise AdmissionError('RECOVERY_CANCELLED_BY_OPERATOR')
+        core=self.api(3104,'/api/dsh/issac/core/status')
+        if core.get('automatic') is not True:
+            # The native endpoint rechecks the pinned model, current candidate,
+            # fresh state, live media and actual unpaused game before rearming.
+            return self.api(9534,'/control',{'action':'live'},timeout=20)
+        return {'already_automatic':True}
 
     def run(self):
         self.authorized()

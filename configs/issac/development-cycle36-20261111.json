@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE36",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [
+    {
+      "id": "ACTUAL_TURN_PROGRESS_AND_REARM_RECOVERED_CORE",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "AGENTS.md",
+        "integration/issac/live_cycle.py",
+        "integration/issac/live_supervisor.py",
+        "integration/issac/tests/test_game_continuity.py",
+        "docs/issac/Luna连续回合值守修订20261111.md"
+      ]
+    }
+  ],
+  "previous_round_closed": "CYCLE35 source frozen and testing began without source modification. Subsequent real observation identifies independent consecutive-busy false stall and missing core rearm. Whole CYCLE36 completed before new frozen tests.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}

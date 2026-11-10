@@ -44,6 +44,7 @@ class LiveCycle:
         self.paused_at = None
         self.dead_since = None
         self.busy_at = None
+        self.busy_marker = None
         self.media_failures = 0
         self.next_media_check = 0
         self.alert = None
@@ -79,6 +80,7 @@ class LiveCycle:
         self.last_frame = None
         self.last_frame_at = self.clock()
         self.paused_at = self.busy_at = None
+        self.busy_marker = None
         self.dead_since = None
         self.media_failures = 0
         self.host.runtime.controller.terminal_receipt = None
@@ -223,19 +225,24 @@ class LiveCycle:
                 core = host.core_status()
             except Exception:
                 core = {}
-            if core.get('busy'):
-                self.busy_at = self.busy_at or now
-                if now-self.busy_at > 75:
-                    host.watchdog_stop('CORE_TURN_STALLED')
-                    return True
-            else:
-                self.busy_at = None
+            if self.core_turn_stalled(core,now):
+                host.watchdog_stop('CORE_TURN_STALLED')
+                return True
             healthy = host.live_media_ready()
             self.media_failures = 0 if healthy else self.media_failures+1
             if self.media_failures >= 3:
                 host.watchdog_stop('LIVE_MEDIA_UNAVAILABLE')
                 return True
         return False
+
+    def core_turn_stalled(self,core,now):
+        if not core.get('busy'):
+            self.busy_at=self.busy_marker=None
+            return False
+        marker=(core.get('process_id'),core.get('continuous_session_id'),core.get('turns'))
+        if self.busy_at is None or marker!=self.busy_marker:
+            self.busy_at=now;self.busy_marker=marker
+        return now-self.busy_at>75
 
     def next_run(self):
         host, now = self.host, self.clock()
