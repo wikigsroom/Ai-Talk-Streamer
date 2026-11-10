@@ -382,6 +382,7 @@ class LiveSupervisor:
 
     def restore_official(self):
         from .livehime import Livehime
+        from .record_focus import foreground
         # No stop-broadcast request is ever sent. The same isolated profile,
         # sources, title, account and browser/audio source are reloaded.
         client = Livehime(self.root)
@@ -389,6 +390,7 @@ class LiveSupervisor:
         window = client.native_window('windows')['windows']
         if len(window) != 1:
             raise AdmissionError('RECOVERY_OFFICIAL_WINDOW_REQUIRED')
+        foreground(window[0]['hwnd'],window[0]['pid'],created_at=window[0]['created_at'])
         deadline = time.monotonic()+60
         while time.monotonic() < deadline:
             script = inside(self.root, 'scripts/issac_broadcast_resume.ps1')

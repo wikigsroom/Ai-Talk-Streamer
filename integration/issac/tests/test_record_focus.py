@@ -28,11 +28,15 @@ class RecordingFocus(unittest.TestCase):
 
     def focus_fixture(self,stack,frames,owners=None):
         user=Mock();clock=[0.0]
-        def owner(hwnd,ref):ref._obj.value=next(owners) if owners is not None else 9
+        def owner(hwnd,ref):
+            ref._obj.value=next(owners) if owners is not None else 9
+            return 90 if hwnd==123 else 80
         user.GetWindowThreadProcessId.side_effect=owner
         user.GetForegroundWindow.side_effect=frames
         user.SetForegroundWindow.return_value=True
-        stack.enter_context(patch('integration.issac.record_focus.ctypes.windll',SimpleNamespace(user32=user),create=True))
+        user.AttachThreadInput.return_value=True;user.IsIconic.return_value=False
+        kernel=Mock();kernel.GetCurrentThreadId.return_value=100
+        stack.enter_context(patch('integration.issac.record_focus.ctypes.windll',SimpleNamespace(user32=user,kernel32=kernel),create=True))
         stack.enter_context(patch('integration.issac.record_focus.time.monotonic',side_effect=lambda:clock[0]))
         stack.enter_context(patch('integration.issac.record_focus.time.sleep',side_effect=lambda s:clock.__setitem__(0,clock[0]+s)))
         return user
@@ -63,6 +67,32 @@ class RecordingFocus(unittest.TestCase):
         with ExitStack() as stack:
             user=self.focus_fixture(stack,lambda:8);user.SetForegroundWindow.return_value=False
             with self.assertRaisesRegex(AdmissionError,'FOREGROUND_NOT_CONFIRMED'):foreground(123,9)
+            self.assertEqual([call.args for call in user.AttachThreadInput.call_args_list],
+                [(100,80,True),(100,90,True),(100,90,False),(100,80,False)])
+
+    def test_background_recovery_can_activate_owned_window_and_detaches_input_queues(self):
+        with ExitStack() as stack:
+            user=self.focus_fixture(stack,iter([8,8,123]))
+            user.SetForegroundWindow.side_effect=[False,True]
+            self.assertTrue(foreground(123,9)['foreground'])
+            self.assertEqual([call.args for call in user.AttachThreadInput.call_args_list],
+                [(100,80,True),(100,90,True),(100,90,False),(100,80,False)])
+            user.ShowWindowAsync.assert_not_called()
+
+    def test_input_queues_are_detached_even_when_activation_raises(self):
+        with ExitStack() as stack:
+            user=self.focus_fixture(stack,lambda:8);user.SetForegroundWindow.return_value=False
+            user.BringWindowToTop.side_effect=RuntimeError('native activation failed')
+            with self.assertRaisesRegex(RuntimeError,'activation failed'):foreground(123,9)
+            self.assertEqual([call.args for call in user.AttachThreadInput.call_args_list][-2:],
+                [(100,90,False),(100,80,False)])
+
+    def test_only_minimized_owned_target_is_restored_before_retry(self):
+        with ExitStack() as stack:
+            user=self.focus_fixture(stack,iter([8,8,123]));user.IsIconic.return_value=True
+            user.SetForegroundWindow.side_effect=[False,True]
+            foreground(123,9)
+            user.ShowWindowAsync.assert_called_once_with(123,9)
 
 
 class ExplicitRecordingHandoff(unittest.TestCase):

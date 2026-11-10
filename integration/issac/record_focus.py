@@ -39,7 +39,29 @@ def foreground(hwnd,pid,*,created_at=None,timeout=2):
             if not valid:raise AdmissionError('OWNED_FOCUS_PROCESS_CHANGED')
     verify();started=time.monotonic();deadline=started+timeout
     if u.GetForegroundWindow()!=hwnd and not u.SetForegroundWindow(hwnd):
-        raise AdmissionError('OWNED_WINDOW_FOREGROUND_NOT_CONFIRMED')
+        # A detached recovery worker may not own the foreground input queue.
+        # Temporarily share ordinary queues for activation, then always detach;
+        # do not synthesize Alt/game keys or change global foreground settings.
+        k=ctypes.windll.kernel32
+        u.AttachThreadInput.argtypes=[ctypes.c_ulong,ctypes.c_ulong,ctypes.c_bool]
+        u.IsIconic.argtypes=[ctypes.c_void_p]
+        u.ShowWindowAsync.argtypes=[ctypes.c_void_p,ctypes.c_int]
+        u.BringWindowToTop.argtypes=[ctypes.c_void_p]
+        current=k.GetCurrentThreadId();other=u.GetForegroundWindow();ignored=ctypes.c_ulong()
+        foreground_thread=u.GetWindowThreadProcessId(other,ctypes.byref(ignored)) if other else 0
+        target_thread=u.GetWindowThreadProcessId(hwnd,ctypes.byref(ignored))
+        attached=[]
+        try:
+            verify()
+            for thread in dict.fromkeys([foreground_thread,target_thread]):
+                if thread and thread!=current and u.AttachThreadInput(current,thread,True):
+                    attached.append(thread)
+            verify()
+            if u.IsIconic(hwnd):u.ShowWindowAsync(hwnd,9)  # ordinary SW_RESTORE
+            u.BringWindowToTop(hwnd)
+            u.SetForegroundWindow(hwnd)
+        finally:
+            for thread in reversed(attached):u.AttachThreadInput(current,thread,False)
     # Win32 accepts activation before the target's input queue applies it.
     # Observe completion with a bound, checking ownership on every sample.
     while True:
