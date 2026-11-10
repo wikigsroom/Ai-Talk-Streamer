@@ -1,0 +1,101 @@
+{
+  "checked_at": "2026-11-10T07:42:52.098837+00:00",
+  "public_started": true,
+  "public_room_id": "595139",
+  "room_url": "https://live.bilibili.com/595139",
+  "public_live_status": 1,
+  "authorized_request": "请你去开启直播，我要去真实环境做弹幕测试。",
+  "candidate_id": "issac-94b8499e993e-6536e228",
+  "core": {
+    "ready": true,
+    "automatic": true,
+    "model": "gpt-6.1-sol",
+    "protocol": "responses",
+    "last_error": null
+  },
+  "studio": {
+    "ready": true,
+    "mode": "M03",
+    "stage": "ready",
+    "tts_ready": true,
+    "avatar_ready": true
+  },
+  "collector": {
+    "state": "CONNECTED",
+    "error": null,
+    "updated_at": 1794296553119
+  },
+  "platform_counters": {},
+  "observed_comment_count": 0,
+  "actual_comment_reply_verified": false,
+  "official_player": {
+    "connected": true,
+    "renderer": "livehime",
+    "audio_state": "running",
+    "width": 1920,
+    "height": 1080
+  },
+  "avatar_fps": 25.230728372887718,
+  "controller": {
+    "armed": true,
+    "last_fault": null,
+    "control_revision": 4
+  },
+  "native": {
+    "connected": true,
+    "age_ms": 56.7,
+    "frame": 38184,
+    "room": {
+      "index": 114,
+      "type": "default",
+      "clear": true,
+      "dead": false,
+      "paused": false,
+      "pause_ack": null,
+      "exit": {
+        "known": true,
+        "available": false,
+        "grid_index": -1
+      },
+      "sacrifice": {
+        "known": false
+      },
+      "dice": null,
+      "terrain": []
+    },
+    "identity": {
+      "controller": "241e446b295548e9bc73784f8199626c",
+      "seed": 2315627824,
+      "restart": 0,
+      "stage": 3,
+      "stage_type": 0,
+      "dimension": 0,
+      "room": 114,
+      "visit": 2,
+      "bridge": "1191503402"
+    }
+  },
+  "save_protection": {
+    "protected_unchanged": true,
+    "baseline_id": "76a3a8d2337a4dd8a97877870036b57e",
+    "allowed_slot": 3,
+    "baseline_files": 2,
+    "runtime_window_position_changes": [
+      {
+        "root": 1,
+        "relative": "options.ini",
+        "permitted_option_names": [
+          "WindowPosX",
+          "WindowPosY"
+        ],
+        "baseline_sha256": "ad6e5fced2e623d34601036fb5d5b36b09fbd4aa77e3d25e3c645c58761f2c43",
+        "observed_sha256": "d018b2e3173e25387795a2727326dc5eb8c8781c3cd73ce9779a18236daf5ebf"
+      }
+    ]
+  },
+  "memory_reset": false,
+  "production_source_changed": false,
+  "other_browser_tabs_opened": false,
+  "official_ui_evidence": "operations/issac-live300-20261109/public-live-20261110-official-start.json",
+  "checked_at_local": "2026-11-10T15:42:52+08:00"
+}
