@@ -1,0 +1,706 @@
+{
+  "round": "LUNA39",
+  "result": "original_channel_luna_game_and_speech_verified",
+  "recorded_at": "2026-11-10T19:38:48.520Z",
+  "timezone": "Asia/Taipei",
+  "branch": "issac",
+  "candidate_id": "issac-302e01016ff2-f39a2026",
+  "source_commit": "302e01016ff288e1bb04092b86769aafbe0bc19f",
+  "source_files_verified": 2453,
+  "archive_sha256": "d25d32d021630c14834e743c6577ce2bbbc619b69ec586ebb137720f84834c82",
+  "source_manifest_sha256": "253b5dbe89c6bc41e19afe88a11b47854664ca9e9a7cc879fea74ae82bc42492",
+  "application_stage": "running_candidate_not_accepted",
+  "production_accepted": false,
+  "model": {
+    "model": "gpt-6-luna",
+    "protocol": "responses",
+    "channel_source": "issac_user_pinned_luna_api",
+    "context_window_tokens": 1000000,
+    "input_budget_estimated_tokens": 989760,
+    "decision_budget_ms": 115000
+  },
+  "retained_configuration": {
+    "reasoning_effort": "low",
+    "max_output_tokens": 2048,
+    "context_reserve_tokens": 8192,
+    "max_serialized_message_bytes": 33554432,
+    "max_spoken_characters_including_punctuation": 15,
+    "existing_persona_and_seven_extensions": true,
+    "isaac_wiki": true,
+    "existing_spoken_history": true,
+    "memory_cleared_for_this_migration": false,
+    "original_private_channel_reused": true,
+    "local_llm_started": false
+  },
+  "regression": {
+    "passed": 1299,
+    "skipped": 7,
+    "failed": 0,
+    "suites": [
+      {
+        "name": "issac Python integration",
+        "passed": 263,
+        "skipped": 0,
+        "failed": 0
+      },
+      {
+        "name": "Isaac agent Python integration",
+        "passed": 685,
+        "skipped": 0,
+        "failed": 0
+      },
+      {
+        "name": "issac Node integration and DSH binding",
+        "passed": 79,
+        "skipped": 0,
+        "failed": 0
+      },
+      {
+        "name": "native DSH host with controlled providers",
+        "passed": 13,
+        "skipped": 0,
+        "failed": 0
+      },
+      {
+        "name": "remaining Node application tests",
+        "passed": 110,
+        "skipped": 7,
+        "failed": 0
+      },
+      {
+        "name": "media Python application tests",
+        "passed": 149,
+        "skipped": 0,
+        "failed": 0
+      }
+    ],
+    "remote_exit_codes": [
+      {
+        "suite": 0,
+        "exit_code": 0
+      },
+      {
+        "suite": 1,
+        "exit_code": 0
+      },
+      {
+        "suite": 2,
+        "exit_code": 0
+      },
+      {
+        "suite": 3,
+        "exit_code": 0
+      },
+      {
+        "suite": 4,
+        "exit_code": 0
+      },
+      {
+        "suite": 5,
+        "exit_code": 0
+      }
+    ],
+    "whole_source_frozen_before_testing": true
+  },
+  "deployment": {
+    "installed": true,
+    "game_pid": 39000,
+    "game_created_at": 1794329702.3416889,
+    "first_native": {
+      "paused": false,
+      "frame": 16496,
+      "players": 1,
+      "dead": false,
+      "hp": 8,
+      "stage": 1,
+      "room": 97,
+      "seed": 1058559233,
+      "controller_installed": true
+    },
+    "last_native": {
+      "paused": false,
+      "frame": 17546,
+      "players": 1,
+      "dead": false,
+      "hp": 8,
+      "stage": 1,
+      "room": 97,
+      "seed": 1058559233,
+      "controller_installed": true
+    },
+    "game_stop_requested": false,
+    "game_pause_requested": false,
+    "official_process_restarted": false,
+    "voice_model_restarted": false,
+    "mouth_model_restarted": false
+  },
+  "actual_core": {
+    "ready": true,
+    "automatic": true,
+    "busy": true,
+    "turns": 6,
+    "failures": 0,
+    "last_error": null,
+    "actual_completed_game_utterances": 3,
+    "continuous_session_id": "naimei-live-0b8e905c-5d3f-4787-9dc4-52036a250bd3",
+    "registeredTools": [
+      "isaac_get_state",
+      "isaac_get_decision",
+      "isaac_lookup",
+      "isaac_wiki_query",
+      "isaac_submit_plan"
+    ],
+    "decision_latency_p95_ms": 55046
+  },
+  "actual_plan_receipts": {
+    "naimei_status_counts": {
+      "succeeded": 3,
+      "rejected": 3
+    },
+    "local_supply_status_counts": {},
+    "naimei_results": [
+      {
+        "status": "succeeded",
+        "action_id": "enter_door_3",
+        "origin_room": 97,
+        "effect": "native_room_transition_observed",
+        "route": {
+          "room": 110,
+          "kind": "unvisited_shop",
+          "room_type": "shop",
+          "path": [
+            97,
+            110
+          ],
+          "first_slot": 3,
+          "terminal_key_cost": 0,
+          "previously_visited": false
+        }
+      },
+      {
+        "status": "rejected",
+        "action_id": "clear_hazard_-100118",
+        "origin_room": 97,
+        "effect": "no_current_safe_path_or_candidate",
+        "route": null
+      },
+      {
+        "status": "rejected",
+        "action_id": "clear_hazard_-100016",
+        "origin_room": 97,
+        "effect": "no_current_safe_path_or_candidate",
+        "route": null
+      },
+      {
+        "status": "succeeded",
+        "action_id": "enter_door_1",
+        "origin_room": 97,
+        "effect": "native_room_transition_observed",
+        "route": {
+          "room": 20,
+          "kind": "observed_floor_exit",
+          "room_type": "boss",
+          "path": [
+            97,
+            84,
+            85,
+            72,
+            46,
+            33,
+            20
+          ],
+          "first_slot": 1,
+          "terminal_key_cost": 0,
+          "previously_visited": true
+        }
+      },
+      {
+        "status": "rejected",
+        "action_id": "clear_hazard_6",
+        "origin_room": 33,
+        "effect": "no_current_safe_path_or_candidate",
+        "route": null
+      },
+      {
+        "status": "succeeded",
+        "action_id": "enter_door_1",
+        "origin_room": 33,
+        "effect": "native_room_transition_observed",
+        "route": {
+          "room": 20,
+          "kind": "observed_floor_exit",
+          "room_type": "boss",
+          "path": [
+            33,
+            20
+          ],
+          "first_slot": 1,
+          "terminal_key_cost": 0,
+          "previously_visited": true
+        }
+      }
+    ],
+    "indeterminate_is_not_counted_as_success": true
+  },
+  "observation": {
+    "duration_seconds": 180.38505339622498,
+    "samples": 88,
+    "failed_samples": 0,
+    "observed_rooms": [
+      [
+        1,
+        33
+      ],
+      [
+        1,
+        46
+      ],
+      [
+        1,
+        72
+      ],
+      [
+        1,
+        84
+      ],
+      [
+        1,
+        85
+      ],
+      [
+        1,
+        97
+      ]
+    ],
+    "position_changes": 16,
+    "paused_samples": 2,
+    "ordinary_pause_ack_samples": 0,
+    "output_fps_min": 24.96901974195583,
+    "output_fps_max": 25.01331329430223,
+    "model_observed": [
+      "gpt-6-luna"
+    ],
+    "core_processes": [
+      18624
+    ],
+    "sessions": [
+      "naimei-live-0b8e905c-5d3f-4787-9dc4-52036a250bd3"
+    ],
+    "first": {
+      "at_unix": 1794339314.5173855,
+      "game": {
+        "connected": true,
+        "age_ms": 30.6,
+        "frame": 17601,
+        "stage": 1,
+        "room": 97,
+        "seed": 1058559233,
+        "paused": false,
+        "pause_ack": null,
+        "position": {
+          "x": 320,
+          "y": 177.7
+        }
+      },
+      "core": {
+        "ready": true,
+        "automatic": true,
+        "busy": true,
+        "model": "gpt-6-luna",
+        "process_id": 18624,
+        "turns": 0,
+        "failures": 0,
+        "last_error": null,
+        "actual_completed_game_utterances": 0,
+        "continuous_session_id": "naimei-live-0b8e905c-5d3f-4787-9dc4-52036a250bd3",
+        "candidate_id": "issac-302e01016ff2-f39a2026",
+        "decision_budget_ms": 115000
+      }
+    },
+    "last": {
+      "at_unix": 1794339492.8737297,
+      "game": {
+        "connected": true,
+        "age_ms": 56.6,
+        "frame": 22874,
+        "stage": 1,
+        "room": 33,
+        "seed": 1058559233,
+        "paused": false,
+        "pause_ack": null,
+        "position": {
+          "x": 320,
+          "y": 382.3
+        }
+      },
+      "core": {
+        "ready": true,
+        "automatic": true,
+        "busy": true,
+        "model": "gpt-6-luna",
+        "process_id": 18624,
+        "turns": 4,
+        "failures": 0,
+        "last_error": null,
+        "actual_completed_game_utterances": 2,
+        "continuous_session_id": "naimei-live-0b8e905c-5d3f-4787-9dc4-52036a250bd3",
+        "candidate_id": "issac-302e01016ff2-f39a2026",
+        "decision_budget_ms": 115000
+      }
+    },
+    "paused_sample_neighbors": [
+      [
+        {
+          "at_unix": 1794339439.5608702,
+          "game": {
+            "connected": true,
+            "age_ms": 49.4,
+            "frame": 21329,
+            "stage": 1,
+            "room": 97,
+            "seed": 1058559233,
+            "paused": false,
+            "pause_ack": null,
+            "position": {
+              "x": 240,
+              "y": 156.7
+            }
+          },
+          "core": {
+            "automatic": true,
+            "turns": 3,
+            "failures": 0
+          }
+        },
+        {
+          "at_unix": 1794339441.6440947,
+          "game": {
+            "connected": true,
+            "age_ms": 179.6,
+            "frame": 21387,
+            "stage": 1,
+            "room": 97,
+            "seed": 1058559233,
+            "paused": true,
+            "pause_ack": null,
+            "position": {
+              "x": 329.9,
+              "y": 118.2
+            }
+          },
+          "core": {
+            "automatic": true,
+            "turns": 4,
+            "failures": 0
+          }
+        },
+        {
+          "at_unix": 1794339443.6813414,
+          "game": {
+            "connected": true,
+            "age_ms": 56,
+            "frame": 21442,
+            "stage": 1,
+            "room": 84,
+            "seed": 1058559233,
+            "paused": false,
+            "pause_ack": null,
+            "position": {
+              "x": 561.3,
+              "y": 347.1
+            }
+          },
+          "core": {
+            "automatic": true,
+            "turns": 4,
+            "failures": 0
+          }
+        }
+      ],
+      [
+        {
+          "at_unix": 1794339449.766474,
+          "game": {
+            "connected": true,
+            "age_ms": 57.4,
+            "frame": 21593,
+            "stage": 1,
+            "room": 46,
+            "seed": 1058559233,
+            "paused": false,
+            "pause_ack": null,
+            "position": {
+              "x": 280.5,
+              "y": 524.5
+            }
+          },
+          "core": {
+            "automatic": true,
+            "turns": 4,
+            "failures": 0
+          }
+        },
+        {
+          "at_unix": 1794339451.7944484,
+          "game": {
+            "connected": true,
+            "age_ms": 1.5,
+            "frame": 21652,
+            "stage": 1,
+            "room": 33,
+            "seed": 1058559233,
+            "paused": true,
+            "pause_ack": null,
+            "position": {
+              "x": 320,
+              "y": 400
+            }
+          },
+          "core": {
+            "automatic": true,
+            "turns": 4,
+            "failures": 0
+          }
+        },
+        {
+          "at_unix": 1794339453.8343515,
+          "game": {
+            "connected": true,
+            "age_ms": 33.8,
+            "frame": 21704,
+            "stage": 1,
+            "room": 33,
+            "seed": 1058559233,
+            "paused": false,
+            "pause_ack": null,
+            "position": {
+              "x": 320,
+              "y": 382.3
+            }
+          },
+          "core": {
+            "automatic": true,
+            "turns": 4,
+            "failures": 0
+          }
+        }
+      ]
+    ],
+    "all_samples_unpaused_claimed": false,
+    "pause_flag_interpretation": "Two isolated paused flags near room transitions; no ordinary pause acknowledgement; each next sample about two seconds later resumed without an operator command."
+  },
+  "game_at_final_proof": {
+    "paused": false,
+    "frame": 23938,
+    "players": 1,
+    "dead": false,
+    "hp": 8,
+    "stage": 1,
+    "room": 20,
+    "seed": 1058559233,
+    "controller_installed": true
+  },
+  "protected_saves": {
+    "protected_unchanged": true,
+    "baseline_id": "76a3a8d2337a4dd8a97877870036b57e",
+    "allowed_slot": 3,
+    "baseline_files": 2,
+    "runtime_window_position_changes": [
+      {
+        "root": 1,
+        "relative": "options.ini",
+        "permitted_option_names": [
+          "WindowPosX",
+          "WindowPosY"
+        ],
+        "baseline_sha256": "fb9525e57a8ed9c3da50b3be65cae6f2e1ff318ac9f6853d965174b9a67a77c0",
+        "observed_sha256": "2da0b2831d1329196203301842c298832c6c8a9f98bbdbf9b7494a63aa58da9d"
+      }
+    ]
+  },
+  "public_live_at_final_proof": true,
+  "public_room": "https://live.bilibili.com/595139",
+  "danmaku_collector": {
+    "state": "CONNECTED",
+    "error": null,
+    "updated_at": 1794339523604
+  },
+  "studio": {
+    "ready": true,
+    "mode": "M03",
+    "output_fps_measured": 25.000896907166393,
+    "counters": {
+      "encoder_max_us": 352147,
+      "output_frames": 5474,
+      "body_only_frames": 5300,
+      "render_delays": 3,
+      "mouth_projection_max_us": 44446,
+      "media_map_max_us": 42588,
+      "media_map_batches": 37,
+      "media_map_frames": 174,
+      "media_map_max_batch_frames": 5,
+      "actual_audio_driven_mouth_frames": 174,
+      "actual_model_oral_open_frames": 137,
+      "utterances_generated": 3
+    },
+    "natural_action": null
+  },
+  "mouth": {
+    "ready": true,
+    "stage": "ready",
+    "size": 512,
+    "fps": 25,
+    "steps": 4,
+    "batch_size": 1,
+    "mode": "M03",
+    "prepared_modes": [
+      "M01",
+      "M02",
+      "M03"
+    ],
+    "actual_generation_fps": 55.78190961152244
+  },
+  "voice": {
+    "ready": true,
+    "engine": "OmniVoice",
+    "voice_id": "NCM01",
+    "voice_freeze_id": "NM-VOICE-FINAL-20261106-v1",
+    "steps": 32
+  },
+  "player": {
+    "connected": true,
+    "renderer": "livehime",
+    "audio_state": "running",
+    "programme": "issac",
+    "width": 1920,
+    "height": 1080,
+    "metrics": {
+      "fps": 24.68971039794114,
+      "audio_energy": 0.01596985731145832,
+      "decode_errors": 0,
+      "audio_underruns": 0,
+      "missing_packets": 0,
+      "audio_buffer_ms": 808.0000001373264,
+      "connected": true
+    }
+  },
+  "all_registered_project_processes_alive": true,
+  "official_owner": {
+    "pid": 36808,
+    "created_at": 1794329688.6954842,
+    "process_identity_verified": true
+  },
+  "watch": {
+    "action": "observe",
+    "at_unix": 1794339528.6966186,
+    "automatic_recovery": true,
+    "healthy": true,
+    "phase": "monitoring",
+    "public_live": true,
+    "public_stop_allowed": false,
+    "restarts": 0,
+    "independent_watch_alive": true
+  },
+  "prior_cycle38_natural_ending": {
+    "at_unix": 1794338266.6021907,
+    "kind": "live_terminal_held",
+    "terminal": {
+      "observed_dead": false,
+      "proof": {
+        "bridge_generation": "1233062310",
+        "callback": "MC_POST_GAME_END",
+        "frame": 198389,
+        "is_game_over": false,
+        "mod_version": "2026-11-07-native130-dsh",
+        "restart_count": 0,
+        "room_index": 163,
+        "stage": 6,
+        "stage_type": 0,
+        "start_seed": 1782996820,
+        "type": "game_event"
+      },
+      "result": "ending",
+      "seed": 0
+    },
+    "old_manual_flag_from_game_end_was_not_human_input": true,
+    "normal_slot3_menu_recovery": {
+      "at_unix": 1794338712.139105,
+      "native": {
+        "observation": {
+          "paused": false,
+          "frame": 0,
+          "players": 1,
+          "dead": false,
+          "hp": 6,
+          "stage": 1,
+          "room": 84,
+          "seed": 1058559233,
+          "controller_installed": true
+        },
+        "progress": {
+          "manager": "0x569be020",
+          "slot": 3,
+          "readonly": false,
+          "womb_unlocked": true,
+          "mom_heart_kills": 0,
+          "satan_kills": 0,
+          "unlocked_count": 12
+        }
+      },
+      "resumed": {
+        "armed": true,
+        "revision": 2
+      },
+      "public_live": true,
+      "save_protection": {
+        "protected_unchanged": true,
+        "baseline_id": "76a3a8d2337a4dd8a97877870036b57e",
+        "allowed_slot": 3,
+        "baseline_files": 2,
+        "runtime_window_position_changes": [
+          {
+            "root": 1,
+            "relative": "options.ini",
+            "permitted_option_names": [
+              "WindowPosX",
+              "WindowPosY"
+            ],
+            "baseline_sha256": "fb9525e57a8ed9c3da50b3be65cae6f2e1ff318ac9f6853d965174b9a67a77c0",
+            "observed_sha256": "2da0b2831d1329196203301842c298832c6c8a9f98bbdbf9b7494a63aa58da9d"
+          }
+        ]
+      }
+    },
+    "live_cycle39_victory_continuation_retested": false
+  },
+  "upstream": {
+    "repository": "https://github.com/wikigsroom/agent-gameplay-isaac",
+    "branch": "main",
+    "source_commit": "0544ed9960acdc7e6c62377e89e53b8f181f1552",
+    "python_tests_passed": 678,
+    "node_tests_passed": 4,
+    "results": [
+      {
+        "suite": "python",
+        "exit_code": 0,
+        "error": null
+      },
+      {
+        "suite": "node",
+        "exit_code": 0,
+        "error": null
+      }
+    ]
+  },
+  "limitations": {
+    "long_term_acceptance_claimed": false,
+    "new_600_second_recording_claimed": false,
+    "full_1m_context_stress_test_claimed": false,
+    "new_subjective_media_review_claimed": false,
+    "cycle39_actual_victory_rerun_claimed": false,
+    "short_request_ms_is_not_full_dsh_latency": true,
+    "decision_timeout_ms_is_not_latency_target": true
+  },
+  "credentials_included": false,
+  "private_voice_reference_included": false
+}
