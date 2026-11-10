@@ -169,7 +169,7 @@ test('one real DSH agent retains three turns with durable compaction and fresh f
   const server=createServer(async(req,res)=>{
     const chunks=[];for await(const chunk of req)chunks.push(chunk);payloads.push(JSON.parse(Buffer.concat(chunks)));
     res.writeHead(200,{'Content-Type':'text/event-stream'});const emit=v=>res.write('data: '+JSON.stringify(v)+'\n\n');
-    const n=payloads.length,part={type:'output_text',text:['先补血。','钥匙收好了。','这首领冲得真快。'][n-1],annotations:[]};
+    const n=payloads.length,part={type:'output_text',text:['先补血。','钥匙收好了。','这首领冲得真快。'][(n-1)%3],annotations:[]};
     const item={id:'msg-continuous-'+n,type:'message',status:'completed',role:'assistant',content:[part]};
     emit({type:'response.created',response:{id:'response-continuous-'+n,status:'in_progress'}});
     emit({type:'response.output_item.added',output_index:0,item:{...item,status:'in_progress',content:[]}});
@@ -198,6 +198,21 @@ test('one real DSH agent retains three turns with durable compaction and fresh f
       assert.ok(text.includes('奶妹'));assert.ok(text.includes('resources'));assert.ok(text.includes('inventory'));
     }
     assert.ok(JSON.stringify(payloads[2]).includes('先补血。'));
+    const channel={revision:'same-channel',model:'controlled',protocol:'responses',baseUrl:'http://127.0.0.1:'+server.address().port+'/v1',systemPrompt:'',getApiKey:()=> 'controlled-key'};
+    const nativeId=host.continuous.id;
+    const privateReply=await host.generate({sessionId:'isolated-private',snapshot:channel,input:'私人观众回合',
+      context:JSON.stringify({partition_key:'viewer-isolated'}),tools:async()=>({}),signal:AbortSignal.timeout(15000)});
+    assert.equal(privateReply.continuous_session_id,null);
+    assert.equal(host.continuous.id,nativeId);
+    assert.ok(!JSON.stringify(payloads[3]).includes('当前第2回合'));
+    const resumed=await host.generate({sessionId:'public-resumed',snapshot:channel,input:'公开长会话继续',
+      context:JSON.stringify({partition_key:'public'}),tools:async()=>({}),signal:AbortSignal.timeout(15000)});
+    assert.equal(resumed.continuous_session_id,nativeId);
+    host.gameplay={augment:async()=>{throw Error('diagnostic must not require an attached game');}};
+    const diagnostic=await host.generate({sessionId:'controlled-diagnostic',snapshot:channel,input:'仅测试渠道，不播出',
+      diagnostic:true,tools:async()=>({}),signal:AbortSignal.timeout(15000)});
+    assert.equal(diagnostic.continuous_session_id,null);
+    assert.equal(host.continuous.id,nativeId);
     assert.equal(host.active.size,0);
   }finally{await host?.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));rmSync(folder,{recursive:true,force:true});}
 });

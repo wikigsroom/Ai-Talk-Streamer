@@ -126,7 +126,7 @@ export class StreamBridge {
     const receipt={passed:false,model:snapshot.model,protocol:snapshot.protocol,provider_revision:snapshot.revision,checked_at:utc(started)};
     this.compatibility=receipt;
     try {
-      const result=await this.host.generate({sessionId,snapshot,input:'请先调用 stream_memory_recall 查询记忆，然后用一句话介绍你的姓名和虚拟角色身份。',
+      const result=await this.host.generate({sessionId,snapshot,diagnostic:true,input:'请先调用 stream_memory_recall 查询记忆，然后用一句话介绍你的姓名和虚拟角色身份。',
         signal:AbortSignal.timeout(this.policy.conversation.model_timeout_ms),tools:async(name)=>{if(name==='stream_memory_recall')recalls++;return {public:[],viewer:[]};},
         onProbe:probe=>this.recordProbe(probe),onCall:this.onCall({})});
       const prompt=this.probes.findLast(probe=>probe.session_id===sessionId);

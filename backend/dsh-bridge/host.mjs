@@ -156,20 +156,23 @@ export class DshHost {
   async generate(request) {
     return this.#withProvider(request.signal, () => this.#generate(request));
   }
-  async #generate({ sessionId, snapshot, input, context = '', signal, tools, onCall, onProbe, maxTokens = this.policy.conversation.max_output_tokens, maintenance = false, negativeMinimal = false, gameplayTurn = null }) {
+  async #generate({ sessionId, snapshot, input, context = '', signal, tools, onCall, onProbe, maxTokens = this.policy.conversation.max_output_tokens, maintenance = false, negativeMinimal = false, diagnostic = false, gameplayTurn = null }) {
     if (!this.ready || this.active.has(sessionId)) throw new Error('DSH_NOT_READY_OR_DUPLICATE');
     const partition=context?JSON.parse(context).partition_key:null;
-    const continuous=this.policy.conversation.session_strategy==='continuous_naimei'&&!maintenance&&!negativeMinimal
+    const continuous=this.policy.conversation.session_strategy==='continuous_naimei'&&!maintenance&&!negativeMinimal&&!diagnostic
       &&(!partition||['public','ephemeral_game_not_viewer'].includes(partition));
     if(this.continuous&&this.continuous.revision!==snapshot.revision){await this.continuous.handle.dispose();this.continuous=null;}
     const nativeId=continuous?(this.continuous?.id||'naimei-live-'+randomUUID()):sessionId;
-    const route = 'studio-' + digest(nativeId).slice(0, 20);
+    // Private/maintenance/diagnostic agents keep their own messages while
+    // borrowing the installed channel; the public agent must remain alive.
+    const retainedProvider=this.continuous;
+    const route = 'studio-' + digest(retainedProvider?.id||nativeId).slice(0, 20);
     const disposers=[];
     const keep=dispose=>{if(typeof dispose==='function')disposers.push(dispose);};
     const extensions = this.extensions;
     const personaSnapshot = this.port.readPersona();
     let preparedContext=context?JSON.parse(context):null;
-    const gameplay=!maintenance&&!negativeMinimal?this.gameplay:null;
+    const gameplay=!maintenance&&!negativeMinimal&&!diagnostic?this.gameplay:null;
     if(gameplay)preparedContext=await gameplay.augment(preparedContext,gameplayTurn);
     const memorySnapshot=preparedContext?.humanity_public_snapshot||this.port.requestMemorySnapshot([]);
     if(preparedContext)delete preparedContext.humanity_public_snapshot;
@@ -189,7 +192,7 @@ export class DshHost {
             text: this.renderPersona(personaSnapshot.document, { enabled: true, independentJudgment: true }) }));
           keep(agentCtx.systemPrompt.section({ name:'humanity:memory',order:20,interpolate:false,text:memorySnapshot.text }));
           setupStage='provider_bind';
-          if(first)await this.#bind(agentCtx, snapshot, route, maintenance?this.policy.maintenance.model_timeout_ms:this.policy.conversation.model_timeout_ms,continuous?'off':gameReasoningEffort);
+          if(first&&!retainedProvider)await this.#bind(agentCtx, snapshot, route, maintenance?this.policy.maintenance.model_timeout_ms:this.policy.conversation.model_timeout_ms,continuous?'off':gameReasoningEffort);
           const names = maintenance ? ['stream_maintenance_result'] : gameTurn ? gameplay.names : [...LIVE_TOOLS, ...(this.extensions ? EXTENSION_TOOLS : []), ...(gameplay?gameplay.names:[])];
           setupStage='extensions_mount';
           if (this.extensions && !maintenance && !negativeMinimal) disposers.push(...await this.extensions.mount(agentCtx, agent, input, preparedContext?.partition_key || 'public'));

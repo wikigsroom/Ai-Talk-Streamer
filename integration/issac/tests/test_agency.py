@@ -6,8 +6,13 @@ import tempfile
 import unittest
 
 ROOT=Path(__file__).resolve().parents[3]
-sys.path.insert(0,str(ROOT/'integration/isaac-agent/tests'))
-from strategy_fixtures import scenario
+fixture_path=str(ROOT/'integration/isaac-agent/tests')
+sys.path.insert(0,fixture_path)
+try:
+    from strategy_fixtures import scenario
+finally:
+    # Do not shadow identically named integration tests during discovery.
+    sys.path.remove(fixture_path)
 from integration.issac.game_policy import strategy_class
 from isaac_jev.models import GameState
 from isaac_jev.strategy import StrategyError

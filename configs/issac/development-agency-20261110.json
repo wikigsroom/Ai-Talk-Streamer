@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "AGENCY03",
+  "round": "AGENCY04",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -9,7 +9,7 @@
   "unresolved_round_code_TODOs": [],
   "items": [
     {
-      "id": "AGENCY03-COMPLETE-USER-AMENDMENT",
+      "id": "AGENCY04-COMPLETE-USER-AMENDMENT",
       "status": "code_complete_pending_acceptance",
       "source_files": [
         "AGENTS.md",
@@ -50,5 +50,5 @@
       ]
     }
   ],
-  "previous_validation_closed": "operations/issac-live300-20261109/agency02-round-closed.json"
+  "previous_validation_closed": "operations/issac-live300-20261109/agency03-round-closed.json"
 }
