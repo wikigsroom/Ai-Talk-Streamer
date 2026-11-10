@@ -164,7 +164,8 @@ def strategy_class(root):
             offers=super()._offers(state)
             if self.core_actor_required and state is not None:
                 # A preferred collectible must not hide the ordinary supplies.
-                supplies=replace(state,pickups=tuple(p for p in state.pickups if p.variant!=100))
+                pedestals={p['id'] for p in self.snapshot['pickups'] if p.get('variant')==100}
+                supplies=replace(state,pickups=tuple(p for p in state.pickups if p.entity_id not in pedestals))
                 offers+= [o for o in super()._offers(supplies) if self._is_local_supply(o)]
             return list({o['id']:o for o in offers
                 if not str(o.get('action_id','')).startswith(('bomb_secret_','bomb_super_secret_'))
