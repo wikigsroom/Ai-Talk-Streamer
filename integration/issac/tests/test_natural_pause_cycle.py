@@ -90,3 +90,34 @@ class NaturalPauseCycle(unittest.TestCase):
                 if field=='phase':sample['game']['live_cycle']['phase']='operator_paused'
                 else:sample['game']['manual_override']=True
                 self.assertEqual(owner.healthy(),(False,True,False))
+
+    def media_host(self):
+        owner=self.host();owner.pause_pending=False
+        owner.lifecycle.fault=Mock()
+        def attention(reason):owner.lifecycle.enabled=False;owner.lifecycle.phase='restart_required'
+        owner.lifecycle.attention=Mock(side_effect=attention)
+        def control(*args,**kwargs):
+            owner.armed=False
+            return {'armed':False,'native_receipt':{'normal_game_pause_acknowledged':True}}
+        owner.control=Mock(side_effect=control)
+        return owner
+
+    def test_irreversible_media_failure_requests_normal_pause_and_full_restart(self):
+        owner=self.media_host();result=owner.action({'action':'media_fault'})
+        owner.control.assert_called_once_with({'enabled':False,'live':False},origin='lifecycle')
+        self.assertTrue(result['native_receipt']['normal_game_pause_acknowledged']);self.assertFalse(result['armed'])
+        self.assertEqual(owner.lifecycle.phase,'restart_required')
+
+    def test_media_pause_ack_failure_still_requests_restart_and_reports_pending(self):
+        owner=self.media_host();owner.control.side_effect=AdmissionError('NATIVE_REPLY_LOST')
+        result=owner.action({'action':'media_fault'})
+        self.assertTrue(result['pause_confirmation_pending'])
+        self.assertEqual(owner.lifecycle.phase,'restart_required')
+
+    def test_media_failure_cannot_erase_a_human_pause_or_native_takeover(self):
+        for phase,manual in [('operator_paused',False),('playing',True)]:
+            with self.subTest(phase=phase,manual=manual):
+                owner=self.media_host();owner.lifecycle.phase=phase
+                owner.service.raw['strategy']['manual_override']=manual
+                self.assertTrue(owner.action({'action':'media_fault'})['operator_pause_preserved'])
+                owner.control.assert_not_called();owner.lifecycle.attention.assert_not_called()

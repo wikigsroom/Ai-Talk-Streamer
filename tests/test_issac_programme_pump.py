@@ -94,7 +94,7 @@ class ProgrammePumpTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(studio.media_error,'MEDIA_CONTINUITY_OR_MAPPING_REJECTED')
             self.assertEqual(studio.stage,'media_quality_or_protocol_fault')
             studio.emit.assert_not_awaited();viewer.close.assert_awaited_once()
-            studio.native_call.assert_awaited_once_with({'action':'pause'})
+            studio.native_call.assert_awaited_once_with({'action':'media_fault'})
             rows=[json.loads(line) for line in (folder/'events.jsonl').read_text('utf8').splitlines()]
             self.assertEqual([row['kind'] for row in rows],['media_frame_rejected','media_fault_normal_pause'])
             self.assertEqual(rows[0]['error_type'],'AdmissionError')
@@ -143,7 +143,7 @@ class ProgrammePumpTests(unittest.IsolatedAsyncioTestCase):
             viewer=type('Viewer',(),{'close':AsyncMock(side_effect=OSError('consumer disconnected'))})()
             studio.viewers={viewer:None}
             await asyncio.wait_for(studio.pump(),2)
-            studio.native_call.assert_awaited_once_with({'action':'pause'})
+            studio.native_call.assert_awaited_once_with({'action':'media_fault'})
             studio.emit.assert_not_awaited()
             rows=[json.loads(line) for line in (folder/'events.jsonl').read_text('utf8').splitlines()]
             self.assertEqual(rows[-1]['kind'],'media_fault_normal_pause')
@@ -244,7 +244,7 @@ class ProgrammePumpTests(unittest.IsolatedAsyncioTestCase):
             await asyncio.wait_for(studio.playout(),1)
             self.assertEqual(studio.stats['output_frames'],0)
             self.assertEqual(studio.stats['pump_stalls'],1);self.assertTrue(studio.media_fault)
-            studio.native_call.assert_awaited_once_with({'action':'pause'})
+            studio.native_call.assert_awaited_once_with({'action':'media_fault'})
 
     async def test_batch_is_durable_before_any_of_its_real_pcm_frames_become_playable(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -375,7 +375,7 @@ class ProgrammePumpTests(unittest.IsolatedAsyncioTestCase):
                 studio.published_body['drinking']=False
                 with patch('integration.issac.studio.verified_drink_pause',return_value=True):
                     await asyncio.wait_for(resumed.wait(),2)
-                studio.native_call.assert_awaited_once_with({'action':'resume','expected_revision':7})
+                studio.native_call.assert_awaited_once_with({'action':'natural_resume','expected_revision':7})
                 self.assertIsNone(studio.auto_drink)
             finally:
                 task.cancel();await asyncio.gather(task,return_exceptions=True)

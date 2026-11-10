@@ -180,7 +180,9 @@ class StrategyHost:
                 self.control({'enabled':False,'live':False})
         except Exception:
             self.last_fault=reason+'_PAUSE_ACK_PENDING'
+            self.pause_pending=True
         if lifecycle:lifecycle.fault(reason,receipt)
+        return {'armed':self.armed,'native_receipt':receipt or {},'pause_confirmation_pending':self.pause_pending}
 
     def control(self, body, *, origin='operator'):
         if set(body)-{'enabled','live'}:
@@ -269,6 +271,15 @@ class StrategyHost:
                     raise AdmissionError('OPERATOR_CONTROL_REVISION_CHANGED')
                 body={k:v for k,v in body.items() if k!='expected_revision'}
             action=body.get('action')
+            if action=='media_fault' and set(body)=={'action'}:
+                if (self.lifecycle.phase=='operator_paused'
+                    or self.service.raw.get('strategy',{}).get('manual_override')):
+                    return {'armed':self.armed,'operator_pause_preserved':True}
+                result=self.watchdog_stop('LIVE_MEDIA_UNAVAILABLE')
+                # A failed frame pipeline cannot become ready inside the same
+                # studio process. Request independent replacement immediately.
+                self.lifecycle.attention('LIVE_MEDIA_UNAVAILABLE')
+                return result
             if action in {'natural_pause','natural_resume'} and set(body)=={'action'}:
                 if (not revision_checked or self.service.raw.get('strategy',{}).get('manual_override')
                     or (action=='natural_pause' and (not self.armed or not self.lifecycle.enabled or self.lifecycle.phase!='playing'))

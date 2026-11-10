@@ -303,8 +303,12 @@ class IsaacStudio(NaimeiStudio):
             try:await ws.close(code=1011,message=b'media validation failed')
             except Exception:self.audit.append('media_consumer_close_unconfirmed')
         try:
-            receipt=await self.native_call({'action':'pause'})
-            self.audit.append('media_fault_normal_pause',native_receipt=receipt.get('native_receipt',{}))
+            receipt=await self.native_call({'action':'media_fault'})
+            if receipt.get('operator_pause_preserved'):
+                self.audit.append('media_fault_operator_pause_preserved')
+            elif receipt.get('pause_confirmation_pending'):
+                self.audit.append('media_fault_pause_unconfirmed',code='NORMAL_GAME_PAUSE_NOT_CONFIRMED')
+            else:self.audit.append('media_fault_normal_pause',native_receipt=receipt.get('native_receipt',{}))
         except Exception:self.audit.append('media_fault_pause_unconfirmed',code='NORMAL_GAME_PAUSE_NOT_CONFIRMED')
 
     async def playout(self):
