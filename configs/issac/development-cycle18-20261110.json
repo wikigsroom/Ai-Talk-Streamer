@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE18",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [{
+    "id": "VISUAL_NATIVE_SLOT3_RECOVERY",
+    "status": "code_complete_pending_acceptance",
+    "source_files": [
+      "integration/issac/menu_observation.py",
+      "integration/issac/live_supervisor.py",
+      "integration/issac/tests/test_menu_recovery.py",
+      "integration/issac/tests/fixtures/menu-title.jpg",
+      "integration/issac/tests/fixtures/menu-file1.jpg",
+      "integration/issac/tests/fixtures/menu-file2.jpg",
+      "integration/issac/tests/fixtures/menu-file3.jpg",
+      "configs/issac/menu-signatures.json",
+      "docs/issac/原生菜单恢复修订20261110.md",
+      "AGENTS.md"
+    ]
+  }],
+  "previous_round_closed": "CYCLE17 actual full restart blocked by opening film/title/file-selection timing; original slot protection retained.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}

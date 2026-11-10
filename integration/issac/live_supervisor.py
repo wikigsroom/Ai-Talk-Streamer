@@ -227,10 +227,18 @@ class LiveSupervisor:
             time.sleep(2)
         raise AdmissionError('RECOVERY_STACK_READY_DEADLINE')
 
+    def game_menu(self):
+        from .menu_observation import recognize_menu
+        request = urllib.request.Request('http://127.0.0.1:9534/frame.jpg')
+        with self.opener.open(request, timeout=8) as response:
+            image = response.read(4*1024*1024+1)
+        return recognize_menu(image, read_json(inside(self.root, 'configs/issac/menu-signatures.json')))
+
     def restore_game(self):
+        from .record_focus import game_foreground
+        from .saves import SaveProtection
         self.api(9541, '/action', {'action': 'launch_game'})
         time.sleep(5)
-        app = self.api(9541, '/status')
         # Application /status exposes identity records under children.
         game = next(row for row in read_json(inside(self.root, 'state/issac-stream/application.json'))['processes'] if row['name'] == 'isaac-game')
         self.api(9534, '/control', {'action': 'attach', 'pid': game['pid']})
@@ -238,23 +246,56 @@ class LiveSupervisor:
             return self.api(9534, '/control', {'action': 'observe'})
         def key(name):
             self.api(9534, '/control', {'action': 'menu', 'key': name})
-            time.sleep(.4)
+            time.sleep(.75)
         before = observe()
         if before['progress']['slot'] != 0 or before['observation']['players'] != 0:
             raise AdmissionError('FRESH_GAME_TITLE_REQUIRED_FOR_SLOT3_SELECTION')
-        # The pinned executable always boots at its title with file1 selected.
-        # Fixed ordinary title/file3 sequence; admit no gameplay until native
-        # progress confirms writable slot3 and all original saves still match.
+        game_foreground(self.root)
+        deadline, title_keys, file_keys = time.monotonic()+120, 0, 0
+        # A fresh game first plays a film. Waiting for the actual title avoids
+        # the old fixed sequence consuming Enter on the film and arrows on the
+        # title. Neither an unknown frame nor a fade authorizes any key.
+        self.report('restoring_slot3', step='waiting_for_known_native_menu')
+        while time.monotonic() < deadline:
+            current = observe()
+            if current['progress']['slot'] != 0 or current['observation']['players'] != 0:
+                raise AdmissionError('RECOVERY_UNEXPECTED_NATIVE_FILE_SELECTION')
+            menu = self.game_menu()
+            if menu['page'] == 'file_select':
+                if menu['selected_file'] == 3:
+                    self.audit.append('recovery_file3_visually_confirmed', **menu)
+                    break
+                if file_keys >= 4:
+                    raise AdmissionError('RECOVERY_FILE3_HIGHLIGHT_NOT_CONFIRMED')
+                key('right')
+                file_keys += 1
+            elif menu['page'] == 'title':
+                if title_keys >= 3:
+                    raise AdmissionError('RECOVERY_TITLE_INPUT_NOT_ACCEPTED')
+                key('space')
+                title_keys += 1
+            else:
+                time.sleep(.5)
+        else:
+            raise AdmissionError('RECOVERY_NATIVE_MENU_NOT_RECOGNIZED')
+        SaveProtection(self.root).verify()
         key('enter')
-        key('right')
-        key('right')
-        key('enter')
-        selected = observe()
-        if selected['progress']['slot'] != 3 or selected['progress']['readonly'] is not False:
-            raise AdmissionError('RECOVERY_NATIVE_SLOT3_NOT_CONFIRMED')
+        deadline = time.monotonic()+5
+        while True:
+            selected = observe()
+            slot = selected['progress']['slot']
+            if slot == 3 and selected['progress']['readonly'] is False:
+                break
+            if slot not in (0, 3) or time.monotonic() >= deadline:
+                raise AdmissionError('RECOVERY_NATIVE_SLOT3_NOT_CONFIRMED')
+            time.sleep(.25)
+        self.audit.append('recovery_native_slot3_confirmed', slot=3, readonly=False)
         deadline = time.monotonic()+20
         for _ in range(4):
-            if observe()['observation']['players'] == 1:
+            selected = observe()
+            if selected['progress']['slot'] != 3 or selected['progress']['readonly'] is not False:
+                raise AdmissionError('RECOVERY_NATIVE_SLOT3_CHANGED')
+            if selected['observation']['players'] == 1:
                 break
             key('enter')
         while time.monotonic() < deadline:
