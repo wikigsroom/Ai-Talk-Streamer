@@ -1,0 +1,406 @@
+{
+  "schema_version": 1,
+  "kind": "observed_native_room_stalemate_repair",
+  "captured_at_unix": 1794345016.0444121,
+  "source_commit": "f059bf41c7febb480d7f09ea5bc8f7b4a237c0ab",
+  "candidate_id": "issac-f059bf41c7fe-f41a2026",
+  "application_stage": "running_candidate_not_accepted",
+  "archive_sha256": "6a02dfe17799c5bc90bf9662af3443d9c04bed7bbea517899b5c8994c7527c7e",
+  "source_manifest_sha256": "8afb8b6aca9339314ca09516b18857bf632f496d1c914d308976e020242f3113",
+  "verified_source_files": 2464,
+  "diagnosis": {
+    "stage": 3,
+    "room": 80,
+    "seed": 1058559233,
+    "enemy_count": 3,
+    "total_enemy_hp": 60,
+    "nominal_tear_range": 360,
+    "old_lane_ceiling": 335,
+    "native_engagement_ceiling": 235,
+    "repaired_lane_ceiling": 235,
+    "model_pending": false,
+    "cause": "firing waypoint accepted across pits outside native engagement range"
+  },
+  "regression": {
+    "frozen_round": "CYCLE41",
+    "suites": [
+      {
+        "suite": 0,
+        "exit_code": 0
+      },
+      {
+        "suite": 1,
+        "exit_code": 0
+      },
+      {
+        "suite": 2,
+        "exit_code": 0
+      },
+      {
+        "suite": 3,
+        "exit_code": 0
+      },
+      {
+        "suite": 4,
+        "exit_code": 0
+      },
+      {
+        "suite": 5,
+        "exit_code": 0
+      }
+    ],
+    "passed": 1313,
+    "skipped": 7,
+    "failed": 0,
+    "prior_failed_round": "CYCLE40 rejected an incorrect endpoint-row assertion; not installed"
+  },
+  "independent_repository": {
+    "repository": "https://github.com/wikigsroom/agent-gameplay-isaac",
+    "validated_commit": "4475de6ca33537fa0e2a1855b8f3d5794ef7fe17",
+    "python_passed": 682,
+    "node_passed": 4
+  },
+  "continuity": {
+    "game_pid": 39000,
+    "game_created_at": 1794329702.3416889,
+    "game_stop_requested": false,
+    "game_pause_requested": false,
+    "official_process_restarted": false,
+    "voice_model_restarted": false,
+    "mouth_model_restarted": false,
+    "same_seed": 1058559233,
+    "protected_saves_unchanged": true,
+    "slot": 3,
+    "game_process_alive_in_all_samples": true,
+    "admission_kind": "observed_distant_stationary_combat_stalemate",
+    "admission_observed_seconds": 10.3
+  },
+  "observed": {
+    "first_damage": {
+      "at_unix": 1794344733.5991414,
+      "frame": 174308,
+      "stage": 3,
+      "room": 80,
+      "clear": false,
+      "paused": false,
+      "hp": 8,
+      "position": {
+        "x": 360.4,
+        "y": 288.9
+      },
+      "enemies": [
+        {
+          "id": 3,
+          "type": 30,
+          "hp": 7.1429738998413,
+          "is_boss": false
+        },
+        {
+          "id": 4,
+          "type": 30,
+          "hp": 20,
+          "is_boss": false
+        },
+        {
+          "id": 5,
+          "type": 30,
+          "hp": 20,
+          "is_boss": false
+        }
+      ]
+    },
+    "first_clear80": {
+      "at_unix": 1794344741.7523685,
+      "frame": 174548,
+      "stage": 3,
+      "room": 80,
+      "clear": true,
+      "paused": false,
+      "hp": 8,
+      "position": {
+        "x": 755.7,
+        "y": 234.8
+      },
+      "enemies": []
+    },
+    "first_cross_room": {
+      "at_unix": 1794344784.6041064,
+      "frame": 175816,
+      "stage": 3,
+      "room": 79,
+      "clear": false,
+      "paused": false,
+      "hp": 8,
+      "position": {
+        "x": 551.2,
+        "y": 280
+      },
+      "enemies": [
+        {
+          "id": 1,
+          "type": 61,
+          "hp": 20,
+          "is_boss": false
+        },
+        {
+          "id": 2,
+          "type": 61,
+          "hp": 10,
+          "is_boss": false
+        },
+        {
+          "id": 3,
+          "type": 61,
+          "hp": 10,
+          "is_boss": false
+        }
+      ]
+    },
+    "last": {
+      "at_unix": 1794345016.8533368,
+      "frame": 181640,
+      "stage": 3,
+      "room": 78,
+      "clear": false,
+      "paused": false,
+      "hp": 8,
+      "position": {
+        "x": 135.9,
+        "y": 159.3
+      },
+      "enemies": [
+        {
+          "id": 2,
+          "type": 30,
+          "hp": 17.276699066162,
+          "is_boss": false
+        },
+        {
+          "id": 4,
+          "type": 36,
+          "hp": 44.877380371094,
+          "is_boss": true
+        },
+        {
+          "id": 8,
+          "type": 30,
+          "hp": 20,
+          "is_boss": false
+        },
+        {
+          "id": 285,
+          "type": 30,
+          "hp": 20,
+          "is_boss": false
+        },
+        {
+          "id": 448,
+          "type": 30,
+          "hp": 20,
+          "is_boss": false
+        },
+        {
+          "id": 621,
+          "type": 30,
+          "hp": 20,
+          "is_boss": false
+        },
+        {
+          "id": 907,
+          "type": 30,
+          "hp": 20,
+          "is_boss": false
+        },
+        {
+          "id": 1493,
+          "type": 30,
+          "hp": 20,
+          "is_boss": false
+        },
+        {
+          "id": 1826,
+          "type": 30,
+          "hp": 20,
+          "is_boss": false
+        },
+        {
+          "id": 2193,
+          "type": 30,
+          "hp": 20,
+          "is_boss": false
+        },
+        {
+          "id": 2500,
+          "type": 14,
+          "hp": 7.8671822547913,
+          "is_boss": false
+        },
+        {
+          "id": 2566,
+          "type": 14,
+          "hp": 8,
+          "is_boss": false
+        }
+      ]
+    },
+    "distinct_rooms": [
+      [
+        3,
+        80
+      ],
+      [
+        3,
+        79
+      ],
+      [
+        3,
+        67
+      ],
+      [
+        3,
+        82
+      ],
+      [
+        3,
+        78
+      ]
+    ],
+    "post_install_observed_seconds": 285.2748956680298,
+    "valid_state_samples": 141,
+    "transient_paused_flag_samples": [
+      {
+        "at_unix": 1794344884.4393525,
+        "frame": 178743,
+        "stage": 3,
+        "room": 80,
+        "clear": true,
+        "paused": true,
+        "hp": 8,
+        "position": {
+          "x": 1080,
+          "y": 280
+        },
+        "enemies": []
+      },
+      {
+        "at_unix": 1794344892.5748358,
+        "frame": 178969,
+        "stage": 3,
+        "room": 79,
+        "clear": true,
+        "paused": true,
+        "hp": 8,
+        "position": {
+          "x": 40.7,
+          "y": 280
+        },
+        "enemies": []
+      },
+      {
+        "at_unix": 1794344894.597816,
+        "frame": 178969,
+        "stage": 3,
+        "room": 78,
+        "clear": false,
+        "paused": true,
+        "hp": 8,
+        "position": {
+          "x": 320,
+          "y": 400
+        },
+        "enemies": [
+          {
+            "id": 1,
+            "type": 30,
+            "hp": 7,
+            "is_boss": false
+          },
+          {
+            "id": 2,
+            "type": 30,
+            "hp": 7,
+            "is_boss": false
+          },
+          {
+            "id": 3,
+            "type": 30,
+            "hp": 7,
+            "is_boss": false
+          },
+          {
+            "id": 4,
+            "type": 36,
+            "hp": 595,
+            "is_boss": true
+          },
+          {
+            "id": 5,
+            "type": 18,
+            "hp": 5,
+            "is_boss": false
+          },
+          {
+            "id": 6,
+            "type": 18,
+            "hp": 5,
+            "is_boss": false
+          },
+          {
+            "id": 7,
+            "type": 30,
+            "hp": 7,
+            "is_boss": false
+          },
+          {
+            "id": 8,
+            "type": 30,
+            "hp": 7,
+            "is_boss": false
+          }
+        ]
+      }
+    ],
+    "normal_pause_ack_count": 0,
+    "dead_samples": 0,
+    "observer_errors_during_component_migration": 10
+  },
+  "core": {
+    "model": "gpt-6-luna",
+    "protocol": "responses",
+    "turns": 4,
+    "failures": 0,
+    "last_error": null,
+    "actual_completed_game_utterances": 3,
+    "last_spoken": "少了一只，血量没变。",
+    "decision_latency_p95_ms": 31112,
+    "context_window_tokens": 1000000
+  },
+  "media": {
+    "mode": "M03",
+    "output_fps": 25.001962279058603,
+    "voice_engine": "OmniVoice",
+    "voice_id": "NCM01",
+    "voice_freeze_id": "NM-VOICE-FINAL-20261106-v1",
+    "mouth_size": 512,
+    "mouth_fps": 25,
+    "mouth_steps": 4,
+    "mouth_batch_size": 1,
+    "official_player_connected": true,
+    "audio_state": "running",
+    "actual_audio_driven_mouth_frames": 237
+  },
+  "live": {
+    "room_id": 595139,
+    "public_live": true,
+    "independent_watch_alive": true,
+    "watch_healthy": true,
+    "combat_no_damage_timeout_seconds": 180
+  },
+  "limits": {
+    "long_term_application_accepted": false,
+    "new_full_600_second_recording": false,
+    "full_context_window_stress_verified": false
+  },
+  "credentials_included": false,
+  "reference_audio_included": false
+}
