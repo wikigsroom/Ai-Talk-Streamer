@@ -1,0 +1,10 @@
+{
+ "schema_version":1,"round":"CYCLE22","branch":"issac",
+ "candidate_frozen":false,"application_tests_started":false,
+ "manual_whole_round_source_review_complete":true,"tests_run_during_development":false,
+ "unresolved_round_code_TODOs":[],
+ "items":[{"id":"RECOVERY_RESUME_REGRESSION_ALIGNMENT","status":"code_complete_pending_acceptance","source_files":[
+ "integration/issac/tests/test_live_cycle.py","docs/issac/采集宿主恢复顺序修订20261110.md","AGENTS.md"]}],
+ "previous_round_closed":"CYCLE21 local tests: 49 passed, 1 stale expected action name. No remote deployment; production source unchanged in CYCLE22.",
+ "private_credentials_in_source":false,"memory_reset_requested":false
+}

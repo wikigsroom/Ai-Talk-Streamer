@@ -280,7 +280,9 @@ class RecoveryOwnershipTests(unittest.TestCase):
         with patch('integration.issac.saves.SaveProtection'), patch('integration.issac.record_focus.game_foreground'):
             with self.assertRaises(AdmissionError):
                 owner.recover()
-        self.assertFalse(any(args.args == (9534, '/control', {'action': 'live'}) for args in owner.api.call_args_list))
+        self.assertFalse(any(call.args[:2] == (9534, '/control') and
+            call.args[2].get('action') in {'live', 'recovery_live', 'resume'}
+            for call in owner.api.call_args_list))
 
     def test_full_recovery_keeps_model_persona_and_saves_out_of_mutation_path(self):
         owner = self.supervisor()
@@ -289,7 +291,7 @@ class RecoveryOwnershipTests(unittest.TestCase):
         self.assertEqual(protection.return_value.verify.call_count, 2)
         owner.restart_owned_game.assert_called_once()
         owner.restore_official.assert_called_once()
-        owner.api.assert_any_call(9534, '/control', {'action': 'live'}, timeout=20)
+        owner.api.assert_any_call(9534, '/control', {'action': 'recovery_live'}, timeout=20)
         completed = next(call for call in owner.audit.append.call_args_list if call.args == ('owned_full_stack_restart_completed',))
         self.assertFalse(completed.kwargs['memory_cleared'])
         self.assertFalse(completed.kwargs['model_changed'])
