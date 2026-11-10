@@ -1,4 +1,4 @@
-﻿param([Parameter(Mandatory=$true)][int]$ProcessId,[Parameter(Mandatory=$true)][long]$WindowHandle)
+﻿param([Parameter(Mandatory=$true)][int]$ProcessId,[Parameter(Mandatory=$true)][long]$WindowHandle,[switch]$InspectOnly)
 $ErrorActionPreference='Stop'
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
@@ -25,9 +25,13 @@ $targets=@()
 $running=@()
 foreach($node in $nodes){
     $info=$node.Current
-    if($labels -contains $info.Name -and $info.IsEnabled -and -not $info.IsOffscreen){$targets+=,$node}
-    if($info.Name -eq '关播' -and $info.IsEnabled -and -not $info.IsOffscreen){$running+=,$node}
+    # Qt exports both the button and its child text with the same name.
+    # Only actionable buttons can authorize a click; text is never a target.
+    if($info.ControlType -ne [Windows.Automation.ControlType]::Button){continue}
+    if($labels -contains $info.Name.Trim() -and $info.IsEnabled -and -not $info.IsOffscreen){$targets+=,$node}
+    if($info.Name.Trim() -eq '关播' -and $info.IsEnabled -and -not $info.IsOffscreen){$running+=,$node}
 }
+if($InspectOnly){@{start_buttons=$targets.Count;running_buttons=$running.Count;can_stop_broadcast=$false;invoked=$false}|ConvertTo-Json -Compress;exit 0}
 if($targets.Count -eq 0 -and $running.Count -eq 1){@{already_running=$true;can_stop_broadcast=$false}|ConvertTo-Json -Compress;exit 0}
 if($targets.Count -ne 1){throw 'ONE_EXPLICIT_START_BROADCAST_CONTROL_REQUIRED'}
 $pattern=$null

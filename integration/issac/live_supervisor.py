@@ -39,6 +39,11 @@ class SupervisorState:
         return 'observe'
 
 
+def operator_paused(controller):
+    return (controller.get('manual_override') is True
+            or (controller.get('live_cycle') or {}).get('phase') == 'operator_paused')
+
+
 class LiveSupervisor:
     def __init__(self, root):
         self.root = Path(root).resolve()
@@ -99,7 +104,7 @@ class LiveSupervisor:
             return False, False, True
         controller = self.api(9534, '/status')
         cycle = controller.get('live_cycle') or {}
-        manual = cycle.get('phase') == 'operator_paused'
+        manual = operator_paused(controller)
         requested = cycle.get('phase') == 'restart_required'
         if manual or requested:
             return False, manual, requested
@@ -310,34 +315,77 @@ class LiveSupervisor:
             current = observe()
             if current['observation']['players'] == 1 and not current['observation']['dead']:
                 self.api(9534, '/control', {'action': 'install'}, timeout=20)
-                self.api(9534, '/control', {'action': 'pause'}, timeout=12)
+                self.api(9534, '/control', {'action': 'recovery_pause'}, timeout=12)
                 return
             time.sleep(.5)
         raise AdmissionError('RECOVERY_LIVING_NATIVE_RUN_NOT_CONFIRMED')
 
-    def restore_official(self):
+    def official_child(self, row, directory):
+        import psutil
+        try:
+            process = psutil.Process(row['pid'])
+        except psutil.NoSuchProcess:
+            return None
+        path = Path(row['executable']).resolve()
+        if (process.create_time() != row['created_at'] or Path(process.exe()).resolve() != path
+                or not path.is_relative_to(directory) or file_hash(path) != row['executable_sha256']):
+            raise AdmissionError('RECOVERY_OFFICIAL_CHILD_IDENTITY_CHANGED')
+        return process
+
+    def restart_official_client(self):
         import psutil
         from .livehime import Livehime
         from .official_window import identity
         old = read_json(inside(self.root, '.setup/issac-livehime-owner.json'))
+        directory = Path(old['executable']).resolve().parent
+        ledger_path = inside(self.root, 'state/issac-stream/live-supervisor-official-children.json')
+        ledger = read_json(ledger_path) if ledger_path.exists() else {}
+        rows = ledger.get('children', []) if all(ledger.get(k) == old.get(k) for k in
+            ('pid', 'created_at', 'executable_sha256')) else []
         try:
             process = identity(self.root, old)
         except psutil.NoSuchProcess:
             process = None
         if process:
-            children = process.children(recursive=True)
-            process.terminate()
-            process.wait(12)
-            for child in children:
+            for child in process.children(recursive=True):
                 try:
-                    if Path(child.exe()).resolve().is_relative_to(Path(old['executable']).parent):
-                        child.terminate()
+                    path = Path(child.exe()).resolve()
+                    if path.is_relative_to(directory):
+                        row = {'pid': child.pid, 'created_at': child.create_time(), 'executable': str(path),
+                               'executable_sha256': file_hash(path)}
+                        if row not in rows: rows.append(row)
                 except psutil.NoSuchProcess:
                     pass
+            write_json(ledger_path, {k: old[k] for k in ('pid', 'created_at', 'executable_sha256')} | {'children': rows})
+            process.terminate()
+            process.wait(12)
+        # Await recorded same-lifetime children before the singleton check. A
+        # parent-bound ledger also survives a parent exit during recovery.
+        for row in rows:
+            child = self.official_child(row, directory)
+            if child:
+                child.terminate()
+                child.wait(8)
+        return Livehime(self.root).launch()
+
+    def preflight_live_game(self):
+        # Catch delayed native exits before publishing a black game source.
+        # This is a verified normal pause; no gameplay input is issued.
+        for _ in range(5):
+            if operator_paused(self.api(9534, '/status')):
+                raise AdmissionError('RECOVERY_CANCELLED_BY_OPERATOR')
+            current = self.api(9534, '/control', {'action': 'observe'}, timeout=8)
+            if (current['progress']['slot'] != 3 or current['progress']['readonly'] is not False
+                    or current['observation']['players'] != 1 or current['observation']['dead']):
+                raise AdmissionError('RECOVERY_LIVING_SLOT3_REQUIRED_BEFORE_PUBLIC_LIVE')
+            time.sleep(1)
+
+    def restore_official(self):
+        from .livehime import Livehime
         # No stop-broadcast request is ever sent. The same isolated profile,
         # sources, title, account and browser/audio source are reloaded.
         client = Livehime(self.root)
-        owner = client.launch()
+        client.owner()
         window = client.native_window('windows')['windows']
         if len(window) != 1:
             raise AdmissionError('RECOVERY_OFFICIAL_WINDOW_REQUIRED')
@@ -349,7 +397,8 @@ class LiveSupervisor:
                 '-ProcessId', str(window[0]['pid']), '-WindowHandle', str(window[0]['hwnd'])],
                 capture_output=True, timeout=12, creationflags=0x08000000)
             if result.returncode:
-                self.audit.append('official_resume_waiting_for_named_control')
+                self.audit.append('official_resume_waiting_for_named_control', returncode=result.returncode,
+                                  private_diagnostic=result.stderr.decode('utf8', errors='replace')[-1500:])
             else:
                 observed = json.loads(result.stdout.decode('utf-8-sig'))
                 if observed.get('already_running') is True and self.platform_live():
@@ -368,12 +417,19 @@ class LiveSupervisor:
         self.stop_owned_stack_for_restart()
         self.restart_owned_game()
         self.start_stack()
+        # Finish unloading the old capture client before the new game and its
+        # native bridge exist; CYCLE19 exited during the opposite sequence.
+        self.report('restoring_official_client')
+        self.restart_official_client()
         self.report('restoring_slot3')
         self.restore_game()
         self.api(3104, '/api/dsh/issac/rehearsal/start', {}, timeout=35)
         self.api(3104, '/api/dsh/platforms/bilibili/collector/start', {}, timeout=12)
+        self.preflight_live_game()
         self.report('restoring_public_stream')
         self.restore_official()
+        if operator_paused(self.api(9534, '/status')):
+            raise AdmissionError('RECOVERY_CANCELLED_BY_OPERATOR')
         game_foreground(self.root)
         self.api(9534, '/control', {'action': 'live'}, timeout=20)
         SaveProtection(self.root).verify()

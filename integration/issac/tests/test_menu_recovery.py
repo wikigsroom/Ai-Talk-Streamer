@@ -100,6 +100,7 @@ class NativeMenuRecoveryTests(unittest.TestCase):
         self.assertEqual(self.keys, ['space', 'right', 'right', 'enter', 'enter'])
         self.assertGreaterEqual(self.now, 6)
         self.owner.api.assert_any_call(9534, '/control', {'action': 'install'}, timeout=20)
+        self.owner.api.assert_any_call(9534, '/control', {'action': 'recovery_pause'}, timeout=12)
 
     def test_already_highlighted_file3_is_not_rotated_to_file1(self):
         self.selected = 3; self.pages = []

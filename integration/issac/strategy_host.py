@@ -254,6 +254,7 @@ class StrategyHost:
                 'strategy':self.service.status(),'native_attached':self.native.session is not None,
                 'control_revision':self.control_revision,
                 'pause_confirmation_pending':self.pause_pending,
+                'manual_override':self.service.raw.get('strategy',{}).get('manual_override',False),
                 'native_engine_hold_grace':self.service.native_engine_hold_grace(),
                 'game_audio':self.audio.status(),
                 'packet_processing':getattr(self.runtime.controller,'packet_status',lambda:None)(),
@@ -281,6 +282,11 @@ class StrategyHost:
                 if self.armed:raise AdmissionError('PAUSE_BEFORE_MODULE_ADMISSION')
                 self.native.bootstrap_modules()
                 return {'modules_ready':True,'autopilot':False}
+            if action=='recovery_pause' and set(body)=={'action'}:
+                if (self.armed or self.lifecycle.enabled or self.lifecycle.phase!='observation_only'
+                    or self.service.raw.get('strategy',{}).get('manual_override')):
+                    raise AdmissionError('FRESH_OBSERVATION_ONLY_RECOVERY_PAUSE_REQUIRED')
+                return self.control({'enabled':False,'live':False},origin='lifecycle')
             if action in {'resume','pause','observe'} and set(body)=={'action'}:
                 if action=='observe':
                     return {'observation':self.native.observe(),'progress':self.native.progress()}

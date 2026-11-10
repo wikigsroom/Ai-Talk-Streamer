@@ -8,7 +8,7 @@ from pathlib import Path
 
 from integration.issac.common import AdmissionError
 from integration.issac.live_cycle import LiveCycle
-from integration.issac.live_supervisor import SupervisorState, LiveSupervisor
+from integration.issac.live_supervisor import SupervisorState, LiveSupervisor, operator_paused
 
 
 class LiveCycleTests(unittest.TestCase):
@@ -260,7 +260,7 @@ class RecoveryOwnershipTests(unittest.TestCase):
         owner.api = Mock(return_value={})
         owner.authorized = Mock()
         for name in ('stop_owned_stack_for_restart', 'restart_owned_game', 'start_stack',
-                     'restore_game', 'restore_official'):
+                     'restart_official_client', 'restore_game', 'preflight_live_game', 'restore_official'):
             setattr(owner, name, Mock())
         return owner
 
@@ -305,6 +305,59 @@ class RecoveryOwnershipTests(unittest.TestCase):
             with self.assertRaisesRegex(AdmissionError, 'IDENTITY_CHANGED'):
                 owner.owned_process(row)
         process.terminate.assert_not_called()
+
+    def test_capture_client_is_replaced_before_new_game_and_native_bridge(self):
+        owner = self.supervisor(); order = []
+        for name in ('restart_official_client', 'restore_game', 'preflight_live_game', 'restore_official'):
+            getattr(owner, name).side_effect = lambda name=name: order.append(name)
+        with patch('integration.issac.saves.SaveProtection'), patch('integration.issac.record_focus.game_foreground'):
+            owner.recover()
+        self.assertEqual(order, ['restart_official_client', 'restore_game', 'preflight_live_game', 'restore_official'])
+
+    def test_native_game_exit_before_publish_cannot_start_public_stream(self):
+        owner = self.supervisor(); owner.preflight_live_game.side_effect = AdmissionError('GAME_EXITED')
+        with patch('integration.issac.saves.SaveProtection'):
+            with self.assertRaisesRegex(AdmissionError, 'GAME_EXITED'):owner.recover()
+        owner.restore_official.assert_not_called()
+
+    def test_recorded_official_child_with_reused_pid_cannot_be_killed(self):
+        owner = self.supervisor(); process = Mock()
+        process.create_time.return_value = 200
+        process.exe.return_value = str(owner.root/'official/client.exe')
+        row = {'pid': 42, 'created_at': 100, 'executable': str(owner.root/'official/client.exe'), 'executable_sha256': 'pinned'}
+        with patch('psutil.Process', return_value=process):
+            with self.assertRaisesRegex(AdmissionError, 'CHILD_IDENTITY_CHANGED'):
+                owner.official_child(row, owner.root/'official')
+        process.terminate.assert_not_called()
+
+    def test_preflight_cannot_publish_a_wrong_or_dead_slot(self):
+        owner = self.supervisor()
+        owner.api.return_value = {'progress': {'slot': 1, 'readonly': False}, 'observation': {'players': 1, 'dead': False}}
+        with self.assertRaisesRegex(AdmissionError, 'LIVING_SLOT3_REQUIRED'):
+            LiveSupervisor.preflight_live_game(owner)
+
+    def test_recovery_owned_observation_pause_is_not_operator_takeover(self):
+        self.assertFalse(operator_paused({'manual_override': False, 'live_cycle': {'phase': 'observation_only'}}))
+        self.assertTrue(operator_paused({'manual_override': True, 'live_cycle': {'phase': 'observation_only'}}))
+        self.assertTrue(operator_paused({'manual_override': False, 'live_cycle': {'phase': 'operator_paused'}}))
+
+    def test_f8_takeover_during_preflight_cancels_recovery(self):
+        owner = self.supervisor(); owner.api.return_value = {'manual_override': True}
+        with self.assertRaisesRegex(AdmissionError, 'CANCELLED_BY_OPERATOR'):
+            LiveSupervisor.preflight_live_game(owner)
+
+    def test_recovery_pause_keeps_observation_lifecycle_and_refuses_armed_game(self):
+        from integration.issac.strategy_host import StrategyHost
+        owner = object.__new__(StrategyHost)
+        owner.action_lock = threading.RLock(); owner.armed = False
+        owner.lifecycle = SimpleNamespace(enabled=False, phase='observation_only')
+        owner.service = SimpleNamespace(raw={'strategy': {'manual_override': False}})
+        owner.control = Mock(return_value={'armed': False})
+        owner.action({'action': 'recovery_pause'})
+        owner.control.assert_called_once_with({'enabled': False, 'live': False}, origin='lifecycle')
+        owner.armed = True
+        with self.assertRaisesRegex(AdmissionError, 'OBSERVATION_ONLY'):
+            owner.action({'action': 'recovery_pause'})
 
 
 if __name__ == '__main__':
