@@ -594,7 +594,8 @@ def _safe_move(state: GameState, preferred: Vec2, avoid_corner: bool | None = No
         # Do not replace an escape with a walk into a second nearby enemy.
         next_position = Vec2(state.player.position.x + candidate.x * 40, state.player.position.y + candidate.y * 40)
         for enemy in state.enemies:
-            separation = next_position.distance_to(Vec2(enemy.position.x + enemy.velocity.x * 6, enemy.position.y + enemy.velocity.y * 6))
+            velocity = enemy.motion_velocity
+            separation = next_position.distance_to(Vec2(enemy.position.x + velocity.x * 6, enemy.position.y + velocity.y * 6))
             if separation < 85:
                 score -= (85 - separation) * 0.4
         for projectile in state.projectiles:
@@ -611,7 +612,8 @@ def _nearest(state: GameState, entities: tuple) -> Any | None:
 
 
 def _is_stationary(entity: Any) -> bool:
-    return abs(entity.velocity.x) + abs(entity.velocity.y) < 0.20
+    velocity = entity.motion_velocity
+    return abs(velocity.x) + abs(velocity.y) < 0.20
 
 
 def _attack_distance(state: GameState, profile: PolicyProfile) -> float:
@@ -629,7 +631,7 @@ def _predictive_enemy_aim(state: GameState, enemy: Any) -> Vec2:
     # so a reversing enemy cannot make the aim oscillate wildly.
     tear_speed = max(1.0, float(getattr(state.player, "tear_speed", 1.0) or 1.0) * 10.0)
     flight_frames = min(12.0, max(1.5, distance / tear_speed))
-    velocity = getattr(enemy, "velocity", Vec2())
+    velocity = enemy.motion_velocity
     predicted = Vec2(
         enemy.position.x + velocity.x * flight_frames,
         enemy.position.y + velocity.y * flight_frames,
@@ -1138,13 +1140,14 @@ def combat_actions(state: GameState, profile: PolicyProfile | None = None) -> li
             ))
         return actions
     for charger in state.enemies:
-        speed = (charger.velocity.x ** 2 + charger.velocity.y ** 2) ** 0.5
+        velocity = charger.motion_velocity
+        speed = (velocity.x ** 2 + velocity.y ** 2) ** 0.5
         offset = Vec2(state.player.position.x - charger.position.x, state.player.position.y - charger.position.y)
-        closing = offset.x * charger.velocity.x + offset.y * charger.velocity.y > 0
-        predicted = Vec2(charger.position.x + charger.velocity.x * 10,
-                         charger.position.y + charger.velocity.y * 10)
+        closing = offset.x * velocity.x + offset.y * velocity.y > 0
+        predicted = Vec2(charger.position.x + velocity.x * 10,
+                         charger.position.y + velocity.y * 10)
         if speed >= 3.5 and closing and offset.distance_to(Vec2()) < 190 and predicted.distance_to(state.player.position) < 80:
-            side = _cardinal(Vec2(-charger.velocity.y, charger.velocity.x))
+            side = _cardinal(Vec2(-velocity.y, velocity.x))
             opposite = Vec2(-side.x, -side.y)
             choices = [Action("dodge_charge_left", side, aim, mode="combat", reason="leave the charging enemy's projected lane"),
                        Action("dodge_charge_right", opposite, aim, mode="combat", reason="leave the charging enemy's projected lane")]

@@ -1,0 +1,508 @@
+{
+  "type": "state",
+  "mod_version": "2026-11-07-native130-dsh",
+  "frame": 219425,
+  "start_seed": 1058559233,
+  "restart_count": 0,
+  "stage": 3,
+  "stage_type": 0,
+  "dimension": 0,
+  "room_index": 78,
+  "room_visit_sequence": 1,
+  "room_entered_frame": 212027,
+  "room_clear": false,
+  "player": {
+    "damage_cooldown": 0,
+    "bone_hearts": 0,
+    "tear_speed": 1,
+    "tear_range": 360,
+    "pos": {
+      "x": 145.8,
+      "y": 206.2
+    },
+    "soul_hearts": 0,
+    "hp": 8,
+    "black_hearts": 0,
+    "red_hearts": 8,
+    "type": 1,
+    "move_speed": 1,
+    "id": 0,
+    "engagement_range_source": "proptosis_conservative_spacing",
+    "vel": {
+      "x": 0,
+      "y": 0
+    },
+    "max_hearts": 8,
+    "weapon_type_known": true,
+    "weapon_type": "tear",
+    "eternal_hearts": 0,
+    "engagement_range": 160
+  },
+  "player_grid_index": 33,
+  "enemies": [
+    {
+      "grid_index": 102,
+      "type": 30,
+      "vulnerable": true,
+      "subtype": 0,
+      "id": 8,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "pos": {
+        "x": 520,
+        "y": 360
+      },
+      "telegraph": "Shrink",
+      "champion_color": -1,
+      "hp": 20,
+      "is_boss": false,
+      "state": 3,
+      "variant": 0
+    },
+    {
+      "grid_index": 84,
+      "type": 30,
+      "vulnerable": true,
+      "subtype": 0,
+      "id": 285,
+      "vel": {
+        "x": 23.2,
+        "y": 4.5
+      },
+      "pos": {
+        "x": 388.2,
+        "y": 307.6
+      },
+      "telegraph": "Shoot",
+      "champion_color": -1,
+      "hp": 20,
+      "is_boss": false,
+      "state": 8,
+      "variant": 0
+    },
+    {
+      "grid_index": 82,
+      "type": 30,
+      "vulnerable": true,
+      "subtype": 0,
+      "id": 448,
+      "vel": {
+        "x": -13.8,
+        "y": 2.9
+      },
+      "pos": {
+        "x": 337.8,
+        "y": 305.9
+      },
+      "telegraph": "Shoot",
+      "champion_color": -1,
+      "hp": 20,
+      "is_boss": false,
+      "state": 8,
+      "variant": 0
+    },
+    {
+      "grid_index": 83,
+      "type": 30,
+      "vulnerable": true,
+      "subtype": 0,
+      "id": 621,
+      "vel": {
+        "x": -0.3,
+        "y": -5
+      },
+      "pos": {
+        "x": 362.3,
+        "y": 315.1
+      },
+      "telegraph": "Shoot",
+      "champion_color": -1,
+      "hp": 20,
+      "is_boss": false,
+      "state": 8,
+      "variant": 0
+    },
+    {
+      "grid_index": 68,
+      "type": 30,
+      "vulnerable": true,
+      "subtype": 0,
+      "id": 907,
+      "vel": {
+        "x": -2.4,
+        "y": -1.5
+      },
+      "pos": {
+        "x": 365.3,
+        "y": 279.2
+      },
+      "telegraph": "Shrink",
+      "champion_color": -1,
+      "hp": 20,
+      "is_boss": false,
+      "state": 3,
+      "variant": 0
+    },
+    {
+      "grid_index": 84,
+      "type": 30,
+      "vulnerable": true,
+      "subtype": 0,
+      "id": 1493,
+      "vel": {
+        "x": 5.4,
+        "y": 4.3
+      },
+      "pos": {
+        "x": 384.7,
+        "y": 307.7
+      },
+      "telegraph": "Shrink",
+      "champion_color": -1,
+      "hp": 20,
+      "is_boss": false,
+      "state": 3,
+      "variant": 0
+    },
+    {
+      "grid_index": 82,
+      "type": 30,
+      "vulnerable": true,
+      "subtype": 0,
+      "id": 1826,
+      "vel": {
+        "x": -8.5,
+        "y": 0.3
+      },
+      "pos": {
+        "x": 337.2,
+        "y": 304.4
+      },
+      "telegraph": "Shrink",
+      "champion_color": -1,
+      "hp": 20,
+      "is_boss": false,
+      "state": 3,
+      "variant": 0
+    },
+    {
+      "grid_index": 83,
+      "type": 30,
+      "vulnerable": true,
+      "subtype": 0,
+      "id": 2193,
+      "vel": {
+        "x": -6.1,
+        "y": -7.1
+      },
+      "pos": {
+        "x": 363.9,
+        "y": 300
+      },
+      "telegraph": "Shrink",
+      "champion_color": -1,
+      "hp": 20,
+      "is_boss": false,
+      "state": 3,
+      "variant": 0
+    },
+    {
+      "grid_index": 83,
+      "type": 30,
+      "vulnerable": true,
+      "subtype": 0,
+      "id": 2681,
+      "vel": {
+        "x": 2.6,
+        "y": 1.5
+      },
+      "pos": {
+        "x": 360.2,
+        "y": 325.8
+      },
+      "telegraph": "Shrink",
+      "champion_color": -1,
+      "hp": 20,
+      "is_boss": false,
+      "state": 3,
+      "variant": 0
+    }
+  ],
+  "enemy_count": 9,
+  "hostile_enemy_count": 9,
+  "enemy_total_hp": 180,
+  "enemy_observation_valid": true,
+  "layout": {
+    "grid_width": 15,
+    "room_type": "boss",
+    "doors": [
+      {
+        "door_open_known": true,
+        "slot": 2,
+        "target_is_boss": false,
+        "target_clear": true,
+        "door_locked": false,
+        "pos": {
+          "x": 600,
+          "y": 280
+        },
+        "grid_index": 74,
+        "door_open": false,
+        "door_lock_known": true,
+        "target_room_index": 79,
+        "target_room_type": "default"
+      }
+    ],
+    "grid_events": [],
+    "blocked": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      29,
+      30,
+      44,
+      45,
+      59,
+      60,
+      74,
+      75,
+      89,
+      90,
+      91,
+      103,
+      104,
+      105,
+      106,
+      107,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134
+    ],
+    "is_boss": true,
+    "room_index": 78,
+    "danger_grid_indices": [],
+    "grid_height": 9,
+    "bomb_walls": [],
+    "shot_blocked": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      29,
+      30,
+      44,
+      45,
+      59,
+      60,
+      74,
+      75,
+      89,
+      90,
+      91,
+      103,
+      104,
+      105,
+      106,
+      107,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134
+    ]
+  },
+  "hazards": [
+    {
+      "grid_index": 91,
+      "type": 2,
+      "requires_bomb": true,
+      "id": -100091,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "pos": {
+        "x": 80,
+        "y": 360
+      },
+      "variant": 1002,
+      "kind": "passage_rock",
+      "animation": "big",
+      "destructible": true,
+      "hp": 0
+    },
+    {
+      "grid_index": 103,
+      "type": 2,
+      "requires_bomb": true,
+      "id": -100103,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "pos": {
+        "x": 560,
+        "y": 360
+      },
+      "variant": 1002,
+      "kind": "passage_rock",
+      "animation": "big",
+      "destructible": true,
+      "hp": 0
+    },
+    {
+      "grid_index": 106,
+      "type": 2,
+      "requires_bomb": true,
+      "id": -100106,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "pos": {
+        "x": 80,
+        "y": 400
+      },
+      "variant": 1003,
+      "kind": "passage_rock",
+      "animation": "big",
+      "destructible": true,
+      "hp": 0
+    },
+    {
+      "grid_index": 107,
+      "type": 2,
+      "requires_bomb": true,
+      "id": -100107,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "pos": {
+        "x": 120,
+        "y": 400
+      },
+      "variant": 2,
+      "kind": "passage_rock",
+      "animation": "normal",
+      "destructible": true,
+      "hp": 0
+    },
+    {
+      "grid_index": 117,
+      "type": 2,
+      "requires_bomb": true,
+      "id": -100117,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "pos": {
+        "x": 520,
+        "y": 400
+      },
+      "variant": 2,
+      "kind": "passage_rock",
+      "animation": "normal",
+      "destructible": true,
+      "hp": 0
+    },
+    {
+      "grid_index": 118,
+      "type": 2,
+      "requires_bomb": true,
+      "id": -100118,
+      "vel": {
+        "x": 0,
+        "y": 0
+      },
+      "pos": {
+        "x": 560,
+        "y": 400
+      },
+      "variant": 1003,
+      "kind": "passage_rock",
+      "animation": "big",
+      "destructible": true,
+      "hp": 0
+    }
+  ],
+  "hazards_observation_valid": true,
+  "projectiles": [],
+  "danger_effects": [],
+  "last_action_id": "route_to_firing_lane",
+  "last_action_mode": "combat",
+  "requested_move": {
+    "x": 1,
+    "y": 0
+  },
+  "resolved_move": {
+    "x": 0,
+    "y": 0
+  },
+  "movement_progress": 0,
+  "movement_blocked": false,
+  "safe_move_directions": {
+    "left": "safe",
+    "right": "safe",
+    "down": "safe",
+    "up": "safe"
+  },
+  "bomb_active": false,
+  "bomb_placed": false
+}

@@ -16,6 +16,7 @@ class CombatPocketTests(unittest.TestCase):
         lua=LuaRuntime(unpack_returned_tuples=True)
         source=(ROOT/'mods/IsaacJev/main.lua').read_text(encoding='utf8')
         planner='local function hostileLaser(entity)'+source.split('local function hostileLaser(entity)',1)[1].split('local function resolveSafeMove(player, navigationBlocked)',1)[0]
+        planner='local function combatVelocity(entity)'+source.split('local function combatVelocity(entity)',1)[1].split('local function hasCombatEnemy()',1)[0]+planner
         lua.globals().blocked=lua.table_from({i:True for i in observed['room']['blocked']})
         p=observed['player']
         lua.globals().px=p['position']['x'];lua.globals().py=p['position']['y']

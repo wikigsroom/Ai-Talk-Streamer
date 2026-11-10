@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE43",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [{"id":"ANCHORED_BOIL_BODY_FORECAST_WITH_RAW_TELEMETRY_PRESERVED","status":"code_complete_pending_acceptance","source_files":[
+    "AGENTS.md","docs/issac/眼球突出有效射程修订20261111.md",
+    "docs/issac/固定炮台误预测修订20261111.md",
+    "integration/isaac-agent/mods/IsaacJev/main.lua",
+    "integration/isaac-agent/src/isaac_jev/models.py",
+    "integration/isaac-agent/src/isaac_jev/decision.py",
+    "integration/isaac-agent/tests/test_predictive_combat.py",
+    "integration/isaac-agent/tests/test_combat_pockets.py",
+    "integration/isaac-agent/tests/test_damage_grace_escape.py",
+    "integration/isaac-agent/tests/test_gurdy_reaction_space.py",
+    "integration/isaac-agent/tests/test_room_entry.py",
+    "integration/isaac-agent/tests/test_anchored_boil_motion.py",
+    "integration/isaac-agent/tests/fixtures/stage3-boss-boil-knockback-stall.json"
+  ]}],
+  "previous_round_closed":"CYCLE42 passed all six suites and installed on the same living game. Native profile range160 was active but did not clear room78. Direct read-only entity queries confirmed fixed live Boil bodies with retained high Velocity, causing false predicted charge trajectories. No frozen CYCLE42 source was changed during its tests.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}

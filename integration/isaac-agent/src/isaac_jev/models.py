@@ -44,6 +44,12 @@ class Entity:
     engagement_range: float | None = None
 
     @property
+    def motion_velocity(self) -> Vec2:
+        # A fixed red Boil can retain large knockback velocity without moving
+        # its body. Preserve velocity as raw telemetry for DSH/diagnostics.
+        return Vec2() if self.kind == 30 and self.variant == 0 else self.velocity
+
+    @property
     def combat_range(self) -> float:
         nominal = max(0.0, min(235.0, self.tear_range-25.0))
         value = self.engagement_range

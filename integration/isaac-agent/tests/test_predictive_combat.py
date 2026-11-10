@@ -14,6 +14,7 @@ class PredictiveCombatTests(unittest.TestCase):
         lua = LuaRuntime(unpack_returned_tuples=True)
         source = (ROOT / "mods/IsaacJev/main.lua").read_text(encoding="utf-8")
         planner = "local function hostileLaser(entity)" + source.split("local function hostileLaser(entity)", 1)[1].split("local function resolveSafeMove(player, navigationBlocked)", 1)[0]
+        planner='local function combatVelocity(entity)'+source.split('local function combatVelocity(entity)',1)[1].split('local function hasCombatEnemy()',1)[0]+planner
         weapon_source = (ROOT / 'mods/IsaacJev/weapon_control.lua').read_text('utf8')
         self.api = lua.execute("""
             local mt = {}
@@ -38,14 +39,28 @@ class PredictiveCombatTests(unittest.TestCase):
             local enclosed=false
             local routeDirection=Vector(0,1)
             local function followGridRoute() return routeDirection end
-            local function isCombatEnemy(e) return e.Type==12 or e.Type==248 or e.Type==10 or e.Type==16 or e.Type==250 or e.Type==25 or e.Type==29 or e.Type==27 or e.Type==24 or e.Type==39 or e.Type==43 or e.Type==49 or e.Type==55 or e.Type==60 or e.Type==81 or e.Type==84 end
+            local function isCombatEnemy(e) return e.Type==30 or e.Type==12 or e.Type==248 or e.Type==10 or e.Type==16 or e.Type==250 or e.Type==25 or e.Type==29 or e.Type==27 or e.Type==24 or e.Type==39 or e.Type==43 or e.Type==49 or e.Type==55 or e.Type==60 or e.Type==81 or e.Type==84 end
             local function isMovingSpikeTrap(e) return e.Type==212 end
             local function safeMoveCandidate() return not enclosed end
             local function clearTearLine() return true end
             local function actualDoorPosition() return Vector(400,200) end
             local function doorSlotDirection() return Vector(1,0) end
         """ + 'local actualWeapon=(function()\n'+weapon_source+'\nend)()\n' + planner + """
-            return {profile_range=function(hasProptosis,weapon,speed,nominal)
+            return {choose_boil_approach=function(withBullet,variant,nearBody)
+                local previousMod=mod
+                mod={weaponControl=actualWeapon.new()}
+                action.waypoint=Vector(300,200)
+                routeDirection=Vector(1,0)
+                entities={{Type=30,Variant=variant or 0,Position=Vector(nearBody and 240 or 360,200),
+                    Velocity=Vector(-20,0),Size=13}}
+                if withBullet then entities[2]={Type=9,Position=Vector(260,200),Velocity=Vector(-10,0),Size=5} end
+                local p={Position=Vector(200,200),Velocity=Vector(0,0),Size=10,
+                    MoveSpeed=1,TearRange=360,ShotSpeed=1,
+                    HasCollectible=function(_,id) return id==261 end}
+                local move=predictiveCombatMove(p)
+                mod=previousMod
+                return move.X,move.Y
+            end,profile_range=function(hasProptosis,weapon,speed,nominal)
                 local p={TearRange=nominal or 360,ShotSpeed=speed or 1,
                     HasCollectible=function(_,id) return hasProptosis and id==261 end}
                 local profile=actualWeapon.new():profile(p,weapon or 'tear')
@@ -429,6 +444,12 @@ class PredictiveCombatTests(unittest.TestCase):
         proptosis=self.api.choose_proptosis(True)
         self.assertEqual(ordinary,(0,0))
         self.assertGreater(proptosis[0],.5)
+
+    def test_fixed_boil_knockback_does_not_invent_a_charge_or_remove_real_guards(self):
+        self.assertEqual(self.api.choose_boil_approach(False,0,False),(1,0))
+        self.assertNotEqual(self.api.choose_boil_approach(True,0,False),(1,0))
+        self.assertNotEqual(self.api.choose_boil_approach(False,1,False),(1,0))
+        self.assertNotEqual(self.api.choose_boil_approach(False,0,True),(1,0))
 
     def test_weapon_profile_reports_conservative_spacing_without_stat_edits(self):
         self.assertEqual(self.api.profile_range(True,'tear',1,360),(160,'proptosis_conservative_spacing'))

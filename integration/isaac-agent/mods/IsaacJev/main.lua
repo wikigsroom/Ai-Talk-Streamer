@@ -927,6 +927,16 @@ local function isCombatEnemy(entity)
         and entity.HitPoints > 0
 end
 
+local function combatVelocity(entity)
+    -- Fixed red Boils retain knockback Velocity while their body remains
+    -- anchored. Predict that body at its observed position; keep raw state
+    -- and every real projectile untouched.
+    if entity.Type==(EntityType.ENTITY_BOIL or 30) and (entity.Variant or 0)==0 then
+        return Vector(0,0)
+    end
+    return entity.Velocity or Vector(0,0)
+end
+
 local function hasCombatEnemy()
     for _, entity in ipairs(Isaac.GetRoomEntities()) do
         if isCombatEnemy(entity) then return true end
@@ -1356,7 +1366,7 @@ local function localFireDirection(player)
     -- distance. Keep the lead bounded so a reversing enemy is not over-shot.
     local velocity = Vector(0, 0)
     local velocityOk, nearestVelocity = pcall(function() return nearest.Velocity end)
-    if velocityOk and nearestVelocity then velocity = nearestVelocity end
+    if velocityOk and nearestVelocity then velocity = combatVelocity(nearest) end
     local distance = nearest.Position:Distance(player.Position)
     local tearSpeed = math.max(1, (player.ShotSpeed or 1) * 10)
     local profile=mod and mod.weaponControl and mod.weaponControl:profile(player,weaponKind(player)) or {lead=10}
@@ -2190,7 +2200,7 @@ local function predictiveCombatMove(player, ignoreWaypoint)
     local function projectedPosition(entity,frames)
         local path=projectedPositions[entity]
         if not path then path={};projectedPositions[entity]=path end
-        if not path[frames] then path[frames]=entity.Position+entity.Velocity*frames end
+        if not path[frames] then path[frames]=entity.Position+combatVelocity(entity)*frames end
         return path[frames]
     end
     local function contactClearance(enemy,forecast,horizon)
@@ -2241,7 +2251,8 @@ local function predictiveCombatMove(player, ignoreWaypoint)
     -- Floor hazards, explosives, telegraphs and contact guards stay active.
     local bulletImmunity=player.GetDamageCooldown and math.max(0,player:GetDamageCooldown()-4) or 0
     local function fixedTurret(enemy)
-        return (enemy.Type==(EntityType.ENTITY_HORF or 12) or enemy.Type==(EntityType.ENTITY_PSY_HORF or 248))
+        return (enemy.Type==(EntityType.ENTITY_BOIL or 30) and (enemy.Variant or 0)==0)
+            or (enemy.Type==(EntityType.ENTITY_HORF or 12) or enemy.Type==(EntityType.ENTITY_PSY_HORF or 248))
             and (enemy.Variant or 0)==0
             and enemy.Velocity and enemy.Velocity:Length()<0.2
     end
@@ -2853,7 +2864,7 @@ local function resolveSafeMove(player, navigationBlocked)
     if not projectileMove then
         for _, entity in ipairs(Isaac.GetRoomEntities()) do
             if isCombatEnemy(entity) then
-                local velocity = entity.Velocity
+                local velocity = combatVelocity(entity)
                 local speed = velocity:Length()
                 local toPlayer = player.Position - entity.Position
                 local approaching = toPlayer.X * velocity.X + toPlayer.Y * velocity.Y > 0
