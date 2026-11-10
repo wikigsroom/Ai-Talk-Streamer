@@ -97,5 +97,98 @@
   "production_source_changed": false,
   "other_browser_tabs_opened": false,
   "official_ui_evidence": "operations/issac-live300-20261109/public-live-20261110-official-start.json",
-  "checked_at_local": "2026-11-10T15:42:52+08:00"
+  "checked_at_local": "2026-11-10T15:42:52+08:00",
+  "follow_up": {
+    "checked_at_local": "2026-11-10T15:48:11+08:00",
+    "actual_comment_reply_verified": true,
+    "comment": {
+      "type": "comment",
+      "text": "你好呀",
+      "status": "COMPLETED",
+      "reason": null,
+      "request_id": "req-d07324ff-f082-404b-932b-dddc173c5511"
+    },
+    "platform_counters": {
+      "received": 1,
+      "replies_queued": 1
+    },
+    "studio": {
+      "ready": true,
+      "stage": "ready",
+      "error": null,
+      "mode": "M03",
+      "media_error": null,
+      "counters": {
+        "encoder_max_us": 374915,
+        "output_frames": 19293,
+        "body_only_frames": 19240,
+        "render_delays": 3,
+        "mouth_projection_max_us": 26636,
+        "media_map_max_us": 13144,
+        "media_map_batches": 11,
+        "media_map_frames": 53,
+        "media_map_max_batch_frames": 5,
+        "actual_audio_driven_mouth_frames": 53,
+        "actual_model_oral_open_frames": 47,
+        "utterances_generated": 1
+      }
+    },
+    "core": {
+      "ready": true,
+      "automatic": true,
+      "busy": true,
+      "model": "gpt-6.1-sol",
+      "protocol": "responses",
+      "last_error": null
+    },
+    "controller": {
+      "armed": true,
+      "native_attached": true,
+      "last_fault": null,
+      "control_revision": 8
+    },
+    "collector": {
+      "state": "CONNECTED",
+      "error": null,
+      "updated_at": 1794296883151
+    },
+    "native": {
+      "connected": true,
+      "age_ms": 35.1,
+      "identity": {
+        "controller": "241e446b295548e9bc73784f8199626c",
+        "seed": 2315627824,
+        "restart": 0,
+        "stage": 3,
+        "stage_type": 0,
+        "dimension": 0,
+        "room": 126,
+        "visit": 4,
+        "bridge": "1191503402"
+      },
+      "frame": 42970,
+      "room": {
+        "index": 126,
+        "type": "boss",
+        "clear": false,
+        "dead": false,
+        "paused": false,
+        "pause_ack": null,
+        "exit": {
+          "known": true,
+          "available": false,
+          "grid_index": -1
+        },
+        "sacrifice": {
+          "known": false
+        },
+        "dice": null,
+        "terrain": []
+      }
+    },
+    "avatar_fps": 25.3739316215079,
+    "model_timeout_recovered_at_local": "2026-11-10T15:46:48+08:00",
+    "same_channel_probe_passed": true,
+    "automatic_retry_loop": false
+  }
 }
