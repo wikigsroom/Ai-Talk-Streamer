@@ -19,7 +19,7 @@ class AnchoredBoilMotionTests(unittest.TestCase):
     def test_macro_aim_and_charge_dodge_use_body_motion_rather_than_knockback(self):
         player=Entity(0,1,Vec2(100,200),Vec2(),8,engagement_range=160)
         boil=Entity(1,30,Vec2(240,200),Vec2(-20,0),20,variant=0)
-        state=GameState(frame=1,room_clear=False,player=player,enemies=(boil,))
+        state=GameState(frame=1,room_clear=False,player=player,enemies=(boil,),projectiles=())
         self.assertFalse(any(a.action_id.startswith('dodge_charge') for a in combat_actions(state)))
         mobile=replace(state,enemies=(replace(boil,variant=1),))
         self.assertTrue(any(a.action_id.startswith('dodge_charge') for a in combat_actions(mobile)))

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE44",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [{"id":"BOIL_MOTION_METHOD_NAMESPACE_AND_COMPLETE_REPLAY_LOADING","status":"code_complete_pending_acceptance","source_files":[
+    "AGENTS.md","docs/issac/固定炮台误预测修订20261111.md",
+    "docs/issac/固定炮台修复与结束运行20261111.md",
+    "integration/isaac-agent/mods/IsaacJev/main.lua",
+    "integration/isaac-agent/tests/test_predictive_combat.py",
+    "integration/isaac-agent/tests/test_combat_pockets.py",
+    "integration/isaac-agent/tests/test_damage_grace_escape.py",
+    "integration/isaac-agent/tests/test_gurdy_reaction_space.py",
+    "integration/isaac-agent/tests/test_room_entry.py",
+    "integration/isaac-agent/tests/test_bouncing_contacts.py",
+    "integration/isaac-agent/tests/test_anchored_boil_motion.py"
+  ]}],
+  "previous_round_closed":"CYCLE43 completed all six suites; the controller suite failed full Lua53 compilation and isolated-replay dependency/constructor checks. It was never deployed; no source was changed during testing. Independent upstream validation completed with the same failures.",
+  "latest_user_action_after_repair":"stop this project's game, public broadcast, watchers and related services/models; release RAM and VRAM; preserve unrelated work",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}

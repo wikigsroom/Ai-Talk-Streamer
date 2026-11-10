@@ -12,7 +12,7 @@ class RoomEntryTests(unittest.TestCase):
     def test_live_combat_precedes_previous_room_action_guard(self):
         source=(ROOT/'mods/IsaacJev/main.lua').read_text(encoding='utf8')
         helper='local function resolveSafeMove(player, navigationBlocked)'+source.split('local function resolveSafeMove(player, navigationBlocked)',1)[1].split('local function actionHazardStillPresent',1)[0]
-        helper='local function combatVelocity(entity)'+source.split('local function combatVelocity(entity)',1)[1].split('local function hasCombatEnemy()',1)[0]+helper
+        helper='mod=mod or {}; EntityType=EntityType or {}\nfunction mod.combatVelocity(entity)'+source.split('function mod.combatVelocity(entity)',1)[1].split('local function isCombatEnemy(entity)',1)[0]+helper
         choose=LuaRuntime(unpack_returned_tuples=True).execute('''
             Vector=function(x,y) return {X=x,Y=y} end
             local action={sourceRoomIndex=1,move=Vector(0,1),waypoint=Vector(500,500)}
@@ -51,7 +51,7 @@ class RoomEntryTests(unittest.TestCase):
     def test_reverse_door_guard_preserves_dodge_in_a_cleared_trap_room(self):
         source=(ROOT/'mods/IsaacJev/main.lua').read_text(encoding='utf8')
         helper='local function resolveSafeMove(player, navigationBlocked)'+source.split('local function resolveSafeMove(player, navigationBlocked)',1)[1].split('local function actionHazardStillPresent',1)[0]
-        helper='local function combatVelocity(entity)'+source.split('local function combatVelocity(entity)',1)[1].split('local function hasCombatEnemy()',1)[0]+helper
+        helper='mod=mod or {}; EntityType=EntityType or {}\nfunction mod.combatVelocity(entity)'+source.split('function mod.combatVelocity(entity)',1)[1].split('local function isCombatEnemy(entity)',1)[0]+helper
         choose=LuaRuntime(unpack_returned_tuples=True).execute('''
             local mt={}
             Vector=function(x,y) return setmetatable({X=x,Y=y},mt) end
@@ -95,7 +95,7 @@ class RoomEntryTests(unittest.TestCase):
     def test_lingering_projectiles_precede_all_clear_room_targets(self):
         source=(ROOT/'mods/IsaacJev/main.lua').read_text(encoding='utf8')
         helper='local function resolveSafeMove(player, navigationBlocked)'+source.split('local function resolveSafeMove(player, navigationBlocked)',1)[1].split('local function actionHazardStillPresent',1)[0]
-        helper='local function combatVelocity(entity)'+source.split('local function combatVelocity(entity)',1)[1].split('local function hasCombatEnemy()',1)[0]+helper
+        helper='mod=mod or {}; EntityType=EntityType or {}\nfunction mod.combatVelocity(entity)'+source.split('function mod.combatVelocity(entity)',1)[1].split('local function isCombatEnemy(entity)',1)[0]+helper
         choose=LuaRuntime(unpack_returned_tuples=True).execute('''
             Vector=function(x,y) return {X=x,Y=y} end
             EntityType={ENTITY_PROJECTILE=9}

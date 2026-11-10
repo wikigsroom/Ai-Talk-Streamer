@@ -11,6 +11,7 @@ class BouncingContactTests(unittest.TestCase):
     def setUp(self):
         source=(ROOT/'mods/IsaacJev/main.lua').read_text(encoding='utf8')
         helper='local bouncePaths={}'+source.split('local bouncePaths={}',1)[1].split('local tntThreat=',1)[0]
+        helper='mod=mod or {}; EntityType=EntityType or {}\nfunction mod.combatVelocity(entity)'+source.split('function mod.combatVelocity(entity)',1)[1].split('local function isCombatEnemy(entity)',1)[0]+helper
         self.api=LuaRuntime(unpack_returned_tuples=True).execute('''
             local mt={}
             Vector=function(x,y) return setmetatable({X=x,Y=y},mt) end

@@ -901,6 +901,16 @@ local function pickupTable(entity)
         quality = quality, name = name, kind = kind, is_collectible = collectible }
 end
 
+function mod.combatVelocity(entity)
+    -- Fixed red Boils retain knockback Velocity while their body remains
+    -- anchored. Predict that body at its observed position; keep raw state
+    -- and every real projectile untouched.
+    if entity.Type==(EntityType.ENTITY_BOIL or 30) and (entity.Variant or 0)==0 then
+        return Vector(0,0)
+    end
+    return entity.Velocity or Vector(0,0)
+end
+
 local function isCombatEnemy(entity)
     -- Fireplaces/poop have NPC-like entities on some rooms, but they are
     -- obstacles, never combat targets. Keep them in the hazard channel even
@@ -925,16 +935,6 @@ local function isCombatEnemy(entity)
         or entity.Type == (EntityType.ENTITY_GLOBIN or 24))
         and not npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY)
         and entity.HitPoints > 0
-end
-
-local function combatVelocity(entity)
-    -- Fixed red Boils retain knockback Velocity while their body remains
-    -- anchored. Predict that body at its observed position; keep raw state
-    -- and every real projectile untouched.
-    if entity.Type==(EntityType.ENTITY_BOIL or 30) and (entity.Variant or 0)==0 then
-        return Vector(0,0)
-    end
-    return entity.Velocity or Vector(0,0)
 end
 
 local function hasCombatEnemy()
@@ -1366,7 +1366,7 @@ local function localFireDirection(player)
     -- distance. Keep the lead bounded so a reversing enemy is not over-shot.
     local velocity = Vector(0, 0)
     local velocityOk, nearestVelocity = pcall(function() return nearest.Velocity end)
-    if velocityOk and nearestVelocity then velocity = combatVelocity(nearest) end
+    if velocityOk and nearestVelocity then velocity = mod.combatVelocity(nearest) end
     local distance = nearest.Position:Distance(player.Position)
     local tearSpeed = math.max(1, (player.ShotSpeed or 1) * 10)
     local profile=mod and mod.weaponControl and mod.weaponControl:profile(player,weaponKind(player)) or {lead=10}
@@ -2200,7 +2200,7 @@ local function predictiveCombatMove(player, ignoreWaypoint)
     local function projectedPosition(entity,frames)
         local path=projectedPositions[entity]
         if not path then path={};projectedPositions[entity]=path end
-        if not path[frames] then path[frames]=entity.Position+combatVelocity(entity)*frames end
+        if not path[frames] then path[frames]=entity.Position+mod.combatVelocity(entity)*frames end
         return path[frames]
     end
     local function contactClearance(enemy,forecast,horizon)
@@ -2864,7 +2864,7 @@ local function resolveSafeMove(player, navigationBlocked)
     if not projectileMove then
         for _, entity in ipairs(Isaac.GetRoomEntities()) do
             if isCombatEnemy(entity) then
-                local velocity = combatVelocity(entity)
+                local velocity = mod.combatVelocity(entity)
                 local speed = velocity:Length()
                 local toPlayer = player.Position - entity.Position
                 local approaching = toPlayer.X * velocity.X + toPlayer.Y * velocity.Y > 0

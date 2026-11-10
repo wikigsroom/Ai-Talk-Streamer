@@ -14,7 +14,7 @@ class PredictiveCombatTests(unittest.TestCase):
         lua = LuaRuntime(unpack_returned_tuples=True)
         source = (ROOT / "mods/IsaacJev/main.lua").read_text(encoding="utf-8")
         planner = "local function hostileLaser(entity)" + source.split("local function hostileLaser(entity)", 1)[1].split("local function resolveSafeMove(player, navigationBlocked)", 1)[0]
-        planner='local function combatVelocity(entity)'+source.split('local function combatVelocity(entity)',1)[1].split('local function hasCombatEnemy()',1)[0]+planner
+        planner='mod=mod or {}; EntityType=EntityType or {}\nfunction mod.combatVelocity(entity)'+source.split('function mod.combatVelocity(entity)',1)[1].split('local function isCombatEnemy(entity)',1)[0]+planner
         weapon_source = (ROOT / 'mods/IsaacJev/weapon_control.lua').read_text('utf8')
         self.api = lua.execute("""
             local mt = {}
@@ -48,7 +48,7 @@ class PredictiveCombatTests(unittest.TestCase):
         """ + 'local actualWeapon=(function()\n'+weapon_source+'\nend)()\n' + planner + """
             return {choose_boil_approach=function(withBullet,variant,nearBody)
                 local previousMod=mod
-                mod={weaponControl=actualWeapon.new()}
+                mod={weaponControl=actualWeapon.new(),combatVelocity=previousMod.combatVelocity}
                 action.waypoint=Vector(300,200)
                 routeDirection=Vector(1,0)
                 entities={{Type=30,Variant=variant or 0,Position=Vector(nearBody and 240 or 360,200),
@@ -67,7 +67,7 @@ class PredictiveCombatTests(unittest.TestCase):
                 return profile.engagementRange,profile.engagementRangeSource
             end,choose_proptosis=function(hasProptosis)
                 local previousMod=mod
-                mod={weaponControl=actualWeapon.new()}
+                mod={weaponControl=actualWeapon.new(),combatVelocity=previousMod.combatVelocity}
                 action.waypoint=nil
                 entities={{Type=12,Variant=0,Position=Vector(360,160),Velocity=Vector(0,0),Size=13}}
                 local p={Position=Vector(135.9,159.3),Velocity=Vector(0,0),Size=10,

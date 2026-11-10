@@ -21,7 +21,7 @@ class GurdyReactionSpaceTests(unittest.TestCase):
             'y':p['position']['y']+e['offset']['y'],'vx':e['velocity']['x'],'vy':e['velocity']['y']})
         source=(ROOT/'mods/IsaacJev/main.lua').read_text(encoding='utf8')
         planner='local function hostileLaser(entity)'+source.split('local function hostileLaser(entity)',1)[1].split('local function resolveSafeMove(player, navigationBlocked)',1)[0]
-        planner='local function combatVelocity(entity)'+source.split('local function combatVelocity(entity)',1)[1].split('local function hasCombatEnemy()',1)[0]+planner
+        planner='mod=mod or {}; EntityType=EntityType or {}\nfunction mod.combatVelocity(entity)'+source.split('function mod.combatVelocity(entity)',1)[1].split('local function isCombatEnemy(entity)',1)[0]+planner
         return lua.execute('''
             local mt={}
             Vector=function(x,y) return setmetatable({X=x,Y=y},mt) end
