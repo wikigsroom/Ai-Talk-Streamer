@@ -349,8 +349,9 @@ class RecoveryOwnershipTests(unittest.TestCase):
         with patch('integration.issac.live_supervisor.read_json',return_value=row), \
              patch('integration.issac.official_window.identity',return_value=parent), \
              patch('integration.issac.livehime.Livehime') as client:
-            owner.restart_official_client()
+            LiveSupervisor.restart_official_client(owner)
         client.return_value.launch.assert_called_once_with()
+        parent.terminate.assert_called_once_with()
 
     def test_official_child_exit_between_lookup_and_terminate_is_harmless(self):
         import psutil
@@ -361,8 +362,9 @@ class RecoveryOwnershipTests(unittest.TestCase):
         with patch('integration.issac.live_supervisor.read_json',return_value=row), \
              patch('integration.issac.official_window.identity',side_effect=psutil.NoSuchProcess(42)), \
              patch('integration.issac.livehime.Livehime') as client:
-            owner.restart_official_client()
+            LiveSupervisor.restart_official_client(owner)
         client.return_value.launch.assert_called_once_with()
+        child.terminate.assert_called_once_with()
 
     def test_last_verified_children_survive_parent_exit_before_recovery(self):
         import psutil
