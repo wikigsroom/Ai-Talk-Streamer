@@ -91,7 +91,8 @@ class StrategyError(ValueError):
 class StrategyService:
     """One authoritative state cache, one pending decision, one bounded command."""
 
-    def __init__(self, log_dir: str | Path, *, clock=time.monotonic, decision_seconds=45.0):
+    def __init__(self, log_dir: str | Path, *, clock=time.monotonic, decision_seconds=45.0,
+                 max_decision_seconds=60, renew_expired_decisions=False):
         self.clock = clock
         self.log_dir = Path(log_dir)
         self.log_dir.mkdir(parents=True, exist_ok=True)
@@ -110,7 +111,8 @@ class StrategyService:
         self.resolved: set[str] = set()
         self.pending: dict | None = None
         self.command: dict | None = None
-        self.decision_seconds = min(60, max(2, decision_seconds))
+        self.decision_seconds = min(min(120,max(2,max_decision_seconds)),max(2,decision_seconds))
+        self.renew_expired_decisions = bool(renew_expired_decisions)
         self.agent_heartbeat = 0.0
         self.state_latency: deque = deque(maxlen=500)
         self.catalog: dict[int, dict] = {}
@@ -289,7 +291,7 @@ class StrategyService:
                 self._cancel('pause_ended_without_expected_room_transition')
             self._observe_command()
             if self.pending and self.clock() > self.pending['deadline']:
-                self.resolved.add(self.pending['fingerprint'])
+                if not self.renew_expired_decisions:self.resolved.add(self.pending['fingerprint'])
                 self.emit('decision_expired', decision_id=self.pending['id'], reason='deadline')
                 self.pending = None
             if self.command and self.clock() > self.command['deadline']:

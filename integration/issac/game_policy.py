@@ -114,6 +114,7 @@ def strategy_class(root):
 
     class StreamStrategy(StrategyService):
         def __init__(self, log_dir, **kwargs):
+            kwargs.update(max_decision_seconds=120,renew_expired_decisions=True)
             super().__init__(log_dir, **kwargs)
             self._live_run_goal = None
             self.core_actor_required = False

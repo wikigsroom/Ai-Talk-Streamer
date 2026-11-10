@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE38",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [{"id":"BOUNDED_LUNA_DECISION_AND_FRESH_RENEWAL","status":"code_complete_pending_acceptance","source_files":[
+    "AGENTS.md","backend/dsh-bridge/isaac-core.mjs","configs/issac/runtime.json",
+    "configs/issac/bridge-policy.json","configs/issac/live600.json",
+    "integration/isaac-agent/src/isaac_jev/strategy.py","integration/isaac-agent/tests/test_strategy_renewal.py",
+    "integration/issac/game_policy.py","integration/issac/live_cycle.py",
+    "integration/issac/tests/naimei_core.test.mjs","integration/issac/tests/test_game_continuity.py",
+    "docs/issac/Luna决策时限修订20261111.md"
+  ]}],
+  "previous_round_closed":"CYCLE37 all six frozen suites passed after one preserved host-connection environment retry and installed preserving the game. Actual Luna gameplay then hit the legacy 55-second cap. Its frozen source was not modified.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}

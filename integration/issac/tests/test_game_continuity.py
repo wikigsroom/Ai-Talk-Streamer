@@ -186,6 +186,14 @@ class GameContinuity(unittest.TestCase):
         (self.root/'configs/issac/game-continuity.json').unlink();n.rpc.reset_mock()
         n.configure_continuity_options();n.rpc.assert_not_called()
 
+    def test_longer_declared_choice_budget_is_not_preempted_by_legacy_watchdog(self):
+        cycle=LiveCycle(SimpleNamespace(audit=Mock()))
+        core={'busy':True,'process_id':9,'continuous_session_id':'one','turns':0,'decision_budget_ms':115000}
+        self.assertFalse(cycle.core_turn_stalled(core,0))
+        self.assertFalse(cycle.core_turn_stalled(core,100))
+        self.assertFalse(cycle.core_turn_stalled(core,135))
+        self.assertTrue(cycle.core_turn_stalled(core,136))
+
     def test_focus_option_writeback_preserves_exact_baseline_and_slot_guards(self):
         game=self.root/'game';game.mkdir();option=game/'options.ini'
         original=b'[Options]\r\nWindowPosX=1\r\nWindowPosY=2\r\nPauseOnFocusLost=1\r\nFoundHUD=1\r\n'

@@ -242,7 +242,9 @@ class LiveCycle:
         marker=(core.get('process_id'),core.get('continuous_session_id'),core.get('turns'))
         if self.busy_at is None or marker!=self.busy_marker:
             self.busy_at=now;self.busy_marker=marker
-        return now-self.busy_at>75
+        budget=core.get('decision_budget_ms',55000)
+        if type(budget) not in (int,float) or not 0<budget<=115000:budget=55000
+        return now-self.busy_at>max(75,budget/1000+20)
 
     def next_run(self):
         host, now = self.host, self.clock()

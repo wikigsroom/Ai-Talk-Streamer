@@ -49,6 +49,7 @@ export class NaimeiGameCore {
       max_serialized_message_bytes:channel.max_serialized_message_bytes,
       process_id:process.pid,registeredTools:this.names,prompt:this.prompt.receipt,independent_strategy_host:false,
       actual_completed_game_utterances:this.completedSpeech,ordinary_supply_owner:'local_controller',
+      decision_budget_ms:this.decisionBudget(),
       session_strategy:this.bridge.policy.conversation.session_strategy,continuous_session_id:this.bridge.host.continuous?.id||null,
       speech_limit:15,spoken_history:this.bridge.spoken?.context()||null,
       decision_latency_p95_ms:times.length?times[Math.min(times.length-1,Math.ceil(times.length*.95)-1)]:null};
@@ -254,7 +255,7 @@ export class NaimeiGameCore {
       if(this.busy&&this.activeKind==='decision')this.cancelObsoleteDecision(this.activeDecisionTurn,decision);
       await this.drain();
       if(decision.pending&&this.busy&&this.activeKind==='fact')this.activeAbort?.abort();
-      if(!this.busy&&decision.pending&&decision.connected&&decision.remaining_ms>1200) {
+      if(!this.busy&&decision.pending&&decision.connected&&decision.remaining_ms>5000) {
         const prior=this.attempts.get(decision.id);
         if(!prior||prior.count<2&&Date.now()-prior.at>1500)void this.runDecision(decision);
       } else if(!this.busy&&!decision.pending&&!this.pending.size&&!this.backlog.length
@@ -262,6 +263,7 @@ export class NaimeiGameCore {
     } catch {this.lastError='CURRENT_GAME_UNAVAILABLE';}
     finally {this.polling=false;}
   }
+  decisionBudget() {return Math.min(115000,this.bridge?.policy?.conversation?.model_timeout_ms||18000);}
   async generate(context,turn,input,timeout=18000) {
     const bridge=this.bridge,base=bridge.channel.snapshot();
     const snapshot={...base,provider:'issac-naimei-core',
@@ -288,7 +290,7 @@ export class NaimeiGameCore {
     this.record('core_turn_started',{session_id:sessionId,decision_id:decision.id,context_id:decision.context_id,remaining_ms:decision.remaining_ms});
     try {
       const result=await this.generate({game_decision:decision,recent_naimei_game_decisions:this.recent.slice(-4)},turn,
-        '以奶妹本人身份直接判断新鲜game_decision和已附完整current_game。已有Wiki参数、原文和回执不必重复查询；状态齐全时不要再次刷新或先输出口语，直接调用isaac_submit_plan。结合route_progress持续推进，回访不叫首次探索，不反复去刚放弃的资源支路。按required_assessment评估本地补给、成长和缺钥匙回收，提交offer_id、assessment（growth/key_recovery各40至80字，硬上限各160字）、最多15字含标点的commentary；下楼另逐项reward_review。成功即结束，不称尚未发生的效果已完成。',Math.min(55000,this.bridge?.policy?.conversation?.model_timeout_ms||18000,Math.max(1000,decision.remaining_ms-500)));
+        '以奶妹本人身份直接判断新鲜game_decision和已附完整current_game。已有Wiki参数、原文和回执不必重复查询；状态齐全时不要再次刷新或先输出口语，直接调用isaac_submit_plan。结合route_progress持续推进，回访不叫首次探索，不反复去刚放弃的资源支路。按required_assessment评估本地补给、成长和缺钥匙回收，提交offer_id、assessment（growth/key_recovery各40至80字，硬上限各160字）、最多15字含标点的commentary；下楼另逐项reward_review。成功即结束，不称尚未发生的效果已完成。',Math.min(this.decisionBudget(),Math.max(1000,decision.remaining_ms-500)));
       this.assertTurnCurrent(turn);
       requireValue(turn.submitted,'CORE_TURN_DID_NOT_SUBMIT_A_CHOICE',409);
       this.turns++;this.lastError=null;this.latencies.push(Date.now()-started);if(this.latencies.length>200)this.latencies.shift();

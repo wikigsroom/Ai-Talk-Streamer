@@ -36,7 +36,7 @@
     "pending_queue_limit": 2,
     "queued_input_ttl_ms": 10000,
     "active_request_deadline_ms": 300000,
-    "model_timeout_ms": 60000,
+    "model_timeout_ms": 115000,
     "tts_timeout_ms": 120000,
     "input_max_chars": 1500,
     "final_speech_max_chars": 15,

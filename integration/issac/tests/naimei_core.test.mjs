@@ -204,14 +204,22 @@ test('a failed spontaneous reaction also disarms the same core and abandons its 
   assert.equal(disarmed,1);assert.equal(abandoned,1);assert.equal(core.failures,1);assert.equal(core.busy,false);
 });
 
-test('Sol choice has a bounded request budget while every native offer deadline remains authoritative',async()=>{
-  for(const [remaining,expected] of [[60000,55000],[7000,6500]]){
+test('Luna choice has a bounded request budget while every native offer deadline remains authoritative',async()=>{
+  for(const [remaining,expected] of [[120000,115000],[60000,59500],[7000,6500]]){
     const {core}=fixture();let budget;
-    Object.assign(core,{bridge:{policy:{conversation:{model_timeout_ms:60000}}},busy:false,attempts:new Map(),failures:0,turns:0,latencies:[],
+    Object.assign(core,{bridge:{policy:{conversation:{model_timeout_ms:115000}}},busy:false,attempts:new Map(),failures:0,turns:0,latencies:[],
       generate:async(_context,turn,_input,timeout)=>{budget=timeout;turn.submitted={status:'accepted',op:'wait'};return {text:'先看清这边的路。'};},offerSpeech:()=>{}});
     await core.runDecision({...offered(),remaining_ms:remaining});
     assert.equal(budget,expected);assert.equal(core.failures,0);assert.equal(core.turns,1);
   }
+});
+
+test('a nearly expired pending decision waits for native renewal without a futile model retry',async()=>{
+  const {core}=fixture();let calls=0;
+  Object.assign(core,{bridge:{ready:true},busy:false,closed:false,polling:false,
+    drain:async()=>{},decision:async()=>({...offered(),remaining_ms:4000}),runDecision:async()=>{calls++;}});
+  await core.tick();assert.equal(calls,0);assert.equal(core.enabled,true);
+  assert.equal(core.latest.decision.pending,true);
 });
 
 test('fractional native event lifetime reaches the real Node deadline without RangeError or extending validity',async()=>{

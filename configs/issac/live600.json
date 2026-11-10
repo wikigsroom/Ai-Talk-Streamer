@@ -19,8 +19,8 @@
   ],
   "latency_initial_engineering_targets": {
     "decision_p95_ms": 8000,
-    "decision_window_seconds": 60,
-    "core_turn_deadline_ms": 55000,
+    "decision_window_seconds": 120,
+    "core_turn_deadline_ms": 115000,
     "state_poll_ms": 500,
     "tool_timeout_ms": 2500,
     "accepted_as_measured": false

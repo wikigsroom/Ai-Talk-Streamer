@@ -23,7 +23,7 @@
     "strategy_dsh_port": 9533,
     "unrestricted_upstream_dashboard_enabled": false,
     "decision_hz": 6,
-    "decision_deadline_seconds": 60,
+    "decision_deadline_seconds": 120,
     "input_lease_ms": 1500,
     "controller_loss_pause_ms": 5000,
     "native_control_port": 9534,
