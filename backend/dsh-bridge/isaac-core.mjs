@@ -4,7 +4,7 @@ import {join} from 'node:path';
 import {randomUUID} from 'node:crypto';
 import {generationDiagnostic} from './model-errors.mjs';
 import {canonical, digest} from './channel.mjs';
-import {requireValue} from './state.mjs';
+import {requireValue, StreamError} from './state.mjs';
 import {completePrompt} from '../../integration/isaac-agent/dsh-host/isaac-plugin/stream-policy.mjs';
 
 export const ISAAC_CORE_TOOLS = Object.freeze({
@@ -90,7 +90,15 @@ export class NaimeiGameCore {
     const response=await fetch('http://127.0.0.1:'+port+path,{method:body===undefined?'GET':'POST',
       headers:{'Content-Type':'application/json','X-Isaac-Token':this.token},body:body===undefined?undefined:JSON.stringify(body),
       signal:AbortSignal.timeout(2500)});
-    const value=await response.json();requireValue(response.ok,'CORE_GAME_TOOL_REJECTED',409);return value;
+    const value=await response.json();
+    if(!response.ok){
+      const error=new StreamError('CORE_GAME_TOOL_REJECTED',409);
+      // Preserve only this finite native freshness code, never arbitrary error text.
+      if(response.status===400&&value?.error==='WIKI_DECISION_CONTEXT_EXPIRED')
+        error.native_code='WIKI_DECISION_CONTEXT_EXPIRED';
+      throw error;
+    }
+    return value;
   }
   async decision() {return this.api(9532,'/decision');}
   async wikiQuery(query,turn=null) {
@@ -100,7 +108,23 @@ export class NaimeiGameCore {
     requireValue(context,'FRESH_WIKI_CONTEXT_REQUIRED',409);
     const key=digest({context,query});this.wikiCache ||= new Map();
     let result=this.wikiCache.get(key);
-    if(!result){result=await this.api(9532,'/wiki',{query,context});
+    if(!result){
+      try {result=await this.api(9532,'/wiki',{query,context});}
+      catch(error){
+        if(error.code!=='CORE_GAME_TOOL_REJECTED')throw error;
+        if(turn?.decision_id)this.assertDecisionCurrent(turn,await this.decision());
+        if(error.native_code==='WIKI_DECISION_CONTEXT_EXPIRED'){
+          if(turn?.decision_id){
+            turn.stale_reason='CORE_WIKI_CONTEXT_EXPIRED';turn.abort?.abort();
+            this.record('core_wiki_context_superseded',{session_id:turn.session_id,
+              decision_id:turn.decision_id,context_id:turn.context_id});
+            throw new StreamError('CORE_WIKI_CONTEXT_EXPIRED',409);
+          }
+          throw new StreamError('GAME_EVENT_EXPIRED',409);
+        }
+        throw error;
+      }
+      if(turn?.decision_id)this.assertDecisionCurrent(turn,await this.decision());
       requireValue(result.receipt_sha256&&result.actionable_evidence!==false,'CORE_WIKI_EVIDENCE_REQUIRED',409);
       this.wikiCache.set(key,result);if(this.wikiCache.size>256)this.wikiCache.delete(this.wikiCache.keys().next().value);
       this.record('core_wiki_checked',{session_id:turn?.session_id||null,context,query,receipt_sha256:result.receipt_sha256,known:result.known===true});}

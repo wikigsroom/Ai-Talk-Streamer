@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {createServer} from 'node:http';
 import {NaimeiGameCore,ISAAC_CORE_TOOLS} from '../../../backend/dsh-bridge/isaac-core.mjs';
 import {digest,canonical} from '../../../backend/dsh-bridge/channel.mjs';
 import {modelFailure,generationDiagnostic} from '../../../backend/dsh-bridge/model-errors.mjs';
@@ -70,6 +71,96 @@ test('wiki evidence uses server-owned current inventory context, not supplied co
   await core.tool('isaac_wiki_query',{query},{sessionId,turn});
   assert.deepEqual(calls[0].body.context,{decision_id:'decision-A',context_id:'room-A',inventory_revision:'inventory-A'});
   await assert.rejects(core.tool('isaac_wiki_query',{query,context:{context_id:'old'}},{sessionId,turn}),/CORE_WIKI_FIELDS/);
+});
+
+test('actual native HTTP rejection preserves only the allowlisted Wiki expiry code',async()=>{
+  let reason='WIKI_DECISION_CONTEXT_EXPIRED';
+  const server=createServer((_request,response)=>{
+    response.writeHead(400,{'Content-Type':'application/json'});
+    response.end(JSON.stringify({error:reason}));
+  });
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+  const {core}=fixture();core.token='test-only';
+  try {
+    const invoke=()=>NaimeiGameCore.prototype.api.call(core,server.address().port,'/wiki',{});
+    await assert.rejects(invoke(),error=>error.code==='CORE_GAME_TOOL_REJECTED'
+      &&error.native_code==='WIKI_DECISION_CONTEXT_EXPIRED');
+    reason='private-path-and-untrusted-error';
+    await assert.rejects(invoke(),error=>error.code==='CORE_GAME_TOOL_REJECTED'
+      &&error.native_code===undefined&&!error.message.includes(reason));
+  } finally {server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
+});
+
+test('Wiki completion after a replacement decision cancels the old turn and permits the fresh choice',async()=>{
+  const {core}=fixture(),query={operation:'item',query:'117',kind:'item'},seen=[],turns=[];
+  let decision=offered();
+  Object.assign(core,{busy:false,controlRevision:1,attempts:new Map(),failures:0,turns:0,latencies:[],
+    decision:async()=>decision,offerSpeech:()=>{},
+    api:async(_port,path,body)=>{
+      if(path==='/wiki'){
+        if(body.context.decision_id==='decision-A'){
+          decision={...offered(),id:'decision-B',context_id:'room-B'};
+          const error=Error('native rejected stale query');error.code='CORE_GAME_TOOL_REJECTED';
+          error.native_code='WIKI_DECISION_CONTEXT_EXPIRED';throw error;
+        }
+        return {receipt_sha256:'fresh-only',known:true};
+      }
+      return {plan_id:body.plan_id,decision_id:body.decision_id,offer_id:body.offer_id,status:'accepted'};
+    },
+    generate:async(_context,turn)=>{
+      turns.push(turn);seen.push(turn.decision_id);turn.abort=new AbortController();
+      turn.inventory_revision='inventory-A';await core.wikiQuery(query,turn);
+      await core.tool('isaac_submit_plan',{plan_id:'fresh-plan',decision_id:decision.id,context_id:decision.context_id,
+        offer_id:'heart-A',budget:{},reason:'current choice'},{sessionId:turn.session_id,turn});
+      return {text:'这件道具我拿上。'};
+    }});
+  await core.runDecision(decision);assert.equal(core.wikiCache.size,0);
+  await core.runDecision(decision);
+  assert.deepEqual(seen,['decision-A','decision-B']);assert.equal(core.enabled,true);
+  assert.equal(core.failures,0);assert.equal(core.turns,1);assert.equal(turns[0].abort.signal.aborted,true);
+  assert.equal(turns[0].wiki_evidence,undefined);assert.equal(turns[1].wiki_evidence.size,1);
+});
+
+test('Wiki inventory expiry cancels even when the decision identifier has not yet changed',async()=>{
+  const {core,turn}=fixture();turn.abort=new AbortController();
+  core.api=async()=>{const error=Error('expired');error.code='CORE_GAME_TOOL_REJECTED';
+    error.native_code='WIKI_DECISION_CONTEXT_EXPIRED';throw error;};
+  await assert.rejects(core.wikiQuery({operation:'item',query:'117'},turn),/CORE_WIKI_CONTEXT_EXPIRED/);
+  assert.equal(turn.abort.signal.aborted,true);assert.equal(turn.wiki_evidence,undefined);
+  assert.equal(core.wikiCache.size,0);
+});
+
+test('a fact Wiki context expiring during lookup abandons the fact without disarming',async()=>{
+  const {core}=fixture();let abandoned=0;
+  Object.assign(core,{busy:false,failures:0,current:async()=>true,
+    api:async(_port,path)=>{
+      if(path==='/narration/reserve')return {event:{event_id:'observed-fact'},nonce:'reserved'};
+      if(path==='/wiki-context')return {decision_id:'observation',context_id:'room-A',inventory_revision:'A'};
+      const error=Error('expired');error.code='CORE_GAME_TOOL_REJECTED';
+      error.native_code='WIKI_DECISION_CONTEXT_EXPIRED';throw error;
+    },
+    generate:async(_context,turn)=>core.wikiQuery({operation:'item',query:'117'},turn),
+    abandon:async()=>{abandoned++;},control:()=>{throw Error('unexpected disarm');}});
+  await core.runFact();assert.equal(core.enabled,true);assert.equal(core.failures,0);
+  assert.equal(abandoned,1);assert.equal(core.busy,false);
+});
+
+test('an unchanged decision with a genuine Wiki failure still disarms the core',async()=>{
+  const {core}=fixture();
+  Object.assign(core,{busy:false,attempts:new Map(),failures:0,turns:0,latencies:[],
+    api:async()=>{const error=Error('native failure');error.code='CORE_GAME_TOOL_REJECTED';throw error;},
+    generate:async(_context,turn)=>core.wikiQuery({operation:'item',query:'117'},turn),
+    control:enabled=>{assert.equal(enabled,false);core.enabled=false;}});
+  await core.runDecision(offered());assert.equal(core.enabled,false);
+  assert.equal(core.failures,1);assert.equal(core.lastError,'CORE_GAME_TOOL_REJECTED');
+});
+
+test('a valid Wiki receipt cannot be cached or published to a turn replaced during delivery',async()=>{
+  const {core,turn}=fixture();turn.abort=new AbortController();let decision=offered();
+  core.decision=async()=>decision;
+  core.api=async()=>{decision={...offered(),id:'decision-B'};return {receipt_sha256:'old',known:true};};
+  await assert.rejects(core.wikiQuery({operation:'item',query:'117'},turn),/CORE_DECISION_CHANGED/);
+  assert.equal(turn.wiki_evidence,undefined);assert.equal(core.wikiCache.size,0);
 });
 
 test('disabled, expired or extended plans never reach native execution',async()=>{

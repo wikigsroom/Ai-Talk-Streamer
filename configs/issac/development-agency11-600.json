@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "round": "AGENCY11",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [
+    {
+      "id": "WIKI-CONTEXT-REPLACEMENT-600S",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "backend/dsh-bridge/isaac-core.mjs",
+        "integration/issac/tests/naimei_core.test.mjs",
+        "configs/issac/live600.json",
+        "configs/issac/execution-rounds.json",
+        "docs/issac/600秒录播推进修订20261110.md"
+      ]
+    }
+  ],
+  "previous_validation_closed": "operations/live300-20261109/agency10-closed.json",
+  "previous_failure": "A 200ms Wiki query crossed a room visit replacement and was misclassified as fatal; actual official recording stopped at 248.288 seconds."
+}

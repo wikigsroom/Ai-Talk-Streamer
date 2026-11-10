@@ -27,7 +27,7 @@
   },
   "runtime_or_media_acceptance_claimed": false,
   "tests_paused_by_user": false,
-  "current_action_scope": "AGENCY10_integer_deadline_then_continuous_official_local_recording",
+  "current_action_scope": "AGENCY11_cancel_obsolete_Wiki_context_then_continuous_official_local_recording",
   "game_and_media_host": "native_windows_rtx4090",
   "core_model_channel": {
     "model": "gpt-6.1-sol",
@@ -45,7 +45,7 @@
   },
   "cloud_media_services_allowed": false,
   "recording_runtime": {
-    "candidate_id": "AGENCY10_pending_source_freeze",
+    "candidate_id": "AGENCY11_pending_source_freeze",
     "source_commit": "assigned_after_whole_round_commit",
     "character_mode": "M03",
     "output": [
