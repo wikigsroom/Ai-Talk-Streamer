@@ -123,6 +123,18 @@ test('Sol choice has a bounded request budget while every native offer deadline 
   }
 });
 
+test('fractional native event lifetime reaches the real Node deadline without RangeError or extending validity',async()=>{
+  const {core,turn}=fixture();let signal;
+  core.bridge={channel:{snapshot:()=>({revision:'test'})},policy:{conversation:{max_output_tokens:128}},
+    host:{port:{requestMemorySnapshot:()=>({})},generate:async request=>{
+      signal=request.signal;
+      await new Promise(resolve=>setTimeout(resolve,30));
+      return {text:'往前走。'};
+    }}};
+  assert.equal((await core.generate({},turn,'same real deadline',5.875)).text,'往前走。');
+  assert.equal(signal.aborted,true);assert.equal(turn.deadline_signal.aborted,true);
+});
+
 test('own fact deadline abandons obsolete narration without disabling gameplay, but a provider timeout still disarms',async()=>{
   for(const ownDeadline of [true,false]){
     const {core}=fixture();let abandoned=0;

@@ -239,7 +239,9 @@ export class NaimeiGameCore {
     const snapshot={...base,provider:'issac-naimei-core',
       revision:base.revision};
     this.activeAbort=new AbortController();turn.abort=this.activeAbort;
-    turn.deadline_signal=AbortSignal.timeout(timeout);
+    // Native event lifetimes are fractional seconds. Node requires integer
+    // milliseconds; round down so conversion never extends that lifetime.
+    turn.deadline_signal=AbortSignal.timeout(Math.max(1,Math.floor(timeout)));
     const signal=AbortSignal.any([this.activeAbort.signal,turn.deadline_signal]);
     return bridge.host.generate({sessionId:turn.session_id,snapshot,input,signal,gameplayTurn:turn,maxTokens:bridge.policy.conversation.max_output_tokens,
       context:canonical({...context,partition_key:'ephemeral_game_not_viewer',humanity_public_snapshot:bridge.host.port.requestMemorySnapshot([])}),

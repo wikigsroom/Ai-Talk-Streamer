@@ -41,7 +41,7 @@
       "candidate_scope_and_reproducible_commands"
     ],
     "defect_policy": "Close the test phase and implement one complete correction round before retesting; never patch between tests within a phase",
-    "inventory": "configs/issac/development-agency09-600.json"
+    "inventory": "configs/issac/development-agency10-600.json"
   },
   "acceptance_scope_retained": [
     "native_game_ABI_and_read_only_observation",
@@ -152,6 +152,15 @@
       "status": "closed_amendment_verified_with_documented_limits",
       "closed_unix": 1794276941.1701336,
       "evidence": "docs/evidence/issac-agency-20261110.json",
+      "full_product_acceptance": false
+    },
+    {
+      "round": "AGENCY09",
+      "candidate_id": "issac-15ec0c6fa929-e63f0524",
+      "source_commit": "15ec0c6fa929e8be5aa37c55866530e10f78bc09",
+      "status": "closed_failed",
+      "closed_unix": 1794282184.799554,
+      "evidence": "operations/live300-20261109/agency09-closed.json",
       "full_product_acceptance": false
     }
   ],
