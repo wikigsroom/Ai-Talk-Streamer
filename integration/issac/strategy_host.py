@@ -287,6 +287,11 @@ class StrategyHost:
                     raise AdmissionError('ACTUAL_COMPONENT_RECOVERY_REQUIRED')
                 self.last_fault=None;self.lifecycle.alert=None
                 return {'game_control_changed':False,'components_ready':True}
+            if getattr(self,'uninterrupted_gameplay',False) and body=={'action':'components_rearm'}:
+                if (self.service.raw.get('strategy',{}).get('manual_override')
+                        or self.lifecycle.phase=='operator_paused'):
+                    raise AdmissionError('EXPLICIT_OPERATOR_CONTROL_PRESERVED')
+                return self.control({'enabled':True,'live':True},origin='lifecycle')
             if (getattr(self,'uninterrupted_gameplay',False) and action=='adopt_live'
                     and set(body)=={'action','pid'} and type(body['pid']) is int):
                 if self.service.raw.get('strategy',{}).get('manual_override'):

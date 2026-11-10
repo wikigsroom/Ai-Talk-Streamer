@@ -161,13 +161,24 @@ class GameContinuity(unittest.TestCase):
         owner=object.__new__(LiveSupervisor)
         owner.api=Mock(side_effect=[{'ready':True,'automatic':False},{'armed':True}])
         owner.ensure_core_automatic({'armed':True,'manual_override':False,'live_cycle':{'phase':'playing'}})
-        owner.api.assert_any_call(9534,'/control',{'action':'live'},timeout=20)
+        owner.api.assert_any_call(9534,'/control',{'action':'components_rearm'},timeout=20)
         owner.api=Mock(return_value={'automatic':True})
         self.assertTrue(owner.ensure_core_automatic({})['already_automatic']);self.assertEqual(owner.api.call_count,1)
         owner.api.reset_mock()
         with self.assertRaisesRegex(AdmissionError,'CANCELLED_BY_OPERATOR'):
             owner.ensure_core_automatic({'manual_override':True})
         owner.api.assert_not_called()
+
+    def test_component_rearm_rechecks_current_manual_takeover_at_native_endpoint(self):
+        host=object.__new__(StrategyHost);host.action_lock=threading.RLock();host.uninterrupted_gameplay=True
+        host.service=SimpleNamespace(raw={'strategy':{'manual_override':True}})
+        host.lifecycle=SimpleNamespace(phase='playing');host.control=Mock(return_value={'armed':True})
+        with self.assertRaisesRegex(AdmissionError,'EXPLICIT_OPERATOR_CONTROL_PRESERVED'):
+            host.action({'action':'components_rearm'})
+        host.control.assert_not_called()
+        host.service.raw['strategy']['manual_override']=False
+        self.assertTrue(host.action({'action':'components_rearm'})['armed'])
+        host.control.assert_called_once_with({'enabled':True,'live':True},origin='lifecycle')
 
     def test_native_focus_setting_is_fixed_and_legacy_policy_issues_no_rpc(self):
         n=object.__new__(NativeGame);n.root=self.root;n.rpc=Mock(return_value='false');n.audit=Mock()

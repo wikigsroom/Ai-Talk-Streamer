@@ -614,7 +614,7 @@ class LiveSupervisor:
         if core.get('automatic') is not True:
             # The native endpoint rechecks the pinned model, current candidate,
             # fresh state, live media and actual unpaused game before rearming.
-            return self.api(9534,'/control',{'action':'live'},timeout=20)
+            return self.api(9534,'/control',{'action':'components_rearm'},timeout=20)
         return {'already_automatic':True}
 
     def run(self):
