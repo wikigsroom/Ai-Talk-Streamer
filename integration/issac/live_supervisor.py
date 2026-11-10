@@ -251,10 +251,11 @@ class LiveSupervisor:
         if before['progress']['slot'] != 0 or before['observation']['players'] != 0:
             raise AdmissionError('FRESH_GAME_TITLE_REQUIRED_FOR_SLOT3_SELECTION')
         game_foreground(self.root)
-        deadline, title_keys, file_keys = time.monotonic()+120, 0, 0
+        deadline, title_keys, file_keys, intro_keys = time.monotonic()+120, 0, 0, 0
         # A fresh game first plays a film. Waiting for the actual title avoids
         # the old fixed sequence consuming Enter on the film and arrows on the
-        # title. Neither an unknown frame nor a fade authorizes any key.
+        # title. Only the separately recognized observed film gets one ordinary
+        # skip key. Neither an unknown frame nor a fade authorizes any key.
         self.report('restoring_slot3', step='waiting_for_known_native_menu')
         while time.monotonic() < deadline:
             current = observe()
@@ -274,6 +275,13 @@ class LiveSupervisor:
                     raise AdmissionError('RECOVERY_TITLE_INPUT_NOT_ACCEPTED')
                 key('space')
                 title_keys += 1
+            elif menu['page'] == 'opening_film':
+                if intro_keys == 0:
+                    self.audit.append('recovery_observed_opening_skip', **menu)
+                    key('space')
+                    intro_keys += 1
+                else:
+                    time.sleep(.5)
             else:
                 time.sleep(.5)
         else:

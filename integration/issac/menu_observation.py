@@ -1,6 +1,6 @@
 """Read only the pinned game's own rendered title/file-selection surface.
 
-Unknown frames, fades and the opening film authorize no input. File selection
+Unknown frames and fades authorize no input. File selection
 requires both the stable FILE SELECT heading and one clearly highlighted paper.
 The native writable-slot check remains the final authority before gameplay.
 """
@@ -37,11 +37,22 @@ def recognize_menu(jpeg, signature):
         raise AdmissionError('PINNED_MENU_SIGNATURE_SHAPE_REQUIRED')
     union = sum(bool(a or b) for a, b in zip(mask, expected))
     title_iou = sum(bool(a and b) for a, b in zip(mask, expected))/union if union else 0
+    intro_errors = []
+    for intro in signature['observed_opening_film']:
+        intro_pixels = image.convert('L').crop(intro['rect']).filter(ImageFilter.GaussianBlur(2)).resize(tuple(intro['size'])).tobytes()
+        intro_reference = base64.b64decode(intro['luminance_base64'])
+        if len(intro_pixels) != len(intro_reference):
+            raise AdmissionError('PINNED_MENU_SIGNATURE_SHAPE_REQUIRED')
+        intro_errors.append(sum(abs(a-b) for a, b in zip(intro_pixels, intro_reference))/len(intro_pixels))
+    intro_error = min(intro_errors)
     page, selected = 'unknown', None
     if heading_error <= 6 and gap >= 25:
         page, selected = 'file_select', ordered[0][0]
     elif title_iou >= .8:
         page = 'title'
+    elif intro_error <= 8:
+        page = 'opening_film'
     return {'page': page, 'selected_file': selected, 'file_heading_error': round(heading_error, 3),
             'selection_brightness_gap': round(gap, 3), 'title_logo_iou': round(title_iou, 4),
+            'observed_opening_error': round(intro_error, 3),
             'native_frame_sha256': hashlib.sha256(jpeg).hexdigest()}

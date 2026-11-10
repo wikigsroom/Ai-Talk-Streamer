@@ -28,6 +28,13 @@ class MenuRecognitionTests(unittest.TestCase):
         self.assertEqual(result['page'], 'title')
         self.assertIsNone(result['selected_file'])
 
+    def test_actual_observed_film_is_distinct_from_title_and_file_pages(self):
+        for name in ('menu-intro.jpg', 'menu-intro-chair.jpg'):
+            with self.subTest(frame=name):
+                result = recognize_menu((FIXTURES/name).read_bytes(), self.signature)
+                self.assertEqual(result['page'], 'opening_film')
+                self.assertIsNone(result['selected_file'])
+
     def test_film_like_paper_and_black_transition_authorize_nothing(self):
         from PIL import Image
         for color in ('black', '#99918c', 'white'):
@@ -98,6 +105,17 @@ class NativeMenuRecoveryTests(unittest.TestCase):
         self.selected = 3; self.pages = []
         self.restore()
         self.assertEqual(self.keys, ['enter', 'enter'])
+
+    def test_recognized_opening_skip_is_followed_by_a_separate_title_confirmation(self):
+        self.pages = ['opening_film', 'unknown', 'title']
+        self.restore()
+        self.assertEqual(self.keys, ['space', 'space', 'right', 'right', 'enter', 'enter'])
+
+    def test_persistent_opening_never_receives_repeated_skip_or_file_confirm(self):
+        self.owner.game_menu.side_effect = None
+        self.owner.game_menu.return_value = {'page': 'opening_film', 'selected_file': None}
+        with self.assertRaisesRegex(AdmissionError, 'MENU_NOT_RECOGNIZED'):self.restore()
+        self.assertEqual(self.keys, ['space'])
 
     def test_unrecognized_frames_never_receive_a_confirm_key(self):
         self.owner.game_menu.side_effect = None

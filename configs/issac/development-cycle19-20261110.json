@@ -1,0 +1,12 @@
+{
+ "schema_version":1,"round":"CYCLE19","branch":"issac",
+ "candidate_frozen":false,"application_tests_started":false,
+ "manual_whole_round_source_review_complete":true,"tests_run_during_development":false,
+ "unresolved_round_code_TODOs":[],
+ "items":[{"id":"OBSERVED_OPENING_SKIP","status":"code_complete_pending_acceptance","source_files":[
+ "integration/issac/menu_observation.py","integration/issac/live_supervisor.py",
+ "integration/issac/tests/test_menu_recovery.py","integration/issac/tests/fixtures/menu-intro.jpg","integration/issac/tests/fixtures/menu-intro-chair.jpg",
+ "configs/issac/menu-signatures.json","docs/issac/已观察开场画面恢复修订20261110.md","AGENTS.md"]}],
+ "previous_round_closed":"CYCLE18 real opening frame persisted beyond 120 seconds; unknown-frame guard preserved.",
+ "private_credentials_in_source":false,"memory_reset_requested":false
+}
