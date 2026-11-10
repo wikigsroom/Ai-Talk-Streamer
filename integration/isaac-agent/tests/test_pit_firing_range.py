@@ -32,8 +32,14 @@ class PitFiringRangeTests(unittest.TestCase):
         self.assertNotEqual(action.move, Vec2())
         self.assertLessEqual(action.waypoint.distance_to(self.state.enemies[0].position), 235)
         self.assertGreater(action.waypoint.distance_to(self.state.player.position), 22)
-        # The shot crosses pits; the player cannot. It needs a different row.
-        self.assertGreater(abs(action.waypoint.y-self.state.player.position.y), 30)
+        # A detour can return to the same row. Verify its walking distance
+        # rather than requiring the final firing tile to change rows.
+        enemy = self.state.enemies[0]
+        index = (enemy.grid_index + round((action.waypoint.x-enemy.position.x)/40)
+                 + round((action.waypoint.y-enemy.position.y)/40)*self.state.layout.grid_width)
+        distance = path_distance(self.state, action.waypoint, index)
+        self.assertLess(distance, float('inf'))
+        self.assertGreater(distance, action.waypoint.distance_to(self.state.player.position)+40)
 
     def test_movement_penalty_keeps_the_long_route_around_the_pits(self):
         action = local_policy_action(self.state, build_candidate_set(self.state))
