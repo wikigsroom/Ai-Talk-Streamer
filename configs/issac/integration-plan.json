@@ -84,7 +84,7 @@
   "presentation_contract": "configs/issac/mc-presentation-reference.json",
   "execution_authorization": {
     "date": "2026-11-10",
-    "final_deliverable": "300-second official Bilibili Livehime local recording; latest amendment does not claim a new recording",
+    "final_deliverable": "600-second official Bilibili Livehime local recording",
     "public_broadcast_authorized": false,
     "round_1": "Comprehensive isolated copy and integrity verification only; no application testing",
     "round_2_onward": "Finish all round development/TODO/code, freeze complete candidate, then perform all debugging/integration/acceptance",
@@ -96,7 +96,7 @@
       "proxy_allowed": false
     },
     "staging_is_runtime_acceptance": false,
-    "current_scope": "agency_and_continuous_persona_deployed_and_locally_verified_public_stream_paused",
+    "current_scope": "reuse_frozen_AGENCY08_for_actual_600_second_game_and_avatar_local_recording",
     "model_requests": "original_user_saved_responses_api_channel_gpt_6_1_sol"
   },
   "execution_rounds": "configs/issac/execution-rounds.json",
@@ -178,5 +178,6 @@
     "actual_same_native_agent_short_speech_turns": 3,
     "new_boss_run_or_300s_or_long_run_accepted": false,
     "public_stream_started": false
-  }
+  },
+  "current_execution_amendment": "configs/issac/live600.json"
 }

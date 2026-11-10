@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "goal": "Real 300-second official Bilibili Livehime local recording of Naimei core-led Isaac gameplay on native RTX4090",
+  "goal": "Real continuous 600-second official Bilibili Livehime local recording of Naimei-led Isaac gameplay on native RTX4090",
   "branch": "issac",
   "round_1": {
     "status": "completed_file_preparation_only",
@@ -174,7 +174,7 @@
   "tests_paused_by_user": false,
   "current_revision_document": "docs/issac/控制分工与连续人格修订20261110.md",
   "historical_round_inventory_is_current_startup_authority": false,
-  "current_execution_amendment": "configs/issac/live300.json",
+  "current_execution_amendment": "configs/issac/live600.json",
   "current_validation": {
     "scope": "20261110_agency_and_continuous_persona_amendment_only",
     "status": "deployed_and_verified_with_documented_limits",
