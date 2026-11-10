@@ -112,9 +112,15 @@ class NormalCaptionActivation(unittest.TestCase):
 
     def test_only_proven_visible_caption_gets_ordinary_click_and_cursor_restore(self):
         user,verify=self.fixture()
-        self.assertTrue(caption_activate(user,123,9,verify))
+        ordered=Mock();ordered.attach_mock(user.SetCursorPos,'cursor');ordered.attach_mock(user.mouse_event,'mouse')
+        with patch('integration.issac.record_focus.time.sleep') as delay:
+            ordered.attach_mock(delay,'delay')
+            self.assertTrue(caption_activate(user,123,9,verify))
         self.assertEqual([c.args for c in user.mouse_event.call_args_list],[(2,0,0,0,0),(4,0,0,0,0)])
         self.assertEqual([c.args for c in user.SetCursorPos.call_args_list],[(600,112),(10,20)])
+        self.assertEqual([(c[0],c.args) for c in ordered.mock_calls],
+            [('cursor',(600,112)),('delay',(.05,)),('mouse',(2,0,0,0,0)),('delay',(.06,)),
+             ('mouse',(4,0,0,0,0)),('delay',(.3,)),('cursor',(10,20))])
         self.assertEqual(verify.call_count,2)
 
     def test_client_and_close_controls_are_never_clicked(self):

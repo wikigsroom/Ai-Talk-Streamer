@@ -51,10 +51,17 @@ def caption_activate(user,hwnd,pid,verify):
     if not user.GetCursorPos(ctypes.byref(previous)):return False
     try:
         if not user.SetCursorPos(point.x,point.y):return False
+        time.sleep(.05)
         verify()
         if not exposed():return False
-        try:user.mouse_event(2,0,0,0,0)
+        try:
+            user.mouse_event(2,0,0,0,0)
+            time.sleep(.06)
         finally:user.mouse_event(4,0,0,0,0)
+        # mouse_event queues ordinary input. Returning the cursor immediately
+        # can redirect the queued click to the former position (observed on
+        # the notification surface). Let activation apply before returning it.
+        time.sleep(.3)
         return True
     finally:user.SetCursorPos(previous.x,previous.y)
 
