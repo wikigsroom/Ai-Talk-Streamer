@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "round": "AGENCY05",
+  "round": "AGENCY06",
   "branch": "issac",
   "candidate_frozen": false,
   "application_tests_started": false,
@@ -9,7 +9,7 @@
   "unresolved_round_code_TODOs": [],
   "items": [
     {
-      "id": "AGENCY05-COMPLETE-USER-AMENDMENT",
+      "id": "AGENCY06-COMPLETE-USER-AMENDMENT",
       "status": "code_complete_pending_acceptance",
       "source_files": [
         "AGENTS.md",
@@ -44,11 +44,12 @@
         "integration/issac/tests/naimei_core.test.mjs",
         "integration/issac/tests/short_speech.test.mjs",
         "integration/issac/tests/test_agency.py",
+        "integration/issac/tests/test_persona_reset.py",
         "integration/issac/tests/test_application_startup.py",
         "integration/issac/wiki.py",
         "tests/issac-core-host.test.mjs"
       ]
     }
   ],
-  "previous_validation_closed": "operations/issac-live300-20261109/agency04-round-closed.json"
+  "previous_validation_closed": "operations/issac-live300-20261109/agency05-round-closed.json"
 }

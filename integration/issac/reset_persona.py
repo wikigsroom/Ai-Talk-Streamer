@@ -14,6 +14,25 @@ import socket
 from .common import AdmissionError,file_hash,read_json,write_json
 
 
+def clear_dsh_state(state):
+    """Remove only DSH-owned memory, never the shared recorder/media state."""
+    state=Path(state).resolve()
+    names=('dsh-home','stream.sqlite3','stream.sqlite3-wal','stream.sqlite3-shm')
+    targets=[state/name for name in names]
+    # Validate the entire fixed list before the first mutation.
+    for index,target in enumerate(targets):
+        if target.is_symlink() or target.resolve().parent!=state:
+            raise AdmissionError('EXACT_DSH_MEMORY_TARGET_REQUIRED')
+        if target.exists() and (not target.is_dir() if index==0 else not target.is_file()):
+            raise AdmissionError('DSH_MEMORY_TARGET_TYPE_CHANGED')
+    for target in targets:
+        if not target.exists():continue
+        if target.name=='dsh-home':shutil.rmtree(target)
+        else:target.unlink()
+    state.mkdir(parents=True,exist_ok=True)
+    return list(names)
+
+
 def reset(root):
     root=Path(root).resolve()
     if root!=Path('C:/dev/虚拟数字人直播/issac').resolve():
@@ -36,12 +55,12 @@ def reset(root):
     persona=root/'configs/characters/naimei.json'
     extensions=root/'configs/naimei/dsh-extensions.json'
     before={'persona_sha256':file_hash(persona),'extensions_sha256':file_hash(extensions)}
-    if state.exists():shutil.rmtree(state)
-    state.mkdir(parents=True)
+    cleared=clear_dsh_state(state)
     channel.write_text(updated,'utf8')
     receipt={'active_memory_cleared':True,'old_conversations_loaded':False,
         'model':'gpt-6.1-sol','protocol':'responses','channel_address_and_key_preserved':True,
         'complete_original_persona_republished_on_start':True,'seven_extensions_reload_on_start':True,
+        'cleared_relative_entries':cleared,'recorder_and_media_state_preserved':True,
         **before,'public_stream_started':False}
     write_json(root/'state/issac-acceptance/persona-reset-20261110.json',receipt)
     return receipt
