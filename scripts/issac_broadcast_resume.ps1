@@ -1,4 +1,4 @@
-﻿param([Parameter(Mandatory=$true)][int]$ProcessId,[Parameter(Mandatory=$true)][long]$WindowHandle,[switch]$InspectOnly)
+﻿param([Parameter(Mandatory=$true)][int]$ProcessId,[Parameter(Mandatory=$true)][long]$WindowHandle,[switch]$InspectOnly,[switch]$PreserveGameForeground)
 $ErrorActionPreference='Stop'
 Import-Module (Join-Path $PSScriptRoot 'issac_broadcast_state.psm1') -Force
 Add-Type -AssemblyName UIAutomationClient
@@ -40,6 +40,7 @@ $pattern=$null
 if($targets[0].TryGetCurrentPattern([Windows.Automation.InvokePattern]::Pattern,[ref]$pattern)){
     ([Windows.Automation.InvokePattern]$pattern).Invoke()
 }else{
+    if($PreserveGameForeground){throw 'BROADCAST_INVOKE_REQUIRED_TO_PRESERVE_GAME_FOCUS'}
     $box=$targets[0].Current.BoundingRectangle
     $frame=$window.Current.BoundingRectangle
     if($box.Width -lt 20 -or $box.Height -lt 15 -or -not $frame.Contains($box)){throw 'VISIBLE_START_CONTROL_REQUIRED'}

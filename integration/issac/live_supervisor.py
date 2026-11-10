@@ -15,6 +15,7 @@ import urllib.request
 import urllib.error
 
 from .common import AdmissionError, Audit, FileLease, file_hash, inside, read_json, write_json
+from .continuity import uninterrupted
 
 
 class SupervisorState:
@@ -95,7 +96,9 @@ class LiveSupervisor:
         receipt = {'user_requested_live_broadcast': True, 'room_id': 595139,
                    'candidate_id': candidate['candidate_id'], 'armed_at_unix': time.time(),
                    'restart_owned_programmes': True, 'public_stop_allowed': False,
-                   'protected_saves_must_remain_unchanged': True}
+                   'protected_saves_must_remain_unchanged': True,
+                   'game_pause_allowed':not uninterrupted(self.root),
+                   'restart_living_game_allowed':not uninterrupted(self.root)}
         write_json(self.authorization, receipt)
         self.audit.append('live_supervisor_armed', candidate_id=candidate['candidate_id'], room_id=595139)
         return receipt
@@ -118,6 +121,7 @@ class LiveSupervisor:
         cycle = controller.get('live_cycle') or {}
         manual = operator_paused(controller)
         requested = cycle.get('phase') == 'restart_required'
+        if uninterrupted(self.root):requested=requested or bool((cycle.get('alert') or {}).get('component_repair_requested'))
         if manual or requested:
             return False, manual, requested
         studio = None
@@ -152,6 +156,7 @@ class LiveSupervisor:
         return process
 
     def stop_owned_stack_for_restart(self):
+        if uninterrupted(self.root):raise AdmissionError('FULL_STACK_STOP_DURING_LIVE_FORBIDDEN')
         import psutil
         app = read_json(inside(self.root, 'state/issac-stream/application.json'))
         try:
@@ -196,6 +201,7 @@ class LiveSupervisor:
             pass
 
     def restart_owned_game(self):
+        if uninterrupted(self.root):raise AdmissionError('RESTART_OF_RUNNING_GAME_FORBIDDEN')
         import psutil
         import win32gui
         import win32process
@@ -335,7 +341,8 @@ class LiveSupervisor:
             current = observe()
             if current['observation']['players'] == 1 and not current['observation']['dead']:
                 self.api(9534, '/control', {'action': 'install'}, timeout=20)
-                self.api(9534, '/control', {'action': 'recovery_pause'}, timeout=12)
+                if not uninterrupted(self.root):
+                    self.api(9534, '/control', {'action': 'recovery_pause'}, timeout=12)
                 return
             time.sleep(.5)
         raise AdmissionError('RECOVERY_LIVING_NATIVE_RUN_NOT_CONFIRMED')
@@ -444,9 +451,11 @@ class LiveSupervisor:
         deadline = time.monotonic()+60
         while time.monotonic() < deadline:
             script = inside(self.root, 'scripts/issac_broadcast_resume.ps1')
-            result = subprocess.run([r'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe',
+            command=[r'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe',
                 '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', str(script),
-                '-ProcessId', str(window[0]['pid']), '-WindowHandle', str(window[0]['hwnd'])],
+                '-ProcessId', str(window[0]['pid']), '-WindowHandle', str(window[0]['hwnd'])]
+            if uninterrupted(self.root):command.append('-PreserveGameForeground')
+            result = subprocess.run(command,
                 capture_output=True, timeout=12, creationflags=0x08000000)
             if result.returncode:
                 self.audit.append('official_resume_waiting_for_named_control', returncode=result.returncode,
@@ -459,6 +468,7 @@ class LiveSupervisor:
         raise AdmissionError('RECOVERY_PUBLIC_STREAM_NOT_CONFIRMED')
 
     def recover(self):
+        if uninterrupted(self.root):return self.repair_live_components()
         from .saves import SaveProtection
         from .record_focus import game_foreground
         self.authorized()
@@ -491,6 +501,88 @@ class LiveSupervisor:
         self.state.bad_since = None
         self.state.platform_off = 0
         self.report('monitoring', restart_completed=True, attempt=self.state.restarts)
+
+    def repair_live_components(self):
+        """Repair programme owners independently; never stop or pause the game."""
+        import psutil
+        from .preparation import runtime_environment
+        self.authorized();self.state.restarts+=1
+        self.report('repairing_components',attempt=self.state.restarts,game_pause_requested=False,game_stop_requested=False)
+        try:app=self.api(9541,'/status')
+        except Exception:
+            with inside(self.root,'state/issac-stream/live-supervisor-stack.log').open('ab') as output:
+                subprocess.Popen([str(inside(self.root,'runtime/isaac-native/Scripts/python.exe')),'-X','utf8','-B',
+                    '-m','integration.issac.application','--root',str(self.root),'--adopt-running'],cwd=self.root,
+                    env=runtime_environment(self.root,'game'),stdin=subprocess.DEVNULL,stdout=output,stderr=subprocess.STDOUT,
+                    creationflags=0x08000200)
+            deadline=time.monotonic()+30
+            while True:
+                try:app=self.api(9541,'/status');break
+                except Exception:
+                    if time.monotonic()>=deadline:raise AdmissionError('ADOPTIVE_APPLICATION_START_FAILED')
+                    time.sleep(.5)
+        checks=[('gpu-geometry',9540,'/health'),('game-controller',9534,'/status'),('voice',9893,'/health'),
+                ('flashhead',8040,'/health'),('studio',8062,'/health'),('narrator',3104,'/api/dsh/issac/core/status')]
+        geometry=read_json(inside(self.root,'configs/issac/gpu-geometry.json'))
+        checks[0]=('gpu-geometry',geometry['health_port'],'/health')
+        controller_replaced=False
+        try:prior_controller=self.api(9534,'/status')
+        except Exception:prior_controller={}
+        fault=((prior_controller.get('live_cycle') or {}).get('alert') or {}).get('code') or prior_controller.get('last_fault')
+        forced={'CORE_TURN_STALLED':'narrator','GAME_BRIDGE_STALE':'game-controller',
+            'GAME_SIMULATION_STALLED':'game-controller','LOCAL_CONTROLLER_REPAIR_REQUIRED':'game-controller'}
+        for name,port,path in checks:
+            row=(app.get('children') or {}).get(name) or {}
+            try:health=self.api(port,path)
+            except Exception:health={}
+            ready=health.get('service')=='issac-native-game' or health.get('ready') is True
+            if row.get('alive') and ready and name!=forced.get(fault):continue
+            self.api(9541,'/action',{'action':'restart_component','component':name},timeout=25)
+            controller_replaced=controller_replaced or name=='game-controller'
+            deadline=time.monotonic()+900
+            while True:
+                try:
+                    health=self.api(port,path)
+                    if health.get('service')=='issac-native-game' or health.get('ready') is True:break
+                    if health.get('stage')=='failed':raise AdmissionError('COMPONENT_REPAIR_INITIALIZATION_FAILED')
+                except (OSError,ValueError):pass
+                if time.monotonic()>=deadline:raise AdmissionError('COMPONENT_REPAIR_READY_DEADLINE')
+                time.sleep(1)
+        controller=self.api(9534,'/status')
+        if operator_paused(controller):
+            self.report('monitoring',action='respect_operator_pause',game_pause_requested=False)
+            return
+        registry=read_json(inside(self.root,'state/issac-stream/application.json'))
+        game=next((row for row in registry['processes'] if row['name']=='isaac-game' and self.owned_process(row)),None)
+        if game is None:
+            if not controller_replaced:
+                self.api(9541,'/action',{'action':'restart_component','component':'game-controller'},timeout=25)
+                deadline=time.monotonic()+30
+                while True:
+                    try:
+                        if self.api(9534,'/status').get('service')=='issac-native-game':break
+                    except Exception:pass
+                    if time.monotonic()>=deadline:raise AdmissionError('REPLACEMENT_CONTROLLER_READY_DEADLINE')
+                    time.sleep(.5)
+            self.restore_game()
+            registry=read_json(inside(self.root,'state/issac-stream/application.json'))
+            game=next(row for row in registry['processes'] if row['name']=='isaac-game')
+            controller_replaced=True
+        if controller_replaced or not controller.get('native_attached') or not controller.get('armed'):
+            self.api(9534,'/control',{'action':'adopt_live','pid':game['pid']},timeout=25)
+        self.api(3104,'/api/dsh/issac/rehearsal/start',{},timeout=35)
+        self.api(3104,'/api/dsh/platforms/bilibili/collector/start',{},timeout=12)
+        try:
+            from .official_window import identity
+            identity(self.root,read_json(inside(self.root,'.setup/issac-livehime-owner.json')))
+        except psutil.NoSuchProcess:self.restart_official_client()
+        if not self.platform_live():self.restore_official()
+        self.api(9534,'/control',{'action':'components_ready'},timeout=8)
+        self.state.bad_since=None;self.state.platform_off=0
+        self.audit.append('live_components_repaired',attempt=self.state.restarts,game_pid=game['pid'],
+            game_created_at=game['created_at'],game_pause_requested=False,game_stop_requested=False)
+        self.report('monitoring',healthy=True,public_live=True,restarts=self.state.restarts,
+            game_pause_requested=False,game_stop_requested=False)
 
     def run(self):
         self.authorized()

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE32",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [
+    {
+      "id": "UNINTERRUPTED_GAME_AND_BODY_ONLY_DRINK",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "AGENTS.md",
+        "configs/issac/game-continuity.json",
+        "integration/isaac-agent/mods/IsaacJev/strategy_control.lua",
+        "integration/issac/continuity.py",
+        "integration/issac/application.py",
+        "integration/issac/live_cycle.py",
+        "integration/issac/live_supervisor.py",
+        "integration/issac/livehime.py",
+        "integration/issac/materials.py",
+        "integration/issac/native_game.py",
+        "integration/issac/strategy_host.py",
+        "integration/issac/studio.py",
+        "scripts/install_issac_continuous_candidate.py",
+        "scripts/issac_broadcast_resume.ps1",
+        "integration/issac/tests/test_game_continuity.py",
+        "tests/test_issac_programme_pump.py",
+        "docs/issac/游戏不中断与动作解耦20261111.md"
+      ]
+    }
+  ],
+  "previous_round_closed": "CYCLE31 regressions passed but real drink caused normal pause and failed FRESH_SAFE_DRINK_PAUSE_REQUIRED. Its soak failed; old interrupting supervisor was retired. Latest user forbids all automatic gameplay interruption. Preserve existing game PID during deployment.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}

@@ -21,6 +21,7 @@ from .native_game import NativeGame
 from .strategy_dsh import bridge_token
 from .wiki import WikiService
 from .live_cycle import LiveCycle
+from .continuity import uninterrupted
 
 
 def controller_class(root, service, facts):
@@ -110,6 +111,7 @@ class StrategyHost:
     def __init__(self, root):
         native_only()
         self.root=Path(root).resolve()
+        self.uninterrupted_gameplay=uninterrupted(root)
         self.config=read_json(inside(root,'configs/issac/runtime.json'))
         self.owner=FileLease(inside(root,'state/isaac-strategy/host.lock')).acquire()
         attach_upstream(root)
@@ -171,6 +173,10 @@ class StrategyHost:
         """Suspend immediately; only this live owner's exact pause can recover."""
         self.last_fault=reason
         lifecycle=getattr(self,'lifecycle',None)
+        if getattr(self,'uninterrupted_gameplay',False):
+            if lifecycle:lifecycle.attention(reason)
+            self.audit.append('game_preserved_during_service_fault',reason=reason,game_pause_requested=False)
+            return {'armed':self.armed,'game_pause_requested':False,'component_repair_requested':True}
         receipt=None
         try:
             if lifecycle:
@@ -194,6 +200,8 @@ class StrategyHost:
             self.control_revision+=1
             enabled=body['enabled']
             live=body.get('live',False)
+            if not enabled and origin!='operator' and getattr(self,'uninterrupted_gameplay',False):
+                raise AdmissionError('AUTOMATIC_GAME_INTERRUPTION_FORBIDDEN')
             if enabled and live:
                 opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
                 with opener.open('http://127.0.0.1:3104/api/dsh/issac/core/status',timeout=3) as response:
@@ -231,7 +239,8 @@ class StrategyHost:
                 self.pause_pending=bool(self.native.session)
                 self.audit.append('local_authority_withdrawn',control_revision=self.control_revision)
                 try:
-                    receipt=self.native.pause() if self.native.session else {'not_attached':True}
+                    receipt=(self.native.pause(origin='operator') if getattr(self,'uninterrupted_gameplay',False)
+                             else self.native.pause()) if self.native.session else {'not_attached':True}
                     self.pause_pending=False
                 finally:
                     self.strategy_automatic(False,required=False)
@@ -271,6 +280,34 @@ class StrategyHost:
                     raise AdmissionError('OPERATOR_CONTROL_REVISION_CHANGED')
                 body={k:v for k,v in body.items() if k!='expected_revision'}
             action=body.get('action')
+            if getattr(self,'uninterrupted_gameplay',False) and action in {'pause','natural_pause','natural_resume','recovery_pause'}:
+                raise AdmissionError('AUTOMATIC_GAME_INTERRUPTION_FORBIDDEN')
+            if getattr(self,'uninterrupted_gameplay',False) and body=={'action':'components_ready'}:
+                if not self.service.fresh() or not self.approved_core(self.core_status()) or not self.live_media_ready():
+                    raise AdmissionError('ACTUAL_COMPONENT_RECOVERY_REQUIRED')
+                self.last_fault=None;self.lifecycle.alert=None
+                return {'game_control_changed':False,'components_ready':True}
+            if (getattr(self,'uninterrupted_gameplay',False) and action=='adopt_live'
+                    and set(body)=={'action','pid'} and type(body['pid']) is int):
+                if self.service.raw.get('strategy',{}).get('manual_override'):
+                    raise AdmissionError('EXPLICIT_OPERATOR_CONTROL_PRESERVED')
+                self.native.attach(body['pid'])
+                manual=self.native.rpc('evaluate','local m=_G.__NativeIsaacController;return tostring(m and m.strategyControl and m.strategyControl.manualOverride==true)')
+                if str(manual).lower()=='true':raise AdmissionError('EXPLICIT_OPERATOR_CONTROL_PRESERVED')
+                state=self.native.observe()
+                if state['paused'] or state['players']!=1:
+                    raise AdmissionError('LIVING_UNPAUSED_GAME_REQUIRED')
+                self.native.install_controller(allow_terminal=True) if state['dead'] else self.native.install_controller()
+                if state['dead']:
+                    self.lifecycle.stop('adopt_real_terminal')
+                    self.lifecycle.alert=None
+                    self.lifecycle.hold_terminal({},observed_dead=True)
+                    return {'armed':False,'live_cycle':self.lifecycle.status(),'game_control_changed':False}
+                deadline=time.monotonic()+5
+                while not self.service.fresh() and time.monotonic()<deadline:time.sleep(.05)
+                result=self.control({'enabled':True,'live':True},origin='lifecycle')
+                self.lifecycle.start()
+                return result
             if action=='media_fault' and set(body)=={'action'}:
                 if (self.lifecycle.phase=='operator_paused'
                     or self.service.raw.get('strategy',{}).get('manual_override')):
@@ -420,7 +457,7 @@ class StrategyHost:
     def watchdog(self):
         while not self.stop_event.wait(.25):
             lifecycle=getattr(self,'lifecycle',None)
-            if self.pause_pending and not self.armed:
+            if self.pause_pending and not self.armed and not getattr(self,'uninterrupted_gameplay',False):
                 try:
                     with self.action_lock:
                         # A guarded explicit resume may have acquired this lock
@@ -466,8 +503,11 @@ class StrategyHost:
                     # second pause/revision after the owner has finished.
                     if (self.armed and self.control_revision==observed_revision
                             and not self.runtime.controller.autopilot_enabled):
-                        try:self.control({'enabled':False,'live':False})
-                        except Exception:self.last_fault='TERMINAL_PAUSE_ACK_PENDING'
+                        if getattr(self,'uninterrupted_gameplay',False):
+                            self.watchdog_stop('LOCAL_CONTROLLER_REPAIR_REQUIRED')
+                        else:
+                            try:self.control({'enabled':False,'live':False})
+                            except Exception:self.last_fault='TERMINAL_PAUSE_ACK_PENDING'
             self.refresh_quiet_observation()
             if (self.armed and not self.service.fresh()
                     and not self.service.native_engine_hold_grace()):
@@ -479,6 +519,9 @@ class StrategyHost:
                     packet=getattr(self.runtime.controller,'packet_status',lambda:None)()
                     stale_age_ms=(self.service.clock()-self.service.received)*1000
                     self.last_fault='GAME_BRIDGE_STALE'
+                    if getattr(self,'uninterrupted_gameplay',False):
+                        self.watchdog_stop('GAME_BRIDGE_STALE')
+                        continue
                     self.runtime.controller.set_autopilot(False)
                     self.service.configure(enabled=False,live=False)
                     self.armed=False
@@ -500,8 +543,12 @@ class StrategyHost:
                 except Exception:
                     with self.action_lock:
                         if self.armed and self.control_revision==observed_revision:
-                            try:self.control({'enabled':False,'live':False})
-                            except Exception:pass
+                            if getattr(self,'uninterrupted_gameplay',False):
+                                self.runtime.controller.set_autopilot(False)
+                                self.armed=False
+                            else:
+                                try:self.control({'enabled':False,'live':False})
+                                except Exception:pass
                             self.last_fault='SLOT_OR_NATIVE_IDENTITY_CHANGED'
                             if lifecycle:lifecycle.attention(self.last_fault)
 
@@ -516,7 +563,10 @@ class StrategyHost:
         self.stop_event.wait()
 
     def close(self):
-        self.control({'enabled':False,'live':False})
+        if getattr(self,'uninterrupted_gameplay',False):
+            self.runtime.controller.set_autopilot(False)
+            self.armed=False
+        else:self.control({'enabled':False,'live':False})
         self.audio.close()
         self.native.close()
         self.stop_event.set()

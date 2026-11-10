@@ -143,6 +143,53 @@ def approve(root,review_file):
     return {'review':destination.relative_to(root).as_posix(),'accepted':True,'id':clip_id}
 
 
+def inherit_reviewed_bank(root):
+    """Rebind only byte-identical approved media, without rescanning all jobs."""
+    from copy import deepcopy
+    candidate=require_candidate(root,hardware=False)
+    path=inside(root,'state/issac-materials/runtime-bank.json');prior=read_json(path)
+    if prior['candidate_id']==candidate['candidate_id']:return {'unchanged':True}
+    if prior.get('body_reviewed') is not True:raise AdmissionError('PRIOR_REVIEWED_BODY_BANK_REQUIRED')
+    bank=deepcopy(prior);records=[]
+    binding=read_json(inside(root,'configs/issac/character-inheritance.json'))
+    if set(bank['modes'])!={row['mode_id'] for row in binding['modes']}:
+        raise AdmissionError('INHERITED_MODE_BINDING_CHANGED')
+    for locked in binding['modes']:
+        mode=bank['modes'][locked['mode_id']]
+        expected_face=[170,155,190,134] if locked['mode_id']=='M03' else [175,125,173,110]
+        if (mode['reference']!=locked['reference_image'] or mode['reference_sha256']!=locked['sha256']
+                or mode['engine_reference']!=MATERIAL_ROOT+'/'+OPEN_ANCHOR
+                or mode['engine_reference_sha256']!=OPEN_SHA or mode['face_region']!=expected_face
+                or file_hash(inside(root,mode['engine_reference']))!=OPEN_SHA):
+            raise AdmissionError('INHERITED_CHARACTER_BINDING_CHANGED')
+    if bank.get('mouth_constraints',{}).get('original_closeup_sha256')!=OPEN_SHA:
+        raise AdmissionError('INHERITED_ORAL_BINDING_CHANGED')
+    for row in bank['clips']:
+        proof_path=inside(root,row['review']);proof=read_json(proof_path)
+        if (proof.get('accepted') is not True or proof.get('decoded_seam_reviewed') is not True
+                or proof.get('candidate_id')!=prior['candidate_id'] or proof.get('clip_sha256')!=row['sha256']
+                or proof.get('sha256')!=row['sha256'] or proof.get('mode')!=row['mode']
+                or not proof.get('review',{}).get('actual_speed_viewed')
+                or any(proof.get(k)!=row[k] for k in ('id','mode','path','sha256','start_state','end_state'))):
+            raise AdmissionError('EXISTING_ACTUAL_SPEED_BODY_APPROVAL_REQUIRED')
+        if file_hash(inside(root,row['path']))!=row['sha256'] or file_hash(inside(root,proof['source']))!=proof['source_sha256']:
+            raise AdmissionError('INHERITED_BODY_BYTES_CHANGED')
+        for image in proof['images']:
+            if file_hash(inside(root,image['path']))!=image['sha256']:raise AdmissionError('INHERITED_BODY_FRAME_EVIDENCE_CHANGED')
+        proof['inherited_approval']={'candidate_id':prior['candidate_id'],'path':row['review'],
+            'sha256':file_hash(proof_path),'same_original_encoded_and_frame_evidence':True,'new_subjective_review_claimed':False}
+        proof['candidate_id']=candidate['candidate_id']
+        review=generation(root,candidate)/'reviews'/(row['id']+'.json');write_json(review,proof)
+        row['review']=review.relative_to(root).as_posix();records.append(row['id'])
+    for mode in bank['modes'].values():
+        if file_hash(inside(root,mode['reference']))!=mode['reference_sha256']:raise AdmissionError('INHERITED_MODE_REFERENCE_CHANGED')
+    for image in bank.get('mouth_constraints',{}).get('upper_fangs',[]):
+        if file_hash(inside(root,image['path']))!=image['sha256']:raise AdmissionError('INHERITED_FANG_IMAGE_CHANGED')
+    bank['candidate_id']=candidate['candidate_id'];bank['inherited_from_candidate']=prior['candidate_id']
+    write_json(path,bank);write_json(generation(root,candidate)/'runtime-bank.json',bank)
+    return {'candidate_id':candidate['candidate_id'],'verified_clips':records,'new_subjective_review_claimed':False}
+
+
 def build_bank(root):
     candidate=require_candidate(root,hardware=False)
     binding=read_json(inside(root,'configs/issac/character-inheritance.json'))

@@ -27,6 +27,7 @@ from .media_protocol import MediaProfile,stream_request_error
 from .stream_encoder import H264Encoder
 from .media_clock import MediaTimer
 from .readiness import verified_drink_pause
+from .continuity import uninterrupted
 from .strategy_dsh import bridge_token
 
 
@@ -56,6 +57,7 @@ class IsaacStudio(NaimeiStudio):
         self.config['shared_installation_root']=str(root)
         self.mode=mode
         self.runtime=runtime
+        self.uninterrupted_gameplay=uninterrupted(root)
         self.encoder=H264Encoder(512,512,1500000)
         self.media=MediaProfile()
         self.keyframe=True
@@ -338,7 +340,7 @@ class IsaacStudio(NaimeiStudio):
 
     def render_frame(self,source,speaking,reserved):
         body=self.body.next(speaking=speaking,safe=not reserved and self.auto_drink is not None
-                            and self.game_state.get('freshness')=='fresh' and self.game_state.get('paused') is True)
+                            and (getattr(self,'uninterrupted_gameplay',False) or self.game_state.get('freshness')=='fresh' and self.game_state.get('paused') is True))
         original=self.jpeg(body);oral=None
         if speaking:
             face=cv2.imdecode(np.frombuffer(source.jpeg,np.uint8),cv2.IMREAD_COLOR)
@@ -479,6 +481,8 @@ class IsaacStudio(NaimeiStudio):
         finally:self.changing_mode=False
 
     async def natural_events(self):
+        if uninterrupted(self.root):
+            return await self.uninterrupted_natural_events()
         # Pause only at an observed cleared room. A revision fence prevents an
         # automatic resume from undoing a later operator pause or recovery.
         while True:
@@ -520,6 +524,27 @@ class IsaacStudio(NaimeiStudio):
                 reason=str(error) if isinstance(error,AdmissionError) else 'NATURAL_ACTION_NOT_CONFIRMED'
                 self.audit.append('natural_action_stopped',reason=reason,automatic_resume=False)
                 self.body.request_drink=False;self.auto_drink=None;self.last_auto_drink=time.monotonic()
+            await asyncio.sleep(1)
+
+    async def uninterrupted_natural_events(self):
+        """A cup chain owns body frames only. It never calls the game API."""
+        while True:
+            now=time.monotonic()
+            if self.auto_drink:
+                action=self.auto_drink
+                if self.published_body.get('drinking'):action['started']=True
+                if action['started'] and not self.published_body.get('drinking') or now>action['deadline']:
+                    self.body.request_drink=False
+                    self.audit.append('natural_drink_completed' if action['started'] and not self.published_body.get('drinking') else 'natural_drink_deadline_exceeded',game_control_changed=False,game_pause_requested=False)
+                    self.auto_drink=None;self.last_auto_drink=now
+            elif (not self.media_fault and not self.changing_mode and not self.mapping
+                  and (self.speech_task is None or self.speech_task.done())
+                  and now-self.last_auto_drink>=300
+                  and any(c.get('runtime_enabled') and c['mode']==self.mode for c in self.body.registry.get('drink_chains',[]))):
+                self.auto_drink={'kind':'drink','started':False,'created_unix':time.time(),
+                    'game_control_changed':False,'game_pause_requested':False,'deadline':now+60}
+                self.body.request_drink=True
+                self.audit.append('natural_drink_started',game_control_changed=False,game_pause_requested=False)
             await asyncio.sleep(1)
 
     def natural_action(self):

@@ -203,6 +203,19 @@ class Livehime:
             raise AdmissionError('OWNED_OFFICIAL_CLIENT_IDENTITY_OR_READY_STATE_CHANGED')
         return row
 
+    def adopt_verified_running_owner(self):
+        from .official_window import identity
+        row=read_json(self.registration);identity(self.root,row)
+        if row.get('ready') is not True or row.get('profile_isolation_verified') is not True:
+            raise AdmissionError('EXISTING_ISOLATED_OFFICIAL_OWNER_REQUIRED')
+        if row['candidate_id']!=self.candidate['candidate_id']:
+            old=row['candidate_id'];row['candidate_id']=self.candidate['candidate_id']
+            row['inherited_running_instance']={'candidate_id':old,'process_restarted':False,'verified_at_unix':time.time()}
+            write_json(self.registration,row)
+            self.audit.append('official_running_instance_adopted',pid=row['pid'],previous_candidate_id=old,
+                candidate_id=self.candidate['candidate_id'],process_restarted=False)
+        return self.owner()
+
     def ui(self,action='inspect'):
         row=self.owner();observed=self.native_window('windows')['windows']
         if len(observed)!=1:raise AdmissionError('ONE_VISIBLE_OWNED_OFFICIAL_WINDOW_REQUIRED')

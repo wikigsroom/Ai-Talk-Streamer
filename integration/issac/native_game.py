@@ -19,6 +19,7 @@ import uuid
 from .common import AdmissionError, Audit, file_hash, inside, read_json, write_json
 from .game_policy import RunGoal
 from .saves import GAME_SHA256, SaveProtection
+from .continuity import uninterrupted
 
 
 OBSERVE = '''if Game==nil then error("GAME_API_NOT_READY") end
@@ -238,7 +239,9 @@ class NativeGame:
             self.audit.append('ordinary_menu_key',key=name,session_id=self.session_id)
             return result
 
-    def pause(self):
+    def pause(self, *, origin='automatic'):
+        if uninterrupted(self.root) and origin!='operator':
+            raise AdmissionError('AUTOMATIC_GAME_PAUSE_FORBIDDEN')
         with self.lock:
             deadline=time.monotonic()+6
             def budget():
@@ -261,7 +264,7 @@ class NativeGame:
             if not ordinary_pause_proved(observed):
                 nonce=uuid.uuid4().hex
                 source=('local m=_G.__NativeIsaacController;assert(m and m.strategyControl);'
-                        'm.strategyControl:requestPause("'+nonce+'");return "requested"')
+                        'm.strategyControl:requestPause("'+nonce+'",true);return "requested"')
                 if self.rpc('evaluate',source,timeout=budget())!='requested':
                     raise AdmissionError('NATIVE_PAUSE_REQUEST_NOT_ACKNOWLEDGED')
                 while time.monotonic()<deadline:
@@ -303,7 +306,7 @@ class NativeGame:
             goal=goal or RunGoal()
             identity={'start_seed':observed['seed'],'restart_count':0,'bridge':self.session_id}
             goal.validate(identity)
-            if observed['controller_installed']:
+            if observed['controller_installed'] and not uninterrupted(self.root):
                 self.pause()
             module_path=inside(self.root,'integration/isaac-agent/build_native_controller.py')
             spec=importlib.util.spec_from_file_location('issac_native_generator',module_path)
@@ -316,7 +319,8 @@ class NativeGame:
             if (type(port) is not int or not 1024<=port<=65535 or
                     type(deadline) is not int or not 1<=deadline<=12):
                 raise AdmissionError('BOUNDED_GPU_GEOMETRY_CONFIG_REQUIRED')
-            prefix=('_G.ISAAC_GPU_GEOMETRY={enabled='+('true' if geometry.get('enabled') is True else 'false')+
+            prefix=('_G.ISAAC_ALLOW_AUTOMATIC_GAME_PAUSE='+('false' if uninterrupted(self.root) else 'true')+'\n'+
+                    '_G.ISAAC_GPU_GEOMETRY={enabled='+('true' if geometry.get('enabled') is True else 'false')+
                     ',port='+str(port)+',deadline_ms='+str(deadline)+'}\n')
             result=self.rpc('evaluate',prefix+output.read_text(encoding='utf-8'),timeout=8)
             if result!='native controller installed':
@@ -333,6 +337,8 @@ class NativeGame:
             state=self.observe()
             if state['dead'] or state['hp']<=0:
                 raise AdmissionError('NO_LIVING_RUN_TO_RESUME')
+            if state['paused'] and uninterrupted(self.root):
+                raise AdmissionError('EXPLICIT_OPERATOR_UNPAUSE_REQUIRED')
             result=self.rpc('evaluate','local m=_G.__NativeIsaacController;return tostring(m and m.NativeResume and m:NativeResume() or false)')
             if str(result).lower()!='true':
                 raise AdmissionError('NATIVE_CONTROLLER_RESUME_NOT_CONFIRMED')
@@ -364,6 +370,6 @@ class NativeGame:
                     return
                 # Failure leaves the observation/control owner alive. It must
                 # not advertise a clean stop while the game can still run.
-                self.pause()
+                if not uninterrupted(self.root):self.pause()
                 self.session.detach()
                 self.script=self.session=None

@@ -86,6 +86,12 @@ class LiveCycle:
         self.change('playing')
 
     def attention(self, reason):
+        if getattr(self.host,'uninterrupted_gameplay',False):
+            self.alert={'code':reason,'at_unix':time.time(),'gameplay_stopped':False,
+                'operator_action_required':False,'component_repair_requested':True,'game_pause_requested':False}
+            self.host.last_fault=reason
+            self.host.audit.append('live_component_repair_requested',**self.alert)
+            return
         self.enabled = False
         self.alert = {'code': reason, 'at_unix': time.time(), 'gameplay_stopped': True,
                       'operator_action_required': False, 'full_stack_restart_requested': True}
@@ -126,6 +132,9 @@ class LiveCycle:
         host.audit.append('live_terminal_held', terminal=self.terminal)
 
     def fault(self, reason, receipt=None):
+        if getattr(self.host,'uninterrupted_gameplay',False):
+            self.attention(reason)
+            return
         if not self.enabled:
             return
         self.recovery_receipt = deepcopy(receipt)
@@ -148,6 +157,9 @@ class LiveCycle:
         except Exception as error:
             # One bad observer must not kill the watchdog and leave input armed.
             self.host.audit.append('live_cycle_check_failed', exception_type=type(error).__name__)
+            if getattr(self.host,'uninterrupted_gameplay',False):
+                self.attention('LIVE_CYCLE_NATIVE_CHECK_FAILED')
+                return True
             try:
                 self.host.control({'enabled': False, 'live': False}, origin='lifecycle')
             except Exception:
@@ -184,7 +196,9 @@ class LiveCycle:
             return False
         self.dead_since = None
         if raw.get('strategy', {}).get('manual_override'):
-            host.control({'enabled': False, 'live': False})
+            if getattr(host,'uninterrupted_gameplay',False):
+                host.runtime.controller.set_autopilot(False);host.armed=False;self.enabled=False
+            else:host.control({'enabled': False, 'live': False})
             self.change('operator_paused', 'native_manual_override')
             return True
         frame = snapshot.get('frame')
@@ -194,7 +208,8 @@ class LiveCycle:
             self.paused_at = self.paused_at or now
             if now-self.paused_at > 15:
                 # Never guess whether Escape would undo an operator pause.
-                host.control({'enabled': False, 'live': False}, origin='lifecycle')
+                if not getattr(host,'uninterrupted_gameplay',False):
+                    host.control({'enabled': False, 'live': False}, origin='lifecycle')
                 self.attention('EXTERNAL_PAUSE_OR_FOCUS_LOSS')
                 return True
         else:

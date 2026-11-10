@@ -380,5 +380,33 @@ class ProgrammePumpTests(unittest.IsolatedAsyncioTestCase):
             finally:
                 task.cancel();await asyncio.gather(task,return_exceptions=True)
 
+    async def test_uninterrupted_drink_changes_body_only_and_never_reads_or_controls_game(self):
+        with tempfile.TemporaryDirectory() as directory:
+            studio=self.studio(Path(directory));studio.changing_mode=False
+            studio.last_auto_drink=time.monotonic()-301;studio.body.registry={'drink_chains':[{'mode':'M03','runtime_enabled':True}]}
+            studio.drink_sample=AsyncMock(side_effect=AssertionError('drink must not read game'))
+            # Deliberately no fresh/clear/armed state: body events are independent.
+            studio.game_state={};task=asyncio.create_task(studio.uninterrupted_natural_events())
+            try:
+                await asyncio.sleep(.05);self.assertTrue(studio.body.request_drink)
+                self.assertFalse(studio.auto_drink['game_pause_requested'])
+                studio.published_body['drinking']=True;await asyncio.sleep(1.02)
+                studio.published_body['drinking']=False;await asyncio.sleep(1.02)
+                self.assertIsNone(studio.auto_drink);self.assertFalse(studio.body.request_drink)
+                studio.native_call.assert_not_awaited();studio.drink_sample.assert_not_awaited()
+            finally:
+                task.cancel();await asyncio.gather(task,return_exceptions=True)
+
+    async def test_uninterrupted_drink_timeout_cancels_only_body_request(self):
+        with tempfile.TemporaryDirectory() as directory:
+            studio=self.studio(Path(directory));studio.changing_mode=False
+            studio.auto_drink={'started':False,'deadline':time.monotonic()-1};studio.body.request_drink=True
+            task=asyncio.create_task(studio.uninterrupted_natural_events())
+            try:
+                await asyncio.sleep(.05);self.assertIsNone(studio.auto_drink)
+                self.assertFalse(studio.body.request_drink);studio.native_call.assert_not_awaited()
+            finally:
+                task.cancel();await asyncio.gather(task,return_exceptions=True)
+
 
 if __name__=='__main__':unittest.main()

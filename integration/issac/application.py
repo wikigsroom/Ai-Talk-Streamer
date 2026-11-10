@@ -21,6 +21,19 @@ from .core_model import model_identity_matches
 from .preparation import prepare_saves,relocate_native_environments,runtime_environment
 from .offline_dependencies import install_voice_dependencies
 from .strategy_dsh import bridge_token
+from .continuity import uninterrupted
+
+
+class AdoptedProcess:
+    def __init__(self, process):self.process=process;self.pid=process.pid
+    def poll(self):
+        import psutil
+        try:return None if self.process.is_running() and self.process.status()!=psutil.STATUS_ZOMBIE else 0
+        except psutil.NoSuchProcess:return 0
+    def wait(self,timeout=None):
+        import psutil
+        try:return self.process.wait(timeout)
+        except psutil.TimeoutExpired:raise subprocess.TimeoutExpired('owned adopted component',timeout) from None
 
 
 class Application:
@@ -33,6 +46,7 @@ class Application:
         self.token=bridge_token(root)
         self.audit=Audit(inside(root,'state/issac-stream/application-events.jsonl'))
         self.children={}
+        self.component_lock=threading.RLock()
         self.handles=[]
         self.stop_event=threading.Event()
         self.stage='preparing'
@@ -162,13 +176,80 @@ class Application:
         path=inside(self.root,'game/isaac-ng.exe')
         if file_hash(path)!=GAME_SHA256:
             raise AdmissionError('PINNED_GAME_CHANGED')
+        existing=self.children.get('isaac-game')
+        if existing:
+            if existing[0].poll() is None:
+                raise AdmissionError('RUNNING_GAME_MUST_BE_PRESERVED')
+            del self.children['isaac-game']
         self.child('isaac-game','game/isaac-ng.exe',['--luadebug'],'game',cwd='game')
         return self.children['isaac-game'][1]
+
+    def component_spec(self,name):
+        paths=self.config['native_paths'];root_arg=['--root',str(self.root)]
+        specs={
+            'gpu-geometry':(paths['media_python'],['-X','utf8','-B','-m','integration.issac.gpu_worker',*root_arg],'engine'),
+            'game-controller':(paths['game_python'],['-X','utf8','-B','-m','integration.issac.strategy_host',*root_arg],'game'),
+            'voice':(paths['voice_python'],['-X','utf8','-B','-m','integration.issac.voice',*root_arg],'voice'),
+            'flashhead':(paths['media_python'],['-X','utf8','-B','-m','integration.issac.engine_service',*root_arg],'engine'),
+            'studio':(paths['media_python'],['-X','utf8','-B','-m','integration.issac.studio',*root_arg],'studio'),
+            'narrator':(paths['node'],['backend/dsh-bridge/issac.mjs',str(self.root)],'narrator')}
+        if name not in specs:raise AdmissionError('GAME_RESTART_IS_NOT_A_COMPONENT_ACTION')
+        return specs[name]
+
+    def restart_component(self,name):
+        import psutil
+        self.component_spec(name)
+        with self.component_lock:
+            item=self.children.get(name)
+            if item:
+                _,row=item
+                try:
+                    process=psutil.Process(row['pid'])
+                    if (process.create_time()!=row['created_at'] or Path(process.exe()).resolve()!=Path(row['executable']).resolve()
+                            or file_hash(Path(process.exe()))!=row['executable_sha256']):
+                        raise AdmissionError('COMPONENT_REPAIR_IDENTITY_CHANGED')
+                    process.terminate()
+                    try:process.wait(8)
+                    except psutil.TimeoutExpired:process.kill();process.wait(5)
+                except psutil.NoSuchProcess:pass
+                launcher=row.get('launcher_pid')
+                if launcher and launcher!=row['pid']:
+                    try:
+                        process=psutil.Process(launcher)
+                        if process.create_time()==row['launcher_created_at'] and Path(process.exe()).resolve()==Path(row['launcher_executable']).resolve():
+                            process.terminate();process.wait(5)
+                    except psutil.NoSuchProcess:pass
+                del self.children[name]
+            executable,args,kind=self.component_spec(name)
+            self.child(name,executable,args,kind)
+            self.error=None;self.stage='running_candidate_not_accepted';self.persist()
+            self.audit.append('owned_component_repaired',name=name,game_stop_requested=False,game_pause_requested=False)
+            return {'restarted':name,'game_control_changed':False}
+
+    def adopt_running(self):
+        import psutil
+        old=read_json(inside(self.root,'state/issac-stream/application.json'))
+        for row in old.get('processes',[]):
+            name=row['name']
+            if name!='isaac-game':self.component_spec(name)
+            try:
+                process=psutil.Process(row['pid'])
+                if (process.create_time()!=row['created_at'] or Path(process.exe()).resolve()!=Path(row['executable']).resolve()
+                        or not Path(process.exe()).resolve().is_relative_to(self.root)
+                        or file_hash(Path(process.exe()))!=row['executable_sha256']):
+                    raise AdmissionError('ADOPTED_COMPONENT_IDENTITY_CHANGED')
+                self.children[name]=(AdoptedProcess(process),row)
+            except psutil.NoSuchProcess:pass
+        for name in ['gpu-geometry','game-controller','voice','flashhead','studio','narrator']:
+            if name not in self.children:
+                executable,args,kind=self.component_spec(name);self.child(name,executable,args,kind)
+        self.stage='running_candidate_not_accepted';self.persist()
+        self.audit.append('running_components_adopted',game_stop_requested=False,game_pause_requested=False)
 
     def stop(self):
         self.stage='stopping';self.persist()
         controller=self.children.get('game-controller')
-        if controller and controller[0].poll() is None:
+        if controller and controller[0].poll() is None and not uninterrupted(self.root):
             try:
                 receipt=self.http('http://127.0.0.1:9534/control',{'action':'pause'},timeout=12)
                 native=receipt.get('native_receipt',{})
@@ -234,19 +315,24 @@ class Application:
                         app.stop_event.set();self.reply(202,{'stopping':True})
                     elif body=={'action':'launch_game'}:
                         self.reply(200,app.launch_game())
+                    elif set(body)=={'action','component'} and body['action']=='restart_component' and uninterrupted(app.root):
+                        self.reply(200,app.restart_component(body['component']))
                     else:self.reply(400,{'error':'FIXED_APPLICATION_ACTION_REQUIRED'})
                 except Exception:self.reply(409,{'error':'APPLICATION_ACTION_REJECTED'})
             def log_message(self,*_):pass
         return ThreadingHTTPServer(('127.0.0.1',9541),Handler)
 
-    def run(self,components):
+    def run(self,components,*,adopt=False):
         threading.Thread(target=self.server.serve_forever,daemon=True).start()
-        self.start(components)
+        if adopt:self.adopt_running()
+        else:self.start(components)
         while not self.stop_event.wait(1):
-            for name,(process,record) in self.children.items():
+            for name,(process,record) in list(self.children.items()):
                 if name=='isaac-game':continue
                 if process.poll() is not None:
                     self.error='OWNED_COMPONENT_EXITED_'+name.upper();self.audit.append('owned_component_failed',name=name)
+                    if uninterrupted(self.root):
+                        self.persist();continue
                     self.stop_event.set();break
         self.stop()
         if self.error or self.cleanup_faults:raise AdmissionError(self.error or 'STACK_COMPONENT_CLEANUP_FAILED')
@@ -257,10 +343,12 @@ class Application:
         self.owner.close()
 
 
-def run_owned(root,components='all'):
+def run_owned(root,components='all',*,adopt=False):
     app=Application(Path(root).resolve())
     signal.signal(signal.SIGINT,lambda *_:app.stop_event.set());signal.signal(signal.SIGTERM,lambda *_:app.stop_event.set())
-    try:app.run(components)
+    try:
+        if adopt:app.run(components,adopt=True)
+        else:app.run(components)
     except Exception as error:
         app.error=str(error) if isinstance(error,AdmissionError) else 'APPLICATION_FAILED'
         app.audit.append('application_failed',code=app.error)
@@ -275,8 +363,9 @@ def run_owned(root,components='all'):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--root',type=Path,required=True)
-    parser.add_argument('--components',choices=['all','game'],default='all');args=parser.parse_args()
-    run_owned(args.root,args.components)
+    parser.add_argument('--components',choices=['all','game'],default='all')
+    parser.add_argument('--adopt-running',action='store_true');args=parser.parse_args()
+    run_owned(args.root,args.components,adopt=args.adopt_running)
 
 
 if __name__=='__main__':main()

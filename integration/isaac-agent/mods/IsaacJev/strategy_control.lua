@@ -256,7 +256,10 @@ function M.new(game)
         -- A visible dice floor is an irreversible interaction, not free terrain.
         return math.max(72,(entity.Size or 40)+(player.Size or 10)+16)
     end
-    function self:requestPause(id)
+    function self:requestPause(id,explicit)
+        if _G.ISAAC_ALLOW_AUTOMATIC_GAME_PAUSE==false and explicit~=true then
+            return "automatic_pause_forbidden"
+        end
         self.pauseHold=true
         self.pauseHoldId=id
         self.pauseAck=nil
