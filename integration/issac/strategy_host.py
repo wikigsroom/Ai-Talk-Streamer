@@ -33,6 +33,7 @@ def controller_class(root, service, facts):
     class FairController(Controller):
         def __init__(self, **kwargs):
             kwargs['provider_config_path']=str(inside(root,'state/isaac-strategy/realtime-provider.json'))
+            kwargs['require_enabled_action_feedback']=True
             super().__init__(**kwargs)
             # The real-time policy is native local code. Neither fallback nor
             # shadow inference may send frames to an inherited cloud provider.

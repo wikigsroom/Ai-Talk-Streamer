@@ -37,6 +37,7 @@ class Controller:
     log_dir: str = "logs"
     policy_profile: PolicyProfile | None = None
     provider_config_path: str | None = None
+    require_enabled_action_feedback: bool = False
     _latest_state: GameState | None = field(default=None, init=False)
     _latest_action: Action | None = field(default=None, init=False)
     _last_decision_at: float = field(default=0.0, init=False)
@@ -550,7 +551,9 @@ class Controller:
             self._pending_trace_outcomes.clear()
         else:
             self._update_trace_outcomes(observed_state)
-        self._update_pickup_progress(observed_state)
+        feedback_enabled = self.autopilot_enabled or not self.require_enabled_action_feedback
+        if feedback_enabled:
+            self._update_pickup_progress(observed_state)
         if not room_changed and self._last_held_trinkets != observed_state.held_trinkets:
             dropped = set(self._last_held_trinkets) - set(observed_state.held_trinkets)
             self._dropped_trinket_subtypes.update(dropped)
@@ -561,7 +564,8 @@ class Controller:
             if pickup.pickup_kind == "trinket" and pickup.subtype in self._dropped_trinket_subtypes:
                 self._ignored_pickup_ids.add(pickup.entity_id)
         self._last_held_trinkets = observed_state.held_trinkets
-        self._update_hazard_progress(observed_state)
+        if feedback_enabled:
+            self._update_hazard_progress(observed_state)
         for target_id, retry_frame in tuple(self._hazard_retry_after.items()):
             if observed_state.frame >= retry_frame:
                 self._hazard_retry_after.pop(target_id, None)
@@ -570,10 +574,11 @@ class Controller:
                 self._hazard_animation_by_target.pop(target_id, None)
                 self._last_decision_frame = -10_000
         self._clear_disappeared_pickup_action(observed_state)
-        self._update_movement_feedback(observed_state)
-        self._update_navigation_stall(observed_state)
-        self._record_action_feedback(observed_state)
-        self._abandon_blocked_door(observed_state)
+        if feedback_enabled:
+            self._update_movement_feedback(observed_state)
+            self._update_navigation_stall(observed_state)
+            self._record_action_feedback(observed_state)
+            self._abandon_blocked_door(observed_state)
         if self._latest_action and self._latest_action.mode in {"hazard", "bomb"}:
             match = re.search(r"_(-?\d+)$", self._latest_action.action_id)
             target_id = int(match.group(1)) if match else -1
@@ -905,13 +910,13 @@ class Controller:
                 action = self._stall_override
             # A cleared room is where navigation and item selection happen;
             # disabling input here left the controller unable to leave spawn.
-            self._effective_action = action
+            self._effective_action = action if feedback_enabled else None
             if self._last_trace and self._last_trace.get("room_index") == state.layout.room_index:
                 self._last_trace["applied"] = {"frame": state.frame, "action_id": action.action_id,
                                                "source": action.source, "move": action.move.__dict__,
                                                "waypoint": action.waypoint.__dict__ if action.waypoint else None}
             signature = (state.layout.room_index, action.action_id, action.mode, action.target)
-            if signature == self._last_response_signature:
+            if feedback_enabled and signature == self._last_response_signature:
                 self._repeated_action_count += 1
             else:
                 self._last_response_signature = signature
@@ -1959,6 +1964,21 @@ class Controller:
 
     def set_autopilot(self, enabled: bool, compact: bool = False) -> dict[str, Any]:
         with self._lock:
+            if self.require_enabled_action_feedback and enabled != self.autopilot_enabled:
+                # Admission/observation time is not time spent attempting input.
+                # Keep genuine prior failures, but restart in-flight timers.
+                self._effective_action = None
+                self._last_action_sample = None
+                self._last_response_signature = None
+                self._repeated_action_count = 0
+                self._movement_stall_count = 0
+                self._hazard_progress_by_target.clear()
+                self._hazard_animation_by_target.clear()
+                self._hazard_target_id = -1
+                self._pickup_target_id = -1
+                self._pickup_last_distance = None
+                self._stall_anchor = None
+                self._stall_best_distance = None
             self.autopilot_enabled = enabled
             if not enabled:
                 self._latest_action = None

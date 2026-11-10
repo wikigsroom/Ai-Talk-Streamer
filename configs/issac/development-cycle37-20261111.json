@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE37",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [{
+    "id": "ADMISSION_OBSERVATION_IS_NOT_EXECUTED_INPUT",
+    "status": "code_complete_pending_acceptance",
+    "source_files": [
+      "AGENTS.md",
+      "integration/isaac-agent/src/isaac_jev/runtime.py",
+      "integration/isaac-agent/tests/test_input_admission.py",
+      "integration/issac/strategy_host.py",
+      "integration/issac/tests/test_input_admission.py",
+      "docs/issac/Luna接管前目标误封修订20261111.md"
+    ]
+  }],
+  "previous_round_closed": "CYCLE36 all six suites passed and installed preserving the game. Live observation and independent replay identified admission-time phantom input failures. No frozen CYCLE36 source was modified.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}
