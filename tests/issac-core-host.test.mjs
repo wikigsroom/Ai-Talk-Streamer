@@ -11,13 +11,13 @@ import {completePrompt} from '../integration/isaac-agent/dsh-host/isaac-plugin/s
 
 test('game reasoning setting is admitted only for the frozen Isaac scope; inherited defaults remain independent',()=>{
   const root=process.cwd(),current=loadPolicy(root,'configs/issac/bridge-policy.json');
-  assert.equal(current.conversation.game_reasoning_effort,'off');
+  assert.equal(current.conversation.game_reasoning_effort,'low');
   assert.equal(loadPolicy(root).conversation.game_reasoning_effort,undefined);
   assert.equal(loadPolicy(root,'configs/naimei/bridge-policy.json').conversation.game_reasoning_effort,undefined);
   mkdirSync(join(root,'state'),{recursive:true});const folder=mkdtempSync(join(root,'state/issac-policy-test-'));
   const path=join(folder,'policy.json');
   try{
-    for(const mutate of [p=>{p.conversation.game_reasoning_effort='high';},p=>{p.conversation.game_reasoning_effort='low';},p=>{p.deployment.state_relative_path='state/naimei/stream';}]){
+    for(const mutate of [p=>{p.conversation.game_reasoning_effort='high';},p=>{p.conversation.game_reasoning_effort='off';},p=>{p.deployment.state_relative_path='state/naimei/stream';}]){
       const policy=structuredClone(current);mutate(policy);writeFileSync(path,JSON.stringify(policy));
       assert.throws(()=>loadPolicy(root,path),/CONFIG_GAME_REASONING_SCOPE/);
     }
@@ -31,7 +31,7 @@ test('game reasoning setting is admitted only for the frozen Isaac scope; inheri
 for(const choice of [{op:'pickup',status:'accepted'},{op:'wait',status:'succeeded',effect:'wait'},{op:'pickup',status:'accepted',wiki:true},
   {op:'pickup',status:'accepted',prose:true},{op:'pickup',status:'accepted',prose:true,expired:true},
   {op:'pickup',status:'accepted',prose:true,alwaysProse:true}]){
-test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-context wiki':'')+(choice.prose?' after prose'+(choice.expired?' with expired decision':choice.alwaysProse?' with bounded non-completion':''):'')+' with none effort and keeps all wiki text',async()=>{
+test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-context wiki':'')+(choice.prose?' after prose'+(choice.expired?' with expired decision':choice.alwaysProse?' with bounded non-completion':''):'')+' with Sol-compatible low effort and keeps all wiki text',async()=>{
   const root=process.cwd(),policy=structuredClone(loadPolicy(root,'configs/issac/bridge-policy.json'));
   mkdirSync(join(root,'state'),{recursive:true});
   const folder=mkdtempSync(join(root,'state/issac-core-host-test-'));
@@ -94,8 +94,8 @@ test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-cont
     assert.equal(result.choice_completion_followups,choice.prose?1:0);
     if(choice.alwaysProse){assert.equal(result.text,'这颗红心我想先看看。');assert.equal(turn.submitted,undefined);return;}
     assert.equal(result.text,plan.commentary);
-    for(const payload of payloads)assert.equal(payload.reasoning.effort,'none');
-    for(const probe of probes){assert.equal(probe.game_reasoning_effort,'off');assert.ok(probe.elapsed_ms>=0);
+    for(const payload of payloads)assert.equal(payload.reasoning.effort,'low');
+    for(const probe of probes){assert.equal(probe.game_reasoning_effort,'low');assert.ok(probe.elapsed_ms>=0);
       assert.ok(['completed','iterator_closed'].includes(probe.phase));}
     assert.equal(result.final_reason.kind,'completed');assert.equal(turn.submitted.status,choice.status);
     assert.deepEqual([...probes[0].tools].sort(),core.names.toSorted());
@@ -168,6 +168,10 @@ test('one real DSH agent retains three turns with durable compaction and fresh f
   const payloads=[];
   const server=createServer(async(req,res)=>{
     const chunks=[];for await(const chunk of req)chunks.push(chunk);payloads.push(JSON.parse(Buffer.concat(chunks)));
+    // Match the real Sol channel: unsupported `none` must never pass a fixture.
+    if(payloads.at(-1).reasoning?.effort==='none'){
+      res.writeHead(400,{'Content-Type':'application/json'});res.end(JSON.stringify({error:{code:'unsupported_value',param:'reasoning.effort'}}));return;
+    }
     res.writeHead(200,{'Content-Type':'text/event-stream'});const emit=v=>res.write('data: '+JSON.stringify(v)+'\n\n');
     const n=payloads.length,part={type:'output_text',text:['先补血。','钥匙收好了。','这首领冲得真快。'][(n-1)%3],annotations:[]};
     const item={id:'msg-continuous-'+n,type:'message',status:'completed',role:'assistant',content:[part]};
@@ -195,6 +199,7 @@ test('one real DSH agent retains three turns with durable compaction and fresh f
     const native=host.continuous.handle.agent.session;
     assert.ok(native.deriveMessages().some(m=>JSON.stringify(m).includes('当前第2回合')));
     for(let i=0;i<3;i++){
+      assert.equal(payloads[i].reasoning.effort,'low');
       const text=JSON.stringify(payloads[i]);assert.ok(text.includes('当前第'+i+'回合'));
       assert.ok(text.includes('奶妹'));assert.ok(text.includes('resources'));assert.ok(text.includes('inventory'));
     }
@@ -209,6 +214,7 @@ test('one real DSH agent retains three turns with durable compaction and fresh f
     const resumed=await host.generate({sessionId:'public-resumed',snapshot:channel,input:'公开长会话继续',
       context:JSON.stringify({partition_key:'public'}),tools:async()=>({}),signal:AbortSignal.timeout(15000)});
     assert.equal(resumed.continuous_session_id,nativeId);
+    assert.equal(payloads[4].reasoning.effort,'low');
     host.gameplay={augment:async()=>{throw Error('diagnostic must not require an attached game');}};
     const diagnostic=await host.generate({sessionId:'controlled-diagnostic',snapshot:channel,input:'仅测试渠道，不播出',
       diagnostic:true,tools:async()=>({}),signal:AbortSignal.timeout(15000)});

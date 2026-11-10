@@ -125,7 +125,7 @@ export class DshHost {
       apiKeyEnv: 'STREAM_BOUND_API_KEY', displayName: '网页默认渠道',
       api: snapshot.protocol === 'responses' ? 'openai-responses' : 'openai-completions',
       baseURL: snapshot.baseUrl, models: [{ id: snapshot.model, input: ['text'], contextWindow: 32768, maxTokens: 2048,
-        ...(gameReasoningEffort?{reasoningEfforts:{off:'none',low:'low'}}:{}) }],
+        ...(gameReasoningEffort?{reasoningEfforts:{low:'low'}}:{}) }],
       defaultInput: ['text'], transport: 'sse', timeoutMs, streamIdleTimeoutMs: timeoutMs,
       retryPolicy: { mode: 'normal', maxRetries: 0 },
     } } });
@@ -178,7 +178,7 @@ export class DshHost {
     if(preparedContext)delete preparedContext.humanity_public_snapshot;
     const gameTurn=!!gameplay&&(!!preparedContext?.game_event||!!preparedContext?.game_decision);
     const gameReasoningEffort=gameTurn?this.policy.conversation.game_reasoning_effort:undefined;
-    if(gameReasoningEffort!==undefined&&gameReasoningEffort!=='off')throw Error('PINNED_GAME_REASONING_EFFORT_REQUIRED');
+    if(gameReasoningEffort!==undefined&&gameReasoningEffort!=='low')throw Error('PINNED_GAME_REASONING_EFFORT_REQUIRED');
     const maximumSteps=gameplay?12:this.policy.conversation.max_memory_tool_rounds+1;
     const contextBudget=gameplay?this.policy.conversation.game_context_max_estimated_tokens||this.policy.conversation.context_max_estimated_tokens:this.policy.conversation.context_max_estimated_tokens;
     let steps = 0, choiceCompletionFollowups = 0, finalReason, handle, lastAssistant = '', lastError, lastFinish, setupStage='session_prepare';
@@ -192,7 +192,7 @@ export class DshHost {
             text: this.renderPersona(personaSnapshot.document, { enabled: true, independentJudgment: true }) }));
           keep(agentCtx.systemPrompt.section({ name:'humanity:memory',order:20,interpolate:false,text:memorySnapshot.text }));
           setupStage='provider_bind';
-          if(first&&!retainedProvider)await this.#bind(agentCtx, snapshot, route, maintenance?this.policy.maintenance.model_timeout_ms:this.policy.conversation.model_timeout_ms,continuous?'off':gameReasoningEffort);
+          if(first&&!retainedProvider)await this.#bind(agentCtx, snapshot, route, maintenance?this.policy.maintenance.model_timeout_ms:this.policy.conversation.model_timeout_ms,continuous?'low':gameReasoningEffort);
           const names = maintenance ? ['stream_maintenance_result'] : gameTurn ? gameplay.names : [...LIVE_TOOLS, ...(this.extensions ? EXTENSION_TOOLS : []), ...(gameplay?gameplay.names:[])];
           setupStage='extensions_mount';
           if (this.extensions && !maintenance && !negativeMinimal) disposers.push(...await this.extensions.mount(agentCtx, agent, input, preparedContext?.partition_key || 'public'));
@@ -235,7 +235,7 @@ export class DshHost {
             if (steps > maximumSteps) throw new Error('STREAM_TOOL_ROUND_LIMIT');
             const promptText = options.messages.filter(m => m.role === 'system').flatMap(m => m.content).filter(b => b.type === 'text').map(b => b.text).join('\n');
             const probe = { session_id: sessionId, continuous_session_id:continuous?nativeId:null, provider_revision: snapshot.revision, model: options.model, step: steps,
-              ...(gameReasoningEffort?{game_reasoning_effort:options.reasoningEffort}:{}),
+              ...(continuous||gameReasoningEffort?{game_reasoning_effort:options.reasoningEffort}:{}),
               prompt_sha256: digest(promptText), has_persona: promptText.includes(personaSnapshot.document.identityCard.fields.find(field => field.key === '姓名')?.value || '林知夏'),
               ...(extensions ? { has_soul: promptText.includes('奶妹 · 直播人格卡'), has_humanizer: promptText.includes('humanizer-chinese'), has_meme_guide: promptText.includes('stream_memory_propose') && promptText.includes('search_meme_wiki') } : {}),
               has_native_memory_guidance: promptText.includes('stream_memory_propose'),
@@ -285,7 +285,7 @@ export class DshHost {
       }else {
         let scope;
         handle=await this.ctx.agents.create({sessionId:nativeId,meta:{cwd:this.root,agentPreset:'streamer-standard'},
-          agentOptions:{provider:route,model:snapshot.model,maxTokens,...(continuous||gameReasoningEffort?{reasoningEffort:'off'}:{})},
+          agentOptions:{provider:route,model:snapshot.model,maxTokens,...(continuous||gameReasoningEffort?{reasoningEffort:'low'}:{})},
           ...(continuous?{}:{signal}),setup:async(agentCtx,agent)=>{scope=agentCtx;await mountTurn(agentCtx,agent,true);}});
         if(continuous)this.continuous={id:nativeId,revision:snapshot.revision,handle,scope,history:[]};
       }

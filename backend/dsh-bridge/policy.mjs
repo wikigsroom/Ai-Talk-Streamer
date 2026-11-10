@@ -40,7 +40,7 @@ export function loadPolicy(root, file) {
   if (Object.hasOwn(policy, 'features')) shape.features = { automatic_memory_enabled: true, automatic_platform_events_enabled: true };
   if (Object.hasOwn(policy, 'extensions')) shape.extensions = { enabled: true, config: '' };
   if(Object.hasOwn(policy.conversation||{},'game_context_max_estimated_tokens'))shape.conversation.game_context_max_estimated_tokens=24000;
-  if(Object.hasOwn(policy.conversation||{},'game_reasoning_effort'))shape.conversation.game_reasoning_effort='off';
+  if(Object.hasOwn(policy.conversation||{},'game_reasoning_effort'))shape.conversation.game_reasoning_effort='low';
   sameShape(policy, shape);
   if (policy.schema_version !== 1 || policy.policy_version !== POLICY_VERSION) throw new Error('CONFIG_VERSION');
   if(policy.versions.dsh_candidate!=='0.2.0-rc.2'||policy.versions.humanity_base!=='0.1.17'||policy.versions.allow_unpinned_dependencies||!policy.versions.runtime_validation_required||!policy.versions.humanity_connector_patch_required)throw new Error('CONFIG_VERSION_LOCK');
@@ -48,7 +48,7 @@ export function loadPolicy(root, file) {
   if (policy.extensions && (characterId !== 'naimei' || policy.extensions.config !== 'configs/naimei/dsh-extensions.json')) throw new Error('CONFIG_EXTENSION_SCOPE');
   if(!['female-a','naimei'].includes(characterId)||policy.identity.room_id!=='room-main'||policy.identity.anonymous_cross_broadcast_memory||policy.identity.viewer_identity_source!=='server_verified_principal'||policy.identity.character_source!==`configs/characters/${characterId}.json`)throw new Error('CONFIG_IDENTITY_SCOPE');
   const isaacScope=policy.deployment.state_relative_path==='state/issac-stream';
-  if(Object.hasOwn(policy.conversation,'game_reasoning_effort')&&(!isaacScope||policy.conversation.game_reasoning_effort!=='off'))throw Error('CONFIG_GAME_REASONING_SCOPE');
+  if(Object.hasOwn(policy.conversation,'game_reasoning_effort')&&(!isaacScope||policy.conversation.game_reasoning_effort!=='low'))throw Error('CONFIG_GAME_REASONING_SCOPE');
   if(Object.hasOwn(policy.conversation,'game_context_max_estimated_tokens')&&(!isaacScope||policy.conversation.game_context_max_estimated_tokens<14000||policy.conversation.game_context_max_estimated_tokens>28000))throw Error('CONFIG_GAME_CONTEXT_SCOPE');
   if(isaacScope){const target=JSON.parse(readFileSync(inside(root,'configs/deployment-target.json'),'utf8'));if(target.target!=='issac-rtx4090'||target.branch!=='issac'||characterId!=='naimei'||policy.deployment.bridge_port!==3104||policy.deployment.management_port!==3103)throw Error('CONFIG_ISAAC_STATE_SCOPE');}
   if(characterId==='naimei'&&(!isaacScope&&!/^state\/naimei(?:\/|$)/.test(policy.deployment.state_relative_path.replaceAll('\\','/'))||!policy.deployment.dsh_home_relative_path.replaceAll('\\','/').startsWith(policy.deployment.state_relative_path.replaceAll('\\','/')+'/')))throw new Error('CONFIG_CHARACTER_STATE_SCOPE');

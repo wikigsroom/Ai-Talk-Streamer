@@ -41,7 +41,7 @@
       "candidate_scope_and_reproducible_commands"
     ],
     "defect_policy": "Close the test phase and implement one complete correction round before retesting; never patch between tests within a phase",
-    "inventory": "configs/issac/development-route-continuity.json"
+    "inventory": "configs/issac/development-agency-20261110.json"
   },
   "acceptance_scope_retained": [
     "native_game_ABI_and_read_only_observation",
@@ -162,7 +162,7 @@
     "runtime_alignment": "pending_source_and_target_deployment_verification"
   },
   "tests_paused_by_user": false,
-  "current_revision_document": "docs/issac/原渠道与核心职责修订20261109.md",
+  "current_revision_document": "docs/issac/控制分工与连续人格修订20261110.md",
   "historical_round_inventory_is_current_startup_authority": false,
   "current_execution_amendment": "configs/issac/live300.json"
 }
