@@ -36,7 +36,8 @@ class AgencyTests(unittest.TestCase):
 
     def test_key_is_locally_authorized_before_competing_collectible(self):
         raw=scenario('pickup');key=deepcopy(raw['pickups'][0])
-        key.update(id=8,spawn_seed=8008,variant=30,subtype=1,name='Key',pickup_kind='key',is_collectible=False,options_index=0)
+        # The native Mod sends `kind`; `pickup_kind` is only the parsed field.
+        key.update(id=8,spawn_seed=8008,variant=30,subtype=1,name='Key',kind='key',is_collectible=False,options_index=0)
         raw['pickups'].append(key);raw['strategy']['pickups'].append(deepcopy(key))
         self.update(raw)
         self.assertIsNone(self.service.pending)
