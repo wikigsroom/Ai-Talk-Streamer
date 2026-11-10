@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE40",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [{"id":"OBSERVED_PIT_RANGE_AND_COMBAT_PROGRESS_RECOVERY","status":"code_complete_pending_acceptance","source_files":[
+    "AGENTS.md","integration/isaac-agent/src/isaac_jev/navigation.py",
+    "integration/isaac-agent/tests/test_pit_firing_range.py",
+    "integration/isaac-agent/tests/fixtures/stage3-pit-range-stall.json",
+    "integration/isaac-agent/docs/PIT_RANGE_STALEMATE.md",
+    "integration/isaac-agent/README.md","integration/isaac-agent/README.en.md",
+    "integration/issac/combat_progress.py","integration/issac/live_cycle.py",
+    "integration/issac/tests/test_combat_progress.py",
+    "scripts/install_issac_continuous_candidate.py",
+    "docs/issac/隔坑射击停滞与进展值守20261111.md"
+  ]}],
+  "previous_round_closed":"CYCLE39 all six frozen suites passed and installed without stopping the living game. Subsequent real gameplay stalled across pits in stage 3 room 80 while service health stayed green. No CYCLE39 frozen production source was changed during its tests.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}

@@ -10,6 +10,7 @@ from copy import deepcopy
 import time
 
 from .common import AdmissionError
+from .combat_progress import CombatProgress
 
 
 RECOVERABLE_CORE_ERRORS = frozenset({None, 'MODEL_TIMEOUT', 'MODEL_RATE_LIMIT',
@@ -51,6 +52,7 @@ class LiveCycle:
         self.alert = None
         self.last_new_run = None
         self.recovery_history = []
+        self.combat_progress = CombatProgress()
 
     def change(self, phase, reason=None):
         if (phase, reason) != (self.phase, self.reason):
@@ -64,6 +66,7 @@ class LiveCycle:
                 'completed_runs': self.completed_runs, 'ordinary_retry_keys': self.retry_keys,
                 'recovery_attempts': self.recovery_attempts, 'alert': deepcopy(self.alert),
                 'last_new_run': deepcopy(self.last_new_run),
+                'combat_progress': self.combat_progress.status(),
                 'public_broadcast_reopen_allowed': False}
 
     def stop(self, reason='operator_pause'):
@@ -84,6 +87,7 @@ class LiveCycle:
         self.busy_marker = None
         self.dead_since = None
         self.media_failures = 0
+        self.combat_progress.reset()
         self.host.runtime.controller.terminal_receipt = None
         self.next_media_check = self.clock()+3
         self.change('playing')
@@ -224,6 +228,11 @@ class LiveCycle:
             if now-self.last_frame_at > 15:
                 host.watchdog_stop('GAME_SIMULATION_STALLED')
                 return True
+        view = {'connected': host.service.fresh(), 'age_ms': 0, 'data': snapshot}
+        if self.combat_progress.update(view, enabled=host.armed and raw.get('enemy_observation_valid') is not False, now=now):
+            if (self.alert or {}).get('code') != 'COMBAT_NO_DAMAGE_PROGRESS':
+                host.watchdog_stop('COMBAT_NO_DAMAGE_PROGRESS')
+            return True
         if now >= self.next_media_check:
             self.next_media_check = now+5
             try:

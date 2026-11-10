@@ -1,5 +1,7 @@
 # Agent Gameplay · Isaac
 
+2026-11-11 update: firing-lane navigation now respects the native combat range ceiling, preventing an observed stalemate across pits in a large room. See the [observed-room correction](docs/PIT_RANGE_STALEMATE.md). DSH strategic ownership is unchanged.
+
 [Final release v0.1.0](https://github.com/wikigsroom/agent-gameplay-isaac/releases/tag/v0.1.0) · [Release notes](docs/releases/v0.1.0.md)
 
 **Native Windows automation for The Binding of Isaac: Repentance. Local code handles real-time control; one agent in DSH handles strategic choices that can tolerate deliberation.**

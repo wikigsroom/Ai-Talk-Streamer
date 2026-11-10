@@ -95,6 +95,7 @@ def apply(root,prepared,regressions):
     sys.path.insert(0,str(stage))
     from integration.issac.native_game import NativeGame
     from integration.issac.continuity import NO_AUTOMATIC_PAUSE_GUARD
+    from integration.issac.combat_progress import CombatProgress, quiet_combat_boundary
     from integration.issac.saves import SaveProtection
     protection=SaveProtection(root);protection.verify()
     token=(root/'private/issac/bridge-token.txt').read_text('ascii').strip()
@@ -108,11 +109,19 @@ def apply(root,prepared,regressions):
     if (current.get('live_cycle') or {}).get('phase')=='natural_paused':
         api(9534,'/control',{'action':'natural_resume','expected_revision':current['control_revision']},timeout=15)
     deadline=time.monotonic()+600
+    combat_boundary=CombatProgress(timeout_seconds=10)
+    boundary={'kind':'observed_clear_room'}
     while True:
         view=api(9532,'/query?topic=state');room=(view.get('data') or {}).get('room') or {}
         if view.get('connected') and view.get('age_ms',9999)<1500 and room.get('clear') and not room.get('paused') and not room.get('dead'):break
-        if time.monotonic()>=deadline:raise ValueError('WAITING_FOR_OBSERVED_CLEAR_ROOM_WITHOUT_PAUSING')
-        time.sleep(.25)
+        current=api(9534,'/status')
+        eligible=quiet_combat_boundary(view,api(9532,'/decision'),current,api(3104,'/api/dsh/issac/core/status'))
+        if combat_boundary.update(view,enabled=eligible,now=time.monotonic()):
+            boundary={'kind':'observed_distant_stationary_combat_stalemate',
+                      'identity':view['identity'],'progress':combat_boundary.status()}
+            break
+        if time.monotonic()>=deadline:raise ValueError('WAITING_FOR_OBSERVED_SAFE_LIVE_REPAIR_WITHOUT_PAUSING')
+        time.sleep(.5)
     registry=json.loads((root/'state/issac-stream/application.json').read_text('utf8'))
     game=next(row for row in registry['processes'] if row['name']=='isaac-game')
     process=psutil.Process(game['pid'])
@@ -121,6 +130,13 @@ def apply(root,prepared,regressions):
     try:
         native.attach(game['pid']);first=native.observe();protection.admit_current(native.process,native.progress())
         if first['paused']:raise ValueError('UNPAUSED_GAME_REQUIRED')
+        if boundary['kind']!='observed_clear_room':
+            identity=boundary['identity']
+            if (first['dead'] or first['hp']<=0 or any(first[k]!=identity[k] for k in ('seed','stage','room'))
+                    or native.manual_override()
+                    or not quiet_combat_boundary(api(9532,'/query?topic=state'),api(9532,'/decision'),
+                                                 api(9534,'/status'),api(3104,'/api/dsh/issac/core/status'))):
+                raise ValueError('LIVE_COMBAT_REPAIR_BOUNDARY_CHANGED')
         if native.rpc('evaluate',NO_AUTOMATIC_PAUSE_GUARD)!='automatic pause forbidden':raise ValueError('LIVE_PAUSE_GUARD_REQUIRED')
     finally:
         if native.session:native.session.detach()
@@ -196,6 +212,7 @@ def apply(root,prepared,regressions):
         'source_files_verified':len(manifest['files']),'game_pid':game['pid'],'game_created_at':game['created_at'],
         'first_native':first,'last_native':last,'game_stop_requested':False,'game_pause_requested':False,
         'official_process_restarted':False,'voice_model_restarted':False,'mouth_model_restarted':False,'body':bank}
+    result['live_repair_boundary']=boundary
     put(stage.parent/'installed.json',result)
     return result
 

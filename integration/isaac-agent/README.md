@@ -1,5 +1,7 @@
 # Agent Gameplay · Isaac
 
+2026-11-11补充：修正大房间隔坑射击时，Python寻路射程与原生逐帧战斗上限不一致造成的停滞。新增真实房间回放，详见[射击站位修订](docs/PIT_RANGE_STALEMATE.md)；不改变DSH战略分工。
+
 [正式版 v0.1.0](https://github.com/wikigsroom/agent-gameplay-isaac/releases/tag/v0.1.0) · [发布说明](docs/releases/v0.1.0.md)
 
 **以撒 Repentance 的原生 Windows 自动游玩系统：本地负责实时控制，DSH 中的单个 agent 负责慢速策略选择。**
