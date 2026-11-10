@@ -34,6 +34,15 @@ function Controller:profile(player,weapon)
     local function owns(id) return player.HasCollectible and player:HasCollectible(id) end
     local delay=math.max(1,(tonumber(player.MaxFireDelay) or 9)+1)
     local p={kind=weapon,mode="continuous",lead=10,width=5,pierces=false}
+    p.engagementRange=math.max(0,math.min(235,(tonumber(player.TearRange) or 260)-25))
+    p.engagementRangeSource="native_engagement_ceiling"
+    if weapon=="tear" and owns(261) then
+        -- Proptosis can keep nominal TearRange while distant shots do no
+        -- useful damage. This is conservative positioning, not a stat edit
+        -- or a claim about the engine's maximum physical travel distance.
+        p.engagementRange=math.min(p.engagementRange,160*math.max(0,tonumber(player.ShotSpeed) or 1))
+        p.engagementRangeSource="proptosis_conservative_spacing"
+    end
     if weapon=="brimstone" then p.mode,p.lead,p.width,p.pierces="release",1,10,true
     elseif weapon=="tech_x" then p.mode,p.lead,p.width,p.pierces="release",6,22,true
     elseif weapon=="knife" then p.mode,p.lead,p.width,p.pierces="release",4,9,true

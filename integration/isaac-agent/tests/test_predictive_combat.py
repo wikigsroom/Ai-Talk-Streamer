@@ -14,6 +14,7 @@ class PredictiveCombatTests(unittest.TestCase):
         lua = LuaRuntime(unpack_returned_tuples=True)
         source = (ROOT / "mods/IsaacJev/main.lua").read_text(encoding="utf-8")
         planner = "local function hostileLaser(entity)" + source.split("local function hostileLaser(entity)", 1)[1].split("local function resolveSafeMove(player, navigationBlocked)", 1)[0]
+        weapon_source = (ROOT / 'mods/IsaacJev/weapon_control.lua').read_text('utf8')
         self.api = lua.execute("""
             local mt = {}
             Vector = function(x,y) return setmetatable({X=x,Y=y},mt) end
@@ -24,6 +25,8 @@ class PredictiveCombatTests(unittest.TestCase):
                 Distance=function(a,b) return (a-b):Length() end}
             local entities = {}
             EntityType={ENTITY_PROJECTILE=9,ENTITY_LASER=7,ENTITY_PLAYER=1,ENTITY_FAMILIAR=3}
+            CollectibleType={COLLECTIBLE_EXPLOSIVO=533,COLLECTIBLE_IPECAC=149}
+            local function weaponKind() return 'tear' end
             Isaac={GetRoomEntities=function() return entities end}
             game={GetRoom=function() return {GetGridIndex=function(_,p) return p.X end,
                 GetGridPath=function() return 0 end} end}
@@ -41,8 +44,24 @@ class PredictiveCombatTests(unittest.TestCase):
             local function clearTearLine() return true end
             local function actualDoorPosition() return Vector(400,200) end
             local function doorSlotDirection() return Vector(1,0) end
-        """ + planner + """
-            return {choose_fixed_turret_route=function(withBullet,kind,variant,speed)
+        """ + 'local actualWeapon=(function()\n'+weapon_source+'\nend)()\n' + planner + """
+            return {profile_range=function(hasProptosis,weapon,speed,nominal)
+                local p={TearRange=nominal or 360,ShotSpeed=speed or 1,
+                    HasCollectible=function(_,id) return hasProptosis and id==261 end}
+                local profile=actualWeapon.new():profile(p,weapon or 'tear')
+                return profile.engagementRange,profile.engagementRangeSource
+            end,choose_proptosis=function(hasProptosis)
+                local previousMod=mod
+                mod={weaponControl=actualWeapon.new()}
+                action.waypoint=nil
+                entities={{Type=12,Variant=0,Position=Vector(360,160),Velocity=Vector(0,0),Size=13}}
+                local p={Position=Vector(135.9,159.3),Velocity=Vector(0,0),Size=10,
+                    MoveSpeed=1,TearRange=360,ShotSpeed=1,
+                    HasCollectible=function(_,id) return hasProptosis and id==261 end}
+                local move=predictiveCombatMove(p)
+                mod=previousMod
+                return move.X,move.Y
+            end,choose_fixed_turret_route=function(withBullet,kind,variant,speed)
                 action.waypoint=Vector(520,280)
                 routeDirection=Vector(1,0)
                 entities={{Type=kind or 12,Variant=variant or 0,Position=Vector(520,400),Velocity=Vector(speed or 0,0),Size=13}}
@@ -404,6 +423,20 @@ class PredictiveCombatTests(unittest.TestCase):
         x,y,ax,ay=self.api.choose(200,200,370,200,None,None,None,None)
         self.assertEqual((x,y),(0,0))
         self.assertEqual((ax,ay),(1,0))
+
+    def test_proptosis_closes_the_observed_zero_damage_gap_in_actual_lua(self):
+        ordinary=self.api.choose_proptosis(False)
+        proptosis=self.api.choose_proptosis(True)
+        self.assertEqual(ordinary,(0,0))
+        self.assertGreater(proptosis[0],.5)
+
+    def test_weapon_profile_reports_conservative_spacing_without_stat_edits(self):
+        self.assertEqual(self.api.profile_range(True,'tear',1,360),(160,'proptosis_conservative_spacing'))
+        self.assertEqual(self.api.profile_range(True,'tear',.5,360)[0],80)
+        self.assertEqual(self.api.profile_range(True,'tear',2,360)[0],235)
+        self.assertEqual(self.api.profile_range(False,'tear',1,360)[0],235)
+        self.assertEqual(self.api.profile_range(True,'brimstone',1,360)[0],235)
+        self.assertEqual(self.api.profile_range(True,'tear',1,100)[0],75)
 
     def test_closed_host_is_not_kept_closed_by_continuous_shooting(self):
         _,_,ax,ay=self.api.choose(200,200,370,200,None,None,None,None,True,False)

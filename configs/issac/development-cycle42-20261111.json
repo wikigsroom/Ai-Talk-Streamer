@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE42",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [{"id":"NATIVE_WEAPON_ENGAGEMENT_RANGE_AND_PROPTOSIS_DAMAGE_SPACING","status":"code_complete_pending_acceptance","source_files":[
+    "AGENTS.md","integration/isaac-agent/mods/IsaacJev/weapon_control.lua",
+    "integration/isaac-agent/mods/IsaacJev/main.lua",
+    "integration/isaac-agent/src/isaac_jev/models.py",
+    "integration/isaac-agent/src/isaac_jev/decision.py",
+    "integration/isaac-agent/src/isaac_jev/navigation.py",
+    "integration/isaac-agent/tests/test_predictive_combat.py",
+    "integration/isaac-agent/tests/test_weapon_firing_range.py",
+    "integration/isaac-agent/tests/fixtures/stage3-boss-summons-stall.json",
+    "integration/issac/combat_progress.py","integration/issac/tests/test_combat_progress.py",
+    "docs/issac/眼球突出有效射程修订20261111.md",
+    "integration/isaac-agent/docs/PIT_RANGE_STALEMATE.md"
+  ]}],
+  "previous_round_closed":"CYCLE41 passed all six frozen suites and cleared room80 on the same game process. Later live observation found Proptosis at a nominally legal 224-unit tile did no useful damage to room78's remaining summons after the boss died. The 180-second progress detector flagged it. No CYCLE41 frozen production code was edited during its tests.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}

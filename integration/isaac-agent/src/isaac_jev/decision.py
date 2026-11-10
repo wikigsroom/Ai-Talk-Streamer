@@ -618,7 +618,7 @@ def _attack_distance(state: GameState, profile: PolicyProfile) -> float:
     # TearRange is reported by Lua in Isaac's pixel-like room units. Keep a
     # conservative margin so shots are not fired at the edge of the range.
     tear_range = float(getattr(state.player, "tear_range", 260.0) or 260.0)
-    return max(140.0, min(320.0, tear_range * 0.72))
+    return min(state.player.combat_range, max(140.0, min(320.0, tear_range * 0.72)))
 
 
 def _predictive_enemy_aim(state: GameState, enemy: Any) -> Vec2:

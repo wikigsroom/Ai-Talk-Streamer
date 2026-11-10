@@ -151,10 +151,10 @@ def firing_position(state: GameState, target: Vec2, target_grid_index: int,
                     firing_axis: str | None = None) -> tuple[Vec2, int, Vec2] | None:
     """Find a reachable cardinal firing lane inside the player's tear range."""
     layout = state.layout
-    # Match predictiveCombatMove's 235-unit native engagement ceiling. A
-    # longer nominal TearRange must not let Python keep the current tile as
-    # its firing waypoint while Lua cannot approach across an intervening pit.
-    maximum_range = max(0.0, min(235.0, state.player.tear_range - 25.0))
+    # Share the native weapon's conservative engagement cap. Nominal
+    # TearRange alone can accept a useless distant tile (for example with
+    # Proptosis), or hide a necessary walking detour around a pit.
+    maximum_range = state.player.combat_range
     if maximum_range < minimum_range:
         return None
     if not layout.grid_width or not layout.grid_height or target_grid_index < 0:

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any
+from math import isfinite
 
 
 MECHANICAL_TRAP_ENTITY_TYPES = frozenset({42, 44, 201, 202, 203, 212, 218, 235, 236})
@@ -40,6 +41,16 @@ class Entity:
     # existing positional Entity(...) construction remains compatible.
     grid_index: int = -1
     vulnerable: bool | None = None
+    engagement_range: float | None = None
+
+    @property
+    def combat_range(self) -> float:
+        nominal = max(0.0, min(235.0, self.tear_range-25.0))
+        value = self.engagement_range
+        if type(value) not in (int, float) or not isfinite(value):
+            return nominal
+        return max(0.0, min(nominal, value))
+
     @classmethod
     def from_value(cls, value: Any) -> "Entity":
         if not isinstance(value, dict):
@@ -59,6 +70,7 @@ class Entity:
             bool(value.get("is_boss", False)),
             int(value.get("grid_index", -1) or -1),
             value.get("vulnerable") if isinstance(value.get("vulnerable"), bool) else None,
+            value.get("engagement_range") if type(value.get("engagement_range")) in (int, float) and isfinite(value["engagement_range"]) else None,
         )
 
 
@@ -723,6 +735,8 @@ class GameState:
         return {
             "nearest_enemy_distance": round(enemy_distance, 1) if enemy_distance is not None else None,
             "enemy_range_margin": round(self.player.tear_range - enemy_distance, 1) if enemy_distance is not None else None,
+            "effective_firing_range": self.player.combat_range,
+            "effective_enemy_range_margin": round(self.player.combat_range-enemy_distance,1) if enemy_distance is not None else None,
             "wall_clearance_neighbors": open_neighbors,
             # An unobstructed diagonal is not a cardinal tear firing lane.
             "attack_target_id": attack_target.entity_id if attack_target else None,

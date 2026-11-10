@@ -1115,6 +1115,7 @@ local function collectState()
     local frame = game:GetFrameCount()
     local roomIndex = canonicalRoomIndex(level)
     local currentWeapon, weaponKnown = weaponKind(player)
+    local engagementProfile=mod.weaponControl:profile(player,currentWeapon)
     local heldTrinkets = {}
     local trinketSlots = math.max(1, math.min(2, player:GetMaxTrinkets()))
     for slot = 0, trinketSlots - 1 do
@@ -1271,6 +1272,8 @@ local function collectState()
             eternal_hearts = player:GetEternalHearts(),
             tear_range = player.TearRange,
             tear_speed = player.ShotSpeed,
+            engagement_range = engagementProfile.engagementRange,
+            engagement_range_source = engagementProfile.engagementRangeSource,
             weapon_type = currentWeapon,
             weapon_type_known = weaponKnown,
         },
@@ -2215,7 +2218,9 @@ local function predictiveCombatMove(player, ignoreWaypoint)
         or player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC)
         or (player:HasCollectible(273) and not player:HasCollectible(223) and not player:HasCollectible(375)))
     local safeDistance = explosive and 165 or 130
-    local range = math.max(110, math.min(235, player.TearRange - 25))
+    local engagementProfile=mod and mod.weaponControl and mod.weaponControl:profile(player,weaponKind(player))
+    local range = engagementProfile and engagementProfile.engagementRange
+        or math.max(0,math.min(235,player.TearRange-25))
     local function beamSeparation(beam,position)
         if beam.direction then
             local delta=position-beam.position

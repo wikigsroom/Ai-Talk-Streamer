@@ -141,6 +141,15 @@ class QuietCombatBoundaryTests(unittest.TestCase):
         self.view['data']['frame'] += 301
         self.assertTrue(guard.update(self.view,enabled=self.allowed(),now=20.1))
 
+    def test_only_fixed_boil_knockback_can_bypass_the_stationary_velocity_gate(self):
+        enemy=self.view['data']['enemies'][0]
+        enemy.update(type=30,variant=0,vel={'x':23,'y':4})
+        self.assertTrue(self.allowed())
+        enemy['variant']=1
+        self.assertFalse(self.allowed())
+        enemy.update(variant=0,pos={'x':220,'y':280})
+        self.assertFalse(self.allowed())
+
 
 if __name__ == '__main__':
     unittest.main()

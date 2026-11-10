@@ -71,7 +71,7 @@ class CombatProgress:
 
 
 def quiet_combat_boundary(view, decision, controller, core):
-    """Permit source repair in a distant stationary stalemate, never a fight."""
+    """Permit source repair around distant fixed turrets, without pausing."""
     if (combat_observation(view) is None or controller.get('armed') is not True
             or controller.get('manual_override') is not False
             or (controller.get('live_cycle') or {}).get('phase') != 'playing'
@@ -94,8 +94,12 @@ def quiet_combat_boundary(view, decision, controller, core):
             return False
     for enemy in data['enemies']:
         velocity = enemy.get('vel') or {}
+        # Native Boils are fixed turrets, but zero-damage tears can knock
+        # them around indefinitely. Keep distance/projectile/authority gates;
+        # do not require their knockback velocity to settle before repair.
+        fixed_boil = enemy.get('type') == 30 and enemy.get('variant') == 0
         if (not all(number(velocity.get(k)) for k in ('x', 'y'))
-                or abs(velocity['x'])+abs(velocity['y']) >= .2):
+                or not fixed_boil and abs(velocity['x'])+abs(velocity['y']) >= .2):
             return False
     for projectile in data['projectiles']:
         point, velocity = projectile.get('pos') or {}, projectile.get('vel') or {}
