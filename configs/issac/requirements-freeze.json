@@ -410,7 +410,7 @@
     "context_window_tokens": 1000000,
     "private_configuration": "private/issac/channel.env",
     "credentials_source": "latest_explicit_user_private_api_key",
-    "runtime_alignment": "FLASH15_pending_frozen_round_validation"
+    "runtime_alignment": "FLASH16_pending_frozen_round_validation"
   },
   "channel_provenance": [
     {
@@ -475,22 +475,22 @@
       "path": "configs/issac/live120.json",
       "role": "current_entrypoint_or_plan_not_runtime_acceptance",
       "bytes": 2223,
-      "sha256": "f0e24fe72edd7ea1d8cca7eb153caf827faec11faae5812020fcf98b4857c5f1",
-      "normalized_lf_sha256": "8fe82432c11cb8d74c55acdcb49a7c6d25defbeb173682d5dd54c9845bc7d14e"
+      "sha256": "ee000e78b5d8f6387526d688a047a593546fdaaa6b8fb826121070681f355658",
+      "normalized_lf_sha256": "8b9eab990c3c9753af10048b28f7c83e8ef532a1bcd824845171d9a8fb5ed638"
     },
     {
       "path": "configs/issac/integration-plan.json",
       "role": "current_entrypoint_or_plan_not_runtime_acceptance",
       "bytes": 8048,
-      "sha256": "e3352b9daac833bb10574e425f6c98a17b3fb7f2c2965b081f3e3d80cf83761f",
-      "normalized_lf_sha256": "d6f94a21d9256dfe1c34e7cb1f09d0e238d7e6dbf268087abd45184d90137000"
+      "sha256": "55edeaa084af5401401da4b232801e76156dc6a6ae703683d4fd5c2425aa1612",
+      "normalized_lf_sha256": "1d15adaa4da470ccb08eb718fdf8e3602a37f82da1baee4abae37459cf2d98d2"
     },
     {
       "path": "configs/issac/execution-rounds.json",
       "role": "current_entrypoint_or_plan_not_runtime_acceptance",
       "bytes": 10890,
-      "sha256": "457294f8f5663556dbbe2e989a78949fb9091ba71d7a8985c2c61fecb09f538b",
-      "normalized_lf_sha256": "3de083a5127b65d7ec29d00d0db2e38f7719c2c6a3cddd81cfeeccbc89d9e5fd"
+      "sha256": "f85052757ff807fe9eb02558c3bee9f3d289715f4bb295e03b104d5eda7526f0",
+      "normalized_lf_sha256": "9147ecd780174a4e439888cf2b4f496b5e257a89101775afa8fa1dd4b20bcbdc"
     },
     {
       "path": "docs/naimei/DSH扩展接入与使用20261107.md",
@@ -510,8 +510,8 @@
       "path": "configs/issac/live300.json",
       "role": "latest_explicit_user_execution_amendment",
       "bytes": 2325,
-      "sha256": "ccd678c73b7233472d442a4f760ff682402ae7830f8ba373710e52ae92073cec",
-      "normalized_lf_sha256": "d604289d168c4cf3a993bd0733758f1026589b2f5fca325a222e71672dd91815"
+      "sha256": "7d783e26d836c99826efb980f2055f551333ae71f954a2104cea2429854680e2",
+      "normalized_lf_sha256": "a7925846b2e3d9efc742e546348d85eeb88940733e4885eb07ce633f67649a57"
     },
     {
       "path": "docs/issac/300秒录播推进修订20261109.md",

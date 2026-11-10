@@ -1,0 +1,11 @@
+{
+  "round": "FLASH15",
+  "candidate_id": "issac-ab45c731c7bd-993e8157",
+  "result": "closed_failed_before_production_restart",
+  "integration_and_native_context_suites_passed": 4,
+  "broader_node_failure": "Existing manual echo fixture omitted the current state.request lookup used by production cleanup; fixture updated to model SYNTHESIZING state in FLASH16. Production echo logic unchanged.",
+  "media_python_tests": 147,
+  "media_python_passed": true,
+  "official_native_probe_not_run": true,
+  "deployment_space_issue_resolved": "Removed32 reconstructable source staging copies and an incomplete archive; reclaimed20338468200 bytes."
+}

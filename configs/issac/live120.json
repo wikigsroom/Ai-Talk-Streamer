@@ -40,7 +40,7 @@
     "historical_channel_evidence_is_current_deployment_acceptance": false,
     "same_naimei_core_for_observation_tools_decisions_and_speech": true,
     "automatic_model_or_channel_replacement_allowed": false,
-    "runtime_alignment": "FLASH15_pending_frozen_round_validation",
+    "runtime_alignment": "FLASH16_pending_frozen_round_validation",
     "model_profile": "configs/issac/core-model.json",
     "context_window_tokens": 1000000,
     "private_configuration": "private/issac/channel.env"

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { StreamBridge } from '../backend/dsh-bridge/server.mjs';
 
 test('manual echo reaches the avatar without an LLM channel or model call', async () => {
-  const sent = [], failed = [];
+  const sent = [], failed = [], requested = [];
   const request = { request_id: 'offline-echo', mode: 'echo', runtime_epoch: 1, generation: 2 };
   const text = '你好，我是奶妹。';
   const bridge = {
@@ -14,6 +14,7 @@ test('manual echo reaches the avatar without an LLM channel or model call', asyn
     host: { generate() { throw Error('Offline echo must not invoke a model'); } },
     state: {
       input: () => ({ text }), matches: () => true,
+      request: id => { requested.push(id);return {request_id:id,status:'SYNTHESIZING'}; },
       textReady: (id, speech, epoch, generation) => ({ request_id: id, text: speech, runtime_epoch: epoch, generation }),
       fail: (...args) => failed.push(args),
     },
@@ -24,5 +25,6 @@ test('manual echo reaches the avatar without an LLM channel or model call', asyn
   assert.equal(sent.length, 1);
   assert.equal(sent[0][0], 'speak');
   assert.equal(sent[0][1].text, text);
+  assert.deepEqual(requested,[request.request_id]);
   assert.equal(bridge.controllers.size, 0);
 });
