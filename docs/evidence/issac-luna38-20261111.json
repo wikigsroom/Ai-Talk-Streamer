@@ -1,0 +1,546 @@
+{
+  "round": "LUNA38",
+  "result": "original_channel_luna_live_game_and_speech_verified",
+  "recorded_at": "2026-11-10T19:16:46.843Z",
+  "timezone": "Asia/Taipei",
+  "branch": "issac",
+  "candidate_id": "issac-5cbd6bf57f82-f38a2026",
+  "source_commit": "5cbd6bf57f8246c6531b4966715374ee17b609b4",
+  "source_files_verified": 2447,
+  "archive_sha256": "8d7d0619e024b842a376cd1369ef65eb7e6675a703b1bcaa32c074dc240e82c7",
+  "source_manifest_sha256": "b4c63940ebda78cdc505c1e397a28d2db63dc7d0e845459ba7149a7822df9eac",
+  "application_stage": "running_candidate_not_accepted",
+  "production_accepted": false,
+  "model": {
+    "model": "gpt-6-luna",
+    "protocol": "responses",
+    "channel_source": "issac_user_pinned_luna_api",
+    "context_window_tokens": 1000000,
+    "input_budget_estimated_tokens": 989760,
+    "decision_budget_ms": 115000
+  },
+  "model_contract_retained": {
+    "max_output_tokens": 2048,
+    "context_reserve_tokens": 8192,
+    "max_serialized_message_bytes": 33554432,
+    "reasoning_effort": "low",
+    "max_spoken_characters_including_punctuation": 15,
+    "existing_persona_and_seven_extensions_retained": true,
+    "existing_spoken_history_retained": true,
+    "memory_cleared_for_this_migration": false,
+    "original_private_channel_reused": true,
+    "local_llm_started": false
+  },
+  "regression": {
+    "passed": 1288,
+    "skipped": 7,
+    "failed": 0,
+    "total": 1295,
+    "suites": [
+      {
+        "name": "issac Python integration",
+        "passed": 255,
+        "skipped": 0,
+        "failed": 0
+      },
+      {
+        "name": "Isaac agent Python integration",
+        "passed": 682,
+        "skipped": 0,
+        "failed": 0
+      },
+      {
+        "name": "issac Node integration and DSH binding",
+        "passed": 79,
+        "skipped": 0,
+        "failed": 0
+      },
+      {
+        "name": "native DSH host",
+        "passed": 13,
+        "skipped": 0,
+        "failed": 0
+      },
+      {
+        "name": "remaining Node application tests",
+        "passed": 110,
+        "skipped": 7,
+        "failed": 0
+      },
+      {
+        "name": "media Python application tests",
+        "passed": 149,
+        "skipped": 0,
+        "failed": 0
+      }
+    ],
+    "remote_exit_codes": [
+      {
+        "suite": 0,
+        "exit_code": 0
+      },
+      {
+        "suite": 1,
+        "exit_code": 0
+      },
+      {
+        "suite": 2,
+        "exit_code": 0
+      },
+      {
+        "suite": 3,
+        "exit_code": 0
+      },
+      {
+        "suite": 4,
+        "exit_code": 0
+      },
+      {
+        "suite": 5,
+        "exit_code": 0
+      }
+    ],
+    "frozen_before_all_tests": true
+  },
+  "deployment": {
+    "installed": true,
+    "game_pid": 39000,
+    "game_created_at": 1794329702.3416889,
+    "first_native": {
+      "paused": false,
+      "frame": 188629,
+      "players": 1,
+      "dead": false,
+      "hp": 10,
+      "stage": 6,
+      "room": 159,
+      "seed": 1782996820,
+      "controller_installed": true
+    },
+    "last_native": {
+      "paused": false,
+      "frame": 189686,
+      "players": 1,
+      "dead": false,
+      "hp": 10,
+      "stage": 6,
+      "room": 159,
+      "seed": 1782996820,
+      "controller_installed": true
+    },
+    "game_stop_requested": false,
+    "game_pause_requested": false,
+    "official_process_restarted": false,
+    "voice_model_restarted": false,
+    "mouth_model_restarted": false
+  },
+  "actual_core": {
+    "ready": true,
+    "automatic": true,
+    "busy": true,
+    "turns": 8,
+    "failures": 0,
+    "last_error": null,
+    "actual_completed_game_utterances": 6,
+    "continuous_session_id": "naimei-live-f5635333-10a4-4afe-8765-1f4286ecd82f",
+    "registeredTools": [
+      "isaac_get_state",
+      "isaac_get_decision",
+      "isaac_lookup",
+      "isaac_wiki_query",
+      "isaac_submit_plan"
+    ],
+    "decision_latency_p95_ms": 24283
+  },
+  "actual_plan_receipts": {
+    "naimei_status_counts": {
+      "indeterminate": 1,
+      "succeeded": 7
+    },
+    "local_supply_status_counts": {
+      "indeterminate": 1,
+      "succeeded": 5
+    },
+    "wiki_receipts_on_naimei_plans": 1,
+    "naimei_results": [
+      {
+        "status": "indeterminate",
+        "action_id": "take_item_4",
+        "origin_room": 159,
+        "effect": "pickup_disappeared_without_inventory_confirmation",
+        "route": null
+      },
+      {
+        "status": "succeeded",
+        "action_id": "enter_door_1",
+        "origin_room": 159,
+        "effect": "native_room_transition_observed",
+        "route": {
+          "room": 147,
+          "kind": "unvisited_default",
+          "room_type": "default",
+          "path": [
+            159,
+            146,
+            147
+          ],
+          "first_slot": 1,
+          "terminal_key_cost": 0,
+          "previously_visited": false
+        }
+      },
+      {
+        "status": "succeeded",
+        "action_id": "enter_door_2",
+        "origin_room": 147,
+        "effect": "native_room_transition_observed",
+        "route": {
+          "room": 148,
+          "kind": "unvisited_default",
+          "room_type": "default",
+          "path": [
+            147,
+            148
+          ],
+          "first_slot": 2,
+          "terminal_key_cost": 0,
+          "previously_visited": false
+        }
+      },
+      {
+        "status": "succeeded",
+        "action_id": "enter_door_1",
+        "origin_room": 148,
+        "effect": "native_room_transition_observed",
+        "route": {
+          "room": 135,
+          "kind": "unvisited_default",
+          "room_type": "default",
+          "path": [
+            148,
+            135
+          ],
+          "first_slot": 1,
+          "terminal_key_cost": 0,
+          "previously_visited": false
+        }
+      },
+      {
+        "status": "succeeded",
+        "action_id": "enter_door_2",
+        "origin_room": 135,
+        "effect": "native_room_transition_observed",
+        "route": {
+          "room": 136,
+          "kind": "unvisited_default",
+          "room_type": "default",
+          "path": [
+            135,
+            136
+          ],
+          "first_slot": 2,
+          "terminal_key_cost": 0,
+          "previously_visited": false
+        }
+      },
+      {
+        "status": "succeeded",
+        "action_id": "enter_door_2",
+        "origin_room": 136,
+        "effect": "native_room_transition_observed",
+        "route": {
+          "room": 137,
+          "kind": "unvisited_default",
+          "room_type": "default",
+          "path": [
+            136,
+            137
+          ],
+          "first_slot": 2,
+          "terminal_key_cost": 0,
+          "previously_visited": false
+        }
+      },
+      {
+        "status": "succeeded",
+        "action_id": "enter_door_3",
+        "origin_room": 137,
+        "effect": "native_room_transition_observed",
+        "route": {
+          "room": 150,
+          "kind": "unvisited_default",
+          "room_type": "default",
+          "path": [
+            137,
+            150
+          ],
+          "first_slot": 3,
+          "terminal_key_cost": 0,
+          "previously_visited": false
+        }
+      },
+      {
+        "status": "succeeded",
+        "action_id": "enter_door_3",
+        "origin_room": 150,
+        "effect": "native_room_transition_observed",
+        "route": {
+          "room": 163,
+          "kind": "unvisited_boss",
+          "room_type": "boss",
+          "path": [
+            150,
+            163
+          ],
+          "first_slot": 3,
+          "terminal_key_cost": 0,
+          "previously_visited": false
+        }
+      }
+    ],
+    "indeterminate_is_not_counted_as_success": true
+  },
+  "observation": {
+    "duration_seconds": 181.18595433235168,
+    "samples": 89,
+    "failed_samples": 0,
+    "observed_rooms": [
+      [
+        6,
+        135
+      ],
+      [
+        6,
+        136
+      ],
+      [
+        6,
+        137
+      ],
+      [
+        6,
+        146
+      ],
+      [
+        6,
+        147
+      ],
+      [
+        6,
+        148
+      ],
+      [
+        6,
+        159
+      ]
+    ],
+    "position_changes": 48,
+    "paused_samples": 0,
+    "ordinary_pause_ack_samples": 0,
+    "output_fps_min": 24.942328803059215,
+    "output_fps_max": 25.004540782916372,
+    "model_observed": [
+      "gpt-6-luna"
+    ],
+    "core_processes": [
+      33572
+    ],
+    "sessions": [
+      "naimei-live-f5635333-10a4-4afe-8765-1f4286ecd82f"
+    ],
+    "first": {
+      "at_unix": 1794337960.4052346,
+      "game": {
+        "connected": true,
+        "age_ms": 40.3,
+        "frame": 189618,
+        "stage": 6,
+        "room": 159,
+        "seed": 1782996820,
+        "paused": false,
+        "pause_ack": null,
+        "position": {
+          "x": 320,
+          "y": 177.7
+        }
+      },
+      "core": {
+        "ready": true,
+        "automatic": true,
+        "busy": true,
+        "model": "gpt-6-luna",
+        "process_id": 33572,
+        "turns": 0,
+        "failures": 0,
+        "last_error": null,
+        "actual_completed_game_utterances": 0,
+        "continuous_session_id": "naimei-live-f5635333-10a4-4afe-8765-1f4286ecd82f",
+        "candidate_id": "issac-5cbd6bf57f82-f38a2026",
+        "decision_budget_ms": 115000
+      }
+    },
+    "last": {
+      "at_unix": 1794338139.5522888,
+      "game": {
+        "connected": true,
+        "age_ms": 44.5,
+        "frame": 194843,
+        "stage": 6,
+        "room": 137,
+        "seed": 1782996820,
+        "paused": false,
+        "pause_ack": null,
+        "position": {
+          "x": 358.6,
+          "y": 196.4
+        }
+      },
+      "core": {
+        "ready": true,
+        "automatic": true,
+        "busy": true,
+        "model": "gpt-6-luna",
+        "process_id": 33572,
+        "turns": 6,
+        "failures": 0,
+        "last_error": null,
+        "actual_completed_game_utterances": 5,
+        "continuous_session_id": "naimei-live-f5635333-10a4-4afe-8765-1f4286ecd82f",
+        "candidate_id": "issac-5cbd6bf57f82-f38a2026",
+        "decision_budget_ms": 115000
+      }
+    }
+  },
+  "game_at_final_proof": {
+    "paused": false,
+    "frame": 196710,
+    "players": 1,
+    "dead": false,
+    "hp": 10,
+    "stage": 6,
+    "room": 163,
+    "seed": 1782996820,
+    "controller_installed": true
+  },
+  "game_pid": 39000,
+  "public_live_at_final_proof": true,
+  "public_room": "https://live.bilibili.com/595139",
+  "danmaku_collector": {
+    "state": "CONNECTED",
+    "error": null,
+    "updated_at": 1794338203616
+  },
+  "studio": {
+    "ready": true,
+    "mode": "M03",
+    "output_fps_measured": 24.997049181702916,
+    "counters": {
+      "encoder_max_us": 301373,
+      "output_frames": 6221,
+      "body_only_frames": 5867,
+      "render_delays": 1,
+      "mouth_projection_max_us": 37349,
+      "media_map_max_us": 50596,
+      "media_map_batches": 76,
+      "media_map_frames": 359,
+      "media_map_max_batch_frames": 5,
+      "actual_audio_driven_mouth_frames": 354,
+      "actual_model_oral_open_frames": 274,
+      "utterances_generated": 6,
+      "buffered_cancelled_frames_discarded": 5
+    },
+    "natural_action": null
+  },
+  "mouth": {
+    "ready": true,
+    "stage": "ready",
+    "size": 512,
+    "fps": 25,
+    "steps": 4,
+    "batch_size": 1,
+    "mode": "M03",
+    "prepared_modes": [
+      "M01",
+      "M02",
+      "M03"
+    ],
+    "actual_generation_fps": 55.756412621076464
+  },
+  "voice": {
+    "ready": true,
+    "engine": "OmniVoice",
+    "voice_id": "NCM01",
+    "voice_freeze_id": "NM-VOICE-FINAL-20261106-v1",
+    "steps": 32
+  },
+  "player": {
+    "connected": true,
+    "renderer": "livehime",
+    "audio_state": "running",
+    "programme": "issac",
+    "width": 1920,
+    "height": 1080,
+    "metrics": {
+      "fps": 25.284450061606684,
+      "audio_energy": 0.03565279075969014,
+      "decode_errors": 0,
+      "audio_underruns": 0,
+      "missing_packets": 0,
+      "audio_buffer_ms": 821.3333339663222,
+      "connected": true
+    }
+  },
+  "watch": {
+    "action": "observe",
+    "at_unix": 1794338208.8557801,
+    "automatic_recovery": true,
+    "healthy": true,
+    "phase": "monitoring",
+    "public_live": true,
+    "public_stop_allowed": false,
+    "restarts": 0,
+    "independent_watch_alive": true
+  },
+  "protected_saves": {
+    "protected_unchanged": true,
+    "baseline_id": "76a3a8d2337a4dd8a97877870036b57e",
+    "allowed_slot": 3,
+    "baseline_files": 2,
+    "runtime_window_position_changes": [
+      {
+        "root": 1,
+        "relative": "options.ini",
+        "permitted_option_names": [
+          "WindowPosX",
+          "WindowPosY"
+        ],
+        "baseline_sha256": "fb9525e57a8ed9c3da50b3be65cae6f2e1ff318ac9f6853d965174b9a67a77c0",
+        "observed_sha256": "2da0b2831d1329196203301842c298832c6c8a9f98bbdbf9b7494a63aa58da9d"
+      }
+    ]
+  },
+  "official_owner": {
+    "pid": 36808,
+    "created_at": 1794329688.6954842,
+    "process_identity_verified": true
+  },
+  "all_registered_project_processes_alive": true,
+  "upstream": {
+    "repository": "https://github.com/wikigsroom/agent-gameplay-isaac",
+    "commit": "1d78c456831b936d9bc28370f600ef16d0da4a3a",
+    "python_tests_passed": 675,
+    "node_tests_passed": 4,
+    "independent_defaults_preserved": true
+  },
+  "limitations": {
+    "long_term_acceptance_claimed": false,
+    "new_600_second_recording_claimed": false,
+    "full_1m_context_stress_test_claimed": false,
+    "new_subjective_media_review_claimed": false,
+    "natural_drinking_event_observed_in_this_short_window": false,
+    "short_request_ms_is_not_full_dsh_latency": true,
+    "decision_timeout_ms_is_not_latency_target": true
+  },
+  "credentials_included": false,
+  "private_voice_reference_included": false
+}
