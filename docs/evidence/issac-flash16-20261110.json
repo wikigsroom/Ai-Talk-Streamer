@@ -1,0 +1,364 @@
+{
+  "round": "FLASH16",
+  "result": "model_and_context_fix_verified",
+  "recorded_at": "2026-11-10T17:19:55.152355+08:00",
+  "branch": "issac",
+  "candidate_id": "issac-8d8842413316-ac14d6db",
+  "source_commit": "8d884241331680f93483dad46ff0d3e7771c6b77",
+  "source_files_verified": 2383,
+  "protected_saves_verified": true,
+  "checked_after_regressions_and_live_game": true,
+  "archive_sha256": "2f7f351a6cd16b6919573fab61c7198c293d57c16bf6b2b2885efdf7c37df7f0",
+  "source_manifest_sha256": "e36de764d9e457a85bc10537f9767e47258d02c25614d2df59a5da40888f9add",
+  "model_contract": {
+    "schema_version": 1,
+    "provider": "deepseek-official",
+    "model": "deepseek-flash",
+    "model_version": "DeepSeek-V4.1-Flash-1017",
+    "protocol": "responses",
+    "base_url": "https://api.deepseek.com",
+    "channel_source": "issac_user_pinned_official_api",
+    "context_window_tokens": 1000000,
+    "max_output_tokens": 2048,
+    "context_reserve_tokens": 8192,
+    "max_serialized_message_bytes": 33554432,
+    "reasoning_effort": "low",
+    "private_configuration": "private/issac/channel.env",
+    "official_references": [
+      "https://api-docs.deepseek.com/quick_start/pricing/",
+      "https://api-docs.deepseek.com/guides/responses_api/",
+      "https://api-docs.deepseek.com/updates/"
+    ]
+  },
+  "input_budget_estimated_tokens": 989760,
+  "regression": {
+    "passed": 1179,
+    "skipped": 4,
+    "failed": 0,
+    "suites": [
+      {
+        "name": "issac Python integration",
+        "passed": 150,
+        "skipped": 0
+      },
+      {
+        "name": "Isaac agent Python integration",
+        "passed": 679,
+        "skipped": 0
+      },
+      {
+        "name": "issac Node integration and native DSH binding",
+        "passed": 77,
+        "skipped": 0
+      },
+      {
+        "name": "native DSH host and context boundary",
+        "passed": 13,
+        "skipped": 0
+      },
+      {
+        "name": "remaining Node application tests",
+        "passed": 113,
+        "skipped": 4
+      },
+      {
+        "name": "media Python application tests",
+        "passed": 147,
+        "skipped": 0
+      }
+    ],
+    "remote_exit_codes": [
+      {
+        "suite": 0,
+        "exit_code": 0
+      },
+      {
+        "suite": 1,
+        "exit_code": 0
+      },
+      {
+        "suite": 2,
+        "exit_code": 0
+      },
+      {
+        "suite": 3,
+        "exit_code": 0
+      },
+      {
+        "suite": 4,
+        "exit_code": 0
+      },
+      {
+        "suite": 5,
+        "exit_code": 0
+      }
+    ]
+  },
+  "official_preflight": {
+    "model": "deepseek-flash",
+    "official_endpoint": true,
+    "http_status": 200,
+    "passed": true,
+    "response_status": "completed",
+    "returned_model": "deepseek-flash",
+    "usage": {
+      "input_tokens": 35,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens": 11,
+      "output_tokens_details": {
+        "reasoning_tokens": 8
+      },
+      "total_tokens": 46
+    },
+    "elapsed_seconds": 0.829
+  },
+  "real_native_dsh_with_archived_failed_context": {
+    "model": "deepseek-flash",
+    "official_endpoint": true,
+    "simulated_provider": false,
+    "source_request_estimated_tokens": 25270,
+    "source_request_bytes": 70031,
+    "passed": true,
+    "tools": [
+      "stream_memory_recall"
+    ],
+    "steps": 3,
+    "reply": "奶妹在，随时能聊。",
+    "reply_characters": 9,
+    "finish": {
+      "kind": "completed"
+    },
+    "probes": [
+      {
+        "estimated_input_tokens": 31251,
+        "serialized_message_bytes": 86874,
+        "context_window_tokens": 1000000,
+        "input_budget_estimated_tokens": 989760,
+        "serialized_message_limit_bytes": 33554432,
+        "elapsed_ms": 1946,
+        "first_content_ms": 1690,
+        "finish_kind": "tool-calls"
+      },
+      {
+        "estimated_input_tokens": 31491,
+        "serialized_message_bytes": 88258,
+        "context_window_tokens": 1000000,
+        "input_budget_estimated_tokens": 989760,
+        "serialized_message_limit_bytes": 33554432,
+        "elapsed_ms": 1190,
+        "first_content_ms": 1140,
+        "finish_kind": "tool-calls"
+      },
+      {
+        "estimated_input_tokens": 31690,
+        "serialized_message_bytes": 89215,
+        "context_window_tokens": 1000000,
+        "input_budget_estimated_tokens": 989760,
+        "serialized_message_limit_bytes": 33554432,
+        "elapsed_ms": 976,
+        "first_content_ms": 863,
+        "finish_kind": "stop"
+      }
+    ],
+    "calls": [
+      {
+        "usage": {
+          "inputTokens": 23545,
+          "outputTokens": 58,
+          "totalTokens": 23603
+        },
+        "finish_kind": "tool-calls"
+      },
+      {
+        "usage": {
+          "inputTokens": 203,
+          "outputTokens": 40,
+          "totalTokens": 23667,
+          "cacheReadTokens": 23424
+        },
+        "finish_kind": "tool-calls"
+      },
+      {
+        "usage": {
+          "inputTokens": 143,
+          "outputTokens": 9,
+          "totalTokens": 23704,
+          "cacheReadTokens": 23552
+        },
+        "finish_kind": "stop"
+      }
+    ],
+    "elapsed_ms": 6473
+  },
+  "real_game_observation": {
+    "passed": true,
+    "seconds": 90.09696010011248,
+    "sample_count": 46,
+    "errors": [],
+    "event_counts": {
+      "core_decision_superseded": 2,
+      "core_turn_cancelled": 2,
+      "core_control": 2,
+      "core_turn_started": 11,
+      "core_tool": 10,
+      "core_choice_completed": 10,
+      "core_speech_queued": 15,
+      "core_speech_cancelled": 10,
+      "core_fact_started": 14,
+      "core_wiki_checked": 1,
+      "actual_core_speech_completed": 4
+    },
+    "tools": {
+      "isaac_submit_plan": 10
+    },
+    "spoken": [
+      {
+        "text": "牛奶！拿来挡弹幕。",
+        "completed_at": 1794301874950
+      },
+      {
+        "text": "这一屋还藏着东西。",
+        "completed_at": 1794301891200
+      },
+      {
+        "text": "又少一只，还剩三只。",
+        "completed_at": 1794301906281
+      },
+      {
+        "text": "又掉一只，就差最后一只。",
+        "completed_at": 1794301923320
+      }
+    ],
+    "speech_max_15": true,
+    "distinct_game_identities": 14,
+    "core": {
+      "ready": true,
+      "automatic": true,
+      "last_error": null,
+      "failures": 0,
+      "turns": 10,
+      "actual_completed_game_utterances": 4,
+      "decision_latency_p95_ms": 6182,
+      "continuous_session_id": "naimei-live-f8506dfa-3387-4fb7-8cbd-2e61b50c7b21",
+      "registeredTools": [
+        "isaac_get_state",
+        "isaac_get_decision",
+        "isaac_lookup",
+        "isaac_wiki_query",
+        "isaac_submit_plan"
+      ]
+    },
+    "studio": {
+      "ready": true,
+      "tts_ready": true,
+      "avatar_ready": true,
+      "mode": "M03",
+      "size": 512,
+      "fps": 25,
+      "voice_id": "NCM01",
+      "steps": 4,
+      "output_fps_measured": 24.999926875287663,
+      "counters": {
+        "encoder_max_us": 415496,
+        "output_frames": 13768,
+        "body_only_frames": 13525,
+        "render_delays": 5,
+        "mouth_projection_max_us": 47381,
+        "media_map_max_us": 29658,
+        "media_map_batches": 61,
+        "media_map_frames": 297,
+        "media_map_max_batch_frames": 5,
+        "buffered_cancelled_frames_discarded": 52,
+        "actual_audio_driven_mouth_frames": 243,
+        "actual_model_oral_open_frames": 136,
+        "utterances_generated": 4
+      }
+    },
+    "player": {
+      "connected": true,
+      "audio_state": "running",
+      "renderer": "livehime"
+    },
+    "collectors": {
+      "bilibili": {
+        "state": "CONNECTED",
+        "error": null,
+        "updated_at": 1794301953224
+      }
+    }
+  },
+  "last_runtime": {
+    "model": "deepseek-flash",
+    "protocol": "responses",
+    "context_window_tokens": 1000000,
+    "input_budget_estimated_tokens": 989760,
+    "automatic": true,
+    "last_error": null,
+    "failures": 0,
+    "core_turns": 34,
+    "actual_completed_game_utterances": 16,
+    "continuous_session_id": "naimei-live-f8506dfa-3387-4fb7-8cbd-2e61b50c7b21",
+    "last_actually_spoken": "先把这团火清掉，再走。",
+    "application_stage": "running_candidate_not_accepted",
+    "all_owned_children_alive": true,
+    "studio_ready": true,
+    "tts_ready": true,
+    "avatar_ready": true,
+    "audio_driven_mouth_frames": 1116,
+    "actual_model_oral_open_frames": 828,
+    "player": {
+      "connected": true,
+      "audio_state": "running",
+      "renderer": "livehime"
+    },
+    "chat_collector": "CONNECTED",
+    "controller": {
+      "armed": true,
+      "native_attached": true,
+      "last_fault": null,
+      "control_revision": 6
+    },
+    "disk_free_gib": 17.1
+  },
+  "memory_reset": false,
+  "prior_persona_extensions_and_spoken_history_preserved": true,
+  "media": {
+    "voice": "NCM01/OmniVoice",
+    "avatar": "FlashHead Lite",
+    "resolution": [
+      512,
+      512
+    ],
+    "fps": 25,
+    "steps": 4,
+    "batch": 1,
+    "immutable_previously_approved_body_media_reused": true,
+    "new_subjective_media_review_claimed": false
+  },
+  "public_broadcast": {
+    "start_or_stop_executed_by_this_round": false,
+    "official_client_at_manual_observation": "start-live button visible",
+    "internal_programme_live_is_public_stream_evidence": false
+  },
+  "cleanup": {
+    "removed_reconstructable_source_stages": 32,
+    "reclaimed_bytes": 20338468200,
+    "rollback_backups_preserved": true,
+    "temporary_transfer_server_exited": true
+  },
+  "limits": [
+    "1M is the configured official model capacity; a full 1M-token stress test was not performed.",
+    "The three actual native DSH requests were estimated at31251,31491,31690 tokens; the first provider-reported input was23545 tokens. Estimates are not provider tokenization.",
+    "Measured API step times are individual observations, not a sustained latency guarantee. Real gameplay decision p95 was6182ms in this observation.",
+    "The 90-second game observation is not a new600-second recording or a pass of every long-term release gate.",
+    "Existing official Livehime owner registration belongs to its earlier candidate; this round preserves it and does not claim new-candidate recording-host ownership acceptance.",
+    "Documentation-only commits following this report do not change the deployed source commit."
+  ],
+  "public_sources": [
+    "https://api-docs.deepseek.com/quick_start/pricing/",
+    "https://api-docs.deepseek.com/guides/responses_api/",
+    "https://api-docs.deepseek.com/updates/"
+  ]
+}
