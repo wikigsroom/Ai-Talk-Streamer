@@ -18,11 +18,11 @@ test('only actual completed speech becomes last_spoken; queued and near repeats 
   assert.equal(ledger.reserve('d','先补血，再往前走。'),false);
   assert.ok(ledger.reserve('e','这首领冲得真快。'));
 });
-test('continuous compaction is a durable replacement citing every old surface node',async()=>{
-  let appended;const nodes=[1,3,7,9],history=[{input:'旧房间',reply:'先补血。'}];
+test('continuous compaction retains the protected system head and cites every old conversation node',async()=>{
+  let appended;const nodes=[0,1,3,7,9],history=[{input:'旧房间',reply:'先补血。'}];
   const agent={runMaintenance:async work=>work(),session:{surface:{nodes},append:(...args)=>{appended=args;}}};
   await compactContinuous(agent,{createUserMessage:v=>v},history);
   assert.equal(appended[0],'user/message');assert.match(appended[1].content[0].text,/旧房间/);
-  assert.deepEqual(appended[2],{surfaceOp:{op:'replace',startSeq:1,endSeq:9},sourceEventSeqs:nodes});
-  assert.deepEqual(nodes,[1,3,7,9]);
+  assert.deepEqual(appended[2],{surfaceOp:{op:'replace',startSeq:1,endSeq:9},sourceEventSeqs:[1,3,7,9]});
+  assert.deepEqual(nodes,[0,1,3,7,9]);
 });

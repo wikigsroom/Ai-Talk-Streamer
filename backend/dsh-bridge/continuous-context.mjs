@@ -7,7 +7,9 @@ export function continuousSummary(history) {
 export async function compactContinuous(agent,llm,history) {
   if(!history.length)return;
   await agent.runMaintenance(async()=>{
-    const nodes=[...agent.session.surface.nodes];
+    // The native loop owns the first system node. Compact only the following
+    // conversation; DSH forbids a user summary from shadowing that header.
+    const nodes=[...agent.session.surface.nodes].slice(1);
     if(!nodes.length)return;
     const message=llm.createUserMessage({source:{kind:'user'},content:[{type:'text',text:continuousSummary(history)}]});
     agent.session.append('user/message',message,{surfaceOp:{op:'replace',startSeq:nodes[0],endSeq:nodes.at(-1)},sourceEventSeqs:nodes});

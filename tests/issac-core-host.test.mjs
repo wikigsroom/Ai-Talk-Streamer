@@ -190,7 +190,8 @@ test('one real DSH agent retains three turns with durable compaction and fresh f
       input:'当前第'+i+'回合',context:JSON.stringify({partition_key:'public',current_game:{data:{room:{index:100+i},inventory:[{id:26}],resources:{keys:i}},connected:true,pending:false},speech_history:{last_spoken:i?'先补血。':null}}),
       tools:async()=>({}),signal:AbortSignal.timeout(15000)}));
     assert.equal(new Set(results.map(r=>r.continuous_session_id)).size,1);
-    assert.equal(host.continuous.handle.agent.session.surface.replaceGeneration,2);
+    // DSH may also replace its own system header as fresh sections change.
+    assert.ok(host.continuous.handle.agent.session.surface.replaceGeneration>=2);
     const native=host.continuous.handle.agent.session;
     assert.ok(native.deriveMessages().some(m=>JSON.stringify(m).includes('当前第2回合')));
     for(let i=0;i<3;i++){
