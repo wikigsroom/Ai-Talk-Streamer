@@ -1,0 +1,27 @@
+{
+  "round": "FLASH14",
+  "candidate_id": "issac-23a1dd6df12e-b804ec3e",
+  "result": "closed_failed_before_production_restart",
+  "regression_suites": [
+    {
+      "index": 0,
+      "passed": true
+    },
+    {
+      "index": 1,
+      "passed": true
+    },
+    {
+      "index": 2,
+      "passed": true
+    },
+    {
+      "index": 3,
+      "passed": false,
+      "tests": 13,
+      "passed_count": 6,
+      "failed_count": 7
+    }
+  ],
+  "failure": "Streaming probe generator used its own this for model capacity rather than the enclosing host. Actual provider registration and input guard were correct, but completed probe reported the baseline32768. Captured modelContextWindow lexically in FLASH15. No production acceptance claimed."
+}

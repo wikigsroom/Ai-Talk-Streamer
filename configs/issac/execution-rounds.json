@@ -23,7 +23,7 @@
     "evidence": "docs/evidence/issac-round1-copy-20261107.json"
   },
   "round_2_onward": {
-    "status": "FLASH14_code_complete_pending_freeze_and_uniform_validation",
+    "status": "FLASH15_code_complete_pending_freeze_and_uniform_validation",
     "development_scope": "Official DeepSeek V4.1 Flash, 1M context and unchanged single Naimei strategic core",
     "order": [
       "finish_all_round_development",
@@ -41,7 +41,7 @@
       "candidate_scope_and_reproducible_commands"
     ],
     "defect_policy": "Close the test phase and implement one complete correction round before retesting; never patch between tests within a phase",
-    "inventory": "configs/issac/development-flash14-20261110.json"
+    "inventory": "configs/issac/development-flash15-20261110.json"
   },
   "acceptance_scope_retained": [
     "native_game_ABI_and_read_only_observation",
@@ -213,7 +213,7 @@
     "historical_channel_evidence_is_current_deployment_acceptance": false,
     "same_naimei_core_for_observation_tools_decisions_and_speech": true,
     "automatic_model_or_channel_replacement_allowed": false,
-    "runtime_alignment": "FLASH14_pending_frozen_round_validation",
+    "runtime_alignment": "FLASH15_pending_frozen_round_validation",
     "model_profile": "configs/issac/core-model.json",
     "context_window_tokens": 1000000,
     "private_configuration": "private/issac/channel.env",

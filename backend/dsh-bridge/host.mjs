@@ -185,6 +185,7 @@ export class DshHost {
     const maximumSteps=gameplay?12:this.policy.conversation.max_memory_tool_rounds+1;
     const contextBudget=gameplay?this.policy.conversation.game_context_max_estimated_tokens||this.policy.conversation.context_max_estimated_tokens:this.policy.conversation.context_max_estimated_tokens;
     const messageByteLimit=this.modelProfile?.max_serialized_message_bytes??512*1024;
+    const modelContextWindow=this.modelProfile?.context_window_tokens??32768;
     let steps = 0, choiceCompletionFollowups = 0, finalReason, handle, lastAssistant = '', lastError, lastFinish, setupStage='session_prepare';
     const calls = [];
     try {
@@ -245,7 +246,7 @@ export class DshHost {
               has_native_memory_guidance: promptText.includes('stream_memory_propose'),
               ...(gameplay?{has_issac_wiki:promptText.includes('naimei:isaac-complete')||gameplay.prompt.receipt.skill_sources.every(source=>promptText.includes(source.sha256)),gameplay_actor_id:'naimei',gameplay_prompt_sha256:gameplay.prompt.receipt.sha256}:{}),
               tools: options.tools?.map(tool => tool.name) ?? [], ...messageBudget(options.messages),
-              context_window_tokens:this.modelProfile?.context_window_tokens??32768,
+              context_window_tokens:modelContextWindow,
               input_budget_estimated_tokens:contextBudget,serialized_message_limit_bytes:messageByteLimit };
             if (!negativeMinimal && !maintenance && !probe.has_persona) throw new Error('PERSONA_INJECTION_MISSING');
             if (probe.tools.some(name => !names.includes(name))) throw new Error('STREAM_TOOL_CATALOG_ESCAPE');
