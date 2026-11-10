@@ -11,6 +11,10 @@ from integration.issac.live_supervisor import LiveSupervisor,SupervisorState
 
 
 class NaturalPauseCycle(unittest.TestCase):
+    def setUp(self):
+        policy=patch('integration.issac.live_supervisor.uninterrupted',return_value=False)
+        policy.start();self.addCleanup(policy.stop)
+
     def host(self):
         owner=object.__new__(StrategyHost)
         owner.action_lock=threading.RLock();owner.armed=True;owner.control_revision=8

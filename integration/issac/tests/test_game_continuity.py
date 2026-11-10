@@ -70,6 +70,29 @@ class GameContinuity(unittest.TestCase):
         for name in ('isaac-game','game','unknown'):
             with self.assertRaisesRegex(AdmissionError,'GAME_RESTART_IS_NOT_A_COMPONENT_ACTION'):app.component_spec(name)
 
+    def test_real_component_repair_keeps_game_and_replaces_only_stalled_narrator(self):
+        owner=object.__new__(LiveSupervisor);owner.root=self.root;owner.authorized=Mock();owner.report=Mock()
+        owner.audit=Mock();owner.state=SimpleNamespace(restarts=0,bad_since=1,platform_off=0)
+        owner.owned_process=Mock(return_value=True);owner.platform_live=Mock(return_value=True)
+        owner.restart_owned_game=Mock();owner.stop_owned_stack_for_restart=Mock()
+        names=['gpu-geometry','game-controller','voice','flashhead','studio','narrator']
+        status={'armed':True,'native_attached':True,'live_cycle':{'phase':'playing','alert':{'code':'CORE_TURN_STALLED'}}}
+        def api(port,path,body=None,**_):
+            if port==9541 and body is None:return {'children':{n:{'alive':True} for n in names}}
+            if port==9534 and body is None:return {'service':'issac-native-game',**status}
+            return {'ready':True}
+        owner.api=Mock(side_effect=api)
+        game={'name':'isaac-game','pid':44,'created_at':100}
+        with patch('integration.issac.live_supervisor.read_json',side_effect=lambda path:
+                   {'processes':[game]} if path.name=='application.json' else {'health_port':9540}), \
+             patch('integration.issac.official_window.identity'):
+            owner.repair_live_components()
+        replacements=[c.args[2] for c in owner.api.call_args_list if c.args[:2]==(9541,'/action')]
+        self.assertEqual(replacements,[{'action':'restart_component','component':'narrator'}])
+        owner.restart_owned_game.assert_not_called();owner.stop_owned_stack_for_restart.assert_not_called()
+        self.assertFalse(any(c.args[:2]==(9534,'/control') and c.args[2].get('action')!='components_ready'
+                             for c in owner.api.call_args_list))
+
     def test_real_lua_migration_guard_blocks_automatic_but_preserves_explicit_control(self):
         from lupa.lua53 import LuaRuntime
         lua=LuaRuntime(unpack_returned_tuples=True)

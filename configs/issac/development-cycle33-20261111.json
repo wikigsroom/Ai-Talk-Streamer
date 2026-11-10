@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE33",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [
+    {
+      "id": "UNINTERRUPTED_GAME_AND_BODY_ONLY_DRINK",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "AGENTS.md",
+        "configs/issac/game-continuity.json",
+        "integration/isaac-agent/mods/IsaacJev/strategy_control.lua",
+        "integration/issac/continuity.py",
+        "integration/issac/application.py",
+        "integration/issac/live_cycle.py",
+        "integration/issac/live_supervisor.py",
+        "integration/issac/livehime.py",
+        "integration/issac/materials.py",
+        "integration/issac/native_game.py",
+        "integration/issac/strategy_host.py",
+        "integration/issac/studio.py",
+        "scripts/install_issac_continuous_candidate.py",
+        "scripts/issac_broadcast_resume.ps1",
+        "integration/issac/tests/test_game_continuity.py",
+        "tests/test_issac_programme_pump.py",
+        "docs/issac/游戏不中断与动作解耦20261111.md",
+        "integration/issac/tests/test_live_cycle.py",
+        "integration/issac/tests/test_menu_recovery.py",
+        "integration/issac/tests/test_natural_pause_cycle.py"
+      ]
+    }
+  ],
+  "previous_round_closed": "CYCLE32 local validation hit a legacy recovery fixture that read the new production continuity configuration and waited for real component readiness. Test process stopped; CYCLE32 not deployed. Pin historical fixtures explicitly to legacy policy and add a real preserving component-repair regression; production stays CYCLE32.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}

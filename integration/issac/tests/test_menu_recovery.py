@@ -55,6 +55,8 @@ class MenuRecognitionTests(unittest.TestCase):
 
 class NativeMenuRecoveryTests(unittest.TestCase):
     def setUp(self):
+        policy=patch('integration.issac.live_supervisor.uninterrupted',return_value=False)
+        policy.start();self.addCleanup(policy.stop)
         self.now, self.slot, self.players = 0., 0, 0
         self.keys, self.confirmed_slot, self.selected = [], 3, 1
         self.owner = object.__new__(LiveSupervisor)

@@ -252,6 +252,13 @@ class PublicSupervisorTests(unittest.TestCase):
 
 
 class RecoveryOwnershipTests(unittest.TestCase):
+    def setUp(self):
+        # These cases preserve the historical full-restart implementation.
+        # Continuous-policy ownership is covered separately, without inheriting
+        # the repository's live configuration into a legacy fixture.
+        policy=patch('integration.issac.live_supervisor.uninterrupted',return_value=False)
+        policy.start();self.addCleanup(policy.stop)
+
     def supervisor(self):
         owner = object.__new__(LiveSupervisor)
         owner.root = Path(__file__).resolve().parents[3]
