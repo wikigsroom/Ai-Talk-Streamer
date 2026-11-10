@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "round": "AGENCY13",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [
+    {
+      "id": "VISIBLE-CONTEXT-AND-ASSESSMENT-REPAIR",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "backend/dsh-bridge/continuous-context.mjs",
+        "backend/dsh-bridge/host.mjs",
+        "backend/dsh-bridge/isaac-core.mjs",
+        "configs/issac/core-persona-gameplay.md",
+        "integration/issac/tests/naimei_core.test.mjs",
+        "integration/issac/tests/short_speech.test.mjs",
+        "tests/issac-core-host.test.mjs",
+        "configs/issac/live600.json",
+        "configs/issac/execution-rounds.json",
+        "docs/issac/600秒录播推进修订20261110.md"
+      ]
+    }
+  ],
+  "previous_validation_closed": "operations/live300-20261109/agency12-closed.json",
+  "previous_failure": "At 218.467 seconds an over-160-character growth assessment was rejected; the bounded correction call falsely counted opaque provider replay as visible context and hit STREAM_CONTEXT_BUDGET."
+}

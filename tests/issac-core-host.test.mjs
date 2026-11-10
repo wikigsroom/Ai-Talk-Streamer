@@ -30,13 +30,15 @@ test('game reasoning setting is admitted only for the frozen Isaac scope; inheri
 // channel. In particular its concludeTurn must retain the successful tool result.
 for(const choice of [{op:'pickup',status:'accepted'},{op:'wait',status:'succeeded',effect:'wait'},{op:'pickup',status:'accepted',wiki:true},
   {op:'pickup',status:'accepted',prose:true},{op:'pickup',status:'accepted',prose:true,expired:true},
-  {op:'pickup',status:'accepted',prose:true,alwaysProse:true}]){
-test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-context wiki':'')+(choice.prose?' after prose'+(choice.expired?' with expired decision':choice.alwaysProse?' with bounded non-completion':''):'')+' with Sol-compatible low effort and keeps all wiki text',async()=>{
+  {op:'pickup',status:'accepted',prose:true,alwaysProse:true},
+  {op:'pickup',status:'accepted',assessmentRepair:true},{op:'pickup',status:'accepted',oversizedContext:true}]){
+test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-context wiki':'')+(choice.prose?' after prose'+(choice.expired?' with expired decision':choice.alwaysProse?' with bounded non-completion':''):'')+(choice.assessmentRepair?' after repairing an oversized assessment with opaque replay':choice.oversizedContext?' rejects oversized visible context':'')+' with Sol-compatible low effort and keeps all wiki text',async()=>{
   const root=process.cwd(),policy=structuredClone(loadPolicy(root,'configs/issac/bridge-policy.json'));
   mkdirSync(join(root,'state'),{recursive:true});
   const folder=mkdtempSync(join(root,'state/issac-core-host-test-'));
   policy.deployment.dsh_home_relative_path=folder;
   const plan={plan_id:'controlled-plan',decision_id:'decision-A',context_id:'room-A',offer_id:'heart-A',budget:{},reason:'补血',commentary:'血量还没满，这颗红心我先拿上。'};
+  if(choice.assessmentRepair)plan.assessment={growth:'当前没有核心道具，沿开放门继续。',key_recovery:'没有钥匙或已知可回收钥匙。'};
   let requests=0,received;const payloads=[];
   const server=createServer(async(req,res)=>{
     const chunks=[];for await(const chunk of req)chunks.push(chunk);
@@ -57,15 +59,24 @@ test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-cont
       res.end();return;
     }
     const wiki=choice.wiki&&requests===1;
+    const submitted=choice.assessmentRepair&&requests===1?{...plan,assessment:{...plan.assessment,growth:'评'.repeat(161)}}:plan;
     const item={type:'function_call',id:'fc-controlled-'+requests,call_id:'call-controlled-'+requests,
       name:wiki?'isaac_wiki_query':'isaac_submit_plan',
-      arguments:JSON.stringify({data:JSON.stringify(wiki?{query:{operation:'item',query:'The Sad Onion',kind:'item'}}:plan)}),status:'completed'};
+      arguments:JSON.stringify({data:JSON.stringify(wiki?{query:{operation:'item',query:'The Sad Onion',kind:'item'}}:submitted)}),status:'completed'};
     emit({type:'response.created',response:{id:'response-controlled',status:'in_progress'}});
-    emit({type:'response.output_item.added',output_index:0,item:{...item,arguments:'',status:'in_progress'}});
-    emit({type:'response.function_call_arguments.delta',output_index:0,item_id:item.id,delta:item.arguments});
-    emit({type:'response.function_call_arguments.done',output_index:0,item_id:item.id,arguments:item.arguments});
-    emit({type:'response.output_item.done',output_index:0,item});
-    emit({type:'response.completed',response:{id:'response-controlled',status:'completed',output:[item],usage:{input_tokens:100,output_tokens:80,total_tokens:180}}});
+    const replay=choice.assessmentRepair&&requests===1?{type:'reasoning',id:'rs-controlled',encrypted_content:'opaque-test-'.repeat(8000),summary:[{type:'summary_text',text:'Controlled replay placeholder'}]}:null;
+    if(replay){
+      emit({type:'response.output_item.added',output_index:0,item:{...replay,summary:[]}});
+      emit({type:'response.reasoning_summary_part.added',output_index:0,summary_index:0,item_id:replay.id,part:{type:'summary_text',text:''}});
+      emit({type:'response.reasoning_summary_text.delta',output_index:0,summary_index:0,item_id:replay.id,delta:replay.summary[0].text});
+      emit({type:'response.output_item.done',output_index:0,item:replay});
+    }
+    const index=replay?1:0;
+    emit({type:'response.output_item.added',output_index:index,item:{...item,arguments:'',status:'in_progress'}});
+    emit({type:'response.function_call_arguments.delta',output_index:index,item_id:item.id,delta:item.arguments});
+    emit({type:'response.function_call_arguments.done',output_index:index,item_id:item.id,arguments:item.arguments});
+    emit({type:'response.output_item.done',output_index:index,item});
+    emit({type:'response.completed',response:{id:'response-controlled',status:'completed',output:[...(replay?[replay]:[]),item],usage:{input_tokens:100,output_tokens:80,total_tokens:180}}});
     res.end();
   });
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let host;
@@ -75,7 +86,7 @@ test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-cont
     const core=Object.create(NaimeiGameCore.prototype);core.augment=context=>context;
     Object.assign(core,{names:Object.keys(ISAAC_CORE_TOOLS),enabled:true,controlRevision:1,recent:[],record:()=>{},
       prompt:completePrompt(root,readFileSync(join(root,'configs/issac/core-persona-gameplay.md'),'utf8')),
-      decision:async()=>({pending:!choice.expired,connected:true,id:'decision-A',context_id:'room-A',context:{inventory_revision:'inventory-A'},remaining_ms:choice.expired?0:10000,offers:[{id:'heart-A',op:choice.op}]}),
+      decision:async()=>({pending:!choice.expired,connected:true,id:'decision-A',context_id:'room-A',context:{inventory_revision:'inventory-A',...(choice.assessmentRepair?{required_assessment:{}}:{})},remaining_ms:choice.expired?0:10000,offers:[{id:'heart-A',op:choice.op}]}),
       api:async(_port,path,body)=>{
         if(path==='/wiki'){
           assert.deepEqual(body.context,{decision_id:'decision-A',context_id:'room-A',inventory_revision:'inventory-A'});
@@ -86,11 +97,17 @@ test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-cont
     host.gameplay=core;const turn={decision_id:'decision-A',context_id:'room-A',control_revision:1},probes=[];
     const generation=host.generate({sessionId:'controlled-native-plan',snapshot:{revision:'controlled',model:'controlled',protocol:'responses',
       baseUrl:'http://127.0.0.1:'+server.address().port+'/v1',systemPrompt:'',getApiKey:()=> 'controlled-key'},
-      context:JSON.stringify({game_decision:{id:'decision-A',context_id:'room-A'}}),input:'提交当前选择与打算。',gameplayTurn:turn,
+      context:JSON.stringify({game_decision:{id:'decision-A',context_id:'room-A'},...(choice.oversizedContext?{current_game:{unbounded:'x'.repeat(50000)}}:{})}),input:'提交当前选择与打算。',gameplayTurn:turn,
       tools:async()=>{throw Error('unexpected viewer tool');},onProbe:probe=>probes.push(probe),signal:AbortSignal.timeout(15000)});
     if(choice.expired){await assert.rejects(generation);assert.equal(requests,1);assert.equal(turn.submitted,undefined);return;}
+    if(choice.oversizedContext){await assert.rejects(generation,error=>error.code==='STREAM_CONTEXT_BUDGET');assert.equal(requests,0);return;}
     const result=await generation;
-    assert.equal(requests,choice.wiki||choice.prose?2:1);assert.equal(result.steps,requests);
+    assert.equal(requests,choice.wiki||choice.prose||choice.assessmentRepair?2:1);assert.equal(result.steps,requests);
+    if(choice.assessmentRepair){
+      assert.ok(JSON.stringify(payloads[1]).includes('CORE_ASSESSMENT_MAX_160_CHARS'));
+      assert.ok(JSON.stringify(payloads[1]).includes('opaque-test-'.repeat(8000)),'original replay remains intact');
+      assert.ok(probes.at(-1).serialized_message_bytes>90000);
+    }
     assert.equal(result.choice_completion_followups,choice.prose?1:0);
     if(choice.alwaysProse){assert.equal(result.text,'这颗红心我想先看看。');assert.equal(turn.submitted,undefined);return;}
     assert.equal(result.text,plan.commentary);

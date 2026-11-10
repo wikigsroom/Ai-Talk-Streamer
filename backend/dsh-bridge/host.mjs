@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { compactContinuous } from './continuous-context.mjs';
+import { compactContinuous, messageBudget } from './continuous-context.mjs';
 import { createRequire } from 'node:module';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -240,10 +240,11 @@ export class DshHost {
               ...(extensions ? { has_soul: promptText.includes('奶妹 · 直播人格卡'), has_humanizer: promptText.includes('humanizer-chinese'), has_meme_guide: promptText.includes('stream_memory_propose') && promptText.includes('search_meme_wiki') } : {}),
               has_native_memory_guidance: promptText.includes('stream_memory_propose'),
               ...(gameplay?{has_issac_wiki:promptText.includes('naimei:isaac-complete')||gameplay.prompt.receipt.skill_sources.every(source=>promptText.includes(source.sha256)),gameplay_actor_id:'naimei',gameplay_prompt_sha256:gameplay.prompt.receipt.sha256}:{}),
-              tools: options.tools?.map(tool => tool.name) ?? [], estimated_input_tokens: Math.ceil(canonical(options.messages).length / 2) };
+              tools: options.tools?.map(tool => tool.name) ?? [], ...messageBudget(options.messages) };
             if (!negativeMinimal && !maintenance && !probe.has_persona) throw new Error('PERSONA_INJECTION_MISSING');
             if (probe.tools.some(name => !names.includes(name))) throw new Error('STREAM_TOOL_CATALOG_ESCAPE');
-            if (probe.estimated_input_tokens > contextBudget && !maintenance) throw new Error('STREAM_CONTEXT_BUDGET');
+            if ((probe.estimated_input_tokens > contextBudget || probe.serialized_message_bytes > 512*1024) && !maintenance)
+              throw new Error('STREAM_CONTEXT_BUDGET');
             const streamStarted=Date.now();probe.started_unix_ms=streamStarted;probe.phase='in_flight';
             onProbe?.(probe);
             const settle = onCall?.({ phase: 'reserve', input_sha256: digest(options.messages), provider_revision: snapshot.revision, step: steps });

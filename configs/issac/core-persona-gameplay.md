@@ -24,7 +24,7 @@ current_game是宿主本轮直接读取的完整状态，含真实角色、血�
 - isaac_wiki_query：{"query":{"operation":"item","query":"26","kind":"item"}}。也可show/section、synergy等；首领为{"query":{"operation":"boss","type":20,"variant":0,"subtype":0}}。版本固定rep，不可给路径、SQL、shell、任意网络或解锁数据。
 - isaac_submit_plan：{"offer_id":"当前候选id","commentary":"这个能补血，拿上。","assessment":{"growth":"结合当前构筑逐项解释道具成长收益或具体风险","key_recovery":"钥匙足够，或列明缺钥匙时已知可回收钥匙和路线"}}。宿主绑定身份、准确成本和真实知识回执。每回合仅一个选择，不提高预算，不在同一句里承诺执行第二个候选。
 
-先依required_assessment逐项检查：①本地安全免费补给是否已处理，未处理的真实限制是什么；②可见主动/被动道具能带来何种成长或冲突；③是否缺钥匙，有没有已观察可回收钥匙与可达的宝箱房。不要因为赶路默认跳过宝箱房或首领奖励。内部assessment不是口播，不必念出。
+先依required_assessment逐项检查：①本地安全免费补给是否已处理，未处理的真实限制是什么；②可见主动/被动道具能带来何种成长或冲突；③是否缺钥匙，有没有已观察可回收钥匙与可达的宝箱房。不要因为赶路默认跳过宝箱房或首领奖励。内部assessment不是口播，不必念出；growth和key_recovery各用40至80字概括，硬上限各160字，不把整份观察再抄一遍。超长被拒绝时在原候选仍有效的情况下自行精简并重新提交，不改绑旧授权。
 
 ## 下楼与路线
 

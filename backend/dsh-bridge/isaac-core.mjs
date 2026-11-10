@@ -12,7 +12,7 @@ export const ISAAC_CORE_TOOLS = Object.freeze({
   isaac_get_decision: '直接读取当前待决策状态、context_id及合法offers。data为空对象。',
   isaac_lookup: '只读机制速查。data含kind为collectible/card/domain和id。',
   isaac_wiki_query: '直接查本地issac-wiki，固定rep。data为{"query":{"operation":"item","query":"名称或编号","kind":"item"}}；决策上下文由宿主绑定。',
-  isaac_submit_plan: '由奶妹本人选择当前offer：data含offer_id、commentary（1至15字，含标点）、assessment（growth/key_recovery各一句内部判断）；下楼还需reward_review逐项target_id/disposition=skip/reason。宿主仅绑定本回合身份和该候选的确切成本，不替你选择。不能声称已完成；真实接受后结束本回合并播报该句，无需追加回复。',
+  isaac_submit_plan: '由奶妹本人选择当前offer：data含offer_id、commentary（1至15字，含标点）、assessment（growth/key_recovery各40至80字，硬上限各160字）；下楼还需reward_review逐项target_id/disposition=skip/reason。宿主仅绑定本回合身份和该候选的确切成本，不替你选择。不能声称已完成；真实接受后结束本回合并播报该句，无需追加回复。',
 });
 const TOPICS = new Set(['state','health','inventory','effects','history','actives','pockets','map','room','enemies','bosses','pickups','resources']);
 const identityOf = value => value?.identity || value?.data?.identity;
@@ -214,7 +214,8 @@ export class NaimeiGameCore {
         }
         requireValue(plan.decision_id===decision.id&&plan.context_id===decision.context_id,'CORE_PLAN_CONTEXT_CHANGED',409);
         if(decision.context.required_assessment){
-          requireValue(value.assessment&&['growth','key_recovery'].every(k=>typeof value.assessment[k]==='string'&&value.assessment[k].trim().length>0&&value.assessment[k].length<=160),'CORE_ASSESSMENT_REQUIRED',409);
+          requireValue(value.assessment&&['growth','key_recovery'].every(k=>typeof value.assessment[k]==='string'&&value.assessment[k].trim().length>0),'CORE_ASSESSMENT_REQUIRED',409);
+          requireValue(['growth','key_recovery'].every(k=>Array.from(value.assessment[k]).length<=160),'CORE_ASSESSMENT_MAX_160_CHARS',409);
           const target=decision.context.pickups?.find(p=>p.target_id===offer.target_id&&p.variant===100);
           const receipts=[...turn.wiki_evidence?.values()||[]];
           if(target)requireValue(receipts.some(e=>e.query.kind==='item'&&e.query.query===String(target.subtype)&&e.result.known===true),'CORE_ITEM_WIKI_REQUIRED',409);
@@ -284,7 +285,7 @@ export class NaimeiGameCore {
     this.record('core_turn_started',{session_id:sessionId,decision_id:decision.id,context_id:decision.context_id,remaining_ms:decision.remaining_ms});
     try {
       const result=await this.generate({game_decision:decision,recent_naimei_game_decisions:this.recent.slice(-4)},turn,
-        '以奶妹本人身份直接判断新鲜game_decision和已附完整current_game。已有Wiki参数、原文和回执不必重复查询；状态齐全时不要再次刷新或先输出口语，直接调用isaac_submit_plan。结合route_progress持续推进，回访不叫首次探索，不反复去刚放弃的资源支路。按required_assessment评估本地补给、成长和缺钥匙回收，提交offer_id、assessment、最多15字含标点的commentary；下楼另逐项reward_review。成功即结束，不称尚未发生的效果已完成。',Math.min(55000,this.bridge?.policy?.conversation?.model_timeout_ms||18000,Math.max(1000,decision.remaining_ms-500)));
+        '以奶妹本人身份直接判断新鲜game_decision和已附完整current_game。已有Wiki参数、原文和回执不必重复查询；状态齐全时不要再次刷新或先输出口语，直接调用isaac_submit_plan。结合route_progress持续推进，回访不叫首次探索，不反复去刚放弃的资源支路。按required_assessment评估本地补给、成长和缺钥匙回收，提交offer_id、assessment（growth/key_recovery各40至80字，硬上限各160字）、最多15字含标点的commentary；下楼另逐项reward_review。成功即结束，不称尚未发生的效果已完成。',Math.min(55000,this.bridge?.policy?.conversation?.model_timeout_ms||18000,Math.max(1000,decision.remaining_ms-500)));
       this.assertTurnCurrent(turn);
       requireValue(turn.submitted,'CORE_TURN_DID_NOT_SUBMIT_A_CHOICE',409);
       this.turns++;this.lastError=null;this.latencies.push(Date.now()-started);if(this.latencies.length>200)this.latencies.shift();

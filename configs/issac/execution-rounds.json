@@ -23,7 +23,7 @@
     "evidence": "docs/evidence/issac-round1-copy-20261107.json"
   },
   "round_2_onward": {
-    "status": "AGENCY12_whole_round_code_complete_validation_pending",
+    "status": "AGENCY13_whole_round_code_complete_validation_pending",
     "development_scope": "Frozen G01-G16 / 140 requirements with original Responses channel and one Naimei core",
     "order": [
       "finish_all_round_development",
@@ -41,7 +41,7 @@
       "candidate_scope_and_reproducible_commands"
     ],
     "defect_policy": "Close the test phase and implement one complete correction round before retesting; never patch between tests within a phase",
-    "inventory": "configs/issac/development-agency12-600.json"
+    "inventory": "configs/issac/development-agency13-600.json"
   },
   "acceptance_scope_retained": [
     "native_game_ABI_and_read_only_observation",
@@ -179,6 +179,15 @@
       "status": "closed_failed_regressions",
       "closed_unix": 1794284231.489578,
       "evidence": "operations/live300-20261109/agency11-failed-regressions.json",
+      "full_product_acceptance": false
+    },
+    {
+      "round": "AGENCY12",
+      "candidate_id": "issac-c8ce094601cc-9ea20c4e",
+      "source_commit": "c8ce094601cce0e030dad84ff1d1de6a089b90c9",
+      "status": "closed_failed",
+      "closed_unix": 1794285228.646195,
+      "evidence": "operations/live300-20261109/agency12-failed-600.json",
       "full_product_acceptance": false
     }
   ],

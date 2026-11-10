@@ -579,3 +579,16 @@ test('new item selection needs both growth assessment and matched current Wiki e
   turn.wiki_evidence=new Map([['current',{query:{kind:'item',query:'26'},result:{known:true,receipt_sha256:'verified'}}]]);
   assert.equal((await core.tool('isaac_submit_plan',choice,{sessionId,turn})).status,'accepted');
 });
+
+test('an oversized assessment never reaches native execution and can be repaired against the same fresh decision',async()=>{
+  const {core,turn,sessionId,calls}=fixture();turn.session_id=sessionId;
+  core.decision=async()=>({...offered(),context:{inventory_revision:'inventory-A',required_assessment:{},pickups:[]},
+    offers:[{id:'heart-A',op:'enter_door',cost:exactCost()}]});
+  const choice={offer_id:'heart-A',commentary:'先看看首领是谁。',
+    assessment:{growth:'评'.repeat(161),key_recovery:'没有已知可回收钥匙。'}};
+  await assert.rejects(core.tool('isaac_submit_plan',choice,{sessionId,turn}),/CORE_ASSESSMENT_MAX_160_CHARS/);
+  assert.equal(calls.length,0);assert.equal(turn.submitted,undefined);
+  choice.assessment.growth='当前没有待比较道具，按原路线进入首领房。';
+  await core.tool('isaac_submit_plan',choice,{sessionId,turn});
+  assert.equal(calls.length,1);assert.equal(turn.submitted.status,'accepted');
+});

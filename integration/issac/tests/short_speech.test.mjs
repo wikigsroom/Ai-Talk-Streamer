@@ -1,7 +1,23 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {SpokenHistory,shortSpeech,speechSimilarity} from '../../../backend/dsh-bridge/short-speech.mjs';
-import {compactContinuous} from '../../../backend/dsh-bridge/continuous-context.mjs';
+import {compactContinuous,messageBudget} from '../../../backend/dsh-bridge/continuous-context.mjs';
+
+test('opaque provider replay stays intact and has a separate bounded transport size',()=>{
+  const messages=[{role:'assistant',content:[{type:'text',text:'先核对首领。'}],
+    source:{kind:'model',replayState:{opaque:'x'.repeat(600000)}}}];
+  const copy=structuredClone(messages),budget=messageBudget(messages);
+  assert.ok(budget.estimated_input_tokens<1000);
+  assert.ok(budget.serialized_message_bytes>512*1024);
+  assert.deepEqual(messages,copy);
+});
+
+test('large visible game and tool results still exceed the semantic context budget',()=>{
+  for(const role of ['user','tool']){
+    const messages=[{role,content:[{type:'text',text:'x'.repeat(50000)}],toolCallId:'real-tool-id'}];
+    assert.ok(messageBudget(messages).estimated_input_tokens>24000);
+  }
+});
 
 test('speech cap counts punctuation and preserves Unicode code points',()=>{
   for(const text of ['这个道具能补血，拿上以后再往前探索。','😀'.repeat(20),'先拿道具。然后看看还能找到什么有用的东西。']){
