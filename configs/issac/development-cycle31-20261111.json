@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE31",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [
+    {
+      "id": "NATIVE_POWERSHELL_FIXTURE_ARRAY_BOUNDARY",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "scripts/issac_broadcast_resume.ps1",
+        "scripts/issac_broadcast_state.psm1",
+        "integration/issac/live_supervisor.py",
+        "integration/issac/tests/test_official_ui_state.py",
+        "integration/issac/tests/fixtures/official-live-ui-20261111.json",
+        "integration/issac/tests/fixtures/classify-official-live-ui.ps1",
+        "docs/issac/采集宿主恢复顺序修订20261110.md",
+        "AGENTS.md"
+      ]
+    }
+  ],
+  "previous_round_closed": "CYCLE30 local 94 tests: 91 passed, 3 failed; not deployed. Windows PowerShell 5 fixture decoding nested the buttons as one array object, losing individual hidden/disabled/text identity. Assign the decoded array directly. Production classifier and recovery logic remain CYCLE30; complete boundary reviewed again before freeze.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}
