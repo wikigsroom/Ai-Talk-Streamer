@@ -1,0 +1,1045 @@
+{
+  "actual_official_raw": "outputs/issac/recordings/raw/20261110-125151.mp4",
+  "added_audio": false,
+  "added_frames": false,
+  "all_18_release_gates_accepted": false,
+  "audio_validation": {
+    "audio_peak": 23346,
+    "audio_rms": 2048.785674136049,
+    "decode_exit_code": 0,
+    "decoded_audio_samples": 9600000
+  },
+  "candidate_id": "issac-94b8499e993e-6536e228",
+  "choices": [
+    {
+      "at": 1794286347396,
+      "decision_id": "31904153aac543c78650894e50c4b95b",
+      "elapsed_ms": 33937,
+      "op": "select_action",
+      "origin_room": 121,
+      "route": null,
+      "status": "accepted",
+      "text": "先打便便，碰碰补给运气。"
+    },
+    {
+      "at": 1794286428182,
+      "decision_id": "8fe232665a1547918b41c83b6d8d908c",
+      "elapsed_ms": 40698,
+      "op": "select_action",
+      "origin_room": 121,
+      "route": {
+        "first_slot": 3,
+        "kind": "unvisited_boss",
+        "path": [
+          121,
+          134
+        ],
+        "previously_visited": false,
+        "room": 134,
+        "room_type": "boss",
+        "terminal_key_cost": 0
+      },
+      "status": "accepted",
+      "text": "去会会首领，稳着来。"
+    },
+    {
+      "at": 1794286518297,
+      "decision_id": "3b4db67d0582488193267a4cc136a0ac",
+      "elapsed_ms": 28204,
+      "op": "select_action",
+      "origin_room": 134,
+      "route": null,
+      "status": "accepted",
+      "text": "这条皮带拿上，跑快点。"
+    },
+    {
+      "at": 1794286560825,
+      "decision_id": "8727c262c20143ad958bf9d4072d307f",
+      "elapsed_ms": 40206,
+      "op": "select_action",
+      "origin_room": 134,
+      "route": null,
+      "status": "accepted",
+      "text": "这块标记石，值得一炸。"
+    },
+    {
+      "at": 1794286587065,
+      "decision_id": "7a5bd75c0201429a8f55d09b24b15e29",
+      "elapsed_ms": 25936,
+      "op": "select_action",
+      "origin_room": 134,
+      "route": null,
+      "status": "accepted",
+      "text": "血量满着，准备下楼。"
+    },
+    {
+      "at": 1794286629414,
+      "decision_id": "d8df608784c049b0b8ce266a524a0dfc",
+      "elapsed_ms": 28924,
+      "op": "select_route",
+      "origin_room": 84,
+      "route": {
+        "first_slot": 2,
+        "kind": "unvisited_default",
+        "path": [
+          84,
+          85
+        ],
+        "previously_visited": false,
+        "room": 85,
+        "room_type": "default",
+        "terminal_key_cost": 0
+      },
+      "status": "accepted",
+      "text": "先探右边，找找钥匙。"
+    },
+    {
+      "at": 1794286678027,
+      "decision_id": "fec9f6fd2a784047b402e16a9437746a",
+      "elapsed_ms": 28497,
+      "op": "select_action",
+      "origin_room": 85,
+      "route": {
+        "first_slot": 2,
+        "kind": "unvisited_default",
+        "path": [
+          85,
+          86
+        ],
+        "previously_visited": false,
+        "room": 86,
+        "room_type": "default",
+        "terminal_key_cost": 0
+      },
+      "status": "accepted",
+      "text": "钥匙留好，前面再探探。"
+    },
+    {
+      "at": 1794286747590,
+      "decision_id": "49d703ea3d8b4134972843c11d115dec",
+      "elapsed_ms": 35008,
+      "op": "select_action",
+      "origin_room": 86,
+      "route": null,
+      "status": "accepted",
+      "text": "先把近处这团火灭了。"
+    },
+    {
+      "at": 1794286773043,
+      "decision_id": "838dc3b1d27b4869b57421f0d7cbc3e7",
+      "elapsed_ms": 24917,
+      "op": "select_route",
+      "origin_room": 86,
+      "route": {
+        "first_slot": 2,
+        "kind": "unvisited_default",
+        "path": [
+          86,
+          87
+        ],
+        "previously_visited": false,
+        "room": 87,
+        "room_type": "default",
+        "terminal_key_cost": 0
+      },
+      "status": "accepted",
+      "text": "还缺点火力，往右看看。"
+    },
+    {
+      "at": 1794286839623,
+      "decision_id": "86397e0e9b8f4f1daa866f4f7b2ae31f",
+      "elapsed_ms": 46464,
+      "op": "select_action",
+      "origin_room": 87,
+      "route": {
+        "first_slot": 2,
+        "kind": "unvisited_default",
+        "path": [
+          87,
+          88
+        ],
+        "previously_visited": false,
+        "room": 88,
+        "room_type": "default",
+        "terminal_key_cost": 0
+      },
+      "status": "accepted",
+      "text": "两把钥匙，心里踏实多了。"
+    },
+    {
+      "at": 1794286896914,
+      "decision_id": "261fb76a119f4266a8f1f7bdc3256e30",
+      "elapsed_ms": 29199,
+      "op": "select_action",
+      "origin_room": 88,
+      "route": {
+        "first_slot": 3,
+        "kind": "unvisited_default",
+        "path": [
+          88,
+          101
+        ],
+        "previously_visited": false,
+        "room": 101,
+        "room_type": "default",
+        "terminal_key_cost": 0
+      },
+      "status": "accepted",
+      "text": "新路在下面，去瞧瞧。"
+    }
+  ],
+  "completed_speech": [
+    {
+      "actual_pcm_samples": 43520,
+      "characters": 12,
+      "elapsed_seconds": 43.856,
+      "request_id": "req-de83f20c-7492-498f-a164-f521ae989e8d",
+      "status": "COMPLETED",
+      "text": "先打便便，碰碰补给运气。"
+    },
+    {
+      "actual_pcm_samples": 35840,
+      "characters": 10,
+      "elapsed_seconds": 181.807,
+      "request_id": "req-13a66271-e2bf-4747-9a29-1be9df443d8f",
+      "status": "COMPLETED",
+      "text": "还剩一个，血也没掉。"
+    },
+    {
+      "actual_pcm_samples": 39680,
+      "characters": 11,
+      "elapsed_seconds": 214.11,
+      "request_id": "req-90fe4c96-622c-43e5-a65f-c30707b9ddbf",
+      "status": "COMPLETED",
+      "text": "这条皮带拿上，跑快点。"
+    },
+    {
+      "actual_pcm_samples": 39680,
+      "characters": 11,
+      "elapsed_seconds": 256.978,
+      "request_id": "req-c5b91ddc-f63f-4347-b43e-7b833be0d701",
+      "status": "COMPLETED",
+      "text": "这块标记石，值得一炸。"
+    },
+    {
+      "actual_pcm_samples": 39040,
+      "characters": 10,
+      "elapsed_seconds": 443.161,
+      "request_id": "req-3c4fdafa-9639-4257-b1a0-350cc28d5375",
+      "status": "COMPLETED",
+      "text": "先把近处这团火灭了。"
+    },
+    {
+      "actual_pcm_samples": 35200,
+      "characters": 9,
+      "elapsed_seconds": 557.565,
+      "request_id": "req-af781a8c-3a4e-4393-98d8-bfecbfb875f7",
+      "status": "COMPLETED",
+      "text": "一进门就有活干呀。"
+    }
+  ],
+  "continuous_seconds": 600,
+  "continuous_sessions": [
+    "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279"
+  ],
+  "continuous_start_unix": 1794286312.0073235,
+  "decode_exit_code": 0,
+  "decoded_video_frames": 18000,
+  "end_automatic": false,
+  "end_normal_game_pause": true,
+  "end_protected_saves": {
+    "allowed_slot": 3,
+    "baseline_files": 2,
+    "baseline_id": "76a3a8d2337a4dd8a97877870036b57e",
+    "protected_unchanged": true,
+    "runtime_window_position_changes": [
+      {
+        "baseline_sha256": "ad6e5fced2e623d34601036fb5d5b36b09fbd4aa77e3d25e3c645c58761f2c43",
+        "observed_sha256": "d018b2e3173e25387795a2727326dc5eb8c8781c3cd73ce9779a18236daf5ebf",
+        "permitted_option_names": [
+          "WindowPosX",
+          "WindowPosY"
+        ],
+        "relative": "options.ini",
+        "root": 1
+      }
+    ]
+  },
+  "event_counts": {
+    "actual_core_speech_completed": 6,
+    "core_choice_completed": 11,
+    "core_control": 5,
+    "core_decision_superseded": 2,
+    "core_fact_expired": 1,
+    "core_fact_started": 11,
+    "core_speech_cancelled": 7,
+    "core_speech_queued": 13,
+    "core_tool": 11,
+    "core_turn_cancelled": 2,
+    "core_turn_started": 13,
+    "core_wiki_checked": 5
+  },
+  "final_relative_file": "operations/live300-20261109/official-600-r5/奶妹-以撒的结合-600秒-完整录制.mp4",
+  "gpu_geometry_mean_ms_median": 0.0,
+  "lua_update_mean_ms_median": 2.69166666666665,
+  "measured_render_fps": {
+    "median": 59.99430774076913,
+    "min": 58.82744951092337,
+    "samples": 40
+  },
+  "media_counters_delta": {
+    "actual_audio_driven_mouth_frames": 364,
+    "actual_model_oral_open_frames": 197,
+    "body_only_frames": 14511,
+    "encoder_max_us": 0,
+    "media_map_batches": 76,
+    "media_map_frames": 364,
+    "media_map_max_batch_frames": 5,
+    "media_map_max_us": 72834,
+    "mouth_projection_max_us": 34147,
+    "output_frames": 14875,
+    "render_delays": 0,
+    "utterances_generated": 6
+  },
+  "observed_control_faults": 0,
+  "observed_native_stale": 0,
+  "observed_unqualified_pauses": 0,
+  "official_pid": 28076,
+  "official_recording_closed": true,
+  "phase_closed_unix": 1794287313.0102737,
+  "probes": [
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 457,
+      "estimated_input_tokens": 10445,
+      "first_chunk_ms": 457,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "aborted",
+      "serialized_message_bytes": 36685,
+      "session_id": "naimei-fact-6cabcdafa5303169acab0b875428a7449ee4e4595e4483acff663c47b40a72aa",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 33884,
+      "estimated_input_tokens": 19743,
+      "first_chunk_ms": 2028,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "completed",
+      "serialized_message_bytes": 56433,
+      "session_id": "naimei-game-00408d708a04fe056881ed6b540b81f09f4ef6378976be38117df95fb66c3da5",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 20427,
+      "estimated_input_tokens": 16559,
+      "first_chunk_ms": 1820,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "aborted",
+      "serialized_message_bytes": 50058,
+      "session_id": "naimei-game-084430fecd57fa1271eb15a3b481d17141b3682c0bbd3bccda14c0546d2999ca",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 40549,
+      "estimated_input_tokens": 16405,
+      "first_chunk_ms": 2258,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "completed",
+      "serialized_message_bytes": 49728,
+      "session_id": "naimei-game-e3c60e543a4015621b853831543e2f14e26fcfa98e5a04a69cc6d62822199317",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 21242,
+      "estimated_input_tokens": 13189,
+      "first_chunk_ms": 2003,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "completed",
+      "serialized_message_bytes": 42972,
+      "session_id": "naimei-fact-f38ac788cbccbb3a023f0d237f7964a8b0dc709655b22a96e30bc465fcd6baa5",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 10812,
+      "estimated_input_tokens": 12875,
+      "first_chunk_ms": 2130,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "aborted",
+      "serialized_message_bytes": 42302,
+      "session_id": "naimei-fact-5ad8b640947cd8a90a6e4d4023a4cea763e84094ae67d5440660fe7f786e26de",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 13833,
+      "estimated_input_tokens": 11918,
+      "first_chunk_ms": 3065,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "completed",
+      "serialized_message_bytes": 40389,
+      "session_id": "naimei-fact-95528abbb706a7250cb4197e898a98716d9395af198c72ccf4e4b8caaaeb9897",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 27943,
+      "estimated_input_tokens": 19607,
+      "first_chunk_ms": 2941,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "completed",
+      "serialized_message_bytes": 57107,
+      "session_id": "naimei-game-c6efd952c7e10509f398f799739661647269d58598f140e2fac26ffcbc5e6aaa",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 40154,
+      "estimated_input_tokens": 19368,
+      "first_chunk_ms": 2640,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "completed",
+      "serialized_message_bytes": 57034,
+      "session_id": "naimei-game-5702424b92d39962458be8ded71c2eee349d964050dd2487b9c234d962e4e2a8",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 25900,
+      "estimated_input_tokens": 20244,
+      "first_chunk_ms": 2233,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "completed",
+      "serialized_message_bytes": 59195,
+      "session_id": "naimei-game-1ae77d2575e655eec9713a6ab8360922e8c7282b49623b8f1daccd2d3c620aa1",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 8486,
+      "estimated_input_tokens": 12629,
+      "first_chunk_ms": 2143,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "aborted",
+      "serialized_message_bytes": 42563,
+      "session_id": "naimei-fact-4486bbb90624ea08a144a432d0c88e6479b64293948cf2eb3c957825ee11c785",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 28886,
+      "estimated_input_tokens": 17422,
+      "first_chunk_ms": 2332,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "completed",
+      "serialized_message_bytes": 53631,
+      "session_id": "naimei-game-dcabbaaa9a1d915e92e9dac2fe67cf2b63301d49a390ed29d4a4e7e99d58198f",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 17494,
+      "estimated_input_tokens": 12127,
+      "first_chunk_ms": 1907,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "aborted",
+      "serialized_message_bytes": 41701,
+      "session_id": "naimei-fact-89ceb04f315259d220e906d036256f882274eea5a2c1df1e6360572359993bd6",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 28468,
+      "estimated_input_tokens": 17976,
+      "first_chunk_ms": 3409,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "completed",
+      "serialized_message_bytes": 54885,
+      "session_id": "naimei-game-8a40df8cd457313db2c6e462ad8b590ba1fde59f312cb01eeef156d2203deda1",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 5989,
+      "estimated_input_tokens": 12289,
+      "first_chunk_ms": 2050,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "aborted",
+      "serialized_message_bytes": 42169,
+      "session_id": "naimei-fact-642e1f4085cc5d0c46eb532211d8785492f70b83a9528f2cf31f6a864e179996",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 486,
+      "estimated_input_tokens": 19397,
+      "first_chunk_ms": 486,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "aborted",
+      "serialized_message_bytes": 57983,
+      "session_id": "naimei-game-7e8064877789e000ddb2800ec986241cf5a37992050cfb4e34a33440083372f9",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 482,
+      "estimated_input_tokens": 11739,
+      "first_chunk_ms": 482,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "aborted",
+      "serialized_message_bytes": 40984,
+      "session_id": "naimei-fact-f8f263b18a1957e94d9c0efea9852b8f53deb1a88e3243d63d17e1414af24f9a",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 34980,
+      "estimated_input_tokens": 18839,
+      "first_chunk_ms": 3752,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "completed",
+      "serialized_message_bytes": 56782,
+      "session_id": "naimei-game-316291090a92292828ab2660a69a0f249ef55667def2f198d8ec9dccc90cbeaf",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 24886,
+      "estimated_input_tokens": 19337,
+      "first_chunk_ms": 2133,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "completed",
+      "serialized_message_bytes": 57923,
+      "session_id": "naimei-game-f8df1148726c8dfa3313ffbc5d656211895b9e3b52aa539419dc7533b6d63a79",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 15500,
+      "estimated_input_tokens": 12710,
+      "first_chunk_ms": 2297,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "aborted",
+      "serialized_message_bytes": 43246,
+      "session_id": "naimei-fact-136d84f709c9f457fbf2b2cd600db387d20134b9fae9ee6bf651d383d5990a5c",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 46430,
+      "estimated_input_tokens": 19856,
+      "first_chunk_ms": 2843,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "completed",
+      "serialized_message_bytes": 58754,
+      "session_id": "naimei-game-526edbc7fbfbdc18e9c1c7542328920d0708fc5c07e93f4af0f777e09375518e",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 20095,
+      "estimated_input_tokens": 13801,
+      "first_chunk_ms": 2266,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "completed",
+      "serialized_message_bytes": 45598,
+      "session_id": "naimei-fact-b0b8621e66d5b3e243c5ce604137557c800194903c4a97f306e936121b43cb1e",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 29169,
+      "estimated_input_tokens": 20878,
+      "first_chunk_ms": 2255,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "completed",
+      "serialized_message_bytes": 61027,
+      "session_id": "naimei-game-2d703d6f7c5a07a4edbba14e142bf316599bea2ddd7ec68138fe3a57e5585a93",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    },
+    {
+      "continuous_session_id": "naimei-live-d3d38cfc-09bd-40b5-ba0d-649d9201c279",
+      "elapsed_ms": 29057,
+      "estimated_input_tokens": 14126,
+      "first_chunk_ms": 1854,
+      "game_reasoning_effort": "low",
+      "has_humanizer": true,
+      "has_issac_wiki": true,
+      "has_meme_guide": true,
+      "has_persona": true,
+      "has_soul": true,
+      "model": "gpt-6.1-sol",
+      "phase": "aborted",
+      "serialized_message_bytes": 46338,
+      "session_id": "naimei-fact-e5175d257815c66637e5fd274f34846e52d3876086d034b9aff1d5240dc2a3b8",
+      "step": 1,
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query"
+      ]
+    }
+  ],
+  "protected_saves_verified": {
+    "allowed_slot": 3,
+    "baseline_files": 2,
+    "baseline_id": "76a3a8d2337a4dd8a97877870036b57e",
+    "protected_unchanged": true,
+    "runtime_window_position_changes": [
+      {
+        "baseline_sha256": "ad6e5fced2e623d34601036fb5d5b36b09fbd4aa77e3d25e3c645c58761f2c43",
+        "observed_sha256": "d018b2e3173e25387795a2727326dc5eb8c8781c3cd73ce9779a18236daf5ebf",
+        "permitted_option_names": [
+          "WindowPosX",
+          "WindowPosY"
+        ],
+        "relative": "options.ini",
+        "root": 1
+      }
+    ]
+  },
+  "public_stream_started": false,
+  "rooms": [
+    {
+      "at": 3.357,
+      "room": 121,
+      "stage": 2
+    },
+    {
+      "at": 123.326,
+      "room": 134,
+      "stage": 2
+    },
+    {
+      "at": 283.334,
+      "room": 134,
+      "stage": 3
+    },
+    {
+      "at": 288.344,
+      "room": 84,
+      "stage": 3
+    },
+    {
+      "at": 323.387,
+      "room": 85,
+      "stage": 3
+    },
+    {
+      "at": 368.336,
+      "room": 86,
+      "stage": 3
+    },
+    {
+      "at": 468.335,
+      "room": 87,
+      "stage": 3
+    },
+    {
+      "at": 533.349,
+      "room": 88,
+      "stage": 3
+    },
+    {
+      "at": 588.348,
+      "room": 101,
+      "stage": 3
+    }
+  ],
+  "same_source_verified_at_phase_end": true,
+  "sample_count": 120,
+  "sha256": "efb4c15ffed5527829222042564c4bf071aa18a1e3b0e4f67de806d3e9b90595",
+  "source_commit": "94b8499e993e39cc55f0a728cbfc878d47a27d81",
+  "source_files_verified_at_phase_end": 2366,
+  "unique_rooms": 9,
+  "verified_drink_control_revisions": [
+    "4",
+    "6"
+  ],
+  "media_validation": {
+    "file": "奶妹-以撒的结合-600秒-完整录制.mp4",
+    "sha256": "efb4c15ffed5527829222042564c4bf071aa18a1e3b0e4f67de806d3e9b90595",
+    "bytes": 182861623,
+    "video": {
+      "codec_name": "h264",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "duration": "600.000000",
+      "nb_frames": "18000"
+    },
+    "audio": {
+      "codec_name": "aac",
+      "sample_rate": "48000",
+      "channels": 2,
+      "duration": "600.000000"
+    },
+    "audio_peak_normalized": 0.71246337890625,
+    "audio_rms_normalized": 0.06252397687182766,
+    "audio_rms_dbfs": -24.079068124713704,
+    "decoded_audio_samples": 9600000,
+    "full_remote_decode_exit_code": 0,
+    "transfer_sha256_matches": true,
+    "sampled_frame_times": [
+      0,
+      60,
+      120,
+      180,
+      240,
+      300,
+      360,
+      420,
+      480,
+      540,
+      599
+    ],
+    "continuous_same_raw_recording": true,
+    "added_frames": false,
+    "added_audio": false,
+    "public_stream_started": false
+  },
+  "regression_suites": [
+    {
+      "suite": "issac_python_integration",
+      "passed": 149
+    },
+    {
+      "suite": "native_isaac_agent",
+      "passed": 679
+    },
+    {
+      "suite": "dsh_bridge_node",
+      "passed": 76
+    },
+    {
+      "suite": "actual_native_dsh_sdk",
+      "passed": 11
+    }
+  ],
+  "regressions_passed": 915,
+  "actual_native_dsh_one_continuous_session": true,
+  "full_subjective_audio_video_review_completed": false,
+  "reviewed_visual_samples": [
+    "600秒画面抽检.jpg",
+    "口型抽帧核验.jpg"
+  ],
+  "decision_latency_seconds": {
+    "count": 11,
+    "min": 24.917,
+    "median": 29.199,
+    "max": 46.464
+  },
+  "gpu_geometry_observed": {
+    "enabled": true,
+    "samples_with_actual_requests": 18,
+    "max_requests_counter": 729,
+    "fallbacks": 0
+  },
+  "delivery_scope": "one_actual_continuous_600_second_official_local_recording",
+  "recording_file_bytes": 182861623
+}

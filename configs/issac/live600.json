@@ -27,7 +27,7 @@
   },
   "runtime_or_media_acceptance_claimed": false,
   "tests_paused_by_user": false,
-  "current_action_scope": "AGENCY13_semantic_context_and_same_agent_assessment_repair_then_continuous_official_recording",
+  "current_action_scope": "AGENCY13_continuous_600_recording_delivered_game_paused",
   "game_and_media_host": "native_windows_rtx4090",
   "core_model_channel": {
     "model": "gpt-6.1-sol",
@@ -40,13 +40,13 @@
     "historical_channel_evidence_is_current_deployment_acceptance": false,
     "same_naimei_core_for_observation_tools_decisions_and_speech": true,
     "automatic_model_or_channel_replacement_allowed": false,
-    "runtime_alignment": "AGENCY08_actual_original_channel_and_three_same_agent_speech_turns_verified_with_limits",
+    "runtime_alignment": "AGENCY13_continuous_600_recording_delivered_game_paused",
     "isolated_private_configuration": "private/issac/channel.env"
   },
   "cloud_media_services_allowed": false,
   "recording_runtime": {
-    "candidate_id": "AGENCY13_pending_source_freeze",
-    "source_commit": "assigned_after_whole_round_commit",
+    "candidate_id": "issac-94b8499e993e-6536e228",
+    "source_commit": "94b8499e993e39cc55f0a728cbfc878d47a27d81",
     "character_mode": "M03",
     "output": [
       1920,
@@ -58,5 +58,28 @@
     "public_stream_started": false,
     "keep_latest_local_supply_and_DSH_split": true,
     "actual_spoken_max_characters": 15
+  },
+  "scoped_600_recording_verified": true,
+  "delivery": {
+    "scope": "one_actual_continuous_600_second_official_local_recording",
+    "status": "completed_with_documented_limits",
+    "round": "AGENCY13",
+    "candidate_id": "issac-94b8499e993e-6536e228",
+    "source_commit": "94b8499e993e39cc55f0a728cbfc878d47a27d81",
+    "archive_sha256": "169419e2bd1ac5c246f805fe74be65af6c433eeeb8f9180cb4167ea3b399b509",
+    "source_manifest_sha256": "e53511e7316a2c7013d81a29bed80a0130d9520e6d761fb7fb5f64c5a8f3e127",
+    "evidence": "docs/evidence/issac-live600-20261110.json",
+    "evidence_sha256": "70b6047fc8077ade1cf49e16de842b5c1f03bfdea2e7dc23f715b4f919e8ff57",
+    "report": "docs/issac/600秒录播交付20261110.md",
+    "regressions_passed": 915,
+    "continuous_seconds": 600,
+    "decoded_video_frames": 18000,
+    "actual_completed_speech": 6,
+    "actual_same_native_dsh_sessions": 1,
+    "all_18_release_gates_accepted": false,
+    "public_stream_started": false,
+    "end_automatic": false,
+    "end_normal_game_pause": true,
+    "phase_closed_unix": 1794287313.0102737
   }
 }

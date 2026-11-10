@@ -2,15 +2,15 @@
   "schema_version": 1,
   "round": "AGENCY13",
   "branch": "issac",
-  "candidate_frozen": false,
-  "application_tests_started": false,
+  "candidate_frozen": true,
+  "application_tests_started": true,
   "manual_whole_round_source_review_complete": true,
   "tests_run_during_development": false,
   "unresolved_round_code_TODOs": [],
   "items": [
     {
       "id": "VISIBLE-CONTEXT-AND-ASSESSMENT-REPAIR",
-      "status": "code_complete_pending_acceptance",
+      "status": "verified_in_closed_600_recording_phase",
       "source_files": [
         "backend/dsh-bridge/continuous-context.mjs",
         "backend/dsh-bridge/host.mjs",
@@ -26,5 +26,28 @@
     }
   ],
   "previous_validation_closed": "operations/live300-20261109/agency12-closed.json",
-  "previous_failure": "At 218.467 seconds an over-160-character growth assessment was rejected; the bounded correction call falsely counted opaque provider replay as visible context and hit STREAM_CONTEXT_BUDGET."
+  "previous_failure": "At 218.467 seconds an over-160-character growth assessment was rejected; the bounded correction call falsely counted opaque provider replay as visible context and hit STREAM_CONTEXT_BUDGET.",
+  "validation_phase_closed": true,
+  "validation": {
+    "scope": "one_actual_continuous_600_second_official_local_recording",
+    "status": "completed_with_documented_limits",
+    "round": "AGENCY13",
+    "candidate_id": "issac-94b8499e993e-6536e228",
+    "source_commit": "94b8499e993e39cc55f0a728cbfc878d47a27d81",
+    "archive_sha256": "169419e2bd1ac5c246f805fe74be65af6c433eeeb8f9180cb4167ea3b399b509",
+    "source_manifest_sha256": "e53511e7316a2c7013d81a29bed80a0130d9520e6d761fb7fb5f64c5a8f3e127",
+    "evidence": "docs/evidence/issac-live600-20261110.json",
+    "evidence_sha256": "70b6047fc8077ade1cf49e16de842b5c1f03bfdea2e7dc23f715b4f919e8ff57",
+    "report": "docs/issac/600秒录播交付20261110.md",
+    "regressions_passed": 915,
+    "continuous_seconds": 600,
+    "decoded_video_frames": 18000,
+    "actual_completed_speech": 6,
+    "actual_same_native_dsh_sessions": 1,
+    "all_18_release_gates_accepted": false,
+    "public_stream_started": false,
+    "end_automatic": false,
+    "end_normal_game_pause": true,
+    "phase_closed_unix": 1794287313.0102737
+  }
 }

@@ -23,7 +23,7 @@
     "evidence": "docs/evidence/issac-round1-copy-20261107.json"
   },
   "round_2_onward": {
-    "status": "AGENCY13_whole_round_code_complete_validation_pending",
+    "status": "AGENCY13_closed_continuous_600_recording_delivered_with_documented_limits",
     "development_scope": "Frozen G01-G16 / 140 requirements with original Responses channel and one Naimei core",
     "order": [
       "finish_all_round_development",
@@ -59,7 +59,7 @@
     "fault_recovery_regressions_and_rollback",
     "30_minute_then_120_minute_same_host_load_checks",
     "real_gameplay_win_death_and_end_receipts",
-    "official_Livehime_300_second_local_recording_and_actual_media_review"
+    "official_Livehime_600_second_local_recording_and_actual_media_review"
   ],
   "public_broadcast_authorized": false,
   "virtualization_allowed": false,
@@ -189,6 +189,15 @@
       "closed_unix": 1794285228.646195,
       "evidence": "operations/live300-20261109/agency12-failed-600.json",
       "full_product_acceptance": false
+    },
+    {
+      "round": "AGENCY13",
+      "candidate_id": "issac-94b8499e993e-6536e228",
+      "source_commit": "94b8499e993e39cc55f0a728cbfc878d47a27d81",
+      "status": "closed_continuous_600_recording_verified_with_documented_limits",
+      "closed_unix": 1794287313.0102737,
+      "evidence": "docs/evidence/issac-live600-20261110.json",
+      "full_product_acceptance": false
     }
   ],
   "current_user_amendment": "docs/issac/控制分工与连续人格修订20261110.md",
@@ -204,27 +213,33 @@
     "historical_channel_evidence_is_current_deployment_acceptance": false,
     "same_naimei_core_for_observation_tools_decisions_and_speech": true,
     "automatic_model_or_channel_replacement_allowed": false,
-    "runtime_alignment": "actual_original_api_tool_probe_and_three_same_native_agent_short_speech_turns_passed",
-    "current_evidence": "docs/evidence/issac-agency-20261110.json"
+    "runtime_alignment": "AGENCY13_actual_original_channel_same_native_DSH_session_11_choices_and_6_completed_spoken_utterances",
+    "current_evidence": "docs/evidence/issac-live600-20261110.json"
   },
   "tests_paused_by_user": false,
   "current_revision_document": "docs/issac/控制分工与连续人格修订20261110.md",
   "historical_round_inventory_is_current_startup_authority": false,
   "current_execution_amendment": "configs/issac/live600.json",
   "current_validation": {
-    "scope": "20261110_agency_and_continuous_persona_amendment_only",
-    "status": "deployed_and_verified_with_documented_limits",
-    "round": "AGENCY08",
-    "candidate_id": "issac-91296ef15c7b-4d55fc62",
-    "source_commit": "91296ef15c7ba4d634813c059a1b39dc12bf9fee",
-    "archive_sha256": "37de12798ae3cc88c3abb513d1030d7771293cdaf0c869966c04a7dc31ae0c3d",
-    "source_manifest_sha256": "e6c2c85ac8abad3d1dc78a5aa4d4e398f3a89dd1f099a8a2da3d624303bd467d",
-    "evidence": "docs/evidence/issac-agency-20261110.json",
-    "evidence_sha256": "a74ab0902b5a91b82bd8d6156ab563fd85f14df07ddb03919facf79904d40c5a",
-    "report": "docs/issac/控制分工与连续人格核验20261110.md",
-    "regressions_passed": 900,
-    "actual_same_native_agent_short_speech_turns": 3,
-    "new_boss_run_or_300s_or_long_run_accepted": false,
-    "public_stream_started": false
+    "scope": "one_actual_continuous_600_second_official_local_recording",
+    "status": "completed_with_documented_limits",
+    "round": "AGENCY13",
+    "candidate_id": "issac-94b8499e993e-6536e228",
+    "source_commit": "94b8499e993e39cc55f0a728cbfc878d47a27d81",
+    "archive_sha256": "169419e2bd1ac5c246f805fe74be65af6c433eeeb8f9180cb4167ea3b399b509",
+    "source_manifest_sha256": "e53511e7316a2c7013d81a29bed80a0130d9520e6d761fb7fb5f64c5a8f3e127",
+    "evidence": "docs/evidence/issac-live600-20261110.json",
+    "evidence_sha256": "70b6047fc8077ade1cf49e16de842b5c1f03bfdea2e7dc23f715b4f919e8ff57",
+    "report": "docs/issac/600秒录播交付20261110.md",
+    "regressions_passed": 915,
+    "continuous_seconds": 600,
+    "decoded_video_frames": 18000,
+    "actual_completed_speech": 6,
+    "actual_same_native_dsh_sessions": 1,
+    "all_18_release_gates_accepted": false,
+    "public_stream_started": false,
+    "end_automatic": false,
+    "end_normal_game_pause": true,
+    "phase_closed_unix": 1794287313.0102737
   }
 }
