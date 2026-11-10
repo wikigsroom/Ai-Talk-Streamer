@@ -39,7 +39,7 @@ class ApplicationStartupTests(unittest.TestCase):
             def http(url,body=None,**_):
                 if url.endswith('/api/dsh/probe'):
                     self.assertIn('/health',requests)
-                    return {'passed':True,'model':'deepseek-flash','protocol':'responses'}
+                    return {'passed':True,'model':'gpt-6-luna','protocol':'responses'}
                 if url.endswith('/api/dsh/issac/core/status'):
                     return {'actor_id':'naimei','strategic_owner':'naimei_core_dsh','independent_strategy_host':False,
                         'registeredTools':['isaac_get_state','isaac_get_decision','isaac_lookup','isaac_submit_plan','isaac_wiki_query'],

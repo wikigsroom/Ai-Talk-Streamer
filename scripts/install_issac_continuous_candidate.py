@@ -174,8 +174,15 @@ def apply(root,prepared,regressions):
         '--root',str(root),'--adopt-running'],cwd=root,env=runtime_environment(root,'game'),stdin=subprocess.DEVNULL,
         stdout=log,stderr=subprocess.STDOUT,creationflags=0x08000200,close_fds=True)
     deadline=time.monotonic()+180
+    persona_probe_completed=False
     while True:
         try:
+            if not persona_probe_completed and api(3104,'/health',timeout=2).get('dsh_ready') is True:
+                proof=api(3104,'/api/dsh/probe',{},timeout=45)
+                expected=json.loads((root/'configs/issac/core-model.json').read_text('utf8'))
+                if proof.get('passed') is not True or any(proof.get(k)!=expected[k] for k in ['model','protocol']):
+                    raise ValueError('ADOPTED_PERSONA_PROBE_NOT_PASSED')
+                persona_probe_completed=True
             if all(api(port,path,timeout=2).get('ready') is True for port,path in [(8062,'/health'),(3104,'/api/dsh/issac/core/status')]):break
         except Exception:pass
         if child.poll() is not None or time.monotonic()>=deadline:raise ValueError('ADOPTED_STACK_NOT_READY_GAME_LEFT_RUNNING')

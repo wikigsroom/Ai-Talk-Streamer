@@ -533,7 +533,7 @@ class LiveSupervisor:
             'GAME_SIMULATION_STALLED':'game-controller','LOCAL_CONTROLLER_REPAIR_REQUIRED':'game-controller'}
         for name,port,path in checks:
             row=(app.get('children') or {}).get(name) or {}
-            try:health=self.api(port,path)
+            try:health=self.component_health(name,port,path)
             except Exception:health={}
             ready=health.get('service')=='issac-native-game' or health.get('ready') is True
             if row.get('alive') and ready and name!=forced.get(fault):continue
@@ -542,7 +542,7 @@ class LiveSupervisor:
             deadline=time.monotonic()+900
             while True:
                 try:
-                    health=self.api(port,path)
+                    health=self.component_health(name,port,path)
                     if health.get('service')=='issac-native-game' or health.get('ready') is True:break
                     if health.get('stage')=='failed':raise AdmissionError('COMPONENT_REPAIR_INITIALIZATION_FAILED')
                 except (OSError,ValueError):pass
@@ -583,6 +583,18 @@ class LiveSupervisor:
             game_created_at=game['created_at'],game_pause_requested=False,game_stop_requested=False)
         self.report('monitoring',healthy=True,public_live=True,restarts=self.state.restarts,
             game_pause_requested=False,game_stop_requested=False)
+
+    def component_health(self,name,port,path):
+        health=self.api(port,path)
+        if name=='narrator' and health.get('ready') is not True:
+            host=self.api(3104,'/health')
+            if host.get('dsh_ready') is True:
+                proof=self.api(3104,'/api/dsh/probe',{},timeout=45)
+                from .core_model import model_identity_matches
+                if proof.get('passed') is not True or not model_identity_matches(self.root,proof):
+                    raise AdmissionError('APPROVED_CHANNEL_PERSONA_PROBE_REQUIRED')
+                health=self.api(port,path)
+        return health
 
     def run(self):
         self.authorized()

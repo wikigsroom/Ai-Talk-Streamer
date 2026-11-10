@@ -5,7 +5,7 @@ import {join} from 'node:path';
 import {loadIsaacModel} from '../../../backend/dsh-bridge/isaac-model.mjs';
 import {loadPolicy} from '../../../backend/dsh-bridge/policy.mjs';
 
-test('official Flash model and game policy admit its 1M window with explicit output and tool reserves',()=>{
+test('pinned Luna model and game policy preserve the configured 1M budget with explicit output and tool reserves',()=>{
   const root=process.cwd(),model=loadIsaacModel(root),policy=loadPolicy(root,'configs/issac/bridge-policy.json');
   assert.equal(model.context_window_tokens,1000000);
   assert.equal(model.max_input_estimated_tokens+model.max_output_tokens+model.context_reserve_tokens,model.context_window_tokens);

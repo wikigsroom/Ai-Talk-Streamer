@@ -5,9 +5,9 @@ import {resolve} from 'node:path';
 export function loadIsaacModel(root) {
   const value=JSON.parse(readFileSync(resolve(root,'configs/issac/core-model.json'),'utf8'));
   const integers=['context_window_tokens','max_output_tokens','context_reserve_tokens','max_serialized_message_bytes'];
-  if(value.schema_version!==1||value.provider!=='deepseek-official'||value.model!=='deepseek-flash'
-      ||value.protocol!=='responses'||value.base_url!=='https://api.deepseek.com'
-      ||value.channel_source!=='issac_user_pinned_official_api'||value.reasoning_effort!=='low'
+  if(value.schema_version!==1||value.provider!=='studio-default'||value.model!=='gpt-6-luna'
+      ||value.protocol!=='responses'||value.base_url!=='http://43.160.221.28:9841/v1'
+      ||value.channel_source!=='issac_user_pinned_luna_api'||value.reasoning_effort!=='low'
       ||value.private_configuration!=='private/issac/channel.env'
       ||integers.some(key=>!Number.isSafeInteger(value[key])||value[key]<=0)
       ||value.context_window_tokens>2000000||value.max_output_tokens>value.context_window_tokens

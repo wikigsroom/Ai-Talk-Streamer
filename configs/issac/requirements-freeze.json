@@ -389,9 +389,9 @@
   "revision_document": "docs/issac/官方Flash与上下文修订20261110.md",
   "supersedes_contract_id": "NM-ISSAC-REQUIREMENTS-20261109-v2",
   "core_model_channel": {
-    "model": "deepseek-flash",
+    "model": "gpt-6-luna",
     "protocol": "responses",
-    "provider": "deepseek-official",
+    "provider": "studio-default",
     "historical_evidence": "docs/evidence/dsh-real-channel-three-turn.json",
     "original_configuration_entrypoint": "private/issac/channel.env",
     "private_configuration_fields": [
@@ -409,8 +409,8 @@
     "model_profile": "configs/issac/core-model.json",
     "context_window_tokens": 1000000,
     "private_configuration": "private/issac/channel.env",
-    "credentials_source": "latest_explicit_user_private_api_key",
-    "runtime_alignment": "FLASH16_pending_frozen_round_validation"
+    "credentials_source": "original_user_channel_before_flash14_private_backup",
+    "runtime_alignment": "CYCLE34_pending_frozen_round_validation"
   },
   "channel_provenance": [
     {
@@ -535,9 +535,9 @@
       "normalized_lf_sha256": "0778740ad53dea9c527c3ff5aedc94b8f6aea4684b4bf3ac31b280bae1752823"
     }
   ],
-  "current_amendment": "docs/issac/官方Flash与上下文修订20261110.md",
+  "current_amendment": "docs/issac/GPT6Luna切回与连续直播20261111.md",
   "conversation_amendment": {
-    "model": "deepseek-flash",
+    "model": "gpt-6-luna",
     "session_strategy": "continuous_naimei",
     "full_fresh_state_every_turn": true,
     "max_spoken_characters_including_punctuation": 15,
@@ -571,5 +571,5 @@
     "bytes": 8605
   },
   "current_model_profile": "configs/issac/core-model.json",
-  "current_model_amendment": "docs/issac/官方Flash与上下文修订20261110.md"
+  "current_model_amendment": "docs/issac/GPT6Luna切回与连续直播20261111.md"
 }

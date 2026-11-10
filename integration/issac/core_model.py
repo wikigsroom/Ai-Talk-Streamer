@@ -4,10 +4,10 @@ from .common import AdmissionError,inside,read_json
 
 def core_model(root):
     value=read_json(inside(root,'configs/issac/core-model.json'))
-    if (value.get('schema_version')!=1 or value.get('provider')!='deepseek-official'
-            or value.get('model')!='deepseek-flash' or value.get('protocol')!='responses'
-            or value.get('base_url')!='https://api.deepseek.com'
-            or value.get('channel_source')!='issac_user_pinned_official_api'):
+    if (value.get('schema_version')!=1 or value.get('provider')!='studio-default'
+            or value.get('model')!='gpt-6-luna' or value.get('protocol')!='responses'
+            or value.get('base_url')!='http://43.160.221.28:9841/v1'
+            or value.get('channel_source')!='issac_user_pinned_luna_api'):
         raise AdmissionError('ISAAC_MODEL_PROFILE_INVALID')
     return value
 

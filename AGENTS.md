@@ -1,5 +1,7 @@
 # issac 分支工作约束
 
+当前最高优先模型修订（2026-11-11）：用户在官方Flash余额耗尽后明确“转回gpt 6 luna”。唯一奶妹核心模型固定为gpt-6-luna，使用private/issac/channel-before-flash14.env所记录的原用户API与凭据，Responses、low；凭据仅写入忽略的private/issac/channel.env。禁止回退Flash、Sol、Swift、本地LLM。保留现有DSH长会话、原人格、七扩展、已播历史和全部定稿音视频。阅读docs/issac/GPT6Luna切回与连续直播20261111.md及configs/issac/core-model.json。本条覆盖下方Flash历史选型。现有1M预算保留，但小请求实测不能冒充1M容量验证。CYCLE33六组回归通过、源已安装，实机人格探测缺口及旧渠道余额造成未接管，不得宣称实机通过；CYCLE34补齐真实人格探测后统一验证。禁止自动暂停或结束仍存活游戏。
+
 当前最高优先要求（2026-11-11）：用户明确“之后喝水不允许暂停游戏，不允许因为任何原因打断游戏”，并再次要求立即继续玩。阅读 `docs/issac/游戏不中断与动作解耦20261111.md` 和 `configs/issac/game-continuity.json`。该要求覆盖本文件下方历史喝水暂停、模型故障安全暂停和整套重启活游戏规定。禁止自动暂停、主动结束或重启活着的游戏；喝水仅为人物动作；故障按组件恢复；真实进程退出才允许重新启动游戏；保留真实人工指令/F8接管。CYCLE31实机喝水失败并再次暂停，不得称600秒通过。CYCLE32因历史夹具读取新生产策略的等待而未部署；CYCLE33明确旧夹具策略并补齐组件修复用例，生产保持CYCLE32。整轮完成审阅提交冻结后测试，未有实际回执前不得宣称部署。
 
 最新依据为用户2026-11-10明确要求修复上下文限制并改用官方默认API的DeepSeek V4.1 Flash。优先阅读 `docs/issac/官方Flash与上下文修复交付20261110.md`、`docs/issac/官方Flash与上下文修订20261110.md`、`configs/issac/core-model.json`，再读 `docs/issac/公开直播弹幕测试20261110.md`、`docs/issac/600秒录播推进修订20261110.md` 和 `docs/issac/控制分工与连续人格修订20261110.md`。旧渠道与录播记录保留为历史。后续明确用户指令优先于本文件。

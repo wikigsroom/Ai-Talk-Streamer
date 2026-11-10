@@ -94,20 +94,20 @@
     "source_frozen_before_testing": true
   },
   "original_core_channel": {
-    "model": "deepseek-flash",
+    "model": "gpt-6-luna",
     "protocol": "responses",
     "private_configuration": "private/issac/channel.env",
     "inherited_configuration": null,
     "automatic_replacement_allowed": false,
-    "provider": "deepseek-official",
+    "provider": "studio-default",
     "model_profile": "configs/issac/core-model.json",
     "context_window_tokens": 1000000,
     "automatic_model_or_channel_replacement_allowed": false,
-    "credentials_source": "latest_explicit_user_private_api_key",
-    "runtime_alignment": "FLASH16_pending_frozen_round_validation"
+    "credentials_source": "original_user_channel_before_flash14_private_backup",
+    "runtime_alignment": "CYCLE34_pending_frozen_round_validation"
   },
   "original_api_inference_allowed": true,
   "cloud_media_inference_allowed": false,
   "current_model_profile": "configs/issac/core-model.json",
-  "current_model_amendment": "docs/issac/官方Flash与上下文修订20261110.md"
+  "current_model_amendment": "docs/issac/GPT6Luna切回与连续直播20261111.md"
 }

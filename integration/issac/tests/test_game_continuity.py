@@ -106,6 +106,24 @@ class GameContinuity(unittest.TestCase):
         self.assertEqual(lua.eval('__NativeIsaacController.strategyControl:requestPause("manual",true)'),'manual')
         self.assertFalse(lua.eval('__NativeIsaacController.strategyControl.pauseHold'))
 
+    def test_unprobed_narrator_runs_real_persona_probe_without_restarting_game(self):
+        owner=object.__new__(LiveSupervisor);owner.root=ROOT
+        replies=[{'ready':False},{'dsh_ready':True},
+                 {'passed':True,'model':'gpt-6-luna','protocol':'responses'},{'ready':True}]
+        owner.api=Mock(side_effect=replies)
+        self.assertTrue(owner.component_health('narrator',3104,'/api/dsh/issac/core/status')['ready'])
+        self.assertEqual([c.args[1] for c in owner.api.call_args_list],
+                         ['/api/dsh/issac/core/status','/health','/api/dsh/probe','/api/dsh/issac/core/status'])
+
+    def test_probe_failure_cannot_enable_or_replace_game_or_accept_previous_model(self):
+        for model in ('deepseek-flash','gpt-6.1-sol'):
+            owner=object.__new__(LiveSupervisor);owner.root=ROOT
+            owner.api=Mock(side_effect=[{'ready':False},{'dsh_ready':True},
+                                       {'passed':True,'model':model,'protocol':'responses'}])
+            with self.assertRaisesRegex(AdmissionError,'APPROVED_CHANNEL_PERSONA_PROBE_REQUIRED'):
+                owner.component_health('narrator',3104,'/api/dsh/issac/core/status')
+            self.assertEqual(len(owner.api.call_args_list),3)
+
     def test_actual_lua_controller_rejects_lease_pause_in_continuous_mode(self):
         from lupa.lua53 import LuaRuntime
         lua=LuaRuntime(unpack_returned_tuples=True)

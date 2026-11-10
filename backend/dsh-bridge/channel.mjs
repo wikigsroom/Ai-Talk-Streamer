@@ -66,7 +66,7 @@ export class ChannelConfig {
 }
 
 // Retain the exported class name for existing callers. The latest explicit user
-// choice pins the official model; there is no fallback to another saved channel.
+// choice pins GPT 6 Luna on the original API; there is no fallback to another saved channel.
 export class OriginalIsaacChannel extends ChannelConfig {
   constructor(root) {
     super(root);
@@ -76,7 +76,7 @@ export class OriginalIsaacChannel extends ChannelConfig {
   snapshot() {
     const value = super.snapshot();
     if (value.model!==this.profile.model||value.protocol!==this.profile.protocol||value.baseUrl!==this.profile.base_url) {
-      const error = new Error('ISAAC_APPROVED_OFFICIAL_CHANNEL_REQUIRED');
+      const error = new Error('ISAAC_APPROVED_CHANNEL_REQUIRED');
       error.code = error.message; error.status = 409; throw error;
     }
     return Object.freeze({...value,source:this.profile.channel_source,provider:this.profile.provider,

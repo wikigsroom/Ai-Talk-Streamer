@@ -1,20 +1,17 @@
 {
   "schema_version": 1,
-  "provider": "deepseek-official",
-  "model": "deepseek-flash",
-  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "provider": "studio-default",
+  "model": "gpt-6-luna",
+  "model_version": "gpt-6-luna",
   "protocol": "responses",
-  "base_url": "https://api.deepseek.com",
-  "channel_source": "issac_user_pinned_official_api",
+  "base_url": "http://43.160.221.28:9841/v1",
+  "channel_source": "issac_user_pinned_luna_api",
   "context_window_tokens": 1000000,
   "max_output_tokens": 2048,
   "context_reserve_tokens": 8192,
   "max_serialized_message_bytes": 33554432,
   "reasoning_effort": "low",
   "private_configuration": "private/issac/channel.env",
-  "official_references": [
-    "https://api-docs.deepseek.com/quick_start/pricing/",
-    "https://api-docs.deepseek.com/guides/responses_api/",
-    "https://api-docs.deepseek.com/updates/"
-  ]
+  "selection_authority": "explicit_user_request_20261111_gpt_6_luna",
+  "channel_verification": "original_user_api_models_catalog_and_real_responses_request"
 }

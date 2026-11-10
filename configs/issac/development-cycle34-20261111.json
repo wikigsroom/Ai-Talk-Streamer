@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE34",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [
+    {
+      "id": "USER_PINNED_LUNA_AND_REAL_PERSONA_PROBE",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "AGENTS.md",
+        "backend/dsh-bridge/channel.mjs",
+        "backend/dsh-bridge/isaac-model.mjs",
+        "configs/issac/core-model.json",
+        "configs/issac/core-persona-gameplay.md",
+        "configs/issac/execution-rounds.json",
+        "configs/issac/integration-plan.json",
+        "configs/issac/live120.json",
+        "configs/issac/live300.json",
+        "configs/issac/live600.json",
+        "configs/issac/requirements-freeze.json",
+        "configs/issac/runtime.json",
+        "integration/issac/core_model.py",
+        "integration/issac/live_supervisor.py",
+        "integration/issac/tests/channel.test.mjs",
+        "integration/issac/tests/model_profile.test.mjs",
+        "integration/issac/tests/test_application_startup.py",
+        "integration/issac/tests/test_core_model.py",
+        "integration/issac/tests/test_game_continuity.py",
+        "scripts/install_issac_continuous_candidate.py",
+        "docs/issac/GPT6Luna切回与连续直播20261111.md"
+      ]
+    }
+  ],
+  "previous_round_closed": "CYCLE33 six staged suites passed and source installed with same living game. Actual adoption did not complete: missing real persona probe and exhausted Flash account. No actual stability acceptance. Latest user explicitly switches to gpt-6-luna using original saved API.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}
