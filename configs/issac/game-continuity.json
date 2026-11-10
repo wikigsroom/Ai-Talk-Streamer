@@ -2,6 +2,7 @@
   "schema_version": 1,
   "uninterrupted_gameplay": true,
   "automatic_pause_allowed": false,
+  "focus_loss_pause_allowed": false,
   "restart_living_game_allowed": false,
   "drink_changes_game_control": false,
   "fault_recovery": "replace_failed_components_preserve_game",

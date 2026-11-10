@@ -10,6 +10,11 @@ def uninterrupted(root):
     return path.is_file() and json.loads(path.read_text('utf-8-sig')).get('uninterrupted_gameplay') is True
 
 
+DISABLE_FOCUS_LOSS_PAUSE='''assert(Options and type(Options.PauseOnFocusLost)=="boolean","focus option API required")
+Options.PauseOnFocusLost=false
+return tostring(Options.PauseOnFocusLost)'''
+
+
 NO_AUTOMATIC_PAUSE_GUARD='''local m=_G.__NativeIsaacController
 assert(m and m.strategyControl,"current trusted controller required")
 local c=m.strategyControl

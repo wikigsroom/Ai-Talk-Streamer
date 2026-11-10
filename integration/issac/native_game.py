@@ -19,7 +19,7 @@ import uuid
 from .common import AdmissionError, Audit, file_hash, inside, read_json, write_json
 from .game_policy import RunGoal
 from .saves import GAME_SHA256, SaveProtection
-from .continuity import uninterrupted
+from .continuity import uninterrupted,DISABLE_FOCUS_LOSS_PAUSE
 
 
 OBSERVE = '''if Game==nil then error("GAME_API_NOT_READY") end
@@ -296,6 +296,7 @@ class NativeGame:
 
     def install_controller(self, goal=None, *, allow_terminal=False):
         with self.lock:
+            self.configure_continuity_options()
             observed=self.observe()
             progress=self.progress()
             if allow_terminal and observed['dead']:
@@ -329,6 +330,12 @@ class NativeGame:
             self.audit.append('normal_input_controller_installed',run_goal=goal.name,
                               controller_sha256=file_hash(output),session_id=self.session_id)
             return {'installed':True,'goal':goal.name,'controller_sha256':file_hash(output),'autopilot':False}
+
+    def configure_continuity_options(self):
+        if not uninterrupted(self.root):return
+        if self.rpc('evaluate',DISABLE_FOCUS_LOSS_PAUSE)!='false':
+            raise AdmissionError('FOCUS_LOSS_PAUSE_NOT_DISABLED')
+        self.audit.append('focus_loss_pause_disabled',gameplay_values_changed=False)
 
     def resume(self):
         with self.lock:

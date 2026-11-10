@@ -13,6 +13,7 @@ import time
 import uuid
 
 from .common import AdmissionError, file_hash, inside, read_json, write_json
+from .continuity import uninterrupted
 
 
 GAME_SHA256 = '530b4d2accef833b8dbf6f1a9f781fe1e051c1916ca5acdb579df05a34640627'
@@ -41,6 +42,18 @@ def window_position_only(original, current):
         return WINDOW_POSITION.sub(lambda m:m[1]+b'<position>'+m[4]+m[5],content)
     baseline=normalize(original);observed=normalize(current)
     return baseline is not None and observed is not None and baseline==observed
+
+
+def continuity_options_only(original,current):
+    """User-authorized focus option may become 0; every other byte stays guarded."""
+    pattern=re.compile(rb'(?m)^([ \t]*PauseOnFocusLost[ \t]*=[ \t]*)([01])([ \t]*)(\r?\n|$)')
+    def normalize(content,observed):
+        matches=list(pattern.finditer(content))
+        count=len(re.findall(rb'(?mi)^[ \t]*PauseOnFocusLost[ \t]*=',content))
+        if len(matches)!=1 or count!=1 or observed and matches[0][2]!=b'0':return None
+        return pattern.sub(lambda m:m[1]+b'<focus>'+m[3]+m[4],content)
+    before=normalize(original,False);after=normalize(current,True)
+    return before is not None and after is not None and (before==after or window_position_only(before,after))
 
 
 class SaveProtection:
@@ -190,10 +203,12 @@ class SaveProtection:
                     raise AdmissionError('PROTECTED_SAVE_CHANGED')
                 current_sha=file_hash(source)
                 if current_sha!=row['sha256']:
-                    if source.name.lower()!='options.ini' or not window_position_only(backup.read_bytes(),source.read_bytes()):
+                    focus_changed=(source.name.lower()=='options.ini' and uninterrupted(self.root)
+                        and continuity_options_only(backup.read_bytes(),source.read_bytes()))
+                    if source.name.lower()!='options.ini' or not (focus_changed or window_position_only(backup.read_bytes(),source.read_bytes())):
                         raise AdmissionError('PROTECTED_SAVE_CHANGED')
                     window_changes.append({'root':row['root'],'relative':row['relative'],
-                        'permitted_option_names':['WindowPosX','WindowPosY'],
+                        'permitted_option_names':['WindowPosX','WindowPosY']+(['PauseOnFocusLost=0'] if focus_changed else []),
                         'baseline_sha256':row['sha256'],'observed_sha256':current_sha})
         for name in record['roots']:
             for path in Path(name).rglob('*'):

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE35",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [
+    {
+      "id": "FOCUS_PAUSE_OPTION_AND_IDEMPOTENT_COLLECTOR",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "AGENTS.md",
+        "configs/issac/game-continuity.json",
+        "integration/issac/continuity.py",
+        "integration/issac/live_supervisor.py",
+        "integration/issac/native_game.py",
+        "integration/issac/saves.py",
+        "integration/issac/strategy_host.py",
+        "integration/issac/tests/test_game_continuity.py",
+        "docs/issac/Luna现场焦点暂停与采集恢复20261111.md"
+      ]
+    }
+  ],
+  "previous_round_closed": "CYCLE34 source installed and Luna real persona/tool probe passed. Actual focus-loss pause and already-running collector error prevented stable acceptance. Fixed complete CYCLE35 before any tests.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}

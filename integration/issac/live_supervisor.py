@@ -571,7 +571,7 @@ class LiveSupervisor:
         if controller_replaced or not controller.get('native_attached') or not controller.get('armed'):
             self.api(9534,'/control',{'action':'adopt_live','pid':game['pid']},timeout=25)
         self.api(3104,'/api/dsh/issac/rehearsal/start',{},timeout=35)
-        self.api(3104,'/api/dsh/platforms/bilibili/collector/start',{},timeout=12)
+        self.ensure_bilibili_collector()
         try:
             from .official_window import identity
             identity(self.root,read_json(inside(self.root,'.setup/issac-livehime-owner.json')))
@@ -595,6 +595,15 @@ class LiveSupervisor:
                     raise AdmissionError('APPROVED_CHANNEL_PERSONA_PROBE_REQUIRED')
                 health=self.api(port,path)
         return health
+
+    def ensure_bilibili_collector(self):
+        try:return self.api(3104,'/api/dsh/platforms/bilibili/collector/start',{},timeout=12)
+        except AdmissionError as error:
+            if str(error)!='RECOVERY_API_COLLECTOR_ALREADY_RUNNING':raise
+            value=self.api(3104,'/api/dsh/platforms')
+            current=(value.get('collectors') or {}).get('bilibili') or {}
+            if current.get('state')!='CONNECTED' or current.get('error'):raise
+            return {'already_connected':True,'state':'CONNECTED'}
 
     def run(self):
         self.authorized()

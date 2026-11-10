@@ -292,6 +292,7 @@ class StrategyHost:
                 if self.service.raw.get('strategy',{}).get('manual_override'):
                     raise AdmissionError('EXPLICIT_OPERATOR_CONTROL_PRESERVED')
                 self.native.attach(body['pid'])
+                self.native.configure_continuity_options()
                 manual=self.native.rpc('evaluate','local m=_G.__NativeIsaacController;return tostring(m and m.strategyControl and m.strategyControl.manualOverride==true)')
                 if str(manual).lower()=='true':raise AdmissionError('EXPLICIT_OPERATOR_CONTROL_PRESERVED')
                 state=self.native.observe()

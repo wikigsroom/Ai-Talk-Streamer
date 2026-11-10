@@ -9,7 +9,8 @@ import unittest
 from unittest.mock import Mock,patch
 
 from integration.issac.common import AdmissionError
-from integration.issac.continuity import NO_AUTOMATIC_PAUSE_GUARD
+from integration.issac.continuity import NO_AUTOMATIC_PAUSE_GUARD,DISABLE_FOCUS_LOSS_PAUSE
+from integration.issac.saves import SaveProtection,continuity_options_only
 from integration.issac.live_cycle import LiveCycle
 from integration.issac.live_supervisor import LiveSupervisor
 from integration.issac.native_game import NativeGame
@@ -135,6 +136,48 @@ class GameContinuity(unittest.TestCase):
         self.assertIsNone(controller.pauseRequest)
         self.assertTrue(lua.eval('c:requestPause("operator",true)'))
         self.assertTrue(controller.pauseHold)
+
+    def test_actual_option_api_disables_focus_pause_without_touching_gameplay(self):
+        from lupa.lua53 import LuaRuntime
+        lua=LuaRuntime(unpack_returned_tuples=True)
+        lua.execute('Options={PauseOnFocusLost=true};health=9;seed=123')
+        self.assertEqual(lua.execute(DISABLE_FOCUS_LOSS_PAUSE),'false')
+        self.assertFalse(lua.eval('Options.PauseOnFocusLost'))
+        self.assertEqual(lua.eval('health'),9);self.assertEqual(lua.eval('seed'),123)
+
+    def test_native_focus_setting_is_fixed_and_legacy_policy_issues_no_rpc(self):
+        n=object.__new__(NativeGame);n.root=self.root;n.rpc=Mock(return_value='false');n.audit=Mock()
+        n.configure_continuity_options();n.rpc.assert_called_once_with('evaluate',DISABLE_FOCUS_LOSS_PAUSE)
+        (self.root/'configs/issac/game-continuity.json').unlink();n.rpc.reset_mock()
+        n.configure_continuity_options();n.rpc.assert_not_called()
+
+    def test_focus_option_writeback_preserves_exact_baseline_and_slot_guards(self):
+        game=self.root/'game';game.mkdir();option=game/'options.ini'
+        original=b'[Options]\r\nWindowPosX=1\r\nWindowPosY=2\r\nPauseOnFocusLost=1\r\nFoundHUD=1\r\n'
+        option.write_bytes(original);slot=game/'rep_persistentgamedata1.dat';slot.write_bytes(b'original')
+        guard=SaveProtection(self.root);baseline=guard.prepare([str(game)]);manifest=guard.manifest.read_bytes()
+        option.write_bytes(original.replace(b'PauseOnFocusLost=1',b'PauseOnFocusLost=0'))
+        self.assertTrue(guard.verify()['protected_unchanged']);self.assertEqual(guard.manifest.read_bytes(),manifest)
+        self.assertEqual(next(Path(r['backup']).read_bytes() for r in baseline['files'] if r['relative']=='options.ini'),original)
+        slot.write_bytes(b'altered')
+        with self.assertRaisesRegex(AdmissionError,'PROTECTED_SAVE_CHANGED'):guard.verify()
+
+    def test_focus_option_exception_cannot_allow_duplicates_other_options_or_reenable(self):
+        original=b'WindowPosX=1\nWindowPosY=2\nPauseOnFocusLost=1\nFoundHUD=1\n'
+        valid=original.replace(b'PauseOnFocusLost=1',b'PauseOnFocusLost=0')
+        self.assertTrue(continuity_options_only(original,valid))
+        for wrong in (original,valid+b'PauseOnFocusLost=0\n',valid.replace(b'FoundHUD=1',b'FoundHUD=0'),valid.replace(b'Lost=0',b'Lost=2')):
+            self.assertFalse(continuity_options_only(original,wrong))
+
+    def test_connected_collector_is_idempotent_but_disconnected_or_other_errors_are_not_hidden(self):
+        owner=object.__new__(LiveSupervisor)
+        owner.api=Mock(side_effect=[AdmissionError('RECOVERY_API_COLLECTOR_ALREADY_RUNNING'),{'collectors':{'bilibili':{'state':'CONNECTED','error':None}}}])
+        self.assertTrue(owner.ensure_bilibili_collector()['already_connected'])
+        owner.api=Mock(side_effect=[AdmissionError('RECOVERY_API_COLLECTOR_ALREADY_RUNNING'),{'collectors':{'bilibili':{'state':'FAILED','error':'network'}}}])
+        with self.assertRaisesRegex(AdmissionError,'COLLECTOR_ALREADY_RUNNING'):owner.ensure_bilibili_collector()
+        owner.api=Mock(side_effect=AdmissionError('RECOVERY_API_FORBIDDEN'))
+        with self.assertRaisesRegex(AdmissionError,'FORBIDDEN'):owner.ensure_bilibili_collector()
+        self.assertEqual(owner.api.call_count,1)
 
     def test_installer_path_checks_prevent_runtime_and_traversal_writes(self):
         spec=importlib.util.spec_from_file_location('continuous_installer',ROOT/'scripts/install_issac_continuous_candidate.py')
