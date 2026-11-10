@@ -489,7 +489,7 @@ class IsaacStudio(NaimeiStudio):
                         if done and not self.media_fault and not self.changing_mode:
                             sample=await self.drink_sample()
                             if not verified_drink_pause(sample):raise AdmissionError('DRINK_PAUSE_OWNERSHIP_CHANGED')
-                            await self.native_call({'action':'resume','expected_revision':action['control_revision']})
+                            await self.native_call({'action':'natural_resume','expected_revision':action['control_revision']})
                             self.audit.append('natural_drink_completed',identity=action['identity'],control_revision=action['control_revision'])
                         elif not done:
                             self.audit.append('natural_drink_deadline_exceeded',automatic_resume=False)
@@ -501,7 +501,7 @@ class IsaacStudio(NaimeiStudio):
                       and self.game_state.get('armed') and self.game_state.get('clear')
                       and any(c.get('runtime_enabled') and c['mode']==self.mode for c in self.body.registry.get('drink_chains',[]))):
                     async with self.http.get('http://127.0.0.1:9534/status',timeout=ClientTimeout(total=2)) as response:status=await response.json()
-                    result=await self.native_call({'action':'pause','expected_revision':status['control_revision']})
+                    result=await self.native_call({'action':'natural_pause','expected_revision':status['control_revision']})
                     if result.get('native_receipt',{}).get('normal_game_pause_acknowledged'):
                         native=result['native_receipt'];created=time.time()
                         async with self.http.get('http://127.0.0.1:9532/query?topic=state',timeout=ClientTimeout(total=2)) as response:view=await response.json()

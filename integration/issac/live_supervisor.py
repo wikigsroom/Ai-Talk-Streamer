@@ -108,14 +108,21 @@ class LiveSupervisor:
         requested = cycle.get('phase') == 'restart_required'
         if manual or requested:
             return False, manual, requested
-        if not cycle.get('enabled'):
+        studio = None
+        if cycle.get('phase') == 'natural_paused':
+            from .readiness import verified_drink_pause
+            studio = self.api(8062, '/health')
+            view = self.api(9532, '/query?topic=state')
+            if not verified_drink_pause({'state': view, 'game': controller, 'studio': studio}):
+                return False, False, False
+        elif not cycle.get('enabled'):
             return False, False, False
         if cycle.get('phase') == 'playing' and not controller.get('armed'):
             return False, False, False
         if cycle.get('phase') != 'playing' and cycle.get('phase_seconds', 0) > 90:
             return False, False, True
         core = self.api(3104, '/api/dsh/issac/core/status')
-        studio = self.api(8062, '/health')
+        studio = studio or self.api(8062, '/health')
         player = self.api(3104, '/api/dsh/platforms').get('output_player') or {}
         good = core.get('ready') is True and studio.get('ready') is True and player.get('connected') is True and player.get('audio_state') == 'running'
         return good, False, False

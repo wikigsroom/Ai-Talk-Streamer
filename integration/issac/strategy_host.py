@@ -263,11 +263,24 @@ class StrategyHost:
 
     def action(self, body):
         with self.action_lock:
+            revision_checked='expected_revision' in body
             if 'expected_revision' in body:
                 if type(body['expected_revision']) is not int or body['expected_revision']!=self.control_revision:
                     raise AdmissionError('OPERATOR_CONTROL_REVISION_CHANGED')
                 body={k:v for k,v in body.items() if k!='expected_revision'}
             action=body.get('action')
+            if action in {'natural_pause','natural_resume'} and set(body)=={'action'}:
+                if (not revision_checked or self.service.raw.get('strategy',{}).get('manual_override')
+                    or (action=='natural_pause' and (not self.armed or not self.lifecycle.enabled or self.lifecycle.phase!='playing'))
+                    or (action=='natural_resume' and (self.armed or self.lifecycle.enabled or self.lifecycle.phase!='natural_paused'))):
+                    raise AdmissionError('CURRENT_NATURAL_PAUSE_OWNERSHIP_REQUIRED')
+                enabled=action=='natural_resume'
+                result=self.control({'enabled':enabled,'live':enabled},origin='lifecycle')
+                if enabled:self.lifecycle.start()
+                else:
+                    self.lifecycle.enabled=False
+                    self.lifecycle.change('natural_paused','studio_drink')
+                return result
             if action=='attach' and set(body)=={'action','pid'} and type(body['pid']) is int:
                 return self.native.attach(body['pid'])
             if action=='menu' and set(body)=={'action','key'}:
