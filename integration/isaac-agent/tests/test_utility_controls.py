@@ -205,7 +205,8 @@ class UtilityControlTests(unittest.TestCase):
 
     def test_dangerous_trinket_and_cannon_are_not_offered_as_new_upgrades(self):
         source = (ROOT / "mods/IsaacJev/main.lua").read_text(encoding="utf-8")
-        helper = "local function pickupTable(entity)" + source.split("local function pickupTable(entity)",1)[1].split("local function isCombatEnemy",1)[0]
+        # This replay needs only pickupTable, not the next mod-scoped method.
+        helper = "local function pickupTable(entity)" + source.split("local function pickupTable(entity)",1)[1].split("\nend\n",1)[0] + "\nend\n"
         choose = LuaRuntime().execute("""
             PickupVariant={PICKUP_TRINKET=350,PICKUP_COLLECTIBLE=100}
             TrinketType={TRINKET_MOMS_TOENAIL=16}

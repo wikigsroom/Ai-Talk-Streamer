@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE45",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [{"id":"BOIL_BODY_FORECAST_AND_PICKUP_REPLAY_ISOLATION","status":"code_complete_pending_acceptance","source_files":[
+    "AGENTS.md","docs/issac/固定炮台修复与结束运行20261111.md",
+    "integration/isaac-agent/mods/IsaacJev/main.lua",
+    "integration/isaac-agent/src/isaac_jev/models.py",
+    "integration/isaac-agent/src/isaac_jev/decision.py",
+    "integration/isaac-agent/tests/test_utility_controls.py"
+  ]}],
+  "previous_round_closed":"CYCLE44 all six suites finished. Full Lua53 compilation and the motion tests passed; one legacy pickup fixture erroneously loaded the subsequent mod method. CYCLE45 narrows that fixture, keeping production identical. No deployment or frozen-source change occurred during CYCLE44 testing.",
+  "latest_user_action_after_repair":"stop the project game, broadcast, watchers and services/models, release RAM/VRAM",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}
