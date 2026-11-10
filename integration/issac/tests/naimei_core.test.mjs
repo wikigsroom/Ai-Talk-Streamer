@@ -14,7 +14,7 @@ function fixture() {
   Object.assign(core,{names:Object.keys(ISAAC_CORE_TOOLS),enabled:true,recent:[],record:()=>{},decision:async()=>offered(),
     api:async(port,path,body)=>{calls.push({port,path,body});return {receipt_sha256:'controlled-wiki',known:true,plan_id:body?.plan_id,
       decision_id:body?.decision_id,offer_id:body?.offer_id,status:'accepted'};}});
-  return {core,calls,turn:{decision_id:'decision-A',context_id:'room-A'},sessionId:'naimei-game-real-session'};
+  return {core,calls,turn:{decision_id:'decision-A',context_id:'room-A',inventory_revision:'inventory-A'},sessionId:'naimei-game-real-session'};
 }
 
 test('compact choice binds only its own current turn and exact chosen offer cost',async()=>{
@@ -139,7 +139,7 @@ test('a fact Wiki context expiring during lookup abandons the fact without disar
       const error=Error('expired');error.code='CORE_GAME_TOOL_REJECTED';
       error.native_code='WIKI_DECISION_CONTEXT_EXPIRED';throw error;
     },
-    generate:async(_context,turn)=>core.wikiQuery({operation:'item',query:'117'},turn),
+    generate:async(_context,turn)=>{turn.inventory_revision='inventory-A';return core.wikiQuery({operation:'item',query:'117'},turn);},
     abandon:async()=>{abandoned++;},control:()=>{throw Error('unexpected disarm');}});
   await core.runFact();assert.equal(core.enabled,true);assert.equal(core.failures,0);
   assert.equal(abandoned,1);assert.equal(core.busy,false);
@@ -149,7 +149,7 @@ test('an unchanged decision with a genuine Wiki failure still disarms the core',
   const {core}=fixture();
   Object.assign(core,{busy:false,attempts:new Map(),failures:0,turns:0,latencies:[],
     api:async()=>{const error=Error('native failure');error.code='CORE_GAME_TOOL_REJECTED';throw error;},
-    generate:async(_context,turn)=>core.wikiQuery({operation:'item',query:'117'},turn),
+    generate:async(_context,turn)=>{turn.inventory_revision='inventory-A';return core.wikiQuery({operation:'item',query:'117'},turn);},
     control:enabled=>{assert.equal(enabled,false);core.enabled=false;}});
   await core.runDecision(offered());assert.equal(core.enabled,false);
   assert.equal(core.failures,1);assert.equal(core.lastError,'CORE_GAME_TOOL_REJECTED');
