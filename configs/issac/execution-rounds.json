@@ -23,7 +23,7 @@
     "evidence": "docs/evidence/issac-round1-copy-20261107.json"
   },
   "round_2_onward": {
-    "status": "whole_round_implementation_resumed",
+    "status": "AGENCY08_amendment_validation_closed_with_documented_limits",
     "development_scope": "Frozen G01-G16 / 140 requirements with original Responses channel and one Naimei core",
     "order": [
       "finish_all_round_development",
@@ -48,7 +48,7 @@
     "protected_save_backups_and_authorized_slot_3",
     "ordinary_inputs_only_and_confirmed_pause_on_controller_loss",
     "same_Naimei_core_DSH_complete_prompt_and_five_read_only_or_bounded_rep_game_tools",
-    "original_gpt_6_luna_responses_channel_and_actual_same_core_tool_calls",
+    "original_gpt_6_1_sol_responses_channel_and_actual_same_core_tool_calls",
     "verified_events_and_receipt_causality",
     "Naimei_personality_and_seven_extension_adapters",
     "actual_NCM01_voice_generation_and_private_reference_exclusion",
@@ -144,9 +144,18 @@
       "status": "closed_failed",
       "closed_unix": 1794159789.717254,
       "evidence": "docs/evidence/issac-core120B-preparation-20261109.json"
+    },
+    {
+      "round": "AGENCY08",
+      "candidate_id": "issac-91296ef15c7b-4d55fc62",
+      "source_commit": "91296ef15c7ba4d634813c059a1b39dc12bf9fee",
+      "status": "closed_amendment_verified_with_documented_limits",
+      "closed_unix": 1794276941.1701336,
+      "evidence": "docs/evidence/issac-agency-20261110.json",
+      "full_product_acceptance": false
     }
   ],
-  "current_user_amendment": "configs/issac/live120.json",
+  "current_user_amendment": "docs/issac/控制分工与连续人格修订20261110.md",
   "official_installation": "configs/issac/official-installation.json",
   "current_model_channel": {
     "model": "gpt-6.1-sol",
@@ -159,10 +168,27 @@
     "historical_channel_evidence_is_current_deployment_acceptance": false,
     "same_naimei_core_for_observation_tools_decisions_and_speech": true,
     "automatic_model_or_channel_replacement_allowed": false,
-    "runtime_alignment": "pending_source_and_target_deployment_verification"
+    "runtime_alignment": "actual_original_api_tool_probe_and_three_same_native_agent_short_speech_turns_passed",
+    "current_evidence": "docs/evidence/issac-agency-20261110.json"
   },
   "tests_paused_by_user": false,
   "current_revision_document": "docs/issac/控制分工与连续人格修订20261110.md",
   "historical_round_inventory_is_current_startup_authority": false,
-  "current_execution_amendment": "configs/issac/live300.json"
+  "current_execution_amendment": "configs/issac/live300.json",
+  "current_validation": {
+    "scope": "20261110_agency_and_continuous_persona_amendment_only",
+    "status": "deployed_and_verified_with_documented_limits",
+    "round": "AGENCY08",
+    "candidate_id": "issac-91296ef15c7b-4d55fc62",
+    "source_commit": "91296ef15c7ba4d634813c059a1b39dc12bf9fee",
+    "archive_sha256": "37de12798ae3cc88c3abb513d1030d7771293cdaf0c869966c04a7dc31ae0c3d",
+    "source_manifest_sha256": "e6c2c85ac8abad3d1dc78a5aa4d4e398f3a89dd1f099a8a2da3d624303bd467d",
+    "evidence": "docs/evidence/issac-agency-20261110.json",
+    "evidence_sha256": "a74ab0902b5a91b82bd8d6156ab563fd85f14df07ddb03919facf79904d40c5a",
+    "report": "docs/issac/控制分工与连续人格核验20261110.md",
+    "regressions_passed": 900,
+    "actual_same_native_agent_short_speech_turns": 3,
+    "new_boss_run_or_300s_or_long_run_accepted": false,
+    "public_stream_started": false
+  }
 }

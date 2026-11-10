@@ -1,4 +1,4 @@
-> 当前执行入口：[300秒录播推进修订](docs/issac/300秒录播推进修订20261109.md)。用户已明确恢复推进，原渠道 gpt-6-luna / Responses，目标为连续300秒官方本地录播。此前暂停说明属于历史。
+> issac最新入口：[控制分工与连续人格修订](docs/issac/控制分工与连续人格修订20261110.md)。gpt-6.1-sol / 原Responses渠道；普通补给及药丸卡牌拾取归本地，核心道具与实际使用归奶妹DSH。[部署核验与限制](docs/issac/控制分工与连续人格核验20261110.md)：900项回归、同一原生DSH三次≤15字实播通过；公开直播暂停。
 
 # AI Talk Streamer · 写实数字人直播
 
@@ -7,7 +7,7 @@
 **奶妹 DSH 扩展归属：** 本集成的 fish-memory、feiyu-mood、speak-up 副本分别派生自 [Yuuyuko-uu/dsh-fish-memory](https://github.com/Yuuyuko-uu/dsh-fish-memory)、[Yuuyuko-uu/dsh-feiyu-mood](https://github.com/Yuuyuko-uu/dsh-feiyu-mood)、[Yuuyuko-uu/dsh-speak-up](https://github.com/Yuuyuko-uu/dsh-speak-up)，原作者 **Yuuyuko-uu**。完整保留并继续适用各自原许可；修改了直播接口导出、派生缓存清理、原文诊断关闭及归属说明。[七项来源、修改与许可](extensions/naimei-dsh/README.md)。
 
 <!-- deployment-branch:start -->
-**issac 当前约束（2026-11-09）：** 奶妹核心沿用原 **gpt-6-luna / Responses API渠道**，同一DSH直接读游戏状态、查指定离线wiki、决定全部道具和掉落并自然说话；4090原生Windows承载游戏、DSH/工具和音画。最终交付官方连续120秒本地录播，MC rev04仅改标题、NCM01、三形态和真实512/25口型要求保留。**用户暂停测试继续有效；本次仅文档更新，源码与远端尚待对齐。** [渠道与职责修订](docs/issac/原渠道与核心职责修订20261109.md) · [总需求v2](docs/issac/最终总需求冻结20261109.md) · [140项矩阵](docs/issac/需求验收矩阵20261109.csv) · [当前计划](configs/issac/live120.json)。
+**issac当前约束（2026-11-10）：** 使用 **gpt-6.1-sol / 原Responses API渠道**。奶妹DSH决定主动/被动核心道具、构筑、实际使用及关键路线；普通硬币、心、钥匙、炸弹、电池、饰品、宝箱，以及药丸/卡牌拾取、保留、替换由本地控制器决定。每回合附完整新状态，核心道具提交及Boss核查强制Wiki；同一原生DSH长会话，完整人格与七扩展重载，口播≤15字并记住上次真实播出内容。**已在4090部署并完成本轮有限核验，公开直播及自动游玩暂停。** [最新修订](docs/issac/控制分工与连续人格修订20261110.md) · [核验和已知限制](docs/issac/控制分工与连续人格核验20261110.md)。原300秒目标和完整验收要求保留；下方其他分支及旧版资料保留各自历史范围。
 <!-- deployment-branch:end -->
 
 **以撒同屏方案已按MC沿用：** 1920×1080全幅游戏、透明节目叠层、右下264×264圆形人物，以及原有留言换边、字幕、混音和唯一播放权；视觉仅将标题替换为“奶妹 · 以撒的结合”。[源码检查与沿用细则](docs/issac/MC同屏方案沿用与标题替换20261107.md)。奶妹仍用512×512/25FPS与NCM01；约束与参考源码已准备，实际接入和验收待完成。

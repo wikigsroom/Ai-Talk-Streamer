@@ -2,15 +2,15 @@
   "schema_version": 1,
   "round": "AGENCY08",
   "branch": "issac",
-  "candidate_frozen": false,
-  "application_tests_started": false,
+  "candidate_frozen": true,
+  "application_tests_started": true,
   "manual_whole_round_source_review_complete": true,
   "tests_run_during_development": false,
   "unresolved_round_code_TODOs": [],
   "items": [
     {
       "id": "AGENCY08-COMPLETE-USER-AMENDMENT",
-      "status": "code_complete_pending_acceptance",
+      "status": "deployed_amendment_verified_with_documented_limits",
       "source_files": [
         "AGENTS.md",
         "backend/dsh-bridge/channel.mjs",
@@ -51,5 +51,22 @@
       ]
     }
   ],
-  "previous_validation_closed": "operations/issac-live300-20261109/agency07-round-closed.json"
+  "previous_validation_closed": "operations/issac-live300-20261109/agency07-round-closed.json",
+  "validation_phase_closed": true,
+  "current_validation": {
+    "scope": "20261110_agency_and_continuous_persona_amendment_only",
+    "status": "deployed_and_verified_with_documented_limits",
+    "round": "AGENCY08",
+    "candidate_id": "issac-91296ef15c7b-4d55fc62",
+    "source_commit": "91296ef15c7ba4d634813c059a1b39dc12bf9fee",
+    "archive_sha256": "37de12798ae3cc88c3abb513d1030d7771293cdaf0c869966c04a7dc31ae0c3d",
+    "source_manifest_sha256": "e6c2c85ac8abad3d1dc78a5aa4d4e398f3a89dd1f099a8a2da3d624303bd467d",
+    "evidence": "docs/evidence/issac-agency-20261110.json",
+    "evidence_sha256": "a74ab0902b5a91b82bd8d6156ab563fd85f14df07ddb03919facf79904d40c5a",
+    "report": "docs/issac/控制分工与连续人格核验20261110.md",
+    "regressions_passed": 900,
+    "actual_same_native_agent_short_speech_turns": 3,
+    "new_boss_run_or_300s_or_long_run_accepted": false,
+    "public_stream_started": false
+  }
 }

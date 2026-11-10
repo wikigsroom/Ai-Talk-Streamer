@@ -4,11 +4,11 @@
   "requirements_freeze": "configs/issac/requirements-freeze.json",
   "requirements_document": "docs/issac/最终总需求冻结20261109.md",
   "requirements_authority": "NM-ISSAC-REQUIREMENTS-20261110-v4",
-  "implementation_alignment": "whole_round_code_complete_validation_pending",
+  "implementation_alignment": "deployed_amendment_regressions_and_actual_short_speech_verified_with_limits",
   "branch": "issac",
-  "status": "paused_public_stream_validation_only",
+  "status": "paused_public_stream_amendment_verified_with_limits",
   "target": "issac-rtx4090",
-  "deployment_allowed": false,
+  "deployment_allowed": true,
   "gameplay_enabled": false,
   "public_broadcast_enabled": false,
   "native_windows_only": true,
@@ -74,7 +74,7 @@
   "activation_gates": [
     "game_runtime_and_protected_save_baseline",
     "real_rep_wiki_tool_and_prompt_probe",
-    "original_gpt_6_luna_responses_and_same_core_tool_decisions",
+    "original_gpt_6_1_sol_responses_and_same_core_tool_decisions",
     "NCM01_remote_voice_alignment",
     "exclusive_media_engine_and_playback_authority",
     "native_capture_and_audio_test",
@@ -83,8 +83,8 @@
   ],
   "presentation_contract": "configs/issac/mc-presentation-reference.json",
   "execution_authorization": {
-    "date": "2026-11-09",
-    "final_deliverable": "120-second official Bilibili Livehime local recording",
+    "date": "2026-11-10",
+    "final_deliverable": "300-second official Bilibili Livehime local recording; latest amendment does not claim a new recording",
     "public_broadcast_authorized": false,
     "round_1": "Comprehensive isolated copy and integrity verification only; no application testing",
     "round_2_onward": "Finish all round development/TODO/code, freeze complete candidate, then perform all debugging/integration/acceptance",
@@ -96,13 +96,13 @@
       "proxy_allowed": false
     },
     "staging_is_runtime_acceptance": false,
-    "current_scope": "documentation_only_tests_paused_by_user",
-    "model_requests": "original_user_saved_gpt_6_luna_responses_api_channel"
+    "current_scope": "agency_and_continuous_persona_deployed_and_locally_verified_public_stream_paused",
+    "model_requests": "original_user_saved_responses_api_channel_gpt_6_1_sol"
   },
   "execution_rounds": "configs/issac/execution-rounds.json",
   "preparation_access_policy": "configs/issac/preparation-access.json",
   "round_1_evidence": "docs/evidence/issac-round1-copy-20261107.json",
-  "development_inventory": "configs/issac/development-channel-restoration.json",
+  "development_inventory": "configs/issac/development-agency-20261110.json",
   "round_2_development_document": "docs/issac/第二轮完整开发与统一验收20261107.md",
   "core_model_channel": {
     "model": "gpt-6.1-sol",
@@ -115,31 +115,68 @@
     "historical_channel_evidence_is_current_deployment_acceptance": false,
     "same_naimei_core_for_observation_tools_decisions_and_speech": true,
     "automatic_model_or_channel_replacement_allowed": false,
-    "runtime_alignment": "pending_source_and_target_deployment_verification"
+    "runtime_alignment": "actual_original_api_tool_probe_and_three_same_native_agent_short_speech_turns_passed",
+    "current_evidence": "docs/evidence/issac-agency-20261110.json"
   },
   "approved_original_model_api_allowed": true,
   "cloud_media_services_allowed": false,
-  "tests_paused_by_user": true,
-  "current_revision_document": "docs/issac/原渠道与核心职责修订20261109.md",
+  "tests_paused_by_user": false,
+  "current_revision_document": "docs/issac/控制分工与连续人格修订20261110.md",
   "naimei_core": {
     "actor_id": "naimei",
     "dsh_version": "0.2.0-rc.2",
     "humanity_version": "0.1.17",
-    "owns_all_item_and_pickup_decisions": true,
+    "owns_all_item_and_pickup_decisions": false,
     "direct_game_state_and_rep_wiki_tools": true,
     "natural_speech_derived_from_own_decisions_and_actual_results": true,
     "voice_id": "NCM01",
     "voice_fallback": null,
     "seven_inherited_sources": "configs/naimei/dsh-extensions.json",
     "one_audio_authority": true,
-    "new_state_root_required": true
+    "new_state_root_required": true,
+    "strategic_decisions": [
+      "active_passive_collectible_pickup_and_replacement",
+      "build",
+      "active_pill_card_actual_use",
+      "key_routes"
+    ]
   },
   "native_rules": {
-    "realtime_combat_navigation_and_bounded_authorized_execution_only": true,
+    "realtime_combat_navigation_and_bounded_authorized_execution_only": false,
     "separate_strategic_ai_enabled": false,
     "unapproved_auto_pickup_allowed": false,
     "save_slot": 3,
-    "hidden_room_metadata_allowed": false
+    "hidden_room_metadata_allowed": false,
+    "ordinary_supply_decisions_owner": "local_controller",
+    "ordinary_supply_pickup_keep_replace": [
+      "coin",
+      "heart",
+      "key",
+      "bomb",
+      "battery",
+      "trinket",
+      "chest",
+      "pill",
+      "card"
+    ],
+    "strategic_decisions_owner": "naimei",
+    "automatic_gameplay_currently_enabled": false
   },
-  "current_amendment": "docs/issac/控制分工与连续人格修订20261110.md"
+  "current_amendment": "docs/issac/控制分工与连续人格修订20261110.md",
+  "current_validation": {
+    "scope": "20261110_agency_and_continuous_persona_amendment_only",
+    "status": "deployed_and_verified_with_documented_limits",
+    "round": "AGENCY08",
+    "candidate_id": "issac-91296ef15c7b-4d55fc62",
+    "source_commit": "91296ef15c7ba4d634813c059a1b39dc12bf9fee",
+    "archive_sha256": "37de12798ae3cc88c3abb513d1030d7771293cdaf0c869966c04a7dc31ae0c3d",
+    "source_manifest_sha256": "e6c2c85ac8abad3d1dc78a5aa4d4e398f3a89dd1f099a8a2da3d624303bd467d",
+    "evidence": "docs/evidence/issac-agency-20261110.json",
+    "evidence_sha256": "a74ab0902b5a91b82bd8d6156ab563fd85f14df07ddb03919facf79904d40c5a",
+    "report": "docs/issac/控制分工与连续人格核验20261110.md",
+    "regressions_passed": 900,
+    "actual_same_native_agent_short_speech_turns": 3,
+    "new_boss_run_or_300s_or_long_run_accepted": false,
+    "public_stream_started": false
+  }
 }

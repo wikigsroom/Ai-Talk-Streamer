@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "contract_id": "NM-ISSAC-REQUIREMENTS-20261110-v4",
-  "status": "frozen_user_amendment_implementation_validation_pending",
+  "status": "frozen_amendment_deployed_and_verified_with_documented_limits",
   "frozen_on": "2026-11-10",
   "prepared_at": "2026-11-09T03:03:43+08:00",
   "timezone": "Asia/Taipei",
@@ -522,5 +522,28 @@
     "recall_previous_actual_spoken": true,
     "near_duplicate_speech_suppression": true,
     "clear_old_active_memory_and_reload_complete_persona": true
+  },
+  "current_validation": {
+    "scope": "20261110_agency_and_continuous_persona_amendment_only",
+    "status": "deployed_and_verified_with_documented_limits",
+    "round": "AGENCY08",
+    "candidate_id": "issac-91296ef15c7b-4d55fc62",
+    "source_commit": "91296ef15c7ba4d634813c059a1b39dc12bf9fee",
+    "archive_sha256": "37de12798ae3cc88c3abb513d1030d7771293cdaf0c869966c04a7dc31ae0c3d",
+    "source_manifest_sha256": "e6c2c85ac8abad3d1dc78a5aa4d4e398f3a89dd1f099a8a2da3d624303bd467d",
+    "evidence": "docs/evidence/issac-agency-20261110.json",
+    "evidence_sha256": "a74ab0902b5a91b82bd8d6156ab563fd85f14df07ddb03919facf79904d40c5a",
+    "report": "docs/issac/控制分工与连续人格核验20261110.md",
+    "regressions_passed": 900,
+    "actual_same_native_agent_short_speech_turns": 3,
+    "new_boss_run_or_300s_or_long_run_accepted": false,
+    "public_stream_started": false
+  },
+  "historical_artifact_hashes_are_original_snapshot_only": true,
+  "current_amendment_artifact": {
+    "path": "docs/issac/控制分工与连续人格修订20261110.md",
+    "sha256": "02c7a5ae15ee1408f1b3414dfb96c5de68abc63826627e2f3dc5fb3242a48b74",
+    "source_candidate": "issac-91296ef15c7b-4d55fc62",
+    "normalized_lf_sha256": "cc3a6ca11ccd2d68334fdf233c9f61ff130d91c6246d56ffc23e9da3a9cc0171"
   }
 }

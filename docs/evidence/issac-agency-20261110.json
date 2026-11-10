@@ -1,0 +1,346 @@
+{
+  "round": "AGENCY08",
+  "checked_at_unix": 1794276941.1701336,
+  "candidate_id": "issac-91296ef15c7b-4d55fc62",
+  "source_commit": "91296ef15c7ba4d634813c059a1b39dc12bf9fee",
+  "archive_sha256": "37de12798ae3cc88c3abb513d1030d7771293cdaf0c869966c04a7dc31ae0c3d",
+  "source_manifest_sha256": "e6c2c85ac8abad3d1dc78a5aa4d4e398f3a89dd1f099a8a2da3d624303bd467d",
+  "regressions": {
+    "counts": [
+      149,
+      679,
+      63,
+      9
+    ],
+    "total": 900,
+    "all_passed": true,
+    "native_dsh_tests_use_controlled_http_provider": true
+  },
+  "real_original_channel": {
+    "checked_at": "2026-11-10T02:09:56.199Z",
+    "model": "gpt-6.1-sol",
+    "protocol": "responses",
+    "passed": true,
+    "elapsed_ms": 10357,
+    "tool_calls": 1
+  },
+  "persona_reset": {
+    "active_memory_cleared": true,
+    "channel_address_and_key_preserved": true,
+    "cleared_relative_entries": [
+      "dsh-home",
+      "stream.sqlite3",
+      "stream.sqlite3-wal",
+      "stream.sqlite3-shm"
+    ],
+    "complete_original_persona_republished_on_start": true,
+    "extensions_sha256": "dec7c972c4ce6562a7810e570b8cf42b63e7fb82cb857d28f2e1c8e3417fd86c",
+    "model": "gpt-6.1-sol",
+    "old_conversations_loaded": false,
+    "persona_sha256": "a483d71b6d68b981051e3e27332d4c1a8fde21b410c81e09ec85f24141e61081",
+    "protocol": "responses",
+    "public_stream_started": false,
+    "recorder_and_media_state_preserved": true,
+    "seven_extensions_reload_on_start": true
+  },
+  "active_counts_before_speech": {
+    "broadcasts": 0,
+    "memory_candidates": 0,
+    "memory_entries": 0,
+    "memory_proposals": 0,
+    "memory_revisions": 0,
+    "memory_sources": 0,
+    "personas": 1,
+    "requests": 0,
+    "summary_versions": 0,
+    "utterances": 0
+  },
+  "persona_version": "naimei-v1-a32fec26cf72",
+  "seven_extensions": [
+    {
+      "id": "soul-md",
+      "repository": "https://github.com/Scorp1o117/dsh-soul-md",
+      "version": "0.12.1",
+      "commit": "0de8445b4941315da18138d5b5f1fc19fa5cc7d2",
+      "applied": true
+    },
+    {
+      "id": "fish-memory",
+      "repository": "https://github.com/Yuuyuko-uu/dsh-fish-memory",
+      "version": "1.5.5",
+      "commit": "a070ebf096f3472c107982b5741994cabdcc18f7",
+      "applied": true
+    },
+    {
+      "id": "feiyu-mood",
+      "repository": "https://github.com/Yuuyuko-uu/dsh-feiyu-mood",
+      "version": "0.9.1",
+      "commit": "2f52a367e2ea673c7e73a4a8c718721665d10081",
+      "applied": true
+    },
+    {
+      "id": "speak-up",
+      "repository": "https://github.com/Yuuyuko-uu/dsh-speak-up",
+      "version": "0.3.0",
+      "commit": "e3bc6362208c693bb833ecf463ec6a20df4b6419",
+      "applied": true
+    },
+    {
+      "id": "memewiki-thawline",
+      "repository": "https://github.com/thawline/dsh-memewiki",
+      "version": "0.1.20",
+      "commit": "bf3155ad93dedfdbe37798680e79b5386503e38d",
+      "applied": true
+    },
+    {
+      "id": "humanizer-chinese",
+      "repository": "https://github.com/jiji262/humanizer-chinese",
+      "version": "1.0.0",
+      "commit": "1d6c08e10fbfe0e1b36ac784834451c6aae0a92c",
+      "applied": true
+    },
+    {
+      "id": "memewiki-liujelly",
+      "repository": "https://github.com/Liujelly/dsh-memewiki",
+      "version": "1.0.0",
+      "commit": "1d3f8266468823fe85290a016eadf3b8d1262de3",
+      "applied": true
+    }
+  ],
+  "ordinary_supply_owner": "local_controller",
+  "continuous_session_id": "naimei-live-2a20f40c-a964-45ab-ba34-088728a0167b",
+  "actual_short_speech": [
+    {
+      "text": "我是奶妹，陪你玩的虚拟小龙。",
+      "characters": 14,
+      "status": "COMPLETED",
+      "request_id": "req-d12c3e17-fd20-42ce-92df-baa08d480439",
+      "continuous_session_id": "naimei-live-2a20f40c-a964-45ab-ba34-088728a0167b",
+      "actual_playback_history": [
+        {
+          "completed_at": 1794276844537,
+          "text": "我是奶妹，陪你玩的虚拟小龙。"
+        }
+      ]
+    },
+    {
+      "text": "两心半血，没钥匙，暂停中。",
+      "characters": 13,
+      "status": "COMPLETED",
+      "request_id": "req-7a1f79a0-b4c2-487c-9fba-72a4610c7427",
+      "continuous_session_id": "naimei-live-2a20f40c-a964-45ab-ba34-088728a0167b",
+      "actual_playback_history": [
+        {
+          "completed_at": 1794276844537,
+          "text": "我是奶妹，陪你玩的虚拟小龙。"
+        },
+        {
+          "completed_at": 1794276872977,
+          "text": "两心半血，没钥匙，暂停中。"
+        }
+      ]
+    },
+    {
+      "text": "还有颗炸弹，留个后手。",
+      "characters": 11,
+      "status": "COMPLETED",
+      "request_id": "req-87152d6d-19c0-4dbb-ae31-2181cadf7659",
+      "continuous_session_id": "naimei-live-2a20f40c-a964-45ab-ba34-088728a0167b",
+      "actual_playback_history": [
+        {
+          "completed_at": 1794276844537,
+          "text": "我是奶妹，陪你玩的虚拟小龙。"
+        },
+        {
+          "completed_at": 1794276872977,
+          "text": "两心半血，没钥匙，暂停中。"
+        },
+        {
+          "completed_at": 1794276909559,
+          "text": "还有颗炸弹，留个后手。"
+        }
+      ]
+    }
+  ],
+  "actual_prompt_probes": [
+    {
+      "session_id": "dsh-req-d12c3e17-fd20-42ce-92df-baa08d480439",
+      "continuous_session_id": "naimei-live-2a20f40c-a964-45ab-ba34-088728a0167b",
+      "provider_revision": "410498a39f203181344845328e13d08d7898b00757a27c6fb1f3e845052ee7ed",
+      "model": "gpt-6.1-sol",
+      "step": 1,
+      "game_reasoning_effort": "low",
+      "prompt_sha256": "5fffd3784379836c4b9bbe9236a1afc106b4f9dabb905930f5bc010f186e3a54",
+      "has_persona": true,
+      "has_soul": true,
+      "has_humanizer": true,
+      "has_meme_guide": true,
+      "has_native_memory_guidance": true,
+      "has_issac_wiki": true,
+      "gameplay_actor_id": "naimei",
+      "gameplay_prompt_sha256": "d8b29c1ac43fffadf0050004d0254168520541951b09b4ace93db806ae4c8a43",
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query",
+        "search_meme_wiki",
+        "soul_read",
+        "stream_memory_propose",
+        "stream_memory_recall"
+      ],
+      "estimated_input_tokens": 9396,
+      "started_unix_ms": 1794276822401,
+      "phase": "completed",
+      "first_chunk_ms": 2859,
+      "first_content_ms": 13365,
+      "first_content_type": "text-delta",
+      "elapsed_ms": 13463,
+      "finish_kind": "stop"
+    },
+    {
+      "session_id": "dsh-req-7a1f79a0-b4c2-487c-9fba-72a4610c7427",
+      "continuous_session_id": "naimei-live-2a20f40c-a964-45ab-ba34-088728a0167b",
+      "provider_revision": "410498a39f203181344845328e13d08d7898b00757a27c6fb1f3e845052ee7ed",
+      "model": "gpt-6.1-sol",
+      "step": 1,
+      "game_reasoning_effort": "low",
+      "prompt_sha256": "5fffd3784379836c4b9bbe9236a1afc106b4f9dabb905930f5bc010f186e3a54",
+      "has_persona": true,
+      "has_soul": true,
+      "has_humanizer": true,
+      "has_meme_guide": true,
+      "has_native_memory_guidance": true,
+      "has_issac_wiki": true,
+      "gameplay_actor_id": "naimei",
+      "gameplay_prompt_sha256": "d8b29c1ac43fffadf0050004d0254168520541951b09b4ace93db806ae4c8a43",
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query",
+        "search_meme_wiki",
+        "soul_read",
+        "stream_memory_propose",
+        "stream_memory_recall"
+      ],
+      "estimated_input_tokens": 9989,
+      "started_unix_ms": 1794276845034,
+      "phase": "completed",
+      "first_chunk_ms": 2302,
+      "first_content_ms": 13101,
+      "first_content_type": "reasoning-delta",
+      "elapsed_ms": 20292,
+      "finish_kind": "stop"
+    },
+    {
+      "session_id": "dsh-req-87152d6d-19c0-4dbb-ae31-2181cadf7659",
+      "continuous_session_id": "naimei-live-2a20f40c-a964-45ab-ba34-088728a0167b",
+      "provider_revision": "410498a39f203181344845328e13d08d7898b00757a27c6fb1f3e845052ee7ed",
+      "model": "gpt-6.1-sol",
+      "step": 1,
+      "game_reasoning_effort": "low",
+      "prompt_sha256": "5fffd3784379836c4b9bbe9236a1afc106b4f9dabb905930f5bc010f186e3a54",
+      "has_persona": true,
+      "has_soul": true,
+      "has_humanizer": true,
+      "has_meme_guide": true,
+      "has_native_memory_guidance": true,
+      "has_issac_wiki": true,
+      "gameplay_actor_id": "naimei",
+      "gameplay_prompt_sha256": "d8b29c1ac43fffadf0050004d0254168520541951b09b4ace93db806ae4c8a43",
+      "tools": [
+        "isaac_get_decision",
+        "isaac_get_state",
+        "isaac_lookup",
+        "isaac_submit_plan",
+        "isaac_wiki_query",
+        "search_meme_wiki",
+        "soul_read",
+        "stream_memory_propose",
+        "stream_memory_recall"
+      ],
+      "estimated_input_tokens": 10487,
+      "started_unix_ms": 1794276873914,
+      "phase": "completed",
+      "first_chunk_ms": 2858,
+      "first_content_ms": 24325,
+      "first_content_type": "reasoning-delta",
+      "elapsed_ms": 28166,
+      "finish_kind": "stop"
+    }
+  ],
+  "native_game": {
+    "connected": true,
+    "state_age_ms": 173.1,
+    "room_type": "default",
+    "paused": true,
+    "armed": false,
+    "sections": [
+      "actives",
+      "bosses",
+      "capabilities",
+      "danger_effects",
+      "doors",
+      "effects",
+      "enemies",
+      "frame",
+      "health",
+      "history",
+      "identity",
+      "inventory",
+      "inventory_known",
+      "inventory_revision",
+      "map",
+      "pickups",
+      "player",
+      "pockets",
+      "projectiles",
+      "resources",
+      "revision",
+      "room",
+      "route_progress",
+      "schema",
+      "source",
+      "trinkets"
+    ]
+  },
+  "media": {
+    "voice_ready": true,
+    "mouth_ready": true,
+    "studio_ready": true,
+    "existing_body_clips_rebound": 12,
+    "new_subjective_review_claimed": false
+  },
+  "recorder": {
+    "candidate_id": "issac-91296ef15c7b-4d55fc62",
+    "pid": 34064,
+    "ready": true,
+    "profile_isolation_verified": true
+  },
+  "protected_saves_verified": true,
+  "local_rehearsal_state": "PAUSED",
+  "public_stream_started": false,
+  "new_300s_recording_claimed": false,
+  "fresh_boss_gameplay_acceptance_claimed": false,
+  "long_run_acceptance_claimed": false,
+  "earlier_failed_rounds_retained": [
+    "AGENCY06: unsupported none reasoning parameter",
+    "AGENCY07: two inherited 20-second model timeouts"
+  ],
+  "runtime_request_wait_ms": 60000,
+  "internal_output_tokens": 2048,
+  "actual_spoken_limit": 15,
+  "game_decision_validity_was_not_extended": true,
+  "operational_recovery": {
+    "first_smoke_rejected_stale_state_before_model": true,
+    "preserved_old_game_exited": true,
+    "observed_windows_fault": "ntdll.dll / 0xc0000005 / offset 0x0005109e",
+    "root_cause_proven": false,
+    "same_frozen_source_restarted_with_fresh_game": true,
+    "normal_slot_3_continue_and_pause_verified": true,
+    "hot_reattach_crash_fixed_claimed": false
+  }
+}
