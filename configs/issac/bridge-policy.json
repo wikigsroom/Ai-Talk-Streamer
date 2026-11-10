@@ -31,7 +31,7 @@
     "viewer_identity_source": "server_verified_principal"
   },
   "conversation": {
-    "session_strategy": "per_request_standard",
+    "session_strategy": "continuous_naimei",
     "active_requests_per_room": 1,
     "pending_queue_limit": 2,
     "queued_input_ttl_ms": 10000,
@@ -39,12 +39,12 @@
     "model_timeout_ms": 20000,
     "tts_timeout_ms": 120000,
     "input_max_chars": 1500,
-    "final_speech_max_chars": 80,
+    "final_speech_max_chars": 15,
     "max_memory_tool_rounds": 2,
     "context_max_estimated_tokens": 14000,
     "game_context_max_estimated_tokens": 24000,
     "game_reasoning_effort": "off",
-    "max_output_tokens": 220,
+    "max_output_tokens": 512,
     "rolling_summary_event_threshold": 16,
     "rolling_summary_max_chars": 1200,
     "speak_intermediate_model_text": false,

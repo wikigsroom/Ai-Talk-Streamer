@@ -74,8 +74,8 @@ export class OriginalIsaacChannel extends ChannelConfig {
   }
   snapshot() {
     const value = super.snapshot();
-    if (value.model !== 'gpt-6-luna' || value.protocol !== 'responses') {
-      const error = new Error('ORIGINAL_GPT_6_LUNA_RESPONSES_CHANNEL_REQUIRED');
+    if (value.model !== 'gpt-6.1-sol' || value.protocol !== 'responses') {
+      const error = new Error('ORIGINAL_GPT_6_1_SOL_RESPONSES_CHANNEL_REQUIRED');
       error.code = error.message; error.status = 409; throw error;
     }
     return Object.freeze({ ...value, source: 'issac_original_saved_api_channel' });

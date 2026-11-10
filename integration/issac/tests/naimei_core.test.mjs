@@ -11,7 +11,7 @@ const exactCost=()=>({coins:2,keys:0,bombs:0,health_half_hearts:0});
 function fixture() {
   const core=Object.create(NaimeiGameCore.prototype),calls=[];
   Object.assign(core,{names:Object.keys(ISAAC_CORE_TOOLS),enabled:true,recent:[],record:()=>{},decision:async()=>offered(),
-    api:async(port,path,body)=>{calls.push({port,path,body});return {plan_id:body?.plan_id,
+    api:async(port,path,body)=>{calls.push({port,path,body});return {receipt_sha256:'controlled-wiki',known:true,plan_id:body?.plan_id,
       decision_id:body?.decision_id,offer_id:body?.offer_id,status:'accepted'};}});
   return {core,calls,turn:{decision_id:'decision-A',context_id:'room-A'},sessionId:'naimei-game-real-session'};
 }
@@ -19,7 +19,7 @@ function fixture() {
 test('compact choice binds only its own current turn and exact chosen offer cost',async()=>{
   const {core,calls,turn,sessionId}=fixture();turn.session_id=sessionId;
   core.decision=async()=>({...offered(),offers:[{id:'heart-A',op:'pickup',cost:exactCost()}]});
-  const choice={offer_id:'heart-A',commentary:'这颗红心能补得更多，先把生命补起来再往前走。'};
+  const choice={offer_id:'heart-A',commentary:'先补血，再往前走。'};
   await core.tool('isaac_submit_plan',choice,{sessionId,turn});
   assert.deepEqual(calls[0].body.budget,exactCost());
   assert.equal(calls[0].body.decision_id,turn.decision_id);assert.equal(calls[0].body.context_id,turn.context_id);
@@ -35,7 +35,7 @@ test('compact choice cannot choose an unknown offer, rebind a turn, infer costs 
     core.decision=async()=>({...offered(),offers:[{id:'heart-A',op:'pickup',...(defect==='missing-cost'?{}:{cost})}]});
     if(defect==='context')turn.context_id='old-room';if(defect==='session')turn.session_id='viewer-session';
     await assert.rejects(core.tool('isaac_submit_plan',{offer_id:defect==='unknown'?'invented':'heart-A',
-      commentary:'这颗红心能补得更多，先把生命补起来再往前走。'},{sessionId,turn}));
+      commentary:'先补血，再往前走。'},{sessionId,turn}));
     assert.equal(calls.length,0,defect);assert.equal(turn.narration,undefined,defect);
   }
 });
@@ -45,7 +45,7 @@ test('compact native rejection cannot publish narration or acquire a submitted c
   core.decision=async()=>({...offered(),offers:[{id:'heart-A',op:'pickup',cost:exactCost()}]});
   core.api=async()=>({status:'rejected'});
   await assert.rejects(core.tool('isaac_submit_plan',{offer_id:'heart-A',
-    commentary:'这颗红心能补得更多，先把生命补起来再往前走。'},{sessionId,turn}),/CORE_PLAN_NOT_ACCEPTED/);
+    commentary:'先补血，再往前走。'},{sessionId,turn}),/CORE_PLAN_NOT_ACCEPTED/);
   assert.equal(turn.narration,undefined);assert.equal(turn.submitted,undefined);
 });
 
@@ -143,7 +143,7 @@ test('accepted wait and active choices without a movement action ID complete, sp
         plan_id:body.plan_id,decision_id:body.decision_id,offer_id:body.offer_id}),
       generate:async(context,turn)=>{
         assert.doesNotThrow(()=>canonical(context));
-        const commentary='先跳过这条支路，沿免费路线继续往前走。';
+        const commentary='先走不花资源的路。';
         await core.tool('isaac_submit_plan',{offer_id:'choice-A',commentary},{sessionId:turn.session_id,turn});
         return {text:commentary};}});
     await core.runDecision(decision);await core.runDecision(decision);
@@ -411,4 +411,34 @@ test('the completion counter requires all actual PCM samples, never partial or m
   utterance={valid_sample_count:16000,contiguous_played_samples:16000};await core.completed({request_id:'real'});
   assert.equal(core.completedSpeech,1);assert.equal(core.pending.size,0);
   await core.completed({request_id:'real'});assert.equal(core.completedSpeech,1);
+});
+
+test('all speech turns get complete fresh state even when pending is false, and boss identities are checked in Wiki',async()=>{
+  const {core}=fixture();core.enabled=false;
+  const calls=[];core.bridge={spoken:{context:()=>({last_spoken:'先补血。',recent_spoken:[{text:'先补血。'}]})}};
+  const state={identity:offered().identity,room:{type:'boss',clear:false},inventory:[{id:26}],resources:{keys:0},
+    pickups:[],bosses:[{type:20,variant:0,subtype:0,hp:90}],player:{hp:4},projectiles:[{id:1}]};
+  core.api=async(_port,path,body)=>{calls.push({path,body});
+    if(path==='/query?topic=state')return {connected:true,age_ms:4,data:state};
+    if(path==='/wiki-context')return {decision_id:'observation-current',context_id:'room-A',inventory_revision:'current'};
+    if(path==='/wiki')return {receipt_sha256:'actual-boss-query',known:true,result:{exact_match:true}};
+    throw Error('unexpected path');};
+  const result=await core.augment({current_game:{decision:{pending:false}},partition_key:'public'});
+  assert.deepEqual(result.current_game.data,state);assert.equal(result.current_game.boss_room.is_boss_room,true);
+  assert.deepEqual(calls.find(v=>v.path==='/wiki').body.query,{operation:'boss',type:20,variant:0,subtype:0});
+  assert.equal(result.speech_history.last_spoken,'先补血。');
+  core.api=async()=>({connected:true,age_ms:1600,data:state});
+  await assert.rejects(core.augment({}),/CORE_NATIVE_STATE_NOT_FRESH/);
+});
+
+test('new item selection needs both growth assessment and matched current Wiki evidence',async()=>{
+  const {core,turn,sessionId}=fixture();turn.session_id=sessionId;
+  core.decision=async()=>({...offered(),context:{inventory_revision:'inventory-A',required_assessment:{},pickups:[{target_id:'item-A',variant:100,subtype:26}]},
+    offers:[{id:'heart-A',op:'select_pickup',target_id:'item-A',cost:exactCost()}]});
+  const choice={offer_id:'heart-A',commentary:'这个能补血，拿上。'};
+  await assert.rejects(core.tool('isaac_submit_plan',choice,{sessionId,turn}),/CORE_ASSESSMENT_REQUIRED/);
+  choice.assessment={growth:'增加生命上限','key_recovery':'钥匙足够'};
+  await assert.rejects(core.tool('isaac_submit_plan',choice,{sessionId,turn}),/CORE_ITEM_WIKI_REQUIRED/);
+  turn.wiki_evidence=new Map([['current',{query:{kind:'item',query:'26'},result:{known:true,receipt_sha256:'verified'}}]]);
+  assert.equal((await core.tool('isaac_submit_plan',choice,{sessionId,turn})).status,'accepted');
 });

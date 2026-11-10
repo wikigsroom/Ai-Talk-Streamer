@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "plan_id": "NM-ISSAC-PLAN-20261109-v3",
+  "plan_id": "NM-ISSAC-PLAN-20261110-v4",
   "requirements_freeze": "configs/issac/requirements-freeze.json",
   "requirements_document": "docs/issac/最终总需求冻结20261109.md",
-  "requirements_authority": "NM-ISSAC-REQUIREMENTS-20261109-v2",
-  "implementation_alignment": "original_api_responses_channel_and_single_naimei_core_pending_source_alignment",
+  "requirements_authority": "NM-ISSAC-REQUIREMENTS-20261110-v4",
+  "implementation_alignment": "whole_round_code_complete_validation_pending",
   "branch": "issac",
-  "status": "documentation_corrected_tests_paused_runtime_unaccepted",
+  "status": "paused_public_stream_validation_only",
   "target": "issac-rtx4090",
   "deployment_allowed": false,
   "gameplay_enabled": false,
@@ -27,9 +27,9 @@
     "requested_edition": "rep",
     "proposed_tool": "isaac_wiki_query",
     "prompt_injection": "complete_skill_and_run_evaluation_in_same_naimei_core_with_rep_and_five_tools",
-    "implemented": "source_alignment_and_actual_core_use_pending",
+    "implemented": "mandatory_core_preflight_and_native_submission_receipt_gate",
     "proposed_timeout_seconds": 2,
-    "proposed_max_queries_per_decision": 3,
+    "proposed_max_queries_per_decision": 10,
     "proposed_model_result_token_budget": 3000,
     "arbitrary_shell_or_file_access": false
   },
@@ -105,7 +105,7 @@
   "development_inventory": "configs/issac/development-channel-restoration.json",
   "round_2_development_document": "docs/issac/第二轮完整开发与统一验收20261107.md",
   "core_model_channel": {
-    "model": "gpt-6-luna",
+    "model": "gpt-6.1-sol",
     "protocol": "responses",
     "provider": "original_user_saved_api_channel",
     "credentials_source": "legitimate_original_private_channel_configuration",
@@ -140,5 +140,6 @@
     "unapproved_auto_pickup_allowed": false,
     "save_slot": 3,
     "hidden_room_metadata_allowed": false
-  }
+  },
+  "current_amendment": "docs/issac/控制分工与连续人格修订20261110.md"
 }

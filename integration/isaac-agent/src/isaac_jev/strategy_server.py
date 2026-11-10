@@ -44,6 +44,7 @@ class StrategyServer:
                     elif url.path == '/host-status': value = host_status()
                     elif url.path == '/query': value = service.query(query.get('topic', ['state'])[0])
                     elif url.path == '/decision': value = service.decision()
+                    elif url.path == '/wiki-context': value = service.wiki_context()
                     elif url.path == '/events': value = service.read_events(int(query.get('after', [0])[0]))
                     elif url.path == '/lookup': value = service.lookup(query.get('kind', ['domain'])[0], query.get('id', ['route'])[0])
                     else: self.send_json(404, {'error': 'not found'}); return

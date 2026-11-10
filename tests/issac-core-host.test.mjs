@@ -72,14 +72,14 @@ test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-cont
   try{
     host=await new DshHost(root,join(root,'tools/dsh'),policy).start();
     const persona=initialPersona(root,'naimei');await host.publishCharacter(persona.document,persona.version);
-    const core=Object.create(NaimeiGameCore.prototype);
+    const core=Object.create(NaimeiGameCore.prototype);core.augment=context=>context;
     Object.assign(core,{names:Object.keys(ISAAC_CORE_TOOLS),enabled:true,controlRevision:1,recent:[],record:()=>{},
       prompt:completePrompt(root,readFileSync(join(root,'configs/issac/core-persona-gameplay.md'),'utf8')),
       decision:async()=>({pending:!choice.expired,connected:true,id:'decision-A',context_id:'room-A',context:{inventory_revision:'inventory-A'},remaining_ms:choice.expired?0:10000,offers:[{id:'heart-A',op:choice.op}]}),
       api:async(_port,path,body)=>{
         if(path==='/wiki'){
           assert.deepEqual(body.context,{decision_id:'decision-A',context_id:'room-A',inventory_revision:'inventory-A'});
-          return {requested_edition:'rep',result:{edition:'rep',name:'The Sad Onion',effect:'Tears up',source:'controlled-local-wiki'}};
+          return {receipt_sha256:'controlled-wiki',known:true,requested_edition:'rep',result:{edition:'rep',name:'The Sad Onion',effect:'Tears up',source:'controlled-local-wiki'}};
         }
         assert.equal(body.commentary,undefined);return {plan_id:body.plan_id,
         decision_id:body.decision_id,offer_id:body.offer_id,status:choice.status,...(choice.effect?{effect:choice.effect}:{})};}});
@@ -160,4 +160,44 @@ test('real DSH owns provider registrations through disposal and cancels queued t
     await host?.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));
     rmSync(folder,{recursive:true,force:true});
   }
+});
+
+test('one real DSH agent retains three turns with durable compaction and fresh full game state', {timeout:30000}, async()=>{
+  const root=process.cwd(),policy=structuredClone(loadPolicy(root,'configs/issac/bridge-policy.json'));
+  const folder=mkdtempSync(join(root,'state/issac-continuous-test-'));policy.deployment.dsh_home_relative_path=folder;
+  const payloads=[];
+  const server=createServer(async(req,res)=>{
+    const chunks=[];for await(const chunk of req)chunks.push(chunk);payloads.push(JSON.parse(Buffer.concat(chunks)));
+    res.writeHead(200,{'Content-Type':'text/event-stream'});const emit=v=>res.write('data: '+JSON.stringify(v)+'\n\n');
+    const n=payloads.length,part={type:'output_text',text:['先补血。','钥匙收好了。','这首领冲得真快。'][n-1],annotations:[]};
+    const item={id:'msg-continuous-'+n,type:'message',status:'completed',role:'assistant',content:[part]};
+    emit({type:'response.created',response:{id:'response-continuous-'+n,status:'in_progress'}});
+    emit({type:'response.output_item.added',output_index:0,item:{...item,status:'in_progress',content:[]}});
+    emit({type:'response.content_part.added',output_index:0,content_index:0,item_id:item.id,part:{...part,text:''}});
+    emit({type:'response.output_text.delta',output_index:0,content_index:0,item_id:item.id,delta:part.text});
+    emit({type:'response.output_text.done',output_index:0,content_index:0,item_id:item.id,text:part.text});
+    emit({type:'response.content_part.done',output_index:0,content_index:0,item_id:item.id,part});
+    emit({type:'response.output_item.done',output_index:0,item});
+    emit({type:'response.completed',response:{id:'response-continuous-'+n,status:'completed',output:[item],usage:{input_tokens:100,output_tokens:10,total_tokens:110}}});res.end();
+  });
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let host;
+  try{
+    host=await new DshHost(root,join(root,'tools/dsh'),policy).start();
+    const persona=initialPersona(root,'naimei');await host.publishCharacter(persona.document,persona.version);
+    const results=[];
+    for(let i=0;i<3;i++)results.push(await host.generate({sessionId:'continuous-request-'+i,
+      snapshot:{revision:'same-channel',model:'controlled',protocol:'responses',baseUrl:'http://127.0.0.1:'+server.address().port+'/v1',systemPrompt:'',getApiKey:()=> 'controlled-key'},
+      input:'当前第'+i+'回合',context:JSON.stringify({partition_key:'public',current_game:{data:{room:{index:100+i},inventory:[{id:26}],resources:{keys:i}},connected:true,pending:false},speech_history:{last_spoken:i?'先补血。':null}}),
+      tools:async()=>({}),signal:AbortSignal.timeout(15000)}));
+    assert.equal(new Set(results.map(r=>r.continuous_session_id)).size,1);
+    assert.equal(host.continuous.handle.agent.session.surface.replaceGeneration,2);
+    const native=host.continuous.handle.agent.session;
+    assert.ok(native.deriveMessages().some(m=>JSON.stringify(m).includes('当前第2回合')));
+    for(let i=0;i<3;i++){
+      const text=JSON.stringify(payloads[i]);assert.ok(text.includes('当前第'+i+'回合'));
+      assert.ok(text.includes('奶妹'));assert.ok(text.includes('resources'));assert.ok(text.includes('inventory'));
+    }
+    assert.ok(JSON.stringify(payloads[2]).includes('先补血。'));
+    assert.equal(host.active.size,0);
+  }finally{await host?.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));rmSync(folder,{recursive:true,force:true});}
 });

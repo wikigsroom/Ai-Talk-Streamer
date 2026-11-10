@@ -184,7 +184,7 @@ export class StreamState extends EventEmitter {
     return !!request && ACTIVE_REQUESTS.includes(request.status) && request.runtime_epoch === epoch && request.generation === generation && room.runtime_epoch === epoch && room.generation === generation;
   }
   textReady(requestId, text, epoch, generation) {
-    requireValue(typeof text === 'string' && text.trim() && text.length <= this.policy.conversation.final_speech_max_chars, 'FINAL_SPEECH_INVALID', 422);
+    requireValue(typeof text === 'string' && text.trim() && (this.policy.conversation.session_strategy==='continuous_naimei'?Array.from(text).length:text.length) <= this.policy.conversation.final_speech_max_chars, 'FINAL_SPEECH_INVALID', 422);
     return this.db.tx(() => {
       requireValue(this.matches(requestId, epoch, generation), 'STALE_GENERATION');
       const request = this.request(requestId), utteranceId = id('utt');

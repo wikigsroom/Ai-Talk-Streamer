@@ -11,7 +11,7 @@ def probe(root):
     opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
     request=urllib.request.Request('http://127.0.0.1:3104/api/dsh/probe',data=b'{}',headers={'Content-Type':'application/json'})
     with opener.open(request,timeout=60) as response:value=json.load(response)
-    if not(value.get('passed') is True and value.get('model')=='gpt-6-luna' and value.get('protocol')=='responses'):
+    if not(value.get('passed') is True and value.get('model')=='gpt-6.1-sol' and value.get('protocol')=='responses'):
         raise AdmissionError('ACTUAL_ORIGINAL_CHANNEL_PROBE_REQUIRED')
     receipt={**candidate,**value,'automatic_provider_substitution':False,'checked_against_running_core':True}
     write_json(inside(root,'state/issac-acceptance/original-channel.json'),receipt)

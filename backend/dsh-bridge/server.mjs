@@ -1,3 +1,4 @@
+import { SpokenHistory,shortSpeech } from './short-speech.mjs';
 import { createServer } from 'node:http';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -20,10 +21,16 @@ import { RoomManager } from '../room/manager.mjs';
 export class StreamBridge {
   constructor(root, runtime, { policyFile, avatarUrl = 'http://127.0.0.1:8010' } = {}) {
     this.root=resolve(root);this.runtime=inside(this.root,runtime);this.policy=loadPolicy(this.root,policyFile);this.avatarUrl=avatarUrl;
+    if(this.policy.conversation.session_strategy==='continuous_naimei')this.spoken=new SpokenHistory();
     this.channel=new ChannelConfig(this.root);this.controllers=new Map();this.closed=false;this.probes=[];this.mediaHealth={};this.ready=false;this.mediaChain=Promise.resolve();
   }
   async start() {
     this.db=new StateStore(inside(this.root,join(this.policy.deployment.state_relative_path,'stream.sqlite3')));
+    if(this.spoken)for(const row of this.db.all("SELECT e.request_id,e.received_at,p.payload_json FROM stream_events e JOIN event_payloads p USING(event_seq) WHERE e.event_type='playback.completed' AND p.redacted_at IS NULL ORDER BY e.event_seq DESC LIMIT 16").reverse()){const payload=JSON.parse(row.payload_json);this.spoken.completed(row.request_id,payload.text,Date.parse(row.received_at));}
+    if(this.spoken)this.db.on('event',event=>{
+      if(event.event_type==='playback.completed'){const payload=this.db.payload(event.event_seq);this.spoken.completed(event.request_id,payload.text);}
+      else if(['request.failed','request.cancelled','request.interrupted','request.expired'].includes(event.event_type))this.spoken.release(event.request_id);
+    });
     this.db.on('owner-lost',()=>{this.ready=false;void this.close();});
     this.db.on('storage-fault',()=>{this.ready=false;this.scheduler?.close();for(const controller of this.controllers.values())controller.abort();});
     const initial=initialPersona(this.root,this.policy.identity.character_id);
@@ -153,16 +160,18 @@ export class StreamBridge {
         speech=result.text;
       }
       requireValue(!controller.signal.aborted&&this.state.matches(request.request_id,request.runtime_epoch,request.generation),'STALE_GENERATION');
-      if(speech.length>this.policy.conversation.final_speech_max_chars) {
+      if(this.spoken)speech=shortSpeech(speech,15);
+      if(!this.spoken&&speech.length>this.policy.conversation.final_speech_max_chars) {
         const limit=this.policy.conversation.final_speech_max_chars,head=speech.slice(0,limit),stop=Math.max(head.lastIndexOf('。'),head.lastIndexOf('！'),head.lastIndexOf('？'));
         speech=stop>=limit/2?head.slice(0,stop+1):head;
       }
+      if(this.spoken&&!this.spoken.reserve(request.request_id,speech)){this.state.cancel(request.request_id,'repetitive_speech_suppressed');return;}
       const utterance=this.state.textReady(request.request_id,speech,request.runtime_epoch,request.generation);
       await this.gameNarrator?.validate(request);
       await this.mediaCommand('speak',utterance);
     } catch(error) {
       if(this.state.matches(request.request_id,request.runtime_epoch,request.generation))this.state.fail(request.request_id,controller.signal.aborted?'cancelled':error.code||'generation_or_media_failed');
-    } finally {this.controllers.delete(request.request_id);}
+    } finally {if(this.state.request(request.request_id)?.status!=='SYNTHESIZING')this.spoken?.release(request.request_id);this.controllers.delete(request.request_id);}
   }
   async tick() {
     if(this.closed||!this.ready||this.administration.locked)return;

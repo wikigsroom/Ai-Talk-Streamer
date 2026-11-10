@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "round": "AGENCY01",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [
+    {
+      "id": "AGENCY01-COMPLETE-USER-AMENDMENT",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "AGENTS.md",
+        "backend/dsh-bridge/channel.mjs",
+        "backend/dsh-bridge/continuous-context.mjs",
+        "backend/dsh-bridge/extensions.mjs",
+        "backend/dsh-bridge/host.mjs",
+        "backend/dsh-bridge/isaac-core.mjs",
+        "backend/dsh-bridge/policy.mjs",
+        "backend/dsh-bridge/server.mjs",
+        "backend/dsh-bridge/short-speech.mjs",
+        "backend/dsh-bridge/state.mjs",
+        "configs/issac/bridge-policy.json",
+        "configs/issac/core-persona-gameplay.md",
+        "configs/issac/development-agency-20261110.json",
+        "configs/issac/execution-rounds.json",
+        "configs/issac/integration-plan.json",
+        "configs/issac/live120.json",
+        "configs/issac/live300.json",
+        "configs/issac/requirements-freeze.json",
+        "configs/issac/runtime.json",
+        "docs/issac/控制分工与连续人格修订20261110.md",
+        "integration/isaac-agent/src/isaac_jev/strategy.py",
+        "integration/isaac-agent/src/isaac_jev/strategy_server.py",
+        "integration/issac/acceptance.py",
+        "integration/issac/application.py",
+        "integration/issac/channel_probe.py",
+        "integration/issac/game_policy.py",
+        "integration/issac/reset_persona.py",
+        "integration/issac/strategy_host.py",
+        "integration/issac/tests/channel.test.mjs",
+        "integration/issac/tests/naimei_core.test.mjs",
+        "integration/issac/tests/short_speech.test.mjs",
+        "integration/issac/tests/test_agency.py",
+        "integration/issac/tests/test_application_startup.py",
+        "integration/issac/wiki.py",
+        "tests/issac-core-host.test.mjs"
+      ]
+    }
+  ]
+}

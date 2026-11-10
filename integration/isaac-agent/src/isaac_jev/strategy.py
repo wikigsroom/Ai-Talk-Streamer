@@ -306,8 +306,16 @@ class StrategyService:
                                     'identity': identity, 'revision': self.snapshot['revision'],
                                     'created': self.clock(), 'deadline': self.clock() + self.decision_seconds,
                                     'offers': offers, 'mode': 'live' if self.live else 'observe'}
-                    self.emit('decision_ready', decision_id=self.pending['id'], domains=sorted({o['domain'] for o in offers}))
+                    local=self._local_offer(state, offers)
+                    if local and self.live:self._accept_local_offer(local)
+                    else:self.emit('decision_ready', decision_id=self.pending['id'], domains=sorted({o['domain'] for o in offers}))
             self.state_latency.append((self.clock() - start) * 1000)
+
+    def _local_offer(self, state, offers):
+        return None  # Generic upstream retains its original strategic ownership.
+
+    def _accept_local_offer(self, offer):
+        raise StrategyError('no local supply policy installed')
 
     def fresh(self):
         return bool(self.snapshot) and self.clock() - self.received < 1.5
@@ -526,7 +534,7 @@ class StrategyService:
             result.pop('created', None)
             data = deepcopy(self.snapshot)
             context = {k: data[k] for k in ('health', 'inventory', 'inventory_known', 'inventory_revision',
-                       'effects', 'actives', 'pockets', 'trinkets', 'resources', 'room', 'doors', 'map', 'pickups', 'enemies', 'bosses')}
+                       'effects', 'actives', 'pockets', 'trinkets', 'resources', 'room', 'doors', 'map', 'pickups', 'enemies', 'bosses', 'player', 'projectiles', 'danger_effects', 'capabilities')}
             context['recent_room_observations'] = deepcopy(self.history['room_observations'][-10:])
             context['recent_results'] = deepcopy(list(self.receipts.values())[-5:])
             context['route_progress'] = self.routes.describe()
@@ -657,7 +665,9 @@ class StrategyService:
                 count = lambda snapshot: sum(p.get('count', 0) for p in snapshot['inventory'] if p.get('id') == target.get('subtype'))
                 confirmed = s['inventory_known'] and count(s) > count(b)
             else:
-                confirmed = s['resources'] != b['resources'] or s['health'] != b['health'] or s['pockets'] != b['pockets'] or s['trinkets'] != b['trinkets']
+                chest=target.get('variant') in {50,51,52,53,54,55,56,57,58,60,360,390}
+                spawned=bool({p['target_id'] for p in s['pickups']}-{p['target_id'] for p in b['pickups']})
+                confirmed = (chest and spawned and s['identity']==b['identity']) or s['resources'] != b['resources'] or s['health'] != b['health'] or s['pockets'] != b['pockets'] or s['trinkets'] != b['trinkets']
             if confirmed:
                 self._finish('succeeded', 'pickup_disappeared_and_inventory_or_resource_changed')
             else:
@@ -723,6 +733,7 @@ class StrategyService:
                     if not danger: response = self._hold(response)
                 else:
                     action = self._resolve_action(o, state)
+                    if action and self.receipts[c['plan_id']].get('actor_id')=='local_controller':action=replace(action,source='local-supply-controller')
                     if action is None:
                         self._finish('rejected', 'no_current_safe_path_or_candidate'); return self._hold(response)
                     response.update(action.as_message(True))
@@ -762,8 +773,6 @@ class StrategyService:
                             response.update(door_slot=door.slot, source_room_index=state.layout.room_index,
                                             target_room_index=door.target_room_index)
                             free_route = True
-                    elif response.get('mode') == 'boss_exit':
-                        free_route = True
                 if not free_route: response = self._hold(response)
             return response
 

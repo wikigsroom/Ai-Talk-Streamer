@@ -140,7 +140,7 @@ class Application:
             self.child('narrator',node,['backend/dsh-bridge/issac.mjs',str(self.root)],'narrator')
             self.wait_ready('narrator','http://127.0.0.1:3104/health',120)
             compatibility=self.http('http://127.0.0.1:3104/api/dsh/probe',{},timeout=45)
-            if (compatibility.get('passed') is not True or compatibility.get('model')!='gpt-6-luna'
+            if (compatibility.get('passed') is not True or compatibility.get('model')!='gpt-6.1-sol'
                     or compatibility.get('protocol')!='responses'):
                 raise AdmissionError('ORIGINAL_RESPONSES_CHANNEL_COMPATIBILITY_REQUIRED')
             core=self.http('http://127.0.0.1:3104/api/dsh/issac/core/status')

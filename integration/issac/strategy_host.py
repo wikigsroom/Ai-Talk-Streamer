@@ -121,6 +121,7 @@ class StrategyHost:
         self.audio=ScopedAudioEnvelope(root,self.native)
         self.wiki=WikiService(root,inside(root,self.config['native_paths']['game_python']),self.service.wiki_context)
         self.wiki.prepare()
+        self.service.wiki_verifier=self.wiki.verify
         self.runtime=BridgeRuntime(port=self.config['game']['bridge_port'],autopilot=False,
                         log_dir=str(inside(root,'state/isaac-strategy/logs')),
                         controller_class=controller_class(root,self.service,self.facts))
@@ -150,7 +151,7 @@ class StrategyHost:
                     core=json.load(response)
                 if (core.get('ready') is not True or core.get('actor_id')!='naimei'
                     or core.get('strategic_owner')!='naimei_core_dsh'
-                    or core.get('model')!='gpt-6-luna' or core.get('protocol')!='responses'
+                    or core.get('model')!='gpt-6.1-sol' or core.get('protocol')!='responses'
                     or core.get('candidate_id')!=read_json(inside(self.root,'.setup/candidate.json')).get('id')):
                     raise AdmissionError('CURRENT_ORIGINAL_NAIMEI_CORE_CHANNEL_REQUIRED')
                 self.native.protection.admit_current(self.native.process,self.native.progress())

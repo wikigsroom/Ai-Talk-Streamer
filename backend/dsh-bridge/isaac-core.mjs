@@ -12,7 +12,7 @@ export const ISAAC_CORE_TOOLS = Object.freeze({
   isaac_get_decision: '直接读取当前待决策状态、context_id及合法offers。data为空对象。',
   isaac_lookup: '只读机制速查。data含kind为collectible/card/domain和id。',
   isaac_wiki_query: '直接查本地issac-wiki，固定rep。data为{"query":{"operation":"item","query":"名称或编号","kind":"item"}}；决策上下文由宿主绑定。',
-  isaac_submit_plan: '由奶妹本人选择当前offer：data只需{"offer_id":"当前候选id","commentary":"15至40字自然口语的打算"}。宿主仅绑定本回合身份和该候选的确切成本，不替你选择。不能声称已完成；真实接受后结束本回合并播报该句，无需追加回复。',
+  isaac_submit_plan: '由奶妹本人选择当前offer：data含offer_id、commentary（1至15字，含标点）、assessment（growth/key_recovery各一句内部判断）；下楼还需reward_review逐项target_id/disposition=skip/reason。宿主仅绑定本回合身份和该候选的确切成本，不替你选择。不能声称已完成；真实接受后结束本回合并播报该句，无需追加回复。',
 });
 const TOPICS = new Set(['state','health','inventory','effects','history','actives','pockets','map','room','enemies','bosses','pickups','resources']);
 const identityOf = value => value?.identity || value?.data?.identity;
@@ -28,7 +28,7 @@ export class NaimeiGameCore {
     this.bridge=bridge;this.root=bridge.root;this.token=readFileSync(join(this.root,'private/issac/bridge-token.txt'),'utf8').trim();
     this.prompt=completePrompt(this.root,readFileSync(join(this.root,'configs/issac/core-persona-gameplay.md'),'utf8'));
     this.names=Object.keys(ISAAC_CORE_TOOLS);this.enabled=false;this.closed=false;this.busy=false;this.polling=false;
-    this.pending=new Map();this.backlog=[];this.attempts=new Map();this.latest=null;this.recent=[];this.activeAbort=null;this.activeDecisionTurn=null;
+    this.wikiCache=new Map();this.pending=new Map();this.backlog=[];this.attempts=new Map();this.latest=null;this.recent=[];this.activeAbort=null;this.activeDecisionTurn=null;
     this.turns=0;this.failures=0;this.lastError=null;this.lastFact=0;this.latencies=[];this.controlRevision=0;this.completedSpeech=0;
     mkdirSync(join(this.root,'state/issac-stream'),{recursive:true});
     this.audit=join(this.root,'state/issac-stream/naimei-game-core.jsonl');
@@ -45,7 +45,9 @@ export class NaimeiGameCore {
       last_error:this.lastError,dshVersion:this.bridge.policy.versions.dsh_candidate,model:channel.model,
       protocol:channel.protocol,channel_source:channel.source,candidate_id:candidateId,
       process_id:process.pid,registeredTools:this.names,prompt:this.prompt.receipt,independent_strategy_host:false,
-      actual_completed_game_utterances:this.completedSpeech,
+      actual_completed_game_utterances:this.completedSpeech,ordinary_supply_owner:'local_controller',
+      session_strategy:this.bridge.policy.conversation.session_strategy,continuous_session_id:this.bridge.host.continuous?.id||null,
+      speech_limit:15,spoken_history:this.bridge.spoken?.context()||null,
       decision_latency_p95_ms:times.length?times[Math.min(times.length-1,Math.ceil(times.length*.95)-1)]:null};
   }
   control(enabled) {
@@ -91,10 +93,48 @@ export class NaimeiGameCore {
     const value=await response.json();requireValue(response.ok,'CORE_GAME_TOOL_REJECTED',409);return value;
   }
   async decision() {return this.api(9532,'/decision');}
-  augment(context) {
-    if(context?.game_decision)return context;
-    return {...(context||{}),...(this.latest?{current_game:{observation_at:this.latest.at,decision:this.latest.decision},
-      recent_naimei_game_decisions:this.recent.slice(-4)}:{})};
+  async wikiQuery(query,turn=null) {
+    if(turn?.decision_id)this.assertDecisionCurrent(turn,await this.decision());
+    const context=turn?.decision_id?{decision_id:turn.decision_id,context_id:turn.context_id,
+      inventory_revision:turn.inventory_revision} :await this.api(9532,'/wiki-context');
+    requireValue(context,'FRESH_WIKI_CONTEXT_REQUIRED',409);
+    const key=digest({context,query});this.wikiCache ||= new Map();
+    let result=this.wikiCache.get(key);
+    if(!result){result=await this.api(9532,'/wiki',{query,context});
+      requireValue(result.receipt_sha256&&result.actionable_evidence!==false,'CORE_WIKI_EVIDENCE_REQUIRED',409);
+      this.wikiCache.set(key,result);if(this.wikiCache.size>256)this.wikiCache.delete(this.wikiCache.keys().next().value);
+      this.record('core_wiki_checked',{session_id:turn?.session_id||null,context,query,receipt_sha256:result.receipt_sha256,known:result.known===true});}
+    if(turn){turn.wiki_evidence ||= new Map();turn.wiki_evidence.set(canonical(query),{query,result,context});}
+    return result;
+  }
+  async augment(context,turn=null) {
+    const fresh=await this.api(9532,'/query?topic=state');
+    requireValue(fresh.connected===true&&fresh.age_ms<1500&&fresh.data?.identity,'CORE_NATIVE_STATE_NOT_FRESH',409);
+    if(turn?.decision_id)turn.inventory_revision=context.game_decision.context.inventory_revision;
+    const state=fresh.data,evidence=[];
+    // Mandatory preflight is the same core's restricted Wiki tool path. The
+    // model sees both the exact query and source receipt; it still chooses.
+    const pickups=context?.game_decision?.context?.floor_reward_review||state.pickups||[];
+    const seen=new Set();
+    for(const p of [...state.pickups||[],...pickups]){
+      if(p.variant!==100||!Number.isInteger(p.subtype)||p.subtype<=0||seen.has(p.subtype))continue;
+      seen.add(p.subtype);if(seen.size>6)break;
+      const query={operation:'item',query:String(p.subtype),kind:'item'};
+      evidence.push({query,evidence:await this.wikiQuery(query,turn)});
+    }
+    const bosses=[];
+    for(const boss of state.bosses||[]){
+      const query={operation:'boss',type:boss.type,variant:boss.variant??0,subtype:boss.subtype??0};
+      if(!Number.isInteger(query.type))continue;
+      if(bosses.some(b=>canonical(b.query)===canonical(query)))continue;
+      bosses.push({query,observed:boss,evidence:await this.wikiQuery(query,turn)});
+      if(bosses.length>=3)break;
+    }
+    return {...context,current_game:{observation_at:Date.now(),...fresh,wiki:evidence,
+      boss_room:{is_boss_room:state.room?.type==='boss',room:state.room,bosses,wiki_check_required:true,
+        missing_boss_identity:state.room?.type==='boss'&&!state.room.clear&&!bosses.length}},
+      speech_history:this.bridge.spoken?.context()||{last_spoken:null,recent_spoken:[]},
+      recent_naimei_game_decisions:this.recent.slice(-4)};
   }
   async current(event) {
     if(this.closed||Date.now()/1000>=event.expires_at)return false;
@@ -118,21 +158,20 @@ export class NaimeiGameCore {
       requireValue(Object.keys(value).every(key=>['kind','id'].includes(key))&&['collectible','card','domain'].includes(value.kind)
         &&['string','number'].includes(typeof value.id)&&String(value.id).length<=100,'CORE_LOOKUP_FIELDS');
       result=await this.api(9532,'/lookup?kind='+encodeURIComponent(value.kind)+'&id='+encodeURIComponent(String(value.id)));
+    } else if(name==='isaac_wiki_query') {
+      requireValue(Object.keys(value).length===1&&value.query&&typeof value.query==='object','CORE_WIKI_FIELDS');
+      if(turn?.decision_id&&!turn.inventory_revision){const d=await this.decision();turn.inventory_revision=d.context.inventory_revision;}
+      result=await this.wikiQuery(value.query,turn);
     } else {
       requireValue(this.enabled,'CORE_AUTOMATION_NOT_ARMED',409);
-      const decision=await this.decision();
-      this.assertDecisionCurrent(turn,decision);
-      if(name==='isaac_wiki_query') {
-        requireValue(Object.keys(value).length===1&&value.query&&typeof value.query==='object','CORE_WIKI_FIELDS');
-        result=await this.api(9532,'/wiki',{query:value.query,context:{decision_id:decision.id,context_id:decision.context_id,
-          inventory_revision:decision.context.inventory_revision}});
-      } else {
-        requireValue(Object.keys(value).every(key=>['plan_id','decision_id','context_id','offer_id','budget','reason','commentary'].includes(key)),'CORE_PLAN_FIELDS');
-        const compact=Object.keys(value).every(key=>['offer_id','commentary'].includes(key));
+      const decision=await this.decision();this.assertDecisionCurrent(turn,decision);
+      {
+        requireValue(Object.keys(value).every(key=>['plan_id','decision_id','context_id','offer_id','budget','reason','commentary','assessment','reward_review'].includes(key)),'CORE_PLAN_FIELDS');
+        const compact=Object.keys(value).every(key=>['offer_id','commentary','assessment','reward_review'].includes(key));
         if(!compact)requireValue(value.decision_id===decision.id&&value.context_id===decision.context_id,'CORE_PLAN_CONTEXT_CHANGED',409);
         requireValue(!turn?.submitted,'ONE_CORE_PLAN_PER_TURN',409);
         const {commentary,...supplied}=value;
-        if(commentary!==undefined)requireValue(typeof commentary==='string'&&commentary.trim().length>0&&commentary.trim().length<=40
+        if(commentary!==undefined)requireValue(typeof commentary==='string'&&commentary.trim().length>0&&Array.from(commentary.trim()).length<=15
           &&!/[\r\n{}<>]/.test(commentary),'CORE_COMMENTARY_INVALID');
         const offer=decision.offers?.find(item=>item.id===value.offer_id);
         requireValue(offer,'CORE_PLAN_OFFER_REQUIRED',409);
@@ -140,15 +179,23 @@ export class NaimeiGameCore {
         if(compact) {
           requireValue(turn?.session_id===sessionId&&sessionId?.startsWith('naimei-game-')
             &&turn.decision_id===decision.id&&turn.context_id===decision.context_id,'CORE_COMPACT_BOUND_TURN_REQUIRED',409);
-          requireValue(typeof commentary==='string'&&commentary.trim().length>=15,'CORE_COMMENTARY_INVALID');
+          requireValue(typeof commentary==='string'&&Array.from(commentary.trim()).length>=1,'CORE_COMMENTARY_INVALID');
           const keys=['coins','keys','bombs','health_half_hearts'];
           requireValue(offer.cost&&Object.keys(offer.cost).length===keys.length
             &&keys.every(key=>Number.isSafeInteger(offer.cost[key])&&offer.cost[key]>=0),'CORE_OFFER_EXACT_COST_REQUIRED',409);
           plan={plan_id:'nm-'+digest({session:sessionId,decision:decision.id,offer:offer.id}).slice(0,32),
             decision_id:turn.decision_id,context_id:turn.context_id,offer_id:offer.id,
-            budget:Object.fromEntries(keys.map(key=>[key,offer.cost[key]])),reason:commentary.trim()};
+            budget:Object.fromEntries(keys.map(key=>[key,offer.cost[key]])),reason:commentary.trim(),
+            ...(value.assessment?{assessment:value.assessment}:{}),...(value.reward_review?{reward_review:value.reward_review}:{})};
         }
         requireValue(plan.decision_id===decision.id&&plan.context_id===decision.context_id,'CORE_PLAN_CONTEXT_CHANGED',409);
+        if(decision.context.required_assessment){
+          requireValue(value.assessment&&['growth','key_recovery'].every(k=>typeof value.assessment[k]==='string'&&value.assessment[k].trim().length>0&&value.assessment[k].length<=160),'CORE_ASSESSMENT_REQUIRED',409);
+          const target=decision.context.pickups?.find(p=>p.target_id===offer.target_id&&p.variant===100);
+          const receipts=[...turn.wiki_evidence?.values()||[]];
+          if(target)requireValue(receipts.some(e=>e.query.kind==='item'&&e.query.query===String(target.subtype)&&e.result.known===true),'CORE_ITEM_WIKI_REQUIRED',409);
+          plan.wiki_receipts=receipts.map(e=>e.result.receipt_sha256);
+        }
         if(turn)turn.submitting=true;
         try {
           result=await this.api(9532,'/plan',{...plan,actor_id:'naimei',core_session_id:sessionId});
@@ -190,7 +237,7 @@ export class NaimeiGameCore {
   async generate(context,turn,input,timeout=18000) {
     const bridge=this.bridge,base=bridge.channel.snapshot();
     const snapshot={...base,provider:'issac-naimei-core',
-      revision:digest({base:base.revision,prompt:this.prompt.receipt.sha256})};
+      revision:base.revision};
     this.activeAbort=new AbortController();turn.abort=this.activeAbort;
     const signal=AbortSignal.any([this.activeAbort.signal,AbortSignal.timeout(timeout)]);
     return bridge.host.generate({sessionId:turn.session_id,snapshot,input,signal,gameplayTurn:turn,maxTokens:512,
@@ -200,8 +247,8 @@ export class NaimeiGameCore {
   async runDecision(decision) {
     if(this.busy||!this.enabled)return;
     // Request identity must outlive neither an interrupted turn nor its retry.
-    // DSH persists disposed sessions; resetting attempts on pause is intentional,
-    // but must never cause agents.create to reuse a persisted session identity.
+    // This is an audit/request binding, not a new native DSH conversation.
+    // The continuous host retains one agent across these bounded turns.
     this.busy=true;this.activeKind='decision';const started=Date.now(),sessionId='naimei-game-'+digest({decision_id:decision.id,request_id:randomUUID()});
     this.attempts.set(decision.id,{count:(this.attempts.get(decision.id)?.count||0)+1,at:started});
     if(this.attempts.size>128)this.attempts.delete(this.attempts.keys().next().value);
@@ -210,11 +257,11 @@ export class NaimeiGameCore {
     this.record('core_turn_started',{session_id:sessionId,decision_id:decision.id,context_id:decision.context_id,remaining_ms:decision.remaining_ms});
     try {
       const result=await this.generate({game_decision:decision,recent_naimei_game_decisions:this.recent.slice(-4)},turn,
-        '以奶妹本人身份直接判断新鲜game_decision；结合context.route_progress中的持续目标、原生已访房间、跨房间跳过及失败结果，优先持续推进有实际收益的路线。回访不叫首次探索，不反复去刚放弃的资源分支。新道具直接查wiki，不重复刷新。用isaac_submit_plan仅提交offer_id和commentary：15至24字自然打算，不称已经完成；成功即结束。',Math.min(18000,Math.max(1000,decision.remaining_ms-500)));
+        '以奶妹本人身份直接判断新鲜game_decision；结合context.route_progress中的持续目标、原生已访房间、跨房间跳过及失败结果，优先持续推进有实际收益的路线。回访不叫首次探索，不反复去刚放弃的资源分支。新道具直接查wiki，不重复刷新。按required_assessment逐项评估本地补给、成长、缺钥匙回收；用isaac_submit_plan提交offer_id、assessment和commentary，下楼还需reward_review逐项说明余留奖励为何放弃。commentary最多15字含标点，自然打算，不称已经完成；成功即结束。',Math.min(18000,Math.max(1000,decision.remaining_ms-500)));
       this.assertTurnCurrent(turn);
       requireValue(turn.submitted,'CORE_TURN_DID_NOT_SUBMIT_A_CHOICE',409);
       this.turns++;this.lastError=null;this.latencies.push(Date.now()-started);if(this.latencies.length>200)this.latencies.shift();
-      const summary={decision_id:decision.id,...turn.submitted,text:result.text.slice(0,80)};
+      const summary={decision_id:decision.id,...turn.submitted,text:result.text};
       this.recent.push(summary);if(this.recent.length>8)this.recent.shift();
       this.record('core_choice_completed',{session_id:sessionId,...summary,elapsed_ms:Date.now()-started,
         completion_followups:result.choice_completion_followups??0});
@@ -243,9 +290,9 @@ export class NaimeiGameCore {
       turn.session_id='naimei-fact-'+digest({event_id:reservation.event.event_id,request_id:randomUUID()});
       this.record('core_fact_started',{session_id:turn.session_id,event_id:reservation.event.event_id,control_revision:turn.control_revision});
       const result=await this.generate({game_event:reservation.event,recent_naimei_game_decisions:this.recent.slice(-4)},turn,
-        '你是正在游玩的奶妹。game_event是刚刚核验的同房间真实观察，直接依据其中facts作自然反应或自言自语，不重复调用工具刷新，不作新决定。优先15至24字一句口语；使用刚才发生的事实，不推测原因，不把计划接受说成已成功，不提后台状态。',12000);
+        '你是正在游玩的奶妹。game_event是刚刚核验的同房间真实观察，直接依据其中facts作自然反应或自言自语，不重复调用工具刷新，不作新决定。优先最多15字一句口语；使用刚才发生的事实，不推测原因，不把计划接受说成已成功，不提后台状态。',12000);
       this.assertTurnCurrent(turn);
-      this.offerSpeech({text:result.text.slice(0,80),...reservation});reservation=null;
+      this.offerSpeech({text:result.text,...reservation});reservation=null;
     } catch(error) {
       if(reservation?.nonce)await this.abandon(reservation);
       // New decisions and an operator disarm intentionally interrupt speech.

@@ -8,6 +8,7 @@ from __future__ import annotations
 from collections import OrderedDict
 from copy import deepcopy
 import json
+import sqlite3
 from pathlib import Path
 import subprocess
 import threading
@@ -18,10 +19,10 @@ from .common import AdmissionError, Audit, canonical, digest, file_hash, inside,
 
 DATABASE_SHA256 = '60f86b199d7c0ae642dbf8969f1ffe8f0841d3e9540bc51bdf00cb16325aed4e'
 SKILL_RELATIVE = 'knowledge/issac-wiki'
-OPERATIONS = frozenset({'item', 'show', 'pool', 'unlock', 'synergy', 'spindown'})
+OPERATIONS = frozenset({'item', 'show', 'pool', 'unlock', 'synergy', 'spindown', 'boss'})
 KINDS = frozenset({'item', 'trinket', 'card', 'pill', 'character', 'pool', 'entity',
                    'obstacle', 'floor', 'transformation', 'challenge', 'achievement', 'version'})
-FIELDS = frozenset({'operation', 'query', 'kind', 'section', 'items', 'limit', 'steps'})
+FIELDS = frozenset({'operation', 'query', 'kind', 'section', 'items', 'limit', 'steps', 'type', 'variant', 'subtype'})
 SECTIONS = frozenset({'Effects', 'Interactions', 'Synergies', 'Notes', 'Generation',
                       'Unlock', 'Unlocks', 'Availability', 'Strategy', 'Item Pool',
                       'Item Pools', 'Mechanics', 'Behavior', 'Trivia', 'Bugs', 'History'})
@@ -42,6 +43,10 @@ def arguments(query):
     op = query.get('operation')
     if op not in OPERATIONS:
         raise AdmissionError('WIKI_OPERATION_NOT_ALLOWED')
+    if op=='boss':
+        if set(query)!={'operation','type','variant','subtype'} or any(type(query[k]) is not int or not 0<=query[k]<=100000 for k in ('type','variant','subtype')):
+            raise AdmissionError('WIKI_BOSS_NATIVE_IDENTIFIERS_REQUIRED')
+        return ['boss',str(query['type']),str(query['variant']),str(query['subtype'])]
     valid = {'operation', 'query'}
     if op in {'item', 'show', 'unlock'}:
         valid.add('kind')
@@ -115,6 +120,7 @@ class WikiService:
         self.database_hash = None
         self.snapshot_hash = None
         self.database_stat = None
+        self.evidence = OrderedDict()
 
     def prepare(self):
         required = ['SKILL.md', 'LICENSE.md', 'scripts/isaac.py', 'scripts/wiki_text.py',
@@ -138,6 +144,32 @@ class WikiService:
                 'snapshot_sha256': self.snapshot_hash, 'requested_edition': 'rep',
                 'article_historical_markers_preserved': True, 'network_used': False}
 
+    def boss_result(self, query):
+        # Exact native type/variant/subtype prevents e.g. Isaac and ??? sharing
+        # type 102 from being mistaken for one another. rep is edition bit 8.
+        with sqlite3.connect((self.skill/'data/isaac.sqlite3').as_uri()+'?mode=ro',uri=True) as db:
+            db.row_factory=sqlite3.Row
+            rows=db.execute("SELECT * FROM records WHERE kind='entity' AND game_id=? AND (dlc & 8)!=0",(str(query['type']),)).fetchall()
+            matches=[]
+            for row in rows:
+                attrs=json.loads(row['attrs'])
+                if attrs.get('type')!='boss' or str(attrs.get('variant','0'))!=str(query['variant']) or str(attrs.get('subtype','0'))!=str(query['subtype']):continue
+                page=db.execute('SELECT title,url,revision,sha256 FROM pages WHERE page_id=?',(row['page_id'],)).fetchone()
+                matches.append({'kind':'entity','game_id':row['game_id'],'alias':row['alias'],
+                    'native':{k:query[k] for k in ('type','variant','subtype')},
+                    'facts':{k:str(v)[:1200] for k,v in attrs.items() if not k.startswith('_') and k!='source_display_names'},
+                    'source':{**dict(page),'revision_url':'https://bindingofisaacrebirth.wiki.gg/index.php?oldid='+str(page['revision'])} if page else {'unresolved':True}})
+            return {'edition':'rep','exact_match':len(matches)==1,'records':matches[:4],
+                'unknown':len(matches)!=1,'warning':'Do not infer a boss identity when exact_match is false.'}
+
+    def verify(self, receipts, context, item_id, *, known_required=True):
+        for key in receipts if isinstance(receipts,list) else []:
+            entry=self.evidence.get(key)
+            if not entry or entry['context']!=context:continue
+            q=entry['query']
+            if q.get('kind')=='item' and q.get('query')==str(item_id) and (entry['known'] or not known_required):return True
+        return False
+
     def execute(self, query, expected):
         if not self.database_hash:
             raise AdmissionError('OFFLINE_WIKI_NOT_PREPARED')
@@ -152,7 +184,7 @@ class WikiService:
                 raise AdmissionError('WIKI_DECISION_CONTEXT_EXPIRED')
             identity = digest(expected)
             budget = self.budgets.setdefault(identity, {'calls': 0, 'bytes': 0})
-            if budget['calls'] >= 3:
+            if budget['calls'] >= 10:
                 raise AdmissionError('WIKI_DECISION_QUERY_BUDGET_EXCEEDED')
             budget['calls'] += 1
             while len(self.budgets) > 64:
@@ -162,6 +194,9 @@ class WikiService:
             if cached:
                 result = deepcopy(self.cache[key])
                 self.cache.move_to_end(key)
+            elif query['operation']=='boss':
+                result=self.boss_result(query)
+                self.cache[key]=deepcopy(result)
             else:
                 command = [str(self.python), '-X', 'utf8', '-B', str(self.skill/'scripts/isaac.py'), *args]
                 try:
@@ -198,10 +233,13 @@ class WikiService:
             receipt = self.audit.append('wiki_query', context=expected, query=query, result=envelope,
                                         elapsed_ms=round((self.clock()-start)*1000, 2))
             encoded = canonical(envelope).encode('utf-8')
-            if budget['bytes'] + len(encoded) > 9000:
+            if budget['bytes'] + len(encoded) > 24000:
                 return {'requested_edition': 'rep', 'status': 'evidence_too_large',
                         'actionable_evidence': False, 'sources': sources_in(result),
                         'message': 'Narrow the query or section; partial evidence is not supplied.',
-                        'receipt_sha256': digest(receipt), 'queries_remaining': 3-budget['calls']}
+                        'receipt_sha256': digest(receipt), 'queries_remaining': 10-budget['calls']}
             budget['bytes'] += len(encoded)
-            return {**envelope, 'receipt_sha256': digest(receipt), 'queries_remaining': 3-budget['calls']}
+            known=bool(sources_in(result)) and not bool(result.get('error'))
+            self.evidence[digest(receipt)]={'context':deepcopy(expected),'query':deepcopy(query),'known':known}
+            while len(self.evidence)>512:self.evidence.popitem(last=False)
+            return {**envelope, 'known':known, 'receipt_sha256': digest(receipt), 'queries_remaining': 10-budget['calls']}

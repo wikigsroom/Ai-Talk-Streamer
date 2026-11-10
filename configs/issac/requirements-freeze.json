@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "contract_id": "NM-ISSAC-REQUIREMENTS-20261109-v3",
-  "status": "frozen_product_requirements_implementation_alignment_pending",
-  "frozen_on": "2026-11-09",
+  "contract_id": "NM-ISSAC-REQUIREMENTS-20261110-v4",
+  "status": "frozen_user_amendment_implementation_validation_pending",
+  "frozen_on": "2026-11-10",
   "prepared_at": "2026-11-09T03:03:43+08:00",
   "timezone": "Asia/Taipei",
   "branch": "issac",
@@ -270,14 +270,21 @@
     "strategic_owner": "naimei_core_ai_dsh",
     "direct_current_character_and_room_state": true,
     "direct_issac_wiki_skill_and_query_tool": true,
-    "all_active_passive_and_other_pickup_decisions": true,
-    "ordinary_consumable_pickups_included": true,
+    "all_active_passive_and_other_pickup_decisions": false,
+    "ordinary_consumable_pickups_included": false,
     "native_rules_realtime_combat_navigation_and_authorized_execution": true,
     "unapproved_auto_pickup_allowed": false,
     "bounded_target_specific_authorizations_and_fresh_preconditions_required": true,
     "actual_observed_effect_required_for_success_narration": true,
     "independent_strategy_persona_may_decide_before_naimei": false,
-    "same_core_context_for_observation_decision_results_and_natural_speech": true
+    "same_core_context_for_observation_decision_results_and_natural_speech": true,
+    "active_passive_pickup_owner": "naimei_core_dsh",
+    "ordinary_supply_owner": "local_controller",
+    "pill_card_pickup_keep_swap_owner": "local_controller",
+    "active_and_pocket_use_owner": "naimei_core_dsh",
+    "mandatory_item_wiki_evidence": true,
+    "mandatory_floor_reward_review": true,
+    "mandatory_growth_and_key_recovery_assessment": true
   },
   "runtime_boundary": {
     "target": "native_windows_rtx4090",
@@ -304,7 +311,7 @@
       "programme",
       "official_recording"
     ],
-    "model_requests": "original_user_saved_gpt_6_luna_responses_api_channel",
+    "model_requests": "original_saved_responses_channel_gpt_6_1_sol",
     "cloud_media_services_allowed": false,
     "resource_budget": "actual_4090_game_tools_and_media_initialization_and_continuous_peaks_with_margins",
     "api_and_tool_latency_measured_separately": true
@@ -375,11 +382,11 @@
     "self_hash_omitted_to_avoid_cycle": true,
     "source_entrypoints_are_pointers_not_implementation_acceptance": true
   },
-  "revision_reason": "Latest explicit user instruction resumes implementation and requests continuous 300-second official recording; retain original gpt-6-luna Responses and all quality requirements",
+  "revision_reason": "Latest explicit user instruction resumes implementation and requests continuous 300-second official recording; retain original gpt-6.1-sol Responses and all quality requirements",
   "revision_document": "docs/issac/300秒录播推进修订20261109.md",
   "supersedes_contract_id": "NM-ISSAC-REQUIREMENTS-20261109-v2",
   "core_model_channel": {
-    "model": "gpt-6-luna",
+    "model": "gpt-6.1-sol",
     "protocol": "responses",
     "provider": "original_user_saved_api_channel",
     "historical_evidence": "docs/evidence/dsh-real-channel-three-turn.json",
@@ -505,5 +512,15 @@
       "sha256": "bc391a41df94a7f5dc3b2439da3b81fcbf0c0f66ce6a2b25f20df66edb8b8a0e",
       "normalized_lf_sha256": "bc391a41df94a7f5dc3b2439da3b81fcbf0c0f66ce6a2b25f20df66edb8b8a0e"
     }
-  ]
+  ],
+  "current_amendment": "docs/issac/控制分工与连续人格修订20261110.md",
+  "conversation_amendment": {
+    "model": "gpt-6.1-sol",
+    "session_strategy": "continuous_naimei",
+    "full_fresh_state_every_turn": true,
+    "max_spoken_characters_including_punctuation": 15,
+    "recall_previous_actual_spoken": true,
+    "near_duplicate_speech_suppression": true,
+    "clear_old_active_memory_and_reload_complete_persona": true
+  }
 }

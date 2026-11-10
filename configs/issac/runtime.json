@@ -94,7 +94,7 @@
     "source_frozen_before_testing": true
   },
   "original_core_channel": {
-    "model": "gpt-6-luna",
+    "model": "gpt-6.1-sol",
     "protocol": "responses",
     "private_configuration": "private/issac/channel.env",
     "inherited_configuration": "configs/channel.env",
