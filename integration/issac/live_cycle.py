@@ -1,7 +1,8 @@
 """One explicitly enabled live session across real runs and bounded outages.
 
 This owner never fabricates a game result, changes a save, selects an item or
-reopens a public broadcast. Only the pinned game's ordinary retry key is used.
+reopens a public broadcast. Ordinary retry/menu keys follow the pinned game
+and the observed writable slot 3; explicit human takeover cancels them.
 All mutations run under StrategyHost.action_lock; native callbacks only publish
 their immutable terminal receipt and cannot acquire that lock in reverse order.
 """
@@ -125,6 +126,10 @@ class LiveCycle:
         host.service.configure(enabled=False, live=False)
         host.armed = False
         host.pause_pending = False
+        if proof.get('manual_override') is True:
+            host.strategy_automatic(False, required=False)
+            self.stop('native_manual_override')
+            return
         self.enabled = True
         self.retry_keys = 0
         self.next_check = self.clock()+10
@@ -250,11 +255,17 @@ class LiveCycle:
         host, now = self.host, self.clock()
         if now < self.next_check:
             return
-        if now-self.since > 60:
+        if host.native.manual_override():
+            host.strategy_automatic(False, required=False)
+            self.stop('native_manual_override')
+            return
+        ending=self.terminal['result']=='ending'
+        if now-self.since > (120 if ending else 60):
             self.attention('NEXT_RUN_MENU_TIMEOUT')
             host.strategy_automatic(False, required=False)
             return
-        host.native.protection.admit_current(host.native.process, host.native.progress())
+        progress=host.native.progress()
+        host.native.protection.admit_current(host.native.process, progress)
         state = host.native.observe()
         if state['players'] == 1 and not state['dead'] and state['hp'] > 0 and state['seed'] != self.terminal['seed']:
             if self.phase != 'binding_new_run':
@@ -286,7 +297,7 @@ class LiveCycle:
             return
         if self.phase == 'binding_new_run':
             raise AdmissionError('NEW_RUN_CHANGED_DURING_BINDING')
-        if self.retry_keys >= 5:
+        if self.retry_keys >= (12 if ending else 5):
             self.attention('ORDINARY_NEXT_RUN_INPUT_NOT_ACCEPTED')
             host.strategy_automatic(False, required=False)
             return
@@ -295,11 +306,46 @@ class LiveCycle:
             # memory, continuous DSH agent and actual spoken history survive.
             host.strategy_automatic(False, required=False)
             self.change('waiting_new_run', self.terminal['result'])
-        host.native.menu_key('space')
+        key=self.ending_menu_key(progress) if ending else 'space'
+        host.native.menu_key(key)
         self.retry_keys += 1
         self.next_check = now+3
-        host.audit.append('live_ordinary_retry_input', key='space', attempt=self.retry_keys,
+        host.audit.append('live_ordinary_retry_input', key=key, attempt=self.retry_keys,
                           previous_seed=self.terminal['seed'])
+
+    def ending_menu_key(self, progress):
+        """Follow the observed title/file page, then bounded slot-3 startup.
+
+        Credits permit only the original terminal-proof Space. Enter in an
+        unknown surface requires our own observed FILE 3 selection plus the
+        still-current native writable slot, just as fresh-start recovery does.
+        """
+        menu=self.host.native.menu_observation()
+        if not isinstance(menu,dict):
+            raise AdmissionError('REAL_NATIVE_ENDING_MENU_OBSERVATION_REQUIRED')
+        page=menu.get('page')
+        if page in {'title','opening_film'}:
+            self.terminal['file3_selection_issued']=False
+            return 'enter'
+        if page=='file_select':
+            self.terminal['file3_selection_issued']=False
+            selected=menu.get('selected_file')
+            if selected==3:
+                self.terminal['file3_selection_issued']=True
+                self.terminal['start_enter_count']=0
+                return 'enter'
+            if type(selected) is int and selected in {1,2}:
+                return 'right'
+            raise AdmissionError('OBSERVED_ENDING_FILE_SELECTION_REQUIRED')
+        if self.terminal.get('file3_selection_issued'):
+            if progress.get('slot')!=3 or progress.get('readonly') is not False:
+                raise AdmissionError('ENDING_NATIVE_WRITABLE_SLOT3_REQUIRED')
+            count=self.terminal.get('start_enter_count',0)+1
+            if count>4:
+                raise AdmissionError('BOUNDED_ENDING_SLOT3_STARTUP_EXHAUSTED')
+            self.terminal['start_enter_count']=count
+            return 'enter'
+        return 'space'
 
     def recover(self):
         host, now = self.host, self.clock()

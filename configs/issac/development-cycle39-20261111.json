@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE39",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [{"id":"REAL_VICTORY_OWNERSHIP_AND_OBSERVED_SLOT3_CONTINUATION","status":"code_complete_pending_acceptance","source_files":[
+    "AGENTS.md","integration/isaac-agent/mods/IsaacJev/main.lua",
+    "integration/isaac-agent/tests/test_ending_manual_ownership.py",
+    "integration/issac/native_game.py","integration/issac/live_cycle.py",
+    "integration/issac/tests/test_live_cycle.py","integration/issac/tests/test_ending_menu_cycle.py",
+    "docs/issac/Luna自然结局续局修订20261111.md","docs/issac/GPT6Luna切回交付20261111.md"
+  ]}],
+  "previous_round_closed":"CYCLE38 all six frozen suites passed and installed preserving live game. Actual Luna gameplay then reached a natural victory and exposed the ending manual flag / title continuation gap. Normal slot-3 menus recovered a new seed on the same process; no CYCLE38 production code was edited.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}

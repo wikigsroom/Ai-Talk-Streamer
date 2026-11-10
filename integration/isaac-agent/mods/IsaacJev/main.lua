@@ -4119,12 +4119,14 @@ function mod:onGameEnd(isGameOver)
         start_seed = game:GetSeeds():GetStartSeed(), stage = game:GetLevel():GetStage(),
         stage_type = game:GetLevel():GetStageType(),
         room_index = canonicalRoomIndex(game:GetLevel()), frame = game:GetFrameCount(),
-        mod_version = MOD_VERSION,
+        mod_version = MOD_VERSION, manual_override = manualOverride == true,
     }
     Isaac.DebugString("[IsaacJev] NATIVE_GAME_END " .. Json.encode(event))
     pendingGameEvent = Json.encode(event) .. "\n"
     if not isGameOver then
-        automatic, controllerEnabled, manualOverride = false, false, true
+        -- Ending withdraws gameplay authority. Only the real F8 handler owns
+        -- manualOverride; a victory must never impersonate a human takeover.
+        automatic, controllerEnabled = false, false
         resolvedMove, fireDirection = Vector(0, 0), Vector(0, 0)
     end
     flushGameEvent()

@@ -221,6 +221,22 @@ class NativeGame:
                 raise AdmissionError('GAME_NATIVE_SAVE_ABI_NOT_CONFIRMED')
             return result
 
+    def manual_override(self):
+        # Menus stop state packets. Read the trusted current Lua owner so F8
+        # during a real ending still cancels every subsequent ordinary key.
+        with self.lock:
+            self.verify_process()
+            value=self.rpc('evaluate','local m=_G.__NativeIsaacController;local c=m and m.strategyControl;'
+                'if c==nil then error("CURRENT_NATIVE_MANUAL_OWNER_REQUIRED") end;'
+                'return c.manualOverride==true and "true" or "false"')
+            if not isinstance(value,str) or value not in {'true','false'}:
+                raise AdmissionError('CURRENT_NATIVE_MANUAL_OWNER_REQUIRED')
+            return value=='true'
+
+    def menu_observation(self):
+        from .menu_observation import recognize_menu
+        return recognize_menu(self.capture_jpeg(),read_json(inside(self.root,'configs/issac/menu-signatures.json')))
+
     def menu_key(self, name):
         if name not in {'enter','escape','left','right','up','down','space'}:
             raise AdmissionError('ORDINARY_MENU_OR_PAUSE_KEY_REQUIRED')

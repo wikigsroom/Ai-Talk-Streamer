@@ -27,6 +27,8 @@ class LiveCycleTests(unittest.TestCase):
             approved_core=Mock(return_value=True), live_media_ready=Mock(return_value=True), watchdog_stop=Mock())
         self.living = {'players': 1, 'dead': False, 'hp': 6, 'seed': 123, 'paused': False, 'frame': 20}
         self.host.native.observe.return_value = deepcopy(self.living)
+        self.host.native.manual_override.return_value = False
+        self.host.native.menu_observation.return_value = {'page':'unknown'}
         self.cycle = LiveCycle(self.host, clock=lambda: self.now)
         self.cycle.start()
 
