@@ -1,0 +1,12 @@
+{
+ "schema_version":1,"round":"CYCLE26","branch":"issac",
+ "candidate_frozen":false,"application_tests_started":false,
+ "manual_whole_round_source_review_complete":true,"tests_run_during_development":false,
+ "unresolved_round_code_TODOs":[],
+ "items":[{"id":"OFFICIAL_CHILD_EXIT_RACES_AND_PARENT_CRASH_LEDGER","status":"code_complete_pending_acceptance","source_files":[
+ "integration/issac/live_supervisor.py","integration/issac/tests/test_live_cycle.py",
+ "integration/issac/record_focus.py","integration/issac/tests/test_record_focus.py",
+ "docs/issac/采集宿主恢复顺序修订20261110.md","AGENTS.md"]}],
+ "previous_round_closed":"CYCLE25 six suites passed 1242 with 4 skips; real restart saw natural process exit races and rejected background foreground activation, then automatically retried.",
+ "private_credentials_in_source":false,"memory_reset_requested":false
+}

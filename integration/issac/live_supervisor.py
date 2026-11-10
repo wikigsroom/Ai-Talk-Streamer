@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import subprocess
 import time
+import traceback
 import urllib.request
 
 from .common import AdmissionError, Audit, FileLease, file_hash, inside, read_json, write_json
@@ -262,7 +263,8 @@ class LiveSupervisor:
         before = observe()
         if before['progress']['slot'] != 0 or before['observation']['players'] != 0:
             raise AdmissionError('FRESH_GAME_TITLE_REQUIRED_FOR_SLOT3_SELECTION')
-        game_foreground(self.root)
+        focus = game_foreground(self.root)
+        self.audit.append('recovery_game_foreground_confirmed',step='native_menu',focus=focus)
         deadline, title_keys, file_keys, intro_keys = time.monotonic()+120, 0, 0, 0
         # A fresh game first plays a film. Waiting for the actual title avoids
         # the old fixed sequence consuming Enter on the film and arrows on the
@@ -331,19 +333,20 @@ class LiveSupervisor:
         import psutil
         try:
             process = psutil.Process(row['pid'])
+            if process.create_time() != row['created_at']:
+                return None  # The owned lifetime ended; preserve the new owner.
+            path = Path(row['executable']).resolve()
+            if (Path(process.exe()).resolve() != path or not path.is_relative_to(directory)
+                    or file_hash(path) != row['executable_sha256']):
+                raise AdmissionError('RECOVERY_OFFICIAL_CHILD_IDENTITY_CHANGED')
+            return process
         except psutil.NoSuchProcess:
             return None
-        path = Path(row['executable']).resolve()
-        if (process.create_time() != row['created_at'] or Path(process.exe()).resolve() != path
-                or not path.is_relative_to(directory) or file_hash(path) != row['executable_sha256']):
-            raise AdmissionError('RECOVERY_OFFICIAL_CHILD_IDENTITY_CHANGED')
-        return process
 
-    def restart_official_client(self):
+    def remember_official_children(self, old=None):
         import psutil
-        from .livehime import Livehime
         from .official_window import identity
-        old = read_json(inside(self.root, '.setup/issac-livehime-owner.json'))
+        old = old or read_json(inside(self.root, '.setup/issac-livehime-owner.json'))
         directory = Path(old['executable']).resolve().parent
         ledger_path = inside(self.root, 'state/issac-stream/live-supervisor-official-children.json')
         ledger = read_json(ledger_path) if ledger_path.exists() else {}
@@ -351,29 +354,60 @@ class LiveSupervisor:
             ('pid', 'created_at', 'executable_sha256')) else []
         try:
             process = identity(self.root, old)
+            children = process.children(recursive=True)
         except psutil.NoSuchProcess:
-            process = None
-        if process:
-            for child in process.children(recursive=True):
-                try:
-                    path = Path(child.exe()).resolve()
-                    if path.is_relative_to(directory):
-                        row = {'pid': child.pid, 'created_at': child.create_time(), 'executable': str(path),
-                               'executable_sha256': file_hash(path)}
-                        if row not in rows: rows.append(row)
-                except psutil.NoSuchProcess:
-                    pass
-            write_json(ledger_path, {k: old[k] for k in ('pid', 'created_at', 'executable_sha256')} | {'children': rows})
+            return rows
+        current = []
+        for child in children:
+            try:
+                path = Path(child.exe()).resolve()
+                if path.is_relative_to(directory):
+                    row = next((r for r in rows if r['pid'] == child.pid and
+                        r['created_at'] == child.create_time() and Path(r['executable']).resolve() == path), None)
+                    current.append(row or {'pid': child.pid, 'created_at': child.create_time(),
+                        'executable': str(path), 'executable_sha256': file_hash(path)})
+            except psutil.NoSuchProcess:
+                pass
+        try:identity(self.root, old)
+        except psutil.NoSuchProcess:
+            current = rows + [row for row in current if row not in rows]
+            write_json(ledger_path, {k: old[k] for k in ('pid', 'created_at', 'executable_sha256')} | {'children': current})
+            return current
+        write_json(ledger_path, {k: old[k] for k in ('pid', 'created_at', 'executable_sha256')} | {'children': current})
+        return current
+
+    def restart_official_client(self):
+        import psutil
+        from .livehime import Livehime
+        from .official_window import identity
+        old = read_json(inside(self.root, '.setup/issac-livehime-owner.json'))
+        directory = Path(old['executable']).resolve().parent
+        rows = self.remember_official_children(old)
+        try:
+            process = identity(self.root, old)
             process.terminate()
-            process.wait(12)
+            try:process.wait(12)
+            except psutil.TimeoutExpired:
+                process = identity(self.root, old)
+                process.kill();process.wait(8)
+        except psutil.NoSuchProcess:
+            pass
         # Await recorded same-lifetime children before the singleton check. A
         # parent-bound ledger also survives a parent exit during recovery.
         for row in rows:
             child = self.official_child(row, directory)
             if child:
-                child.terminate()
-                child.wait(8)
-        return Livehime(self.root).launch()
+                try:
+                    child.terminate()
+                    try:child.wait(8)
+                    except psutil.TimeoutExpired:
+                        child = self.official_child(row, directory)
+                        if child:child.kill();child.wait(8)
+                except psutil.NoSuchProcess:
+                    pass
+        result = Livehime(self.root).launch()
+        self.remember_official_children()
+        return result
 
     def preflight_live_game(self):
         # Catch delayed native exits before publishing a black game source.
@@ -389,7 +423,6 @@ class LiveSupervisor:
 
     def restore_official(self):
         from .livehime import Livehime
-        from .record_focus import foreground
         # No stop-broadcast request is ever sent. The same isolated profile,
         # sources, title, account and browser/audio source are reloaded.
         client = Livehime(self.root)
@@ -397,7 +430,6 @@ class LiveSupervisor:
         window = client.native_window('windows')['windows']
         if len(window) != 1:
             raise AdmissionError('RECOVERY_OFFICIAL_WINDOW_REQUIRED')
-        foreground(window[0]['hwnd'],window[0]['pid'],created_at=window[0]['created_at'])
         deadline = time.monotonic()+60
         while time.monotonic() < deadline:
             script = inside(self.root, 'scripts/issac_broadcast_resume.ps1')
@@ -439,7 +471,8 @@ class LiveSupervisor:
         self.restore_official()
         if operator_paused(self.api(9534, '/status')):
             raise AdmissionError('RECOVERY_CANCELLED_BY_OPERATOR')
-        game_foreground(self.root)
+        focus = game_foreground(self.root)
+        self.audit.append('recovery_game_foreground_confirmed',step='live_resume',focus=focus)
         self.api(9534, '/control', {'action': 'recovery_live'}, timeout=20)
         SaveProtection(self.root).verify()
         self.audit.append('owned_full_stack_restart_completed', attempt=self.state.restarts,
@@ -455,6 +488,7 @@ class LiveSupervisor:
             while True:
                 self.authorized()
                 try:
+                    self.remember_official_children()
                     healthy, manual, requested = self.healthy()
                 except Exception:
                     healthy, manual, requested = False, False, False
@@ -470,6 +504,7 @@ class LiveSupervisor:
                         self.recover()
                         backoff = 5
                     except Exception as error:
+                        traceback.print_exc()
                         self.audit.append('owned_restart_retry', exception_type=type(error).__name__,
                             code=str(error) if isinstance(error, AdmissionError) else 'RECOVERY_STEP_FAILED',
                             next_retry_seconds=backoff)

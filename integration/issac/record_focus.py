@@ -14,6 +14,51 @@ from .common import AdmissionError,file_hash,inside,read_json
 from .saves import GAME_SHA256
 
 
+class FocusPoint(ctypes.Structure):
+    _fields_=[('x',ctypes.c_long),('y',ctypes.c_long)]
+
+
+class FocusRect(ctypes.Structure):
+    _fields_=[('left',ctypes.c_long),('top',ctypes.c_long),('right',ctypes.c_long),('bottom',ctypes.c_long)]
+
+
+def caption_activate(user,hwnd,pid,verify):
+    """One ordinary click on a visible, positively identified native caption."""
+    user.GetWindowRect.argtypes=[ctypes.c_void_p,ctypes.POINTER(FocusRect)]
+    user.SetWindowPos.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_int,ctypes.c_int,ctypes.c_int,ctypes.c_int,ctypes.c_uint]
+    user.SendMessageTimeoutW.argtypes=[ctypes.c_void_p,ctypes.c_uint,ctypes.c_size_t,ctypes.c_ssize_t,ctypes.c_uint,ctypes.c_uint,ctypes.POINTER(ctypes.c_size_t)]
+    user.WindowFromPoint.argtypes=[FocusPoint];user.WindowFromPoint.restype=ctypes.c_void_p
+    user.GetAncestor.argtypes=[ctypes.c_void_p,ctypes.c_uint];user.GetAncestor.restype=ctypes.c_void_p
+    user.GetCursorPos.argtypes=[ctypes.POINTER(FocusPoint)]
+    user.mouse_event.argtypes=[ctypes.c_ulong,ctypes.c_ulong,ctypes.c_ulong,ctypes.c_ulong,ctypes.c_size_t]
+    verify();box=FocusRect()
+    if not user.GetWindowRect(hwnd,ctypes.byref(box)) or box.right-box.left<220 or box.bottom-box.top<50:
+        return False
+    if any(user.GetAsyncKeyState(key)&0x8000 for key in [1,2,16,17,18,91,92]):
+        return False
+    # Ordinary Z order only, without activation, resize, movement or topmost.
+    user.SetWindowPos(hwnd,None,0,0,0,0,0x4053)
+    point=FocusPoint((box.left+box.right)//2,box.top+12);hit=ctypes.c_size_t()
+    packed=(point.x&0xffff)|((point.y&0xffff)<<16)
+    if not user.SendMessageTimeoutW(hwnd,0x84,0,packed,2,200,ctypes.byref(hit)) or hit.value!=2:
+        return False  # HTCAPTION only; never client/menu/close/minimize controls.
+    def exposed():
+        window=user.WindowFromPoint(point);owner=ctypes.c_ulong()
+        user.GetWindowThreadProcessId(window,ctypes.byref(owner))
+        return owner.value==pid and (window==hwnd or user.GetAncestor(window,2)==hwnd)
+    if not exposed():return False
+    previous=FocusPoint()
+    if not user.GetCursorPos(ctypes.byref(previous)):return False
+    try:
+        if not user.SetCursorPos(point.x,point.y):return False
+        verify()
+        if not exposed():return False
+        try:user.mouse_event(2,0,0,0,0)
+        finally:user.mouse_event(4,0,0,0,0)
+        return True
+    finally:user.SetCursorPos(previous.x,previous.y)
+
+
 def game_owner(root):
     import psutil
     row=read_json(inside(root,'state/isaac-strategy/native-session.json'))
@@ -64,13 +109,18 @@ def foreground(hwnd,pid,*,created_at=None,timeout=2):
             for thread in reversed(attached):u.AttachThreadInput(current,thread,False)
     # Win32 accepts activation before the target's input queue applies it.
     # Observe completion with a bound, checking ownership on every sample.
+    caption_tries=0;caption_used=False;next_caption=started+.2
     while True:
         verify()
         if u.GetForegroundWindow()==hwnd:break
         if time.monotonic()>=deadline:raise AdmissionError('OWNED_WINDOW_FOREGROUND_NOT_CONFIRMED')
+        if caption_tries<3 and time.monotonic()>=next_caption:
+            caption_used=caption_activate(u,hwnd,pid,verify) or caption_used
+            caption_tries+=1;next_caption=time.monotonic()+.3
         time.sleep(.02)
     verify()
     return {'pid':pid,'hwnd':hwnd,'foreground':True,'game_control_changed':False,
+            'normal_caption_click_used':caption_used,'caption_activation_attempts':caption_tries,
             'confirmation_seconds':time.monotonic()-started}
 
 

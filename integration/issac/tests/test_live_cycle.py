@@ -2,6 +2,7 @@
 from copy import deepcopy
 from types import SimpleNamespace
 import threading
+import tempfile
 import unittest
 from unittest.mock import Mock, patch
 from pathlib import Path
@@ -329,9 +330,67 @@ class RecoveryOwnershipTests(unittest.TestCase):
         process.exe.return_value = str(owner.root/'official/client.exe')
         row = {'pid': 42, 'created_at': 100, 'executable': str(owner.root/'official/client.exe'), 'executable_sha256': 'pinned'}
         with patch('psutil.Process', return_value=process):
-            with self.assertRaisesRegex(AdmissionError, 'CHILD_IDENTITY_CHANGED'):
-                owner.official_child(row, owner.root/'official')
+            self.assertIsNone(owner.official_child(row, owner.root/'official'))
         process.terminate.assert_not_called()
+
+    def test_official_child_exit_during_identity_read_is_already_stopped(self):
+        import psutil
+        owner = self.supervisor(); process = Mock()
+        process.create_time.side_effect = psutil.NoSuchProcess(42)
+        with patch('psutil.Process', return_value=process):
+            self.assertIsNone(owner.official_child({'pid':42},owner.root/'official'))
+        process.terminate.assert_not_called()
+
+    def test_official_parent_exit_during_termination_does_not_block_relaunch(self):
+        import psutil
+        owner = self.supervisor(); parent = Mock(); parent.terminate.side_effect = psutil.NoSuchProcess(42)
+        row = {'pid':42,'created_at':100,'executable':str(owner.root/'official/livehime.exe')}
+        owner.remember_official_children = Mock(return_value=[])
+        with patch('integration.issac.live_supervisor.read_json',return_value=row), \
+             patch('integration.issac.official_window.identity',return_value=parent), \
+             patch('integration.issac.livehime.Livehime') as client:
+            owner.restart_official_client()
+        client.return_value.launch.assert_called_once_with()
+
+    def test_official_child_exit_between_lookup_and_terminate_is_harmless(self):
+        import psutil
+        owner = self.supervisor(); child = Mock(); child.terminate.side_effect = psutil.NoSuchProcess(43)
+        row = {'pid':42,'created_at':100,'executable':str(owner.root/'official/livehime.exe')}
+        owner.remember_official_children = Mock(return_value=[{'pid':43}])
+        owner.official_child = Mock(return_value=child)
+        with patch('integration.issac.live_supervisor.read_json',return_value=row), \
+             patch('integration.issac.official_window.identity',side_effect=psutil.NoSuchProcess(42)), \
+             patch('integration.issac.livehime.Livehime') as client:
+            owner.restart_official_client()
+        client.return_value.launch.assert_called_once_with()
+
+    def test_last_verified_children_survive_parent_exit_before_recovery(self):
+        import psutil
+        owner = self.supervisor()
+        with tempfile.TemporaryDirectory() as directory:
+            owner.root=Path(directory)
+            path=owner.root/'state/issac-stream/live-supervisor-official-children.json'
+            path.parent.mkdir(parents=True);path.write_text('{}','utf8')
+            old={'pid':42,'created_at':100,'executable_sha256':'pinned','executable':str(owner.root/'official/livehime.exe')}
+            ledger={**old,'children':[{'pid':43,'created_at':101}]}
+            with patch('integration.issac.live_supervisor.read_json',return_value=ledger), \
+                 patch('integration.issac.official_window.identity',side_effect=psutil.NoSuchProcess(42)):
+                self.assertEqual(owner.remember_official_children(old),ledger['children'])
+
+    def test_children_observed_just_before_parent_exit_are_persisted(self):
+        import psutil
+        owner = self.supervisor()
+        with tempfile.TemporaryDirectory() as directory:
+            owner.root=Path(directory);binary=owner.root/'official/livehime.exe'
+            binary.parent.mkdir();binary.write_bytes(b'pinned')
+            old={'pid':42,'created_at':100,'executable_sha256':'parent-pinned','executable':str(binary)}
+            parent=Mock();child=Mock(pid=43);child.exe.return_value=str(binary);child.create_time.return_value=101
+            parent.children.return_value=[child]
+            with patch('integration.issac.official_window.identity',side_effect=[parent,psutil.NoSuchProcess(42)]), \
+                 patch('integration.issac.live_supervisor.write_json') as saved:
+                rows=owner.remember_official_children(old)
+                self.assertEqual(rows[0]['pid'],43)
+                self.assertEqual(saved.call_args.args[1]['children'],rows)
 
     def test_preflight_cannot_publish_a_wrong_or_dead_slot(self):
         owner = self.supervisor()

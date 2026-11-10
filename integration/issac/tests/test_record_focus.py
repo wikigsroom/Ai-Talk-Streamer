@@ -5,7 +5,7 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import Mock,patch
 from integration.issac.common import AdmissionError
-from integration.issac.record_focus import RecordingHandoff,foreground,record_controls
+from integration.issac.record_focus import RecordingHandoff,foreground,record_controls,caption_activate
 
 
 class RecordingFocus(unittest.TestCase):
@@ -93,6 +93,53 @@ class RecordingFocus(unittest.TestCase):
             user.SetForegroundWindow.side_effect=[False,True]
             foreground(123,9)
             user.ShowWindowAsync.assert_called_once_with(123,9)
+
+
+class NormalCaptionActivation(unittest.TestCase):
+    def fixture(self):
+        user=Mock();verify=Mock()
+        def rect(hwnd,ref):
+            box=ref._obj;box.left=100;box.top=100;box.right=1100;box.bottom=800
+            return 1
+        def hit(*args):args[-1]._obj.value=2;return 1
+        def owner(hwnd,ref):ref._obj.value=9;return 90
+        def cursor(ref):ref._obj.x=10;ref._obj.y=20;return 1
+        user.GetWindowRect.side_effect=rect;user.GetAsyncKeyState.return_value=0
+        user.SendMessageTimeoutW.side_effect=hit;user.WindowFromPoint.return_value=123
+        user.GetWindowThreadProcessId.side_effect=owner;user.GetAncestor.return_value=123
+        user.GetCursorPos.side_effect=cursor;user.SetCursorPos.return_value=True
+        return user,verify
+
+    def test_only_proven_visible_caption_gets_ordinary_click_and_cursor_restore(self):
+        user,verify=self.fixture()
+        self.assertTrue(caption_activate(user,123,9,verify))
+        self.assertEqual([c.args for c in user.mouse_event.call_args_list],[(2,0,0,0,0),(4,0,0,0,0)])
+        self.assertEqual([c.args for c in user.SetCursorPos.call_args_list],[(600,112),(10,20)])
+        self.assertEqual(verify.call_count,2)
+
+    def test_client_and_close_controls_are_never_clicked(self):
+        for code in (1,8,9,20):
+            user,verify=self.fixture()
+            def hit(*args):args[-1]._obj.value=code;return 1
+            user.SendMessageTimeoutW.side_effect=hit
+            self.assertFalse(caption_activate(user,123,9,verify));user.mouse_event.assert_not_called()
+
+    def test_occlusion_and_foreign_window_are_rejected_before_input(self):
+        user,verify=self.fixture();user.WindowFromPoint.return_value=456
+        user.GetAncestor.return_value=456
+        self.assertFalse(caption_activate(user,123,9,verify));user.mouse_event.assert_not_called()
+        user.SetCursorPos.assert_not_called()
+
+    def test_pressed_modifier_or_mouse_prevents_synthetic_click(self):
+        for held in (1,2,16,17,18,91,92):
+            user,verify=self.fixture();user.GetAsyncKeyState.side_effect=lambda key:0x8000 if key==held else 0
+            self.assertFalse(caption_activate(user,123,9,verify));user.mouse_event.assert_not_called()
+
+    def test_failed_button_down_always_releases_mouse_and_restores_cursor(self):
+        user,verify=self.fixture();user.mouse_event.side_effect=[RuntimeError('mouse rejected'),None]
+        with self.assertRaisesRegex(RuntimeError,'mouse rejected'):caption_activate(user,123,9,verify)
+        self.assertEqual([c.args for c in user.mouse_event.call_args_list],[(2,0,0,0,0),(4,0,0,0,0)])
+        self.assertEqual(user.SetCursorPos.call_args.args,(10,20))
 
 
 class ExplicitRecordingHandoff(unittest.TestCase):
