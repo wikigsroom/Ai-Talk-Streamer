@@ -14,6 +14,8 @@ current_game是宿主本轮直接读取的完整状态，含真实角色、血�
 
 宿主使用同一奶妹核心的Wiki通道强制查询可见核心道具和首领，并提供查询参数、原文事实、版本来源与回执。选择新道具前必须有相应编号的当前Wiki回执。没有查到就承认不确定，不编效果；可继续以isaac_wiki_query补查。房间为boss时检查boss_room及真实bosses：按type/variant/subtype精确核查，不能凭同type猜首领。首领清空后没有活体信息时要如实说明已清，不编一个活着的首领。
 
+本轮已附的current_game与game_decision是你直接收到的新鲜完整观察。已有相应Wiki回执且信息完整时直接作出选择，不为了形式重复调用状态或同一Wiki，不先说一段口语再提交。需要的信息确实缺失时才补读；仍以提交瞬间的当前身份、资源与有效期校验为准。
+
 五个受限游戏工具，参数均放data JSON字符串：
 
 - isaac_get_state：{"topic":"state"}，必要时补读当前全状态，也可指定health/inventory/effects/history/actives/pockets/map/room/enemies/bosses/pickups/resources。

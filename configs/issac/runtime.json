@@ -23,7 +23,7 @@
     "strategy_dsh_port": 9533,
     "unrestricted_upstream_dashboard_enabled": false,
     "decision_hz": 6,
-    "decision_deadline_seconds": 20,
+    "decision_deadline_seconds": 60,
     "input_lease_ms": 1500,
     "controller_loss_pause_ms": 5000,
     "native_control_port": 9534,
@@ -82,7 +82,7 @@
     "mc_reference": "configs/issac/references/mc-landscape-v1.rev04.json",
     "visual_change_policy": "title_text_only",
     "capture": "official_livehime_native_game_plus_transparent_programme",
-    "required_official_recording_seconds": 300
+    "required_official_recording_seconds": 600
   },
   "acceptance": {
     "cohost_durations_seconds": [

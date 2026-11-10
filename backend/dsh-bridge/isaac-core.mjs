@@ -239,7 +239,8 @@ export class NaimeiGameCore {
     const snapshot={...base,provider:'issac-naimei-core',
       revision:base.revision};
     this.activeAbort=new AbortController();turn.abort=this.activeAbort;
-    const signal=AbortSignal.any([this.activeAbort.signal,AbortSignal.timeout(timeout)]);
+    turn.deadline_signal=AbortSignal.timeout(timeout);
+    const signal=AbortSignal.any([this.activeAbort.signal,turn.deadline_signal]);
     return bridge.host.generate({sessionId:turn.session_id,snapshot,input,signal,gameplayTurn:turn,maxTokens:bridge.policy.conversation.max_output_tokens,
       context:canonical({...context,partition_key:'ephemeral_game_not_viewer',humanity_public_snapshot:bridge.host.port.requestMemorySnapshot([])}),
       tools:async()=>{throw Error('GAME_TURN_VIEWER_MEMORY_WRITE_DENIED');},onProbe:probe=>bridge.recordProbe(probe)});
@@ -257,7 +258,7 @@ export class NaimeiGameCore {
     this.record('core_turn_started',{session_id:sessionId,decision_id:decision.id,context_id:decision.context_id,remaining_ms:decision.remaining_ms});
     try {
       const result=await this.generate({game_decision:decision,recent_naimei_game_decisions:this.recent.slice(-4)},turn,
-        '以奶妹本人身份直接判断新鲜game_decision；结合context.route_progress中的持续目标、原生已访房间、跨房间跳过及失败结果，优先持续推进有实际收益的路线。回访不叫首次探索，不反复去刚放弃的资源分支。新道具直接查wiki，不重复刷新。按required_assessment逐项评估本地补给、成长、缺钥匙回收；用isaac_submit_plan提交offer_id、assessment和commentary，下楼还需reward_review逐项说明余留奖励为何放弃。commentary最多15字含标点，自然打算，不称已经完成；成功即结束。',Math.min(18000,Math.max(1000,decision.remaining_ms-500)));
+        '以奶妹本人身份直接判断新鲜game_decision和已附完整current_game。已有Wiki参数、原文和回执不必重复查询；状态齐全时不要再次刷新或先输出口语，直接调用isaac_submit_plan。结合route_progress持续推进，回访不叫首次探索，不反复去刚放弃的资源支路。按required_assessment评估本地补给、成长和缺钥匙回收，提交offer_id、assessment、最多15字含标点的commentary；下楼另逐项reward_review。成功即结束，不称尚未发生的效果已完成。',Math.min(55000,this.bridge?.policy?.conversation?.model_timeout_ms||18000,Math.max(1000,decision.remaining_ms-500)));
       this.assertTurnCurrent(turn);
       requireValue(turn.submitted,'CORE_TURN_DID_NOT_SUBMIT_A_CHOICE',409);
       this.turns++;this.lastError=null;this.latencies.push(Date.now()-started);if(this.latencies.length>200)this.latencies.shift();
@@ -287,17 +288,21 @@ export class NaimeiGameCore {
     try {
       reservation=await this.api(9534,'/narration/reserve',{});if(!reservation.event)return;
       requireValue(await this.current(reservation.event),'GAME_EVENT_EXPIRED',409);
+      if(reservation.event.type==='pause_changed'){await this.abandon(reservation);reservation=null;return;}
       turn.session_id='naimei-fact-'+digest({event_id:reservation.event.event_id,request_id:randomUUID()});
       this.record('core_fact_started',{session_id:turn.session_id,event_id:reservation.event.event_id,control_revision:turn.control_revision});
+      const remaining=Number.isFinite(reservation.event.expires_at)?reservation.event.expires_at*1000-Date.now()-500:12000;
       const result=await this.generate({game_event:reservation.event,recent_naimei_game_decisions:this.recent.slice(-4)},turn,
-        '你是正在游玩的奶妹。game_event是刚刚核验的同房间真实观察，直接依据其中facts作自然反应或自言自语，不重复调用工具刷新，不作新决定。优先最多15字一句口语；使用刚才发生的事实，不推测原因，不把计划接受说成已成功，不提后台状态。',12000);
+        '你是正在游玩的奶妹。game_event是刚刚核验的同房间真实观察，直接依据其中facts作自然反应或自言自语，不重复调用工具刷新，不作新决定。优先最多15字一句口语；使用刚才发生的事实，不推测原因，不把计划接受说成已成功，不提后台状态。',Math.max(1,Math.min(30000,remaining)));
       this.assertTurnCurrent(turn);
       this.offerSpeech({text:result.text,...reservation});reservation=null;
     } catch(error) {
       if(reservation?.nonce)await this.abandon(reservation);
       // New decisions and an operator disarm intentionally interrupt speech.
       // An actual model failure must not leave automatic gameplay armed.
-      if(!this.turnCancelled(turn)&&!this.activeAbort?.signal.aborted&&error.code!=='GAME_EVENT_EXPIRED') {
+      const narrationExpired=error.code==='MODEL_TIMEOUT'&&turn.deadline_signal?.aborted;
+      if(narrationExpired)this.record('core_fact_expired',{session_id:turn.session_id??null,event_id:reservation?.event?.event_id??null,reason:'own_fact_deadline_not_channel_failure'});
+      if(!narrationExpired&&!this.turnCancelled(turn)&&!this.activeAbort?.signal.aborted&&error.code!=='GAME_EVENT_EXPIRED') {
         this.failures++;this.lastError=error.code||'CORE_FACT_FAILED';this.control(false);
         this.record('core_failure_disarmed',{session_id:turn.session_id??null,event_id:reservation?.event?.event_id??null,code:this.lastError,turn_kind:'fact',local_failure:generationDiagnostic(error)});
       }

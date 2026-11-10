@@ -113,6 +113,40 @@ test('a failed spontaneous reaction also disarms the same core and abandons its 
   assert.equal(disarmed,1);assert.equal(abandoned,1);assert.equal(core.failures,1);assert.equal(core.busy,false);
 });
 
+test('Sol choice has a bounded request budget while every native offer deadline remains authoritative',async()=>{
+  for(const [remaining,expected] of [[60000,55000],[7000,6500]]){
+    const {core}=fixture();let budget;
+    Object.assign(core,{bridge:{policy:{conversation:{model_timeout_ms:60000}}},busy:false,attempts:new Map(),failures:0,turns:0,latencies:[],
+      generate:async(_context,turn,_input,timeout)=>{budget=timeout;turn.submitted={status:'accepted',op:'wait'};return {text:'先看清这边的路。'};},offerSpeech:()=>{}});
+    await core.runDecision({...offered(),remaining_ms:remaining});
+    assert.equal(budget,expected);assert.equal(core.failures,0);assert.equal(core.turns,1);
+  }
+});
+
+test('own fact deadline abandons obsolete narration without disabling gameplay, but a provider timeout still disarms',async()=>{
+  for(const ownDeadline of [true,false]){
+    const {core}=fixture();let abandoned=0;
+    Object.assign(core,{busy:false,failures:0,current:async()=>true,
+      api:async()=>({event:{event_id:'current-fact',expires_at:Date.now()/1000+30},nonce:'fact'}),
+      generate:async(_context,turn)=>{const timer=new AbortController();if(ownDeadline)timer.abort();turn.deadline_signal=timer.signal;const e=Error('timeout');e.code='MODEL_TIMEOUT';throw e;},
+      abandon:async()=>{abandoned++;},control:()=>{core.enabled=false;}});
+    await core.runFact();assert.equal(abandoned,1);assert.equal(core.enabled,ownDeadline);assert.equal(core.failures,ownDeadline?0:1);
+  }
+});
+
+test('fact request remains bounded by actual event expiry and pause bookkeeping does not generate self-talk',async()=>{
+  for(const pause of [false,true]){
+    const {core}=fixture();let budget=null,abandoned=0,spoken=0;
+    Object.assign(core,{busy:false,failures:0,current:async()=>true,
+      api:async()=>({event:{event_id:'fact',type:pause?'pause_changed':'combat_progress',expires_at:Date.now()/1000+24},nonce:'fact'}),
+      generate:async(_context,_turn,_input,timeout)=>{budget=timeout;return {text:'这个角度更好躲。'};},
+      abandon:async()=>{abandoned++;},offerSpeech:()=>{spoken++;}});
+    await core.runFact();assert.equal(core.enabled,true);assert.equal(core.failures,0);
+    if(pause){assert.equal(budget,null);assert.equal(abandoned,1);assert.equal(spoken,0);}
+    else {assert.ok(budget>23000&&budget<=23500);assert.equal(spoken,1);}
+  }
+});
+
 test('an exception outside the generation boundary retains a safe original location while disarming',async()=>{
   for(const kind of ['decision','fact']){
     const {core}=fixture(),events=[];

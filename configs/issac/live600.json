@@ -19,8 +19,8 @@
   ],
   "latency_initial_engineering_targets": {
     "decision_p95_ms": 8000,
-    "decision_window_seconds": 20,
-    "core_turn_deadline_ms": 18000,
+    "decision_window_seconds": 60,
+    "core_turn_deadline_ms": 55000,
     "state_poll_ms": 500,
     "tool_timeout_ms": 2500,
     "accepted_as_measured": false
@@ -45,8 +45,8 @@
   },
   "cloud_media_services_allowed": false,
   "recording_runtime": {
-    "candidate_id": "issac-91296ef15c7b-4d55fc62",
-    "source_commit": "91296ef15c7ba4d634813c059a1b39dc12bf9fee",
+    "candidate_id": "AGENCY09_pending_source_freeze",
+    "source_commit": "assigned_after_whole_round_commit",
     "character_mode": "M03",
     "output": [
       1920,

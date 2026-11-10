@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "round": "AGENCY09",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [
+    {
+      "id": "SOL-GAME-DEADLINE-AND-600S",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "backend/dsh-bridge/isaac-core.mjs",
+        "configs/issac/core-persona-gameplay.md",
+        "configs/issac/runtime.json",
+        "configs/issac/live600.json",
+        "configs/issac/execution-rounds.json",
+        "integration/issac/tests/naimei_core.test.mjs",
+        "docs/issac/600秒录播推进修订20261110.md"
+      ]
+    }
+  ],
+  "previous_validation_closed": "operations/issac-live300-20261109/live600-pilot1.json",
+  "previous_failure": "Actual Sol choice exceeded inherited 18-second deadline and automatic gameplay correctly disarmed."
+}

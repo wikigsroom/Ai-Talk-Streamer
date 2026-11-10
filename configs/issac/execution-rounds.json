@@ -23,7 +23,7 @@
     "evidence": "docs/evidence/issac-round1-copy-20261107.json"
   },
   "round_2_onward": {
-    "status": "AGENCY08_amendment_validation_closed_with_documented_limits",
+    "status": "AGENCY09_whole_round_code_complete_validation_pending",
     "development_scope": "Frozen G01-G16 / 140 requirements with original Responses channel and one Naimei core",
     "order": [
       "finish_all_round_development",
@@ -41,7 +41,7 @@
       "candidate_scope_and_reproducible_commands"
     ],
     "defect_policy": "Close the test phase and implement one complete correction round before retesting; never patch between tests within a phase",
-    "inventory": "configs/issac/development-agency-20261110.json"
+    "inventory": "configs/issac/development-agency09-600.json"
   },
   "acceptance_scope_retained": [
     "native_game_ABI_and_read_only_observation",
