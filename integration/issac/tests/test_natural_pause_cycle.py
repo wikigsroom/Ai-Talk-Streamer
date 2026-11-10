@@ -1,5 +1,6 @@
 """Automatic drink pauses cannot become permanent operator takeovers."""
 from copy import deepcopy
+from pathlib import Path
 from types import SimpleNamespace
 import threading
 import unittest
@@ -67,7 +68,7 @@ class NaturalPauseCycle(unittest.TestCase):
         from integration.issac.tests.test_readiness import DrinkReadiness
         sample=deepcopy(DrinkReadiness().sample())
         sample['game'].update(manual_override=False,live_cycle={'enabled':False,'phase':'natural_paused','phase_seconds':30})
-        owner=object.__new__(LiveSupervisor)
+        owner=object.__new__(LiveSupervisor);owner.root=Path("legacy-fixture-root")
         def api(port,path):
             return {(9541,'/status'):{'stage':'running_candidate_not_accepted'},
                 (9534,'/status'):sample['game'],(8062,'/health'):sample['studio'],

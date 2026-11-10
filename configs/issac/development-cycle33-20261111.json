@@ -35,7 +35,7 @@
       ]
     }
   ],
-  "previous_round_closed": "CYCLE32 local validation hit a legacy recovery fixture that read the new production continuity configuration and waited for real component readiness. Test process stopped; CYCLE32 not deployed. Pin historical fixtures explicitly to legacy policy and add a real preserving component-repair regression; production stays CYCLE32.",
+  "previous_round_closed": "CYCLE32 local validation hit a legacy recovery fixture that read the new production continuity configuration and waited for real component readiness. Test process stopped; CYCLE32 not deployed. Pin historical fixtures explicitly to legacy policy and add a real preserving component-repair regression; production stays CYCLE32. Pre-test review also supplies the missing fixture root before testing or deploying any CYCLE33 candidate.",
   "private_credentials_in_source": false,
   "memory_reset_requested": false
 }
