@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "round": "CYCLE17",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [
+    {
+      "id": "CONTINUOUS-LIVE-RECOVERY",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/live_cycle.py",
+        "integration/issac/live_supervisor.py",
+        "integration/issac/native_game.py",
+        "integration/issac/strategy_host.py",
+        "integration/isaac-agent/native_bridge.js",
+        "integration/isaac-agent/build_native_controller.py",
+        "scripts/issac_broadcast_resume.ps1",
+        "integration/issac/tests/test_live_cycle.py",
+        "integration/issac/tests/native_bridge.test.mjs",
+        "docs/issac/跨局续播与独立自动恢复20261110.md",
+        "AGENTS.md"
+      ]
+    }
+  ],
+  "latest_user_policy": "Recover by restarting owned programmes and restoring the same live stream; never choose a permanent game stop or a public-stop action as a fault policy.",
+  "previous_issue": "Real game death at 17:38 followed by a stationary end screen and platform cut at 18:57.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false
+}

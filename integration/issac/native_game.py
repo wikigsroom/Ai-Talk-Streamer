@@ -221,7 +221,7 @@ class NativeGame:
             return result
 
     def menu_key(self, name):
-        if name not in {'enter','escape','left','right','up','down'}:
+        if name not in {'enter','escape','left','right','up','down','space'}:
             raise AdmissionError('ORDINARY_MENU_OR_PAUSE_KEY_REQUIRED')
         import win32gui
         import win32process
@@ -291,11 +291,14 @@ class NativeGame:
             write_json(inside(self.root,'state/isaac-strategy/pause-receipt.json'),receipt)
             return receipt
 
-    def install_controller(self, goal=None):
+    def install_controller(self, goal=None, *, allow_terminal=False):
         with self.lock:
             observed=self.observe()
             progress=self.progress()
-            self.protection.bind_live_slot(self.process,progress,observed)
+            if allow_terminal and observed['dead']:
+                self.protection.admit_current(self.process,progress)
+            else:
+                self.protection.bind_live_slot(self.process,progress,observed)
             self.bootstrap_modules()
             goal=goal or RunGoal()
             identity={'start_seed':observed['seed'],'restart_count':0,'bridge':self.session_id}

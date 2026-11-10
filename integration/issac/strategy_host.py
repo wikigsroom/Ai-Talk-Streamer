@@ -20,6 +20,7 @@ from .game_policy import FairPolicy, RunGoal, attach_upstream, strategy_class
 from .native_game import NativeGame
 from .strategy_dsh import bridge_token
 from .wiki import WikiService
+from .live_cycle import LiveCycle
 
 
 def controller_class(root, service, facts):
@@ -43,6 +44,7 @@ def controller_class(root, service, facts):
             self.event_cursor=0
             self.packet_processing={'stage':'idle'}
             self.last_packet_timing=None
+            self.terminal_receipt=None
 
         def update_provider_config(self, raw):
             raise AdmissionError('REALTIME_PROVIDER_IS_FIXED_LOCAL_CODE')
@@ -97,6 +99,7 @@ def controller_class(root, service, facts):
             facts.emit(current,'run_ended',{'result':'death' if message['is_game_over'] else 'ending',
                        'ending_id':message.get('ending_id'),'callback':'MC_POST_GAME_END'},
                        priority=1,ttl=20,proof=message)
+            self.terminal_receipt=deepcopy(message)
             service.configure(enabled=False,live=False)
             self.set_autopilot(False)
 
@@ -137,12 +140,55 @@ class StrategyHost:
         self.last_core_check=0
         self.control_revision=0
         self.pause_pending=False
+        self.lifecycle=LiveCycle(self)
         self.server=self.make_server()
 
-    def control(self, body):
+    def core_status(self):
+        opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
+        with opener.open('http://127.0.0.1:3104/api/dsh/issac/core/status',timeout=.75) as response:
+            return json.load(response)
+
+    def approved_core(self, core):
+        return (core.get('actor_id')=='naimei' and core.get('strategic_owner')=='naimei_core_dsh'
+                and current_core_channel_matches(self.root,core)
+                and core.get('candidate_id')==read_json(inside(self.root,'.setup/candidate.json')).get('id'))
+
+    def live_media_ready(self):
+        """Ready models and the actual single audible player, not process liveness."""
+        try:
+            opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
+            for url in ('http://127.0.0.1:9893/health','http://127.0.0.1:8040/health',
+                        'http://127.0.0.1:8062/health'):
+                with opener.open(url,timeout=.75) as response:value=json.load(response)
+                if value.get('ready') is not True:return False
+            with opener.open('http://127.0.0.1:3104/api/dsh/platforms',timeout=.75) as response:value=json.load(response)
+            player=value.get('output_player') or {}
+            return player.get('connected') is True and player.get('audio_state')=='running'
+        except Exception:
+            return False
+
+    def watchdog_stop(self, reason):
+        """Suspend immediately; only this live owner's exact pause can recover."""
+        self.last_fault=reason
+        lifecycle=getattr(self,'lifecycle',None)
+        receipt=None
+        try:
+            if lifecycle:
+                result=self.control({'enabled':False,'live':False},origin='lifecycle')
+                receipt=result.get('native_receipt')
+            else:
+                self.control({'enabled':False,'live':False})
+        except Exception:
+            self.last_fault=reason+'_PAUSE_ACK_PENDING'
+        if lifecycle:lifecycle.fault(reason,receipt)
+
+    def control(self, body, *, origin='operator'):
         if set(body)-{'enabled','live'}:
             raise AdmissionError('FIXED_CONTROL_FIELDS_REQUIRED')
         with self.action_lock:
+            lifecycle=getattr(self,'lifecycle',None)
+            # Cancel intent before reverse HTTP/native operations can block.
+            if lifecycle and origin=='operator':lifecycle.stop()
             self.control_revision+=1
             enabled=body['enabled']
             live=body.get('live',False)
@@ -172,6 +218,7 @@ class StrategyHost:
                 self.pause_pending=False
                 self.last_fault=None
                 self.audit.append('autopilot_resumed',receipt=receipt)
+                if lifecycle and origin=='operator':lifecycle.start()
             else:
                 # Withdraw local authority before any reverse HTTP request or
                 # native observation can wait. Keep failed pause confirmation
@@ -210,6 +257,7 @@ class StrategyHost:
                 'native_engine_hold_grace':self.service.native_engine_hold_grace(),
                 'game_audio':self.audio.status(),
                 'packet_processing':getattr(self.runtime.controller,'packet_status',lambda:None)(),
+                'live_cycle':self.lifecycle.status(),
                 'last_fault':self.last_fault,'only_ordinary_inputs':True,'save_slot':3}
 
     def action(self, body):
@@ -237,6 +285,19 @@ class StrategyHost:
                 if action=='observe':
                     return {'observation':self.native.observe(),'progress':self.native.progress()}
                 return self.control({'enabled':action=='resume','live':action=='resume'})
+            if action=='live' and set(body)=={'action'}:
+                # Explicitly adopt the real dead run left by an older process.
+                # A service restart alone never enables this session.
+                state=self.native.observe()
+                if state['dead']:
+                    self.control_revision+=1
+                    self.native.protection.admit_current(self.native.process,self.native.progress())
+                    self.native.install_controller(allow_terminal=True)
+                    self.lifecycle.stop('explicit_live_start')
+                    self.lifecycle.alert=None
+                    self.lifecycle.hold_terminal({},observed_dead=True)
+                    return {'armed':False,'live_cycle':self.lifecycle.status()}
+                return self.control({'enabled':True,'live':True})
             raise AdmissionError('FIXED_NATIVE_ACTION_REQUIRED')
 
     def make_server(self):
@@ -325,6 +386,7 @@ class StrategyHost:
 
     def watchdog(self):
         while not self.stop_event.wait(.25):
+            lifecycle=getattr(self,'lifecycle',None)
             if self.pause_pending and not self.armed:
                 try:
                     with self.action_lock:
@@ -334,10 +396,14 @@ class StrategyHost:
                         if self.pause_pending and not self.armed:
                             receipt=self.native.pause()
                             self.pause_pending=False
+                            if lifecycle and lifecycle.phase=='recovering':lifecycle.recovery_receipt=receipt
                             self.audit.append('pending_normal_pause_confirmed',receipt=receipt)
                 except Exception:
                     with self.action_lock:
                         if self.pause_pending and not self.armed:self.last_fault='NORMAL_PAUSE_ACK_PENDING'
+            if lifecycle:
+                with self.action_lock:
+                    if lifecycle.tick():continue
             if self.armed and time.monotonic()-self.last_core_check>=1:
                 observed_revision=self.control_revision
                 self.last_core_check=time.monotonic()
@@ -358,9 +424,7 @@ class StrategyHost:
                                 elapsed_ms=(time.monotonic()-core_check_started)*1000,
                                 check_error=core_error,
                                 core={key:core.get(key) for key in ('ready','automatic','actor_id','failures','last_error')})
-                            self.last_fault='NAIMEI_CORE_UNAVAILABLE'
-                            try:self.control({'enabled':False,'live':False})
-                            except Exception:self.last_fault='NAIMEI_CORE_LOSS_PAUSE_ACK_PENDING'
+                            self.watchdog_stop('NAIMEI_CORE_UNAVAILABLE')
             observed_revision=self.control_revision
             if self.armed and not self.runtime.controller.autopilot_enabled:
                 with self.action_lock:
@@ -392,6 +456,7 @@ class StrategyHost:
                     except Exception:
                         receipt={'normal_pause_confirmed':False,'native_controller_lease_still_required':True}
                     finally:self.strategy_automatic(False,required=False)
+                    if lifecycle:lifecycle.fault('GAME_BRIDGE_STALE',receipt)
                     self.audit.append('bridge_loss_stop',receipt=receipt,packet_processing=packet,
                         observation_age_ms=stale_age_ms,
                         last_observation_pulse=getattr(self,'last_observation_pulse',None))
@@ -405,6 +470,7 @@ class StrategyHost:
                             try:self.control({'enabled':False,'live':False})
                             except Exception:pass
                             self.last_fault='SLOT_OR_NATIVE_IDENTITY_CHANGED'
+                            if lifecycle:lifecycle.attention(self.last_fault)
 
     def run(self):
         from .shutdown import watch

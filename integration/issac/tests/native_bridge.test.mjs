@@ -109,6 +109,17 @@ test('bounded ordinary menu key affects only its lease, then removes all input h
   assert.throws(()=>f.api.key('shoot','1'),/ordinary/);
 });
 
+test('ordinary next-run Space expires without retaining a gameplay keyboard hook',()=>{
+  const f=fixture();
+  f.api.key('space','1');
+  assert.equal(f.invoke('GetAsyncKeyState',[f.ptr(32)],f.ptr(0)).toInt32(),0x8000);
+  assert.equal(f.invoke('GetAsyncKeyState',[f.ptr(13)],f.ptr(0)).toInt32(),0);
+  f.tick(145);
+  assert.equal(f.api.status().performance.keyboard_hooks,0);
+  assert.equal(f.api.status().performance.keyboard_leases,0);
+  assert.equal(f.messages.filter(x=>x.key===32&&x.message===0x101).length,1);
+});
+
 test('an old release timer cannot release a newer press of the same key',()=>{
   const f=fixture();f.api.key('enter','1');f.tick(100);f.api.key('enter','1');f.tick(45);
   assert.equal(f.messages.filter(x=>x.message===0x101).length,0);

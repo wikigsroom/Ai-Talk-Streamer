@@ -61,7 +61,7 @@ function installKeyboardHooks() {
   }}));
 }
 function ordinaryKey(name, hwnd) {
-  const codes={enter:13,escape:27,left:37,up:38,right:39,down:40};
+  const codes={enter:13,escape:27,left:37,up:38,right:39,down:40,space:32};
   const code=codes[name];if(!code)throw new Error('Only ordinary menu/pause keys are allowed');
   const window=ptr(hwnd);
   const processId=Memory.alloc(4);

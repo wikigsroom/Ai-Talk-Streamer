@@ -65,6 +65,19 @@ _G.__NativeIsaacController = mod''',1)
     source=source[:start]+'''    -- Retain the actual end screen until ordinary menu input starts another run.
     restartPhase = "death_wait"
 '''+source[end:]
+    # Keep an observed end available to the host during frozen victory frames.
+    # This is a real callback receipt, never a fabricated result or restart.
+    source=source.replace('    pendingGameEvent = Json.encode(event) .. "\\n"',
+        '    self.nativeTerminal = event\n    pendingGameEvent = Json.encode(event) .. "\\n"',1)
+    source=source.replace('function mod:onGameStarted()\n',
+        'function mod:onGameStarted()\n    self.nativeTerminal=nil\n',1)
+    source=source.replace('function mod:onRender()\n', '''function mod:onRender()
+    if self.nativeTerminal and Isaac.GetTime()-(self.lastTerminalStateAt or 0)>=400 then
+        self.lastTerminalStateAt=Isaac.GetTime()
+        lastStateFrame=-10000
+        safeSendState()
+    end
+''',1)
     # Walking onto an authorized trinket lets the game apply its normal pickup
     # and swap rules. Direct DropTrinket would bypass those rules (notably Tick).
     start=source.index('    local wantedTrinketId = tonumber(string.match(action.id')
