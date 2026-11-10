@@ -1,0 +1,11 @@
+{
+ "schema_version":1,"round":"CYCLE21","branch":"issac",
+ "candidate_frozen":false,"application_tests_started":false,
+ "manual_whole_round_source_review_complete":true,"tests_run_during_development":false,
+ "unresolved_round_code_TODOs":[],
+ "items":[{"id":"RECOVERY_RESUME_OWNERSHIP","status":"code_complete_pending_acceptance","source_files":[
+ "integration/issac/live_supervisor.py","integration/issac/strategy_host.py","integration/issac/tests/test_live_cycle.py",
+ "docs/issac/采集宿主恢复顺序修订20261110.md","AGENTS.md"]}],
+ "previous_round_closed":"CYCLE20 six regressions passed; final resume entry audit found failure could also leave operator_paused.",
+ "private_credentials_in_source":false,"memory_reset_requested":false
+}

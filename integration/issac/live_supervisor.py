@@ -431,7 +431,7 @@ class LiveSupervisor:
         if operator_paused(self.api(9534, '/status')):
             raise AdmissionError('RECOVERY_CANCELLED_BY_OPERATOR')
         game_foreground(self.root)
-        self.api(9534, '/control', {'action': 'live'}, timeout=20)
+        self.api(9534, '/control', {'action': 'recovery_live'}, timeout=20)
         SaveProtection(self.root).verify()
         self.audit.append('owned_full_stack_restart_completed', attempt=self.state.restarts,
                           memory_cleared=False, model_changed=False, public_stop_requested=False)

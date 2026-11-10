@@ -313,6 +313,7 @@ class RecoveryOwnershipTests(unittest.TestCase):
         with patch('integration.issac.saves.SaveProtection'), patch('integration.issac.record_focus.game_foreground'):
             owner.recover()
         self.assertEqual(order, ['restart_official_client', 'restore_game', 'preflight_live_game', 'restore_official'])
+        owner.api.assert_any_call(9534, '/control', {'action': 'recovery_live'}, timeout=20)
 
     def test_native_game_exit_before_publish_cannot_start_public_stream(self):
         owner = self.supervisor(); owner.preflight_live_game.side_effect = AdmissionError('GAME_EXITED')
@@ -358,6 +359,38 @@ class RecoveryOwnershipTests(unittest.TestCase):
         owner.armed = True
         with self.assertRaisesRegex(AdmissionError, 'OBSERVATION_ONLY'):
             owner.action({'action': 'recovery_pause'})
+
+    def recovery_host(self):
+        from integration.issac.strategy_host import StrategyHost
+        owner = object.__new__(StrategyHost)
+        owner.action_lock = threading.RLock(); owner.armed = False
+        owner.lifecycle = SimpleNamespace(enabled=False, phase='observation_only', start=Mock())
+        owner.service = SimpleNamespace(raw={'strategy': {'manual_override': False}})
+        owner.control = Mock(return_value={'armed': True})
+        return owner
+
+    def test_recovery_resume_starts_lifecycle_only_after_successful_native_control(self):
+        owner = self.recovery_host()
+        self.assertEqual(owner.action({'action': 'recovery_live'}), {'armed': True})
+        owner.control.assert_called_once_with({'enabled': True, 'live': True}, origin='lifecycle')
+        owner.lifecycle.start.assert_called_once_with()
+
+    def test_recovery_resume_failure_does_not_fabricate_an_operator_pause(self):
+        owner = self.recovery_host(); owner.control.side_effect = AdmissionError('CORE_NOT_READY')
+        with self.assertRaisesRegex(AdmissionError, 'CORE_NOT_READY'):
+            owner.action({'action': 'recovery_live'})
+        self.assertEqual(owner.lifecycle.phase, 'observation_only')
+        self.assertFalse(operator_paused({'live_cycle': {'phase': owner.lifecycle.phase}}))
+        owner.lifecycle.start.assert_not_called()
+
+    def test_recovery_resume_cannot_bypass_manual_or_native_f8_pause(self):
+        for phase, native_manual in [('operator_paused', False), ('observation_only', True)]:
+            with self.subTest(phase=phase, native_manual=native_manual):
+                owner = self.recovery_host(); owner.lifecycle.phase = phase
+                owner.service.raw['strategy']['manual_override'] = native_manual
+                with self.assertRaisesRegex(AdmissionError, 'OBSERVATION_ONLY'):
+                    owner.action({'action': 'recovery_live'})
+                owner.control.assert_not_called(); owner.lifecycle.start.assert_not_called()
 
 
 if __name__ == '__main__':
