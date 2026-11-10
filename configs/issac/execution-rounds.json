@@ -23,8 +23,8 @@
     "evidence": "docs/evidence/issac-round1-copy-20261107.json"
   },
   "round_2_onward": {
-    "status": "AGENCY13_closed_continuous_600_recording_delivered_with_documented_limits",
-    "development_scope": "Frozen G01-G16 / 140 requirements with original Responses channel and one Naimei core",
+    "status": "FLASH14_code_complete_pending_freeze_and_uniform_validation",
+    "development_scope": "Official DeepSeek V4.1 Flash, 1M context and unchanged single Naimei strategic core",
     "order": [
       "finish_all_round_development",
       "resolve_all_round_code_TODOs",
@@ -41,14 +41,14 @@
       "candidate_scope_and_reproducible_commands"
     ],
     "defect_policy": "Close the test phase and implement one complete correction round before retesting; never patch between tests within a phase",
-    "inventory": "configs/issac/development-agency13-600.json"
+    "inventory": "configs/issac/development-flash14-20261110.json"
   },
   "acceptance_scope_retained": [
     "native_game_ABI_and_read_only_observation",
     "protected_save_backups_and_authorized_slot_3",
     "ordinary_inputs_only_and_confirmed_pause_on_controller_loss",
     "same_Naimei_core_DSH_complete_prompt_and_five_read_only_or_bounded_rep_game_tools",
-    "original_gpt_6_1_sol_responses_channel_and_actual_same_core_tool_calls",
+    "approved_official_deepseek_flash_responses_channel_and_actual_same_core_tool_calls",
     "verified_events_and_receipt_causality",
     "Naimei_personality_and_seven_extension_adapters",
     "actual_NCM01_voice_generation_and_private_reference_exclusion",
@@ -200,24 +200,27 @@
       "full_product_acceptance": false
     }
   ],
-  "current_user_amendment": "docs/issac/控制分工与连续人格修订20261110.md",
+  "current_user_amendment": "docs/issac/官方Flash与上下文修订20261110.md",
   "official_installation": "configs/issac/official-installation.json",
   "current_model_channel": {
-    "model": "gpt-6.1-sol",
+    "model": "deepseek-flash",
     "protocol": "responses",
-    "provider": "original_user_saved_api_channel",
-    "credentials_source": "legitimate_original_private_channel_configuration",
-    "original_configuration_entrypoint": "configs/channel.env",
+    "provider": "deepseek-official",
+    "credentials_source": "latest_explicit_user_private_api_key",
+    "original_configuration_entrypoint": "private/issac/channel.env",
     "secrets_or_endpoint_embedded": false,
     "historical_channel_evidence": "docs/evidence/dsh-real-channel-three-turn.json",
     "historical_channel_evidence_is_current_deployment_acceptance": false,
     "same_naimei_core_for_observation_tools_decisions_and_speech": true,
     "automatic_model_or_channel_replacement_allowed": false,
-    "runtime_alignment": "AGENCY13_actual_original_channel_same_native_DSH_session_11_choices_and_6_completed_spoken_utterances",
-    "current_evidence": "docs/evidence/issac-live600-20261110.json"
+    "runtime_alignment": "FLASH14_pending_frozen_round_validation",
+    "model_profile": "configs/issac/core-model.json",
+    "context_window_tokens": 1000000,
+    "private_configuration": "private/issac/channel.env",
+    "previous_model_evidence": "docs/evidence/issac-live600-20261110.json"
   },
   "tests_paused_by_user": false,
-  "current_revision_document": "docs/issac/控制分工与连续人格修订20261110.md",
+  "current_revision_document": "docs/issac/官方Flash与上下文修订20261110.md",
   "historical_round_inventory_is_current_startup_authority": false,
   "current_execution_amendment": "configs/issac/live600.json",
   "current_validation": {
@@ -241,5 +244,7 @@
     "end_automatic": false,
     "end_normal_game_pause": true,
     "phase_closed_unix": 1794287313.0102737
-  }
+  },
+  "current_model_profile": "configs/issac/core-model.json",
+  "current_model_amendment": "docs/issac/官方Flash与上下文修订20261110.md"
 }

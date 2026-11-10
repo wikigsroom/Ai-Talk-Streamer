@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { resolve, relative, isAbsolute, sep } from 'node:path';
+import { loadIsaacModel } from './isaac-model.mjs';
 
 export const POLICY_VERSION = 'dsh-live-v1.0';
 export const CONNECTOR_VERSION = 'stream-humanity-v1';
@@ -39,7 +40,7 @@ export function loadPolicy(root, file) {
   const policy = file ? JSON.parse(readFileSync(inside(root, file), 'utf8')) : structuredClone(shape);
   if (Object.hasOwn(policy, 'features')) shape.features = { automatic_memory_enabled: true, automatic_platform_events_enabled: true };
   if (Object.hasOwn(policy, 'extensions')) shape.extensions = { enabled: true, config: '' };
-  if(Object.hasOwn(policy.conversation||{},'game_context_max_estimated_tokens'))shape.conversation.game_context_max_estimated_tokens=24000;
+  if(Object.hasOwn(policy.conversation||{},'game_context_max_estimated_tokens'))shape.conversation.game_context_max_estimated_tokens=0;
   if(Object.hasOwn(policy.conversation||{},'game_reasoning_effort'))shape.conversation.game_reasoning_effort='low';
   sameShape(policy, shape);
   if (policy.schema_version !== 1 || policy.policy_version !== POLICY_VERSION) throw new Error('CONFIG_VERSION');
@@ -49,7 +50,12 @@ export function loadPolicy(root, file) {
   if(!['female-a','naimei'].includes(characterId)||policy.identity.room_id!=='room-main'||policy.identity.anonymous_cross_broadcast_memory||policy.identity.viewer_identity_source!=='server_verified_principal'||policy.identity.character_source!==`configs/characters/${characterId}.json`)throw new Error('CONFIG_IDENTITY_SCOPE');
   const isaacScope=policy.deployment.state_relative_path==='state/issac-stream';
   if(Object.hasOwn(policy.conversation,'game_reasoning_effort')&&(!isaacScope||policy.conversation.game_reasoning_effort!=='low'))throw Error('CONFIG_GAME_REASONING_SCOPE');
-  if(Object.hasOwn(policy.conversation,'game_context_max_estimated_tokens')&&(!isaacScope||policy.conversation.game_context_max_estimated_tokens<14000||policy.conversation.game_context_max_estimated_tokens>28000))throw Error('CONFIG_GAME_CONTEXT_SCOPE');
+  if(Object.hasOwn(policy.conversation,'game_context_max_estimated_tokens')){
+    if(!isaacScope)throw Error('CONFIG_GAME_CONTEXT_SCOPE');
+    const model=loadIsaacModel(root),budget=policy.conversation.game_context_max_estimated_tokens;
+    if(budget<14000||budget>model.max_input_estimated_tokens||policy.conversation.max_output_tokens!==model.max_output_tokens)
+      throw Error('CONFIG_GAME_CONTEXT_SCOPE');
+  }
   if(isaacScope){const target=JSON.parse(readFileSync(inside(root,'configs/deployment-target.json'),'utf8'));if(target.target!=='issac-rtx4090'||target.branch!=='issac'||characterId!=='naimei'||policy.deployment.bridge_port!==3104||policy.deployment.management_port!==3103)throw Error('CONFIG_ISAAC_STATE_SCOPE');}
   if(characterId==='naimei'&&(!isaacScope&&!/^state\/naimei(?:\/|$)/.test(policy.deployment.state_relative_path.replaceAll('\\','/'))||!policy.deployment.dsh_home_relative_path.replaceAll('\\','/').startsWith(policy.deployment.state_relative_path.replaceAll('\\','/')+'/')))throw new Error('CONFIG_CHARACTER_STATE_SCOPE');
   if (policy.deployment.mode !== 'native_windows' || policy.deployment.bridge_host !== '127.0.0.1' || policy.deployment.management_host !== '127.0.0.1') throw new Error('CONFIG_DEPLOYMENT');
@@ -62,7 +68,8 @@ export function loadPolicy(root, file) {
   if (!policy.storage.sqlite_foreign_keys || policy.storage.network_filesystem || policy.storage.automatic_raw_event_deletion || !policy.storage.deletion_fences_required_for_restore) throw new Error('CONFIG_STORAGE_INVARIANT');
   if(policy.storage.sqlite_journal_mode!=='WAL'||policy.storage.sqlite_synchronous!=='FULL'||policy.storage.sqlite_busy_timeout_ms!==5000||!policy.storage.backup_before_migration||policy.playback.evidence_level!=='consumer_playout'||!policy.memory.read_canonical_if_projection_lags)throw new Error('CONFIG_FIXED_INVARIANT');
   const c = policy.conversation, m = policy.maintenance, p = policy.playback;
-  if (c.pending_queue_limit < 1 || c.pending_queue_limit > 20 || c.final_speech_max_chars < 1 || c.final_speech_max_chars > 500 || c.max_memory_tool_rounds > 2 || c.max_memory_tool_rounds < 1 || c.context_max_estimated_tokens < 1000 || c.context_max_estimated_tokens > 16000) throw new Error('CONFIG_CONVERSATION_RANGE');
+  const contextMaximum=isaacScope?loadIsaacModel(root).max_input_estimated_tokens:16000;
+  if (c.pending_queue_limit < 1 || c.pending_queue_limit > 20 || c.final_speech_max_chars < 1 || c.final_speech_max_chars > 500 || c.max_memory_tool_rounds > 2 || c.max_memory_tool_rounds < 1 || c.context_max_estimated_tokens < 1000 || c.context_max_estimated_tokens > contextMaximum) throw new Error('CONFIG_CONVERSATION_RANGE');
   if (m.model_timeout_ms >= m.lease_timeout_ms || m.lease_heartbeat_ms * 2 >= m.lease_timeout_ms || m.chunk_max_events < 1 || m.chunk_max_utf8_bytes < 1024 || m.max_attempts_per_chunk < 1 || m.max_attempts_per_chunk > 5 || m.max_model_calls_per_run < 1 || m.max_model_calls_per_day < 1 || m.poll_interval_ms < 1000) throw new Error('CONFIG_MAINTENANCE_RANGE');
   if (p.heartbeat_interval_ms < 250 || p.lease_timeout_ms < p.heartbeat_interval_ms * 3 || p.progress_interval_ms < 100 || p.drain_timeout_ms < 1) throw new Error('CONFIG_PLAYBACK_RANGE');
   if(c.max_output_tokens<1||c.max_output_tokens>2048||c.model_timeout_ms<1000||c.tts_timeout_ms<1000||m.weekly_iso_weekday<1||m.weekly_iso_weekday>7||m.max_output_tokens_per_call<1||m.max_output_tokens_per_call>2048)throw new Error('CONFIG_BUDGET_RANGE');

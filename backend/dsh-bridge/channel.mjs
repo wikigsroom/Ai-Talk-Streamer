@@ -1,6 +1,7 @@
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { inside } from './policy.mjs';
+import { loadIsaacModel } from './isaac-model.mjs';
 
 export function digest(value) {
   return createHash('sha256').update(typeof value === 'string' || Buffer.isBuffer(value) ? value : canonical(value)).digest('hex');
@@ -64,22 +65,29 @@ export class ChannelConfig {
   }
 }
 
-// Isaac inherits an existing private channel. It never substitutes a provider,
-// model or protocol and never exposes the endpoint through its settings route.
+// Retain the exported class name for existing callers. The latest explicit user
+// choice pins the official model; there is no fallback to another saved channel.
 export class OriginalIsaacChannel extends ChannelConfig {
   constructor(root) {
     super(root);
-    const isolated = inside(root, 'private/issac/channel.env');
-    if (existsSync(isolated)) this.file = isolated;
+    this.profile=loadIsaacModel(root);
+    this.file=inside(root,this.profile.private_configuration);
   }
   snapshot() {
     const value = super.snapshot();
-    if (value.model !== 'gpt-6.1-sol' || value.protocol !== 'responses') {
-      const error = new Error('ORIGINAL_GPT_6_1_SOL_RESPONSES_CHANNEL_REQUIRED');
+    if (value.model!==this.profile.model||value.protocol!==this.profile.protocol||value.baseUrl!==this.profile.base_url) {
+      const error = new Error('ISAAC_APPROVED_OFFICIAL_CHANNEL_REQUIRED');
       error.code = error.message; error.status = 409; throw error;
     }
-    return Object.freeze({ ...value, source: 'issac_original_saved_api_channel' });
+    return Object.freeze({...value,source:this.profile.channel_source,provider:this.profile.provider,
+      contextWindow:this.profile.context_window_tokens,maxSerializedMessageBytes:this.profile.max_serialized_message_bytes});
   }
-  settings() { return { ...this.publicInfo(), inherited: true, editable: false }; }
-  save() { throw new Error('ORIGINAL_CHANNEL_IS_INHERITED'); }
+  publicInfo() {
+    const info=super.publicInfo();
+    return {...info,model_version:this.profile.model_version,context_window_tokens:this.profile.context_window_tokens,
+      max_input_estimated_tokens:this.profile.max_input_estimated_tokens,
+      max_serialized_message_bytes:this.profile.max_serialized_message_bytes};
+  }
+  settings() { return {...this.publicInfo(),inherited:false,editable:false}; }
+  save() { throw new Error('ISAAC_CHANNEL_PRIVATE_CONFIGURATION_REQUIRED'); }
 }

@@ -30,18 +30,21 @@
   "current_action_scope": "AGENCY13_continuous_600_recording_delivered_game_paused",
   "game_and_media_host": "native_windows_rtx4090",
   "core_model_channel": {
-    "model": "gpt-6.1-sol",
+    "model": "deepseek-flash",
     "protocol": "responses",
-    "provider": "original_user_saved_api_channel",
-    "credentials_source": "legitimate_original_private_channel_configuration",
-    "original_configuration_entrypoint": "configs/channel.env",
+    "provider": "deepseek-official",
+    "credentials_source": "latest_explicit_user_private_api_key",
+    "original_configuration_entrypoint": "private/issac/channel.env",
     "secrets_or_endpoint_embedded": false,
     "historical_channel_evidence": "docs/evidence/dsh-real-channel-three-turn.json",
     "historical_channel_evidence_is_current_deployment_acceptance": false,
     "same_naimei_core_for_observation_tools_decisions_and_speech": true,
     "automatic_model_or_channel_replacement_allowed": false,
-    "runtime_alignment": "AGENCY13_continuous_600_recording_delivered_game_paused",
-    "isolated_private_configuration": "private/issac/channel.env"
+    "runtime_alignment": "FLASH14_pending_frozen_round_validation",
+    "isolated_private_configuration": "private/issac/channel.env",
+    "model_profile": "configs/issac/core-model.json",
+    "context_window_tokens": 1000000,
+    "private_configuration": "private/issac/channel.env"
   },
   "cloud_media_services_allowed": false,
   "recording_runtime": {
@@ -81,5 +84,7 @@
     "end_automatic": false,
     "end_normal_game_pause": true,
     "phase_closed_unix": 1794287313.0102737
-  }
+  },
+  "current_model_profile": "configs/issac/core-model.json",
+  "current_model_amendment": "docs/issac/官方Flash与上下文修订20261110.md"
 }

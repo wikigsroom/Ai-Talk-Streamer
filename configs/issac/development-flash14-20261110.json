@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "round": "FLASH14",
+  "branch": "issac",
+  "candidate_frozen": false,
+  "application_tests_started": false,
+  "manual_whole_round_source_review_complete": true,
+  "tests_run_during_development": false,
+  "unresolved_round_code_TODOs": [],
+  "items": [
+    {
+      "id": "OFFICIAL-CHANNEL",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "backend/dsh-bridge/channel.mjs",
+        "backend/dsh-bridge/isaac-model.mjs",
+        "configs/issac/core-model.json",
+        "integration/issac/core_model.py",
+        "integration/issac/channel_probe.py",
+        "integration/issac/tests/channel.test.mjs"
+      ]
+    },
+    {
+      "id": "CAPACITY-AND-REJECTION-EVIDENCE",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "backend/dsh-bridge/host.mjs",
+        "backend/dsh-bridge/isaac-core.mjs",
+        "backend/dsh-bridge/policy.mjs",
+        "configs/issac/bridge-policy.json",
+        "integration/issac/tests/model_profile.test.mjs",
+        "tests/issac-core-host.test.mjs"
+      ]
+    },
+    {
+      "id": "CONTROL-AND-STARTUP",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/application.py",
+        "integration/issac/strategy_host.py",
+        "integration/issac/reset_persona.py",
+        "integration/issac/tests/test_core_model.py",
+        "integration/issac/tests/test_application_startup.py"
+      ]
+    },
+    {
+      "id": "CONTRACTS-AND-REGRESSION",
+      "status": "code_complete_pending_acceptance",
+      "source_files": [
+        "integration/issac/acceptance.py",
+        "configs/issac/core-persona-gameplay.md",
+        "configs/issac/runtime.json",
+        "configs/issac/live120.json",
+        "configs/issac/live300.json",
+        "configs/issac/live600.json",
+        "configs/issac/integration-plan.json",
+        "configs/issac/requirements-freeze.json",
+        "configs/issac/execution-rounds.json",
+        "docs/issac/官方Flash与上下文修订20261110.md",
+        "AGENTS.md"
+      ]
+    }
+  ],
+  "previous_failure": "The live request was estimated at 25270 but the old input guard was 24000; the model registry and policy validator retained a 32K assumption.",
+  "private_credentials_in_source": false,
+  "memory_reset_requested": false,
+  "public_broadcast_state_must_be_preserved": true
+}

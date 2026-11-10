@@ -12,6 +12,7 @@ import shutil
 import socket
 
 from .common import AdmissionError,file_hash,read_json,write_json
+from .core_model import core_model
 
 
 def clear_dsh_state(state):
@@ -50,15 +51,17 @@ def reset(root):
         raise AdmissionError('EXACT_MEMORY_DIRECTORY_REQUIRED')
     channel=root/'private/issac/channel.env'
     values=channel.read_text('utf-8-sig')
-    updated,count=re.subn(r'^AVATAR_LLM_MODEL=.*$', 'AVATAR_LLM_MODEL=gpt-6.1-sol',values,flags=re.M)
-    if count!=1:raise AdmissionError('ONE_EXISTING_PRIVATE_MODEL_FIELD_REQUIRED')
+    expected=core_model(root)
+    if not all(re.search(r'^'+name+'='+re.escape(value)+r'\s*$',values,re.M) for name,value in {
+            'AVATAR_LLM_MODEL':expected['model'],'AVATAR_LLM_PROTOCOL':expected['protocol'],
+            'AVATAR_LLM_BASE_URL':expected['base_url']}.items()):
+        raise AdmissionError('CURRENT_APPROVED_PRIVATE_CHANNEL_REQUIRED')
     persona=root/'configs/characters/naimei.json'
     extensions=root/'configs/naimei/dsh-extensions.json'
     before={'persona_sha256':file_hash(persona),'extensions_sha256':file_hash(extensions)}
     cleared=clear_dsh_state(state)
-    channel.write_text(updated,'utf8')
     receipt={'active_memory_cleared':True,'old_conversations_loaded':False,
-        'model':'gpt-6.1-sol','protocol':'responses','channel_address_and_key_preserved':True,
+        'model':expected['model'],'protocol':expected['protocol'],'channel_address_and_key_preserved':True,
         'complete_original_persona_republished_on_start':True,'seven_extensions_reload_on_start':True,
         'cleared_relative_entries':cleared,'recorder_and_media_state_preserved':True,
         **before,'public_stream_started':False}

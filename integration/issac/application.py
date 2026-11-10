@@ -17,6 +17,7 @@ import uuid
 
 from .common import AdmissionError,Audit,FileLease,file_hash,inside,port_available,read_json,write_json
 from .deployment import require_candidate
+from .core_model import model_identity_matches
 from .preparation import prepare_saves,relocate_native_environments,runtime_environment
 from .offline_dependencies import install_voice_dependencies
 from .strategy_dsh import bridge_token
@@ -140,9 +141,8 @@ class Application:
             self.child('narrator',node,['backend/dsh-bridge/issac.mjs',str(self.root)],'narrator')
             self.wait_ready('narrator','http://127.0.0.1:3104/health',120)
             compatibility=self.http('http://127.0.0.1:3104/api/dsh/probe',{},timeout=45)
-            if (compatibility.get('passed') is not True or compatibility.get('model')!='gpt-6.1-sol'
-                    or compatibility.get('protocol')!='responses'):
-                raise AdmissionError('ORIGINAL_RESPONSES_CHANNEL_COMPATIBILITY_REQUIRED')
+            if compatibility.get('passed') is not True or not model_identity_matches(self.root,compatibility):
+                raise AdmissionError('APPROVED_OFFICIAL_CHANNEL_COMPATIBILITY_REQUIRED')
             core=self.http('http://127.0.0.1:3104/api/dsh/issac/core/status')
             required_tools={'isaac_get_state','isaac_get_decision','isaac_lookup','isaac_submit_plan','isaac_wiki_query'}
             if (core.get('actor_id')!='naimei' or core.get('strategic_owner')!='naimei_core_dsh'

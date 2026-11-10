@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "provider": "deepseek-official",
+  "model": "deepseek-flash",
+  "model_version": "DeepSeek-V4.1-Flash-1017",
+  "protocol": "responses",
+  "base_url": "https://api.deepseek.com",
+  "channel_source": "issac_user_pinned_official_api",
+  "context_window_tokens": 1000000,
+  "max_output_tokens": 2048,
+  "context_reserve_tokens": 8192,
+  "max_serialized_message_bytes": 33554432,
+  "reasoning_effort": "low",
+  "private_configuration": "private/issac/channel.env",
+  "official_references": [
+    "https://api-docs.deepseek.com/quick_start/pricing/",
+    "https://api-docs.deepseek.com/guides/responses_api/",
+    "https://api-docs.deepseek.com/updates/"
+  ]
+}

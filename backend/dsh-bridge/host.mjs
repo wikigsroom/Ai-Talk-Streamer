@@ -9,6 +9,7 @@ import { inside } from './policy.mjs';
 import { modelFailure, generationDiagnostic } from './model-errors.mjs';
 import { NaimeiExtensions, EXTENSION_TOOLS } from './extensions.mjs';
 import { coreChoiceConcluded } from './isaac-core.mjs';
+import { loadIsaacModel } from './isaac-model.mjs';
 
 const CORE = new Set(['timer','llm','deepseek-llm-api-extensions','session','session-log-deepseek','typert','typert-loader','agent',
   'session-projection','storage','storage-json','storage-domain','session-persistence-jsonl',
@@ -21,6 +22,7 @@ export const LIVE_TOOLS = ['stream_memory_propose', 'stream_memory_recall'];
 export class DshHost {
   constructor(root, runtime, policy) {
     this.root = root; this.runtime = inside(root, runtime); this.policy = policy;
+    this.modelProfile=policy.deployment.state_relative_path==='state/issac-stream'?loadIsaacModel(root):null;
     this.require = createRequire(join(runtime, 'package.json'));
     this.load = name => import(pathToFileURL(this.require.resolve(name)).href);
     this.active = new Map(); this.ready = false;
@@ -124,7 +126,8 @@ export class DshHost {
     await agentCtx.plugin(this.pi, { providers: { [route]: {
       apiKeyEnv: 'STREAM_BOUND_API_KEY', displayName: '网页默认渠道',
       api: snapshot.protocol === 'responses' ? 'openai-responses' : 'openai-completions',
-      baseURL: snapshot.baseUrl, models: [{ id: snapshot.model, input: ['text'], contextWindow: 32768, maxTokens: 2048,
+      baseURL: snapshot.baseUrl, models: [{ id: snapshot.model, input: ['text'],
+        contextWindow:this.modelProfile?.context_window_tokens??32768,maxTokens:this.modelProfile?.max_output_tokens??2048,
         ...(gameReasoningEffort?{reasoningEfforts:{low:'low'}}:{}) }],
       defaultInput: ['text'], transport: 'sse', timeoutMs, streamIdleTimeoutMs: timeoutMs,
       retryPolicy: { mode: 'normal', maxRetries: 0 },
@@ -181,6 +184,7 @@ export class DshHost {
     if(gameReasoningEffort!==undefined&&gameReasoningEffort!=='low')throw Error('PINNED_GAME_REASONING_EFFORT_REQUIRED');
     const maximumSteps=gameplay?12:this.policy.conversation.max_memory_tool_rounds+1;
     const contextBudget=gameplay?this.policy.conversation.game_context_max_estimated_tokens||this.policy.conversation.context_max_estimated_tokens:this.policy.conversation.context_max_estimated_tokens;
+    const messageByteLimit=this.modelProfile?.max_serialized_message_bytes??512*1024;
     let steps = 0, choiceCompletionFollowups = 0, finalReason, handle, lastAssistant = '', lastError, lastFinish, setupStage='session_prepare';
     const calls = [];
     try {
@@ -240,11 +244,18 @@ export class DshHost {
               ...(extensions ? { has_soul: promptText.includes('奶妹 · 直播人格卡'), has_humanizer: promptText.includes('humanizer-chinese'), has_meme_guide: promptText.includes('stream_memory_propose') && promptText.includes('search_meme_wiki') } : {}),
               has_native_memory_guidance: promptText.includes('stream_memory_propose'),
               ...(gameplay?{has_issac_wiki:promptText.includes('naimei:isaac-complete')||gameplay.prompt.receipt.skill_sources.every(source=>promptText.includes(source.sha256)),gameplay_actor_id:'naimei',gameplay_prompt_sha256:gameplay.prompt.receipt.sha256}:{}),
-              tools: options.tools?.map(tool => tool.name) ?? [], ...messageBudget(options.messages) };
+              tools: options.tools?.map(tool => tool.name) ?? [], ...messageBudget(options.messages),
+              context_window_tokens:this.modelProfile?.context_window_tokens??32768,
+              input_budget_estimated_tokens:contextBudget,serialized_message_limit_bytes:messageByteLimit };
             if (!negativeMinimal && !maintenance && !probe.has_persona) throw new Error('PERSONA_INJECTION_MISSING');
             if (probe.tools.some(name => !names.includes(name))) throw new Error('STREAM_TOOL_CATALOG_ESCAPE');
-            if ((probe.estimated_input_tokens > contextBudget || probe.serialized_message_bytes > 512*1024) && !maintenance)
+            if ((probe.estimated_input_tokens > contextBudget || probe.serialized_message_bytes > messageByteLimit) && !maintenance){
+              probe.started_unix_ms=Date.now();probe.elapsed_ms=0;probe.phase='rejected_budget';
+              probe.budget_reason=probe.estimated_input_tokens>contextBudget?'estimated_input_tokens':'serialized_message_bytes';
+              onProbe?.(probe);
+              console.error(JSON.stringify({event:'dsh.context_budget_rejected',...probe}));
               throw new Error('STREAM_CONTEXT_BUDGET');
+            }
             const streamStarted=Date.now();probe.started_unix_ms=streamStarted;probe.phase='in_flight';
             onProbe?.(probe);
             const settle = onCall?.({ phase: 'reserve', input_sha256: digest(options.messages), provider_revision: snapshot.revision, step: steps });

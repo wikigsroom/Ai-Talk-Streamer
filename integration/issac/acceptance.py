@@ -28,7 +28,7 @@ REVIEW_CHECKS={
  'ordinary_inputs':{'actual_normal_inputs','one_controller','confirmed_normal_pause','controller_loss_pause','no_arbitrary_lua_route'},
  'wiki_prompt_tools':{'complete_skill_in_actual_prompt','actual_fifth_wiki_tool_called','forced_rep_and_version_citations',
     'bounded_read_only_queries','stale_context_rejected'},
- 'original_api_channel':{'actual_original_channel_probe','gpt_6_1_sol_responses','same_core_tool_result_roundtrip','finish_reason_complete','no_channel_or_model_substitution'},
+ 'original_api_channel':{'actual_approved_official_channel_probe','deepseek_flash_responses','model_context_1m_registered','same_core_tool_result_roundtrip','finish_reason_complete','no_channel_or_model_substitution'},
  'verified_events':{'actual_native_causality','accepted_not_success','same_run_room_bridge','actual_pcm_before_spoken','no_restart_replay'},
  'seven_extensions':{'all_seven_loaded_receipts','persona_applied','game_facts_not_viewer_memories','single_naimei_core_authority'},
  'ncm01':{'merged_reference_hash_private','locked_omnivoice_parameters','generated_audio_auditioned','no_reference_audio_served','no_old_voice_fallback'},

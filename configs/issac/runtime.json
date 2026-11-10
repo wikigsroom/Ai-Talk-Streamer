@@ -94,12 +94,20 @@
     "source_frozen_before_testing": true
   },
   "original_core_channel": {
-    "model": "gpt-6.1-sol",
+    "model": "deepseek-flash",
     "protocol": "responses",
     "private_configuration": "private/issac/channel.env",
-    "inherited_configuration": "configs/channel.env",
-    "automatic_replacement_allowed": false
+    "inherited_configuration": null,
+    "automatic_replacement_allowed": false,
+    "provider": "deepseek-official",
+    "model_profile": "configs/issac/core-model.json",
+    "context_window_tokens": 1000000,
+    "automatic_model_or_channel_replacement_allowed": false,
+    "credentials_source": "latest_explicit_user_private_api_key",
+    "runtime_alignment": "FLASH14_pending_frozen_round_validation"
   },
   "original_api_inference_allowed": true,
-  "cloud_media_inference_allowed": false
+  "cloud_media_inference_allowed": false,
+  "current_model_profile": "configs/issac/core-model.json",
+  "current_model_amendment": "docs/issac/官方Flash与上下文修订20261110.md"
 }

@@ -31,8 +31,9 @@ test('game reasoning setting is admitted only for the frozen Isaac scope; inheri
 for(const choice of [{op:'pickup',status:'accepted'},{op:'wait',status:'succeeded',effect:'wait'},{op:'pickup',status:'accepted',wiki:true},
   {op:'pickup',status:'accepted',prose:true},{op:'pickup',status:'accepted',prose:true,expired:true},
   {op:'pickup',status:'accepted',prose:true,alwaysProse:true},
-  {op:'pickup',status:'accepted',assessmentRepair:true},{op:'pickup',status:'accepted',oversizedContext:true}]){
-test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-context wiki':'')+(choice.prose?' after prose'+(choice.expired?' with expired decision':choice.alwaysProse?' with bounded non-completion':''):'')+(choice.assessmentRepair?' after repairing an oversized assessment with opaque replay':choice.oversizedContext?' rejects oversized visible context':'')+' with Sol-compatible low effort and keeps all wiki text',async()=>{
+  {op:'pickup',status:'accepted',assessmentRepair:true},{op:'pickup',status:'accepted',assessmentRepair:true,largeReplay:true},
+  {op:'pickup',status:'accepted',previousContextLimit:true},{op:'pickup',status:'accepted',oversizedContext:true}]){
+test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-context wiki':'')+(choice.prose?' after prose'+(choice.expired?' with expired decision':choice.alwaysProse?' with bounded non-completion':''):'')+(choice.assessmentRepair?' after repairing an oversized assessment with opaque replay':choice.oversizedContext?' rejects oversized visible context':'')+(choice.largeReplay?' over the former byte cap':choice.previousContextLimit?' over the former token cap':'')+' with low effort and keeps all wiki text',async()=>{
   const root=process.cwd(),policy=structuredClone(loadPolicy(root,'configs/issac/bridge-policy.json'));
   mkdirSync(join(root,'state'),{recursive:true});
   const folder=mkdtempSync(join(root,'state/issac-core-host-test-'));
@@ -64,7 +65,7 @@ test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-cont
       name:wiki?'isaac_wiki_query':'isaac_submit_plan',
       arguments:JSON.stringify({data:JSON.stringify(wiki?{query:{operation:'item',query:'The Sad Onion',kind:'item'}}:submitted)}),status:'completed'};
     emit({type:'response.created',response:{id:'response-controlled',status:'in_progress'}});
-    const replay=choice.assessmentRepair&&requests===1?{type:'reasoning',id:'rs-controlled',encrypted_content:'opaque-test-'.repeat(8000),summary:[{type:'summary_text',text:'Controlled replay placeholder'}]}:null;
+    const replay=choice.assessmentRepair&&requests===1?{type:'reasoning',id:'rs-controlled',encrypted_content:'opaque-test-'.repeat(choice.largeReplay?60000:8000),summary:[{type:'summary_text',text:'Controlled replay placeholder'}]}:null;
     if(replay){
       emit({type:'response.output_item.added',output_index:0,item:{...replay,summary:[]}});
       emit({type:'response.reasoning_summary_part.added',output_index:0,summary_index:0,item_id:replay.id,part:{type:'summary_text',text:''}});
@@ -97,10 +98,15 @@ test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-cont
     host.gameplay=core;const turn={decision_id:'decision-A',context_id:'room-A',control_revision:1},probes=[];
     const generation=host.generate({sessionId:'controlled-native-plan',snapshot:{revision:'controlled',model:'controlled',protocol:'responses',
       baseUrl:'http://127.0.0.1:'+server.address().port+'/v1',systemPrompt:'',getApiKey:()=> 'controlled-key'},
-      context:JSON.stringify({game_decision:{id:'decision-A',context_id:'room-A'},...(choice.oversizedContext?{current_game:{unbounded:'x'.repeat(50000)}}:{})}),input:'提交当前选择与打算。',gameplayTurn:turn,
+      context:JSON.stringify({game_decision:{id:'decision-A',context_id:'room-A'},...(choice.oversizedContext||choice.previousContextLimit?{current_game:{unbounded:'x'.repeat(choice.oversizedContext?2000000:60000)}}:{})}),input:'提交当前选择与打算。',gameplayTurn:turn,
       tools:async()=>{throw Error('unexpected viewer tool');},onProbe:probe=>probes.push(probe),signal:AbortSignal.timeout(15000)});
     if(choice.expired){await assert.rejects(generation);assert.equal(requests,1);assert.equal(turn.submitted,undefined);return;}
-    if(choice.oversizedContext){await assert.rejects(generation,error=>error.code==='STREAM_CONTEXT_BUDGET');assert.equal(requests,0);return;}
+    if(choice.oversizedContext){
+      await assert.rejects(generation,error=>error.code==='STREAM_CONTEXT_BUDGET');assert.equal(requests,0);
+      assert.equal(probes.length,1);assert.equal(probes[0].phase,'rejected_budget');
+      assert.equal(probes[0].input_budget_estimated_tokens,989760);
+      assert.equal(probes[0].budget_reason,'estimated_input_tokens');return;
+    }
     const result=await generation;
     assert.equal(requests,choice.wiki||choice.prose||choice.assessmentRepair?2:1);assert.equal(result.steps,requests);
     if(choice.assessmentRepair){
@@ -108,11 +114,14 @@ test('real DSH Responses concludes '+choice.op+(choice.wiki?' after current-cont
       assert.ok(JSON.stringify(payloads[1]).includes('opaque-test-'.repeat(8000)),'original replay remains intact');
       assert.ok(probes.at(-1).serialized_message_bytes>90000);
     }
+    if(choice.previousContextLimit)assert.ok(probes[0].estimated_input_tokens>28000);
+    if(choice.largeReplay)assert.ok(probes.at(-1).serialized_message_bytes>512*1024);
     assert.equal(result.choice_completion_followups,choice.prose?1:0);
     if(choice.alwaysProse){assert.equal(result.text,'这颗红心我想先看看。');assert.equal(turn.submitted,undefined);return;}
     assert.equal(result.text,plan.commentary);
     for(const payload of payloads){assert.equal(payload.reasoning.effort,'low');assert.equal(payload.max_output_tokens,2048);}
     for(const probe of probes){assert.equal(probe.game_reasoning_effort,'low');assert.ok(probe.elapsed_ms>=0);
+      assert.equal(probe.context_window_tokens,1000000);assert.equal(probe.serialized_message_limit_bytes,32*1024*1024);
       assert.ok(['completed','iterator_closed'].includes(probe.phase));}
     assert.equal(result.final_reason.kind,'completed');assert.equal(turn.submitted.status,choice.status);
     assert.deepEqual([...probes[0].tools].sort(),core.names.toSorted());
@@ -185,7 +194,7 @@ test('one real DSH agent retains three turns with durable compaction and fresh f
   const payloads=[];
   const server=createServer(async(req,res)=>{
     const chunks=[];for await(const chunk of req)chunks.push(chunk);payloads.push(JSON.parse(Buffer.concat(chunks)));
-    // Match the real Sol channel: unsupported `none` must never pass a fixture.
+    // The pinned low-effort request must never silently fall back to `none`.
     if(payloads.at(-1).reasoning?.effort==='none'){
       res.writeHead(400,{'Content-Type':'application/json'});res.end(JSON.stringify({error:{code:'unsupported_value',param:'reasoning.effort'}}));return;
     }

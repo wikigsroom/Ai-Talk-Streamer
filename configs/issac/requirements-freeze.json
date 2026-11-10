@@ -142,19 +142,22 @@
       "path": "assets/issac/references/M01.png",
       "role": "inherited_source_identity_voice_extension_or_presentation_contract",
       "bytes": 2230929,
-      "sha256": "d29215e26baf0e2447efeab92aeef52a6de4aceccab8cd20329bc10383d98213"
+      "sha256": "d29215e26baf0e2447efeab92aeef52a6de4aceccab8cd20329bc10383d98213",
+      "normalized_lf_sha256": "e8272eb4f8b4371c34c979ea717d78d06ada27b627eddbd0537527d80cb9dfe0"
     },
     {
       "path": "assets/issac/references/M02.png",
       "role": "inherited_source_identity_voice_extension_or_presentation_contract",
       "bytes": 2198876,
-      "sha256": "20760c617f9032917f7ce4adecdac52000065c40c6a4743dce16e54afe94fc79"
+      "sha256": "20760c617f9032917f7ce4adecdac52000065c40c6a4743dce16e54afe94fc79",
+      "normalized_lf_sha256": "a9f3579372df18c99ae220f1840277c1cde75417bef0db72f144a2b9aef115b4"
     },
     {
       "path": "assets/issac/references/M03.png",
       "role": "inherited_source_identity_voice_extension_or_presentation_contract",
       "bytes": 2137919,
-      "sha256": "643654517a4a55a971f560c107b1a3bc42e5ccbd151ab5dcd50f02fb8300f0ab"
+      "sha256": "643654517a4a55a971f560c107b1a3bc42e5ccbd151ab5dcd50f02fb8300f0ab",
+      "normalized_lf_sha256": "03a9b6921907adc5113b766febb49551a245fa5d4fe70393bfe1f3c314d450cf"
     },
     {
       "path": "configs/characters/naimei.json",
@@ -382,15 +385,15 @@
     "self_hash_omitted_to_avoid_cycle": true,
     "source_entrypoints_are_pointers_not_implementation_acceptance": true
   },
-  "revision_reason": "Latest explicit user instruction resumes implementation and requests continuous 300-second official recording; retain original gpt-6.1-sol Responses and all quality requirements",
-  "revision_document": "docs/issac/300秒录播推进修订20261109.md",
+  "revision_reason": "Latest explicit user instruction selects official DeepSeek V4.1 Flash and corrects the context budget to its 1M window; preserve all other gameplay and media requirements",
+  "revision_document": "docs/issac/官方Flash与上下文修订20261110.md",
   "supersedes_contract_id": "NM-ISSAC-REQUIREMENTS-20261109-v2",
   "core_model_channel": {
-    "model": "gpt-6.1-sol",
+    "model": "deepseek-flash",
     "protocol": "responses",
-    "provider": "original_user_saved_api_channel",
+    "provider": "deepseek-official",
     "historical_evidence": "docs/evidence/dsh-real-channel-three-turn.json",
-    "original_configuration_entrypoint": "configs/channel.env",
+    "original_configuration_entrypoint": "private/issac/channel.env",
     "private_configuration_fields": [
       "AVATAR_LLM_BASE_URL",
       "AVATAR_LLM_MODEL",
@@ -402,7 +405,12 @@
     "original_api_channel_allowed": true,
     "automatic_model_or_channel_replacement_allowed": false,
     "private_credentials_or_endpoint_embedded": false,
-    "current_remote_configuration_or_health_verified": false
+    "current_remote_configuration_or_health_verified": false,
+    "model_profile": "configs/issac/core-model.json",
+    "context_window_tokens": 1000000,
+    "private_configuration": "private/issac/channel.env",
+    "credentials_source": "latest_explicit_user_private_api_key",
+    "runtime_alignment": "FLASH14_pending_frozen_round_validation"
   },
   "channel_provenance": [
     {
@@ -424,30 +432,30 @@
     {
       "path": "AGENTS.md",
       "role": "current_entrypoint_or_plan_not_runtime_acceptance",
-      "bytes": 3383,
-      "sha256": "1b8377992c52a5a0c79a734eacf40e255ab98d502ad74a9613dcd56635096414",
-      "normalized_lf_sha256": "17ffee2d82c28d4d7de46f680505c1797e83e0fc3acb25188e66924712fd9ec3"
+      "bytes": 5194,
+      "sha256": "e1ff3a6ae1ee2309825f25d5a9d53379609c4108a1529ccb0a6360c1b90f0081",
+      "normalized_lf_sha256": "c6bd91cbf6c4fa2229dffc45fb5920a775cb4d74b9b4434c1a67313f2128b312"
     },
     {
       "path": "README.md",
       "role": "current_entrypoint_or_plan_not_runtime_acceptance",
-      "bytes": 27499,
-      "sha256": "f94e9ded5144ca60a3372e3ffb94808381b1667ec66c8e7c73797b5601ddddd2",
-      "normalized_lf_sha256": "3751cb136d3e0277237b06e77bfe78f5c56e1ea48fb39422f91bc2423ebc7028"
+      "bytes": 27785,
+      "sha256": "5076c89d1df6f9192408c61d47441d49b74e7053554eb7559869e22a0b7f72ba",
+      "normalized_lf_sha256": "24606daa8238f030210012ce8fd7e0844c1328ca1ddb90d40b71795ce24ae4e8"
     },
     {
       "path": "README.zh-CN.md",
       "role": "current_entrypoint_or_plan_not_runtime_acceptance",
-      "bytes": 24400,
-      "sha256": "680d8258a6ea8e7c564b28e95822ce96e828a0c700475843b49d629aba7d4297",
-      "normalized_lf_sha256": "405f37e27be4ec0ea4bc21a10461bd243c439ebc58f3c52432b744be9cc22e99"
+      "bytes": 24819,
+      "sha256": "c358e21d3dbcf8e66c272c594ed08b979216c61502d50ed6812f1639edc5d9cf",
+      "normalized_lf_sha256": "f1ef522e9091add373c8597253080a6c5223e2fc1ee9e06ebb8d859000ff9ec0"
     },
     {
       "path": "docs/README.md",
       "role": "current_entrypoint_or_plan_not_runtime_acceptance",
-      "bytes": 14226,
-      "sha256": "c79a45bcbfab748df21a691a1ce8bb4e33a90c0e875a125c936d14ed355542bd",
-      "normalized_lf_sha256": "b8d95155f8b6fe833d78d2f8e8ea569ba5c580704500112204ea66057cdbf55e"
+      "bytes": 14562,
+      "sha256": "d06abaf37e6adc48cdc82d9b642826f982a7b941ca9bcdf946ccf874fc016c5a",
+      "normalized_lf_sha256": "81f90c7f1c21619b327ed161bd939fbfe11d0762f3c17d14dbbfaaaf0062ea96"
     },
     {
       "path": "docs/issac/完整更新方案20261107.md",
@@ -466,23 +474,23 @@
     {
       "path": "configs/issac/live120.json",
       "role": "current_entrypoint_or_plan_not_runtime_acceptance",
-      "bytes": 1905,
-      "sha256": "733f760f51a176d728b48424abddf7b17bd914c70949e7dd130d94b49c5afa50",
-      "normalized_lf_sha256": "733f760f51a176d728b48424abddf7b17bd914c70949e7dd130d94b49c5afa50"
+      "bytes": 2223,
+      "sha256": "ae19e64e85a36c1a9cd614417d753942732a01478dd845953010f86decb133af",
+      "normalized_lf_sha256": "162df4f6d0696cc0a125c72a9ad7f71b3a879ca11e01e1016cdd5ae9e9d81f7c"
     },
     {
       "path": "configs/issac/integration-plan.json",
       "role": "current_entrypoint_or_plan_not_runtime_acceptance",
-      "bytes": 5941,
-      "sha256": "9b1fd804fa2809073eec19eac97b0d7ec379a63749d9368b45c57a1f2376e022",
-      "normalized_lf_sha256": "9b1fd804fa2809073eec19eac97b0d7ec379a63749d9368b45c57a1f2376e022"
+      "bytes": 8048,
+      "sha256": "eeb6b3d32d1a58863a7b8c959eef42c6d0eef7becb866d5a6a5ae6c6cfe58ec9",
+      "normalized_lf_sha256": "b9c125beea7479f8fe8847257e3c20834cd2cb05b05b11e4fdad1d6ceaa0d7cc"
     },
     {
       "path": "configs/issac/execution-rounds.json",
       "role": "current_entrypoint_or_plan_not_runtime_acceptance",
-      "bytes": 7195,
-      "sha256": "f55852062c3f45b33624b173ec5d461dad30f29bd86a6f9689ce6dfabe7b9b38",
-      "normalized_lf_sha256": "888b15bf5e040276452fb5eeeaa1333048b515f2670ecc92043308a6841142a5"
+      "bytes": 10890,
+      "sha256": "af2019923849adff9ed99f7205b07dded297747d207abd3994a95e78d9983618",
+      "normalized_lf_sha256": "59d15d2cbc48b9a10d2e0a3e072bcb1a38bf405a33d644615c3993292675183d"
     },
     {
       "path": "docs/naimei/DSH扩展接入与使用20261107.md",
@@ -501,9 +509,9 @@
     {
       "path": "configs/issac/live300.json",
       "role": "latest_explicit_user_execution_amendment",
-      "bytes": 2053,
-      "sha256": "8769e59a3369869074f227d61b09746294af4eee11ae8f051062f07747afb2e9",
-      "normalized_lf_sha256": "7fe4c22e61d6d42469971fb387644419538dcbaea25d37cd338740571f32b990"
+      "bytes": 2325,
+      "sha256": "b7631237d3756f5899bb3fd314b8442f26988f02e5c7da131d9922d7fde3443b",
+      "normalized_lf_sha256": "aa417ac61f47040f650cf8aa3bf9865cd11755d1a775b8caaa519618a2516534"
     },
     {
       "path": "docs/issac/300秒录播推进修订20261109.md",
@@ -511,17 +519,32 @@
       "bytes": 3222,
       "sha256": "bc391a41df94a7f5dc3b2439da3b81fcbf0c0f66ce6a2b25f20df66edb8b8a0e",
       "normalized_lf_sha256": "bc391a41df94a7f5dc3b2439da3b81fcbf0c0f66ce6a2b25f20df66edb8b8a0e"
+    },
+    {
+      "path": "configs/issac/core-model.json",
+      "role": "latest_explicit_model_and_capacity_contract",
+      "bytes": 682,
+      "sha256": "bdb565c54153ae279e8554555f007fa47cd189a6f3b66733d43cd843f856887c",
+      "normalized_lf_sha256": "bdb565c54153ae279e8554555f007fa47cd189a6f3b66733d43cd843f856887c"
+    },
+    {
+      "path": "docs/issac/官方Flash与上下文修订20261110.md",
+      "role": "latest_explicit_model_and_capacity_amendment",
+      "bytes": 4578,
+      "sha256": "0778740ad53dea9c527c3ff5aedc94b8f6aea4684b4bf3ac31b280bae1752823",
+      "normalized_lf_sha256": "0778740ad53dea9c527c3ff5aedc94b8f6aea4684b4bf3ac31b280bae1752823"
     }
   ],
-  "current_amendment": "docs/issac/控制分工与连续人格修订20261110.md",
+  "current_amendment": "docs/issac/官方Flash与上下文修订20261110.md",
   "conversation_amendment": {
-    "model": "gpt-6.1-sol",
+    "model": "deepseek-flash",
     "session_strategy": "continuous_naimei",
     "full_fresh_state_every_turn": true,
     "max_spoken_characters_including_punctuation": 15,
     "recall_previous_actual_spoken": true,
     "near_duplicate_speech_suppression": true,
-    "clear_old_active_memory_and_reload_complete_persona": true
+    "clear_old_active_memory_and_reload_complete_persona": true,
+    "memory_reset_on_model_change": false
   },
   "current_validation": {
     "scope": "20261110_agency_and_continuous_persona_amendment_only",
@@ -544,6 +567,9 @@
     "path": "docs/issac/控制分工与连续人格修订20261110.md",
     "sha256": "02c7a5ae15ee1408f1b3414dfb96c5de68abc63826627e2f3dc5fb3242a48b74",
     "source_candidate": "issac-91296ef15c7b-4d55fc62",
-    "normalized_lf_sha256": "cc3a6ca11ccd2d68334fdf233c9f61ff130d91c6246d56ffc23e9da3a9cc0171"
-  }
+    "normalized_lf_sha256": "cc3a6ca11ccd2d68334fdf233c9f61ff130d91c6246d56ffc23e9da3a9cc0171",
+    "bytes": 8605
+  },
+  "current_model_profile": "configs/issac/core-model.json",
+  "current_model_amendment": "docs/issac/官方Flash与上下文修订20261110.md"
 }

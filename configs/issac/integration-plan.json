@@ -97,31 +97,34 @@
     },
     "staging_is_runtime_acceptance": false,
     "current_scope": "reuse_frozen_AGENCY08_for_actual_600_second_game_and_avatar_local_recording",
-    "model_requests": "original_user_saved_responses_api_channel_gpt_6_1_sol"
+    "model_requests": "user_pinned_official_deepseek_flash_responses_api"
   },
   "execution_rounds": "configs/issac/execution-rounds.json",
   "preparation_access_policy": "configs/issac/preparation-access.json",
   "round_1_evidence": "docs/evidence/issac-round1-copy-20261107.json",
-  "development_inventory": "configs/issac/development-agency-20261110.json",
+  "development_inventory": "configs/issac/development-flash14-20261110.json",
   "round_2_development_document": "docs/issac/第二轮完整开发与统一验收20261107.md",
   "core_model_channel": {
-    "model": "gpt-6.1-sol",
+    "model": "deepseek-flash",
     "protocol": "responses",
-    "provider": "original_user_saved_api_channel",
-    "credentials_source": "legitimate_original_private_channel_configuration",
-    "original_configuration_entrypoint": "configs/channel.env",
+    "provider": "deepseek-official",
+    "credentials_source": "latest_explicit_user_private_api_key",
+    "original_configuration_entrypoint": "private/issac/channel.env",
     "secrets_or_endpoint_embedded": false,
     "historical_channel_evidence": "docs/evidence/dsh-real-channel-three-turn.json",
     "historical_channel_evidence_is_current_deployment_acceptance": false,
     "same_naimei_core_for_observation_tools_decisions_and_speech": true,
     "automatic_model_or_channel_replacement_allowed": false,
-    "runtime_alignment": "actual_original_api_tool_probe_and_three_same_native_agent_short_speech_turns_passed",
-    "current_evidence": "docs/evidence/issac-agency-20261110.json"
+    "runtime_alignment": "FLASH14_pending_frozen_round_validation",
+    "model_profile": "configs/issac/core-model.json",
+    "context_window_tokens": 1000000,
+    "private_configuration": "private/issac/channel.env",
+    "previous_model_evidence": "docs/evidence/issac-agency-20261110.json"
   },
   "approved_original_model_api_allowed": true,
   "cloud_media_services_allowed": false,
   "tests_paused_by_user": false,
-  "current_revision_document": "docs/issac/控制分工与连续人格修订20261110.md",
+  "current_revision_document": "docs/issac/官方Flash与上下文修订20261110.md",
   "naimei_core": {
     "actor_id": "naimei",
     "dsh_version": "0.2.0-rc.2",
@@ -162,7 +165,7 @@
     "strategic_decisions_owner": "naimei",
     "automatic_gameplay_currently_enabled": false
   },
-  "current_amendment": "docs/issac/控制分工与连续人格修订20261110.md",
+  "current_amendment": "docs/issac/官方Flash与上下文修订20261110.md",
   "current_validation": {
     "scope": "20261110_agency_and_continuous_persona_amendment_only",
     "status": "deployed_and_verified_with_documented_limits",
@@ -179,5 +182,7 @@
     "new_boss_run_or_300s_or_long_run_accepted": false,
     "public_stream_started": false
   },
-  "current_execution_amendment": "configs/issac/live600.json"
+  "current_execution_amendment": "configs/issac/live600.json",
+  "current_model_profile": "configs/issac/core-model.json",
+  "current_model_amendment": "docs/issac/官方Flash与上下文修订20261110.md"
 }

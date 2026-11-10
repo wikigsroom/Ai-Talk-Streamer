@@ -15,6 +15,7 @@ import urllib.request
 
 from .common import AdmissionError, Audit, FileLease, inside, native_only, read_json, write_json
 from .events import GameEvents
+from .core_model import current_core_channel_matches
 from .game_policy import FairPolicy, RunGoal, attach_upstream, strategy_class
 from .native_game import NativeGame
 from .strategy_dsh import bridge_token
@@ -151,9 +152,9 @@ class StrategyHost:
                     core=json.load(response)
                 if (core.get('ready') is not True or core.get('actor_id')!='naimei'
                     or core.get('strategic_owner')!='naimei_core_dsh'
-                    or core.get('model')!='gpt-6.1-sol' or core.get('protocol')!='responses'
+                    or not current_core_channel_matches(self.root,core)
                     or core.get('candidate_id')!=read_json(inside(self.root,'.setup/candidate.json')).get('id')):
-                    raise AdmissionError('CURRENT_ORIGINAL_NAIMEI_CORE_CHANNEL_REQUIRED')
+                    raise AdmissionError('CURRENT_APPROVED_NAIMEI_CORE_CHANNEL_REQUIRED')
                 self.native.protection.admit_current(self.native.process,self.native.progress())
                 if not self.service.fresh():
                     raise AdmissionError('FRESH_NATIVE_STATE_REQUIRED')
